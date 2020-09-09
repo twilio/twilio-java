@@ -41,8 +41,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());

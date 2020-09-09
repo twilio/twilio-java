@@ -29,13 +29,14 @@ public class MessageUpdater extends Updater<Message> {
     private DateTime dateUpdated;
     private String lastUpdatedBy;
     private String from;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageUpdater.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathChannelSid The unique ID of the Channel the message belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the Channel the message belongs to
+     * @param pathSid The SID of the Message resource to update
      */
     public MessageUpdater(final String pathServiceSid,
                           final String pathChannelSid,
@@ -46,9 +47,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The message to send to the channel. Can also be an empty string or `null`,
-     * which sets the value as an empty string. You can send structured data in the
-     * body by serializing it as a string..
+     * The message to send to the channel. Can be an empty string or `null`, which
+     * sets the value as an empty string. You can send structured data in the body
+     * by serializing it as a string..
      *
      * @param body The message to send to the channel
      * @return this
@@ -71,7 +72,10 @@ public class MessageUpdater extends Updater<Message> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created..
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service. This parameter should only
+     * be used when a Chat's history is being recreated from a backup/separate
+     * source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -112,11 +116,22 @@ public class MessageUpdater extends Updater<Message> {
      * The [Identity](https://www.twilio.com/docs/chat/identity) of the message's
      * author..
      *
-     * @param from The identity of the message's author
+     * @param from The Identity of the message's author
      * @return this
      */
     public MessageUpdater setFrom(final String from) {
         this.from = from;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MessageUpdater setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -132,11 +147,11 @@ public class MessageUpdater extends Updater<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + ""
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -146,17 +161,21 @@ public class MessageUpdater extends Updater<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

@@ -248,7 +248,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The key.
+     * Returns The key.
      *
      * @return The key
      */
@@ -257,7 +257,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -266,7 +266,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The service_sid.
+     * Returns The service_sid.
      *
      * @return The service_sid
      */
@@ -275,7 +275,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The map_sid.
+     * Returns The map_sid.
      *
      * @return The map_sid
      */
@@ -284,7 +284,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -293,7 +293,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The revision.
+     * Returns The revision.
      *
      * @return The revision
      */
@@ -302,7 +302,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The data.
+     * Returns The data.
      *
      * @return The data
      */
@@ -311,7 +311,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -320,7 +320,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -329,7 +329,7 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Returns The The created_by.
+     * Returns The created_by.
      *
      * @return The created_by
      */

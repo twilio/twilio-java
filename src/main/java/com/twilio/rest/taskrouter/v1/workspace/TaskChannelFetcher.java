@@ -24,9 +24,9 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
     /**
      * Construct a new TaskChannelFetcher.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param pathSid The unique ID for this TaskChannel.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         fetch
+     * @param pathSid The SID of the TaskChannel resource to fetch
      */
     public TaskChannelFetcher(final String pathWorkspaceSid,
                               final String pathSid) {
@@ -46,8 +46,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class TaskChannelFetcher extends Fetcher<TaskChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());

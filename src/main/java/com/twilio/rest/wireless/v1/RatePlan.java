@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -35,7 +36,32 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RatePlan extends Resource {
-    private static final long serialVersionUID = 106587229564985L;
+    private static final long serialVersionUID = 112752591577872L;
+
+    public enum DataLimitStrategy {
+        BLOCK("block"),
+        THROTTLE("throttle");
+
+        private final String value;
+
+        private DataLimitStrategy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a DataLimitStrategy from a string.
+         * @param value string value
+         * @return generated DataLimitStrategy
+         */
+        @JsonCreator
+        public static DataLimitStrategy forValue(final String value) {
+            return Promoter.enumFromString(value, DataLimitStrategy.values());
+        }
+    }
 
     /**
      * Create a RatePlanReader to execute read.
@@ -49,7 +75,7 @@ public class RatePlan extends Resource {
     /**
      * Create a RatePlanFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to fetch
      * @return RatePlanFetcher capable of executing the fetch
      */
     public static RatePlanFetcher fetcher(final String pathSid) {
@@ -68,7 +94,7 @@ public class RatePlan extends Resource {
     /**
      * Create a RatePlanUpdater to execute update.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to update
      * @return RatePlanUpdater capable of executing the update
      */
     public static RatePlanUpdater updater(final String pathSid) {
@@ -78,7 +104,7 @@ public class RatePlan extends Resource {
     /**
      * Create a RatePlanDeleter to execute delete.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to delete
      * @return RatePlanDeleter capable of executing the delete
      */
     public static RatePlanDeleter deleter(final String pathSid) {
@@ -192,163 +218,159 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid..
+     * Returns An application-defined string that uniquely identifies the resource.
      *
-     * @return A user-provided string that uniquely identifies this resource as an
-     *         alternative to the sid.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The unique id of the Account that this Rate Plan belongs to..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account that this Rate Plan belongs to.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A user-provided string that identifies this resource..
+     * Returns The string that you assigned to describe the resource.
      *
-     * @return A user-provided string that identifies this resource.
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
-     * connectivity..
+     * Returns Whether SIMs can use GPRS/3G/4G/LTE data connectivity.
      *
-     * @return Defines whether SIMs are capable of using GPRS/3G/4G/LTE data
-     *         connectivity.
+     * @return Whether SIMs can use GPRS/3G/4G/LTE data connectivity
      */
     public final Boolean getDataEnabled() {
         return this.dataEnabled;
     }
 
     /**
-     * Returns The The model by which to meter data usage, in accordance with the
-     * two available data metering models..
+     * Returns The model used to meter data usage.
      *
-     * @return The model by which to meter data usage, in accordance with the two
-     *         available data metering models.
+     * @return The model used to meter data usage
      */
     public final String getDataMetering() {
         return this.dataMetering;
     }
 
     /**
-     * Returns The Network-enforced limit specifying the total Megabytes of data
-     * usage allowed during one month on the home network..
+     * Returns The total data usage in Megabytes that the Network allows during one
+     * month on the home network.
      *
-     * @return Network-enforced limit specifying the total Megabytes of data usage
-     *         allowed during one month on the home network.
+     * @return The total data usage in Megabytes that the Network allows during one
+     *         month on the home network
      */
     public final Integer getDataLimit() {
         return this.dataLimit;
     }
 
     /**
-     * Returns The Defines whether SIMs are capable of making and sending and
-     * receiving SMS via Commands..
+     * Returns Whether SIMs can make, send, and receive SMS using Commands.
      *
-     * @return Defines whether SIMs are capable of making and sending and receiving
-     *         SMS via Commands.
+     * @return Whether SIMs can make, send, and receive SMS using Commands
      */
     public final Boolean getMessagingEnabled() {
         return this.messagingEnabled;
     }
 
     /**
-     * Returns The Defines whether SIMs are capable of making and receiving voice
-     * calls..
+     * Returns Whether SIMs can make and receive voice calls.
      *
-     * @return Defines whether SIMs are capable of making and receiving voice calls.
+     * @return Whether SIMs can make and receive voice calls
      */
     public final Boolean getVoiceEnabled() {
         return this.voiceEnabled;
     }
 
     /**
-     * Returns The Defines whether SIMs can roam onto other networks in the SIM's
-     * home country..
+     * Returns Whether SIMs can roam on networks other than the home network in the
+     * United States.
      *
-     * @return Defines whether SIMs can roam onto other networks in the SIM's home
-     *         country.
+     * @return Whether SIMs can roam on networks other than the home network in the
+     *         United States
      */
     public final Boolean getNationalRoamingEnabled() {
         return this.nationalRoamingEnabled;
     }
 
     /**
-     * Returns The Network-enforced limit specifying the total Megabytes of national
-     * roaming data usage allowed during one month..
+     * Returns The total data usage in Megabytes that the Network allows during one
+     * month on non-home networks in the United States.
      *
-     * @return Network-enforced limit specifying the total Megabytes of national
-     *         roaming data usage allowed during one month.
+     * @return The total data usage in Megabytes that the Network allows during one
+     *         month on non-home networks in the United States
      */
     public final Integer getNationalRoamingDataLimit() {
         return this.nationalRoamingDataLimit;
     }
 
     /**
-     * Returns The The international_roaming.
+     * Returns The services that SIMs capable of using GPRS/3G/4G/LTE data
+     * connectivity can use outside of the United States.
      *
-     * @return The international_roaming
+     * @return The services that SIMs capable of using GPRS/3G/4G/LTE data
+     *         connectivity can use outside of the United States
      */
     public final List<String> getInternationalRoaming() {
         return this.internationalRoaming;
     }
 
     /**
-     * Returns The The international_roaming_data_limit.
+     * Returns The total data usage (download and upload combined) in Megabytes that
+     * the Network allows during one month when roaming outside the United States.
      *
-     * @return The international_roaming_data_limit
+     * @return The total data usage (download and upload combined) in Megabytes
+     *         that the Network allows during one month when roaming outside the
+     *         United States
      */
     public final Integer getInternationalRoamingDataLimit() {
         return this.internationalRoamingDataLimit;
     }
 
     /**
-     * Returns The The date that this resource was created, given as GMT in ISO 8601
-     * format..
+     * Returns The date when the resource was created, given as GMT in ISO 8601
+     * format.
      *
-     * @return The date that this resource was created, given as GMT in ISO 8601
-     *         format.
+     * @return The date when the resource was created, given as GMT in ISO 8601
+     *         format
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT in ISO
-     * 8601 format..
+     * Returns The date when the resource was last updated, given as GMT in ISO 8601
+     * format.
      *
-     * @return The date that this resource was last updated, given as GMT in ISO
-     *         8601 format.
+     * @return The date when the resource was last updated, given as GMT in ISO
+     *         8601 format
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

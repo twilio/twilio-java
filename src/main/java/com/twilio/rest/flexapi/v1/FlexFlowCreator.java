@@ -36,13 +36,15 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     private Integer integrationPriority;
     private Boolean integrationCreationOnMessage;
     private Boolean longLived;
+    private Boolean janitorEnabled;
+    private Integer integrationRetryCount;
 
     /**
      * Construct a new FlexFlowCreator.
      *
-     * @param friendlyName Human readable description of this FlexFlow
-     * @param chatServiceSid Service Sid.
-     * @param channelType Channel type
+     * @param friendlyName A string to describe the resource
+     * @param chatServiceSid The SID of the chat service
+     * @param channelType The channel type
      */
     public FlexFlowCreator(final String friendlyName,
                            final String chatServiceSid,
@@ -53,9 +55,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Channel contact Identity (number / contact).
+     * The channel contact's Identity..
      *
-     * @param contactIdentity Channel contact Identity
+     * @param contactIdentity The channel contact's Identity
      * @return this
      */
     public FlexFlowCreator setContactIdentity(final String contactIdentity) {
@@ -64,9 +66,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Boolean flag for enabling or disabling the FlexFlow.
+     * Whether the new FlexFlow is enabled..
      *
-     * @param enabled Boolean flag for enabling or disabling the FlexFlow
+     * @param enabled Whether the new FlexFlow is enabled
      * @return this
      */
     public FlexFlowCreator setEnabled(final Boolean enabled) {
@@ -75,9 +77,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Integration type (studio | external | task).
+     * The integration type. Can be: `studio`, `external`, or `task`..
      *
-     * @param integrationType Integration type
+     * @param integrationType The integration type
      * @return this
      */
     public FlexFlowCreator setIntegrationType(final FlexFlow.IntegrationType integrationType) {
@@ -86,9 +88,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * The unique SID identifier of the Flow for Studio integration type.
+     * The SID of the Flow when `integration_type` is `studio`..
      *
-     * @param integrationFlowSid Flow Sid.
+     * @param integrationFlowSid The SID of the Flow
      * @return this
      */
     public FlexFlowCreator setIntegrationFlowSid(final String integrationFlowSid) {
@@ -97,9 +99,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * External Webhook Url for External integration type.
+     * The External Webhook URL when `integration_type` is `external`..
      *
-     * @param integrationUrl External Webhook Url
+     * @param integrationUrl The External Webhook URL
      * @return this
      */
     public FlexFlowCreator setIntegrationUrl(final URI integrationUrl) {
@@ -108,9 +110,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * External Webhook Url for External integration type.
+     * The External Webhook URL when `integration_type` is `external`..
      *
-     * @param integrationUrl External Webhook Url
+     * @param integrationUrl The External Webhook URL
      * @return this
      */
     public FlexFlowCreator setIntegrationUrl(final String integrationUrl) {
@@ -118,9 +120,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Workspace Sid for a new task for Task integration type.
+     * The Workspace SID for a new task for Task `integration_type`..
      *
-     * @param integrationWorkspaceSid Workspace Sid for a new task
+     * @param integrationWorkspaceSid The Workspace SID for a new task
      * @return this
      */
     public FlexFlowCreator setIntegrationWorkspaceSid(final String integrationWorkspaceSid) {
@@ -129,9 +131,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Workflow Sid for a new task for Task integration type.
+     * The Workflow SID for a new task when `integration_type` is `task`..
      *
-     * @param integrationWorkflowSid Workflow Sid for a new task
+     * @param integrationWorkflowSid The Workflow SID for a new task
      * @return this
      */
     public FlexFlowCreator setIntegrationWorkflowSid(final String integrationWorkflowSid) {
@@ -140,9 +142,10 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Task Channel for a new task for Task integration type (default is 'default').
+     * The task channel for a new task when `integration_type` is `task`. The
+     * default is `default`..
      *
-     * @param integrationChannel Task Channel for a new task
+     * @param integrationChannel The task channel for a new task
      * @return this
      */
     public FlexFlowCreator setIntegrationChannel(final String integrationChannel) {
@@ -151,10 +154,10 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Task timeout in seconds for a new task for Task integration type (default
-     * 86400).
+     * The task timeout in seconds for a new task when `integration_type` is `task`.
+     * The default is `86,400` seconds (24 hours)..
      *
-     * @param integrationTimeout Task timeout in seconds for a new task
+     * @param integrationTimeout The task timeout in seconds for a new task
      * @return this
      */
     public FlexFlowCreator setIntegrationTimeout(final Integer integrationTimeout) {
@@ -163,9 +166,10 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Task priority for a new task for Task integration type (default 0).
+     * The task priority of a new task when `integration_type` is `task`. The
+     * default priority is `0`..
      *
-     * @param integrationPriority Task priority for a new task
+     * @param integrationPriority The task priority of a new task
      * @return this
      */
     public FlexFlowCreator setIntegrationPriority(final Integer integrationPriority) {
@@ -174,10 +178,14 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Flag for task creation, either creating task with the channel, or if true
-     * create task whwn first message arrives (for Task integration type).
+     * Whether to create a task when the first message arrives when
+     * `integration_type` is `task`. If `false`, the task is created with the
+     * channel. **Note** that does not apply when channel type is `web`. Setting the
+     * value to `true` for channel type `web` will result in misconfigured Flex Flow
+     * and no tasks will be created..
      *
-     * @param integrationCreationOnMessage Flag for task creation
+     * @param integrationCreationOnMessage Whether to create a task when the first
+     *                                     message arrives
      * @return this
      */
     public FlexFlowCreator setIntegrationCreationOnMessage(final Boolean integrationCreationOnMessage) {
@@ -186,13 +194,42 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * Default Flag defining whether the new channels created are long lived or not.
+     * When enabled, Flex will keep the chat channel active so that it may be used
+     * for subsequent interactions with a contact identity. Defaults to `false`..
      *
-     * @param longLived Long Lived flag for new Channel
+     * @param longLived Reuse this chat channel for future interactions with a
+     *                  contact
      * @return this
      */
     public FlexFlowCreator setLongLived(final Boolean longLived) {
         this.longLived = longLived;
+        return this;
+    }
+
+    /**
+     * When enabled, the Messaging Channel Janitor will remove active Proxy sessions
+     * if the associated Task is deleted outside of the Flex UI. Defaults to
+     * `false`..
+     *
+     * @param janitorEnabled Remove active Proxy sessions if the corresponding Task
+     *                       is deleted
+     * @return this
+     */
+    public FlexFlowCreator setJanitorEnabled(final Boolean janitorEnabled) {
+        this.janitorEnabled = janitorEnabled;
+        return this;
+    }
+
+    /**
+     * The number of times to retry the webhook if the first attempt fails. Can be
+     * an integer between 0 and 3, inclusive, and the default is 0..
+     *
+     * @param integrationRetryCount The number of times to retry the webhook if the
+     *                              first attempt fails
+     * @return this
+     */
+    public FlexFlowCreator setIntegrationRetryCount(final Integer integrationRetryCount) {
+        this.integrationRetryCount = integrationRetryCount;
         return this;
     }
 
@@ -208,8 +245,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows",
-            client.getRegion()
+            "/v1/FlexFlows"
         );
 
         addPostParams(request);
@@ -222,14 +258,7 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FlexFlow.fromJson(response.getStream(), client.getObjectMapper());
@@ -299,6 +328,14 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
         if (longLived != null) {
             request.addPostParam("LongLived", longLived.toString());
+        }
+
+        if (janitorEnabled != null) {
+            request.addPostParam("JanitorEnabled", janitorEnabled.toString());
+        }
+
+        if (integrationRetryCount != null) {
+            request.addPostParam("Integration.RetryCount", integrationRetryCount.toString());
         }
     }
 }

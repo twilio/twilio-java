@@ -28,11 +28,13 @@ public class ChannelCreator extends Creator<Channel> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String createdBy;
+    private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ChannelCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathServiceSid The SID of the Service to create the Channel resource
+     *                       under
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -52,12 +54,12 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the resource's `sid` in the URL.
-     * This value must be 64 characters or less in length and be unique within the
-     * Service..
+     * be used to address the resource in place of the Channel resource's `sid` in
+     * the URL. This value must be 64 characters or less in length and be unique
+     * within the Service..
      *
      * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     *                   Channel resource
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -90,9 +92,10 @@ public class ChannelCreator extends Creator<Channel> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default is
-     * the current time set by the Chat service.  Note that this should only be used
-     * in cases where a Channel is being recreated from a backup/separate source..
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this should
+     * only be used in cases where a Channel is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -106,9 +109,9 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
      * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`.  Note that this should only be used in cases where a
-     * Channel is being recreated from a backup/separate source  and where a Message
-     * was previously updated..
+     * default value is `null`. Note that this parameter should only be used in
+     * cases where a Channel is being recreated from a backup/separate source  and
+     * where a Message was previously updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
@@ -131,6 +134,17 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ChannelCreator setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -142,11 +156,11 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels"
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -156,17 +170,21 @@ public class ChannelCreator extends Creator<Channel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

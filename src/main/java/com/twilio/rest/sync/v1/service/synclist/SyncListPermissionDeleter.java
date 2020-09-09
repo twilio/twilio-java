@@ -29,10 +29,12 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
     /**
      * Construct a new SyncListPermissionDeleter.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathListSid Sync List SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync List Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync List
+     *                       Permission resource to delete
+     * @param pathListSid The SID of the Sync List with the Sync List Permission
+     *                    resource to delete
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync List Permission resource to delete
      */
     public SyncListPermissionDeleter(final String pathServiceSid,
                                      final String pathListSid,
@@ -53,8 +55,7 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -66,14 +67,7 @@ public class SyncListPermissionDeleter extends Deleter<SyncListPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

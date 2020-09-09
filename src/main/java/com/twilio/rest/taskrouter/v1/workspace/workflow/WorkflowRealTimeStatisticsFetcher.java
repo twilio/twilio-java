@@ -25,8 +25,9 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
     /**
      * Construct a new WorkflowRealTimeStatisticsFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkflowSid The workflow_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathWorkflowSid Returns the list of Tasks that are being controlled
+     *                        by the Workflow with the specified SID value
      */
     public WorkflowRealTimeStatisticsFetcher(final String pathWorkspaceSid,
                                              final String pathWorkflowSid) {
@@ -35,10 +36,11 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
     }
 
     /**
-     * Filter real-time and cumulative statistics by TaskChannel. Takes in a Unique
-     * Name ("voice", "sms", "default", etc.) or a TaskChannelSid..
+     * Only calculate real-time statistics on this TaskChannel. Can be the
+     * TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or
+     * `default`..
      *
-     * @param taskChannel Filter real-time and cumulative statistics by TaskChannel.
+     * @param taskChannel Only calculate real-time statistics on this TaskChannel
      * @return this
      */
     public WorkflowRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {
@@ -58,8 +60,7 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/RealTimeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathWorkflowSid + "/RealTimeStatistics"
         );
 
         addQueryParams(request);
@@ -72,14 +73,7 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkflowRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());

@@ -42,7 +42,8 @@ public class ParticipantUpdater extends Updater<Participant> {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      */
     public ParticipantUpdater(final String pathConferenceSid,
                               final String pathCallSid) {
@@ -57,7 +58,8 @@ public class ParticipantUpdater extends Updater<Participant> {
      *                       update
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      */
     public ParticipantUpdater(final String pathAccountSid,
                               final String pathConferenceSid,
@@ -68,9 +70,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Whether the participant should be muted. Can be `true` or `false. `true` will
-     * mute the participant, and `false` will un-mute them. Anything value other
-     * than `true` or `false` is interpreted as `false`..
+     * Whether the participant should be muted. Can be `true` or `false`. `true`
+     * will mute the participant, and `false` will un-mute them. Anything value
+     * other than `true` or `false` is interpreted as `false`..
      *
      * @param muted Whether the participant should be muted
      * @return this
@@ -277,8 +279,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json"
         );
 
         addPostParams(request);
@@ -291,14 +292,7 @@ public class ParticipantUpdater extends Updater<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

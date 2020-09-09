@@ -20,6 +20,7 @@ public class TwilioRestClient {
     private final String password;
     private final String accountSid;
     private final String region;
+    private final String edge;
     private final HttpClient httpClient;
 
     private TwilioRestClient(Builder b) {
@@ -27,6 +28,7 @@ public class TwilioRestClient {
         this.password = b.password;
         this.accountSid = b.accountSid;
         this.region = b.region;
+        this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
     }
@@ -39,6 +41,12 @@ public class TwilioRestClient {
      */
     public Response request(final Request request) {
         request.setAuth(username, password);
+
+        if (region != null)
+            request.setRegion(region);
+        if (edge != null)
+            request.setEdge(edge);
+
         return httpClient.reliableRequest(request);
     }
 
@@ -48,6 +56,10 @@ public class TwilioRestClient {
 
     public String getRegion() {
         return region;
+    }
+
+    public String getEdge() {
+        return edge;
     }
 
     public ObjectMapper getObjectMapper() {
@@ -63,6 +75,7 @@ public class TwilioRestClient {
         private String password;
         private String accountSid;
         private String region;
+        private String edge;
         private HttpClient httpClient;
 
         /**
@@ -71,30 +84,35 @@ public class TwilioRestClient {
          * @param username username to use
          * @param password password for the username
          */
-        public Builder(String username, String password) {
+        public Builder(final String username, final String password) {
             this.username = username;
             this.password = password;
             this.accountSid = username;
         }
 
-        public Builder accountSid(String accountSid) {
+        public Builder accountSid(final String accountSid) {
             this.accountSid = accountSid;
             return this;
         }
 
-        public Builder region(String region) {
+        public Builder region(final String region) {
             this.region = region;
             return this;
         }
 
-        public Builder httpClient(HttpClient httpClient) {
+        public Builder edge(final String edge) {
+            this.edge = edge;
+            return this;
+        }
+
+        public Builder httpClient(final HttpClient httpClient) {
             this.httpClient = httpClient;
             return this;
         }
 
         /**
          * Build new TwilioRestClient.
-         * 
+         *
          * @return TwilioRestClient instance
          */
         public TwilioRestClient build() {

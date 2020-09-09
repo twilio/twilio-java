@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.SubscribeRule;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -33,20 +33,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SubscribeRules extends Resource {
-    private static final long serialVersionUID = 203579789225780L;
+    private static final long serialVersionUID = 98678820953889L;
 
     /**
      * Create a SubscribeRulesFetcher to execute fetch.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    fetch apply
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           subscribe rules to fetch
      * @return SubscribeRulesFetcher capable of executing the fetch
      */
     public static SubscribeRulesFetcher fetcher(final String pathRoomSid,
@@ -57,9 +54,10 @@ public class SubscribeRules extends Resource {
     /**
      * Create a SubscribeRulesUpdater to execute update.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    update apply
+     * @param pathParticipantSid The SID of the Participant resource to update the
+     *                           Subscribe Rules
      * @return SubscribeRulesUpdater capable of executing the update
      */
     public static SubscribeRulesUpdater updater(final String pathRoomSid,
@@ -107,7 +105,7 @@ public class SubscribeRules extends Resource {
 
     private final String participantSid;
     private final String roomSid;
-    private final List<Map<String, Object>> rules;
+    private final List<SubscribeRule> rules;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
 
@@ -117,7 +115,7 @@ public class SubscribeRules extends Resource {
                            @JsonProperty("room_sid")
                            final String roomSid,
                            @JsonProperty("rules")
-                           final List<Map<String, Object>> rules,
+                           final List<SubscribeRule> rules,
                            @JsonProperty("date_created")
                            final String dateCreated,
                            @JsonProperty("date_updated")
@@ -130,47 +128,47 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-     * Returns The The unique Participant identifier for the Subscribe Rules..
+     * Returns The SID of the Participant resource for the Subscribe Rules.
      *
-     * @return The unique Participant identifier for the Subscribe Rules.
+     * @return The SID of the Participant resource for the Subscribe Rules
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The The unique Room identifier for the Subscribe Rules.
+     * Returns The SID of the Room resource for the Subscribe Rules.
      *
-     * @return The unique Room identifier for the Subscribe Rules
+     * @return The SID of the Room resource for the Subscribe Rules
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The A collection of Subscribe Rules to include or exclude matching
-     * Tracks..
+     * Returns A collection of Subscribe Rules that describe how to include or
+     * exclude matching tracks.
      *
-     * @return A collection of Subscribe Rules to include or exclude matching
-     *         Tracks.
+     * @return A collection of Subscribe Rules that describe how to include or
+     *         exclude matching tracks
      */
-    public final List<Map<String, Object>> getRules() {
+    public final List<SubscribeRule> getRules() {
         return this.rules;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;

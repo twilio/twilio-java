@@ -143,7 +143,7 @@ public class Command extends Resource {
     /**
      * Create a CommandFetcher to execute fetch.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return CommandFetcher capable of executing the fetch
      */
     public static CommandFetcher fetcher(final String pathSid) {
@@ -163,7 +163,7 @@ public class Command extends Resource {
      * Create a CommandCreator to execute create.
      *
      * @param command The message body of the Command or a Base64 encoded byte
-     *                string in binary mode.
+     *                string in binary mode
      * @return CommandCreator capable of executing the create
      */
     public static CommandCreator creator(final String command) {
@@ -173,7 +173,7 @@ public class Command extends Resource {
     /**
      * Create a CommandDeleter to execute delete.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to delete
      * @return CommandDeleter capable of executing the delete
      */
     public static CommandDeleter deleter(final String pathSid) {
@@ -270,113 +270,110 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique id of the Account that this Command belongs to..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account that this Command belongs to.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The unique ID of the SIM that this Command was sent to or from..
+     * Returns The SID of the Sim resource that the Command was sent to or from.
      *
-     * @return The unique ID of the SIM that this Command was sent to or from.
+     * @return The SID of the Sim resource that the Command was sent to or from
      */
     public final String getSimSid() {
         return this.simSid;
     }
 
     /**
-     * Returns The The message being sent to or from the SIM..
+     * Returns The message being sent to or from the SIM.
      *
-     * @return The message being sent to or from the SIM.
+     * @return The message being sent to or from the SIM
      */
     public final String getCommand() {
         return this.command;
     }
 
     /**
-     * Returns The A string representing which mode the SMS was sent or received
-     * using..
+     * Returns The mode used to send the SMS message.
      *
-     * @return A string representing which mode the SMS was sent or received using.
+     * @return The mode used to send the SMS message
      */
     public final Command.CommandMode getCommandMode() {
         return this.commandMode;
     }
 
     /**
-     * Returns The The transport.
+     * Returns The type of transport used.
      *
-     * @return The transport
+     * @return The type of transport used
      */
     public final Command.Transport getTransport() {
         return this.transport;
     }
 
     /**
-     * Returns The The delivery_receipt_requested.
+     * Returns Whether to request a delivery receipt.
      *
-     * @return The delivery_receipt_requested
+     * @return Whether to request a delivery receipt
      */
     public final Boolean getDeliveryReceiptRequested() {
         return this.deliveryReceiptRequested;
     }
 
     /**
-     * Returns The A string representing the status of the Command..
+     * Returns The status of the Command.
      *
-     * @return A string representing the status of the Command.
+     * @return The status of the Command
      */
     public final Command.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The direction of the Command..
+     * Returns The direction of the Command.
      *
-     * @return The direction of the Command.
+     * @return The direction of the Command
      */
     public final Command.Direction getDirection() {
         return this.direction;
     }
 
     /**
-     * Returns The The date that this resource was created, given as GMT in ISO 8601
-     * format..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created, given as GMT in ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as GMT in ISO
-     * 8601 format..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated
+     * format.
      *
-     * @return The date that this resource was last updated, given as GMT in ISO
-     *         8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     *         format
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

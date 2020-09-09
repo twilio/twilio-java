@@ -30,9 +30,11 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
     /**
      * Construct a new AssetVersionFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathAssetSid Asset Sid.
-     * @param pathSid Asset Version Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Asset Version
+     *                       resource from
+     * @param pathAssetSid The SID of the Asset resource that is the parent of the
+     *                     Asset Version resource to fetch
+     * @param pathSid The SID that identifies the Asset Version resource to fetch
      */
     public AssetVersionFetcher(final String pathServiceSid,
                                final String pathAssetSid,
@@ -54,8 +56,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets/" + this.pathAssetSid + "/Versions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +68,7 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssetVersion.fromJson(response.getStream(), client.getObjectMapper());

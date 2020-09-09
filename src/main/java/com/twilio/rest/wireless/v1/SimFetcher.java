@@ -23,7 +23,7 @@ public class SimFetcher extends Fetcher<Sim> {
     /**
      * Construct a new SimFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID of the Sim resource to fetch
      */
     public SimFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +41,7 @@ public class SimFetcher extends Fetcher<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class SimFetcher extends Fetcher<Sim> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Sim.fromJson(response.getStream(), client.getObjectMapper());

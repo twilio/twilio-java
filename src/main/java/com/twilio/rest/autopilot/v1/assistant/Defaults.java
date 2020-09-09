@@ -121,7 +121,7 @@ public class Defaults extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -130,7 +130,7 @@ public class Defaults extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the resource.
+     * Returns The SID of the Assistant that is the parent of the resource.
      *
      * @return The SID of the Assistant that is the parent of the resource
      */
@@ -139,7 +139,7 @@ public class Defaults extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Defaults resource.
+     * Returns The absolute URL of the Defaults resource.
      *
      * @return The absolute URL of the Defaults resource
      */
@@ -148,7 +148,7 @@ public class Defaults extends Resource {
     }
 
     /**
-     * Returns The The JSON string that describes the default task links.
+     * Returns The JSON string that describes the default task links.
      *
      * @return The JSON string that describes the default task links
      */

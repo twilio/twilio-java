@@ -18,6 +18,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.Endpoint;
+import com.twilio.type.Twiml;
 
 import java.net.URI;
 import java.util.List;
@@ -27,6 +28,7 @@ public class CallCreator extends Creator<Call> {
     private final com.twilio.type.Endpoint to;
     private final com.twilio.type.Endpoint from;
     private URI url;
+    private com.twilio.type.Twiml twiml;
     private String applicationSid;
     private HttpMethod method;
     private URI fallbackUrl;
@@ -50,6 +52,11 @@ public class CallCreator extends Creator<Call> {
     private Integer machineDetectionSpeechThreshold;
     private Integer machineDetectionSpeechEndThreshold;
     private Integer machineDetectionSilenceTimeout;
+    private String asyncAmd;
+    private URI asyncAmdStatusCallback;
+    private HttpMethod asyncAmdStatusCallbackMethod;
+    private String byoc;
+    private String callReason;
 
     /**
      * Construct a new CallCreator.
@@ -82,6 +89,39 @@ public class CallCreator extends Creator<Call> {
         this.to = to;
         this.from = from;
         this.url = url;
+    }
+
+    /**
+     * Construct a new CallCreator.
+     *
+     * @param to Phone number, SIP address, or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param twiml TwiML instructions for the call
+     */
+    public CallCreator(final com.twilio.type.Endpoint to,
+                       final com.twilio.type.Endpoint from,
+                       final com.twilio.type.Twiml twiml) {
+        this.to = to;
+        this.from = from;
+        this.twiml = twiml;
+    }
+
+    /**
+     * Construct a new CallCreator.
+     *
+     * @param pathAccountSid The SID of the Account that will create the resource
+     * @param to Phone number, SIP address, or client identifier to call
+     * @param from Twilio number from which to originate the call
+     * @param twiml TwiML instructions for the call
+     */
+    public CallCreator(final String pathAccountSid,
+                       final com.twilio.type.Endpoint to,
+                       final com.twilio.type.Endpoint from,
+                       final com.twilio.type.Twiml twiml) {
+        this.pathAccountSid = pathAccountSid;
+        this.to = to;
+        this.from = from;
+        this.twiml = twiml;
     }
 
     /**
@@ -207,7 +247,7 @@ public class CallCreator extends Creator<Call> {
      * specified, we send the `completed` status. If you want to receive multiple
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for [monitoring call
-     * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `application_sid` is present, this parameter is ignored..
+     * progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json). If an `application_sid` is present, this parameter is ignored..
      *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
@@ -224,7 +264,7 @@ public class CallCreator extends Creator<Call> {
      * specified, we send the `completed` status. If you want to receive multiple
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for [monitoring call
-     * progress](https://www.twilio.com/docs/voice/api/call?code-sample=code-create-a-call-and-specify-a-statuscallbackevent). If an `application_sid` is present, this parameter is ignored..
+     * progress](https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json). If an `application_sid` is present, this parameter is ignored..
      *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
@@ -283,10 +323,11 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Set this parameter to `true` to record the phone call. The `recording_url`
-     * will be sent to the `status_callback` URL. The default is `false`..
+     * Whether to record the call. Can be `true` to record the phone call, or
+     * `false` to not. The default is `false`. The `recording_url` is sent to the
+     * `status_callback` URL..
      *
-     * @param record Whether or not to record the call
+     * @param record Whether to record the call
      * @return this
      */
     public CallCreator setRecord(final Boolean record) {
@@ -361,9 +402,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * Detect if a human, answering machine, or fax has picked up the call. Can be:
-     * `Enable` or `DetectMessageEnd`. Use `Enable` if you would like us to return
-     * `AnsweredBy` as soon as the called party is identified. Use
+     * Whether to detect if a human, answering machine, or fax has picked up the
+     * call. Can be: `Enable` or `DetectMessageEnd`. Use `Enable` if you would like
+     * us to return `AnsweredBy` as soon as the called party is identified. Use
      * `DetectMessageEnd`, if you would like to leave a message on an answering
      * machine. If `send_digits` is provided, this parameter is ignored. For more
      * information, see [Answering Machine
@@ -495,6 +536,84 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * Select whether to perform answering machine detection in the background.
+     * Default, blocks the execution of the call until Answering Machine Detection
+     * is completed. Can be: `true` or `false`..
+     *
+     * @param asyncAmd Enable asynchronous AMD
+     * @return this
+     */
+    public CallCreator setAsyncAmd(final String asyncAmd) {
+        this.asyncAmd = asyncAmd;
+        return this;
+    }
+
+    /**
+     * The URL that we should call using the `async_amd_status_callback_method` to
+     * notify customer application whether the call was answered by human, machine
+     * or fax..
+     *
+     * @param asyncAmdStatusCallback The URL we should call to send amd status
+     *                               information to your application
+     * @return this
+     */
+    public CallCreator setAsyncAmdStatusCallback(final URI asyncAmdStatusCallback) {
+        this.asyncAmdStatusCallback = asyncAmdStatusCallback;
+        return this;
+    }
+
+    /**
+     * The URL that we should call using the `async_amd_status_callback_method` to
+     * notify customer application whether the call was answered by human, machine
+     * or fax..
+     *
+     * @param asyncAmdStatusCallback The URL we should call to send amd status
+     *                               information to your application
+     * @return this
+     */
+    public CallCreator setAsyncAmdStatusCallback(final String asyncAmdStatusCallback) {
+        return setAsyncAmdStatusCallback(Promoter.uriFromString(asyncAmdStatusCallback));
+    }
+
+    /**
+     * The HTTP method we should use when calling the `async_amd_status_callback`
+     * URL. Can be: `GET` or `POST` and the default is `POST`..
+     *
+     * @param asyncAmdStatusCallbackMethod HTTP Method to use with
+     *                                     async_amd_status_callback
+     * @return this
+     */
+    public CallCreator setAsyncAmdStatusCallbackMethod(final HttpMethod asyncAmdStatusCallbackMethod) {
+        this.asyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod;
+        return this;
+    }
+
+    /**
+     * The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with.
+     * Note that `byoc` is only meaningful when `to` is a phone number; it will
+     * otherwise be ignored. (Beta).
+     *
+     * @param byoc BYOC trunk SID (Beta)
+     * @return this
+     */
+    public CallCreator setByoc(final String byoc) {
+        this.byoc = byoc;
+        return this;
+    }
+
+    /**
+     * The Reason for the outgoing call. Use it to specify the purpose of the call
+     * that is presented on the called party's phone. (Branded Calls Beta).
+     *
+     * @param callReason Reason for the call (Branded Calls Beta)
+     * @return this
+     */
+    public CallCreator setCallReason(final String callReason) {
+        this.callReason = callReason;
+        return this;
+    }
+
+    /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the [Url
@@ -519,6 +638,31 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator setUrl(final String url) {
         return setUrl(Promoter.uriFromString(url));
+    }
+
+    /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
+     * will be ignored..
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallCreator setTwiml(final com.twilio.type.Twiml twiml) {
+        this.twiml = twiml;
+        return this;
+    }
+
+    /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
+     * will be ignored..
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallCreator setTwiml(final String twiml) {
+        return setTwiml(Promoter.twimlFromString(twiml));
     }
 
     /**
@@ -547,8 +691,7 @@ public class CallCreator extends Creator<Call> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json"
         );
 
         addPostParams(request);
@@ -561,14 +704,7 @@ public class CallCreator extends Creator<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());
@@ -590,6 +726,10 @@ public class CallCreator extends Creator<Call> {
 
         if (url != null) {
             request.addPostParam("Url", url.toString());
+        }
+
+        if (twiml != null) {
+            request.addPostParam("Twiml", twiml.toString());
         }
 
         if (applicationSid != null) {
@@ -686,6 +826,26 @@ public class CallCreator extends Creator<Call> {
 
         if (machineDetectionSilenceTimeout != null) {
             request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
+        }
+
+        if (asyncAmd != null) {
+            request.addPostParam("AsyncAmd", asyncAmd);
+        }
+
+        if (asyncAmdStatusCallback != null) {
+            request.addPostParam("AsyncAmdStatusCallback", asyncAmdStatusCallback.toString());
+        }
+
+        if (asyncAmdStatusCallbackMethod != null) {
+            request.addPostParam("AsyncAmdStatusCallbackMethod", asyncAmdStatusCallbackMethod.toString());
+        }
+
+        if (byoc != null) {
+            request.addPostParam("Byoc", byoc);
+        }
+
+        if (callReason != null) {
+            request.addPostParam("CallReason", callReason);
         }
     }
 }

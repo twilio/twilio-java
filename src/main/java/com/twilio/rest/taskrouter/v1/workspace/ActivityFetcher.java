@@ -24,8 +24,9 @@ public class ActivityFetcher extends Fetcher<Activity> {
     /**
      * Construct a new ActivityFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to fetch
+     * @param pathSid The SID of the resource to fetch
      */
     public ActivityFetcher(final String pathWorkspaceSid,
                            final String pathSid) {
@@ -45,8 +46,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +58,7 @@ public class ActivityFetcher extends Fetcher<Activity> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Activity.fromJson(response.getStream(), client.getObjectMapper());

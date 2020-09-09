@@ -1,10 +1,10 @@
 package com.twilio.taskrouter;
 
-import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,13 +14,13 @@ public class WorkflowTest {
 
     @Test
     public void testToJson() throws IOException {
-        List<WorkflowRuleTarget> targets = Lists.newArrayList(
+        List<WorkflowRuleTarget> targets = Collections.singletonList(
             new WorkflowRuleTarget.Builder("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
                 .priority(54333)
                 .timeout(30)
                 .build()
         );
-        List<WorkflowRule> rules = Lists.newArrayList(
+        List<WorkflowRule> rules = Collections.singletonList(
             new WorkflowRule.Builder("skill == \"HR\"", targets).friendlyName("4354").build()
         );
         WorkflowRuleTarget defaultTarget = new WorkflowRuleTarget.Builder("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa").build();
@@ -65,8 +65,8 @@ public class WorkflowTest {
 
         WorkflowRuleTarget target = targets.get(0);
         Assert.assertEquals("WQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", target.getQueue());
-        Assert.assertEquals(54333, (int)target.getPriority());
-        Assert.assertEquals(30, (int)target.getTimeout());
+        Assert.assertEquals(54333, (int) target.getPriority());
+        Assert.assertEquals(30, (int) target.getTimeout());
     }
 
 }

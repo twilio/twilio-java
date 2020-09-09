@@ -6,12 +6,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
 import com.twilio.http.HttpMethod;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Objects;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -88,14 +88,14 @@ public class Policy {
         Policy policy = (Policy) o;
         return allowed == policy.allowed &&
             method == policy.method &&
-            Objects.equal(url, policy.url) &&
-            Objects.equal(queryFilter, policy.queryFilter) &&
-            Objects.equal(postFilter, policy.postFilter);
+            Objects.equals(url, policy.url) &&
+            Objects.equals(queryFilter, policy.queryFilter) &&
+            Objects.equals(postFilter, policy.postFilter);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(url, method, queryFilter, postFilter, allowed);
+        return Objects.hash(url, method, queryFilter, postFilter, allowed);
     }
 
     @Override

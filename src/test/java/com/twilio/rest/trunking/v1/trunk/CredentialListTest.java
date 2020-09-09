@@ -41,7 +41,7 @@ public class CredentialListTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class CredentialListTest {
         }};
 
         try {
-            CredentialList.fetcher("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            CredentialList.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CredentialList.fetcher("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(CredentialList.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -73,7 +73,7 @@ public class CredentialListTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists/CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class CredentialListTest {
         }};
 
         try {
-            CredentialList.deleter("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            CredentialList.deleter("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        CredentialList.deleter("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        CredentialList.deleter("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -105,7 +105,7 @@ public class CredentialListTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists");
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists");
             request.addPostParam("CredentialListSid", serialize("CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
             twilioRestClient.request(request);
             times = 1;
@@ -115,7 +115,7 @@ public class CredentialListTest {
         }};
 
         try {
-            CredentialList.creator("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            CredentialList.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        CredentialList.creator("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        CredentialList.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -137,7 +137,7 @@ public class CredentialListTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.TRUNKING.toString(),
-                                          "/v1/Trunks/TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists");
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/CredentialLists");
 
             twilioRestClient.request(request);
             times = 1;
@@ -147,7 +147,7 @@ public class CredentialListTest {
         }};
 
         try {
-            CredentialList.reader("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            CredentialList.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CredentialList.reader("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CredentialList.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 
     @Test
@@ -173,6 +173,6 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CredentialList.reader("TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CredentialList.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
 }

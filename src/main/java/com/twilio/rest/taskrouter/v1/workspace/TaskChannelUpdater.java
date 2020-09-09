@@ -26,9 +26,9 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     /**
      * Construct a new TaskChannelUpdater.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param pathSid The unique ID for this TaskChannel.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         update
+     * @param pathSid The SID of the TaskChannel resource to update
      */
     public TaskChannelUpdater(final String pathWorkspaceSid,
                               final String pathSid) {
@@ -37,9 +37,10 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     }
 
     /**
-     * Toggle the FriendlyName for the TaskChannel.
+     * A descriptive string that you create to describe the TaskChannel. It can be
+     * up to 64 characters long..
      *
-     * @param friendlyName Toggle the FriendlyName for the TaskChannel
+     * @param friendlyName A string to describe the TaskChannel resource
      * @return this
      */
     public TaskChannelUpdater setFriendlyName(final String friendlyName) {
@@ -48,10 +49,11 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     }
 
     /**
-     * A boolean that if true; mean that the channel will prioritize workers that
-     * have been idle.
+     * Whether the TaskChannel should prioritize Workers that have been idle. If
+     * `true`, Workers that have been idle the longest are prioritized..
      *
-     * @param channelOptimizedRouting If true then prioritize longest idle workers
+     * @param channelOptimizedRouting Whether the TaskChannel should prioritize
+     *                                Workers that have been idle
      * @return this
      */
     public TaskChannelUpdater setChannelOptimizedRouting(final Boolean channelOptimizedRouting) {
@@ -71,8 +73,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -85,14 +86,7 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return TaskChannel.fromJson(response.getStream(), client.getObjectMapper());

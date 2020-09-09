@@ -51,8 +51,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number, SIP address, Client identifier or SIM
-     * SID..
+     * Only show calls made to this phone number, SIP address, Client identifier or
+     * SIM SID..
      *
      * @param to Phone number or Client identifier of calls to include
      * @return this
@@ -63,8 +63,8 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only show calls to this phone number, SIP address, Client identifier or SIM
-     * SID..
+     * Only show calls made to this phone number, SIP address, Client identifier or
+     * SIM SID..
      *
      * @param to Phone number or Client identifier of calls to include
      * @return this
@@ -120,11 +120,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only include calls that started on or after this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`..
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
      *
-     * @param absoluteStartTime Only include calls that started on or after this
-     *                          date
+     * @param absoluteStartTime Only include calls that started on this date
      * @return this
      */
     public CallReader setStartTime(final DateTime absoluteStartTime) {
@@ -134,10 +137,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only include calls that started on or after this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`..
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
      *
-     * @param rangeStartTime Only include calls that started on or after this date
+     * @param rangeStartTime Only include calls that started on this date
      * @return this
      */
     public CallReader setStartTime(final Range<DateTime> rangeStartTime) {
@@ -147,11 +154,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only include calls that occurred on or before this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`..
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
      *
-     * @param absoluteEndTime Only include usage that occurred on or before this
-     *                        date
+     * @param absoluteEndTime Only include calls that ended on this date
      * @return this
      */
     public CallReader setEndTime(final DateTime absoluteEndTime) {
@@ -161,10 +171,14 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only include calls that occurred on or before this date. Specify the date in
-     * GMT and format as `YYYY-MM-DD`..
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
      *
-     * @param rangeEndTime Only include usage that occurred on or before this date
+     * @param rangeEndTime Only include calls that ended on this date
      * @return this
      */
     public CallReader setEndTime(final Range<DateTime> rangeEndTime) {
@@ -197,8 +211,7 @@ public class CallReader extends Reader<Call> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls.json"
         );
 
         addQueryParams(request);
@@ -236,10 +249,7 @@ public class CallReader extends Reader<Call> {
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -256,10 +266,7 @@ public class CallReader extends Reader<Call> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -281,14 +288,7 @@ public class CallReader extends Reader<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

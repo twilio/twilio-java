@@ -31,7 +31,7 @@ public class UserBindingReader extends Reader<UserBinding> {
      * Construct a new UserBindingReader.
      *
      * @param pathServiceSid The SID of the Service to read the resource from
-     * @param pathUserSid The SID of the User of the User Bindings to read
+     * @param pathUserSid The SID of the User with the User Bindings to read
      */
     public UserBindingReader(final String pathServiceSid,
                              final String pathUserSid) {
@@ -42,7 +42,7 @@ public class UserBindingReader extends Reader<UserBinding> {
     /**
      * The push technology used by the User Binding resources to read. Can be:
      * `apn`, `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
      *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
@@ -56,7 +56,7 @@ public class UserBindingReader extends Reader<UserBinding> {
     /**
      * The push technology used by the User Binding resources to read. Can be:
      * `apn`, `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
      *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
@@ -89,8 +89,7 @@ public class UserBindingReader extends Reader<UserBinding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Bindings",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Bindings"
         );
 
         addQueryParams(request);
@@ -127,10 +126,7 @@ public class UserBindingReader extends Reader<UserBinding> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -147,10 +143,7 @@ public class UserBindingReader extends Reader<UserBinding> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -172,14 +165,7 @@ public class UserBindingReader extends Reader<UserBinding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -39,8 +39,8 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) assigned
-     * to the new member..
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource)
+     * assigned to the new member..
      *
      * @param roleSid The Role assigned to the new member
      * @return this
@@ -62,8 +62,7 @@ public class InviteCreator extends Creator<Invite> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites"
         );
 
         addPostParams(request);
@@ -76,14 +75,7 @@ public class InviteCreator extends Creator<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Invite.fromJson(response.getStream(), client.getObjectMapper());

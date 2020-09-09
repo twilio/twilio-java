@@ -63,8 +63,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Defaults"
         );
 
         addPostParams(request);
@@ -77,14 +76,7 @@ public class DefaultsUpdater extends Updater<Defaults> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Defaults.fromJson(response.getStream(), client.getObjectMapper());

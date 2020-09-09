@@ -40,7 +40,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     /**
      * Create a WorkspaceCumulativeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace to fetch
      * @return WorkspaceCumulativeStatisticsFetcher capable of executing the fetch
      */
     public static WorkspaceCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -174,43 +174,46 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The average time from Task creation to acceptance.
+     * Returns The average time in seconds between Task creation and acceptance.
      *
-     * @return The average time from Task creation to acceptance
+     * @return The average time in seconds between Task creation and acceptance
      */
     public final Integer getAvgTaskAcceptanceTime() {
         return this.avgTaskAcceptanceTime;
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The beginning of the interval during which these statistics were
+     * calculated.
      *
-     * @return The start_time
+     * @return The beginning of the interval during which these statistics were
+     *         calculated
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The end of the interval during which these statistics were
+     * calculated.
      *
-     * @return The end_time
+     * @return The end of the interval during which these statistics were calculated
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The total number of Reservations that were created for Workers.
+     * Returns The total number of Reservations that were created for Workers.
      *
      * @return The total number of Reservations that were created for Workers
      */
@@ -219,7 +222,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations accepted by Workers.
+     * Returns The total number of Reservations accepted by Workers.
      *
      * @return The total number of Reservations accepted by Workers
      */
@@ -228,7 +231,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rejected.
+     * Returns The total number of Reservations that were rejected.
      *
      * @return The total number of Reservations that were rejected
      */
@@ -237,7 +240,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were timed out.
+     * Returns The total number of Reservations that were timed out.
      *
      * @return The total number of Reservations that were timed out
      */
@@ -246,7 +249,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were canceled.
+     * Returns The total number of Reservations that were canceled.
      *
      * @return The total number of Reservations that were canceled
      */
@@ -255,7 +258,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rescinded.
+     * Returns The total number of Reservations that were rescinded.
      *
      * @return The total number of Reservations that were rescinded
      */
@@ -264,36 +267,36 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The splits of the tasks canceled and accepted based on the
-     * provided SplitByWaitTime parameter..
+     * Returns A list of objects that describe the Tasks canceled and reservations
+     * accepted above and below the specified thresholds.
      *
-     * @return The splits of the tasks canceled and accepted based on the provided
-     *         SplitByWaitTime parameter.
+     * @return A list of objects that describe the Tasks canceled and reservations
+     *         accepted above and below the specified thresholds
      */
     public final Map<String, Object> getSplitByWaitTime() {
         return this.splitByWaitTime;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were accepted..
+     * Returns The wait duration statistics for Tasks that were accepted.
      *
-     * @return The wait duration stats for tasks that were accepted.
+     * @return The wait duration statistics for Tasks that were accepted
      */
     public final Map<String, Object> getWaitDurationUntilAccepted() {
         return this.waitDurationUntilAccepted;
     }
 
     /**
-     * Returns The The wait duration stats for tasks that were canceled..
+     * Returns The wait duration statistics for Tasks that were canceled.
      *
-     * @return The wait duration stats for tasks that were canceled.
+     * @return The wait duration statistics for Tasks that were canceled
      */
     public final Map<String, Object> getWaitDurationUntilCanceled() {
         return this.waitDurationUntilCanceled;
     }
 
     /**
-     * Returns The The total number of Tasks that were canceled.
+     * Returns The total number of Tasks that were canceled.
      *
      * @return The total number of Tasks that were canceled
      */
@@ -302,7 +305,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were completed.
+     * Returns The total number of Tasks that were completed.
      *
      * @return The total number of Tasks that were completed
      */
@@ -311,7 +314,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks created.
+     * Returns The total number of Tasks created.
      *
      * @return The total number of Tasks created
      */
@@ -320,7 +323,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were deleted.
+     * Returns The total number of Tasks that were deleted.
      *
      * @return The total number of Tasks that were deleted
      */
@@ -329,8 +332,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were moved from one queue to
-     * another.
+     * Returns The total number of Tasks that were moved from one queue to another.
      *
      * @return The total number of Tasks that were moved from one queue to another
      */
@@ -339,7 +341,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Tasks that were timed out of their Workflows.
+     * Returns The total number of Tasks that were timed out of their Workflows.
      *
      * @return The total number of Tasks that were timed out of their Workflows
      */
@@ -348,18 +350,18 @@ public class WorkspaceCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The SID of the Workspace.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the Workspace statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workspace statistics resource
      */
     public final URI getUrl() {
         return this.url;

@@ -42,8 +42,7 @@ public class CountryFetcher extends Fetcher<Country> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PRICING.toString(),
-            "/v2/Voice/Countries/" + this.pathIsoCountry + "",
-            client.getRegion()
+            "/v2/Voice/Countries/" + this.pathIsoCountry + ""
         );
 
         Response response = client.request(request);
@@ -55,14 +54,7 @@ public class CountryFetcher extends Fetcher<Country> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Country.fromJson(response.getStream(), client.getObjectMapper());

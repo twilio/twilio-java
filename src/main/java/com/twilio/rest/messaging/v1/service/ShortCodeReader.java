@@ -29,7 +29,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
     /**
      * Construct a new ShortCodeReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathServiceSid The SID of the Service to read the resources from
      */
     public ShortCodeReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -58,8 +58,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes"
         );
 
         addQueryParams(request);
@@ -96,10 +95,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.MESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -116,10 +112,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.MESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,14 +134,7 @@ public class ShortCodeReader extends Reader<ShortCode> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

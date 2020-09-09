@@ -46,8 +46,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans/" + this.pathSid + "",
-            client.getRegion()
+            "/wireless/RatePlans/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class RatePlanFetcher extends Fetcher<RatePlan> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RatePlan.fromJson(response.getStream(), client.getObjectMapper());

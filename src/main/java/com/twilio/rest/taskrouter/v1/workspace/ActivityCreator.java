@@ -25,9 +25,9 @@ public class ActivityCreator extends Creator<Activity> {
     /**
      * Construct a new ActivityCreator.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName A human-readable name for the Activity, such as 'On
-     *                     Call', 'Break', 'Email', etc.
+     * @param pathWorkspaceSid The SID of the Workspace that the new Activity
+     *                         belongs to
+     * @param friendlyName A string to describe the Activity resource
      */
     public ActivityCreator(final String pathWorkspaceSid,
                            final String friendlyName) {
@@ -36,14 +36,12 @@ public class ActivityCreator extends Creator<Activity> {
     }
 
     /**
-     * Boolean value indicating whether the worker should be eligible to receive a
-     * Task when they occupy this Activity. For example, a call center might have an
-     * activity named 'On Call' with an availability set to 'false'. Note: This can
-     * be 'true', '1' or 'yes' to indicate a true value. All other values will
-     * represent false. Defaults to false..
+     * Whether the Worker should be eligible to receive a Task when it occupies the
+     * Activity. A value of `true`, `1`, or `yes` specifies the Activity is
+     * available. All other values specify that it is not..
      *
-     * @param available Boolean value indicating whether the worker should be
-     *                  eligible to receive a Task when they occupy this Activity.
+     * @param available Whether the Worker should be eligible to receive a Task
+     *                  when it occupies the Activity
      * @return this
      */
     public ActivityCreator setAvailable(final Boolean available) {
@@ -63,8 +61,7 @@ public class ActivityCreator extends Creator<Activity> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities"
         );
 
         addPostParams(request);
@@ -77,14 +74,7 @@ public class ActivityCreator extends Creator<Activity> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Activity.fromJson(response.getStream(), client.getObjectMapper());

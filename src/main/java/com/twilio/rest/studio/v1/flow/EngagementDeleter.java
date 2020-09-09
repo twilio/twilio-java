@@ -24,8 +24,8 @@ public class EngagementDeleter extends Deleter<Engagement> {
     /**
      * Construct a new EngagementDeleter.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathSid Engagement Sid.
+     * @param pathFlowSid The SID of the Flow to delete Engagements from
+     * @param pathSid The SID of the Engagement resource to delete
      */
     public EngagementDeleter(final String pathFlowSid,
                              final String pathSid) {
@@ -44,8 +44,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class EngagementDeleter extends Deleter<Engagement> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

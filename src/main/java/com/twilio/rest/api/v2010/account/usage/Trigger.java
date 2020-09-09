@@ -69,8 +69,8 @@ public class Trigger extends Resource {
         CONVERSATIONS_EVENTS("conversations-events"),
         CONVERSATIONS_PARTICIPANT_EVENTS("conversations-participant-events"),
         CONVERSATIONS_PARTICIPANTS("conversations-participants"),
-        FRAUD_LOOKUPS("fraud-lookups"),
         CPS("cps"),
+        FRAUD_LOOKUPS("fraud-lookups"),
         GROUP_ROOMS("group-rooms"),
         GROUP_ROOMS_DATA_TRACK("group-rooms-data-track"),
         GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED("group-rooms-encrypted-media-recorded"),
@@ -88,17 +88,20 @@ public class Trigger extends Resource {
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION("marketplace-algorithmia-named-entity-recognition"),
+        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
+        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
+        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
+        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
+        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
         MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO("marketplace-digital-segment-business-info"),
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT("marketplace-google-speech-to-text"),
         MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS("marketplace-ibm-watson-message-insights"),
         MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT("marketplace-ibm-watson-message-sentiment"),
         MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS("marketplace-ibm-watson-recording-analysis"),
+        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT("marketplace-icehook-systems-scout"),
         MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO("marketplace-infogroup-dataaxle-bizinfo"),
-        MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
-        MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
-        MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS("marketplace-keen-io-contact-center-analytics"),
         MARKETPLACE_MARCHEX_CLEANCALL("marketplace-marchex-cleancall"),
         MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS("marketplace-marchex-sentiment-analysis-for-sms"),
@@ -108,29 +111,27 @@ public class Trigger extends Resource {
         MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION("marketplace-nextcaller-advanced-caller-identification"),
         MARKETPLACE_NOMOROBO_SPAM_SCORE("marketplace-nomorobo-spam-score"),
         MARKETPLACE_PAYFONE_TCPA_COMPLIANCE("marketplace-payfone-tcpa-compliance"),
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
         MARKETPLACE_TELO_OPENCNAM("marketplace-telo-opencnam"),
         MARKETPLACE_TRUECNAM_TRUE_SPAM("marketplace-truecnam-true-spam"),
         MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US("marketplace-twilio-caller-name-lookup-us"),
         MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP("marketplace-twilio-carrier-information-lookup"),
         MARKETPLACE_VOICEBASE_PCI("marketplace-voicebase-pci"),
         MARKETPLACE_VOICEBASE_TRANSCRIPTION("marketplace-voicebase-transcription"),
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
         MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION("marketplace-whitepages-pro-caller-identification"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE("marketplace-whitepages-pro-phone-intelligence"),
         MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION("marketplace-whitepages-pro-phone-reputation"),
-        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_WOLFARM_SPOKEN_RESULTS("marketplace-wolfarm-spoken-results"),
-        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
-        MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
-        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
+        MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
         MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS("marketplace-ytica-contact-center-reporting-analytics"),
         MEDIASTORAGE("mediastorage"),
         MMS("mms"),
         MMS_INBOUND("mms-inbound"),
         MMS_INBOUND_LONGCODE("mms-inbound-longcode"),
         MMS_INBOUND_SHORTCODE("mms-inbound-shortcode"),
+        MMS_MESSAGES_CARRIERFEES("mms-messages-carrierfees"),
         MMS_OUTBOUND("mms-outbound"),
         MMS_OUTBOUND_LONGCODE("mms-outbound-longcode"),
         MMS_OUTBOUND_SHORTCODE("mms-outbound-shortcode"),
@@ -144,10 +145,10 @@ public class Trigger extends Resource {
         PCHAT("pchat"),
         PCHAT_ACTIONS("pchat-actions"),
         PCHAT_APS("pchat-aps"),
+        PCHAT_MESSAGES("pchat-messages"),
         PCHAT_NOTIFICATIONS("pchat-notifications"),
         PCHAT_READS("pchat-reads"),
         PCHAT_USERS("pchat-users"),
-        PCHAT_MESSAGES("pchat-messages"),
         PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES("peer-to-peer-rooms-participant-minutes"),
         PFAX("pfax"),
         PFAX_MINUTES("pfax-minutes"),
@@ -164,6 +165,7 @@ public class Trigger extends Resource {
         PREMIUMSUPPORT("premiumsupport"),
         PROXY("proxy"),
         PROXY_ACTIVE_SESSIONS("proxy-active-sessions"),
+        PSTNCONNECTIVITY("pstnconnectivity"),
         PV("pv"),
         PV_COMPOSITION_MEDIA_DOWNLOADED("pv-composition-media-downloaded"),
         PV_COMPOSITION_MEDIA_ENCRYPTED("pv-composition-media-encrypted"),
@@ -182,8 +184,8 @@ public class Trigger extends Resource {
         PV_SIP_ENDPOINT_REGISTRATIONS("pv-sip-endpoint-registrations"),
         RECORDINGS("recordings"),
         RECORDINGSTORAGE("recordingstorage"),
-        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_GROUP_BANDWIDTH("rooms-group-bandwidth"),
+        ROOMS_GROUP_MINUTES("rooms-group-minutes"),
         ROOMS_PEER_TO_PEER_MINUTES("rooms-peer-to-peer-minutes"),
         SHORTCODES("shortcodes"),
         SHORTCODES_CUSTOMEROWNED("shortcodes-customerowned"),
@@ -199,12 +201,13 @@ public class Trigger extends Resource {
         SMS_INBOUND("sms-inbound"),
         SMS_INBOUND_LONGCODE("sms-inbound-longcode"),
         SMS_INBOUND_SHORTCODE("sms-inbound-shortcode"),
+        SMS_MESSAGES_CARRIERFEES("sms-messages-carrierfees"),
+        SMS_MESSAGES_FEATURES("sms-messages-features"),
+        SMS_MESSAGES_FEATURES_SENDERID("sms-messages-features-senderid"),
         SMS_OUTBOUND("sms-outbound"),
         SMS_OUTBOUND_CONTENT_INSPECTION("sms-outbound-content-inspection"),
         SMS_OUTBOUND_LONGCODE("sms-outbound-longcode"),
         SMS_OUTBOUND_SHORTCODE("sms-outbound-shortcode"),
-        SMS_MESSAGES_FEATURES("sms-messages-features"),
-        SMS_MESSAGES_FEATURES_SENDERID("sms-messages-features-senderid"),
         SPEECH_RECOGNITION("speech-recognition"),
         STUDIO_ENGAGEMENTS("studio-engagements"),
         SYNC("sync"),
@@ -279,8 +282,8 @@ public class Trigger extends Resource {
         WIRELESS_USAGE_MRC_INDIVIDUAL("wireless-usage-mrc-individual"),
         WIRELESS_USAGE_MRC_POOLED("wireless-usage-mrc-pooled"),
         WIRELESS_USAGE_MRC_SUSPENDED("wireless-usage-mrc-suspended"),
-        WIRELESS_USAGE_VOICE("wireless-usage-voice"),
-        WIRELESS_USAGE_SMS("wireless-usage-sms");
+        WIRELESS_USAGE_SMS("wireless-usage-sms"),
+        WIRELESS_USAGE_VOICE("wireless-usage-voice");
 
         private final String value;
 
@@ -581,7 +584,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that this trigger monitors.
+     * Returns The SID of the Account that this trigger monitors.
      *
      * @return The SID of the Account that this trigger monitors
      */
@@ -590,7 +593,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The API version used to create the resource.
+     * Returns The API version used to create the resource.
      *
      * @return The API version used to create the resource
      */
@@ -599,7 +602,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call callback_url.
+     * Returns The HTTP method we use to call callback_url.
      *
      * @return The HTTP method we use to call callback_url
      */
@@ -608,7 +611,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The he URL we call when the trigger fires.
+     * Returns he URL we call when the trigger fires.
      *
      * @return he URL we call when the trigger fires
      */
@@ -617,7 +620,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The current value of the field the trigger is watching.
+     * Returns The current value of the field the trigger is watching.
      *
      * @return The current value of the field the trigger is watching
      */
@@ -626,7 +629,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -635,8 +638,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the trigger was last
-     * fired.
+     * Returns The RFC 2822 date and time in GMT that the trigger was last fired.
      *
      * @return The RFC 2822 date and time in GMT that the trigger was last fired
      */
@@ -645,8 +647,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -655,7 +656,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the trigger.
+     * Returns The string that you assigned to describe the trigger.
      *
      * @return The string that you assigned to describe the trigger
      */
@@ -664,7 +665,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The frequency of a recurring UsageTrigger.
+     * Returns The frequency of a recurring UsageTrigger.
      *
      * @return The frequency of a recurring UsageTrigger
      */
@@ -673,7 +674,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -682,7 +683,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The field in the UsageRecord resource that fires the trigger.
+     * Returns The field in the UsageRecord resource that fires the trigger.
      *
      * @return The field in the UsageRecord resource that fires the trigger
      */
@@ -691,7 +692,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The value at which the trigger will fire.
+     * Returns The value at which the trigger will fire.
      *
      * @return The value at which the trigger will fire
      */
@@ -700,7 +701,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -709,7 +710,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The usage category the trigger watches.
+     * Returns The usage category the trigger watches.
      *
      * @return The usage category the trigger watches
      */
@@ -718,7 +719,7 @@ public class Trigger extends Resource {
     }
 
     /**
-     * Returns The The URI of the UsageRecord resource this trigger watches.
+     * Returns The URI of the UsageRecord resource this trigger watches.
      *
      * @return The URI of the UsageRecord resource this trigger watches
      */

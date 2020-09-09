@@ -56,8 +56,7 @@ public class SampleFetcher extends Fetcher<Sample> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Samples/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks/" + this.pathTaskSid + "/Samples/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -69,14 +68,7 @@ public class SampleFetcher extends Fetcher<Sample> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Sample.fromJson(response.getStream(), client.getObjectMapper());

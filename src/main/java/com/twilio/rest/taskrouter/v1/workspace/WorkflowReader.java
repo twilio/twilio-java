@@ -26,17 +26,16 @@ public class WorkflowReader extends Reader<Workflow> {
     /**
      * Construct a new WorkflowReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to read
      */
     public WorkflowReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Human readable description of this Workflow (for example "Customer Support"
-     * or "2014 Election Campaign").
+     * The `friendly_name` of the Workflow resources to read..
      *
-     * @param friendlyName Human readable description of this Workflow
+     * @param friendlyName The friendly_name of the Workflow resources to read
      * @return this
      */
     public WorkflowReader setFriendlyName(final String friendlyName) {
@@ -67,8 +66,7 @@ public class WorkflowReader extends Reader<Workflow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows"
         );
 
         addQueryParams(request);
@@ -105,10 +103,7 @@ public class WorkflowReader extends Reader<Workflow> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -125,10 +120,7 @@ public class WorkflowReader extends Reader<Workflow> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -150,14 +142,7 @@ public class WorkflowReader extends Reader<Workflow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

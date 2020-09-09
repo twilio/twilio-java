@@ -28,8 +28,9 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
     /**
      * Construct a new SyncStreamFetcher.
      *
-     * @param pathServiceSid Service Instance SID or unique name.
-     * @param pathSid Stream SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to fetch
+     * @param pathSid The SID of the Stream resource to fetch
      */
     public SyncStreamFetcher(final String pathServiceSid,
                              final String pathSid) {
@@ -49,8 +50,7 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class SyncStreamFetcher extends Fetcher<SyncStream> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncStream.fromJson(response.getStream(), client.getObjectMapper());

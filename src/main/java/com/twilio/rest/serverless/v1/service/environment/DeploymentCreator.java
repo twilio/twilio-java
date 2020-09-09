@@ -25,21 +25,30 @@ import com.twilio.rest.Domains;
 public class DeploymentCreator extends Creator<Deployment> {
     private final String pathServiceSid;
     private final String pathEnvironmentSid;
-    private final String buildSid;
+    private String buildSid;
 
     /**
      * Construct a new DeploymentCreator.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param buildSid Build Sid.
+     * @param pathServiceSid The SID of the Service to create the Deployment
+     *                       resource under
+     * @param pathEnvironmentSid The SID of the environment for the deployment
      */
     public DeploymentCreator(final String pathServiceSid,
-                             final String pathEnvironmentSid,
-                             final String buildSid) {
+                             final String pathEnvironmentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
+    }
+
+    /**
+     * The SID of the build for the deployment..
+     *
+     * @param buildSid The SID of the build for the deployment
+     * @return this
+     */
+    public DeploymentCreator setBuildSid(final String buildSid) {
         this.buildSid = buildSid;
+        return this;
     }
 
     /**
@@ -54,8 +63,7 @@ public class DeploymentCreator extends Creator<Deployment> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Deployments",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Deployments"
         );
 
         addPostParams(request);
@@ -68,14 +76,7 @@ public class DeploymentCreator extends Creator<Deployment> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Deployment.fromJson(response.getStream(), client.getObjectMapper());

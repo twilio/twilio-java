@@ -40,22 +40,19 @@ public class Application extends Resource {
      * Create a ApplicationCreator to execute create.
      *
      * @param pathAccountSid The SID of the Account that will create the resource
-     * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator creator(final String pathAccountSid,
-                                             final String friendlyName) {
-        return new ApplicationCreator(pathAccountSid, friendlyName);
+    public static ApplicationCreator creator(final String pathAccountSid) {
+        return new ApplicationCreator(pathAccountSid);
     }
 
     /**
      * Create a ApplicationCreator to execute create.
      *
-     * @param friendlyName A string to describe the new resource
      * @return ApplicationCreator capable of executing the create
      */
-    public static ApplicationCreator creator(final String friendlyName) {
-        return new ApplicationCreator(friendlyName);
+    public static ApplicationCreator creator() {
+        return new ApplicationCreator();
     }
 
     /**
@@ -269,7 +266,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -278,7 +275,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The API version used to start a new TwiML session.
+     * Returns The API version used to start a new TwiML session.
      *
      * @return The API version used to start a new TwiML session
      */
@@ -287,7 +284,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -296,8 +293,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -306,7 +302,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -315,7 +311,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL to send message status information to your application.
+     * Returns The URL to send message status information to your application.
      *
      * @return The URL to send message status information to your application
      */
@@ -324,7 +320,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -333,7 +329,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with sms_fallback_url.
+     * Returns The HTTP method used with sms_fallback_url.
      *
      * @return The HTTP method used with sms_fallback_url
      */
@@ -342,7 +338,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL that we call when an error occurs while retrieving or
+     * Returns The URL that we call when an error occurs while retrieving or
      * executing the TwiML.
      *
      * @return The URL that we call when an error occurs while retrieving or
@@ -353,7 +349,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The HTTP method to use with sms_url.
+     * Returns The HTTP method to use with sms_url.
      *
      * @return The HTTP method to use with sms_url
      */
@@ -362,7 +358,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL to send status information to your application.
+     * Returns The URL to send status information to your application.
      *
      * @return The URL to send status information to your application
      */
@@ -371,7 +367,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the phone number receives an incoming SMS
+     * Returns The URL we call when the phone number receives an incoming SMS
      * message.
      *
      * @return The URL we call when the phone number receives an incoming SMS
@@ -382,7 +378,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL to send status information to your application.
+     * Returns The URL to send status information to your application.
      *
      * @return The URL to send status information to your application
      */
@@ -391,7 +387,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call status_callback.
+     * Returns The HTTP method we use to call status_callback.
      *
      * @return The HTTP method we use to call status_callback
      */
@@ -400,7 +396,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -409,7 +405,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The Whether to lookup the caller's name.
+     * Returns Whether to lookup the caller's name.
      *
      * @return Whether to lookup the caller's name
      */
@@ -418,7 +414,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with voice_fallback_url.
+     * Returns The HTTP method used with voice_fallback_url.
      *
      * @return The HTTP method used with voice_fallback_url
      */
@@ -427,7 +423,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL we call when a TwiML error occurs.
+     * Returns The URL we call when a TwiML error occurs.
      *
      * @return The URL we call when a TwiML error occurs
      */
@@ -436,7 +432,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The HTTP method used with the voice_url.
+     * Returns The HTTP method used with the voice_url.
      *
      * @return The HTTP method used with the voice_url
      */
@@ -445,7 +441,7 @@ public class Application extends Resource {
     }
 
     /**
-     * Returns The The URL we call when the phone number receives a call.
+     * Returns The URL we call when the phone number receives a call.
      *
      * @return The URL we call when the phone number receives a call
      */

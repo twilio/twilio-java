@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     private final String pathRoomSid;
     private final String pathParticipantSid;
@@ -32,9 +28,10 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     /**
      * Construct a new SubscribeRulesUpdater.
      *
-     * @param pathRoomSid Unique Room identifier where the Subscribe Rules apply
-     * @param pathParticipantSid Unique Participant identifier to apply Subscribe
-     *                           Rules.
+     * @param pathRoomSid The SID of the Room resource where the subscribe rules to
+     *                    update apply
+     * @param pathParticipantSid The SID of the Participant resource to update the
+     *                           Subscribe Rules
      */
     public SubscribeRulesUpdater(final String pathRoomSid,
                                  final String pathParticipantSid) {
@@ -43,10 +40,10 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     }
 
     /**
-     * A JSON-encoded array of Subscribe Rules. See the [Specifying Subscribe
+     * A JSON-encoded array of subscribe rules. See the [Specifying Subscribe
      * Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information..
      *
-     * @param rules A JSON-encoded array of Subscribe Rules.
+     * @param rules A JSON-encoded array of subscribe rules
      * @return this
      */
     public SubscribeRulesUpdater setRules(final Map<String, Object> rules) {
@@ -66,8 +63,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribeRules",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribeRules"
         );
 
         addPostParams(request);
@@ -80,14 +76,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SubscribeRules.fromJson(response.getStream(), client.getObjectMapper());

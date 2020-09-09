@@ -58,7 +58,7 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Construct a new ServiceUpdater.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Service resource to update
      */
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -77,8 +77,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The service role assigned to users when they are added to the service. See
-     * the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
-     * details..
+     * the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for
+     * more info about roles..
      *
      * @param defaultServiceRoleSid The service role assigned to users when they
      *                              are added to the service
@@ -91,8 +91,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The channel role assigned to users when they are added to a channel. See the
-     * [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
-     * details..
+     * [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more
+     * info about roles..
      *
      * @param defaultChannelRoleSid The channel role assigned to users when they
      *                              are added to a channel
@@ -105,8 +105,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The channel role assigned to a channel creator when they join a new channel.
-     * See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
-     * details..
+     * See the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource)
+     * for more info about roles..
      *
      * @param defaultChannelCreatorRoleSid The channel role assigned to a channel
      *                                     creator when they join a new channel
@@ -172,8 +172,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to send a notification when a new message is added to a channel. Can
-     * be: `true` or `false` and the default is `false`..
+     * Whether to send a notification when a new message is added to a channel. The
+     * default is `false`..
      *
      * @param notificationsNewMessageEnabled Whether to send a notification when a
      *                                       new message is added to a channel
@@ -213,8 +213,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether the new message badge is enabled. Can be: `true` or `false` and the
-     * default is `false`..
+     * Whether the new message badge is enabled. The default is `false`..
      *
      * @param notificationsNewMessageBadgeCountEnabled Whether the new message
      *                                                 badge is enabled
@@ -226,8 +225,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to send a notification when a member is added to a channel. Can be:
-     * `true` or `false` and the default is `false`..
+     * Whether to send a notification when a member is added to a channel. The
+     * default is `false`..
      *
      * @param notificationsAddedToChannelEnabled Whether to send a notification
      *                                           when a member is added to a channel
@@ -268,7 +267,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Whether to send a notification to a user when they are removed from a
-     * channel. Can be: `true` or `false` and the default is `false`..
+     * channel. The default is `false`..
      *
      * @param notificationsRemovedFromChannelEnabled Whether to send a notification
      *                                               to a user when they are removed
@@ -311,8 +310,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to send a notification when a user is invited to a channel. Can be:
-     * `true` or `false` and the default is `false`..
+     * Whether to send a notification when a user is invited to a channel. The
+     * default is `false`..
      *
      * @param notificationsInvitedToChannelEnabled Whether to send a notification
      *                                             when a user is invited to a
@@ -418,11 +417,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The list of WebHook events that are enabled for this Service instance. See
+     * The list of webhook events that are enabled for this Service instance. See
      * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
      * details..
      *
-     * @param webhookFilters The list of WebHook events that are enabled for this
+     * @param webhookFilters The list of webhook events that are enabled for this
      *                       Service instance
      * @return this
      */
@@ -432,11 +431,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The list of WebHook events that are enabled for this Service instance. See
+     * The list of webhook events that are enabled for this Service instance. See
      * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
      * details..
      *
-     * @param webhookFilters The list of WebHook events that are enabled for this
+     * @param webhookFilters The list of webhook events that are enabled for this
      *                       Service instance
      * @return this
      */
@@ -512,8 +511,7 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to log notifications. Can be: `true` or `false` and the default is
-     * `false`..
+     * Whether to log notifications. The default is `false`..
      *
      * @param notificationsLogEnabled Whether to log notifications
      * @return this
@@ -535,8 +533,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -549,14 +546,7 @@ public class ServiceUpdater extends Updater<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());

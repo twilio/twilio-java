@@ -169,8 +169,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/wireless/RatePlans",
-            client.getRegion()
+            "/wireless/RatePlans"
         );
 
         addPostParams(request);
@@ -183,14 +182,7 @@ public class RatePlanCreator extends Creator<RatePlan> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RatePlan.fromJson(response.getStream(), client.getObjectMapper());

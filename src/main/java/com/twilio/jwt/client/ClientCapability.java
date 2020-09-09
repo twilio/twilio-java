@@ -1,7 +1,6 @@
 package com.twilio.jwt.client;
 
 import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
 import com.twilio.jwt.Jwt;
 import com.twilio.jwt.JwtEncodingException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -61,7 +60,7 @@ public class ClientCapability extends Jwt {
         private String accountSid;
         private String authToken;
         private int ttl = 3600;
-        private List<Scope> scopes = Lists.newArrayList();
+        private List<Scope> scopes = new ArrayList<>();
 
         /**
          * Create a new builder for a Client Capability.

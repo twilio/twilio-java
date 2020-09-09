@@ -60,29 +60,6 @@ public class Notification extends Resource {
     }
 
     /**
-     * Create a NotificationDeleter to execute delete.
-     *
-     * @param pathAccountSid The SID of the Account that created the resources to
-     *                       delete
-     * @param pathSid The unique string that identifies the resource
-     * @return NotificationDeleter capable of executing the delete
-     */
-    public static NotificationDeleter deleter(final String pathAccountSid,
-                                              final String pathSid) {
-        return new NotificationDeleter(pathAccountSid, pathSid);
-    }
-
-    /**
-     * Create a NotificationDeleter to execute delete.
-     *
-     * @param pathSid The unique string that identifies the resource
-     * @return NotificationDeleter capable of executing the delete
-     */
-    public static NotificationDeleter deleter(final String pathSid) {
-        return new NotificationDeleter(pathSid);
-    }
-
-    /**
      * Create a NotificationReader to execute read.
      *
      * @param pathAccountSid The SID of the Account that created the resources to
@@ -213,7 +190,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -222,7 +199,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The API version used to generate the notification.
+     * Returns The API version used to generate the notification.
      *
      * @return The API version used to generate the notification
      */
@@ -231,7 +208,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call the resource is associated with.
+     * Returns The SID of the Call the resource is associated with.
      *
      * @return The SID of the Call the resource is associated with
      */
@@ -240,7 +217,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -249,8 +226,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -259,7 +235,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The A unique error code corresponding to the notification.
+     * Returns A unique error code corresponding to the notification.
      *
      * @return A unique error code corresponding to the notification
      */
@@ -268,7 +244,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The An integer log level.
+     * Returns An integer log level.
      *
      * @return An integer log level
      */
@@ -277,7 +253,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The date the notification was generated.
+     * Returns The date the notification was generated.
      *
      * @return The date the notification was generated
      */
@@ -286,7 +262,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The text of the notification.
+     * Returns The text of the notification.
      *
      * @return The text of the notification
      */
@@ -295,7 +271,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The A URL for more information about the error code.
+     * Returns A URL for more information about the error code.
      *
      * @return A URL for more information about the error code
      */
@@ -304,7 +280,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The HTTP method used with the request url.
+     * Returns HTTP method used with the request url.
      *
      * @return HTTP method used with the request url
      */
@@ -313,7 +289,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The URL of the resource that generated the notification.
+     * Returns URL of the resource that generated the notification.
      *
      * @return URL of the resource that generated the notification
      */
@@ -322,7 +298,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The Twilio-generated HTTP variables sent to the server.
+     * Returns Twilio-generated HTTP variables sent to the server.
      *
      * @return Twilio-generated HTTP variables sent to the server
      */
@@ -331,7 +307,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The HTTP body returned by your server.
+     * Returns The HTTP body returned by your server.
      *
      * @return The HTTP body returned by your server
      */
@@ -340,7 +316,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The HTTP headers returned by your server.
+     * Returns The HTTP headers returned by your server.
      *
      * @return The HTTP headers returned by your server
      */
@@ -349,7 +325,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -358,7 +334,7 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */

@@ -26,8 +26,9 @@ public class WorkerCreator extends Creator<Worker> {
     /**
      * Construct a new WorkerCreator.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName String representing user-friendly name for the Worker.
+     * @param pathWorkspaceSid The SID of the Workspace that the new Worker belongs
+     *                         to
+     * @param friendlyName A string to describe the resource
      */
     public WorkerCreator(final String pathWorkspaceSid,
                          final String friendlyName) {
@@ -36,11 +37,13 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * A valid Activity describing the worker's initial state. See Activities for
-     * more information. If not provided, new Workers will be use the
-     * DefaultActivitySid configured on the Workspace..
+     * The SID of a valid Activity that will describe the new Worker's initial
+     * state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity)
+     * for more information. If not provided, the new Worker's initial state is the
+     * `default_activity_sid` configured on the Workspace..
      *
-     * @param activitySid A valid Activity describing the worker's initial state.
+     * @param activitySid The SID of a valid Activity that describes the new
+     *                    Worker's initial state
      * @return this
      */
     public WorkerCreator setActivitySid(final String activitySid) {
@@ -49,11 +52,12 @@ public class WorkerCreator extends Creator<Worker> {
     }
 
     /**
-     * JSON object describing this worker. For example: `{ 'email: 'Bob@foo.com',
-     * 'phone': '8675309' }`. This data will be passed to the Assignment Callback
-     * URL whenever TaskRouter assigns a Task to this worker. Defaults to {}..
+     * A valid JSON string that describes the new Worker. For example: `{ "email":
+     * "Bob@example.com", "phone": "+5095551234" }`. This data is passed to the
+     * `assignment_callback_url` when TaskRouter assigns a Task to the Worker.
+     * Defaults to {}..
      *
-     * @param attributes JSON object describing this worker.
+     * @param attributes A valid JSON string that describes the new Worker
      * @return this
      */
     public WorkerCreator setAttributes(final String attributes) {
@@ -73,8 +77,7 @@ public class WorkerCreator extends Creator<Worker> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers"
         );
 
         addPostParams(request);
@@ -87,14 +90,7 @@ public class WorkerCreator extends Creator<Worker> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Worker.fromJson(response.getStream(), client.getObjectMapper());

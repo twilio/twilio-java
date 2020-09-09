@@ -85,33 +85,24 @@ public class Cps extends Resource {
         }
     }
 
-    private final String phoneNumber;
     private final URI cpsUrl;
+    private final String phoneNumber;
     private final URI url;
 
     @JsonCreator
-    private Cps(@JsonProperty("phone_number")
-                final String phoneNumber,
-                @JsonProperty("cps_url")
+    private Cps(@JsonProperty("cps_url")
                 final URI cpsUrl,
+                @JsonProperty("phone_number")
+                final String phoneNumber,
                 @JsonProperty("url")
                 final URI url) {
-        this.phoneNumber = phoneNumber;
         this.cpsUrl = cpsUrl;
+        this.phoneNumber = phoneNumber;
         this.url = url;
     }
 
     /**
-     * Returns The Phone number passed..
-     *
-     * @return Phone number passed.
-     */
-    public final String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    /**
-     * Returns The CPS URL of the phone number..
+     * Returns CPS URL of the phone number..
      *
      * @return CPS URL of the phone number.
      */
@@ -120,7 +111,16 @@ public class Cps extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns Phone number passed..
+     *
+     * @return Phone number passed.
+     */
+    public final String getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    /**
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
@@ -140,23 +140,23 @@ public class Cps extends Resource {
 
         Cps other = (Cps) o;
 
-        return Objects.equals(phoneNumber, other.phoneNumber) &&
-               Objects.equals(cpsUrl, other.cpsUrl) &&
+        return Objects.equals(cpsUrl, other.cpsUrl) &&
+               Objects.equals(phoneNumber, other.phoneNumber) &&
                Objects.equals(url, other.url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(phoneNumber,
-                            cpsUrl,
+        return Objects.hash(cpsUrl,
+                            phoneNumber,
                             url);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("phoneNumber", phoneNumber)
                           .add("cpsUrl", cpsUrl)
+                          .add("phoneNumber", phoneNumber)
                           .add("url", url)
                           .toString();
     }

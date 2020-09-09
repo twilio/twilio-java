@@ -154,8 +154,10 @@ public class Reservation extends Resource {
     /**
      * Create a ReservationReader to execute read.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskSid The task_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskReservation
+     *                         resources to read
+     * @param pathTaskSid The SID of the reserved Task resource with the
+     *                    TaskReservation resources to read
      * @return ReservationReader capable of executing the read
      */
     public static ReservationReader reader(final String pathWorkspaceSid,
@@ -166,9 +168,11 @@ public class Reservation extends Resource {
     /**
      * Create a ReservationFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskSid The task_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskReservation
+     *                         resource to fetch
+     * @param pathTaskSid The SID of the reserved Task resource with the
+     *                    TaskReservation resource to fetch
+     * @param pathSid The SID of the TaskReservation resource to fetch
      * @return ReservationFetcher capable of executing the fetch
      */
     public static ReservationFetcher fetcher(final String pathWorkspaceSid,
@@ -180,9 +184,11 @@ public class Reservation extends Resource {
     /**
      * Create a ReservationUpdater to execute update.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskSid The task_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskReservation
+     *                         resources to update
+     * @param pathTaskSid The SID of the reserved Task resource with the
+     *                    TaskReservation resources to update
+     * @param pathSid The SID of the TaskReservation resource to update
      * @return ReservationUpdater capable of executing the update
      */
     public static ReservationUpdater updater(final String pathWorkspaceSid,
@@ -278,99 +284,99 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Returns The The ID of the Account that owns this Task.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The ID of the Account that owns this Task
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date_created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date_updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The current status of the reservation..
+     * Returns The current status of the reservation.
      *
-     * @return The current status of the reservation.
+     * @return The current status of the reservation
      */
     public final Reservation.Status getReservationStatus() {
         return this.reservationStatus;
     }
 
     /**
-     * Returns The The unique ID of this Reservation..
+     * Returns The unique string that identifies the resource.
      *
-     * @return The unique ID of this Reservation.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The ID of the reserved Task.
+     * Returns The SID of the reserved Task resource.
      *
-     * @return The ID of the reserved Task
+     * @return The SID of the reserved Task resource
      */
     public final String getTaskSid() {
         return this.taskSid;
     }
 
     /**
-     * Returns The Human readable description of the Worker that is reserved.
+     * Returns The friendly_name of the Worker that is reserved.
      *
-     * @return Human readable description of the Worker that is reserved
+     * @return The friendly_name of the Worker that is reserved
      */
     public final String getWorkerName() {
         return this.workerName;
     }
 
     /**
-     * Returns The The ID of the reserved Worker.
+     * Returns The SID of the reserved Worker resource.
      *
-     * @return The ID of the reserved Worker
+     * @return The SID of the reserved Worker resource
      */
     public final String getWorkerSid() {
         return this.workerSid;
     }
 
     /**
-     * Returns The The ID of the Workspace that this task is contained within..
+     * Returns The SID of the Workspace that this task is contained within..
      *
-     * @return The ID of the Workspace that this task is contained within.
+     * @return The SID of the Workspace that this task is contained within.
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the TaskReservation reservation.
      *
-     * @return The url
+     * @return The absolute URL of the TaskReservation reservation
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -40,8 +40,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

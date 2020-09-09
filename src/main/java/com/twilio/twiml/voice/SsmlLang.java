@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Lang>}
+ * TwiML wrapper for {@code <lang>}
  */
 public class SsmlLang extends TwiML {
     public enum XmlLang {
@@ -65,7 +65,7 @@ public class SsmlLang extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlLang>} element
+     * Create a new {@code <lang>} element
      */
     private SsmlLang(Builder b) {
         super("lang", b);
@@ -117,14 +117,14 @@ public class SsmlLang extends TwiML {
     }
 
     /**
-     * Create a new {@code <Lang>} element
+     * Create a new {@code <lang>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private SsmlLang.XmlLang xmlLang;
         private String words;
 
         /**
-         * Create a {@code <Lang>} with words
+         * Create a {@code <lang>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -139,7 +139,7 @@ public class SsmlLang extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Lang>} element
+         * Create and return resulting {@code <lang>} element
          */
         public SsmlLang build() {
             return new SsmlLang(this);

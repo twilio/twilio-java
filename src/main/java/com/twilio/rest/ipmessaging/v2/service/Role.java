@@ -67,7 +67,7 @@ public class Role extends Resource {
      * Create a RoleFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to fetch
      * @return RoleFetcher capable of executing the fetch
      */
     public static RoleFetcher fetcher(final String pathServiceSid,
@@ -79,7 +79,7 @@ public class Role extends Resource {
      * Create a RoleDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to delete
      * @return RoleDeleter capable of executing the delete
      */
     public static RoleDeleter deleter(final String pathServiceSid,
@@ -117,7 +117,7 @@ public class Role extends Resource {
      * Create a RoleUpdater to execute update.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to update
      * @param permission A permission the role should have
      * @return RoleUpdater capable of executing the update
      */
@@ -205,7 +205,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -214,7 +214,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -223,7 +223,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -232,7 +232,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -241,7 +241,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The type of role.
+     * Returns The type of role.
      *
      * @return The type of role
      */
@@ -250,7 +250,7 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The An array of the permissions the role has been granted.
+     * Returns An array of the permissions the role has been granted.
      *
      * @return An array of the permissions the role has been granted
      */
@@ -259,26 +259,25 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The absolute URL of the Role resource.
+     * Returns The absolute URL of the Role resource.
      *
      * @return The absolute URL of the Role resource
      */

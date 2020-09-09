@@ -17,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Twiml;
 
 import java.net.URI;
 
@@ -30,6 +31,7 @@ public class CallUpdater extends Updater<Call> {
     private HttpMethod fallbackMethod;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+    private com.twilio.type.Twiml twiml;
 
     /**
      * Construct a new CallUpdater.
@@ -190,6 +192,29 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url. Twiml and url parameters are mutually exclusive.
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallUpdater setTwiml(final com.twilio.type.Twiml twiml) {
+        this.twiml = twiml;
+        return this;
+    }
+
+    /**
+     * TwiML instructions for the call Twilio will use without fetching Twiml from
+     * url. Twiml and url parameters are mutually exclusive.
+     *
+     * @param twiml TwiML instructions for the call
+     * @return this
+     */
+    public CallUpdater setTwiml(final String twiml) {
+        return setTwiml(Promoter.twimlFromString(twiml));
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -202,8 +227,7 @@ public class CallUpdater extends Updater<Call> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -216,14 +240,7 @@ public class CallUpdater extends Updater<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());
@@ -261,6 +278,10 @@ public class CallUpdater extends Updater<Call> {
 
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+
+        if (twiml != null) {
+            request.addPostParam("Twiml", twiml.toString());
         }
     }
 }

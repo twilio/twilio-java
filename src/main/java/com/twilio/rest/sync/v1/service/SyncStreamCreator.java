@@ -29,17 +29,20 @@ public class SyncStreamCreator extends Creator<SyncStream> {
     /**
      * Construct a new SyncStreamCreator.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service to create the new Stream in
      */
     public SyncStreamCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The unique and addressable name of this Stream. Optional, up to 320
-     * characters long..
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be unique within its Service and it can be up to 320 characters
+     * long. The `unique_name` value can be used as an alternative to the `sid` in
+     * the URL path to address the resource..
      *
-     * @param uniqueName Stream unique name.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public SyncStreamCreator setUniqueName(final String uniqueName) {
@@ -48,10 +51,13 @@ public class SyncStreamCreator extends Creator<SyncStream> {
     }
 
     /**
-     * Time-to-live of this Stream in seconds, defaults to no expiration. In the
-     * range [1, 31 536 000 (1 year)], or 0 for infinity..
+     * How long, in seconds, before the Stream expires and is deleted
+     * (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default
+     * value is `0`, which means the Stream does not expire. The Stream will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
      *
-     * @param ttl Stream TTL.
+     * @param ttl How long, in seconds, before the Stream expires and is deleted
      * @return this
      */
     public SyncStreamCreator setTtl(final Integer ttl) {
@@ -71,8 +77,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams"
         );
 
         addPostParams(request);
@@ -85,14 +90,7 @@ public class SyncStreamCreator extends Creator<SyncStream> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncStream.fromJson(response.getStream(), client.getObjectMapper());

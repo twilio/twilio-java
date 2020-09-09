@@ -24,8 +24,9 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
     /**
      * Construct a new RoomRecordingDeleter.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathSid The sid
+     * @param pathRoomSid The SID of the room with the RoomRecording resource to
+     *                    delete
+     * @param pathSid The SID that identifies the resource to delete
      */
     public RoomRecordingDeleter(final String pathRoomSid,
                                 final String pathSid) {
@@ -44,8 +45,7 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +57,7 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

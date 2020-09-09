@@ -29,10 +29,12 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionDeleter.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Document
-     *                     Permission applies.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resource to delete
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resource to delete
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Document Permission resource to delete
      */
     public DocumentPermissionDeleter(final String pathServiceSid,
                                      final String pathDocumentSid,
@@ -53,8 +55,7 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -66,14 +67,7 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

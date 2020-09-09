@@ -23,7 +23,7 @@ public class EventFetcher extends Fetcher<Event> {
     /**
      * Construct a new EventFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this event.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public EventFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +41,7 @@ public class EventFetcher extends Fetcher<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Events/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Events/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class EventFetcher extends Fetcher<Event> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Event.fromJson(response.getStream(), client.getObjectMapper());

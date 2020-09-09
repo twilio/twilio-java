@@ -54,8 +54,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -68,14 +67,7 @@ public class PublicKeyUpdater extends Updater<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PublicKey.fromJson(response.getStream(), client.getObjectMapper());

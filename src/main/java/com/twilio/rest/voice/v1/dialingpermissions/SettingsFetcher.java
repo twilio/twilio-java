@@ -35,8 +35,7 @@ public class SettingsFetcher extends Fetcher<Settings> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/Settings",
-            client.getRegion()
+            "/v1/Settings"
         );
 
         Response response = client.request(request);
@@ -48,14 +47,7 @@ public class SettingsFetcher extends Fetcher<Settings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Settings.fromJson(response.getStream(), client.getObjectMapper());

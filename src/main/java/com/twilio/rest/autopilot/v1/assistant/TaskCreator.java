@@ -108,8 +108,7 @@ public class TaskCreator extends Creator<Task> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Tasks"
         );
 
         addPostParams(request);
@@ -122,14 +121,7 @@ public class TaskCreator extends Creator<Task> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());

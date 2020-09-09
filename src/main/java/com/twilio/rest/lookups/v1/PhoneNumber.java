@@ -143,7 +143,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The name of the phone number's owner.
+     * Returns The name of the phone number's owner.
      *
      * @return The name of the phone number's owner
      */
@@ -152,7 +152,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The ISO country code for the phone number.
+     * Returns The ISO country code for the phone number.
      *
      * @return The ISO country code for the phone number
      */
@@ -161,7 +161,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The phone number in E.164 format.
+     * Returns The phone number in E.164 format.
      *
      * @return The phone number in E.164 format
      */
@@ -170,7 +170,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The phone number, in national format.
+     * Returns The phone number, in national format.
      *
      * @return The phone number, in national format
      */
@@ -179,7 +179,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The telecom company that provides the phone number.
+     * Returns The telecom company that provides the phone number.
      *
      * @return The telecom company that provides the phone number
      */
@@ -188,7 +188,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The A JSON string with the results of the Add-ons you specified.
+     * Returns A JSON string with the results of the Add-ons you specified.
      *
      * @return A JSON string with the results of the Add-ons you specified
      */
@@ -197,7 +197,7 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

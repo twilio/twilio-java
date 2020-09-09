@@ -30,8 +30,9 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     /**
      * Construct a new SyncMapUpdater.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to update
+     * @param pathSid The SID of the Sync Map resource to update
      */
     public SyncMapUpdater(final String pathServiceSid,
                           final String pathSid) {
@@ -40,9 +41,10 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     }
 
     /**
-     * Alias for collection_ttl. If both are provided, this value is ignored..
+     * An alias for `collection_ttl`. If both parameters are provided, this value is
+     * ignored..
      *
-     * @param ttl Alias for collection_ttl
+     * @param ttl An alias for collection_ttl
      * @return this
      */
     public SyncMapUpdater setTtl(final Integer ttl) {
@@ -51,10 +53,14 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     }
 
     /**
-     * New time-to-live of this Map in seconds. In the range [1, 31 536 000 (1
-     * year)], or 0 for infinity..
+     * How long, in seconds, before the Sync Map expires (time-to-live) and is
+     * deleted. Can be an integer from 0 to 31,536,000 (1 year). The default value
+     * is `0`, which means the Sync Map does not expire. The Sync Map will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
      *
-     * @param collectionTtl New time-to-live of this Map in seconds.
+     * @param collectionTtl How long, in seconds, before the Sync Map expires and
+     *                      is deleted
      * @return this
      */
     public SyncMapUpdater setCollectionTtl(final Integer collectionTtl) {
@@ -74,8 +80,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -88,14 +93,7 @@ public class SyncMapUpdater extends Updater<SyncMap> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());

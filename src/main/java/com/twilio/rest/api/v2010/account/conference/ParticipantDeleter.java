@@ -27,7 +27,8 @@ public class ParticipantDeleter extends Deleter<Participant> {
      *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
-     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      */
     public ParticipantDeleter(final String pathConferenceSid,
                               final String pathCallSid) {
@@ -42,7 +43,8 @@ public class ParticipantDeleter extends Deleter<Participant> {
      *                       delete
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
-     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      */
     public ParticipantDeleter(final String pathAccountSid,
                               final String pathConferenceSid,
@@ -64,8 +66,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json"
         );
 
         Response response = client.request(request);
@@ -77,14 +78,7 @@ public class ParticipantDeleter extends Deleter<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

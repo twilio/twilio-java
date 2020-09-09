@@ -128,8 +128,7 @@ public class CredentialUpdater extends Updater<Credential> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Credentials/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -142,14 +141,7 @@ public class CredentialUpdater extends Updater<Credential> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Credential.fromJson(response.getStream(), client.getObjectMapper());

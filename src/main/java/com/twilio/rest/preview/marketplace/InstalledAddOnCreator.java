@@ -34,10 +34,8 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     /**
      * Construct a new InstalledAddOnCreator.
      *
-     * @param availableAddOnSid A string that uniquely identifies the Add-on to
-     *                          install
-     * @param acceptTermsOfService A boolean reflecting your acceptance of the
-     *                             Terms of Service
+     * @param availableAddOnSid The SID of the AvaliableAddOn to install
+     * @param acceptTermsOfService Whether the Terms of Service were accepted
      */
     public InstalledAddOnCreator(final String availableAddOnSid,
                                  final Boolean acceptTermsOfService) {
@@ -46,8 +44,8 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     }
 
     /**
-     * The JSON object representing the configuration of the new Add-on
-     * installation..
+     * The JSON object that represents the configuration of the new Add-on being
+     * installed..
      *
      * @param configuration The JSON object representing the configuration
      * @return this
@@ -58,11 +56,11 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
     }
 
     /**
-     * The human-readable string that uniquely identifies this Add-on installation
-     * for an Account..
+     * An application-defined string that uniquely identifies the resource. This
+     * value must be unique within the Account..
      *
-     * @param uniqueName The string that uniquely identifies this Add-on
-     *                   installation
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
      * @return this
      */
     public InstalledAddOnCreator setUniqueName(final String uniqueName) {
@@ -82,8 +80,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns",
-            client.getRegion()
+            "/marketplace/InstalledAddOns"
         );
 
         addPostParams(request);
@@ -96,14 +93,7 @@ public class InstalledAddOnCreator extends Creator<InstalledAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return InstalledAddOn.fromJson(response.getStream(), client.getObjectMapper());

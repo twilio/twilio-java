@@ -192,7 +192,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -201,7 +201,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -210,7 +210,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Channel for the member.
+     * Returns The unique ID of the Channel for the member.
      *
      * @return The unique ID of the Channel for the member
      */
@@ -219,7 +219,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -228,7 +228,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The string that identifies the resource's User.
+     * Returns The string that identifies the resource's User.
      *
      * @return The string that identifies the resource's User
      */
@@ -237,7 +237,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -246,8 +246,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -256,7 +255,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The SID of the Role assigned to the member.
+     * Returns The SID of the Role assigned to the member.
      *
      * @return The SID of the Role assigned to the member
      */
@@ -265,7 +264,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The index of the last Message that the Member has read within the
+     * Returns The index of the last Message that the Member has read within the
      * Channel.
      *
      * @return The index of the last Message that the Member has read within the
@@ -276,8 +275,8 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 based timestamp string that represents the date-time
-     * of the last Message read event for the Member within the Channel.
+     * Returns The ISO 8601 based timestamp string that represents the date-time of
+     * the last Message read event for the Member within the Channel.
      *
      * @return The ISO 8601 based timestamp string that represents the date-time of
      *         the last Message read event for the Member within the Channel
@@ -287,7 +286,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Member resource.
+     * Returns The absolute URL of the Member resource.
      *
      * @return The absolute URL of the Member resource
      */

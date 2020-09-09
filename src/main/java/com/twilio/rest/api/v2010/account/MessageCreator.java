@@ -33,11 +33,13 @@ public class MessageCreator extends Creator<Message> {
     private String applicationSid;
     private BigDecimal maxPrice;
     private Boolean provideFeedback;
+    private Integer attempt;
     private Integer validityPeriod;
     private Boolean forceDelivery;
+    private Message.ContentRetention contentRetention;
+    private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
-    private String interactiveData;
-    private Boolean forceOptIn;
+    private List<String> persistentAction;
 
     /**
      * Construct a new MessageCreator.
@@ -258,14 +260,27 @@ public class MessageCreator extends Creator<Message> {
      * Whether to confirm delivery of the message. Set this value to `true` if you
      * are sending messages that have a trackable user action and you intend to
      * confirm delivery of the message using the [Message Feedback
-     * API](https://www.twilio.com/docs/sms/api/message-feedback). This parameter is
-     * `false` by default..
+     * API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This
+     * parameter is `false` by default..
      *
      * @param provideFeedback Whether to confirm delivery of the message
      * @return this
      */
     public MessageCreator setProvideFeedback(final Boolean provideFeedback) {
         this.provideFeedback = provideFeedback;
+        return this;
+    }
+
+    /**
+     * Total number of attempts made ( including this ) to send out the message
+     * regardless of the provider used.
+     *
+     * @param attempt Total numer of attempts made , this inclusive to send out the
+     *                message
+     * @return this
+     */
+    public MessageCreator setAttempt(final Integer attempt) {
+        this.attempt = attempt;
         return this;
     }
 
@@ -298,6 +313,32 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * Determines if the message content can be stored or redacted based on privacy
+     * settings.
+     *
+     * @param contentRetention Determines if the message content can be stored or
+     *                         redacted based on privacy settings
+     * @return this
+     */
+    public MessageCreator setContentRetention(final Message.ContentRetention contentRetention) {
+        this.contentRetention = contentRetention;
+        return this;
+    }
+
+    /**
+     * Determines if the address can be stored or obfuscated based on privacy
+     * settings.
+     *
+     * @param addressRetention Determines if the address can be stored or
+     *                         obfuscated based on privacy settings
+     * @return this
+     */
+    public MessageCreator setAddressRetention(final Message.AddressRetention addressRetention) {
+        this.addressRetention = addressRetention;
+        return this;
+    }
+
+    /**
      * Whether to detect Unicode characters that have a similar GSM-7 character and
      * replace them. Can be: `true` or `false`..
      *
@@ -311,34 +352,31 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A JSON string that represents an interactive message. An interactive message
-     * is a category of messages that includes a list picker, a time picker, and an
-     * Apple Pay request..
+     * Rich actions for Channels Messages..
      *
-     * @param interactiveData A JSON string that represents an interactive message
+     * @param persistentAction Rich actions for Channels Messages.
      * @return this
      */
-    public MessageCreator setInteractiveData(final String interactiveData) {
-        this.interactiveData = interactiveData;
+    public MessageCreator setPersistentAction(final List<String> persistentAction) {
+        this.persistentAction = persistentAction;
         return this;
     }
 
     /**
-     * Whether to forcefully whitelist a from:to pair. Can be: `true` or `false`..
+     * Rich actions for Channels Messages..
      *
-     * @param forceOptIn Whether to forcefully whitelist a from:to pair
+     * @param persistentAction Rich actions for Channels Messages.
      * @return this
      */
-    public MessageCreator setForceOptIn(final Boolean forceOptIn) {
-        this.forceOptIn = forceOptIn;
-        return this;
+    public MessageCreator setPersistentAction(final String persistentAction) {
+        return setPersistentAction(Promoter.listOfOne(persistentAction));
     }
 
     /**
      * A Twilio phone number in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
      * [alphanumeric sender
-     * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
+     * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -352,7 +390,7 @@ public class MessageCreator extends Creator<Message> {
      * A Twilio phone number in
      * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
      * [alphanumeric sender
-     * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-codes) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
+     * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -390,11 +428,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of
-     * media are also accepted. The media size limit is 5MB. To send more than one
-     * image in the message body, provide multiple `media_url` parameters in the
-     * POST request. You can include up to 10 `media_url` parameters per message.
-     * You can send images in an SMS message in only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
+     * and 500KB for [other
+     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
+     * media. To send more than one image in the message body, provide multiple
+     * `media_url` parameters in the POST request. You can include up to 10
+     * `media_url` parameters per message. You can send images in an SMS message in
+     * only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -407,11 +447,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of
-     * media are also accepted. The media size limit is 5MB. To send more than one
-     * image in the message body, provide multiple `media_url` parameters in the
-     * POST request. You can include up to 10 `media_url` parameters per message.
-     * You can send images in an SMS message in only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
+     * and 500KB for [other
+     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
+     * media. To send more than one image in the message body, provide multiple
+     * `media_url` parameters in the POST request. You can include up to 10
+     * `media_url` parameters per message. You can send images in an SMS message in
+     * only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -423,11 +465,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. [Other types](https://www.twilio.com/docs/sms/accepted-mime-types) of
-     * media are also accepted. The media size limit is 5MB. To send more than one
-     * image in the message body, provide multiple `media_url` parameters in the
-     * POST request. You can include up to 10 `media_url` parameters per message.
-     * You can send images in an SMS message in only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
+     * and 500KB for [other
+     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
+     * media. To send more than one image in the message body, provide multiple
+     * `media_url` parameters in the POST request. You can include up to 10
+     * `media_url` parameters per message. You can send images in an SMS message in
+     * only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -449,8 +493,7 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages.json"
         );
 
         addPostParams(request);
@@ -463,14 +506,7 @@ public class MessageCreator extends Creator<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
@@ -520,6 +556,10 @@ public class MessageCreator extends Creator<Message> {
             request.addPostParam("ProvideFeedback", provideFeedback.toString());
         }
 
+        if (attempt != null) {
+            request.addPostParam("Attempt", attempt.toString());
+        }
+
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
         }
@@ -528,16 +568,22 @@ public class MessageCreator extends Creator<Message> {
             request.addPostParam("ForceDelivery", forceDelivery.toString());
         }
 
+        if (contentRetention != null) {
+            request.addPostParam("ContentRetention", contentRetention.toString());
+        }
+
+        if (addressRetention != null) {
+            request.addPostParam("AddressRetention", addressRetention.toString());
+        }
+
         if (smartEncoded != null) {
             request.addPostParam("SmartEncoded", smartEncoded.toString());
         }
 
-        if (interactiveData != null) {
-            request.addPostParam("InteractiveData", interactiveData);
-        }
-
-        if (forceOptIn != null) {
-            request.addPostParam("ForceOptIn", forceOptIn.toString());
+        if (persistentAction != null) {
+            for (String prop : persistentAction) {
+                request.addPostParam("PersistentAction", prop);
+            }
         }
     }
 }

@@ -25,9 +25,11 @@ public class ReservationFetcher extends Fetcher<Reservation> {
     /**
      * Construct a new ReservationFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerReservation
+     *                         resource to fetch
+     * @param pathWorkerSid The SID of the reserved Worker resource with the
+     *                      WorkerReservation resource to fetch
+     * @param pathSid The SID of the WorkerReservation resource to fetch
      */
     public ReservationFetcher(final String pathWorkspaceSid,
                               final String pathWorkerSid,
@@ -49,8 +51,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Reservations/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Reservations/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +63,7 @@ public class ReservationFetcher extends Fetcher<Reservation> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Reservation.fromJson(response.getStream(), client.getObjectMapper());

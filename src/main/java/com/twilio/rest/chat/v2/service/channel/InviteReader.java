@@ -40,8 +40,8 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -53,8 +53,8 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -87,8 +87,7 @@ public class InviteReader extends Reader<Invite> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites"
         );
 
         addQueryParams(request);
@@ -125,10 +124,7 @@ public class InviteReader extends Reader<Invite> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -145,10 +141,7 @@ public class InviteReader extends Reader<Invite> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -170,14 +163,7 @@ public class InviteReader extends Reader<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

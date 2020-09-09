@@ -37,7 +37,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 232614357517076L;
+    private static final long serialVersionUID = 110040442840544L;
 
     public enum RecordingSetting {
         DO_NOT_RECORD("do-not-record"),
@@ -62,6 +62,32 @@ public class Trunk extends Resource {
         @JsonCreator
         public static RecordingSetting forValue(final String value) {
             return Promoter.enumFromString(value, RecordingSetting.values());
+        }
+    }
+
+    public enum TransferSetting {
+        DISABLE_ALL("disable-all"),
+        ENABLE_ALL("enable-all"),
+        SIP_ONLY("sip-only");
+
+        private final String value;
+
+        private TransferSetting(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TransferSetting from a string.
+         * @param value string value
+         * @return generated TransferSetting
+         */
+        @JsonCreator
+        public static TransferSetting forValue(final String value) {
+            return Promoter.enumFromString(value, TransferSetting.values());
         }
     }
 
@@ -157,6 +183,7 @@ public class Trunk extends Resource {
     private final String friendlyName;
     private final Boolean secure;
     private final Map<String, Object> recording;
+    private final Trunk.TransferSetting transferMode;
     private final Boolean cnamLookupEnabled;
     private final String authType;
     private final List<String> authTypeSet;
@@ -181,6 +208,8 @@ public class Trunk extends Resource {
                   final Boolean secure,
                   @JsonProperty("recording")
                   final Map<String, Object> recording,
+                  @JsonProperty("transfer_mode")
+                  final Trunk.TransferSetting transferMode,
                   @JsonProperty("cnam_lookup_enabled")
                   final Boolean cnamLookupEnabled,
                   @JsonProperty("auth_type")
@@ -204,6 +233,7 @@ public class Trunk extends Resource {
         this.friendlyName = friendlyName;
         this.secure = secure;
         this.recording = recording;
+        this.transferMode = transferMode;
         this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
@@ -215,7 +245,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -224,8 +254,8 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The unique address you reserve on Twilio to which you route your
-     * SIP traffic.
+     * Returns The unique address you reserve on Twilio to which you route your SIP
+     * traffic.
      *
      * @return The unique address you reserve on Twilio to which you route your SIP
      *         traffic
@@ -235,7 +265,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The HTTP method we use to call the disaster_recovery_url.
+     * Returns The HTTP method we use to call the disaster_recovery_url.
      *
      * @return The HTTP method we use to call the disaster_recovery_url
      */
@@ -244,7 +274,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The HTTP URL that we call if an error occurs while sending SIP
+     * Returns The HTTP URL that we call if an error occurs while sending SIP
      * traffic towards your configured Origination URL.
      *
      * @return The HTTP URL that we call if an error occurs while sending SIP
@@ -255,7 +285,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -264,7 +294,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The Whether Secure Trunking is enabled for the trunk.
+     * Returns Whether Secure Trunking is enabled for the trunk.
      *
      * @return Whether Secure Trunking is enabled for the trunk
      */
@@ -273,7 +303,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The recording settings for the trunk.
+     * Returns The recording settings for the trunk.
      *
      * @return The recording settings for the trunk
      */
@@ -282,7 +312,16 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
+     * Returns The call transfer settings for the trunk.
+     *
+     * @return The call transfer settings for the trunk
+     */
+    public final Trunk.TransferSetting getTransferMode() {
+        return this.transferMode;
+    }
+
+    /**
+     * Returns Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
      *
      * @return Whether Caller ID Name (CNAM) lookup is enabled for the trunk
      */
@@ -291,7 +330,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The types of authentication mapped to the domain.
+     * Returns The types of authentication mapped to the domain.
      *
      * @return The types of authentication mapped to the domain
      */
@@ -300,7 +339,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The Reserved.
+     * Returns Reserved.
      *
      * @return Reserved
      */
@@ -309,7 +348,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -318,8 +357,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -328,7 +366,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -337,7 +375,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */
@@ -346,7 +384,7 @@ public class Trunk extends Resource {
     }
 
     /**
-     * Returns The The URLs of related resources.
+     * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
      */
@@ -373,6 +411,7 @@ public class Trunk extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(secure, other.secure) &&
                Objects.equals(recording, other.recording) &&
+               Objects.equals(transferMode, other.transferMode) &&
                Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
                Objects.equals(authType, other.authType) &&
                Objects.equals(authTypeSet, other.authTypeSet) &&
@@ -392,6 +431,7 @@ public class Trunk extends Resource {
                             friendlyName,
                             secure,
                             recording,
+                            transferMode,
                             cnamLookupEnabled,
                             authType,
                             authTypeSet,
@@ -412,6 +452,7 @@ public class Trunk extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("secure", secure)
                           .add("recording", recording)
+                          .add("transferMode", transferMode)
                           .add("cnamLookupEnabled", cnamLookupEnabled)
                           .add("authType", authType)
                           .add("authTypeSet", authTypeSet)

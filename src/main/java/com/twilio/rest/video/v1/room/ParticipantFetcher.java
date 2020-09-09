@@ -24,10 +24,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     /**
      * Construct a new ParticipantFetcher.
      *
-     * @param pathRoomSid A system-generated 34-character string that uniquely
-     *                    identifies a Room.
-     * @param pathSid A system-generated 34-character string that uniquely
-     *                identifies this Participant.
+     * @param pathRoomSid The SID of the room with the Participant resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public ParticipantFetcher(final String pathRoomSid,
                               final String pathSid) {
@@ -47,8 +45,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -60,14 +57,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

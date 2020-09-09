@@ -23,7 +23,7 @@ public class CommandFetcher extends Fetcher<Command> {
     /**
      * Construct a new CommandFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public CommandFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +41,7 @@ public class CommandFetcher extends Fetcher<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Commands/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Commands/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class CommandFetcher extends Fetcher<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Command.fromJson(response.getStream(), client.getObjectMapper());

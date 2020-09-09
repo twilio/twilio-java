@@ -39,7 +39,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * The SID of a Twilio
-     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incoming-phone-numbers) resource that represents the Twilio Number you would like to assign to your Proxy Service..
+     * [IncomingPhoneNumber](https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource) resource that represents the Twilio Number you would like to assign to your Proxy Service..
      *
      * @param sid The SID of a Twilio IncomingPhoneNumber resource
      * @return this
@@ -100,8 +100,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PROXY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers"
         );
 
         addPostParams(request);
@@ -114,14 +113,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());

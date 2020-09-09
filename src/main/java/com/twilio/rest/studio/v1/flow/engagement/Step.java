@@ -40,8 +40,8 @@ public class Step extends Resource {
     /**
      * Create a StepReader to execute read.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
      * @return StepReader capable of executing the read
      */
     public static StepReader reader(final String pathFlowSid,
@@ -52,9 +52,9 @@ public class Step extends Resource {
     /**
      * Create a StepFetcher to execute fetch.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
-     * @param pathSid Step Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
+     * @param pathSid The SID that identifies the resource to fetch
      * @return StepFetcher capable of executing the fetch
      */
     public static StepFetcher fetcher(final String pathFlowSid,
@@ -153,108 +153,108 @@ public class Step extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Step..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A string that uniquely identifies this Step.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Flow Sid..
+     * Returns The SID of the Flow.
      *
-     * @return Flow Sid.
+     * @return The SID of the Flow
      */
     public final String getFlowSid() {
         return this.flowSid;
     }
 
     /**
-     * Returns The Engagement Sid..
+     * Returns The SID of the Engagement.
      *
-     * @return Engagement Sid.
+     * @return The SID of the Engagement
      */
     public final String getEngagementSid() {
         return this.engagementSid;
     }
 
     /**
-     * Returns The The event that caused the flow to transition to this Step..
+     * Returns The event that caused the Flow to transition to the Step.
      *
-     * @return The event that caused the flow to transition to this Step.
+     * @return The event that caused the Flow to transition to the Step
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * Returns The The context.
+     * Returns The current state of the flow.
      *
-     * @return The context
+     * @return The current state of the flow
      */
     public final Map<String, Object> getContext() {
         return this.context;
     }
 
     /**
-     * Returns The The Widget that preceded the Widget for this Step..
+     * Returns The Widget that preceded the Widget for the Step.
      *
-     * @return The Widget that preceded the Widget for this Step.
+     * @return The Widget that preceded the Widget for the Step
      */
     public final String getTransitionedFrom() {
         return this.transitionedFrom;
     }
 
     /**
-     * Returns The The Widget that will follow the Widget for this Step..
+     * Returns The Widget that will follow the Widget for the Step.
      *
-     * @return The Widget that will follow the Widget for this Step.
+     * @return The Widget that will follow the Widget for the Step
      */
     public final String getTransitionedTo() {
         return this.transitionedTo;
     }
 
     /**
-     * Returns The The date this Step was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date this Step was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Step was updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date this Step was updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The URL of this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

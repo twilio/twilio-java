@@ -92,44 +92,11 @@ public class FunctionVersionTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"ZN00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ZS00000000000000000000000000000000\",\"function_sid\": \"ZH00000000000000000000000000000000\",\"path\": \"test-path\",\"visibility\": \"public\",\"pre_signed_upload_url\": null,\"date_created\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"ZN00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ZS00000000000000000000000000000000\",\"function_sid\": \"ZH00000000000000000000000000000000\",\"path\": \"/test-path\",\"visibility\": \"public\",\"date_created\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000\",\"links\": {\"function_version_content\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000/Content\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
         assertNotNull(FunctionVersion.fetcher("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
-    }
-
-    @Test
-    public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.SERVERLESS.toString(),
-                                                      "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Functions/ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Versions");
-                        request.addPostParam("Path", serialize("path"));
-        request.addPostParam("Visibility", serialize(FunctionVersion.Visibility.PUBLIC));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
-
-        try {
-            FunctionVersion.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "path", FunctionVersion.Visibility.PUBLIC).create();
-            fail("Expected TwilioException to be thrown for 500");
-        } catch (TwilioException e) {}
-    }
-
-    @Test
-    public void testCreateResponse() {
-        new NonStrictExpectations() {{
-            twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"ZN00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"ZS00000000000000000000000000000000\",\"function_sid\": \"ZH00000000000000000000000000000000\",\"path\": \"/some/sample/path\",\"visibility\": \"protected\",\"date_created\": \"2018-11-10T20:00:00Z\",\"pre_signed_upload_url\": {\"url\": \"https://s3.amazonaws.com/com.twilio.dev.serverless\",\"expiration\": \"2019-01-01T00:08:00.000Z\",\"method\": \"PUT\",\"kmsARN\": \"arn:aws:kms:us-east-1:719084529295:key/2a7bf064-c88c-4fdd-b376-625d7bcd2d98\"},\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions/ZH00000000000000000000000000000000/Versions/ZN00000000000000000000000000000000\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
-        }};
-
-        FunctionVersion.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "path", FunctionVersion.Visibility.PUBLIC).create();
     }
 }

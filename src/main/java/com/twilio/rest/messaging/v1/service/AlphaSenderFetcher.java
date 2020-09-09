@@ -28,8 +28,9 @@ public class AlphaSenderFetcher extends Fetcher<AlphaSender> {
     /**
      * Construct a new AlphaSenderFetcher.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Messaging Service to fetch the resource
+     *                       from
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public AlphaSenderFetcher(final String pathServiceSid,
                               final String pathSid) {
@@ -49,8 +50,7 @@ public class AlphaSenderFetcher extends Fetcher<AlphaSender> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/AlphaSenders/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class AlphaSenderFetcher extends Fetcher<AlphaSender> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AlphaSender.fromJson(response.getStream(), client.getObjectMapper());

@@ -24,8 +24,8 @@ public class WorkerDeleter extends Deleter<Worker> {
     /**
      * Construct a new WorkerDeleter.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Worker to delete
+     * @param pathSid The SID of the resource to delete
      */
     public WorkerDeleter(final String pathWorkspaceSid,
                          final String pathSid) {
@@ -44,8 +44,7 @@ public class WorkerDeleter extends Deleter<Worker> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class WorkerDeleter extends Deleter<Worker> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

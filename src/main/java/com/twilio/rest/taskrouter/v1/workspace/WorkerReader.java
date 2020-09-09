@@ -32,17 +32,16 @@ public class WorkerReader extends Reader<Worker> {
     /**
      * Construct a new WorkerReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workers to read
      */
     public WorkerReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter by workers that are in a particular Activity by Friendly Name.
+     * The `activity_name` of the Worker resources to read..
      *
-     * @param activityName Filter by workers that are in a particular Activity by
-     *                     Friendly Name
+     * @param activityName The activity_name of the Worker resources to read
      * @return this
      */
     public WorkerReader setActivityName(final String activityName) {
@@ -51,9 +50,9 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by workers that are in a particular Activity by SID.
+     * The `activity_sid` of the Worker resources to read..
      *
-     * @param activitySid Filter by workers that are in a particular Activity by SID
+     * @param activitySid The activity_sid of the Worker resources to read
      * @return this
      */
     public WorkerReader setActivitySid(final String activitySid) {
@@ -62,11 +61,13 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by workers that are available or unavailable. (Note: This can be
-     * 'true', '1' or 'yes' to indicate a true value. All other values will
-     * represent false).
+     * Whether to return only Worker resources that are available or unavailable.
+     * Can be `true`, `1`, or `yes` to return Worker resources that are available,
+     * and `false`, or any value returns the Worker resources that are not
+     * available..
      *
-     * @param available Filter by workers that are available or unavailable.
+     * @param available Whether to return Worker resources that are available or
+     *                  unavailable
      * @return this
      */
     public WorkerReader setAvailable(final String available) {
@@ -75,9 +76,9 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by a worker's friendly name.
+     * The `friendly_name` of the Worker resources to read..
      *
-     * @param friendlyName Filter by a worker's friendly name
+     * @param friendlyName The friendly_name of the Worker resources to read
      * @return this
      */
     public WorkerReader setFriendlyName(final String friendlyName) {
@@ -86,11 +87,11 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by workers that would match an expression on a TaskQueue. This is
-     * helpful for debugging which workers would match a potential queue..
+     * Filter by Workers that would match an expression on a TaskQueue. This is
+     * helpful for debugging which Workers would match a potential queue..
      *
-     * @param targetWorkersExpression Filter by workers that would match an
-     *                                expression on a TaskQueue.
+     * @param targetWorkersExpression Filter by Workers that would match an
+     *                                expression on a TaskQueue
      * @return this
      */
     public WorkerReader setTargetWorkersExpression(final String targetWorkersExpression) {
@@ -99,10 +100,11 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by workers that are eligible for a TaskQueue by Friendly Name.
+     * The `friendly_name` of the TaskQueue that the Workers to read are eligible
+     * for..
      *
-     * @param taskQueueName Filter by workers that are eligible for a TaskQueue by
-     *                      Friendly Name
+     * @param taskQueueName The friendly_name of the TaskQueue that the Workers to
+     *                      read are eligible for
      * @return this
      */
     public WorkerReader setTaskQueueName(final String taskQueueName) {
@@ -111,10 +113,10 @@ public class WorkerReader extends Reader<Worker> {
     }
 
     /**
-     * Filter by workers that are eligible for a TaskQueue by SID.
+     * The SID of the TaskQueue that the Workers to read are eligible for..
      *
-     * @param taskQueueSid Filter by workers that are eligible for a TaskQueue by
-     *                     SID
+     * @param taskQueueSid The SID of the TaskQueue that the Workers to read are
+     *                     eligible for
      * @return this
      */
     public WorkerReader setTaskQueueSid(final String taskQueueSid) {
@@ -145,8 +147,7 @@ public class WorkerReader extends Reader<Worker> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers"
         );
 
         addQueryParams(request);
@@ -183,10 +184,7 @@ public class WorkerReader extends Reader<Worker> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -203,10 +201,7 @@ public class WorkerReader extends Reader<Worker> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -228,14 +223,7 @@ public class WorkerReader extends Reader<Worker> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

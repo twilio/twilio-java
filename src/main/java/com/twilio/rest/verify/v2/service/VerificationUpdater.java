@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class VerificationUpdater extends Updater<Verification> {
     private final String pathServiceSid;
     private final String pathSid;
@@ -54,8 +50,7 @@ public class VerificationUpdater extends Updater<Verification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Verifications/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -68,14 +63,7 @@ public class VerificationUpdater extends Updater<Verification> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Verification.fromJson(response.getStream(), client.getObjectMapper());

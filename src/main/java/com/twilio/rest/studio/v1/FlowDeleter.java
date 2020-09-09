@@ -23,7 +23,7 @@ public class FlowDeleter extends Deleter<Flow> {
     /**
      * Construct a new FlowDeleter.
      *
-     * @param pathSid A string that uniquely identifies this Flow.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public FlowDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -40,8 +40,7 @@ public class FlowDeleter extends Deleter<Flow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class FlowDeleter extends Deleter<Flow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

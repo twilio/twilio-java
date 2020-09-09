@@ -25,13 +25,16 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     private final String pathServiceSid;
     private final String pathMapSid;
     private final String pathKey;
+    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to delete
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   delete
+     * @param pathKey The key value of the Sync Map Item resource to delete
      */
     public SyncMapItemDeleter(final String pathServiceSid,
                               final String pathMapSid,
@@ -39,6 +42,17 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
         this.pathServiceSid = pathServiceSid;
         this.pathMapSid = pathMapSid;
         this.pathKey = pathKey;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncMapItemDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     /**
@@ -52,10 +66,10 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,16 +79,20 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

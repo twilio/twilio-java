@@ -40,7 +40,7 @@ public class Event extends Resource {
     /**
      * Create a EventFetcher to execute fetch.
      *
-     * @param pathSid A 34 character string that uniquely identifies this event.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return EventFetcher capable of executing the fetch
      */
     public static EventFetcher fetcher(final String pathSid) {
@@ -154,84 +154,81 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The A 34 character string identifying the Account for which this
-     * Event was recorded..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return A 34 character string identifying the Account for which this Event
-     *         was recorded.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The If available, a 34 character string identifying the actor that
-     * caused this event. May be null..
+     * Returns The SID of the actor that caused the event, if available.
      *
-     * @return If available, a 34 character string identifying the actor that
-     *         caused this event. May be null.
+     * @return The SID of the actor that caused the event, if available
      */
     public final String getActorSid() {
         return this.actorSid;
     }
 
     /**
-     * Returns The The type of actor that caused this event.
+     * Returns The type of actor that caused the event.
      *
-     * @return The type of actor that caused this event
+     * @return The type of actor that caused the event
      */
     public final String getActorType() {
         return this.actorType;
     }
 
     /**
-     * Returns The A human-readable description of the event.  May be null..
+     * Returns A description of the event.
      *
-     * @return A human-readable description of the event.  May be null.
+     * @return A description of the event
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The A freeform json object encoding additional data about the event.
+     * Returns A JSON string that represents an object with additional data about
+     * the event.
      *
-     * @return A freeform json object encoding additional data about the event
+     * @return A JSON string that represents an object with additional data about
+     *         the event
      */
     public final Map<String, Object> getEventData() {
         return this.eventData;
     }
 
     /**
-     * Returns The The date-time the event was recorded.
+     * Returns The ISO 8601 date and time in GMT when the event was recorded.
      *
-     * @return The date-time the event was recorded
+     * @return The ISO 8601 date and time in GMT when the event was recorded
      */
     public final DateTime getEventDate() {
         return this.eventDate;
     }
 
     /**
-     * Returns The The event's type, as a string..
+     * Returns The event's type.
      *
-     * @return The event's type, as a string.
+     * @return The event's type
      */
     public final String getEventType() {
         return this.eventType;
     }
 
     /**
-     * Returns The A 34 character string identifying the resource that was
-     * affected..
+     * Returns The SID of the resource that was affected.
      *
-     * @return A 34 character string identifying the resource that was affected.
+     * @return The SID of the resource that was affected
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The The type of resource that was affected.
+     * Returns The type of resource that was affected.
      *
      * @return The type of resource that was affected
      */
@@ -240,31 +237,25 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this event..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this event.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The originating system or interface that caused the event.  web
-     * for events caused by user action in the Twilio Console.  api for events
-     * caused through a request to the REST API.  twilio for events caused by an
-     * automated or internal Twilio system..
+     * Returns The originating system or interface that caused the event.
      *
-     * @return The originating system or interface that caused the event.  web for
-     *         events caused by user action in the Twilio Console.  api for events
-     *         caused through a request to the REST API.  twilio for events caused
-     *         by an automated or internal Twilio system.
+     * @return The originating system or interface that caused the event
      */
     public final String getSource() {
         return this.source;
     }
 
     /**
-     * Returns The The IP address of the source.
+     * Returns The IP address of the source.
      *
      * @return The IP address of the source
      */
@@ -273,18 +264,18 @@ public class Event extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the resource that was affected.
      *
-     * @return The url
+     * @return The absolute URL of the resource that was affected
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The absolute URLs of related resources.
      *
-     * @return The links
+     * @return The absolute URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

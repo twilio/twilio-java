@@ -43,7 +43,7 @@ public class AvailableAddOn extends Resource {
     /**
      * Create a AvailableAddOnFetcher to execute fetch.
      *
-     * @param pathSid The unique Available Add-on Sid
+     * @param pathSid The SID of the AvailableAddOn resource to fetch
      * @return AvailableAddOnFetcher capable of executing the fetch
      */
     public static AvailableAddOnFetcher fetcher(final String pathSid) {
@@ -130,63 +130,65 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Add-on.
+     * Returns The unique string that identifies the resource.
      *
-     * @return A string that uniquely identifies this Add-on
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A description of this Add-on.
+     * Returns The string that you assigned to describe the resource.
      *
-     * @return A description of this Add-on
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A short description of the Add-on functionality.
+     * Returns A short description of the Add-on's functionality.
      *
-     * @return A short description of the Add-on functionality
+     * @return A short description of the Add-on's functionality
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The The way customers are charged for using this Add-on.
+     * Returns How customers are charged for using this Add-on.
      *
-     * @return The way customers are charged for using this Add-on
+     * @return How customers are charged for using this Add-on
      */
     public final String getPricingType() {
         return this.pricingType;
     }
 
     /**
-     * Returns The The JSON Schema describing the Add-on's configuration.
+     * Returns The JSON object with the configuration that must be provided when
+     * installing a given Add-on.
      *
-     * @return The JSON Schema describing the Add-on's configuration
+     * @return The JSON object with the configuration that must be provided when
+     *         installing a given Add-on
      */
     public final Map<String, Object> getConfigurationSchema() {
         return this.configurationSchema;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

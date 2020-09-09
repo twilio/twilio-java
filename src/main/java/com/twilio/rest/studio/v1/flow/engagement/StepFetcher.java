@@ -25,9 +25,9 @@ public class StepFetcher extends Fetcher<Step> {
     /**
      * Construct a new StepFetcher.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathEngagementSid Engagement Sid.
-     * @param pathSid Step Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathEngagementSid The SID of the Engagement
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public StepFetcher(final String pathFlowSid,
                        final String pathEngagementSid,
@@ -49,8 +49,7 @@ public class StepFetcher extends Fetcher<Step> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Engagements/" + this.pathEngagementSid + "/Steps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class StepFetcher extends Fetcher<Step> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Step.fromJson(response.getStream(), client.getObjectMapper());

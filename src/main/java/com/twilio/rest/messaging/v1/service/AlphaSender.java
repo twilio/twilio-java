@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -40,13 +39,13 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AlphaSender extends Resource {
-    private static final long serialVersionUID = 107541920381976L;
+    private static final long serialVersionUID = 153057609894951L;
 
     /**
      * Create a AlphaSenderCreator to execute create.
      *
-     * @param pathServiceSid The service_sid
-     * @param alphaSender An Alphanumeric Sender ID string, up to 11 characters.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param alphaSender The Alphanumeric Sender ID string
      * @return AlphaSenderCreator capable of executing the create
      */
     public static AlphaSenderCreator creator(final String pathServiceSid,
@@ -57,7 +56,7 @@ public class AlphaSender extends Resource {
     /**
      * Create a AlphaSenderReader to execute read.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return AlphaSenderReader capable of executing the read
      */
     public static AlphaSenderReader reader(final String pathServiceSid) {
@@ -67,8 +66,9 @@ public class AlphaSender extends Resource {
     /**
      * Create a AlphaSenderFetcher to execute fetch.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Messaging Service to fetch the resource
+     *                       from
+     * @param pathSid The SID that identifies the resource to fetch
      * @return AlphaSenderFetcher capable of executing the fetch
      */
     public static AlphaSenderFetcher fetcher(final String pathServiceSid,
@@ -79,8 +79,8 @@ public class AlphaSender extends Resource {
     /**
      * Create a AlphaSenderDeleter to execute delete.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID that identifies the resource to delete
      * @return AlphaSenderDeleter capable of executing the delete
      */
     public static AlphaSenderDeleter deleter(final String pathServiceSid,
@@ -132,7 +132,7 @@ public class AlphaSender extends Resource {
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final String alphaSender;
-    private final List<Map<String, Object>> capabilities;
+    private final List<String> capabilities;
     private final URI url;
 
     @JsonCreator
@@ -149,7 +149,7 @@ public class AlphaSender extends Resource {
                         @JsonProperty("alpha_sender")
                         final String alphaSender,
                         @JsonProperty("capabilities")
-                        final List<Map<String, Object>> capabilities,
+                        final List<String> capabilities,
                         @JsonProperty("url")
                         final URI url) {
         this.sid = sid;
@@ -163,74 +163,74 @@ public class AlphaSender extends Resource {
     }
 
     /**
-     * Returns The The 34 character unique sid of the Alpha Sender ID..
+     * Returns The unique string that identifies the resource.
      *
-     * @return The 34 character unique sid of the Alpha Sender ID.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The 34 character unique sid of the Account..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The 34 character unique sid of the Account.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The 34 character unique sid of the Messaging Service..
+     * Returns The SID of the Service that the resource is associated with.
      *
-     * @return The 34 character unique sid of the Messaging Service.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The An Alphanumeric Sender ID string, up to 11 characters..
+     * Returns The Alphanumeric Sender ID string.
      *
-     * @return An Alphanumeric Sender ID string, up to 11 characters.
+     * @return The Alphanumeric Sender ID string
      */
     public final String getAlphaSender() {
         return this.alphaSender;
     }
 
     /**
-     * Returns The An array of values that indicate whether the number can receive
-     * calls or messages..
+     * Returns An array of values that describe whether the number can receive calls
+     * or messages.
      *
-     * @return An array of values that indicate whether the number can receive
-     *         calls or messages.
+     * @return An array of values that describe whether the number can receive
+     *         calls or messages
      */
-    public final List<Map<String, Object>> getCapabilities() {
+    public final List<String> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the AlphaSender resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the AlphaSender resource
      */
     public final URI getUrl() {
         return this.url;

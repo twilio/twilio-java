@@ -44,7 +44,8 @@ public class Environment extends Resource {
     /**
      * Create a EnvironmentReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to read the Environment
+     *                       resources from
      * @return EnvironmentReader capable of executing the read
      */
     public static EnvironmentReader reader(final String pathServiceSid) {
@@ -54,8 +55,9 @@ public class Environment extends Resource {
     /**
      * Create a EnvironmentFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Environment
+     *                       resource from
+     * @param pathSid The SID of the Environment resource to fetch
      * @return EnvironmentFetcher capable of executing the fetch
      */
     public static EnvironmentFetcher fetcher(final String pathServiceSid,
@@ -66,13 +68,28 @@ public class Environment extends Resource {
     /**
      * Create a EnvironmentCreator to execute create.
      *
-     * @param pathServiceSid Service Sid.
-     * @param uniqueName A unique, addressable name of this Environment.
+     * @param pathServiceSid The SID of the Service to create the Environment
+     *                       resource under
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Environment resource
      * @return EnvironmentCreator capable of executing the create
      */
     public static EnvironmentCreator creator(final String pathServiceSid,
                                              final String uniqueName) {
         return new EnvironmentCreator(pathServiceSid, uniqueName);
+    }
+
+    /**
+     * Create a EnvironmentDeleter to execute delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the Environment
+     *                       resource from
+     * @param pathSid The SID that identifies the Environment resource to delete
+     * @return EnvironmentDeleter capable of executing the delete
+     */
+    public static EnvironmentDeleter deleter(final String pathServiceSid,
+                                             final String pathSid) {
+        return new EnvironmentDeleter(pathServiceSid, pathSid);
     }
 
     /**
@@ -162,101 +179,109 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The Environment Sid..
+     * Returns The unique string that identifies the Environment resource.
      *
-     * @return Environment Sid.
+     * @return The unique string that identifies the Environment resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The SID of the Account that created the Environment resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Environment resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The SID of the Service that the Environment resource is associated
+     * with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Environment resource is associated
+     *         with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Build Sid..
+     * Returns The SID of the build deployed in the environment.
      *
-     * @return Build Sid.
+     * @return The SID of the build deployed in the environment
      */
     public final String getBuildSid() {
         return this.buildSid;
     }
 
     /**
-     * Returns The A unique, addressable name of this Environment..
+     * Returns An application-defined string that uniquely identifies the
+     * Environment resource.
      *
-     * @return A unique, addressable name of this Environment.
+     * @return An application-defined string that uniquely identifies the
+     *         Environment resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The A URL-friendly name that represents this Environment..
+     * Returns A URL-friendly name that represents the environment.
      *
-     * @return A URL-friendly name that represents this Environment.
+     * @return A URL-friendly name that represents the environment
      */
     public final String getDomainSuffix() {
         return this.domainSuffix;
     }
 
     /**
-     * Returns The The base domain name for all Functions and Assets deployed in
-     * this Environment..
+     * Returns The base domain name for all Functions and Assets deployed in the
+     * environment.
      *
-     * @return The base domain name for all Functions and Assets deployed in this
-     *         Environment.
+     * @return The base domain name for all Functions and Assets deployed in the
+     *         environment
      */
     public final String getDomainName() {
         return this.domainName;
     }
 
     /**
-     * Returns The The date that this Environment was created..
+     * Returns The ISO 8601 date and time in GMT when the Environment resource was
+     * created.
      *
-     * @return The date that this Environment was created.
+     * @return The ISO 8601 date and time in GMT when the Environment resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Environment was updated..
+     * Returns The ISO 8601 date and time in GMT when the Environment resource was
+     * last updated.
      *
-     * @return The date that this Environment was updated.
+     * @return The ISO 8601 date and time in GMT when the Environment resource was
+     *         last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Environment..
+     * Returns The absolute URL of the Environment resource.
      *
-     * @return The URL of this Environment.
+     * @return The absolute URL of the Environment resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The URLs of the environment's nested resources.
      *
-     * @return Nested resource URLs.
+     * @return The URLs of the environment's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

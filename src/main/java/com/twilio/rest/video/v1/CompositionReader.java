@@ -33,9 +33,10 @@ public class CompositionReader extends Reader<Composition> {
     private String roomSid;
 
     /**
-     * Only show Compositions with the given status..
+     * Read only Composition resources with this status. Can be: `enqueued`,
+     * `processing`, `completed`, `deleted`, or `failed`..
      *
-     * @param status Only show Compositions with the given status.
+     * @param status Read only Composition resources with this status
      * @return this
      */
     public CompositionReader setStatus(final Composition.Status status) {
@@ -44,11 +45,13 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions created on or after this ISO8601 date-time with
-     * timezone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     * Read only Composition resources created on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
      *
-     * @param dateCreatedAfter Only show Compositions created on or after this
-     *                         ISO8601 date-time with timezone.
+     * @param dateCreatedAfter Read only Composition resources created on or after
+     *                         this [ISO
+     *                         8601](https://en.wikipedia.org/wiki/ISO_8601)
+     *                         date-time with time zone
      * @return this
      */
     public CompositionReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -57,11 +60,11 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions created before this ISO8601 date-time with timezone,
-     * given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     * Read only Composition resources created before this ISO 8601 date-time with
+     * time zone..
      *
-     * @param dateCreatedBefore Only show Compositions created before this ISO8601
-     *                          date-time with timezone.
+     * @param dateCreatedBefore Read only Composition resources created before this
+     *                          ISO 8601 date-time with time zone
      * @return this
      */
     public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -70,9 +73,9 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Only show Compositions with the given Room SID..
+     * Read only Composition resources with this Room SID..
      *
-     * @param roomSid Only show Compositions with the given Room SID.
+     * @param roomSid Read only Composition resources with this Room SID
      * @return this
      */
     public CompositionReader setRoomSid(final String roomSid) {
@@ -103,8 +106,7 @@ public class CompositionReader extends Reader<Composition> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Compositions",
-            client.getRegion()
+            "/v1/Compositions"
         );
 
         addQueryParams(request);
@@ -141,10 +143,7 @@ public class CompositionReader extends Reader<Composition> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -161,10 +160,7 @@ public class CompositionReader extends Reader<Composition> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -186,14 +182,7 @@ public class CompositionReader extends Reader<Composition> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

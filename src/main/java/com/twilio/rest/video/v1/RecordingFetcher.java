@@ -23,8 +23,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
     /**
      * Construct a new RecordingFetcher.
      *
-     * @param pathSid The Recording Sid that uniquely identifies the Recording to
-     *                fetch.
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public RecordingFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -42,8 +41,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -55,14 +53,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Recording.fromJson(response.getStream(), client.getObjectMapper());

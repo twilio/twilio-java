@@ -21,14 +21,14 @@ public class MessageDeleter extends Deleter<Message> {
     private final String pathServiceSid;
     private final String pathChannelSid;
     private final String pathSid;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageDeleter.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathChannelSid The unique ID of the channel the message to delete
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the Channel the message to delete belongs to
+     * @param pathSid The SID of the Message resource to delete
      */
     public MessageDeleter(final String pathServiceSid,
                           final String pathChannelSid,
@@ -36,6 +36,17 @@ public class MessageDeleter extends Deleter<Message> {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MessageDeleter setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     /**
@@ -49,10 +60,10 @@ public class MessageDeleter extends Deleter<Message> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,16 +73,20 @@ public class MessageDeleter extends Deleter<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 }

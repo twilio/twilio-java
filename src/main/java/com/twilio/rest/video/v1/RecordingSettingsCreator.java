@@ -20,11 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     private final String friendlyName;
     private String awsCredentialsSid;
@@ -36,17 +31,16 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     /**
      * Construct a new RecordingSettingsCreator.
      *
-     * @param friendlyName Friendly name of the configuration to be shown in the
-     *                     console
+     * @param friendlyName A string to describe the resource
      */
     public RecordingSettingsCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
 
     /**
-     * SID of the Stored Credential resource `CRxx`.
+     * The SID of the stored Credential resource..
      *
-     * @param awsCredentialsSid SID of the Stored Credential resource CRxx
+     * @param awsCredentialsSid The SID of the stored Credential resource
      * @return this
      */
     public RecordingSettingsCreator setAwsCredentialsSid(final String awsCredentialsSid) {
@@ -55,9 +49,10 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     }
 
     /**
-     * SID of the Public Key resource `CRxx`.
+     * The SID of the Public Key resource to use for encryption..
      *
-     * @param encryptionKeySid SID of the Public Key resource CRxx
+     * @param encryptionKeySid The SID of the Public Key resource to use for
+     *                         encryption
      * @return this
      */
     public RecordingSettingsCreator setEncryptionKeySid(final String encryptionKeySid) {
@@ -66,14 +61,15 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     }
 
     /**
-     * Identity of the external location where the recordings should be stored. We
-     * only support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
-     * where `recordings` is the path where you want recordings to be stored..
+     * The URL of the AWS S3 bucket where the recordings should be stored. We only
+     * support DNS-compliant URLs like
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
+     * where `recordings` is the path in which you want the recordings to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
-     * @param awsS3Url Identity of the external location where the recordings
-     *                 should be stored. We only support DNS-compliant URLs like
-     *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+     * @param awsS3Url The URL of the AWS S3 bucket where the recordings should be
+     *                 stored
      * @return this
      */
     public RecordingSettingsCreator setAwsS3Url(final URI awsS3Url) {
@@ -82,14 +78,15 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     }
 
     /**
-     * Identity of the external location where the recordings should be stored. We
-     * only support DNS-compliant URLs like
-     * `http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
-     * where `recordings` is the path where you want recordings to be stored..
+     * The URL of the AWS S3 bucket where the recordings should be stored. We only
+     * support DNS-compliant URLs like
+     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
+     * where `recordings` is the path in which you want the recordings to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
-     * @param awsS3Url Identity of the external location where the recordings
-     *                 should be stored. We only support DNS-compliant URLs like
-     *                 http://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings, where recordings is the path where you want recordings to be stored.
+     * @param awsS3Url The URL of the AWS S3 bucket where the recordings should be
+     *                 stored
      * @return this
      */
     public RecordingSettingsCreator setAwsS3Url(final String awsS3Url) {
@@ -97,14 +94,11 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     }
 
     /**
-     * `true|false` When set to `true`, all Recordings will be written to the
-     * `AwsS3Url` specified above. When set to `false`, all Recordings will be
-     * stored in Twilio's cloud..
+     * Whether all recordings should be written to the `aws_s3_url`. When `false`,
+     * all recordings are stored in our cloud..
      *
-     * @param awsStorageEnabled true|false When set to true, all Recordings will be
-     *                          written to the AwsS3Url specified above. When set to
-     *                          false, all Recordings will be stored in Twilio's
-     *                          cloud.
+     * @param awsStorageEnabled Whether all recordings should be written to the
+     *                          aws_s3_url
      * @return this
      */
     public RecordingSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled) {
@@ -113,11 +107,11 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
     }
 
     /**
-     * `true|false` When set to `true`, all Recordings will be stored encrypted.
-     * Dafault value is `false`.
+     * Whether all recordings should be stored in an encrypted form. The default is
+     * `false`..
      *
-     * @param encryptionEnabled true|false When set to true, all Recordings will be
-     *                          stored encrypted.
+     * @param encryptionEnabled Whether all recordings should be stored in an
+     *                          encrypted form
      * @return this
      */
     public RecordingSettingsCreator setEncryptionEnabled(final Boolean encryptionEnabled) {
@@ -137,8 +131,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/RecordingSettings/Default",
-            client.getRegion()
+            "/v1/RecordingSettings/Default"
         );
 
         addPostParams(request);
@@ -151,14 +144,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RecordingSettings.fromJson(response.getStream(), client.getObjectMapper());

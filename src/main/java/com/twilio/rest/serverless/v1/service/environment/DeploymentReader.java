@@ -31,8 +31,10 @@ public class DeploymentReader extends Reader<Deployment> {
     /**
      * Construct a new DeploymentReader.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to read the Deployment
+     *                       resources from
+     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     *                           resources to read
      */
     public DeploymentReader(final String pathServiceSid,
                             final String pathEnvironmentSid) {
@@ -63,8 +65,7 @@ public class DeploymentReader extends Reader<Deployment> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Deployments",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Deployments"
         );
 
         addQueryParams(request);
@@ -101,10 +102,7 @@ public class DeploymentReader extends Reader<Deployment> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -121,10 +119,7 @@ public class DeploymentReader extends Reader<Deployment> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,14 +141,7 @@ public class DeploymentReader extends Reader<Deployment> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

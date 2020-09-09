@@ -28,8 +28,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
     /**
      * Construct a new CompositionHookDeleter.
      *
-     * @param pathSid The Recording Composition Hook Sid that uniquely identifies
-     *                the Recording Composition Hook to delete.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public CompositionHookDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -46,8 +45,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/CompositionHooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/CompositionHooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +57,7 @@ public class CompositionHookDeleter extends Deleter<CompositionHook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

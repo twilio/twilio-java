@@ -25,9 +25,10 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     /**
      * Construct a new WebhookFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathServiceSid The SID of the Service with the Channel to fetch the
+     *                       Webhook resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel Webhook resource to fetch
      */
     public WebhookFetcher(final String pathServiceSid,
                           final String pathChannelSid,
@@ -49,8 +50,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());

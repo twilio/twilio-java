@@ -28,12 +28,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     private URI fallbackAssignmentCallbackUrl;
     private String configuration;
     private Integer taskReservationTimeout;
+    private String reEvaluateTasks;
 
     /**
      * Construct a new WorkflowUpdater.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to update
+     * @param pathSid The SID of the resource
      */
     public WorkflowUpdater(final String pathWorkspaceSid,
                            final String pathSid) {
@@ -42,11 +43,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * A string representing a human readable name for this Workflow. Examples
-     * include 'Customer Support' or 'Sales Team'..
+     * A descriptive string that you create to describe the Workflow resource. For
+     * example, `Inbound Call Workflow` or `2014 Outbound Campaign`..
      *
-     * @param friendlyName A string representing a human readable name for this
-     *                     Workflow.
+     * @param friendlyName  descriptive string that you create to describe the
+     *                     Workflow resource
      * @return this
      */
     public WorkflowUpdater setFriendlyName(final String friendlyName) {
@@ -55,12 +56,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * A valid URL for the application that will process task assignment events. See
+     * The URL from your application that will process task assignment events. See
      * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
+     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
+     * for more details..
      *
-     * @param assignmentCallbackUrl A valid URL for the application that will
-     *                              process task assignment events.
+     * @param assignmentCallbackUrl The URL from your application that will process
+     *                              task assignment events
      * @return this
      */
     public WorkflowUpdater setAssignmentCallbackUrl(final URI assignmentCallbackUrl) {
@@ -69,12 +71,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * A valid URL for the application that will process task assignment events. See
+     * The URL from your application that will process task assignment events. See
      * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/api/taskrouter/handling-assignment-callbacks) for more details..
+     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
+     * for more details..
      *
-     * @param assignmentCallbackUrl A valid URL for the application that will
-     *                              process task assignment events.
+     * @param assignmentCallbackUrl The URL from your application that will process
+     *                              task assignment events
      * @return this
      */
     public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl) {
@@ -82,13 +85,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * If the request to the AssignmentCallbackUrl fails, the assignment callback
-     * will be made to this URL..
+     * The URL that we should call when a call to the `assignment_callback_url`
+     * fails..
      *
-     * @param fallbackAssignmentCallbackUrl If the request to the
-     *                                      AssignmentCallbackUrl fails, the
-     *                                      assignment callback will be made to this
-     *                                      URL.
+     * @param fallbackAssignmentCallbackUrl The URL that we should call when a call
+     *                                      to the `assignment_callback_url` fails
      * @return this
      */
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl) {
@@ -97,13 +98,11 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * If the request to the AssignmentCallbackUrl fails, the assignment callback
-     * will be made to this URL..
+     * The URL that we should call when a call to the `assignment_callback_url`
+     * fails..
      *
-     * @param fallbackAssignmentCallbackUrl If the request to the
-     *                                      AssignmentCallbackUrl fails, the
-     *                                      assignment callback will be made to this
-     *                                      URL.
+     * @param fallbackAssignmentCallbackUrl The URL that we should call when a call
+     *                                      to the `assignment_callback_url` fails
      * @return this
      */
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl) {
@@ -111,11 +110,13 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * JSON document configuring the rules for this Workflow. See [Configuring
-     * Workflows](https://www.twilio.com/docs/api/taskrouter/workflow-configuration)
-     * for more information..
+     * A JSON string that contains the rules to apply to the Workflow. See
+     * [Configuring
+     * Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for
+     * more information..
      *
-     * @param configuration JSON document configuring the rules for this Workflow.
+     * @param configuration A JSON string that contains the rules to apply to the
+     *                      Workflow
      * @return this
      */
     public WorkflowUpdater setConfiguration(final String configuration) {
@@ -124,18 +125,30 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * An integer value controlling how long in seconds TaskRouter will wait for a
-     * confirmation response from your application after assigning a Task to a
-     * worker. Defaults to 120 seconds. Maximum value is 86400 (24 hours).
+     * How long TaskRouter will wait for a confirmation response from your
+     * application after it assigns a Task to a Worker. Can be up to `86,400` (24
+     * hours) and the default is `120`..
      *
-     * @param taskReservationTimeout An integer value controlling how long in
-     *                               seconds TaskRouter will wait for a confirmation
-     *                               response from your application after assigning
-     *                               a Task to a worker.
+     * @param taskReservationTimeout How long TaskRouter will wait for a
+     *                               confirmation response from your application
+     *                               after it assigns a Task to a Worker
      * @return this
      */
     public WorkflowUpdater setTaskReservationTimeout(final Integer taskReservationTimeout) {
         this.taskReservationTimeout = taskReservationTimeout;
+        return this;
+    }
+
+    /**
+     * Whether or not to re-evaluate Tasks. The default is `false`, which means
+     * Tasks in the Workflow will not be processed through the assignment loop
+     * again..
+     *
+     * @param reEvaluateTasks Whether or not to re-evaluate Tasks
+     * @return this
+     */
+    public WorkflowUpdater setReEvaluateTasks(final String reEvaluateTasks) {
+        this.reEvaluateTasks = reEvaluateTasks;
         return this;
     }
 
@@ -151,8 +164,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -165,14 +177,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workflow.fromJson(response.getStream(), client.getObjectMapper());
@@ -202,6 +207,10 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
         if (taskReservationTimeout != null) {
             request.addPostParam("TaskReservationTimeout", taskReservationTimeout.toString());
+        }
+
+        if (reEvaluateTasks != null) {
+            request.addPostParam("ReEvaluateTasks", reEvaluateTasks);
         }
     }
 }

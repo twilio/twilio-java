@@ -23,6 +23,7 @@ public class UserCreator extends Creator<User> {
     private String roleSid;
     private String attributes;
     private String friendlyName;
+    private User.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new UserCreator.
@@ -37,8 +38,8 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) assigned
-     * to the new User..
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the new User..
      *
      * @param roleSid The SID of the Role assigned to this user
      * @return this
@@ -72,6 +73,17 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public UserCreator setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -83,11 +95,11 @@ public class UserCreator extends Creator<User> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users"
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -97,17 +109,21 @@ public class UserCreator extends Creator<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

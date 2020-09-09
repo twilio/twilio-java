@@ -22,7 +22,6 @@ import java.net.URI;
 
 public class ApplicationCreator extends Creator<Application> {
     private String pathAccountSid;
-    private final String friendlyName;
     private String apiVersion;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -37,26 +36,21 @@ public class ApplicationCreator extends Creator<Application> {
     private HttpMethod smsFallbackMethod;
     private URI smsStatusCallback;
     private URI messageStatusCallback;
+    private String friendlyName;
 
     /**
      * Construct a new ApplicationCreator.
-     *
-     * @param friendlyName A string to describe the new resource
      */
-    public ApplicationCreator(final String friendlyName) {
-        this.friendlyName = friendlyName;
+    public ApplicationCreator() {
     }
 
     /**
      * Construct a new ApplicationCreator.
      *
      * @param pathAccountSid The SID of the Account that will create the resource
-     * @param friendlyName A string to describe the new resource
      */
-    public ApplicationCreator(final String pathAccountSid,
-                              final String friendlyName) {
+    public ApplicationCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
-        this.friendlyName = friendlyName;
     }
 
     /**
@@ -311,6 +305,18 @@ public class ApplicationCreator extends Creator<Application> {
     }
 
     /**
+     * A descriptive string that you create to describe the new application. It can
+     * be up to 64 characters long..
+     *
+     * @param friendlyName A string to describe the new resource
+     * @return this
+     */
+    public ApplicationCreator setFriendlyName(final String friendlyName) {
+        this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -323,8 +329,7 @@ public class ApplicationCreator extends Creator<Application> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications.json"
         );
 
         addPostParams(request);
@@ -337,14 +342,7 @@ public class ApplicationCreator extends Creator<Application> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Application.fromJson(response.getStream(), client.getObjectMapper());
@@ -356,10 +354,6 @@ public class ApplicationCreator extends Creator<Application> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (friendlyName != null) {
-            request.addPostParam("FriendlyName", friendlyName);
-        }
-
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
         }
@@ -414,6 +408,10 @@ public class ApplicationCreator extends Creator<Application> {
 
         if (messageStatusCallback != null) {
             request.addPostParam("MessageStatusCallback", messageStatusCallback.toString());
+        }
+
+        if (friendlyName != null) {
+            request.addPostParam("FriendlyName", friendlyName);
         }
     }
 }

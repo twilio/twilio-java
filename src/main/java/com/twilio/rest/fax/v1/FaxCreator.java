@@ -39,7 +39,7 @@ public class FaxCreator extends Creator<Fax> {
      * Construct a new FaxCreator.
      *
      * @param to The phone number to receive the fax
-     * @param mediaUrl The Twilio-hosted URL of the PDF that contains the fax
+     * @param mediaUrl The URL of the PDF that contains the fax
      */
     public FaxCreator(final String to,
                       final URI mediaUrl) {
@@ -49,7 +49,9 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The [Fax Quality
-     * value](https://www.twilio.com/docs/api/fax/rest/faxes-resource#fax-quality-values) that describes the fax quality. Can be: `standard`, `fine`, or `superfine` and defaults to `fine`..
+     * value](https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values)
+     * that describes the fax quality. Can be: `standard`, `fine`, or `superfine`
+     * and defaults to `fine`..
      *
      * @param quality The quality of this fax
      * @return this
@@ -61,7 +63,7 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The URL we should call using the `POST` method to send [status
-     * information](https://www.twilio.com/docs/api/fax/rest/faxes-resource#fax-status-callback) to your application when the status of the fax changes..
+     * information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -74,7 +76,7 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The URL we should call using the `POST` method to send [status
-     * information](https://www.twilio.com/docs/api/fax/rest/faxes-resource#fax-status-callback) to your application when the status of the fax changes..
+     * information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -161,8 +163,7 @@ public class FaxCreator extends Creator<Fax> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FAX.toString(),
-            "/v1/Faxes",
-            client.getRegion()
+            "/v1/Faxes"
         );
 
         addPostParams(request);
@@ -175,14 +176,7 @@ public class FaxCreator extends Creator<Fax> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fax.fromJson(response.getStream(), client.getObjectMapper());

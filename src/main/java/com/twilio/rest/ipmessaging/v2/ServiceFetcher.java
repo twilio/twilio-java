@@ -23,7 +23,7 @@ public class ServiceFetcher extends Fetcher<Service> {
     /**
      * Construct a new ServiceFetcher.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Service resource to fetch
      */
     public ServiceFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +41,7 @@ public class ServiceFetcher extends Fetcher<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +53,7 @@ public class ServiceFetcher extends Fetcher<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());

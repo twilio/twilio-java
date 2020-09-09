@@ -146,8 +146,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingFetcher to execute fetch.
      *
-     * @param pathSid The Recording Sid that uniquely identifies the Recording to
-     *                fetch.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return RecordingFetcher capable of executing the fetch
      */
     public static RecordingFetcher fetcher(final String pathSid) {
@@ -166,8 +165,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingDeleter to execute delete.
      *
-     * @param pathSid The Recording Sid that uniquely identifies the Recording to
-     *                delete.
+     * @param pathSid The SID that identifies the resource to delete
      * @return RecordingDeleter capable of executing the delete
      */
     public static RecordingDeleter deleter(final String pathSid) {
@@ -277,137 +275,138 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return Twilio Account SID.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status of the Recording..
+     * Returns The status of the recording.
      *
-     * @return The status of the Recording.
+     * @return The status of the recording
      */
     public final Recording.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The Date when the media recording began writing..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return Date when the media recording began writing.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this Recording..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34-character string that uniquely identifies this Recording.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies the source of this
-     * Recording..
+     * Returns The SID of the recording source.
      *
-     * @return A 34-character string that uniquely identifies the source of this
-     *         Recording.
+     * @return The SID of the recording source
      */
     public final String getSourceSid() {
         return this.sourceSid;
     }
 
     /**
-     * Returns The Size of the recorded track, in bytes..
+     * Returns The size of the recorded track, in bytes.
      *
-     * @return Size of the recorded track, in bytes.
+     * @return The size of the recorded track, in bytes
      */
     public final Long getSize() {
         return this.size;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Indicates the media type for this recording..
+     * Returns The recording's media type.
      *
-     * @return Indicates the media type for this recording.
+     * @return The recording's media type
      */
     public final Recording.Type getType() {
         return this.type;
     }
 
     /**
-     * Returns The Duration of the Recording in seconds..
+     * Returns The duration of the recording in seconds.
      *
-     * @return Duration of the Recording in seconds.
+     * @return The duration of the recording in seconds
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The file format for this Recording..
+     * Returns The file format for the recording.
      *
-     * @return The file format for this Recording.
+     * @return The file format for the recording
      */
     public final Recording.Format getContainerFormat() {
         return this.containerFormat;
     }
 
     /**
-     * Returns The The codec used to encode the track..
+     * Returns The codec used to encode the track.
      *
-     * @return The codec used to encode the track.
+     * @return The codec used to encode the track
      */
     public final Recording.Codec getCodec() {
         return this.codec;
     }
 
     /**
-     * Returns The A list of Sids related to this Recording..
+     * Returns A list of SIDs related to the recording.
      *
-     * @return A list of Sids related to this Recording.
+     * @return A list of SIDs related to the recording
      */
     public final Map<String, Object> getGroupingSids() {
         return this.groupingSids;
     }
 
     /**
-     * Returns The The name that was given to the source track of this recording..
+     * Returns The name that was given to the source track of the recording.
      *
-     * @return The name that was given to the source track of this recording.
+     * @return The name that was given to the source track of the recording
      */
     public final String getTrackName() {
         return this.trackName;
     }
 
     /**
-     * Returns The Offset in milliseconds for this track..
+     * Returns The number of milliseconds between a point in time that is common to
+     * all rooms in a group and when the source room of the recording started.
      *
-     * @return Offset in milliseconds for this track.
+     * @return The number of milliseconds between a point in time that is common to
+     *         all rooms in a group and when the source room of the recording
+     *         started
      */
     public final Long getOffset() {
         return this.offset;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

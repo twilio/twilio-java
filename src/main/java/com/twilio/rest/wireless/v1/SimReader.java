@@ -27,9 +27,9 @@ public class SimReader extends Reader<Sim> {
     private String simRegistrationCode;
 
     /**
-     * Only return Sims with this status..
+     * Only return Sim resources with this status..
      *
-     * @param status Only return Sims with this status.
+     * @param status Only return Sim resources with this status
      * @return this
      */
     public SimReader setStatus(final Sim.Status status) {
@@ -38,10 +38,10 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Return Sims with this Iccid. Currently this should be a list with maximum
-     * size 1..
+     * Only return Sim resources with this ICCID. This will return a list with a
+     * maximum size of 1..
      *
-     * @param iccid Return Sims with this Iccid.
+     * @param iccid Only return Sim resources with this ICCID
      * @return this
      */
     public SimReader setIccid(final String iccid) {
@@ -50,9 +50,11 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sims with this Rate Plan..
+     * The SID or unique name of a [RatePlan
+     * resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only
+     * return Sim resources assigned to this RatePlan resource..
      *
-     * @param ratePlan Only return Sims with this Rate Plan.
+     * @param ratePlan Only return Sim resources assigned to this RatePlan resource
      * @return this
      */
     public SimReader setRatePlan(final String ratePlan) {
@@ -61,9 +63,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sims with this EID..
+     * Deprecated..
      *
-     * @param eId Only return Sims with this EID.
+     * @param eId Deprecated
      * @return this
      */
     public SimReader setEId(final String eId) {
@@ -72,9 +74,11 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * Only return Sims with this registration code..
+     * Only return Sim resources with this registration code. This will return a
+     * list with a maximum size of 1..
      *
-     * @param simRegistrationCode Only return Sims with this registration code.
+     * @param simRegistrationCode Only return Sim resources with this registration
+     *                            code
      * @return this
      */
     public SimReader setSimRegistrationCode(final String simRegistrationCode) {
@@ -105,8 +109,7 @@ public class SimReader extends Reader<Sim> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims",
-            client.getRegion()
+            "/v1/Sims"
         );
 
         addQueryParams(request);
@@ -143,10 +146,7 @@ public class SimReader extends Reader<Sim> {
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -163,10 +163,7 @@ public class SimReader extends Reader<Sim> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -188,14 +185,7 @@ public class SimReader extends Reader<Sim> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

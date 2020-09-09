@@ -46,8 +46,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TRUNKING.toString(),
-            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Trunks/" + this.pathTrunkSid + "/CredentialLists/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class CredentialListFetcher extends Fetcher<CredentialList> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return CredentialList.fromJson(response.getStream(), client.getObjectMapper());

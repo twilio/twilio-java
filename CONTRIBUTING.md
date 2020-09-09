@@ -11,6 +11,7 @@ even better than it is today! Here are the guidelines we'd like you to follow:
  - [Submission Guidelines](#submit)
  - [Coding Rules](#rules)
 
+
 ## <a name="coc"></a> Code of Conduct
 
 Help us keep `twilio-java` open and inclusive. Please be kind to and considerate
@@ -104,7 +105,7 @@ Before you submit your pull request consider the following guidelines:
 * Make your changes in a new git branch:
 
     ```shell
-    git checkout -b my-fix-branch master
+    git checkout -b my-fix-branch main
     ```
 
 * Create your patch, **including appropriate test cases**.
@@ -131,7 +132,7 @@ Before you submit your pull request consider the following guidelines:
     git push origin my-fix-branch
     ```
 
-In GitHub, send a pull request to `twilio-java:master`.
+In GitHub, send a pull request to `twilio-java:main`.
 If we suggest changes, then:
 
 * Make the required updates.
@@ -153,6 +154,7 @@ you are working:
 
 * All features or bug fixes **must be tested** by one or more tests.
 * All classes and methods **must be documented**.
+
 
 [docs-link]: https://www.twilio.com/docs/libraries/java
 [issue-link]: https://github.com/twilio/twilio-java/issues/new

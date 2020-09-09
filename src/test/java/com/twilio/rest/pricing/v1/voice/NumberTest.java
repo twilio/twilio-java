@@ -41,7 +41,7 @@ public class NumberTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.PRICING.toString(),
-                                          "/v1/Voice/Numbers/+15017122661");
+                                          "/v1/Voice/Numbers/%2B15017122661");
 
             twilioRestClient.request(request);
             times = 1;

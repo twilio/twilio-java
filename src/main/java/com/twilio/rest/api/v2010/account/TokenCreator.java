@@ -61,8 +61,7 @@ public class TokenCreator extends Creator<Token> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Tokens.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Tokens.json"
         );
 
         addPostParams(request);
@@ -75,14 +74,7 @@ public class TokenCreator extends Creator<Token> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Token.fromJson(response.getStream(), client.getObjectMapper());

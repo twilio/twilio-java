@@ -68,7 +68,7 @@ public class UserBinding extends Resource {
      * Create a UserBindingReader to execute read.
      *
      * @param pathServiceSid The SID of the Service to read the resource from
-     * @param pathUserSid The SID of the User of the User Bindings to read
+     * @param pathUserSid The SID of the User with the User Bindings to read
      * @return UserBindingReader capable of executing the read
      */
     public static UserBindingReader reader(final String pathServiceSid,
@@ -80,8 +80,8 @@ public class UserBinding extends Resource {
      * Create a UserBindingFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathUserSid The SID of the User for the binding
-     * @param pathSid The unique string that identifies the resource
+     * @param pathUserSid The SID of the User with the binding
+     * @param pathSid The SID of the User Binding resource to fetch
      * @return UserBindingFetcher capable of executing the fetch
      */
     public static UserBindingFetcher fetcher(final String pathServiceSid,
@@ -95,7 +95,7 @@ public class UserBinding extends Resource {
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathUserSid The SID of the User of the User Bindings to delete
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the User Binding resource to delete
      * @return UserBindingDeleter capable of executing the delete
      */
     public static UserBindingDeleter deleter(final String pathServiceSid,
@@ -195,7 +195,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -204,7 +204,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -213,7 +213,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -222,26 +222,25 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique endpoint identifier for the User Binding.
+     * Returns The unique endpoint identifier for the User Binding.
      *
      * @return The unique endpoint identifier for the User Binding
      */
@@ -250,7 +249,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The string that identifies the resource's User.
+     * Returns The string that identifies the resource's User.
      *
      * @return The string that identifies the resource's User
      */
@@ -259,16 +258,16 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The SID of the User for the binding.
+     * Returns The SID of the User with the binding.
      *
-     * @return The SID of the User for the binding
+     * @return The SID of the User with the binding
      */
     public final String getUserSid() {
         return this.userSid;
     }
 
     /**
-     * Returns The The SID of the Credential for the binding.
+     * Returns The SID of the Credential for the binding.
      *
      * @return The SID of the Credential for the binding
      */
@@ -277,7 +276,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The push technology to use for the binding.
+     * Returns The push technology to use for the binding.
      *
      * @return The push technology to use for the binding
      */
@@ -286,7 +285,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The Programmable Chat message types the binding is subscribed to.
+     * Returns The Programmable Chat message types the binding is subscribed to.
      *
      * @return The Programmable Chat message types the binding is subscribed to
      */
@@ -295,7 +294,7 @@ public class UserBinding extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the User Binding resource.
+     * Returns The absolute URL of the User Binding resource.
      *
      * @return The absolute URL of the User Binding resource
      */

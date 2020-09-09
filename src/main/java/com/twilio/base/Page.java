@@ -2,8 +2,6 @@ package com.twilio.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Joiner;
-import com.google.common.base.Strings;
 import com.twilio.exception.ApiConnectionException;
 
 import java.io.IOException;
@@ -35,8 +33,8 @@ public class Page<T> {
         this.pageSize = b.pageSize;
     }
 
-    private String urlFromUri(String domain, String region, String uri) {
-        return "https://" + Joiner.on(".").skipNulls().join(domain, region, "twilio", "com") + uri;
+    private String urlFromUri(String domain, String uri) {
+        return "https://" + domain + ".twilio.com" + uri;
     }
 
     public List<T> getRecords() {
@@ -47,45 +45,42 @@ public class Page<T> {
      * Generate first page url for a list result.
      *
      * @param domain domain to use
-     * @param region region to use
      * @return the first page url
      */
-    public String getFirstPageUrl(String domain, String region) {
+    public String getFirstPageUrl(String domain) {
         if (firstPageUrl != null) {
             return firstPageUrl;
         }
 
-        return urlFromUri(domain, region, firstPageUri);
+        return urlFromUri(domain, firstPageUri);
     }
 
     /**
      * Generate next page url for a list result.
      *
      * @param domain domain to use
-     * @param region region to use
      * @return the next page url
      */
-    public String getNextPageUrl(String domain, String region) {
+    public String getNextPageUrl(String domain) {
         if (nextPageUrl != null) {
             return nextPageUrl;
         }
 
-        return urlFromUri(domain, region, nextPageUri);
+        return urlFromUri(domain, nextPageUri);
     }
 
     /**
      * Generate previous page url for a list result.
      *
      * @param domain domain to use
-     * @param region region to use
      * @return the previous page url
      */
-    public String getPreviousPageUrl(String domain, String region) {
+    public String getPreviousPageUrl(String domain) {
         if (previousPageUrl != null) {
             return previousPageUrl;
         }
 
-        return urlFromUri(domain, region, previousPageUri);
+        return urlFromUri(domain, previousPageUri);
     }
 
     public int getPageSize() {
@@ -96,29 +91,28 @@ public class Page<T> {
      * Generate page url for a list result.
      *
      * @param domain domain to use
-     * @param region region to use
      * @return the page url
      */
-    public String getUrl(String domain, String region) {
+    public String getUrl(String domain) {
         if (url != null) {
             return url;
         }
 
-        return urlFromUri(domain, region, uri);
+        return urlFromUri(domain, uri);
     }
 
     public boolean hasNextPage() {
-        return !Strings.isNullOrEmpty(nextPageUri) || !Strings.isNullOrEmpty(nextPageUrl);
+        return (nextPageUri != null && !nextPageUri.isEmpty()) || (nextPageUrl != null && !nextPageUrl.isEmpty());
     }
 
     /**
      * Create a new page of data from a json blob.
      *
-     * @param recordKey key which holds the records
-     * @param json json blob
+     * @param recordKey  key which holds the records
+     * @param json       json blob
      * @param recordType resource type
-     * @param mapper json parser
-     * @param <T> record class type
+     * @param mapper     json parser
+     * @param <T>        record class type
      * @return a page of records of type T
      */
     public static <T> Page<T> fromJson(String recordKey, String json, Class<T> recordType, ObjectMapper mapper) {

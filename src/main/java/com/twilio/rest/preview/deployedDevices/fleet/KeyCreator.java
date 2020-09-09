@@ -72,8 +72,7 @@ public class KeyCreator extends Creator<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys",
-            client.getRegion()
+            "/DeployedDevices/Fleets/" + this.pathFleetSid + "/Keys"
         );
 
         addPostParams(request);
@@ -86,14 +85,7 @@ public class KeyCreator extends Creator<Key> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());

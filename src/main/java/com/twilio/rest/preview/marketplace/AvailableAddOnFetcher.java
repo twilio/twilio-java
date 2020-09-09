@@ -28,7 +28,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
     /**
      * Construct a new AvailableAddOnFetcher.
      *
-     * @param pathSid The unique Available Add-on Sid
+     * @param pathSid The SID of the AvailableAddOn resource to fetch
      */
     public AvailableAddOnFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -46,8 +46,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/marketplace/AvailableAddOns/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/AvailableAddOns/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class AvailableAddOnFetcher extends Fetcher<AvailableAddOn> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AvailableAddOn.fromJson(response.getStream(), client.getObjectMapper());

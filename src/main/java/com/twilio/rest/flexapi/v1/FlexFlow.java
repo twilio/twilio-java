@@ -36,7 +36,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FlexFlow extends Resource {
-    private static final long serialVersionUID = 227807363812436L;
+    private static final long serialVersionUID = 100371261398167L;
 
     public enum ChannelType {
         WEB("web"),
@@ -105,7 +105,7 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowFetcher to execute fetch.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to fetch
      * @return FlexFlowFetcher capable of executing the fetch
      */
     public static FlexFlowFetcher fetcher(final String pathSid) {
@@ -115,9 +115,9 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowCreator to execute create.
      *
-     * @param friendlyName Human readable description of this FlexFlow
-     * @param chatServiceSid Service Sid.
-     * @param channelType Channel type
+     * @param friendlyName A string to describe the resource
+     * @param chatServiceSid The SID of the chat service
+     * @param channelType The channel type
      * @return FlexFlowCreator capable of executing the create
      */
     public static FlexFlowCreator creator(final String friendlyName,
@@ -129,7 +129,7 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowUpdater to execute update.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to update
      * @return FlexFlowUpdater capable of executing the update
      */
     public static FlexFlowUpdater updater(final String pathSid) {
@@ -139,7 +139,7 @@ public class FlexFlow extends Resource {
     /**
      * Create a FlexFlowDeleter to execute delete.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to delete
      * @return FlexFlowDeleter capable of executing the delete
      */
     public static FlexFlowDeleter deleter(final String pathSid) {
@@ -196,6 +196,7 @@ public class FlexFlow extends Resource {
     private final FlexFlow.IntegrationType integrationType;
     private final Map<String, Object> integration;
     private final Boolean longLived;
+    private final Boolean janitorEnabled;
     private final URI url;
 
     @JsonCreator
@@ -223,6 +224,8 @@ public class FlexFlow extends Resource {
                      final Map<String, Object> integration,
                      @JsonProperty("long_lived")
                      final Boolean longLived,
+                     @JsonProperty("janitor_enabled")
+                     final Boolean janitorEnabled,
                      @JsonProperty("url")
                      final URI url) {
         this.accountSid = accountSid;
@@ -237,124 +240,131 @@ public class FlexFlow extends Resource {
         this.integrationType = integrationType;
         this.integration = integration;
         this.longLived = longLived;
+        this.janitorEnabled = janitorEnabled;
         this.url = url;
     }
 
     /**
-     * Returns The The ID of the account that owns this Workflow.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The ID of the account that owns this Workflow
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The time the FlexFlow was created, given as GMT in ISO 8601
-     * format..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The time the FlexFlow was created, given as GMT in ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The time the FlexFlow was last updated, given as GMT in ISO 8601
-     * format..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The time the FlexFlow was last updated, given as GMT in ISO 8601
-     *         format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the FlexFlow.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The unique ID of the FlexFlow
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Human readable description of this FlexFlow.
+     * Returns The string that you assigned to describe the resource.
      *
-     * @return Human readable description of this FlexFlow
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The SID of the chat service.
      *
-     * @return Service Sid.
+     * @return The SID of the chat service
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The Channel type.
+     * Returns The channel type.
      *
-     * @return Channel type
+     * @return The channel type
      */
     public final FlexFlow.ChannelType getChannelType() {
         return this.channelType;
     }
 
     /**
-     * Returns The Channel contact Identity.
+     * Returns The channel contact's Identity.
      *
-     * @return Channel contact Identity
+     * @return The channel contact's Identity
      */
     public final String getContactIdentity() {
         return this.contactIdentity;
     }
 
     /**
-     * Returns The Boolean flag for enabling or disabling the FlexFlow.
+     * Returns Whether the FlexFlow is enabled.
      *
-     * @return Boolean flag for enabling or disabling the FlexFlow
+     * @return Whether the FlexFlow is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The Integration type.
+     * Returns The integration type.
      *
-     * @return Integration type
+     * @return The integration type
      */
     public final FlexFlow.IntegrationType getIntegrationType() {
         return this.integrationType;
     }
 
     /**
-     * Returns The Integration block.
+     * Returns An object that contains specific parameters for the integration.
      *
-     * @return Integration block
+     * @return An object that contains specific parameters for the integration
      */
     public final Map<String, Object> getIntegration() {
         return this.integration;
     }
 
     /**
-     * Returns The Long Lived flag for new Channel.
+     * Returns Re-use this chat channel for future interactions with a contact.
      *
-     * @return Long Lived flag for new Channel
+     * @return Re-use this chat channel for future interactions with a contact
      */
     public final Boolean getLongLived() {
         return this.longLived;
     }
 
     /**
-     * Returns The The url.
+     * Returns Remove active Proxy sessions if the corresponding Task is deleted..
      *
-     * @return The url
+     * @return Remove active Proxy sessions if the corresponding Task is deleted.
+     */
+    public final Boolean getJanitorEnabled() {
+        return this.janitorEnabled;
+    }
+
+    /**
+     * Returns The absolute URL of the FlexFlow resource.
+     *
+     * @return The absolute URL of the FlexFlow resource
      */
     public final URI getUrl() {
         return this.url;
@@ -384,6 +394,7 @@ public class FlexFlow extends Resource {
                Objects.equals(integrationType, other.integrationType) &&
                Objects.equals(integration, other.integration) &&
                Objects.equals(longLived, other.longLived) &&
+               Objects.equals(janitorEnabled, other.janitorEnabled) &&
                Objects.equals(url, other.url);
     }
 
@@ -401,6 +412,7 @@ public class FlexFlow extends Resource {
                             integrationType,
                             integration,
                             longLived,
+                            janitorEnabled,
                             url);
     }
 
@@ -419,6 +431,7 @@ public class FlexFlow extends Resource {
                           .add("integrationType", integrationType)
                           .add("integration", integration)
                           .add("longLived", longLived)
+                          .add("janitorEnabled", janitorEnabled)
                           .add("url", url)
                           .toString();
     }

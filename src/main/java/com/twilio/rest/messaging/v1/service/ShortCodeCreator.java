@@ -29,7 +29,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
      * Construct a new ShortCodeCreator.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param shortCodeSid SID of the ShortCode being added to the Service.
+     * @param shortCodeSid The SID of the ShortCode being added to the Service
      */
     public ShortCodeCreator(final String pathServiceSid,
                             final String shortCodeSid) {
@@ -49,8 +49,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/ShortCodes",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/ShortCodes"
         );
 
         addPostParams(request);
@@ -63,14 +62,7 @@ public class ShortCodeCreator extends Creator<ShortCode> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ShortCode.fromJson(response.getStream(), client.getObjectMapper());

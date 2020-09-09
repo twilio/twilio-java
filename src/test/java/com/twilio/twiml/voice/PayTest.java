@@ -42,13 +42,16 @@ public class PayTest {
         Pay elem = new Pay.Builder()
             .input(Pay.Input.DTMF)
             .action(URI.create("https://example.com"))
+            .bankAccountType(Pay.BankAccountType.CONSUMER_CHECKING)
             .statusCallback(URI.create("https://example.com"))
             .statusCallbackMethod(Pay.StatusCallbackMethod.GET)
             .timeout(1)
             .maxAttempts(1)
             .securityCode(true)
             .postalCode("postal_code")
+            .minPostalCodeLength(1)
             .paymentConnector("payment_connector")
+            .paymentMethod(Pay.PaymentMethod.ACH_DEBIT)
             .tokenType(Pay.TokenType.ONE_TIME)
             .chargeAmount("charge_amount")
             .currency("currency")
@@ -59,7 +62,7 @@ public class PayTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>",
+            "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>",
             elem.toXml()
         );
     }
@@ -86,12 +89,15 @@ public class PayTest {
                     .attempts(Promoter.listOfOne(1))
                     .build());
 
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
         Pay elem = builder.build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
             "</Pay>",
             elem.toXml()
         );

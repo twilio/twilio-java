@@ -25,10 +25,11 @@ public class WebhookDeleter extends Deleter<Webhook> {
     /**
      * Construct a new WebhookDeleter.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathServiceSid The SID of the Service with the Channel to delete the
+     *                       Webhook resource from
      * @param pathChannelSid The SID of the channel the resource to delete belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Channel Webhook resource to delete
      */
     public WebhookDeleter(final String pathServiceSid,
                           final String pathChannelSid,
@@ -49,8 +50,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

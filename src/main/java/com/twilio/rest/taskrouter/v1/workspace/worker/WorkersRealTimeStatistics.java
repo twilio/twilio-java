@@ -39,7 +39,7 @@ public class WorkersRealTimeStatistics extends Resource {
     /**
      * Create a WorkersRealTimeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the resource to fetch
      * @return WorkersRealTimeStatisticsFetcher capable of executing the fetch
      */
     public static WorkersRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -109,25 +109,25 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The current Worker status count breakdown by Activity.
+     * Returns The number of current Workers by Activity.
      *
-     * @return The current Worker status count breakdown by Activity
+     * @return The number of current Workers by Activity
      */
     public final List<Map<String, Object>> getActivityStatistics() {
         return this.activityStatistics;
     }
 
     /**
-     * Returns The The total number of Workers.
+     * Returns The total number of Workers.
      *
      * @return The total number of Workers
      */
@@ -136,18 +136,18 @@ public class WorkersRealTimeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The SID of the Workspace that contains the Workers.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the Workers
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the Workers statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workers statistics resource
      */
     public final URI getUrl() {
         return this.url;

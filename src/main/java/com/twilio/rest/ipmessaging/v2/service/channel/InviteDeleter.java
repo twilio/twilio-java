@@ -28,7 +28,7 @@ public class InviteDeleter extends Deleter<Invite> {
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The SID of the Channel the resource to delete belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to delete
      */
     public InviteDeleter(final String pathServiceSid,
                          final String pathChannelSid,
@@ -49,8 +49,7 @@ public class InviteDeleter extends Deleter<Invite> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class InviteDeleter extends Deleter<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -1,5 +1,7 @@
 package com.twilio.jwt.accesstoken;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 /**
  * Grant used to access Twilio IP Messaging.
  *
@@ -64,6 +66,7 @@ public class IpMessagingGrant implements Grant {
     }
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public final String service_sid;
         public final String deployment_role_sid;

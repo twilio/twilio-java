@@ -24,7 +24,7 @@ public class CallFetcher extends Fetcher<Call> {
     /**
      * Construct a new CallFetcher.
      *
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID of the Call resource to fetch
      */
     public CallFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -35,7 +35,7 @@ public class CallFetcher extends Fetcher<Call> {
      *
      * @param pathAccountSid The SID of the Account that created the resource(s) to
      *                       fetch
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID of the Call resource to fetch
      */
     public CallFetcher(final String pathAccountSid,
                        final String pathSid) {
@@ -56,8 +56,7 @@ public class CallFetcher extends Fetcher<Call> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -69,14 +68,7 @@ public class CallFetcher extends Fetcher<Call> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Call.fromJson(response.getStream(), client.getObjectMapper());

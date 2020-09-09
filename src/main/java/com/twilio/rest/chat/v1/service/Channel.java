@@ -216,7 +216,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -225,7 +225,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -234,7 +234,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -243,7 +243,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The string that you assigned to describe the resource.
+     * Returns The string that you assigned to describe the resource.
      *
      * @return The string that you assigned to describe the resource
      */
@@ -252,8 +252,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -262,7 +261,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The JSON string that stores application-specific data.
+     * Returns The JSON string that stores application-specific data.
      *
      * @return The JSON string that stores application-specific data
      */
@@ -271,7 +270,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The visibility of the channel. Can be: `public` or `private`.
+     * Returns The visibility of the channel. Can be: `public` or `private`.
      *
      * @return The visibility of the channel. Can be: `public` or `private`
      */
@@ -280,7 +279,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -289,8 +288,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -299,7 +297,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The identity of the User that created the channel.
+     * Returns The identity of the User that created the channel.
      *
      * @return The identity of the User that created the channel
      */
@@ -308,7 +306,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The number of Members in the Channel.
+     * Returns The number of Members in the Channel.
      *
      * @return The number of Members in the Channel
      */
@@ -317,7 +315,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The number of Messages in the Channel.
+     * Returns The number of Messages in the Channel.
      *
      * @return The number of Messages in the Channel
      */
@@ -326,7 +324,7 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Channel resource.
+     * Returns The absolute URL of the Channel resource.
      *
      * @return The absolute URL of the Channel resource
      */
@@ -335,8 +333,8 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The Absolute URLs to access the Members, Messages , Invites and, if
-     * it exists, the last Message for the Channel.
+     * Returns Absolute URLs to access the Members, Messages , Invites and, if it
+     * exists, the last Message for the Channel.
      *
      * @return Absolute URLs to access the Members, Messages , Invites and, if it
      *         exists, the last Message for the Channel

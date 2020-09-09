@@ -25,13 +25,16 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     private final String pathServiceSid;
     private final String pathListSid;
     private final Integer pathIndex;
+    private String ifMatch;
 
     /**
      * Construct a new SyncListItemDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathListSid The list_sid
-     * @param pathIndex The index
+     * @param pathServiceSid The SID of the Sync Service with the Sync List Item
+     *                       resource to delete
+     * @param pathListSid The SID of the Sync List with the Sync List Item resource
+     *                    to delete
+     * @param pathIndex The index of the Sync List Item resource to delete
      */
     public SyncListItemDeleter(final String pathServiceSid,
                                final String pathListSid,
@@ -39,6 +42,17 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.pathIndex = pathIndex;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncListItemDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     /**
@@ -52,10 +66,10 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,16 +79,20 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

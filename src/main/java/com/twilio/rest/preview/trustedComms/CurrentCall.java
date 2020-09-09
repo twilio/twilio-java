@@ -88,140 +88,68 @@ public class CurrentCall extends Resource {
         }
     }
 
-    private final String sid;
-    private final String from;
-    private final String to;
-    private final String status;
-    private final String reason;
-    private final DateTime createdAt;
-    private final String caller;
-    private final String logo;
     private final String bgColor;
+    private final String caller;
+    private final DateTime createdAt;
     private final String fontColor;
-    private final String useCase;
+    private final String from;
+    private final String logo;
     private final String manager;
+    private final String reason;
     private final String shieldImg;
+    private final String sid;
+    private final String status;
+    private final String to;
     private final URI url;
+    private final String useCase;
 
     @JsonCreator
-    private CurrentCall(@JsonProperty("sid")
-                        final String sid,
-                        @JsonProperty("from")
-                        final String from,
-                        @JsonProperty("to")
-                        final String to,
-                        @JsonProperty("status")
-                        final String status,
-                        @JsonProperty("reason")
-                        final String reason,
-                        @JsonProperty("created_at")
-                        final String createdAt,
+    private CurrentCall(@JsonProperty("bg_color")
+                        final String bgColor,
                         @JsonProperty("caller")
                         final String caller,
-                        @JsonProperty("logo")
-                        final String logo,
-                        @JsonProperty("bg_color")
-                        final String bgColor,
+                        @JsonProperty("created_at")
+                        final String createdAt,
                         @JsonProperty("font_color")
                         final String fontColor,
-                        @JsonProperty("use_case")
-                        final String useCase,
+                        @JsonProperty("from")
+                        final String from,
+                        @JsonProperty("logo")
+                        final String logo,
                         @JsonProperty("manager")
                         final String manager,
+                        @JsonProperty("reason")
+                        final String reason,
                         @JsonProperty("shield_img")
                         final String shieldImg,
+                        @JsonProperty("sid")
+                        final String sid,
+                        @JsonProperty("status")
+                        final String status,
+                        @JsonProperty("to")
+                        final String to,
                         @JsonProperty("url")
-                        final URI url) {
-        this.sid = sid;
-        this.from = from;
-        this.to = to;
-        this.status = status;
-        this.reason = reason;
-        this.createdAt = DateConverter.iso8601DateTimeFromString(createdAt);
-        this.caller = caller;
-        this.logo = logo;
+                        final URI url,
+                        @JsonProperty("use_case")
+                        final String useCase) {
         this.bgColor = bgColor;
+        this.caller = caller;
+        this.createdAt = DateConverter.iso8601DateTimeFromString(createdAt);
         this.fontColor = fontColor;
-        this.useCase = useCase;
+        this.from = from;
+        this.logo = logo;
         this.manager = manager;
+        this.reason = reason;
         this.shieldImg = shieldImg;
+        this.sid = sid;
+        this.status = status;
+        this.to = to;
         this.url = url;
+        this.useCase = useCase;
     }
 
     /**
-     * Returns The A string that uniquely identifies this current phone call..
-     *
-     * @return A string that uniquely identifies this current phone call.
-     */
-    public final String getSid() {
-        return this.sid;
-    }
-
-    /**
-     * Returns The The originating phone number.
-     *
-     * @return The originating phone number
-     */
-    public final String getFrom() {
-        return this.from;
-    }
-
-    /**
-     * Returns The The terminating phone number.
-     *
-     * @return The terminating phone number
-     */
-    public final String getTo() {
-        return this.to;
-    }
-
-    /**
-     * Returns The The status of the current phone call.
-     *
-     * @return The status of the current phone call
-     */
-    public final String getStatus() {
-        return this.status;
-    }
-
-    /**
-     * Returns The The business reason for this current phone call.
-     *
-     * @return The business reason for this current phone call
-     */
-    public final String getReason() {
-        return this.reason;
-    }
-
-    /**
-     * Returns The The date this current phone call was created.
-     *
-     * @return The date this current phone call was created
-     */
-    public final DateTime getCreatedAt() {
-        return this.createdAt;
-    }
-
-    /**
-     * Returns The Caller name of the current phone call.
-     *
-     * @return Caller name of the current phone call
-     */
-    public final String getCaller() {
-        return this.caller;
-    }
-
-    /**
-     * Returns The Logo URL of the caller.
-     *
-     * @return Logo URL of the caller
-     */
-    public final String getLogo() {
-        return this.logo;
-    }
-
-    /**
-     * Returns The Background color of the current phone call.
+     * Returns Background color of the current phone call.
      *
      * @return Background color of the current phone call
      */
@@ -230,7 +158,25 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Font color of the current phone call.
+     * Returns Caller name of the current phone call.
+     *
+     * @return Caller name of the current phone call
+     */
+    public final String getCaller() {
+        return this.caller;
+    }
+
+    /**
+     * Returns The date this current phone call was created.
+     *
+     * @return The date this current phone call was created
+     */
+    public final DateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Returns Font color of the current phone call.
      *
      * @return Font color of the current phone call
      */
@@ -239,16 +185,25 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The use case for the current phone call.
+     * Returns The originating phone number.
      *
-     * @return The use case for the current phone call
+     * @return The originating phone number
      */
-    public final String getUseCase() {
-        return this.useCase;
+    public final String getFrom() {
+        return this.from;
     }
 
     /**
-     * Returns The The name of the CPS organization.
+     * Returns Logo URL of the caller.
+     *
+     * @return Logo URL of the caller
+     */
+    public final String getLogo() {
+        return this.logo;
+    }
+
+    /**
+     * Returns The name of the CPS organization.
      *
      * @return The name of the CPS organization
      */
@@ -257,7 +212,16 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The Shield image URL that serves as authenticity proof of the current
+     * Returns The business reason for this current phone call.
+     *
+     * @return The business reason for this current phone call
+     */
+    public final String getReason() {
+        return this.reason;
+    }
+
+    /**
+     * Returns Shield image URL that serves as authenticity proof of the current
      * phone call.
      *
      * @return Shield image URL that serves as authenticity proof of the current
@@ -268,12 +232,48 @@ public class CurrentCall extends Resource {
     }
 
     /**
-     * Returns The The URL of this resource..
+     * Returns A string that uniquely identifies this current branded phone call..
+     *
+     * @return A string that uniquely identifies this current branded phone call.
+     */
+    public final String getSid() {
+        return this.sid;
+    }
+
+    /**
+     * Returns The status of the current phone call.
+     *
+     * @return The status of the current phone call
+     */
+    public final String getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Returns The terminating phone number.
+     *
+     * @return The terminating phone number
+     */
+    public final String getTo() {
+        return this.to;
+    }
+
+    /**
+     * Returns The URL of this resource..
      *
      * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The use case for the current phone call.
+     *
+     * @return The use case for the current phone call
+     */
+    public final String getUseCase() {
+        return this.useCase;
     }
 
     @Override
@@ -288,57 +288,57 @@ public class CurrentCall extends Resource {
 
         CurrentCall other = (CurrentCall) o;
 
-        return Objects.equals(sid, other.sid) &&
-               Objects.equals(from, other.from) &&
-               Objects.equals(to, other.to) &&
-               Objects.equals(status, other.status) &&
-               Objects.equals(reason, other.reason) &&
-               Objects.equals(createdAt, other.createdAt) &&
+        return Objects.equals(bgColor, other.bgColor) &&
                Objects.equals(caller, other.caller) &&
-               Objects.equals(logo, other.logo) &&
-               Objects.equals(bgColor, other.bgColor) &&
+               Objects.equals(createdAt, other.createdAt) &&
                Objects.equals(fontColor, other.fontColor) &&
-               Objects.equals(useCase, other.useCase) &&
+               Objects.equals(from, other.from) &&
+               Objects.equals(logo, other.logo) &&
                Objects.equals(manager, other.manager) &&
+               Objects.equals(reason, other.reason) &&
                Objects.equals(shieldImg, other.shieldImg) &&
-               Objects.equals(url, other.url);
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(to, other.to) &&
+               Objects.equals(url, other.url) &&
+               Objects.equals(useCase, other.useCase);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid,
-                            from,
-                            to,
-                            status,
-                            reason,
-                            createdAt,
+        return Objects.hash(bgColor,
                             caller,
-                            logo,
-                            bgColor,
+                            createdAt,
                             fontColor,
-                            useCase,
+                            from,
+                            logo,
                             manager,
+                            reason,
                             shieldImg,
-                            url);
+                            sid,
+                            status,
+                            to,
+                            url,
+                            useCase);
     }
 
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("from", from)
-                          .add("to", to)
-                          .add("status", status)
-                          .add("reason", reason)
-                          .add("createdAt", createdAt)
-                          .add("caller", caller)
-                          .add("logo", logo)
                           .add("bgColor", bgColor)
+                          .add("caller", caller)
+                          .add("createdAt", createdAt)
                           .add("fontColor", fontColor)
-                          .add("useCase", useCase)
+                          .add("from", from)
+                          .add("logo", logo)
                           .add("manager", manager)
+                          .add("reason", reason)
                           .add("shieldImg", shieldImg)
+                          .add("sid", sid)
+                          .add("status", status)
+                          .add("to", to)
                           .add("url", url)
+                          .add("useCase", useCase)
                           .toString();
     }
 }

@@ -54,8 +54,7 @@ public class AwsUpdater extends Updater<Aws> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/AWS/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Credentials/AWS/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -68,14 +67,7 @@ public class AwsUpdater extends Updater<Aws> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Aws.fromJson(response.getStream(), client.getObjectMapper());

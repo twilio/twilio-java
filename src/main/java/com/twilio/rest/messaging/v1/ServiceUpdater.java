@@ -44,16 +44,17 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * Construct a new ServiceUpdater.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to update
      */
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * The friendly_name.
+     * A descriptive string that you create to describe the resource. It can be up
+     * to 64 characters long..
      *
-     * @param friendlyName The friendly_name
+     * @param friendlyName A string to describe the resource
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
@@ -62,9 +63,13 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The inbound_request_url.
+     * The URL we should call using `inbound_method` when a message is received by
+     * any phone number or short code in the Service. When this property is `null`,
+     * receiving inbound messages is disabled..
      *
-     * @param inboundRequestUrl The inbound_request_url
+     * @param inboundRequestUrl The URL we call using inbound_method when a message
+     *                          is received by any phone number or short code in the
+     *                          Service
      * @return this
      */
     public ServiceUpdater setInboundRequestUrl(final URI inboundRequestUrl) {
@@ -73,9 +78,13 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The inbound_request_url.
+     * The URL we should call using `inbound_method` when a message is received by
+     * any phone number or short code in the Service. When this property is `null`,
+     * receiving inbound messages is disabled..
      *
-     * @param inboundRequestUrl The inbound_request_url
+     * @param inboundRequestUrl The URL we call using inbound_method when a message
+     *                          is received by any phone number or short code in the
+     *                          Service
      * @return this
      */
     public ServiceUpdater setInboundRequestUrl(final String inboundRequestUrl) {
@@ -83,9 +92,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The inbound_method.
+     * The HTTP method we should use to call `inbound_request_url`. Can be `GET` or
+     * `POST` and the default is `POST`..
      *
-     * @param inboundMethod The inbound_method
+     * @param inboundMethod The HTTP method we should use to call
+     *                      inbound_request_url
      * @return this
      */
     public ServiceUpdater setInboundMethod(final HttpMethod inboundMethod) {
@@ -94,9 +105,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The fallback_url.
+     * The URL that we should call using `fallback_method` if an error occurs while
+     * retrieving or executing the TwiML from the Inbound Request URL..
      *
-     * @param fallbackUrl The fallback_url
+     * @param fallbackUrl The URL that we call using fallback_method if an error
+     *                    occurs while retrieving or executing the TwiML from the
+     *                    Inbound Request URL
      * @return this
      */
     public ServiceUpdater setFallbackUrl(final URI fallbackUrl) {
@@ -105,9 +119,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The fallback_url.
+     * The URL that we should call using `fallback_method` if an error occurs while
+     * retrieving or executing the TwiML from the Inbound Request URL..
      *
-     * @param fallbackUrl The fallback_url
+     * @param fallbackUrl The URL that we call using fallback_method if an error
+     *                    occurs while retrieving or executing the TwiML from the
+     *                    Inbound Request URL
      * @return this
      */
     public ServiceUpdater setFallbackUrl(final String fallbackUrl) {
@@ -115,9 +132,10 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The fallback_method.
+     * The HTTP method we should use to call `fallback_url`. Can be: `GET` or
+     * `POST`..
      *
-     * @param fallbackMethod The fallback_method
+     * @param fallbackMethod The HTTP method we should use to call fallback_url
      * @return this
      */
     public ServiceUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
@@ -126,9 +144,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The status_callback.
+     * The URL we should call to [pass status
+     * updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery..
      *
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL we should call to pass status updates about
+     *                       message delivery
      * @return this
      */
     public ServiceUpdater setStatusCallback(final URI statusCallback) {
@@ -137,9 +157,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The status_callback.
+     * The URL we should call to [pass status
+     * updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery..
      *
-     * @param statusCallback The status_callback
+     * @param statusCallback The URL we should call to pass status updates about
+     *                       message delivery
      * @return this
      */
     public ServiceUpdater setStatusCallback(final String statusCallback) {
@@ -147,9 +169,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The sticky_sender.
+     * Whether to enable [Sticky
+     * Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the
+     * Service instance..
      *
-     * @param stickySender The sticky_sender
+     * @param stickySender Whether to enable Sticky Sender on the Service instance
      * @return this
      */
     public ServiceUpdater setStickySender(final Boolean stickySender) {
@@ -158,9 +182,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The mms_converter.
+     * Whether to enable the [MMS
+     * Converter](https://www.twilio.com/docs/sms/services#mms-converter) for
+     * messages sent through the Service instance..
      *
-     * @param mmsConverter The mms_converter
+     * @param mmsConverter Whether to enable the MMS Converter for messages sent
+     *                     through the Service instance
      * @return this
      */
     public ServiceUpdater setMmsConverter(final Boolean mmsConverter) {
@@ -169,9 +196,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The smart_encoding.
+     * Whether to enable [Smart
+     * Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for
+     * messages sent through the Service instance..
      *
-     * @param smartEncoding The smart_encoding
+     * @param smartEncoding Whether to enable Encoding for messages sent through
+     *                      the Service instance
      * @return this
      */
     public ServiceUpdater setSmartEncoding(final Boolean smartEncoding) {
@@ -180,9 +210,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The scan_message_content.
+     * Reserved..
      *
-     * @param scanMessageContent The scan_message_content
+     * @param scanMessageContent Reserved
      * @return this
      */
     public ServiceUpdater setScanMessageContent(final Service.ScanMessageContent scanMessageContent) {
@@ -191,9 +221,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The fallback_to_long_code.
+     * Whether to enable [Fallback to Long
+     * Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for
+     * messages sent through the Service instance..
      *
-     * @param fallbackToLongCode The fallback_to_long_code
+     * @param fallbackToLongCode Whether to enable Fallback to Long Code for
+     *                           messages sent through the Service instance
      * @return this
      */
     public ServiceUpdater setFallbackToLongCode(final Boolean fallbackToLongCode) {
@@ -202,9 +235,12 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The area_code_geomatch.
+     * Whether to enable [Area Code
+     * Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the
+     * Service Instance..
      *
-     * @param areaCodeGeomatch The area_code_geomatch
+     * @param areaCodeGeomatch Whether to enable Area Code Geomatch on the Service
+     *                         Instance
      * @return this
      */
     public ServiceUpdater setAreaCodeGeomatch(final Boolean areaCodeGeomatch) {
@@ -213,9 +249,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The validity_period.
+     * How long, in seconds, messages sent from the Service are valid. Can be an
+     * integer from `1` to `14,400`..
      *
-     * @param validityPeriod The validity_period
+     * @param validityPeriod How long, in seconds, messages sent from the Service
+     *                       are valid
      * @return this
      */
     public ServiceUpdater setValidityPeriod(final Integer validityPeriod) {
@@ -224,9 +262,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The synchronous_validation.
+     * Reserved..
      *
-     * @param synchronousValidation The synchronous_validation
+     * @param synchronousValidation Reserved
      * @return this
      */
     public ServiceUpdater setSynchronousValidation(final Boolean synchronousValidation) {
@@ -246,8 +284,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -260,14 +297,7 @@ public class ServiceUpdater extends Updater<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());

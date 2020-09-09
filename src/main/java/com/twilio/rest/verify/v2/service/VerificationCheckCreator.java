@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private final String pathServiceSid;
     private final String code;
@@ -43,10 +39,12 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * The phone number to verify. Either this parameter or the `verification_sid`
-     * must be specified.
+     * The phone number or [email](https://www.twilio.com/docs/verify/email) to
+     * verify. Either this parameter or the `verification_sid` must be specified.
+     * Phone numbers must be in [E.164
+     * format](https://www.twilio.com/docs/glossary/what-e164)..
      *
-     * @param to The phone number to verify
+     * @param to The phone number or email to verify
      * @return this
      */
     public VerificationCheckCreator setTo(final String to) {
@@ -56,7 +54,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * A SID that uniquely identifies the Verification Check. Either this parameter
-     * or the `to` phone number must be specified..
+     * or the `to` phone number/[email](https://www.twilio.com/docs/verify/email)
+     * must be specified..
      *
      * @param verificationSid A SID that uniquely identifies the Verification Check
      * @return this
@@ -102,8 +101,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/VerificationCheck",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/VerificationCheck"
         );
 
         addPostParams(request);
@@ -116,14 +114,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());

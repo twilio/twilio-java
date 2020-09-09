@@ -39,8 +39,8 @@ public class Workflow extends Resource {
     /**
      * Create a WorkflowFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathSid The SID of the resource
      * @return WorkflowFetcher capable of executing the fetch
      */
     public static WorkflowFetcher fetcher(final String pathWorkspaceSid,
@@ -51,8 +51,8 @@ public class Workflow extends Resource {
     /**
      * Create a WorkflowUpdater to execute update.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to update
+     * @param pathSid The SID of the resource
      * @return WorkflowUpdater capable of executing the update
      */
     public static WorkflowUpdater updater(final String pathWorkspaceSid,
@@ -63,8 +63,8 @@ public class Workflow extends Resource {
     /**
      * Create a WorkflowDeleter to execute delete.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to delete
+     * @param pathSid The SID of the Workflow resource to delete
      * @return WorkflowDeleter capable of executing the delete
      */
     public static WorkflowDeleter deleter(final String pathWorkspaceSid,
@@ -75,7 +75,7 @@ public class Workflow extends Resource {
     /**
      * Create a WorkflowReader to execute read.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to read
      * @return WorkflowReader capable of executing the read
      */
     public static WorkflowReader reader(final String pathWorkspaceSid) {
@@ -85,10 +85,12 @@ public class Workflow extends Resource {
     /**
      * Create a WorkflowCreator to execute create.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param friendlyName A string representing a human readable name for this
-     *                     Workflow.
-     * @param configuration JSON document configuring the rules for this Workflow.
+     * @param pathWorkspaceSid The SID of the Workspace that the new Workflow to
+     *                         create belongs to
+     * @param friendlyName  descriptive string that you create to describe the
+     *                     Workflow resource
+     * @param configuration A JSON string that contains the rules to apply to the
+     *                      Workflow
      * @return WorkflowCreator capable of executing the create
      */
     public static WorkflowCreator creator(final String pathWorkspaceSid,
@@ -192,123 +194,123 @@ public class Workflow extends Resource {
     }
 
     /**
-     * Returns The The ID of the account that owns this Workflow.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The ID of the account that owns this Workflow
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The URL that will be called whenever a task managed by this
-     * Workflow is assigned to a Worker..
+     * Returns The URL that we call when a task managed by the Workflow is assigned
+     * to a Worker.
      *
-     * @return The URL that will be called whenever a task managed by this Workflow
-     *         is assigned to a Worker.
+     * @return The URL that we call when a task managed by the Workflow is assigned
+     *         to a Worker
      */
     public final URI getAssignmentCallbackUrl() {
         return this.assignmentCallbackUrl;
     }
 
     /**
-     * Returns The JSON document configuring the rules for this Workflow..
+     * Returns A JSON string that contains the Workflow's configuration.
      *
-     * @return JSON document configuring the rules for this Workflow.
+     * @return A JSON string that contains the Workflow's configuration
      */
     public final String getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The The date this workflow was created..
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
-     * @return The date this workflow was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this workflow was last updated..
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
-     * @return The date this workflow was last updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The document_content_type.
+     * Returns The MIME type of the document.
      *
-     * @return The document_content_type
+     * @return The MIME type of the document
      */
     public final String getDocumentContentType() {
         return this.documentContentType;
     }
 
     /**
-     * Returns The If the request to the AssignmentCallbackUrl fails, the assignment
-     * callback will be made to this URL..
+     * Returns The URL that we call when a call to the `assignment_callback_url`
+     * fails.
      *
-     * @return If the request to the AssignmentCallbackUrl fails, the assignment
-     *         callback will be made to this URL.
+     * @return The URL that we call when a call to the `assignment_callback_url`
+     *         fails
      */
     public final URI getFallbackAssignmentCallbackUrl() {
         return this.fallbackAssignmentCallbackUrl;
     }
 
     /**
-     * Returns The Human readable description of this Workflow.
+     * Returns The string that you assigned to describe the Workflow resource.
      *
-     * @return Human readable description of this Workflow
+     * @return The string that you assigned to describe the Workflow resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The unique ID of the Workflow.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The unique ID of the Workflow
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Determines how long TaskRouter will wait for a confirmation
-     * response from your application after assigning a Task to a worker..
+     * Returns How long TaskRouter will wait for a confirmation response from your
+     * application after it assigns a Task to a Worker.
      *
-     * @return Determines how long TaskRouter will wait for a confirmation response
-     *         from your application after assigning a Task to a worker.
+     * @return How long TaskRouter will wait for a confirmation response from your
+     *         application after it assigns a Task to a Worker
      */
     public final Integer getTaskReservationTimeout() {
         return this.taskReservationTimeout;
     }
 
     /**
-     * Returns The The ID of the Workspace that contains this Workflow.
+     * Returns The SID of the Workspace that contains the Workflow.
      *
-     * @return The ID of the Workspace that contains this Workflow
+     * @return The SID of the Workspace that contains the Workflow
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the Workflow resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workflow resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

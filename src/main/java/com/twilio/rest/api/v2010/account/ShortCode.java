@@ -193,7 +193,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
+     * Returns The SID of the Account that created this resource.
      *
      * @return The SID of the Account that created this resource
      */
@@ -202,7 +202,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The API version used to start a new TwiML session.
+     * Returns The API version used to start a new TwiML session.
      *
      * @return The API version used to start a new TwiML session
      */
@@ -211,7 +211,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
+     * Returns The RFC 2822 date and time in GMT that this resource was created.
      *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
@@ -220,7 +220,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
+     * Returns The RFC 2822 date and time in GMT that this resource was last
      * updated.
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
@@ -230,7 +230,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The A string that you assigned to describe this resource.
+     * Returns A string that you assigned to describe this resource.
      *
      * @return A string that you assigned to describe this resource
      */
@@ -239,7 +239,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The short code. e.g., 894546..
+     * Returns The short code. e.g., 894546..
      *
      * @return The short code. e.g., 894546.
      */
@@ -248,7 +248,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The unique string that identifies this resource.
      *
      * @return The unique string that identifies this resource
      */
@@ -257,7 +257,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The HTTP method we use to call the sms_fallback_url.
+     * Returns HTTP method we use to call the sms_fallback_url.
      *
      * @return HTTP method we use to call the sms_fallback_url
      */
@@ -266,7 +266,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The URL Twilio will request if an error occurs in executing TwiML.
+     * Returns URL Twilio will request if an error occurs in executing TwiML.
      *
      * @return URL Twilio will request if an error occurs in executing TwiML
      */
@@ -275,7 +275,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The HTTP method to use when requesting the sms url.
+     * Returns HTTP method to use when requesting the sms url.
      *
      * @return HTTP method to use when requesting the sms url
      */
@@ -284,7 +284,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The URL we call when receiving an incoming SMS message to this short
+     * Returns URL we call when receiving an incoming SMS message to this short
      * code.
      *
      * @return URL we call when receiving an incoming SMS message to this short code
@@ -294,7 +294,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The URI of this resource, relative to `https://api.twilio.com`.
+     * Returns The URI of this resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of this resource, relative to `https://api.twilio.com`
      */

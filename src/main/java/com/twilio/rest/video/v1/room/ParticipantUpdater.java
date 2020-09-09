@@ -25,10 +25,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Construct a new ParticipantUpdater.
      *
-     * @param pathRoomSid A system-generated 34-character string that uniquely
-     *                    identifies a Room.
-     * @param pathSid A system-generated 34-character string that uniquely
-     *                identifies this Participant.
+     * @param pathRoomSid The SID of the room with the participant to update
+     * @param pathSid The SID that identifies the resource to update
      */
     public ParticipantUpdater(final String pathRoomSid,
                               final String pathSid) {
@@ -37,9 +35,11 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * Set to `disconnected` to remove participant..
+     * The new status of the resource. Can be: `connected` or `disconnected`. For
+     * `in-progress` Rooms the default Status is `connected`, for `completed` Rooms
+     * only `disconnected` Participants are returned..
      *
-     * @param status Set to `disconnected` to remove participant.
+     * @param status The new status of the resource
      * @return this
      */
     public ParticipantUpdater setStatus(final Participant.Status status) {
@@ -59,8 +59,7 @@ public class ParticipantUpdater extends Updater<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -73,14 +72,7 @@ public class ParticipantUpdater extends Updater<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

@@ -33,18 +33,18 @@ public class CommandCreator extends Creator<Command> {
      * Construct a new CommandCreator.
      *
      * @param command The message body of the Command or a Base64 encoded byte
-     *                string in binary mode.
+     *                string in binary mode
      */
     public CommandCreator(final String command) {
         this.command = command;
     }
 
     /**
-     * The Sid or UniqueName of the
-     * [SIM](https://www.twilio.com/docs/api/wireless/rest-api/sim) to send the
+     * The `sid` or `unique_name` of the
+     * [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the
      * Command to..
      *
-     * @param sim The Sid or UniqueName of the SIM to send the Command to.
+     * @param sim The sid or unique_name of the SIM to send the Command to
      * @return this
      */
     public CommandCreator setSim(final String sim) {
@@ -53,11 +53,10 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The HTTP method Twilio will use when making a request to the callback URL
-     * (valid options are GET or POST). Defaults to POST..
+     * The HTTP method we use to call `callback_url`. Can be: `POST` or `GET`, and
+     * the default is `POST`..
      *
-     * @param callbackMethod The HTTP method Twilio will use when making a request
-     *                       to the callback URL.
+     * @param callbackMethod The HTTP method we use to call callback_url
      * @return this
      */
     public CommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
@@ -66,11 +65,10 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * Twilio will make a request to this URL when the Command has finished sending
-     * (delivered or failed)..
+     * The URL we call using the `callback_url` when the Command has finished
+     * sending, whether the command was delivered or it failed..
      *
-     * @param callbackUrl Twilio will make a request to this URL when the Command
-     *                    has finished sending.
+     * @param callbackUrl he URL we call when the Command has finished sending
      * @return this
      */
     public CommandCreator setCallbackUrl(final URI callbackUrl) {
@@ -79,11 +77,10 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * Twilio will make a request to this URL when the Command has finished sending
-     * (delivered or failed)..
+     * The URL we call using the `callback_url` when the Command has finished
+     * sending, whether the command was delivered or it failed..
      *
-     * @param callbackUrl Twilio will make a request to this URL when the Command
-     *                    has finished sending.
+     * @param callbackUrl he URL we call when the Command has finished sending
      * @return this
      */
     public CommandCreator setCallbackUrl(final String callbackUrl) {
@@ -91,11 +88,10 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * A string representing which mode to send the SMS message using. May be `text`
-     * or `binary`. If omitted, the default SMS mode is `text`..
+     * The mode to use when sending the SMS message. Can be: `text` or `binary`. The
+     * default SMS mode is `text`..
      *
-     * @param commandMode A string representing which mode to send the SMS message
-     *                    using.
+     * @param commandMode The mode to use when sending the SMS message
      * @return this
      */
     public CommandCreator setCommandMode(final Command.CommandMode commandMode) {
@@ -104,20 +100,18 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * When sending a Command to a SIM in text mode, Twilio can automatically
-     * include the Sid of the Command in the message body, which could be used to
-     * ensure that the device does not process the same Command more than once. The
-     * options for inclusion are `none`, `start` and `end`. The default behavior is
-     * `none`. When using `start` or `end`, the CommandSid will be prepended or
-     * appended to the message body, with a space character separating the
-     * CommandSid and the message body. The length of the CommandSid contributes
-     * toward the 160 character limit, i.e. the SMS body must be 128 characters or
-     * less before the Command Sid is included..
+     * Whether to include the SID of the command in the message body. Can be:
+     * `none`, `start`, or `end`, and the default behavior is `none`. When sending a
+     * Command to a SIM in text mode, we can automatically include the SID of the
+     * Command in the message body, which could be used to ensure that the device
+     * does not process the same Command more than once.  A value of `start` will
+     * prepend the message with the Command SID, and `end` will append it to the
+     * end, separating the Command SID from the message body with a space. The
+     * length of the Command SID is included in the 160 character limit so the SMS
+     * body must be 128 characters or less before the Command SID is included..
      *
-     * @param includeSid When sending a Command to a SIM in text mode, Twilio can
-     *                   automatically include the Sid of the Command in the message
-     *                   body, which could be used to ensure that the device does
-     *                   not process the same Command more than once.
+     * @param includeSid Whether to include the SID of the command in the message
+     *                   body
      * @return this
      */
     public CommandCreator setIncludeSid(final String includeSid) {
@@ -126,13 +120,13 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * A boolean representing whether to request delivery receipt from the
-     * recipient. For Commands that request delivery receipt, the Command state
-     * transitions to 'delivered' once the server has received a delivery receipt
-     * from the device. Defaults to true..
+     * Whether to request delivery receipt from the recipient. For Commands that
+     * request delivery receipt, the Command state transitions to 'delivered' once
+     * the server has received a delivery receipt from the device. The default value
+     * is `true`..
      *
-     * @param deliveryReceiptRequested A boolean representing whether to request
-     *                                 delivery receipt from the recipient.
+     * @param deliveryReceiptRequested Whether to request delivery receipt from the
+     *                                 recipient
      * @return this
      */
     public CommandCreator setDeliveryReceiptRequested(final Boolean deliveryReceiptRequested) {
@@ -152,8 +146,7 @@ public class CommandCreator extends Creator<Command> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.WIRELESS.toString(),
-            "/v1/Commands",
-            client.getRegion()
+            "/v1/Commands"
         );
 
         addPostParams(request);
@@ -166,14 +159,7 @@ public class CommandCreator extends Creator<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Command.fromJson(response.getStream(), client.getObjectMapper());

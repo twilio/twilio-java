@@ -34,10 +34,11 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * Construct a new WebhookUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
+     * @param pathServiceSid The SID of the Service with the Channel that has the
+     *                       Webhook resource to update
      * @param pathChannelSid The SID of the Channel the resource to update belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource
      */
     public WebhookUpdater(final String pathServiceSid,
                           final String pathChannelSid,
@@ -102,10 +103,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * A string that will cause us to call the webhook when it is found in a message
-     * body. This parameter takes only one trigger string. To specify more than one,
-     * repeat this parameter for each trigger string up to a total of 5 trigger
-     * strings. Used only when `type` = `trigger`..
+     * A string that will cause us to call the webhook when it is present in a
+     * message body. This parameter takes only one trigger string. To specify more
+     * than one, repeat this parameter for each trigger string up to a total of 5
+     * trigger strings. Used only when `type` = `trigger`..
      *
      * @param configurationTriggers A string that will cause us to call the webhook
      *                              when it is found in a message body
@@ -117,10 +118,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * A string that will cause us to call the webhook when it is found in a message
-     * body. This parameter takes only one trigger string. To specify more than one,
-     * repeat this parameter for each trigger string up to a total of 5 trigger
-     * strings. Used only when `type` = `trigger`..
+     * A string that will cause us to call the webhook when it is present in a
+     * message body. This parameter takes only one trigger string. To specify more
+     * than one, repeat this parameter for each trigger string up to a total of 5
+     * trigger strings. Used only when `type` = `trigger`..
      *
      * @param configurationTriggers A string that will cause us to call the webhook
      *                              when it is found in a message body
@@ -169,8 +170,7 @@ public class WebhookUpdater extends Updater<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Webhooks/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -183,14 +183,7 @@ public class WebhookUpdater extends Updater<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());

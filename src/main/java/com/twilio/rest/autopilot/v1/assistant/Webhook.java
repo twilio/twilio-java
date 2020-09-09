@@ -192,7 +192,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Webhook resource.
+     * Returns The absolute URL of the Webhook resource.
      *
      * @return The absolute URL of the Webhook resource
      */
@@ -201,7 +201,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -210,7 +210,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -219,8 +219,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -229,7 +228,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the resource.
+     * Returns The SID of the Assistant that is the parent of the resource.
      *
      * @return The SID of the Assistant that is the parent of the resource
      */
@@ -238,7 +237,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -247,8 +246,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The An application-defined string that uniquely identifies the
-     * resource.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
      * @return An application-defined string that uniquely identifies the resource
      */
@@ -257,8 +255,8 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The list of space-separated events that this Webhook is
-     * subscribed to..
+     * Returns The list of space-separated events that this Webhook is subscribed
+     * to..
      *
      * @return The list of space-separated events that this Webhook is subscribed
      *         to.
@@ -268,7 +266,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The URL associated with this Webhook..
+     * Returns The URL associated with this Webhook..
      *
      * @return The URL associated with this Webhook.
      */
@@ -277,7 +275,7 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The The method used when calling the webhook's URL..
+     * Returns The method used when calling the webhook's URL..
      *
      * @return The method used when calling the webhook's URL.
      */

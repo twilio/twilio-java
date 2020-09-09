@@ -45,6 +45,7 @@ public class NotificationCreator extends Creator<Notification> {
     private List<String> segment;
     private Map<String, Object> alexa;
     private List<String> toBinding;
+    private String deliveryCallbackUrl;
 
     /**
      * Construct a new NotificationCreator.
@@ -184,12 +185,7 @@ public class NotificationCreator extends Creator<Notification> {
      * The GCM-specific payload that overrides corresponding attributes in the
      * generic payload for GCM Bindings.  This property maps to the root JSON
      * dictionary. See the [GCM
-     * documentation](https://developers.google.com/cloud-messaging/http-server-ref)
-     * for more details. Target parameters `to`, `registration_ids`, and
-     * `notification_key` are not allowed. We reserve keys that start with `twi_`
-     * for future use. Custom keys that start with `twi_` are not allowed. GCM also
-     * [reserves certain
-     * keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref)..
+     * documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref)..
      *
      * @param gcm The GCM-specific payload that overrides corresponding attributes
      *            in generic payload for GCM Bindings
@@ -304,8 +300,19 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
+     * URL to send webhooks..
+     *
+     * @param deliveryCallbackUrl URL to send webhooks
+     * @return this
+     */
+    public NotificationCreator setDeliveryCallbackUrl(final String deliveryCallbackUrl) {
+        this.deliveryCallbackUrl = deliveryCallbackUrl;
+        return this;
+    }
+
+    /**
      * The `identity` value that uniquely identifies the new resource's
-     * [User](https://www.twilio.com/docs/chat/rest/users) within the
+     * [User](https://www.twilio.com/docs/chat/rest/user-resource) within the
      * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
      * will be attempted only to Bindings with an Identity in this list. No more
      * than 20 items are allowed in this list..
@@ -320,7 +327,7 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * The `identity` value that uniquely identifies the new resource's
-     * [User](https://www.twilio.com/docs/chat/rest/users) within the
+     * [User](https://www.twilio.com/docs/chat/rest/user-resource) within the
      * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
      * will be attempted only to Bindings with an Identity in this list. No more
      * than 20 items are allowed in this list..
@@ -373,8 +380,7 @@ public class NotificationCreator extends Creator<Notification> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.NOTIFY.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Notifications",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Notifications"
         );
 
         addPostParams(request);
@@ -387,14 +393,7 @@ public class NotificationCreator extends Creator<Notification> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Notification.fromJson(response.getStream(), client.getObjectMapper());
@@ -480,6 +479,10 @@ public class NotificationCreator extends Creator<Notification> {
             for (String prop : toBinding) {
                 request.addPostParam("ToBinding", prop);
             }
+        }
+
+        if (deliveryCallbackUrl != null) {
+            request.addPostParam("DeliveryCallbackUrl", deliveryCallbackUrl);
         }
     }
 }

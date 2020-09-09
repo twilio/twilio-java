@@ -65,10 +65,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      *
-     * @param pathRoomSid A system-generated 34-character string that uniquely
-     *                    identifies a Room.
-     * @param pathSid A system-generated 34-character string that uniquely
-     *                identifies this Participant.
+     * @param pathRoomSid The SID of the room with the Participant resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathRoomSid,
@@ -79,8 +77,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      *
-     * @param pathRoomSid A system-generated 34-character string that uniquely
-     *                    identifies this Room.
+     * @param pathRoomSid The SID of the room with the Participant resources to read
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathRoomSid) {
@@ -90,10 +87,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      *
-     * @param pathRoomSid A system-generated 34-character string that uniquely
-     *                    identifies a Room.
-     * @param pathSid A system-generated 34-character string that uniquely
-     *                identifies this Participant.
+     * @param pathRoomSid The SID of the room with the participant to update
+     * @param pathSid The SID that identifies the resource to update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathRoomSid,
@@ -192,116 +187,110 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A system-generated 34-character string that uniquely identifies..
+     * Returns The SID of the participant's room.
      *
-     * @return A system-generated 34-character string that uniquely identifies.
+     * @return The SID of the participant's room
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The The unique ID of the Account associated with this Room..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The unique ID of the Account associated with this Room.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A string representing the status of the Participant..
+     * Returns The status of the Participant.
      *
-     * @return A string representing the status of the Participant.
+     * @return The status of the Participant
      */
     public final Participant.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The unique name identifier that is assigned to this Participant..
+     * Returns The string that identifies the resource's User.
      *
-     * @return The unique name identifier that is assigned to this Participant.
+     * @return The string that identifies the resource's User
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The The date that this resource was created, given as a UTC ISO 8601
-     * Timestamp..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created, given as a UTC ISO 8601
-     *         Timestamp.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as a UTC ISO
-     * 8601 Timestamp..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date that this resource was last updated, given as a UTC ISO
-     *         8601 Timestamp.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The time of Participant connected to the Room, given as a UTC ISO
-     * 8601 Timestamp..
+     * Returns The time of participant connected to the room in ISO 8601 format.
      *
-     * @return The time of Participant connected to the Room, given as a UTC ISO
-     *         8601 Timestamp.
+     * @return The time of participant connected to the room in ISO 8601 format
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The time of Participant disconnected from the Room, given as a
-     * UTC ISO 8601 Timestamp..
+     * Returns The time when the participant disconnected from the room in ISO 8601
+     * format.
      *
-     * @return The time of Participant disconnected from the Room, given as a UTC
-     *         ISO 8601 Timestamp.
+     * @return The time when the participant disconnected from the room in ISO 8601
+     *         format
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The Duration of time in seconds this Participant was connected..
+     * Returns Duration of time in seconds the participant was connected.
      *
-     * @return Duration of time in seconds this Participant was connected.
+     * @return Duration of time in seconds the participant was connected
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

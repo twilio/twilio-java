@@ -30,8 +30,10 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
     /**
      * Construct a new SyncMapPermissionReader.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resources to read
+     * @param pathMapSid The SID of the Sync Map with the Permission resources to
+     *                   read
      */
     public SyncMapPermissionReader(final String pathServiceSid,
                                    final String pathMapSid) {
@@ -62,8 +64,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions"
         );
 
         addQueryParams(request);
@@ -100,10 +101,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -120,10 +118,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
                                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -145,14 +140,7 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

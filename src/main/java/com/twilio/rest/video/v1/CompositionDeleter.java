@@ -28,8 +28,7 @@ public class CompositionDeleter extends Deleter<Composition> {
     /**
      * Construct a new CompositionDeleter.
      *
-     * @param pathSid The Recording Composition Sid that uniquely identifies the
-     *                Recording Composition to delete.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public CompositionDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -46,8 +45,7 @@ public class CompositionDeleter extends Deleter<Composition> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/Compositions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Compositions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -59,14 +57,7 @@ public class CompositionDeleter extends Deleter<Composition> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

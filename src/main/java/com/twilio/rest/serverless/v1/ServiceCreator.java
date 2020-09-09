@@ -26,12 +26,14 @@ public class ServiceCreator extends Creator<Service> {
     private final String uniqueName;
     private final String friendlyName;
     private Boolean includeCredentials;
+    private Boolean uiEditable;
 
     /**
      * Construct a new ServiceCreator.
      *
-     * @param uniqueName A unique, addressable name of this Service.
-     * @param friendlyName A human-readable description of this Service.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Service resource
+     * @param friendlyName A string to describe the Service resource
      */
     public ServiceCreator(final String uniqueName,
                           final String friendlyName) {
@@ -40,15 +42,28 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * A boolean value that indicates whether to inject Account credentials into a
-     * Function invocation context. Optional, default `false`..
+     * Whether to inject Account credentials into a function invocation context. The
+     * default value is `false`..
      *
      * @param includeCredentials Whether to inject Account credentials into a
-     *                           Function invocation context.
+     *                           function invocation context
      * @return this
      */
     public ServiceCreator setIncludeCredentials(final Boolean includeCredentials) {
         this.includeCredentials = includeCredentials;
+        return this;
+    }
+
+    /**
+     * Whether the Service's properties and subresources can be edited via the UI.
+     * The default value is `false`..
+     *
+     * @param uiEditable Whether the Service's properties and subresources can be
+     *                   edited via the UI
+     * @return this
+     */
+    public ServiceCreator setUiEditable(final Boolean uiEditable) {
+        this.uiEditable = uiEditable;
         return this;
     }
 
@@ -64,8 +79,7 @@ public class ServiceCreator extends Creator<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services",
-            client.getRegion()
+            "/v1/Services"
         );
 
         addPostParams(request);
@@ -78,14 +92,7 @@ public class ServiceCreator extends Creator<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -107,6 +114,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (includeCredentials != null) {
             request.addPostParam("IncludeCredentials", includeCredentials.toString());
+        }
+
+        if (uiEditable != null) {
+            request.addPostParam("UiEditable", uiEditable.toString());
         }
     }
 }

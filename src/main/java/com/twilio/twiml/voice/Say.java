@@ -20,58 +20,79 @@ public class Say extends TwiML {
         MAN("man"),
         WOMAN("woman"),
         ALICE("alice"),
-        POLLY_GERAINT("Polly.Geraint"),
-        POLLY_GWYNETH("Polly.Gwyneth"),
-        POLLY_MADS("Polly.Mads"),
-        POLLY_NAJA("Polly.Naja"),
-        POLLY_HANS("Polly.Hans"),
-        POLLY_MARLENE("Polly.Marlene"),
-        POLLY_NICOLE("Polly.Nicole"),
-        POLLY_RUSSELL("Polly.Russell"),
+        POLLY_ADITI("Polly.Aditi"),
         POLLY_AMY("Polly.Amy"),
+        POLLY_ASTRID("Polly.Astrid"),
+        POLLY_BIANCA("Polly.Bianca"),
         POLLY_BRIAN("Polly.Brian"),
+        POLLY_CAMILA("Polly.Camila"),
+        POLLY_CARLA("Polly.Carla"),
+        POLLY_CARMEN("Polly.Carmen"),
+        POLLY_CELINE("Polly.Celine"),
+        POLLY_CHANTAL("Polly.Chantal"),
+        POLLY_CONCHITA("Polly.Conchita"),
+        POLLY_CRISTIANO("Polly.Cristiano"),
+        POLLY_DORA("Polly.Dora"),
         POLLY_EMMA("Polly.Emma"),
-        POLLY_RAVEENA("Polly.Raveena"),
+        POLLY_ENRIQUE("Polly.Enrique"),
+        POLLY_EWA("Polly.Ewa"),
+        POLLY_FILIZ("Polly.Filiz"),
+        POLLY_GERAINT("Polly.Geraint"),
+        POLLY_GIORGIO("Polly.Giorgio"),
+        POLLY_GWYNETH("Polly.Gwyneth"),
+        POLLY_HANS("Polly.Hans"),
+        POLLY_INES("Polly.Ines"),
         POLLY_IVY("Polly.Ivy"),
+        POLLY_JACEK("Polly.Jacek"),
+        POLLY_JAN("Polly.Jan"),
         POLLY_JOANNA("Polly.Joanna"),
         POLLY_JOEY("Polly.Joey"),
         POLLY_JUSTIN("Polly.Justin"),
+        POLLY_KARL("Polly.Karl"),
         POLLY_KENDRA("Polly.Kendra"),
         POLLY_KIMBERLY("Polly.Kimberly"),
-        POLLY_MATTHEW("Polly.Matthew"),
-        POLLY_SALLI("Polly.Salli"),
-        POLLY_CONCHITA("Polly.Conchita"),
-        POLLY_ENRIQUE("Polly.Enrique"),
-        POLLY_MIGUEL("Polly.Miguel"),
-        POLLY_PENELOPE("Polly.Penelope"),
-        POLLY_CHANTAL("Polly.Chantal"),
-        POLLY_CELINE("Polly.Celine"),
-        POLLY_MATHIEU("Polly.Mathieu"),
-        POLLY_DORA("Polly.Dora"),
-        POLLY_KARL("Polly.Karl"),
-        POLLY_CARLA("Polly.Carla"),
-        POLLY_GIORGIO("Polly.Giorgio"),
-        POLLY_MIZUKI("Polly.Mizuki"),
+        POLLY_LEA("Polly.Lea"),
         POLLY_LIV("Polly.Liv"),
         POLLY_LOTTE("Polly.Lotte"),
-        POLLY_RUBEN("Polly.Ruben"),
-        POLLY_EWA("Polly.Ewa"),
-        POLLY_JACEK("Polly.Jacek"),
-        POLLY_JAN("Polly.Jan"),
+        POLLY_LUCIA("Polly.Lucia"),
+        POLLY_LUPE("Polly.Lupe"),
+        POLLY_MADS("Polly.Mads"),
         POLLY_MAJA("Polly.Maja"),
-        POLLY_RICARDO("Polly.Ricardo"),
-        POLLY_VITORIA("Polly.Vitoria"),
-        POLLY_CRISTIANO("Polly.Cristiano"),
-        POLLY_INES("Polly.Ines"),
-        POLLY_CARMEN("Polly.Carmen"),
+        POLLY_MARLENE("Polly.Marlene"),
+        POLLY_MATHIEU("Polly.Mathieu"),
+        POLLY_MATTHEW("Polly.Matthew"),
         POLLY_MAXIM("Polly.Maxim"),
-        POLLY_TATYANA("Polly.Tatyana"),
-        POLLY_ASTRID("Polly.Astrid"),
-        POLLY_FILIZ("Polly.Filiz"),
-        POLLY_VICKI("Polly.Vicki"),
-        POLLY_TAKUMI("Polly.Takumi"),
+        POLLY_MIA("Polly.Mia"),
+        POLLY_MIGUEL("Polly.Miguel"),
+        POLLY_MIZUKI("Polly.Mizuki"),
+        POLLY_NAJA("Polly.Naja"),
+        POLLY_NICOLE("Polly.Nicole"),
+        POLLY_PENELOPE("Polly.Penelope"),
+        POLLY_RAVEENA("Polly.Raveena"),
+        POLLY_RICARDO("Polly.Ricardo"),
+        POLLY_RUBEN("Polly.Ruben"),
+        POLLY_RUSSELL("Polly.Russell"),
+        POLLY_SALLI("Polly.Salli"),
         POLLY_SEOYEON("Polly.Seoyeon"),
-        POLLY_ADITI("Polly.Aditi");
+        POLLY_TAKUMI("Polly.Takumi"),
+        POLLY_TATYANA("Polly.Tatyana"),
+        POLLY_VICKI("Polly.Vicki"),
+        POLLY_VITORIA("Polly.Vitoria"),
+        POLLY_ZEINA("Polly.Zeina"),
+        POLLY_ZHIYU("Polly.Zhiyu"),
+        POLLY_AMY_NEURAL("Polly.Amy-Neural"),
+        POLLY_EMMA_NEURAL("Polly.Emma-Neural"),
+        POLLY_BRIAN_NEURAL("Polly.Brian-Neural"),
+        POLLY_SALLI_NEURAL("Polly.Salli-Neural"),
+        POLLY_IVY_NEURAL("Polly.Ivy-Neural"),
+        POLLY_JOANNA_NEURAL("Polly.Joanna-Neural"),
+        POLLY_KENDRA_NEURAL("Polly.Kendra-Neural"),
+        POLLY_KIMBERLY_NEURAL("Polly.Kimberly-Neural"),
+        POLLY_JOEY_NEURAL("Polly.Joey-Neural"),
+        POLLY_JUSTIN_NEURAL("Polly.Justin-Neural"),
+        POLLY_MATTHEW_NEURAL("Polly.Matthew-Neural"),
+        POLLY_CAMILA_NEURAL("Polly.Camila-Neural"),
+        POLLY_LUPE_NEURAL("Polly.Lupe-Neural");
 
         private final String value;
 
@@ -85,19 +106,25 @@ public class Say extends TwiML {
     }
 
     public enum Language {
+        ARB("arb"),
+        CA_ES("ca-ES"),
+        CY_GB("cy-GB"),
         DA_DK("da-DK"),
         DE_DE("de-DE"),
         EN_AU("en-AU"),
         EN_CA("en-CA"),
         EN_GB("en-GB"),
+        EN_GB_WLS("en-GB-WLS"),
         EN_IN("en-IN"),
         EN_US("en-US"),
-        CA_ES("ca-ES"),
         ES_ES("es-ES"),
         ES_MX("es-MX"),
+        ES_US("es-US"),
         FI_FI("fi-FI"),
         FR_CA("fr-CA"),
         FR_FR("fr-FR"),
+        HI_IN("hi-IN"),
+        IS_IS("is-IS"),
         IT_IT("it-IT"),
         JA_JP("ja-JP"),
         KO_KR("ko-KR"),
@@ -106,8 +133,10 @@ public class Say extends TwiML {
         PL_PL("pl-PL"),
         PT_BR("pt-BR"),
         PT_PT("pt-PT"),
+        RO_RO("ro-RO"),
         RU_RU("ru-RU"),
         SV_SE("sv-SE"),
+        TR_TR("tr-TR"),
         ZH_CN("zh-CN"),
         ZH_HK("zh-HK"),
         ZH_TW("zh-TW");
@@ -260,83 +289,183 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <Break>} element
+         * Add a child {@code <break>} element
          */
-        public Builder ssmlBreak(SsmlBreak ssmlBreak) {
+        public Builder break_(SsmlBreak ssmlBreak) {
             this.children.add(ssmlBreak);
             return this;
         }
 
         /**
-         * Add a child {@code <Emphasis>} element
+         * Add a child {@code <break>} element
+         *
+         * @deprecated use {@link #break_(SsmlBreak)}.
          */
-        public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
+        @Deprecated
+        public Builder ssmlBreak(SsmlBreak ssmlBreak) {
+            return break_(ssmlBreak);
+        }
+
+        /**
+         * Add a child {@code <emphasis>} element
+         */
+        public Builder emphasis(SsmlEmphasis ssmlEmphasis) {
             this.children.add(ssmlEmphasis);
             return this;
         }
 
         /**
-         * Add a child {@code <Lang>} element
+         * Add a child {@code <emphasis>} element
+         *
+         * @deprecated use {@link #emphasis(SsmlEmphasis)}.
          */
-        public Builder ssmlLang(SsmlLang ssmlLang) {
+        @Deprecated
+        public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
+            return emphasis(ssmlEmphasis);
+        }
+
+        /**
+         * Add a child {@code <lang>} element
+         */
+        public Builder lang(SsmlLang ssmlLang) {
             this.children.add(ssmlLang);
             return this;
         }
 
         /**
-         * Add a child {@code <P>} element
+         * Add a child {@code <lang>} element
+         *
+         * @deprecated use {@link #lang(SsmlLang)}.
          */
-        public Builder ssmlP(SsmlP ssmlP) {
+        @Deprecated
+        public Builder ssmlLang(SsmlLang ssmlLang) {
+            return lang(ssmlLang);
+        }
+
+        /**
+         * Add a child {@code <p>} element
+         */
+        public Builder p(SsmlP ssmlP) {
             this.children.add(ssmlP);
             return this;
         }
 
         /**
-         * Add a child {@code <Phoneme>} element
+         * Add a child {@code <p>} element
+         *
+         * @deprecated use {@link #p(SsmlP)}.
          */
-        public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
+        @Deprecated
+        public Builder ssmlP(SsmlP ssmlP) {
+            return p(ssmlP);
+        }
+
+        /**
+         * Add a child {@code <phoneme>} element
+         */
+        public Builder phoneme(SsmlPhoneme ssmlPhoneme) {
             this.children.add(ssmlPhoneme);
             return this;
         }
 
         /**
-         * Add a child {@code <Prosody>} element
+         * Add a child {@code <phoneme>} element
+         *
+         * @deprecated use {@link #phoneme(SsmlPhoneme)}.
          */
-        public Builder ssmlProsody(SsmlProsody ssmlProsody) {
+        @Deprecated
+        public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
+            return phoneme(ssmlPhoneme);
+        }
+
+        /**
+         * Add a child {@code <prosody>} element
+         */
+        public Builder prosody(SsmlProsody ssmlProsody) {
             this.children.add(ssmlProsody);
             return this;
         }
 
         /**
-         * Add a child {@code <S>} element
+         * Add a child {@code <prosody>} element
+         *
+         * @deprecated use {@link #prosody(SsmlProsody)}.
          */
-        public Builder ssmlS(SsmlS ssmlS) {
+        @Deprecated
+        public Builder ssmlProsody(SsmlProsody ssmlProsody) {
+            return prosody(ssmlProsody);
+        }
+
+        /**
+         * Add a child {@code <s>} element
+         */
+        public Builder s(SsmlS ssmlS) {
             this.children.add(ssmlS);
             return this;
         }
 
         /**
-         * Add a child {@code <Say-As>} element
+         * Add a child {@code <s>} element
+         *
+         * @deprecated use {@link #s(SsmlS)}.
          */
-        public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
+        @Deprecated
+        public Builder ssmlS(SsmlS ssmlS) {
+            return s(ssmlS);
+        }
+
+        /**
+         * Add a child {@code <say-as>} element
+         */
+        public Builder sayAs(SsmlSayAs ssmlSayAs) {
             this.children.add(ssmlSayAs);
             return this;
         }
 
         /**
-         * Add a child {@code <Sub>} element
+         * Add a child {@code <say-as>} element
+         *
+         * @deprecated use {@link #sayAs(SsmlSayAs)}.
          */
-        public Builder ssmlSub(SsmlSub ssmlSub) {
+        @Deprecated
+        public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
+            return sayAs(ssmlSayAs);
+        }
+
+        /**
+         * Add a child {@code <sub>} element
+         */
+        public Builder sub(SsmlSub ssmlSub) {
             this.children.add(ssmlSub);
             return this;
         }
 
         /**
-         * Add a child {@code <W>} element
+         * Add a child {@code <sub>} element
+         *
+         * @deprecated use {@link #sub(SsmlSub)}.
          */
-        public Builder ssmlW(SsmlW ssmlW) {
+        @Deprecated
+        public Builder ssmlSub(SsmlSub ssmlSub) {
+            return sub(ssmlSub);
+        }
+
+        /**
+         * Add a child {@code <w>} element
+         */
+        public Builder w(SsmlW ssmlW) {
             this.children.add(ssmlW);
             return this;
+        }
+
+        /**
+         * Add a child {@code <w>} element
+         *
+         * @deprecated use {@link #w(SsmlW)}.
+         */
+        @Deprecated
+        public Builder ssmlW(SsmlW ssmlW) {
+            return w(ssmlW);
         }
 
         /**

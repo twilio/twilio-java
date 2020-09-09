@@ -46,13 +46,15 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
-     * return recordings generated at or before midnight on a given date, and
-     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
-     * midnight on a date..
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param absoluteDateCreated Only include recordings that were created on this
+     *                            date
      * @return this
      */
     public RecordingReader setDateCreated(final DateTime absoluteDateCreated) {
@@ -62,13 +64,15 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
-     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
-     * return recordings generated at or before midnight on a given date, and
-     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
-     * midnight on a date..
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param rangeDateCreated Only include recordings that were created on this
+     *                         date
      * @return this
      */
     public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {
@@ -78,8 +82,8 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * The [Call](https://www.twilio.com/docs/api/voice/call) SID of the resources
-     * to read..
+     * The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the
+     * resources to read..
      *
      * @param callSid The Call SID of the resources to read
      * @return this
@@ -125,8 +129,7 @@ public class RecordingReader extends Reader<Recording> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings.json"
         );
 
         addQueryParams(request);
@@ -164,10 +167,7 @@ public class RecordingReader extends Reader<Recording> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -184,10 +184,7 @@ public class RecordingReader extends Reader<Recording> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -209,14 +206,7 @@ public class RecordingReader extends Reader<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -28,8 +28,9 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
     /**
      * Construct a new SyncMapDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map resource
+     *                       to delete
+     * @param pathSid The SID of the Sync Map resource to delete
      */
     public SyncMapDeleter(final String pathServiceSid,
                           final String pathSid) {
@@ -48,8 +49,7 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +61,7 @@ public class SyncMapDeleter extends Deleter<SyncMap> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

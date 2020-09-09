@@ -23,9 +23,9 @@ public class FlexFlowReader extends Reader<FlexFlow> {
     private String friendlyName;
 
     /**
-     * Human readable description of this FlexFlow.
+     * The `friendly_name` of the FlexFlow resources to read..
      *
-     * @param friendlyName Human readable description of this FlexFlow
+     * @param friendlyName The `friendly_name` of the FlexFlow resources to read
      * @return this
      */
     public FlexFlowReader setFriendlyName(final String friendlyName) {
@@ -56,8 +56,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows",
-            client.getRegion()
+            "/v1/FlexFlows"
         );
 
         addQueryParams(request);
@@ -94,10 +93,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -114,10 +110,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.FLEXAPI.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -139,14 +132,7 @@ public class FlexFlowReader extends Reader<FlexFlow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -274,11 +274,12 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL we should call using a POST method to send status information about
-     * SMS messages sent by the application..
+     * Same as message_status_callback: The URL we should call using a POST method
+     * to send status information about SMS messages sent by the application.
+     * Deprecated, included for backwards compatibility..
      *
-     * @param smsStatusCallback The URL to send status information to your
-     *                          application
+     * @param smsStatusCallback Same as message_status_callback. Deprecated,
+     *                          included for backwards compatibility.
      * @return this
      */
     public ApplicationUpdater setSmsStatusCallback(final URI smsStatusCallback) {
@@ -287,11 +288,12 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL we should call using a POST method to send status information about
-     * SMS messages sent by the application..
+     * Same as message_status_callback: The URL we should call using a POST method
+     * to send status information about SMS messages sent by the application.
+     * Deprecated, included for backwards compatibility..
      *
-     * @param smsStatusCallback The URL to send status information to your
-     *                          application
+     * @param smsStatusCallback Same as message_status_callback. Deprecated,
+     *                          included for backwards compatibility.
      * @return this
      */
     public ApplicationUpdater setSmsStatusCallback(final String smsStatusCallback) {
@@ -336,8 +338,7 @@ public class ApplicationUpdater extends Updater<Application> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Applications/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -350,14 +351,7 @@ public class ApplicationUpdater extends Updater<Application> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Application.fromJson(response.getStream(), client.getObjectMapper());

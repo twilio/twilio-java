@@ -19,10 +19,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ServiceReader extends Reader<Service> {
     /**
      * Make the request to the Twilio API to perform the read.
@@ -47,8 +43,7 @@ public class ServiceReader extends Reader<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services",
-            client.getRegion()
+            "/v2/Services"
         );
 
         addQueryParams(request);
@@ -85,10 +80,7 @@ public class ServiceReader extends Reader<Service> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -105,10 +97,7 @@ public class ServiceReader extends Reader<Service> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VERIFY.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VERIFY.toString())
         );
         return pageForRequest(client, request);
     }
@@ -130,14 +119,7 @@ public class ServiceReader extends Reader<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

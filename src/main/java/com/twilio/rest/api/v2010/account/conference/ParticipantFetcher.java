@@ -27,7 +27,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
-     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      */
     public ParticipantFetcher(final String pathConferenceSid,
                               final String pathCallSid) {
@@ -42,7 +43,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
      *                       fetch
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
-     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      */
     public ParticipantFetcher(final String pathAccountSid,
                               final String pathConferenceSid,
@@ -65,8 +67,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants/" + this.pathCallSid + ".json"
         );
 
         Response response = client.request(request);
@@ -78,14 +79,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());

@@ -155,7 +155,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The A formatted version of the phone number.
+     * Returns A formatted version of the phone number.
      *
      * @return A formatted version of the phone number
      */
@@ -164,7 +164,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The phone number in E.164 format.
+     * Returns The phone number in E.164 format.
      *
      * @return The phone number in E.164 format
      */
@@ -173,7 +173,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The LATA of this phone number.
+     * Returns The LATA of this phone number.
      *
      * @return The LATA of this phone number
      */
@@ -182,7 +182,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The locality or city of this phone number's location.
+     * Returns The locality or city of this phone number's location.
      *
      * @return The locality or city of this phone number's location
      */
@@ -191,7 +191,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The rate center of this phone number.
+     * Returns The rate center of this phone number.
      *
      * @return The rate center of this phone number
      */
@@ -200,7 +200,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The latitude of this phone number's location.
+     * Returns The latitude of this phone number's location.
      *
      * @return The latitude of this phone number's location
      */
@@ -209,7 +209,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The longitude of this phone number's location.
+     * Returns The longitude of this phone number's location.
      *
      * @return The longitude of this phone number's location
      */
@@ -218,8 +218,8 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The two-letter state or province abbreviation of this phone
-     * number's location.
+     * Returns The two-letter state or province abbreviation of this phone number's
+     * location.
      *
      * @return The two-letter state or province abbreviation of this phone number's
      *         location
@@ -229,7 +229,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The postal or ZIP code of this phone number's location.
+     * Returns The postal or ZIP code of this phone number's location.
      *
      * @return The postal or ZIP code of this phone number's location
      */
@@ -238,7 +238,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The ISO country code of this phone number.
+     * Returns The ISO country code of this phone number.
      *
      * @return The ISO country code of this phone number
      */
@@ -247,7 +247,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The The type of Address resource the phone number requires.
+     * Returns The type of Address resource the phone number requires.
      *
      * @return The type of Address resource the phone number requires
      */
@@ -256,7 +256,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The Whether the phone number is new to the Twilio platform.
+     * Returns Whether the phone number is new to the Twilio platform.
      *
      * @return Whether the phone number is new to the Twilio platform
      */
@@ -265,7 +265,7 @@ public class TollFree extends Resource {
     }
 
     /**
-     * Returns The Whether a phone number can receive calls or messages.
+     * Returns Whether a phone number can receive calls or messages.
      *
      * @return Whether a phone number can receive calls or messages
      */

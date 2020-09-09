@@ -29,10 +29,12 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
     /**
      * Construct a new SyncMapPermissionFetcher.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathMapSid Sync Map SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Map Permission
-     *                     applies.
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       Permission resource to fetch
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Permission
+     *                   resource to fetch
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Sync Map Permission resource to fetch
      */
     public SyncMapPermissionFetcher(final String pathServiceSid,
                                     final String pathMapSid,
@@ -54,8 +56,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Permissions/" + this.pathIdentity + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +68,7 @@ public class SyncMapPermissionFetcher extends Fetcher<SyncMapPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapPermission.fromJson(response.getStream(), client.getObjectMapper());

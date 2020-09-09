@@ -46,8 +46,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions"
         );
 
         Response response = client.request(request);
@@ -59,14 +58,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssistantFallbackActions.fromJson(response.getStream(), client.getObjectMapper());

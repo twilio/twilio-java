@@ -29,12 +29,13 @@ public class MemberCreator extends Creator<Member> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
+    private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MemberCreator.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new member belongs to
+     * @param pathChannelSid The SID of the channel the new member belongs to
      * @param identity The `identity` value that identifies the new resource's User
      */
     public MemberCreator(final String pathServiceSid,
@@ -46,9 +47,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
-     * to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/rest/service-resource)..
      *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
@@ -60,7 +61,7 @@ public class MemberCreator extends Creator<Member> {
 
     /**
      * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/messages) in the
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
      * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
      * read. This parameter should only be used when recreating a Member from a
      * backup/separate source..
@@ -75,14 +76,14 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The ISO 8601 timestamp string that represents the date-time of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/messages) read event for the
-     * Member within the [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
+     * for the Member within the
+     * [Channel](https://www.twilio.com/docs/chat/channels)..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the date-time of the last
-     *                                 Message read event for the Member within the
-     *                                 Channel
+     *                                 representing the datetime of the last Message
+     *                                 read event for the member within the Channel
      * @return this
      */
     public MemberCreator setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -109,7 +110,7 @@ public class MemberCreator extends Creator<Member> {
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
      * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`.  Note that this parameter should only be used when a
+     * default value is `null`. Note that this parameter should only be used when a
      * Member is being recreated from a backup/separate source and where a Member
      * was previously updated..
      *
@@ -134,6 +135,17 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MemberCreator setXTwilioWebhookEnabled(final Member.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -145,11 +157,11 @@ public class MemberCreator extends Creator<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members"
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -159,17 +171,21 @@ public class MemberCreator extends Creator<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

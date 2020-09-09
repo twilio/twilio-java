@@ -41,7 +41,7 @@ public class Invite extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to fetch
      * @return InviteFetcher capable of executing the fetch
      */
     public static InviteFetcher fetcher(final String pathServiceSid,
@@ -82,7 +82,7 @@ public class Invite extends Resource {
      * @param pathServiceSid The SID of the Service to delete the resource from
      * @param pathChannelSid The SID of the Channel the resource to delete belongs
      *                       to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to delete
      * @return InviteDeleter capable of executing the delete
      */
     public static InviteDeleter deleter(final String pathServiceSid,
@@ -173,7 +173,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -182,7 +182,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -191,7 +191,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The SID of the Channel the new resource belongs to.
+     * Returns The SID of the Channel the new resource belongs to.
      *
      * @return The SID of the Channel the new resource belongs to
      */
@@ -200,7 +200,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -209,7 +209,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The string that identifies the resource's User.
+     * Returns The string that identifies the resource's User.
      *
      * @return The string that identifies the resource's User
      */
@@ -218,26 +218,25 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The SID of the Role assigned to the member.
+     * Returns The SID of the Role assigned to the member.
      *
      * @return The SID of the Role assigned to the member
      */
@@ -246,7 +245,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The identity of the User that created the invite.
+     * Returns The identity of the User that created the invite.
      *
      * @return The identity of the User that created the invite
      */
@@ -255,7 +254,7 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Invite resource.
+     * Returns The absolute URL of the Invite resource.
      *
      * @return The absolute URL of the Invite resource
      */

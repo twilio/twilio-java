@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TwiML wrapper for {@code <Phoneme>}
+ * TwiML wrapper for {@code <phoneme>}
  */
 public class SsmlPhoneme extends TwiML {
     public enum Alphabet {
@@ -43,7 +43,7 @@ public class SsmlPhoneme extends TwiML {
     }
 
     /**
-     * Create a new {@code <SsmlPhoneme>} element
+     * Create a new {@code <phoneme>} element
      */
     private SsmlPhoneme(Builder b) {
         super("phoneme", b);
@@ -108,7 +108,7 @@ public class SsmlPhoneme extends TwiML {
     }
 
     /**
-     * Create a new {@code <Phoneme>} element
+     * Create a new {@code <phoneme>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private SsmlPhoneme.Alphabet alphabet;
@@ -116,7 +116,7 @@ public class SsmlPhoneme extends TwiML {
         private String words;
 
         /**
-         * Create a {@code <Phoneme>} with words
+         * Create a {@code <phoneme>} with words
          */
         public Builder(String words) {
             this.words = words;
@@ -139,7 +139,7 @@ public class SsmlPhoneme extends TwiML {
         }
 
         /**
-         * Create and return resulting {@code <Phoneme>} element
+         * Create and return resulting {@code <phoneme>} element
          */
         public SsmlPhoneme build() {
             return new SsmlPhoneme(this);

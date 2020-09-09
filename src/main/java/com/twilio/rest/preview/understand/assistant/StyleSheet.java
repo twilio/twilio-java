@@ -119,7 +119,7 @@ public class StyleSheet extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Assistant.
+     * Returns The unique ID of the Account that created this Assistant.
      *
      * @return The unique ID of the Account that created this Assistant
      */
@@ -128,7 +128,7 @@ public class StyleSheet extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Assistant.
+     * Returns The unique ID of the Assistant.
      *
      * @return The unique ID of the Assistant
      */
@@ -137,7 +137,7 @@ public class StyleSheet extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -146,7 +146,7 @@ public class StyleSheet extends Resource {
     }
 
     /**
-     * Returns The The JSON style sheet object.
+     * Returns The JSON style sheet object.
      *
      * @return The JSON style sheet object
      */

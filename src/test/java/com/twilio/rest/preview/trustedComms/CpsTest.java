@@ -42,7 +42,7 @@ public class CpsTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/TrustedComms/CPS");
-
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number", serialize("x_xcnam_sensitive_phone_number"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class CpsTest {
         }};
 
         try {
-            Cps.fetcher().fetch();
+            Cps.fetcher().setXXcnamSensitivePhoneNumber("x_xcnam_sensitive_phone_number").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,11 +60,11 @@ public class CpsTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"phone_number\": \"+1500123\",\"cps_url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\",\"url\": \"https://preview.twilio.com/TrustedComms/CPS\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"cps_url\": \"https://preview.twilio.com/TrustedComms/CurrentCall\",\"phone_number\": \"+1500123\",\"url\": \"https://preview.twilio.com/TrustedComms/CPS\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Cps.fetcher().fetch());
+        assertNotNull(Cps.fetcher().setXXcnamSensitivePhoneNumber("x_xcnam_sensitive_phone_number").fetch());
     }
 }

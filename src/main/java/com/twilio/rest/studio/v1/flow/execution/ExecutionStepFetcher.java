@@ -25,9 +25,9 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
     /**
      * Construct a new ExecutionStepFetcher.
      *
-     * @param pathFlowSid Flow Sid.
-     * @param pathExecutionSid Execution Sid.
-     * @param pathSid Step Sid.
+     * @param pathFlowSid The SID of the Flow
+     * @param pathExecutionSid The SID of the Execution
+     * @param pathSid The unique string that identifies the resource
      */
     public ExecutionStepFetcher(final String pathFlowSid,
                                 final String pathExecutionSid,
@@ -49,8 +49,7 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions/" + this.pathExecutionSid + "/Steps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return ExecutionStep.fromJson(response.getStream(), client.getObjectMapper());

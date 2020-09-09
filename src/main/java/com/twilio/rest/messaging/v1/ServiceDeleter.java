@@ -27,7 +27,7 @@ public class ServiceDeleter extends Deleter<Service> {
     /**
      * Construct a new ServiceDeleter.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to delete
      */
     public ServiceDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -44,8 +44,7 @@ public class ServiceDeleter extends Deleter<Service> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -57,14 +56,7 @@ public class ServiceDeleter extends Deleter<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

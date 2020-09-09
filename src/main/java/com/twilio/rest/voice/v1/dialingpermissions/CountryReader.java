@@ -34,7 +34,7 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Filter to retrieve the country permissions by specifying the [ISO country
-     * code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+     * code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
      *
      * @param isoCode Filter to retrieve the country permissions by specifying the
      *                ISO country code
@@ -134,8 +134,7 @@ public class CountryReader extends Reader<Country> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VOICE.toString(),
-            "/v1/DialingPermissions/Countries",
-            client.getRegion()
+            "/v1/DialingPermissions/Countries"
         );
 
         addQueryParams(request);
@@ -172,10 +171,7 @@ public class CountryReader extends Reader<Country> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }
@@ -192,10 +188,7 @@ public class CountryReader extends Reader<Country> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VOICE.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VOICE.toString())
         );
         return pageForRequest(client, request);
     }
@@ -217,14 +210,7 @@ public class CountryReader extends Reader<Country> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

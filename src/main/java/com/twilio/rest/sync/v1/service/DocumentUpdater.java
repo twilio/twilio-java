@@ -29,12 +29,14 @@ public class DocumentUpdater extends Updater<Document> {
     private final String pathSid;
     private Map<String, Object> data;
     private Integer ttl;
+    private String ifMatch;
 
     /**
      * Construct a new DocumentUpdater.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Document resource
+     *                       to update
+     * @param pathSid The SID of the Document resource to update
      */
     public DocumentUpdater(final String pathServiceSid,
                            final String pathSid) {
@@ -43,10 +45,11 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * Contains an arbitrary JSON object to be stored in this Document. Serialized
-     * to string to respect HTTP form input, up to 16KB..
+     * A JSON string that represents an arbitrary, schema-less object that the Sync
+     * Document stores. Can be up to 16KB in length..
      *
-     * @param data Contains an arbitrary JSON object to be stored in this Document.
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that the Sync Document stores
      * @return this
      */
     public DocumentUpdater setData(final Map<String, Object> data) {
@@ -55,14 +58,29 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * New time-to-live of this Document in seconds. In the range [1, 31 536 000 (1
-     * year)], or 0 for infinity..
+     * How long, in seconds, before the Sync Document expires and is deleted
+     * (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default
+     * value is `0`, which means the Document resource does not expire. The Document
+     * resource will be deleted automatically after it expires, but there can be a
+     * delay between the expiration time and the resources's deletion..
      *
-     * @param ttl New time-to-live of this Document in seconds.
+     * @param ttl How long, in seconds, before the Document resource expires and is
+     *            deleted
      * @return this
      */
     public DocumentUpdater setTtl(final Integer ttl) {
         this.ttl = ttl;
+        return this;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public DocumentUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
         return this;
     }
 
@@ -78,11 +96,11 @@ public class DocumentUpdater extends Updater<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -92,17 +110,21 @@ public class DocumentUpdater extends Updater<Document> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Document.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

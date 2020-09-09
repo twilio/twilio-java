@@ -38,8 +38,9 @@ public class TaskQueueStatistics extends Resource {
     /**
      * Create a TaskQueueStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskQueueSid The task_queue_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskQueue to fetch
+     * @param pathTaskQueueSid The SID of the TaskQueue for which to fetch
+     *                         statistics
      * @return TaskQueueStatisticsFetcher capable of executing the fetch
      */
     public static TaskQueueStatisticsFetcher fetcher(final String pathWorkspaceSid,
@@ -114,54 +115,54 @@ public class TaskQueueStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The cumulative.
+     * Returns An object that contains the cumulative statistics for the TaskQueue.
      *
-     * @return The cumulative
+     * @return An object that contains the cumulative statistics for the TaskQueue
      */
     public final Map<String, Object> getCumulative() {
         return this.cumulative;
     }
 
     /**
-     * Returns The The realtime.
+     * Returns An object that contains the real-time statistics for the TaskQueue.
      *
-     * @return The realtime
+     * @return An object that contains the real-time statistics for the TaskQueue
      */
     public final Map<String, Object> getRealtime() {
         return this.realtime;
     }
 
     /**
-     * Returns The The task_queue_sid.
+     * Returns The SID of the TaskQueue from which these statistics were calculated.
      *
-     * @return The task_queue_sid
+     * @return The SID of the TaskQueue from which these statistics were calculated
      */
     public final String getTaskQueueSid() {
         return this.taskQueueSid;
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The SID of the Workspace that contains the TaskQueue.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the TaskQueue
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the TaskQueue statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the TaskQueue statistics resource
      */
     public final URI getUrl() {
         return this.url;

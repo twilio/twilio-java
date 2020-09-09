@@ -156,7 +156,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The sid.
+     * Returns The sid.
      *
      * @return The sid
      */
@@ -165,7 +165,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The account_sid.
      *
      * @return The account_sid
      */
@@ -174,7 +174,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The device_sid.
+     * Returns The device_sid.
      *
      * @return The device_sid
      */
@@ -183,7 +183,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The sim_sid.
+     * Returns The sim_sid.
      *
      * @return The sim_sid
      */
@@ -192,7 +192,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The command.
+     * Returns The command.
      *
      * @return The command
      */
@@ -201,7 +201,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The command_mode.
+     * Returns The command_mode.
      *
      * @return The command_mode
      */
@@ -210,7 +210,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The status.
+     * Returns The status.
      *
      * @return The status
      */
@@ -219,7 +219,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The direction.
+     * Returns The direction.
      *
      * @return The direction
      */
@@ -228,7 +228,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The date_created.
+     * Returns The date_created.
      *
      * @return The date_created
      */
@@ -237,7 +237,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The date_updated.
+     * Returns The date_updated.
      *
      * @return The date_updated
      */
@@ -246,7 +246,7 @@ public class Command extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */

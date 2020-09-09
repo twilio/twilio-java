@@ -56,7 +56,7 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * The new status of the resource. Can be: `pending_review`, `reviewed`, or
+     * The new status of the resource. Can be: `pending-review`, `reviewed`, or
      * `discarded`.
      *
      * @param status The new status of the resource
@@ -79,8 +79,7 @@ public class QueryUpdater extends Updater<Query> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Queries/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -93,14 +92,7 @@ public class QueryUpdater extends Updater<Query> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());

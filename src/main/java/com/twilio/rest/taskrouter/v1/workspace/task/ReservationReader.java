@@ -27,8 +27,10 @@ public class ReservationReader extends Reader<Reservation> {
     /**
      * Construct a new ReservationReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathTaskSid The task_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskReservation
+     *                         resources to read
+     * @param pathTaskSid The SID of the reserved Task resource with the
+     *                    TaskReservation resources to read
      */
     public ReservationReader(final String pathWorkspaceSid,
                              final String pathTaskSid) {
@@ -38,7 +40,7 @@ public class ReservationReader extends Reader<Reservation> {
 
     /**
      * Returns the list of reservations for a task with a specified
-     * ReservationStatus.
+     * ReservationStatus.  Can be: `pending`, `accepted`, `rejected`, or `timeout`..
      *
      * @param reservationStatus Returns the list of reservations for a task with a
      *                          specified ReservationStatus
@@ -72,8 +74,7 @@ public class ReservationReader extends Reader<Reservation> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathTaskSid + "/Reservations"
         );
 
         addQueryParams(request);
@@ -110,10 +111,7 @@ public class ReservationReader extends Reader<Reservation> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -130,10 +128,7 @@ public class ReservationReader extends Reader<Reservation> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -155,14 +150,7 @@ public class ReservationReader extends Reader<Reservation> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

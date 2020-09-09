@@ -61,8 +61,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions",
-            client.getRegion()
+            "/understand/Assistants/" + this.pathAssistantSid + "/FallbackActions"
         );
 
         addPostParams(request);
@@ -75,14 +74,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssistantFallbackActions.fromJson(response.getStream(), client.getObjectMapper());

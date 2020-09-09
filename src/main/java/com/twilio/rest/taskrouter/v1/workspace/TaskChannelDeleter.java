@@ -24,9 +24,9 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
     /**
      * Construct a new TaskChannelDeleter.
      *
-     * @param pathWorkspaceSid The unique ID of the Workspace that this TaskChannel
-     *                         belongs to.
-     * @param pathSid The unique ID for this TaskChannel.
+     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     *                         delete
+     * @param pathSid The SID of the TaskChannel resource to delete
      */
     public TaskChannelDeleter(final String pathWorkspaceSid,
                               final String pathSid) {
@@ -45,8 +45,7 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/TaskChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class TaskChannelDeleter extends Deleter<TaskChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

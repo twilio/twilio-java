@@ -44,7 +44,8 @@ public class Function extends Resource {
     /**
      * Create a FunctionReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
+     * @param pathServiceSid The SID of the Service to read the Function resources
+     *                       from
      * @return FunctionReader capable of executing the read
      */
     public static FunctionReader reader(final String pathServiceSid) {
@@ -54,8 +55,9 @@ public class Function extends Resource {
     /**
      * Create a FunctionFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Function Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Function resource
+     *                       from
+     * @param pathSid The SID of the Function resource to fetch
      * @return FunctionFetcher capable of executing the fetch
      */
     public static FunctionFetcher fetcher(final String pathServiceSid,
@@ -64,10 +66,24 @@ public class Function extends Resource {
     }
 
     /**
+     * Create a FunctionDeleter to execute delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the Function resource
+     *                       from
+     * @param pathSid The SID of the Function resource to delete
+     * @return FunctionDeleter capable of executing the delete
+     */
+    public static FunctionDeleter deleter(final String pathServiceSid,
+                                          final String pathSid) {
+        return new FunctionDeleter(pathServiceSid, pathSid);
+    }
+
+    /**
      * Create a FunctionCreator to execute create.
      *
-     * @param pathServiceSid Service Sid.
-     * @param friendlyName A human-readable description of this Function.
+     * @param pathServiceSid The SID of the Service to create the Function resource
+     *                       under
+     * @param friendlyName A string to describe the Function resource
      * @return FunctionCreator capable of executing the create
      */
     public static FunctionCreator creator(final String pathServiceSid,
@@ -78,9 +94,10 @@ public class Function extends Resource {
     /**
      * Create a FunctionUpdater to execute update.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathSid Function Sid.
-     * @param friendlyName A human-readable description of this Function.
+     * @param pathServiceSid The SID of the Service to update the Function resource
+     *                       from
+     * @param pathSid The SID of the Function resource to update
+     * @param friendlyName A string to describe the Function resource
      * @return FunctionUpdater capable of executing the update
      */
     public static FunctionUpdater updater(final String pathServiceSid,
@@ -164,72 +181,76 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The Function Sid..
+     * Returns The unique string that identifies the Function resource.
      *
-     * @return Function Sid.
+     * @return The unique string that identifies the Function resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The SID of the Account that created the Function resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Function resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The SID of the Service that the Function resource is associated with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Function resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The A human-readable description of this Function..
+     * Returns The string that you assigned to describe the Function resource.
      *
-     * @return A human-readable description of this Function.
+     * @return The string that you assigned to describe the Function resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The The date that this Function was created..
+     * Returns The ISO 8601 date and time in GMT when the Function resource was
+     * created.
      *
-     * @return The date that this Function was created.
+     * @return The ISO 8601 date and time in GMT when the Function resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Function was updated..
+     * Returns The ISO 8601 date and time in GMT when the Function resource was last
+     * updated.
      *
-     * @return The date that this Function was updated.
+     * @return The ISO 8601 date and time in GMT when the Function resource was
+     *         last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Function..
+     * Returns The absolute URL of the Function resource.
      *
-     * @return The URL of this Function.
+     * @return The absolute URL of the Function resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The URLs of nested resources of the function.
      *
-     * @return Nested resource URLs.
+     * @return The URLs of nested resources of the function
      */
     public final Map<String, String> getLinks() {
         return this.links;

@@ -46,7 +46,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
 
     /**
      * The [usage
-     * category](https://www.twilio.com/docs/api/rest/usage-records#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
+     * category](https://www.twilio.com/docs/usage/api/usage-record#usage-categories) of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
      *
      * @param category The usage category of the UsageRecord resources to read
      * @return this
@@ -122,8 +122,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/ThisMonth.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Records/ThisMonth.json"
         );
 
         addQueryParams(request);
@@ -161,10 +160,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -181,10 +177,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -206,14 +199,7 @@ public class ThisMonthReader extends Reader<ThisMonth> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

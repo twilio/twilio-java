@@ -100,8 +100,7 @@ public class Composition extends Resource {
     /**
      * Create a CompositionFetcher to execute fetch.
      *
-     * @param pathSid The Composition Sid that uniquely identifies the Composition
-     *                to fetch.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return CompositionFetcher capable of executing the fetch
      */
     public static CompositionFetcher fetcher(final String pathSid) {
@@ -120,8 +119,7 @@ public class Composition extends Resource {
     /**
      * Create a CompositionDeleter to execute delete.
      *
-     * @param pathSid The Recording Composition Sid that uniquely identifies the
-     *                Recording Composition to delete.
+     * @param pathSid The SID that identifies the resource to delete
      * @return CompositionDeleter capable of executing the delete
      */
     public static CompositionDeleter deleter(final String pathSid) {
@@ -131,7 +129,8 @@ public class Composition extends Resource {
     /**
      * Create a CompositionCreator to execute create.
      *
-     * @param roomSid Twilio Room SID.
+     * @param roomSid The SID of the Group Room with the media tracks to be used as
+     *                composition sources
      * @return CompositionCreator capable of executing the create
      */
     public static CompositionCreator creator(final String roomSid) {
@@ -179,8 +178,8 @@ public class Composition extends Resource {
     private final String accountSid;
     private final Composition.Status status;
     private final DateTime dateCreated;
-    private final String dateCompleted;
-    private final String dateDeleted;
+    private final DateTime dateCompleted;
+    private final DateTime dateDeleted;
     private final String sid;
     private final String roomSid;
     private final List<String> audioSources;
@@ -235,8 +234,8 @@ public class Composition extends Resource {
         this.accountSid = accountSid;
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateCompleted = dateCompleted;
-        this.dateDeleted = dateDeleted;
+        this.dateCompleted = DateConverter.iso8601DateTimeFromString(dateCompleted);
+        this.dateDeleted = DateConverter.iso8601DateTimeFromString(dateDeleted);
         this.sid = sid;
         this.roomSid = roomSid;
         this.audioSources = audioSources;
@@ -253,164 +252,170 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return Twilio Account SID.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The status of the Composition..
+     * Returns The status of the composition.
      *
-     * @return The status of the Composition.
+     * @return The status of the composition
      */
     public final Composition.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The Date when the Composition Resource was created..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return Date when the Composition Resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The Date when the media processing task finished..
+     * Returns Date when the media processing task finished.
      *
-     * @return Date when the media processing task finished.
+     * @return Date when the media processing task finished
      */
-    public final String getDateCompleted() {
+    public final DateTime getDateCompleted() {
         return this.dateCompleted;
     }
 
     /**
-     * Returns The Date when the Composition Resource generated media was deleted..
+     * Returns The ISO 8601 date and time in GMT when the composition generated
+     * media was deleted.
      *
-     * @return Date when the Composition Resource generated media was deleted.
+     * @return The ISO 8601 date and time in GMT when the composition generated
+     *         media was deleted
      */
-    public final String getDateDeleted() {
+    public final DateTime getDateDeleted() {
         return this.dateDeleted;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies this Composition..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34-character string that uniquely identifies this Composition.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A 34-character string that uniquely identifies the source of this
-     * Composition..
+     * Returns The SID of the Group Room that generated the audio and video tracks
+     * used in the composition.
      *
-     * @return A 34-character string that uniquely identifies the source of this
-     *         Composition.
+     * @return The SID of the Group Room that generated the audio and video tracks
+     *         used in the composition
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The A list of audio sources related to this Composition..
+     * Returns The array of track names to include in the composition.
      *
-     * @return A list of audio sources related to this Composition.
+     * @return The array of track names to include in the composition
      */
     public final List<String> getAudioSources() {
         return this.audioSources;
     }
 
     /**
-     * Returns The A list of audio sources excluded related to this Composition..
+     * Returns The array of track names to exclude from the composition.
      *
-     * @return A list of audio sources excluded related to this Composition.
+     * @return The array of track names to exclude from the composition
      */
     public final List<String> getAudioSourcesExcluded() {
         return this.audioSourcesExcluded;
     }
 
     /**
-     * Returns The The JSON video layout description..
+     * Returns An object that describes the video layout of the composition.
      *
-     * @return The JSON video layout description.
+     * @return An object that describes the video layout of the composition
      */
     public final Map<String, Object> getVideoLayout() {
         return this.videoLayout;
     }
 
     /**
-     * Returns The Pixel resolution of the composed video..
+     * Returns The dimensions of the video image in pixels expressed as columns
+     * (width) and rows (height).
      *
-     * @return Pixel resolution of the composed video.
+     * @return The dimensions of the video image in pixels expressed as columns
+     *         (width) and rows (height)
      */
     public final String getResolution() {
         return this.resolution;
     }
 
     /**
-     * Returns The Boolean flag for clipping intervals that have no media..
+     * Returns Whether to remove intervals with no media.
      *
-     * @return Boolean flag for clipping intervals that have no media.
+     * @return Whether to remove intervals with no media
      */
     public final Boolean getTrim() {
         return this.trim;
     }
 
     /**
-     * Returns The The file format for this Composition..
+     * Returns The container format of the composition's media files as specified in
+     * the POST request that created the Composition resource.
      *
-     * @return The file format for this Composition.
+     * @return The container format of the composition's media files as specified
+     *         in the POST request that created the Composition resource
      */
     public final Composition.Format getFormat() {
         return this.format;
     }
 
     /**
-     * Returns The The bitrate.
+     * Returns The average bit rate of the composition's media.
      *
-     * @return The bitrate
+     * @return The average bit rate of the composition's media
      */
     public final Integer getBitrate() {
         return this.bitrate;
     }
 
     /**
-     * Returns The Size of the Composed media file expressed in bytes..
+     * Returns The size of the composed media file in bytes.
      *
-     * @return Size of the Composed media file expressed in bytes.
+     * @return The size of the composed media file in bytes
      */
     public final Long getSize() {
         return this.size;
     }
 
     /**
-     * Returns The Duration of the Composed media in seconds..
+     * Returns The duration of the composition's media file in seconds.
      *
-     * @return Duration of the Composed media in seconds.
+     * @return The duration of the composition's media file in seconds
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The JSON object with the URL where the media file can be fetched..
+     * Returns The URL of the media file associated with the composition.
      *
-     * @return JSON object with the URL where the media file can be fetched.
+     * @return The URL of the media file associated with the composition
      */
     public final Map<String, String> getLinks() {
         return this.links;

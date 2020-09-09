@@ -183,7 +183,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call the resource is associated with.
+     * Returns The SID of the Call the resource is associated with.
      *
      * @return The SID of the Call the resource is associated with
      */
@@ -192,7 +192,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The date the member was enqueued.
+     * Returns The date the member was enqueued.
      *
      * @return The date the member was enqueued
      */
@@ -201,7 +201,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The This member's current position in the queue..
+     * Returns This member's current position in the queue..
      *
      * @return This member's current position in the queue.
      */
@@ -210,7 +210,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -219,7 +219,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The number of seconds the member has been in the queue..
+     * Returns The number of seconds the member has been in the queue..
      *
      * @return The number of seconds the member has been in the queue.
      */
@@ -228,7 +228,7 @@ public class Member extends Resource {
     }
 
     /**
-     * Returns The The SID of the Queue the member is in.
+     * Returns The SID of the Queue the member is in.
      *
      * @return The SID of the Queue the member is in
      */

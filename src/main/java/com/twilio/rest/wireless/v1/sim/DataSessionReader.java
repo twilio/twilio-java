@@ -10,7 +10,6 @@ package com.twilio.rest.wireless.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,42 +18,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 public class DataSessionReader extends Reader<DataSession> {
     private final String pathSimSid;
-    private DateTime end;
-    private DateTime start;
 
     /**
      * Construct a new DataSessionReader.
      *
-     * @param pathSimSid The sim_sid
+     * @param pathSimSid The SID of the Sim resource with the Data Sessions to read
      */
     public DataSessionReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
-    }
-
-    /**
-     * The end.
-     *
-     * @param end The end
-     * @return this
-     */
-    public DataSessionReader setEnd(final DateTime end) {
-        this.end = end;
-        return this;
-    }
-
-    /**
-     * The start.
-     *
-     * @param start The start
-     * @return this
-     */
-    public DataSessionReader setStart(final DateTime start) {
-        this.start = start;
-        return this;
     }
 
     /**
@@ -80,8 +54,7 @@ public class DataSessionReader extends Reader<DataSession> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Sims/" + this.pathSimSid + "/DataSessions",
-            client.getRegion()
+            "/v1/Sims/" + this.pathSimSid + "/DataSessions"
         );
 
         addQueryParams(request);
@@ -118,10 +91,7 @@ public class DataSessionReader extends Reader<DataSession> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,10 +108,7 @@ public class DataSessionReader extends Reader<DataSession> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -163,14 +130,7 @@ public class DataSessionReader extends Reader<DataSession> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -187,14 +147,6 @@ public class DataSessionReader extends Reader<DataSession> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (end != null) {
-            request.addQueryParam("End", end.toString());
-        }
-
-        if (start != null) {
-            request.addQueryParam("Start", start.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

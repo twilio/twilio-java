@@ -30,9 +30,10 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
     /**
      * Construct a new InstalledAddOnExtensionUpdater.
      *
-     * @param pathInstalledAddOnSid The installed_add_on_sid
-     * @param pathSid The sid
-     * @param enabled A Boolean indicating if the Extension will be invoked
+     * @param pathInstalledAddOnSid The SID of the InstalledAddOn resource with the
+     *                              extension to update
+     * @param pathSid The SID of the InstalledAddOn Extension resource to update
+     * @param enabled Whether the Extension should be invoked
      */
     public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid,
                                           final String pathSid,
@@ -54,8 +55,7 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + "",
-            client.getRegion()
+            "/marketplace/InstalledAddOns/" + this.pathInstalledAddOnSid + "/Extensions/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -68,14 +68,7 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return InstalledAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());

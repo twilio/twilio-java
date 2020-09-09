@@ -167,7 +167,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Fleet..
+     * Returns A string that uniquely identifies this Fleet..
      *
      * @return A string that uniquely identifies this Fleet.
      */
@@ -176,7 +176,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The URL of this Fleet..
+     * Returns URL of this Fleet..
      *
      * @return URL of this Fleet.
      */
@@ -185,7 +185,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The A unique, addressable name of this Fleet..
+     * Returns A unique, addressable name of this Fleet..
      *
      * @return A unique, addressable name of this Fleet.
      */
@@ -194,7 +194,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The A human readable description for this Fleet..
+     * Returns A human readable description for this Fleet..
      *
      * @return A human readable description for this Fleet.
      */
@@ -203,7 +203,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Account..
+     * Returns The unique SID that identifies this Account..
      *
      * @return The unique SID that identifies this Account.
      */
@@ -212,7 +212,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The unique SID that identifies this Fleet's default Deployment..
+     * Returns The unique SID that identifies this Fleet's default Deployment..
      *
      * @return The unique SID that identifies this Fleet's default Deployment.
      */
@@ -221,7 +221,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The date this Fleet was created..
+     * Returns The date this Fleet was created..
      *
      * @return The date this Fleet was created.
      */
@@ -230,7 +230,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The The date this Fleet was updated..
+     * Returns The date this Fleet was updated..
      *
      * @return The date this Fleet was updated.
      */
@@ -239,7 +239,7 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns Nested resource URLs..
      *
      * @return Nested resource URLs.
      */

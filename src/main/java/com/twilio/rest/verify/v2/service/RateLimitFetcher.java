@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class RateLimitFetcher extends Fetcher<RateLimit> {
     private final String pathServiceSid;
     private final String pathSid;
@@ -50,8 +46,7 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/RateLimits/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +58,7 @@ public class RateLimitFetcher extends Fetcher<RateLimit> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return RateLimit.fromJson(response.getStream(), client.getObjectMapper());

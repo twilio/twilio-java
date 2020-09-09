@@ -1,42 +1,41 @@
 language: java
 sudo: false
 before_install:
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch || true
 matrix:
   include:
-# OpenJDK
-    - name: 'OpenJDK 7'
-      jdk: openjdk7
-    - name: 'OpenJDK 8'
-      jdk: openjdk8
-    - name: 'OpenJDK 11'
-      install: . ./install-jdk.sh -L GPL -F 11
-    - name: 'OpenJDK 12'
-      install: . ./install-jdk.sh -L GPL -F 12
-# Oracle JDK
-    - name: 'Oracle JDK 8'
-      jdk: oraclejdk8
-    - name: 'Oracle JDK 11'
-      jdk: oraclejdk11
-    - name: 'Oracle JDK 12'
-      install: . ./install-jdk.sh -L BCL -F 12
+    - jdk: openjdk7
+      dist: trusty
+    - jdk: openjdk8
+      dist: xenial
+    - jdk: openjdk11
+      dist: xenial
   allow_failures:
-    - name: 'OpenJDK 12'
-    - name: 'Oracle JDK 11' # See https://travis-ci.community/t/cannot-install-oracle-jdk-11/3892/3
-    - name: 'Oracle JDK 12'
+    - jdk: openjdk7
 services:
   - docker
+install:
+  - mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+deploy:
+  - provider: script
+    script: make docker-build && make docker-push
+    skip_cleanup: true
+    on:
+      tags: true
+      jdk: openjdk8
+  - provider: script
+    script: mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
+    skip_cleanup: true
+    on:
+      tags: true
+      jdk: openjdk8
+
 notifications:
   slack:
-    on_success: change
+    if: branch = main
+    on_pull_requests: false
+    on_success: never
     on_failure: change
     rooms:
-      - secure: MkRPjhMDkLMT0tKhSzSAEEdLxKlFrcEw00FBgpcpIl50kSpe3gxCJsm2bz5+LySblCfY1nI5D1+R++eB5cxJzgZvEBWIXQnGJVAV+X7WW1CI1FBZlv6FNLBe5gVPPzo5kIIM1g3o7AaERcraHK9h9S9N8cpnBRHe+Xf6wTRqmwo=
-      - secure: iRd6XcgHGFSJ/eS1ZwCUgUVTK0a+JAPmyPEx/OdFbma6DvF8WBhWtW5Q1dyrjQ3JWU8DW2Att9jRnGHd9F5wWWcykxYbD9DXrlfqCZpec9pHzEMAud9MG1PqK0d3y2oyjwps/fQ092PJcn9/y7zX6tzdVWKaKUe4iRDs1u1ehUo=
-deploy:
-  provider: script
-  script: make docker-build && make docker-push
-  skip_cleanup: true
-  on:
-    tags: true
-    jdk: oraclejdk8
+      - secure: b8z28tzdVU/T3Dt70JQS0Km2dca0ebmL0gGh5g/f5zYHsAzTcPZsayqUWXjJ4tq08N7OlRzx04DSDr9oCErNXSdDPOVlKf46uH3irAeUPHjCDARimRs3uGaUgYwW5X0/xpqjQrVP2YVq9+FDznKEDiULV4ztLFacv5Hx0aMwb2Q=

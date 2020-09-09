@@ -31,8 +31,10 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
     /**
      * Construct a new FunctionVersionReader.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
+     * @param pathServiceSid The SID of the Service to read the Function Version
+     *                       resources from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        Function Version resources to read
      */
     public FunctionVersionReader(final String pathServiceSid,
                                  final String pathFunctionSid) {
@@ -63,8 +65,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions"
         );
 
         addQueryParams(request);
@@ -101,10 +102,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
                                           final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -121,10 +119,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
                                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SERVERLESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -146,14 +141,7 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

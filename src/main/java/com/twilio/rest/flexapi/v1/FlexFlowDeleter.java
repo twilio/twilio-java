@@ -23,7 +23,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
     /**
      * Construct a new FlexFlowDeleter.
      *
-     * @param pathSid The unique ID of the FlexFlow
+     * @param pathSid The SID that identifies the resource to delete
      */
     public FlexFlowDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -40,8 +40,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
-            "/v1/FlexFlows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/FlexFlows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -53,14 +52,7 @@ public class FlexFlowDeleter extends Deleter<FlexFlow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

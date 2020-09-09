@@ -42,8 +42,9 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Create a AvailableAddOnExtensionFetcher to execute fetch.
      *
-     * @param pathAvailableAddOnSid The available_add_on_sid
-     * @param pathSid The unique Extension Sid
+     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
+     *                              extension to fetch
+     * @param pathSid The SID of the AvailableAddOn Extension resource to fetch
      * @return AvailableAddOnExtensionFetcher capable of executing the fetch
      */
     public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid,
@@ -54,7 +55,8 @@ public class AvailableAddOnExtension extends Resource {
     /**
      * Create a AvailableAddOnExtensionReader to execute read.
      *
-     * @param pathAvailableAddOnSid The available_add_on_sid
+     * @param pathAvailableAddOnSid The SID of the AvailableAddOn resource with the
+     *                              extensions to read
      * @return AvailableAddOnExtensionReader capable of executing the read
      */
     public static AvailableAddOnExtensionReader reader(final String pathAvailableAddOnSid) {
@@ -128,54 +130,56 @@ public class AvailableAddOnExtension extends Resource {
     }
 
     /**
-     * Returns The A string that uniquely identifies this Extension.
+     * Returns The unique string that identifies the resource.
      *
-     * @return A string that uniquely identifies this Extension
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The available_add_on_sid.
+     * Returns The SID of the AvailableAddOn resource to which this extension
+     * applies.
      *
-     * @return The available_add_on_sid
+     * @return The SID of the AvailableAddOn resource to which this extension
+     *         applies
      */
     public final String getAvailableAddOnSid() {
         return this.availableAddOnSid;
     }
 
     /**
-     * Returns The A human-readable description of this Extension.
+     * Returns The string that you assigned to describe the resource.
      *
-     * @return A human-readable description of this Extension
+     * @return The string that you assigned to describe the resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A human-readable description of the Extension's Product.
+     * Returns The name of the Extension's Product.
      *
-     * @return A human-readable description of the Extension's Product
+     * @return The name of the Extension's Product
      */
     public final String getProductName() {
         return this.productName;
     }
 
     /**
-     * Returns The The string that uniquely identifies this Extension.
+     * Returns An application-defined string that uniquely identifies the resource.
      *
-     * @return The string that uniquely identifies this Extension
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the resource.
      *
-     * @return The url
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

@@ -132,7 +132,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -141,8 +141,8 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the Task
-     * associated with the resource.
+     * Returns The SID of the Assistant that is the parent of the Task associated
+     * with the resource.
      *
      * @return The SID of the Assistant that is the parent of the Task associated
      *         with the resource
@@ -152,7 +152,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The SID of the Task associated with the resource.
+     * Returns The SID of the Task associated with the resource.
      *
      * @return The SID of the Task associated with the resource
      */
@@ -161,7 +161,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the TaskActions resource.
+     * Returns The absolute URL of the TaskActions resource.
      *
      * @return The absolute URL of the TaskActions resource
      */
@@ -170,7 +170,7 @@ public class TaskActions extends Resource {
     }
 
     /**
-     * Returns The The JSON string that specifies the actions that instruct the
+     * Returns The JSON string that specifies the actions that instruct the
      * Assistant on how to perform the task.
      *
      * @return The JSON string that specifies the actions that instruct the

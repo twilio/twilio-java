@@ -55,8 +55,7 @@ public class RoleCreator extends Creator<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Roles",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Roles"
         );
 
         addPostParams(request);
@@ -69,14 +68,7 @@ public class RoleCreator extends Creator<Role> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Role.fromJson(response.getStream(), client.getObjectMapper());

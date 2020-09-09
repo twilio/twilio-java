@@ -67,7 +67,7 @@ public class VideoGrant implements Grant {
 
 
     @SuppressWarnings("checkstyle:membername")
-    @JsonInclude(JsonInclude.Include.NON_EMPTY)
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public final String configuration_profile_sid;
         public final String room;

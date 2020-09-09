@@ -28,8 +28,8 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
     /**
      * Construct a new PhoneNumberDeleter.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID that identifies the resource to delete
      */
     public PhoneNumberDeleter(final String pathServiceSid,
                               final String pathSid) {
@@ -48,8 +48,7 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/PhoneNumbers/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -61,14 +60,7 @@ public class PhoneNumberDeleter extends Deleter<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

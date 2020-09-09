@@ -48,9 +48,7 @@ public class FeedbackCreator extends Creator<Feedback> {
     /**
      * Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If
      * `provide_feedback`=`true` in [the initial HTTP
-     * POST](https://www.twilio.com/docs/sms/api/message#create-a-message-resource),
-     * the initial value of this property is `unconfirmed`. After the message
-     * arrives, update the value to `confirmed`..
+     * POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`..
      *
      * @param outcome Whether the feedback has arrived
      * @return this
@@ -73,8 +71,7 @@ public class FeedbackCreator extends Creator<Feedback> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Feedback.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Messages/" + this.pathMessageSid + "/Feedback.json"
         );
 
         addPostParams(request);
@@ -87,14 +84,7 @@ public class FeedbackCreator extends Creator<Feedback> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Feedback.fromJson(response.getStream(), client.getObjectMapper());

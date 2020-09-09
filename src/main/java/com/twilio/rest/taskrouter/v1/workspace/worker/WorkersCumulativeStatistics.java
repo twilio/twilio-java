@@ -41,7 +41,7 @@ public class WorkersCumulativeStatistics extends Resource {
     /**
      * Create a WorkersCumulativeStatisticsFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the resource to fetch
      * @return WorkersCumulativeStatisticsFetcher capable of executing the fetch
      */
     public static WorkersCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid) {
@@ -139,45 +139,48 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The account_sid.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The account_sid
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The start_time.
+     * Returns The beginning of the interval during which these statistics were
+     * calculated.
      *
-     * @return The start_time
+     * @return The beginning of the interval during which these statistics were
+     *         calculated
      */
     public final DateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The The end_time.
+     * Returns The end of the interval during which these statistics were
+     * calculated.
      *
-     * @return The end_time
+     * @return The end of the interval during which these statistics were calculated
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The minimum, average, maximum and total time Workers spent in
+     * Returns The minimum, average, maximum, and total time that Workers spent in
      * each Activity.
      *
-     * @return The minimum, average, maximum and total time Workers spent in each
-     *         Activity
+     * @return The minimum, average, maximum, and total time that Workers spent in
+     *         each Activity
      */
     public final List<Map<String, Object>> getActivityDurations() {
         return this.activityDurations;
     }
 
     /**
-     * Returns The The total number of Reservations that were created.
+     * Returns The total number of Reservations that were created.
      *
      * @return The total number of Reservations that were created
      */
@@ -186,7 +189,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were accepted.
+     * Returns The total number of Reservations that were accepted.
      *
      * @return The total number of Reservations that were accepted
      */
@@ -195,7 +198,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rejected.
+     * Returns The total number of Reservations that were rejected.
      *
      * @return The total number of Reservations that were rejected
      */
@@ -204,7 +207,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were timed out.
+     * Returns The total number of Reservations that were timed out.
      *
      * @return The total number of Reservations that were timed out
      */
@@ -213,7 +216,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were canceled.
+     * Returns The total number of Reservations that were canceled.
      *
      * @return The total number of Reservations that were canceled
      */
@@ -222,7 +225,7 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The total number of Reservations that were rescinded.
+     * Returns The total number of Reservations that were rescinded.
      *
      * @return The total number of Reservations that were rescinded
      */
@@ -231,18 +234,18 @@ public class WorkersCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The The workspace_sid.
+     * Returns The SID of the Workspace that contains the Workers.
      *
-     * @return The workspace_sid
+     * @return The SID of the Workspace that contains the Workers
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the Workers statistics resource.
      *
-     * @return The url
+     * @return The absolute URL of the Workers statistics resource
      */
     public final URI getUrl() {
         return this.url;

@@ -29,6 +29,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
+    private String label;
     private Integer timeout;
     private Boolean record;
     private Boolean muted;
@@ -56,13 +57,18 @@ public class ParticipantCreator extends Creator<Participant> {
     private List<String> conferenceRecordingStatusCallbackEvent;
     private Boolean coaching;
     private String callSidToCoach;
+    private String jitterBufferSize;
+    private String byoc;
+    private String callerId;
 
     /**
      * Construct a new ParticipantCreator.
      *
      * @param pathConferenceSid The SID of the participant's conference
-     * @param from The `from` phone number used to invite a participant
-     * @param to The number, client id, or sip address of the new participant
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      */
     public ParticipantCreator(final String pathConferenceSid,
                               final com.twilio.type.PhoneNumber from,
@@ -77,8 +83,10 @@ public class ParticipantCreator extends Creator<Participant> {
      *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathConferenceSid The SID of the participant's conference
-     * @param from The `from` phone number used to invite a participant
-     * @param to The number, client id, or sip address of the new participant
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      */
     public ParticipantCreator(final String pathAccountSid,
                               final String pathConferenceSid,
@@ -155,6 +163,18 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     public ParticipantCreator setStatusCallbackEvent(final String statusCallbackEvent) {
         return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
+    }
+
+    /**
+     * A label for this participant. If one is supplied, it may subsequently be used
+     * to fetch, update or delete the participant..
+     *
+     * @param label The label of this participant
+     * @return this
+     */
+    public ParticipantCreator setLabel(final String label) {
+        this.label = label;
+        return this;
     }
 
     /**
@@ -293,7 +313,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The maximum number of participants in the conference. Can be a positive
-     * integer from `2` to `10`. The default value is `10`..
+     * integer from `2` to `250`. The default value is `250`..
      *
      * @param maxParticipants The maximum number of agent conference participants
      * @return this
@@ -620,6 +640,54 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * Jitter buffer size for the connecting participant. Twilio will use this
+     * setting to apply Jitter Buffer before participant's audio is mixed into the
+     * conference. Can be: `off`, `small`, `medium`, and `large`. Default to
+     * `large`..
+     *
+     * @param jitterBufferSize Jitter Buffer size for the connecting participant
+     * @return this
+     */
+    public ParticipantCreator setJitterBufferSize(final String jitterBufferSize) {
+        this.jitterBufferSize = jitterBufferSize;
+        return this;
+    }
+
+    /**
+     * The SID of a BYOC (Bring Your Own Carrier) trunk to route this call with.
+     * Note that `byoc` is only meaningful when `to` is a phone number; it will
+     * otherwise be ignored. (Beta).
+     *
+     * @param byoc BYOC trunk SID (Beta)
+     * @return this
+     */
+    public ParticipantCreator setByoc(final String byoc) {
+        this.byoc = byoc;
+        return this;
+    }
+
+    /**
+     * The phone number, Client identifier, or username portion of SIP address that
+     * made this call. Phone numbers are in
+     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g.,
+     * +16175551212). Client identifiers are formatted `client:name`. If using a
+     * phone number, it must be a Twilio number or a Verified [outgoing caller
+     * id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your
+     * account. If the `to` parameter is a phone number, `callerId` must also be a
+     * phone number. If `to` is sip address, this value of `callerId` should be a
+     * username portion to be used to populate the From header that is passed to the
+     * SIP endpoint..
+     *
+     * @param callerId The phone number, Client identifier, or username portion of
+     *                 SIP address that made this call.
+     * @return this
+     */
+    public ParticipantCreator setCallerId(final String callerId) {
+        this.callerId = callerId;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -632,8 +700,7 @@ public class ParticipantCreator extends Creator<Participant> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Conferences/" + this.pathConferenceSid + "/Participants.json"
         );
 
         addPostParams(request);
@@ -646,14 +713,7 @@ public class ParticipantCreator extends Creator<Participant> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
@@ -685,6 +745,10 @@ public class ParticipantCreator extends Creator<Participant> {
             for (String prop : statusCallbackEvent) {
                 request.addPostParam("StatusCallbackEvent", prop);
             }
+        }
+
+        if (label != null) {
+            request.addPostParam("Label", label);
         }
 
         if (timeout != null) {
@@ -799,6 +863,18 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (callSidToCoach != null) {
             request.addPostParam("CallSidToCoach", callSidToCoach);
+        }
+
+        if (jitterBufferSize != null) {
+            request.addPostParam("JitterBufferSize", jitterBufferSize);
+        }
+
+        if (byoc != null) {
+            request.addPostParam("Byoc", byoc);
+        }
+
+        if (callerId != null) {
+            request.addPostParam("CallerId", callerId);
         }
     }
 }

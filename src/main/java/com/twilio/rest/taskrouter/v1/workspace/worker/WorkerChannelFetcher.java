@@ -25,9 +25,10 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
     /**
      * Construct a new WorkerChannelFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         fetch
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to fetch
+     * @param pathSid The SID of the to fetch
      */
     public WorkerChannelFetcher(final String pathWorkspaceSid,
                                 final String pathWorkerSid,
@@ -49,8 +50,7 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Channels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +62,7 @@ public class WorkerChannelFetcher extends Fetcher<WorkerChannel> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkerChannel.fromJson(response.getStream(), client.getObjectMapper());

@@ -106,7 +106,7 @@ public class Balance extends Resource {
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns Account Sid..
      *
      * @return Account Sid.
      */
@@ -115,7 +115,7 @@ public class Balance extends Resource {
     }
 
     /**
-     * Returns The Account balance.
+     * Returns Account balance.
      *
      * @return Account balance
      */
@@ -124,7 +124,7 @@ public class Balance extends Resource {
     }
 
     /**
-     * Returns The Currency units.
+     * Returns Currency units.
      *
      * @return Currency units
      */

@@ -29,8 +29,9 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
     /**
      * Construct a new SyncStreamUpdater.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Stream
+     *                       resource to update
+     * @param pathSid The SID of the Stream resource to update
      */
     public SyncStreamUpdater(final String pathServiceSid,
                              final String pathSid) {
@@ -39,10 +40,13 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
     }
 
     /**
-     * New time-to-live of this Stream in seconds. In the range [1, 31 536 000 (1
-     * year)], or 0 for infinity..
+     * How long, in seconds, before the Stream expires and is deleted
+     * (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default
+     * value is `0`, which means the Stream does not expire. The Stream will be
+     * deleted automatically after it expires, but there can be a delay between the
+     * expiration time and the resources's deletion..
      *
-     * @param ttl Stream TTL.
+     * @param ttl How long, in seconds, before the Stream expires and is deleted
      * @return this
      */
     public SyncStreamUpdater setTtl(final Integer ttl) {
@@ -62,8 +66,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Streams/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -76,14 +79,7 @@ public class SyncStreamUpdater extends Updater<SyncStream> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncStream.fromJson(response.getStream(), client.getObjectMapper());

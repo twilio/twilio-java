@@ -27,16 +27,17 @@ public class ActivityReader extends Reader<Activity> {
     /**
      * Construct a new ActivityReader.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Activity resources
+     *                         to read
      */
     public ActivityReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter by an Activity's friendly name.
+     * The `friendly_name` of the Activity resources to read..
      *
-     * @param friendlyName Filter by an Activity's friendly name
+     * @param friendlyName The friendly_name of the Activity resources to read
      * @return this
      */
     public ActivityReader setFriendlyName(final String friendlyName) {
@@ -45,11 +46,13 @@ public class ActivityReader extends Reader<Activity> {
     }
 
     /**
-     * Filter by activities that are available or unavailable. (Note: This can be
-     * 'true', '1'' or 'yes' to indicate a true value. All other values will
-     * represent false).
+     * Whether return only Activity resources that are available or unavailable. A
+     * value of `true` returns only available activities. Values of '1' or `yes`
+     * also indicate `true`. All other values represent `false` and return
+     * activities that are unavailable..
      *
-     * @param available Filter by activities that are available or unavailable.
+     * @param available Whether to return activities that are available or
+     *                  unavailable
      * @return this
      */
     public ActivityReader setAvailable(final String available) {
@@ -80,8 +83,7 @@ public class ActivityReader extends Reader<Activity> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Activities"
         );
 
         addQueryParams(request);
@@ -118,10 +120,7 @@ public class ActivityReader extends Reader<Activity> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -138,10 +137,7 @@ public class ActivityReader extends Reader<Activity> {
                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.TASKROUTER.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.TASKROUTER.toString())
         );
         return pageForRequest(client, request);
     }
@@ -163,14 +159,7 @@ public class ActivityReader extends Reader<Activity> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -30,9 +30,11 @@ public class VariableFetcher extends Fetcher<Variable> {
     /**
      * Construct a new VariableFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Variable Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Variable resource
+     *                       from
+     * @param pathEnvironmentSid The SID of the environment with the Variable
+     *                           resource to fetch
+     * @param pathSid The SID of the Variable resource to fetch
      */
     public VariableFetcher(final String pathServiceSid,
                            final String pathEnvironmentSid,
@@ -54,8 +56,7 @@ public class VariableFetcher extends Fetcher<Variable> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Variables/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments/" + this.pathEnvironmentSid + "/Variables/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +68,7 @@ public class VariableFetcher extends Fetcher<Variable> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Variable.fromJson(response.getStream(), client.getObjectMapper());

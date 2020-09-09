@@ -44,9 +44,8 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberCreator to execute create.
      *
-     * @param pathServiceSid The service_sid
-     * @param phoneNumberSid Phone Number SID for the Phone Number being added to
-     *                       the Service.
+     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param phoneNumberSid The SID of the Phone Number being added to the Service
      * @return PhoneNumberCreator capable of executing the create
      */
     public static PhoneNumberCreator creator(final String pathServiceSid,
@@ -57,8 +56,8 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberDeleter to execute delete.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to delete the resource from
+     * @param pathSid The SID that identifies the resource to delete
      * @return PhoneNumberDeleter capable of executing the delete
      */
     public static PhoneNumberDeleter deleter(final String pathServiceSid,
@@ -69,7 +68,7 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberReader to execute read.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return PhoneNumberReader capable of executing the read
      */
     public static PhoneNumberReader reader(final String pathServiceSid) {
@@ -79,8 +78,8 @@ public class PhoneNumber extends Resource {
     /**
      * Create a PhoneNumberFetcher to execute fetch.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathSid The sid
+     * @param pathServiceSid The SID of the Service to fetch the resource from
+     * @param pathSid The SID that identifies the resource to fetch
      * @return PhoneNumberFetcher capable of executing the fetch
      */
     public static PhoneNumberFetcher fetcher(final String pathServiceSid,
@@ -167,83 +166,83 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-     * Returns The The 34 character unique sid of the Phone Number..
+     * Returns The unique string that identifies the resource.
      *
-     * @return The 34 character unique sid of the Phone Number.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The 34 character unique sid of the Account..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The 34 character unique sid of the Account.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The 34 character unique sid of the Service..
+     * Returns The SID of the Service that the resource is associated with.
      *
-     * @return The 34 character unique sid of the Service.
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The E..
+     * Returns The phone number in E.164 format.
      *
-     * @return The E.
+     * @return The phone number in E.164 format
      */
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
     }
 
     /**
-     * Returns The The 2 character ISO Country Code of the number..
+     * Returns The 2-character ISO Country Code of the number.
      *
-     * @return The 2 character ISO Country Code of the number.
+     * @return The 2-character ISO Country Code of the number
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The Any array of values that indicate whether the number can receive
-     * calls or messages..
+     * Returns An array of values that describe whether the number can receive calls
+     * or messages.
      *
-     * @return Any array of values that indicate whether the number can receive
-     *         calls or messages.
+     * @return An array of values that describe whether the number can receive
+     *         calls or messages
      */
     public final List<String> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the PhoneNumber resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the PhoneNumber resource
      */
     public final URI getUrl() {
         return this.url;

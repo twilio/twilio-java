@@ -1,10 +1,7 @@
 package com.twilio.http;
 
-
-import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
@@ -17,6 +14,7 @@ import org.apache.http.message.BasicHeader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +28,7 @@ public class ValidationClient extends HttpClient {
 
     /**
      * Create a new ValidationClient.
-     * 
+     *
      * @param  accountSid Twilio Account SID
      * @param  credentialSid Twilio Credential SID
      * @param  signingKey Twilio Signing key
@@ -42,7 +40,7 @@ public class ValidationClient extends HttpClient {
             .setSocketTimeout(SOCKET_TIMEOUT)
             .build();
 
-        Collection<Header> headers = Lists.<Header>newArrayList(
+        Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
@@ -84,7 +82,8 @@ public class ValidationClient extends HttpClient {
             HttpResponse response = client.execute(builder.build());
             return new Response(
                 response.getEntity() == null ? null : response.getEntity().getContent(),
-                response.getStatusLine().getStatusCode()
+                response.getStatusLine().getStatusCode(),
+                response.getAllHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);

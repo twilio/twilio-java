@@ -180,7 +180,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that created this Assistant..
+     * Returns The unique ID of the Account that created this Assistant..
      *
      * @return The unique ID of the Account that created this Assistant.
      */
@@ -189,7 +189,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was created.
+     * Returns The date that this resource was created.
      *
      * @return The date that this resource was created
      */
@@ -198,7 +198,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The date that this resource was last updated.
+     * Returns The date that this resource was last updated.
      *
      * @return The date that this resource was last updated
      */
@@ -207,8 +207,8 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The A text description for the Assistant. It is non-unique and can up
-     * to 255 characters long..
+     * Returns A text description for the Assistant. It is non-unique and can up to
+     * 255 characters long..
      *
      * @return A text description for the Assistant. It is non-unique and can up to
      *         255 characters long.
@@ -218,8 +218,8 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The unique ID (Sid) of the latest model build. Null if no model
-     * has been built..
+     * Returns The unique ID (Sid) of the latest model build. Null if no model has
+     * been built..
      *
      * @return The unique ID (Sid) of the latest model build. Null if no model has
      *         been built.
@@ -229,7 +229,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The links.
+     * Returns The links.
      *
      * @return The links
      */
@@ -238,9 +238,9 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The A boolean that specifies whether queries should be logged for 30
-     * days further training. If false, no queries will be stored, if true, queries
-     * will be stored for 30 days and deleted thereafter..
+     * Returns A boolean that specifies whether queries should be logged for 30 days
+     * further training. If false, no queries will be stored, if true, queries will
+     * be stored for 30 days and deleted thereafter..
      *
      * @return A boolean that specifies whether queries should be logged for 30
      *         days further training. If false, no queries will be stored, if true,
@@ -251,7 +251,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns A 34 character string that uniquely identifies this resource..
      *
      * @return A 34 character string that uniquely identifies this resource.
      */
@@ -260,9 +260,9 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The A user-provided string that uniquely identifies this resource as
-     * an alternative to the sid. You can use the unique name in the URL path.
-     * Unique up to 64 characters long..
+     * Returns A user-provided string that uniquely identifies this resource as an
+     * alternative to the sid. You can use the unique name in the URL path. Unique
+     * up to 64 characters long..
      *
      * @return A user-provided string that uniquely identifies this resource as an
      *         alternative to the sid. You can use the unique name in the URL path.
@@ -273,7 +273,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The The url.
+     * Returns The url.
      *
      * @return The url
      */
@@ -282,7 +282,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The A user-provided URL to send event callbacks to..
+     * Returns A user-provided URL to send event callbacks to..
      *
      * @return A user-provided URL to send event callbacks to.
      */
@@ -291,8 +291,7 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns The Space-separated list of callback events that will trigger
-     * callbacks..
+     * Returns Space-separated list of callback events that will trigger callbacks..
      *
      * @return Space-separated list of callback events that will trigger callbacks.
      */

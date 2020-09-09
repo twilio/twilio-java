@@ -19,8 +19,42 @@ import java.util.Map;
  * TwiML wrapper for {@code <Receive>}
  */
 public class Receive extends TwiML {
+    public enum MediaType {
+        APPLICATION_PDF("application/pdf"),
+        IMAGE_TIFF("image/tiff");
+
+        private final String value;
+
+        private MediaType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
+    public enum PageSize {
+        LETTER("letter"),
+        LEGAL("legal"),
+        A4("a4");
+
+        private final String value;
+
+        private PageSize(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final URI action;
     private final HttpMethod method;
+    private final Receive.MediaType mediaType;
+    private final Receive.PageSize pageSize;
+    private final Boolean storeMedia;
 
     /**
      * For XML Serialization/Deserialization
@@ -36,6 +70,9 @@ public class Receive extends TwiML {
         super("Receive", b);
         this.action = b.action;
         this.method = b.method;
+        this.mediaType = b.mediaType;
+        this.pageSize = b.pageSize;
+        this.storeMedia = b.storeMedia;
     }
 
     /**
@@ -52,6 +89,15 @@ public class Receive extends TwiML {
         }
         if (this.getMethod() != null) {
             attrs.put("method", this.getMethod().toString());
+        }
+        if (this.getMediaType() != null) {
+            attrs.put("mediaType", this.getMediaType().toString());
+        }
+        if (this.getPageSize() != null) {
+            attrs.put("pageSize", this.getPageSize().toString());
+        }
+        if (this.isStoreMedia() != null) {
+            attrs.put("storeMedia", this.isStoreMedia().toString());
         }
 
         return attrs;
@@ -76,11 +122,41 @@ public class Receive extends TwiML {
     }
 
     /**
+     * The media type used to store media in the fax media store
+     *
+     * @return The media type used to store media in the fax media store
+     */
+    public Receive.MediaType getMediaType() {
+        return mediaType;
+    }
+
+    /**
+     * What size to interpret received pages as
+     *
+     * @return What size to interpret received pages as
+     */
+    public Receive.PageSize getPageSize() {
+        return pageSize;
+    }
+
+    /**
+     * Whether or not to store received media in the fax media store
+     *
+     * @return Whether or not to store received media in the fax media store
+     */
+    public Boolean isStoreMedia() {
+        return storeMedia;
+    }
+
+    /**
      * Create a new {@code <Receive>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
         private URI action;
         private HttpMethod method;
+        private Receive.MediaType mediaType;
+        private Receive.PageSize pageSize;
+        private Boolean storeMedia;
 
         /**
          * Receive action URL
@@ -103,6 +179,30 @@ public class Receive extends TwiML {
          */
         public Builder method(HttpMethod method) {
             this.method = method;
+            return this;
+        }
+
+        /**
+         * The media type used to store media in the fax media store
+         */
+        public Builder mediaType(Receive.MediaType mediaType) {
+            this.mediaType = mediaType;
+            return this;
+        }
+
+        /**
+         * What size to interpret received pages as
+         */
+        public Builder pageSize(Receive.PageSize pageSize) {
+            this.pageSize = pageSize;
+            return this;
+        }
+
+        /**
+         * Whether or not to store received media in the fax media store
+         */
+        public Builder storeMedia(Boolean storeMedia) {
+            this.storeMedia = storeMedia;
             return this;
         }
 

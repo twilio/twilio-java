@@ -92,7 +92,7 @@ public class ServiceTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"ZS00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"test-service\",\"unique_name\": \"test-service-1\",\"include_credentials\": true,\"date_created\": \"2018-11-10T20:00:00Z\",\"date_updated\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000\",\"links\": {\"environments\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments\",\"functions\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions\",\"assets\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets\",\"builds\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"ZS00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"test-service\",\"unique_name\": \"test-service-1\",\"include_credentials\": true,\"ui_editable\": false,\"date_created\": \"2018-11-10T20:00:00Z\",\"date_updated\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000\",\"links\": {\"environments\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments\",\"functions\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions\",\"assets\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets\",\"builds\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -101,19 +101,51 @@ public class ServiceTest {
     }
 
     @Test
+    public void testDeleteRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.DELETE,
+                                          Domains.SERVERLESS.toString(),
+                                          "/v1/Services/ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            Service.deleter("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testDeleteResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Service.deleter("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+    }
+
+    @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.SERVERLESS.toString(),
-                                                      "/v1/Services");
-                        request.addPostParam("UniqueName", serialize("unique_name"));
-        request.addPostParam("FriendlyName", serialize("friendly_name"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.SERVERLESS.toString(),
+                                          "/v1/Services");
+            request.addPostParam("UniqueName", serialize("unique_name"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Service.creator("unique_name", "friendly_name").create();
@@ -125,7 +157,7 @@ public class ServiceTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"ZS00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"service-friendly\",\"unique_name\": \"service-unique\",\"include_credentials\": true,\"date_created\": \"2018-11-10T20:00:00Z\",\"date_updated\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000\",\"links\": {\"environments\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments\",\"functions\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions\",\"assets\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets\",\"builds\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"ZS00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"service-friendly\",\"unique_name\": \"service-unique\",\"include_credentials\": true,\"ui_editable\": false,\"date_created\": \"2018-11-10T20:00:00Z\",\"date_updated\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000\",\"links\": {\"environments\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments\",\"functions\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions\",\"assets\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets\",\"builds\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -157,7 +189,7 @@ public class ServiceTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"ZS00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"service-friendly-update\",\"unique_name\": \"service-unique-update\",\"include_credentials\": true,\"date_created\": \"2018-11-10T20:00:00Z\",\"date_updated\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000\",\"links\": {\"environments\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments\",\"functions\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions\",\"assets\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets\",\"builds\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"ZS00000000000000000000000000000000\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"service-friendly-update\",\"unique_name\": \"service-unique-update\",\"include_credentials\": true,\"ui_editable\": true,\"date_created\": \"2018-11-10T20:00:00Z\",\"date_updated\": \"2018-11-10T20:00:00Z\",\"url\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000\",\"links\": {\"environments\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Environments\",\"functions\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Functions\",\"assets\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Assets\",\"builds\": \"https://serverless.twilio.com/v1/Services/ZS00000000000000000000000000000000/Builds\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

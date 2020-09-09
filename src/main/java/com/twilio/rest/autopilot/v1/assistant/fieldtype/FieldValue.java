@@ -189,7 +189,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -198,7 +198,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -207,8 +207,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -217,7 +216,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Field Type associated with the Field Value.
+     * Returns The SID of the Field Type associated with the Field Value.
      *
      * @return The SID of the Field Type associated with the Field Value
      */
@@ -226,7 +225,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The ISO language-country tag that identifies the language of the
+     * Returns The ISO language-country tag that identifies the language of the
      * value.
      *
      * @return The ISO language-country tag that identifies the language of the
@@ -237,7 +236,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The SID of the Assistant that is the parent of the FieldType
+     * Returns The SID of the Assistant that is the parent of the FieldType
      * associated with the resource.
      *
      * @return The SID of the Assistant that is the parent of the FieldType
@@ -248,7 +247,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -257,7 +256,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The Field Value data.
+     * Returns The Field Value data.
      *
      * @return The Field Value data
      */
@@ -266,7 +265,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the FieldValue resource.
+     * Returns The absolute URL of the FieldValue resource.
      *
      * @return The absolute URL of the FieldValue resource
      */
@@ -275,7 +274,7 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns The The word for which the field value is a synonym of.
+     * Returns The word for which the field value is a synonym of.
      *
      * @return The word for which the field value is a synonym of
      */

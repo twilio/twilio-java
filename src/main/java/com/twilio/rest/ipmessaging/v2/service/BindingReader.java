@@ -39,7 +39,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
      * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read
      * @return this
@@ -52,7 +52,7 @@ public class BindingReader extends Reader<Binding> {
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
      * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more information..
+     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read
      * @return this
@@ -62,8 +62,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -75,8 +75,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -109,8 +109,7 @@ public class BindingReader extends Reader<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Bindings",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Bindings"
         );
 
         addQueryParams(request);
@@ -147,10 +146,7 @@ public class BindingReader extends Reader<Binding> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -167,10 +163,7 @@ public class BindingReader extends Reader<Binding> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -192,14 +185,7 @@ public class BindingReader extends Reader<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

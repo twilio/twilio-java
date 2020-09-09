@@ -36,7 +36,9 @@ public class FaxUpdater extends Updater<Fax> {
 
     /**
      * The new
-     * [status](https://www.twilio.com/docs/api/fax/rest/faxes-resource#fax-status-values) of the resource. Can be only `canceled`. This may fail if transmission has already started..
+     * [status](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-values)
+     * of the resource. Can be only `canceled`. This may fail if transmission has
+     * already started..
      *
      * @param status The new status of the resource
      * @return this
@@ -58,8 +60,7 @@ public class FaxUpdater extends Updater<Fax> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.FAX.toString(),
-            "/v1/Faxes/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Faxes/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -72,14 +73,7 @@ public class FaxUpdater extends Updater<Fax> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Fax.fromJson(response.getStream(), client.getObjectMapper());

@@ -24,17 +24,18 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
     /**
      * Construct a new WorkersRealTimeStatisticsFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the resource to fetch
      */
     public WorkersRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     /**
-     * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
-     * "sms", "default", etc.) or a TaskChannelSid..
+     * Only calculate real-time statistics on this TaskChannel. Can be the
+     * TaskChannel's SID or its `unique_name`, such as `voice`, `sms`, or
+     * `default`..
      *
-     * @param taskChannel Filter cumulative statistics by TaskChannel.
+     * @param taskChannel Only calculate real-time statistics on this TaskChannel
      * @return this
      */
     public WorkersRealTimeStatisticsFetcher setTaskChannel(final String taskChannel) {
@@ -54,8 +55,7 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/RealTimeStatistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/RealTimeStatistics"
         );
 
         addQueryParams(request);
@@ -68,14 +68,7 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkersRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());

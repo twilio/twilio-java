@@ -222,7 +222,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -231,7 +231,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The SID of the AddOnResult to which the payload belongs.
+     * Returns The SID of the AddOnResult to which the payload belongs.
      *
      * @return The SID of the AddOnResult to which the payload belongs
      */
@@ -240,7 +240,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -249,7 +249,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The string that describes the payload.
+     * Returns The string that describes the payload.
      *
      * @return The string that describes the payload
      */
@@ -258,7 +258,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The SID of the Add-on to which the result belongs.
+     * Returns The SID of the Add-on to which the result belongs.
      *
      * @return The SID of the Add-on to which the result belongs
      */
@@ -267,7 +267,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The SID of the Add-on configuration.
+     * Returns The SID of the Add-on configuration.
      *
      * @return The SID of the Add-on configuration
      */
@@ -276,7 +276,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The MIME type of the payload.
+     * Returns The MIME type of the payload.
      *
      * @return The MIME type of the payload
      */
@@ -285,7 +285,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -294,8 +294,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -304,7 +303,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The The SID of the recording to which the AddOnResult resource that
+     * Returns The SID of the recording to which the AddOnResult resource that
      * contains the payload belongs.
      *
      * @return The SID of the recording to which the AddOnResult resource that
@@ -315,7 +314,7 @@ public class Payload extends Resource {
     }
 
     /**
-     * Returns The A list of related resources identified by their relative URIs.
+     * Returns A list of related resources identified by their relative URIs.
      *
      * @return A list of related resources identified by their relative URIs
      */

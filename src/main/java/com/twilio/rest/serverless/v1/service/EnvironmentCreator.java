@@ -30,8 +30,10 @@ public class EnvironmentCreator extends Creator<Environment> {
     /**
      * Construct a new EnvironmentCreator.
      *
-     * @param pathServiceSid Service Sid.
-     * @param uniqueName A unique, addressable name of this Environment.
+     * @param pathServiceSid The SID of the Service to create the Environment
+     *                       resource under
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Environment resource
      */
     public EnvironmentCreator(final String pathServiceSid,
                               final String uniqueName) {
@@ -40,10 +42,10 @@ public class EnvironmentCreator extends Creator<Environment> {
     }
 
     /**
-     * A URL-friendly name that represents this Environment and forms part of the
-     * domain name, fewer than 32 characters. Required..
+     * A URL-friendly name that represents the environment and forms part of the
+     * domain name. Must have fewer than 32 characters..
      *
-     * @param domainSuffix A URL-friendly name that represents this Environment.
+     * @param domainSuffix A URL-friendly name that represents the environment
      * @return this
      */
     public EnvironmentCreator setDomainSuffix(final String domainSuffix) {
@@ -63,8 +65,7 @@ public class EnvironmentCreator extends Creator<Environment> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Environments",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Environments"
         );
 
         addPostParams(request);
@@ -77,14 +78,7 @@ public class EnvironmentCreator extends Creator<Environment> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Environment.fromJson(response.getStream(), client.getObjectMapper());

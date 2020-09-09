@@ -30,10 +30,10 @@ public class EventReader extends Reader<Event> {
     private DateTime endDate;
 
     /**
-     * Only include Events initiated by this Actor. Useful for auditing actions
+     * Only include events initiated by this Actor. Useful for auditing actions
      * taken by specific users or API credentials..
      *
-     * @param actorSid Only include Events initiated by this Actor
+     * @param actorSid Only include events initiated by this Actor
      * @return this
      */
     public EventReader setActorSid(final String actorSid) {
@@ -42,9 +42,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include Events of this EventType..
+     * Only include events of this [Event
+     * Type](https://www.twilio.com/docs/usage/monitor-events#event-types)..
      *
-     * @param eventType Only include Events of this EventType
+     * @param eventType Only include events of this Event Type
      * @return this
      */
     public EventReader setEventType(final String eventType) {
@@ -53,10 +54,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include Events referring to this resource. Useful for discovering the
+     * Only include events that refer to this resource. Useful for discovering the
      * history of a specific resource..
      *
-     * @param resourceSid Only include Events referring to this resource
+     * @param resourceSid Only include events that refer to this resource
      * @return this
      */
     public EventReader setResourceSid(final String resourceSid) {
@@ -65,10 +66,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include Events that originated from this IP address. Useful for tracking
+     * Only include events that originated from this IP address. Useful for tracking
      * suspicious activity originating from the API or the Twilio Console..
      *
-     * @param sourceIpAddress Only include Events that originated from this IP
+     * @param sourceIpAddress Only include events that originated from this IP
      *                        address
      * @return this
      */
@@ -78,12 +79,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only show events on or after this date. Useful in combination with `EndDate`
-     * to define a date-range of events. Input is a [UTC ISO 8601
-     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
-     * ignored by the filter..
+     * Only include events that occurred on or after this date. Specify the date in
+     * GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
      *
-     * @param startDate Only show events on or after this date
+     * @param startDate Only include events that occurred on or after this date
      * @return this
      */
     public EventReader setStartDate(final DateTime startDate) {
@@ -92,12 +91,10 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only show events on or before this date. Useful in combination with
-     * `StartDate` to define a date-range of events. Input is a [UTC ISO 8601
-     * Timestamp](http://en.wikipedia.org/wiki/ISO_8601#UTC), but time of day is
-     * ignored by the filter..
+     * Only include events that occurred on or before this date. Specify the date in
+     * GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
      *
-     * @param endDate Only show events on or before this date
+     * @param endDate Only include events that occurred on or before this date
      * @return this
      */
     public EventReader setEndDate(final DateTime endDate) {
@@ -128,8 +125,7 @@ public class EventReader extends Reader<Event> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MONITOR.toString(),
-            "/v1/Events",
-            client.getRegion()
+            "/v1/Events"
         );
 
         addQueryParams(request);
@@ -166,10 +162,7 @@ public class EventReader extends Reader<Event> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.MONITOR.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.MONITOR.toString())
         );
         return pageForRequest(client, request);
     }
@@ -186,10 +179,7 @@ public class EventReader extends Reader<Event> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.MONITOR.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.MONITOR.toString())
         );
         return pageForRequest(client, request);
     }
@@ -211,14 +201,7 @@ public class EventReader extends Reader<Event> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

@@ -25,7 +25,7 @@ public class UserReader extends Reader<User> {
     /**
      * Construct a new UserReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The SID of the Service to read the User resources from
      */
     public UserReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -54,8 +54,7 @@ public class UserReader extends Reader<User> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Users",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Users"
         );
 
         addQueryParams(request);
@@ -92,10 +91,7 @@ public class UserReader extends Reader<User> {
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -112,10 +108,7 @@ public class UserReader extends Reader<User> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.CHAT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.CHAT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -137,14 +130,7 @@ public class UserReader extends Reader<User> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

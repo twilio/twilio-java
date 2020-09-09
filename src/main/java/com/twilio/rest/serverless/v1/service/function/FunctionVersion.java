@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -41,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FunctionVersion extends Resource {
-    private static final long serialVersionUID = 44094398576696L;
+    private static final long serialVersionUID = 198867416400366L;
 
     public enum Visibility {
         PUBLIC("public"),
@@ -72,8 +71,10 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
+     * @param pathServiceSid The SID of the Service to read the Function Version
+     *                       resources from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        Function Version resources to read
      * @return FunctionVersionReader capable of executing the read
      */
     public static FunctionVersionReader reader(final String pathServiceSid,
@@ -84,33 +85,17 @@ public class FunctionVersion extends Resource {
     /**
      * Create a FunctionVersionFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param pathSid Function Version Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Function Version
+     *                       resource from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        Function Version resource to fetch
+     * @param pathSid The SID that identifies the Function Version resource to fetch
      * @return FunctionVersionFetcher capable of executing the fetch
      */
     public static FunctionVersionFetcher fetcher(final String pathServiceSid,
                                                  final String pathFunctionSid,
                                                  final String pathSid) {
         return new FunctionVersionFetcher(pathServiceSid, pathFunctionSid, pathSid);
-    }
-
-    /**
-     * Create a FunctionVersionCreator to execute create.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param path The URL-friendly string by which this Function Version can be
-     *             referenced.
-     * @param visibility The access control which determines how the Function
-     *                   Version can be accessed.
-     * @return FunctionVersionCreator capable of executing the create
-     */
-    public static FunctionVersionCreator creator(final String pathServiceSid,
-                                                 final String pathFunctionSid,
-                                                 final String path,
-                                                 final FunctionVersion.Visibility visibility) {
-        return new FunctionVersionCreator(pathServiceSid, pathFunctionSid, path, visibility);
     }
 
     /**
@@ -156,10 +141,10 @@ public class FunctionVersion extends Resource {
     private final String serviceSid;
     private final String functionSid;
     private final String path;
-    private final Map<String, Object> preSignedUploadUrl;
     private final FunctionVersion.Visibility visibility;
     private final DateTime dateCreated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private FunctionVersion(@JsonProperty("sid")
@@ -172,110 +157,112 @@ public class FunctionVersion extends Resource {
                             final String functionSid,
                             @JsonProperty("path")
                             final String path,
-                            @JsonProperty("pre_signed_upload_url")
-                            final Map<String, Object> preSignedUploadUrl,
                             @JsonProperty("visibility")
                             final FunctionVersion.Visibility visibility,
                             @JsonProperty("date_created")
                             final String dateCreated,
                             @JsonProperty("url")
-                            final URI url) {
+                            final URI url,
+                            @JsonProperty("links")
+                            final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
         this.functionSid = functionSid;
         this.path = path;
-        this.preSignedUploadUrl = preSignedUploadUrl;
         this.visibility = visibility;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
+        this.links = links;
     }
 
     /**
-     * Returns The Function Version Sid..
+     * Returns The unique string that identifies the Function Version resource.
      *
-     * @return Function Version Sid.
+     * @return The unique string that identifies the Function Version resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The SID of the Account that created the Function Version resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Function Version resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The SID of the Service that the Function Version resource is
+     * associated with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Function Version resource is
+     *         associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Function Sid..
+     * Returns The SID of the function that is the parent of the function version.
      *
-     * @return Function Sid.
+     * @return The SID of the function that is the parent of the function version
      */
     public final String getFunctionSid() {
         return this.functionSid;
     }
 
     /**
-     * Returns The The URL-friendly string by which this Function Version can be
-     * referenced..
+     * Returns The URL-friendly string by which the function version can be
+     * referenced.
      *
-     * @return The URL-friendly string by which this Function Version can be
-     *         referenced.
+     * @return The URL-friendly string by which the function version can be
+     *         referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The The object which provides the details required for uploading this
-     * Function Version..
+     * Returns The access control that determines how the function version can be
+     * accessed.
      *
-     * @return The object which provides the details required for uploading this
-     *         Function Version.
-     */
-    public final Map<String, Object> getPreSignedUploadUrl() {
-        return this.preSignedUploadUrl;
-    }
-
-    /**
-     * Returns The The access control which determines how the Function Version can
-     * be accessed..
-     *
-     * @return The access control which determines how the Function Version can be
-     *         accessed.
+     * @return The access control that determines how the function version can be
+     *         accessed
      */
     public final FunctionVersion.Visibility getVisibility() {
         return this.visibility;
     }
 
     /**
-     * Returns The The date that this Function Version was created..
+     * Returns The ISO 8601 date and time in GMT when the Function Version resource
+     * was created.
      *
-     * @return The date that this Function Version was created.
+     * @return The ISO 8601 date and time in GMT when the Function Version resource
+     *         was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The URL of this Function Version..
+     * Returns The absolute URL of the Function Version resource.
      *
-     * @return The URL of this Function Version.
+     * @return The absolute URL of the Function Version resource
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
     }
 
     @Override
@@ -295,10 +282,10 @@ public class FunctionVersion extends Resource {
                Objects.equals(serviceSid, other.serviceSid) &&
                Objects.equals(functionSid, other.functionSid) &&
                Objects.equals(path, other.path) &&
-               Objects.equals(preSignedUploadUrl, other.preSignedUploadUrl) &&
                Objects.equals(visibility, other.visibility) &&
                Objects.equals(dateCreated, other.dateCreated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -308,10 +295,10 @@ public class FunctionVersion extends Resource {
                             serviceSid,
                             functionSid,
                             path,
-                            preSignedUploadUrl,
                             visibility,
                             dateCreated,
-                            url);
+                            url,
+                            links);
     }
 
     @Override
@@ -322,10 +309,10 @@ public class FunctionVersion extends Resource {
                           .add("serviceSid", serviceSid)
                           .add("functionSid", functionSid)
                           .add("path", path)
-                          .add("preSignedUploadUrl", preSignedUploadUrl)
                           .add("visibility", visibility)
                           .add("dateCreated", dateCreated)
                           .add("url", url)
+                          .add("links", links)
                           .toString();
     }
 }

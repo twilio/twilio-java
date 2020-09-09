@@ -66,10 +66,11 @@ public class PublishedTrack extends Resource {
     /**
      * Create a PublishedTrackFetcher to execute fetch.
      *
-     * @param pathRoomSid Unique Room identifier where this Track is published.
-     * @param pathParticipantSid Unique Participant identifier that publishes this
-     *                           Track.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathRoomSid The SID of the Room resource where the Track resource to
+     *                    fetch is published
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           published track to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      * @return PublishedTrackFetcher capable of executing the fetch
      */
     public static PublishedTrackFetcher fetcher(final String pathRoomSid,
@@ -81,9 +82,10 @@ public class PublishedTrack extends Resource {
     /**
      * Create a PublishedTrackReader to execute read.
      *
-     * @param pathRoomSid Unique Room identifier where this Track is published.
-     * @param pathParticipantSid Unique Participant identifier that publishes this
-     *                           Track.
+     * @param pathRoomSid The SID of the Room resource where the Track resources to
+     *                    read are published
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           published tracks to read
      * @return PublishedTrackReader capable of executing the read
      */
     public static PublishedTrackReader reader(final String pathRoomSid,
@@ -170,81 +172,81 @@ public class PublishedTrack extends Resource {
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this resource..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Unique Participant identifier that publishes this Track..
+     * Returns The SID of the Participant resource with the published track.
      *
-     * @return Unique Participant identifier that publishes this Track.
+     * @return The SID of the Participant resource with the published track
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The Unique Room identifier where this Track is published..
+     * Returns The SID of the Room resource where the track is published.
      *
-     * @return Unique Room identifier where this Track is published.
+     * @return The SID of the Room resource where the track is published
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The Track name. Limited to 128 characters..
+     * Returns The track name.
      *
-     * @return Track name. Limited to 128 characters.
+     * @return The track name
      */
     public final String getName() {
         return this.name;
     }
 
     /**
-     * Returns The The date that this resource was created..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date that this resource was last updated.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The Specifies whether the Track is enabled or not..
+     * Returns Whether the track is enabled.
      *
-     * @return Specifies whether the Track is enabled or not.
+     * @return Whether the track is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The Specifies whether Track represents `audio`, `video` or `data`.
+     * Returns The track type.
      *
-     * @return Specifies whether Track represents `audio`, `video` or `data`
+     * @return The track type
      */
     public final PublishedTrack.Kind getKind() {
         return this.kind;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;

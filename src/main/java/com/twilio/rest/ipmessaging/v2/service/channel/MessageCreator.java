@@ -29,13 +29,13 @@ public class MessageCreator extends Creator<Message> {
     private String lastUpdatedBy;
     private String body;
     private String mediaSid;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageCreator.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new resource belongs
-     *                       to
+     * @param pathChannelSid The SID of the Channel the new resource belongs to
      */
     public MessageCreator(final String pathServiceSid,
                           final String pathChannelSid) {
@@ -44,10 +44,10 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/chat/identity) of the new
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the new
      * message's author. The default value is `system`..
      *
-     * @param from The identity of the new message's author
+     * @param from The Identity of the new message's author
      * @return this
      */
     public MessageCreator setFrom(final String from) {
@@ -68,9 +68,10 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default is
-     * the current time set by the Chat service. This parameter should only be used
-     * when a Chat's history is being recreated from a backup/separate source..
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service. This parameter should only
+     * be used when a Chat's history is being recreated from a backup/separate
+     * source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -83,10 +84,7 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`. Note that this parameter should only be used when a
-     * Chat's history is being recreated from a backup/separate source  and where a
-     * Message was previously updated..
+     * format, to assign to the resource as the date it was last updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
@@ -98,7 +96,7 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/chat/identity) of the User who
+     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
      * last updated the Message, if applicable..
      *
      * @param lastUpdatedBy The Identity of the User who last updated the Message
@@ -110,9 +108,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The message to send to the channel. Can also be an empty string or `null`,
-     * which sets the value as an empty string. You can send structured data in the
-     * body by serializing it as a string..
+     * The message to send to the channel. Can be an empty string or `null`, which
+     * sets the value as an empty string. You can send structured data in the body
+     * by serializing it as a string..
      *
      * @param body The message to send to the channel
      * @return this
@@ -135,6 +133,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -146,11 +155,11 @@ public class MessageCreator extends Creator<Message> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Messages"
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -160,17 +169,21 @@ public class MessageCreator extends Creator<Message> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

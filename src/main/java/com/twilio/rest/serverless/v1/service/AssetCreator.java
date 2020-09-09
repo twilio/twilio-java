@@ -29,8 +29,9 @@ public class AssetCreator extends Creator<Asset> {
     /**
      * Construct a new AssetCreator.
      *
-     * @param pathServiceSid Service Sid.
-     * @param friendlyName A human-readable description of this Asset.
+     * @param pathServiceSid The SID of the Service to create the Asset resource
+     *                       under
+     * @param friendlyName A string to describe the Asset resource
      */
     public AssetCreator(final String pathServiceSid,
                         final String friendlyName) {
@@ -50,8 +51,7 @@ public class AssetCreator extends Creator<Asset> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Assets",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Assets"
         );
 
         addPostParams(request);
@@ -64,14 +64,7 @@ public class AssetCreator extends Creator<Asset> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Asset.fromJson(response.getStream(), client.getObjectMapper());

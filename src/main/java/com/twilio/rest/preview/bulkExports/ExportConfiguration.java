@@ -42,7 +42,7 @@ public class ExportConfiguration extends Resource {
     /**
      * Create a ExportConfigurationFetcher to execute fetch.
      *
-     * @param pathResourceType The resource_type
+     * @param pathResourceType The type of communication – Messages, Calls
      * @return ExportConfigurationFetcher capable of executing the fetch
      */
     public static ExportConfigurationFetcher fetcher(final String pathResourceType) {
@@ -52,7 +52,7 @@ public class ExportConfiguration extends Resource {
     /**
      * Create a ExportConfigurationUpdater to execute update.
      *
-     * @param pathResourceType The resource_type
+     * @param pathResourceType The type of communication – Messages, Calls
      * @return ExportConfigurationUpdater capable of executing the update
      */
     public static ExportConfigurationUpdater updater(final String pathResourceType) {
@@ -122,45 +122,45 @@ public class ExportConfiguration extends Resource {
     }
 
     /**
-     * Returns The The enabled.
+     * Returns Whether files are automatically generated.
      *
-     * @return The enabled
+     * @return Whether files are automatically generated
      */
     public final Boolean getEnabled() {
         return this.enabled;
     }
 
     /**
-     * Returns The The webhook_url.
+     * Returns URL targeted at export.
      *
-     * @return The webhook_url
+     * @return URL targeted at export
      */
     public final URI getWebhookUrl() {
         return this.webhookUrl;
     }
 
     /**
-     * Returns The The webhook_method.
+     * Returns Whether to GET or POST to the webhook url.
      *
-     * @return The webhook_method
+     * @return Whether to GET or POST to the webhook url
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
     }
 
     /**
-     * Returns The The resource_type.
+     * Returns The type of communication – Messages, Calls.
      *
-     * @return The resource_type
+     * @return The type of communication – Messages, Calls
      */
     public final String getResourceType() {
         return this.resourceType;
     }
 
     /**
-     * Returns The The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

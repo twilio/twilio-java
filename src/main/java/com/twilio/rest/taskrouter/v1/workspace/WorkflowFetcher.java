@@ -24,8 +24,8 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
     /**
      * Construct a new WorkflowFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the Workflow to fetch
+     * @param pathSid The SID of the resource
      */
     public WorkflowFetcher(final String pathWorkspaceSid,
                            final String pathSid) {
@@ -45,8 +45,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workflows/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class WorkflowFetcher extends Fetcher<Workflow> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Workflow.fromJson(response.getStream(), client.getObjectMapper());

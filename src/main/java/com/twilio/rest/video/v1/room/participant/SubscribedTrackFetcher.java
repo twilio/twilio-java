@@ -25,10 +25,11 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
     /**
      * Construct a new SubscribedTrackFetcher.
      *
-     * @param pathRoomSid Unique Room identifier where this Track is subscribed.
-     * @param pathParticipantSid Unique Participant identifier that subscribes to
-     *                           this Track.
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathRoomSid The SID of the Room where the Track resource to fetch is
+     *                    subscribed
+     * @param pathParticipantSid The SID of the participant that subscribes to the
+     *                           Track resource to fetch
+     * @param pathSid The SID that identifies the resource to fetch
      */
     public SubscribedTrackFetcher(final String pathRoomSid,
                                   final String pathParticipantSid,
@@ -50,8 +51,7 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribedTracks/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/SubscribedTracks/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -63,14 +63,7 @@ public class SubscribedTrackFetcher extends Fetcher<SubscribedTrack> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SubscribedTrack.fromJson(response.getStream(), client.getObjectMapper());

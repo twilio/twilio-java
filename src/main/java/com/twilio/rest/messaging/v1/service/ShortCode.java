@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -40,13 +39,13 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ShortCode extends Resource {
-    private static final long serialVersionUID = 158453184063477L;
+    private static final long serialVersionUID = 191632597031887L;
 
     /**
      * Create a ShortCodeCreator to execute create.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param shortCodeSid SID of the ShortCode being added to the Service.
+     * @param shortCodeSid The SID of the ShortCode being added to the Service
      * @return ShortCodeCreator capable of executing the create
      */
     public static ShortCodeCreator creator(final String pathServiceSid,
@@ -58,7 +57,7 @@ public class ShortCode extends Resource {
      * Create a ShortCodeDeleter to execute delete.
      *
      * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID that identifies the resource to delete
      * @return ShortCodeDeleter capable of executing the delete
      */
     public static ShortCodeDeleter deleter(final String pathServiceSid,
@@ -69,7 +68,7 @@ public class ShortCode extends Resource {
     /**
      * Create a ShortCodeReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resource from
+     * @param pathServiceSid The SID of the Service to read the resources from
      * @return ShortCodeReader capable of executing the read
      */
     public static ShortCodeReader reader(final String pathServiceSid) {
@@ -80,7 +79,7 @@ public class ShortCode extends Resource {
      * Create a ShortCodeFetcher to execute fetch.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies this resource
+     * @param pathSid The SID that identifies the resource to fetch
      * @return ShortCodeFetcher capable of executing the fetch
      */
     public static ShortCodeFetcher fetcher(final String pathServiceSid,
@@ -133,7 +132,7 @@ public class ShortCode extends Resource {
     private final DateTime dateUpdated;
     private final String shortCode;
     private final String countryCode;
-    private final List<Map<String, Object>> capabilities;
+    private final List<String> capabilities;
     private final URI url;
 
     @JsonCreator
@@ -152,7 +151,7 @@ public class ShortCode extends Resource {
                       @JsonProperty("country_code")
                       final String countryCode,
                       @JsonProperty("capabilities")
-                      final List<Map<String, Object>> capabilities,
+                      final List<String> capabilities,
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -167,84 +166,83 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies this resource.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The unique string that identifies this resource
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The SID of the Account that created this resource.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The SID of the Account that created this resource
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The SID of the Service that this resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
-     * @return The SID of the Service that this resource is associated with
+     * @return The SID of the Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT that this resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that this resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The RFC 2822 date and time in GMT that this resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The E.164 format of the short code..
+     * Returns The E.164 format of the short code.
      *
-     * @return The E.164 format of the short code.
+     * @return The E.164 format of the short code
      */
     public final String getShortCode() {
         return this.shortCode;
     }
 
     /**
-     * Returns The The 2-character ISO Country Code of the number..
+     * Returns The 2-character ISO Country Code of the number.
      *
-     * @return The 2-character ISO Country Code of the number.
+     * @return The 2-character ISO Country Code of the number
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The Any array of values that indicate whether the number can receive
-     * calls or messages..
+     * Returns An array of values that describe whether the number can receive calls
+     * or messages.
      *
-     * @return Any array of values that indicate whether the number can receive
-     *         calls or messages.
+     * @return An array of values that describe whether the number can receive
+     *         calls or messages
      */
-    public final List<Map<String, Object>> getCapabilities() {
+    public final List<String> getCapabilities() {
         return this.capabilities;
     }
 
     /**
-     * Returns The The absolute URL of this ShortCode resource.
+     * Returns The absolute URL of the ShortCode resource.
      *
-     * @return The absolute URL of this ShortCode resource
+     * @return The absolute URL of the ShortCode resource
      */
     public final URI getUrl() {
         return this.url;

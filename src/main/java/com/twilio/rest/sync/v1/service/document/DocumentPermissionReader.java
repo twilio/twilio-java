@@ -30,8 +30,10 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
     /**
      * Construct a new DocumentPermissionReader.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resources to read
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resources to read
      */
     public DocumentPermissionReader(final String pathServiceSid,
                                     final String pathDocumentSid) {
@@ -62,8 +64,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathDocumentSid + "/Permissions"
         );
 
         addQueryParams(request);
@@ -100,10 +101,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -120,10 +118,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
                                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -145,14 +140,7 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

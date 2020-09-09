@@ -25,7 +25,7 @@ public class BindingFetcher extends Fetcher<Binding> {
      * Construct a new BindingFetcher.
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the resource to fetch
      */
     public BindingFetcher(final String pathServiceSid,
                           final String pathSid) {
@@ -45,8 +45,7 @@ public class BindingFetcher extends Fetcher<Binding> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Bindings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +57,7 @@ public class BindingFetcher extends Fetcher<Binding> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Binding.fromJson(response.getStream(), client.getObjectMapper());

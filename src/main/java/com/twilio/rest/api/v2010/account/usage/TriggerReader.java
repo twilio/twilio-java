@@ -57,7 +57,7 @@ public class TriggerReader extends Reader<Trigger> {
     /**
      * The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or
      * `price` as described in the [UsageRecords
-     * documentation](https://www.twilio.com/docs/api/rest/usage-records#usage-count-price)..
+     * documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price)..
      *
      * @param triggerBy The trigger field of the UsageTriggers to read
      * @return this
@@ -69,7 +69,7 @@ public class TriggerReader extends Reader<Trigger> {
 
     /**
      * The usage category of the UsageTriggers to read. Must be a supported [usage
-     * categories](https://www.twilio.com/docs/api/rest/usage-records#usage-categories)..
+     * categories](https://www.twilio.com/docs/usage/api/usage-record#usage-categories)..
      *
      * @param usageCategory The usage category of the UsageTriggers to read
      * @return this
@@ -103,8 +103,7 @@ public class TriggerReader extends Reader<Trigger> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Usage/Triggers.json"
         );
 
         addQueryParams(request);
@@ -142,10 +141,7 @@ public class TriggerReader extends Reader<Trigger> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -162,10 +158,7 @@ public class TriggerReader extends Reader<Trigger> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.API.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -187,14 +180,7 @@ public class TriggerReader extends Reader<Trigger> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

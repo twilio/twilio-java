@@ -28,7 +28,7 @@ public class RoleUpdater extends Updater<Role> {
      * Construct a new RoleUpdater.
      *
      * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Role resource to update
      * @param permission A permission the role should have
      */
     public RoleUpdater(final String pathServiceSid,
@@ -51,8 +51,7 @@ public class RoleUpdater extends Updater<Role> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Roles/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -65,14 +64,7 @@ public class RoleUpdater extends Updater<Role> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Role.fromJson(response.getStream(), client.getObjectMapper());

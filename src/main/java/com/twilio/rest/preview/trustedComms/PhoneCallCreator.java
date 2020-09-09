@@ -69,7 +69,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
 
     /**
      * The business reason for this phone call that will appear in the terminating
-     * device's screen..
+     * device's screen. Max 50 characters..
      *
      * @param reason The business reason for this phone call
      * @return this
@@ -80,8 +80,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param applicationSid Refers to the Voice API Initiate Call parameter
      * @return this
@@ -92,8 +92,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param callerId Refers to the Voice API Initiate Call parameter
      * @return this
@@ -104,8 +104,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param fallbackMethod Refers to the Voice API Initiate Call parameter
      * @return this
@@ -116,8 +116,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param fallbackUrl Refers to the Voice API Initiate Call parameter
      * @return this
@@ -128,8 +128,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param fallbackUrl Refers to the Voice API Initiate Call parameter
      * @return this
@@ -139,8 +139,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param machineDetection Refers to the Voice API Initiate Call parameter
      * @return this
@@ -151,8 +151,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param machineDetectionSilenceTimeout Refers to the Voice API Initiate Call
      *                                       parameter
@@ -164,8 +164,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param machineDetectionSpeechEndThreshold Refers to the Voice API Initiate
      *                                           Call parameter
@@ -177,8 +177,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param machineDetectionSpeechThreshold Refers to the Voice API Initiate Call
      *                                        parameter
@@ -190,8 +190,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param machineDetectionTimeout Refers to the Voice API Initiate Call
      *                                parameter
@@ -203,8 +203,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param method Refers to the Voice API Initiate Call parameter
      * @return this
@@ -215,8 +215,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param record Refers to the Voice API Initiate Call parameter
      * @return this
@@ -227,8 +227,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param recordingChannels Refers to the Voice API Initiate Call parameter
      * @return this
@@ -239,8 +239,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param recordingStatusCallback Refers to the Voice API Initiate Call
      *                                parameter
@@ -252,8 +252,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param recordingStatusCallbackEvent Refers to the Voice API Initiate Call
      *                                     parameter
@@ -265,8 +265,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param recordingStatusCallbackEvent Refers to the Voice API Initiate Call
      *                                     parameter
@@ -277,8 +277,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param recordingStatusCallbackMethod Refers to the Voice API Initiate Call
      *                                      parameter
@@ -290,8 +290,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param sendDigits Refers to the Voice API Initiate Call parameter
      * @return this
@@ -302,8 +302,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param sipAuthPassword Refers to the Voice API Initiate Call parameter
      * @return this
@@ -314,8 +314,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param sipAuthUsername Refers to the Voice API Initiate Call parameter
      * @return this
@@ -326,8 +326,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param statusCallback Refers to the Voice API Initiate Call parameter
      * @return this
@@ -338,8 +338,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param statusCallback Refers to the Voice API Initiate Call parameter
      * @return this
@@ -349,8 +349,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param statusCallbackEvent Refers to the Voice API Initiate Call parameter
      * @return this
@@ -361,8 +361,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param statusCallbackEvent Refers to the Voice API Initiate Call parameter
      * @return this
@@ -372,8 +372,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param statusCallbackMethod Refers to the Voice API Initiate Call parameter
      * @return this
@@ -384,8 +384,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param timeout Refers to the Voice API Initiate Call parameter
      * @return this
@@ -396,8 +396,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param trim Refers to the Voice API Initiate Call parameter
      * @return this
@@ -408,8 +408,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param url Refers to the Voice API Initiate Call parameter
      * @return this
@@ -420,8 +420,8 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
     }
 
     /**
-     * Refers to the parameter with the same name when initiating a call via Voice
-     * API (https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
+     * Refers to the parameter with the same name when [initiating a call via Voice
+     * API](https://www.twilio.com/docs/voice/api/call#create-a-call-resource).
      *
      * @param url Refers to the Voice API Initiate Call parameter
      * @return this
@@ -442,8 +442,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Business/PhoneCalls",
-            client.getRegion()
+            "/TrustedComms/Business/PhoneCalls"
         );
 
         addPostParams(request);
@@ -456,14 +455,7 @@ public class PhoneCallCreator extends Creator<PhoneCall> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneCall.fromJson(response.getStream(), client.getObjectMapper());

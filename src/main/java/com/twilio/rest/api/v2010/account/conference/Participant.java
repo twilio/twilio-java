@@ -34,7 +34,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Participant extends Resource {
-    private static final long serialVersionUID = 246599390416338L;
+    private static final long serialVersionUID = 239000322102976L;
 
     public enum Status {
         QUEUED("queued"),
@@ -72,7 +72,8 @@ public class Participant extends Resource {
      *                       fetch
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
-     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathAccountSid,
@@ -86,7 +87,8 @@ public class Participant extends Resource {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          fetch
-     * @param pathCallSid The Call SID of the resource to fetch
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    fetch
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathConferenceSid,
@@ -101,7 +103,8 @@ public class Participant extends Resource {
      *                       update
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathAccountSid,
@@ -115,7 +118,8 @@ public class Participant extends Resource {
      *
      * @param pathConferenceSid The SID of the conference with the participant to
      *                          update
-     * @param pathCallSid The Call SID of the resources to update
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    update
      * @return ParticipantUpdater capable of executing the update
      */
     public static ParticipantUpdater updater(final String pathConferenceSid,
@@ -128,8 +132,10 @@ public class Participant extends Resource {
      *
      * @param pathAccountSid The SID of the Account that will create the resource
      * @param pathConferenceSid The SID of the participant's conference
-     * @param from The `from` phone number used to invite a participant
-     * @param to The number, client id, or sip address of the new participant
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathAccountSid,
@@ -143,8 +149,10 @@ public class Participant extends Resource {
      * Create a ParticipantCreator to execute create.
      *
      * @param pathConferenceSid The SID of the participant's conference
-     * @param from The `from` phone number used to invite a participant
-     * @param to The number, client id, or sip address of the new participant
+     * @param from The phone number, Client identifier, or username portion of SIP
+     *             address that made this call.
+     * @param to The phone number, SIP address or Client identifier that received
+     *           this call.
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid,
@@ -160,7 +168,8 @@ public class Participant extends Resource {
      *                       delete
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
-     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathAccountSid,
@@ -174,7 +183,8 @@ public class Participant extends Resource {
      *
      * @param pathConferenceSid The SID of the conference with the participants to
      *                          delete
-     * @param pathCallSid The Call SID of the resources to delete
+     * @param pathCallSid The Call SID or URL encoded label of the participant to
+     *                    delete
      * @return ParticipantDeleter capable of executing the delete
      */
     public static ParticipantDeleter deleter(final String pathConferenceSid,
@@ -247,6 +257,7 @@ public class Participant extends Resource {
 
     private final String accountSid;
     private final String callSid;
+    private final String label;
     private final String callSidToCoach;
     private final Boolean coaching;
     private final String conferenceSid;
@@ -264,6 +275,8 @@ public class Participant extends Resource {
                         final String accountSid,
                         @JsonProperty("call_sid")
                         final String callSid,
+                        @JsonProperty("label")
+                        final String label,
                         @JsonProperty("call_sid_to_coach")
                         final String callSidToCoach,
                         @JsonProperty("coaching")
@@ -288,6 +301,7 @@ public class Participant extends Resource {
                         final String uri) {
         this.accountSid = accountSid;
         this.callSid = callSid;
+        this.label = label;
         this.callSidToCoach = callSidToCoach;
         this.coaching = coaching;
         this.conferenceSid = conferenceSid;
@@ -302,7 +316,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -311,7 +325,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the Call the resource is associated with.
+     * Returns The SID of the Call the resource is associated with.
      *
      * @return The SID of the Call the resource is associated with
      */
@@ -320,7 +334,16 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the participant who is being `coached`.
+     * Returns The label of this participant.
+     *
+     * @return The label of this participant
+     */
+    public final String getLabel() {
+        return this.label;
+    }
+
+    /**
+     * Returns The SID of the participant who is being `coached`.
      *
      * @return The SID of the participant who is being `coached`
      */
@@ -329,7 +352,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Indicates if the participant changed to coach.
+     * Returns Indicates if the participant changed to coach.
      *
      * @return Indicates if the participant changed to coach
      */
@@ -338,7 +361,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The SID of the conference the participant is in.
+     * Returns The SID of the conference the participant is in.
      *
      * @return The SID of the conference the participant is in
      */
@@ -347,7 +370,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was created.
+     * Returns The RFC 2822 date and time in GMT that the resource was created.
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
@@ -356,8 +379,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT that the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT that the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
@@ -366,7 +388,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the conference ends when the participant leaves.
+     * Returns Whether the conference ends when the participant leaves.
      *
      * @return Whether the conference ends when the participant leaves
      */
@@ -375,7 +397,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the participant is muted.
+     * Returns Whether the participant is muted.
      *
      * @return Whether the participant is muted
      */
@@ -384,7 +406,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the participant is on hold.
+     * Returns Whether the participant is on hold.
      *
      * @return Whether the participant is on hold
      */
@@ -393,7 +415,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The Whether the conference starts when the participant joins the
+     * Returns Whether the conference starts when the participant joins the
      * conference.
      *
      * @return Whether the conference starts when the participant joins the
@@ -404,7 +426,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The status of the participant's call in a session.
+     * Returns The status of the participant's call in a session.
      *
      * @return The status of the participant's call in a session
      */
@@ -413,7 +435,7 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The The URI of the resource, relative to `https://api.twilio.com`.
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
      *
      * @return The URI of the resource, relative to `https://api.twilio.com`
      */
@@ -435,6 +457,7 @@ public class Participant extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(callSid, other.callSid) &&
+               Objects.equals(label, other.label) &&
                Objects.equals(callSidToCoach, other.callSidToCoach) &&
                Objects.equals(coaching, other.coaching) &&
                Objects.equals(conferenceSid, other.conferenceSid) &&
@@ -452,6 +475,7 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             callSid,
+                            label,
                             callSidToCoach,
                             coaching,
                             conferenceSid,
@@ -470,6 +494,7 @@ public class Participant extends Resource {
         return MoreObjects.toStringHelper(this)
                           .add("accountSid", accountSid)
                           .add("callSid", callSid)
+                          .add("label", label)
                           .add("callSidToCoach", callSidToCoach)
                           .add("coaching", coaching)
                           .add("conferenceSid", conferenceSid)

@@ -1,13 +1,11 @@
 package com.twilio.jwt.validation;
 
-import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
 import com.google.common.collect.Lists;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import com.google.common.io.CharStreams;
-import com.twilio.http.HttpMethod;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.http.Header;
@@ -17,6 +15,7 @@ import org.apache.http.HttpRequest;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.*;
 
@@ -80,7 +79,7 @@ public class ValidationToken extends Jwt {
                         lowercaseSignedHeaders, HASH_FUNCTION);
 
         // Hash and hex the canonical request
-        String hashedSignature = HASH_FUNCTION.hashString(canonicalRequest, Charsets.UTF_8).toString();
+        String hashedSignature = HASH_FUNCTION.hashString(canonicalRequest, StandardCharsets.UTF_8).toString();
         payload.put("rqh", hashedSignature);
 
         return payload;
@@ -132,7 +131,7 @@ public class ValidationToken extends Jwt {
          */
         if (request instanceof HttpEntityEnclosingRequest) {
             HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
-            builder.requestBody(CharStreams.toString(new InputStreamReader(entity.getContent(), Charsets.UTF_8)));
+            builder.requestBody(CharStreams.toString(new InputStreamReader(entity.getContent(), StandardCharsets.UTF_8)));
         }
 
         return builder.build();

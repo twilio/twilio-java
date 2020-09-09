@@ -43,8 +43,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.ACCOUNTS.toString(),
-            "/v1/Credentials/PublicKeys",
-            client.getRegion()
+            "/v1/Credentials/PublicKeys"
         );
 
         addQueryParams(request);
@@ -81,10 +80,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.ACCOUNTS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.ACCOUNTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -101,10 +97,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.ACCOUNTS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.ACCOUNTS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -126,14 +119,7 @@ public class PublicKeyReader extends Reader<PublicKey> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

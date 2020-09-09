@@ -1,12 +1,12 @@
 package com.twilio.jwt.client;
 
-import com.google.common.collect.Lists;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
 public class ClientCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String SECRET = "secret";
+    private static final String SECRET = "secretsecretsecretsecretsecret00";
 
     @Test
     public void testEmptyToken() {
@@ -34,7 +34,7 @@ public class ClientCapabilityTest {
 
     @Test
     public void testToken() {
-        List<Scope> scopes = Lists.newArrayList(
+        List<Scope> scopes = Arrays.asList(
             new IncomingClientScope("incomingClient"),
             new EventStreamScope.Builder().build(),
             new OutgoingClientScope.Builder("AP123").build()

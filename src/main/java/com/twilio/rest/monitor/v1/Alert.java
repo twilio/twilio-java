@@ -34,26 +34,16 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Alert extends Resource {
-    private static final long serialVersionUID = 84420812948753L;
+    private static final long serialVersionUID = 254359080075749L;
 
     /**
      * Create a AlertFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the resource to fetch
      * @return AlertFetcher capable of executing the fetch
      */
     public static AlertFetcher fetcher(final String pathSid) {
         return new AlertFetcher(pathSid);
-    }
-
-    /**
-     * Create a AlertDeleter to execute delete.
-     *
-     * @param pathSid The sid
-     * @return AlertDeleter capable of executing the delete
-     */
-    public static AlertDeleter deleter(final String pathSid) {
-        return new AlertDeleter(pathSid);
     }
 
     /**
@@ -119,6 +109,8 @@ public class Alert extends Resource {
     private final String responseHeaders;
     private final String sid;
     private final URI url;
+    private final String requestHeaders;
+    private final String serviceSid;
 
     @JsonCreator
     private Alert(@JsonProperty("account_sid")
@@ -154,7 +146,11 @@ public class Alert extends Resource {
                   @JsonProperty("sid")
                   final String sid,
                   @JsonProperty("url")
-                  final URI url) {
+                  final URI url,
+                  @JsonProperty("request_headers")
+                  final String requestHeaders,
+                  @JsonProperty("service_sid")
+                  final String serviceSid) {
         this.accountSid = accountSid;
         this.alertText = alertText;
         this.apiVersion = apiVersion;
@@ -172,170 +168,183 @@ public class Alert extends Resource {
         this.responseHeaders = responseHeaders;
         this.sid = sid;
         this.url = url;
+        this.requestHeaders = requestHeaders;
+        this.serviceSid = serviceSid;
     }
 
     /**
-     * Returns The The unique id of the Account responsible for this alert..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The unique id of the Account responsible for this alert.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The text of the alert..
+     * Returns The text of the alert.
      *
-     * @return The text of the alert.
+     * @return The text of the alert
      */
     public final String getAlertText() {
         return this.alertText;
     }
 
     /**
-     * Returns The The version of the Twilio API in use when this alert was
-     * generated..
+     * Returns The API version used when the alert was generated.
      *
-     * @return The version of the Twilio API in use when this alert was generated.
+     * @return The API version used when the alert was generated
      */
     public final String getApiVersion() {
         return this.apiVersion;
     }
 
     /**
-     * Returns The The date that this resource was created, given in ISO 8601
-     * format..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created, given in ISO 8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date the alert was actually generated, given in ISO 8601
-     * format..
+     * Returns The date and time when the alert was generated specified in ISO 8601
+     * format.
      *
-     * @return The date the alert was actually generated, given in ISO 8601 format.
+     * @return The date and time when the alert was generated specified in ISO 8601
+     *         format
      */
     public final DateTime getDateGenerated() {
         return this.dateGenerated;
     }
 
     /**
-     * Returns The The most recent date that this resource was updated, given in ISO
-     * 8601 format..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The most recent date that this resource was updated, given in ISO
-     *         8601 format.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The A unique error code for the error condition..
+     * Returns The error code for the condition that generated the alert.
      *
-     * @return A unique error code for the error condition.
+     * @return The error code for the condition that generated the alert
      */
     public final String getErrorCode() {
         return this.errorCode;
     }
 
     /**
-     * Returns The A string representing the log level..
+     * Returns The log level.
      *
-     * @return A string representing the log level.
+     * @return The log level
      */
     public final String getLogLevel() {
         return this.logLevel;
     }
 
     /**
-     * Returns The A URL for more information about the error condition..
+     * Returns The URL of the page in our Error Dictionary with more information
+     * about the error condition.
      *
-     * @return A URL for more information about the error condition.
+     * @return The URL of the page in our Error Dictionary with more information
+     *         about the error condition
      */
     public final String getMoreInfo() {
         return this.moreInfo;
     }
 
     /**
-     * Returns The If the Alert was generated by a request Twilio made to your
-     * server, this will be the request method used when Twilio made the request to
-     * your server..
+     * Returns The method used by the request that generated the alert.
      *
-     * @return If the Alert was generated by a request Twilio made to your server,
-     *         this will be the request method used when Twilio made the request to
-     *         your server.
+     * @return The method used by the request that generated the alert
      */
     public final HttpMethod getRequestMethod() {
         return this.requestMethod;
     }
 
     /**
-     * Returns The If the Alert was generated by a request Twilio made to your
-     * server, this will be the URL on your server that generated the alert..
+     * Returns The URL of the request that generated the alert.
      *
-     * @return If the Alert was generated by a request Twilio made to your server,
-     *         this will be the URL on your server that generated the alert.
+     * @return The URL of the request that generated the alert
      */
     public final String getRequestUrl() {
         return this.requestUrl;
     }
 
     /**
-     * Returns The The request_variables.
+     * Returns The variables passed in the request that generated the alert.
      *
-     * @return The request_variables
+     * @return The variables passed in the request that generated the alert
      */
     public final String getRequestVariables() {
         return this.requestVariables;
     }
 
     /**
-     * Returns The The unique ID of the resource for which the Alert was generated..
+     * Returns The SID of the resource for which the alert was generated.
      *
-     * @return The unique ID of the resource for which the Alert was generated.
+     * @return The SID of the resource for which the alert was generated
      */
     public final String getResourceSid() {
         return this.resourceSid;
     }
 
     /**
-     * Returns The The response_body.
+     * Returns The response body of the request that generated the alert.
      *
-     * @return The response_body
+     * @return The response body of the request that generated the alert
      */
     public final String getResponseBody() {
         return this.responseBody;
     }
 
     /**
-     * Returns The The response_headers.
+     * Returns The response headers of the request that generated the alert.
      *
-     * @return The response_headers
+     * @return The response headers of the request that generated the alert
      */
     public final String getResponseHeaders() {
         return this.responseHeaders;
     }
 
     /**
-     * Returns The A 34 character string that uniquely identifies this Alert..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A 34 character string that uniquely identifies this Alert.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the Alert resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the Alert resource
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns The request headers of the request that generated the alert.
+     *
+     * @return The request headers of the request that generated the alert
+     */
+    public final String getRequestHeaders() {
+        return this.requestHeaders;
+    }
+
+    /**
+     * Returns The SID of the service or resource that generated the alert.
+     *
+     * @return The SID of the service or resource that generated the alert
+     */
+    public final String getServiceSid() {
+        return this.serviceSid;
     }
 
     @Override
@@ -366,7 +375,9 @@ public class Alert extends Resource {
                Objects.equals(responseBody, other.responseBody) &&
                Objects.equals(responseHeaders, other.responseHeaders) &&
                Objects.equals(sid, other.sid) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(requestHeaders, other.requestHeaders) &&
+               Objects.equals(serviceSid, other.serviceSid);
     }
 
     @Override
@@ -387,7 +398,9 @@ public class Alert extends Resource {
                             responseBody,
                             responseHeaders,
                             sid,
-                            url);
+                            url,
+                            requestHeaders,
+                            serviceSid);
     }
 
     @Override
@@ -410,6 +423,8 @@ public class Alert extends Resource {
                           .add("responseHeaders", responseHeaders)
                           .add("sid", sid)
                           .add("url", url)
+                          .add("requestHeaders", requestHeaders)
+                          .add("serviceSid", serviceSid)
                           .toString();
     }
 }

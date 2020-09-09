@@ -30,8 +30,9 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     /**
      * Construct a new WorkerStatisticsFetcher.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         fetch
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to fetch
      */
     public WorkerStatisticsFetcher(final String pathWorkspaceSid,
                                    final String pathWorkerSid) {
@@ -40,11 +41,11 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by up to 'x' minutes in the past. This is
-     * helpful for statistics for the last 15 minutes, 240 minutes (4 hours), and
-     * 480 minutes (8 hours) to see trends. Defaults to 15 minutes..
+     * Only calculate statistics since this many minutes in the past. The default 15
+     * minutes. This is helpful for displaying statistics for the last 15 minutes,
+     * 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
      *
-     * @param minutes Filter cumulative statistics by up to 'x' minutes in the past.
+     * @param minutes Only calculate statistics since this many minutes in the past
      * @return this
      */
     public WorkerStatisticsFetcher setMinutes(final Integer minutes) {
@@ -53,11 +54,10 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by a start date. This is helpful for defining a
-     * range of statistics to capture. Input is a string of the format:
-     * yyyy-MM-dd'T'HH:mm:ss'Z'..
+     * Only calculate statistics from this date and time and later, specified in
+     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
      *
-     * @param startDate Filter cumulative statistics by a start date.
+     * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
     public WorkerStatisticsFetcher setStartDate(final DateTime startDate) {
@@ -66,11 +66,10 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by a end date. This is helpful for defining a
-     * range of statistics to capture. Input is a string of the format:
-     * yyyy-MM-dd'T'HH:mm:ss'Z'..
+     * Only include usage that occurred on or before this date, specified in GMT as
+     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
      *
-     * @param endDate Filter cumulative statistics by a end date.
+     * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
     public WorkerStatisticsFetcher setEndDate(final DateTime endDate) {
@@ -79,10 +78,10 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * Filter cumulative statistics by TaskChannel. Takes in a Unique Name ("voice",
-     * "sms", "default", etc.) or a TaskChannelSid..
+     * Only calculate statistics on this TaskChannel. Can be the TaskChannel's SID
+     * or its `unique_name`, such as `voice`, `sms`, or `default`..
      *
-     * @param taskChannel Filter cumulative statistics by TaskChannel.
+     * @param taskChannel Only calculate statistics on this TaskChannel
      * @return this
      */
     public WorkerStatisticsFetcher setTaskChannel(final String taskChannel) {
@@ -102,8 +101,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.TASKROUTER.toString(),
-            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Statistics",
-            client.getRegion()
+            "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathWorkerSid + "/Statistics"
         );
 
         addQueryParams(request);
@@ -116,14 +114,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return WorkerStatistics.fromJson(response.getStream(), client.getObjectMapper());

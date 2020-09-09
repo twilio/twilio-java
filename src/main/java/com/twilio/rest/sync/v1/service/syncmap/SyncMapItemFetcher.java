@@ -29,9 +29,11 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
     /**
      * Construct a new SyncMapItemFetcher.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathMapSid The map_sid
-     * @param pathKey The key
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map Item
+     *                       resource to fetch
+     * @param pathMapSid The SID of the Sync Map with the Sync Map Item resource to
+     *                   fetch
+     * @param pathKey The key value of the Sync Map Item resource to fetch
      */
     public SyncMapItemFetcher(final String pathServiceSid,
                               final String pathMapSid,
@@ -53,8 +55,7 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps/" + this.pathMapSid + "/Items/" + this.pathKey + ""
         );
 
         Response response = client.request(request);
@@ -66,14 +67,7 @@ public class SyncMapItemFetcher extends Fetcher<SyncMapItem> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());

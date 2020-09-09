@@ -184,7 +184,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -193,7 +193,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -202,7 +202,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The SID of the resource's parent Service.
+     * Returns The SID of the resource's parent Service.
      *
      * @return The SID of the resource's parent Service
      */
@@ -211,7 +211,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
@@ -220,8 +220,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The ISO 8601 date and time in GMT when the resource was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
@@ -230,7 +229,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The short code's number.
+     * Returns The short code's number.
      *
      * @return The short code's number
      */
@@ -239,7 +238,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The ISO Country Code.
+     * Returns The ISO Country Code.
      *
      * @return The ISO Country Code
      */
@@ -248,7 +247,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The capabilities of the short code.
+     * Returns The capabilities of the short code.
      *
      * @return The capabilities of the short code
      */
@@ -257,7 +256,7 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the ShortCode resource.
+     * Returns The absolute URL of the ShortCode resource.
      *
      * @return The absolute URL of the ShortCode resource
      */
@@ -266,8 +265,8 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns The Whether the short code should be reserved for manual assignment
-     * to participants only.
+     * Returns Whether the short code should be reserved for manual assignment to
+     * participants only.
      *
      * @return Whether the short code should be reserved for manual assignment to
      *         participants only

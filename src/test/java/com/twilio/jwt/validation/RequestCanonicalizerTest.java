@@ -2,7 +2,6 @@ package com.twilio.jwt.validation;
 
 import com.twilio.exception.InvalidRequestException;
 
-import com.google.common.collect.Lists;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 
@@ -12,12 +11,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class RequestCanonicalizerTest {
 
     private static final HashFunction HASH_FUNCTION = Hashing.sha256();
-    private static final List<String> signedHeaders = Lists.newArrayList("authorization", "duplicate", "host");
+    private static final List<String> signedHeaders = Arrays.asList("authorization", "duplicate", "host");
 
     private static final int PATH_LINE = 1;
     private static final int QUERY_LINE = 2;
@@ -25,7 +25,7 @@ public class RequestCanonicalizerTest {
     private Header[] headers;
 
     @Before
-    public void setup() throws Exception {
+    public void setup() {
         headers = new Header[4];
         headers[0] = new BasicHeader("host", "api.twilio.com");
         headers[1] = new BasicHeader("authorization", "foobar");
@@ -34,7 +34,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testCreateCanonicalRequest() throws Exception {
+    public void testCreateCanonicalRequest() {
         String queryParams = "PageSize=5&Limit=10";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -52,7 +52,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testCreateCanonicalRequestWithHostPort() throws Exception {
+    public void testCreateCanonicalRequestWithHostPort() {
         String queryParams = "PageSize=5&Limit=10";
         headers[0] = new BasicHeader("host", "api.twilio.com:443");
 
@@ -71,7 +71,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testReplacesEncodedWhitespaceInQueryParams() throws Exception {
+    public void testReplacesEncodedWhitespaceInQueryParams() {
         String queryParams = "key+with+whitespace=value+with+whitespace";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -81,7 +81,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testDecodesEncodedTildeInQueryParams() throws Exception {
+    public void testDecodesEncodedTildeInQueryParams() {
         String queryParams = "a%7Ea=b%7Eb";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -90,7 +90,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testEncodesMultiplyInQueryParams() throws Exception {
+    public void testEncodesMultiplyInQueryParams() {
         String queryParams = "a*a=b*b";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -99,7 +99,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testDoesNotEncodeUriEncodedSpace() throws Exception {
+    public void testDoesNotEncodeUriEncodedSpace() {
         String queryParams = "a%20a=b%20b";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -108,7 +108,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testDoesNotEncodeEncodedMultiplyInQueryParams() throws Exception {
+    public void testDoesNotEncodeEncodedMultiplyInQueryParams() {
         String queryParams = "a%2Aa=b%2Ab";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -117,7 +117,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testEmptyQuery() throws Exception {
+    public void testEmptyQuery() {
         String queryParams = "";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -126,7 +126,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testScriptUsedAsQueryMatchesWithServer() throws Exception {
+    public void testScriptUsedAsQueryMatchesWithServer() {
         String queryParams = "a=%3Csvg+xmlns%3D%22http%3A%2F%2Fwww" +
                              ".w3.org%2F2000%2Fsvg%22+viewBox%3D%220+0+100+100%22%3E%3Cpath+d%3D%22M10%2C10+H90+L50" +
                              "%2C70%22%2F%3E%3Ctext+y%3D%2290%22%3E%22+%27+%23+%25+%26amp%3B+%C2%BF+%F0%9F%94%A3%3C" +
@@ -142,7 +142,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testCharacterMapMatchesWithServer() throws Exception {
+    public void testCharacterMapMatchesWithServer() {
         String queryParams = "a=-_.%7E%21*%27%28%29%3B%3A%40%26%3D%2B%24%2C%2F%3F%25%23%5B%5D%3F%40" +
                              "+ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
@@ -154,7 +154,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testMultipleQueryParamsSortsParams() throws Exception {
+    public void testMultipleQueryParamsSortsParams() {
         String queryParams = "queryParam2=Hello+World&queryParam3=1%3D1&query+Param1=a*%7E%2F%3Db";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -164,7 +164,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testMultipleQueryParamsSortsParamsWithIdenticalKey() throws Exception {
+    public void testMultipleQueryParamsSortsParamsWithIdenticalKey() {
         String queryParams = "param=value2&param=value1";
 
         String canonicalRequest = canonicalizeWithQueryParams(queryParams);
@@ -174,14 +174,14 @@ public class RequestCanonicalizerTest {
     }
 
     @Test(expected = InvalidRequestException.class)
-    public void testInvalidUriPathPassedToRequestCanonicalizer() throws Exception {
+    public void testInvalidUriPathPassedToRequestCanonicalizer() {
         String path = "/this is a bad path";
 
         canonicalizeWithPath(path);
     }
 
     @Test
-    public void testNormalizesPath() throws Exception {
+    public void testNormalizesPath() {
         String path = "/v1/Workspaces/../test";
 
         String canonicalRequest = canonicalizeWithPath(path);
@@ -190,7 +190,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testNormalizesPath2() throws Exception {
+    public void testNormalizesPath2() {
         String path = "/v1/Workspaces/./test";
 
         String canonicalRequest = canonicalizeWithPath(path);
@@ -199,7 +199,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testEmptyPath() throws Exception {
+    public void testEmptyPath() {
         String path = "";
 
         String canonicalRequest = canonicalizeWithPath(path);
@@ -208,7 +208,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testPathHasUnreservedCharacters() throws Exception {
+    public void testPathHasUnreservedCharacters() {
         String path = "/start%20*%7E+end";
 
         String canonicalRequest = canonicalizeWithPath(path);
@@ -218,7 +218,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testPathHasEncodedCharacters() throws Exception {
+    public void testPathHasEncodedCharacters() {
         String path = "/v1/Workspaces/test()+%C3%A4/Workers";
 
         String canonicalRequest = canonicalizeWithPath(path);
@@ -228,7 +228,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testPathHasNotEncodedCharactersAndControlCharacters() throws Exception {
+    public void testPathHasNotEncodedCharactersAndControlCharacters() {
         String path = "/v1/Services/IS7f2d1594c3dd4d368d6669981a649659/Channels/é()+";
 
         String canonicalRequest = canonicalizeWithPath(path);
@@ -238,7 +238,7 @@ public class RequestCanonicalizerTest {
     }
 
     @Test
-    public void testPathHasEncodedCharactersAndControlCharacters() throws Exception {
+    public void testPathHasEncodedCharactersAndControlCharacters() {
         String path = "/v1/Services/IS7f2d1594c3dd4d368d6669981a649659/Channels/%C3%A9()+";
 
         String canonicalRequest = canonicalizeWithPath(path);

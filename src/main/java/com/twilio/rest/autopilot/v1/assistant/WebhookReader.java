@@ -60,8 +60,7 @@ public class WebhookReader extends Reader<Webhook> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Webhooks"
         );
 
         addQueryParams(request);
@@ -98,10 +97,7 @@ public class WebhookReader extends Reader<Webhook> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.AUTOPILOT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.AUTOPILOT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -118,10 +114,7 @@ public class WebhookReader extends Reader<Webhook> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.AUTOPILOT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.AUTOPILOT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -143,14 +136,7 @@ public class WebhookReader extends Reader<Webhook> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

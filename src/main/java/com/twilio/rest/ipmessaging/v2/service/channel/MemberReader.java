@@ -31,7 +31,7 @@ public class MemberReader extends Reader<Member> {
      * Construct a new MemberReader.
      *
      * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the channel the member belongs to
+     * @param pathChannelSid The SID of the channel the member belongs to
      */
     public MemberReader(final String pathServiceSid,
                         final String pathChannelSid) {
@@ -40,8 +40,8 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the Member resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -53,8 +53,8 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/users)'s `identity` value of
-     * the resources to read. See [access
+     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
+     * value of the Member resources to read. See [access
      * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
      *
      * @param identity The `identity` value of the resources to read
@@ -87,8 +87,7 @@ public class MemberReader extends Reader<Member> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members"
         );
 
         addQueryParams(request);
@@ -125,10 +124,7 @@ public class MemberReader extends Reader<Member> {
                                  final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -145,10 +141,7 @@ public class MemberReader extends Reader<Member> {
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.IPMESSAGING.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -170,14 +163,7 @@ public class MemberReader extends Reader<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

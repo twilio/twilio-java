@@ -1,5 +1,6 @@
 package com.twilio.jwt.taskrouter;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -8,7 +9,6 @@ import java.util.Map;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
 import com.twilio.http.HttpMethod;
 import com.twilio.jwt.Jwt;
 
@@ -21,13 +21,13 @@ import io.jsonwebtoken.Jwts;
 public class TaskRouterCapabilityTest {
 
     private static final String ACCOUNT_SID = "AC123";
-    private static final String AUTH_TOKEN = "secret";
+    private static final String AUTH_TOKEN = "secretsecretsecretsecretsecret00";
     private static final String WORKSPACE_SID = "WS123";
     private static final String WORKER_SID = "WK123";
 
     @Test
     public void testToken() {
-        List<Policy> policies = Lists.newArrayList(
+        List<Policy> policies = Arrays.asList(
             new Policy.Builder().url(UrlUtils.workspaces()).build()
         );
         final Jwt jwt =

@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ServiceFetcher extends Fetcher<Service> {
     private final String pathSid;
 
@@ -45,8 +41,7 @@ public class ServiceFetcher extends Fetcher<Service> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
-            "/v2/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -58,14 +53,7 @@ public class ServiceFetcher extends Fetcher<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());

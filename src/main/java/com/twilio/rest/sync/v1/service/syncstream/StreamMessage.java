@@ -41,9 +41,12 @@ public class StreamMessage extends Resource {
     /**
      * Create a StreamMessageCreator to execute create.
      *
-     * @param pathServiceSid The service_sid
-     * @param pathStreamSid The stream_sid
-     * @param data Stream Message body.
+     * @param pathServiceSid The SID of the Sync Service to create the new Stream
+     *                       Message in
+     * @param pathStreamSid The SID of the Sync Stream to create the new Stream
+     *                      Message resource for
+     * @param data A JSON string that represents an arbitrary, schema-less object
+     *             that makes up the Stream Message body
      * @return StreamMessageCreator capable of executing the create
      */
     public static StreamMessageCreator creator(final String pathServiceSid,
@@ -103,18 +106,18 @@ public class StreamMessage extends Resource {
     }
 
     /**
-     * Returns The Stream Message SID..
+     * Returns The unique string that identifies the resource.
      *
-     * @return Stream Message SID.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Stream Message body..
+     * Returns Stream Message body.
      *
-     * @return Stream Message body.
+     * @return Stream Message body
      */
     public final Map<String, Object> getData() {
         return this.data;

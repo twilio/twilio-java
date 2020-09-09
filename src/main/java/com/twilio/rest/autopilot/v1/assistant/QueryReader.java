@@ -29,6 +29,7 @@ public class QueryReader extends Reader<Query> {
     private String language;
     private String modelBuild;
     private String status;
+    private String dialogueSid;
 
     /**
      * Construct a new QueryReader.
@@ -66,7 +67,7 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The status of the resources to read. Can be: `pending_review`, `reviewed`, or
+     * The status of the resources to read. Can be: `pending-review`, `reviewed`, or
      * `discarded`.
      *
      * @param status The status of the resources to read
@@ -74,6 +75,19 @@ public class QueryReader extends Reader<Query> {
      */
     public QueryReader setStatus(final String status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * The SID of the
+     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     *
+     * @param dialogueSid The SID of the
+     *                    [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     * @return this
+     */
+    public QueryReader setDialogueSid(final String dialogueSid) {
+        this.dialogueSid = dialogueSid;
         return this;
     }
 
@@ -100,8 +114,7 @@ public class QueryReader extends Reader<Query> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.AUTOPILOT.toString(),
-            "/v1/Assistants/" + this.pathAssistantSid + "/Queries",
-            client.getRegion()
+            "/v1/Assistants/" + this.pathAssistantSid + "/Queries"
         );
 
         addQueryParams(request);
@@ -138,10 +151,7 @@ public class QueryReader extends Reader<Query> {
                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.AUTOPILOT.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.AUTOPILOT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -158,10 +168,7 @@ public class QueryReader extends Reader<Query> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.AUTOPILOT.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.AUTOPILOT.toString())
         );
         return pageForRequest(client, request);
     }
@@ -183,14 +190,7 @@ public class QueryReader extends Reader<Query> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(
@@ -217,6 +217,10 @@ public class QueryReader extends Reader<Query> {
 
         if (status != null) {
             request.addQueryParam("Status", status);
+        }
+
+        if (dialogueSid != null) {
+            request.addQueryParam("DialogueSid", dialogueSid);
         }
 
         if (getPageSize() != null) {

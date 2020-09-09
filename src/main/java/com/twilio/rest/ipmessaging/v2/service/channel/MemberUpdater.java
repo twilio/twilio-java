@@ -29,14 +29,14 @@ public class MemberUpdater extends Updater<Member> {
     private DateTime dateCreated;
     private DateTime dateUpdated;
     private String attributes;
+    private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MemberUpdater.
      *
      * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the member to update
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathChannelSid The SID of the channel the member to update belongs to
+     * @param pathSid The SID of the Member resource to update
      */
     public MemberUpdater(final String pathServiceSid,
                          final String pathChannelSid,
@@ -47,9 +47,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/roles) to assign
-     * to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
+     * assign to the member. The default roles are those specified on the
+     * [Service](https://www.twilio.com/docs/chat/rest/service-resource)..
      *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
@@ -61,8 +61,9 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/messages) that the Member has
-     * read within the [Channel](https://www.twilio.com/docs/chat/channels)..
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the
+     * Member has read within the
+     * [Channel](https://www.twilio.com/docs/chat/channels)..
      *
      * @param lastConsumedMessageIndex The index of the last consumed Message for
      *                                 the Channel for the Member
@@ -74,14 +75,14 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The ISO 8601 timestamp string that represents the date-time of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/messages) read event for the
-     * Member within the [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
+     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
+     * for the Member within the
+     * [Channel](https://www.twilio.com/docs/chat/channels)..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the date-time of the last
-     *                                 Message read event for the Member within the
-     *                                 Channel
+     *                                 representing the datetime of the last Message
+     *                                 read event for the Member within the Channel
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
@@ -91,9 +92,10 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default is
-     * the current time set by the Chat service.  Note that this parameter should
-     * only be used when a Member is being recreated from a backup/separate source..
+     * format, to assign to the resource as the date it was created. The default
+     * value is the current time set by the Chat service.  Note that this parameter
+     * should only be used when a Member is being recreated from a backup/separate
+     * source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -106,9 +108,7 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated. Note that
-     * this parameter should only be used when a Member is being recreated from a
-     * backup/separate source and where a Member was previously updated..
+     * format, to assign to the resource as the date it was last updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
@@ -131,6 +131,17 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MemberUpdater setXTwilioWebhookEnabled(final Member.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -142,11 +153,11 @@ public class MemberUpdater extends Updater<Member> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.IPMESSAGING.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Members/" + this.pathSid + ""
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -156,17 +167,21 @@ public class MemberUpdater extends Updater<Member> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

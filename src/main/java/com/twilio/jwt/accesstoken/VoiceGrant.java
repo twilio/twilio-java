@@ -1,6 +1,6 @@
 package com.twilio.jwt.accesstoken;
 
-import com.google.common.base.Strings;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,9 +35,9 @@ public class VoiceGrant implements Grant {
 
     /**
      * Set the outgoing application.
-     * 
-     * @param  outgoingApplicationSid outgoing application sid
-     * @param  outgoingApplicationParams outgoing application parameters
+     *
+     * @param outgoingApplicationSid    outgoing application sid
+     * @param outgoingApplicationParams outgoing application parameters
      * @return voice grant
      */
     public VoiceGrant setOutgoingApplication(
@@ -70,6 +70,7 @@ public class VoiceGrant implements Grant {
     }
 
     @SuppressWarnings("checkstyle:membername")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
         public Map<String, Object> incoming;
         public Map<String, Object> outgoing;
@@ -78,16 +79,16 @@ public class VoiceGrant implements Grant {
 
         /**
          * Generate VoiceGrant payload.
-         * 
-         * @param  grant VoiceGrant
+         *
+         * @param grant VoiceGrant
          */
         public Payload(VoiceGrant grant) {
             if (grant.incomingAllow != null) {
-              this.incoming = new HashMap<>();
-              this.incoming.put("allow", grant.incomingAllow);
+                this.incoming = new HashMap<>();
+                this.incoming.put("allow", grant.incomingAllow);
             }
 
-            if (!Strings.isNullOrEmpty(grant.outgoingApplicationSid)) {
+            if (grant.outgoingApplicationSid != null && !grant.outgoingApplicationSid.isEmpty()) {
                 this.outgoing = new HashMap<>();
                 this.outgoing.put("application_sid", grant.outgoingApplicationSid);
 
@@ -96,14 +97,13 @@ public class VoiceGrant implements Grant {
                 }
             }
 
-            if (!Strings.isNullOrEmpty(grant.pushCredentialSid)) {
+            if (grant.pushCredentialSid != null && !grant.pushCredentialSid.isEmpty()) {
                 this.push_credential_sid = grant.pushCredentialSid;
             }
 
-            if (!Strings.isNullOrEmpty(grant.endpointId)) {
+            if (grant.endpointId != null && !grant.endpointId.isEmpty()) {
                 this.endpoint_id = grant.endpointId;
             }
         }
     }
-
 }

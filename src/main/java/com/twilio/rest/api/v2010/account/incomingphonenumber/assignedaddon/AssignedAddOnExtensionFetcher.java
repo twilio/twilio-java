@@ -78,8 +78,7 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
         Request request = new Request(
             HttpMethod.GET,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathAssignedAddOnSid + "/Extensions/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/IncomingPhoneNumbers/" + this.pathResourceSid + "/AssignedAddOns/" + this.pathAssignedAddOnSid + "/Extensions/" + this.pathSid + ".json"
         );
 
         Response response = client.request(request);
@@ -91,14 +90,7 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return AssignedAddOnExtension.fromJson(response.getStream(), client.getObjectMapper());

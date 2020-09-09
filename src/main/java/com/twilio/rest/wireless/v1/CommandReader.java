@@ -26,9 +26,10 @@ public class CommandReader extends Reader<Command> {
     private Command.Transport transport;
 
     /**
-     * Only return Commands to or from this SIM..
+     * The `sid` or `unique_name` of the [Sim
+     * resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read..
      *
-     * @param sim Only return Commands to or from this SIM.
+     * @param sim The sid or unique_name of the Sim resources to read
      * @return this
      */
     public CommandReader setSim(final String sim) {
@@ -37,9 +38,10 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * Only return Commands with this status value..
+     * The status of the resources to read. Can be: `queued`, `sent`, `delivered`,
+     * `received`, or `failed`..
      *
-     * @param status Only return Commands with this status value.
+     * @param status The status of the resources to read
      * @return this
      */
     public CommandReader setStatus(final Command.Status status) {
@@ -50,7 +52,7 @@ public class CommandReader extends Reader<Command> {
     /**
      * Only return Commands with this direction value..
      *
-     * @param direction Only return Commands with this direction value.
+     * @param direction Only return Commands with this direction value
      * @return this
      */
     public CommandReader setDirection(final Command.Direction direction) {
@@ -59,9 +61,9 @@ public class CommandReader extends Reader<Command> {
     }
 
     /**
-     * Only return Commands with this transport value..
+     * Only return Commands with this transport value. Can be: `sms` or `ip`..
      *
-     * @param transport Only return Commands with this transport value.
+     * @param transport Only return Commands with this transport value
      * @return this
      */
     public CommandReader setTransport(final Command.Transport transport) {
@@ -92,8 +94,7 @@ public class CommandReader extends Reader<Command> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.WIRELESS.toString(),
-            "/v1/Commands",
-            client.getRegion()
+            "/v1/Commands"
         );
 
         addQueryParams(request);
@@ -130,10 +131,7 @@ public class CommandReader extends Reader<Command> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -150,10 +148,7 @@ public class CommandReader extends Reader<Command> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.WIRELESS.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.WIRELESS.toString())
         );
         return pageForRequest(client, request);
     }
@@ -175,14 +170,7 @@ public class CommandReader extends Reader<Command> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

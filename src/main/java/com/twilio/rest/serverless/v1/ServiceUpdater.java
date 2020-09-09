@@ -26,22 +26,22 @@ public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private Boolean includeCredentials;
     private String friendlyName;
+    private Boolean uiEditable;
 
     /**
      * Construct a new ServiceUpdater.
      *
-     * @param pathSid Service Sid.
+     * @param pathSid The SID of the Service resource to update
      */
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A boolean value that indicates whether to inject Account credentials into a
-     * Function invocation context. Optional..
+     * Whether to inject Account credentials into a function invocation context..
      *
      * @param includeCredentials Whether to inject Account credentials into a
-     *                           Function invocation context.
+     *                           function invocation context
      * @return this
      */
     public ServiceUpdater setIncludeCredentials(final Boolean includeCredentials) {
@@ -50,14 +50,27 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * A human-readable description of this Service, fewer than 256 characters.
-     * Optional.
+     * A descriptive string that you create to describe the Service resource. It can
+     * be up to 255 characters long..
      *
-     * @param friendlyName A human-readable description of this Service.
+     * @param friendlyName A string to describe the Service resource
      * @return this
      */
     public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * Whether the Service's properties and subresources can be edited via the UI.
+     * The default value is `false`..
+     *
+     * @param uiEditable Whether the Service's properties and subresources can be
+     *                   edited via the UI
+     * @return this
+     */
+    public ServiceUpdater setUiEditable(final Boolean uiEditable) {
+        this.uiEditable = uiEditable;
         return this;
     }
 
@@ -73,8 +86,7 @@ public class ServiceUpdater extends Updater<Service> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathSid + ""
         );
 
         addPostParams(request);
@@ -87,14 +99,7 @@ public class ServiceUpdater extends Updater<Service> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
@@ -112,6 +117,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (uiEditable != null) {
+            request.addPostParam("UiEditable", uiEditable.toString());
         }
     }
 }

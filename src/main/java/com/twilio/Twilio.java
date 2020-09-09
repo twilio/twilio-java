@@ -2,7 +2,6 @@ package com.twilio;
 
 import com.google.common.util.concurrent.ListeningExecutorService;
 import com.google.common.util.concurrent.MoreExecutors;
-
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -12,6 +11,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
+import java.util.Objects;
 import java.util.concurrent.Executors;
 
 /**
@@ -19,16 +19,31 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "7.40.0";
+    public static final String VERSION = "7.55.1";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
     private static String username;
     private static String password;
     private static String accountSid;
+    private static String region;
+    private static String edge;
     private static TwilioRestClient restClient;
     private static ListeningExecutorService executorService;
 
     private Twilio() {}
+
+    /**
+     * Ensures that the ListeningExecutorService is shutdown when the JVM exits.
+     */
+    static {
+        Runtime.getRuntime().addShutdownHook(new Thread() {
+            public void run() {
+                if (executorService != null) {
+                    executorService.shutdownNow();
+                }
+            }
+        });
+    }
 
     /**
      * Initialize the Twilio environment.
@@ -44,8 +59,8 @@ public class Twilio {
     /**
      * Initialize the Twilio environment.
      *
-     * @param username account to use
-     * @param password auth token for the account
+     * @param username   account to use
+     * @param password   auth token for the account
      * @param accountSid account sid to use
      */
     public static void init(final String username, final String password, final String accountSid) {
@@ -57,8 +72,8 @@ public class Twilio {
     /**
      * Set the username.
      *
-     * @param username account sid to use
-     * @throws AuthenticationException if accountSid is null
+     * @param username account to use
+     * @throws AuthenticationException if username is null
      */
     public static void setUsername(final String username) {
         if (username == null) {
@@ -109,9 +124,35 @@ public class Twilio {
     }
 
     /**
+     * Set the region.
+     *
+     * @param region region to make request
+     */
+    public static void setRegion(final String region) {
+        if (!Objects.equals(region, Twilio.region)) {
+            Twilio.invalidate();
+        }
+
+        Twilio.region = region;
+    }
+
+    /**
+     * Set the edge.
+     *
+     * @param edge edge to make request
+     */
+    public static void setEdge(final String edge) {
+        if (!Objects.equals(edge, Twilio.edge)) {
+            Twilio.invalidate();
+        }
+
+        Twilio.edge = edge;
+    }
+
+    /**
      * Returns (and initializes if not initialized) the Twilio Rest Client.
      *
-     * @return the TWilio Rest Client
+     * @return the Twilio Rest Client
      * @throws AuthenticationException if initialization required and either accountSid or authToken is null
      */
     public static TwilioRestClient getRestClient() {
@@ -123,9 +164,14 @@ public class Twilio {
             }
 
             TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
+
             if (Twilio.accountSid != null) {
                 builder.accountSid(Twilio.accountSid);
             }
+
+            builder.region(Twilio.region);
+            builder.edge(Twilio.edge);
+
             Twilio.restClient = builder.build();
         }
 
@@ -158,7 +204,7 @@ public class Twilio {
      *
      * @param executorService executor service to use
      */
-    public static void setExecutorService(final ListeningExecutorService executorService) {
+    public static synchronized void setExecutorService(final ListeningExecutorService executorService) {
         Twilio.executorService = executorService;
     }
 
@@ -189,5 +235,14 @@ public class Twilio {
      */
     private static void invalidate() {
         Twilio.restClient = null;
+    }
+
+    /**
+     * Attempts to gracefully shutdown the ListeningExecutorService if it is present.
+     */
+    public static synchronized void destroy() {
+        if (executorService != null) {
+            executorService.shutdown();
+        }
     }
 }

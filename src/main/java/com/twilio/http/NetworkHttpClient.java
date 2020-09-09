@@ -1,10 +1,7 @@
 package com.twilio.http;
 
-import com.google.common.base.Strings;
-import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -19,6 +16,7 @@ import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -34,12 +32,19 @@ public class NetworkHttpClient extends HttpClient {
      * Create a new HTTP Client.
      */
     public NetworkHttpClient() {
-        RequestConfig config = RequestConfig.custom()
+        this(RequestConfig.custom()
             .setConnectTimeout(CONNECTION_TIMEOUT)
             .setSocketTimeout(SOCKET_TIMEOUT)
-            .build();
+            .build()
+        );
+    }
 
-        Collection<Header> headers = Lists.<Header>newArrayList(
+    /**
+     * Create a new HTTP Client with a custom request config.
+     * @param config a RequestConfig.
+     */
+    public NetworkHttpClient(RequestConfig config) {
+        Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
@@ -47,11 +52,11 @@ public class NetworkHttpClient extends HttpClient {
         );
 
         String googleAppEngineVersion = System.getProperty("com.google.appengine.runtime.version");
-        boolean isNotGoogleAppEngine = Strings.isNullOrEmpty(googleAppEngineVersion);
+        boolean isGoogleAppEngine = googleAppEngineVersion != null && !googleAppEngineVersion.isEmpty();
 
         org.apache.http.impl.client.HttpClientBuilder clientBuilder = HttpClientBuilder.create();
 
-        if (isNotGoogleAppEngine) {
+        if (!isGoogleAppEngine) {
             clientBuilder.useSystemProperties();
         }
 
@@ -72,7 +77,7 @@ public class NetworkHttpClient extends HttpClient {
      * @param clientBuilder an HttpClientBuilder.
      */
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
-        Collection<Header> headers = Lists.<Header>newArrayList(
+        Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
                 new BasicHeader(
                     HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
@@ -104,6 +109,12 @@ public class NetworkHttpClient extends HttpClient {
             builder.addHeader(HttpHeaders.AUTHORIZATION, request.getAuthString());
         }
 
+        for (Map.Entry<String, List<String>> entry : request.getHeaderParams().entrySet()) {
+            for (String value : entry.getValue()) {
+                builder.addHeader(entry.getKey(), value);
+            }
+        }
+
         if (method == HttpMethod.POST) {
             builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
 
@@ -122,7 +133,8 @@ public class NetworkHttpClient extends HttpClient {
             return new Response(
                 // Consume the entire HTTP response before returning the stream
                 entity == null ? null : new BufferedHttpEntity(entity).getContent(),
-                response.getStatusLine().getStatusCode()
+                response.getStatusLine().getStatusCode(),
+                response.getAllHeaders()
             );
         } catch (IOException e) {
             throw new ApiException(e.getMessage(), e);

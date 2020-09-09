@@ -23,9 +23,12 @@ import com.twilio.twiml.voice.Prompt;
 import com.twilio.twiml.voice.Queue;
 import com.twilio.twiml.voice.Record;
 import com.twilio.twiml.voice.Redirect;
+import com.twilio.twiml.voice.Refer;
 import com.twilio.twiml.voice.Reject;
 import com.twilio.twiml.voice.Say;
 import com.twilio.twiml.voice.Sms;
+import com.twilio.twiml.voice.Start;
+import com.twilio.twiml.voice.Stop;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -114,6 +117,8 @@ public class VoiceResponseTest {
                     .bargeIn(true)
                     .debug(true)
                     .actionOnEmptyResult(true)
+                    .speechModel(Gather.SpeechModel.DEFAULT)
+                    .enhanced(true)
                     .build());
 
         builder.hangup(new Hangup.Builder().build());
@@ -150,7 +155,7 @@ public class VoiceResponseTest {
 
         builder.reject(new Reject.Builder().reason(Reject.Reason.REJECTED).build());
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.DA_DK).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
 
         builder.sms(new Sms.Builder("message")
                     .to(new com.twilio.type.PhoneNumber("+15558675310"))
@@ -163,13 +168,16 @@ public class VoiceResponseTest {
         builder.pay(new Pay.Builder()
                     .input(Pay.Input.DTMF)
                     .action(URI.create("https://example.com"))
+                    .bankAccountType(Pay.BankAccountType.CONSUMER_CHECKING)
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(Pay.StatusCallbackMethod.GET)
                     .timeout(1)
                     .maxAttempts(1)
                     .securityCode(true)
                     .postalCode("postal_code")
+                    .minPostalCodeLength(1)
                     .paymentConnector("payment_connector")
+                    .paymentMethod(Pay.PaymentMethod.ACH_DEBIT)
                     .tokenType(Pay.TokenType.ONE_TIME)
                     .chargeAmount("charge_amount")
                     .currency("currency")
@@ -185,6 +193,12 @@ public class VoiceResponseTest {
                     .attempts(Promoter.listOfOne(1))
                     .build());
 
+        builder.start(new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        builder.stop(new Stop.Builder().build());
+
+        builder.refer(new Refer.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
         VoiceResponse elem = builder.build();
 
         Assert.assertEquals(
@@ -194,7 +208,7 @@ public class VoiceResponseTest {
                 "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" ringTone=\"at\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
                 "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
-                "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
+                "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
                 "<Hangup/>" +
                 "<Leave/>" +
                 "<Pause length=\"1\"/>" +
@@ -203,10 +217,13 @@ public class VoiceResponseTest {
                 "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
                 "<Reject reason=\"rejected\"/>" +
-                "<Say language=\"da-DK\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
-                "<Pay action=\"https://example.com\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" paymentConnector=\"payment_connector\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
+                "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Start action=\"https://example.com\" method=\"GET\"/>" +
+                "<Stop/>" +
+                "<Refer action=\"https://example.com\" method=\"GET\"/>" +
             "</Response>",
             elem.toXml()
         );

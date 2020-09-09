@@ -29,18 +29,19 @@ public class ExecutionReader extends Reader<Execution> {
     /**
      * Construct a new ExecutionReader.
      *
-     * @param pathFlowSid Flow Sid.
+     * @param pathFlowSid The SID of the Flow
      */
     public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
     /**
-     * Only show Executions that started on or after this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Execution resources starting on or after this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
+     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
      * @param dateCreatedFrom Only show Executions that started on or after this
-     *                        ISO8601 date-time.
+     *                        ISO 8601 date-time
      * @return this
      */
     public ExecutionReader setDateCreatedFrom(final DateTime dateCreatedFrom) {
@@ -49,11 +50,12 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     /**
-     * Only show Executions that started before this this ISO8601 date-time, given
-     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Execution resources starting before this [ISO
+     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
+     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
-     * @param dateCreatedTo Only show Executions that started before this this
-     *                      ISO8601 date-time.
+     * @param dateCreatedTo Only show Executions that started before this ISO 8601
+     *                      date-time
      * @return this
      */
     public ExecutionReader setDateCreatedTo(final DateTime dateCreatedTo) {
@@ -84,8 +86,7 @@ public class ExecutionReader extends Reader<Execution> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.STUDIO.toString(),
-            "/v1/Flows/" + this.pathFlowSid + "/Executions",
-            client.getRegion()
+            "/v1/Flows/" + this.pathFlowSid + "/Executions"
         );
 
         addQueryParams(request);
@@ -122,10 +123,7 @@ public class ExecutionReader extends Reader<Execution> {
                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -142,10 +140,7 @@ public class ExecutionReader extends Reader<Execution> {
                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.STUDIO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.STUDIO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -167,14 +162,7 @@ public class ExecutionReader extends Reader<Execution> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

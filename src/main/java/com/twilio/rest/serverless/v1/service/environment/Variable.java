@@ -44,8 +44,10 @@ public class Variable extends Resource {
     /**
      * Create a VariableReader to execute read.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
+     * @param pathServiceSid The SID of the Service to read the Variable resources
+     *                       from
+     * @param pathEnvironmentSid The SID of the environment with the Variable
+     *                           resources to read
      * @return VariableReader capable of executing the read
      */
     public static VariableReader reader(final String pathServiceSid,
@@ -56,9 +58,11 @@ public class Variable extends Resource {
     /**
      * Create a VariableFetcher to execute fetch.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Variable Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Variable resource
+     *                       from
+     * @param pathEnvironmentSid The SID of the environment with the Variable
+     *                           resource to fetch
+     * @param pathSid The SID of the Variable resource to fetch
      * @return VariableFetcher capable of executing the fetch
      */
     public static VariableFetcher fetcher(final String pathServiceSid,
@@ -70,10 +74,12 @@ public class Variable extends Resource {
     /**
      * Create a VariableCreator to execute create.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param key A string by which this Variable can be referenced.
-     * @param value A string that contains the actual value of this Variable.
+     * @param pathServiceSid The SID of the Service to create the Variable resource
+     *                       under
+     * @param pathEnvironmentSid The SID of the environment in which the variable
+     *                           exists
+     * @param key A string by which the Variable resource can be referenced
+     * @param value A string that contains the actual value of the variable
      * @return VariableCreator capable of executing the create
      */
     public static VariableCreator creator(final String pathServiceSid,
@@ -86,15 +92,33 @@ public class Variable extends Resource {
     /**
      * Create a VariableUpdater to execute update.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathEnvironmentSid Environment Sid.
-     * @param pathSid Variable Sid.
+     * @param pathServiceSid The SID of the Service to update the Variable resource
+     *                       under
+     * @param pathEnvironmentSid The SID of the environment with the Variable
+     *                           resource to update
+     * @param pathSid The SID of the Variable resource to update
      * @return VariableUpdater capable of executing the update
      */
     public static VariableUpdater updater(final String pathServiceSid,
                                           final String pathEnvironmentSid,
                                           final String pathSid) {
         return new VariableUpdater(pathServiceSid, pathEnvironmentSid, pathSid);
+    }
+
+    /**
+     * Create a VariableDeleter to execute delete.
+     *
+     * @param pathServiceSid The SID of the Service to delete the Variable resource
+     *                       from
+     * @param pathEnvironmentSid The SID of the environment with the Variables to
+     *                           delete
+     * @param pathSid The SID of the Variable resource to delete
+     * @return VariableDeleter capable of executing the delete
+     */
+    public static VariableDeleter deleter(final String pathServiceSid,
+                                          final String pathEnvironmentSid,
+                                          final String pathSid) {
+        return new VariableDeleter(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
     /**
@@ -176,81 +200,85 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The Variable Sid..
+     * Returns The unique string that identifies the Variable resource.
      *
-     * @return Variable Sid.
+     * @return The unique string that identifies the Variable resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The SID of the Account that created the Variable resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Variable resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The SID of the Service that the Variable resource is associated with.
      *
-     * @return Service Sid.
+     * @return The SID of the Service that the Variable resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Environment Sid..
+     * Returns The SID of the environment in which the variable exists.
      *
-     * @return Environment Sid.
+     * @return The SID of the environment in which the variable exists
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The A string by which this Variable can be referenced..
+     * Returns A string by which the Variable resource can be referenced.
      *
-     * @return A string by which this Variable can be referenced.
+     * @return A string by which the Variable resource can be referenced
      */
     public final String getKey() {
         return this.key;
     }
 
     /**
-     * Returns The A string that contains the actual value of this Variable..
+     * Returns A string that contains the actual value of the variable.
      *
-     * @return A string that contains the actual value of this Variable.
+     * @return A string that contains the actual value of the variable
      */
     public final String getValue() {
         return this.value;
     }
 
     /**
-     * Returns The The date that this Variable was created..
+     * Returns The ISO 8601 date and time in GMT when the Variable resource was
+     * created.
      *
-     * @return The date that this Variable was created.
+     * @return The ISO 8601 date and time in GMT when the Variable resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Variable was updated..
+     * Returns The ISO 8601 date and time in GMT when the Variable resource was last
+     * updated.
      *
-     * @return The date that this Variable was updated.
+     * @return The ISO 8601 date and time in GMT when the Variable resource was
+     *         last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Variable..
+     * Returns The absolute URL of the Variable resource.
      *
-     * @return The URL of this Variable.
+     * @return The absolute URL of the Variable resource
      */
     public final URI getUrl() {
         return this.url;

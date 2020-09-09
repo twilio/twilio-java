@@ -69,8 +69,7 @@ public class KeyUpdater extends Updater<Key> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
-            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Keys/" + this.pathSid + ".json",
-            client.getRegion()
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Keys/" + this.pathSid + ".json"
         );
 
         addPostParams(request);
@@ -83,14 +82,7 @@ public class KeyUpdater extends Updater<Key> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());

@@ -26,9 +26,10 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
     /**
      * Construct a new PublishedTrackReader.
      *
-     * @param pathRoomSid Unique Room identifier where this Track is published.
-     * @param pathParticipantSid Unique Participant identifier that publishes this
-     *                           Track.
+     * @param pathRoomSid The SID of the Room resource where the Track resources to
+     *                    read are published
+     * @param pathParticipantSid The SID of the Participant resource with the
+     *                           published tracks to read
      */
     public PublishedTrackReader(final String pathRoomSid,
                                 final String pathParticipantSid) {
@@ -59,8 +60,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks",
-            client.getRegion()
+            "/v1/Rooms/" + this.pathRoomSid + "/Participants/" + this.pathParticipantSid + "/PublishedTracks"
         );
 
         addQueryParams(request);
@@ -97,10 +97,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -117,10 +114,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
                                              final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -142,14 +136,7 @@ public class PublishedTrackReader extends Reader<PublishedTrack> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

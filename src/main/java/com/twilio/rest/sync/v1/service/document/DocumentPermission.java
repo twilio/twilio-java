@@ -41,10 +41,12 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionFetcher to execute fetch.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Document
-     *                     Permission applies.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resource to fetch
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resource to fetch
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Document Permission resource to fetch
      * @return DocumentPermissionFetcher capable of executing the fetch
      */
     public static DocumentPermissionFetcher fetcher(final String pathServiceSid,
@@ -56,10 +58,12 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionDeleter to execute delete.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Document
-     *                     Permission applies.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resource to delete
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resource to delete
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Document Permission resource to delete
      * @return DocumentPermissionDeleter capable of executing the delete
      */
     public static DocumentPermissionDeleter deleter(final String pathServiceSid,
@@ -71,8 +75,10 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionReader to execute read.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resources to read
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resources to read
      * @return DocumentPermissionReader capable of executing the read
      */
     public static DocumentPermissionReader reader(final String pathServiceSid,
@@ -83,13 +89,15 @@ public class DocumentPermission extends Resource {
     /**
      * Create a DocumentPermissionUpdater to execute update.
      *
-     * @param pathServiceSid Sync Service Instance SID or unique name.
-     * @param pathDocumentSid Sync Document SID or unique name.
-     * @param pathIdentity Identity of the user to whom the Sync Document
-     *                     Permission applies.
-     * @param read Read access.
-     * @param write Write access.
-     * @param manage Manage access.
+     * @param pathServiceSid The SID of the Sync Service with the Document
+     *                       Permission resource to update
+     * @param pathDocumentSid The SID of the Sync Document with the Document
+     *                        Permission resource to update
+     * @param pathIdentity The application-defined string that uniquely identifies
+     *                     the User's Document Permission resource to update
+     * @param read Read access
+     * @param write Write access
+     * @param manage Manage access
      * @return DocumentPermissionUpdater capable of executing the update
      */
     public static DocumentPermissionUpdater updater(final String pathServiceSid,
@@ -176,73 +184,73 @@ public class DocumentPermission extends Resource {
     }
 
     /**
-     * Returns The Twilio Account SID..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return Twilio Account SID.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Sync Service Instance SID..
+     * Returns The SID of the Sync Service that the resource is associated with.
      *
-     * @return Sync Service Instance SID.
+     * @return The SID of the Sync Service that the resource is associated with
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The Sync Document SID..
+     * Returns The Sync Document SID.
      *
-     * @return Sync Document SID.
+     * @return The Sync Document SID
      */
     public final String getDocumentSid() {
         return this.documentSid;
     }
 
     /**
-     * Returns The Identity of the user to whom the Sync Document Permission
-     * applies..
+     * Returns The identity of the user to whom the Sync Document Permission
+     * applies.
      *
-     * @return Identity of the user to whom the Sync Document Permission applies.
+     * @return The identity of the user to whom the Sync Document Permission applies
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The Read access..
+     * Returns Read access.
      *
-     * @return Read access.
+     * @return Read access
      */
     public final Boolean getRead() {
         return this.read;
     }
 
     /**
-     * Returns The Write access..
+     * Returns Write access.
      *
-     * @return Write access.
+     * @return Write access
      */
     public final Boolean getWrite() {
         return this.write;
     }
 
     /**
-     * Returns The Manage access..
+     * Returns Manage access.
      *
-     * @return Manage access.
+     * @return Manage access
      */
     public final Boolean getManage() {
         return this.manage;
     }
 
     /**
-     * Returns The URL of this Sync Document Permission..
+     * Returns The absolute URL of the Sync Document Permission resource.
      *
-     * @return URL of this Sync Document Permission.
+     * @return The absolute URL of the Sync Document Permission resource
      */
     public final URI getUrl() {
         return this.url;

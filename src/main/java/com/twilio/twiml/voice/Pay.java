@@ -114,15 +114,50 @@ public class Pay extends TwiML {
         }
     }
 
+    public enum BankAccountType {
+        CONSUMER_CHECKING("consumer-checking"),
+        CONSUMER_SAVINGS("consumer-savings"),
+        COMMERCIAL_CHECKING("commercial-checking"),
+        COMMERCIAL_SAVINGS("commercial-savings");
+
+        private final String value;
+
+        private BankAccountType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
+    public enum PaymentMethod {
+        ACH_DEBIT("ach-debit"),
+        CREDIT_CARD("credit-card");
+
+        private final String value;
+
+        private PaymentMethod(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final Pay.Input input;
     private final URI action;
+    private final Pay.BankAccountType bankAccountType;
     private final URI statusCallback;
     private final Pay.StatusCallbackMethod statusCallbackMethod;
     private final Integer timeout;
     private final Integer maxAttempts;
     private final Boolean securityCode;
     private final String postalCode;
+    private final Integer minPostalCodeLength;
     private final String paymentConnector;
+    private final Pay.PaymentMethod paymentMethod;
     private final Pay.TokenType tokenType;
     private final String chargeAmount;
     private final String currency;
@@ -144,13 +179,16 @@ public class Pay extends TwiML {
         super("Pay", b);
         this.input = b.input;
         this.action = b.action;
+        this.bankAccountType = b.bankAccountType;
         this.statusCallback = b.statusCallback;
         this.statusCallbackMethod = b.statusCallbackMethod;
         this.timeout = b.timeout;
         this.maxAttempts = b.maxAttempts;
         this.securityCode = b.securityCode;
         this.postalCode = b.postalCode;
+        this.minPostalCodeLength = b.minPostalCodeLength;
         this.paymentConnector = b.paymentConnector;
+        this.paymentMethod = b.paymentMethod;
         this.tokenType = b.tokenType;
         this.chargeAmount = b.chargeAmount;
         this.currency = b.currency;
@@ -174,6 +212,9 @@ public class Pay extends TwiML {
         if (this.getAction() != null) {
             attrs.put("action", this.getAction().toString());
         }
+        if (this.getBankAccountType() != null) {
+            attrs.put("bankAccountType", this.getBankAccountType().toString());
+        }
         if (this.getStatusCallback() != null) {
             attrs.put("statusCallback", this.getStatusCallback().toString());
         }
@@ -192,8 +233,14 @@ public class Pay extends TwiML {
         if (this.getPostalCode() != null) {
             attrs.put("postalCode", this.getPostalCode());
         }
+        if (this.getMinPostalCodeLength() != null) {
+            attrs.put("minPostalCodeLength", this.getMinPostalCodeLength().toString());
+        }
         if (this.getPaymentConnector() != null) {
             attrs.put("paymentConnector", this.getPaymentConnector());
+        }
+        if (this.getPaymentMethod() != null) {
+            attrs.put("paymentMethod", this.getPaymentMethod().toString());
         }
         if (this.getTokenType() != null) {
             attrs.put("tokenType", this.getTokenType().toString());
@@ -233,6 +280,19 @@ public class Pay extends TwiML {
      */
     public URI getAction() {
         return action;
+    }
+
+    /**
+     * Bank account type for ach transactions. If set, payment method attribute must
+     * be provided and value should be set to ach-debit. defaults to
+     * consumer-checking
+     *
+     * @return Bank account type for ach transactions. If set, payment method
+     *         attribute must be provided and value should be set to ach-debit.
+     *         defaults to consumer-checking
+     */
+    public Pay.BankAccountType getBankAccountType() {
+        return bankAccountType;
     }
 
     /**
@@ -291,12 +351,30 @@ public class Pay extends TwiML {
     }
 
     /**
+     * Prompt for minimum postal code length
+     *
+     * @return Prompt for minimum postal code length
+     */
+    public Integer getMinPostalCodeLength() {
+        return minPostalCodeLength;
+    }
+
+    /**
      * Unique name for payment connector
      *
      * @return Unique name for payment connector
      */
     public String getPaymentConnector() {
         return paymentConnector;
+    }
+
+    /**
+     * Payment method to be used. defaults to credit-card
+     *
+     * @return Payment method to be used. defaults to credit-card
+     */
+    public Pay.PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
     /**
@@ -373,13 +451,16 @@ public class Pay extends TwiML {
     public static class Builder extends TwiML.Builder<Builder> {
         private Pay.Input input;
         private URI action;
+        private Pay.BankAccountType bankAccountType;
         private URI statusCallback;
         private Pay.StatusCallbackMethod statusCallbackMethod;
         private Integer timeout;
         private Integer maxAttempts;
         private Boolean securityCode;
         private String postalCode;
+        private Integer minPostalCodeLength;
         private String paymentConnector;
+        private Pay.PaymentMethod paymentMethod;
         private Pay.TokenType tokenType;
         private String chargeAmount;
         private String currency;
@@ -408,6 +489,16 @@ public class Pay extends TwiML {
          */
         public Builder action(String action) {
             this.action = Promoter.uriFromString(action);
+            return this;
+        }
+
+        /**
+         * Bank account type for ach transactions. If set, payment method attribute must
+         * be provided and value should be set to ach-debit. defaults to
+         * consumer-checking
+         */
+        public Builder bankAccountType(Pay.BankAccountType bankAccountType) {
+            this.bankAccountType = bankAccountType;
             return this;
         }
 
@@ -468,10 +559,26 @@ public class Pay extends TwiML {
         }
 
         /**
+         * Prompt for minimum postal code length
+         */
+        public Builder minPostalCodeLength(Integer minPostalCodeLength) {
+            this.minPostalCodeLength = minPostalCodeLength;
+            return this;
+        }
+
+        /**
          * Unique name for payment connector
          */
         public Builder paymentConnector(String paymentConnector) {
             this.paymentConnector = paymentConnector;
+            return this;
+        }
+
+        /**
+         * Payment method to be used. defaults to credit-card
+         */
+        public Builder paymentMethod(Pay.PaymentMethod paymentMethod) {
+            this.paymentMethod = paymentMethod;
             return this;
         }
 
@@ -537,6 +644,14 @@ public class Pay extends TwiML {
          */
         public Builder prompt(Prompt prompt) {
             this.children.add(prompt);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Parameter>} element
+         */
+        public Builder parameter(Parameter parameter) {
+            this.children.add(parameter);
             return this;
         }
 

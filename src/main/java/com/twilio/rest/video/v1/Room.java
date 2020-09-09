@@ -65,6 +65,7 @@ public class Room extends Resource {
     }
 
     public enum RoomType {
+        PEER_TO_PEER_BASIC("peer-to-peer-basic"),
         PEER_TO_PEER("peer-to-peer"),
         GROUP("group"),
         GROUP_SMALL("group-small");
@@ -118,7 +119,7 @@ public class Room extends Resource {
     /**
      * Create a RoomFetcher to execute fetch.
      *
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
+     * @param pathSid The SID that identifies the resource to fetch
      * @return RoomFetcher capable of executing the fetch
      */
     public static RoomFetcher fetcher(final String pathSid) {
@@ -146,8 +147,8 @@ public class Room extends Resource {
     /**
      * Create a RoomUpdater to execute update.
      *
-     * @param pathSid The Room Sid or name that uniquely identifies this resource.
-     * @param status Set to completed to end the Room.
+     * @param pathSid The SID that identifies the resource to update
+     * @param status The new status of the resource
      * @return RoomUpdater capable of executing the update
      */
     public static RoomUpdater updater(final String pathSid,
@@ -269,170 +270,164 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The A system-generated 34-character string that uniquely identifies
-     * this resource..
+     * Returns The unique string that identifies the resource.
      *
-     * @return A system-generated 34-character string that uniquely identifies this
-     *         resource.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The A string representing the status of the Room..
+     * Returns The status of the room.
      *
-     * @return A string representing the status of the Room.
+     * @return The status of the room
      */
     public final Room.RoomStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The The date that this resource was created, given as a UTC ISO 8601
-     * Timestamp..
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The date that this resource was created, given as a UTC ISO 8601
-     *         Timestamp.
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this resource was last updated, given as a UTC ISO
-     * 8601 Timestamp..
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The date that this resource was last updated, given as a UTC ISO
-     *         8601 Timestamp.
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID of the Account associated with this Room..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The unique ID of the Account associated with this Room.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The Enable Twilio's Network Traversal TURN service..
+     * Returns Enable Twilio's Network Traversal TURN service.
      *
-     * @return Enable Twilio's Network Traversal TURN service.
+     * @return Enable Twilio's Network Traversal TURN service
      */
     public final Boolean getEnableTurn() {
         return this.enableTurn;
     }
 
     /**
-     * Returns The A developer-supplied Name of the Room..
+     * Returns An application-defined string that uniquely identifies the resource.
      *
-     * @return A developer-supplied Name of the Room.
+     * @return An application-defined string that uniquely identifies the resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The A URL that Twilio sends asynchronous webhook requests to on every
-     * Room event..
+     * Returns The URL to send status information to your application.
      *
-     * @return A URL that Twilio sends asynchronous webhook requests to on every
-     *         Room event.
+     * @return The URL to send status information to your application
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The HTTP method Twilio should use when requesting the above URL..
+     * Returns The HTTP method we use to call status_callback.
      *
-     * @return HTTP method Twilio should use when requesting the above URL.
+     * @return The HTTP method we use to call status_callback
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The The end time of the Room, given as a UTC ISO 8601 Timestamp..
+     * Returns The UTC end time of the room in UTC ISO 8601 format.
      *
-     * @return The end time of the Room, given as a UTC ISO 8601 Timestamp.
+     * @return The UTC end time of the room in UTC ISO 8601 format
      */
     public final DateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The The duration of the Room in seconds..
+     * Returns The duration of the room in seconds.
      *
-     * @return The duration of the Room in seconds.
+     * @return The duration of the room in seconds
      */
     public final Integer getDuration() {
         return this.duration;
     }
 
     /**
-     * Returns The Type of Room, either peer-to-peer, group-small or group..
+     * Returns The type of room.
      *
-     * @return Type of Room, either peer-to-peer, group-small or group.
+     * @return The type of room
      */
     public final Room.RoomType getType() {
         return this.type;
     }
 
     /**
-     * Returns The Maximum number of concurrent Participants allowed in the Room..
+     * Returns The maximum number of concurrent Participants allowed in the room.
      *
-     * @return Maximum number of concurrent Participants allowed in the Room.
+     * @return The maximum number of concurrent Participants allowed in the room
      */
     public final Integer getMaxParticipants() {
         return this.maxParticipants;
     }
 
     /**
-     * Returns The Start recording when Participants connect..
+     * Returns Whether to start recording when Participants connect.
      *
-     * @return Start recording when Participants connect.
+     * @return Whether to start recording when Participants connect
      */
     public final Boolean getRecordParticipantsOnConnect() {
         return this.recordParticipantsOnConnect;
     }
 
     /**
-     * Returns The The video_codecs.
+     * Returns An array of the video codecs that are supported when publishing a
+     * track in the room.
      *
-     * @return The video_codecs
+     * @return An array of the video codecs that are supported when publishing a
+     *         track in the room
      */
     public final List<Room.VideoCodec> getVideoCodecs() {
         return this.videoCodecs;
     }
 
     /**
-     * Returns The Region for the media server in Group Rooms..
+     * Returns The region for the media server in Group Rooms.
      *
-     * @return Region for the media server in Group Rooms.
+     * @return The region for the media server in Group Rooms
      */
     public final String getMediaRegion() {
         return this.mediaRegion;
     }
 
     /**
-     * Returns The The absolute URL for this resource..
+     * Returns The absolute URL of the resource.
      *
-     * @return The absolute URL for this resource.
+     * @return The absolute URL of the resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The The links.
+     * Returns The URLs of related resources.
      *
-     * @return The links
+     * @return The URLs of related resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

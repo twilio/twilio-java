@@ -39,7 +39,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * The [ISO country code](http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
+     * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
      * the phone number to fetch. This is used to specify the country when the phone
      * number is provided in a national format..
      *
@@ -87,7 +87,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * `unique_name` of an Add-on that is installed on your account. You can specify
      * multiple instances of this parameter to invoke multiple Add-ons. For more
      * information about  Add-ons, see the [Add-ons
-     * documentation](https://www.twilio.com/docs/api/addons)..
+     * documentation](https://www.twilio.com/docs/add-ons)..
      *
      * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
@@ -102,7 +102,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * `unique_name` of an Add-on that is installed on your account. You can specify
      * multiple instances of this parameter to invoke multiple Add-ons. For more
      * information about  Add-ons, see the [Add-ons
-     * documentation](https://www.twilio.com/docs/api/addons)..
+     * documentation](https://www.twilio.com/docs/add-ons)..
      *
      * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
@@ -135,8 +135,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.LOOKUPS.toString(),
-            "/v1/PhoneNumbers/" + this.pathPhoneNumber + "",
-            client.getRegion()
+            "/v1/PhoneNumbers/" + this.pathPhoneNumber.encode("utf-8") + ""
         );
 
         addQueryParams(request);
@@ -149,14 +148,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());

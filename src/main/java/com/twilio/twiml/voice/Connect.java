@@ -123,6 +123,14 @@ public class Connect extends TwiML {
         }
 
         /**
+         * Add a child {@code <Stream>} element
+         */
+        public Builder stream(Stream stream) {
+            this.children.add(stream);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Connect>} element
          */
         public Connect build() {

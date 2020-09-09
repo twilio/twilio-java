@@ -21,9 +21,9 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
     private String uiVersion;
 
     /**
-     * Pinned UI version.
+     * The Pinned UI version of the Configuration resource to fetch..
      *
-     * @param uiVersion Pinned UI version
+     * @param uiVersion The Pinned UI version of the Configuration resource to fetch
      * @return this
      */
     public ConfigurationFetcher setUiVersion(final String uiVersion) {
@@ -43,8 +43,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.FLEXAPI.toString(),
-            "/v1/Configuration",
-            client.getRegion()
+            "/v1/Configuration"
         );
 
         addQueryParams(request);
@@ -57,14 +56,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Configuration.fromJson(response.getStream(), client.getObjectMapper());

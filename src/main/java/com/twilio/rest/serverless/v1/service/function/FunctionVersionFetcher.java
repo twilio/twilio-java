@@ -30,9 +30,11 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
     /**
      * Construct a new FunctionVersionFetcher.
      *
-     * @param pathServiceSid Service Sid.
-     * @param pathFunctionSid Function Sid.
-     * @param pathSid Function Version Sid.
+     * @param pathServiceSid The SID of the Service to fetch the Function Version
+     *                       resource from
+     * @param pathFunctionSid The SID of the function that is the parent of the
+     *                        Function Version resource to fetch
+     * @param pathSid The SID that identifies the Function Version resource to fetch
      */
     public FunctionVersionFetcher(final String pathServiceSid,
                                   final String pathFunctionSid,
@@ -54,8 +56,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Functions/" + this.pathFunctionSid + "/Versions/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -67,14 +68,7 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return FunctionVersion.fromJson(response.getStream(), client.getObjectMapper());

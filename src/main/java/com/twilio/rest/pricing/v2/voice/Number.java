@@ -125,7 +125,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The destination phone number, in E.164 format.
+     * Returns The destination phone number, in E.164 format.
      *
      * @return The destination phone number, in E.164 format
      */
@@ -134,7 +134,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The origination phone number, in E.164 format.
+     * Returns The origination phone number, in E.164 format.
      *
      * @return The origination phone number, in E.164 format
      */
@@ -143,7 +143,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The name of the country.
+     * Returns The name of the country.
      *
      * @return The name of the country
      */
@@ -152,7 +152,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The ISO country code.
+     * Returns The ISO country code.
      *
      * @return The ISO country code
      */
@@ -161,7 +161,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The list of OutboundCallPriceWithOrigin records.
+     * Returns The list of OutboundCallPriceWithOrigin records.
      *
      * @return The list of OutboundCallPriceWithOrigin records
      */
@@ -170,7 +170,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The InboundCallPrice record.
+     * Returns The InboundCallPrice record.
      *
      * @return The InboundCallPrice record
      */
@@ -179,8 +179,8 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The currency in which prices are measured, in ISO 4127 format
-     * (e.g. usd, eur, jpy).
+     * Returns The currency in which prices are measured, in ISO 4127 format (e.g.
+     * usd, eur, jpy).
      *
      * @return The currency in which prices are measured, in ISO 4127 format (e.g.
      *         usd, eur, jpy)
@@ -190,7 +190,7 @@ public class Number extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the resource.
+     * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
      */

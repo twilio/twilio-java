@@ -29,6 +29,7 @@ public class DocumentUpdater extends Updater<Document> {
     private final String pathServiceSid;
     private final String pathSid;
     private final Map<String, Object> data;
+    private String ifMatch;
 
     /**
      * Construct a new DocumentUpdater.
@@ -46,6 +47,17 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public DocumentUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -57,11 +69,11 @@ public class DocumentUpdater extends Updater<Document> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + "",
-            client.getRegion()
+            "/Sync/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -71,17 +83,21 @@ public class DocumentUpdater extends Updater<Document> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Document.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

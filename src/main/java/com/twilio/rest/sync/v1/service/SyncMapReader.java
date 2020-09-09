@@ -29,7 +29,8 @@ public class SyncMapReader extends Reader<SyncMap> {
     /**
      * Construct a new SyncMapReader.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid The SID of the Sync Service with the Sync Map
+     *                       resources to read
      */
     public SyncMapReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -58,8 +59,7 @@ public class SyncMapReader extends Reader<SyncMap> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.SYNC.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Maps",
-            client.getRegion()
+            "/v1/Services/" + this.pathServiceSid + "/Maps"
         );
 
         addQueryParams(request);
@@ -96,10 +96,7 @@ public class SyncMapReader extends Reader<SyncMap> {
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -116,10 +113,7 @@ public class SyncMapReader extends Reader<SyncMap> {
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.SYNC.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.SYNC.toString())
         );
         return pageForRequest(client, request);
     }
@@ -141,14 +135,7 @@ public class SyncMapReader extends Reader<SyncMap> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

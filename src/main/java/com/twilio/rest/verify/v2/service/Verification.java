@@ -31,20 +31,18 @@ import org.joda.time.DateTime;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Verification extends Resource {
-    private static final long serialVersionUID = 203139503984797L;
+    private static final long serialVersionUID = 216517595769072L;
 
     public enum Channel {
         SMS("sms"),
-        CALL("call");
+        CALL("call"),
+        EMAIL("email");
 
         private final String value;
 
@@ -97,7 +95,7 @@ public class Verification extends Resource {
      *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
-     * @param to The phone number to verify
+     * @param to The phone number or email to verify
      * @param channel The verification method to use
      * @return VerificationCreator capable of executing the create
      */
@@ -176,13 +174,14 @@ public class Verification extends Resource {
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
-    private final com.twilio.type.PhoneNumber to;
+    private final String to;
     private final Verification.Channel channel;
     private final String status;
     private final Boolean valid;
     private final Map<String, Object> lookup;
     private final String amount;
     private final String payee;
+    private final List<Map<String, Object>> sendCodeAttempts;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -195,7 +194,7 @@ public class Verification extends Resource {
                          @JsonProperty("account_sid")
                          final String accountSid,
                          @JsonProperty("to")
-                         final com.twilio.type.PhoneNumber to,
+                         final String to,
                          @JsonProperty("channel")
                          final Verification.Channel channel,
                          @JsonProperty("status")
@@ -208,6 +207,8 @@ public class Verification extends Resource {
                          final String amount,
                          @JsonProperty("payee")
                          final String payee,
+                         @JsonProperty("send_code_attempts")
+                         final List<Map<String, Object>> sendCodeAttempts,
                          @JsonProperty("date_created")
                          final String dateCreated,
                          @JsonProperty("date_updated")
@@ -224,13 +225,14 @@ public class Verification extends Resource {
         this.lookup = lookup;
         this.amount = amount;
         this.payee = payee;
+        this.sendCodeAttempts = sendCodeAttempts;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
     }
 
     /**
-     * Returns The The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource.
      *
      * @return The unique string that identifies the resource
      */
@@ -239,7 +241,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Service that the resource is associated with.
+     * Returns The SID of the Service that the resource is associated with.
      *
      * @return The SID of the Service that the resource is associated with
      */
@@ -248,7 +250,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The SID of the Account that created the resource.
+     * Returns The SID of the Account that created the resource.
      *
      * @return The SID of the Account that created the resource
      */
@@ -257,25 +259,25 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The phone number being verified.
+     * Returns The phone number or email being verified.
      *
-     * @return The phone number being verified
+     * @return The phone number or email being verified
      */
-    public final com.twilio.type.PhoneNumber getTo() {
+    public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The The verification method to use.
+     * Returns The verification method used..
      *
-     * @return The verification method to use
+     * @return The verification method used.
      */
     public final Verification.Channel getChannel() {
         return this.channel;
     }
 
     /**
-     * Returns The The status of the verification resource.
+     * Returns The status of the verification resource.
      *
      * @return The status of the verification resource
      */
@@ -284,7 +286,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The Whether the verification was successful.
+     * Returns Whether the verification was successful.
      *
      * @return Whether the verification was successful
      */
@@ -293,7 +295,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The Information about the phone number being verified.
+     * Returns Information about the phone number being verified.
      *
      * @return Information about the phone number being verified
      */
@@ -302,7 +304,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The amount of the associated PSD2 compliant transaction..
+     * Returns The amount of the associated PSD2 compliant transaction..
      *
      * @return The amount of the associated PSD2 compliant transaction.
      */
@@ -311,7 +313,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The payee of the associated PSD2 compliant transaction.
+     * Returns The payee of the associated PSD2 compliant transaction.
      *
      * @return The payee of the associated PSD2 compliant transaction
      */
@@ -320,7 +322,16 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was created.
+     * Returns An array of verification attempt objects..
+     *
+     * @return An array of verification attempt objects.
+     */
+    public final List<Map<String, Object>> getSendCodeAttempts() {
+        return this.sendCodeAttempts;
+    }
+
+    /**
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
@@ -329,8 +340,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The RFC 2822 date and time in GMT when the resource was last
-     * updated.
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
@@ -339,7 +349,7 @@ public class Verification extends Resource {
     }
 
     /**
-     * Returns The The absolute URL of the Verification resource.
+     * Returns The absolute URL of the Verification resource.
      *
      * @return The absolute URL of the Verification resource
      */
@@ -369,6 +379,7 @@ public class Verification extends Resource {
                Objects.equals(lookup, other.lookup) &&
                Objects.equals(amount, other.amount) &&
                Objects.equals(payee, other.payee) &&
+               Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
@@ -386,6 +397,7 @@ public class Verification extends Resource {
                             lookup,
                             amount,
                             payee,
+                            sendCodeAttempts,
                             dateCreated,
                             dateUpdated,
                             url);
@@ -404,6 +416,7 @@ public class Verification extends Resource {
                           .add("lookup", lookup)
                           .add("amount", amount)
                           .add("payee", payee)
+                          .add("sendCodeAttempts", sendCodeAttempts)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

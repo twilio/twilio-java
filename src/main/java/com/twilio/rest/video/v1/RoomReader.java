@@ -28,10 +28,10 @@ public class RoomReader extends Reader<Room> {
     private DateTime dateCreatedBefore;
 
     /**
-     * Only show Rooms with the given status: `in-progress` (default), or
+     * Read only the rooms with this status. Can be: `in-progress` (default) or
      * `completed`.
      *
-     * @param status Only show Rooms with the given status.
+     * @param status Read only the rooms with this status
      * @return this
      */
     public RoomReader setStatus(final Room.RoomStatus status) {
@@ -40,9 +40,9 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * Only show Rooms with the provided Name..
+     * Read only rooms with the this `unique_name`..
      *
-     * @param uniqueName Only show Rooms with the provided Name.
+     * @param uniqueName Read only rooms with this unique_name
      * @return this
      */
     public RoomReader setUniqueName(final String uniqueName) {
@@ -51,10 +51,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * Only show Rooms that started on or after this date, given as `YYYY-MM-DD`..
+     * Read only rooms that started on or after this date, given as `YYYY-MM-DD`..
      *
-     * @param dateCreatedAfter Only show Rooms that started on or after this date,
-     *                         given as YYYY-MM-DD.
+     * @param dateCreatedAfter Read only rooms that started on or after this date,
+     *                         given as YYYY-MM-DD
      * @return this
      */
     public RoomReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
@@ -63,10 +63,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * Only show Rooms that started before this date, given as `YYYY-MM-DD`..
+     * Read only rooms that started before this date, given as `YYYY-MM-DD`..
      *
-     * @param dateCreatedBefore Only show Rooms that started before this date,
-     *                          given as YYYY-MM-DD.
+     * @param dateCreatedBefore Read only rooms that started before this date,
+     *                          given as YYYY-MM-DD
      * @return this
      */
     public RoomReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
@@ -97,8 +97,7 @@ public class RoomReader extends Reader<Room> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VIDEO.toString(),
-            "/v1/Rooms",
-            client.getRegion()
+            "/v1/Rooms"
         );
 
         addQueryParams(request);
@@ -135,10 +134,7 @@ public class RoomReader extends Reader<Room> {
                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getNextPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -155,10 +151,7 @@ public class RoomReader extends Reader<Room> {
                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(
-                Domains.VIDEO.toString(),
-                client.getRegion()
-            )
+            page.getPreviousPageUrl(Domains.VIDEO.toString())
         );
         return pageForRequest(client, request);
     }
@@ -180,14 +173,7 @@ public class RoomReader extends Reader<Room> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+           throw new ApiException(restException);
         }
 
         return Page.fromJson(

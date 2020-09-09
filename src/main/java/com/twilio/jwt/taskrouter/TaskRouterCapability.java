@@ -1,9 +1,9 @@
 package com.twilio.jwt.taskrouter;
 
-import com.google.common.collect.Lists;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +57,7 @@ public class TaskRouterCapability extends Jwt {
             payload.put("taskqueue_sid", this.channelId);
         }
 
-        List<Policy> payloadPolicies = Lists.newArrayList(this.policies);
+        List<Policy> payloadPolicies = new ArrayList<>(this.policies);
         payloadPolicies.addAll(PolicyUtils.defaultEventBridgePolicies(accountSid, channelId));
         payload.put("policies", payloadPolicies);
         return payload;
@@ -71,15 +71,15 @@ public class TaskRouterCapability extends Jwt {
         private String channelId;
         private String friendlyName;
         private int ttl = 3600;
-        private List<Policy> policies = Lists.newArrayList();
+        private List<Policy> policies = new ArrayList<>();
 
         /**
          * Create a new builder for a TaskRouter Capability.
-         * 
-         * @param  accountSid account to use
-         * @param  authToken auth token for account
-         * @param  workspaceSid workspace sid to use
-         * @param  channelId channel ID to use
+         *
+         * @param accountSid   account to use
+         * @param authToken    auth token for account
+         * @param workspaceSid workspace sid to use
+         * @param channelId    channel ID to use
          */
         public Builder(String accountSid, String authToken, String workspaceSid, String channelId) {
             this.accountSid = accountSid;

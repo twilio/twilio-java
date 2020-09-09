@@ -23,8 +23,7 @@ public class RecordingDeleter extends Deleter<Recording> {
     /**
      * Construct a new RecordingDeleter.
      *
-     * @param pathSid The Recording Sid that uniquely identifies the Recording to
-     *                delete.
+     * @param pathSid The SID that identifies the resource to delete
      */
     public RecordingDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -41,8 +40,7 @@ public class RecordingDeleter extends Deleter<Recording> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.VIDEO.toString(),
-            "/v1/Recordings/" + this.pathSid + "",
-            client.getRegion()
+            "/v1/Recordings/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -54,14 +52,7 @@ public class RecordingDeleter extends Deleter<Recording> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return response.getStatusCode() == 204;

@@ -39,8 +39,9 @@ public class WorkerChannel extends Resource {
     /**
      * Create a WorkerChannelReader to execute read.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannels to
+     *                         read
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannels to read
      * @return WorkerChannelReader capable of executing the read
      */
     public static WorkerChannelReader reader(final String pathWorkspaceSid,
@@ -51,9 +52,10 @@ public class WorkerChannel extends Resource {
     /**
      * Create a WorkerChannelFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         fetch
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to fetch
+     * @param pathSid The SID of the to fetch
      * @return WorkerChannelFetcher capable of executing the fetch
      */
     public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid,
@@ -65,9 +67,10 @@ public class WorkerChannel extends Resource {
     /**
      * Create a WorkerChannelUpdater to execute update.
      *
-     * @param pathWorkspaceSid The workspace_sid
-     * @param pathWorkerSid The worker_sid
-     * @param pathSid The sid
+     * @param pathWorkspaceSid The SID of the Workspace with the WorkerChannel to
+     *                         update
+     * @param pathWorkerSid The SID of the Worker with the WorkerChannel to update
+     * @param pathSid The SID of the WorkerChannel to update
      * @return WorkerChannelUpdater capable of executing the update
      */
     public static WorkerChannelUpdater updater(final String pathWorkspaceSid,
@@ -171,123 +174,118 @@ public class WorkerChannel extends Resource {
     }
 
     /**
-     * Returns The The unique ID of the Account that owns this WorkerChannel..
+     * Returns The SID of the Account that created the resource.
      *
-     * @return The unique ID of the Account that owns this WorkerChannel.
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The The total number of tasks assigned to Worker for this TaskChannel
-     * type..
+     * Returns The total number of Tasks assigned to Worker for the TaskChannel
+     * type.
      *
-     * @return The total number of tasks assigned to Worker for this TaskChannel
-     *         type.
+     * @return The total number of Tasks assigned to Worker for the TaskChannel type
      */
     public final Integer getAssignedTasks() {
         return this.assignedTasks;
     }
 
     /**
-     * Returns The Boolean value indicating whether the worker should receive Tasks
-     * of this TaskChannel type..
+     * Returns Whether the Worker should receive Tasks of the TaskChannel type.
      *
-     * @return Boolean value indicating whether the worker should receive Tasks of
-     *         this TaskChannel type.
+     * @return Whether the Worker should receive Tasks of the TaskChannel type
      */
     public final Boolean getAvailable() {
         return this.available;
     }
 
     /**
-     * Returns The The current available capacity between 0 to 100 for this
-     * TaskChannel..
+     * Returns The current available capacity between 0 to 100 for the TaskChannel.
      *
-     * @return The current available capacity between 0 to 100 for this TaskChannel.
+     * @return The current available capacity between 0 to 100 for the TaskChannel
      */
     public final Integer getAvailableCapacityPercentage() {
         return this.availableCapacityPercentage;
     }
 
     /**
-     * Returns The The current configured capacity for the WorkerChannel..
+     * Returns The current configured capacity for the WorkerChannel.
      *
-     * @return The current configured capacity for the WorkerChannel.
+     * @return The current configured capacity for the WorkerChannel
      */
     public final Integer getConfiguredCapacity() {
         return this.configuredCapacity;
     }
 
     /**
-     * Returns The The date this Activity was created..
+     * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
-     * @return The date this Activity was created.
+     * @return The RFC 2822 date and time in GMT when the resource was created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date this Activity was updated..
+     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
      *
-     * @return The date this Activity was updated.
+     * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The unique ID for this WorkerChannel..
+     * Returns The unique string that identifies the resource.
      *
-     * @return The unique ID for this WorkerChannel.
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The The unique ID of the TaskChannel..
+     * Returns The SID of the TaskChannel.
      *
-     * @return The unique ID of the TaskChannel.
+     * @return The SID of the TaskChannel
      */
     public final String getTaskChannelSid() {
         return this.taskChannelSid;
     }
 
     /**
-     * Returns The The unique name of TaskChannel, such as 'voice', 'sms', etc..
+     * Returns The unique name of the TaskChannel, such as 'voice' or 'sms'.
      *
-     * @return The unique name of TaskChannel, such as 'voice', 'sms', etc.
+     * @return The unique name of the TaskChannel, such as 'voice' or 'sms'
      */
     public final String getTaskChannelUniqueName() {
         return this.taskChannelUniqueName;
     }
 
     /**
-     * Returns The The unique ID of the Worker that this WorkerChannel belongs to..
+     * Returns The SID of the Worker that contains the WorkerChannel.
      *
-     * @return The unique ID of the Worker that this WorkerChannel belongs to.
+     * @return The SID of the Worker that contains the WorkerChannel
      */
     public final String getWorkerSid() {
         return this.workerSid;
     }
 
     /**
-     * Returns The The unique ID of the Workspace that this WorkerChannel belongs
-     * to..
+     * Returns The SID of the Workspace that contains the WorkerChannel.
      *
-     * @return The unique ID of the Workspace that this WorkerChannel belongs to.
+     * @return The SID of the Workspace that contains the WorkerChannel
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns The The url.
+     * Returns The absolute URL of the WorkerChannel resource.
      *
-     * @return The url
+     * @return The absolute URL of the WorkerChannel resource
      */
     public final URI getUrl() {
         return this.url;

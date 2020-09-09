@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Service extends Resource {
-    private static final long serialVersionUID = 259476893733626L;
+    private static final long serialVersionUID = 231742675028057L;
 
     /**
      * Create a ServiceReader to execute read.
@@ -53,7 +53,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceFetcher to execute fetch.
      *
-     * @param pathSid Serverless Service Sid or unique name.
+     * @param pathSid The SID of the Service resource to fetch
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -61,10 +61,21 @@ public class Service extends Resource {
     }
 
     /**
+     * Create a ServiceDeleter to execute delete.
+     *
+     * @param pathSid The SID of the Service resource to delete
+     * @return ServiceDeleter capable of executing the delete
+     */
+    public static ServiceDeleter deleter(final String pathSid) {
+        return new ServiceDeleter(pathSid);
+    }
+
+    /**
      * Create a ServiceCreator to execute create.
      *
-     * @param uniqueName A unique, addressable name of this Service.
-     * @param friendlyName A human-readable description of this Service.
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   Service resource
+     * @param friendlyName A string to describe the Service resource
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String uniqueName,
@@ -75,7 +86,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      *
-     * @param pathSid Service Sid.
+     * @param pathSid The SID of the Service resource to update
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -124,6 +135,7 @@ public class Service extends Resource {
     private final String friendlyName;
     private final String uniqueName;
     private final Boolean includeCredentials;
+    private final Boolean uiEditable;
     private final DateTime dateCreated;
     private final DateTime dateUpdated;
     private final URI url;
@@ -140,6 +152,8 @@ public class Service extends Resource {
                     final String uniqueName,
                     @JsonProperty("include_credentials")
                     final Boolean includeCredentials,
+                    @JsonProperty("ui_editable")
+                    final Boolean uiEditable,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -153,6 +167,7 @@ public class Service extends Resource {
         this.friendlyName = friendlyName;
         this.uniqueName = uniqueName;
         this.includeCredentials = includeCredentials;
+        this.uiEditable = uiEditable;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -160,83 +175,100 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The Service Sid..
+     * Returns The unique string that identifies the Service resource.
      *
-     * @return Service Sid.
+     * @return The unique string that identifies the Service resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The Account Sid..
+     * Returns The SID of the Account that created the Service resource.
      *
-     * @return Account Sid.
+     * @return The SID of the Account that created the Service resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The A human-readable description of this Service..
+     * Returns The string that you assigned to describe the Service resource.
      *
-     * @return A human-readable description of this Service.
+     * @return The string that you assigned to describe the Service resource
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The A unique, URL-friendly name of this Service..
+     * Returns An application-defined string that uniquely identifies the Service
+     * resource.
      *
-     * @return A unique, URL-friendly name of this Service.
+     * @return An application-defined string that uniquely identifies the Service
+     *         resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The Whether to inject Account credentials into a Function invocation
-     * context..
+     * Returns Whether to inject Account credentials into a function invocation
+     * context.
      *
-     * @return Whether to inject Account credentials into a Function invocation
-     *         context.
+     * @return Whether to inject Account credentials into a function invocation
+     *         context
      */
     public final Boolean getIncludeCredentials() {
         return this.includeCredentials;
     }
 
     /**
-     * Returns The The date that this Service was created..
+     * Returns Whether the Service's properties and subresources can be edited via
+     * the UI.
      *
-     * @return The date that this Service was created.
+     * @return Whether the Service's properties and subresources can be edited via
+     *         the UI
+     */
+    public final Boolean getUiEditable() {
+        return this.uiEditable;
+    }
+
+    /**
+     * Returns The ISO 8601 date and time in GMT when the Service resource was
+     * created.
+     *
+     * @return The ISO 8601 date and time in GMT when the Service resource was
+     *         created
      */
     public final DateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The The date that this Service was updated..
+     * Returns The ISO 8601 date and time in GMT when the Service resource was last
+     * updated.
      *
-     * @return The date that this Service was updated.
+     * @return The ISO 8601 date and time in GMT when the Service resource was last
+     *         updated
      */
     public final DateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The The URL of this Service..
+     * Returns The absolute URL of the Service resource.
      *
-     * @return The URL of this Service.
+     * @return The absolute URL of the Service resource
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The Nested resource URLs..
+     * Returns The URLs of the Service's nested resources.
      *
-     * @return Nested resource URLs.
+     * @return The URLs of the Service's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -259,6 +291,7 @@ public class Service extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(includeCredentials, other.includeCredentials) &&
+               Objects.equals(uiEditable, other.uiEditable) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -272,6 +305,7 @@ public class Service extends Resource {
                             friendlyName,
                             uniqueName,
                             includeCredentials,
+                            uiEditable,
                             dateCreated,
                             dateUpdated,
                             url,
@@ -286,6 +320,7 @@ public class Service extends Resource {
                           .add("friendlyName", friendlyName)
                           .add("uniqueName", uniqueName)
                           .add("includeCredentials", includeCredentials)
+                          .add("uiEditable", uiEditable)
                           .add("dateCreated", dateCreated)
                           .add("dateUpdated", dateUpdated)
                           .add("url", url)

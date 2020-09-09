@@ -27,7 +27,7 @@ public class InviteFetcher extends Fetcher<Invite> {
      *
      * @param pathServiceSid The SID of the Service to fetch the resource from
      * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The SID of the Invite resource to fetch
      */
     public InviteFetcher(final String pathServiceSid,
                          final String pathChannelSid,
@@ -49,8 +49,7 @@ public class InviteFetcher extends Fetcher<Invite> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.CHAT.toString(),
-            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + "",
-            client.getRegion()
+            "/v2/Services/" + this.pathServiceSid + "/Channels/" + this.pathChannelSid + "/Invites/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
@@ -62,14 +61,7 @@ public class InviteFetcher extends Fetcher<Invite> {
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
-
-            throw new ApiException(
-                restException.getMessage(),
-                restException.getCode(),
-                restException.getMoreInfo(),
-                restException.getStatus(),
-                null
-            );
+            throw new ApiException(restException);
         }
 
         return Invite.fromJson(response.getStream(), client.getObjectMapper());

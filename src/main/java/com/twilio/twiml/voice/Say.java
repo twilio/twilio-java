@@ -297,31 +297,11 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <break>} element
-         *
-         * @deprecated use {@link #break_(SsmlBreak)}.
-         */
-        @Deprecated
-        public Builder ssmlBreak(SsmlBreak ssmlBreak) {
-            return break_(ssmlBreak);
-        }
-
-        /**
          * Add a child {@code <emphasis>} element
          */
         public Builder emphasis(SsmlEmphasis ssmlEmphasis) {
             this.children.add(ssmlEmphasis);
             return this;
-        }
-
-        /**
-         * Add a child {@code <emphasis>} element
-         *
-         * @deprecated use {@link #emphasis(SsmlEmphasis)}.
-         */
-        @Deprecated
-        public Builder ssmlEmphasis(SsmlEmphasis ssmlEmphasis) {
-            return emphasis(ssmlEmphasis);
         }
 
         /**
@@ -333,31 +313,11 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <lang>} element
-         *
-         * @deprecated use {@link #lang(SsmlLang)}.
-         */
-        @Deprecated
-        public Builder ssmlLang(SsmlLang ssmlLang) {
-            return lang(ssmlLang);
-        }
-
-        /**
          * Add a child {@code <p>} element
          */
         public Builder p(SsmlP ssmlP) {
             this.children.add(ssmlP);
             return this;
-        }
-
-        /**
-         * Add a child {@code <p>} element
-         *
-         * @deprecated use {@link #p(SsmlP)}.
-         */
-        @Deprecated
-        public Builder ssmlP(SsmlP ssmlP) {
-            return p(ssmlP);
         }
 
         /**
@@ -369,31 +329,11 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <phoneme>} element
-         *
-         * @deprecated use {@link #phoneme(SsmlPhoneme)}.
-         */
-        @Deprecated
-        public Builder ssmlPhoneme(SsmlPhoneme ssmlPhoneme) {
-            return phoneme(ssmlPhoneme);
-        }
-
-        /**
          * Add a child {@code <prosody>} element
          */
         public Builder prosody(SsmlProsody ssmlProsody) {
             this.children.add(ssmlProsody);
             return this;
-        }
-
-        /**
-         * Add a child {@code <prosody>} element
-         *
-         * @deprecated use {@link #prosody(SsmlProsody)}.
-         */
-        @Deprecated
-        public Builder ssmlProsody(SsmlProsody ssmlProsody) {
-            return prosody(ssmlProsody);
         }
 
         /**
@@ -405,31 +345,11 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <s>} element
-         *
-         * @deprecated use {@link #s(SsmlS)}.
-         */
-        @Deprecated
-        public Builder ssmlS(SsmlS ssmlS) {
-            return s(ssmlS);
-        }
-
-        /**
          * Add a child {@code <say-as>} element
          */
         public Builder sayAs(SsmlSayAs ssmlSayAs) {
             this.children.add(ssmlSayAs);
             return this;
-        }
-
-        /**
-         * Add a child {@code <say-as>} element
-         *
-         * @deprecated use {@link #sayAs(SsmlSayAs)}.
-         */
-        @Deprecated
-        public Builder ssmlSayAs(SsmlSayAs ssmlSayAs) {
-            return sayAs(ssmlSayAs);
         }
 
         /**
@@ -441,31 +361,11 @@ public class Say extends TwiML {
         }
 
         /**
-         * Add a child {@code <sub>} element
-         *
-         * @deprecated use {@link #sub(SsmlSub)}.
-         */
-        @Deprecated
-        public Builder ssmlSub(SsmlSub ssmlSub) {
-            return sub(ssmlSub);
-        }
-
-        /**
          * Add a child {@code <w>} element
          */
         public Builder w(SsmlW ssmlW) {
             this.children.add(ssmlW);
             return this;
-        }
-
-        /**
-         * Add a child {@code <w>} element
-         *
-         * @deprecated use {@link #w(SsmlW)}.
-         */
-        @Deprecated
-        public Builder ssmlW(SsmlW ssmlW) {
-            return w(ssmlW);
         }
 
         /**

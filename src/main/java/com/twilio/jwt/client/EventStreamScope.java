@@ -43,7 +43,7 @@ public class EventStreamScope implements Scope {
         for (Map.Entry<String, String> param : filters.entrySet()) {
             queryParams.add(Joiner.on('=').join(
                 URLEncoder.encode(param.getKey(), "UTF-8"),
-                URLEncoder.encode(param.getValue(), "UTF-8")
+                URLEncoder.encode(param.getValue(), "utf-8")
             ));
         }
         return Joiner.on('&').join(queryParams);

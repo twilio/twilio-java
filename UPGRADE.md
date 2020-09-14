@@ -2,7 +2,7 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
-[2020-10-01] 7.x.x to 8.x.x
+[2020-09-28] 7.x.x to 8.x.x
 -----------------------------
 
 ### Overview
@@ -10,14 +10,21 @@ _`MAJOR` version bumps will have upgrade notes posted here._
 Version `8.x.x` is the first version that officially drops support for Java 7. 
 
 - Removal of dependencies offering functionality included in Java 8 and beyond:
-    - Guava, for example:
+    - [Guava functional interfaces](https://github.com/twilio/twilio-java/pull/574), for example:
         - `com.google.common.base.Joiner` -> `String.join()`
         - `com.google.common.collect.Lists` -> `Array.asList()`
         - `com.google.common.base.Function` -> `java.util.function.Function`
-    - joda-time
+        - [`com.google.common.base.MoreObjects` -> `lombok.ToString`](https://github.com/twilio/twilio-java/pull/576)
+    - [Guava concurrency, hashing, and charstreams](https://github.com/twilio/twilio-java/pull/575)
+        - `com.google.common.hash.Hash*` -> `org.apache.commons.codec.digest.DigestUtils`
+        - `com.google.common.io.CharStreams` -> `org.apache.commons.io.IOUtils`
+        - `com.google.common.util.concurrent.*` -> `java.util.concurrent`
+    - [Guava `com.google.common.collect.Range` removal]()
+        - Example: `setMessageDate(final Range<LocalDate> rangeMessageDate)` -> `setMessageDate(final LocalDate messageDateBefore, final LocalDate messageDateAfter)`
+    - [joda-time](https://github.com/twilio/twilio-java/pull/572)
         - `org.joda.time.DateTime` -> `java.time.ZonedDateTime`
         - `org.joda.time.LocalDate` -> `java.time.LocalDate`
-- Removal of deprecated classes and methods:
+- [Removal of deprecated classes and methods](https://github.com/twilio/twilio-java/pull/578):
     - `com.twilio.jwt.accesstoken.ConversationsGrant`
     - `com.twilio.jwt.accesstoken.IpMessagingGrant`
     - `com.twilio.jwt.accesstoken.VideoGrant.getConfigurationProfileSid()`

@@ -1,6 +1,7 @@
 package com.twilio.http;
 
 import com.google.common.collect.Range;
+import com.google.common.base.Joiner;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
@@ -183,8 +184,7 @@ public class Request {
             String protocol = parsedUrl.getProtocol() + "://";
             String[] pathPieces = parsedUrl.getPath().split("/", 0);
             pathPieces[pathPieces.length-1] = URLEncoder.encode(pathPieces[pathPieces.length-1], "UTF-8");
-            // TODO: We can use String.join and drop the apache.commons dependency when we upgrade to Java 8
-            String encodedPath = StringUtils.join(pathPieces, "/");
+            String encodedPath = Joiner.on("/").join(pathPieces);
             String query = null;
             if (parsedUrl.getQuery() != null) {
                 query = "?" + parsedUrl.getQuery();

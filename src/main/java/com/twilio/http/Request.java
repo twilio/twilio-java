@@ -7,7 +7,6 @@ import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
-import org.apache.commons.lang.StringUtils;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;

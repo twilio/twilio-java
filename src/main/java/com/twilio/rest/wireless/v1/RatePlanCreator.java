@@ -87,7 +87,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
     /**
      * The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`,
      * and `quota-50`. Learn more about the available <a
-     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans">data metering models</a>..
+     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans">data
+     * metering models</a>..
      *
      * @param dataMetering The model used to meter data usage
      * @return this
@@ -124,7 +125,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
     /**
      * Whether SIMs can roam on networks other than the home network (T-Mobile USA)
      * in the United States. See <a
-     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming">national roaming</a>..
+     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming">national
+     * roaming</a>..
      *
      * @param nationalRoamingEnabled Whether SIMs can roam on networks other than
      *                               the home network in the United States
@@ -169,7 +171,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
      * Network allows during one month on non-home networks in the United States.
      * The metering period begins the day of activation and ends on the same day in
      * the following month. Can be up to 2TB. See <a
-     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming">national roaming</a> for more info..
+     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#national-roaming">national
+     * roaming</a> for more info..
      *
      * @param nationalRoamingDataLimit The total data usage in Megabytes that the
      *                                 Network allows during one month on non-home

@@ -51,7 +51,8 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> to use for APN Bindings..
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a>
+     * to use for APN Bindings..
      *
      * @param apnCredentialSid The SID of the Credential to use for APN Bindings
      * @return this
@@ -63,7 +64,8 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> to use for GCM Bindings..
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a>
+     * to use for GCM Bindings..
      *
      * @param gcmCredentialSid The SID of the Credential to use for GCM Bindings
      * @return this
@@ -75,7 +77,9 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/sms/send-messages#messaging-services">Messaging Service</a> to use for SMS Bindings. This parameter must be set in order to send SMS notifications..
+     * href="https://www.twilio.com/docs/sms/send-messages#messaging-services">Messaging
+     * Service</a> to use for SMS Bindings. This parameter must be set in order to
+     * send SMS notifications..
      *
      * @param messagingServiceSid The SID of the Messaging Service to use for SMS
      *                            Bindings
@@ -129,7 +133,8 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> to use for FCM Bindings..
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a>
+     * to use for FCM Bindings..
      *
      * @param fcmCredentialSid The SID of the Credential to use for FCM Bindings
      * @return this

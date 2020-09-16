@@ -168,7 +168,10 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * Your <a
-     * href="https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string">App Hash</a> to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `&lt;#&gt; Your AppName verification code is: 1234 He42w354ol9`..
+     * href="https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string">App
+     * Hash</a> to be appended at the end of your verification SMS body. Applies
+     * only to SMS. Example SMS body: `&lt;#&gt; Your AppName verification code is:
+     * 1234 He42w354ol9`..
      *
      * @param appHash Your App Hash to be appended at the end of an SMS.
      * @return this

@@ -247,7 +247,9 @@ public class CallCreator extends Creator<Call> {
      * specified, we send the `completed` status. If you want to receive multiple
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for <a
-     * href="https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json">monitoring call progress</a>. If an `application_sid` is present, this parameter is ignored..
+     * href="https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json">monitoring
+     * call progress</a>. If an `application_sid` is present, this parameter is
+     * ignored..
      *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
@@ -264,7 +266,9 @@ public class CallCreator extends Creator<Call> {
      * specified, we send the `completed` status. If you want to receive multiple
      * events, specify each one in a separate `status_callback_event` parameter. See
      * the code sample for <a
-     * href="https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json">monitoring call progress</a>. If an `application_sid` is present, this parameter is ignored..
+     * href="https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json">monitoring
+     * call progress</a>. If an `application_sid` is present, this parameter is
+     * ignored..
      *
      * @param statusCallbackEvent The call progress events that we send to the
      *                            `status_callback` URL.
@@ -408,7 +412,8 @@ public class CallCreator extends Creator<Call> {
      * `DetectMessageEnd`, if you would like to leave a message on an answering
      * machine. If `send_digits` is provided, this parameter is ignored. For more
      * information, see <a
-     * href="https://www.twilio.com/docs/voice/answering-machine-detection">Answering Machine Detection</a>..
+     * href="https://www.twilio.com/docs/voice/answering-machine-detection">Answering
+     * Machine Detection</a>..
      *
      * @param machineDetection Enable machine detection or end of greeting detection
      * @return this
@@ -617,7 +622,9 @@ public class CallCreator extends Creator<Call> {
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the <a
-     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url Parameter</a> section in <a href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
+     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url
+     * Parameter</a> section in <a
+     * href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
      *
      * @param url The absolute URL that returns TwiML for this call
      * @return this
@@ -631,7 +638,9 @@ public class CallCreator extends Creator<Call> {
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the <a
-     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url Parameter</a> section in <a href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
+     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url
+     * Parameter</a> section in <a
+     * href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
      *
      * @param url The absolute URL that returns TwiML for this call
      * @return this

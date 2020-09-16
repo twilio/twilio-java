@@ -95,7 +95,10 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings..
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a>
+     * resource to be used to send notifications to this Binding. If present, this
+     * overrides the Credential specified in the Service resource. Applies to only
+     * `apn`, `fcm`, and `gcm` type Bindings..
      *
      * @param credentialSid The SID of the Credential resource to be used to send
      *                      notifications to this Binding

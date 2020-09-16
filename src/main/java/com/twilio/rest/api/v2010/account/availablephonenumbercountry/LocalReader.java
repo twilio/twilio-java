@@ -82,7 +82,10 @@ public class LocalReader extends Reader<Local> {
      * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
      * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
      * see <a
-     * href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern">Example 2</a> and <a href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern">Example 3</a>. If specified, this value must have at least two characters..
+     * href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern">Example
+     * 2</a> and <a
+     * href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern">Example
+     * 3</a>. If specified, this value must have at least two characters..
      *
      * @param contains The pattern on which to match phone numbers
      * @return this
@@ -279,7 +282,10 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Limit results to a specific local access and transport area (<a
-     * href="https://en.wikipedia.org/wiki/Local_access_and_transport_area">LATA</a>). Given a phone number, search within the same <a href="https://en.wikipedia.org/wiki/Local_access_and_transport_area">LATA</a> as that number. Applies to only phone numbers in the US and Canada..
+     * href="https://en.wikipedia.org/wiki/Local_access_and_transport_area">LATA</a>).
+     * Given a phone number, search within the same <a
+     * href="https://en.wikipedia.org/wiki/Local_access_and_transport_area">LATA</a>
+     * as that number. Applies to only phone numbers in the US and Canada..
      *
      * @param inLata Limit results to a specific local access and transport area.
      *               (US/Canada only)

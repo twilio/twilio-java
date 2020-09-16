@@ -69,7 +69,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
     /**
      * A JSON object that describes the video layout of the composition hook in
      * terms of regions. See <a
-     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying Video Layouts</a> for more info..
+     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
+     * Video Layouts</a> for more info..
      *
      * @param videoLayout A JSON object that describes the video layout of the
      *                    composition hook
@@ -154,7 +155,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
      * Compositions with `trim` enabled are shorter when the Room is created and no
      * Participant joins for a while as well as if all the Participants leave the
      * room and join later, because those gaps will be removed. See <a
-     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying Video Layouts</a> for more info..
+     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
+     * Video Layouts</a> for more info..
      *
      * @param trim Whether to clip the intervals where there is no active media in
      *             the Compositions triggered by the composition hook
@@ -200,7 +202,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook> {
      * Note that the `resolution` imposes an aspect ratio to the resulting
      * composition. When the original video tracks are constrained by the aspect
      * ratio, they are scaled to fit. See <a
-     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying Video Layouts</a> for more info..
+     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
+     * Video Layouts</a> for more info..
      *
      * @param resolution A string that describes the columns (width) and rows
      *                   (height) of the generated composed video in pixels

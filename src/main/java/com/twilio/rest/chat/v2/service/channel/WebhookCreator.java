@@ -75,7 +75,8 @@ public class WebhookCreator extends Creator<Webhook> {
      * `webhook`. This parameter takes only one event. To specify more than one
      * event, repeat this parameter for each event. For the list of possible events,
      * see <a
-     * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook Event Triggers</a>..
+     * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook
+     * Event Triggers</a>..
      *
      * @param configurationFilters The events that cause us to call the Channel
      *                             Webhook
@@ -91,7 +92,8 @@ public class WebhookCreator extends Creator<Webhook> {
      * `webhook`. This parameter takes only one event. To specify more than one
      * event, repeat this parameter for each event. For the list of possible events,
      * see <a
-     * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook Event Triggers</a>..
+     * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook
+     * Event Triggers</a>..
      *
      * @param configurationFilters The events that cause us to call the Channel
      *                             Webhook

@@ -377,7 +377,15 @@ public class MessageCreator extends Creator<Message> {
     /**
      * A Twilio phone number in <a
      * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
-     * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric sender ID</a>, or a <a href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel Endpoint address</a> that is enabled for the type of message you want to send. Phone numbers or <a href="https://www.twilio.com/docs/sms/api/short-code">short codes</a> purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
+     * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
+     * sender ID</a>, or a <a
+     * href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel
+     * Endpoint address</a> that is enabled for the type of message you want to
+     * send. Phone numbers or <a
+     * href="https://www.twilio.com/docs/sms/api/short-code">short codes</a>
+     * purchased from Twilio also work here. You cannot, for example, spoof messages
+     * from a private cell phone number. If you are using `messaging_service_sid`,
+     * this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -390,7 +398,15 @@ public class MessageCreator extends Creator<Message> {
     /**
      * A Twilio phone number in <a
      * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
-     * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric sender ID</a>, or a <a href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel Endpoint address</a> that is enabled for the type of message you want to send. Phone numbers or <a href="https://www.twilio.com/docs/sms/api/short-code">short codes</a> purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
+     * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
+     * sender ID</a>, or a <a
+     * href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel
+     * Endpoint address</a> that is enabled for the type of message you want to
+     * send. Phone numbers or <a
+     * href="https://www.twilio.com/docs/sms/api/short-code">short codes</a>
+     * purchased from Twilio also work here. You cannot, for example, spoof messages
+     * from a private cell phone number. If you are using `messaging_service_sid`,
+     * this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -401,7 +417,12 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/sms/services#send-a-message-with-copilot">Messaging Service</a> you want to associate with the Message. Set this parameter to use the <a href="https://www.twilio.com/console/sms/services">Messaging Service Settings and Copilot Features</a> you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery..
+     * href="https://www.twilio.com/docs/sms/services#send-a-message-with-copilot">Messaging
+     * Service</a> you want to associate with the Message. Set this parameter to use
+     * the <a href="https://www.twilio.com/console/sms/services">Messaging Service
+     * Settings and Copilot Features</a> you have configured and leave the `from`
+     * parameter empty. When only this parameter is set, Twilio will use your
+     * enabled Copilot Features to select the `from` phone number for delivery..
      *
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.

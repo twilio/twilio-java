@@ -49,7 +49,9 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * The <a
-     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO language-country</a> string that specifies the language used for the sample. For example: `en-US`..
+     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO
+     * language-country</a> string that specifies the language used for the sample.
+     * For example: `en-US`..
      *
      * @param language The ISO language-country string that specifies the language
      *                 used for the sample
@@ -63,7 +65,8 @@ public class SampleUpdater extends Updater<Sample> {
     /**
      * The text example of how end users might express the task. The sample can
      * contain <a
-     * href="https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging">Field tag blocks</a>..
+     * href="https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging">Field
+     * tag blocks</a>..
      *
      * @param taggedText The text example of how end users might express the task
      * @return this

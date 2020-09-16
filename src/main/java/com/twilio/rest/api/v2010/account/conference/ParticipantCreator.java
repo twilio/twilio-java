@@ -500,7 +500,9 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The <a
-     * href="https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls">region</a> where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`..
+     * href="https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls">region</a>
+     * where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`,
+     * `br1`, `au1`, or `jp1`..
      *
      * @param region The region where we should mix the conference audio
      * @return this
@@ -516,7 +518,9 @@ public class ParticipantCreator extends Creator<Participant> {
      * is available..
      *
      * @param conferenceRecordingStatusCallback The URL we should call using the
-     *                                          `conference_recording_status_callback_method` when the conference recording is available
+     *                                          `conference_recording_status_callback_method`
+     *                                          when the conference recording is
+     *                                          available
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
@@ -530,7 +534,9 @@ public class ParticipantCreator extends Creator<Participant> {
      * is available..
      *
      * @param conferenceRecordingStatusCallback The URL we should call using the
-     *                                          `conference_recording_status_callback_method` when the conference recording is available
+     *                                          `conference_recording_status_callback_method`
+     *                                          when the conference recording is
+     *                                          available
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {

@@ -45,7 +45,9 @@ public class SampleReader extends Reader<Sample> {
 
     /**
      * The <a
-     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO language-country</a> string that specifies the language used for the sample. For example: `en-US`..
+     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO
+     * language-country</a> string that specifies the language used for the sample.
+     * For example: `en-US`..
      *
      * @param language The ISO language-country string that specifies the language
      *                 used for the sample

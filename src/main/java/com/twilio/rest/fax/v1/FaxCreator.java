@@ -49,7 +49,9 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The <a
-     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values">Fax Quality value</a> that describes the fax quality. Can be: `standard`, `fine`, or `superfine` and defaults to `fine`..
+     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values">Fax
+     * Quality value</a> that describes the fax quality. Can be: `standard`, `fine`,
+     * or `superfine` and defaults to `fine`..
      *
      * @param quality The quality of this fax
      * @return this
@@ -61,7 +63,8 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The URL we should call using the `POST` method to send <a
-     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback">status information</a> to your application when the status of the fax changes..
+     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback">status
+     * information</a> to your application when the status of the fax changes..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -74,7 +77,8 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The URL we should call using the `POST` method to send <a
-     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback">status information</a> to your application when the status of the fax changes..
+     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback">status
+     * information</a> to your application when the status of the fax changes..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application

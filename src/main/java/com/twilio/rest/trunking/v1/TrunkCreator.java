@@ -112,7 +112,9 @@ public class TrunkCreator extends Creator<Trunk> {
      * or `record-from-answer`, all calls going through the trunk will be recorded.
      * The only way to change recording parameters is on a sub-resource of a Trunk
      * after it has been created. e.g.`/Trunks/<a
-     * href="https://www.twilio.com/docs/sip-trunking#recording">Trunk_SID]/Recording -XPOST -d'Mode=record-from-answer'`. See [Recording</a> for more information..
+     * href="https://www.twilio.com/docs/sip-trunking#recording">Trunk_SID]/Recording
+     * -XPOST -d'Mode=record-from-answer'`. See [Recording</a> for more
+     * information..
      *
      * @param recording The recording settings for the trunk
      * @return this

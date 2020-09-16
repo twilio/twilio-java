@@ -145,7 +145,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL we should call to <a
-     * href="https://www.twilio.com/docs/sms/api/message-resource#message-status-values">pass status updates</a> about message delivery..
+     * href="https://www.twilio.com/docs/sms/api/message-resource#message-status-values">pass
+     * status updates</a> about message delivery..
      *
      * @param statusCallback The URL we should call to pass status updates about
      *                       message delivery
@@ -158,7 +159,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL we should call to <a
-     * href="https://www.twilio.com/docs/sms/api/message-resource#message-status-values">pass status updates</a> about message delivery..
+     * href="https://www.twilio.com/docs/sms/api/message-resource#message-status-values">pass
+     * status updates</a> about message delivery..
      *
      * @param statusCallback The URL we should call to pass status updates about
      *                       message delivery
@@ -222,7 +224,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Whether to enable <a
-     * href="https://www.twilio.com/docs/sms/services#fallback-to-long-code">Fallback to Long Code</a> for messages sent through the Service instance..
+     * href="https://www.twilio.com/docs/sms/services#fallback-to-long-code">Fallback
+     * to Long Code</a> for messages sent through the Service instance..
      *
      * @param fallbackToLongCode Whether to enable Fallback to Long Code for
      *                           messages sent through the Service instance

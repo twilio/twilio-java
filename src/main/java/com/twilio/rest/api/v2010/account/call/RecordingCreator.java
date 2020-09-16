@@ -84,7 +84,8 @@ public class RecordingCreator extends Creator<Recording> {
      * The URL we should call using the `recording_status_callback_method` on each
      * recording event specified in  `recording_status_callback_event`. For more
      * information, see <a
-     * href="https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback">RecordingStatusCallback parameters</a>..
+     * href="https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback">RecordingStatusCallback
+     * parameters</a>..
      *
      * @param recordingStatusCallback The callback URL on each selected recording
      *                                event
@@ -99,7 +100,8 @@ public class RecordingCreator extends Creator<Recording> {
      * The URL we should call using the `recording_status_callback_method` on each
      * recording event specified in  `recording_status_callback_event`. For more
      * information, see <a
-     * href="https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback">RecordingStatusCallback parameters</a>..
+     * href="https://www.twilio.com/docs/voice/api/recording#recordingstatuscallback">RecordingStatusCallback
+     * parameters</a>..
      *
      * @param recordingStatusCallback The callback URL on each selected recording
      *                                event

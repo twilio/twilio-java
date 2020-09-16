@@ -364,7 +364,8 @@ public class SimUpdater extends Updater<Sim> {
      * href="https://www.twilio.com/docs/iam/api/subaccounts">Subaccount</a> of the
      * requesting Account. Only valid when the Sim resource's status is `new`. For
      * more information, see the <a
-     * href="https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts">Move SIMs between Subaccounts documentation</a>..
+     * href="https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts">Move
+     * SIMs between Subaccounts documentation</a>..
      *
      * @param accountSid The SID of the Account to which the Sim resource should
      *                   belong

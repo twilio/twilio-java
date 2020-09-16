@@ -138,7 +138,8 @@ public class AssistantUpdater extends Updater<Assistant> {
      * tasks..
      *
      * @param defaults A JSON object that defines the Assistant's [default
-     *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+     *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults)
+     *                 for various scenarios
      * @return this
      */
     public AssistantUpdater setDefaults(final Map<String, Object> defaults) {

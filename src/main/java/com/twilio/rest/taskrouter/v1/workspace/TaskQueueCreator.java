@@ -45,7 +45,8 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue
      * until they are deleted or moved to another TaskQueue. For more information
      * about Worker selection, see <a
-     * href="https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers">Describing Worker selection criteria</a>..
+     * href="https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers">Describing
+     * Worker selection criteria</a>..
      *
      * @param targetWorkers A string describing the Worker selection criteria for
      *                      any Tasks that enter the TaskQueue
@@ -72,7 +73,8 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign
      * most recently created Task first or FIFO to assign the oldest Task first.
      * Default is `FIFO`. <a
-     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Click here</a> to learn more..
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Click
+     * here</a> to learn more..
      *
      * @param taskOrder How Tasks will be assigned to Workers
      * @return this

@@ -172,7 +172,9 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * The region for the media server in Group Rooms.  Can be: one of the <a
-     * href="https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers">available Media Regions</a>. ***This feature is not available in `peer-to-peer` rooms.***.
+     * href="https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers">available
+     * Media Regions</a>. ***This feature is not available in `peer-to-peer`
+     * rooms.***.
      *
      * @param mediaRegion The region for the media server in Group Rooms
      * @return this

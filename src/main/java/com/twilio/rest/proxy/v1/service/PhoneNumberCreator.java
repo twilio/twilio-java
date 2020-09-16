@@ -39,7 +39,9 @@ public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
     /**
      * The SID of a Twilio <a
-     * href="https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource">IncomingPhoneNumber</a> resource that represents the Twilio Number you would like to assign to your Proxy Service..
+     * href="https://www.twilio.com/docs/phone-numbers/api/incomingphonenumber-resource">IncomingPhoneNumber</a>
+     * resource that represents the Twilio Number you would like to assign to your
+     * Proxy Service..
      *
      * @param sid The SID of a Twilio IncomingPhoneNumber resource
      * @return this

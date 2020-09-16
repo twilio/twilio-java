@@ -148,7 +148,13 @@ public class NotificationCreator extends Creator<Notification> {
     /**
      * The custom key-value pairs of the notification's payload. For FCM and GCM,
      * this value translates to `data` in the FCM and GCM payloads. FCM and GCM <a
-     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserve certain keys</a> that cannot be used in those channels. For APNS, attributes of `data` are inserted into the APNS payload as custom properties outside of the `aps` dictionary. In all channels, we reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed and are rejected as 400 Bad request with no delivery attempted. For SMS, this parameter is not supported and is omitted from deliveries to those channels..
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserve
+     * certain keys</a> that cannot be used in those channels. For APNS, attributes
+     * of `data` are inserted into the APNS payload as custom properties outside of
+     * the `aps` dictionary. In all channels, we reserve keys that start with `twi_`
+     * for future use. Custom keys that start with `twi_` are not allowed and are
+     * rejected as 400 Bad request with no delivery attempted. For SMS, this
+     * parameter is not supported and is omitted from deliveries to those channels..
      *
      * @param data The custom key-value pairs of the notification's payload
      * @return this
@@ -163,7 +169,9 @@ public class NotificationCreator extends Creator<Notification> {
      * generic payload for APNS Bindings. This property maps to the APNS `Payload`
      * item, therefore the `aps` key must be used to change standard attributes.
      * Adds custom key-value pairs to the root of the dictionary. See the <a
-     * href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html">APNS documentation</a> for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed..
+     * href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html">APNS
+     * documentation</a> for more details. We reserve keys that start with `twi_`
+     * for future use. Custom keys that start with `twi_` are not allowed..
      *
      * @param apn The APNS-specific payload that overrides corresponding attributes
      *            in a generic payload for APNS Bindings
@@ -183,7 +191,8 @@ public class NotificationCreator extends Creator<Notification> {
      * `registration_ids`, and `notification_key` are not allowed. We reserve keys
      * that start with `twi_` for future use. Custom keys that start with `twi_` are
      * not allowed. GCM also <a
-     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves certain keys</a>..
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves
+     * certain keys</a>..
      *
      * @param gcm The GCM-specific payload that overrides corresponding attributes
      *            in generic payload for GCM Bindings
@@ -229,7 +238,13 @@ public class NotificationCreator extends Creator<Notification> {
      * The FCM-specific payload that overrides corresponding attributes in the
      * generic payload for FCM Bindings. This property maps to the root JSON
      * dictionary. See the <a
-     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream">FCM documentation</a> for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also <a href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves certain keys</a>, which cannot be used in that channel..
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream">FCM
+     * documentation</a> for more details. Target parameters `to`,
+     * `registration_ids`, `condition`, and `notification_key` are not allowed in
+     * this parameter. We reserve keys that start with `twi_` for future use. Custom
+     * keys that start with `twi_` are not allowed. FCM also <a
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves
+     * certain keys</a>, which cannot be used in that channel..
      *
      * @param fcm The FCM-specific payload that overrides corresponding attributes
      *            in generic payload for FCM Bindings

@@ -46,7 +46,9 @@ public class RecordReader extends Reader<Record> {
 
     /**
      * The <a
-     * href="https://www.twilio.com/docs/usage/api/usage-record#usage-categories">usage category</a> of the UsageRecord resources to read. Only UsageRecord resources in the specified category are retrieved..
+     * href="https://www.twilio.com/docs/usage/api/usage-record#usage-categories">usage
+     * category</a> of the UsageRecord resources to read. Only UsageRecord resources
+     * in the specified category are retrieved..
      *
      * @param category The usage category of the UsageRecord resources to read
      * @return this

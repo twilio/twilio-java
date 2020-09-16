@@ -59,7 +59,9 @@ public class CallUpdater extends Updater<Call> {
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the <a
-     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url Parameter</a> section in <a href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
+     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url
+     * Parameter</a> section in <a
+     * href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
      *
      * @param url The absolute URL that returns TwiML for this call
      * @return this
@@ -73,7 +75,9 @@ public class CallUpdater extends Updater<Call> {
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the <a
-     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url Parameter</a> section in <a href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
+     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url
+     * Parameter</a> section in <a
+     * href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
      *
      * @param url The absolute URL that returns TwiML for this call
      * @return this

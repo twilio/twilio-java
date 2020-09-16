@@ -78,8 +78,9 @@ public class BindingCreator extends Creator<Binding> {
     /**
      * The protocol version to use to send the notification. This defaults to the
      * value of `default_xxxx_notification_protocol_version` for the protocol in the
-     * [Service](https://www.twilio.com/docs/notify/api/service-resource). The
-     * current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The
+     * <a
+     * href="https://www.twilio.com/docs/notify/api/service-resource">Service</a>.
+     * The current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The
      * parameter is not applicable to `sms` and `facebook-messenger` type Bindings
      * as the data format is fixed..
      *
@@ -93,11 +94,8 @@ public class BindingCreator extends Creator<Binding> {
     }
 
     /**
-     * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource)
-     * resource to be used to send notifications to this Binding. If present, this
-     * overrides the Credential specified in the Service resource. Applies to only
-     * `apn`, `fcm`, and `gcm` type Bindings..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> resource to be used to send notifications to this Binding. If present, this overrides the Credential specified in the Service resource. Applies to only `apn`, `fcm`, and `gcm` type Bindings..
      *
      * @param credentialSid The SID of the Credential resource to be used to send
      *                      notifications to this Binding

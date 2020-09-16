@@ -119,9 +119,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The SID or unique name of the [RatePlan
-     * resource](https://www.twilio.com/docs/wireless/api/rateplan-resource) to
-     * which the Sim resource should be assigned..
+     * The SID or unique name of the <a
+     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource">RatePlan
+     * resource</a> to which the Sim resource should be assigned..
      *
      * @param ratePlan The SID or unique name of the RatePlan resource to which the
      *                 Sim resource should be assigned
@@ -159,7 +159,8 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The URL we should call using the `commands_callback_method` when the SIM
-     * sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+     * sends a <a
+     * href="https://www.twilio.com/docs/wireless/api/command-resource">Command</a>.
      * Your server should respond with an HTTP status code in the 200 range; any
      * response body is ignored..
      *
@@ -174,7 +175,8 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The URL we should call using the `commands_callback_method` when the SIM
-     * sends a [Command](https://www.twilio.com/docs/wireless/api/command-resource).
+     * sends a <a
+     * href="https://www.twilio.com/docs/wireless/api/command-resource">Command</a>.
      * Your server should respond with an HTTP status code in the 200 range; any
      * response body is ignored..
      *
@@ -240,8 +242,8 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The URL we should call using the `sms_method` when the SIM-connected device
-     * sends an SMS message that is not a
-     * [Command](https://www.twilio.com/docs/wireless/api/command-resource)..
+     * sends an SMS message that is not a <a
+     * href="https://www.twilio.com/docs/wireless/api/command-resource">Command</a>..
      *
      * @param smsUrl The URL we should call when the SIM-connected device sends an
      *               SMS message that is not a Command
@@ -254,8 +256,8 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The URL we should call using the `sms_method` when the SIM-connected device
-     * sends an SMS message that is not a
-     * [Command](https://www.twilio.com/docs/wireless/api/command-resource)..
+     * sends an SMS message that is not a <a
+     * href="https://www.twilio.com/docs/wireless/api/command-resource">Command</a>..
      *
      * @param smsUrl The URL we should call when the SIM-connected device sends an
      *               SMS message that is not a Command
@@ -355,13 +357,14 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) to
-     * which the Sim resource should belong. The Account SID can only be that of the
-     * requesting Account or that of a
-     * [Subaccount](https://www.twilio.com/docs/iam/api/subaccounts) of the
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/iam/api/account">Account</a> to which the
+     * Sim resource should belong. The Account SID can only be that of the
+     * requesting Account or that of a <a
+     * href="https://www.twilio.com/docs/iam/api/subaccounts">Subaccount</a> of the
      * requesting Account. Only valid when the Sim resource's status is `new`. For
-     * more information, see the [Move SIMs between Subaccounts
-     * documentation](https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts)..
+     * more information, see the <a
+     * href="https://www.twilio.com/docs/wireless/api/sim-resource#move-sims-between-subaccounts">Move SIMs between Subaccounts documentation</a>..
      *
      * @param accountSid The SID of the Account to which the Sim resource should
      *                   belong

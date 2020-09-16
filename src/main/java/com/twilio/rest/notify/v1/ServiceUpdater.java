@@ -60,9 +60,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
-     * use for APN Bindings..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> to use for APN Bindings..
      *
      * @param apnCredentialSid The SID of the Credential to use for APN Bindings
      * @return this
@@ -73,9 +72,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
-     * use for GCM Bindings..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> to use for GCM Bindings..
      *
      * @param gcmCredentialSid The SID of the Credential to use for GCM Bindings
      * @return this
@@ -86,10 +84,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The SID of the [Messaging
-     * Service](https://www.twilio.com/docs/sms/send-messages#messaging-services) to
-     * use for SMS Bindings. This parameter must be set in order to send SMS
-     * notifications..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/sms/send-messages#messaging-services">Messaging Service</a> to use for SMS Bindings. This parameter must be set in order to send SMS notifications..
      *
      * @param messagingServiceSid The SID of the Messaging Service to use for SMS
      *                            Bindings
@@ -113,8 +109,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The protocol version to use for sending APNS notifications. Can be overridden
-     * on a Binding by Binding basis when creating a
-     * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
+     * on a Binding by Binding basis when creating a <a
+     * href="https://www.twilio.com/docs/notify/api/binding-resource">Binding</a>
+     * resource..
      *
      * @param defaultApnNotificationProtocolVersion The protocol version to use for
      *                                              sending APNS notifications
@@ -127,8 +124,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The protocol version to use for sending GCM notifications. Can be overridden
-     * on a Binding by Binding basis when creating a
-     * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
+     * on a Binding by Binding basis when creating a <a
+     * href="https://www.twilio.com/docs/notify/api/binding-resource">Binding</a>
+     * resource..
      *
      * @param defaultGcmNotificationProtocolVersion The protocol version to use for
      *                                              sending GCM notifications
@@ -140,9 +138,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The SID of the
-     * [Credential](https://www.twilio.com/docs/notify/api/credential-resource) to
-     * use for FCM Bindings..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential</a> to use for FCM Bindings..
      *
      * @param fcmCredentialSid The SID of the Credential to use for FCM Bindings
      * @return this
@@ -154,8 +151,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The protocol version to use for sending FCM notifications. Can be overridden
-     * on a Binding by Binding basis when creating a
-     * [Binding](https://www.twilio.com/docs/notify/api/binding-resource) resource..
+     * on a Binding by Binding basis when creating a <a
+     * href="https://www.twilio.com/docs/notify/api/binding-resource">Binding</a>
+     * resource..
      *
      * @param defaultFcmNotificationProtocolVersion The protocol version to use for
      *                                              sending FCM notifications

@@ -32,8 +32,8 @@ public class FaxReader extends Reader<Fax> {
     private DateTime dateCreatedAfter;
 
     /**
-     * Retrieve only those faxes sent from this phone number, specified in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
+     * Retrieve only those faxes sent from this phone number, specified in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format..
      *
      * @param from Retrieve only those faxes sent from this phone number
      * @return this
@@ -44,8 +44,8 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Retrieve only those faxes sent to this phone number, specified in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
+     * Retrieve only those faxes sent to this phone number, specified in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format..
      *
      * @param to Retrieve only those faxes sent to this phone number
      * @return this
@@ -57,8 +57,8 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Retrieve only those faxes with a `date_created` that is before or equal to
-     * this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format..
+     * this value, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format..
      *
      * @param dateCreatedOnOrBefore Retrieve only faxes created on or before this
      *                              date
@@ -71,8 +71,8 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Retrieve only those faxes with a `date_created` that is later than this
-     * value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format..
+     * value, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format..
      *
      * @param dateCreatedAfter Retrieve only faxes created after this date
      * @return this

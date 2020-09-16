@@ -42,8 +42,8 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The [ISO
-     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used by the Query resources to read. For example: `en-US`..
+     * The <a
+     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO language-country</a> string that specifies the language used by the Query resources to read. For example: `en-US`..
      *
      * @param language The ISO language-country string that specifies the language
      *                 used by the Query resources to read
@@ -55,8 +55,9 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The SID or unique name of the [Model
-     * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
+     * The SID or unique name of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/model-build">Model Build</a>
+     * to be queried..
      *
      * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this
@@ -79,11 +80,11 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The SID of the
-     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/dialogue">Dialogue</a>..
      *
      * @param dialogueSid The SID of the
-     *                    [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/dialogue">Dialogue</a>.
      * @return this
      */
     public QueryReader setDialogueSid(final String dialogueSid) {

@@ -46,8 +46,9 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Read only CompositionHook resources created on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * Read only CompositionHook resources created on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
+     * zone..
      *
      * @param dateCreatedAfter Read only CompositionHook resources created on or
      *                         after this ISO 8601 datetime with time zone
@@ -59,8 +60,9 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     }
 
     /**
-     * Read only CompositionHook resources created before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * Read only CompositionHook resources created before this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
+     * zone..
      *
      * @param dateCreatedBefore Read only CompositionHook resources created before
      *                          this ISO 8601 datetime with time zone

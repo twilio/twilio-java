@@ -30,8 +30,8 @@ public class NetworkReader extends Reader<Network> {
     private String mnc;
 
     /**
-     * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
-     * the Network resources to read..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country
+     * code</a> of the Network resources to read..
      *
      * @param isoCountry The ISO country code of the Network resources to read
      * @return this

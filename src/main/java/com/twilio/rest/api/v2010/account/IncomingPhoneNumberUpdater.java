@@ -70,10 +70,10 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that
-     * created the IncomingPhoneNumber resource to update.  For more information,
-     * see [Exchanging Numbers Between
-     * Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/iam/api/account">Account</a> that created
+     * the IncomingPhoneNumber resource to update.  For more information, see <a
+     * href="https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers">Exchanging Numbers Between Subaccounts</a>..
      *
      * @param accountSid The SID of the Account that created the resource to update
      * @return this

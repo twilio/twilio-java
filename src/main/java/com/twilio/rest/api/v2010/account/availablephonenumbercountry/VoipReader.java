@@ -81,8 +81,8 @@ public class VoipReader extends Reader<Voip> {
     /**
      * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
      * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
-     * see [Example
-     * 2](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2) and [Example 3](https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3). If specified, this value must have at least two characters..
+     * see <a
+     * href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-2">Example 2</a> and <a href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumber-resource#local-get-basic-example-3">Example 3</a>. If specified, this value must have at least two characters..
      *
      * @param contains The pattern on which to match phone numbers
      * @return this
@@ -128,9 +128,9 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * Whether to exclude phone numbers that require an
-     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
-     * `false` and the default is `false`..
+     * Whether to exclude phone numbers that require an <a
+     * href="https://www.twilio.com/docs/usage/api/address">Address</a>. Can be:
+     * `true` or `false` and the default is `false`..
      *
      * @param excludeAllAddressRequired Whether to exclude phone numbers that
      *                                  require an Address
@@ -142,9 +142,9 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * Whether to exclude phone numbers that require a local
-     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
-     * `false` and the default is `false`..
+     * Whether to exclude phone numbers that require a local <a
+     * href="https://www.twilio.com/docs/usage/api/address">Address</a>. Can be:
+     * `true` or `false` and the default is `false`..
      *
      * @param excludeLocalAddressRequired Whether to exclude phone numbers that
      *                                    require a local address
@@ -156,9 +156,9 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * Whether to exclude phone numbers that require a foreign
-     * [Address](https://www.twilio.com/docs/usage/api/address). Can be: `true` or
-     * `false` and the default is `false`..
+     * Whether to exclude phone numbers that require a foreign <a
+     * href="https://www.twilio.com/docs/usage/api/address">Address</a>. Can be:
+     * `true` or `false` and the default is `false`..
      *
      * @param excludeForeignAddressRequired Whether to exclude phone numbers that
      *                                      require a foreign address
@@ -278,11 +278,8 @@ public class VoipReader extends Reader<Voip> {
     }
 
     /**
-     * Limit results to a specific local access and transport area
-     * ([LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area)).
-     * Given a phone number, search within the same
-     * [LATA](https://en.wikipedia.org/wiki/Local_access_and_transport_area) as that
-     * number. Applies to only phone numbers in the US and Canada..
+     * Limit results to a specific local access and transport area (<a
+     * href="https://en.wikipedia.org/wiki/Local_access_and_transport_area">LATA</a>). Given a phone number, search within the same <a href="https://en.wikipedia.org/wiki/Local_access_and_transport_area">LATA</a> as that number. Applies to only phone numbers in the US and Canada..
      *
      * @param inLata Limit results to a specific local access and transport area.
      *               (US/Canada only)

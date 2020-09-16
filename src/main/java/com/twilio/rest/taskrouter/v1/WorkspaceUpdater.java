@@ -53,9 +53,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The URL we should call when an event occurs. See [Workspace
-     * Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * The URL we should call when an event occurs. See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
+     * for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -66,9 +66,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The URL we should call when an event occurs. See [Workspace
-     * Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * The URL we should call when an event occurs. See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
+     * for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this

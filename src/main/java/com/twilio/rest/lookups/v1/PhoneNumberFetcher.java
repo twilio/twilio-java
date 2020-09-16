@@ -56,8 +56,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * default is null.  Carrier information costs $0.005 per phone number looked
      * up.  Caller Name information is currently available only in the US and costs
      * $0.01 per phone number looked up.  To retrieve both types on information,
-     * specify this parameter twice; once with `carrier` and once with `caller-name`
-     * as the value..
+     * specify this parameter twice; once with `carrier` and once with
+     * `caller-name` as the value..
      *
      * @param type The type of information to return
      * @return this
@@ -72,8 +72,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * default is null.  Carrier information costs $0.005 per phone number looked
      * up.  Caller Name information is currently available only in the US and costs
      * $0.01 per phone number looked up.  To retrieve both types on information,
-     * specify this parameter twice; once with `carrier` and once with `caller-name`
-     * as the value..
+     * specify this parameter twice; once with `carrier` and once with
+     * `caller-name` as the value..
      *
      * @param type The type of information to return
      * @return this
@@ -84,9 +84,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * The `unique_name` of an Add-on you would like to invoke. Can be the
-     * `unique_name` of an Add-on that is installed on your account. You can specify
-     * multiple instances of this parameter to invoke multiple Add-ons. For more
-     * information about  Add-ons, see the <a
+     * `unique_name` of an Add-on that is installed on your account. You can
+     * specify multiple instances of this parameter to invoke multiple Add-ons. For
+     * more information about  Add-ons, see the <a
      * href="https://www.twilio.com/docs/add-ons">Add-ons documentation</a>..
      *
      * @param addOns The unique_name of an Add-on you would like to invoke
@@ -99,9 +99,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * The `unique_name` of an Add-on you would like to invoke. Can be the
-     * `unique_name` of an Add-on that is installed on your account. You can specify
-     * multiple instances of this parameter to invoke multiple Add-ons. For more
-     * information about  Add-ons, see the <a
+     * `unique_name` of an Add-on that is installed on your account. You can
+     * specify multiple instances of this parameter to invoke multiple Add-ons. For
+     * more information about  Add-ons, see the <a
      * href="https://www.twilio.com/docs/add-ons">Add-ons documentation</a>..
      *
      * @param addOns The unique_name of an Add-on you would like to invoke

@@ -71,9 +71,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * An optional string metadata field you can use to store any data you wish.
+     * The string value must contain structurally valid JSON if specified.
+     * **Note** that if the attributes are not set "{}" will be returned..
      *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.
@@ -86,8 +86,8 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the participant..
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to
+     * assign to the participant..
      *
      * @param roleSid The SID of the Role to assign to the participant
      * @return this

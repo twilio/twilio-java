@@ -34,8 +34,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestoreAssistant extends Resource {
@@ -71,8 +71,8 @@ public class RestoreAssistant extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a RestoreAssistant object using the provided
-     * ObjectMapper.
+     * Converts a JSON InputStream into a RestoreAssistant object using the
+     * provided ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper

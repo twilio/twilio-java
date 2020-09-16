@@ -25,8 +25,8 @@ import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class CompositionCreator extends Creator<Composition> {
     private final String roomSid;
@@ -53,8 +53,8 @@ public class CompositionCreator extends Creator<Composition> {
      * An object that describes the video layout of the composition in terms of
      * regions. See <a
      * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
-     * Video Layouts</a> for more info. Please, be aware that either video_layout or
-     * audio_sources have to be provided to get a valid creation request.
+     * Video Layouts</a> for more info. Please, be aware that either video_layout
+     * or audio_sources have to be provided to get a valid creation request.
      *
      * @param videoLayout An object that describes the video layout of the
      *                    composition
@@ -165,8 +165,8 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * The container format of the composition's media files. Can be: `mp4` or
      * `webm` and the default is `webm`. If you specify `mp4` or `webm`, you must
-     * also specify one or more `audio_sources` and/or a `video_layout` element that
-     * contains a valid `video_sources` list, otherwise an error occurs..
+     * also specify one or more `audio_sources` and/or a `video_layout` element
+     * that contains a valid `video_sources` list, otherwise an error occurs..
      *
      * @param format The container format of the composition's media files
      * @return this
@@ -219,9 +219,9 @@ public class CompositionCreator extends Creator<Composition> {
     /**
      * Whether to clip the intervals where there is no active media in the
      * composition. The default is `true`. Compositions with `trim` enabled are
-     * shorter when the Room is created and no Participant joins for a while as well
-     * as if all the Participants leave the room and join later, because those gaps
-     * will be removed. See <a
+     * shorter when the Room is created and no Participant joins for a while as
+     * well as if all the Participants leave the room and join later, because those
+     * gaps will be removed. See <a
      * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
      * Video Layouts</a> for more info..
      *

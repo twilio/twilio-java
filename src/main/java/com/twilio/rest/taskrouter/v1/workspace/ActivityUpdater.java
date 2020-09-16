@@ -37,9 +37,10 @@ public class ActivityUpdater extends Updater<Activity> {
 
     /**
      * A descriptive string that you create to describe the Activity resource. It
-     * can be up to 64 characters long. These names are used to calculate and expose
-     * statistics about Workers, and provide visibility into the state of each
-     * Worker. Examples of friendly names include: `on-call`, `break`, and `email`..
+     * can be up to 64 characters long. These names are used to calculate and
+     * expose statistics about Workers, and provide visibility into the state of
+     * each Worker. Examples of friendly names include: `on-call`, `break`, and
+     * `email`..
      *
      * @param friendlyName A string to describe the Activity resource
      * @return this

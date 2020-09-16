@@ -44,9 +44,9 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
 
     /**
      * The value that determines the relative share of the load the URI should
-     * receive compared to other URIs with the same priority. Can be an integer from
-     * 1 to 65535, inclusive, and the default is 10. URLs with higher values receive
-     * more load than those with lower ones with the same priority..
+     * receive compared to other URIs with the same priority. Can be an integer
+     * from 1 to 65535, inclusive, and the default is 10. URLs with higher values
+     * receive more load than those with lower ones with the same priority..
      *
      * @param weight The value that determines the relative load the URI should
      *               receive compared to others with the same priority
@@ -94,8 +94,8 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The SIP address you want Twilio to route your Origination calls to. This must
-     * be a `sip:` schema. `sips` is NOT supported..
+     * The SIP address you want Twilio to route your Origination calls to. This
+     * must be a `sip:` schema. `sips` is NOT supported..
      *
      * @param sipUrl The SIP address you want Twilio to route your Origination
      *               calls to
@@ -107,8 +107,8 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl> {
     }
 
     /**
-     * The SIP address you want Twilio to route your Origination calls to. This must
-     * be a `sip:` schema. `sips` is NOT supported..
+     * The SIP address you want Twilio to route your Origination calls to. This
+     * must be a `sip:` schema. `sips` is NOT supported..
      *
      * @param sipUrl The SIP address you want Twilio to route your Origination
      *               calls to

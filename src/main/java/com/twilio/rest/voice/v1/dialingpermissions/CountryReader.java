@@ -21,8 +21,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class CountryReader extends Reader<Country> {
     private String isoCode;
@@ -99,8 +99,8 @@ public class CountryReader extends Reader<Country> {
 
     /**
      * Filter to retrieve the country permissions with dialing to high-risk <a
-     * href="https://www.twilio.com/learn/voice-and-video/toll-fraud">toll fraud</a>
-     * numbers enabled. Can be: `true` or `false`..
+     * href="https://www.twilio.com/learn/voice-and-video/toll-fraud">toll
+     * fraud</a> numbers enabled. Can be: `true` or `false`..
      *
      * @param highRiskTollfraudNumbersEnabled Filter to retrieve the country
      *                                        permissions with dialing to high-risk

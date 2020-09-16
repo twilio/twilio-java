@@ -41,8 +41,8 @@ public class SyncMapUpdater extends Updater<SyncMap> {
     }
 
     /**
-     * An alias for `collection_ttl`. If both parameters are provided, this value is
-     * ignored..
+     * An alias for `collection_ttl`. If both parameters are provided, this value
+     * is ignored..
      *
      * @param ttl An alias for collection_ttl
      * @return this

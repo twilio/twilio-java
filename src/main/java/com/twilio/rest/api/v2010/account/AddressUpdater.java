@@ -52,8 +52,8 @@ public class AddressUpdater extends Updater<Address> {
     }
 
     /**
-     * A descriptive string that you create to describe the address. It can be up to
-     * 64 characters long..
+     * A descriptive string that you create to describe the address. It can be up
+     * to 64 characters long..
      *
      * @param friendlyName A string to describe the resource
      * @return this

@@ -24,8 +24,8 @@ import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class PaymentCreator extends Creator<Payment> {
     private String pathAccountSid;
@@ -142,8 +142,9 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * A list of inputs that should be accepted. Currently only `dtmf` is supported.
-     * All digits captured during a pay session are redacted from the logs..
+     * A list of inputs that should be accepted. Currently only `dtmf` is
+     * supported. All digits captured during a pay session are redacted from the
+     * logs..
      *
      * @param input A list of inputs that should be accepted. Currently only `dtmf`
      *              is supported.
@@ -241,8 +242,8 @@ public class PaymentCreator extends Creator<Payment> {
 
     /**
      * The number of seconds that &lt;Pay&gt; should wait for the caller to press a
-     * digit between each subsequent digit, after the first one, before moving on to
-     * validate the digits captured. The default is `5`, maximum is `600`..
+     * digit between each subsequent digit, after the first one, before moving on
+     * to validate the digits captured. The default is `5`, maximum is `600`..
      *
      * @param timeout The number of seconds that &lt;Pay&gt; should wait for the
      *                caller to press a digit between each subsequent digit, after

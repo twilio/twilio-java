@@ -23,8 +23,8 @@ import org.joda.time.DateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class UsageRecordReader extends Reader<UsageRecord> {
     private String sim;
@@ -106,12 +106,12 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Time-based grouping that UsageRecords should be aggregated by. Can be:
-     * `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord that
-     * describes the usage for the entire period..
+     * `hour`, `day`, or `all`. Default is `all`. `all` returns one UsageRecord
+     * that describes the usage for the entire period..
      *
      * @param granularity Time-based grouping that UsageRecords should be
-     *                    aggregated by. Can be: `hour`, `day`, or `all`. Default is
-     *                    `all`.
+     *                    aggregated by. Can be: `hour`, `day`, or `all`. Default
+     *                    is `all`.
      * @return this
      */
     public UsageRecordReader setGranularity(final UsageRecord.Granularity granularity) {
@@ -121,8 +121,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Only include usage that occurred at or after this time, specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
-     * one month before the `end_time`..
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default
+     * is one month before the `end_time`..
      *
      * @param startTime Only include usage that occurred at or after this time.
      * @return this
@@ -134,8 +134,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     /**
      * Only include usage that occurred before this time, specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
-     * the current time..
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default
+     * is the current time..
      *
      * @param endTime Only include usage that occurred before this time.
      * @return this

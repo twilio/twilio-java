@@ -55,8 +55,8 @@ public class ServiceCreator extends Creator<Service> {
      * receiving inbound messages is disabled..
      *
      * @param inboundRequestUrl The URL we call using inbound_method when a message
-     *                          is received by any phone number or short code in the
-     *                          Service
+     *                          is received by any phone number or short code in
+     *                          the Service
      * @return this
      */
     public ServiceCreator setInboundRequestUrl(final URI inboundRequestUrl) {
@@ -70,8 +70,8 @@ public class ServiceCreator extends Creator<Service> {
      * receiving inbound messages is disabled..
      *
      * @param inboundRequestUrl The URL we call using inbound_method when a message
-     *                          is received by any phone number or short code in the
-     *                          Service
+     *                          is received by any phone number or short code in
+     *                          the Service
      * @return this
      */
     public ServiceCreator setInboundRequestUrl(final String inboundRequestUrl) {

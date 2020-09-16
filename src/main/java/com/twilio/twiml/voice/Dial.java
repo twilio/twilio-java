@@ -339,8 +339,8 @@ public class Dial extends TwiML {
     }
 
     /**
-     * Preserve the ringing behavior of the inbound call until the Dialed call picks
-     * up
+     * Preserve the ringing behavior of the inbound call until the Dialed call
+     * picks up
      *
      * @return Preserve the ringing behavior of the inbound call until the Dialed
      *         call picks up
@@ -514,8 +514,8 @@ public class Dial extends TwiML {
         }
 
         /**
-         * Preserve the ringing behavior of the inbound call until the Dialed call picks
-         * up
+         * Preserve the ringing behavior of the inbound call until the Dialed call
+         * picks up
          */
         public Builder answerOnBridge(Boolean answerOnBridge) {
             this.answerOnBridge = answerOnBridge;

@@ -315,8 +315,8 @@ public class Workspace extends Resource {
     }
 
     /**
-     * Returns The SID of the Activity that will be assigned to a Worker when a Task
-     * reservation times out without a response.
+     * Returns The SID of the Activity that will be assigned to a Worker when a
+     * Task reservation times out without a response.
      *
      * @return The SID of the Activity that will be assigned to a Worker when a
      *         Task reservation times out without a response

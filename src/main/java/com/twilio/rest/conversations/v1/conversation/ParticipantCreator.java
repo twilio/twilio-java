@@ -61,10 +61,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the participant's device, e.g. a phone number or Messenger ID.
-     * Together with the Proxy address, this determines a participant uniquely. This
-     * field (with proxy_address) is only null when the participant is interacting
-     * from a Chat endpoint (see the 'identity' field)..
+     * The address of the participant's device, e.g. a phone number or Messenger
+     * ID. Together with the Proxy address, this determines a participant uniquely.
+     * This field (with proxy_address) is only null when the participant is
+     * interacting from a Chat endpoint (see the 'identity' field)..
      *
      * @param messagingBindingAddress The address of the participant's device.
      * @return this
@@ -75,8 +75,8 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the Twilio phone number (or WhatsApp number, or Messenger Page
-     * ID) that the participant is in contact with. This field, together with
+     * The address of the Twilio phone number (or WhatsApp number, or Messenger
+     * Page ID) that the participant is in contact with. This field, together with
      * participant address, is only null when the participant is interacting from a
      * Chat endpoint (see the 'identity' field)..
      *
@@ -112,9 +112,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish. The
-     * string value must contain structurally valid JSON if specified.  **Note**
-     * that if the attributes are not set "{}" will be returned..
+     * An optional string metadata field you can use to store any data you wish.
+     * The string value must contain structurally valid JSON if specified.
+     * **Note** that if the attributes are not set "{}" will be returned..
      *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.
@@ -140,8 +140,8 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the participant..
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to
+     * assign to the participant..
      *
      * @param roleSid The SID of the Role to assign to the participant
      * @return this

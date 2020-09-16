@@ -34,8 +34,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FieldValue extends Resource {
@@ -262,8 +262,8 @@ public class FieldValue extends Resource {
     }
 
     /**
-     * Returns A value that indicates this field value is a synonym of. Empty if the
-     * value is not a synonym..
+     * Returns A value that indicates this field value is a synonym of. Empty if
+     * the value is not a synonym..
      *
      * @return A value that indicates this field value is a synonym of. Empty if
      *         the value is not a synonym.

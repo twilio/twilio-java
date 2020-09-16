@@ -77,8 +77,8 @@ public class BindingCreator extends Creator<Binding> {
 
     /**
      * The protocol version to use to send the notification. This defaults to the
-     * value of `default_xxxx_notification_protocol_version` for the protocol in the
-     * <a
+     * value of `default_xxxx_notification_protocol_version` for the protocol in
+     * the <a
      * href="https://www.twilio.com/docs/notify/api/service-resource">Service</a>.
      * The current version is `"3"` for `apn`, `fcm`, and `gcm` type Bindings. The
      * parameter is not applicable to `sms` and `facebook-messenger` type Bindings

@@ -188,9 +188,9 @@ public class MessageCreator extends Creator<Message> {
      * `undelivered`. Twilio will POST its <a
      * href="https://www.twilio.com/docs/sms/twiml#request-parameters">standard
      * request parameters</a> as well as some additional parameters including
-     * `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter
-     * with the `messaging_service_sid`, we use this URL instead of the Status
-     * Callback URL of the <a
+     * `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this
+     * parameter with the `messaging_service_sid`, we use this URL instead of the
+     * Status Callback URL of the <a
      * href="https://www.twilio.com/docs/sms/services/api">Messaging Service</a>.
      * URLs must contain a valid hostname and underscores are not allowed..
      *
@@ -210,9 +210,9 @@ public class MessageCreator extends Creator<Message> {
      * `undelivered`. Twilio will POST its <a
      * href="https://www.twilio.com/docs/sms/twiml#request-parameters">standard
      * request parameters</a> as well as some additional parameters including
-     * `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter
-     * with the `messaging_service_sid`, we use this URL instead of the Status
-     * Callback URL of the <a
+     * `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this
+     * parameter with the `messaging_service_sid`, we use this URL instead of the
+     * Status Callback URL of the <a
      * href="https://www.twilio.com/docs/sms/services/api">Messaging Service</a>.
      * URLs must contain a valid hostname and underscores are not allowed..
      *
@@ -242,12 +242,12 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The maximum total price in US dollars that you will pay for the message to be
-     * delivered. Can be a decimal value that has up to 4 decimal places. All
+     * The maximum total price in US dollars that you will pay for the message to
+     * be delivered. Can be a decimal value that has up to 4 decimal places. All
      * messages are queued for delivery and the message cost is checked before the
-     * message is sent. If the cost exceeds `max_price`, the message will fail and a
-     * status of `Failed` is sent to the status callback. If `MaxPrice` is not set,
-     * the message cost is not checked..
+     * message is sent. If the cost exceeds `max_price`, the message will fail and
+     * a status of `Failed` is sent to the status callback. If `MaxPrice` is not
+     * set, the message cost is not checked..
      *
      * @param maxPrice The total maximum price up to 4 decimal places in US dollars
      *                 acceptable for the message to be delivered.
@@ -290,9 +290,9 @@ public class MessageCreator extends Creator<Message> {
      * How long in seconds the message can remain in our outgoing message queue.
      * After this period elapses, the message fails and we call your status
      * callback. Can be between 1 and the default value of 14,400 seconds. After a
-     * message has been accepted by a carrier, however, we cannot guarantee that the
-     * message will not be queued after this period. We recommend that this value be
-     * at least 5 seconds..
+     * message has been accepted by a carrier, however, we cannot guarantee that
+     * the message will not be queued after this period. We recommend that this
+     * value be at least 5 seconds..
      *
      * @param validityPeriod The number of seconds that the message can remain in
      *                       our outgoing queue.
@@ -376,16 +376,17 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * A Twilio phone number in <a
-     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an
+     * <a
      * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
      * sender ID</a>, or a <a
      * href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel
      * Endpoint address</a> that is enabled for the type of message you want to
      * send. Phone numbers or <a
      * href="https://www.twilio.com/docs/sms/api/short-code">short codes</a>
-     * purchased from Twilio also work here. You cannot, for example, spoof messages
-     * from a private cell phone number. If you are using `messaging_service_sid`,
-     * this parameter must be empty..
+     * purchased from Twilio also work here. You cannot, for example, spoof
+     * messages from a private cell phone number. If you are using
+     * `messaging_service_sid`, this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -397,16 +398,17 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * A Twilio phone number in <a
-     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an
+     * <a
      * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
      * sender ID</a>, or a <a
      * href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel
      * Endpoint address</a> that is enabled for the type of message you want to
      * send. Phone numbers or <a
      * href="https://www.twilio.com/docs/sms/api/short-code">short codes</a>
-     * purchased from Twilio also work here. You cannot, for example, spoof messages
-     * from a private cell phone number. If you are using `messaging_service_sid`,
-     * this parameter must be empty..
+     * purchased from Twilio also work here. You cannot, for example, spoof
+     * messages from a private cell phone number. If you are using
+     * `messaging_service_sid`, this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -418,11 +420,12 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The SID of the <a
      * href="https://www.twilio.com/docs/sms/services#send-a-message-with-copilot">Messaging
-     * Service</a> you want to associate with the Message. Set this parameter to use
-     * the <a href="https://www.twilio.com/console/sms/services">Messaging Service
-     * Settings and Copilot Features</a> you have configured and leave the `from`
-     * parameter empty. When only this parameter is set, Twilio will use your
-     * enabled Copilot Features to select the `from` phone number for delivery..
+     * Service</a> you want to associate with the Message. Set this parameter to
+     * use the <a href="https://www.twilio.com/console/sms/services">Messaging
+     * Service Settings and Copilot Features</a> you have configured and leave the
+     * `from` parameter empty. When only this parameter is set, Twilio will use
+     * your enabled Copilot Features to select the `from` phone number for
+     * delivery..
      *
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.
@@ -449,13 +452,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
-     * and 500KB for <a
-     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a> of
-     * accepted media. To send more than one image in the message body, provide
-     * multiple `media_url` parameters in the POST request. You can include up to 10
-     * `media_url` parameters per message. You can send images in an SMS message in
-     * only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG,
+     * GIF) and 500KB for <a
+     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a>
+     * of accepted media. To send more than one image in the message body, provide
+     * multiple `media_url` parameters in the POST request. You can include up to
+     * 10 `media_url` parameters per message. You can send images in an SMS message
+     * in only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -468,13 +471,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
-     * and 500KB for <a
-     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a> of
-     * accepted media. To send more than one image in the message body, provide
-     * multiple `media_url` parameters in the POST request. You can include up to 10
-     * `media_url` parameters per message. You can send images in an SMS message in
-     * only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG,
+     * GIF) and 500KB for <a
+     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a>
+     * of accepted media. To send more than one image in the message body, provide
+     * multiple `media_url` parameters in the POST request. You can include up to
+     * 10 `media_url` parameters per message. You can send images in an SMS message
+     * in only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this
@@ -486,13 +489,13 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
-     * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
-     * and 500KB for <a
-     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a> of
-     * accepted media. To send more than one image in the message body, provide
-     * multiple `media_url` parameters in the POST request. You can include up to 10
-     * `media_url` parameters per message. You can send images in an SMS message in
-     * only the US and Canada..
+     * device. The media size limit is 5MB for supported file types (JPEG, PNG,
+     * GIF) and 500KB for <a
+     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a>
+     * of accepted media. To send more than one image in the message body, provide
+     * multiple `media_url` parameters in the POST request. You can include up to
+     * 10 `media_url` parameters per message. You can send images in an SMS message
+     * in only the US and Canada..
      *
      * @param mediaUrl The URL of the media to send with the message
      * @return this

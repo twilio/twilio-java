@@ -63,8 +63,8 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
-     * and the default is `POST`..
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or
+     * `POST` and the default is `POST`..
      *
      * @param callbackMethod The HTTP method to use to call callback_url
      * @return this

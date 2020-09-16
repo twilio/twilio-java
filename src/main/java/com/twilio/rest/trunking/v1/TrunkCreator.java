@@ -43,8 +43,8 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * The unique address you reserve on Twilio to which you route your SIP traffic.
-     * Domain names can contain letters, digits, and `-` and must end with
+     * The unique address you reserve on Twilio to which you route your SIP
+     * traffic. Domain names can contain letters, digits, and `-` and must end with
      * `pstn.twilio.com`. See <a
      * href="https://www.twilio.com/docs/sip-trunking#termination">Termination
      * Settings</a> for more information..
@@ -139,9 +139,9 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
-     * Whether Secure Trunking is enabled for the trunk. If enabled, all calls going
-     * through the trunk will be secure using SRTP for media and TLS for signaling.
-     * If disabled, then RTP will be used for media. See <a
+     * Whether Secure Trunking is enabled for the trunk. If enabled, all calls
+     * going through the trunk will be secure using SRTP for media and TLS for
+     * signaling. If disabled, then RTP will be used for media. See <a
      * href="https://www.twilio.com/docs/sip-trunking#securetrunking">Secure
      * Trunking</a> for more information..
      *
@@ -155,10 +155,10 @@ public class TrunkCreator extends Creator<Trunk> {
 
     /**
      * Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If
-     * enabled, all inbound calls to the SIP Trunk from the United States and Canada
-     * automatically perform a CNAM Lookup and display Caller ID data on your phone.
-     * See <a href="https://www.twilio.com/docs/sip-trunking#CNAM">CNAM Lookups</a>
-     * for more information..
+     * enabled, all inbound calls to the SIP Trunk from the United States and
+     * Canada automatically perform a CNAM Lookup and display Caller ID data on
+     * your phone. See <a href="https://www.twilio.com/docs/sip-trunking#CNAM">CNAM
+     * Lookups</a> for more information..
      *
      * @param cnamLookupEnabled Whether Caller ID Name (CNAM) lookup should be
      *                          enabled for the trunk

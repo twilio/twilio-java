@@ -62,12 +62,13 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * The URL of the AWS S3 bucket where the compositions should be stored. We only
-     * support DNS-compliant URLs like
+     * The URL of the AWS S3 bucket where the compositions should be stored. We
+     * only support DNS-compliant URLs like
      * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
      * where `compositions` is the path in which you want the compositions to be
-     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
-     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
+     * stored. This URL accepts only URI-valid characters, as described in the
+     * &lt;a href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC
+     * 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
      *                 be stored
@@ -79,12 +80,13 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * The URL of the AWS S3 bucket where the compositions should be stored. We only
-     * support DNS-compliant URLs like
+     * The URL of the AWS S3 bucket where the compositions should be stored. We
+     * only support DNS-compliant URLs like
      * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
      * where `compositions` is the path in which you want the compositions to be
-     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
-     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
+     * stored. This URL accepts only URI-valid characters, as described in the
+     * &lt;a href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC
+     * 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
      *                 be stored
@@ -95,8 +97,8 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     }
 
     /**
-     * Whether all compositions should be written to the `aws_s3_url`. When `false`,
-     * all compositions are stored in our cloud..
+     * Whether all compositions should be written to the `aws_s3_url`. When
+     * `false`, all compositions are stored in our cloud..
      *
      * @param awsStorageEnabled Whether all compositions should be written to the
      *                          aws_s3_url

@@ -36,8 +36,8 @@ public class RoomCreator extends Creator<Room> {
      * Deprecated. Whether to enable <a
      * href="https://www.twilio.com/stun-turn">Twilio's Network Traversal TURN
      * service</a>. TURN service is used when direct peer-to-peer media connections
-     * cannot be established due to firewall restrictions. This setting only applies
-     * to rooms with type `peer-to-peer`..
+     * cannot be established due to firewall restrictions. This setting only
+     * applies to rooms with type `peer-to-peer`..
      *
      * @param enableTurn Enable Twilio's Network Traversal TURN service
      * @return this
@@ -118,8 +118,8 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * The maximum number of concurrent Participants allowed in the room.
-     * Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can have
-     * up to 4 Participants. Group rooms can have up to 50 Participants..
+     * Peer-to-peer rooms can have up to 10 Participants. Small Group rooms can
+     * have up to 4 Participants. Group rooms can have up to 50 Participants..
      *
      * @param maxParticipants The maximum number of concurrent Participants allowed
      *                        in the room

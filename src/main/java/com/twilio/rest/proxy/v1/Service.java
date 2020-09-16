@@ -324,8 +324,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The URL we call when an inbound call or SMS action occurs on a closed
-     * or non-existent Session.
+     * Returns The URL we call when an inbound call or SMS action occurs on a
+     * closed or non-existent Session.
      *
      * @return The URL we call when an inbound call or SMS action occurs on a
      *         closed or non-existent Session

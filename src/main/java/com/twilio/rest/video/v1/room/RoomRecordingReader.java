@@ -39,8 +39,8 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * Read only the recordings with this status. Can be: `processing`, `completed`,
-     * or `deleted`..
+     * Read only the recordings with this status. Can be: `processing`,
+     * `completed`, or `deleted`..
      *
      * @param status Read only the recordings with this status
      * @return this
@@ -63,8 +63,8 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Read only recordings that started on or after this <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
-     * zone..
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with
+     * time zone..
      *
      * @param dateCreatedAfter Read only Recordings that started on or after this
      *                         ISO 8601 datetime with time zone
@@ -77,8 +77,8 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
     /**
      * Read only Recordings that started before this <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
-     * zone..
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with
+     * time zone..
      *
      * @param dateCreatedBefore Read only Recordings that started before this ISO
      *                          8601 date-time with time zone

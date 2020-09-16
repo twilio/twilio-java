@@ -22,8 +22,8 @@ import java.net.URI;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class ModelBuildCreator extends Creator<ModelBuild> {
     private final String pathAssistantSid;
@@ -41,8 +41,8 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     }
 
     /**
-     * The URL we should call using a POST method to send status information to your
-     * application..
+     * The URL we should call using a POST method to send status information to
+     * your application..
      *
      * @param statusCallback The URL we should call using a POST method to send
      *                       status information to your application
@@ -54,8 +54,8 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     }
 
     /**
-     * The URL we should call using a POST method to send status information to your
-     * application..
+     * The URL we should call using a POST method to send status information to
+     * your application..
      *
      * @param statusCallback The URL we should call using a POST method to send
      *                       status information to your application
@@ -66,9 +66,9 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
     }
 
     /**
-     * An application-defined string that uniquely identifies the new resource. This
-     * value must be a unique string of no more than 64 characters. It can be used
-     * as an alternative to the `sid` in the URL path to address the resource..
+     * An application-defined string that uniquely identifies the new resource.
+     * This value must be a unique string of no more than 64 characters. It can be
+     * used as an alternative to the `sid` in the URL path to address the resource..
      *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   new resource

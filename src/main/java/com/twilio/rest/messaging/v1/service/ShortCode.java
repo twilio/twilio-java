@@ -229,8 +229,8 @@ public class ShortCode extends Resource {
     }
 
     /**
-     * Returns An array of values that describe whether the number can receive calls
-     * or messages.
+     * Returns An array of values that describe whether the number can receive
+     * calls or messages.
      *
      * @return An array of values that describe whether the number can receive
      *         calls or messages

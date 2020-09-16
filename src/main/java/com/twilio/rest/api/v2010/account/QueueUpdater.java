@@ -46,8 +46,8 @@ public class QueueUpdater extends Updater<Queue> {
     }
 
     /**
-     * A descriptive string that you created to describe this resource. It can be up
-     * to 64 characters long..
+     * A descriptive string that you created to describe this resource. It can be
+     * up to 64 characters long..
      *
      * @param friendlyName A string to describe this resource
      * @return this

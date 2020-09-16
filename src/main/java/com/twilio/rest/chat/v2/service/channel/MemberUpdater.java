@@ -48,8 +48,8 @@ public class MemberUpdater extends Updater<Member> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the member. The default roles are those specified on the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to
+     * assign to the member. The default roles are those specified on the <a
      * href="https://www.twilio.com/docs/chat/rest/service-resource">Service</a>..
      *
      * @param roleSid The SID of the Role to assign to the member
@@ -83,8 +83,9 @@ public class MemberUpdater extends Updater<Member> {
      * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the datetime of the last Message
-     *                                 read event for the Member within the Channel
+     *                                 representing the datetime of the last
+     *                                 Message read event for the Member within the
+     *                                 Channel
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {

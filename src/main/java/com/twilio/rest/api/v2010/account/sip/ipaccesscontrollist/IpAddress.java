@@ -300,8 +300,8 @@ public class IpAddress extends Resource {
      * Twilio. IPv4 only supported today..
      *
      * @return An IP address in dotted decimal notation from which you want to
-     *         accept traffic. Any SIP requests from this IP address will be allowed
-     *         by Twilio. IPv4 only supported today.
+     *         accept traffic. Any SIP requests from this IP address will be
+     *         allowed by Twilio. IPv4 only supported today.
      */
     public final String getIpAddress() {
         return this.ipAddress;

@@ -24,8 +24,8 @@ import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class AssistantUpdater extends Updater<Assistant> {
     private final String pathSid;
@@ -61,10 +61,10 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A boolean that specifies whether queries should be logged for 30 days further
-     * training. If false, no queries will be stored, if true, queries will be
-     * stored for 30 days and deleted thereafter. Defaults to true if no value is
-     * provided..
+     * A boolean that specifies whether queries should be logged for 30 days
+     * further training. If false, no queries will be stored, if true, queries will
+     * be stored for 30 days and deleted thereafter. Defaults to true if no value
+     * is provided..
      *
      * @param logQueries A boolean that specifies whether queries should be logged
      *                   for 30 days further training. If false, no queries will be
@@ -139,8 +139,8 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The JSON actions to be executed on inbound phone calls when the Assistant has
-     * to say something first..
+     * The JSON actions to be executed on inbound phone calls when the Assistant
+     * has to say something first..
      *
      * @param initiationActions The JSON actions to be executed on inbound phone
      *                          calls when the Assistant has to say something first.

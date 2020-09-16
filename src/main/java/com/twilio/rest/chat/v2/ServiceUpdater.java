@@ -190,8 +190,8 @@ public class ServiceUpdater extends Updater<Service> {
      * `true`..
      *
      * @param notificationsNewMessageTemplate The template to use to create the
-     *                                        notification text displayed when a new
-     *                                        message is added to a channel
+     *                                        notification text displayed when a
+     *                                        new message is added to a channel
      * @return this
      */
     public ServiceUpdater setNotificationsNewMessageTemplate(final String notificationsNewMessageTemplate) {
@@ -243,8 +243,8 @@ public class ServiceUpdater extends Updater<Service> {
      * `true`..
      *
      * @param notificationsAddedToChannelTemplate The template to use to create the
-     *                                            notification text displayed when a
-     *                                            member is added to a channel
+     *                                            notification text displayed when
+     *                                            a member is added to a channel
      * @return this
      */
     public ServiceUpdater setNotificationsAddedToChannelTemplate(final String notificationsAddedToChannelTemplate) {
@@ -270,8 +270,8 @@ public class ServiceUpdater extends Updater<Service> {
      * channel. The default is `false`..
      *
      * @param notificationsRemovedFromChannelEnabled Whether to send a notification
-     *                                               to a user when they are removed
-     *                                               from a channel
+     *                                               to a user when they are
+     *                                               removed from a channel
      * @return this
      */
     public ServiceUpdater setNotificationsRemovedFromChannelEnabled(final Boolean notificationsRemovedFromChannelEnabled) {
@@ -300,8 +300,8 @@ public class ServiceUpdater extends Updater<Service> {
      * and `notifications.removed_from_channel.enabled` is `true`..
      *
      * @param notificationsRemovedFromChannelSound The name of the sound to play to
-     *                                             a user when they are removed from
-     *                                             a channel
+     *                                             a user when they are removed
+     *                                             from a channel
      * @return this
      */
     public ServiceUpdater setNotificationsRemovedFromChannelSound(final String notificationsRemovedFromChannelSound) {
@@ -355,8 +355,8 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL for pre-event webhooks, which are called by using the
      * `webhook_method`. See <a
-     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
-     * more details..
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
@@ -369,8 +369,8 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL for pre-event webhooks, which are called by using the
      * `webhook_method`. See <a
-     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
-     * more details..
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
@@ -382,8 +382,8 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL for post-event webhooks, which are called by using the
      * `webhook_method`. See <a
-     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
-     * more details..
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
@@ -396,8 +396,8 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The URL for post-event webhooks, which are called by using the
      * `webhook_method`. See <a
-     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
-     * more details..
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
@@ -409,8 +409,9 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The HTTP method to use for calls to the `pre_webhook_url` and
      * `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is
-     * `POST`. See <a href="https://www.twilio.com/docs/chat/webhook-events">Webhook
-     * Events</a> for more details..
+     * `POST`. See <a
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param webhookMethod The HTTP method  to use for both PRE and POST webhooks
      * @return this
@@ -421,9 +422,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The list of webhook events that are enabled for this Service instance. See <a
-     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
-     * more details..
+     * The list of webhook events that are enabled for this Service instance. See
+     * <a href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param webhookFilters The list of webhook events that are enabled for this
      *                       Service instance
@@ -435,9 +436,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The list of webhook events that are enabled for this Service instance. See <a
-     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
-     * more details..
+     * The list of webhook events that are enabled for this Service instance. See
+     * <a href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a>
+     * for more details..
      *
      * @param webhookFilters The list of webhook events that are enabled for this
      *                       Service instance

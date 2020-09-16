@@ -49,9 +49,9 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
     }
 
     /**
-     * Only calculate statistics since this many minutes in the past. The default 15
-     * minutes. This is helpful for displaying statistics for the last 15 minutes,
-     * 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
+     * Only calculate statistics since this many minutes in the past. The default
+     * 15 minutes. This is helpful for displaying statistics for the last 15
+     * minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
      *
      * @param minutes Only calculate statistics since this many minutes in the past
      * @return this
@@ -88,12 +88,12 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
 
     /**
      * A comma separated list of values that describes the thresholds, in seconds,
-     * to calculate statistics on. For each threshold specified, the number of Tasks
-     * canceled and reservations accepted above and below the specified thresholds
-     * in seconds are computed. For example, `5,30` would show splits of Tasks that
-     * were canceled or accepted before and after 5 seconds and before and after 30
-     * seconds. This can be used to show short abandoned Tasks or Tasks that failed
-     * to meet an SLA..
+     * to calculate statistics on. For each threshold specified, the number of
+     * Tasks canceled and reservations accepted above and below the specified
+     * thresholds in seconds are computed. For example, `5,30` would show splits of
+     * Tasks that were canceled or accepted before and after 5 seconds and before
+     * and after 30 seconds. This can be used to show short abandoned Tasks or
+     * Tasks that failed to meet an SLA..
      *
      * @param splitByWaitTime A comma separated list of values that describes the
      *                        thresholds to calculate statistics on

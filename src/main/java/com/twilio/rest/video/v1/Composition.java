@@ -37,8 +37,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Composition extends Resource {
@@ -366,8 +366,8 @@ public class Composition extends Resource {
     }
 
     /**
-     * Returns The container format of the composition's media files as specified in
-     * the POST request that created the Composition resource.
+     * Returns The container format of the composition's media files as specified
+     * in the POST request that created the Composition resource.
      *
      * @return The container format of the composition's media files as specified
      *         in the POST request that created the Composition resource

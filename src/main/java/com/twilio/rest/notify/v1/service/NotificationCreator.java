@@ -74,11 +74,11 @@ public class NotificationCreator extends Creator<Notification> {
      * The priority of the notification. Can be: `low` or `high` and the default is
      * `high`. A value of `low` optimizes the client app's battery consumption;
      * however, notifications may be delivered with unspecified delay. For FCM and
-     * GCM, `low` priority is the same as `Normal` priority. For APNS `low` priority
-     * is the same as `5`. A value of `high` sends the notification immediately, and
-     * can wake up a sleeping device. For FCM and GCM, `high` is the same as `High`
-     * priority. For APNS, `high` is a priority `10`. SMS does not support this
-     * property..
+     * GCM, `low` priority is the same as `Normal` priority. For APNS `low`
+     * priority is the same as `5`. A value of `high` sends the notification
+     * immediately, and can wake up a sleeping device. For FCM and GCM, `high` is
+     * the same as `High` priority. For APNS, `high` is a priority `10`. SMS does
+     * not support this property..
      *
      * @param priority The priority of the notification
      * @return this
@@ -133,9 +133,9 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * The actions to display for the notification. For APNS, translates to the
-     * `aps.category` value. For GCM, translates to the `data.twi_action` value. For
-     * SMS, this parameter is not supported and is omitted from deliveries to those
-     * channels..
+     * `aps.category` value. For GCM, translates to the `data.twi_action` value.
+     * For SMS, this parameter is not supported and is omitted from deliveries to
+     * those channels..
      *
      * @param action The actions to display for the notification
      * @return this
@@ -151,10 +151,11 @@ public class NotificationCreator extends Creator<Notification> {
      * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserve
      * certain keys</a> that cannot be used in those channels. For APNS, attributes
      * of `data` are inserted into the APNS payload as custom properties outside of
-     * the `aps` dictionary. In all channels, we reserve keys that start with `twi_`
-     * for future use. Custom keys that start with `twi_` are not allowed and are
-     * rejected as 400 Bad request with no delivery attempted. For SMS, this
-     * parameter is not supported and is omitted from deliveries to those channels..
+     * the `aps` dictionary. In all channels, we reserve keys that start with
+     * `twi_` for future use. Custom keys that start with `twi_` are not allowed
+     * and are rejected as 400 Bad request with no delivery attempted. For SMS,
+     * this parameter is not supported and is omitted from deliveries to those
+     * channels..
      *
      * @param data The custom key-value pairs of the notification's payload
      * @return this
@@ -189,8 +190,8 @@ public class NotificationCreator extends Creator<Notification> {
      * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">GCM
      * documentation</a> for more details. Target parameters `to`,
      * `registration_ids`, and `notification_key` are not allowed. We reserve keys
-     * that start with `twi_` for future use. Custom keys that start with `twi_` are
-     * not allowed. GCM also <a
+     * that start with `twi_` for future use. Custom keys that start with `twi_`
+     * are not allowed. GCM also <a
      * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves
      * certain keys</a>..
      *
@@ -241,8 +242,8 @@ public class NotificationCreator extends Creator<Notification> {
      * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream">FCM
      * documentation</a> for more details. Target parameters `to`,
      * `registration_ids`, `condition`, and `notification_key` are not allowed in
-     * this parameter. We reserve keys that start with `twi_` for future use. Custom
-     * keys that start with `twi_` are not allowed. FCM also <a
+     * this parameter. We reserve keys that start with `twi_` for future use.
+     * Custom keys that start with `twi_` are not allowed. FCM also <a
      * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves
      * certain keys</a>, which cannot be used in that channel..
      *
@@ -328,8 +329,8 @@ public class NotificationCreator extends Creator<Notification> {
      * href="https://www.twilio.com/docs/chat/rest/user-resource">User</a> within
      * the <a
      * href="https://www.twilio.com/docs/notify/api/service-resource">Service</a>.
-     * Delivery will be attempted only to Bindings with an Identity in this list. No
-     * more than 20 items are allowed in this list..
+     * Delivery will be attempted only to Bindings with an Identity in this list.
+     * No more than 20 items are allowed in this list..
      *
      * @param identity The `identity` value that identifies the new resource's User
      * @return this
@@ -344,8 +345,8 @@ public class NotificationCreator extends Creator<Notification> {
      * href="https://www.twilio.com/docs/chat/rest/user-resource">User</a> within
      * the <a
      * href="https://www.twilio.com/docs/notify/api/service-resource">Service</a>.
-     * Delivery will be attempted only to Bindings with an Identity in this list. No
-     * more than 20 items are allowed in this list..
+     * Delivery will be attempted only to Bindings with an Identity in this list.
+     * No more than 20 items are allowed in this list..
      *
      * @param identity The `identity` value that identifies the new resource's User
      * @return this

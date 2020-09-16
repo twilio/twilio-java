@@ -55,8 +55,8 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
     }
 
     /**
-     * The SIP address you want Twilio to route your calls to. This must be a `sip:`
-     * schema. `sips` is NOT supported..
+     * The SIP address you want Twilio to route your calls to. This must be a
+     * `sip:` schema. `sips` is NOT supported..
      *
      * @param target The SIP address you want Twilio to route your calls to
      * @return this
@@ -67,8 +67,8 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
     }
 
     /**
-     * The SIP address you want Twilio to route your calls to. This must be a `sip:`
-     * schema. `sips` is NOT supported..
+     * The SIP address you want Twilio to route your calls to. This must be a
+     * `sip:` schema. `sips` is NOT supported..
      *
      * @param target The SIP address you want Twilio to route your calls to
      * @return this
@@ -92,8 +92,8 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
     /**
      * The value that determines the relative share of the load the Target should
      * receive compared to other Targets with the same priority. Can be an integer
-     * from 1 to 65535, inclusive. Targets with higher values receive more load than
-     * those with lower ones with the same priority..
+     * from 1 to 65535, inclusive. Targets with higher values receive more load
+     * than those with lower ones with the same priority..
      *
      * @param weight The value that determines the relative load the Target should
      *               receive compared to others with the same priority

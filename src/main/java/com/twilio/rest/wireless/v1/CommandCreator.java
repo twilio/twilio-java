@@ -88,8 +88,8 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The mode to use when sending the SMS message. Can be: `text` or `binary`. The
-     * default SMS mode is `text`..
+     * The mode to use when sending the SMS message. Can be: `text` or `binary`.
+     * The default SMS mode is `text`..
      *
      * @param commandMode The mode to use when sending the SMS message
      * @return this
@@ -101,8 +101,8 @@ public class CommandCreator extends Creator<Command> {
 
     /**
      * Whether to include the SID of the command in the message body. Can be:
-     * `none`, `start`, or `end`, and the default behavior is `none`. When sending a
-     * Command to a SIM in text mode, we can automatically include the SID of the
+     * `none`, `start`, or `end`, and the default behavior is `none`. When sending
+     * a Command to a SIM in text mode, we can automatically include the SID of the
      * Command in the message body, which could be used to ensure that the device
      * does not process the same Command more than once.  A value of `start` will
      * prepend the message with the Command SID, and `end` will append it to the
@@ -122,8 +122,8 @@ public class CommandCreator extends Creator<Command> {
     /**
      * Whether to request delivery receipt from the recipient. For Commands that
      * request delivery receipt, the Command state transitions to 'delivered' once
-     * the server has received a delivery receipt from the device. The default value
-     * is `true`..
+     * the server has received a delivery receipt from the device. The default
+     * value is `true`..
      *
      * @param deliveryReceiptRequested Whether to request delivery receipt from the
      *                                 recipient

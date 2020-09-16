@@ -22,8 +22,8 @@ import java.util.List;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument> {
     private final List<String> hostedNumberOrderSids;
@@ -55,8 +55,8 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     }
 
     /**
-     * Email recipients who will be informed when an Authorization Document has been
-     * sent and signed..
+     * Email recipients who will be informed when an Authorization Document has
+     * been sent and signed..
      *
      * @param ccEmails A list of emails.
      * @return this
@@ -67,8 +67,8 @@ public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>
     }
 
     /**
-     * Email recipients who will be informed when an Authorization Document has been
-     * sent and signed..
+     * Email recipients who will be informed when an Authorization Document has
+     * been sent and signed..
      *
      * @param ccEmails A list of emails.
      * @return this

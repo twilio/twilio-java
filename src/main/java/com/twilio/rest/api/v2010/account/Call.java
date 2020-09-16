@@ -502,23 +502,23 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The phone number, SIP address or Client identifier that received this
-     * call. Phone numbers are in E.164 format (e.g., +16175551212). SIP addresses
-     * are formatted as `name@company.com`. Client identifiers are formatted
-     * `client:name`..
+     * Returns The phone number, SIP address or Client identifier that received
+     * this call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
+     * addresses are formatted as `name@company.com`. Client identifiers are
+     * formatted `client:name`..
      *
      * @return The phone number, SIP address or Client identifier that received
      *         this call. Phone numbers are in E.164 format (e.g., +16175551212).
-     *         SIP addresses are formatted as `name@company.com`. Client identifiers
-     *         are formatted `client:name`.
+     *         SIP addresses are formatted as `name@company.com`. Client
+     *         identifiers are formatted `client:name`.
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The phone number, SIP address or Client identifier that received this
-     * call. Formatted for display..
+     * Returns The phone number, SIP address or Client identifier that received
+     * this call. Formatted for display..
      *
      * @return The phone number, SIP address or Client identifier that received
      *         this call. Formatted for display.
@@ -535,16 +535,16 @@ public class Call extends Resource {
      *
      * @return The phone number, SIP address or Client identifier that made this
      *         call. Phone numbers are in E.164 format (e.g., +16175551212). SIP
-     *         addresses are formatted as `name@company.com`. Client identifiers are
-     *         formatted `client:name`.
+     *         addresses are formatted as `name@company.com`. Client identifiers
+     *         are formatted `client:name`.
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The calling phone number, SIP address, or Client identifier formatted
-     * for display..
+     * Returns The calling phone number, SIP address, or Client identifier
+     * formatted for display..
      *
      * @return The calling phone number, SIP address, or Client identifier
      *         formatted for display.
@@ -629,8 +629,8 @@ public class Call extends Resource {
 
     /**
      * Returns A string describing the direction of the call. `inbound` for inbound
-     * calls, `outbound-api` for calls initiated via the REST API or `outbound-dial`
-     * for calls initiated by a `Dial` verb..
+     * calls, `outbound-api` for calls initiated via the REST API or
+     * `outbound-dial` for calls initiated by a `Dial` verb..
      *
      * @return A string describing the direction of the call. `inbound` for inbound
      *         calls, `outbound-api` for calls initiated via the REST API or
@@ -641,8 +641,8 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns Either `human` or `machine` if this call was initiated with answering
-     * machine detection. Empty otherwise..
+     * Returns Either `human` or `machine` if this call was initiated with
+     * answering machine detection. Empty otherwise..
      *
      * @return Either `human` or `machine` if this call was initiated with
      *         answering machine detection. Empty otherwise.
@@ -694,8 +694,8 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The caller's name if this call was an incoming call to a phone number
-     * with caller ID Lookup enabled. Otherwise, empty..
+     * Returns The caller's name if this call was an incoming call to a phone
+     * number with caller ID Lookup enabled. Otherwise, empty..
      *
      * @return The caller's name if this call was an incoming call to a phone
      *         number with caller ID Lookup enabled. Otherwise, empty.

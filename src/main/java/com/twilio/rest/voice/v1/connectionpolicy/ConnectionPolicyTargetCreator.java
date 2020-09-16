@@ -68,8 +68,8 @@ public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarge
     /**
      * The value that determines the relative share of the load the Target should
      * receive compared to other Targets with the same priority. Can be an integer
-     * from 1 to 65535, inclusive, and the default is 10. Targets with higher values
-     * receive more load than those with lower ones with the same priority..
+     * from 1 to 65535, inclusive, and the default is 10. Targets with higher
+     * values receive more load than those with lower ones with the same priority..
      *
      * @param weight The value that determines the relative load the Target should
      *               receive compared to others with the same priority

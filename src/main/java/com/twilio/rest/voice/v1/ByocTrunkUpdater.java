@@ -124,8 +124,8 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
     }
 
     /**
-     * The URL that we should call to pass status parameters (such as call ended) to
-     * your application..
+     * The URL that we should call to pass status parameters (such as call ended)
+     * to your application..
      *
      * @param statusCallbackUrl The URL that we should call to pass status updates
      * @return this
@@ -136,8 +136,8 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
     }
 
     /**
-     * The URL that we should call to pass status parameters (such as call ended) to
-     * your application..
+     * The URL that we should call to pass status parameters (such as call ended)
+     * to your application..
      *
      * @param statusCallbackUrl The URL that we should call to pass status updates
      * @return this
@@ -147,8 +147,8 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
     }
 
     /**
-     * The HTTP method we should use to call `status_callback_url`. Can be: `GET` or
-     * `POST`..
+     * The HTTP method we should use to call `status_callback_url`. Can be: `GET`
+     * or `POST`..
      *
      * @param statusCallbackMethod The HTTP method we should use to call
      *                             status_callback_url
@@ -162,9 +162,9 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
     /**
      * Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled,
      * all inbound calls to the BYOC Trunk from the United States and Canada
-     * automatically perform a CNAM Lookup and display Caller ID data on your phone.
-     * See <a href="https://www.twilio.com/docs/sip-trunking#CNAM">CNAM Lookups</a>
-     * for more information..
+     * automatically perform a CNAM Lookup and display Caller ID data on your
+     * phone. See <a href="https://www.twilio.com/docs/sip-trunking#CNAM">CNAM
+     * Lookups</a> for more information..
      *
      * @param cnamLookupEnabled Whether Caller ID Name (CNAM) lookup is enabled for
      *                          the trunk
@@ -176,8 +176,8 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
     }
 
     /**
-     * The SID of the Connection Policy that Twilio will use when routing traffic to
-     * your communications infrastructure..
+     * The SID of the Connection Policy that Twilio will use when routing traffic
+     * to your communications infrastructure..
      *
      * @param connectionPolicySid Origination Connection Policy (to your Carrier)
      * @return this
@@ -189,11 +189,11 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk> {
 
     /**
      * The SID of the SIP Domain that should be used in the `From` header of
-     * originating calls sent to your SIP infrastructure. If your SIP infrastructure
-     * allows users to "call back" an incoming call, configure this with a <a
-     * href="https://www.twilio.com/docs/voice/api/sending-sip">SIP Domain</a> to
-     * ensure proper routing. If not configured, the from domain will default to
-     * "sip.twilio.com"..
+     * originating calls sent to your SIP infrastructure. If your SIP
+     * infrastructure allows users to "call back" an incoming call, configure this
+     * with a <a href="https://www.twilio.com/docs/voice/api/sending-sip">SIP
+     * Domain</a> to ensure proper routing. If not configured, the from domain will
+     * default to "sip.twilio.com"..
      *
      * @param fromDomainSid The SID of the SIP Domain that should be used in the
      *                      `From` header of originating calls

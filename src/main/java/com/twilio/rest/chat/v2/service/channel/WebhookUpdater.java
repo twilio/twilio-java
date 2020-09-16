@@ -60,8 +60,8 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and
-     * the default is `POST`..
+     * The HTTP method used to call `configuration.url`. Can be: `GET` or `POST`
+     * and the default is `POST`..
      *
      * @param configurationMethod The HTTP method used to call `configuration.url`
      * @return this
@@ -74,8 +74,8 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * The events that cause us to call the Channel Webhook. Used when `type` is
      * `webhook`. This parameter takes only one event. To specify more than one
-     * event, repeat this parameter for each event. For the list of possible events,
-     * see <a
+     * event, repeat this parameter for each event. For the list of possible
+     * events, see <a
      * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook
      * Event Triggers</a>..
      *
@@ -91,8 +91,8 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * The events that cause us to call the Channel Webhook. Used when `type` is
      * `webhook`. This parameter takes only one event. To specify more than one
-     * event, repeat this parameter for each event. For the list of possible events,
-     * see <a
+     * event, repeat this parameter for each event. For the list of possible
+     * events, see <a
      * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook
      * Event Triggers</a>..
      *
@@ -135,8 +135,8 @@ public class WebhookUpdater extends Updater<Webhook> {
 
     /**
      * The SID of the Studio <a
-     * href="https://www.twilio.com/docs/studio/rest-api/flow">Flow</a> to call when
-     * an event in `configuration.filters` occurs. Used only when `type` =
+     * href="https://www.twilio.com/docs/studio/rest-api/flow">Flow</a> to call
+     * when an event in `configuration.filters` occurs. Used only when `type` =
      * `studio`..
      *
      * @param configurationFlowSid The SID of the Studio Flow to call when an event

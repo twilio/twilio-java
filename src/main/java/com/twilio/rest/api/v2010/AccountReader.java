@@ -24,8 +24,8 @@ public class AccountReader extends Reader<Account> {
     private Account.Status status;
 
     /**
-     * Only return the Account resources with friendly names that exactly match this
-     * name..
+     * Only return the Account resources with friendly names that exactly match
+     * this name..
      *
      * @param friendlyName FriendlyName to filter on
      * @return this

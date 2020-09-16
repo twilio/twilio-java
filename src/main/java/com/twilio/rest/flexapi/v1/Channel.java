@@ -224,8 +224,8 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the Flex chat channel was last
-     * updated.
+     * Returns The ISO 8601 date and time in GMT when the Flex chat channel was
+     * last updated.
      *
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
      *         last updated

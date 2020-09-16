@@ -122,8 +122,8 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/media">Media</a> to attach to the
-     * new Message..
+     * href="https://www.twilio.com/docs/chat/rest/media">Media</a> to attach to
+     * the new Message..
      *
      * @param mediaSid  The Media Sid to be attached to the new Message
      * @return this

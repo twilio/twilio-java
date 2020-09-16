@@ -233,8 +233,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The SID of the Activity to assign Workers when a task is assigned for
-     * them.
+     * Returns The SID of the Activity to assign Workers when a task is assigned
+     * for them.
      *
      * @return The SID of the Activity to assign Workers when a task is assigned
      *         for them
@@ -291,8 +291,8 @@ public class TaskQueue extends Resource {
     }
 
     /**
-     * Returns The SID of the Activity to assign Workers once a task is reserved for
-     * them.
+     * Returns The SID of the Activity to assign Workers once a task is reserved
+     * for them.
      *
      * @return The SID of the Activity to assign Workers once a task is reserved
      *         for them

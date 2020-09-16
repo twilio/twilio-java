@@ -160,9 +160,9 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns This is a list of the completed, pending, or errored dates within the
-     * export time range, with one entry for each status with more than one day in
-     * that status.
+     * Returns This is a list of the completed, pending, or errored dates within
+     * the export time range, with one entry for each status with more than one day
+     * in that status.
      *
      * @return This is a list of the completed, pending, or errored dates within
      *         the export time range, with one entry for each status with more than

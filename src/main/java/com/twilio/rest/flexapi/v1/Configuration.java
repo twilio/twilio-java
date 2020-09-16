@@ -292,8 +292,8 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the Configuration resource was
-     * created.
+     * Returns The ISO 8601 date and time in GMT when the Configuration resource
+     * was created.
      *
      * @return The ISO 8601 date and time in GMT when the Configuration resource
      *         was created
@@ -303,8 +303,8 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the Configuration resource was
-     * last updated.
+     * Returns The ISO 8601 date and time in GMT when the Configuration resource
+     * was last updated.
      *
      * @return The ISO 8601 date and time in GMT when the Configuration resource
      *         was last updated

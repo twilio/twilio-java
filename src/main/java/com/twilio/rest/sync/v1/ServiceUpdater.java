@@ -105,10 +105,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether every `endpoint_disconnected` event should occur after a configurable
-     * delay. The default is `false`, where the `endpoint_disconnected` event occurs
-     * immediately after disconnection. When `true`, intervening reconnections can
-     * prevent the `endpoint_disconnected` event..
+     * Whether every `endpoint_disconnected` event should occur after a
+     * configurable delay. The default is `false`, where the
+     * `endpoint_disconnected` event occurs immediately after disconnection. When
+     * `true`, intervening reconnections can prevent the `endpoint_disconnected`
+     * event..
      *
      * @param reachabilityDebouncingEnabled Whether every endpoint_disconnected
      *                                      event occurs after a configurable delay
@@ -121,12 +122,12 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The reachability event delay in milliseconds if
-     * `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and 30,000
-     * and defaults to 5,000. This is the number of milliseconds after the last
-     * running client disconnects, and a Sync identity is declared offline, before
-     * the webhook is called if all endpoints remain offline. A reconnection from
-     * the same identity by any endpoint during this interval prevents the webhook
-     * from being called..
+     * `reachability_debouncing_enabled` = `true`.  Must be between 1,000 and
+     * 30,000 and defaults to 5,000. This is the number of milliseconds after the
+     * last running client disconnects, and a Sync identity is declared offline,
+     * before the webhook is called if all endpoints remain offline. A reconnection
+     * from the same identity by any endpoint during this interval prevents the
+     * webhook from being called..
      *
      * @param reachabilityDebouncingWindow The reachability event delay in
      *                                     milliseconds

@@ -23,8 +23,8 @@ import org.joda.time.DateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class CompositionHookReader extends Reader<CompositionHook> {
     private Boolean enabled;
@@ -33,8 +33,8 @@ public class CompositionHookReader extends Reader<CompositionHook> {
     private String friendlyName;
 
     /**
-     * Read only CompositionHook resources with an `enabled` value that matches this
-     * parameter..
+     * Read only CompositionHook resources with an `enabled` value that matches
+     * this parameter..
      *
      * @param enabled Read only CompositionHook resources with an enabled value
      *                that matches this parameter
@@ -47,8 +47,8 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Read only CompositionHook resources created on or after this <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
-     * zone..
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with
+     * time zone..
      *
      * @param dateCreatedAfter Read only CompositionHook resources created on or
      *                         after this ISO 8601 datetime with time zone
@@ -61,8 +61,8 @@ public class CompositionHookReader extends Reader<CompositionHook> {
 
     /**
      * Read only CompositionHook resources created before this <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
-     * zone..
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with
+     * time zone..
      *
      * @param dateCreatedBefore Read only CompositionHook resources created before
      *                          this ISO 8601 datetime with time zone

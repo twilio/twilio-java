@@ -240,8 +240,8 @@ public class ConnectionPolicyTarget extends Resource {
     }
 
     /**
-     * Returns The value that determines the relative load the Target should receive
-     * compared to others with the same priority.
+     * Returns The value that determines the relative load the Target should
+     * receive compared to others with the same priority.
      *
      * @return The value that determines the relative load the Target should
      *         receive compared to others with the same priority

@@ -149,8 +149,8 @@ public class AuthCallsCredentialListMapping extends Resource {
     }
 
     /**
-     * Converts a JSON String into a AuthCallsCredentialListMapping object using the
-     * provided ObjectMapper.
+     * Converts a JSON String into a AuthCallsCredentialListMapping object using
+     * the provided ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper

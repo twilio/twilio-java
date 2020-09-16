@@ -154,8 +154,8 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * The task timeout in seconds for a new task when `integration_type` is `task`.
-     * The default is `86,400` seconds (24 hours)..
+     * The task timeout in seconds for a new task when `integration_type` is
+     * `task`. The default is `86,400` seconds (24 hours)..
      *
      * @param integrationTimeout The task timeout in seconds for a new task
      * @return this
@@ -180,9 +180,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     /**
      * Whether to create a task when the first message arrives when
      * `integration_type` is `task`. If `false`, the task is created with the
-     * channel. **Note** that does not apply when channel type is `web`. Setting the
-     * value to `true` for channel type `web` will result in misconfigured Flex Flow
-     * and no tasks will be created..
+     * channel. **Note** that does not apply when channel type is `web`. Setting
+     * the value to `true` for channel type `web` will result in misconfigured Flex
+     * Flow and no tasks will be created..
      *
      * @param integrationCreationOnMessage Whether to create a task when the first
      *                                     message arrives
@@ -207,9 +207,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * When enabled, the Messaging Channel Janitor will remove active Proxy sessions
-     * if the associated Task is deleted outside of the Flex UI. Defaults to
-     * `false`..
+     * When enabled, the Messaging Channel Janitor will remove active Proxy
+     * sessions if the associated Task is deleted outside of the Flex UI. Defaults
+     * to `false`..
      *
      * @param janitorEnabled Remove active Proxy sessions if the corresponding Task
      *                       is deleted

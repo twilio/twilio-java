@@ -44,8 +44,8 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The priority value of the Tasks to read. Returns the list of all Tasks in the
-     * Workspace with the specified priority..
+     * The priority value of the Tasks to read. Returns the list of all Tasks in
+     * the Workspace with the specified priority..
      *
      * @param priority The priority value of the Tasks to read
      * @return this
@@ -107,8 +107,8 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting in
-     * the TaskQueue identified by this SID..
+     * The SID of the TaskQueue with the Tasks to read. Returns the Tasks waiting
+     * in the TaskQueue identified by this SID..
      *
      * @param taskQueueSid The SID of the TaskQueue with the Tasks to read
      * @return this
@@ -147,10 +147,11 @@ public class TaskReader extends Reader<Task> {
      * How to order the returned Task resources. y default, Tasks are sorted by
      * ascending DateCreated. This value is specified as: `Attribute:Order`, where
      * `Attribute` can be either `Priority` or `DateCreated` and `Order` can be
-     * either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered in
-     * descending order of their Priority. Multiple sort orders can be specified in
-     * a comma-separated list such as `Priority:desc,DateCreated:asc`, which returns
-     * the Tasks in descending Priority order and ascending DateCreated Order..
+     * either `asc` or `desc`. For example, `Priority:desc` returns Tasks ordered
+     * in descending order of their Priority. Multiple sort orders can be specified
+     * in a comma-separated list such as `Priority:desc,DateCreated:asc`, which
+     * returns the Tasks in descending Priority order and ascending DateCreated
+     * Order..
      *
      * @param ordering Controls the order of the Tasks returned
      * @return this
@@ -161,8 +162,8 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * Whether to read Tasks with addons. If `true`, returns only Tasks with addons.
-     * If `false`, returns only Tasks without addons..
+     * Whether to read Tasks with addons. If `true`, returns only Tasks with
+     * addons. If `false`, returns only Tasks without addons..
      *
      * @param hasAddons Whether to read Tasks with addons
      * @return this

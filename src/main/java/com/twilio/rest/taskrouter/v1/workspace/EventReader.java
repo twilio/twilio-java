@@ -45,8 +45,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include Events that occurred on or before this date, specified in GMT as
-     * an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time..
+     * Only include Events that occurred on or before this date, specified in GMT
+     * as an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * date-time..
      *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
@@ -142,8 +143,8 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The SID of the Workflow with the Events to read. Returns only the Events that
-     * pertain to the specified Workflow..
+     * The SID of the Workflow with the Events to read. Returns only the Events
+     * that pertain to the specified Workflow..
      *
      * @param workflowSid The SID of the Worker with the Events to read
      * @return this
@@ -154,8 +155,8 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * The TaskChannel with the Events to read. Returns only the Events that pertain
-     * to the specified TaskChannel..
+     * The TaskChannel with the Events to read. Returns only the Events that
+     * pertain to the specified TaskChannel..
      *
      * @param taskChannel The TaskChannel with the Events to read
      * @return this

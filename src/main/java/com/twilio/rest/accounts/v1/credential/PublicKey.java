@@ -161,8 +161,8 @@ public class PublicKey extends Resource {
     }
 
     /**
-     * Returns The SID of the Account that created the Credential that the PublicKey
-     * resource belongs to.
+     * Returns The SID of the Account that created the Credential that the
+     * PublicKey resource belongs to.
      *
      * @return The SID of the Account that created the Credential that the
      *         PublicKey resource belongs to

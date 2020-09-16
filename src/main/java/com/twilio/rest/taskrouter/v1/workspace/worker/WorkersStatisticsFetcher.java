@@ -39,9 +39,9 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Only calculate statistics since this many minutes in the past. The default 15
-     * minutes. This is helpful for displaying statistics for the last 15 minutes,
-     * 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
+     * Only calculate statistics since this many minutes in the past. The default
+     * 15 minutes. This is helpful for displaying statistics for the last 15
+     * minutes, 240 minutes (4 hours), and 480 minutes (8 hours) to see trends..
      *
      * @param minutes Only calculate statistics since this many minutes in the past
      * @return this

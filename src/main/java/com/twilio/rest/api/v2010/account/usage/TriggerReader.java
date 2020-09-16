@@ -42,9 +42,9 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * The frequency of recurring UsageTriggers to read. Can be: `daily`, `monthly`,
-     * or `yearly` to read recurring UsageTriggers. An empty value or a value of
-     * `alltime` reads non-recurring UsageTriggers..
+     * The frequency of recurring UsageTriggers to read. Can be: `daily`,
+     * `monthly`, or `yearly` to read recurring UsageTriggers. An empty value or a
+     * value of `alltime` reads non-recurring UsageTriggers..
      *
      * @param recurring The frequency of recurring UsageTriggers to read
      * @return this
@@ -55,8 +55,8 @@ public class TriggerReader extends Reader<Trigger> {
     }
 
     /**
-     * The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`, or
-     * `price` as described in the <a
+     * The trigger field of the UsageTriggers to read.  Can be: `count`, `usage`,
+     * or `price` as described in the <a
      * href="https://www.twilio.com/docs/usage/api/usage-record#usage-count-price">UsageRecords
      * documentation</a>..
      *

@@ -65,8 +65,8 @@ public class TaskUpdater extends Updater<Task> {
 
     /**
      * The reason that the Task was canceled or completed. This parameter is
-     * required only if the Task is canceled or completed. Setting this value queues
-     * the task for deletion and logs the reason..
+     * required only if the Task is canceled or completed. Setting this value
+     * queues the task for deletion and logs the reason..
      *
      * @param reason The reason that the Task was canceled or complete
      * @return this
@@ -77,9 +77,9 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The Task's new priority value. When supplied, the Task takes on the specified
-     * priority unless it matches a Workflow Target with a Priority set. Value can
-     * be 0 to 2^31^ (2,147,483,647)..
+     * The Task's new priority value. When supplied, the Task takes on the
+     * specified priority unless it matches a Workflow Target with a Priority set.
+     * Value can be 0 to 2^31^ (2,147,483,647)..
      *
      * @param priority The Task's new priority value
      * @return this

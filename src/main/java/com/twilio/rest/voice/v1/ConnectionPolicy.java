@@ -104,8 +104,8 @@ public class ConnectionPolicy extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ConnectionPolicy object using the provided
-     * ObjectMapper.
+     * Converts a JSON InputStream into a ConnectionPolicy object using the
+     * provided ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper

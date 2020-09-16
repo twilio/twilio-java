@@ -301,8 +301,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL we should call using a POST method to send message status information
-     * to your application..
+     * The URL we should call using a POST method to send message status
+     * information to your application..
      *
      * @param messageStatusCallback The URL to send message status information to
      *                              your application
@@ -314,8 +314,8 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL we should call using a POST method to send message status information
-     * to your application..
+     * The URL we should call using a POST method to send message status
+     * information to your application..
      *
      * @param messageStatusCallback The URL to send message status information to
      *                              your application

@@ -39,8 +39,8 @@ public class UserCreator extends Creator<User> {
 
     /**
      * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the new User..
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to
+     * assign to the new User..
      *
      * @param roleSid The SID of the Role assigned to this user
      * @return this
@@ -62,8 +62,8 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * A descriptive string that you create to describe the new resource. This value
-     * is often used for display purposes..
+     * A descriptive string that you create to describe the new resource. This
+     * value is often used for display purposes..
      *
      * @param friendlyName A string to describe the new resource
      * @return this

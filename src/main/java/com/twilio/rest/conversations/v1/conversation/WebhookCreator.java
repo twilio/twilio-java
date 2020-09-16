@@ -130,8 +130,8 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The message index for which and it's successors the webhook will be replayed.
-     * Not set by default.
+     * The message index for which and it's successors the webhook will be
+     * replayed. Not set by default.
      *
      * @param configurationReplayAfter The message index for which and it's
      *                                 successors the webhook will be replayed.

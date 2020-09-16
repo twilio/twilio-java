@@ -63,8 +63,8 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The URL we should call to announce something into the conference. The URL can
-     * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
+     * The URL we should call to announce something into the conference. The URL
+     * can return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
      * `&lt;Say&gt;`..
      *
      * @param announceUrl The URL we should call to announce something into the
@@ -77,8 +77,8 @@ public class ConferenceUpdater extends Updater<Conference> {
     }
 
     /**
-     * The URL we should call to announce something into the conference. The URL can
-     * return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
+     * The URL we should call to announce something into the conference. The URL
+     * can return an MP3, a WAV, or a TwiML document with `&lt;Play&gt;` or
      * `&lt;Say&gt;`..
      *
      * @param announceUrl The URL we should call to announce something into the

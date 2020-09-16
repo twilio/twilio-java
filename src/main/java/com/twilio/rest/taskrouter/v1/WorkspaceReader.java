@@ -23,8 +23,8 @@ public class WorkspaceReader extends Reader<Workspace> {
     private String friendlyName;
 
     /**
-     * The `friendly_name` of the Workspace resources to read. For example `Customer
-     * Support` or `2014 Election Campaign`..
+     * The `friendly_name` of the Workspace resources to read. For example
+     * `Customer Support` or `2014 Election Campaign`..
      *
      * @param friendlyName The friendly_name of the Workspace resources to read
      * @return this

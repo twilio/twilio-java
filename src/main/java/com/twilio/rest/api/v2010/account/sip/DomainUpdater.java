@@ -133,8 +133,8 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL that we should call to pass status parameters (such as call ended) to
-     * your application..
+     * The URL that we should call to pass status parameters (such as call ended)
+     * to your application..
      *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
@@ -146,8 +146,8 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The URL that we should call to pass status parameters (such as call ended) to
-     * your application..
+     * The URL that we should call to pass status parameters (such as call ended)
+     * to your application..
      *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
@@ -192,8 +192,8 @@ public class DomainUpdater extends Updater<Domain> {
     }
 
     /**
-     * The unique address you reserve on Twilio to which you route your SIP traffic.
-     * Domain names can contain letters, digits, and "-"..
+     * The unique address you reserve on Twilio to which you route your SIP
+     * traffic. Domain names can contain letters, digits, and "-"..
      *
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return this

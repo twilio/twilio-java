@@ -21,8 +21,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class QueryReader extends Reader<Query> {
     private final String pathAssistantSid;
@@ -70,8 +70,8 @@ public class QueryReader extends Reader<Query> {
     }
 
     /**
-     * The status of the resources to read. Can be: `pending-review`, `reviewed`, or
-     * `discarded`.
+     * The status of the resources to read. Can be: `pending-review`, `reviewed`,
+     * or `discarded`.
      *
      * @param status The status of the resources to read
      * @return this

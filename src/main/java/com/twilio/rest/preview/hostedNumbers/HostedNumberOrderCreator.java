@@ -23,8 +23,8 @@ import java.util.List;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     private final com.twilio.type.PhoneNumber phoneNumber;
@@ -154,9 +154,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber
-     * resource..
+     * A URL that Twilio will request if an error occurs requesting or executing
+     * the TwiML defined by SmsUrl. This will be copied onto the
+     * IncomingPhoneNumber resource..
      *
      * @param smsFallbackUrl SMS Fallback URL.
      * @return this
@@ -167,9 +167,9 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * A URL that Twilio will request if an error occurs requesting or executing the
-     * TwiML defined by SmsUrl. This will be copied onto the IncomingPhoneNumber
-     * resource..
+     * A URL that Twilio will request if an error occurs requesting or executing
+     * the TwiML defined by SmsUrl. This will be copied onto the
+     * IncomingPhoneNumber resource..
      *
      * @param smsFallbackUrl SMS Fallback URL.
      * @return this
@@ -227,9 +227,10 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The 34 character sid of the application Twilio should use to handle
-     * SMS messages sent to this number. If a `SmsApplicationSid` is present, Twilio
-     * will ignore all of the SMS urls above and use those set on the application..
+     * Optional. The 34 character sid of the application Twilio should use to
+     * handle SMS messages sent to this number. If a `SmsApplicationSid` is
+     * present, Twilio will ignore all of the SMS urls above and use those set on
+     * the application..
      *
      * @param smsApplicationSid SMS Application Sid.
      * @return this
@@ -240,8 +241,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. A 34 character string that uniquely identifies the Address resource
-     * that represents the address of the owner of this phone number..
+     * Optional. A 34 character string that uniquely identifies the Address
+     * resource that represents the address of the owner of this phone number..
      *
      * @param addressSid Address sid.
      * @return this
@@ -263,8 +264,8 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
     }
 
     /**
-     * Optional. The method used for verifying ownership of the number to be hosted.
-     * One of phone-call (default) or phone-bill..
+     * Optional. The method used for verifying ownership of the number to be
+     * hosted. One of phone-call (default) or phone-bill..
      *
      * @param verificationType Verification Type.
      * @return this

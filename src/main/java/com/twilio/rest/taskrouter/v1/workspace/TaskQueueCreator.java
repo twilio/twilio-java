@@ -70,9 +70,9 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     }
 
     /**
-     * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign
-     * most recently created Task first or FIFO to assign the oldest Task first.
-     * Default is `FIFO`. <a
+     * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to
+     * assign most recently created Task first or FIFO to assign the oldest Task
+     * first. Default is `FIFO`. <a
      * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Click
      * here</a> to learn more..
      *

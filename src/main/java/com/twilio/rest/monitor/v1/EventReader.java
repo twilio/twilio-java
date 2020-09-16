@@ -67,8 +67,8 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include events that originated from this IP address. Useful for tracking
-     * suspicious activity originating from the API or the Twilio Console..
+     * Only include events that originated from this IP address. Useful for
+     * tracking suspicious activity originating from the API or the Twilio Console..
      *
      * @param sourceIpAddress Only include events that originated from this IP
      *                        address
@@ -93,8 +93,8 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include events that occurred on or before this date. Specify the date in
-     * GMT and <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * Only include events that occurred on or before this date. Specify the date
+     * in GMT and <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
      * format..
      *
      * @param endDate Only include events that occurred on or before this date

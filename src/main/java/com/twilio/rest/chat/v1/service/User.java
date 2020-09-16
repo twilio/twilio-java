@@ -304,8 +304,8 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The absolute URLs of the Channel and Binding resources related to the
-     * user.
+     * Returns The absolute URLs of the Channel and Binding resources related to
+     * the user.
      *
      * @return The absolute URLs of the Channel and Binding resources related to
      *         the user

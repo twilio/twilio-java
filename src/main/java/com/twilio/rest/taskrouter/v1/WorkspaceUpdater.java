@@ -40,8 +40,8 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The SID of the Activity that will be used when new Workers are created in the
-     * Workspace..
+     * The SID of the Activity that will be used when new Workers are created in
+     * the Workspace..
      *
      * @param defaultActivitySid The SID of the Activity that will be used when new
      *                           Workers are created in the Workspace
@@ -137,8 +137,8 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     /**
      * The type of TaskQueue to prioritize when Workers are receiving Tasks from
-     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
-     * For more information, see [Queue
+     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is
+     * `FIFO`. For more information, see [Queue
      * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
      *
      * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers

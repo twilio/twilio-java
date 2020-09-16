@@ -139,8 +139,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that we should call to pass status parameters (such as call ended) to
-     * your application..
+     * The URL that we should call to pass status parameters (such as call ended)
+     * to your application..
      *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates
@@ -152,8 +152,8 @@ public class DomainCreator extends Creator<Domain> {
     }
 
     /**
-     * The URL that we should call to pass status parameters (such as call ended) to
-     * your application..
+     * The URL that we should call to pass status parameters (such as call ended)
+     * to your application..
      *
      * @param voiceStatusCallbackUrl The URL that we should call to pass status
      *                               updates

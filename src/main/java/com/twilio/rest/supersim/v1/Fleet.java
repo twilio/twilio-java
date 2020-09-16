@@ -35,8 +35,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Fleet extends Resource {
@@ -265,8 +265,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The total data usage (download and upload combined) in Megabytes that
-     * each Sim resource assigned to the Fleet resource can consume.
+     * Returns The total data usage (download and upload combined) in Megabytes
+     * that each Sim resource assigned to the Fleet resource can consume.
      *
      * @return The total data usage (download and upload combined) in Megabytes
      *         that each Sim resource assigned to the Fleet resource can consume
@@ -307,8 +307,8 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns A string representing the HTTP method to use when making a request to
-     * `commands_url`.
+     * Returns A string representing the HTTP method to use when making a request
+     * to `commands_url`.
      *
      * @return A string representing the HTTP method to use when making a request
      *         to `commands_url`

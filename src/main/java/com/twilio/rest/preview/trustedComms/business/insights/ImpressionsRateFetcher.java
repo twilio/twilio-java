@@ -21,8 +21,8 @@ import org.joda.time.DateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
     private final String pathBusinessSid;
@@ -112,8 +112,8 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
     }
 
     /**
-     * The Interval of this Impressions Rate. One of `minute`, `hour`, `day`, `week`
-     * or `month`..
+     * The Interval of this Impressions Rate. One of `minute`, `hour`, `day`,
+     * `week` or `month`..
      *
      * @param interval The Interval of this Impressions Rate.
      * @return this

@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class QueryCreator extends Creator<Query> {
     private final String pathAssistantSid;
@@ -49,8 +49,8 @@ public class QueryCreator extends Creator<Query> {
     /**
      * The list of tasks to limit the new query to. Tasks are expressed as a
      * comma-separated list of task `unique_name` values. For example,
-     * `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful to
-     * constrain the paths that a user can take..
+     * `task-unique_name-1, task-unique_name-2`. Listing specific tasks is useful
+     * to constrain the paths that a user can take..
      *
      * @param tasks The list of tasks to limit the new query to
      * @return this

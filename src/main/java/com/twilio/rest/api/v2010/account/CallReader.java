@@ -122,10 +122,10 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
      * in GMT, for example: `2009-07-06`, to read only calls that started on this
-     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
-     * to read calls that started on or before midnight of this date, and
-     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
-     * this date..
+     * date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read calls that started on or before midnight
+     * of this date, and `StartTime&gt;=YYYY-MM-DD` to read calls that started on
+     * or after midnight of this date..
      *
      * @param absoluteStartTime Only include calls that started on this date
      * @return this
@@ -139,10 +139,10 @@ public class CallReader extends Reader<Call> {
     /**
      * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
      * in GMT, for example: `2009-07-06`, to read only calls that started on this
-     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
-     * to read calls that started on or before midnight of this date, and
-     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
-     * this date..
+     * date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read calls that started on or before midnight
+     * of this date, and `StartTime&gt;=YYYY-MM-DD` to read calls that started on
+     * or after midnight of this date..
      *
      * @param rangeStartTime Only include calls that started on this date
      * @return this
@@ -154,10 +154,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
-     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
-     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
-     * calls that ended on or before midnight of this date, and
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that ended on this
+     * date. You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`,
+     * to read calls that ended on or before midnight of this date, and
      * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
      * this date..
      *
@@ -171,10 +171,10 @@ public class CallReader extends Reader<Call> {
     }
 
     /**
-     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
-     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
-     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
-     * calls that ended on or before midnight of this date, and
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that ended on this
+     * date. You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`,
+     * to read calls that ended on or before midnight of this date, and
      * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
      * this date..
      *

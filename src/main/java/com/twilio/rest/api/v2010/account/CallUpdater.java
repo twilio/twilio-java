@@ -87,9 +87,9 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The HTTP method we should use when calling the `url`. Can be: `GET` or `POST`
-     * and the default is `POST`. If an `application_sid` parameter is present, this
-     * parameter is ignored..
+     * The HTTP method we should use when calling the `url`. Can be: `GET` or
+     * `POST` and the default is `POST`. If an `application_sid` parameter is
+     * present, this parameter is ignored..
      *
      * @param method HTTP method to use to fetch TwiML
      * @return this
@@ -100,10 +100,10 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
-     * The new status of the resource. Can be: `canceled` or `completed`. Specifying
-     * `canceled` will attempt to hang up calls that are queued or ringing; however,
-     * it will not affect calls already in progress. Specifying `completed` will
-     * attempt to hang up a call even if it's already in progress..
+     * The new status of the resource. Can be: `canceled` or `completed`.
+     * Specifying `canceled` will attempt to hang up calls that are queued or
+     * ringing; however, it will not affect calls already in progress. Specifying
+     * `completed` will attempt to hang up a call even if it's already in progress..
      *
      * @param status The new status to update the call with.
      * @return this
@@ -115,8 +115,8 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * The URL that we call using the `fallback_method` if an error occurs when
-     * requesting or executing the TwiML at `url`. If an `application_sid` parameter
-     * is present, this parameter is ignored..
+     * requesting or executing the TwiML at `url`. If an `application_sid`
+     * parameter is present, this parameter is ignored..
      *
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -128,8 +128,8 @@ public class CallUpdater extends Updater<Call> {
 
     /**
      * The URL that we call using the `fallback_method` if an error occurs when
-     * requesting or executing the TwiML at `url`. If an `application_sid` parameter
-     * is present, this parameter is ignored..
+     * requesting or executing the TwiML at `url`. If an `application_sid`
+     * parameter is present, this parameter is ignored..
      *
      * @param fallbackUrl Fallback URL in case of error
      * @return this

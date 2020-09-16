@@ -22,8 +22,8 @@ import java.net.URI;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class CommandCreator extends Creator<Command> {
     private final String sim;
@@ -44,8 +44,8 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
-     * and the default is POST..
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or
+     * `POST` and the default is POST..
      *
      * @param callbackMethod The HTTP method we should use to call callback_url
      * @return this

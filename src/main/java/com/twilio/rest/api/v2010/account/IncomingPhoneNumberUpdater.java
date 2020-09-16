@@ -161,8 +161,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST`
-     * and defaults to `POST`..
+     * The HTTP method that we should use to call `sms_url`. Can be: `GET` or
+     * `POST` and defaults to `POST`..
      *
      * @param smsMethod The HTTP method to use with sms_url
      * @return this
@@ -362,10 +362,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The SID of the Trunk we should use to handle phone calls to the phone number.
-     * If a `trunk_sid` is present, we ignore all of the voice urls and voice
-     * applications and use only those set on the Trunk. Setting a `trunk_sid` will
-     * automatically delete your `voice_application_sid` and vice versa..
+     * The SID of the Trunk we should use to handle phone calls to the phone
+     * number. If a `trunk_sid` is present, we ignore all of the voice urls and
+     * voice applications and use only those set on the Trunk. Setting a
+     * `trunk_sid` will automatically delete your `voice_application_sid` and vice
+     * versa..
      *
      * @param trunkSid SID of the trunk to handle phone calls to the phone number
      * @return this
@@ -414,8 +415,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The SID of the Bundle resource that you associate with the phone number. Some
-     * regions require a Bundle to meet local Regulations..
+     * The SID of the Bundle resource that you associate with the phone number.
+     * Some regions require a Bundle to meet local Regulations..
      *
      * @param bundleSid The SID of the Bundle resource associated with number
      * @return this

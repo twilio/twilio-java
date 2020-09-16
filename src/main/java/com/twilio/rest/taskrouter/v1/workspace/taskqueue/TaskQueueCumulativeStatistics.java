@@ -70,8 +70,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a TaskQueueCumulativeStatistics object using
-     * the provided ObjectMapper.
+     * Converts a JSON InputStream into a TaskQueueCumulativeStatistics object
+     * using the provided ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
@@ -318,8 +318,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
     }
 
     /**
-     * Returns The relative wait duration statistics for Tasks accepted while in the
-     * TaskQueue.
+     * Returns The relative wait duration statistics for Tasks accepted while in
+     * the TaskQueue.
      *
      * @return The relative wait duration statistics for Tasks accepted while in
      *         the TaskQueue

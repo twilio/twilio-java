@@ -55,8 +55,8 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     }
 
     /**
-     * Only calculate statistics since this many minutes in the past. The default is
-     * 15 minutes..
+     * Only calculate statistics since this many minutes in the past. The default
+     * is 15 minutes..
      *
      * @param minutes Only calculate statistics since this many minutes in the past
      * @return this
@@ -94,9 +94,9 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
 
     /**
      * A comma separated list of values that describes the thresholds, in seconds,
-     * to calculate statistics on. For each threshold specified, the number of Tasks
-     * canceled and reservations accepted above and below the specified thresholds
-     * in seconds are computed..
+     * to calculate statistics on. For each threshold specified, the number of
+     * Tasks canceled and reservations accepted above and below the specified
+     * thresholds in seconds are computed..
      *
      * @param splitByWaitTime A comma separated list of values that describes the
      *                        thresholds to calculate statistics on

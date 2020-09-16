@@ -36,8 +36,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AuthorizationDocument extends Resource {
@@ -119,8 +119,8 @@ public class AuthorizationDocument extends Resource {
     }
 
     /**
-     * Converts a JSON String into a AuthorizationDocument object using the provided
-     * ObjectMapper.
+     * Converts a JSON String into a AuthorizationDocument object using the
+     * provided ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper

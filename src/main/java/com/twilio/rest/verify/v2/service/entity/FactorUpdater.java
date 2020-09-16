@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer
+ * preview access, please contact help@twilio.com.
  */
 public class FactorUpdater extends Updater<Factor> {
     private final String pathServiceSid;
@@ -47,8 +47,8 @@ public class FactorUpdater extends Updater<Factor> {
     }
 
     /**
-     * The optional payload needed to verify the Factor for the first time. E.g. for
-     * a TOTP, the numeric code..
+     * The optional payload needed to verify the Factor for the first time. E.g.
+     * for a TOTP, the numeric code..
      *
      * @param authPayload Optional payload to verify the Factor for the first time
      * @return this

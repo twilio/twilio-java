@@ -42,10 +42,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of Asset Version resource SIDs to include in the build..
+     * The list of Asset Version resource SIDs to include in the Build..
      *
      * @param assetVersions The list of Asset Version resource SIDs to include in
-     *                      the build
+     *                      the Build
      * @return this
      */
     public BuildCreator setAssetVersions(final List<String> assetVersions) {
@@ -54,10 +54,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of Asset Version resource SIDs to include in the build..
+     * The list of Asset Version resource SIDs to include in the Build..
      *
      * @param assetVersions The list of Asset Version resource SIDs to include in
-     *                      the build
+     *                      the Build
      * @return this
      */
     public BuildCreator setAssetVersions(final String assetVersions) {
@@ -65,10 +65,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of the Variable resource SIDs to include in the build..
+     * The list of the Function Version resource SIDs to include in the Build..
      *
-     * @param functionVersions The list of the Variable resource SIDs to include in
-     *                         the build
+     * @param functionVersions The list of the Function Version resource SIDs to
+     *                         include in the Build
      * @return this
      */
     public BuildCreator setFunctionVersions(final List<String> functionVersions) {
@@ -77,10 +77,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of the Variable resource SIDs to include in the build..
+     * The list of the Function Version resource SIDs to include in the Build..
      *
-     * @param functionVersions The list of the Variable resource SIDs to include in
-     *                         the build
+     * @param functionVersions The list of the Function Version resource SIDs to
+     *                         include in the Build
      * @return this
      */
     public BuildCreator setFunctionVersions(final String functionVersions) {
@@ -88,11 +88,11 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * A list of objects that describe the Dependencies included in the build. Each
+     * A list of objects that describe the Dependencies included in the Build. Each
      * object contains the `name` and `version` of the dependency..
      *
      * @param dependencies A list of objects that describe the Dependencies
-     *                     included in the build
+     *                     included in the Build
      * @return this
      */
     public BuildCreator setDependencies(final String dependencies) {

@@ -32,7 +32,7 @@ public class EnvironmentCreator extends Creator<Environment> {
      *
      * @param pathServiceSid The SID of the Service to create the Environment
      *                       resource under
-     * @param uniqueName An application-defined string that uniquely identifies the
+     * @param uniqueName A user-defined string that uniquely identifies the
      *                   Environment resource
      */
     public EnvironmentCreator(final String pathServiceSid,
@@ -43,7 +43,7 @@ public class EnvironmentCreator extends Creator<Environment> {
 
     /**
      * A URL-friendly name that represents the environment and forms part of the
-     * domain name. Must have fewer than 32 characters..
+     * domain name. It can be a maximum of 16 characters..
      *
      * @param domainSuffix A URL-friendly name that represents the environment
      * @return this

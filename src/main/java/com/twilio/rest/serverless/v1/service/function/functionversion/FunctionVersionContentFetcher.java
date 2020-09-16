@@ -32,7 +32,7 @@ public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionConten
      *
      * @param pathServiceSid The SID of the Service to fetch the Function Version
      *                       content from
-     * @param pathFunctionSid The SID of the function that is the parent of the
+     * @param pathFunctionSid The SID of the Function that is the parent of the
      *                        Function Version content to fetch
      * @param pathSid The SID that identifies the Function Version content to fetch
      */

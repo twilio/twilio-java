@@ -176,10 +176,7 @@ public class Request {
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
 
-            String urlPort = null;
-            if (parsedUrl.getPort() != -1) {
-                urlPort = ":" + parsedUrl.getPort();
-            }
+            String urlPort = parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : null;
             String protocol = parsedUrl.getProtocol() + "://";
             String[] pathPieces = parsedUrl.getPath().split("/");
             for (int i = 0; i < pathPieces.length; i++) {

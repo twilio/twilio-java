@@ -206,31 +206,33 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The SID of the function that is the parent of the function version.
+     * Returns The SID of the Function resource that is the parent of the Function
+     * Version resource.
      *
-     * @return The SID of the function that is the parent of the function version
+     * @return The SID of the Function resource that is the parent of the Function
+     *         Version resource
      */
     public final String getFunctionSid() {
         return this.functionSid;
     }
 
     /**
-     * Returns The URL-friendly string by which the function version can be
+     * Returns The URL-friendly string by which the Function Version resource can be
      * referenced.
      *
-     * @return The URL-friendly string by which the function version can be
-     *         referenced
+     * @return The URL-friendly string by which the Function Version resource can
+     *         be referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The access control that determines how the function version can be
-     * accessed.
+     * Returns The access control that determines how the Function Version resource
+     * can be accessed.
      *
-     * @return The access control that determines how the function version can be
-     *         accessed
+     * @return The access control that determines how the Function Version resource
+     *         can be accessed
      */
     public final FunctionVersion.Visibility getVisibility() {
         return this.visibility;

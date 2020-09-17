@@ -32,6 +32,7 @@ public class SimUpdater extends Updater<Sim> {
     private String fleet;
     private URI callbackUrl;
     private HttpMethod callbackMethod;
+    private String accountSid;
 
     /**
      * Construct a new SimUpdater.
@@ -56,8 +57,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The new status of the resource. Can be: `active` or `inactive`. See the
-     * [Super SIM Status
+     * The new status of the resource. Can be: `ready`, `active`, or `inactive`. See
+     * the [Super SIM Status
      * Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for more info..
      *
      * @param status The new status of the Super SIM
@@ -117,6 +118,20 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
+     * The SID of the Account to which the Sim resource should belong. The Account
+     * SID can only be that of the requesting Account or that of a Subaccount of the
+     * requesting Account. Only valid when the Sim resource's status is new..
+     *
+     * @param accountSid The SID of the Account to which the Sim resource should
+     *                   belong
+     * @return this
+     */
+    public SimUpdater setAccountSid(final String accountSid) {
+        this.accountSid = accountSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -171,6 +186,10 @@ public class SimUpdater extends Updater<Sim> {
 
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+        }
+
+        if (accountSid != null) {
+            request.addPostParam("AccountSid", accountSid.toString());
         }
     }
 }

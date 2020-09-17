@@ -109,6 +109,16 @@ public class SupportingDocument extends Resource {
     }
 
     /**
+     * Create a SupportingDocumentDeleter to execute delete.
+     *
+     * @param pathSid The unique string that identifies the resource
+     * @return SupportingDocumentDeleter capable of executing the delete
+     */
+    public static SupportingDocumentDeleter deleter(final String pathSid) {
+        return new SupportingDocumentDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a SupportingDocument object using the provided
      * ObjectMapper.
      *

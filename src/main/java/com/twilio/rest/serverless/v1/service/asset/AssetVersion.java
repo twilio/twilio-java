@@ -202,29 +202,29 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The SID of the Asset resource that is the parent of the asset
-     * version.
+     * Returns The SID of the Asset resource that is the parent of the Asset
+     * Version.
      *
-     * @return The SID of the Asset resource that is the parent of the asset version
+     * @return The SID of the Asset resource that is the parent of the Asset Version
      */
     public final String getAssetSid() {
         return this.assetSid;
     }
 
     /**
-     * Returns The URL-friendly string by which the asset version can be referenced.
+     * Returns The URL-friendly string by which the Asset Version can be referenced.
      *
-     * @return The URL-friendly string by which the asset version can be referenced
+     * @return The URL-friendly string by which the Asset Version can be referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The access control that determines how the asset version can be
+     * Returns The access control that determines how the Asset Version can be
      * accessed.
      *
-     * @return The access control that determines how the asset version can be
+     * @return The access control that determines how the Asset Version can be
      *         accessed
      */
     public final AssetVersion.Visibility getVisibility() {

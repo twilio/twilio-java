@@ -40,7 +40,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 104618704631663L;
+    private static final long serialVersionUID = 235657538705254L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -184,6 +184,7 @@ public class Conversation extends Resource {
     private final String messagingServiceSid;
     private final String sid;
     private final String friendlyName;
+    private final String uniqueName;
     private final String attributes;
     private final Conversation.State state;
     private final DateTime dateCreated;
@@ -203,6 +204,8 @@ public class Conversation extends Resource {
                          final String sid,
                          @JsonProperty("friendly_name")
                          final String friendlyName,
+                         @JsonProperty("unique_name")
+                         final String uniqueName,
                          @JsonProperty("attributes")
                          final String attributes,
                          @JsonProperty("state")
@@ -222,6 +225,7 @@ public class Conversation extends Resource {
         this.messagingServiceSid = messagingServiceSid;
         this.sid = sid;
         this.friendlyName = friendlyName;
+        this.uniqueName = uniqueName;
         this.attributes = attributes;
         this.state = state;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -274,6 +278,15 @@ public class Conversation extends Resource {
      */
     public final String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    /**
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
+     */
+    public final String getUniqueName() {
+        return this.uniqueName;
     }
 
     /**
@@ -333,9 +346,11 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns Absolute URLs to access the Participants of this Conversation..
+     * Returns Absolute URLs to access the Participants, Messages and Webhooks of
+     * this Conversation..
      *
-     * @return Absolute URLs to access the Participants of this Conversation.
+     * @return Absolute URLs to access the Participants, Messages and Webhooks of
+     *         this Conversation.
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -358,6 +373,7 @@ public class Conversation extends Resource {
                Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
                Objects.equals(sid, other.sid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(attributes, other.attributes) &&
                Objects.equals(state, other.state) &&
                Objects.equals(dateCreated, other.dateCreated) &&
@@ -374,6 +390,7 @@ public class Conversation extends Resource {
                             messagingServiceSid,
                             sid,
                             friendlyName,
+                            uniqueName,
                             attributes,
                             state,
                             dateCreated,
@@ -391,6 +408,7 @@ public class Conversation extends Resource {
                           .add("messagingServiceSid", messagingServiceSid)
                           .add("sid", sid)
                           .add("friendlyName", friendlyName)
+                          .add("uniqueName", uniqueName)
                           .add("attributes", attributes)
                           .add("state", state)
                           .add("dateCreated", dateCreated)

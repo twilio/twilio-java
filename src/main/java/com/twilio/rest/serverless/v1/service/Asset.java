@@ -244,9 +244,9 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The links to the nested resources of the asset.
+     * Returns The URLs of the Asset resource's nested resources.
      *
-     * @return The links to the nested resources of the asset
+     * @return The URLs of the Asset resource's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

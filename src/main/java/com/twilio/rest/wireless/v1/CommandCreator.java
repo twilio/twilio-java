@@ -40,9 +40,9 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The `sid` or `unique_name` of the
-     * [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the
-     * Command to..
+     * The `sid` or `unique_name` of the <a
+     * href="https://www.twilio.com/docs/wireless/api/sim-resource">SIM</a> to send
+     * the Command to..
      *
      * @param sim The sid or unique_name of the SIM to send the Command to
      * @return this

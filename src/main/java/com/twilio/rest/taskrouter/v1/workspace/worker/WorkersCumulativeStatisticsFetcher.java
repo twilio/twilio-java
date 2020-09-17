@@ -37,7 +37,7 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
 
     /**
      * Only calculate statistics from this date and time and earlier, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param endDate Only calculate statistics from on or before this date
      * @return this
@@ -61,8 +61,8 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this

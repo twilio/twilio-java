@@ -33,10 +33,11 @@ public class RoomCreator extends Creator<Room> {
     private String mediaRegion;
 
     /**
-     * Deprecated. Whether to enable [Twilio's Network Traversal TURN
-     * service](https://www.twilio.com/stun-turn). TURN service is used when direct
-     * peer-to-peer media connections cannot be established due to firewall
-     * restrictions. This setting only applies to rooms with type `peer-to-peer`..
+     * Deprecated. Whether to enable <a
+     * href="https://www.twilio.com/stun-turn">Twilio's Network Traversal TURN
+     * service</a>. TURN service is used when direct peer-to-peer media connections
+     * cannot be established due to firewall restrictions. This setting only applies
+     * to rooms with type `peer-to-peer`..
      *
      * @param enableTurn Enable Twilio's Network Traversal TURN service
      * @return this
@@ -77,9 +78,9 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * The URL we should call using the `status_callback_method` to send status
-     * information to your application on every room event. See [Status
-     * Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more
-     * info..
+     * information to your application on every room event. See <a
+     * href="https://www.twilio.com/docs/video/api/status-callbacks">Status
+     * Callbacks</a> for more info..
      *
      * @param statusCallback The URL to send status information to your application
      * @return this
@@ -91,9 +92,9 @@ public class RoomCreator extends Creator<Room> {
 
     /**
      * The URL we should call using the `status_callback_method` to send status
-     * information to your application on every room event. See [Status
-     * Callbacks](https://www.twilio.com/docs/video/api/status-callbacks) for more
-     * info..
+     * information to your application on every room event. See <a
+     * href="https://www.twilio.com/docs/video/api/status-callbacks">Status
+     * Callbacks</a> for more info..
      *
      * @param statusCallback The URL to send status information to your application
      * @return this
@@ -170,9 +171,10 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The region for the media server in Group Rooms.  Can be: one of the
-     * [available Media
-     * Regions](https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers). ***This feature is not available in `peer-to-peer` rooms.***.
+     * The region for the media server in Group Rooms.  Can be: one of the <a
+     * href="https://www.twilio.com/docs/video/ip-address-whitelisting#group-rooms-media-servers">available
+     * Media Regions</a>. ***This feature is not available in `peer-to-peer`
+     * rooms.***.
      *
      * @param mediaRegion The region for the media server in Group Rooms
      * @return this

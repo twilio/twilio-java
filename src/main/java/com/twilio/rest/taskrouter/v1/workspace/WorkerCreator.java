@@ -38,8 +38,9 @@ public class WorkerCreator extends Creator<Worker> {
 
     /**
      * The SID of a valid Activity that will describe the new Worker's initial
-     * state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity)
-     * for more information. If not provided, the new Worker's initial state is the
+     * state. See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/activity">Activities</a> for
+     * more information. If not provided, the new Worker's initial state is the
      * `default_activity_sid` configured on the Workspace..
      *
      * @param activitySid The SID of a valid Activity that describes the new

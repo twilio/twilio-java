@@ -51,9 +51,9 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Read only the Participants with this
-     * [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity`
-     * value..
+     * Read only the Participants with this <a
+     * href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>
+     * `identity` value..
      *
      * @param identity Read only the Participants with this user identity value
      * @return this
@@ -64,8 +64,8 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Read only Participants that started after this date in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
+     * Read only Participants that started after this date in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601#UTC">ISO 8601</a> format..
      *
      * @param dateCreatedAfter Read only Participants that started after this date
      *                         in UTC ISO 8601 format
@@ -77,8 +77,8 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Read only Participants that started before this date in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
+     * Read only Participants that started before this date in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601#UTC">ISO 8601</a> format..
      *
      * @param dateCreatedBefore Read only Participants that started before this
      *                          date in ISO 8601 format

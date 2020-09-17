@@ -44,8 +44,9 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
-     * should expire. If this is value is present, it overrides the `ttl` value..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date when
+     * the Session should expire. If this is value is present, it overrides the
+     * `ttl` value..
      *
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this

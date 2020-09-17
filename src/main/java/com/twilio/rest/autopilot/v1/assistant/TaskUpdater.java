@@ -75,9 +75,9 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
-     * The JSON string that specifies the
-     * [actions](https://www.twilio.com/docs/autopilot/actions) that instruct the
-     * Assistant on how to perform the task..
+     * The JSON string that specifies the <a
+     * href="https://www.twilio.com/docs/autopilot/actions">actions</a> that
+     * instruct the Assistant on how to perform the task..
      *
      * @param actions The JSON string that specifies the actions that instruct the
      *                Assistant on how to perform the task

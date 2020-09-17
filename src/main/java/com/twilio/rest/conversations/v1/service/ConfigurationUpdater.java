@@ -39,9 +39,9 @@ public class ConfigurationUpdater extends Updater<Configuration> {
 
     /**
      * The role assigned to a conversation creator when they join a new
-     * conversation. See the [Role
-     * resource](https://www.twilio.com/docs/chat/rest/role-resource) for more info
-     * about roles..
+     * conversation. See the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role resource</a>
+     * for more info about roles..
      *
      * @param defaultConversationCreatorRoleSid The role assigned to a conversation
      *                                          creator when they join a new
@@ -54,9 +54,9 @@ public class ConfigurationUpdater extends Updater<Configuration> {
     }
 
     /**
-     * The role assigned to users when they are added to a conversation. See the
-     * [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for more
-     * info about roles..
+     * The role assigned to users when they are added to a conversation. See the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role resource</a>
+     * for more info about roles..
      *
      * @param defaultConversationRoleSid The role assigned to users when they are
      *                                   added to a conversation
@@ -69,8 +69,8 @@ public class ConfigurationUpdater extends Updater<Configuration> {
 
     /**
      * The service role assigned to users when they are added to the service. See
-     * the [Role resource](https://www.twilio.com/docs/chat/rest/role-resource) for
-     * more info about roles..
+     * the <a href="https://www.twilio.com/docs/chat/rest/role-resource">Role
+     * resource</a> for more info about roles..
      *
      * @param defaultChatServiceRoleSid The service role assigned to users when
      *                                  they are added to the service

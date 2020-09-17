@@ -50,8 +50,8 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this
@@ -63,7 +63,8 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
 
     /**
      * Only calculate statistics from this date and time and earlier, specified in
-     * GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * GMT as an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * date-time..
      *
      * @param endDate Only calculate statistics from this date and time and earlier
      * @return this

@@ -27,10 +27,10 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
     private String xXcnamSensitivePhoneNumberTo;
 
     /**
-     * The originating Phone Number, given in [E.164
-     * format](https://www.twilio.com/docs/glossary/what-e164). This phone number
-     * should be a Twilio number, otherwise it will return an error with HTTP Status
-     * Code 400..
+     * The originating Phone Number, given in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164 format</a>. This
+     * phone number should be a Twilio number, otherwise it will return an error
+     * with HTTP Status Code 400..
      *
      * @param xXcnamSensitivePhoneNumberFrom The originating Phone Number
      * @return this
@@ -41,8 +41,8 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
     }
 
     /**
-     * The terminating Phone Number, given in [E.164
-     * format](https://www.twilio.com/docs/glossary/what-e164)..
+     * The terminating Phone Number, given in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164 format</a>..
      *
      * @param xXcnamSensitivePhoneNumberTo The terminating Phone Number
      * @return this

@@ -58,8 +58,9 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The new status of the resource. Can be: `ready`, `active`, or `inactive`. See
-     * the [Super SIM Status
-     * Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for more info..
+     * the <a
+     * href="https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values">Super
+     * SIM Status Values</a> for more info..
      *
      * @param status The new status of the Super SIM
      * @return this

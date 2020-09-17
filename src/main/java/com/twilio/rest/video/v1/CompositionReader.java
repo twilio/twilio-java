@@ -45,8 +45,9 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Read only Composition resources created on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
+     * Read only Composition resources created on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time with
+     * time zone..
      *
      * @param dateCreatedAfter Read only Composition resources created on or after
      *                         this [ISO

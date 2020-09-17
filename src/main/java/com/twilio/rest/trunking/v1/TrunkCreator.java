@@ -45,9 +45,9 @@ public class TrunkCreator extends Creator<Trunk> {
     /**
      * The unique address you reserve on Twilio to which you route your SIP traffic.
      * Domain names can contain letters, digits, and `-` and must end with
-     * `pstn.twilio.com`. See [Termination
-     * Settings](https://www.twilio.com/docs/sip-trunking#termination) for more
-     * information..
+     * `pstn.twilio.com`. See <a
+     * href="https://www.twilio.com/docs/sip-trunking#termination">Termination
+     * Settings</a> for more information..
      *
      * @param domainName The unique address you reserve on Twilio to which you
      *                   route your SIP traffic
@@ -62,9 +62,9 @@ public class TrunkCreator extends Creator<Trunk> {
      * The URL we should call using the `disaster_recovery_method` if an error
      * occurs while sending SIP traffic towards the configured Origination URL. We
      * retrieve TwiML from the URL and execute the instructions like any other
-     * normal TwiML call. See [Disaster
-     * Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for
-     * more information..
+     * normal TwiML call. See <a
+     * href="https://www.twilio.com/docs/sip-trunking#disaster-recovery">Disaster
+     * Recovery</a> for more information..
      *
      * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
@@ -80,9 +80,9 @@ public class TrunkCreator extends Creator<Trunk> {
      * The URL we should call using the `disaster_recovery_method` if an error
      * occurs while sending SIP traffic towards the configured Origination URL. We
      * retrieve TwiML from the URL and execute the instructions like any other
-     * normal TwiML call. See [Disaster
-     * Recovery](https://www.twilio.com/docs/sip-trunking#disaster-recovery) for
-     * more information..
+     * normal TwiML call. See <a
+     * href="https://www.twilio.com/docs/sip-trunking#disaster-recovery">Disaster
+     * Recovery</a> for more information..
      *
      * @param disasterRecoveryUrl The HTTP URL that we should call if an error
      *                            occurs while sending SIP traffic towards your
@@ -111,9 +111,9 @@ public class TrunkCreator extends Creator<Trunk> {
      * `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing`
      * or `record-from-answer`, all calls going through the trunk will be recorded.
      * The only way to change recording parameters is on a sub-resource of a Trunk
-     * after it has been created. e.g.`/Trunks/[Trunk_SID]/Recording -XPOST
-     * -d'Mode=record-from-answer'`. See
-     * [Recording](https://www.twilio.com/docs/sip-trunking#recording) for more
+     * after it has been created. e.g.`/Trunks/<a
+     * href="https://www.twilio.com/docs/sip-trunking#recording">Trunk_SID]/Recording
+     * -XPOST -d'Mode=record-from-answer'`. See [Recording</a> for more
      * information..
      *
      * @param recording The recording settings for the trunk
@@ -126,9 +126,9 @@ public class TrunkCreator extends Creator<Trunk> {
 
     /**
      * The call transfer settings for the trunk. Can be: `enable-all`, `sip-only`
-     * and `disable-all`. See
-     * [Transfer](https://www.twilio.com/docs/sip-trunking/call-transfer) for more
-     * information..
+     * and `disable-all`. See <a
+     * href="https://www.twilio.com/docs/sip-trunking/call-transfer">Transfer</a>
+     * for more information..
      *
      * @param transferMode The call transfer settings for the trunk
      * @return this
@@ -141,9 +141,9 @@ public class TrunkCreator extends Creator<Trunk> {
     /**
      * Whether Secure Trunking is enabled for the trunk. If enabled, all calls going
      * through the trunk will be secure using SRTP for media and TLS for signaling.
-     * If disabled, then RTP will be used for media. See [Secure
-     * Trunking](https://www.twilio.com/docs/sip-trunking#securetrunking) for more
-     * information..
+     * If disabled, then RTP will be used for media. See <a
+     * href="https://www.twilio.com/docs/sip-trunking#securetrunking">Secure
+     * Trunking</a> for more information..
      *
      * @param secure Whether Secure Trunking is enabled for the trunk
      * @return this
@@ -157,8 +157,8 @@ public class TrunkCreator extends Creator<Trunk> {
      * Whether Caller ID Name (CNAM) lookup should be enabled for the trunk. If
      * enabled, all inbound calls to the SIP Trunk from the United States and Canada
      * automatically perform a CNAM Lookup and display Caller ID data on your phone.
-     * See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more
-     * information..
+     * See <a href="https://www.twilio.com/docs/sip-trunking#CNAM">CNAM Lookups</a>
+     * for more information..
      *
      * @param cnamLookupEnabled Whether Caller ID Name (CNAM) lookup should be
      *                          enabled for the trunk

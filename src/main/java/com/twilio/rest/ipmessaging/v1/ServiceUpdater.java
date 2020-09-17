@@ -101,8 +101,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The service role assigned to users when they are added to the service. See
-     * the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
-     * details..
+     * the <a href="https://www.twilio.com/docs/chat/api/roles">Roles endpoint</a>
+     * for more details..
      *
      * @param defaultServiceRoleSid The service role assigned to users when they
      *                              are added to the service
@@ -115,8 +115,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The channel role assigned to users when they are added to a channel. See the
-     * [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
-     * details..
+     * <a href="https://www.twilio.com/docs/chat/api/roles">Roles endpoint</a> for
+     * more details..
      *
      * @param defaultChannelRoleSid The channel role assigned to users when they
      *                              are added to a channel
@@ -129,8 +129,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The channel role assigned to a channel creator when they join a new channel.
-     * See the [Roles endpoint](https://www.twilio.com/docs/chat/api/roles) for more
-     * details..
+     * See the <a href="https://www.twilio.com/docs/chat/api/roles">Roles
+     * endpoint</a> for more details..
      *
      * @param defaultChannelCreatorRoleSid The channel role assigned to a channel
      *                                     creator when they join a new channel
@@ -142,9 +142,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to enable the [Message Consumption
-     * Horizon](https://www.twilio.com/docs/chat/consumption-horizon) feature. The
-     * default is `true`..
+     * Whether to enable the <a
+     * href="https://www.twilio.com/docs/chat/consumption-horizon">Message
+     * Consumption Horizon</a> feature. The default is `true`..
      *
      * @param readStatusEnabled Whether to enable the Message Consumption Horizon
      *                          feature
@@ -156,9 +156,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether to enable the [Reachability
-     * Indicator](https://www.twilio.com/docs/chat/reachability-indicator) for this
-     * Service instance. The default is `false`..
+     * Whether to enable the <a
+     * href="https://www.twilio.com/docs/chat/reachability-indicator">Reachability
+     * Indicator</a> for this Service instance. The default is `false`..
      *
      * @param reachabilityEnabled Whether to enable the Reachability Indicator
      *                            feature for this Service instance
@@ -313,8 +313,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL for pre-event webhooks, which are called by using the
-     * `webhook_method`. See [Webhook
-     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
+     * `webhook_method`. See <a
+     * href="https://www.twilio.com/docs/api/chat/webhooks">Webhook Events</a> for
+     * more details..
      *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
@@ -326,8 +327,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL for pre-event webhooks, which are called by using the
-     * `webhook_method`. See [Webhook
-     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
+     * `webhook_method`. See <a
+     * href="https://www.twilio.com/docs/api/chat/webhooks">Webhook Events</a> for
+     * more details..
      *
      * @param preWebhookUrl The webhook URL for pre-event webhooks
      * @return this
@@ -338,8 +340,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL for post-event webhooks, which are called by using the
-     * `webhook_method`. See [Webhook
-     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
+     * `webhook_method`. See <a
+     * href="https://www.twilio.com/docs/api/chat/webhooks">Webhook Events</a> for
+     * more details..
      *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
@@ -351,8 +354,9 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * The URL for post-event webhooks, which are called by using the
-     * `webhook_method`. See [Webhook
-     * Events](https://www.twilio.com/docs/api/chat/webhooks) for more details..
+     * `webhook_method`. See <a
+     * href="https://www.twilio.com/docs/api/chat/webhooks">Webhook Events</a> for
+     * more details..
      *
      * @param postWebhookUrl The URL for post-event webhooks
      * @return this
@@ -364,8 +368,8 @@ public class ServiceUpdater extends Updater<Service> {
     /**
      * The HTTP method to use for calls to the `pre_webhook_url` and
      * `post_webhook_url` webhooks.  Can be: `POST` or `GET` and the default is
-     * `POST`. See [Webhook Events](https://www.twilio.com/docs/chat/webhook-events)
-     * for more details..
+     * `POST`. See <a href="https://www.twilio.com/docs/chat/webhook-events">Webhook
+     * Events</a> for more details..
      *
      * @param webhookMethod The HTTP method  to use for both PRE and POST webhooks
      * @return this
@@ -376,9 +380,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The list of WebHook events that are enabled for this Service instance. See
-     * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
-     * details..
+     * The list of WebHook events that are enabled for this Service instance. See <a
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
+     * more details..
      *
      * @param webhookFilters The list of WebHook events that are enabled for this
      *                       Service instance
@@ -390,9 +394,9 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The list of WebHook events that are enabled for this Service instance. See
-     * [Webhook Events](https://www.twilio.com/docs/chat/webhook-events) for more
-     * details..
+     * The list of WebHook events that are enabled for this Service instance. See <a
+     * href="https://www.twilio.com/docs/chat/webhook-events">Webhook Events</a> for
+     * more details..
      *
      * @param webhookFilters The list of WebHook events that are enabled for this
      *                       Service instance

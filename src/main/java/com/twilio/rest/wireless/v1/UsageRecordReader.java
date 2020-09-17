@@ -27,8 +27,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private UsageRecord.Granularity granularity;
 
     /**
-     * Only include usage that has occurred on or before this date. Format is [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html)..
+     * Only include usage that has occurred on or before this date. Format is <a
+     * href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>..
      *
      * @param end Only include usage that has occurred on or before this date
      * @return this
@@ -39,8 +39,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that has occurred on or after this date. Format is [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html)..
+     * Only include usage that has occurred on or after this date. Format is <a
+     * href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>..
      *
      * @param start Only include usage that has occurred on or after this date
      * @return this

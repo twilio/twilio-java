@@ -48,6 +48,19 @@ public class ConversationCreator extends Creator<Conversation> {
     }
 
     /**
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the resource's `sid` in the URL..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
+     * @return this
+     */
+    public ConversationCreator setUniqueName(final String uniqueName) {
+        this.uniqueName = uniqueName;
+        return this;
+    }
+
+    /**
      * The date that this resource was created..
      *
      * @param dateCreated The date that this resource was created.
@@ -197,6 +210,10 @@ public class ConversationCreator extends Creator<Conversation> {
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+        }
+
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
 
         if (dateCreated != null) {

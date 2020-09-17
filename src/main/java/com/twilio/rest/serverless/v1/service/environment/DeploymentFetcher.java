@@ -32,7 +32,7 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
      *
      * @param pathServiceSid The SID of the Service to fetch the Deployment
      *                       resource from
-     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     * @param pathEnvironmentSid The SID of the Environment used by the Deployment
      *                           to fetch
      * @param pathSid The SID that identifies the Deployment resource to fetch
      */

@@ -39,7 +39,7 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DeliveryReceipt extends Resource {
-    private static final long serialVersionUID = 27340103199489L;
+    private static final long serialVersionUID = 77906133631055L;
 
     public enum DeliveryStatus {
         READ("read"),
@@ -74,7 +74,7 @@ public class DeliveryReceipt extends Resource {
      *
      * @param pathConversationSid The unique id of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to
+     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return DeliveryReceiptFetcher capable of executing the fetch
      */
@@ -89,7 +89,7 @@ public class DeliveryReceipt extends Resource {
      *
      * @param pathConversationSid The unique id of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to
+     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
      * @return DeliveryReceiptReader capable of executing the read
      */
     public static DeliveryReceiptReader reader(final String pathConversationSid,
@@ -135,9 +135,10 @@ public class DeliveryReceipt extends Resource {
         }
     }
 
+    private final String accountSid;
+    private final String conversationSid;
     private final String sid;
     private final String messageSid;
-    private final String conversationSid;
     private final String channelMessageSid;
     private final String participantSid;
     private final DeliveryReceipt.DeliveryStatus status;
@@ -147,12 +148,14 @@ public class DeliveryReceipt extends Resource {
     private final URI url;
 
     @JsonCreator
-    private DeliveryReceipt(@JsonProperty("sid")
+    private DeliveryReceipt(@JsonProperty("account_sid")
+                            final String accountSid,
+                            @JsonProperty("conversation_sid")
+                            final String conversationSid,
+                            @JsonProperty("sid")
                             final String sid,
                             @JsonProperty("message_sid")
                             final String messageSid,
-                            @JsonProperty("conversation_sid")
-                            final String conversationSid,
                             @JsonProperty("channel_message_sid")
                             final String channelMessageSid,
                             @JsonProperty("participant_sid")
@@ -167,9 +170,10 @@ public class DeliveryReceipt extends Resource {
                             final String dateUpdated,
                             @JsonProperty("url")
                             final URI url) {
+        this.accountSid = accountSid;
+        this.conversationSid = conversationSid;
         this.sid = sid;
         this.messageSid = messageSid;
-        this.conversationSid = conversationSid;
         this.channelMessageSid = channelMessageSid;
         this.participantSid = participantSid;
         this.status = status;
@@ -177,6 +181,24 @@ public class DeliveryReceipt extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+    }
+
+    /**
+     * Returns The unique id of the Account responsible for this participant..
+     *
+     * @return The unique id of the Account responsible for this participant.
+     */
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    /**
+     * Returns The unique id of the Conversation for this message..
+     *
+     * @return The unique id of the Conversation for this message.
+     */
+    public final String getConversationSid() {
+        return this.conversationSid;
     }
 
     /**
@@ -195,15 +217,6 @@ public class DeliveryReceipt extends Resource {
      */
     public final String getMessageSid() {
         return this.messageSid;
-    }
-
-    /**
-     * Returns The conversation_sid.
-     *
-     * @return The conversation_sid
-     */
-    public final String getConversationSid() {
-        return this.conversationSid;
     }
 
     /**
@@ -285,9 +298,10 @@ public class DeliveryReceipt extends Resource {
 
         DeliveryReceipt other = (DeliveryReceipt) o;
 
-        return Objects.equals(sid, other.sid) &&
-               Objects.equals(messageSid, other.messageSid) &&
+        return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(conversationSid, other.conversationSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(messageSid, other.messageSid) &&
                Objects.equals(channelMessageSid, other.channelMessageSid) &&
                Objects.equals(participantSid, other.participantSid) &&
                Objects.equals(status, other.status) &&
@@ -299,9 +313,10 @@ public class DeliveryReceipt extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid,
-                            messageSid,
+        return Objects.hash(accountSid,
                             conversationSid,
+                            sid,
+                            messageSid,
                             channelMessageSid,
                             participantSid,
                             status,
@@ -314,9 +329,10 @@ public class DeliveryReceipt extends Resource {
     @Override
     public String toString() {
         return MoreObjects.toStringHelper(this)
+                          .add("accountSid", accountSid)
+                          .add("conversationSid", conversationSid)
                           .add("sid", sid)
                           .add("messageSid", messageSid)
-                          .add("conversationSid", conversationSid)
                           .add("channelMessageSid", channelMessageSid)
                           .add("participantSid", participantSid)
                           .add("status", status)

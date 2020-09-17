@@ -46,7 +46,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to read the Variable resources
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resources to read
      * @return VariableReader capable of executing the read
      */
@@ -60,7 +60,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the Variable resource
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resource to fetch
      * @param pathSid The SID of the Variable resource to fetch
      * @return VariableFetcher capable of executing the fetch
@@ -76,10 +76,10 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to create the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment in which the variable
+     * @param pathEnvironmentSid The SID of the Environment in which the Variable
      *                           exists
      * @param key A string by which the Variable resource can be referenced
-     * @param value A string that contains the actual value of the variable
+     * @param value A string that contains the actual value of the Variable
      * @return VariableCreator capable of executing the create
      */
     public static VariableCreator creator(final String pathServiceSid,
@@ -94,7 +94,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to update the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resource to update
      * @param pathSid The SID of the Variable resource to update
      * @return VariableUpdater capable of executing the update
@@ -110,7 +110,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to delete the Variable resource
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variables to
+     * @param pathEnvironmentSid The SID of the Environment with the Variables to
      *                           delete
      * @param pathSid The SID of the Variable resource to delete
      * @return VariableDeleter capable of executing the delete
@@ -227,9 +227,9 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The SID of the environment in which the variable exists.
+     * Returns The SID of the Environment in which the Variable exists.
      *
-     * @return The SID of the environment in which the variable exists
+     * @return The SID of the Environment in which the Variable exists
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
@@ -245,9 +245,9 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns A string that contains the actual value of the variable.
+     * Returns A string that contains the actual value of the Variable.
      *
-     * @return A string that contains the actual value of the variable
+     * @return A string that contains the actual value of the Variable
      */
     public final String getValue() {
         return this.value;

@@ -225,9 +225,9 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The status of the build.
+     * Returns The status of the Build.
      *
-     * @return The status of the build
+     * @return The status of the Build
      */
     public final Build.Status getStatus() {
         return this.status;
@@ -235,10 +235,10 @@ public class Build extends Resource {
 
     /**
      * Returns The list of Asset Version resource SIDs that are included in the
-     * build.
+     * Build.
      *
      * @return The list of Asset Version resource SIDs that are included in the
-     *         build
+     *         Build
      */
     public final List<Map<String, Object>> getAssetVersions() {
         return this.assetVersions;
@@ -246,10 +246,10 @@ public class Build extends Resource {
 
     /**
      * Returns The list of Function Version resource SIDs that are included in the
-     * build.
+     * Build.
      *
      * @return The list of Function Version resource SIDs that are included in the
-     *         build
+     *         Build
      */
     public final List<Map<String, Object>> getFunctionVersions() {
         return this.functionVersions;
@@ -257,10 +257,10 @@ public class Build extends Resource {
 
     /**
      * Returns A list of objects that describe the Dependencies included in the
-     * build.
+     * Build.
      *
      * @return A list of objects that describe the Dependencies included in the
-     *         build
+     *         Build
      */
     public final List<Map<String, Object>> getDependencies() {
         return this.dependencies;

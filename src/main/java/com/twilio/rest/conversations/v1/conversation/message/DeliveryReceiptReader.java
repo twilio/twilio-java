@@ -32,7 +32,7 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
      *
      * @param pathConversationSid The unique id of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to
+     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
      */
     public DeliveryReceiptReader(final String pathConversationSid,
                                  final String pathMessageSid) {

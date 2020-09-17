@@ -73,8 +73,8 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   Service resource
+     * @param uniqueName A user-defined string that uniquely identifies the Service
+     *                   resource
      * @param friendlyName A string to describe the Service resource
      * @return ServiceCreator capable of executing the create
      */
@@ -202,11 +202,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the Service
-     * resource.
+     * Returns A user-defined string that uniquely identifies the Service resource.
      *
-     * @return An application-defined string that uniquely identifies the Service
-     *         resource
+     * @return A user-defined string that uniquely identifies the Service resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
@@ -224,11 +222,11 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns Whether the Service's properties and subresources can be edited via
-     * the UI.
+     * Returns Whether the Service resource's properties and subresources can be
+     * edited via the UI.
      *
-     * @return Whether the Service's properties and subresources can be edited via
-     *         the UI
+     * @return Whether the Service resource's properties and subresources can be
+     *         edited via the UI
      */
     public final Boolean getUiEditable() {
         return this.uiEditable;

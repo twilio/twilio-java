@@ -83,9 +83,9 @@ public class ConversationCreator extends Creator<Conversation> {
     }
 
     /**
-     * The unique id of the [SMS
-     * Service](https://www.twilio.com/docs/sms/services/api) this conversation
-     * belongs to..
+     * The unique id of the <a
+     * href="https://www.twilio.com/docs/sms/services/api">SMS Service</a> this
+     * conversation belongs to..
      *
      * @param messagingServiceSid The unique id of the SMS Service this
      *                            conversation belongs to.

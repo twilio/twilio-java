@@ -131,8 +131,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL we should call to [pass status
-     * updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery..
+     * The URL we should call to <a
+     * href="https://www.twilio.com/docs/sms/api/message-resource#message-status-values">pass
+     * status updates</a> about message delivery..
      *
      * @param statusCallback The URL we should call to pass status updates about
      *                       message delivery
@@ -144,8 +145,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL we should call to [pass status
-     * updates](https://www.twilio.com/docs/sms/api/message-resource#message-status-values) about message delivery..
+     * The URL we should call to <a
+     * href="https://www.twilio.com/docs/sms/api/message-resource#message-status-values">pass
+     * status updates</a> about message delivery..
      *
      * @param statusCallback The URL we should call to pass status updates about
      *                       message delivery
@@ -156,9 +158,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to enable [Sticky
-     * Sender](https://www.twilio.com/docs/sms/services#sticky-sender) on the
-     * Service instance..
+     * Whether to enable <a
+     * href="https://www.twilio.com/docs/sms/services#sticky-sender">Sticky
+     * Sender</a> on the Service instance..
      *
      * @param stickySender Whether to enable Sticky Sender on the Service instance
      * @return this
@@ -169,9 +171,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to enable the [MMS
-     * Converter](https://www.twilio.com/docs/sms/services#mms-converter) for
-     * messages sent through the Service instance..
+     * Whether to enable the <a
+     * href="https://www.twilio.com/docs/sms/services#mms-converter">MMS
+     * Converter</a> for messages sent through the Service instance..
      *
      * @param mmsConverter Whether to enable the MMS Converter for messages sent
      *                     through the Service instance
@@ -183,9 +185,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to enable [Smart
-     * Encoding](https://www.twilio.com/docs/sms/services#smart-encoding) for
-     * messages sent through the Service instance..
+     * Whether to enable <a
+     * href="https://www.twilio.com/docs/sms/services#smart-encoding">Smart
+     * Encoding</a> for messages sent through the Service instance..
      *
      * @param smartEncoding Whether to enable Encoding for messages sent through
      *                      the Service instance
@@ -208,9 +210,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to enable [Fallback to Long
-     * Code](https://www.twilio.com/docs/sms/services#fallback-to-long-code) for
-     * messages sent through the Service instance..
+     * Whether to enable <a
+     * href="https://www.twilio.com/docs/sms/services#fallback-to-long-code">Fallback
+     * to Long Code</a> for messages sent through the Service instance..
      *
      * @param fallbackToLongCode Whether to enable Fallback to Long Code for
      *                           messages sent through the Service instance
@@ -222,9 +224,9 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to enable [Area Code
-     * Geomatch](https://www.twilio.com/docs/sms/services#area-code-geomatch) on the
-     * Service Instance..
+     * Whether to enable <a
+     * href="https://www.twilio.com/docs/sms/services#area-code-geomatch">Area Code
+     * Geomatch</a> on the Service Instance..
      *
      * @param areaCodeGeomatch Whether to enable Area Code Geomatch on the Service
      *                         Instance

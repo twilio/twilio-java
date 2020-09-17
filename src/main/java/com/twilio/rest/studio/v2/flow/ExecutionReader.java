@@ -40,9 +40,9 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     /**
-     * Only show Execution resources starting on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
-     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Execution resources starting on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
      * @param dateCreatedFrom Only show Executions that started on or after this
      *                        ISO 8601 date-time
@@ -54,9 +54,9 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     /**
-     * Only show Execution resources starting before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
-     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Execution resources starting before this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
      * @param dateCreatedTo Only show Executions that started before this ISO 8601
      *                      date-time

@@ -54,7 +54,8 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID)
+     * The <a
+     * href="https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID">ICCID</a>
      * associated with a Super SIM to filter the list by. Passing this parameter
      * will always return a list containing zero or one SIMs..
      *

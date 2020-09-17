@@ -261,8 +261,9 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The URL we should call using the `wait_method` for the music to play while
      * participants are waiting for the conference to start. The default value is
-     * the URL of our standard hold music. [Learn more about hold
-     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
+     * the URL of our standard hold music. <a
+     * href="https://www.twilio.com/labs/twimlets/holdmusic">Learn more about hold
+     * music</a>..
      *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
@@ -275,8 +276,9 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The URL we should call using the `wait_method` for the music to play while
      * participants are waiting for the conference to start. The default value is
-     * the URL of our standard hold music. [Learn more about hold
-     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
+     * the URL of our standard hold music. <a
+     * href="https://www.twilio.com/labs/twimlets/holdmusic">Learn more about hold
+     * music</a>..
      *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
@@ -497,8 +499,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The
-     * [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`..
+     * The <a
+     * href="https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls">region</a>
+     * where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`,
+     * `br1`, `au1`, or `jp1`..
      *
      * @param region The region where we should mix the conference audio
      * @return this
@@ -514,7 +518,9 @@ public class ParticipantCreator extends Creator<Participant> {
      * is available..
      *
      * @param conferenceRecordingStatusCallback The URL we should call using the
-     *                                          `conference_recording_status_callback_method` when the conference recording is available
+     *                                          `conference_recording_status_callback_method`
+     *                                          when the conference recording is
+     *                                          available
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
@@ -528,7 +534,9 @@ public class ParticipantCreator extends Creator<Participant> {
      * is available..
      *
      * @param conferenceRecordingStatusCallback The URL we should call using the
-     *                                          `conference_recording_status_callback_method` when the conference recording is available
+     *                                          `conference_recording_status_callback_method`
+     *                                          when the conference recording is
+     *                                          available
      * @return this
      */
     public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
@@ -668,15 +676,15 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The phone number, Client identifier, or username portion of SIP address that
-     * made this call. Phone numbers are in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format (e.g.,
+     * made this call. Phone numbers are in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format (e.g.,
      * +16175551212). Client identifiers are formatted `client:name`. If using a
-     * phone number, it must be a Twilio number or a Verified [outgoing caller
-     * id](https://www.twilio.com/docs/voice/api/outgoing-caller-ids) for your
-     * account. If the `to` parameter is a phone number, `callerId` must also be a
-     * phone number. If `to` is sip address, this value of `callerId` should be a
-     * username portion to be used to populate the From header that is passed to the
-     * SIP endpoint..
+     * phone number, it must be a Twilio number or a Verified <a
+     * href="https://www.twilio.com/docs/voice/api/outgoing-caller-ids">outgoing
+     * caller id</a> for your account. If the `to` parameter is a phone number,
+     * `callerId` must also be a phone number. If `to` is sip address, this value of
+     * `callerId` should be a username portion to be used to populate the From
+     * header that is passed to the SIP endpoint..
      *
      * @param callerId The phone number, Client identifier, or username portion of
      *                 SIP address that made this call.

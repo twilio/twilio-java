@@ -39,9 +39,9 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     /**
-     * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
-     * the phone number to fetch. This is used to specify the country when the phone
-     * number is provided in a national format..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country
+     * code</a> of the phone number to fetch. This is used to specify the country
+     * when the phone number is provided in a national format..
      *
      * @param countryCode The ISO country code of the phone number
      * @return this
@@ -86,8 +86,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * The `unique_name` of an Add-on you would like to invoke. Can be the
      * `unique_name` of an Add-on that is installed on your account. You can specify
      * multiple instances of this parameter to invoke multiple Add-ons. For more
-     * information about  Add-ons, see the [Add-ons
-     * documentation](https://www.twilio.com/docs/add-ons)..
+     * information about  Add-ons, see the <a
+     * href="https://www.twilio.com/docs/add-ons">Add-ons documentation</a>..
      *
      * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this
@@ -101,8 +101,8 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
      * The `unique_name` of an Add-on you would like to invoke. Can be the
      * `unique_name` of an Add-on that is installed on your account. You can specify
      * multiple instances of this parameter to invoke multiple Add-ons. For more
-     * information about  Add-ons, see the [Add-ons
-     * documentation](https://www.twilio.com/docs/add-ons)..
+     * information about  Add-ons, see the <a
+     * href="https://www.twilio.com/docs/add-ons">Add-ons documentation</a>..
      *
      * @param addOns The unique_name of an Add-on you would like to invoke
      * @return this

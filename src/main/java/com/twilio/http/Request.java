@@ -182,8 +182,9 @@ public class Request {
             }
             String protocol = parsedUrl.getProtocol() + "://";
             String[] pathPieces = parsedUrl.getPath().split("/");
-            // Encode only the file path of the URL
-            pathPieces[pathPieces.length-1] = URLEncoder.encode(pathPieces[pathPieces.length-1], "UTF-8");
+            for (int i = 0; i < pathPieces.length; i++) {
+                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
+            }
             String encodedPath = Joiner.on("/").join(pathPieces);
             String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
             String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;

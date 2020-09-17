@@ -54,6 +54,14 @@ public class RequestTest {
     }
 
     @Test
+    public void testConstructURLWithMultipleSlashes() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foo|bar/bar|foo");
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foo%7Cbar/bar%7Cfoo");
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
     public void testConstructURLWithCredentials() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, "user:pass@" + Domains.API.toString(), "/2010-04-01/foobar");
         URL url = r.constructURL();

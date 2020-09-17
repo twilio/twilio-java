@@ -182,11 +182,12 @@ public class Request {
             }
             String protocol = parsedUrl.getProtocol() + "://";
             String[] pathPieces = parsedUrl.getPath().split("/", 0);
+            // Encode only the file path of the URL
             pathPieces[pathPieces.length-1] = URLEncoder.encode(pathPieces[pathPieces.length-1], "UTF-8");
             String encodedPath = Joiner.on("/").join(pathPieces);
             String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
             String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;
-            String credentials  = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
+            String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
             return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
         } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);

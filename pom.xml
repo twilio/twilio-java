@@ -129,8 +129,7 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.10.4</jackson.version>
-    <jackson.databind.version>2.10.4</jackson.databind.version>
+    <jackson.version>2.11.2</jackson.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
@@ -197,7 +196,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson.databind.version}</version>
+      <version>${jackson.version}</version>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>
@@ -359,7 +358,7 @@
             </goals>
             <configuration>
               <rules>
-                <dependencyConvergence></dependencyConvergence>
+                <dependencyConvergence/>
               </rules>
             </configuration>
           </execution>

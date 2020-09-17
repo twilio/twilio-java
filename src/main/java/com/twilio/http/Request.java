@@ -181,7 +181,7 @@ public class Request {
                 urlPort = ":" + parsedUrl.getPort();
             }
             String protocol = parsedUrl.getProtocol() + "://";
-            String[] pathPieces = parsedUrl.getPath().split("/", 0);
+            String[] pathPieces = parsedUrl.getPath().split("/");
             // Encode only the file path of the URL
             pathPieces[pathPieces.length-1] = URLEncoder.encode(pathPieces[pathPieces.length-1], "UTF-8");
             String encodedPath = Joiner.on("/").join(pathPieces);

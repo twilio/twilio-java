@@ -81,21 +81,22 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * [Experimental] Setting to true enables early opt-in to allowing Proxy to
-     * reject a Participant create request that could cause the same
+     * [Experimental] For accounts with the ProxyAllowParticipantConflict account
+     * flag, setting to true enables per-request opt-in to allowing Proxy to reject
+     * a Participant create request that could cause the same
      * Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending
      * on the context, this could be a 409 error (Twilio error code 80623) or a 400
-     * error (Twilio error code 80604). If not provided, or if set to false,
-     * requests will be allowed to succeed and a Debugger notification (80802) will
-     * be emitted. Having multiple, active Participants with the same
-     * Identifier/ProxyIdentifier pair causes calls and messages from affected
-     * Participants to be routed incorrectly. Please note, in a future release, the
-     * default behavior will be to reject the request as described unless an
-     * exception has been requested..
+     * error (Twilio error code 80604). If not provided, requests will be allowed to
+     * succeed and a Debugger notification (80802) will be emitted. Having multiple,
+     * active Participants with the same Identifier/ProxyIdentifier pair causes
+     * calls and messages from affected Participants to be routed incorrectly.
+     * Please note, the default behavior for accounts without the
+     * ProxyAllowParticipantConflict flag is to reject the request as described.
+     * This will eventually be the default for all accounts..
      *
-     * @param failOnParticipantConflict An experimental flag that instructs Proxy
-     *                                  to reject a Participant create request when
-     *                                  it detects a conflict.
+     * @param failOnParticipantConflict An experimental parameter to override the
+     *                                  ProxyAllowParticipantConflict account flag
+     *                                  on a per-request basis.
      * @return this
      */
     public ParticipantCreator setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {

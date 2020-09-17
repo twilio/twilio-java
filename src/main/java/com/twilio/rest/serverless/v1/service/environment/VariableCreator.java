@@ -33,10 +33,10 @@ public class VariableCreator extends Creator<Variable> {
      *
      * @param pathServiceSid The SID of the Service to create the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment in which the variable
+     * @param pathEnvironmentSid The SID of the Environment in which the Variable
      *                           exists
      * @param key A string by which the Variable resource can be referenced
-     * @param value A string that contains the actual value of the variable
+     * @param value A string that contains the actual value of the Variable
      */
     public VariableCreator(final String pathServiceSid,
                            final String pathEnvironmentSid,

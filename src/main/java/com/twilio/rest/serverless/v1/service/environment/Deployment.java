@@ -47,7 +47,7 @@ public class Deployment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to read the Deployment
      *                       resources from
-     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     * @param pathEnvironmentSid The SID of the Environment used by the Deployment
      *                           resources to read
      * @return DeploymentReader capable of executing the read
      */
@@ -61,7 +61,7 @@ public class Deployment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the Deployment
      *                       resource from
-     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     * @param pathEnvironmentSid The SID of the Environment used by the Deployment
      *                           to fetch
      * @param pathSid The SID that identifies the Deployment resource to fetch
      * @return DeploymentFetcher capable of executing the fetch
@@ -77,7 +77,7 @@ public class Deployment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
-     * @param pathEnvironmentSid The SID of the environment for the deployment
+     * @param pathEnvironmentSid The SID of the Environment for the Deployment
      * @return DeploymentCreator capable of executing the create
      */
     public static DeploymentCreator creator(final String pathServiceSid,
@@ -189,18 +189,18 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The SID of the environment for the deployment.
+     * Returns The SID of the Environment for the Deployment.
      *
-     * @return The SID of the environment for the deployment
+     * @return The SID of the Environment for the Deployment
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The SID of the build for the deployment.
+     * Returns The SID of the Build for the deployment.
      *
-     * @return The SID of the build for the deployment
+     * @return The SID of the Build for the deployment
      */
     public final String getBuildSid() {
         return this.buildSid;

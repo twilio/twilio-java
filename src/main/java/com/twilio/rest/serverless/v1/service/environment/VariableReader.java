@@ -33,7 +33,7 @@ public class VariableReader extends Reader<Variable> {
      *
      * @param pathServiceSid The SID of the Service to read the Variable resources
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resources to read
      */
     public VariableReader(final String pathServiceSid,

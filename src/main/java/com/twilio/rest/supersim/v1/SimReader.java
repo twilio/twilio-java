@@ -30,8 +30,8 @@ public class SimReader extends Reader<Sim> {
     private String iccid;
 
     /**
-     * The status of the Sim resources to read. Can be `new`, `active`, `inactive`,
-     * or `scheduled`..
+     * The status of the Sim resources to read. Can be `new`, `ready`, `active`,
+     * `inactive`, or `scheduled`..
      *
      * @param status The status of the Sim resources to read
      * @return this

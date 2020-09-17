@@ -75,8 +75,9 @@ public class WebhookUpdater extends Updater<Webhook> {
      * The events that cause us to call the Channel Webhook. Used when `type` is
      * `webhook`. This parameter takes only one event. To specify more than one
      * event, repeat this parameter for each event. For the list of possible events,
-     * see [Webhook Event
-     * Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger)..
+     * see <a
+     * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook
+     * Event Triggers</a>..
      *
      * @param configurationFilters The events that cause us to call the Channel
      *                             Webhook
@@ -91,8 +92,9 @@ public class WebhookUpdater extends Updater<Webhook> {
      * The events that cause us to call the Channel Webhook. Used when `type` is
      * `webhook`. This parameter takes only one event. To specify more than one
      * event, repeat this parameter for each event. For the list of possible events,
-     * see [Webhook Event
-     * Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger)..
+     * see <a
+     * href="https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger">Webhook
+     * Event Triggers</a>..
      *
      * @param configurationFilters The events that cause us to call the Channel
      *                             Webhook
@@ -132,9 +134,10 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The SID of the Studio
-     * [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an
-     * event in `configuration.filters` occurs. Used only when `type` = `studio`..
+     * The SID of the Studio <a
+     * href="https://www.twilio.com/docs/studio/rest-api/flow">Flow</a> to call when
+     * an event in `configuration.filters` occurs. Used only when `type` =
+     * `studio`..
      *
      * @param configurationFlowSid The SID of the Studio Flow to call when an event
      *                             occurs

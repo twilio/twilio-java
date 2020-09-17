@@ -81,10 +81,10 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service.  Note that this should
-     * only be used in cases where a Channel is being recreated from a
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was created. The
+     * default value is the current time set by the Chat service.  Note that this
+     * should only be used in cases where a Channel is being recreated from a
      * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
@@ -97,8 +97,8 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was last updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated

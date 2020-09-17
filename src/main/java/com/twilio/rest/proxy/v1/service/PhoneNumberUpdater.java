@@ -41,9 +41,9 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
     /**
      * Whether the phone number should be reserved and not be assigned to a
-     * participant using proxy pool logic. See [Reserved Phone
-     * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
-     * information..
+     * participant using proxy pool logic. See <a
+     * href="https://www.twilio.com/docs/proxy/reserved-phone-numbers">Reserved
+     * Phone Numbers</a> for more information..
      *
      * @param isReserved Whether the new phone number should be reserved
      * @return this

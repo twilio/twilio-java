@@ -39,8 +39,9 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource)
-     * assigned to the new member..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> assigned
+     * to the new member..
      *
      * @param roleSid The Role assigned to the new member
      * @return this

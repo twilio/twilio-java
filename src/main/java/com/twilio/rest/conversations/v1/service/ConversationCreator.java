@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -29,8 +30,8 @@ public class ConversationCreator extends Creator<Conversation> {
     private String uniqueName;
     private String attributes;
     private String messagingServiceSid;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private Conversation.State state;
     private String timersInactive;
     private String timersClosed;
@@ -104,7 +105,7 @@ public class ConversationCreator extends Creator<Conversation> {
      * @param dateCreated The date that this resource was created.
      * @return this
      */
-    public ConversationCreator setDateCreated(final DateTime dateCreated) {
+    public ConversationCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -115,7 +116,7 @@ public class ConversationCreator extends Creator<Conversation> {
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
-    public ConversationCreator setDateUpdated(final DateTime dateUpdated) {
+    public ConversationCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

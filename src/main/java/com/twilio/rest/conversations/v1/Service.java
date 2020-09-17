@@ -24,11 +24,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -119,8 +119,8 @@ public class Service extends Resource {
     private final String accountSid;
     private final String sid;
     private final String friendlyName;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -180,7 +180,7 @@ public class Service extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -189,7 +189,7 @@ public class Service extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

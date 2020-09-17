@@ -26,6 +26,7 @@ import java.time.ZonedDateTime;
  */
 public class ConversationCreator extends Creator<Conversation> {
     private String friendlyName;
+    private String uniqueName;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
     private String messagingServiceSid;

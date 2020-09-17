@@ -22,8 +22,8 @@ import java.net.URI;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class SimUpdater extends Updater<Sim> {
     private final String pathSid;
@@ -58,8 +58,9 @@ public class SimUpdater extends Updater<Sim> {
 
     /**
      * The new status of the resource. Can be: `ready`, `active`, or `inactive`. See
-     * the [Super SIM Status
-     * Values](https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values) for more info..
+     * the <a
+     * href="https://www.twilio.com/docs/iot/supersim/api/sim-resource#status-values">Super
+     * SIM Status Values</a> for more info..
      *
      * @param status The new status of the Super SIM
      * @return this
@@ -106,8 +107,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we should use to call `callback_url`. Can be: `GET` or
-     * `POST` and the default is POST..
+     * The HTTP method we should use to call `callback_url`. Can be: `GET` or `POST`
+     * and the default is POST..
      *
      * @param callbackMethod The HTTP method we should use to call callback_url
      * @return this

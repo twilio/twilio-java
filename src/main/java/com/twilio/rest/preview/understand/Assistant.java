@@ -34,8 +34,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Assistant extends Resource {
@@ -238,9 +238,9 @@ public class Assistant extends Resource {
     }
 
     /**
-     * Returns A boolean that specifies whether queries should be logged for 30
-     * days further training. If false, no queries will be stored, if true, queries
-     * will be stored for 30 days and deleted thereafter..
+     * Returns A boolean that specifies whether queries should be logged for 30 days
+     * further training. If false, no queries will be stored, if true, queries will
+     * be stored for 30 days and deleted thereafter..
      *
      * @return A boolean that specifies whether queries should be logged for 30
      *         days further training. If false, no queries will be stored, if true,

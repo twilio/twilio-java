@@ -291,8 +291,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns Whether every endpoint_disconnected event occurs after a
-     * configurable delay.
+     * Returns Whether every endpoint_disconnected event occurs after a configurable
+     * delay.
      *
      * @return Whether every endpoint_disconnected event occurs after a
      *         configurable delay

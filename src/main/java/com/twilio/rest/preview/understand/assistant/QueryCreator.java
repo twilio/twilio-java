@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class QueryCreator extends Creator<Query> {
     private final String pathAssistantSid;
@@ -75,8 +75,8 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * Constraints the query to a given Field with an task. Useful when you know
-     * the Field you are expecting. It accepts one field in the format
+     * Constraints the query to a given Field with an task. Useful when you know the
+     * Field you are expecting. It accepts one field in the format
      * *task-unique-name-1*:*field-unique-name*.
      *
      * @param field Constraints the query to a given Field with an task. Useful

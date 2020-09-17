@@ -25,8 +25,8 @@ import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class CompositionHookCreator extends Creator<CompositionHook> {
     private final String friendlyName;
@@ -63,8 +63,8 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
     }
 
     /**
-     * An object that describes the video layout of the composition hook in terms
-     * of regions. See <a
+     * An object that describes the video layout of the composition hook in terms of
+     * regions. See <a
      * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
      * Video Layouts</a> for more info..
      *
@@ -83,9 +83,9 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
      * names. A composition triggered by the composition hook includes all audio
      * sources specified in `audio_sources` except those specified in
      * `audio_sources_excluded`. The track names in this parameter can include an
-     * asterisk as a wild card character, which matches zero or more characters in
-     * a track name. For example, `student*` includes tracks named `student` as
-     * well as `studentTeam`..
+     * asterisk as a wild card character, which matches zero or more characters in a
+     * track name. For example, `student*` includes tracks named `student` as well
+     * as `studentTeam`..
      *
      * @param audioSources An array of track names from the same group room to merge
      * @return this
@@ -101,9 +101,9 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
      * names. A composition triggered by the composition hook includes all audio
      * sources specified in `audio_sources` except those specified in
      * `audio_sources_excluded`. The track names in this parameter can include an
-     * asterisk as a wild card character, which matches zero or more characters in
-     * a track name. For example, `student*` includes tracks named `student` as
-     * well as `studentTeam`..
+     * asterisk as a wild card character, which matches zero or more characters in a
+     * track name. For example, `student*` includes tracks named `student` as well
+     * as `studentTeam`..
      *
      * @param audioSources An array of track names from the same group room to merge
      * @return this

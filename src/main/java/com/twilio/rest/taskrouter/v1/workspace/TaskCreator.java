@@ -35,10 +35,10 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The amount of time in seconds the new task is allowed to live. Can be up to
-     * a maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours
-     * (86,400 seconds). On timeout, the `task.canceled` event will fire with
-     * description `Task TTL Exceeded`..
+     * The amount of time in seconds the new task is allowed to live. Can be up to a
+     * maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400
+     * seconds). On timeout, the `task.canceled` event will fire with description
+     * `Task TTL Exceeded`..
      *
      * @param timeout The amount of time in seconds the task is allowed to live
      * @return this
@@ -50,9 +50,9 @@ public class TaskCreator extends Creator<Task> {
 
     /**
      * The priority to assign the new task and override the default. When supplied,
-     * the new Task will have this priority unless it matches a Workflow Target
-     * with a Priority set. When not supplied, the new Task will have the priority
-     * of the matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647)..
+     * the new Task will have this priority unless it matches a Workflow Target with
+     * a Priority set. When not supplied, the new Task will have the priority of the
+     * matching Workflow Target. Value can be 0 to 2^31^ (2,147,483,647)..
      *
      * @param priority The priority to assign the new task and override the default
      * @return this
@@ -92,8 +92,8 @@ public class TaskCreator extends Creator<Task> {
     /**
      * A URL-encoded JSON string with the attributes of the new task. This value is
      * passed to the Workflow's `assignment_callback_url` when the Task is assigned
-     * to a Worker. For example: `{ "task_type": "call", "twilio_call_sid":
-     * "CAxxx", "customer_ticket_number": "12345" }`..
+     * to a Worker. For example: `{ "task_type": "call", "twilio_call_sid": "CAxxx",
+     * "customer_ticket_number": "12345" }`..
      *
      * @param attributes A URL-encoded JSON string describing the attributes of the
      *                   task

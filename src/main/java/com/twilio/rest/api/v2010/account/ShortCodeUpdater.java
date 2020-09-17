@@ -53,8 +53,8 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
     }
 
     /**
-     * A descriptive string that you created to describe this resource. It can be
-     * up to 64 characters long. By default, the `FriendlyName` is the short code..
+     * A descriptive string that you created to describe this resource. It can be up
+     * to 64 characters long. By default, the `FriendlyName` is the short code..
      *
      * @param friendlyName A string to describe this resource
      * @return this

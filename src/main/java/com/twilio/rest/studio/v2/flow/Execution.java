@@ -240,8 +240,8 @@ public class Execution extends Resource {
     }
 
     /**
-     * Returns The phone number, SIP address or Client identifier that triggered
-     * the Execution.
+     * Returns The phone number, SIP address or Client identifier that triggered the
+     * Execution.
      *
      * @return The phone number, SIP address or Client identifier that triggered
      *         the Execution

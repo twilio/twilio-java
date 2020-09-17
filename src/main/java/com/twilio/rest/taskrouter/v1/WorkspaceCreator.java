@@ -101,8 +101,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * `NONE`. Pre-configures the Workspace with the Workflow and Activities
      * specified in the template. `NONE` will create a Workspace with only a set of
      * default activities. `FIFO` will configure TaskRouter with a set of default
-     * activities and a single TaskQueue for first-in, first-out distribution,
-     * which can be useful when you are getting started with TaskRouter..
+     * activities and a single TaskQueue for first-in, first-out distribution, which
+     * can be useful when you are getting started with TaskRouter..
      *
      * @param template An available template name
      * @return this
@@ -114,8 +114,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * The type of TaskQueue to prioritize when Workers are receiving Tasks from
-     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is
-     * `FIFO`. For more information, see [Queue
+     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
+     * For more information, see [Queue
      * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
      *
      * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers

@@ -85,8 +85,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * The model used to meter data usage. Can be: `payg` and `quota-1`,
-     * `quota-10`, and `quota-50`. Learn more about the available <a
+     * The model used to meter data usage. Can be: `payg` and `quota-1`, `quota-10`,
+     * and `quota-50`. Learn more about the available <a
      * href="https://www.twilio.com/docs/wireless/api/rateplan-resource#payg-vs-quota-data-plans">data
      * metering models</a>..
      *

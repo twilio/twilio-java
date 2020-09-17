@@ -33,8 +33,8 @@ import java.util.Objects;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Job extends Resource {
@@ -161,9 +161,9 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns This is a list of the completed, pending, or errored dates within
-     * the export time range, with one entry for each status with more than one day
-     * in that status.
+     * Returns This is a list of the completed, pending, or errored dates within the
+     * export time range, with one entry for each status with more than one day in
+     * that status.
      *
      * @return This is a list of the completed, pending, or errored dates within
      *         the export time range, with one entry for each status with more than

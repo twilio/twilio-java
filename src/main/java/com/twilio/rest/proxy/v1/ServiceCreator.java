@@ -46,10 +46,9 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The default `ttl` value to set for Sessions created in the Service. The TTL
-     * (time to live) is measured in seconds after the Session's last create or
-     * last Interaction. The default value of `0` indicates an unlimited Session
-     * length. You can override a Session's default TTL value by setting its `ttl`
-     * value..
+     * (time to live) is measured in seconds after the Session's last create or last
+     * Interaction. The default value of `0` indicates an unlimited Session length.
+     * You can override a Session's default TTL value by setting its `ttl` value..
      *
      * @param defaultTtl Default TTL for a Session, in seconds
      * @return this
@@ -82,9 +81,9 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Where a proxy number must be located relative to the participant identifier.
-     * Can be: `country`, `area-code`, or `extended-area-code`. The default value
-     * is `country` and more specific areas than `country` are only available in
-     * North America..
+     * Can be: `country`, `area-code`, or `extended-area-code`. The default value is
+     * `country` and more specific areas than `country` are only available in North
+     * America..
      *
      * @param geoMatchLevel Where a proxy number must be located relative to the
      *                      participant identifier
@@ -98,12 +97,12 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * The preference for Proxy Number selection in the Service instance. Can be:
      * `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`.
-     * `prefer-sticky` means that we will try and select the same Proxy Number for
-     * a given participant if they have previous <a
+     * `prefer-sticky` means that we will try and select the same Proxy Number for a
+     * given participant if they have previous <a
      * href="https://www.twilio.com/docs/proxy/api/session">Sessions</a>, but we
-     * will not fail if that Proxy Number cannot be used.  `avoid-sticky` means
-     * that we will try to use different Proxy Numbers as long as that is possible
-     * within a given pool rather than try and use a previously assigned number..
+     * will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that
+     * we will try to use different Proxy Numbers as long as that is possible within
+     * a given pool rather than try and use a previously assigned number..
      *
      * @param numberSelectionBehavior The preference for Proxy Number selection for
      *                                the Service instance
@@ -115,8 +114,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL we call on each interaction. If we receive a 403 status, we block
-     * the interaction; otherwise the interaction continues..
+     * The URL we call on each interaction. If we receive a 403 status, we block the
+     * interaction; otherwise the interaction continues..
      *
      * @param interceptCallbackUrl The URL we call on each interaction
      * @return this
@@ -127,8 +126,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * The URL we call on each interaction. If we receive a 403 status, we block
-     * the interaction; otherwise the interaction continues..
+     * The URL we call on each interaction. If we receive a 403 status, we block the
+     * interaction; otherwise the interaction continues..
      *
      * @param interceptCallbackUrl The URL we call on each interaction
      * @return this
@@ -141,10 +140,10 @@ public class ServiceCreator extends Creator<Service> {
      * The URL we should call when an inbound call or SMS action occurs on a closed
      * or non-existent Session. If your server (or a Twilio <a
      * href="https://www.twilio.com/functions">function</a>) responds with valid <a
-     * href="https://www.twilio.com/docs/voice/twiml">TwiML</a>, we will process
-     * it. This means it is possible, for example, to play a message for a call,
-     * send an automated text message response, or redirect a call to another Phone
-     * Number. See <a
+     * href="https://www.twilio.com/docs/voice/twiml">TwiML</a>, we will process it.
+     * This means it is possible, for example, to play a message for a call, send an
+     * automated text message response, or redirect a call to another Phone Number.
+     * See <a
      * href="https://www.twilio.com/docs/proxy/out-session-callback-response-guide">Out-of-Session
      * Callback Response Guide</a> for more information..
      *
@@ -162,10 +161,10 @@ public class ServiceCreator extends Creator<Service> {
      * The URL we should call when an inbound call or SMS action occurs on a closed
      * or non-existent Session. If your server (or a Twilio <a
      * href="https://www.twilio.com/functions">function</a>) responds with valid <a
-     * href="https://www.twilio.com/docs/voice/twiml">TwiML</a>, we will process
-     * it. This means it is possible, for example, to play a message for a call,
-     * send an automated text message response, or redirect a call to another Phone
-     * Number. See <a
+     * href="https://www.twilio.com/docs/voice/twiml">TwiML</a>, we will process it.
+     * This means it is possible, for example, to play a message for a call, send an
+     * automated text message response, or redirect a call to another Phone Number.
+     * See <a
      * href="https://www.twilio.com/docs/proxy/out-session-callback-response-guide">Out-of-Session
      * Callback Response Guide</a> for more information..
      *

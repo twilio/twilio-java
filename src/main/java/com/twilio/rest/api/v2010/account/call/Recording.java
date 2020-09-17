@@ -368,8 +368,8 @@ public class Recording extends Resource {
     }
 
     /**
-     * Returns The Conference SID that identifies the conference associated with
-     * the recording.
+     * Returns The Conference SID that identifies the conference associated with the
+     * recording.
      *
      * @return The Conference SID that identifies the conference associated with
      *         the recording

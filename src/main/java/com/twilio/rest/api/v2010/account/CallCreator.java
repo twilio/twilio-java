@@ -174,8 +174,8 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The URL that we call using the `fallback_method` if an error occurs when
-     * requesting or executing the TwiML at `url`. If an `application_sid`
-     * parameter is present, this parameter is ignored..
+     * requesting or executing the TwiML at `url`. If an `application_sid` parameter
+     * is present, this parameter is ignored..
      *
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -187,8 +187,8 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The URL that we call using the `fallback_method` if an error occurs when
-     * requesting or executing the TwiML at `url`. If an `application_sid`
-     * parameter is present, this parameter is ignored..
+     * requesting or executing the TwiML at `url`. If an `application_sid` parameter
+     * is present, this parameter is ignored..
      *
      * @param fallbackUrl Fallback URL in case of error
      * @return this
@@ -245,8 +245,8 @@ public class CallCreator extends Creator<Call> {
      * The call progress events that we will send to the `status_callback` URL. Can
      * be: `initiated`, `ringing`, `answered`, and `completed`. If no event is
      * specified, we send the `completed` status. If you want to receive multiple
-     * events, specify each one in a separate `status_callback_event` parameter.
-     * See the code sample for <a
+     * events, specify each one in a separate `status_callback_event` parameter. See
+     * the code sample for <a
      * href="https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json">monitoring
      * call progress</a>. If an `application_sid` is present, this parameter is
      * ignored..
@@ -264,8 +264,8 @@ public class CallCreator extends Creator<Call> {
      * The call progress events that we will send to the `status_callback` URL. Can
      * be: `initiated`, `ringing`, `answered`, and `completed`. If no event is
      * specified, we send the `completed` status. If you want to receive multiple
-     * events, specify each one in a separate `status_callback_event` parameter.
-     * See the code sample for <a
+     * events, specify each one in a separate `status_callback_event` parameter. See
+     * the code sample for <a
      * href="https://www.twilio.com/docs/voice/api/call-resource?code-sample=code-create-a-call-resource-and-specify-a-statuscallbackevent&amp;code-sdk-version=json">monitoring
      * call progress</a>. If an `application_sid` is present, this parameter is
      * ignored..
@@ -279,9 +279,9 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The HTTP method we should use when calling the `status_callback` URL. Can
-     * be: `GET` or `POST` and the default is `POST`. If an `application_sid`
-     * parameter is present, this parameter is ignored..
+     * The HTTP method we should use when calling the `status_callback` URL. Can be:
+     * `GET` or `POST` and the default is `POST`. If an `application_sid` parameter
+     * is present, this parameter is ignored..
      *
      * @param statusCallbackMethod HTTP Method to use with status_callback
      * @return this
@@ -293,14 +293,13 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * A string of keys to dial after connecting to the number, maximum of 32
-     * digits. Valid digits in the string include: any digit (`0`-`9`), '`#`',
-     * '`*`' and '`w`', to insert a half second pause. For example, if you
-     * connected to a company phone number and wanted to pause for one second, and
-     * then dial extension 1234 followed by the pound key, the value of this
-     * parameter would be `ww1234#`. Remember to URL-encode this string, since the
-     * '`#`' character has special meaning in a URL. If both `SendDigits` and
-     * `MachineDetection` parameters are provided, then `MachineDetection` will be
-     * ignored..
+     * digits. Valid digits in the string include: any digit (`0`-`9`), '`#`', '`*`'
+     * and '`w`', to insert a half second pause. For example, if you connected to a
+     * company phone number and wanted to pause for one second, and then dial
+     * extension 1234 followed by the pound key, the value of this parameter would
+     * be `ww1234#`. Remember to URL-encode this string, since the '`#`' character
+     * has special meaning in a URL. If both `SendDigits` and `MachineDetection`
+     * parameters are provided, then `MachineDetection` will be ignored..
      *
      * @param sendDigits The digits to dial after connecting to the number
      * @return this
@@ -315,8 +314,8 @@ public class CallCreator extends Creator<Call> {
      * assuming there is no answer. The default is `60` seconds and the maximum is
      * `600` seconds. For some call flows, we will add a 5-second buffer to the
      * timeout value you provide. For this reason, a timeout value of 10 seconds
-     * could result in an actual timeout closer to 15 seconds. You can set this to
-     * a short time, such as `15` seconds, to hang up before reaching an answering
+     * could result in an actual timeout closer to 15 seconds. You can set this to a
+     * short time, such as `15` seconds, to hang up before reaching an answering
      * machine or voicemail..
      *
      * @param timeout Number of seconds to wait for an answer
@@ -426,8 +425,8 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The number of seconds that we should attempt to detect an answering machine
-     * before timing out and sending a voice request with `AnsweredBy` of
-     * `unknown`. The default timeout is 30 seconds..
+     * before timing out and sending a voice request with `AnsweredBy` of `unknown`.
+     * The default timeout is 30 seconds..
      *
      * @param machineDetectionTimeout Number of seconds to wait for machine
      *                                detection
@@ -440,8 +439,8 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The recording status events that will trigger calls to the URL specified in
-     * `recording_status_callback`. Can be: `in-progress`, `completed` and
-     * `absent`. Defaults to `completed`. Separate  multiple values with a space..
+     * `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`.
+     * Defaults to `completed`. Separate  multiple values with a space..
      *
      * @param recordingStatusCallbackEvent The recording status events that will
      *                                     trigger calls to the URL specified in
@@ -455,8 +454,8 @@ public class CallCreator extends Creator<Call> {
 
     /**
      * The recording status events that will trigger calls to the URL specified in
-     * `recording_status_callback`. Can be: `in-progress`, `completed` and
-     * `absent`. Defaults to `completed`. Separate  multiple values with a space..
+     * `recording_status_callback`. Can be: `in-progress`, `completed` and `absent`.
+     * Defaults to `completed`. Separate  multiple values with a space..
      *
      * @param recordingStatusCallbackEvent The recording status events that will
      *                                     trigger calls to the URL specified in
@@ -498,8 +497,8 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
-     * The number of milliseconds that is used as the measuring stick for the
-     * length of the speech activity, where durations lower than this value will be
+     * The number of milliseconds that is used as the measuring stick for the length
+     * of the speech activity, where durations lower than this value will be
      * interpreted as a human and longer than this value as a machine. Possible
      * Values: 1000-6000. Default: 2400..
      *

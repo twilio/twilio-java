@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class KeyUpdater extends Updater<Key> {
     private final String pathFleetSid;
@@ -41,8 +41,8 @@ public class KeyUpdater extends Updater<Key> {
     }
 
     /**
-     * Provides a human readable descriptive text for this Key credential, up to
-     * 256 characters long..
+     * Provides a human readable descriptive text for this Key credential, up to 256
+     * characters long..
      *
      * @param friendlyName The human readable description for this Key.
      * @return this

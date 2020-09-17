@@ -112,8 +112,8 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The protocol version to use for sending APNS notifications. Can be
-     * overridden on a Binding by Binding basis when creating a <a
+     * The protocol version to use for sending APNS notifications. Can be overridden
+     * on a Binding by Binding basis when creating a <a
      * href="https://www.twilio.com/docs/notify/api/binding-resource">Binding</a>
      * resource..
      *

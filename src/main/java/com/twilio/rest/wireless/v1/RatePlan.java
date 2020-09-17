@@ -334,9 +334,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The total data usage (download and upload combined) in Megabytes
-     * that the Network allows during one month when roaming outside the United
-     * States.
+     * Returns The total data usage (download and upload combined) in Megabytes that
+     * the Network allows during one month when roaming outside the United States.
      *
      * @return The total data usage (download and upload combined) in Megabytes
      *         that the Network allows during one month when roaming outside the
@@ -358,8 +357,8 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns The date when the resource was last updated, given as GMT in ISO
-     * 8601 format.
+     * Returns The date when the resource was last updated, given as GMT in ISO 8601
+     * format.
      *
      * @return The date when the resource was last updated, given as GMT in ISO
      *         8601 format

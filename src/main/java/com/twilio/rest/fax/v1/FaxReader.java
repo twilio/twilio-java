@@ -57,8 +57,8 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Retrieve only those faxes with a `date_created` that is before or equal to
-     * this value, specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
+     * this value, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format..
      *
      * @param dateCreatedOnOrBefore Retrieve only faxes created on or before this
      *                              date

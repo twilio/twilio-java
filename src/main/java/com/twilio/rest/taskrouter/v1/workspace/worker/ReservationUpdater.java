@@ -95,8 +95,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The new status of the reservation. Can be: `pending`, `accepted`,
-     * `rejected`, `timeout`, `canceled`, or `rescinded`..
+     * The new status of the reservation. Can be: `pending`, `accepted`, `rejected`,
+     * `timeout`, `canceled`, or `rescinded`..
      *
      * @param reservationStatus The new status of the reservation
      * @return this
@@ -156,8 +156,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Whether to record both legs of a call when executing a Dequeue instruction
-     * or which leg to record..
+     * Whether to record both legs of a call when executing a Dequeue instruction or
+     * which leg to record..
      *
      * @param dequeueRecord Whether to record both legs of a call when executing a
      *                      Dequeue instruction
@@ -381,8 +381,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The Contact URI of the worker when executing a Conference instruction. Can
-     * be the URI of the Twilio Client, the SIP URI for Programmable SIP, or the <a
+     * The Contact URI of the worker when executing a Conference instruction. Can be
+     * the URI of the Twilio Client, the SIP URI for Programmable SIP, or the <a
      * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> formatted
      * phone number, depending on the destination..
      *
@@ -612,10 +612,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The URL we should call using the `conference_status_callback_method` when
-     * the conference events in `conference_status_callback_event` occur. Only the
-     * value set by the first participant to join the conference is used.
-     * Subsequent `conference_status_callback` values are ignored..
+     * The URL we should call using the `conference_status_callback_method` when the
+     * conference events in `conference_status_callback_event` occur. Only the value
+     * set by the first participant to join the conference is used. Subsequent
+     * `conference_status_callback` values are ignored..
      *
      * @param conferenceStatusCallback The callback URL for conference events
      * @return this
@@ -626,10 +626,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The URL we should call using the `conference_status_callback_method` when
-     * the conference events in `conference_status_callback_event` occur. Only the
-     * value set by the first participant to join the conference is used.
-     * Subsequent `conference_status_callback` values are ignored..
+     * The URL we should call using the `conference_status_callback_method` when the
+     * conference events in `conference_status_callback_event` occur. Only the value
+     * set by the first participant to join the conference is used. Subsequent
+     * `conference_status_callback` values are ignored..
      *
      * @param conferenceStatusCallback The callback URL for conference events
      * @return this
@@ -679,8 +679,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * Whether to record the conference the participant is joining or when to
-     * record the conference. Can be: `true`, `false`, `record-from-start`, and
+     * Whether to record the conference the participant is joining or when to record
+     * the conference. Can be: `true`, `false`, `record-from-start`, and
      * `do-not-record`. The default value is `false`..
      *
      * @param conferenceRecord Whether to record the conference the participant is
@@ -719,8 +719,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The URL that we should call using the `recording_status_callback_method`
-     * when the recording status changes..
+     * The URL that we should call using the `recording_status_callback_method` when
+     * the recording status changes..
      *
      * @param recordingStatusCallback The URL that we should call using the
      *                                `recording_status_callback_method` when the
@@ -733,8 +733,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The URL that we should call using the `recording_status_callback_method`
-     * when the recording status changes..
+     * The URL that we should call using the `recording_status_callback_method` when
+     * the recording status changes..
      *
      * @param recordingStatusCallback The URL that we should call using the
      *                                `recording_status_callback_method` when the
@@ -790,9 +790,8 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The HTTP method we should use to call
-     * `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults
-     * to `POST`..
+     * The HTTP method we should use to call `conference_recording_status_callback`.
+     * Can be: `GET` or `POST` and defaults to `POST`..
      *
      * @param conferenceRecordingStatusCallbackMethod The HTTP method we should use
      *                                                to call

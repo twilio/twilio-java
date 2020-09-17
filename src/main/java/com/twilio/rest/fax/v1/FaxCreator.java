@@ -50,8 +50,8 @@ public class FaxCreator extends Creator<Fax> {
     /**
      * The <a
      * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values">Fax
-     * Quality value</a> that describes the fax quality. Can be: `standard`,
-     * `fine`, or `superfine` and defaults to `fine`..
+     * Quality value</a> that describes the fax quality. Can be: `standard`, `fine`,
+     * or `superfine` and defaults to `fine`..
      *
      * @param quality The quality of this fax
      * @return this
@@ -90,12 +90,12 @@ public class FaxCreator extends Creator<Fax> {
 
     /**
      * The number the fax was sent from. Can be the phone number in <a
-     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format or
-     * the SIP `from` value. The caller ID displayed to the recipient uses this
-     * value. If this is a phone number, it must be a Twilio number or a verified
-     * outgoing caller id from your account. If `to` is a SIP address, this can be
-     * any alphanumeric string (and also the characters `+`, `_`, `.`, and `-`),
-     * which will be used in the `from` header of the SIP request..
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format or the
+     * SIP `from` value. The caller ID displayed to the recipient uses this value.
+     * If this is a phone number, it must be a Twilio number or a verified outgoing
+     * caller id from your account. If `to` is a SIP address, this can be any
+     * alphanumeric string (and also the characters `+`, `_`, `.`, and `-`), which
+     * will be used in the `from` header of the SIP request..
      *
      * @param from The number the fax was sent from
      * @return this
@@ -130,8 +130,8 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * Whether to store a copy of the sent media on our servers for later
-     * retrieval. Can be: `true` or `false` and the default is `true`..
+     * Whether to store a copy of the sent media on our servers for later retrieval.
+     * Can be: `true` or `false` and the default is `true`..
      *
      * @param storeMedia Whether to store a copy of the sent media
      * @return this
@@ -142,8 +142,8 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * How long in minutes from when the fax is initiated that we should try to
-     * send the fax..
+     * How long in minutes from when the fax is initiated that we should try to send
+     * the fax..
      *
      * @param ttl How long in minutes to try to send the fax
      * @return this

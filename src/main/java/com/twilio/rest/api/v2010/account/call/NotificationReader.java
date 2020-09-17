@@ -52,9 +52,9 @@ public class NotificationReader extends Reader<Notification> {
     }
 
     /**
-     * Only read notifications of the specified log level. Can be:  `0` to read
-     * only ERROR notifications or `1` to read only WARNING notifications. By
-     * default, all notifications are read..
+     * Only read notifications of the specified log level. Can be:  `0` to read only
+     * ERROR notifications or `1` to read only WARNING notifications. By default,
+     * all notifications are read..
      *
      * @param log Filter by log level
      * @return this

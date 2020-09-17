@@ -283,8 +283,8 @@ public class Pay extends TwiML {
     }
 
     /**
-     * Bank account type for ach transactions. If set, payment method attribute
-     * must be provided and value should be set to ach-debit. defaults to
+     * Bank account type for ach transactions. If set, payment method attribute must
+     * be provided and value should be set to ach-debit. defaults to
      * consumer-checking
      *
      * @return Bank account type for ach transactions. If set, payment method
@@ -493,8 +493,8 @@ public class Pay extends TwiML {
         }
 
         /**
-         * Bank account type for ach transactions. If set, payment method attribute
-         * must be provided and value should be set to ach-debit. defaults to
+         * Bank account type for ach transactions. If set, payment method attribute must
+         * be provided and value should be set to ach-debit. defaults to
          * consumer-checking
          */
         public Builder bankAccountType(Pay.BankAccountType bankAccountType) {

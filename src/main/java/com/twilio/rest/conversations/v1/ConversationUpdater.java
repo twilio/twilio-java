@@ -79,9 +79,9 @@ public class ConversationUpdater extends Updater<Conversation> {
     }
 
     /**
-     * An optional string metadata field you can use to store any data you wish.
-     * The string value must contain structurally valid JSON if specified.
-     * **Note** that if the attributes are not set "{}" will be returned..
+     * An optional string metadata field you can use to store any data you wish. The
+     * string value must contain structurally valid JSON if specified.  **Note**
+     * that if the attributes are not set "{}" will be returned..
      *
      * @param attributes An optional string metadata field you can use to store any
      *                   data you wish.

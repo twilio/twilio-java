@@ -64,10 +64,9 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
      * The URL of the AWS S3 bucket where the recordings should be stored. We only
      * support DNS-compliant URLs like
      * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
-     * where `recordings` is the path in which you want the recordings to be
-     * stored. This URL accepts only URI-valid characters, as described in the
-     * &lt;a href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC
-     * 3986&lt;/a&gt;..
+     * where `recordings` is the path in which you want the recordings to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the recordings should be
      *                 stored
@@ -82,10 +81,9 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings> {
      * The URL of the AWS S3 bucket where the recordings should be stored. We only
      * support DNS-compliant URLs like
      * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/recordings`,
-     * where `recordings` is the path in which you want the recordings to be
-     * stored. This URL accepts only URI-valid characters, as described in the
-     * &lt;a href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC
-     * 3986&lt;/a&gt;..
+     * where `recordings` is the path in which you want the recordings to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
+     * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the recordings should be
      *                 stored

@@ -90,10 +90,10 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
-     * read only messages sent on this date. For example: `2009-07-06`. You can
-     * also specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read
-     * messages sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD`
-     * to read messages sent on or after midnight on a date..
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
      *
      * @param absoluteDateSent Filter by date sent
      * @return this
@@ -106,10 +106,10 @@ public class MessageReader extends Reader<Message> {
 
     /**
      * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
-     * read only messages sent on this date. For example: `2009-07-06`. You can
-     * also specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read
-     * messages sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD`
-     * to read messages sent on or after midnight on a date..
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
      *
      * @param rangeDateSent Filter by date sent
      * @return this

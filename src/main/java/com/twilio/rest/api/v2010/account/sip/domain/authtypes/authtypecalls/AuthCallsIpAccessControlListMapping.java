@@ -177,8 +177,8 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AuthCallsIpAccessControlListMapping
-     * object using the provided ObjectMapper.
+     * Converts a JSON InputStream into a AuthCallsIpAccessControlListMapping object
+     * using the provided ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper

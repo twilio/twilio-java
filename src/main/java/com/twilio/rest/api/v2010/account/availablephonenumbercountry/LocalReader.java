@@ -79,9 +79,9 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * The pattern on which to match phone numbers. Valid characters are `*`,
-     * `0-9`, `a-z`, and `A-Z`. The `*` character matches any single digit. For
-     * examples, see <a
+     * The pattern on which to match phone numbers. Valid characters are `*`, `0-9`,
+     * `a-z`, and `A-Z`. The `*` character matches any single digit. For examples,
+     * see <a
      * href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-number-pattern">Example
      * 2</a> and <a
      * href="https://www.twilio.com/docs/phone-numbers/api/availablephonenumberlocal-resource?code-sample=code-find-phone-numbers-by-character-pattern">Example
@@ -186,8 +186,8 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Given a phone number, find a geographically close number within `distance`
-     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the
-     * US and Canada..
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
      *
      * @param nearNumber Given a phone number, find a geographically close number
      *                   within distance miles. (US/Canada only)
@@ -200,8 +200,8 @@ public class LocalReader extends Reader<Local> {
 
     /**
      * Given a phone number, find a geographically close number within `distance`
-     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the
-     * US and Canada..
+     * miles. Distance defaults to 25 miles. Applies to only phone numbers in the US
+     * and Canada..
      *
      * @param nearNumber Given a phone number, find a geographically close number
      *                   within distance miles. (US/Canada only)
@@ -226,8 +226,8 @@ public class LocalReader extends Reader<Local> {
     }
 
     /**
-     * The search radius, in miles, for a `near_` query.  Can be up to `500` and
-     * the default is `25`. Applies to only phone numbers in the US and Canada..
+     * The search radius, in miles, for a `near_` query.  Can be up to `500` and the
+     * default is `25`. Applies to only phone numbers in the US and Canada..
      *
      * @param distance The search radius, in miles, for a near_ query. (US/Canada
      *                 only)

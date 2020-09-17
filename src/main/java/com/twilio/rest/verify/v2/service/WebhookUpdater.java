@@ -22,8 +22,8 @@ import java.util.List;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class WebhookUpdater extends Updater<Webhook> {
     private final String pathServiceSid;
@@ -46,8 +46,8 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The string that you assigned to describe the webhook. **This value should
-     * not contain PII.**.
+     * The string that you assigned to describe the webhook. **This value should not
+     * contain PII.**.
      *
      * @param friendlyName The string that you assigned to describe the webhook
      * @return this
@@ -58,9 +58,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The array of events that this Webhook is subscribed to. Possible event
-     * types: `*, factor.deleted, factor.created, factor.verified,
-     * challenge.approved, challenge.denied`.
+     * The array of events that this Webhook is subscribed to. Possible event types:
+     * `*, factor.deleted, factor.created, factor.verified, challenge.approved,
+     * challenge.denied`.
      *
      * @param eventTypes The array of events that this Webhook is subscribed to.
      * @return this
@@ -71,9 +71,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The array of events that this Webhook is subscribed to. Possible event
-     * types: `*, factor.deleted, factor.created, factor.verified,
-     * challenge.approved, challenge.denied`.
+     * The array of events that this Webhook is subscribed to. Possible event types:
+     * `*, factor.deleted, factor.created, factor.verified, challenge.approved,
+     * challenge.denied`.
      *
      * @param eventTypes The array of events that this Webhook is subscribed to.
      * @return this

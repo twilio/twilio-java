@@ -21,8 +21,8 @@ import org.joda.time.DateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class ChallengeCreator extends Creator<Challenge> {
     private final String pathServiceSid;
@@ -63,13 +63,12 @@ public class ChallengeCreator extends Creator<Challenge> {
     /**
      * Details provided to give context about the Challenge. Shown to the end user.
      * It must be a stringified JSON with the following structure: {"message":
-     * "string", "fields": <a
-     * href="https://www.twilio.com/docs/verify/api/service"> { "label": "string",
-     * "value": "string"}]}. `message` is required. If you send the `fields`
-     * property, each field has to include `label` and `value` properties. If you
-     * had set `include_date=true` in the `push` configuration of the [service</a>,
-     * the response will also include the challenge's date created value as an
-     * additional field called `date`.
+     * "string", "fields": <a href="https://www.twilio.com/docs/verify/api/service">
+     * { "label": "string", "value": "string"}]}. `message` is required. If you send
+     * the `fields` property, each field has to include `label` and `value`
+     * properties. If you had set `include_date=true` in the `push` configuration of
+     * the [service</a>, the response will also include the challenge's date created
+     * value as an additional field called `date`.
      *
      * @param details Public details provided to contextualize the Challenge
      * @return this

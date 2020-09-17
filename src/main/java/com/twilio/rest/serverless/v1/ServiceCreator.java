@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class ServiceCreator extends Creator<Service> {
     private final String uniqueName;
@@ -42,8 +42,8 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Whether to inject Account credentials into a function invocation context.
-     * The default value is `false`..
+     * Whether to inject Account credentials into a function invocation context. The
+     * default value is `false`..
      *
      * @param includeCredentials Whether to inject Account credentials into a
      *                           function invocation context

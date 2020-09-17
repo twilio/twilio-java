@@ -78,9 +78,9 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The URL we should call using the `callback_url` when the SIM has finished
      * updating. When the SIM transitions from `new` to `ready` or from any status
-     * to `deactivated`, we call this URL when the status changes to an
-     * intermediate status (`ready` or `deactivated`) and again when the status
-     * changes to its final status (`active` or `canceled`)..
+     * to `deactivated`, we call this URL when the status changes to an intermediate
+     * status (`ready` or `deactivated`) and again when the status changes to its
+     * final status (`active` or `canceled`)..
      *
      * @param callbackUrl The URL we should call when the Sim resource has finished
      *                    updating
@@ -94,9 +94,9 @@ public class SimUpdater extends Updater<Sim> {
     /**
      * The URL we should call using the `callback_url` when the SIM has finished
      * updating. When the SIM transitions from `new` to `ready` or from any status
-     * to `deactivated`, we call this URL when the status changes to an
-     * intermediate status (`ready` or `deactivated`) and again when the status
-     * changes to its final status (`active` or `canceled`)..
+     * to `deactivated`, we call this URL when the status changes to an intermediate
+     * status (`ready` or `deactivated`) and again when the status changes to its
+     * final status (`active` or `canceled`)..
      *
      * @param callbackUrl The URL we should call when the Sim resource has finished
      *                    updating
@@ -145,8 +145,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we should use to call `commands_callback_url`. Can be:
-     * `POST` or `GET`. The default is `POST`..
+     * The HTTP method we should use to call `commands_callback_url`. Can be: `POST`
+     * or `GET`. The default is `POST`..
      *
      * @param commandsCallbackMethod The HTTP method we should use to call
      *                               commands_callback_url
@@ -281,8 +281,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_fallback_method` when an error
-     * occurs while retrieving or executing the TwiML requested from `voice_url`..
+     * The URL we should call using the `voice_fallback_method` when an error occurs
+     * while retrieving or executing the TwiML requested from `voice_url`..
      *
      * @param voiceFallbackUrl The URL we should call when an error occurs while
      *                         retrieving or executing the TwiML requested from
@@ -295,8 +295,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_fallback_method` when an error
-     * occurs while retrieving or executing the TwiML requested from `voice_url`..
+     * The URL we should call using the `voice_fallback_method` when an error occurs
+     * while retrieving or executing the TwiML requested from `voice_url`..
      *
      * @param voiceFallbackUrl The URL we should call when an error occurs while
      *                         retrieving or executing the TwiML requested from
@@ -320,8 +320,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_method` when the SIM-connected
-     * device makes a voice call..
+     * The URL we should call using the `voice_method` when the SIM-connected device
+     * makes a voice call..
      *
      * @param voiceUrl The URL we should call when the SIM-connected device makes a
      *                 voice call
@@ -333,8 +333,8 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_method` when the SIM-connected
-     * device makes a voice call..
+     * The URL we should call using the `voice_method` when the SIM-connected device
+     * makes a voice call..
      *
      * @param voiceUrl The URL we should call when the SIM-connected device makes a
      *                 voice call

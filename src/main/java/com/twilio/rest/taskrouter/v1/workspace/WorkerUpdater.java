@@ -40,8 +40,8 @@ public class WorkerUpdater extends Updater<Worker> {
     /**
      * The SID of a valid Activity that will describe the Worker's initial state.
      * See <a
-     * href="https://www.twilio.com/docs/taskrouter/api/activity">Activities</a>
-     * for more information..
+     * href="https://www.twilio.com/docs/taskrouter/api/activity">Activities</a> for
+     * more information..
      *
      * @param activitySid The SID of the Activity that describes the Worker's
      *                    initial state

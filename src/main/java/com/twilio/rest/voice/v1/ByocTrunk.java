@@ -286,8 +286,8 @@ public class ByocTrunk extends Resource {
     }
 
     /**
-     * Returns The SID of the SIP Domain that should be used in the `From` header
-     * of originating calls.
+     * Returns The SID of the SIP Domain that should be used in the `From` header of
+     * originating calls.
      *
      * @return The SID of the SIP Domain that should be used in the `From` header
      *         of originating calls

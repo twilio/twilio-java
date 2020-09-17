@@ -244,8 +244,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns An object with the estimated location where the device's Data
-     * Session took place.
+     * Returns An object with the estimated location where the device's Data Session
+     * took place.
      *
      * @return An object with the estimated location where the device's Data
      *         Session took place
@@ -266,8 +266,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The number of packets downloaded by the device between the start
-     * time and when the Data Session was last updated.
+     * Returns The number of packets downloaded by the device between the start time
+     * and when the Data Session was last updated.
      *
      * @return The number of packets downloaded by the device between the start
      *         time and when the Data Session was last updated
@@ -277,8 +277,8 @@ public class DataSession extends Resource {
     }
 
     /**
-     * Returns The date that the resource was last updated, given as GMT in ISO
-     * 8601 format.
+     * Returns The date that the resource was last updated, given as GMT in ISO 8601
+     * format.
      *
      * @return The date that the resource was last updated, given as GMT in ISO
      *         8601 format

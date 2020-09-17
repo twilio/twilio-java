@@ -337,8 +337,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns An object that contains information about the webhooks configured
-     * for this service.
+     * Returns An object that contains information about the webhooks configured for
+     * this service.
      *
      * @return An object that contains information about the webhooks configured
      *         for this service

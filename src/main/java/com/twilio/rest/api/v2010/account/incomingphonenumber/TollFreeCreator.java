@@ -144,8 +144,8 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The HTTP method that we should use to call `sms_url`. Can be: `GET` or
-     * `POST` and defaults to `POST`..
+     * The HTTP method that we should use to call `sms_url`. Can be: `GET` or `POST`
+     * and defaults to `POST`..
      *
      * @param smsMethod The HTTP method to use with sms_url
      * @return this
@@ -394,8 +394,8 @@ public class TollFreeCreator extends Creator<TollFree> {
     }
 
     /**
-     * The SID of the Bundle resource that you associate with the phone number.
-     * Some regions require a Bundle to meet local Regulations..
+     * The SID of the Bundle resource that you associate with the phone number. Some
+     * regions require a Bundle to meet local Regulations..
      *
      * @param bundleSid The SID of the Bundle resource associated with number
      * @return this

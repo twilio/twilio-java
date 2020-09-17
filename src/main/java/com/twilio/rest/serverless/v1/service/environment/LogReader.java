@@ -23,8 +23,8 @@ import org.joda.time.DateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class LogReader extends Reader<Log> {
     private final String pathServiceSid;
@@ -59,8 +59,8 @@ public class LogReader extends Reader<Log> {
     }
 
     /**
-     * The date/time (in GMT, ISO 8601) after which the Log resources must have
-     * been created. Defaults to 1 day prior to current date/time..
+     * The date/time (in GMT, ISO 8601) after which the Log resources must have been
+     * created. Defaults to 1 day prior to current date/time..
      *
      * @param startDate The date and time after which the Log resources must have
      *                  been created.

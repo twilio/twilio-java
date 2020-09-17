@@ -372,8 +372,8 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns Whether to enable Fallback to Long Code for messages sent through
-     * the Service instance.
+     * Returns Whether to enable Fallback to Long Code for messages sent through the
+     * Service instance.
      *
      * @return Whether to enable Fallback to Long Code for messages sent through
      *         the Service instance

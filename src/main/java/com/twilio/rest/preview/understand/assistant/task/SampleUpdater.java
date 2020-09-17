@@ -19,8 +19,8 @@ import com.twilio.rest.Domains;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer
- * preview access, please contact help@twilio.com.
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
 public class SampleUpdater extends Updater<Sample> {
     private final String pathAssistantSid;
@@ -70,9 +70,9 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The communication channel the sample was captured. It can be: *voice*,
-     * *sms*, *chat*, *alexa*, *google-assistant*, or *slack*. If not included the
-     * value will be null.
+     * The communication channel the sample was captured. It can be: *voice*, *sms*,
+     * *chat*, *alexa*, *google-assistant*, or *slack*. If not included the value
+     * will be null.
      *
      * @param sourceChannel The communication channel the sample was captured. It
      *                      can be: voice, sms, chat, alexa, google-assistant, or

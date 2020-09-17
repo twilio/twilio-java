@@ -68,8 +68,8 @@ public class ServiceUpdater extends Updater<Service> {
      * receiving inbound messages is disabled..
      *
      * @param inboundRequestUrl The URL we call using inbound_method when a message
-     *                          is received by any phone number or short code in
-     *                          the Service
+     *                          is received by any phone number or short code in the
+     *                          Service
      * @return this
      */
     public ServiceUpdater setInboundRequestUrl(final URI inboundRequestUrl) {
@@ -83,8 +83,8 @@ public class ServiceUpdater extends Updater<Service> {
      * receiving inbound messages is disabled..
      *
      * @param inboundRequestUrl The URL we call using inbound_method when a message
-     *                          is received by any phone number or short code in
-     *                          the Service
+     *                          is received by any phone number or short code in the
+     *                          Service
      * @return this
      */
     public ServiceUpdater setInboundRequestUrl(final String inboundRequestUrl) {

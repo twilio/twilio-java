@@ -166,8 +166,8 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A label for this participant. If one is supplied, it may subsequently be
-     * used to fetch, update or delete the participant..
+     * A label for this participant. If one is supplied, it may subsequently be used
+     * to fetch, update or delete the participant..
      *
      * @param label The label of this participant
      * @return this
@@ -354,10 +354,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The URL we should call using the `conference_status_callback_method` when
-     * the conference events in `conference_status_callback_event` occur. Only the
-     * value set by the first participant to join the conference is used.
-     * Subsequent `conference_status_callback` values are ignored..
+     * The URL we should call using the `conference_status_callback_method` when the
+     * conference events in `conference_status_callback_event` occur. Only the value
+     * set by the first participant to join the conference is used. Subsequent
+     * `conference_status_callback` values are ignored..
      *
      * @param conferenceStatusCallback The callback URL for conference events
      * @return this
@@ -368,10 +368,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The URL we should call using the `conference_status_callback_method` when
-     * the conference events in `conference_status_callback_event` occur. Only the
-     * value set by the first participant to join the conference is used.
-     * Subsequent `conference_status_callback` values are ignored..
+     * The URL we should call using the `conference_status_callback_method` when the
+     * conference events in `conference_status_callback_event` occur. Only the value
+     * set by the first participant to join the conference is used. Subsequent
+     * `conference_status_callback` values are ignored..
      *
      * @param conferenceStatusCallback The callback URL for conference events
      * @return this
@@ -437,8 +437,8 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The URL that we should call using the `recording_status_callback_method`
-     * when the recording status changes..
+     * The URL that we should call using the `recording_status_callback_method` when
+     * the recording status changes..
      *
      * @param recordingStatusCallback The URL that we should call using the
      *                                `recording_status_callback_method` when the
@@ -451,8 +451,8 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The URL that we should call using the `recording_status_callback_method`
-     * when the recording status changes..
+     * The URL that we should call using the `recording_status_callback_method` when
+     * the recording status changes..
      *
      * @param recordingStatusCallback The URL that we should call using the
      *                                `recording_status_callback_method` when the
@@ -544,9 +544,8 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The HTTP method we should use to call
-     * `conference_recording_status_callback`. Can be: `GET` or `POST` and defaults
-     * to `POST`..
+     * The HTTP method we should use to call `conference_recording_status_callback`.
+     * Can be: `GET` or `POST` and defaults to `POST`..
      *
      * @param conferenceRecordingStatusCallbackMethod The HTTP method we should use
      *                                                to call
@@ -624,8 +623,8 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * Whether the participant is coaching another call. Can be: `true` or `false`.
-     * If not present, defaults to `false` unless `call_sid_to_coach` is defined.
-     * If `true`, `call_sid_to_coach` must be defined..
+     * If not present, defaults to `false` unless `call_sid_to_coach` is defined. If
+     * `true`, `call_sid_to_coach` must be defined..
      *
      * @param coaching Indicates if the participant changed to coach
      * @return this
@@ -678,13 +677,13 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The phone number, Client identifier, or username portion of SIP address that
      * made this call. Phone numbers are in <a
-     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format
-     * (e.g., +16175551212). Client identifiers are formatted `client:name`. If
-     * using a phone number, it must be a Twilio number or a Verified <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format (e.g.,
+     * +16175551212). Client identifiers are formatted `client:name`. If using a
+     * phone number, it must be a Twilio number or a Verified <a
      * href="https://www.twilio.com/docs/voice/api/outgoing-caller-ids">outgoing
      * caller id</a> for your account. If the `to` parameter is a phone number,
-     * `callerId` must also be a phone number. If `to` is sip address, this value
-     * of `callerId` should be a username portion to be used to populate the From
+     * `callerId` must also be a phone number. If `to` is sip address, this value of
+     * `callerId` should be a username portion to be used to populate the From
      * header that is passed to the SIP endpoint..
      *
      * @param callerId The phone number, Client identifier, or username portion of

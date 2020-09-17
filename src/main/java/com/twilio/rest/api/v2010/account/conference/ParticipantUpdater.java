@@ -124,8 +124,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST`
-     * and the default is `GET`..
+     * The HTTP method we should use to call `hold_url`. Can be: `GET` or `POST` and
+     * the default is `GET`..
      *
      * @param holdMethod The HTTP method we should use to call hold_url
      * @return this
@@ -137,8 +137,8 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * The URL we call using the `announce_method` for an announcement to the
-     * participant. The URL must return an MP3 file, a WAV file, or a TwiML
-     * document that contains `&lt;Play&gt;` or `&lt;Say&gt;` commands..
+     * participant. The URL must return an MP3 file, a WAV file, or a TwiML document
+     * that contains `&lt;Play&gt;` or `&lt;Say&gt;` commands..
      *
      * @param announceUrl The URL we call using the `announce_method` for an
      *                    announcement to the participant
@@ -151,8 +151,8 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * The URL we call using the `announce_method` for an announcement to the
-     * participant. The URL must return an MP3 file, a WAV file, or a TwiML
-     * document that contains `&lt;Play&gt;` or `&lt;Say&gt;` commands..
+     * participant. The URL must return an MP3 file, a WAV file, or a TwiML document
+     * that contains `&lt;Play&gt;` or `&lt;Say&gt;` commands..
      *
      * @param announceUrl The URL we call using the `announce_method` for an
      *                    announcement to the participant
@@ -163,8 +163,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The HTTP method we should use to call `announce_url`. Can be: `GET` or
-     * `POST` and defaults to `POST`..
+     * The HTTP method we should use to call `announce_url`. Can be: `GET` or `POST`
+     * and defaults to `POST`..
      *
      * @param announceMethod The HTTP method we should use to call announce_url
      * @return this
@@ -244,8 +244,8 @@ public class ParticipantUpdater extends Updater<Participant> {
 
     /**
      * Whether the participant is coaching another call. Can be: `true` or `false`.
-     * If not present, defaults to `false` unless `call_sid_to_coach` is defined.
-     * If `true`, `call_sid_to_coach` must be defined..
+     * If not present, defaults to `false` unless `call_sid_to_coach` is defined. If
+     * `true`, `call_sid_to_coach` must be defined..
      *
      * @param coaching Indicates if the participant changed to coach
      * @return this

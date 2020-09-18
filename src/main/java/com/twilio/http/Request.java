@@ -1,6 +1,5 @@
 package com.twilio.http;
 
-import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
@@ -186,16 +185,17 @@ public class Request {
      * Add query parameters for date ranges.
      *
      * @param name  name of query parameter
-     * @param range date range
+     * @param rangeLowerBound date rangeLowerBound
+     * @param rangeUpperBound date rangeUpperBound
      */
-    public void addQueryDateRange(final String name, final Range<LocalDate> range) {
-        if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+    public void addQueryDateRange(final String name, final LocalDate rangeLowerBound, final LocalDate rangeUpperBound) {
+        if (rangeLowerBound != null) {
+            String value = rangeLowerBound.toString(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + ">", value);
         }
 
-        if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+        if (rangeUpperBound != null) {
+            String value = rangeUpperBound.toString(QUERY_STRING_DATE_FORMAT);
             addQueryParam(name + "<", value);
         }
     }
@@ -206,13 +206,13 @@ public class Request {
      * @param name  name of query parameter
      * @param range date range
      */
-    public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
-        if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
+    public void addQueryDateTimeRange(final String name, final DateTime rangeLowerBound, final DateTime rangeUpperBound) {
+        if (rangeLowerBound != null) {
+            String value = rangeLowerBound.toString(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + ">", value);
         }
 
-        if (range.hasUpperBound()) {
+        if (rangeUpperBound != null) {
             String value = range.upperEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
             addQueryParam(name + "<", value);
         }

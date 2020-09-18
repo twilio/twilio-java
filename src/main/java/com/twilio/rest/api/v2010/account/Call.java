@@ -28,11 +28,11 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.Endpoint;
 import com.twilio.type.Twiml;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
@@ -343,8 +343,8 @@ public class Call extends Resource {
     }
 
     private final String sid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String parentCallSid;
     private final String accountSid;
     private final String to;
@@ -353,8 +353,8 @@ public class Call extends Resource {
     private final String fromFormatted;
     private final String phoneNumberSid;
     private final Call.Status status;
-    private final DateTime startTime;
-    private final DateTime endTime;
+    private final ZonedDateTime startTime;
+    private final ZonedDateTime endTime;
     private final String duration;
     private final String price;
     private final Currency priceUnit;
@@ -469,7 +469,7 @@ public class Call extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -479,7 +479,7 @@ public class Call extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -581,7 +581,7 @@ public class Call extends Resource {
      *
      * @return The start time of the call. Null if the call has not yet been dialed.
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -592,7 +592,7 @@ public class Call extends Resource {
      * @return The end time of the call. Null if the call did not complete
      *         successfully.
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 

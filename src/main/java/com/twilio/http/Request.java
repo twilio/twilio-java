@@ -2,9 +2,12 @@ package com.twilio.http;
 
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
+
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
@@ -190,12 +193,12 @@ public class Request {
      */
     public void addQueryDateRange(final String name, final LocalDate rangeLowerBound, final LocalDate rangeUpperBound) {
         if (rangeLowerBound != null) {
-            String value = rangeLowerBound.toString(QUERY_STRING_DATE_FORMAT);
+            String value = rangeLowerBound.toString();
             addQueryParam(name + ">", value);
         }
 
         if (rangeUpperBound != null) {
-            String value = rangeUpperBound.toString(QUERY_STRING_DATE_FORMAT);
+            String value = rangeUpperBound.toString();
             addQueryParam(name + "<", value);
         }
     }
@@ -204,16 +207,17 @@ public class Request {
      * Add query parameters for date ranges.
      *
      * @param name  name of query parameter
-     * @param range date range
+     * @param rangeLowerBound date rangeLowerBound
+     * @param rangeUpperBound date rangeUpperBound
      */
-    public void addQueryDateTimeRange(final String name, final DateTime rangeLowerBound, final DateTime rangeUpperBound) {
+    public void addQueryDateTimeRange(final String name, final ZonedDateTime rangeLowerBound, final ZonedDateTime rangeUpperBound) {
         if (rangeLowerBound != null) {
-            String value = rangeLowerBound.toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = rangeLowerBound.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + ">", value);
         }
 
         if (rangeUpperBound != null) {
-            String value = range.upperEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = rangeUpperBound.now(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + "<", value);
         }
     }

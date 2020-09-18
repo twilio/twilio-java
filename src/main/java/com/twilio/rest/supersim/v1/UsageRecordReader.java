@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -33,8 +34,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private String isoCountry;
     private UsageRecord.Group group;
     private UsageRecord.Granularity granularity;
-    private DateTime startTime;
-    private DateTime endTime;
+    private ZonedDateTime startTime;
+    private ZonedDateTime endTime;
 
     /**
      * SID or unique name of a Sim resource. Only show UsageRecords representing
@@ -127,7 +128,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @param startTime Only include usage that occurred at or after this time.
      * @return this
      */
-    public UsageRecordReader setStartTime(final DateTime startTime) {
+    public UsageRecordReader setStartTime(final ZonedDateTime startTime) {
         this.startTime = startTime;
         return this;
     }
@@ -140,7 +141,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      * @param endTime Only include usage that occurred before this time.
      * @return this
      */
-    public UsageRecordReader setEndTime(final DateTime endTime) {
+    public UsageRecordReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
         return this;
     }

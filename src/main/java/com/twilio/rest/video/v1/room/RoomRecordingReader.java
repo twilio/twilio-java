@@ -19,14 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class RoomRecordingReader extends Reader<RoomRecording> {
     private final String pathRoomSid;
     private RoomRecording.Status status;
     private String sourceSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
 
     /**
      * Construct a new RoomRecordingReader.
@@ -69,7 +70,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
      *                         ISO 8601 datetime with time zone
      * @return this
      */
-    public RoomRecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public RoomRecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -82,7 +83,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
      *                          8601 date-time with time zone
      * @return this
      */
-    public RoomRecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public RoomRecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }

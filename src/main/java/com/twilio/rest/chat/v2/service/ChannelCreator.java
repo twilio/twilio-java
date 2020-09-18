@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class ChannelCreator extends Creator<Channel> {
     private final String pathServiceSid;
@@ -25,8 +26,8 @@ public class ChannelCreator extends Creator<Channel> {
     private String uniqueName;
     private String attributes;
     private Channel.ChannelType type;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String createdBy;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
@@ -101,7 +102,7 @@ public class ChannelCreator extends Creator<Channel> {
      *                    created
      * @return this
      */
-    public ChannelCreator setDateCreated(final DateTime dateCreated) {
+    public ChannelCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -117,7 +118,7 @@ public class ChannelCreator extends Creator<Channel> {
      *                    updated
      * @return this
      */
-    public ChannelCreator setDateUpdated(final DateTime dateUpdated) {
+    public ChannelCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
 
 public class DeactivationsFetcher extends Fetcher<Deactivations> {
     private LocalDate date;

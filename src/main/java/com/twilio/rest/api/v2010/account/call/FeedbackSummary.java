@@ -26,12 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.FeedbackIssue;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -182,16 +182,16 @@ public class FeedbackSummary extends Resource {
     private final String accountSid;
     private final Integer callCount;
     private final Integer callFeedbackCount;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime endDate;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime endDate;
     private final Boolean includeSubaccounts;
     private final List<FeedbackIssue> issues;
     private final BigDecimal qualityScoreAverage;
     private final BigDecimal qualityScoreMedian;
     private final BigDecimal qualityScoreStandardDeviation;
     private final String sid;
-    private final DateTime startDate;
+    private final ZonedDateTime startDate;
     private final FeedbackSummary.Status status;
 
     @JsonCreator
@@ -271,7 +271,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The date this resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -280,7 +280,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The date this resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -289,7 +289,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The latest feedback entry date in the summary
      */
-    public final DateTime getEndDate() {
+    public final ZonedDateTime getEndDate() {
         return this.endDate;
     }
 
@@ -352,7 +352,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The earliest feedback entry date in the summary
      */
-    public final DateTime getStartDate() {
+    public final ZonedDateTime getStartDate() {
         return this.startDate;
     }
 

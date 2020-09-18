@@ -20,16 +20,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class RecordingReader extends Reader<Recording> {
     private Recording.Status status;
     private String sourceSid;
     private List<String> groupingSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
     private Recording.Type mediaType;
 
     /**
@@ -87,7 +87,7 @@ public class RecordingReader extends Reader<Recording> {
      *                         date-time with time zone
      * @return this
      */
-    public RecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public RecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -102,7 +102,7 @@ public class RecordingReader extends Reader<Recording> {
      *                          date-time with time zone
      * @return this
      */
-    public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public RecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }

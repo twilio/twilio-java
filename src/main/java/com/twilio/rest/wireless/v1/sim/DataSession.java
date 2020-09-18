@@ -25,10 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -96,9 +96,9 @@ public class DataSession extends Resource {
     private final Map<String, Object> cellLocationEstimate;
     private final Integer packetsUploaded;
     private final Integer packetsDownloaded;
-    private final DateTime lastUpdated;
-    private final DateTime start;
-    private final DateTime end;
+    private final ZonedDateTime lastUpdated;
+    private final ZonedDateTime start;
+    private final ZonedDateTime end;
     private final String imei;
 
     @JsonCreator
@@ -283,7 +283,7 @@ public class DataSession extends Resource {
      * @return The date that the resource was last updated, given as GMT in ISO
      *         8601 format
      */
-    public final DateTime getLastUpdated() {
+    public final ZonedDateTime getLastUpdated() {
         return this.lastUpdated;
     }
 
@@ -294,7 +294,7 @@ public class DataSession extends Resource {
      * @return The date that the Data Session started, given as GMT in ISO 8601
      *         format
      */
-    public final DateTime getStart() {
+    public final ZonedDateTime getStart() {
         return this.start;
     }
 
@@ -303,7 +303,7 @@ public class DataSession extends Resource {
      *
      * @return The date that the record ended, given as GMT in ISO 8601 format
      */
-    public final DateTime getEnd() {
+    public final ZonedDateTime getEnd() {
         return this.end;
     }
 

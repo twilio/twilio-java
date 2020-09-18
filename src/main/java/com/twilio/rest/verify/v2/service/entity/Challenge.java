@@ -25,11 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -217,10 +217,10 @@ public class Challenge extends Resource {
     private final String entitySid;
     private final String identity;
     private final String factorSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime dateResponded;
-    private final DateTime expirationDate;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime dateResponded;
+    private final ZonedDateTime expirationDate;
     private final Challenge.ChallengeStatuses status;
     private final Challenge.ChallengeReasons respondedReason;
     private final String details;
@@ -338,7 +338,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -347,7 +347,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge was updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -356,7 +356,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge was responded
      */
-    public final DateTime getDateResponded() {
+    public final ZonedDateTime getDateResponded() {
         return this.dateResponded;
     }
 
@@ -365,7 +365,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge is expired
      */
-    public final DateTime getExpirationDate() {
+    public final ZonedDateTime getExpirationDate() {
         return this.expirationDate;
     }
 

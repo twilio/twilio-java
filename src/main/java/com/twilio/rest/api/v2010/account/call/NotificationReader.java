@@ -20,7 +20,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class NotificationReader extends Reader<Notification> {
     private String pathAccountSid;
@@ -217,7 +219,7 @@ public class NotificationReader extends Reader<Notification> {
         }
 
         if (absoluteMessageDate != null) {
-            request.addQueryParam("MessageDate", absoluteMessageDate.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("MessageDate", absoluteMessageDate.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
         } else if (rangeMessageDate != null) {
             request.addQueryDateRange("MessageDate", rangeMessageDate);
         }

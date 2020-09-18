@@ -25,10 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -193,9 +193,9 @@ public class AddOnResult extends Resource {
     private final AddOnResult.Status status;
     private final String addOnSid;
     private final String addOnConfigurationSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime dateCompleted;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime dateCompleted;
     private final String referenceSid;
     private final Map<String, String> subresourceUris;
 
@@ -282,7 +282,7 @@ public class AddOnResult extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -291,7 +291,7 @@ public class AddOnResult extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -300,7 +300,7 @@ public class AddOnResult extends Resource {
      *
      * @return The date and time in GMT that the result was completed
      */
-    public final DateTime getDateCompleted() {
+    public final ZonedDateTime getDateCompleted() {
         return this.dateCompleted;
     }
 

@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -26,7 +27,7 @@ import org.joda.time.DateTime;
 public class SessionUpdater extends Updater<Session> {
     private final String pathServiceSid;
     private final String pathSid;
-    private DateTime dateExpiry;
+    private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
     private Boolean failOnParticipantConflict;
@@ -50,7 +51,7 @@ public class SessionUpdater extends Updater<Session> {
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
-    public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
+    public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }
@@ -80,21 +81,21 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * [Experimental] Setting to true enables early opt-in to allowing Proxy to
-     * return a 400 error (Twilio error code 80604) when a request to set a Session
-     * to in-progress would cause Participants with the same
-     * Identifier/ProxyIdentifier pair to be active in multiple Sessions. If not
-     * provided, or if set to false, requests will be allowed to succeed, and a
-     * Debugger notification (80801) will be emitted. Having multiple, active
-     * Participants with the same Identifier/ProxyIdentifier pair causes calls and
-     * messages from affected Participants to be routed incorrectly. Please note, in
-     * a future release, the default behavior will be to reject the request with a
-     * 400 error unless an exception has been requested..
+     * [Experimental] For accounts with the ProxyAllowParticipantConflict account
+     * flag, setting to true enables per-request opt-in to allowing Proxy to return
+     * a 400 error (Twilio error code 80604) when a request to set a Session to
+     * in-progress would cause Participants with the same Identifier/ProxyIdentifier
+     * pair to be active in multiple Sessions. If not provided, requests will be
+     * allowed to succeed, and a Debugger notification (80801) will be emitted.
+     * Having multiple, active Participants with the same Identifier/ProxyIdentifier
+     * pair causes calls and messages from affected Participants to be routed
+     * incorrectly. Please note, the default behavior for accounts without the
+     * ProxyAllowParticipantConflict flag is to reject the request as described.
+     * This will eventually be the default for all accounts..
      *
-     * @param failOnParticipantConflict An experimental flag that instructs Proxy
-     *                                  to return 400 instead of 200 when it detects
-     *                                  that conflicts would result from re-open
-     *                                  requests.
+     * @param failOnParticipantConflict An experimental parameter to override the
+     *                                  ProxyAllowParticipantConflict account flag
+     *                                  on a per-request basis.
      * @return this
      */
     public SessionUpdater setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {

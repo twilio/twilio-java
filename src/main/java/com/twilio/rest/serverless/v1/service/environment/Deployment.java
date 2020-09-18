@@ -24,11 +24,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -46,7 +46,7 @@ public class Deployment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to read the Deployment
      *                       resources from
-     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     * @param pathEnvironmentSid The SID of the Environment used by the Deployment
      *                           resources to read
      * @return DeploymentReader capable of executing the read
      */
@@ -60,7 +60,7 @@ public class Deployment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the Deployment
      *                       resource from
-     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     * @param pathEnvironmentSid The SID of the Environment used by the Deployment
      *                           to fetch
      * @param pathSid The SID that identifies the Deployment resource to fetch
      * @return DeploymentFetcher capable of executing the fetch
@@ -76,7 +76,7 @@ public class Deployment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
-     * @param pathEnvironmentSid The SID of the environment for the deployment
+     * @param pathEnvironmentSid The SID of the Environment for the Deployment
      * @return DeploymentCreator capable of executing the create
      */
     public static DeploymentCreator creator(final String pathServiceSid,
@@ -127,8 +127,8 @@ public class Deployment extends Resource {
     private final String serviceSid;
     private final String environmentSid;
     private final String buildSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -188,18 +188,18 @@ public class Deployment extends Resource {
     }
 
     /**
-     * Returns The SID of the environment for the deployment.
+     * Returns The SID of the Environment for the Deployment.
      *
-     * @return The SID of the environment for the deployment
+     * @return The SID of the Environment for the Deployment
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
     }
 
     /**
-     * Returns The SID of the build for the deployment.
+     * Returns The SID of the Build for the deployment.
      *
-     * @return The SID of the build for the deployment
+     * @return The SID of the Build for the deployment
      */
     public final String getBuildSid() {
         return this.buildSid;
@@ -212,7 +212,7 @@ public class Deployment extends Resource {
      * @return The ISO 8601 date and time in GMT when the Deployment resource was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -223,7 +223,7 @@ public class Deployment extends Resource {
      * @return The ISO 8601 date and time in GMT when the Deployment resource was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

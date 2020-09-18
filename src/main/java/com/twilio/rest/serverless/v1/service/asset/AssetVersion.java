@@ -25,11 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -142,7 +142,7 @@ public class AssetVersion extends Resource {
     private final String assetSid;
     private final String path;
     private final AssetVersion.Visibility visibility;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator
@@ -202,29 +202,29 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The SID of the Asset resource that is the parent of the asset
-     * version.
+     * Returns The SID of the Asset resource that is the parent of the Asset
+     * Version.
      *
-     * @return The SID of the Asset resource that is the parent of the asset version
+     * @return The SID of the Asset resource that is the parent of the Asset Version
      */
     public final String getAssetSid() {
         return this.assetSid;
     }
 
     /**
-     * Returns The URL-friendly string by which the asset version can be referenced.
+     * Returns The URL-friendly string by which the Asset Version can be referenced.
      *
-     * @return The URL-friendly string by which the asset version can be referenced
+     * @return The URL-friendly string by which the Asset Version can be referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The access control that determines how the asset version can be
+     * Returns The access control that determines how the Asset Version can be
      * accessed.
      *
-     * @return The access control that determines how the asset version can be
+     * @return The access control that determines how the Asset Version can be
      *         accessed
      */
     public final AssetVersion.Visibility getVisibility() {
@@ -238,7 +238,7 @@ public class AssetVersion extends Resource {
      * @return The ISO 8601 date and time in GMT when the Asset Version resource
      *         was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

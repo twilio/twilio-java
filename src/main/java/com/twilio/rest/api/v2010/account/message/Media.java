@@ -24,10 +24,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -157,8 +157,8 @@ public class Media extends Resource {
 
     private final String accountSid;
     private final String contentType;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String parentSid;
     private final String sid;
     private final String uri;
@@ -210,7 +210,7 @@ public class Media extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -220,7 +220,7 @@ public class Media extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

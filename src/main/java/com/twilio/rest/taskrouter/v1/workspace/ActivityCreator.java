@@ -38,7 +38,8 @@ public class ActivityCreator extends Creator<Activity> {
     /**
      * Whether the Worker should be eligible to receive a Task when it occupies the
      * Activity. A value of `true`, `1`, or `yes` specifies the Activity is
-     * available. All other values specify that it is not..
+     * available. All other values specify that it is not. The value cannot be
+     * changed after the Activity is created..
      *
      * @param available Whether the Worker should be eligible to receive a Task
      *                  when it occupies the Activity

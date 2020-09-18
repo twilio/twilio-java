@@ -37,9 +37,9 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that occurred on or before this date, specified in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * the current time..
+     * Only include usage that occurred on or before this date, specified in <a
+     * href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.
+     * The default is the current time..
      *
      * @param end Only include usage that occurred on or before this date
      * @return this
@@ -50,9 +50,9 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that has occurred on or after this date, specified in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * one month before the `end` parameter value..
+     * Only include usage that has occurred on or after this date, specified in <a
+     * href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.
+     * The default is one month before the `end` parameter value..
      *
      * @param start Only include usage that has occurred on or after this date
      * @return this

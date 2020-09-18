@@ -41,9 +41,10 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
-     * assign to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> to assign to
+     * the member. The default roles are those specified on the <a
+     * href="https://www.twilio.com/docs/chat/api/services">Service</a>..
      *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
@@ -54,10 +55,10 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member
-     * has read within the
-     * [Channel](https://www.twilio.com/docs/api/chat/rest/channels)..
+     * The index of the last <a
+     * href="https://www.twilio.com/docs/api/chat/rest/messages">Message</a> that
+     * the Member has read within the <a
+     * href="https://www.twilio.com/docs/api/chat/rest/channels">Channel</a>..
      *
      * @param lastConsumedMessageIndex The index of the last consumed Message for
      *                                 the Channel for the Member

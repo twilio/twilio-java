@@ -70,7 +70,7 @@ public class Environment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to create the Environment
      *                       resource under
-     * @param uniqueName An application-defined string that uniquely identifies the
+     * @param uniqueName A user-defined string that uniquely identifies the
      *                   Environment resource
      * @return EnvironmentCreator capable of executing the create
      */
@@ -217,11 +217,11 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the
-     * Environment resource.
+     * Returns A user-defined string that uniquely identifies the Environment
+     * resource.
      *
-     * @return An application-defined string that uniquely identifies the
-     *         Environment resource
+     * @return A user-defined string that uniquely identifies the Environment
+     *         resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
@@ -238,10 +238,10 @@ public class Environment extends Resource {
 
     /**
      * Returns The base domain name for all Functions and Assets deployed in the
-     * environment.
+     * Environment.
      *
      * @return The base domain name for all Functions and Assets deployed in the
-     *         environment
+     *         Environment
      */
     public final String getDomainName() {
         return this.domainName;
@@ -279,9 +279,9 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The URLs of the environment's nested resources.
+     * Returns The URLs of the Environment resource's nested resources.
      *
-     * @return The URLs of the environment's nested resources
+     * @return The URLs of the Environment resource's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;

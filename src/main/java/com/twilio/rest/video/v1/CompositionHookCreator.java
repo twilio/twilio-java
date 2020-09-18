@@ -64,8 +64,9 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
 
     /**
      * An object that describes the video layout of the composition hook in terms of
-     * regions. See [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
+     * regions. See <a
+     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
+     * Video Layouts</a> for more info..
      *
      * @param videoLayout An object that describes the video layout of the
      *                    composition hook
@@ -162,8 +163,9 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
      *
      * Note that the `resolution` imposes an aspect ratio to the resulting
      * composition. When the original video tracks are constrained by the aspect
-     * ratio, they are scaled to fit. See [Specifying Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
+     * ratio, they are scaled to fit. See <a
+     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
+     * Video Layouts</a> for more info..
      *
      * @param resolution A string that describes the rows (width) and columns
      *                   (height) of the generated composed video in pixels
@@ -235,9 +237,9 @@ public class CompositionHookCreator extends Creator<CompositionHook> {
      * Compositions triggered by the composition hook. The default is `true`.
      * Compositions with `trim` enabled are shorter when the Room is created and no
      * Participant joins for a while as well as if all the Participants leave the
-     * room and join later, because those gaps will be removed. See [Specifying
-     * Video
-     * Layouts](https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts) for more info..
+     * room and join later, because those gaps will be removed. See <a
+     * href="https://www.twilio.com/docs/video/api/compositions-resource#specifying-video-layouts">Specifying
+     * Video Layouts</a> for more info..
      *
      * @param trim Whether to clip the intervals where there is no active media in
      *             the Compositions triggered by the composition hook

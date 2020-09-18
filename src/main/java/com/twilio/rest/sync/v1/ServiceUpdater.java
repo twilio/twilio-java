@@ -91,8 +91,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Whether token identities in the Service must be granted access to Sync
-     * objects by using the
-     * [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions)
+     * objects by using the <a
+     * href="https://www.twilio.com/docs/sync/api/sync-permissions">Permissions</a>
      * resource..
      *
      * @param aclEnabled Whether token identities in the Service must be granted

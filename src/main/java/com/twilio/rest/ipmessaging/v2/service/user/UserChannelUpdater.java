@@ -58,10 +58,10 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
-     * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
-     * read..
+     * The index of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a> in
+     * the <a href="https://www.twilio.com/docs/chat/channels">Channel</a> that the
+     * Member has read..
      *
      * @param lastConsumedMessageIndex The index of the last Message that the
      *                                 Member has read within the Channel
@@ -73,10 +73,11 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
-     * for the Member within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
+     * of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
+     * read event for the Member within the <a
+     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string that
      *                                 represents the datetime of the last Message

@@ -41,8 +41,9 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * The push technology used by the User Binding resources to read. Can be:
-     * `apn`, `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `apn`, `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
@@ -55,8 +56,9 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * The push technology used by the User Binding resources to read. Can be:
-     * `apn`, `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `apn`, `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read

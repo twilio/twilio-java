@@ -248,9 +248,9 @@ public class Function extends Resource {
     }
 
     /**
-     * Returns The URLs of nested resources of the function.
+     * Returns The URLs of nested resources of the Function resource.
      *
-     * @return The URLs of nested resources of the function
+     * @return The URLs of nested resources of the Function resource
      */
     public final Map<String, String> getLinks() {
         return this.links;

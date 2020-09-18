@@ -32,7 +32,7 @@ public class DeploymentCreator extends Creator<Deployment> {
      *
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
-     * @param pathEnvironmentSid The SID of the environment for the deployment
+     * @param pathEnvironmentSid The SID of the Environment for the Deployment
      */
     public DeploymentCreator(final String pathServiceSid,
                              final String pathEnvironmentSid) {
@@ -41,9 +41,9 @@ public class DeploymentCreator extends Creator<Deployment> {
     }
 
     /**
-     * The SID of the build for the deployment..
+     * The SID of the Build for the Deployment..
      *
-     * @param buildSid The SID of the build for the deployment
+     * @param buildSid The SID of the Build for the Deployment
      * @return this
      */
     public DeploymentCreator setBuildSid(final String buildSid) {

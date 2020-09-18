@@ -31,8 +31,8 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Construct a new ServiceCreator.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   Service resource
+     * @param uniqueName A user-defined string that uniquely identifies the Service
+     *                   resource
      * @param friendlyName A string to describe the Service resource
      */
     public ServiceCreator(final String uniqueName,

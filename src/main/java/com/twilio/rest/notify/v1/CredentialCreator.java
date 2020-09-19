@@ -54,7 +54,8 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * [APN only] The URL-encoded representation of the certificate. Strip
      * everything outside of the headers, e.g. `-----BEGIN
-     * CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END CERTIFICATE-----`.
+     * CERTIFICATE-----MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==-----END
+     * CERTIFICATE-----`.
      *
      * @param certificate [APN only] The URL-encoded representation of the
      *                    certificate
@@ -68,7 +69,8 @@ public class CredentialCreator extends Creator<Credential> {
     /**
      * [APN only] The URL-encoded representation of the private key. Strip
      * everything outside of the headers, e.g. `-----BEGIN RSA PRIVATE
-     * KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\n.-----END RSA PRIVATE KEY-----`.
+     * KEY-----MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR\n.-----END
+     * RSA PRIVATE KEY-----`.
      *
      * @param privateKey [APN only] URL-encoded representation of the private key
      * @return this

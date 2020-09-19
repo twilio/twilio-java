@@ -40,9 +40,10 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the Member resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the Member resources to read. See <a
+     * href="https://www.twilio.com/docs/chat/create-tokens">access tokens</a> for
+     * more details..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -53,9 +54,10 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the Member resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the Member resources to read. See <a
+     * href="https://www.twilio.com/docs/chat/create-tokens">access tokens</a> for
+     * more details..
      *
      * @param identity The `identity` value of the resources to read
      * @return this

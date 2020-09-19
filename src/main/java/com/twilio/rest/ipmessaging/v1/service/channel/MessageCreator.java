@@ -41,8 +41,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
-     * new message's author. The default value is `system`..
+     * The <a
+     * href="https://www.twilio.com/docs/api/chat/guides/identity">identity</a> of
+     * the new message's author. The default value is `system`..
      *
      * @param from The identity of the new message's author
      * @return this

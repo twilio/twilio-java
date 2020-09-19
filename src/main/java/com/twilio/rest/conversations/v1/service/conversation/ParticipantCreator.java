@@ -52,10 +52,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A unique string identifier for the conversation participant as [Chat
-     * User](https://www.twilio.com/docs/chat/rest/user-resource). This parameter is
-     * non-null if (and only if) the participant is using the Programmable Chat SDK
-     * to communicate. Limited to 256 characters..
+     * A unique string identifier for the conversation participant as <a
+     * href="https://www.twilio.com/docs/chat/rest/user-resource">Chat User</a>.
+     * This parameter is non-null if (and only if) the participant is using the
+     * Programmable Chat SDK to communicate. Limited to 256 characters..
      *
      * @param identity A unique string identifier for the conversation participant
      *                 as Chat User.
@@ -145,8 +145,9 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the participant..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
+     * to the participant..
      *
      * @param roleSid The SID of the Role to assign to the participant
      * @return this

@@ -162,7 +162,8 @@ public class ServiceUpdater extends Updater<Service> {
      * true}. If `include_date` is set to `true`, which is the default, that means
      * that the push challenge’s response will include the date created value. If
      * `include_date` is set to `false`, then the date created value will not be
-     * included. See [Challenge](https://www.twilio.com/docs/verify/api/challenge)
+     * included. See <a
+     * href="https://www.twilio.com/docs/verify/api/challenge">Challenge</a>
      * resource’s details parameter for more info.
      *
      * @param push Optional service level push factors configuration

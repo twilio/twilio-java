@@ -72,11 +72,11 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service. This parameter should only
-     * be used when a Chat's history is being recreated from a backup/separate
-     * source..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was created. The
+     * default value is the current time set by the Chat service. This parameter
+     * should only be used when a Chat's history is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -88,8 +88,8 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was last updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
@@ -101,8 +101,8 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
-     * last updated the Message, if applicable..
+     * The <a href="https://www.twilio.com/docs/chat/identity">Identity</a> of the
+     * User who last updated the Message, if applicable..
      *
      * @param lastUpdatedBy The Identity of the User who last updated the Message,
      *                      if applicable
@@ -114,8 +114,8 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The [Identity](https://www.twilio.com/docs/chat/identity) of the message's
-     * author..
+     * The <a href="https://www.twilio.com/docs/chat/identity">Identity</a> of the
+     * message's author..
      *
      * @param from The Identity of the message's author
      * @return this

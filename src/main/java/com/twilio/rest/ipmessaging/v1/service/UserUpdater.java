@@ -37,8 +37,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
-     * assigned to this user..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> assigned to
+     * this user..
      *
      * @param roleSid The SID id of the Role assigned to this user
      * @return this

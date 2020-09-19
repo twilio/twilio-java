@@ -48,9 +48,10 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/rest/service-resource)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
+     * to the member. The default roles are those specified on the <a
+     * href="https://www.twilio.com/docs/chat/rest/service-resource">Service</a>..
      *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
@@ -61,11 +62,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
-     * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
-     * read. This parameter should only be used when recreating a Member from a
-     * backup/separate source..
+     * The index of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a> in
+     * the <a href="https://www.twilio.com/docs/chat/channels">Channel</a> that the
+     * Member has read. This parameter should only be used when recreating a Member
+     * from a backup/separate source..
      *
      * @param lastConsumedMessageIndex The index of the last Message in the Channel
      *                                 the Member has read
@@ -77,10 +78,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
-     * for the Member within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
+     * of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
+     * read event for the Member within the <a
+     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
      *                                 representing the datetime of the last Message
@@ -93,11 +95,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service.  Note that this parameter
-     * should only be used when a Member is being recreated from a backup/separate
-     * source..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was created. The
+     * default value is the current time set by the Chat service.  Note that this
+     * parameter should only be used when a Member is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
@@ -109,11 +111,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`. Note that this parameter should only be used when a
-     * Member is being recreated from a backup/separate source and where a Member
-     * was previously updated..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was last updated.
+     * The default value is `null`. Note that this parameter should only be used
+     * when a Member is being recreated from a backup/separate source and where a
+     * Member was previously updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated

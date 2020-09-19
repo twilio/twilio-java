@@ -79,11 +79,12 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Read only recordings that started on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
+     * Read only recordings that started on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time with
+     * time zone..
      *
      * @param dateCreatedAfter Read only recordings that started on or after this
-     *                         [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     *                         <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
      *                         date-time with time zone
      * @return this
      */
@@ -93,9 +94,9 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Read only recordings that started before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given
-     * as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     * Read only recordings that started before this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time with
+     * time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      *
      * @param dateCreatedBefore Read only recordings that started before this [ISO
      *                          8601](https://en.wikipedia.org/wiki/ISO_8601)

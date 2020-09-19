@@ -268,11 +268,13 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The message [delivery error
-     * code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status.
+     * Returns The message <a
+     * href="https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors">delivery
+     * error code</a> for a `failed` status.
      *
-     * @return The message [delivery error
-     *         code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+     * @return The message <a
+     *         href="https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors">delivery
+     *         error code</a> for a `failed` status
      */
     public final Integer getErrorCode() {
         return this.errorCode;

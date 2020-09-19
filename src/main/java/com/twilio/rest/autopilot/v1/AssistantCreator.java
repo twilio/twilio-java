@@ -108,8 +108,9 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * The JSON string that defines the Assistant's [style
-     * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
+     * The JSON string that defines the Assistant's <a
+     * href="https://www.twilio.com/docs/autopilot/api/assistant/stylesheet">style
+     * sheet</a>.
      *
      * @param styleSheet A JSON string that defines the Assistant's style sheet
      * @return this
@@ -120,9 +121,10 @@ public class AssistantCreator extends Creator<Assistant> {
     }
 
     /**
-     * A JSON object that defines the Assistant's [default
-     * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
-     * various scenarios, including initiation actions and fallback tasks..
+     * A JSON object that defines the Assistant's <a
+     * href="https://www.twilio.com/docs/autopilot/api/assistant/defaults">default
+     * tasks</a> for various scenarios, including initiation actions and fallback
+     * tasks..
      *
      * @param defaults A JSON object that defines the Assistant's default tasks for
      *                 various scenarios

@@ -177,9 +177,18 @@ public class Request {
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
 
-            return new URI(parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
-                    parsedUrl.getPath(), parsedUrl.getQuery(), parsedUrl.getRef()).toURL().toString();
-        } catch (final MalformedURLException | URISyntaxException e) {
+            String urlPort = parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : null;
+            String protocol = parsedUrl.getProtocol() + "://";
+            String[] pathPieces = parsedUrl.getPath().split("/");
+            for (int i = 0; i < pathPieces.length; i++) {
+                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
+            }
+            String encodedPath = Joiner.on("/").join(pathPieces);
+            String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
+            String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;
+            String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
+            return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
+        } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }

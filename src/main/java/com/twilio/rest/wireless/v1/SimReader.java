@@ -50,9 +50,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The SID or unique name of a [RatePlan
-     * resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only
-     * return Sim resources assigned to this RatePlan resource..
+     * The SID or unique name of a <a
+     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource">RatePlan
+     * resource</a>. Only return Sim resources assigned to this RatePlan resource..
      *
      * @param ratePlan Only return Sim resources assigned to this RatePlan resource
      * @return this

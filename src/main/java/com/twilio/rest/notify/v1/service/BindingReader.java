@@ -69,8 +69,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -81,8 +81,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read..
      *
      * @param identity The `identity` value of the resources to read
      * @return this

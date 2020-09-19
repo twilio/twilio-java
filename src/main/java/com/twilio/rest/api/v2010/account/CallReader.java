@@ -31,10 +31,8 @@ public class CallReader extends Reader<Call> {
     private com.twilio.type.PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
-    private ZonedDateTime absoluteStartTime;
-    private Range<ZonedDateTime> rangeStartTime;
-    private ZonedDateTime absoluteEndTime;
-    private Range<ZonedDateTime> rangeEndTime;
+    private ZonedDateTime startTime;
+    private ZonedDateTime endTime;
 
     /**
      * Construct a new CallReader.
@@ -129,29 +127,11 @@ public class CallReader extends Reader<Call> {
      * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
      * this date..
      *
-     * @param absoluteStartTime Only include calls that started on this date
+     * @param startTime Only include calls that started on this date
      * @return this
      */
-    public CallReader setStartTime(final ZonedDateTime absoluteStartTime) {
-        this.rangeStartTime = null;
-        this.absoluteStartTime = absoluteStartTime;
-        return this;
-    }
-
-    /**
-     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
-     * in GMT, for example: `2009-07-06`, to read only calls that started on this
-     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
-     * to read calls that started on or before midnight of this date, and
-     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
-     * this date..
-     *
-     * @param rangeStartTime Only include calls that started on this date
-     * @return this
-     */
-    public CallReader setStartTime(final Range<ZonedDateTime> rangeStartTime) {
-        this.absoluteStartTime = null;
-        this.rangeStartTime = rangeStartTime;
+    public CallReader setStartTime(final ZonedDateTime startTime) {
+        this.startTime = startTime;
         return this;
     }
 
@@ -163,29 +143,11 @@ public class CallReader extends Reader<Call> {
      * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
      * this date..
      *
-     * @param absoluteEndTime Only include calls that ended on this date
+     * @param endTime Only include calls that ended on this date
      * @return this
      */
-    public CallReader setEndTime(final ZonedDateTime absoluteEndTime) {
-        this.rangeEndTime = null;
-        this.absoluteEndTime = absoluteEndTime;
-        return this;
-    }
-
-    /**
-     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
-     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
-     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
-     * calls that ended on or before midnight of this date, and
-     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
-     * this date..
-     *
-     * @param rangeEndTime Only include calls that ended on this date
-     * @return this
-     */
-    public CallReader setEndTime(final Range<ZonedDateTime> rangeEndTime) {
-        this.absoluteEndTime = null;
-        this.rangeEndTime = rangeEndTime;
+    public CallReader setEndTime(final ZonedDateTime endTime) {
+        this.endTime = endTime;
         return this;
     }
 
@@ -323,16 +285,8 @@ public class CallReader extends Reader<Call> {
             request.addQueryParam("Status", status.toString());
         }
 
-        if (absoluteStartTime != null) {
-            request.addQueryParam("StartTime", absoluteStartTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (rangeStartTime != null) {
-            request.addQueryDateTimeRange("StartTime", rangeStartTime);
-        }
-
-        if (absoluteEndTime != null) {
-            request.addQueryParam("EndTime", absoluteEndTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (rangeEndTime != null) {
-            request.addQueryDateTimeRange("EndTime", rangeEndTime);
+        if (startTime != null || endTime != null) {
+            request.addQueryDateTimeRange("Range", startTime, endTime);
         }
 
         if (getPageSize() != null) {

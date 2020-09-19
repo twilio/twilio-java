@@ -29,8 +29,8 @@ public class MessageReader extends Reader<Message> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private ZonedDateTime absoluteDateSent;
-    private Range<ZonedDateTime> rangeDateSent;
+    private ZonedDateTime startDateSent;
+    private ZonedDateTime endDateSent;
 
     /**
      * Construct a new MessageReader.
@@ -97,12 +97,11 @@ public class MessageReader extends Reader<Message> {
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
      *
-     * @param absoluteDateSent Filter by date sent
+     * @param startDateSent Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final ZonedDateTime absoluteDateSent) {
-        this.rangeDateSent = null;
-        this.absoluteDateSent = absoluteDateSent;
+    public MessageReader setStartDateSent(final ZonedDateTime startDateSent) {
+        this.startDateSent = startDateSent;
         return this;
     }
 
@@ -113,12 +112,11 @@ public class MessageReader extends Reader<Message> {
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
      *
-     * @param rangeDateSent Filter by date sent
+     * @param endDateSent Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final Range<ZonedDateTime> rangeDateSent) {
-        this.absoluteDateSent = null;
-        this.rangeDateSent = rangeDateSent;
+    public MessageReader setEndDateSent(final ZonedDateTime endDateSent) {
+        this.endDateSent = endDateSent;
         return this;
     }
 
@@ -248,10 +246,8 @@ public class MessageReader extends Reader<Message> {
             request.addQueryParam("From", from.toString());
         }
 
-        if (absoluteDateSent != null) {
-            request.addQueryParam("DateSent", absoluteDateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (rangeDateSent != null) {
-            request.addQueryDateTimeRange("DateSent", rangeDateSent);
+        if (startDateSent != null || endDateSent != null) {
+            request.addQueryDateTimeRange("DateSent", startDateSent, endDateSent);
         }
 
         if (getPageSize() != null) {

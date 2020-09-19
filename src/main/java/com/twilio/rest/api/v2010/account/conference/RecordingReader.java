@@ -27,8 +27,8 @@ import java.time.format.DateTimeFormatter;
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
     private final String pathConferenceSid;
-    private LocalDate absoluteDateCreated;
-    private Range<LocalDate> rangeDateCreated;
+    private LocalDate startDateCreated;
+    private LocalDate endDateCreated;
 
     /**
      * Construct a new RecordingReader.
@@ -59,12 +59,11 @@ public class RecordingReader extends Reader<Recording> {
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param startDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public RecordingReader setStartDateCreated(final LocalDate startDateCreated) {
+        this.startDateCreated = startDateCreated;
         return this;
     }
 
@@ -75,12 +74,11 @@ public class RecordingReader extends Reader<Recording> {
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param endDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public RecordingReader setEndDateCreated(final LocalDate endDateCreated) {
+        this.endDateCreated = endDateCreated;
         return this;
     }
 
@@ -202,10 +200,8 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateRange("DateCreated", rangeDateCreated);
+        if (startDateCreated != null || endDateCreated != null) {
+            request.addQueryDateRange("DateCreated", startDateCreated, endDateCreated);
         }
 
         if (getPageSize() != null) {

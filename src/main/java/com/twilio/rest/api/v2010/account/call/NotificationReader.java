@@ -28,8 +28,8 @@ public class NotificationReader extends Reader<Notification> {
     private String pathAccountSid;
     private final String pathCallSid;
     private Integer log;
-    private LocalDate absoluteMessageDate;
-    private Range<LocalDate> rangeMessageDate;
+    private LocalDate startMessageDate;
+    private LocalDate endMessageDate;
 
     /**
      * Construct a new NotificationReader.
@@ -72,12 +72,11 @@ public class NotificationReader extends Reader<Notification> {
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
      *
-     * @param absoluteMessageDate Filter by date
+     * @param startMessageDate Filter by date
      * @return this
      */
-    public NotificationReader setMessageDate(final LocalDate absoluteMessageDate) {
-        this.rangeMessageDate = null;
-        this.absoluteMessageDate = absoluteMessageDate;
+    public NotificationReader setStartMessageDate(final LocalDate startMessageDate) {
+        this.startMessageDate = startMessageDate;
         return this;
     }
 
@@ -87,12 +86,11 @@ public class NotificationReader extends Reader<Notification> {
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
      *
-     * @param rangeMessageDate Filter by date
+     * @param endMessageDate Filter by date
      * @return this
      */
-    public NotificationReader setMessageDate(final Range<LocalDate> rangeMessageDate) {
-        this.absoluteMessageDate = null;
-        this.rangeMessageDate = rangeMessageDate;
+    public NotificationReader setEndMessageDate(final LocalDate endMessageDate) {
+        this.endMessageDate = endMessageDate;
         return this;
     }
 
@@ -218,10 +216,8 @@ public class NotificationReader extends Reader<Notification> {
             request.addQueryParam("Log", log.toString());
         }
 
-        if (absoluteMessageDate != null) {
-            request.addQueryParam("MessageDate", absoluteMessageDate.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (rangeMessageDate != null) {
-            request.addQueryDateRange("MessageDate", rangeMessageDate);
+        if (startMessageDate != null || endMessageDate != null) {
+            request.addQueryDateRange("MessageDate", startMessageDate, endMessageDate);
         }
 
         if (getPageSize() != null) {

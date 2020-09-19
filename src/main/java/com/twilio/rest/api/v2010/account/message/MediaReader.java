@@ -27,8 +27,8 @@ import java.time.format.DateTimeFormatter;
 public class MediaReader extends Reader<Media> {
     private String pathAccountSid;
     private final String pathMessageSid;
-    private ZonedDateTime absoluteDateCreated;
-    private Range<ZonedDateTime> rangeDateCreated;
+    private ZonedDateTime startDateCreated;
+    private ZonedDateTime endDateCreated;
 
     /**
      * Construct a new MediaReader.
@@ -62,12 +62,11 @@ public class MediaReader extends Reader<Media> {
      * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
      * created on or after midnight of this date..
      *
-     * @param absoluteDateCreated Only include media that was created on this date
+     * @param startDateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final ZonedDateTime absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public MediaReader setStartDateCreated(final ZonedDateTime startDateCreated) {
+        this.startDateCreated = startDateCreated;
         return this;
     }
 
@@ -79,12 +78,11 @@ public class MediaReader extends Reader<Media> {
      * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
      * created on or after midnight of this date..
      *
-     * @param rangeDateCreated Only include media that was created on this date
+     * @param endDateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final Range<ZonedDateTime> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public MediaReader setEndDateCreated(final ZonedDateTime endDateCreated) {
+        this.endDateCreated = endDateCreated;
         return this;
     }
 
@@ -206,10 +204,8 @@ public class MediaReader extends Reader<Media> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
+        if (startDateCreated != null || endDateCreated != null) {
+            request.addQueryDateTimeRange("DateCreated", startDateCreated, endDateCreated);
         }
 
         if (getPageSize() != null) {

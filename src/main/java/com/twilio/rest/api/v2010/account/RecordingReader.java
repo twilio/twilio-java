@@ -26,8 +26,8 @@ import java.time.format.DateTimeFormatter;
 
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
-    private ZonedDateTime absoluteDateCreated;
-    private Range<ZonedDateTime> rangeDateCreated;
+    private ZonedDateTime startDateCreated;
+    private ZonedDateTime endDateCreated;
     private String callSid;
     private String conferenceSid;
 
@@ -55,13 +55,12 @@ public class RecordingReader extends Reader<Recording> {
      * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
      * recordings that were created on or after midnight of this date..
      *
-     * @param absoluteDateCreated Only include recordings that were created on this
-     *                            date
+     * @param startDateCreated Only include recordings that were created on this
+     *                         date
      * @return this
      */
-    public RecordingReader setDateCreated(final ZonedDateTime absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public RecordingReader setStartDateCreated(final ZonedDateTime startDateCreated) {
+        this.startDateCreated = startDateCreated;
         return this;
     }
 
@@ -73,13 +72,12 @@ public class RecordingReader extends Reader<Recording> {
      * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
      * recordings that were created on or after midnight of this date..
      *
-     * @param rangeDateCreated Only include recordings that were created on this
-     *                         date
+     * @param endDateCreated Only include recordings that were created on this
+     *                       date
      * @return this
      */
-    public RecordingReader setDateCreated(final Range<ZonedDateTime> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public RecordingReader setEndDateCreated(final ZonedDateTime endDateCreated) {
+        this.endDateCreated = endDateCreated;
         return this;
     }
 
@@ -225,10 +223,8 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
+        if (startDateCreated != null || endDateCreated != null) {
+            request.addQueryDateTimeRange("DateCreated", startDateCreated, endDateCreated);
         }
 
         if (callSid != null) {

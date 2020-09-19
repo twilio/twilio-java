@@ -26,10 +26,10 @@ import java.time.format.DateTimeFormatter;
 
 public class ConferenceReader extends Reader<Conference> {
     private String pathAccountSid;
-    private LocalDate absoluteDateCreated;
-    private Range<LocalDate> rangeDateCreated;
-    private LocalDate absoluteDateUpdated;
-    private Range<LocalDate> rangeDateUpdated;
+    private LocalDate startDateCreated;
+    private LocalDate endDateCreated;
+    private LocalDate startDateUpdated;
+    private LocalDate endDateUpdated;
     private String friendlyName;
     private Conference.Status status;
 
@@ -55,12 +55,11 @@ public class ConferenceReader extends Reader<Conference> {
      * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
      * midnight on a date, use `&gt;=YYYY-MM-DD`..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param startDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateCreated(final LocalDate absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public ConferenceReader setStartDateCreated(final LocalDate startDateCreated) {
+        this.startDateCreated = startDateCreated;
         return this;
     }
 
@@ -70,12 +69,11 @@ public class ConferenceReader extends Reader<Conference> {
      * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
      * midnight on a date, use `&gt;=YYYY-MM-DD`..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param endDateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public ConferenceReader setEndDateCreated(final LocalDate endDateCreated) {
+        this.endDateCreated = endDateCreated;
         return this;
     }
 
@@ -85,12 +83,11 @@ public class ConferenceReader extends Reader<Conference> {
      * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
      * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
      *
-     * @param absoluteDateUpdated The `YYYY-MM-DD` value of the resources to read
+     * @param startDateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateUpdated(final LocalDate absoluteDateUpdated) {
-        this.rangeDateUpdated = null;
-        this.absoluteDateUpdated = absoluteDateUpdated;
+    public ConferenceReader setStartDateUpdated(final LocalDate startDateUpdated) {
+        this.startDateUpdated = startDateUpdated;
         return this;
     }
 
@@ -100,12 +97,11 @@ public class ConferenceReader extends Reader<Conference> {
      * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
      * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
      *
-     * @param rangeDateUpdated The `YYYY-MM-DD` value of the resources to read
+     * @param endDateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateUpdated(final Range<LocalDate> rangeDateUpdated) {
-        this.absoluteDateUpdated = null;
-        this.rangeDateUpdated = rangeDateUpdated;
+    public ConferenceReader setEndDateUpdated(final LocalDate endDateUpdated) {
+        this.endDateUpdated = endDateUpdated;
         return this;
     }
 
@@ -251,16 +247,12 @@ public class ConferenceReader extends Reader<Conference> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateRange("DateCreated", rangeDateCreated);
+        if (startDateCreated != null || endDateCreated != null) {
+            request.addQueryDateRange("DateCreated", startDateCreated, endDateCreated);
         }
 
-        if (absoluteDateUpdated != null) {
-            request.addQueryParam("DateUpdated", absoluteDateUpdated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (rangeDateUpdated != null) {
-            request.addQueryDateRange("DateUpdated", rangeDateUpdated);
+        if (startDateUpdated != null || endDateUpdated != null) {
+            request.addQueryDateRange("DateUpdated", startDateUpdated, endDateUpdated);
         }
 
         if (friendlyName != null) {

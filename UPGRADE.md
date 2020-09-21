@@ -11,7 +11,7 @@ Version `8.x.x` is the first version that officially drops support for Java 7.
 
 - Removal of dependencies offering functionality included in Java 8 and beyond:
     - [Guava concurrency, hashing, and charstreams](https://github.com/twilio/twilio-java/pull/575)
-    - [Guava `com.google.common.collect.Range` removal]()
+    - [Guava `com.google.common.collect.Range` removal](https://github.com/twilio/twilio-java/pull/584)
     - [joda-time](https://github.com/twilio/twilio-java/pull/572)
         - `org.joda.time.DateTime` -> `java.time.ZonedDateTime`
         - `org.joda.time.LocalDate` -> `java.time.LocalDate`

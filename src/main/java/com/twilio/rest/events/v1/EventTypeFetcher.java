@@ -28,7 +28,7 @@ public class EventTypeFetcher extends Fetcher<EventType> {
     /**
      * Construct a new EventTypeFetcher.
      *
-     * @param pathType The type
+     * @param pathType A string that uniquely identifies this Event Type.
      */
     public EventTypeFetcher(final String pathType) {
         this.pathType = pathType;

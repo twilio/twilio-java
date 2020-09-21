@@ -30,9 +30,9 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for messages.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for messages.
      */
     public MessageReader(final String pathChatServiceSid,
                          final String pathConversationSid) {

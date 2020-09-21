@@ -30,9 +30,9 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for
      *                            participants.
      */
     public ParticipantReader(final String pathChatServiceSid,

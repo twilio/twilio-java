@@ -28,8 +28,8 @@ public class BindingFetcher extends Fetcher<Binding> {
     /**
      * Construct a new BindingFetcher.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public BindingFetcher(final String pathChatServiceSid,

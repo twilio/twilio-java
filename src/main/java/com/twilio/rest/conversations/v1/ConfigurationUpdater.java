@@ -29,11 +29,12 @@ public class ConfigurationUpdater extends Updater<Configuration> {
 
     /**
      * The SID of the default <a
-     * href="https://www.twilio.com/docs/chat/rest/service-resource">Chat
+     * href="https://www.twilio.com/docs/conversations/api/service-resource">Conversation
      * Service</a> to use when creating a conversation..
      *
-     * @param defaultChatServiceSid The SID of the default Chat Service that every
-     *                              new conversation will be associated with.
+     * @param defaultChatServiceSid The SID of the default Conversation Service
+     *                              that every new conversation will be associated
+     *                              with.
      * @return this
      */
     public ConfigurationUpdater setDefaultChatServiceSid(final String defaultChatServiceSid) {

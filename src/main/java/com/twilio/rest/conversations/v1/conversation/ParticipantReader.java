@@ -29,7 +29,7 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      *
-     * @param pathConversationSid The unique id of the Conversation for
+     * @param pathConversationSid The unique ID of the Conversation for
      *                            participants.
      */
     public ParticipantReader(final String pathConversationSid) {

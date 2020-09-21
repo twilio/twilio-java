@@ -32,7 +32,8 @@ public class RoleCreator extends Creator<Role> {
     /**
      * Construct a new RoleCreator.
      *
-     * @param pathChatServiceSid The SID of the Service to create the resource under
+     * @param pathChatServiceSid The SID of the Conversation Service to create the
+     *                           resource under
      * @param friendlyName A string to describe the new resource
      * @param type The type of role
      * @param permission A permission the role should have

@@ -38,9 +38,9 @@ public class WebhookCreator extends Creator<Webhook> {
     /**
      * Construct a new WebhookCreator.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param target The target of this webhook.
      */
@@ -123,9 +123,9 @@ public class WebhookCreator extends Creator<Webhook> {
     }
 
     /**
-     * The studio flow sid, where the webhook should be sent to..
+     * The studio flow SID, where the webhook should be sent to..
      *
-     * @param configurationFlowSid The studio flow sid, where the webhook should be
+     * @param configurationFlowSid The studio flow SID, where the webhook should be
      *                             sent to.
      * @return this
      */

@@ -31,11 +31,11 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
     /**
      * Construct a new DeliveryReceiptReader.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
+     * @param pathMessageSid The SID of the message the delivery receipt belongs to.
      */
     public DeliveryReceiptReader(final String pathChatServiceSid,
                                  final String pathConversationSid,

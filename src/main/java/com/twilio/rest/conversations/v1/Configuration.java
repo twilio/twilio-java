@@ -136,11 +136,11 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The SID of the default Chat Service that every new conversation is
-     * associated with..
+     * Returns The SID of the default Conversation Service that every new
+     * conversation is associated with..
      *
-     * @return The SID of the default Chat Service that every new conversation is
-     *         associated with.
+     * @return The SID of the default Conversation Service that every new
+     *         conversation is associated with.
      */
     public final String getDefaultChatServiceSid() {
         return this.defaultChatServiceSid;

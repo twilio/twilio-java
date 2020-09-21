@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -53,6 +54,7 @@ public class ValidationClient extends HttpClient {
             .setDefaultHeaders(headers)
             .setMaxConnPerRoute(10)
             .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey))
+            .setRedirectStrategy(this.getRedirectStrategy())
             .build();
     }
 

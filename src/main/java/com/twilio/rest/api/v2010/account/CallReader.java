@@ -286,7 +286,7 @@ public class CallReader extends Reader<Call> {
         }
 
         if (startTime != null || endTime != null) {
-            request.addQueryDateTimeRange("Range", startTime, endTime);
+            request.addQueryDateTimeRange("EndTime", startTime, endTime);
         }
 
         if (getPageSize() != null) {

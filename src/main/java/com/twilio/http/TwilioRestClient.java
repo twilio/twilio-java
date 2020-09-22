@@ -11,7 +11,7 @@ public class TwilioRestClient {
     public static final Predicate<Integer> SUCCESS = new Predicate<Integer>() {
         @Override
         public boolean apply(Integer i) {
-            return i != null && i >= 200 && i < 300;
+            return i != null && i >= 200 && i < 400;
         }
     };
 

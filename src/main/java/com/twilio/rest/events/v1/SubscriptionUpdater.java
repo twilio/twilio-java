@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.events.v1.subscription;
+package com.twilio.rest.events.v1;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -22,46 +22,63 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SubscribedEventUpdater extends Updater<SubscribedEvent> {
-    private final String pathSubscriptionSid;
-    private final String pathType;
-    private final Integer version;
+public class SubscriptionUpdater extends Updater<Subscription> {
+    private final String pathSid;
+    private String description;
+    private String sinkSid;
 
     /**
-     * Construct a new SubscribedEventUpdater.
+     * Construct a new SubscriptionUpdater.
      *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param pathType Type of event being subscribed to.
-     * @param version The schema version that the subscription should use.
+     * @param pathSid The sid
      */
-    public SubscribedEventUpdater(final String pathSubscriptionSid,
-                                  final String pathType,
-                                  final Integer version) {
-        this.pathSubscriptionSid = pathSubscriptionSid;
-        this.pathType = pathType;
-        this.version = version;
+    public SubscriptionUpdater(final String pathSid) {
+        this.pathSid = pathSid;
+    }
+
+    /**
+     * A human readable description for the Subscription..
+     *
+     * @param description Subscription description.
+     * @return this
+     */
+    public SubscriptionUpdater setDescription(final String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * The SID of the sink that events selected by this subscription should be sent
+     * to. Sink must be active for the subscription to be created..
+     *
+     * @param sinkSid Sink SID.
+     * @return this
+     */
+    public SubscriptionUpdater setSinkSid(final String sinkSid) {
+        this.sinkSid = sinkSid;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Updated SubscribedEvent
+     * @return Updated Subscription
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public SubscribedEvent update(final TwilioRestClient client) {
+    public Subscription update(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.EVENTS.toString(),
-            "/v1/Subscriptions/" + this.pathSubscriptionSid + "/SubscribedEvents/" + this.pathType + ""
+            "/v1/Subscriptions/" + this.pathSid + ""
         );
 
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SubscribedEvent update failed: Unable to connect to server");
+            throw new ApiConnectionException("Subscription update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -70,7 +87,7 @@ public class SubscribedEventUpdater extends Updater<SubscribedEvent> {
             throw new ApiException(restException);
         }
 
-        return SubscribedEvent.fromJson(response.getStream(), client.getObjectMapper());
+        return Subscription.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -79,8 +96,12 @@ public class SubscribedEventUpdater extends Updater<SubscribedEvent> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (version != null) {
-            request.addPostParam("Version", version.toString());
+        if (description != null) {
+            request.addPostParam("Description", description);
+        }
+
+        if (sinkSid != null) {
+            request.addPostParam("SinkSid", sinkSid);
         }
     }
 }

@@ -28,7 +28,8 @@ public class UserFetcher extends Fetcher<User> {
     /**
      * Construct a new UserFetcher.
      *
-     * @param pathChatServiceSid The SID of the Service to fetch the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to fetch the
+     *                           resource from
      * @param pathSid The SID of the User resource to fetch
      */
     public UserFetcher(final String pathChatServiceSid,

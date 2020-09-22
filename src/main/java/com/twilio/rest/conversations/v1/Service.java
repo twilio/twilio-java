@@ -149,9 +149,9 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this service..
+     * Returns The unique ID of the Account responsible for this service..
      *
-     * @return The unique id of the Account responsible for this service.
+     * @return The unique ID of the Account responsible for this service.
      */
     public final String getAccountSid() {
         return this.accountSid;

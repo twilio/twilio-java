@@ -25,7 +25,6 @@ public class TrunkCreator extends Creator<Trunk> {
     private String domainName;
     private URI disasterRecoveryUrl;
     private HttpMethod disasterRecoveryMethod;
-    private Trunk.RecordingSetting recording;
     private Trunk.TransferSetting transferMode;
     private Boolean secure;
     private Boolean cnamLookupEnabled;
@@ -103,24 +102,6 @@ public class TrunkCreator extends Creator<Trunk> {
      */
     public TrunkCreator setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod) {
         this.disasterRecoveryMethod = disasterRecoveryMethod;
-        return this;
-    }
-
-    /**
-     * The recording settings for the trunk. Can be: `do-not-record`,
-     * `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing`
-     * or `record-from-answer`, all calls going through the trunk will be recorded.
-     * The only way to change recording parameters is on a sub-resource of a Trunk
-     * after it has been created. e.g.`/Trunks/<a
-     * href="https://www.twilio.com/docs/sip-trunking#recording">Trunk_SID]/Recording
-     * -XPOST -d'Mode=record-from-answer'`. See [Recording</a> for more
-     * information..
-     *
-     * @param recording The recording settings for the trunk
-     * @return this
-     */
-    public TrunkCreator setRecording(final Trunk.RecordingSetting recording) {
-        this.recording = recording;
         return this;
     }
 
@@ -220,10 +201,6 @@ public class TrunkCreator extends Creator<Trunk> {
 
         if (disasterRecoveryMethod != null) {
             request.addPostParam("DisasterRecoveryMethod", disasterRecoveryMethod.toString());
-        }
-
-        if (recording != null) {
-            request.addPostParam("Recording", recording.toString());
         }
 
         if (transferMode != null) {

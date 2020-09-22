@@ -28,7 +28,8 @@ public class RoleDeleter extends Deleter<Role> {
     /**
      * Construct a new RoleDeleter.
      *
-     * @param pathChatServiceSid The SID of the Service to delete the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to delete the
+     *                           resource from
      * @param pathSid The SID of the Role resource to delete
      */
     public RoleDeleter(final String pathChatServiceSid,

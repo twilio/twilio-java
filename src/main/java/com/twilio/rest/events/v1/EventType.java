@@ -53,7 +53,7 @@ public class EventType extends Resource {
     /**
      * Create a EventTypeFetcher to execute fetch.
      *
-     * @param pathType The type
+     * @param pathType A string that uniquely identifies this Event Type.
      * @return EventTypeFetcher capable of executing the fetch
      */
     public static EventTypeFetcher fetcher(final String pathType) {
@@ -131,54 +131,54 @@ public class EventType extends Resource {
     }
 
     /**
-     * Returns The type.
+     * Returns The Event Type identifier..
      *
-     * @return The type
+     * @return The Event Type identifier.
      */
     public final String getType() {
         return this.type;
     }
 
     /**
-     * Returns The schema_id.
+     * Returns The Schema identifier for this Event Type..
      *
-     * @return The schema_id
+     * @return The Schema identifier for this Event Type.
      */
     public final String getSchemaId() {
         return this.schemaId;
     }
 
     /**
-     * Returns The date_created.
+     * Returns The date this Event Type was created..
      *
-     * @return The date_created
+     * @return The date this Event Type was created.
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The date_updated.
+     * Returns The date this Event Type was updated..
      *
-     * @return The date_updated
+     * @return The date this Event Type was updated.
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The description.
+     * Returns Event Type description..
      *
-     * @return The description
+     * @return Event Type description.
      */
     public final String getDescription() {
         return this.description;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

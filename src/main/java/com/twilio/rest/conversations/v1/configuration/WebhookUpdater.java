@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.conversations.v1.configuration;
 
 import com.twilio.base.Updater;
 import com.twilio.converter.Promoter;
@@ -96,8 +96,7 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The routing target of the webhook. Can be ordinary or route internally to
-     * Flex.
+     * The routing target of the webhook..
      *
      * @param target The routing target of the webhook.
      * @return this
@@ -119,7 +118,7 @@ public class WebhookUpdater extends Updater<Webhook> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/Webhooks"
+            "/v1/Configuration/Webhooks"
         );
 
         addPostParams(request);

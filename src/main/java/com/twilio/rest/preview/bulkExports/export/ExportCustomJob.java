@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +36,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class ExportCustomJob extends Resource {
     private static final long serialVersionUID = 147268074422838L;
 
@@ -252,20 +253,5 @@ public class ExportCustomJob extends Resource {
                             email,
                             jobSid,
                             details);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("friendlyName", friendlyName)
-                          .add("resourceType", resourceType)
-                          .add("startDay", startDay)
-                          .add("endDay", endDay)
-                          .add("webhookUrl", webhookUrl)
-                          .add("webhookMethod", webhookMethod)
-                          .add("email", email)
-                          .add("jobSid", jobSid)
-                          .add("details", details)
-                          .toString();
     }
 }

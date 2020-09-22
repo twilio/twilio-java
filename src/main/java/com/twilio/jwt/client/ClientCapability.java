@@ -1,6 +1,5 @@
 package com.twilio.jwt.client;
 
-import com.google.common.base.Joiner;
 import com.twilio.jwt.Jwt;
 import com.twilio.jwt.JwtEncodingException;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -47,7 +46,7 @@ public class ClientCapability extends Jwt {
             for (Scope scope : this.scopes) {
                 scopes.add(scope.getPayload());
             }
-            payload.put("scope", Joiner.on(' ').join(scopes));
+            payload.put("scope", String.join(" ", scopes));
         } catch (UnsupportedEncodingException e) {
             throw new JwtEncodingException(e);
         }

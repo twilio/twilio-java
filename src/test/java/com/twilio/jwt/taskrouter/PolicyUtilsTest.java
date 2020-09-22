@@ -1,6 +1,5 @@
 package com.twilio.jwt.taskrouter;
 
-import com.google.common.base.Joiner;
 import com.twilio.http.HttpMethod;
 import org.junit.Assert;
 import org.junit.Test;
@@ -53,7 +52,7 @@ public class PolicyUtilsTest {
     public void testDefaultEventBridgePolicies() {
         String accountSid = "AC123";
         String channelId = "CH123";
-        String url = Joiner.on('/').join("https://event-bridge.twilio.com/v1/wschannels", accountSid, channelId);
+        String url = String.join("/", "https://event-bridge.twilio.com/v1/wschannels", accountSid, channelId);
 
         Policy get = new Policy.Builder().url(url).method(HttpMethod.GET).allowed(true).build();
         Policy post = new Policy.Builder().url(url).method(HttpMethod.POST).allowed(true).build();

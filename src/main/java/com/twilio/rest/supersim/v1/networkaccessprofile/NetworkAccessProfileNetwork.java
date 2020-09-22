@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class NetworkAccessProfileNetwork extends Resource {
     private static final long serialVersionUID = 26561188761279L;
 
@@ -240,17 +241,5 @@ public class NetworkAccessProfileNetwork extends Resource {
                             isoCountry,
                             identifiers,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("networkAccessProfileSid", networkAccessProfileSid)
-                          .add("friendlyName", friendlyName)
-                          .add("isoCountry", isoCountry)
-                          .add("identifiers", identifiers)
-                          .add("url", url)
-                          .toString();
     }
 }

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Configuration extends Resource {
     private static final long serialVersionUID = 129252167253244L;
 
@@ -715,48 +716,5 @@ public class Configuration extends Resource {
                             serverlessServiceSids,
                             queueStatsConfiguration,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("attributes", attributes)
-                          .add("status", status)
-                          .add("taskrouterWorkspaceSid", taskrouterWorkspaceSid)
-                          .add("taskrouterTargetWorkflowSid", taskrouterTargetWorkflowSid)
-                          .add("taskrouterTargetTaskqueueSid", taskrouterTargetTaskqueueSid)
-                          .add("taskrouterTaskqueues", taskrouterTaskqueues)
-                          .add("taskrouterSkills", taskrouterSkills)
-                          .add("taskrouterWorkerChannels", taskrouterWorkerChannels)
-                          .add("taskrouterWorkerAttributes", taskrouterWorkerAttributes)
-                          .add("taskrouterOfflineActivitySid", taskrouterOfflineActivitySid)
-                          .add("runtimeDomain", runtimeDomain)
-                          .add("messagingServiceInstanceSid", messagingServiceInstanceSid)
-                          .add("chatServiceInstanceSid", chatServiceInstanceSid)
-                          .add("flexServiceInstanceSid", flexServiceInstanceSid)
-                          .add("uiLanguage", uiLanguage)
-                          .add("uiAttributes", uiAttributes)
-                          .add("uiDependencies", uiDependencies)
-                          .add("uiVersion", uiVersion)
-                          .add("serviceVersion", serviceVersion)
-                          .add("callRecordingEnabled", callRecordingEnabled)
-                          .add("callRecordingWebhookUrl", callRecordingWebhookUrl)
-                          .add("crmEnabled", crmEnabled)
-                          .add("crmType", crmType)
-                          .add("crmCallbackUrl", crmCallbackUrl)
-                          .add("crmFallbackUrl", crmFallbackUrl)
-                          .add("crmAttributes", crmAttributes)
-                          .add("publicAttributes", publicAttributes)
-                          .add("pluginServiceEnabled", pluginServiceEnabled)
-                          .add("pluginServiceAttributes", pluginServiceAttributes)
-                          .add("integrations", integrations)
-                          .add("outboundCallFlows", outboundCallFlows)
-                          .add("serverlessServiceSids", serverlessServiceSids)
-                          .add("queueStatsConfiguration", queueStatsConfiguration)
-                          .add("url", url)
-                          .toString();
     }
 }

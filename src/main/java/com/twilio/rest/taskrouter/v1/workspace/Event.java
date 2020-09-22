@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -34,6 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Event extends Resource {
     private static final long serialVersionUID = 88063843569402L;
 
@@ -371,28 +372,5 @@ public class Event extends Resource {
                             sourceIpAddress,
                             url,
                             workspaceSid);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("actorSid", actorSid)
-                          .add("actorType", actorType)
-                          .add("actorUrl", actorUrl)
-                          .add("description", description)
-                          .add("eventData", eventData)
-                          .add("eventDate", eventDate)
-                          .add("eventDateMs", eventDateMs)
-                          .add("eventType", eventType)
-                          .add("resourceSid", resourceSid)
-                          .add("resourceType", resourceType)
-                          .add("resourceUrl", resourceUrl)
-                          .add("sid", sid)
-                          .add("source", source)
-                          .add("sourceIpAddress", sourceIpAddress)
-                          .add("url", url)
-                          .add("workspaceSid", workspaceSid)
-                          .toString();
     }
 }

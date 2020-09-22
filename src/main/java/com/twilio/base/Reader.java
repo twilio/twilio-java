@@ -1,10 +1,9 @@
 package com.twilio.base;
 
-import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.Twilio;
 import com.twilio.http.TwilioRestClient;
 
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Executor for listing of a resource.
@@ -38,7 +37,7 @@ public abstract class Reader<T extends Resource> {
      *
      * @return future that resolves to the ResourceSet of objects
      */
-    public ListenableFuture<ResourceSet<T>> readAsync() {
+    public CompletableFuture<ResourceSet<T>> readAsync() {
         return readAsync(Twilio.getRestClient());
     }
 
@@ -48,12 +47,8 @@ public abstract class Reader<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to the ResourceSet of objects
      */
-    public ListenableFuture<ResourceSet<T>> readAsync(final TwilioRestClient client) {
-        return Twilio.getExecutorService().submit(new Callable<ResourceSet<T>>() {
-            public ResourceSet<T> call() {
-                return read(client);
-            }
-        });
+    public CompletableFuture<ResourceSet<T>> readAsync(final TwilioRestClient client) {
+        return CompletableFuture.supplyAsync(() -> read(client), Twilio.getExecutorService());
     }
 
     /**

@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -37,6 +37,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 109887542891677L;
 
@@ -778,31 +779,5 @@ public class Message extends Resource {
                             priceUnit,
                             apiVersion,
                             subresourceUris);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("body", body)
-                          .add("numSegments", numSegments)
-                          .add("direction", direction)
-                          .add("from", from)
-                          .add("to", to)
-                          .add("dateUpdated", dateUpdated)
-                          .add("price", price)
-                          .add("errorMessage", errorMessage)
-                          .add("uri", uri)
-                          .add("accountSid", accountSid)
-                          .add("numMedia", numMedia)
-                          .add("status", status)
-                          .add("messagingServiceSid", messagingServiceSid)
-                          .add("sid", sid)
-                          .add("dateSent", dateSent)
-                          .add("dateCreated", dateCreated)
-                          .add("errorCode", errorCode)
-                          .add("priceUnit", priceUnit)
-                          .add("apiVersion", apiVersion)
-                          .add("subresourceUris", subresourceUris)
-                          .toString();
     }
 }

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 239000322102976L;
 
@@ -487,25 +488,5 @@ public class Participant extends Resource {
                             startConferenceOnEnter,
                             status,
                             uri);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("callSid", callSid)
-                          .add("label", label)
-                          .add("callSidToCoach", callSidToCoach)
-                          .add("coaching", coaching)
-                          .add("conferenceSid", conferenceSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("endConferenceOnExit", endConferenceOnExit)
-                          .add("muted", muted)
-                          .add("hold", hold)
-                          .add("startConferenceOnEnter", startConferenceOnEnter)
-                          .add("status", status)
-                          .add("uri", uri)
-                          .toString();
     }
 }

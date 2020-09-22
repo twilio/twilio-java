@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -39,6 +39,7 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Notification extends Resource {
     private static final long serialVersionUID = 275926337068118L;
 
@@ -443,31 +444,5 @@ public class Notification extends Resource {
                             sms,
                             facebookMessenger,
                             alexa);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("dateCreated", dateCreated)
-                          .add("identities", identities)
-                          .add("tags", tags)
-                          .add("segments", segments)
-                          .add("priority", priority)
-                          .add("ttl", ttl)
-                          .add("title", title)
-                          .add("body", body)
-                          .add("sound", sound)
-                          .add("action", action)
-                          .add("data", data)
-                          .add("apn", apn)
-                          .add("gcm", gcm)
-                          .add("fcm", fcm)
-                          .add("sms", sms)
-                          .add("facebookMessenger", facebookMessenger)
-                          .add("alexa", alexa)
-                          .toString();
     }
 }

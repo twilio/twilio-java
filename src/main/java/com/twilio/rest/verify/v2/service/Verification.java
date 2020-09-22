@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,6 +25,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 import org.joda.time.DateTime;
 
 import java.io.IOException;
@@ -36,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Verification extends Resource {
     private static final long serialVersionUID = 216517595769072L;
 
@@ -401,25 +402,5 @@ public class Verification extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("serviceSid", serviceSid)
-                          .add("accountSid", accountSid)
-                          .add("to", to)
-                          .add("channel", channel)
-                          .add("status", status)
-                          .add("valid", valid)
-                          .add("lookup", lookup)
-                          .add("amount", amount)
-                          .add("payee", payee)
-                          .add("sendCodeAttempts", sendCodeAttempts)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

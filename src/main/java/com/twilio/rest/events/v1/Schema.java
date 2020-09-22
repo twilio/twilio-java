@@ -30,7 +30,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -91,7 +91,7 @@ public class Schema extends Resource {
     private final String id;
     private final URI url;
     private final Map<String, String> links;
-    private final LocalDate lastCreated;
+    private final ZonedDateTime lastCreated;
     private final Integer lastVersion;
 
     @JsonCreator
@@ -108,7 +108,7 @@ public class Schema extends Resource {
         this.id = id;
         this.url = url;
         this.links = links;
-        this.lastCreated = LocalDate.parse(lastCreated);
+        this.lastCreated = ZonedDateTime.parse(lastCreated);
         this.lastVersion = lastVersion;
     }
 
@@ -144,7 +144,7 @@ public class Schema extends Resource {
      *
      * @return The date that the last schema version was created.
      */
-    public final LocalDate getLastCreated() {
+    public final ZonedDateTime getLastCreated() {
         return this.lastCreated;
     }
 

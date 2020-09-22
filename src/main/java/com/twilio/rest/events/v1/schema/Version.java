@@ -28,6 +28,7 @@ import com.twilio.rest.Domains;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 import java.time.LocalDate;
@@ -103,7 +104,7 @@ public class Version extends Resource {
 
     private final String id;
     private final Integer schemaVersion;
-    private final LocalDate dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
     private final URI raw;
 
@@ -120,7 +121,7 @@ public class Version extends Resource {
                     final URI raw) {
         this.id = id;
         this.schemaVersion = schemaVersion;
-        this.dateCreated = LocalDate.parse(dateCreated);
+        this.dateCreated = ZonedDateTime.parse(dateCreated);
         this.url = url;
         this.raw = raw;
     }
@@ -148,7 +149,7 @@ public class Version extends Resource {
      *
      * @return The date the schema version was created.
      */
-    public final LocalDate getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

@@ -24,13 +24,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -102,7 +103,7 @@ public class Version extends Resource {
 
     private final String id;
     private final Integer schemaVersion;
-    private final DateTime dateCreated;
+    private final LocalDate dateCreated;
     private final URI url;
     private final URI raw;
 
@@ -119,7 +120,7 @@ public class Version extends Resource {
                     final URI raw) {
         this.id = id;
         this.schemaVersion = schemaVersion;
-        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+        this.dateCreated = LocalDate.parse(dateCreated);
         this.url = url;
         this.raw = raw;
     }
@@ -147,7 +148,7 @@ public class Version extends Resource {
      *
      * @return The date the schema version was created.
      */
-    public final DateTime getDateCreated() {
+    public final LocalDate getDateCreated() {
         return this.dateCreated;
     }
 

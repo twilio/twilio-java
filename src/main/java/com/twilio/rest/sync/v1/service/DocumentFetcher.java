@@ -57,7 +57,7 @@ public class DocumentFetcher extends Fetcher<Document> {
 
         if (response == null) {
             throw new ApiConnectionException("Document fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

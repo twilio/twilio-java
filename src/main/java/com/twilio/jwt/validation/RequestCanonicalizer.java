@@ -1,7 +1,5 @@
 package com.twilio.jwt.validation;
 
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
 import com.twilio.exception.InvalidRequestException;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.Header;
@@ -12,6 +10,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.*;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -73,14 +72,14 @@ class RequestCanonicalizer {
 
                 canonicalRequest.append(lowercase)
                     .append(":")
-                    .append(Joiner.on(',').join(values))
+                    .append(String.join(",", values))
                     .append(NEW_LINE);
             }
         }
         canonicalRequest.append(NEW_LINE);
 
         // Mark the headers that we care about
-        canonicalRequest.append(Joiner.on(";").join(sortedIncludedHeaders)).append(NEW_LINE);
+        canonicalRequest.append(String.join(";", sortedIncludedHeaders)).append(NEW_LINE);
 
         // Hash and hex the request payload
         if (requestBody != null && !requestBody.isEmpty()) {
@@ -90,21 +89,18 @@ class RequestCanonicalizer {
         return canonicalRequest.toString();
     }
 
-    private static Function<Header[], Map<String, List<String>>> COMBINE_HEADERS = new Function<Header[], Map<String, List<String>>>() {
-        @Override
-        public Map<String, List<String>> apply(Header[] headers) {
-            Map<String, List<String>> combinedHeaders = new HashMap<>();
+    private static final Function<Header[], Map<String, List<String>>> COMBINE_HEADERS = headers -> {
+        Map<String, List<String>> combinedHeaders = new HashMap<>();
 
-            for (Header header : headers) {
-                if (combinedHeaders.containsKey(header.getName())) {
-                    combinedHeaders.get(header.getName()).add(header.getValue());
-                } else {
-                    combinedHeaders.put(header.getName(), new ArrayList<>(Arrays.asList(header.getValue())));
-                }
+        for (Header header : headers) {
+            if (combinedHeaders.containsKey(header.getName())) {
+                combinedHeaders.get(header.getName()).add(header.getValue());
+            } else {
+                combinedHeaders.put(header.getName(), new ArrayList<>(Arrays.asList(header.getValue())));
             }
-
-            return combinedHeaders;
         }
+
+        return combinedHeaders;
     };
 
     /**
@@ -117,22 +113,19 @@ class RequestCanonicalizer {
      * <li> When no path is provided, returns '/'
      * </ul>
      */
-    private static Function<String, String> CANONICALIZE_PATH = new Function<String, String>() {
-        @Override
-        public String apply(String string) {
-            if (string == null || string.isEmpty()) {
-                return "/";
-            }
+    private static final Function<String, String> CANONICALIZE_PATH = string -> {
+        if (string == null || string.isEmpty()) {
+            return "/";
+        }
 
-            try {
-                URI normalizedUri = new URI(string).normalize();
-                String encoded = URLEncoder.encode(normalizedUri.getPath(), "UTF-8");
-                return replace(encoded, true);
-            } catch (URISyntaxException e) {
-                throw new InvalidRequestException("Bad URI path: '" + string + "'", string, e);
-            } catch (UnsupportedEncodingException e) {
-                throw new InvalidRequestException("It must be possible to encode request path as ascii", string, e);
-            }
+        try {
+            URI normalizedUri = new URI(string).normalize();
+            String encoded = URLEncoder.encode(normalizedUri.getPath(), "UTF-8");
+            return replace(encoded, true);
+        } catch (URISyntaxException e) {
+            throw new InvalidRequestException("Bad URI path: '" + string + "'", string, e);
+        } catch (UnsupportedEncodingException e) {
+            throw new InvalidRequestException("It must be possible to encode request path as ascii", string, e);
         }
     };
 
@@ -145,37 +138,31 @@ class RequestCanonicalizer {
      * <li> Join all key/value pairs with a ‘&’ in between
      * </ul>
      */
-    private static Function<String, String> CANONICALIZE_QUERY = new Function<String, String>() {
-        @Override
-        public String apply(String string) {
-            String replacedQueryString = replace(string, false);
-            String[] queryArgs = replacedQueryString.split("&");
-            Arrays.sort(queryArgs);
+    private static final Function<String, String> CANONICALIZE_QUERY = string -> {
+        String replacedQueryString = replace(string, false);
+        String[] queryArgs = replacedQueryString.split("&");
+        Arrays.sort(queryArgs);
 
-            return Joiner.on("&").join(queryArgs);
-        }
+        return String.join("&", queryArgs);
     };
 
     /**
      * Normalizes the headers by setting all of the header keys to lower case and removing default ports from the host.
      */
-    private static Function<Header[], Header[]> NORMALIZE_HEADERS = new Function<Header[], Header[]>() {
-        @Override
-        public Header[] apply(Header[] headers) {
-            Header[] normalizedHeaders = new Header[headers.length];
-            for (int i = 0; i < headers.length; i++) {
-                String headerName = headers[i].getName().toLowerCase();
-                String headerValue = headers[i].getValue();
+    private static final Function<Header[], Header[]> NORMALIZE_HEADERS = headers -> {
+        Header[] normalizedHeaders = new Header[headers.length];
+        for (int i = 0; i < headers.length; i++) {
+            String headerName = headers[i].getName().toLowerCase();
+            String headerValue = headers[i].getValue();
 
-                if (headerName.equals("host") && (headerValue.endsWith(":443") || headerValue.endsWith(":80"))) {
-                    headerValue = headerValue.split(":")[0];
-                }
-
-                normalizedHeaders[i] = new BasicHeader(headerName, headerValue);
+            if (headerName.equals("host") && (headerValue.endsWith(":443") || headerValue.endsWith(":80"))) {
+                headerValue = headerValue.split(":")[0];
             }
 
-            return normalizedHeaders;
+            normalizedHeaders[i] = new BasicHeader(headerName, headerValue);
         }
+
+        return normalizedHeaders;
     };
 
     /**

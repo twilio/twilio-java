@@ -1,7 +1,6 @@
 package com.twilio.http;
 
 import com.google.common.collect.Range;
-import com.google.common.base.Joiner;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 import org.joda.time.DateTime;
@@ -182,7 +181,7 @@ public class Request {
             for (int i = 0; i < pathPieces.length; i++) {
                 pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
             }
-            String encodedPath = Joiner.on("/").join(pathPieces);
+            String encodedPath = String.join("/", pathPieces);
             String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
             String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;
             String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;

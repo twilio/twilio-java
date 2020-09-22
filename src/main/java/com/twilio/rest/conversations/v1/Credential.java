@@ -201,9 +201,9 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this credential..
+     * Returns The unique ID of the Account responsible for this credential..
      *
-     * @return The unique id of the Account responsible for this credential.
+     * @return The unique ID of the Account responsible for this credential.
      */
     public final String getAccountSid() {
         return this.accountSid;

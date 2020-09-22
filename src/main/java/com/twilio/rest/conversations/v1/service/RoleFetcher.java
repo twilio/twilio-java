@@ -28,7 +28,8 @@ public class RoleFetcher extends Fetcher<Role> {
     /**
      * Construct a new RoleFetcher.
      *
-     * @param pathChatServiceSid The SID of the Service to fetch the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to fetch the
+     *                           resource from
      * @param pathSid The SID of the Role resource to fetch
      */
     public RoleFetcher(final String pathChatServiceSid,

@@ -78,6 +78,16 @@ public class Subscription extends Resource {
     }
 
     /**
+     * Create a SubscriptionUpdater to execute update.
+     *
+     * @param pathSid The sid
+     * @return SubscriptionUpdater capable of executing the update
+     */
+    public static SubscriptionUpdater updater(final String pathSid) {
+        return new SubscriptionUpdater(pathSid);
+    }
+
+    /**
      * Create a SubscriptionDeleter to execute delete.
      *
      * @param pathSid A string that uniquely identifies this Subscription.

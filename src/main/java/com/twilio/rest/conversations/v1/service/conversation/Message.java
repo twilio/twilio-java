@@ -72,9 +72,9 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @return MessageCreator capable of executing the create
      */
@@ -86,9 +86,9 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageUpdater capable of executing the update
@@ -102,9 +102,9 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageDeleter capable of executing the delete
@@ -118,9 +118,9 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageFetcher capable of executing the fetch
@@ -134,9 +134,9 @@ public class Message extends Resource {
     /**
      * Create a MessageReader to execute read.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for messages.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for messages.
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathChatServiceSid,
@@ -246,27 +246,29 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this message..
+     * Returns The unique ID of the Account responsible for this message..
      *
-     * @return The unique id of the Account responsible for this message.
+     * @return The unique ID of the Account responsible for this message.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Chat Service that the resource is associated with..
+     * Returns The SID of the Conversation Service that the resource is associated
+     * with..
      *
-     * @return The SID of the Chat Service that the resource is associated with.
+     * @return The SID of the Conversation Service that the resource is associated
+     *         with.
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this message..
+     * Returns The unique ID of the Conversation for this message..
      *
-     * @return The unique id of the Conversation for this message.
+     * @return The unique ID of the Conversation for this message.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -329,9 +331,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The unique id of messages's author participant..
+     * Returns The unique ID of messages's author participant..
      *
-     * @return The unique id of messages's author participant.
+     * @return The unique ID of messages's author participant.
      */
     public final String getParticipantSid() {
         return this.participantSid;

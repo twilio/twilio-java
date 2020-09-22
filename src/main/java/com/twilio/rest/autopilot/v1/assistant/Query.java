@@ -256,11 +256,13 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The SID of the [Model
-     * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
+     * Returns The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/model-build">Model Build</a>
+     * queried.
      *
-     * @return The SID of the [Model
-     *         Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
+     * @return The SID of the <a
+     *         href="https://www.twilio.com/docs/autopilot/api/model-build">Model
+     *         Build</a> queried
      */
     public final String getModelBuildSid() {
         return this.modelBuildSid;
@@ -331,11 +333,11 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The SID of the
-     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     * Returns The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/dialogue">Dialogue</a>..
      *
-     * @return The SID of the
-     *         [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     * @return The SID of the <a
+     *         href="https://www.twilio.com/docs/autopilot/api/dialogue">Dialogue</a>.
      */
     public final String getDialogueSid() {
         return this.dialogueSid;

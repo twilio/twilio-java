@@ -29,7 +29,7 @@ public class WebhookReader extends Reader<Webhook> {
     /**
      * Construct a new WebhookReader.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      */
     public WebhookReader(final String pathConversationSid) {

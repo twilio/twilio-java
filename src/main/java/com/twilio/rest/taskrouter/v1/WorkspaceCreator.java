@@ -40,8 +40,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
-     * [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
+     * Events</a> for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -54,8 +54,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
-     * [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
+     * Events</a> for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this

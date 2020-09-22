@@ -44,8 +44,8 @@ public class User extends Resource {
     /**
      * Create a UserCreator to execute create.
      *
-     * @param pathChatServiceSid The SID of the Service that the resource is
-     *                           associated with
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with
      * @param identity The string that identifies the resource's User
      * @return UserCreator capable of executing the create
      */
@@ -57,8 +57,8 @@ public class User extends Resource {
     /**
      * Create a UserUpdater to execute update.
      *
-     * @param pathChatServiceSid The SID of the Service that the resource is
-     *                           associated with
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with
      * @param pathSid The SID of the User resource to update
      * @return UserUpdater capable of executing the update
      */
@@ -70,7 +70,8 @@ public class User extends Resource {
     /**
      * Create a UserDeleter to execute delete.
      *
-     * @param pathChatServiceSid The SID of the Service to delete the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to delete the
+     *                           resource from
      * @param pathSid The SID of  the User resource to delete
      * @return UserDeleter capable of executing the delete
      */
@@ -82,7 +83,8 @@ public class User extends Resource {
     /**
      * Create a UserFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The SID of the Service to fetch the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to fetch the
+     *                           resource from
      * @param pathSid The SID of the User resource to fetch
      * @return UserFetcher capable of executing the fetch
      */
@@ -94,8 +96,8 @@ public class User extends Resource {
     /**
      * Create a UserReader to execute read.
      *
-     * @param pathChatServiceSid The SID of the Service to read the User resources
-     *                           from
+     * @param pathChatServiceSid The SID of the Conversation Service to read the
+     *                           User resources from
      * @return UserReader capable of executing the read
      */
     public static UserReader reader(final String pathChatServiceSid) {
@@ -206,18 +208,20 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The SID of the Conversation Service that the resource is associated
+     * with.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The SID of the Conversation Service that the resource is associated
+     *         with
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The SID of the Role assigned to the user.
+     * Returns The SID of a service-level Role assigned to the user.
      *
-     * @return The SID of the Role assigned to the user
+     * @return The SID of a service-level Role assigned to the user
      */
     public final String getRoleSid() {
         return this.roleSid;

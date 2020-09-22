@@ -29,7 +29,7 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      *
-     * @param pathConversationSid The unique id of the Conversation for messages.
+     * @param pathConversationSid The unique ID of the Conversation for messages.
      */
     public MessageReader(final String pathConversationSid) {
         this.pathConversationSid = pathConversationSid;

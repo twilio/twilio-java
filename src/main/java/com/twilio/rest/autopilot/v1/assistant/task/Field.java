@@ -48,7 +48,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resource to fetch
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return FieldFetcher capable of executing the fetch
@@ -65,7 +65,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to read.
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resources to read
      * @return FieldReader capable of executing the read
      */
@@ -80,7 +80,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the new resource
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the new Field resource
      * @param fieldType The Field Type of this field
      * @param uniqueName An application-defined string that uniquely identifies the
@@ -100,7 +100,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to delete
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resource to delete
      * @param pathSid The unique string that identifies the resource
      * @return FieldDeleter capable of executing the delete
@@ -225,12 +225,13 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task)
-     * resource associated with this Field.
+     * Returns The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/task">Task</a> resource
+     * associated with this Field.
      *
-     * @return The SID of the
-     *         [Task](https://www.twilio.com/docs/autopilot/api/task) resource
-     *         associated with this Field
+     * @return The SID of the <a
+     *         href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
+     *         resource associated with this Field
      */
     public final String getTaskSid() {
         return this.taskSid;

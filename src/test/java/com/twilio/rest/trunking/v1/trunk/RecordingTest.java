@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.trunking.v1.trunk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class WebhookTest {
+public class RecordingTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -40,8 +40,8 @@ public class WebhookTest {
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
-                                          Domains.CONVERSATIONS.toString(),
-                                          "/v1/Conversations/Webhooks");
+                                          Domains.TRUNKING.toString(),
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,7 +51,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.fetcher().fetch();
+            Recording.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,20 +60,20 @@ public class WebhookTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"pre_webhook_url\": \"https://example.com/pre\",\"post_webhook_url\": \"https://example.com/post\",\"method\": \"GET\",\"filters\": [\"onMessageSend\",\"onConversationUpdated\"],\"target\": \"webhook\",\"url\": \"https://conversations.twilio.com/v1/Conversations/Webhooks\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"mode\": \"do-not-record\",\"trim\": \"do-not-trim\",\"url\": \"https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recording\",\"trunk_sid\": \"TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Webhook.fetcher().fetch());
+        assertNotNull(Recording.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
-                                          Domains.CONVERSATIONS.toString(),
-                                          "/v1/Conversations/Webhooks");
+                                          Domains.TRUNKING.toString(),
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Recording");
 
             twilioRestClient.request(request);
             times = 1;
@@ -83,7 +83,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.updater().update();
+            Recording.updater("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -92,11 +92,11 @@ public class WebhookTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"pre_webhook_url\": \"https://example.com/pre\",\"post_webhook_url\": \"http://example.com/post\",\"method\": \"GET\",\"filters\": [\"onConversationUpdated\"],\"target\": \"webhook\",\"url\": \"https://conversations.twilio.com/v1/Conversations/Webhooks\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"mode\": \"do-not-record\",\"trim\": \"do-not-trim\",\"url\": \"https://trunking.twilio.com/v1/Trunks/TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Recording\",\"trunk_sid\": \"TKaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        Webhook.updater().update();
+        Recording.updater("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

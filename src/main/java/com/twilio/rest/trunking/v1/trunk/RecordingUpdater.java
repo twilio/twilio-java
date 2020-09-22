@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.trunking.v1.trunk;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,30 +17,38 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class WebhookFetcher extends Fetcher<Webhook> {
+public class RecordingUpdater extends Updater<Recording> {
+    private final String pathTrunkSid;
+
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Construct a new RecordingUpdater.
+     *
+     * @param pathTrunkSid The trunk_sid
+     */
+    public RecordingUpdater(final String pathTrunkSid) {
+        this.pathTrunkSid = pathTrunkSid;
+    }
+
+    /**
+     * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Webhook
+     * @return Updated Recording
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Webhook fetch(final TwilioRestClient client) {
+    public Recording update(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            "/v1/Conversations/Webhooks"
+            HttpMethod.POST,
+            Domains.TRUNKING.toString(),
+            "/v1/Trunks/" + this.pathTrunkSid + "/Recording"
         );
 
+        addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Recording update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -49,6 +57,14 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             throw new ApiException(restException);
         }
 
-        return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+        return Recording.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested post parameters to the Request.
+     *
+     * @param request Request to add post params to
+     */
+    private void addPostParams(final Request request) {
     }
 }

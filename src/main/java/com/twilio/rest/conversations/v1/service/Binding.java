@@ -84,8 +84,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return BindingFetcher capable of executing the fetch
      */
@@ -97,8 +97,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingReader to execute read.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathChatServiceSid) {
@@ -200,18 +200,20 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this binding..
+     * Returns The unique ID of the Account responsible for this binding..
      *
-     * @return The unique id of the Account responsible for this binding.
+     * @return The unique ID of the Account responsible for this binding.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Chat Service that the resource is associated with..
+     * Returns The SID of the Conversation Service that the resource is associated
+     * with..
      *
-     * @return The SID of the Chat Service that the resource is associated with.
+     * @return The SID of the Conversation Service that the resource is associated
+     *         with.
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
@@ -254,9 +256,9 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The string that identifies the resource's User..
+     * Returns The identity of Conversation User associated with this binding..
      *
-     * @return The string that identifies the resource's User.
+     * @return The identity of Conversation User associated with this binding.
      */
     public final String getIdentity() {
         return this.identity;
@@ -272,9 +274,9 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The Chat message types the binding is subscribed to..
+     * Returns The Conversation message types the binding is subscribed to..
      *
-     * @return The Chat message types the binding is subscribed to.
+     * @return The Conversation message types the binding is subscribed to.
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;

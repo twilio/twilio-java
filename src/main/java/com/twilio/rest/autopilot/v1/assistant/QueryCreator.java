@@ -61,8 +61,9 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The SID or unique name of the [Model
-     * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
+     * The SID or unique name of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/model-build">Model Build</a>
+     * to be queried..
      *
      * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this

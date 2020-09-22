@@ -46,7 +46,7 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Only include Events that occurred on or before this date, specified in GMT as
-     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time..
      *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
@@ -93,9 +93,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include Events from on or after this date and time, specified in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for
-     * Events older than 30 days will be redacted..
+     * Only include Events from on or after this date and time, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Task
+     * Attributes for Events older than 30 days will be redacted..
      *
      * @param startDate Only include Events from on or after this date
      * @return this

@@ -51,44 +51,6 @@ public class SubscribedEvent extends Resource {
     }
 
     /**
-     * Create a SubscribedEventCreator to execute create.
-     *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param type Type of event being subscribed to.
-     * @return SubscribedEventCreator capable of executing the create
-     */
-    public static SubscribedEventCreator creator(final String pathSubscriptionSid,
-                                                 final String type) {
-        return new SubscribedEventCreator(pathSubscriptionSid, type);
-    }
-
-    /**
-     * Create a SubscribedEventUpdater to execute update.
-     *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param pathType Type of event being subscribed to.
-     * @param version The schema version that the subscription should use.
-     * @return SubscribedEventUpdater capable of executing the update
-     */
-    public static SubscribedEventUpdater updater(final String pathSubscriptionSid,
-                                                 final String pathType,
-                                                 final Integer version) {
-        return new SubscribedEventUpdater(pathSubscriptionSid, pathType, version);
-    }
-
-    /**
-     * Create a SubscribedEventDeleter to execute delete.
-     *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param pathType Type of event being subscribed to.
-     * @return SubscribedEventDeleter capable of executing the delete
-     */
-    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid,
-                                                 final String pathType) {
-        return new SubscribedEventDeleter(pathSubscriptionSid, pathType);
-    }
-
-    /**
      * Converts a JSON String into a SubscribedEvent object using the provided
      * ObjectMapper.
      *

@@ -219,9 +219,11 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The SID of the Conversation Service that the resource is associated
+     * with.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The SID of the Conversation Service that the resource is associated
+     *         with
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;

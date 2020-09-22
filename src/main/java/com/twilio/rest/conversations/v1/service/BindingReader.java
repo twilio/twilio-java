@@ -34,8 +34,8 @@ public class BindingReader extends Reader<Binding> {
     /**
      * Construct a new BindingReader.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      */
     public BindingReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -43,8 +43,9 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
-     * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read.
      * @return this
@@ -56,8 +57,9 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
-     * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read.
      * @return this
@@ -67,11 +69,14 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The identity of a <a
+     * href="https://www.twilio.com/docs/conversations/api/user-resource">Conversation
+     * User</a> this binding belongs to. See <a
+     * href="https://www.twilio.com/docs/conversations/create-tokens">access
+     * tokens</a> for more details..
      *
-     * @param identity The `identity` value of the resources to read.
+     * @param identity The identity of Conversation User associated with this
+     *                 binding.
      * @return this
      */
     public BindingReader setIdentity(final List<String> identity) {
@@ -80,11 +85,14 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The identity of a <a
+     * href="https://www.twilio.com/docs/conversations/api/user-resource">Conversation
+     * User</a> this binding belongs to. See <a
+     * href="https://www.twilio.com/docs/conversations/create-tokens">access
+     * tokens</a> for more details..
      *
-     * @param identity The `identity` value of the resources to read.
+     * @param identity The identity of Conversation User associated with this
+     *                 binding.
      * @return this
      */
     public BindingReader setIdentity(final String identity) {

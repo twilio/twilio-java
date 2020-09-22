@@ -26,8 +26,9 @@ public class CommandReader extends Reader<Command> {
     private Command.Transport transport;
 
     /**
-     * The `sid` or `unique_name` of the [Sim
-     * resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read..
+     * The `sid` or `unique_name` of the <a
+     * href="https://www.twilio.com/docs/wireless/api/sim-resource">Sim
+     * resources</a> to read..
      *
      * @param sim The sid or unique_name of the Sim resources to read
      * @return this

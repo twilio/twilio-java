@@ -30,11 +30,11 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
     /**
      * Construct a new DeliveryReceiptFetcher.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
+     * @param pathMessageSid The SID of the message the delivery receipt belongs to.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public DeliveryReceiptFetcher(final String pathChatServiceSid,

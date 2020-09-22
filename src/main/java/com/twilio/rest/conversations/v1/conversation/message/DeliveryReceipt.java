@@ -73,9 +73,9 @@ public class DeliveryReceipt extends Resource {
     /**
      * Create a DeliveryReceiptFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
+     * @param pathMessageSid The SID of the message the delivery receipt belongs to.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return DeliveryReceiptFetcher capable of executing the fetch
      */
@@ -88,9 +88,9 @@ public class DeliveryReceipt extends Resource {
     /**
      * Create a DeliveryReceiptReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to.
+     * @param pathMessageSid The SID of the message the delivery receipt belongs to.
      * @return DeliveryReceiptReader capable of executing the read
      */
     public static DeliveryReceiptReader reader(final String pathConversationSid,
@@ -185,18 +185,18 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this participant..
+     * Returns The unique ID of the Account responsible for this participant..
      *
-     * @return The unique id of the Account responsible for this participant.
+     * @return The unique ID of the Account responsible for this participant.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this message..
+     * Returns The unique ID of the Conversation for this message..
      *
-     * @return The unique id of the Conversation for this message.
+     * @return The unique ID of the Conversation for this message.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -212,9 +212,9 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The sid of the message the delivery receipt belongs to.
+     * Returns The SID of the message the delivery receipt belongs to.
      *
-     * @return The sid of the message the delivery receipt belongs to
+     * @return The SID of the message the delivery receipt belongs to
      */
     public final String getMessageSid() {
         return this.messageSid;
@@ -232,9 +232,9 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The unique id of the participant the delivery receipt belongs to..
+     * Returns The unique ID of the participant the delivery receipt belongs to..
      *
-     * @return The unique id of the participant the delivery receipt belongs to.
+     * @return The unique ID of the participant the delivery receipt belongs to.
      */
     public final String getParticipantSid() {
         return this.participantSid;
@@ -250,11 +250,13 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The message [delivery error
-     * code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status.
+     * Returns The message <a
+     * href="https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors">delivery
+     * error code</a> for a `failed` status.
      *
-     * @return The message [delivery error
-     *         code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+     * @return The message <a
+     *         href="https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors">delivery
+     *         error code</a> for a `failed` status
      */
     public final Integer getErrorCode() {
         return this.errorCode;

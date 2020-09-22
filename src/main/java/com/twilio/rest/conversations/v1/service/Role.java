@@ -71,7 +71,8 @@ public class Role extends Resource {
     /**
      * Create a RoleCreator to execute create.
      *
-     * @param pathChatServiceSid The SID of the Service to create the resource under
+     * @param pathChatServiceSid The SID of the Conversation Service to create the
+     *                           resource under
      * @param friendlyName A string to describe the new resource
      * @param type The type of role
      * @param permission A permission the role should have
@@ -87,7 +88,8 @@ public class Role extends Resource {
     /**
      * Create a RoleUpdater to execute update.
      *
-     * @param pathChatServiceSid The SID of the Service to update the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to update the
+     *                           resource from
      * @param pathSid The SID of the Role resource to update
      * @param permission A permission the role should have
      * @return RoleUpdater capable of executing the update
@@ -101,7 +103,8 @@ public class Role extends Resource {
     /**
      * Create a RoleDeleter to execute delete.
      *
-     * @param pathChatServiceSid The SID of the Service to delete the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to delete the
+     *                           resource from
      * @param pathSid The SID of the Role resource to delete
      * @return RoleDeleter capable of executing the delete
      */
@@ -113,7 +116,8 @@ public class Role extends Resource {
     /**
      * Create a RoleFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The SID of the Service to fetch the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to fetch the
+     *                           resource from
      * @param pathSid The SID of the Role resource to fetch
      * @return RoleFetcher capable of executing the fetch
      */
@@ -125,7 +129,8 @@ public class Role extends Resource {
     /**
      * Create a RoleReader to execute read.
      *
-     * @param pathChatServiceSid The SID of the Service to read the resources from
+     * @param pathChatServiceSid The SID of the Conversation Service to read the
+     *                           resources from
      * @return RoleReader capable of executing the read
      */
     public static RoleReader reader(final String pathChatServiceSid) {
@@ -228,9 +233,11 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The SID of the Conversation Service that the resource is associated
+     * with.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The SID of the Conversation Service that the resource is associated
+     *         with
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;

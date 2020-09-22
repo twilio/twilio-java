@@ -31,8 +31,8 @@ public class UserCreator extends Creator<User> {
     /**
      * Construct a new UserCreator.
      *
-     * @param pathChatServiceSid The SID of the Service that the resource is
-     *                           associated with
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with
      * @param identity The string that identifies the resource's User
      */
     public UserCreator(final String pathChatServiceSid,
@@ -66,10 +66,11 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the user..
+     * The SID of a service-level <a
+     * href="https://www.twilio.com/docs/conversations/api/role-resource">Role</a>
+     * to assign to the user..
      *
-     * @param roleSid The SID of the Role to assign to the user
+     * @param roleSid The SID of a service-level Role to assign to the user
      * @return this
      */
     public UserCreator setRoleSid(final String roleSid) {

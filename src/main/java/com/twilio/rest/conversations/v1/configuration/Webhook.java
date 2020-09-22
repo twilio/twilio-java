@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.conversations.v1.configuration;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -179,9 +179,9 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this conversation..
+     * Returns The unique ID of the Account responsible for this conversation..
      *
-     * @return The unique id of the Account responsible for this conversation.
+     * @return The unique ID of the Account responsible for this conversation.
      */
     public final String getAccountSid() {
         return this.accountSid;

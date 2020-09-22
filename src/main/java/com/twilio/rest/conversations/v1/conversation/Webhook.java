@@ -97,7 +97,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @return WebhookReader capable of executing the read
      */
@@ -108,7 +108,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookFetcher capable of executing the fetch
@@ -121,7 +121,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookCreator to execute create.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param target The target of this webhook.
      * @return WebhookCreator capable of executing the create
@@ -134,7 +134,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookUpdater capable of executing the update
@@ -147,7 +147,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookDeleter to execute delete.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookDeleter capable of executing the delete
@@ -240,18 +240,18 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this conversation..
+     * Returns The unique ID of the Account responsible for this conversation..
      *
-     * @return The unique id of the Account responsible for this conversation.
+     * @return The unique ID of the Account responsible for this conversation.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this webhook..
+     * Returns The unique ID of the Conversation for this webhook..
      *
-     * @return The unique id of the Conversation for this webhook.
+     * @return The unique ID of the Conversation for this webhook.
      */
     public final String getConversationSid() {
         return this.conversationSid;

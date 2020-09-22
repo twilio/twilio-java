@@ -245,27 +245,29 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this conversation..
+     * Returns The unique ID of the Account responsible for this conversation..
      *
-     * @return The unique id of the Account responsible for this conversation.
+     * @return The unique ID of the Account responsible for this conversation.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Chat Service this conversation belongs to..
+     * Returns The unique ID of the Conversation Service this conversation belongs
+     * to..
      *
-     * @return The unique id of the Chat Service this conversation belongs to.
+     * @return The unique ID of the Conversation Service this conversation belongs
+     *         to.
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The unique id of the SMS Service this conversation belongs to..
+     * Returns The unique ID of the Messaging Service this conversation belongs to..
      *
-     * @return The unique id of the SMS Service this conversation belongs to.
+     * @return The unique ID of the Messaging Service this conversation belongs to.
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;

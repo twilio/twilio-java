@@ -71,7 +71,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantCreator to execute create.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @return ParticipantCreator capable of executing the create
      */
@@ -82,7 +82,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantUpdater capable of executing the update
@@ -95,7 +95,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantDeleter to execute delete.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantDeleter capable of executing the delete
@@ -108,7 +108,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantFetcher capable of executing the fetch
@@ -121,7 +121,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for
+     * @param pathConversationSid The unique ID of the Conversation for
      *                            participants.
      * @return ParticipantReader capable of executing the read
      */
@@ -212,18 +212,18 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this participant..
+     * Returns The unique ID of the Account responsible for this participant..
      *
-     * @return The unique id of the Account responsible for this participant.
+     * @return The unique ID of the Account responsible for this participant.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this participant..
+     * Returns The unique ID of the Conversation for this participant..
      *
-     * @return The unique id of the Conversation for this participant.
+     * @return The unique ID of the Conversation for this participant.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -239,11 +239,11 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns A unique string identifier for the conversation participant as Chat
-     * User..
+     * Returns A unique string identifier for the conversation participant as
+     * Conversation User..
      *
-     * @return A unique string identifier for the conversation participant as Chat
-     *         User.
+     * @return A unique string identifier for the conversation participant as
+     *         Conversation User.
      */
     public final String getIdentity() {
         return this.identity;
@@ -272,9 +272,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The SID of the Role to assign to the participant.
+     * Returns The SID of a conversation-level Role to assign to the participant.
      *
-     * @return The SID of the Role to assign to the participant
+     * @return The SID of a conversation-level Role to assign to the participant
      */
     public final String getRoleSid() {
         return this.roleSid;

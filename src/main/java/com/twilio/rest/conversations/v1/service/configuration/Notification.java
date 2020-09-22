@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.conversations.v1.service.configuration;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,8 +43,8 @@ public class Notification extends Resource {
     /**
      * Create a NotificationUpdater to execute update.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the Configuration
-     *                           applies to.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           Configuration applies to.
      * @return NotificationUpdater capable of executing the update
      */
     public static NotificationUpdater updater(final String pathChatServiceSid) {
@@ -54,8 +54,8 @@ public class Notification extends Resource {
     /**
      * Create a NotificationFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the Configuration
-     *                           applies to.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           Configuration applies to.
      * @return NotificationFetcher capable of executing the fetch
      */
     public static NotificationFetcher fetcher(final String pathChatServiceSid) {
@@ -133,18 +133,20 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this configuration..
+     * Returns The unique ID of the Account responsible for this configuration..
      *
-     * @return The unique id of the Account responsible for this configuration.
+     * @return The unique ID of the Account responsible for this configuration.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Chat Service that the Configuration applies to..
+     * Returns The SID of the Conversation Service that the Configuration applies
+     * to..
      *
-     * @return The SID of the Chat Service that the Configuration applies to.
+     * @return The SID of the Conversation Service that the Configuration applies
+     *         to.
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;

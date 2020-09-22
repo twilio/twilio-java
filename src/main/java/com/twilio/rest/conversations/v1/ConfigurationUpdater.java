@@ -28,12 +28,13 @@ public class ConfigurationUpdater extends Updater<Configuration> {
     private String defaultClosedTimer;
 
     /**
-     * The SID of the default [Chat
-     * Service](https://www.twilio.com/docs/chat/rest/service-resource) to use when
-     * creating a conversation..
+     * The SID of the default <a
+     * href="https://www.twilio.com/docs/conversations/api/service-resource">Conversation
+     * Service</a> to use when creating a conversation..
      *
-     * @param defaultChatServiceSid The SID of the default Chat Service that every
-     *                              new conversation will be associated with.
+     * @param defaultChatServiceSid The SID of the default Conversation Service
+     *                              that every new conversation will be associated
+     *                              with.
      * @return this
      */
     public ConfigurationUpdater setDefaultChatServiceSid(final String defaultChatServiceSid) {
@@ -42,9 +43,9 @@ public class ConfigurationUpdater extends Updater<Configuration> {
     }
 
     /**
-     * The SID of the default [Messaging
-     * Service](https://www.twilio.com/docs/sms/services/api) to use when creating a
-     * conversation..
+     * The SID of the default <a
+     * href="https://www.twilio.com/docs/sms/services/api">Messaging Service</a> to
+     * use when creating a conversation..
      *
      * @param defaultMessagingServiceSid The SID of the default Messaging Service
      *                                   that every new conversation will be

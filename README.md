@@ -7,7 +7,6 @@
 ## Announcements
 
 * **The default branch name for this repository has been changed to `main` as of 07/27/2020.**
-* **The upcoming release of the Twilio Java Helper Library (8.0.0) on October 1, 2020 will not be compatible with Java 7. Projects which use Java 7 or earlier will not be able to upgrade the Twilio Helper Library from 8.0.0 onwards.**
 
 ## Documentation
 
@@ -27,12 +26,12 @@ New accounts and subaccounts are now required to use TLS 1.2 when accessing the 
 
 This library supports the following Java implementations:
 
-* OpenJDK 7
 * OpenJDK 8
 * OpenJDK 11
-* OracleJDK 7
 * OracleJDK 8
 * OracleJDK 11
+
+For Java 7 support, use `twilio-java` major version `7.X.X`.
 
 ## Installation
 
@@ -44,14 +43,14 @@ Use the following dependency in your project to grab via Maven:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio</artifactId>
-          <version>7.X.X</version>
+          <version>8.X.X</version>
           <scope>compile</scope>
        </dependency>
 ```
 
 or Gradle:
 ```groovy
-implementation "com.twilio.sdk:twilio:7.X.X"
+implementation "com.twilio.sdk:twilio:8.X.X"
 ```
 
 If you want to compile it yourself, here's how:

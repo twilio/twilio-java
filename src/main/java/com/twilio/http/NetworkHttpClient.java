@@ -64,12 +64,12 @@ public class NetworkHttpClient extends HttpClient {
 	      connectionManager.setDefaultMaxPerRoute(10);
 	      connectionManager.setMaxTotal(10*2);
 
-        clientBuilder
+        client = clientBuilder
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(config)
-            .setDefaultHeaders(headers);
-
-        client = clientBuilder.build();
+            .setDefaultHeaders(headers)
+            .setRedirectStrategy(this.getRedirectStrategy())
+            .build();
     }
 
     /**
@@ -87,8 +87,9 @@ public class NetworkHttpClient extends HttpClient {
         );
 
         client = clientBuilder
-                .setDefaultHeaders(headers)
-                .build();
+            .setDefaultHeaders(headers)
+            .setRedirectStrategy(this.getRedirectStrategy())
+            .build();
     }
 
     /**

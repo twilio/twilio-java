@@ -61,10 +61,11 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the user..
+     * The SID of a service-level <a
+     * href="https://www.twilio.com/docs/conversations/api/role-resource">Role</a>
+     * to assign to the user..
      *
-     * @param roleSid The SID of the Role to assign to the user
+     * @param roleSid The SID of a service-level Role to assign to the user
      * @return this
      */
     public UserUpdater setRoleSid(final String roleSid) {

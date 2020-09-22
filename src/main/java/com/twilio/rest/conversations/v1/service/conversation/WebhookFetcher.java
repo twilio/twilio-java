@@ -29,9 +29,9 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     /**
      * Construct a new WebhookFetcher.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */

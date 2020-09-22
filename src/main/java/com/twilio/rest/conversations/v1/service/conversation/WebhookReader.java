@@ -30,9 +30,9 @@ public class WebhookReader extends Reader<Webhook> {
     /**
      * Construct a new WebhookReader.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      */
     public WebhookReader(final String pathChatServiceSid,

@@ -37,9 +37,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * Construct a new WebhookUpdater.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
@@ -122,9 +122,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The studio flow sid, where the webhook should be sent to..
+     * The studio flow SID, where the webhook should be sent to..
      *
-     * @param configurationFlowSid The studio flow sid, where the webhook should be
+     * @param configurationFlowSid The studio flow SID, where the webhook should be
      *                             sent to.
      * @return this
      */

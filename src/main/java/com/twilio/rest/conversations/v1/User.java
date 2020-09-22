@@ -193,18 +193,20 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The SID of the Conversation Service that the resource is associated
+     * with.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The SID of the Conversation Service that the resource is associated
+     *         with
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The SID of the Role assigned to the user.
+     * Returns The SID of a service-level Role assigned to the user.
      *
-     * @return The SID of the Role assigned to the user
+     * @return The SID of a service-level Role assigned to the user
      */
     public final String getRoleSid() {
         return this.roleSid;

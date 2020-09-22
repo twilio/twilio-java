@@ -42,8 +42,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include events of this [Event
-     * Type](https://www.twilio.com/docs/usage/monitor-events#event-types)..
+     * Only include events of this <a
+     * href="https://www.twilio.com/docs/usage/monitor-events#event-types">Event
+     * Type</a>..
      *
      * @param eventType Only include events of this Event Type
      * @return this
@@ -80,7 +81,8 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Only include events that occurred on or after this date. Specify the date in
-     * GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * GMT and <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * format..
      *
      * @param startDate Only include events that occurred on or after this date
      * @return this
@@ -92,7 +94,8 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Only include events that occurred on or before this date. Specify the date in
-     * GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * GMT and <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * format..
      *
      * @param endDate Only include events that occurred on or before this date
      * @return this

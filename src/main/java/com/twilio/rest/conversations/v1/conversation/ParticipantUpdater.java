@@ -38,7 +38,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * Construct a new ParticipantUpdater.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
@@ -85,10 +85,12 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the participant..
+     * The SID of a conversation-level <a
+     * href="https://www.twilio.com/docs/conversations/api/role-resource">Role</a>
+     * to assign to the participant..
      *
-     * @param roleSid The SID of the Role to assign to the participant
+     * @param roleSid The SID of a conversation-level Role to assign to the
+     *                participant
      * @return this
      */
     public ParticipantUpdater setRoleSid(final String roleSid) {
@@ -123,13 +125,13 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * A unique string identifier for the conversation participant as [Chat
-     * User](https://www.twilio.com/docs/chat/rest/user-resource). This parameter is
-     * non-null if (and only if) the participant is using the Programmable Chat SDK
-     * to communicate. Limited to 256 characters..
+     * A unique string identifier for the conversation participant as <a
+     * href="https://www.twilio.com/docs/conversations/api/user-resource">Conversation
+     * User</a>. This parameter is non-null if (and only if) the participant is
+     * using the Conversations SDK to communicate. Limited to 256 characters..
      *
      * @param identity A unique string identifier for the conversation participant
-     *                 as Chat User.
+     *                 as Conversation User.
      * @return this
      */
     public ParticipantUpdater setIdentity(final String identity) {

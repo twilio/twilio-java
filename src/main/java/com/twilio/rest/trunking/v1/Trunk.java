@@ -39,32 +39,6 @@ import java.util.Objects;
 public class Trunk extends Resource {
     private static final long serialVersionUID = 110040442840544L;
 
-    public enum RecordingSetting {
-        DO_NOT_RECORD("do-not-record"),
-        RECORD_FROM_RINGING("record-from-ringing"),
-        RECORD_FROM_ANSWER("record-from-answer");
-
-        private final String value;
-
-        private RecordingSetting(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a RecordingSetting from a string.
-         * @param value string value
-         * @return generated RecordingSetting
-         */
-        @JsonCreator
-        public static RecordingSetting forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingSetting.values());
-        }
-    }
-
     public enum TransferSetting {
         DISABLE_ALL("disable-all"),
         ENABLE_ALL("enable-all"),

@@ -32,7 +32,11 @@ public class CallReader extends Reader<Call> {
     private String parentCallSid;
     private Call.Status status;
     private ZonedDateTime startTime;
+    private ZonedDateTime startTimeBefore;
+    private ZonedDateTime startTimeAfter;
     private ZonedDateTime endTime;
+    private ZonedDateTime endTimeBefore;
+    private ZonedDateTime endTimeAfter;
 
     /**
      * Construct a new CallReader.
@@ -135,6 +139,16 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
+    public CallReader setStartTimeBefore(final ZonedDateTime startTimeBefore) {
+        this.startTimeBefore = startTimeBefore;
+        return this;
+    }
+
+    public CallReader setStartTimeAfter(final ZonedDateTime startTimeAfter) {
+        this.startTimeAfter = startTimeAfter;
+        return this;
+    }
+
     /**
      * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
      * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
@@ -148,6 +162,16 @@ public class CallReader extends Reader<Call> {
      */
     public CallReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
+        return this;
+    }
+
+    public CallReader setEndTimeBefore(final ZonedDateTime endTimeBefore) {
+        this.endTimeBefore = endTimeBefore;
+        return this;
+    }
+
+    public CallReader setEndTimeAfter(final ZonedDateTime startTimeAfter) {
+        this.endTimeAfter = endTimeAfter;
         return this;
     }
 
@@ -285,8 +309,20 @@ public class CallReader extends Reader<Call> {
             request.addQueryParam("Status", status.toString());
         }
 
-        if (startTime != null || endTime != null) {
-            request.addQueryDateTimeRange("EndTime", startTime, endTime);
+        if (startTime != null) {
+            request.addQueryParam("StartTime", startTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else {
+            if (startTimeBefore != null || startTimeAfter != null) {
+                request.addQueryDateTimeRange("StartTime", startTimeBefore, startTimeAfter);
+            }
+        }
+
+        if (endTime != null) {
+            request.addQueryParam("EndTime", endTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else {
+            if (endTimeBefore != null || endTimeAfter != null) {
+                request.addQueryDateTimeRange("EndTime", startTimeBefore, startTimeAfter);
+            }
         }
 
         if (getPageSize() != null) {

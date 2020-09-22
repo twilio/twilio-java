@@ -22,15 +22,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class MessageReader extends Reader<Message> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private ZonedDateTime startDateSent;
-    private ZonedDateTime endDateSent;
+    private LocalDate dateSent;
+    private LocalDate dateSentBefore;
+    private LocalDate dateSentAfter;
 
     /**
      * Construct a new MessageReader.
@@ -97,29 +98,23 @@ public class MessageReader extends Reader<Message> {
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
      *
-     * @param startDateSent Filter by date sent
+     * @param dateSent Filter by date sent
      * @return this
      */
-    public MessageReader setStartDateSent(final ZonedDateTime startDateSent) {
-        this.startDateSent = startDateSent;
+    public MessageReader setDateSent(final LocalDate dateSent) {
+        this.dateSent = dateSent;
         return this;
     }
 
-    /**
-     * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
-     * read only messages sent on this date. For example: `2009-07-06`. You can also
-     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
-     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
-     * messages sent on or after midnight on a date..
-     *
-     * @param endDateSent Filter by date sent
-     * @return this
-     */
-    public MessageReader setEndDateSent(final ZonedDateTime endDateSent) {
-        this.endDateSent = endDateSent;
+    public MessageReader setDateSentBefore(final LocalDate dateSentBefore) {
+        this.dateSentBefore = dateSentBefore;
         return this;
     }
 
+    public MessageReader setDateSentAfter(final LocalDate dateSentAfter) {
+        this.dateSentAfter = dateSentAfter;
+        return this;
+    }
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -246,8 +241,12 @@ public class MessageReader extends Reader<Message> {
             request.addQueryParam("From", from.toString());
         }
 
-        if (startDateSent != null || endDateSent != null) {
-            request.addQueryDateTimeRange("DateSent", startDateSent, endDateSent);
+        if (dateSent != null) {
+            request.addQueryParam("DateSent", dateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else {
+            if (dateSentBefore != null || dateSentAfter != null) {
+                request.addQueryDateRange("DateSent", dateSentBefore, dateSentAfter);
+            }
         }
 
         if (getPageSize() != null) {

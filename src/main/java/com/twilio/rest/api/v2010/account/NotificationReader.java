@@ -27,8 +27,9 @@ import java.time.format.DateTimeFormatter;
 public class NotificationReader extends Reader<Notification> {
     private String pathAccountSid;
     private Integer log;
-    private LocalDate startMessageDate;
-    private LocalDate endMessageDate;
+    private LocalDate messageDate;
+    private LocalDate messageDateBefore;
+    private LocalDate messageDateAfter;
 
     /**
      * Construct a new NotificationReader.
@@ -65,28 +66,23 @@ public class NotificationReader extends Reader<Notification> {
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
      *
-     * @param startMessageDate Filter by date
+     * @param messageDate Filter by date
      * @return this
      */
-    public NotificationReader setStartMessageDate(final LocalDate startMessageDate) {
-        this.startMessageDate = startMessageDate;
+    public NotificationReader setMessageDate(final LocalDate messageDate) {
+        this.messageDate = messageDate;
         return this;
     }
 
-    /**
-     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
-     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
-     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
-     * logged at or after midnight on a date..
-     *
-     * @param endMessageDate Filter by date
-     * @return this
-     */
-    public NotificationReader setEndMessageDate(final LocalDate endMessageDate) {
-        this.endMessageDate = endMessageDate;
+    public NotificationReader setMessageDateBefore(final LocalDate messageDateBefore) {
+        this.messageDateBefore = messageDateBefore;
         return this;
     }
 
+    public NotificationReader setMessageDateAfter(final LocalDate messageDateAfter) {
+        this.messageDateAfter = messageDateAfter;
+        return this;
+    }
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -209,8 +205,12 @@ public class NotificationReader extends Reader<Notification> {
             request.addQueryParam("Log", log.toString());
         }
 
-        if (startMessageDate != null || endMessageDate != null) {
-            request.addQueryDateRange("MessageDate", startMessageDate, endMessageDate);
+        if (messageDate != null) {
+            request.addQueryParam("MessageDate", messageDate.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else {
+            if (messageDateBefore != null || messageDateAfter != null) {
+                request.addQueryDateRange("MessageDate", messageDateBefore, messageDateAfter);
+            }
         }
 
         if (getPageSize() != null) {

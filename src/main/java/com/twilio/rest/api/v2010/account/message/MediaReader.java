@@ -21,14 +21,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MediaReader extends Reader<Media> {
     private String pathAccountSid;
     private final String pathMessageSid;
-    private ZonedDateTime startDateCreated;
-    private ZonedDateTime endDateCreated;
+    private LocalDate dateCreated;
+    private LocalDate dateCreatedBefore;
+    private LocalDate dateCreatedAfter;
 
     /**
      * Construct a new MediaReader.
@@ -62,30 +64,23 @@ public class MediaReader extends Reader<Media> {
      * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
      * created on or after midnight of this date..
      *
-     * @param startDateCreated Only include media that was created on this date
+     * @param dateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setStartDateCreated(final ZonedDateTime startDateCreated) {
-        this.startDateCreated = startDateCreated;
+    public MediaReader setDateCreated(final LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
         return this;
     }
 
-    /**
-     * Only include media that was created on this date. Specify a date as
-     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
-     * created on this date. You can also specify an inequality, such as
-     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
-     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
-     * created on or after midnight of this date..
-     *
-     * @param endDateCreated Only include media that was created on this date
-     * @return this
-     */
-    public MediaReader setEndDateCreated(final ZonedDateTime endDateCreated) {
-        this.endDateCreated = endDateCreated;
+    public MediaReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+        this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
+    public MediaReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -204,8 +199,12 @@ public class MediaReader extends Reader<Media> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (startDateCreated != null || endDateCreated != null) {
-            request.addQueryDateTimeRange("DateCreated", startDateCreated, endDateCreated);
+        if (dateCreated != null) {
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else {
+            if (dateCreatedBefore != null || dateCreatedAfter != null) {
+                request.addQueryDateRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
+            }
         }
 
         if (getPageSize() != null) {

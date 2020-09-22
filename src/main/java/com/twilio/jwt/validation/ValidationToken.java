@@ -12,15 +12,8 @@ import org.apache.http.HttpRequest;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Collections;
+import java.util.*;
 import java.util.function.Function;
-
 
 
 public class ValidationToken extends Jwt {
@@ -77,7 +70,7 @@ public class ValidationToken extends Jwt {
         payload.put("hrh", includedHeaders);
 
         String canonicalRequest =
-            new RequestCanonicalizer(method, uri, queryString, requestBody, headers).create(lowercaseSignedHeaders);
+            new RequestCanonicalizer(method, uri, queryString, requestBody, headers).create(signedHeaders);
 
         // Hash and hex the canonical request
         String hashedSignature = DigestUtils.sha256Hex(canonicalRequest);

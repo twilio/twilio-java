@@ -1,11 +1,9 @@
 package com.twilio.jwt.validation;
 
-import com.twilio.exception.InvalidRequestException;
-
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.hash.HashFunction;
-
+import com.twilio.exception.InvalidRequestException;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 
@@ -13,13 +11,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,10 +46,9 @@ class RequestCanonicalizer {
      * Creates a canonical request string out of HTTP request components.
      *
      * @param sortedIncludedHeaders the headers that should be included into canonical request string
-     * @param hashFunction          the hashing function applied to request payload
      * @return a string representing the canonical request
      */
-    public String create(List<String> sortedIncludedHeaders, HashFunction hashFunction) {
+    public String create(List<String> sortedIncludedHeaders) {
         // Add the method and uri
         StringBuilder canonicalRequest = new StringBuilder();
         canonicalRequest.append(method).append(NEW_LINE);
@@ -93,7 +84,7 @@ class RequestCanonicalizer {
 
         // Hash and hex the request payload
         if (requestBody != null && !requestBody.isEmpty()) {
-            String hashedPayload = hashFunction.hashString(requestBody, StandardCharsets.UTF_8).toString();
+            String hashedPayload = DigestUtils.sha256Hex(requestBody);
             canonicalRequest.append(hashedPayload);
         }
         return canonicalRequest.toString();

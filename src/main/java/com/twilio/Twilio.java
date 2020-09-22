@@ -1,7 +1,5 @@
 package com.twilio;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -12,6 +10,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -28,7 +27,7 @@ public class Twilio {
     private static String region;
     private static String edge;
     private static TwilioRestClient restClient;
-    private static ListeningExecutorService executorService;
+    private static ExecutorService executorService;
 
     private Twilio() {}
 
@@ -192,9 +191,9 @@ public class Twilio {
      *
      * @return the Twilio executor service
      */
-    public static ListeningExecutorService getExecutorService() {
+    public static ExecutorService getExecutorService() {
         if (Twilio.executorService == null) {
-            Twilio.executorService = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
+            Twilio.executorService = Executors.newCachedThreadPool();
         }
         return Twilio.executorService;
     }
@@ -204,7 +203,7 @@ public class Twilio {
      *
      * @param executorService executor service to use
      */
-    public static synchronized void setExecutorService(final ListeningExecutorService executorService) {
+    public static synchronized void setExecutorService(final ExecutorService executorService) {
         Twilio.executorService = executorService;
     }
 

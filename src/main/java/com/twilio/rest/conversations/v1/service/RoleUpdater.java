@@ -31,7 +31,8 @@ public class RoleUpdater extends Updater<Role> {
     /**
      * Construct a new RoleUpdater.
      *
-     * @param pathChatServiceSid The SID of the Service to update the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to update the
+     *                           resource from
      * @param pathSid The SID of the Role resource to update
      * @param permission A permission the role should have
      */

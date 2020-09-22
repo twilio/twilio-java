@@ -28,7 +28,7 @@ public class MessageFetcher extends Fetcher<Message> {
     /**
      * Construct a new MessageFetcher.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */

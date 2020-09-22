@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.conversations.v1.service.configuration;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -38,8 +38,8 @@ public class NotificationUpdater extends Updater<Notification> {
     /**
      * Construct a new NotificationUpdater.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the Configuration
-     *                           applies to.
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           Configuration applies to.
      */
     public NotificationUpdater(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;

@@ -28,7 +28,8 @@ public class UserDeleter extends Deleter<User> {
     /**
      * Construct a new UserDeleter.
      *
-     * @param pathChatServiceSid The SID of the Service to delete the resource from
+     * @param pathChatServiceSid The SID of the Conversation Service to delete the
+     *                           resource from
      * @param pathSid The SID of  the User resource to delete
      */
     public UserDeleter(final String pathChatServiceSid,

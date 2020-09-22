@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.events.v1.subscription;
+package com.twilio.rest.events.v1;
 
-import com.twilio.base.Deleter;
+import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,40 +22,37 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
-    private final String pathSubscriptionSid;
-    private final String pathType;
+public class SchemaFetcher extends Fetcher<Schema> {
+    private final String pathId;
 
     /**
-     * Construct a new SubscribedEventDeleter.
+     * Construct a new SchemaFetcher.
      *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param pathType Type of event being subscribed to.
+     * @param pathId The unique identifier of the schema.
      */
-    public SubscribedEventDeleter(final String pathSubscriptionSid,
-                                  final String pathType) {
-        this.pathSubscriptionSid = pathSubscriptionSid;
-        this.pathType = pathType;
+    public SchemaFetcher(final String pathId) {
+        this.pathId = pathId;
     }
 
     /**
-     * Make the request to the Twilio API to perform the delete.
+     * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
+     * @return Fetched Schema
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public boolean delete(final TwilioRestClient client) {
+    public Schema fetch(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.DELETE,
+            HttpMethod.GET,
             Domains.EVENTS.toString(),
-            "/v1/Subscriptions/" + this.pathSubscriptionSid + "/SubscribedEvents/" + this.pathType + ""
+            "/v1/Schemas/" + this.pathId + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("SubscribedEvent delete failed: Unable to connect to server");
+            throw new ApiConnectionException("Schema fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -64,6 +61,6 @@ public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
             throw new ApiException(restException);
         }
 
-        return response.getStatusCode() == 204;
+        return Schema.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

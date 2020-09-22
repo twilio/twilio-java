@@ -39,9 +39,9 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * Construct a new ParticipantCreator.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the resource is
-     *                           associated with.
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      */
     public ParticipantCreator(final String pathChatServiceSid,
@@ -52,12 +52,12 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * A unique string identifier for the conversation participant as <a
-     * href="https://www.twilio.com/docs/chat/rest/user-resource">Chat User</a>.
-     * This parameter is non-null if (and only if) the participant is using the
-     * Programmable Chat SDK to communicate. Limited to 256 characters..
+     * href="https://www.twilio.com/docs/conversations/api/user-resource">Conversation
+     * User</a>. This parameter is non-null if (and only if) the participant is
+     * using the Conversation SDK to communicate. Limited to 256 characters..
      *
      * @param identity A unique string identifier for the conversation participant
-     *                 as Chat User.
+     *                 as Conversation User.
      * @return this
      */
     public ParticipantCreator setIdentity(final String identity) {
@@ -66,10 +66,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the participant's device, e.g. a phone number or Messenger ID.
+     * The address of the participant's device, e.g. a phone or WhatsApp number.
      * Together with the Proxy address, this determines a participant uniquely. This
      * field (with proxy_address) is only null when the participant is interacting
-     * from a Chat endpoint (see the 'identity' field)..
+     * from an SDK endpoint (see the 'identity' field)..
      *
      * @param messagingBindingAddress The address of the participant's device.
      * @return this
@@ -80,10 +80,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the Twilio phone number (or WhatsApp number, or Messenger Page
-     * ID) that the participant is in contact with. This field, together with
-     * participant address, is only null when the participant is interacting from a
-     * Chat endpoint (see the 'identity' field)..
+     * The address of the Twilio phone number (or WhatsApp number) that the
+     * participant is in contact with. This field, together with participant
+     * address, is only null when the participant is interacting from an SDK
+     * endpoint (see the 'identity' field)..
      *
      * @param messagingBindingProxyAddress The address of the Twilio phone number
      *                                     that the participant is in contact with.
@@ -132,7 +132,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The address of the Twilio phone number that is used in Group MMS.
-     * Communication mask for the Chat participant with Identity..
+     * Communication mask for the Conversation participant with Identity..
      *
      * @param messagingBindingProjectedAddress The address of the Twilio phone
      *                                         number that is used in Group MMS.
@@ -144,11 +144,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the participant..
+     * The SID of a conversation-level <a
+     * href="https://www.twilio.com/docs/conversations/api/role-resource">Role</a>
+     * to assign to the participant..
      *
-     * @param roleSid The SID of the Role to assign to the participant
+     * @param roleSid The SID of a conversation-level Role to assign to the
+     *                participant
      * @return this
      */
     public ParticipantCreator setRoleSid(final String roleSid) {

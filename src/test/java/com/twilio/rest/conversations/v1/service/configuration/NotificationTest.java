@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.conversations.v1.service.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;

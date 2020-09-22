@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.events.v1.schema;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -18,41 +18,45 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
  */
-public class NotificationFetcher extends Fetcher<Notification> {
-    private final String pathChatServiceSid;
+public class VersionFetcher extends Fetcher<Version> {
+    private final String pathId;
+    private final Integer pathSchemaVersion;
 
     /**
-     * Construct a new NotificationFetcher.
+     * Construct a new VersionFetcher.
      *
-     * @param pathChatServiceSid The SID of the Chat Service that the Configuration
-     *                           applies to.
+     * @param pathId The unique identifier of the schema.
+     * @param pathSchemaVersion The version of the schema
      */
-    public NotificationFetcher(final String pathChatServiceSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
+    public VersionFetcher(final String pathId,
+                          final Integer pathSchemaVersion) {
+        this.pathId = pathId;
+        this.pathSchemaVersion = pathSchemaVersion;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Notification
+     * @return Fetched Version
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Notification fetch(final TwilioRestClient client) {
+    public Version fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            "/v1/Services/" + this.pathChatServiceSid + "/Configuration/Notifications"
+            Domains.EVENTS.toString(),
+            "/v1/Schemas/" + this.pathId + "/Versions/" + this.pathSchemaVersion + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Notification fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Version fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -61,6 +65,6 @@ public class NotificationFetcher extends Fetcher<Notification> {
             throw new ApiException(restException);
         }
 
-        return Notification.fromJson(response.getStream(), client.getObjectMapper());
+        return Version.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

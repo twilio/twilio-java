@@ -36,7 +36,7 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Construct a new MessageCreator.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      */
     public MessageCreator(final String pathConversationSid) {
@@ -104,9 +104,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The Media Sid to be attached to the new Message..
+     * The Media SID to be attached to the new Message..
      *
-     * @param mediaSid The Media Sid to be attached to the new Message.
+     * @param mediaSid The Media SID to be attached to the new Message.
      * @return this
      */
     public MessageCreator setMediaSid(final String mediaSid) {

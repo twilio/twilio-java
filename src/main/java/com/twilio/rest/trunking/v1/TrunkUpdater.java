@@ -26,7 +26,6 @@ public class TrunkUpdater extends Updater<Trunk> {
     private String domainName;
     private URI disasterRecoveryUrl;
     private HttpMethod disasterRecoveryMethod;
-    private Trunk.RecordingSetting recording;
     private Trunk.TransferSetting transferMode;
     private Boolean secure;
     private Boolean cnamLookupEnabled;
@@ -113,22 +112,6 @@ public class TrunkUpdater extends Updater<Trunk> {
      */
     public TrunkUpdater setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod) {
         this.disasterRecoveryMethod = disasterRecoveryMethod;
-        return this;
-    }
-
-    /**
-     * The recording settings for the trunk. Can be: `do-not-record`,
-     * `record-from-ringing`, `record-from-answer`. If set to `record-from-ringing`
-     * or `record-from-answer`, all calls going through the trunk will be recorded.
-     * See <a
-     * href="https://www.twilio.com/docs/sip-trunking#recording">Recording</a> for
-     * more information..
-     *
-     * @param recording The recording settings for the trunk
-     * @return this
-     */
-    public TrunkUpdater setRecording(final Trunk.RecordingSetting recording) {
-        this.recording = recording;
         return this;
     }
 
@@ -228,10 +211,6 @@ public class TrunkUpdater extends Updater<Trunk> {
 
         if (disasterRecoveryMethod != null) {
             request.addPostParam("DisasterRecoveryMethod", disasterRecoveryMethod.toString());
-        }
-
-        if (recording != null) {
-            request.addPostParam("Recording", recording.toString());
         }
 
         if (transferMode != null) {

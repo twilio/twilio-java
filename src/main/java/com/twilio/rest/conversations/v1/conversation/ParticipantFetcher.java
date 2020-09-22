@@ -28,7 +28,7 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     /**
      * Construct a new ParticipantFetcher.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */

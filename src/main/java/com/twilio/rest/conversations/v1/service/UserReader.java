@@ -29,8 +29,8 @@ public class UserReader extends Reader<User> {
     /**
      * Construct a new UserReader.
      *
-     * @param pathChatServiceSid The SID of the Service to read the User resources
-     *                           from
+     * @param pathChatServiceSid The SID of the Conversation Service to read the
+     *                           User resources from
      */
     public UserReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;

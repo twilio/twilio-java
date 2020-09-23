@@ -26,14 +26,14 @@ public class Twilio {
     private static String accountSid; // username used if this is null
     private static String region = System.getenv("TWILIO_REGION");
     private static String edge = System.getenv("TWILIO_EDGE");
-    private static TwilioRestClient restClient;
-    private static ExecutorService executorService;
+    private static volatile TwilioRestClient restClient;
+    private static volatile ExecutorService executorService;
 
     private Twilio() {
     }
 
     /*
-     * Ensures that the ListeningExecutorService is shutdown when the JVM exits.
+     * Ensures that the ExecutorService is shutdown when the JVM exits.
      */
     static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -52,7 +52,7 @@ public class Twilio {
      * @param username account to use
      * @param password auth token for the account
      */
-    public static void init(final String username, final String password) {
+    public static synchronized void init(final String username, final String password) {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
     }
@@ -64,7 +64,7 @@ public class Twilio {
      * @param password   auth token for the account
      * @param accountSid account sid to use
      */
-    public static void init(final String username, final String password, final String accountSid) {
+    public static synchronized void init(final String username, final String password, final String accountSid) {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
         Twilio.setAccountSid(accountSid);
@@ -76,7 +76,7 @@ public class Twilio {
      * @param username account to use
      * @throws AuthenticationException if username is null
      */
-    public static void setUsername(final String username) {
+    public static synchronized void setUsername(final String username) {
         if (username == null) {
             throw new AuthenticationException("Username can not be null");
         }
@@ -94,7 +94,7 @@ public class Twilio {
      * @param password auth token to use
      * @throws AuthenticationException if password is null
      */
-    public static void setPassword(final String password) {
+    public static synchronized void setPassword(final String password) {
         if (password == null) {
             throw new AuthenticationException("Password can not be null");
         }
@@ -112,7 +112,7 @@ public class Twilio {
      * @param accountSid account sid to use
      * @throws AuthenticationException if account sid is null
      */
-    public static void setAccountSid(final String accountSid) {
+    public static synchronized void setAccountSid(final String accountSid) {
         if (accountSid == null) {
             throw new AuthenticationException("AccountSid can not be null");
         }
@@ -129,7 +129,7 @@ public class Twilio {
      *
      * @param region region to make request
      */
-    public static void setRegion(final String region) {
+    public static synchronized void setRegion(final String region) {
         if (!Objects.equals(region, Twilio.region)) {
             Twilio.invalidate();
         }
@@ -142,7 +142,7 @@ public class Twilio {
      *
      * @param edge edge to make request
      */
-    public static void setEdge(final String edge) {
+    public static synchronized void setEdge(final String edge) {
         if (!Objects.equals(edge, Twilio.edge)) {
             Twilio.invalidate();
         }
@@ -158,25 +158,33 @@ public class Twilio {
      */
     public static TwilioRestClient getRestClient() {
         if (Twilio.restClient == null) {
-            if (Twilio.username == null || Twilio.password == null) {
-                throw new AuthenticationException(
-                    "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
-                );
+            synchronized (Twilio.class) {
+                if (Twilio.restClient == null) {
+                    Twilio.restClient = buildRestClient();
+                }
             }
-
-            TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
-
-            if (Twilio.accountSid != null) {
-                builder.accountSid(Twilio.accountSid);
-            }
-
-            builder.region(Twilio.region);
-            builder.edge(Twilio.edge);
-
-            Twilio.restClient = builder.build();
         }
 
         return Twilio.restClient;
+    }
+
+    private static TwilioRestClient buildRestClient() {
+        if (Twilio.username == null || Twilio.password == null) {
+            throw new AuthenticationException(
+                "TwilioRestClient was used before AccountSid and AuthToken were set, please call Twilio.init()"
+            );
+        }
+
+        TwilioRestClient.Builder builder = new TwilioRestClient.Builder(Twilio.username, Twilio.password);
+
+        if (Twilio.accountSid != null) {
+            builder.accountSid(Twilio.accountSid);
+        }
+
+        builder.region(Twilio.region);
+        builder.edge(Twilio.edge);
+
+        return builder.build();
     }
 
     /**
@@ -185,7 +193,9 @@ public class Twilio {
      * @param restClient rest client to use
      */
     public static void setRestClient(final TwilioRestClient restClient) {
-        Twilio.restClient = restClient;
+        synchronized (Twilio.class) {
+            Twilio.restClient = restClient;
+        }
     }
 
     /**
@@ -193,9 +203,13 @@ public class Twilio {
      *
      * @return the Twilio executor service
      */
-    public static synchronized ExecutorService getExecutorService() {
+    public static ExecutorService getExecutorService() {
         if (Twilio.executorService == null) {
-            Twilio.executorService = Executors.newCachedThreadPool();
+            synchronized (Twilio.class) {
+                if (Twilio.executorService == null) {
+                    Twilio.executorService = Executors.newCachedThreadPool();
+                }
+            }
         }
         return Twilio.executorService;
     }
@@ -205,8 +219,10 @@ public class Twilio {
      *
      * @param executorService executor service to use
      */
-    public static synchronized void setExecutorService(final ExecutorService executorService) {
-        Twilio.executorService = executorService;
+    public static void setExecutorService(final ExecutorService executorService) {
+        synchronized (Twilio.class) {
+            Twilio.executorService = executorService;
+        }
     }
 
     /**
@@ -239,7 +255,7 @@ public class Twilio {
     }
 
     /**
-     * Attempts to gracefully shutdown the ListeningExecutorService if it is present.
+     * Attempts to gracefully shutdown the ExecutorService if it is present.
      */
     public static synchronized void destroy() {
         if (executorService != null) {

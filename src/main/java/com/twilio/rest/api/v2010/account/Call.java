@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -28,6 +27,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.Endpoint;
 import com.twilio.type.Twiml;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,6 +39,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Call extends Resource {
     private static final long serialVersionUID = 145756659403056L;
 
@@ -812,38 +814,5 @@ public class Call extends Resource {
                             trunkSid,
                             uri,
                             subresourceUris);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("parentCallSid", parentCallSid)
-                          .add("accountSid", accountSid)
-                          .add("to", to)
-                          .add("toFormatted", toFormatted)
-                          .add("from", from)
-                          .add("fromFormatted", fromFormatted)
-                          .add("phoneNumberSid", phoneNumberSid)
-                          .add("status", status)
-                          .add("startTime", startTime)
-                          .add("endTime", endTime)
-                          .add("duration", duration)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("direction", direction)
-                          .add("answeredBy", answeredBy)
-                          .add("annotation", annotation)
-                          .add("apiVersion", apiVersion)
-                          .add("forwardedFrom", forwardedFrom)
-                          .add("groupSid", groupSid)
-                          .add("callerName", callerName)
-                          .add("queueTime", queueTime)
-                          .add("trunkSid", trunkSid)
-                          .add("uri", uri)
-                          .add("subresourceUris", subresourceUris)
-                          .toString();
     }
 }

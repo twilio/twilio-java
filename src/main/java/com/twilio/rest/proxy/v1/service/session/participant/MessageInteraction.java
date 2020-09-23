@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +40,7 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class MessageInteraction extends Resource {
     private static final long serialVersionUID = 180423233818859L;
 
@@ -532,31 +534,5 @@ public class MessageInteraction extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("sessionSid", sessionSid)
-                          .add("serviceSid", serviceSid)
-                          .add("accountSid", accountSid)
-                          .add("data", data)
-                          .add("type", type)
-                          .add("participantSid", participantSid)
-                          .add("inboundParticipantSid", inboundParticipantSid)
-                          .add("inboundResourceSid", inboundResourceSid)
-                          .add("inboundResourceStatus", inboundResourceStatus)
-                          .add("inboundResourceType", inboundResourceType)
-                          .add("inboundResourceUrl", inboundResourceUrl)
-                          .add("outboundParticipantSid", outboundParticipantSid)
-                          .add("outboundResourceSid", outboundResourceSid)
-                          .add("outboundResourceStatus", outboundResourceStatus)
-                          .add("outboundResourceType", outboundResourceType)
-                          .add("outboundResourceUrl", outboundResourceUrl)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

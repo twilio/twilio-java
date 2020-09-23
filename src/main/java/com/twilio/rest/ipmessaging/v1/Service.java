@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 209287578457944L;
 
@@ -469,32 +471,5 @@ public class Service extends Resource {
                             notifications,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("friendlyName", friendlyName)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("defaultServiceRoleSid", defaultServiceRoleSid)
-                          .add("defaultChannelRoleSid", defaultChannelRoleSid)
-                          .add("defaultChannelCreatorRoleSid", defaultChannelCreatorRoleSid)
-                          .add("readStatusEnabled", readStatusEnabled)
-                          .add("reachabilityEnabled", reachabilityEnabled)
-                          .add("typingIndicatorTimeout", typingIndicatorTimeout)
-                          .add("consumptionReportInterval", consumptionReportInterval)
-                          .add("limits", limits)
-                          .add("webhooks", webhooks)
-                          .add("preWebhookUrl", preWebhookUrl)
-                          .add("postWebhookUrl", postWebhookUrl)
-                          .add("webhookMethod", webhookMethod)
-                          .add("webhookFilters", webhookFilters)
-                          .add("notifications", notifications)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

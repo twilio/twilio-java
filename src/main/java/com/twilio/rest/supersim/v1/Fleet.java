@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +40,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Fleet extends Resource {
     private static final long serialVersionUID = 262022242180029L;
 
@@ -368,24 +370,5 @@ public class Fleet extends Resource {
                             commandsUrl,
                             commandsMethod,
                             networkAccessProfileSid);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("sid", sid)
-                          .add("uniqueName", uniqueName)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .add("dataEnabled", dataEnabled)
-                          .add("dataLimit", dataLimit)
-                          .add("dataMetering", dataMetering)
-                          .add("commandsEnabled", commandsEnabled)
-                          .add("commandsUrl", commandsUrl)
-                          .add("commandsMethod", commandsMethod)
-                          .add("networkAccessProfileSid", networkAccessProfileSid)
-                          .toString();
     }
 }

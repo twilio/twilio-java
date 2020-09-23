@@ -1,6 +1,5 @@
 package com.twilio.jwt.taskrouter;
 
-import com.google.common.base.Joiner;
 import com.twilio.http.HttpMethod;
 
 import java.util.ArrayList;
@@ -59,7 +58,7 @@ public class PolicyUtils {
     public static List<Policy> defaultEventBridgePolicies(String accountSid, String channelId) {
         final List<Policy> policies = new ArrayList<>();
 
-        String url = Joiner.on('/').join(TASKROUTER_EVENT_URL, accountSid, channelId);
+        String url = String.join("/", TASKROUTER_EVENT_URL, accountSid, channelId);
 
         policies.add(new Policy.Builder().url(url).method(HttpMethod.GET).allowed(true).build());
         policies.add(new Policy.Builder().url(url).method(HttpMethod.POST).allowed(true).build());

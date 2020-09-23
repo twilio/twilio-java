@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +36,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Room extends Resource {
     private static final long serialVersionUID = 123703237879933L;
 
@@ -485,29 +487,5 @@ public class Room extends Resource {
                             mediaRegion,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("status", status)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("accountSid", accountSid)
-                          .add("enableTurn", enableTurn)
-                          .add("uniqueName", uniqueName)
-                          .add("statusCallback", statusCallback)
-                          .add("statusCallbackMethod", statusCallbackMethod)
-                          .add("endTime", endTime)
-                          .add("duration", duration)
-                          .add("type", type)
-                          .add("maxParticipants", maxParticipants)
-                          .add("recordParticipantsOnConnect", recordParticipantsOnConnect)
-                          .add("videoCodecs", videoCodecs)
-                          .add("mediaRegion", mediaRegion)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

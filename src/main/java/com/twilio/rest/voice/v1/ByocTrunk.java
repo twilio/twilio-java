@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +34,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class ByocTrunk extends Resource {
     private static final long serialVersionUID = 155966179208903L;
 
@@ -369,26 +371,5 @@ public class ByocTrunk extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("sid", sid)
-                          .add("friendlyName", friendlyName)
-                          .add("voiceUrl", voiceUrl)
-                          .add("voiceMethod", voiceMethod)
-                          .add("voiceFallbackUrl", voiceFallbackUrl)
-                          .add("voiceFallbackMethod", voiceFallbackMethod)
-                          .add("statusCallbackUrl", statusCallbackUrl)
-                          .add("statusCallbackMethod", statusCallbackMethod)
-                          .add("cnamLookupEnabled", cnamLookupEnabled)
-                          .add("connectionPolicySid", connectionPolicySid)
-                          .add("fromDomainSid", fromDomainSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

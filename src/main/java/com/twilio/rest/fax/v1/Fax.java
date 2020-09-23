@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,6 +25,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -41,6 +42,7 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Fax extends Resource {
     private static final long serialVersionUID = 272370485490742L;
 
@@ -535,29 +537,5 @@ public class Fax extends Resource {
                             dateUpdated,
                             links,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("from", from)
-                          .add("to", to)
-                          .add("quality", quality)
-                          .add("mediaSid", mediaSid)
-                          .add("mediaUrl", mediaUrl)
-                          .add("numPages", numPages)
-                          .add("duration", duration)
-                          .add("status", status)
-                          .add("direction", direction)
-                          .add("apiVersion", apiVersion)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("links", links)
-                          .add("url", url)
-                          .toString();
     }
 }

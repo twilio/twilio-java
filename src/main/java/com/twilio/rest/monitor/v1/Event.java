@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,6 +24,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
+import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Event extends Resource {
     private static final long serialVersionUID = 124591176455880L;
 
@@ -325,25 +327,5 @@ public class Event extends Resource {
                             sourceIpAddress,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("actorSid", actorSid)
-                          .add("actorType", actorType)
-                          .add("description", description)
-                          .add("eventData", eventData)
-                          .add("eventDate", eventDate)
-                          .add("eventType", eventType)
-                          .add("resourceSid", resourceSid)
-                          .add("resourceType", resourceType)
-                          .add("sid", sid)
-                          .add("source", source)
-                          .add("sourceIpAddress", sourceIpAddress)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

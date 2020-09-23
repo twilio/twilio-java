@@ -1,10 +1,6 @@
 package com.twilio.jwt.validation;
 
 import com.twilio.exception.InvalidRequestException;
-
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
-
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 import org.junit.Assert;
@@ -16,7 +12,6 @@ import java.util.List;
 
 public class RequestCanonicalizerTest {
 
-    private static final HashFunction HASH_FUNCTION = Hashing.sha256();
     private static final List<String> signedHeaders = Arrays.asList("authorization", "duplicate", "host");
 
     private static final int PATH_LINE = 1;
@@ -248,13 +243,11 @@ public class RequestCanonicalizerTest {
     }
 
     private String canonicalizeWithPath(String path) {
-        return new RequestCanonicalizer("GET", path, "queryParam2=Hello+World", "foobar", headers).create(
-                signedHeaders, HASH_FUNCTION);
+        return new RequestCanonicalizer("GET", path, "queryParam2=Hello+World", "foobar", headers).create(signedHeaders);
     }
 
     private String canonicalizeWithQueryParams(String queryParams) {
-        return new RequestCanonicalizer("GET", "/Messages", queryParams, "foobar", headers).create(signedHeaders,
-                                                                                                   HASH_FUNCTION);
+        return new RequestCanonicalizer("GET", "/Messages", queryParams, "foobar", headers).create(signedHeaders);
     }
 
     private String getLine(int lineNumber, String canonicalRequest) {

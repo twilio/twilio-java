@@ -24,10 +24,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -191,8 +191,8 @@ public class CredentialList extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final String sid;
     private final Map<String, String> subresourceUris;
@@ -236,7 +236,7 @@ public class CredentialList extends Resource {
      *
      * @return The date this resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -245,7 +245,7 @@ public class CredentialList extends Resource {
      *
      * @return The date this resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

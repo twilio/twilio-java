@@ -26,11 +26,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -181,8 +181,8 @@ public class CallSummary extends Resource {
     private final CallSummary.CallType callType;
     private final CallSummary.CallState callState;
     private final CallSummary.ProcessingState processingState;
-    private final DateTime startTime;
-    private final DateTime endTime;
+    private final ZonedDateTime startTime;
+    private final ZonedDateTime endTime;
     private final Integer duration;
     private final Integer connectDuration;
     private final Map<String, Object> from;
@@ -306,7 +306,7 @@ public class CallSummary extends Resource {
      *
      * @return The start_time
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -315,7 +315,7 @@ public class CallSummary extends Resource {
      *
      * @return The end_time
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 

@@ -24,11 +24,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -156,7 +156,7 @@ public class Member extends Resource {
     }
 
     private final String callSid;
-    private final DateTime dateEnqueued;
+    private final ZonedDateTime dateEnqueued;
     private final Integer position;
     private final String uri;
     private final Integer waitTime;
@@ -197,7 +197,7 @@ public class Member extends Resource {
      *
      * @return The date the member was enqueued
      */
-    public final DateTime getDateEnqueued() {
+    public final ZonedDateTime getDateEnqueued() {
         return this.dateEnqueued;
     }
 

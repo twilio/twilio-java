@@ -24,11 +24,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -128,8 +128,8 @@ public class Deployment extends Resource {
     private final String serviceSid;
     private final String environmentSid;
     private final String buildSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -213,7 +213,7 @@ public class Deployment extends Resource {
      * @return The ISO 8601 date and time in GMT when the Deployment resource was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -224,7 +224,7 @@ public class Deployment extends Resource {
      * @return The ISO 8601 date and time in GMT when the Deployment resource was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 

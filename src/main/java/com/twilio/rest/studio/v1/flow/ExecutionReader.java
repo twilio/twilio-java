@@ -19,12 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class ExecutionReader extends Reader<Execution> {
     private final String pathFlowSid;
-    private DateTime dateCreatedFrom;
-    private DateTime dateCreatedTo;
+    private ZonedDateTime dateCreatedFrom;
+    private ZonedDateTime dateCreatedTo;
 
     /**
      * Construct a new ExecutionReader.
@@ -44,7 +45,7 @@ public class ExecutionReader extends Reader<Execution> {
      *                        ISO 8601 date-time
      * @return this
      */
-    public ExecutionReader setDateCreatedFrom(final DateTime dateCreatedFrom) {
+    public ExecutionReader setDateCreatedFrom(final ZonedDateTime dateCreatedFrom) {
         this.dateCreatedFrom = dateCreatedFrom;
         return this;
     }
@@ -58,7 +59,7 @@ public class ExecutionReader extends Reader<Execution> {
      *                      date-time
      * @return this
      */
-    public ExecutionReader setDateCreatedTo(final DateTime dateCreatedTo) {
+    public ExecutionReader setDateCreatedTo(final ZonedDateTime dateCreatedTo) {
         this.dateCreatedTo = dateCreatedTo;
         return this;
     }

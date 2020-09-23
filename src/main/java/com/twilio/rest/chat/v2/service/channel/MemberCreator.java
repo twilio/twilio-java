@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class MemberCreator extends Creator<Member> {
     private final String pathServiceSid;
@@ -25,9 +26,9 @@ public class MemberCreator extends Creator<Member> {
     private final String identity;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
-    private DateTime lastConsumptionTimestamp;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime lastConsumptionTimestamp;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
@@ -88,7 +89,7 @@ public class MemberCreator extends Creator<Member> {
      *                                 read event for the member within the Channel
      * @return this
      */
-    public MemberCreator setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+    public MemberCreator setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
@@ -104,7 +105,7 @@ public class MemberCreator extends Creator<Member> {
      *                    created
      * @return this
      */
-    public MemberCreator setDateCreated(final DateTime dateCreated) {
+    public MemberCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -120,7 +121,7 @@ public class MemberCreator extends Creator<Member> {
      *                    updated
      * @return this
      */
-    public MemberCreator setDateUpdated(final DateTime dateUpdated) {
+    public MemberCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }

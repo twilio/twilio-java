@@ -24,10 +24,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
-import org.joda.time.DateTime;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -184,14 +184,14 @@ public class Queue extends Resource {
         }
     }
 
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateUpdated;
     private final Integer currentSize;
     private final String friendlyName;
     private final String uri;
     private final String accountSid;
     private final Integer averageWaitTime;
     private final String sid;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final Integer maxSize;
 
     @JsonCreator
@@ -230,7 +230,7 @@ public class Queue extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that this resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -293,7 +293,7 @@ public class Queue extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that this resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 

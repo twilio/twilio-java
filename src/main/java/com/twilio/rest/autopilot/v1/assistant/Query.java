@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +39,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Query extends Resource {
     private static final long serialVersionUID = 161972386699881L;
 
@@ -146,8 +147,8 @@ public class Query extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Map<String, Object> results;
     private final String language;
     private final String modelBuildSid;
@@ -219,7 +220,7 @@ public class Query extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -228,7 +229,7 @@ public class Query extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -255,11 +256,13 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The SID of the [Model
-     * Build](https://www.twilio.com/docs/autopilot/api/model-build) queried.
+     * Returns The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/model-build">Model Build</a>
+     * queried.
      *
-     * @return The SID of the [Model
-     *         Build](https://www.twilio.com/docs/autopilot/api/model-build) queried
+     * @return The SID of the <a
+     *         href="https://www.twilio.com/docs/autopilot/api/model-build">Model
+     *         Build</a> queried
      */
     public final String getModelBuildSid() {
         return this.modelBuildSid;
@@ -330,11 +333,11 @@ public class Query extends Resource {
     }
 
     /**
-     * Returns The SID of the
-     * [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue)..
+     * Returns The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/dialogue">Dialogue</a>..
      *
-     * @return The SID of the
-     *         [Dialogue](https://www.twilio.com/docs/autopilot/api/dialogue).
+     * @return The SID of the <a
+     *         href="https://www.twilio.com/docs/autopilot/api/dialogue">Dialogue</a>.
      */
     public final String getDialogueSid() {
         return this.dialogueSid;
@@ -384,25 +387,5 @@ public class Query extends Resource {
                             url,
                             sourceChannel,
                             dialogueSid);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("results", results)
-                          .add("language", language)
-                          .add("modelBuildSid", modelBuildSid)
-                          .add("query", query)
-                          .add("sampleSid", sampleSid)
-                          .add("assistantSid", assistantSid)
-                          .add("sid", sid)
-                          .add("status", status)
-                          .add("url", url)
-                          .add("sourceChannel", sourceChannel)
-                          .add("dialogueSid", dialogueSid)
-                          .toString();
     }
 }

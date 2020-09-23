@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -26,9 +27,10 @@ import org.joda.time.DateTime;
 public class SessionUpdater extends Updater<Session> {
     private final String pathServiceSid;
     private final String pathSid;
-    private DateTime dateExpiry;
+    private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
+    private Boolean failOnParticipantConflict;
 
     /**
      * Construct a new SessionUpdater.
@@ -43,13 +45,14 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
-     * should expire. If this is value is present, it overrides the `ttl` value..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date when
+     * the Session should expire. If this is value is present, it overrides the
+     * `ttl` value..
      *
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
-    public SessionUpdater setDateExpiry(final DateTime dateExpiry) {
+    public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }
@@ -79,6 +82,29 @@ public class SessionUpdater extends Updater<Session> {
     }
 
     /**
+     * [Experimental] For accounts with the ProxyAllowParticipantConflict account
+     * flag, setting to true enables per-request opt-in to allowing Proxy to return
+     * a 400 error (Twilio error code 80604) when a request to set a Session to
+     * in-progress would cause Participants with the same Identifier/ProxyIdentifier
+     * pair to be active in multiple Sessions. If not provided, requests will be
+     * allowed to succeed, and a Debugger notification (80801) will be emitted.
+     * Having multiple, active Participants with the same Identifier/ProxyIdentifier
+     * pair causes calls and messages from affected Participants to be routed
+     * incorrectly. Please note, the default behavior for accounts without the
+     * ProxyAllowParticipantConflict flag is to reject the request as described.
+     * This will eventually be the default for all accounts..
+     *
+     * @param failOnParticipantConflict An experimental parameter to override the
+     *                                  ProxyAllowParticipantConflict account flag
+     *                                  on a per-request basis.
+     * @return this
+     */
+    public SessionUpdater setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {
+        this.failOnParticipantConflict = failOnParticipantConflict;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -98,7 +124,7 @@ public class SessionUpdater extends Updater<Session> {
 
         if (response == null) {
             throw new ApiConnectionException("Session update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -125,6 +151,10 @@ public class SessionUpdater extends Updater<Session> {
 
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (failOnParticipantConflict != null) {
+            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
         }
     }
 }

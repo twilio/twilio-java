@@ -39,7 +39,8 @@ public class WorkerUpdater extends Updater<Worker> {
 
     /**
      * The SID of a valid Activity that will describe the Worker's initial state.
-     * See [Activities](https://www.twilio.com/docs/taskrouter/api/activity) for
+     * See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/activity">Activities</a> for
      * more information..
      *
      * @param activitySid The SID of the Activity that describes the Worker's
@@ -108,7 +109,7 @@ public class WorkerUpdater extends Updater<Worker> {
 
         if (response == null) {
             throw new ApiConnectionException("Worker update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

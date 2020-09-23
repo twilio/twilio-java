@@ -27,6 +27,7 @@ import com.twilio.rest.Domains;
 public class FactorReader extends Reader<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new FactorReader.
@@ -41,6 +42,17 @@ public class FactorReader extends Reader<Factor> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public FactorReader setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
@@ -49,6 +61,17 @@ public class FactorReader extends Reader<Factor> {
     @Override
     public ResourceSet<Factor> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**
@@ -67,6 +90,7 @@ public class FactorReader extends Reader<Factor> {
         );
 
         addQueryParams(request);
+        addHeaderParams(request);
         return pageForRequest(client, request);
     }
 
@@ -134,7 +158,7 @@ public class FactorReader extends Reader<Factor> {
 
         if (response == null) {
             throw new ApiConnectionException("Factor read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

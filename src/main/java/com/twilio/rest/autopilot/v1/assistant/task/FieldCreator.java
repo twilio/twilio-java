@@ -34,7 +34,7 @@ public class FieldCreator extends Creator<Field> {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the new resource
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the new Field resource
      * @param fieldType The Field Type of this field
      * @param uniqueName An application-defined string that uniquely identifies the
@@ -70,7 +70,7 @@ public class FieldCreator extends Creator<Field> {
 
         if (response == null) {
             throw new ApiConnectionException("Field creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

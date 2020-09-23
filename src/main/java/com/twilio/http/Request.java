@@ -3,9 +3,12 @@ package com.twilio.http;
 import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
+
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
@@ -28,6 +31,7 @@ public class Request {
     private final String url;
     private final Map<String, List<String>> queryParams;
     private final Map<String, List<String>> postParams;
+    private final Map<String, List<String>> headerParams;
 
     private String region;
     private String edge;
@@ -45,6 +49,7 @@ public class Request {
         this.url = url;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
+        this.headerParams = new HashMap<>();
     }
 
     /**
@@ -77,6 +82,7 @@ public class Request {
         this.region = region;
         this.queryParams = new HashMap<>();
         this.postParams = new HashMap<>();
+        this.headerParams = new HashMap<>();
     }
 
     public HttpMethod getMethod() {
@@ -172,9 +178,18 @@ public class Request {
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
 
-            return new URI(parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
-                    parsedUrl.getPath(), parsedUrl.getQuery(), parsedUrl.getRef()).toURL().toString();
-        } catch (final MalformedURLException | URISyntaxException e) {
+            String urlPort = parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : null;
+            String protocol = parsedUrl.getProtocol() + "://";
+            String[] pathPieces = parsedUrl.getPath().split("/");
+            for (int i = 0; i < pathPieces.length; i++) {
+                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
+            }
+            String encodedPath = String.join("/", pathPieces);
+            String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
+            String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;
+            String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
+            return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
+        } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }
@@ -187,12 +202,12 @@ public class Request {
      */
     public void addQueryDateRange(final String name, final Range<LocalDate> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            String value = range.lowerEndpoint().format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_FORMAT));
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+            String value = range.upperEndpoint().format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_FORMAT));
             addQueryParam(name + "<", value);
         }
     }
@@ -203,14 +218,14 @@ public class Request {
      * @param name  name of query parameter
      * @param range date range
      */
-    public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
+    public void addQueryDateTimeRange(final String name, final Range<ZonedDateTime> range) {
         if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = range.lowerEndpoint().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + ">", value);
         }
 
         if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
+            String value = range.upperEndpoint().withZoneSameInstant(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + "<", value);
         }
     }
@@ -233,6 +248,16 @@ public class Request {
      */
     public void addPostParam(final String name, final String value) {
         addParam(postParams, name, value);
+    }
+
+    /**
+     * Add a header parameter.
+     *
+     * @param name  name of parameter
+     * @param value value of parameter
+     */
+    public void addHeaderParam(final String name, final String value) {
+        addParam(headerParams, name, value);
     }
 
     private void addParam(final Map<String, List<String>> params, final String name, final String value) {
@@ -310,6 +335,8 @@ public class Request {
         return postParams;
     }
 
+    public Map<String, List<String>> getHeaderParams() { return headerParams; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -326,6 +353,7 @@ public class Request {
                Objects.equals(this.username, other.username) &&
                Objects.equals(this.password, other.password) &&
                Objects.equals(this.queryParams, other.queryParams) &&
-               Objects.equals(this.postParams, other.postParams);
+               Objects.equals(this.postParams, other.postParams) &&
+               Objects.equals(this.headerParams, other.headerParams);
     }
 }

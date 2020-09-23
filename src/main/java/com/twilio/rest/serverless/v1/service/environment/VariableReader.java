@@ -33,7 +33,7 @@ public class VariableReader extends Reader<Variable> {
      *
      * @param pathServiceSid The SID of the Service to read the Variable resources
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resources to read
      */
     public VariableReader(final String pathServiceSid,
@@ -136,7 +136,7 @@ public class VariableReader extends Reader<Variable> {
 
         if (response == null) {
             throw new ApiConnectionException("Variable read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

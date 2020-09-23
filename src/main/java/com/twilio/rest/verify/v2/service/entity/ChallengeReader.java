@@ -29,6 +29,7 @@ public class ChallengeReader extends Reader<Challenge> {
     private final String pathIdentity;
     private String factorSid;
     private Challenge.ChallengeStatuses status;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new ChallengeReader.
@@ -66,6 +67,17 @@ public class ChallengeReader extends Reader<Challenge> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public ChallengeReader setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
@@ -74,6 +86,17 @@ public class ChallengeReader extends Reader<Challenge> {
     @Override
     public ResourceSet<Challenge> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**
@@ -92,6 +115,7 @@ public class ChallengeReader extends Reader<Challenge> {
         );
 
         addQueryParams(request);
+        addHeaderParams(request);
         return pageForRequest(client, request);
     }
 
@@ -159,7 +183,7 @@ public class ChallengeReader extends Reader<Challenge> {
 
         if (response == null) {
             throw new ApiConnectionException("Challenge read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

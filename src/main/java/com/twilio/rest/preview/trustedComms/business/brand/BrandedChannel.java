@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +36,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class BrandedChannel extends Resource {
     private static final long serialVersionUID = 119049791747662L;
 
@@ -201,17 +202,5 @@ public class BrandedChannel extends Resource {
                             sid,
                             links,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("businessSid", businessSid)
-                          .add("brandSid", brandSid)
-                          .add("sid", sid)
-                          .add("links", links)
-                          .add("url", url)
-                          .toString();
     }
 }

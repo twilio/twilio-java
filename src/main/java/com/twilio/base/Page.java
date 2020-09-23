@@ -2,7 +2,6 @@ package com.twilio.base;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Strings;
 import com.twilio.exception.ApiConnectionException;
 
 import java.io.IOException;
@@ -103,7 +102,7 @@ public class Page<T> {
     }
 
     public boolean hasNextPage() {
-        return !Strings.isNullOrEmpty(nextPageUri) || !Strings.isNullOrEmpty(nextPageUrl);
+        return (nextPageUri != null && !nextPageUri.isEmpty()) || (nextPageUrl != null && !nextPageUrl.isEmpty());
     }
 
     /**

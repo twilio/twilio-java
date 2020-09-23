@@ -60,7 +60,7 @@ public class UsageRecordTest {
     public void testReadAllResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2015-05-01T20:00:00Z\",\"end_time\": \"2015-06-01T20:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2015-05-01T20:00:00Z\",\"end_time\": \"2015-06-01T20:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -72,7 +72,7 @@ public class UsageRecordTest {
     public void testReadAllDayResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-01T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-02T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -84,7 +84,7 @@ public class UsageRecordTest {
     public void testReadAllHourResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-01T00:00:00Z\",\"end_time\": \"2019-05-01T01:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null},{\"period\": {\"start_time\": \"2019-05-01T01:00:00Z\",\"end_time\": \"2019-05-01T02:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=hour&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=hour&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-01T01:00:00Z\",\"end_time\": \"2019-05-01T02:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-01T00:00:00Z\",\"end_time\": \"2019-05-01T01:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=hour&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Granularity=hour&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -96,7 +96,103 @@ public class UsageRecordTest {
     public void testReadDaySimFilterResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-01T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-02T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Sim=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayNetworkFilterResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": \"HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-02T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": \"HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Network=HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Network=HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayCountryFilterResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": \"FR\"},{\"period\": {\"start_time\": \"2019-05-02T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": \"FR\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?IsoCountry=FR&Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?IsoCountry=FR&Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayFleetFilterResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"network_sid\": null,\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-02T00:00:00Z\",\"end_time\": \"2019-05-03T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Fleet=HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&Granularity=day&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayGroupBySimResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 500,\"data_download\": 1500,\"data_total\": 2000,\"sim_sid\": \"HSbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=sim&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=sim&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayGroupByFleetResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"network_sid\": null,\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 500,\"data_download\": 1500,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": \"HFbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"network_sid\": null,\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=fleet&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=fleet&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayGroupByNetworkResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": \"HWaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iso_country\": null},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 500,\"data_download\": 1500,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": \"HWbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"iso_country\": null}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=network&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=network&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayGroupByIsoCountryResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": \"FR\"},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 500,\"data_download\": 1500,\"data_total\": 2000,\"sim_sid\": null,\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": \"US\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=isoCountry&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?Group=isoCountry&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsageRecord.reader().read());
+    }
+
+    @Test
+    public void testReadDayGroupBySimAndFilterByCountryResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"usage_records\": [{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 1000,\"data_download\": 1000,\"data_total\": 2000,\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": \"FR\"},{\"period\": {\"start_time\": \"2019-05-03T00:00:00Z\",\"end_time\": \"2019-05-04T00:00:00Z\"},\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"data_upload\": 500,\"data_download\": 1500,\"data_total\": 2000,\"sim_sid\": \"HSbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"fleet_sid\": null,\"network_sid\": null,\"iso_country\": \"FR\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/UsageRecords?IsoCountry=FR&Group=sim&PageSize=50&Page=0\",\"key\": \"usage_records\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/UsageRecords?IsoCountry=FR&Group=sim&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

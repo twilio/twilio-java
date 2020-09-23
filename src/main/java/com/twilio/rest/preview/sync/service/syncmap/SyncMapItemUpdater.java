@@ -30,6 +30,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private final String pathMapSid;
     private final String pathKey;
     private final Map<String, Object> data;
+    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemUpdater.
@@ -50,6 +51,17 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncMapItemUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -65,11 +77,12 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SyncMapItem update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -78,6 +91,17 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

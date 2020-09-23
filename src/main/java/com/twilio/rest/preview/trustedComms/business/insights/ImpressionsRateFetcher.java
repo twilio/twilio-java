@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,8 +31,8 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
     private String brandedChannelSid;
     private String phoneNumberSid;
     private String country;
-    private DateTime start;
-    private DateTime end;
+    private ZonedDateTime start;
+    private ZonedDateTime end;
     private ImpressionsRate.Intervals interval;
 
     /**
@@ -94,7 +95,7 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
      * @param start The start date that for this Impressions Rate.
      * @return this
      */
-    public ImpressionsRateFetcher setStart(final DateTime start) {
+    public ImpressionsRateFetcher setStart(final ZonedDateTime start) {
         this.start = start;
         return this;
     }
@@ -106,7 +107,7 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
      * @param end The end date that for this Impressions Rate.
      * @return this
      */
-    public ImpressionsRateFetcher setEnd(final DateTime end) {
+    public ImpressionsRateFetcher setEnd(final ZonedDateTime end) {
         this.end = end;
         return this;
     }
@@ -143,7 +144,7 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
 
         if (response == null) {
             throw new ApiConnectionException("ImpressionsRate fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

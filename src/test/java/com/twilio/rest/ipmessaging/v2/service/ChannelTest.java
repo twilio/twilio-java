@@ -74,7 +74,7 @@ public class ChannelTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.IPMESSAGING.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", serialize(Channel.WebhookEnabledType.TRUE));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -83,7 +83,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Channel.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        Channel.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Channel.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).delete();
     }
 
     @Test
@@ -106,7 +106,7 @@ public class ChannelTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.IPMESSAGING.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels");
-
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", serialize(Channel.WebhookEnabledType.TRUE));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +115,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).create();
     }
 
     @Test
@@ -182,7 +182,7 @@ public class ChannelTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.IPMESSAGING.toString(),
                                           "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", serialize(Channel.WebhookEnabledType.TRUE));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -191,7 +191,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            Channel.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        Channel.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        Channel.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).update();
     }
 }

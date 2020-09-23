@@ -26,6 +26,7 @@ public class FactorDeleter extends Deleter<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String pathSid;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new FactorDeleter.
@@ -43,6 +44,17 @@ public class FactorDeleter extends Deleter<Factor> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public FactorDeleter setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
@@ -56,11 +68,12 @@ public class FactorDeleter extends Deleter<Factor> {
             "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Factors/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Factor delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -69,5 +82,16 @@ public class FactorDeleter extends Deleter<Factor> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 }

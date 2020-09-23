@@ -40,8 +40,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
-     * [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
+     * Events</a> for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -54,8 +54,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
-     * [Workspace Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
+     * Events</a> for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -147,7 +147,7 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
         if (response == null) {
             throw new ApiConnectionException("Workspace creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

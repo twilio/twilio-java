@@ -20,16 +20,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class RecordingReader extends Reader<Recording> {
     private Recording.Status status;
     private String sourceSid;
     private List<String> groupingSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
     private Recording.Type mediaType;
 
     /**
@@ -79,30 +79,31 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     /**
-     * Read only recordings that started on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
+     * Read only recordings that started on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time with
+     * time zone..
      *
      * @param dateCreatedAfter Read only recordings that started on or after this
-     *                         [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
+     *                         <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
      *                         date-time with time zone
      * @return this
      */
-    public RecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public RecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
     /**
-     * Read only recordings that started before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone, given
-     * as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
+     * Read only recordings that started before this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time with
+     * time zone, given as `YYYY-MM-DDThh:mm:ss+|-hh:mm` or `YYYY-MM-DDThh:mm:ssZ`..
      *
      * @param dateCreatedBefore Read only recordings that started before this [ISO
      *                          8601](https://en.wikipedia.org/wiki/ISO_8601)
      *                          date-time with time zone
      * @return this
      */
-    public RecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public RecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
@@ -213,7 +214,7 @@ public class RecordingReader extends Reader<Recording> {
 
         if (response == null) {
             throw new ApiConnectionException("Recording read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

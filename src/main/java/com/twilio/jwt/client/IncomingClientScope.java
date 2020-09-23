@@ -1,7 +1,5 @@
 package com.twilio.jwt.client;
 
-import com.google.common.base.Joiner;
-
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -9,7 +7,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class IncomingClientScope implements Scope {
 
-    private static final String SCOPE = Joiner.on(':').join("scope", "client", "incoming");
+    private static final String SCOPE = String.join(":", "scope", "client", "incoming");
 
     private final String clientName;
 
@@ -19,7 +17,7 @@ public class IncomingClientScope implements Scope {
 
     @Override
     public String getPayload() throws UnsupportedEncodingException {
-        String query = Joiner.on('=').join("clientName", this.clientName);
-        return Joiner.on('?').join(SCOPE, query);
+        String query = String.join("=", "clientName", this.clientName);
+        return String.join("?", SCOPE, query);
     }
 }

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,6 +23,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +32,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class TollFree extends Resource {
     private static final long serialVersionUID = 16937856072206L;
 
@@ -315,24 +316,5 @@ public class TollFree extends Resource {
                             addressRequirements,
                             beta,
                             capabilities);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("friendlyName", friendlyName)
-                          .add("phoneNumber", phoneNumber)
-                          .add("lata", lata)
-                          .add("locality", locality)
-                          .add("rateCenter", rateCenter)
-                          .add("latitude", latitude)
-                          .add("longitude", longitude)
-                          .add("region", region)
-                          .add("postalCode", postalCode)
-                          .add("isoCountry", isoCountry)
-                          .add("addressRequirements", addressRequirements)
-                          .add("beta", beta)
-                          .add("capabilities", capabilities)
-                          .toString();
     }
 }

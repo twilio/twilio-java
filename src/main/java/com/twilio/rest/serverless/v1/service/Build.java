@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,11 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +41,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Build extends Resource {
     private static final long serialVersionUID = 35713800238774L;
 
@@ -160,8 +161,8 @@ public class Build extends Resource {
     private final List<Map<String, Object>> assetVersions;
     private final List<Map<String, Object>> functionVersions;
     private final List<Map<String, Object>> dependencies;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -225,9 +226,9 @@ public class Build extends Resource {
     }
 
     /**
-     * Returns The status of the build.
+     * Returns The status of the Build.
      *
-     * @return The status of the build
+     * @return The status of the Build
      */
     public final Build.Status getStatus() {
         return this.status;
@@ -235,10 +236,10 @@ public class Build extends Resource {
 
     /**
      * Returns The list of Asset Version resource SIDs that are included in the
-     * build.
+     * Build.
      *
      * @return The list of Asset Version resource SIDs that are included in the
-     *         build
+     *         Build
      */
     public final List<Map<String, Object>> getAssetVersions() {
         return this.assetVersions;
@@ -246,10 +247,10 @@ public class Build extends Resource {
 
     /**
      * Returns The list of Function Version resource SIDs that are included in the
-     * build.
+     * Build.
      *
      * @return The list of Function Version resource SIDs that are included in the
-     *         build
+     *         Build
      */
     public final List<Map<String, Object>> getFunctionVersions() {
         return this.functionVersions;
@@ -257,10 +258,10 @@ public class Build extends Resource {
 
     /**
      * Returns A list of objects that describe the Dependencies included in the
-     * build.
+     * Build.
      *
      * @return A list of objects that describe the Dependencies included in the
-     *         build
+     *         Build
      */
     public final List<Map<String, Object>> getDependencies() {
         return this.dependencies;
@@ -272,7 +273,7 @@ public class Build extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the Build resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -283,7 +284,7 @@ public class Build extends Resource {
      * @return The ISO 8601 date and time in GMT when the Build resource was last
      *         updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -332,21 +333,5 @@ public class Build extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("status", status)
-                          .add("assetVersions", assetVersions)
-                          .add("functionVersions", functionVersions)
-                          .add("dependencies", dependencies)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

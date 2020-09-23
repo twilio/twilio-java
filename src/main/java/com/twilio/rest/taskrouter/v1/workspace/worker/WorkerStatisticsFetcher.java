@@ -17,14 +17,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     private final String pathWorkspaceSid;
     private final String pathWorkerSid;
     private Integer minutes;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
     private String taskChannel;
 
     /**
@@ -54,25 +55,25 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public WorkerStatisticsFetcher setStartDate(final DateTime startDate) {
+    public WorkerStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
     /**
      * Only include usage that occurred on or before this date, specified in GMT as
-     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time..
      *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
-    public WorkerStatisticsFetcher setEndDate(final DateTime endDate) {
+    public WorkerStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -109,7 +110,7 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
 
         if (response == null) {
             throw new ApiConnectionException("WorkerStatistics fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

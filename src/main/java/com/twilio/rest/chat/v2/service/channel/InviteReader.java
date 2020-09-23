@@ -40,9 +40,10 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read. See <a
+     * href="https://www.twilio.com/docs/chat/create-tokens">access tokens</a> for
+     * more details..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -53,9 +54,10 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read. See <a
+     * href="https://www.twilio.com/docs/chat/create-tokens">access tokens</a> for
+     * more details..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -158,7 +160,7 @@ public class InviteReader extends Reader<Invite> {
 
         if (response == null) {
             throw new ApiConnectionException("Invite read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -28,7 +28,7 @@ public class MessageFetcher extends Fetcher<Message> {
     /**
      * Construct a new MessageFetcher.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
@@ -57,7 +57,7 @@ public class MessageFetcher extends Fetcher<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

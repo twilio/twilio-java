@@ -19,12 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class AlertReader extends Reader<Alert> {
     private String logLevel;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
 
     /**
      * Only show alerts for this log-level.  Can be: `error`, `warning`, `notice`,
@@ -47,7 +48,7 @@ public class AlertReader extends Reader<Alert> {
      *                  time
      * @return this
      */
-    public AlertReader setStartDate(final DateTime startDate) {
+    public AlertReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -62,7 +63,7 @@ public class AlertReader extends Reader<Alert> {
      *                time
      * @return this
      */
-    public AlertReader setEndDate(final DateTime endDate) {
+    public AlertReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -161,7 +162,7 @@ public class AlertReader extends Reader<Alert> {
 
         if (response == null) {
             throw new ApiConnectionException("Alert read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

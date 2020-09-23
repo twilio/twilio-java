@@ -44,8 +44,10 @@ public class SampleReader extends Reader<Sample> {
     }
 
     /**
-     * The [ISO
-     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`..
+     * The <a
+     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO
+     * language-country</a> string that specifies the language used for the sample.
+     * For example: `en-US`..
      *
      * @param language The ISO language-country string that specifies the language
      *                 used for the sample
@@ -150,7 +152,7 @@ public class SampleReader extends Reader<Sample> {
 
         if (response == null) {
             throw new ApiConnectionException("Sample read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

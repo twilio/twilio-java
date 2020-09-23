@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,14 +24,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class DataSession extends Resource {
     private static final long serialVersionUID = 281325626490598L;
 
@@ -96,9 +97,9 @@ public class DataSession extends Resource {
     private final Map<String, Object> cellLocationEstimate;
     private final Integer packetsUploaded;
     private final Integer packetsDownloaded;
-    private final DateTime lastUpdated;
-    private final DateTime start;
-    private final DateTime end;
+    private final ZonedDateTime lastUpdated;
+    private final ZonedDateTime start;
+    private final ZonedDateTime end;
     private final String imei;
 
     @JsonCreator
@@ -283,7 +284,7 @@ public class DataSession extends Resource {
      * @return The date that the resource was last updated, given as GMT in ISO
      *         8601 format
      */
-    public final DateTime getLastUpdated() {
+    public final ZonedDateTime getLastUpdated() {
         return this.lastUpdated;
     }
 
@@ -294,7 +295,7 @@ public class DataSession extends Resource {
      * @return The date that the Data Session started, given as GMT in ISO 8601
      *         format
      */
-    public final DateTime getStart() {
+    public final ZonedDateTime getStart() {
         return this.start;
     }
 
@@ -303,7 +304,7 @@ public class DataSession extends Resource {
      *
      * @return The date that the record ended, given as GMT in ISO 8601 format
      */
-    public final DateTime getEnd() {
+    public final ZonedDateTime getEnd() {
         return this.end;
     }
 
@@ -364,27 +365,5 @@ public class DataSession extends Resource {
                             start,
                             end,
                             imei);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("simSid", simSid)
-                          .add("accountSid", accountSid)
-                          .add("radioLink", radioLink)
-                          .add("operatorMcc", operatorMcc)
-                          .add("operatorMnc", operatorMnc)
-                          .add("operatorCountry", operatorCountry)
-                          .add("operatorName", operatorName)
-                          .add("cellId", cellId)
-                          .add("cellLocationEstimate", cellLocationEstimate)
-                          .add("packetsUploaded", packetsUploaded)
-                          .add("packetsDownloaded", packetsDownloaded)
-                          .add("lastUpdated", lastUpdated)
-                          .add("start", start)
-                          .add("end", end)
-                          .add("imei", imei)
-                          .toString();
     }
 }

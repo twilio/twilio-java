@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class BrandsInformation extends Resource {
     private static final long serialVersionUID = 89883061153774L;
 
@@ -88,7 +89,7 @@ public class BrandsInformation extends Resource {
         }
     }
 
-    private final DateTime updateTime;
+    private final ZonedDateTime updateTime;
     private final URI fileLink;
     private final String fileLinkTtlInSeconds;
     private final URI url;
@@ -113,7 +114,7 @@ public class BrandsInformation extends Resource {
      *
      * @return Creation time of the information retrieved
      */
-    public final DateTime getUpdateTime() {
+    public final ZonedDateTime getUpdateTime() {
         return this.updateTime;
     }
 
@@ -168,15 +169,5 @@ public class BrandsInformation extends Resource {
                             fileLink,
                             fileLinkTtlInSeconds,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("updateTime", updateTime)
-                          .add("fileLink", fileLink)
-                          .add("fileLinkTtlInSeconds", fileLinkTtlInSeconds)
-                          .add("url", url)
-                          .toString();
     }
 }

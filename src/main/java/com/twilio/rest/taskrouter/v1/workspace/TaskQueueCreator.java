@@ -44,8 +44,9 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
      * enter the TaskQueue. For example, `'"language" == "spanish"'`. The default
      * value is `1==1`. If this value is empty, Tasks will wait in the TaskQueue
      * until they are deleted or moved to another TaskQueue. For more information
-     * about Worker selection, see [Describing Worker selection
-     * criteria](https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers)..
+     * about Worker selection, see <a
+     * href="https://www.twilio.com/docs/taskrouter/api/taskqueues#target-workers">Describing
+     * Worker selection criteria</a>..
      *
      * @param targetWorkers A string describing the Worker selection criteria for
      *                      any Tasks that enter the TaskQueue
@@ -71,8 +72,9 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
     /**
      * How Tasks will be assigned to Workers. Set this parameter to `LIFO` to assign
      * most recently created Task first or FIFO to assign the oldest Task first.
-     * Default is `FIFO`. [Click
-     * here](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo) to learn more..
+     * Default is `FIFO`. <a
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Click
+     * here</a> to learn more..
      *
      * @param taskOrder How Tasks will be assigned to Workers
      * @return this
@@ -126,7 +128,7 @@ public class TaskQueueCreator extends Creator<TaskQueue> {
 
         if (response == null) {
             throw new ApiConnectionException("TaskQueue creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

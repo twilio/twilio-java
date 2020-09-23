@@ -26,6 +26,7 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String pathSid;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new ChallengeFetcher.
@@ -43,6 +44,17 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
     }
 
     /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public ChallengeFetcher setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
@@ -57,11 +69,12 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
             "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + "/Challenges/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Challenge fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -70,5 +83,16 @@ public class ChallengeFetcher extends Fetcher<Challenge> {
         }
 
         return Challenge.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 }

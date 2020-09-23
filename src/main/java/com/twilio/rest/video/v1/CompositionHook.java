@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,11 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +41,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class CompositionHook extends Resource {
     private static final long serialVersionUID = 281311376768009L;
 
@@ -161,8 +162,8 @@ public class CompositionHook extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final Boolean enabled;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String sid;
     private final List<String> audioSources;
     private final List<String> audioSourcesExcluded;
@@ -254,7 +255,7 @@ public class CompositionHook extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -263,7 +264,7 @@ public class CompositionHook extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -411,26 +412,5 @@ public class CompositionHook extends Resource {
                             statusCallback,
                             statusCallbackMethod,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("friendlyName", friendlyName)
-                          .add("enabled", enabled)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("sid", sid)
-                          .add("audioSources", audioSources)
-                          .add("audioSourcesExcluded", audioSourcesExcluded)
-                          .add("videoLayout", videoLayout)
-                          .add("resolution", resolution)
-                          .add("trim", trim)
-                          .add("format", format)
-                          .add("statusCallback", statusCallback)
-                          .add("statusCallbackMethod", statusCallbackMethod)
-                          .add("url", url)
-                          .toString();
     }
 }

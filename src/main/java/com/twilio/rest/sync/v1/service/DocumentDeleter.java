@@ -24,6 +24,7 @@ import com.twilio.rest.Domains;
 public class DocumentDeleter extends Deleter<Document> {
     private final String pathServiceSid;
     private final String pathSid;
+    private String ifMatch;
 
     /**
      * Construct a new DocumentDeleter.
@@ -36,6 +37,17 @@ public class DocumentDeleter extends Deleter<Document> {
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public DocumentDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     /**
@@ -52,11 +64,12 @@ public class DocumentDeleter extends Deleter<Document> {
             "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Document delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -65,5 +78,16 @@ public class DocumentDeleter extends Deleter<Document> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 34001242407544L;
 
@@ -139,10 +140,10 @@ public class Participant extends Resource {
     private final String accountSid;
     private final Participant.Status status;
     private final String identity;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime startTime;
-    private final DateTime endTime;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime startTime;
+    private final ZonedDateTime endTime;
     private final Integer duration;
     private final URI url;
     private final Map<String, String> links;
@@ -236,7 +237,7 @@ public class Participant extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -245,7 +246,7 @@ public class Participant extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -254,7 +255,7 @@ public class Participant extends Resource {
      *
      * @return The time of participant connected to the room in ISO 8601 format
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -265,7 +266,7 @@ public class Participant extends Resource {
      * @return The time when the participant disconnected from the room in ISO 8601
      *         format
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 
@@ -336,23 +337,5 @@ public class Participant extends Resource {
                             duration,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("roomSid", roomSid)
-                          .add("accountSid", accountSid)
-                          .add("status", status)
-                          .add("identity", identity)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("startTime", startTime)
-                          .add("endTime", endTime)
-                          .add("duration", duration)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

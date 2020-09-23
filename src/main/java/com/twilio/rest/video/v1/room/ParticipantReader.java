@@ -19,14 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class ParticipantReader extends Reader<Participant> {
     private final String pathRoomSid;
     private Participant.Status status;
     private String identity;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
 
     /**
      * Construct a new ParticipantReader.
@@ -51,9 +52,9 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Read only the Participants with this
-     * [User](https://www.twilio.com/docs/chat/rest/user-resource) `identity`
-     * value..
+     * Read only the Participants with this <a
+     * href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>
+     * `identity` value..
      *
      * @param identity Read only the Participants with this user identity value
      * @return this
@@ -64,27 +65,27 @@ public class ParticipantReader extends Reader<Participant> {
     }
 
     /**
-     * Read only Participants that started after this date in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
+     * Read only Participants that started after this date in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601#UTC">ISO 8601</a> format..
      *
      * @param dateCreatedAfter Read only Participants that started after this date
      *                         in UTC ISO 8601 format
      * @return this
      */
-    public ParticipantReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public ParticipantReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
     /**
-     * Read only Participants that started before this date in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601#UTC) format..
+     * Read only Participants that started before this date in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601#UTC">ISO 8601</a> format..
      *
      * @param dateCreatedBefore Read only Participants that started before this
      *                          date in ISO 8601 format
      * @return this
      */
-    public ParticipantReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public ParticipantReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
@@ -183,7 +184,7 @@ public class ParticipantReader extends Reader<Participant> {
 
         if (response == null) {
             throw new ApiConnectionException("Participant read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

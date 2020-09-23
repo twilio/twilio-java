@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,11 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,6 +40,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class ImpressionsRate extends Resource {
     private static final long serialVersionUID = 11232973759334L;
 
@@ -121,10 +122,10 @@ public class ImpressionsRate extends Resource {
 
     private final String accountSid;
     private final String businessSid;
-    private final DateTime end;
+    private final ZonedDateTime end;
     private final ImpressionsRate.Intervals interval;
     private final Map<String, Object> reports;
-    private final DateTime start;
+    private final ZonedDateTime start;
     private final URI url;
 
     @JsonCreator
@@ -174,7 +175,7 @@ public class ImpressionsRate extends Resource {
      *
      * @return The end date that for this Impressions Rate.
      */
-    public final DateTime getEnd() {
+    public final ZonedDateTime getEnd() {
         return this.end;
     }
 
@@ -201,7 +202,7 @@ public class ImpressionsRate extends Resource {
      *
      * @return The start date that for this Impressions Rate.
      */
-    public final DateTime getStart() {
+    public final ZonedDateTime getStart() {
         return this.start;
     }
 
@@ -244,18 +245,5 @@ public class ImpressionsRate extends Resource {
                             reports,
                             start,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("businessSid", businessSid)
-                          .add("end", end)
-                          .add("interval", interval)
-                          .add("reports", reports)
-                          .add("start", start)
-                          .add("url", url)
-                          .toString();
     }
 }

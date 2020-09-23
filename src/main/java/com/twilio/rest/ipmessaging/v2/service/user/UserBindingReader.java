@@ -41,8 +41,9 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * The push technology used by the User Binding resources to read. Can be:
-     * `apn`, `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `apn`, `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
@@ -55,8 +56,9 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     /**
      * The push technology used by the User Binding resources to read. Can be:
-     * `apn`, `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `apn`, `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the User Binding resources to
      *                    read
@@ -160,7 +162,7 @@ public class UserBindingReader extends Reader<UserBinding> {
 
         if (response == null) {
             throw new ApiConnectionException("UserBinding read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

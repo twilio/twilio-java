@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,11 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +41,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class CallSummary extends Resource {
     private static final long serialVersionUID = 48207038577913L;
 
@@ -180,8 +181,8 @@ public class CallSummary extends Resource {
     private final CallSummary.CallType callType;
     private final CallSummary.CallState callState;
     private final CallSummary.ProcessingState processingState;
-    private final DateTime startTime;
-    private final DateTime endTime;
+    private final ZonedDateTime startTime;
+    private final ZonedDateTime endTime;
     private final Integer duration;
     private final Integer connectDuration;
     private final Map<String, Object> from;
@@ -305,7 +306,7 @@ public class CallSummary extends Resource {
      *
      * @return The start_time
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -314,7 +315,7 @@ public class CallSummary extends Resource {
      *
      * @return The end_time
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 
@@ -480,30 +481,5 @@ public class CallSummary extends Resource {
                             url,
                             attributes,
                             properties);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("callSid", callSid)
-                          .add("callType", callType)
-                          .add("callState", callState)
-                          .add("processingState", processingState)
-                          .add("startTime", startTime)
-                          .add("endTime", endTime)
-                          .add("duration", duration)
-                          .add("connectDuration", connectDuration)
-                          .add("from", from)
-                          .add("to", to)
-                          .add("carrierEdge", carrierEdge)
-                          .add("clientEdge", clientEdge)
-                          .add("sdkEdge", sdkEdge)
-                          .add("sipEdge", sipEdge)
-                          .add("tags", tags)
-                          .add("url", url)
-                          .add("attributes", attributes)
-                          .add("properties", properties)
-                          .toString();
     }
 }

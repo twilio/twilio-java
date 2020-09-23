@@ -1,15 +1,13 @@
 package com.twilio.http;
 
-
-import com.google.common.collect.Lists;
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -17,6 +15,7 @@ import org.apache.http.message.BasicHeader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -42,7 +41,7 @@ public class ValidationClient extends HttpClient {
             .setSocketTimeout(SOCKET_TIMEOUT)
             .build();
 
-        Collection<Header> headers = Lists.<Header>newArrayList(
+        Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
@@ -55,6 +54,7 @@ public class ValidationClient extends HttpClient {
             .setDefaultHeaders(headers)
             .setMaxConnPerRoute(10)
             .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey))
+            .setRedirectStrategy(this.getRedirectStrategy())
             .build();
     }
 

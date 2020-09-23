@@ -81,8 +81,8 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Whether token identities in the Service must be granted access to Sync
-     * objects by using the
-     * [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions)
+     * objects by using the <a
+     * href="https://www.twilio.com/docs/sync/api/sync-permissions">Permissions</a>
      * resource..
      *
      * @param aclEnabled Whether token identities in the Service must be granted
@@ -161,7 +161,7 @@ public class ServiceCreator extends Creator<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

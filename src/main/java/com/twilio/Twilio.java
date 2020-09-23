@@ -1,7 +1,5 @@
 package com.twilio;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -12,6 +10,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
@@ -19,24 +18,26 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "7.54.1";
+    public static final String VERSION = "7.55.3";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
-    private static String username;
-    private static String password;
-    private static String accountSid;
-    private static String region;
-    private static String edge;
+    private static String username = System.getenv("TWILIO_ACCOUNT_SID");
+    private static String password = System.getenv("TWILIO_AUTH_TOKEN");
+    private static String accountSid; // username used if this is null
+    private static String region = System.getenv("TWILIO_REGION");
+    private static String edge = System.getenv("TWILIO_EDGE");
     private static TwilioRestClient restClient;
-    private static ListeningExecutorService executorService;
+    private static ExecutorService executorService;
 
-    private Twilio() {}
+    private Twilio() {
+    }
 
-    /**
+    /*
      * Ensures that the ListeningExecutorService is shutdown when the JVM exits.
      */
     static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
             public void run() {
                 if (executorService != null) {
                     executorService.shutdownNow();
@@ -192,9 +193,9 @@ public class Twilio {
      *
      * @return the Twilio executor service
      */
-    public static ListeningExecutorService getExecutorService() {
+    public static synchronized ExecutorService getExecutorService() {
         if (Twilio.executorService == null) {
-            Twilio.executorService = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
+            Twilio.executorService = Executors.newCachedThreadPool();
         }
         return Twilio.executorService;
     }
@@ -204,14 +205,14 @@ public class Twilio {
      *
      * @param executorService executor service to use
      */
-    public static synchronized void setExecutorService(final ListeningExecutorService executorService) {
+    public static synchronized void setExecutorService(final ExecutorService executorService) {
         Twilio.executorService = executorService;
     }
 
     /**
      * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
      *
-     * @throws com.twilio.exception.CertificateValidationException if the connection fails
+     * @throws CertificateValidationException if the connection fails
      */
     public static void validateSslCertificate() {
         final NetworkHttpClient client = new NetworkHttpClient();
@@ -220,7 +221,7 @@ public class Twilio {
         try {
             final Response response = client.makeRequest(request);
 
-            if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+            if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
                 throw new CertificateValidationException(
                     "Unexpected response from certificate endpoint", request, response
                 );

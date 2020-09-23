@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,8 +38,9 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class DeliveryReceipt extends Resource {
-    private static final long serialVersionUID = 27340103199489L;
+    private static final long serialVersionUID = 77906133631055L;
 
     public enum DeliveryStatus {
         READ("read"),
@@ -72,9 +73,9 @@ public class DeliveryReceipt extends Resource {
     /**
      * Create a DeliveryReceiptFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to
+     * @param pathMessageSid The SID of the message the delivery receipt belongs to.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return DeliveryReceiptFetcher capable of executing the fetch
      */
@@ -87,9 +88,9 @@ public class DeliveryReceipt extends Resource {
     /**
      * Create a DeliveryReceiptReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            delivery receipt.
-     * @param pathMessageSid The sid of the message the delivery receipt belongs to
+     * @param pathMessageSid The SID of the message the delivery receipt belongs to.
      * @return DeliveryReceiptReader capable of executing the read
      */
     public static DeliveryReceiptReader reader(final String pathConversationSid,
@@ -135,24 +136,27 @@ public class DeliveryReceipt extends Resource {
         }
     }
 
+    private final String accountSid;
+    private final String conversationSid;
     private final String sid;
     private final String messageSid;
-    private final String conversationSid;
     private final String channelMessageSid;
     private final String participantSid;
     private final DeliveryReceipt.DeliveryStatus status;
     private final Integer errorCode;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
-    private DeliveryReceipt(@JsonProperty("sid")
+    private DeliveryReceipt(@JsonProperty("account_sid")
+                            final String accountSid,
+                            @JsonProperty("conversation_sid")
+                            final String conversationSid,
+                            @JsonProperty("sid")
                             final String sid,
                             @JsonProperty("message_sid")
                             final String messageSid,
-                            @JsonProperty("conversation_sid")
-                            final String conversationSid,
                             @JsonProperty("channel_message_sid")
                             final String channelMessageSid,
                             @JsonProperty("participant_sid")
@@ -167,9 +171,10 @@ public class DeliveryReceipt extends Resource {
                             final String dateUpdated,
                             @JsonProperty("url")
                             final URI url) {
+        this.accountSid = accountSid;
+        this.conversationSid = conversationSid;
         this.sid = sid;
         this.messageSid = messageSid;
-        this.conversationSid = conversationSid;
         this.channelMessageSid = channelMessageSid;
         this.participantSid = participantSid;
         this.status = status;
@@ -177,6 +182,24 @@ public class DeliveryReceipt extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+    }
+
+    /**
+     * Returns The unique ID of the Account responsible for this participant..
+     *
+     * @return The unique ID of the Account responsible for this participant.
+     */
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    /**
+     * Returns The unique ID of the Conversation for this message..
+     *
+     * @return The unique ID of the Conversation for this message.
+     */
+    public final String getConversationSid() {
+        return this.conversationSid;
     }
 
     /**
@@ -189,21 +212,12 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The sid of the message the delivery receipt belongs to.
+     * Returns The SID of the message the delivery receipt belongs to.
      *
-     * @return The sid of the message the delivery receipt belongs to
+     * @return The SID of the message the delivery receipt belongs to
      */
     public final String getMessageSid() {
         return this.messageSid;
-    }
-
-    /**
-     * Returns The conversation_sid.
-     *
-     * @return The conversation_sid
-     */
-    public final String getConversationSid() {
-        return this.conversationSid;
     }
 
     /**
@@ -218,9 +232,9 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The unique id of the participant the delivery receipt belongs to..
+     * Returns The unique ID of the participant the delivery receipt belongs to..
      *
-     * @return The unique id of the participant the delivery receipt belongs to.
+     * @return The unique ID of the participant the delivery receipt belongs to.
      */
     public final String getParticipantSid() {
         return this.participantSid;
@@ -236,11 +250,13 @@ public class DeliveryReceipt extends Resource {
     }
 
     /**
-     * Returns The message [delivery error
-     * code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status.
+     * Returns The message <a
+     * href="https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors">delivery
+     * error code</a> for a `failed` status.
      *
-     * @return The message [delivery error
-     *         code](https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors) for a `failed` status
+     * @return The message <a
+     *         href="https://www.twilio.com/docs/sms/api/message-resource#delivery-related-errors">delivery
+     *         error code</a> for a `failed` status
      */
     public final Integer getErrorCode() {
         return this.errorCode;
@@ -251,7 +267,7 @@ public class DeliveryReceipt extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -260,7 +276,7 @@ public class DeliveryReceipt extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -285,9 +301,10 @@ public class DeliveryReceipt extends Resource {
 
         DeliveryReceipt other = (DeliveryReceipt) o;
 
-        return Objects.equals(sid, other.sid) &&
-               Objects.equals(messageSid, other.messageSid) &&
+        return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(conversationSid, other.conversationSid) &&
+               Objects.equals(sid, other.sid) &&
+               Objects.equals(messageSid, other.messageSid) &&
                Objects.equals(channelMessageSid, other.channelMessageSid) &&
                Objects.equals(participantSid, other.participantSid) &&
                Objects.equals(status, other.status) &&
@@ -299,9 +316,10 @@ public class DeliveryReceipt extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid,
-                            messageSid,
+        return Objects.hash(accountSid,
                             conversationSid,
+                            sid,
+                            messageSid,
                             channelMessageSid,
                             participantSid,
                             status,
@@ -309,21 +327,5 @@ public class DeliveryReceipt extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("messageSid", messageSid)
-                          .add("conversationSid", conversationSid)
-                          .add("channelMessageSid", channelMessageSid)
-                          .add("participantSid", participantSid)
-                          .add("status", status)
-                          .add("errorCode", errorCode)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

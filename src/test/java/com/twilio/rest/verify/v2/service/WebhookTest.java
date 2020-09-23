@@ -38,19 +38,19 @@ public class WebhookTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.VERIFY.toString(),
-                                                      "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks");
-                        request.addPostParam("FriendlyName", serialize("friendly_name"));
-        request.addPostParam("EventTypes", serialize(Promoter.listOfOne("event_types")));
-        request.addPostParam("WebhookUrl", serialize("webhook_url"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.VERIFY.toString(),
+                                          "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Webhooks");
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            request.addPostParam("EventTypes", serialize(Promoter.listOfOne("event_types")));
+            request.addPostParam("WebhookUrl", serialize("webhook_url"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Webhook.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Promoter.listOfOne("event_types"), "webhook_url").create();

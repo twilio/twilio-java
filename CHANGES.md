@@ -1,6 +1,117 @@
 twilio-java changelog
 =====================
 
+[2020-09-21] Version 7.55.3
+---------------------------
+**Library - Fix**
+- [PR #583](https://github.com/twilio/twilio-java/pull/583): allow API redirect responses. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #571](https://github.com/twilio/twilio-java/pull/571): paging breaks with + sign on phone number. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #582](https://github.com/twilio/twilio-java/pull/582): upgrade jackson and HTTP dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #581](https://github.com/twilio/twilio-java/pull/581): convert markdown links to href formatted links. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Accounts**
+- Add Auth Token rotation API
+
+**Conversations**
+- Change resource path for Webhook Configuration
+
+**Events**
+- Schemas API get all Schemas names and versions
+
+
+[2020-09-16] Version 7.55.2
+---------------------------
+**Conversations**
+- Expose Configuration and Service Configuration resources
+- Add Unique Name support for Conversations
+- Add Services Push Notification resource
+- Add Service scoped Conversation resources
+- Support Identity in Users resource endpoint
+
+**Messaging**
+- GA Deactivation List API
+- Add domain cert API's(fetch, update, create) for link tracker
+
+**Numbers**
+- Add API endpoint for Supporting Document deletion
+
+**Proxy**
+- Updated usage of FailOnParticipantConflict param to apply only to accounts with ProxyAllowParticipantConflict account flag
+
+**Supersim**
+- Add `AccountSid` parameter to Sim resource update request
+- Add `ready` status as an available status for a Sim resource
+
+
+[2020-09-02] Version 7.55.1
+---------------------------
+**Ai**
+- Initial release
+
+**Bulkexports**
+- removing public beta feature flag from BulkExports Jobs API
+
+**Messaging**
+- Add Deactivation List API
+- Added page token parameter for fetch in WhatsApp Templates API
+
+**Numbers**
+- Add API endpoint for End User deletion
+
+**Routes**
+- Add Resource Route Configurations API
+- Add Route Configurations API
+- Initial Release
+
+**Trunking**
+- Added `transfer_mode` property on Trunks.
+
+
+[2020-08-19] Version 7.55.0
+---------------------------
+**Library - Feature**
+- [PR #568](https://github.com/twilio/twilio-java/pull/568): add support for custom HTTP headers. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #567](https://github.com/twilio/twilio-java/pull/567): drop some of the Guava usage which is easily replaced. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #565](https://github.com/twilio/twilio-java/pull/565): update GitHub branch references to use HEAD. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Conversations**
+- Allow Identity addition to Participants
+
+**Events**
+- Sinks API Get all Sinks
+
+**Proxy**
+- Clarified usage of FailOnParticipantConflict param as experimental
+- Add FailOnParticipantConflict param to Proxy Session create and Proxy Participant create
+
+**Supersim**
+- Add fleet, network, and isoCountryCode to the UsageRecords resource
+- Change sort order of UsageRecords from ascending to descending with respect to start time field, records are now returned newest to oldest
+
+**Wireless**
+- Removed `Start` and `End` parameters from the Data Sessions list endpoint. **(breaking change)**
+
+
+[2020-08-05] Version 7.54.2
+---------------------------
+**Messaging**
+- Add rejection reason support to WhatsApp API
+- Removed status parameter for create and update in WhatsApp Templates API
+
+**Proxy**
+- Add FailOnParticipantConflict param to Proxy Session update
+
+**Verify**
+- Add `CustomFriendlyName` optional parameter on Verification creation.
+- Changes in `Challenge` resource to update documentation of both `details` and `hidden_details` properties.
+
+
 [2020-07-22] Version 7.54.1
 ---------------------------
 **Library - Fix**
@@ -498,7 +609,7 @@ twilio-java changelog
 - [PR #487](https://github.com/twilio/twilio-java/pull/487): Bump jackson-databind from 2.9.9.1 to 2.9.10.1. Thanks to [@dependabot](https://github.com/dependabot)!
 - [PR #486](https://github.com/twilio/twilio-java/pull/486): add TLS 1.2 warning. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
 - [PR #485](https://github.com/twilio/twilio-java/pull/485): Move generated docs to common location. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to master. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to main. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
 
 **Api**
 - Make `persistent_action` parameter public

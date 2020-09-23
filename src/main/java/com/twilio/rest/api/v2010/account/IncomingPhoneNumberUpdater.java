@@ -70,10 +70,11 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
     }
 
     /**
-     * The SID of the [Account](https://www.twilio.com/docs/iam/api/account) that
-     * created the IncomingPhoneNumber resource to update.  For more information,
-     * see [Exchanging Numbers Between
-     * Subaccounts](https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/iam/api/account">Account</a> that created
+     * the IncomingPhoneNumber resource to update.  For more information, see <a
+     * href="https://www.twilio.com/docs/iam/api/subaccounts#exchanging-numbers">Exchanging
+     * Numbers Between Subaccounts</a>..
      *
      * @param accountSid The SID of the Account that created the resource to update
      * @return this
@@ -445,7 +446,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber> {
 
         if (response == null) {
             throw new ApiConnectionException("IncomingPhoneNumber update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

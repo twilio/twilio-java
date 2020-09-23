@@ -39,9 +39,10 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
-     * assign to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> to assign to
+     * the member. The default roles are those specified on the <a
+     * href="https://www.twilio.com/docs/chat/api/services">Service</a>..
      *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
@@ -71,7 +72,7 @@ public class MemberCreator extends Creator<Member> {
 
         if (response == null) {
             throw new ApiConnectionException("Member creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

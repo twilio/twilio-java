@@ -1,6 +1,5 @@
 package com.twilio.http;
 
-import com.google.common.collect.Lists;
 import com.twilio.jwt.Jwt;
 import com.twilio.jwt.validation.ValidationToken;
 import org.apache.http.HttpException;
@@ -10,11 +9,12 @@ import org.apache.http.protocol.HttpContext;
 
 import java.io.IOException;
 import java.security.PrivateKey;
+import java.util.Arrays;
 import java.util.List;
 
 public class ValidationInterceptor implements HttpRequestInterceptor {
 
-    private static final List<String> HEADERS = Lists.newArrayList("authorization", "host");
+    private static final List<String> HEADERS = Arrays.asList("authorization", "host");
 
     private final String accountSid;
     private final String credentialSid;
@@ -24,10 +24,10 @@ public class ValidationInterceptor implements HttpRequestInterceptor {
     /**
      * Create a new ValidationInterceptor.
      *
-     * @param  accountSid Twilio Acocunt SID
-     * @param  credentialSid Twilio Credential SID
-     * @param  signingKeySid Twilio Signing Key
-     * @param  privateKey Private Key
+     * @param accountSid    Twilio Acocunt SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKeySid Twilio Signing Key
+     * @param privateKey    Private Key
      */
     public ValidationInterceptor(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey) {
         this.accountSid = accountSid;

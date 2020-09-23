@@ -17,14 +17,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     private final String pathWorkspaceSid;
     private final String pathWorkflowSid;
     private Integer minutes;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
     private String taskChannel;
     private String splitByWaitTime;
 
@@ -55,25 +56,26 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public WorkflowStatisticsFetcher setStartDate(final DateTime startDate) {
+    public WorkflowStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
     /**
      * Only calculate statistics from this date and time and earlier, specified in
-     * GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * GMT as an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * date-time..
      *
      * @param endDate Only calculate statistics from this date and time and earlier
      * @return this
      */
-    public WorkflowStatisticsFetcher setEndDate(final DateTime endDate) {
+    public WorkflowStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -129,7 +131,7 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
 
         if (response == null) {
             throw new ApiConnectionException("WorkflowStatistics fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

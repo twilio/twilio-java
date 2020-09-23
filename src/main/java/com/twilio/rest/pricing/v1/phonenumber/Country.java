@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,6 +24,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberPrice;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +35,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Country extends Resource {
     private static final long serialVersionUID = 214707935181184L;
 
@@ -192,16 +193,5 @@ public class Country extends Resource {
                             phoneNumberPrices,
                             priceUnit,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("country", country)
-                          .add("isoCountry", isoCountry)
-                          .add("phoneNumberPrices", phoneNumberPrices)
-                          .add("priceUnit", priceUnit)
-                          .add("url", url)
-                          .toString();
     }
 }

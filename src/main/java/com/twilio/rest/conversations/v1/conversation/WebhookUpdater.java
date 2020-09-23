@@ -36,7 +36,7 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * Construct a new WebhookUpdater.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
@@ -117,9 +117,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The studio flow sid, where the webhook should be sent to..
+     * The studio flow SID, where the webhook should be sent to..
      *
-     * @param configurationFlowSid The studio flow sid, where the webhook should be
+     * @param configurationFlowSid The studio flow SID, where the webhook should be
      *                             sent to.
      * @return this
      */
@@ -148,7 +148,7 @@ public class WebhookUpdater extends Updater<Webhook> {
 
         if (response == null) {
             throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

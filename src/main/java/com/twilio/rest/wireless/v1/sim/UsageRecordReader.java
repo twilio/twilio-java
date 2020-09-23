@@ -19,12 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class UsageRecordReader extends Reader<UsageRecord> {
     private final String pathSimSid;
-    private DateTime end;
-    private DateTime start;
+    private ZonedDateTime end;
+    private ZonedDateTime start;
     private UsageRecord.Granularity granularity;
 
     /**
@@ -37,27 +38,27 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that occurred on or before this date, specified in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * the current time..
+     * Only include usage that occurred on or before this date, specified in <a
+     * href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.
+     * The default is the current time..
      *
      * @param end Only include usage that occurred on or before this date
      * @return this
      */
-    public UsageRecordReader setEnd(final DateTime end) {
+    public UsageRecordReader setEnd(final ZonedDateTime end) {
         this.end = end;
         return this;
     }
 
     /**
-     * Only include usage that has occurred on or after this date, specified in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html). The default is
-     * one month before the `end` parameter value..
+     * Only include usage that has occurred on or after this date, specified in <a
+     * href="https://www.iso.org/iso-8601-date-and-time-format.html">ISO 8601</a>.
+     * The default is one month before the `end` parameter value..
      *
      * @param start Only include usage that has occurred on or after this date
      * @return this
      */
-    public UsageRecordReader setStart(final DateTime start) {
+    public UsageRecordReader setStart(final ZonedDateTime start) {
         this.start = start;
         return this;
     }
@@ -169,7 +170,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
         if (response == null) {
             throw new ApiConnectionException("UsageRecord read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,12 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +41,7 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Fax extends Resource {
     private static final long serialVersionUID = 272370485490742L;
 
@@ -254,8 +255,8 @@ public class Fax extends Resource {
     private final String apiVersion;
     private final BigDecimal price;
     private final Currency priceUnit;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Map<String, String> links;
     private final URI url;
 
@@ -450,7 +451,7 @@ public class Fax extends Resource {
      * @return The ISO 8601 formatted date and time in GMT when the resource was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -461,7 +462,7 @@ public class Fax extends Resource {
      * @return The ISO 8601 formatted date and time in GMT when the resource was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -535,29 +536,5 @@ public class Fax extends Resource {
                             dateUpdated,
                             links,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("from", from)
-                          .add("to", to)
-                          .add("quality", quality)
-                          .add("mediaSid", mediaSid)
-                          .add("mediaUrl", mediaUrl)
-                          .add("numPages", numPages)
-                          .add("duration", duration)
-                          .add("status", status)
-                          .add("direction", direction)
-                          .add("apiVersion", apiVersion)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("links", links)
-                          .add("url", url)
-                          .toString();
     }
 }

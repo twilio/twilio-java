@@ -10,7 +10,6 @@ package com.twilio.rest.wireless.v1.sim;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,12 +18,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
 public class DataSessionReader extends Reader<DataSession> {
     private final String pathSimSid;
-    private DateTime end;
-    private DateTime start;
 
     /**
      * Construct a new DataSessionReader.
@@ -33,31 +29,6 @@ public class DataSessionReader extends Reader<DataSession> {
      */
     public DataSessionReader(final String pathSimSid) {
         this.pathSimSid = pathSimSid;
-    }
-
-    /**
-     * The date that the record ended, given as GMT in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format..
-     *
-     * @param end The date that the record ended, given as GMT in ISO 8601 format
-     * @return this
-     */
-    public DataSessionReader setEnd(final DateTime end) {
-        this.end = end;
-        return this;
-    }
-
-    /**
-     * The date that the Data Session started, given as GMT in [ISO
-     * 8601](https://www.iso.org/iso-8601-date-and-time-format.html) format..
-     *
-     * @param start The date that the Data Session started, given as GMT in ISO
-     *              8601 format
-     * @return this
-     */
-    public DataSessionReader setStart(final DateTime start) {
-        this.start = start;
-        return this;
     }
 
     /**
@@ -154,7 +125,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
         if (response == null) {
             throw new ApiConnectionException("DataSession read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -176,14 +147,6 @@ public class DataSessionReader extends Reader<DataSession> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (end != null) {
-            request.addQueryParam("End", end.toString());
-        }
-
-        if (start != null) {
-            request.addQueryParam("Start", start.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

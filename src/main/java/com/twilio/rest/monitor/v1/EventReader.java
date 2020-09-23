@@ -19,15 +19,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class EventReader extends Reader<Event> {
     private String actorSid;
     private String eventType;
     private String resourceSid;
     private String sourceIpAddress;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
 
     /**
      * Only include events initiated by this Actor. Useful for auditing actions
@@ -42,8 +43,9 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include events of this [Event
-     * Type](https://www.twilio.com/docs/usage/monitor-events#event-types)..
+     * Only include events of this <a
+     * href="https://www.twilio.com/docs/usage/monitor-events#event-types">Event
+     * Type</a>..
      *
      * @param eventType Only include events of this Event Type
      * @return this
@@ -80,24 +82,26 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Only include events that occurred on or after this date. Specify the date in
-     * GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * GMT and <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * format..
      *
      * @param startDate Only include events that occurred on or after this date
      * @return this
      */
-    public EventReader setStartDate(final DateTime startDate) {
+    public EventReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
     /**
      * Only include events that occurred on or before this date. Specify the date in
-     * GMT and [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * GMT and <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * format..
      *
      * @param endDate Only include events that occurred on or before this date
      * @return this
      */
-    public EventReader setEndDate(final DateTime endDate) {
+    public EventReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -196,7 +200,7 @@ public class EventReader extends Reader<Event> {
 
         if (response == null) {
             throw new ApiConnectionException("Event read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

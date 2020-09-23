@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +36,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class FunctionVersionContent extends Resource {
     private static final long serialVersionUID = 128349955760970L;
 
@@ -44,7 +45,7 @@ public class FunctionVersionContent extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the Function Version
      *                       content from
-     * @param pathFunctionSid The SID of the function that is the parent of the
+     * @param pathFunctionSid The SID of the Function that is the parent of the
      *                        Function Version content to fetch
      * @param pathSid The SID that identifies the Function Version content to fetch
      * @return FunctionVersionContentFetcher capable of executing the fetch
@@ -205,17 +206,5 @@ public class FunctionVersionContent extends Resource {
                             functionSid,
                             content,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("functionSid", functionSid)
-                          .add("content", content)
-                          .add("url", url)
-                          .toString();
     }
 }

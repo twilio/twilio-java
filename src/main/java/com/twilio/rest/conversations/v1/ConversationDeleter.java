@@ -23,6 +23,7 @@ import com.twilio.rest.Domains;
  */
 public class ConversationDeleter extends Deleter<Conversation> {
     private final String pathSid;
+    private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ConversationDeleter.
@@ -31,6 +32,17 @@ public class ConversationDeleter extends Deleter<Conversation> {
      */
     public ConversationDeleter(final String pathSid) {
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ConversationDeleter setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     /**
@@ -47,11 +59,12 @@ public class ConversationDeleter extends Deleter<Conversation> {
             "/v1/Conversations/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Conversation delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -60,5 +73,16 @@ public class ConversationDeleter extends Deleter<Conversation> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 }

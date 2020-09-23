@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Field extends Resource {
     private static final long serialVersionUID = 236424306351624L;
 
@@ -47,7 +48,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resource to fetch
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resource to fetch
      * @param pathSid The unique string that identifies the resource
      * @return FieldFetcher capable of executing the fetch
@@ -64,7 +65,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to read.
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resources to read
      * @return FieldReader capable of executing the read
      */
@@ -79,7 +80,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the new resource
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the new Field resource
      * @param fieldType The Field Type of this field
      * @param uniqueName An application-defined string that uniquely identifies the
@@ -99,7 +100,7 @@ public class Field extends Resource {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to delete
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resource to delete
      * @param pathSid The unique string that identifies the resource
      * @return FieldDeleter capable of executing the delete
@@ -148,8 +149,8 @@ public class Field extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String fieldType;
     private final String taskSid;
     private final String assistantSid;
@@ -201,7 +202,7 @@ public class Field extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -210,7 +211,7 @@ public class Field extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -224,12 +225,13 @@ public class Field extends Resource {
     }
 
     /**
-     * Returns The SID of the [Task](https://www.twilio.com/docs/autopilot/api/task)
-     * resource associated with this Field.
+     * Returns The SID of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/task">Task</a> resource
+     * associated with this Field.
      *
-     * @return The SID of the
-     *         [Task](https://www.twilio.com/docs/autopilot/api/task) resource
-     *         associated with this Field
+     * @return The SID of the <a
+     *         href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
+     *         resource associated with this Field
      */
     public final String getTaskSid() {
         return this.taskSid;
@@ -307,20 +309,5 @@ public class Field extends Resource {
                             sid,
                             uniqueName,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("fieldType", fieldType)
-                          .add("taskSid", taskSid)
-                          .add("assistantSid", assistantSid)
-                          .add("sid", sid)
-                          .add("uniqueName", uniqueName)
-                          .add("url", url)
-                          .toString();
     }
 }

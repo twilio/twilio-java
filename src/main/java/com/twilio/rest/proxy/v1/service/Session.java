@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Session extends Resource {
     private static final long serialVersionUID = 199644364043028L;
 
@@ -191,17 +192,17 @@ public class Session extends Resource {
     private final String sid;
     private final String serviceSid;
     private final String accountSid;
-    private final DateTime dateStarted;
-    private final DateTime dateEnded;
-    private final DateTime dateLastInteraction;
-    private final DateTime dateExpiry;
+    private final ZonedDateTime dateStarted;
+    private final ZonedDateTime dateEnded;
+    private final ZonedDateTime dateLastInteraction;
+    private final ZonedDateTime dateExpiry;
     private final String uniqueName;
     private final Session.Status status;
     private final String closedReason;
     private final Integer ttl;
     private final Session.Mode mode;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -288,7 +289,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session started
      */
-    public final DateTime getDateStarted() {
+    public final ZonedDateTime getDateStarted() {
         return this.dateStarted;
     }
 
@@ -297,7 +298,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session ended
      */
-    public final DateTime getDateEnded() {
+    public final ZonedDateTime getDateEnded() {
         return this.dateEnded;
     }
 
@@ -306,7 +307,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session last had an interaction
      */
-    public final DateTime getDateLastInteraction() {
+    public final ZonedDateTime getDateLastInteraction() {
         return this.dateLastInteraction;
     }
 
@@ -315,7 +316,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date when the Session should expire
      */
-    public final DateTime getDateExpiry() {
+    public final ZonedDateTime getDateExpiry() {
         return this.dateExpiry;
     }
 
@@ -369,7 +370,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -378,7 +379,7 @@ public class Session extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -448,27 +449,5 @@ public class Session extends Resource {
                             dateUpdated,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("serviceSid", serviceSid)
-                          .add("accountSid", accountSid)
-                          .add("dateStarted", dateStarted)
-                          .add("dateEnded", dateEnded)
-                          .add("dateLastInteraction", dateLastInteraction)
-                          .add("dateExpiry", dateExpiry)
-                          .add("uniqueName", uniqueName)
-                          .add("status", status)
-                          .add("closedReason", closedReason)
-                          .add("ttl", ttl)
-                          .add("mode", mode)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

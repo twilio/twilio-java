@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
 public class EntityDeleter extends Deleter<Entity> {
     private final String pathServiceSid;
     private final String pathIdentity;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new EntityDeleter.
@@ -36,6 +37,17 @@ public class EntityDeleter extends Deleter<Entity> {
                          final String pathIdentity) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
+    }
+
+    /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public EntityDeleter setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
+        return this;
     }
 
     /**
@@ -52,11 +64,12 @@ public class EntityDeleter extends Deleter<Entity> {
             "/v2/Services/" + this.pathServiceSid + "/Entities/" + this.pathIdentity + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Entity delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -65,5 +78,16 @@ public class EntityDeleter extends Deleter<Entity> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 }

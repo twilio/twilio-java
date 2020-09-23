@@ -61,8 +61,9 @@ public class QueryCreator extends Creator<Query> {
     }
 
     /**
-     * The SID or unique name of the [Model
-     * Build](https://www.twilio.com/docs/autopilot/api/model-build) to be queried..
+     * The SID or unique name of the <a
+     * href="https://www.twilio.com/docs/autopilot/api/model-build">Model Build</a>
+     * to be queried..
      *
      * @param modelBuild The SID or unique name of the Model Build to be queried
      * @return this
@@ -92,7 +93,7 @@ public class QueryCreator extends Creator<Query> {
 
         if (response == null) {
             throw new ApiConnectionException("Query creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

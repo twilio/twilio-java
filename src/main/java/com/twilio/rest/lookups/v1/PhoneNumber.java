@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 198564396301377L;
 
@@ -235,18 +236,5 @@ public class PhoneNumber extends Resource {
                             carrier,
                             addOns,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("callerName", callerName)
-                          .add("countryCode", countryCode)
-                          .add("phoneNumber", phoneNumber)
-                          .add("nationalFormat", nationalFormat)
-                          .add("carrier", carrier)
-                          .add("addOns", addOns)
-                          .add("url", url)
-                          .toString();
     }
 }

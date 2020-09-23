@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathServiceSid;
@@ -25,7 +26,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathChannelSid;
     private UserChannel.NotificationLevel notificationLevel;
     private Integer lastConsumedMessageIndex;
-    private DateTime lastConsumptionTimestamp;
+    private ZonedDateTime lastConsumptionTimestamp;
 
     /**
      * Construct a new UserChannelUpdater.
@@ -58,10 +59,10 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
-     * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
-     * read..
+     * The index of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a> in
+     * the <a href="https://www.twilio.com/docs/chat/channels">Channel</a> that the
+     * Member has read..
      *
      * @param lastConsumedMessageIndex The index of the last Message that the
      *                                 Member has read within the Channel
@@ -73,17 +74,18 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
-     * for the Member within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
+     * of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
+     * read event for the Member within the <a
+     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string that
      *                                 represents the datetime of the last Message
      *                                 read event for the Member within the Channel
      * @return this
      */
-    public UserChannelUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+    public UserChannelUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
@@ -108,7 +110,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
 
         if (response == null) {
             throw new ApiConnectionException("UserChannel update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

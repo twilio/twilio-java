@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Workspace extends Resource {
     private static final long serialVersionUID = 173419493907327L;
 
@@ -150,8 +151,8 @@ public class Workspace extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String defaultActivityName;
     private final String defaultActivitySid;
     private final URI eventCallbackUrl;
@@ -227,7 +228,7 @@ public class Workspace extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -236,7 +237,7 @@ public class Workspace extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -400,26 +401,5 @@ public class Workspace extends Resource {
                             prioritizeQueueOrder,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("defaultActivityName", defaultActivityName)
-                          .add("defaultActivitySid", defaultActivitySid)
-                          .add("eventCallbackUrl", eventCallbackUrl)
-                          .add("eventsFilter", eventsFilter)
-                          .add("friendlyName", friendlyName)
-                          .add("multiTaskEnabled", multiTaskEnabled)
-                          .add("sid", sid)
-                          .add("timeoutActivityName", timeoutActivityName)
-                          .add("timeoutActivitySid", timeoutActivitySid)
-                          .add("prioritizeQueueOrder", prioritizeQueueOrder)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

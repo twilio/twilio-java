@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -26,13 +27,14 @@ import org.joda.time.DateTime;
 public class ConversationUpdater extends Updater<Conversation> {
     private final String pathSid;
     private String friendlyName;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private String messagingServiceSid;
     private Conversation.State state;
     private String timersInactive;
     private String timersClosed;
+    private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ConversationUpdater.
@@ -61,7 +63,7 @@ public class ConversationUpdater extends Updater<Conversation> {
      * @param dateCreated The date that this resource was created.
      * @return this
      */
-    public ConversationUpdater setDateCreated(final DateTime dateCreated) {
+    public ConversationUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -72,7 +74,7 @@ public class ConversationUpdater extends Updater<Conversation> {
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
-    public ConversationUpdater setDateUpdated(final DateTime dateUpdated) {
+    public ConversationUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -92,11 +94,11 @@ public class ConversationUpdater extends Updater<Conversation> {
     }
 
     /**
-     * The unique id of the [SMS
-     * Service](https://www.twilio.com/docs/sms/services/api) this conversation
-     * belongs to..
+     * The unique ID of the <a
+     * href="https://www.twilio.com/docs/sms/services/api">Messaging Service</a>
+     * this conversation belongs to..
      *
-     * @param messagingServiceSid The unique id of the SMS Service this
+     * @param messagingServiceSid The unique ID of the Messaging Service this
      *                            conversation belongs to.
      * @return this
      */
@@ -144,6 +146,17 @@ public class ConversationUpdater extends Updater<Conversation> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ConversationUpdater setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -159,11 +172,12 @@ public class ConversationUpdater extends Updater<Conversation> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Conversation update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -172,6 +186,17 @@ public class ConversationUpdater extends Updater<Conversation> {
         }
 
         return Conversation.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

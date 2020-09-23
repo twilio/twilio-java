@@ -1,19 +1,15 @@
 package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Predicate;
+
+import java.util.function.Predicate;
 
 public class TwilioRestClient {
 
     public static final int HTTP_STATUS_CODE_CREATED = 201;
     public static final int HTTP_STATUS_CODE_NO_CONTENT = 204;
     public static final int HTTP_STATUS_CODE_OK = 200;
-    public static final Predicate<Integer> SUCCESS = new Predicate<Integer>() {
-        @Override
-        public boolean apply(Integer i) {
-            return i != null && i >= 200 && i < 300;
-        }
-    };
+    public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
     private final ObjectMapper objectMapper;
     private final String username;

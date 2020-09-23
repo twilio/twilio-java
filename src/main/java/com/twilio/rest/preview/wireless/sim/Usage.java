@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,6 +37,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Usage extends Resource {
     private static final long serialVersionUID = 16456693522984L;
 
@@ -242,20 +243,5 @@ public class Usage extends Resource {
                             dataUsage,
                             dataCosts,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("simSid", simSid)
-                          .add("simUniqueName", simUniqueName)
-                          .add("accountSid", accountSid)
-                          .add("period", period)
-                          .add("commandsUsage", commandsUsage)
-                          .add("commandsCosts", commandsCosts)
-                          .add("dataUsage", dataUsage)
-                          .add("dataCosts", dataCosts)
-                          .add("url", url)
-                          .toString();
     }
 }

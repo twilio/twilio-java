@@ -20,7 +20,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ConferenceReader extends Reader<Conference> {
     private String pathAccountSid;
@@ -227,7 +229,7 @@ public class ConferenceReader extends Reader<Conference> {
 
         if (response == null) {
             throw new ApiConnectionException("Conference read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -250,13 +252,13 @@ public class ConferenceReader extends Reader<Conference> {
      */
     private void addQueryParams(final Request request) {
         if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
         } else if (rangeDateCreated != null) {
             request.addQueryDateRange("DateCreated", rangeDateCreated);
         }
 
         if (absoluteDateUpdated != null) {
-            request.addQueryParam("DateUpdated", absoluteDateUpdated.toString(Request.QUERY_STRING_DATE_FORMAT));
+            request.addQueryParam("DateUpdated", absoluteDateUpdated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
         } else if (rangeDateUpdated != null) {
             request.addQueryDateRange("DateUpdated", rangeDateUpdated);
         }

@@ -153,8 +153,8 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
      * Whether Caller ID Name (CNAM) lookup is enabled for the trunk. If enabled,
      * all inbound calls to the BYOC Trunk from the United States and Canada
      * automatically perform a CNAM Lookup and display Caller ID data on your phone.
-     * See [CNAM Lookups](https://www.twilio.com/docs/sip-trunking#CNAM) for more
-     * information..
+     * See <a href="https://www.twilio.com/docs/sip-trunking#CNAM">CNAM Lookups</a>
+     * for more information..
      *
      * @param cnamLookupEnabled Whether Caller ID Name (CNAM) lookup is enabled for
      *                          the trunk
@@ -180,9 +180,9 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
     /**
      * The SID of the SIP Domain that should be used in the `From` header of
      * originating calls sent to your SIP infrastructure. If your SIP infrastructure
-     * allows users to "call back" an incoming call, configure this with a [SIP
-     * Domain](https://www.twilio.com/docs/voice/api/sending-sip) to ensure proper
-     * routing. If not configured, the from domain will default to
+     * allows users to "call back" an incoming call, configure this with a <a
+     * href="https://www.twilio.com/docs/voice/api/sending-sip">SIP Domain</a> to
+     * ensure proper routing. If not configured, the from domain will default to
      * "sip.twilio.com"..
      *
      * @param fromDomainSid The SID of the SIP Domain that should be used in the
@@ -214,7 +214,7 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
 
         if (response == null) {
             throw new ApiConnectionException("ByocTrunk creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

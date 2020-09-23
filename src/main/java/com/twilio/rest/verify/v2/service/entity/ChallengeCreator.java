@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,9 +29,10 @@ public class ChallengeCreator extends Creator<Challenge> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String factorSid;
-    private DateTime expirationDate;
+    private ZonedDateTime expirationDate;
     private String details;
     private String hiddenDetails;
+    private String twilioSandboxMode;
 
     /**
      * Construct a new ChallengeCreator.
@@ -48,19 +50,26 @@ public class ChallengeCreator extends Creator<Challenge> {
     }
 
     /**
-     * The future date in which this Challenge will expire, given in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * The future date in which this Challenge will expire, given in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param expirationDate The future date in which this Challenge will expire
      * @return this
      */
-    public ChallengeCreator setExpirationDate(final DateTime expirationDate) {
+    public ChallengeCreator setExpirationDate(final ZonedDateTime expirationDate) {
         this.expirationDate = expirationDate;
         return this;
     }
 
     /**
-     * Details provided to give context about the Challenge. Shown to the end user..
+     * Details provided to give context about the Challenge. Shown to the end user.
+     * It must be a stringified JSON with the following structure: {"message":
+     * "string", "fields": <a href="https://www.twilio.com/docs/verify/api/service">
+     * { "label": "string", "value": "string"}]}. `message` is required. If you send
+     * the `fields` property, each field has to include `label` and `value`
+     * properties. If you had set `include_date=true` in the `push` configuration of
+     * the [service</a>, the response will also include the challenge's date created
+     * value as an additional field called `date`.
      *
      * @param details Public details provided to contextualize the Challenge
      * @return this
@@ -72,13 +81,25 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Details provided to give context about the Challenge. Not shown to the end
-     * user..
+     * user. It must be a stringified JSON with only strings values eg. `{"ip":
+     * "172.168.1.234"}`.
      *
      * @param hiddenDetails Hidden details provided to contextualize the Challenge
      * @return this
      */
     public ChallengeCreator setHiddenDetails(final String hiddenDetails) {
         this.hiddenDetails = hiddenDetails;
+        return this;
+    }
+
+    /**
+     * The Twilio-Sandbox-Mode HTTP request header.
+     *
+     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
+     * @return this
+     */
+    public ChallengeCreator setTwilioSandboxMode(final String twilioSandboxMode) {
+        this.twilioSandboxMode = twilioSandboxMode;
         return this;
     }
 
@@ -98,11 +119,12 @@ public class ChallengeCreator extends Creator<Challenge> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Challenge creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -111,6 +133,17 @@ public class ChallengeCreator extends Creator<Challenge> {
         }
 
         return Challenge.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (twilioSandboxMode != null) {
+            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
+        }
     }
 
     /**

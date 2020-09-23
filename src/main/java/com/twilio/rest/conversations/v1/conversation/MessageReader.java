@@ -29,7 +29,7 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      *
-     * @param pathConversationSid The unique id of the Conversation for messages.
+     * @param pathConversationSid The unique ID of the Conversation for messages.
      */
     public MessageReader(final String pathConversationSid) {
         this.pathConversationSid = pathConversationSid;
@@ -129,7 +129,7 @@ public class MessageReader extends Reader<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

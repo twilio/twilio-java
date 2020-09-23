@@ -1,7 +1,7 @@
 package com.twilio.converter;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.time.LocalDate;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,38 +14,38 @@ public class DateConverterTest {
 
     @Test
     public void testRfc2822() {
-        DateTime dt = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
+        ZonedDateTime dt = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
 
-        Assert.assertEquals(2, dt.getDayOfWeek());
+        Assert.assertEquals(2, dt.getDayOfWeek().getValue());
         Assert.assertEquals(29, dt.getDayOfMonth());
-        Assert.assertEquals(3, dt.getMonthOfYear());
+        Assert.assertEquals(3, dt.getMonthValue());
         Assert.assertEquals(2016, dt.getYear());
-        Assert.assertEquals(13, dt.getHourOfDay());
-        Assert.assertEquals(0, dt.getMinuteOfHour());
-        Assert.assertEquals(5, dt.getSecondOfMinute());
+        Assert.assertEquals(13, dt.getHour());
+        Assert.assertEquals(0, dt.getMinute());
+        Assert.assertEquals(5, dt.getSecond());
     }
 
     @Test
     public void testInvalidRfc2822() {
-        DateTime dt = DateConverter.rfc2822DateTimeFromString("gibberish");
+        ZonedDateTime dt = DateConverter.rfc2822DateTimeFromString("gibberish");
         Assert.assertNull(dt);
     }
 
     @Test
     public void testIso8601() {
-        DateTime dt = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
+        ZonedDateTime dt = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
 
         Assert.assertEquals(15, dt.getDayOfMonth());
-        Assert.assertEquals(1, dt.getMonthOfYear());
+        Assert.assertEquals(1, dt.getMonthValue());
         Assert.assertEquals(2016, dt.getYear());
-        Assert.assertEquals(21, dt.getHourOfDay());
-        Assert.assertEquals(49, dt.getMinuteOfHour());
-        Assert.assertEquals(24, dt.getSecondOfMinute());
+        Assert.assertEquals(21, dt.getHour());
+        Assert.assertEquals(49, dt.getMinute());
+        Assert.assertEquals(24, dt.getSecond());
     }
 
     @Test
     public void testInvalidIso8601() {
-        DateTime dt = DateConverter.iso8601DateTimeFromString("blanks");
+        ZonedDateTime dt = DateConverter.iso8601DateTimeFromString("blanks");
         Assert.assertNull(dt);
     }
 
@@ -54,7 +54,7 @@ public class DateConverterTest {
         LocalDate ld = DateConverter.localDateFromString("2016-11-11");
 
         Assert.assertEquals(2016, ld.getYear());
-        Assert.assertEquals(11, ld.getMonthOfYear());
+        Assert.assertEquals(11, ld.getMonthValue());
         Assert.assertEquals(11, ld.getDayOfMonth());
     }
 
@@ -66,21 +66,21 @@ public class DateConverterTest {
 
     @Test
     public void testLocalDateToString() {
-        String date = DateConverter.dateStringFromLocalDate(new LocalDate(2016, 9, 21));
+        String date = DateConverter.dateStringFromLocalDate(LocalDate.of(2016, 9, 21));
         Assert.assertEquals("2016-09-21", date);
     }
 
     @Test
     public void testDifferentLocaleRFC2822() {
         Locale.setDefault(new Locale("fr", "CA"));
-        DateTime dateTime = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
+        ZonedDateTime dateTime = DateConverter.rfc2822DateTimeFromString("Tue, 29 Mar 2016 13:00:05 +0000");
         Assert.assertNotNull(dateTime);
     }
 
     @Test
     public void testDifferentLocaleISO8601() {
         Locale.setDefault(new Locale("fr", "CA"));
-        DateTime dateTime = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
+        ZonedDateTime dateTime = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
         Assert.assertNotNull(dateTime);
     }
 }

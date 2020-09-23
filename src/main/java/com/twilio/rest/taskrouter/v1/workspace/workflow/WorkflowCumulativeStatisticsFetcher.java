@@ -17,14 +17,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulativeStatistics> {
     private final String pathWorkspaceSid;
     private final String pathWorkflowSid;
-    private DateTime endDate;
+    private ZonedDateTime endDate;
     private Integer minutes;
-    private DateTime startDate;
+    private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
@@ -43,12 +44,12 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
 
     /**
      * Only include usage that occurred on or before this date, specified in GMT as
-     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time..
      *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
-    public WorkflowCumulativeStatisticsFetcher setEndDate(final DateTime endDate) {
+    public WorkflowCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -67,13 +68,13 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public WorkflowCumulativeStatisticsFetcher setStartDate(final DateTime startDate) {
+    public WorkflowCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -129,7 +130,7 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
 
         if (response == null) {
             throw new ApiConnectionException("WorkflowCumulativeStatistics fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

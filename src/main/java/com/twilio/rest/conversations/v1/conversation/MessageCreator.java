@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -27,15 +28,16 @@ public class MessageCreator extends Creator<Message> {
     private final String pathConversationSid;
     private String author;
     private String body;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private String mediaSid;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageCreator.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      */
     public MessageCreator(final String pathConversationSid) {
@@ -71,7 +73,7 @@ public class MessageCreator extends Creator<Message> {
      * @param dateCreated The date that this resource was created.
      * @return this
      */
-    public MessageCreator setDateCreated(final DateTime dateCreated) {
+    public MessageCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -83,7 +85,7 @@ public class MessageCreator extends Creator<Message> {
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
-    public MessageCreator setDateUpdated(final DateTime dateUpdated) {
+    public MessageCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -103,13 +105,24 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The Media Sid to be attached to the new Message..
+     * The Media SID to be attached to the new Message..
      *
-     * @param mediaSid The Media Sid to be attached to the new Message.
+     * @param mediaSid The Media SID to be attached to the new Message.
      * @return this
      */
     public MessageCreator setMediaSid(final String mediaSid) {
         this.mediaSid = mediaSid;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -129,11 +142,12 @@ public class MessageCreator extends Creator<Message> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -142,6 +156,17 @@ public class MessageCreator extends Creator<Message> {
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

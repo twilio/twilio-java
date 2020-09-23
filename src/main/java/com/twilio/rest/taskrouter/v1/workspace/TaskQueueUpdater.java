@@ -108,8 +108,9 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
     /**
      * How Tasks will be assigned to Workers. Can be: `FIFO` or `LIFO` and the
      * default is `FIFO`. Use `FIFO` to assign the oldest task first and `LIFO` to
-     * assign the most recent task first. For more information, see [Queue
-     * Ordering](https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo)..
+     * assign the most recent task first. For more information, see <a
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Queue
+     * Ordering</a>..
      *
      * @param taskOrder How Tasks will be assigned to Workers
      * @return this
@@ -139,7 +140,7 @@ public class TaskQueueUpdater extends Updater<TaskQueue> {
 
         if (response == null) {
             throw new ApiConnectionException("TaskQueue update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

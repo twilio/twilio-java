@@ -1,23 +1,21 @@
 package com.twilio.type;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
 
-import lombok.ToString;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
 /**
  * Subscribe Rule Update - Used to update the list of Subscribe Rules
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
  * </p>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribeRulesUpdate {
     @JsonProperty("rules")

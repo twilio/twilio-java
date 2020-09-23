@@ -1,9 +1,17 @@
 package com.twilio.twiml;
 
+import lombok.ToString;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -13,16 +21,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-
-import lombok.ToString;
-
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
 @ToString
@@ -97,7 +95,7 @@ public abstract class TwiML {
             node.appendChild(parentDoc.createTextNode(body));
         }
 
-        for (Map.Entry<String,String> attr : this.getElementAttributes().entrySet()) {
+        for (Map.Entry<String, String> attr : this.getElementAttributes().entrySet()) {
             node.setAttribute(getTransformedAttrName(attr.getKey()), attr.getValue());
         }
 
@@ -195,7 +193,7 @@ public abstract class TwiML {
          */
         public T option(String key, String value) {
             this.options.put(key, value);
-            return (T)this;
+            return (T) this;
         }
 
         /**
@@ -203,7 +201,7 @@ public abstract class TwiML {
          */
         public T addText(String text) {
             this.children.add(new Text(text));
-            return (T)this;
+            return (T) this;
         }
 
         /**
@@ -211,9 +209,7 @@ public abstract class TwiML {
          */
         public T addChild(GenericNode node) {
             this.children.add(node);
-            return (T)this;
+            return (T) this;
         }
-
-
     }
 }

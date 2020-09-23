@@ -3,10 +3,9 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.Objects;
-
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -40,7 +39,7 @@ public class OutboundCallPrice {
 
         OutboundCallPrice that = (OutboundCallPrice) o;
         return Objects.equals(this.basePrice, that.basePrice) &&
-               Objects.equals(this.currentPrice, that.currentPrice);
+            Objects.equals(this.currentPrice, that.currentPrice);
     }
 
     @Override

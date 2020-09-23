@@ -3,18 +3,17 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
-
-import lombok.ToString;
 
 /**
  * Pricing details per sms.
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,10 +27,10 @@ public class OutboundSmsPrice {
     /**
      * Initialize a OutboundSmsPrice.
      *
-     * @param mcc mcc identifier
-     * @param mnc mnc identifier
+     * @param mcc     mcc identifier
+     * @param mnc     mnc identifier
      * @param carrier carrier name
-     * @param prices prices for incoming sms
+     * @param prices  prices for incoming sms
      */
     @JsonCreator
     public OutboundSmsPrice(@JsonProperty("mcc") final String mcc,
@@ -71,9 +70,9 @@ public class OutboundSmsPrice {
 
         OutboundSmsPrice other = (OutboundSmsPrice) o;
         return Objects.equals(this.mcc, other.mcc) &&
-               Objects.equals(this.mnc, other.mnc) &&
-               Objects.equals(this.carrier, other.carrier) &&
-               Objects.equals(this.prices, other.prices);
+            Objects.equals(this.mnc, other.mnc) &&
+            Objects.equals(this.carrier, other.carrier) &&
+            Objects.equals(this.prices, other.prices);
     }
 
     @Override

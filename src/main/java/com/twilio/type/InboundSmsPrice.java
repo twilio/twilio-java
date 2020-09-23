@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.twilio.converter.Promoter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -13,8 +14,8 @@ import lombok.ToString;
  * Pricing for inbound sms.
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -49,9 +50,9 @@ public class InboundSmsPrice {
     /**
      * Initialize an InboundSmsPrice.
      *
-     * @param basePrice base price for sms
+     * @param basePrice    base price for sms
      * @param currentPrice current price for sms
-     * @param type type of phone number
+     * @param type         type of phone number
      */
     @JsonCreator
     public InboundSmsPrice(@JsonProperty("base_price") final double basePrice,
@@ -86,8 +87,8 @@ public class InboundSmsPrice {
 
         InboundSmsPrice other = (InboundSmsPrice) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
-               Objects.equals(this.currentPrice, other.currentPrice) &&
-               Objects.equals(this.type, other.type);
+            Objects.equals(this.currentPrice, other.currentPrice) &&
+            Objects.equals(this.type, other.type);
     }
 
     @Override

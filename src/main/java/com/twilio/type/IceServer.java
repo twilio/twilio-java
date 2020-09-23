@@ -3,11 +3,10 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.net.URI;
 import java.util.Objects;
-
-import lombok.ToString;
 
 /**
  * POJO representation of a Twilio ICE server.
@@ -31,9 +30,9 @@ public class IceServer {
      */
     @JsonCreator
     public IceServer(@JsonProperty("credential") final String credential,
-            @JsonProperty("username") final String username,
-            @JsonProperty("url") final URI url,
-            @JsonProperty("urls") final URI urls) {
+                     @JsonProperty("username") final String username,
+                     @JsonProperty("url") final URI url,
+                     @JsonProperty("urls") final URI urls) {
         this.credential = credential;
         this.username = username;
         this.url = url;
@@ -69,9 +68,9 @@ public class IceServer {
         IceServer other = (IceServer) o;
 
         return (Objects.equals(credential, other.credential) &&
-                Objects.equals(username, other.username) &&
-                Objects.equals(url, other.url) &&
-                Objects.equals(urls, other.urls));
+            Objects.equals(username, other.username) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(urls, other.urls));
     }
 
     @Override

@@ -1,17 +1,16 @@
 package com.twilio.taskrouter;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.util.List;
-
-import lombok.ToString;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -37,6 +36,7 @@ public class WorkflowRule extends TaskRouterResource {
 
     /**
      * Define a workflow rule.
+     *
      * @param b workflow rule builder
      * @throws IllegalArgumentException if expression or targets is empty
      */
@@ -48,6 +48,7 @@ public class WorkflowRule extends TaskRouterResource {
 
     /**
      * Get the expression for the workflow rule.
+     *
      * @return the expression
      */
     public String getExpression() {
@@ -56,6 +57,7 @@ public class WorkflowRule extends TaskRouterResource {
 
     /**
      * Get the friendly name / label for the workflow rule.
+     *
      * @return the friendly name
      */
     public String getFriendlyName() {
@@ -64,6 +66,7 @@ public class WorkflowRule extends TaskRouterResource {
 
     /**
      * Get the list of workflow rule targets for this workflow rule.
+     *
      * @return list of workflow rule targets
      */
     @JsonIgnore
@@ -102,6 +105,5 @@ public class WorkflowRule extends TaskRouterResource {
         public WorkflowRule build() {
             return new WorkflowRule(this);
         }
-
     }
 }

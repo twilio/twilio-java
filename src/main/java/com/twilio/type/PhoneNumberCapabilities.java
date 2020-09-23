@@ -3,10 +3,9 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.Objects;
-
-import lombok.ToString;
 
 /**
  * Capabilities of a Phone Number.
@@ -71,9 +70,9 @@ public class PhoneNumberCapabilities {
 
         PhoneNumberCapabilities other = (PhoneNumberCapabilities) o;
         return Objects.equals(this.mms, other.mms) &&
-               Objects.equals(this.sms, other.sms) &&
-               Objects.equals(this.voice, other.voice) &&
-               Objects.equals(this.fax, other.fax);
+            Objects.equals(this.sms, other.sms) &&
+            Objects.equals(this.voice, other.voice) &&
+            Objects.equals(this.fax, other.fax);
     }
 
     @Override

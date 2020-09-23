@@ -6,10 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.ToString;
 
 import java.io.IOException;
-
-import lombok.ToString;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -63,6 +62,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the queue for the workflow rule target.
+     *
      * @return queue sid
      */
     public String getQueue() {
@@ -71,6 +71,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the expression for the workflow rule target to limit the workers selected.
+     *
      * @return the expression
      */
     public String getExpression() {
@@ -79,6 +80,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the priority for the workflow rule target.
+     *
      * @return the priority
      */
     public Integer getPriority() {
@@ -87,6 +89,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the timeout for the workflow rule target.
+     *
      * @return the timeout
      */
     public Integer getTimeout() {
@@ -95,6 +98,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the orderBy for the workflow rule target.
+     *
      * @return the orderBy
      */
     public String getOrderBy() {
@@ -103,6 +107,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the skipIf for the workflow rule target.
+     *
      * @return the skipIf
      */
     public String getSkipIf() {
@@ -162,6 +167,5 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         public WorkflowRuleTarget build() {
             return new WorkflowRuleTarget(this);
         }
-
     }
 }

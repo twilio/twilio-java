@@ -3,11 +3,10 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
-
-import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -25,11 +24,17 @@ public class OutboundCallPriceWithOrigin {
         this.originationPrefixes = originationPrefixes;
     }
 
-    public double getBasePrice() { return basePrice; }
+    public double getBasePrice() {
+        return basePrice;
+    }
 
-    public double getCurrentPrice() { return currentPrice; }
+    public double getCurrentPrice() {
+        return currentPrice;
+    }
 
-    public List<String> getOriginationPrefixes() { return originationPrefixes; }
+    public List<String> getOriginationPrefixes() {
+        return originationPrefixes;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -43,10 +48,12 @@ public class OutboundCallPriceWithOrigin {
 
         OutboundCallPriceWithOrigin other = (OutboundCallPriceWithOrigin) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
-               Objects.equals(this.currentPrice, other.currentPrice) &&
-               Objects.equals(this.originationPrefixes, other.originationPrefixes);
+            Objects.equals(this.currentPrice, other.currentPrice) &&
+            Objects.equals(this.originationPrefixes, other.originationPrefixes);
     }
 
     @Override
-    public int hashCode() { return Objects.hash(this.basePrice, this.currentPrice, this.originationPrefixes); }
+    public int hashCode() {
+        return Objects.hash(this.basePrice, this.currentPrice, this.originationPrefixes);
+    }
 }

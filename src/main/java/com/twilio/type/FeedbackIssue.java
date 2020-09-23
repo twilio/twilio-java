@@ -3,17 +3,16 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.Objects;
-
-import lombok.ToString;
 
 /**
  * Representation of a Feedback Issue.
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/api/rest/call-feedback>Feedback docs</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/api/rest/call-feedback>Feedback docs</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -26,8 +25,8 @@ public class FeedbackIssue {
     /**
      * Initialize a FeedbackIssue.
      *
-     * @param count number of times reported
-     * @param description description of issue
+     * @param count                  number of times reported
+     * @param description            description of issue
      * @param percentageOfTotalCalls percentage of affected calls
      */
     @JsonCreator
@@ -63,8 +62,8 @@ public class FeedbackIssue {
 
         FeedbackIssue other = (FeedbackIssue) o;
         return Objects.equals(this.count, other.count) &&
-               Objects.equals(this.description, other.description) &&
-               Objects.equals(this.percentageOfTotalCalls, other.getPercentageOfTotalCalls());
+            Objects.equals(this.description, other.description) &&
+            Objects.equals(this.percentageOfTotalCalls, other.getPercentageOfTotalCalls());
     }
 
     @Override

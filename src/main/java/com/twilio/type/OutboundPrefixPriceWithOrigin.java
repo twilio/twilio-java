@@ -3,15 +3,13 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
 
-import lombok.ToString;
-
 /**
  * Outbound prices for prefixes with origin.
- *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -28,9 +26,9 @@ public class OutboundPrefixPriceWithOrigin {
      *
      * @param destination_prefixes destination price prefixes
      * @param origination_prefixes origination price prefixes
-     * @param friendlyName friend name for the price
-     * @param basePrice base price
-     * @param currentPrice current price
+     * @param friendlyName         friend name for the price
+     * @param basePrice            base price
+     * @param currentPrice         current price
      */
     @JsonCreator
     public OutboundPrefixPriceWithOrigin(@JsonProperty("destination_prefixes") final List<String> destination_prefixes,
@@ -76,10 +74,10 @@ public class OutboundPrefixPriceWithOrigin {
 
         OutboundPrefixPriceWithOrigin other = (OutboundPrefixPriceWithOrigin) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
-                Objects.equals(this.currentPrice, other.currentPrice) &&
-                Objects.equals(this.destination_prefixes, other.destination_prefixes) &&
-                Objects.equals(this.origination_prefixes, other.origination_prefixes) &&
-                Objects.equals(this.friendlyName, other.friendlyName);
+            Objects.equals(this.currentPrice, other.currentPrice) &&
+            Objects.equals(this.destination_prefixes, other.destination_prefixes) &&
+            Objects.equals(this.origination_prefixes, other.origination_prefixes) &&
+            Objects.equals(this.friendlyName, other.friendlyName);
     }
 
     @Override

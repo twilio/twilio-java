@@ -92,6 +92,16 @@ Twilio.setEdge("sydney");
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
+### Environment Variables
+
+`twilio-java` supports the credentials, region, and edge values stored in the following environment variables:
+* `TWILIO_ACCOUNT_SID`
+* `TWILIO_AUTH_TOKEN`
+* `TWILIO_REGION`
+* `TWILIO_EDGE`
+
+If using these variables, the above client initialization can be skipped.
+
 ### Send an SMS
 
 ```java

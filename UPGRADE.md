@@ -101,7 +101,7 @@ Methods previously accepting a single `Range<T>` parameter now expect multiple d
 import com.google.common.collect.Range;
 import com.twilio.base.ResourceSet;
 import com.twilio.rest.api.v2010.account.Message;
-import org.joda.time.DateTime;
+
 
 ResourceSet<Message> messages = Message.reader()
             .setDateSent(
@@ -129,7 +129,7 @@ This change effects the type needed for getting/setting date-related properties 
 // 7.x.x
 import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
 import com.twilio.type.PhoneNumber;
-import org.joda.time.DateTime;
+
 
 IncomingPhoneNumber incomingPhoneNumber = IncomingPhoneNumber.fetcher("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
 DateTime dateCreated = incomingPhoneNumber.getDateCreated();

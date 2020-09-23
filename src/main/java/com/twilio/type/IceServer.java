@@ -3,21 +3,18 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
-
-import java.net.URI;
-import java.util.Objects;
+import lombok.Data;
 
 /**
  * POJO representation of a Twilio ICE server.
  */
+@Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class IceServer {
     private final String credential;
     private final String username;
-    private final URI url;
-    private final URI urls;
+    private final String url;
+    private final String urls;
 
 
     /**
@@ -31,50 +28,11 @@ public class IceServer {
     @JsonCreator
     public IceServer(@JsonProperty("credential") final String credential,
                      @JsonProperty("username") final String username,
-                     @JsonProperty("url") final URI url,
-                     @JsonProperty("urls") final URI urls) {
+                     @JsonProperty("url") final String url,
+                     @JsonProperty("urls") final String urls) {
         this.credential = credential;
         this.username = username;
         this.url = url;
         this.urls = urls;
-    }
-
-    public URI getUrl() {
-        return url;
-    }
-
-    public URI getUrls() {
-        return urls;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public String getCredential() {
-        return credential;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        IceServer other = (IceServer) o;
-
-        return (Objects.equals(credential, other.credential) &&
-            Objects.equals(username, other.username) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(urls, other.urls));
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(credential, username, url, urls);
     }
 }

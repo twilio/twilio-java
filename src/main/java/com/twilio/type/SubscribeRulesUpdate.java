@@ -1,6 +1,6 @@
 package com.twilio.type;
 
-import com.google.common.base.MoreObjects;
+import
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

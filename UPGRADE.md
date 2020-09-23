@@ -98,7 +98,7 @@ String canonicalized = new RequestCanonicalizer("GET", "/Messages", "queryParam=
 Methods previously accepting a single `Range<T>` parameter now expect multiple date parameters representing the start and end of the range.
 ```java
 // 7.x.x
-import com.google.common.collect.Range;
+import 
 import com.twilio.base.ResourceSet;
 import com.twilio.rest.api.v2010.account.Message;
 

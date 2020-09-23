@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
+import
 
 import java.io.IOException;
 
@@ -26,10 +26,10 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     @JsonProperty("timeout")
     private final Integer timeout;
-    
+
     @JsonProperty("order_by")
     private final String orderBy;
-    
+
     @JsonProperty("skip_if")
     private final String skipIf;
 
@@ -162,12 +162,12 @@ public class WorkflowRuleTarget extends TaskRouterResource {
             this.timeout = timeout;
             return this;
         }
-        
+
         public Builder orderBy(String orderBy) {
             this.orderBy = orderBy;
             return this;
         }
-        
+
         public Builder skipIf(String skipIf) {
             this.skipIf = skipIf;
             return this;

@@ -298,7 +298,7 @@
         <configuration>
           <reportOutputDirectory>.</reportOutputDirectory>
           <destDir>docs</destDir>
-          <source>7</source>
+          <source>8</source>
           <show>public</show>
           <nohelp>true</nohelp>
           <author>true</author>

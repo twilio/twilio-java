@@ -21,21 +21,23 @@ public class Twilio {
     public static final String VERSION = "7.55.3";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
-    private static String username;
-    private static String password;
-    private static String accountSid;
-    private static String region;
-    private static String edge;
+    private static String username = System.getenv("TWILIO_ACCOUNT_SID");
+    private static String password = System.getenv("TWILIO_AUTH_TOKEN");
+    private static String accountSid; // username used if this is null
+    private static String region = System.getenv("TWILIO_REGION");
+    private static String edge = System.getenv("TWILIO_EDGE");
     private static TwilioRestClient restClient;
     private static ExecutorService executorService;
 
-    private Twilio() {}
+    private Twilio() {
+    }
 
-    /**
+    /*
      * Ensures that the ListeningExecutorService is shutdown when the JVM exits.
      */
     static {
         Runtime.getRuntime().addShutdownHook(new Thread() {
+            @Override
             public void run() {
                 if (executorService != null) {
                     executorService.shutdownNow();
@@ -191,7 +193,7 @@ public class Twilio {
      *
      * @return the Twilio executor service
      */
-    public static ExecutorService getExecutorService() {
+    public static synchronized ExecutorService getExecutorService() {
         if (Twilio.executorService == null) {
             Twilio.executorService = Executors.newCachedThreadPool();
         }

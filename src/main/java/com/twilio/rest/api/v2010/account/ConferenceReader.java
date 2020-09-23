@@ -19,7 +19,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.rest.api.v2010.account.incomingphonenumber.Local;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

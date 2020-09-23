@@ -102,16 +102,20 @@ public class MessageReader extends Reader<Message> {
      * @return this
      */
     public MessageReader setDateSent(final LocalDate dateSent) {
+        this.dateSentBefore = null;
+        this.dateSentAfter = null;
         this.dateSent = dateSent;
         return this;
     }
 
     public MessageReader setDateSentBefore(final LocalDate dateSentBefore) {
+        this.dateSent = null;
         this.dateSentBefore = dateSentBefore;
         return this;
     }
 
     public MessageReader setDateSentAfter(final LocalDate dateSentAfter) {
+        this.dateSent = null;
         this.dateSentAfter = dateSentAfter;
         return this;
     }

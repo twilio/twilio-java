@@ -70,16 +70,20 @@ public class NotificationReader extends Reader<Notification> {
      * @return this
      */
     public NotificationReader setMessageDate(final LocalDate messageDate) {
+        this.messageDateBefore = null;
+        this.messageDateAfter = null;
         this.messageDate = messageDate;
         return this;
     }
 
     public NotificationReader setMessageDateBefore(final LocalDate messageDateBefore) {
+        this.messageDate = null;
         this.messageDateBefore = messageDateBefore;
         return this;
     }
 
     public NotificationReader setMessageDateAfter(final LocalDate messageDateAfter) {
+        this.messageDate = null;
         this.messageDateAfter = messageDateAfter;
         return this;
     }

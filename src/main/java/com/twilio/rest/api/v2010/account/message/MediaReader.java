@@ -68,16 +68,20 @@ public class MediaReader extends Reader<Media> {
      * @return this
      */
     public MediaReader setDateCreated(final LocalDate dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
         this.dateCreated = dateCreated;
         return this;
     }
 
     public MediaReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+        this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
     public MediaReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+        this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }

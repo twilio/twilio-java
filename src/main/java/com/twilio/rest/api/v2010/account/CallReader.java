@@ -135,16 +135,20 @@ public class CallReader extends Reader<Call> {
      * @return this
      */
     public CallReader setStartTime(final ZonedDateTime startTime) {
+        this.startTimeBefore = null;
+        this.startTimeAfter = null;
         this.startTime = startTime;
         return this;
     }
 
     public CallReader setStartTimeBefore(final ZonedDateTime startTimeBefore) {
+        this.startTime = null;
         this.startTimeBefore = startTimeBefore;
         return this;
     }
 
     public CallReader setStartTimeAfter(final ZonedDateTime startTimeAfter) {
+        this.startTime = null;
         this.startTimeAfter = startTimeAfter;
         return this;
     }
@@ -161,16 +165,20 @@ public class CallReader extends Reader<Call> {
      * @return this
      */
     public CallReader setEndTime(final ZonedDateTime endTime) {
+        this.endTimeBefore = null;
+        this.endTimeAfter = null;
         this.endTime = endTime;
         return this;
     }
 
     public CallReader setEndTimeBefore(final ZonedDateTime endTimeBefore) {
+        this.endTime = null;
         this.endTimeBefore = endTimeBefore;
         return this;
     }
 
-    public CallReader setEndTimeAfter(final ZonedDateTime startTimeAfter) {
+    public CallReader setEndTimeAfter(final ZonedDateTime endTimeAfter) {
+        this.endTime = null;
         this.endTimeAfter = endTimeAfter;
         return this;
     }

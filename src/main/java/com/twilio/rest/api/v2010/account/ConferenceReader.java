@@ -62,16 +62,20 @@ public class ConferenceReader extends Reader<Conference> {
      * @return this
      */
     public ConferenceReader setDateCreated(final LocalDate dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
         this.dateCreated = dateCreated;
         return this;
     }
 
     public ConferenceReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+        this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
     public ConferenceReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+        this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -86,16 +90,20 @@ public class ConferenceReader extends Reader<Conference> {
      * @return this
      */
     public ConferenceReader setDateUpdated(final LocalDate dateUpdated) {
+        this.dateUpdatedBefore = null;
+        this.dateUpdatedAfter = null;
         this.dateUpdated = dateUpdated;
         return this;
     }
 
     public ConferenceReader setDateUpdatedBefore(final LocalDate dateUpdatedBefore) {
+        this.dateUpdated = null;
         this.dateUpdatedBefore = dateUpdatedBefore;
         return this;
     }
 
     public ConferenceReader setDateUpdatedAfter(final LocalDate dateUpdatedAfter) {
+        this.dateUpdated = null;
         this.dateUpdatedAfter = dateUpdatedAfter;
         return this;
     }

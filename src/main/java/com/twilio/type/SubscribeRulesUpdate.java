@@ -1,12 +1,13 @@
 package com.twilio.type;
 
-import
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Objects;
+
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 /**
@@ -17,6 +18,7 @@ import java.util.Objects;
  *     <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
  * </p>
  */
+@ToString
 public class SubscribeRulesUpdate {
     @JsonProperty("rules")
     private final List<SubscribeRule> rules;
@@ -40,12 +42,5 @@ public class SubscribeRulesUpdate {
     @Override
     public int hashCode() {
         return Objects.hash(getRules());
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("rules", this.rules)
-                .toString();
     }
 }

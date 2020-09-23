@@ -3,9 +3,10 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import
 
 import java.util.Objects;
+
+import lombok.ToString;
 
 /**
  * Capabilities of a Phone Number.
@@ -16,6 +17,7 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class PhoneNumberCapabilities {
     private final boolean mms;
     private final boolean sms;
@@ -77,15 +79,5 @@ public class PhoneNumberCapabilities {
     @Override
     public int hashCode() {
         return Objects.hash(this.mms, this.sms, this.voice, this.fax);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("MMS", mms)
-                .add("SMS", sms)
-                .add("voice", voice)
-                .add("fax", fax)
-                .toString();
     }
 }

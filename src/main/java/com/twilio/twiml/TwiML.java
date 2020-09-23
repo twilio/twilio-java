@@ -1,7 +1,5 @@
 package com.twilio.twiml;
 
-import
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,6 +14,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
+
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -25,6 +25,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
+@ToString
 public abstract class TwiML {
     private final String tagName;
     private final Builder builder;
@@ -179,16 +180,6 @@ public abstract class TwiML {
             this.getChildren(),
             this.getOptions()
         );
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .add("Body", this.getElementBody())
-            .add("Attributes", this.getElementAttributes())
-            .add("Children", this.getChildren())
-            .add("Options", this.getOptions())
-            .toString();
     }
 
     /**

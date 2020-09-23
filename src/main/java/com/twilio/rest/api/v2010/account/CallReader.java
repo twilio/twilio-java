@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;

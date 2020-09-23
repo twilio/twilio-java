@@ -3,10 +3,11 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import
 import com.twilio.converter.Promoter;
 
 import java.util.Objects;
+
+import lombok.ToString;
 
 /**
  * Pricing for inbound sms.
@@ -17,6 +18,7 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class InboundSmsPrice {
     public enum Type {
         LOCAL("local"),
@@ -91,14 +93,5 @@ public class InboundSmsPrice {
     @Override
     public int hashCode() {
         return Objects.hash(this.basePrice, this.currentPrice, this.type);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("base_price", basePrice)
-                .add("current_price", currentPrice)
-                .add("type", type)
-                .toString();
     }
 }

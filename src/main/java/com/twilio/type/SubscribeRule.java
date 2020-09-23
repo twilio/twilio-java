@@ -6,9 +6,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonValue;
 import com.twilio.converter.Promoter;
 
-import
-
 import java.util.Objects;
+
+import lombok.ToString;
 
 /**
  * Subscribe Rule
@@ -19,6 +19,7 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class SubscribeRule {
     public enum Type {
         INCLUDE("include"),
@@ -287,17 +288,5 @@ public class SubscribeRule {
     @Override
     public int hashCode() {
         return Objects.hash(getType(), getAll(), getPublisher(), getTrack(), getKind(), getPriority());
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("type", this.type)
-                .add("all", this.all)
-                .add("publisher", this.publisher)
-                .add("track", this.track)
-                .add("kind", this.kind)
-                .add("priority", this.priority)
-                .toString();
     }
 }

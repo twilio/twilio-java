@@ -3,10 +3,11 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import
 
 import java.util.List;
 import java.util.Objects;
+
+import lombok.ToString;
 
 /**
  * Outbound prices for prefixes.
@@ -17,6 +18,7 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class OutboundPrefixPrice {
 
     private final List<String> prefixes;
@@ -79,15 +81,4 @@ public class OutboundPrefixPrice {
     public int hashCode() {
         return Objects.hash(this.prefixes, this.friendlyName, this.basePrice, this.currentPrice);
     }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("prefixes", this.prefixes)
-                .add("friendly_name", this.friendlyName)
-                .add("base_price", this.basePrice)
-                .add("current_price", this.currentPrice)
-                .toString();
-    }
-
 }

@@ -6,14 +6,16 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import
 
 import java.io.IOException;
 import java.util.List;
 
+import lombok.ToString;
+
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class TaskRouting extends TaskRouterResource {
 
     @JsonProperty("filters")
@@ -51,14 +53,6 @@ public class TaskRouting extends TaskRouterResource {
      */
     public WorkflowRuleTarget getDefaultTarget() {
         return defaultTarget;
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .add("workflowRules", workflowRules)
-            .add("defaultTarget", defaultTarget)
-            .toString();
     }
 
     /**

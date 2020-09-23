@@ -3,15 +3,17 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import
 
 import java.net.URI;
 import java.util.Objects;
+
+import lombok.ToString;
 
 /**
  * POJO representation of a Twilio ICE server.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class IceServer {
     private final String credential;
     private final String username;
@@ -75,15 +77,5 @@ public class IceServer {
     @Override
     public int hashCode() {
         return Objects.hash(credential, username, url, urls);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("credential", credential)
-                .add("username", username)
-                .add("url", url)
-                .add("urls", urls)
-                .toString();
     }
 }

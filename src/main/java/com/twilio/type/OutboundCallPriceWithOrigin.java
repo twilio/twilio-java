@@ -3,12 +3,14 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import
 
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class OutboundCallPriceWithOrigin {
     private final double basePrice;
     private final double currentPrice;
@@ -47,13 +49,4 @@ public class OutboundCallPriceWithOrigin {
 
     @Override
     public int hashCode() { return Objects.hash(this.basePrice, this.currentPrice, this.originationPrefixes); }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .add("base_price", this.basePrice)
-            .add("current_price", this.currentPrice)
-            .add("origination_prefixes", this.originationPrefixes)
-            .toString();
-    }
 }

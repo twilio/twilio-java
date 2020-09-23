@@ -5,14 +5,10 @@ before_install:
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch || true
 matrix:
   include:
-    - jdk: openjdk7
-      dist: trusty
     - jdk: openjdk8
       dist: xenial
     - jdk: openjdk11
       dist: xenial
-  allow_failures:
-    - jdk: openjdk7
 services:
   - docker
 install:

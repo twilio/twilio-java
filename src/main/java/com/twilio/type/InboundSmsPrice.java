@@ -3,8 +3,8 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
 import com.twilio.converter.Promoter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -12,11 +12,12 @@ import java.util.Objects;
  * Pricing for inbound sms.
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/api/pricing/messaging>Message Pricing Docs</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class InboundSmsPrice {
     public enum Type {
         LOCAL("local"),
@@ -47,9 +48,9 @@ public class InboundSmsPrice {
     /**
      * Initialize an InboundSmsPrice.
      *
-     * @param basePrice base price for sms
+     * @param basePrice    base price for sms
      * @param currentPrice current price for sms
-     * @param type type of phone number
+     * @param type         type of phone number
      */
     @JsonCreator
     public InboundSmsPrice(@JsonProperty("base_price") final double basePrice,
@@ -84,21 +85,12 @@ public class InboundSmsPrice {
 
         InboundSmsPrice other = (InboundSmsPrice) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
-               Objects.equals(this.currentPrice, other.currentPrice) &&
-               Objects.equals(this.type, other.type);
+            Objects.equals(this.currentPrice, other.currentPrice) &&
+            Objects.equals(this.type, other.type);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.basePrice, this.currentPrice, this.type);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("base_price", basePrice)
-                .add("current_price", currentPrice)
-                .add("type", type)
-                .toString();
     }
 }

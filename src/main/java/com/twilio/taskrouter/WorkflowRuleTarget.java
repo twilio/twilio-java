@@ -6,13 +6,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
+import lombok.ToString;
 
 import java.io.IOException;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class WorkflowRuleTarget extends TaskRouterResource {
 
     @JsonProperty("queue")
@@ -26,10 +27,10 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     @JsonProperty("timeout")
     private final Integer timeout;
-    
+
     @JsonProperty("order_by")
     private final String orderBy;
-    
+
     @JsonProperty("skip_if")
     private final String skipIf;
 
@@ -61,6 +62,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the queue for the workflow rule target.
+     *
      * @return queue sid
      */
     public String getQueue() {
@@ -69,6 +71,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the expression for the workflow rule target to limit the workers selected.
+     *
      * @return the expression
      */
     public String getExpression() {
@@ -77,6 +80,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the priority for the workflow rule target.
+     *
      * @return the priority
      */
     public Integer getPriority() {
@@ -85,6 +89,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the timeout for the workflow rule target.
+     *
      * @return the timeout
      */
     public Integer getTimeout() {
@@ -93,6 +98,7 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the orderBy for the workflow rule target.
+     *
      * @return the orderBy
      */
     public String getOrderBy() {
@@ -101,26 +107,11 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
     /**
      * Get the skipIf for the workflow rule target.
+     *
      * @return the skipIf
      */
     public String getSkipIf() {
         return skipIf;
-    }
-
-    /**
-     * Return a string representation of this workflow rule target.
-     * @return string representation of target
-     */
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .add("queue", queue)
-            .add("expression", expression)
-            .add("priority", priority)
-            .add("timeout", timeout)
-            .add("orderBy", orderBy)
-            .add("skipIf", skipIf)
-            .toString();
     }
 
     /**
@@ -162,12 +153,12 @@ public class WorkflowRuleTarget extends TaskRouterResource {
             this.timeout = timeout;
             return this;
         }
-        
+
         public Builder orderBy(String orderBy) {
             this.orderBy = orderBy;
             return this;
         }
-        
+
         public Builder skipIf(String skipIf) {
             this.skipIf = skipIf;
             return this;
@@ -176,6 +167,5 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         public WorkflowRuleTarget build() {
             return new WorkflowRuleTarget(this);
         }
-
     }
 }

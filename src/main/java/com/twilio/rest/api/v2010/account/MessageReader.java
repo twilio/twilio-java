@@ -21,16 +21,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MessageReader extends Reader<Message> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private LocalDate dateSent;
-    private LocalDate dateSentBefore;
-    private LocalDate dateSentAfter;
+    private ZonedDateTime dateSent;
+    private ZonedDateTime dateSentBefore;
+    private ZonedDateTime dateSentAfter;
 
     /**
      * Construct a new MessageReader.
@@ -100,20 +100,20 @@ public class MessageReader extends Reader<Message> {
      * @param dateSent Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final LocalDate dateSent) {
+    public MessageReader setDateSent(final ZonedDateTime dateSent) {
         this.dateSentBefore = null;
         this.dateSentAfter = null;
         this.dateSent = dateSent;
         return this;
     }
 
-    public MessageReader setDateSentBefore(final LocalDate dateSentBefore) {
+    public MessageReader setDateSentBefore(final ZonedDateTime dateSentBefore) {
         this.dateSent = null;
         this.dateSentBefore = dateSentBefore;
         return this;
     }
 
-    public MessageReader setDateSentAfter(final LocalDate dateSentAfter) {
+    public MessageReader setDateSentAfter(final ZonedDateTime dateSentAfter) {
         this.dateSent = null;
         this.dateSentAfter = dateSentAfter;
         return this;
@@ -248,7 +248,7 @@ public class MessageReader extends Reader<Message> {
             request.addQueryParam("DateSent", dateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
         } else {
             if (dateSentBefore != null || dateSentAfter != null) {
-                request.addQueryDateRange("DateSent", dateSentBefore, dateSentAfter);
+                request.addQueryDateTimeRange("DateSent", dateSentBefore, dateSentAfter);
             }
         }
 

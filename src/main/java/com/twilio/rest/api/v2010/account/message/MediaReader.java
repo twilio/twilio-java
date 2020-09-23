@@ -20,16 +20,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class MediaReader extends Reader<Media> {
     private String pathAccountSid;
     private final String pathMessageSid;
-    private LocalDate dateCreated;
-    private LocalDate dateCreatedBefore;
-    private LocalDate dateCreatedAfter;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
 
     /**
      * Construct a new MediaReader.
@@ -66,20 +65,20 @@ public class MediaReader extends Reader<Media> {
      * @param dateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final LocalDate dateCreated) {
+    public MediaReader setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreatedBefore = null;
         this.dateCreatedAfter = null;
         this.dateCreated = dateCreated;
         return this;
     }
 
-    public MediaReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+    public MediaReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
-    public MediaReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+    public MediaReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
@@ -206,7 +205,7 @@ public class MediaReader extends Reader<Media> {
             request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
         } else {
             if (dateCreatedBefore != null || dateCreatedAfter != null) {
-                request.addQueryDateRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
+                request.addQueryDateTimeRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
             }
         }
 

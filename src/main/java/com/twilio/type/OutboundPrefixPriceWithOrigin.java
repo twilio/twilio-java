@@ -3,16 +3,16 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Outbound prices for prefixes with origin.
- *
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class OutboundPrefixPriceWithOrigin {
 
     private final List<String> destination_prefixes;
@@ -26,9 +26,9 @@ public class OutboundPrefixPriceWithOrigin {
      *
      * @param destination_prefixes destination price prefixes
      * @param origination_prefixes origination price prefixes
-     * @param friendlyName friend name for the price
-     * @param basePrice base price
-     * @param currentPrice current price
+     * @param friendlyName         friend name for the price
+     * @param basePrice            base price
+     * @param currentPrice         current price
      */
     @JsonCreator
     public OutboundPrefixPriceWithOrigin(@JsonProperty("destination_prefixes") final List<String> destination_prefixes,
@@ -74,26 +74,14 @@ public class OutboundPrefixPriceWithOrigin {
 
         OutboundPrefixPriceWithOrigin other = (OutboundPrefixPriceWithOrigin) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
-                Objects.equals(this.currentPrice, other.currentPrice) &&
-                Objects.equals(this.destination_prefixes, other.destination_prefixes) &&
-                Objects.equals(this.origination_prefixes, other.origination_prefixes) &&
-                Objects.equals(this.friendlyName, other.friendlyName);
+            Objects.equals(this.currentPrice, other.currentPrice) &&
+            Objects.equals(this.destination_prefixes, other.destination_prefixes) &&
+            Objects.equals(this.origination_prefixes, other.origination_prefixes) &&
+            Objects.equals(this.friendlyName, other.friendlyName);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.destination_prefixes, this.origination_prefixes, this.friendlyName, this.basePrice, this.currentPrice);
     }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("destination_prefixes", this.destination_prefixes)
-                .add("origination_prefixes", this.origination_prefixes)
-                .add("friendly_name", this.friendlyName)
-                .add("base_price", this.basePrice)
-                .add("current_price", this.currentPrice)
-                .toString();
-    }
-
 }

@@ -26,7 +26,6 @@ import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
 import lombok.ToString;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;

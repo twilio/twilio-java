@@ -26,7 +26,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -46,12 +45,8 @@ public class Feedback extends Resource {
 
         private Outcome(final String value) {
             this.value = value;
-        }
-
         public String toString() {
             return value;
-        }
-
         /**
          * Generate a Outcome from a string.
          * @param value string value

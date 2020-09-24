@@ -26,7 +26,6 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import lombok.ToString;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;

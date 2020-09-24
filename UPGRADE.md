@@ -117,8 +117,8 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 
 ResourceSet<Message> messages = Message.reader()
-            .setDateSentAfter(new ZonedDateTime.of(2019, 1, 1, 0, 0, 0, ZoneId.of("UTC")))
-            .setDateSentBefore(new ZonedDateTime.of(2019, 3, 1, 0, 0, 0, ZoneId.of("UTC")))
+            .setDateSentAfter(ZonedDateTime.of(2019, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")))
+            .setDateSentBefore(ZonedDateTime.of(2019, 3, 1, 0, 0, 0, 0, ZoneId.of("UTC")))
             .limit(20)
             .read();
 ```

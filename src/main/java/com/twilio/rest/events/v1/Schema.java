@@ -111,7 +111,7 @@ public class Schema extends Resource {
         this.id = id;
         this.url = url;
         this.links = links;
-        this.lastCreated = ZonedDateTime.parse(lastCreated);
+        this.lastCreated = DateConverter.iso8601DateTimeFromString(lastCreated);
         this.lastVersion = lastVersion;
     }
 

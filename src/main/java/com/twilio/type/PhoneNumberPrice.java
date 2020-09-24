@@ -8,8 +8,6 @@ import lombok.ToString;
 
 import java.util.Objects;
 
-import lombok.ToString;
-
 /**
  * Object representation of a price of a phone number.
  *

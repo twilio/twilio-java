@@ -8,8 +8,6 @@ import lombok.ToString;
 
 import java.util.Objects;
 
-import lombok.ToString;
-
 /**
  * Pricing for inbound sms.
  *

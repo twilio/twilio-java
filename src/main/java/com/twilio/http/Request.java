@@ -197,10 +197,11 @@ public class Request {
      * Add query parameters for date ranges.
      *
      * @param name  name of query parameter
-     * @param lowerBound date lowerBound
-     * @param upperBound date upperBound
+     * @param lowerBound lower bound of LocalDate range
+     * @param upperBound upper bound of LocalDate range
      */
     public void addQueryDateRange(final String name, LocalDate lowerBound, LocalDate upperBound) {
+        // automatically switch bounds if they were passed in backwards
         if (lowerBound != null && upperBound != null) {
             int comparison = lowerBound.compareTo(upperBound);
             if (comparison > 0) {
@@ -225,10 +226,20 @@ public class Request {
      * Add query parameters for date ranges.
      *
      * @param name  name of query parameter
-     * @param lowerBound date lowerBound
-     * @param upperBound date upperBound
+     * @param lowerBound lower bound of ZonedDateTime range
+     * @param upperBound upper bound of ZonedDateTime range
      */
-    public void addQueryDateTimeRange(final String name, final ZonedDateTime lowerBound, final ZonedDateTime upperBound) {
+    public void addQueryDateTimeRange(final String name, ZonedDateTime lowerBound, ZonedDateTime upperBound) {
+        // automatically switch bounds if they were passed in backwards
+        if (lowerBound != null && upperBound != null) {
+            int comparison = lowerBound.compareTo(upperBound);
+            if (comparison > 0) {
+                ZonedDateTime temp = lowerBound;
+                lowerBound = upperBound;
+                upperBound = temp;
+            }
+        }
+
         if (lowerBound != null) {
             String value = lowerBound.withZoneSameInstant(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + ">", value);

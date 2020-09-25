@@ -201,16 +201,6 @@ public class Request {
      * @param upperBound upper bound of LocalDate range
      */
     public void addQueryDateRange(final String name, LocalDate lowerBound, LocalDate upperBound) {
-        // automatically switch bounds if they were passed in backwards
-        if (lowerBound != null && upperBound != null) {
-            int comparison = lowerBound.compareTo(upperBound);
-            if (comparison > 0) {
-                LocalDate temp = lowerBound;
-                lowerBound = upperBound;
-                upperBound = temp;
-            }
-        }
-
         if (lowerBound != null) {
             String value = lowerBound.toString();
             addQueryParam(name + ">", value);
@@ -230,16 +220,6 @@ public class Request {
      * @param upperBound upper bound of ZonedDateTime range
      */
     public void addQueryDateTimeRange(final String name, ZonedDateTime lowerBound, ZonedDateTime upperBound) {
-        // automatically switch bounds if they were passed in backwards
-        if (lowerBound != null && upperBound != null) {
-            int comparison = lowerBound.compareTo(upperBound);
-            if (comparison > 0) {
-                ZonedDateTime temp = lowerBound;
-                lowerBound = upperBound;
-                upperBound = temp;
-            }
-        }
-
         if (lowerBound != null) {
             String value = lowerBound.withZoneSameInstant(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + ">", value);

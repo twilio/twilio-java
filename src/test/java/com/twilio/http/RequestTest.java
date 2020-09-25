@@ -152,7 +152,7 @@ public class RequestTest {
         r.addQueryDateRange("baz", wrongLowerBound, wrongUpperBound);
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10&baz<=2020-06-01");
-        assertUrlsEqual(expected, url);
+        assertNotEquals(expected, url);
     }
 
     @Test
@@ -203,7 +203,7 @@ public class RequestTest {
         r.addQueryDateTimeRange("baz", wrongLowerBound, wrongUpperBound);
         URL url = r.constructURL();
         URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10T14:00:00&baz<=2020-06-01T16:00:00");
-        assertUrlsEqual(expected, url);
+        assertNotEquals(expected, url);
     }
 
     @Test

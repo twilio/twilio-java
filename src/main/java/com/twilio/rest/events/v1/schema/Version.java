@@ -31,8 +31,6 @@ import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -122,7 +120,7 @@ public class Version extends Resource {
                     final URI raw) {
         this.id = id;
         this.schemaVersion = schemaVersion;
-        this.dateCreated = ZonedDateTime.parse(dateCreated);
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.url = url;
         this.raw = raw;
     }

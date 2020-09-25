@@ -26,8 +26,9 @@ import java.time.format.DateTimeFormatter;
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
     private final String pathConferenceSid;
-    private LocalDate startDateCreated;
-    private LocalDate endDateCreated;
+    private LocalDate dateCreated;
+    private LocalDate dateCreatedBefore;
+    private LocalDate dateCreatedAfter;
 
     /**
      * Construct a new RecordingReader.
@@ -58,11 +59,13 @@ public class RecordingReader extends Reader<Recording> {
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      *
-     * @param startDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param dateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public RecordingReader setStartDateCreated(final LocalDate startDateCreated) {
-        this.startDateCreated = startDateCreated;
+    public RecordingReader setDateCreated(final LocalDate dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
+        this.dateCreated = dateCreated;
         return this;
     }
 
@@ -73,11 +76,28 @@ public class RecordingReader extends Reader<Recording> {
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      *
-     * @param endDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param dateCreatedBefore The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public RecordingReader setEndDateCreated(final LocalDate endDateCreated) {
-        this.endDateCreated = endDateCreated;
+    public RecordingReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+        this.dateCreated = null;
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
+     *
+     * @param dateCreatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
+    public RecordingReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+        this.dateCreated = null;
+        this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
@@ -199,8 +219,10 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (startDateCreated != null || endDateCreated != null) {
-            request.addQueryDateRange("DateCreated", startDateCreated, endDateCreated);
+        if (dateCreated != null) {
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else if (dateCreatedBefore != null || dateCreatedAfter != null) {
+            request.addQueryDateRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
         }
 
         if (getPageSize() != null) {

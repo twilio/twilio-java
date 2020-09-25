@@ -45,8 +45,12 @@ public class Feedback extends Resource {
 
         private Outcome(final String value) {
             this.value = value;
+        }
+
         public String toString() {
             return value;
+        }
+
         /**
          * Generate a Outcome from a string.
          * @param value string value

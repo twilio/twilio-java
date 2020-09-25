@@ -66,12 +66,30 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that started on or before midnight on a date, use
+     * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
+     * midnight on a date, use `&gt;=YYYY-MM-DD`..
+     *
+     * @param dateCreatedBefore The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
     public ConferenceReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
         this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that started on or before midnight on a date, use
+     * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
+     * midnight on a date, use `&gt;=YYYY-MM-DD`..
+     *
+     * @param dateCreatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
     public ConferenceReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
         this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;
@@ -94,17 +112,36 @@ public class ConferenceReader extends Reader<Conference> {
         return this;
     }
 
+    /**
+     * The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that were last updated on or before midnight on a
+     * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
+     * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
+     *
+     * @param dateUpdatedBefore The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
     public ConferenceReader setDateUpdatedBefore(final LocalDate dateUpdatedBefore) {
         this.dateUpdated = null;
         this.dateUpdatedBefore = dateUpdatedBefore;
         return this;
     }
 
+    /**
+     * The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that were last updated on or before midnight on a
+     * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
+     * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
+     *
+     * @param dateUpdatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
     public ConferenceReader setDateUpdatedAfter(final LocalDate dateUpdatedAfter) {
         this.dateUpdated = null;
         this.dateUpdatedAfter = dateUpdatedAfter;
         return this;
     }
+
     /**
      * The string that identifies the Conference resources to read..
      *

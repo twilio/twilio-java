@@ -140,12 +140,34 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
+    /**
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
+     *
+     * @param startTimeBefore Only include calls that started on this date
+     * @return this
+     */
     public CallReader setStartTimeBefore(final ZonedDateTime startTimeBefore) {
         this.startTime = null;
         this.startTimeBefore = startTimeBefore;
         return this;
     }
 
+    /**
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
+     *
+     * @param startTimeAfter Only include calls that started on this date
+     * @return this
+     */
     public CallReader setStartTimeAfter(final ZonedDateTime startTimeAfter) {
         this.startTime = null;
         this.startTimeAfter = startTimeAfter;
@@ -170,12 +192,34 @@ public class CallReader extends Reader<Call> {
         return this;
     }
 
+    /**
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
+     *
+     * @param endTimeBefore Only include calls that ended on this date
+     * @return this
+     */
     public CallReader setEndTimeBefore(final ZonedDateTime endTimeBefore) {
         this.endTime = null;
         this.endTimeBefore = endTimeBefore;
         return this;
     }
 
+    /**
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
+     *
+     * @param endTimeAfter Only include calls that ended on this date
+     * @return this
+     */
     public CallReader setEndTimeAfter(final ZonedDateTime endTimeAfter) {
         this.endTime = null;
         this.endTimeAfter = endTimeAfter;
@@ -325,7 +369,7 @@ public class CallReader extends Reader<Call> {
         if (endTime != null) {
             request.addQueryParam("EndTime", endTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
         } else if (endTimeBefore != null || endTimeAfter != null) {
-            request.addQueryDateTimeRange("EndTime", startTimeBefore, startTimeAfter);
+            request.addQueryDateTimeRange("EndTime", endTimeBefore, endTimeAfter);
         }
 
         if (getPageSize() != null) {

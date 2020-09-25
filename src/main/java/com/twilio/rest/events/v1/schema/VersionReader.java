@@ -34,7 +34,7 @@ public class VersionReader extends Reader<Version> {
      */
     public VersionReader(final String pathId) {
         this.pathId = pathId;
-
+    }
 
     /**
      * Make the request to the Twilio API to perform the read.

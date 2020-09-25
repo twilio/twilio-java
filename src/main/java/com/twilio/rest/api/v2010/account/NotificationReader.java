@@ -75,17 +75,36 @@ public class NotificationReader extends Reader<Notification> {
         return this;
     }
 
+    /**
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
+     *
+     * @param messageDateBefore Filter by date
+     * @return this
+     */
     public NotificationReader setMessageDateBefore(final LocalDate messageDateBefore) {
         this.messageDate = null;
         this.messageDateBefore = messageDateBefore;
         return this;
     }
 
+    /**
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
+     *
+     * @param messageDateAfter Filter by date
+     * @return this
+     */
     public NotificationReader setMessageDateAfter(final LocalDate messageDateAfter) {
         this.messageDate = null;
         this.messageDateAfter = messageDateAfter;
         return this;
     }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *

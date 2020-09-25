@@ -69,17 +69,38 @@ public class RecordingReader extends Reader<Recording> {
         return this;
     }
 
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
+     *
+     * @param dateCreatedBefore The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
     public RecordingReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
         this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
+     *
+     * @param dateCreatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
     public RecordingReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
         this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -200,10 +221,8 @@ public class RecordingReader extends Reader<Recording> {
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
             request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else {
-            if (dateCreatedBefore != null || dateCreatedAfter != null) {
-                request.addQueryDateRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
-            }
+        } else if (dateCreatedBefore != null || dateCreatedAfter != null) {
+            request.addQueryDateRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
         }
 
         if (getPageSize() != null) {

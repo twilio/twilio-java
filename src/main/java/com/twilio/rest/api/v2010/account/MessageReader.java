@@ -107,17 +107,38 @@ public class MessageReader extends Reader<Message> {
         return this;
     }
 
+    /**
+     * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
+     *
+     * @param dateSentBefore Filter by date sent
+     * @return this
+     */
     public MessageReader setDateSentBefore(final ZonedDateTime dateSentBefore) {
         this.dateSent = null;
         this.dateSentBefore = dateSentBefore;
         return this;
     }
 
+    /**
+     * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
+     *
+     * @param dateSentAfter Filter by date sent
+     * @return this
+     */
     public MessageReader setDateSentAfter(final ZonedDateTime dateSentAfter) {
         this.dateSent = null;
         this.dateSentAfter = dateSentAfter;
         return this;
     }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -245,7 +266,7 @@ public class MessageReader extends Reader<Message> {
         }
 
         if (dateSent != null) {
-            request.addQueryParam("DateSent", dateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+            request.addQueryParam("DateSent", dateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
         } else if (dateSentBefore != null || dateSentAfter != null) {
             request.addQueryDateTimeRange("DateSent", dateSentBefore, dateSentAfter);
         }

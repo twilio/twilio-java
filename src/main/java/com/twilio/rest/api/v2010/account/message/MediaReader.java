@@ -72,17 +72,40 @@ public class MediaReader extends Reader<Media> {
         return this;
     }
 
+    /**
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
+     *
+     * @param dateCreatedBefore Only include media that was created on this date
+     * @return this
+     */
     public MediaReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
+    /**
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
+     *
+     * @param dateCreatedAfter Only include media that was created on this date
+     * @return this
+     */
     public MediaReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -202,7 +225,7 @@ public class MediaReader extends Reader<Media> {
      */
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
-            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
         } else if (dateCreatedBefore != null || dateCreatedAfter != null) {
             request.addQueryDateTimeRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
         }

@@ -55,8 +55,7 @@ public class RecordingReader extends Reader<Recording> {
      * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
      * recordings that were created on or after midnight of this date..
      *
-     * @param sateCreated Only include recordings that were created on this
-     *                         date
+     * @param dateCreated Only include recordings that were created on this date
      * @return this
      */
     public RecordingReader setDateCreated(final ZonedDateTime dateCreated) {
@@ -66,12 +65,36 @@ public class RecordingReader extends Reader<Recording> {
         return this;
     }
 
+    /**
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
+     *
+     * @param dateCreatedBefore Only include recordings that were created on this
+     *                          date
+     * @return this
+     */
     public RecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreated = null;
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
+    /**
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
+     *
+     * @param dateCreatedAfter Only include recordings that were created on this
+     *                         date
+     * @return this
+     */
     public RecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreated = null;
         this.dateCreatedAfter = dateCreatedAfter;

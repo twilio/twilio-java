@@ -145,6 +145,17 @@ public class RequestTest {
     }
 
     @Test
+    public void testAddQueryDateRangeMismatchedBounds() throws MalformedURLException {
+        Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
+        LocalDate lowerBound = LocalDate.of(2020, 6, 1);
+        LocalDate upperBound = LocalDate.of(2014, 1, 10);
+        r.addQueryDateRange("baz", lowerBound, upperBound);
+        URL url = r.constructURL();
+        URL expected = new URL("https://api.twilio.com/2010-04-01/foobar?baz>=2014-01-10&baz<=2020-06-01");
+        assertUrlsEqual(expected, url);
+    }
+
+    @Test
     public void testAddQueryDateTimeRangeLowerBound() throws MalformedURLException {
         Request r = new Request(HttpMethod.GET, Domains.API.toString(), "/2010-04-01/foobar");
         r.addQueryDateTimeRange("baz", ZonedDateTime.of(2014, 1, 1, 0, 0, 0, 0, ZoneOffset.UTC), null);

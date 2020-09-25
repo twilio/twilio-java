@@ -200,7 +200,16 @@ public class Request {
      * @param lowerBound date lowerBound
      * @param upperBound date upperBound
      */
-    public void addQueryDateRange(final String name, final LocalDate lowerBound, final LocalDate upperBound) {
+    public void addQueryDateRange(final String name, LocalDate lowerBound, LocalDate upperBound) {
+        if (lowerBound != null && upperBound != null) {
+            int comparison = lowerBound.compareTo(upperBound);
+            if (comparison > 0) {
+                LocalDate temp = lowerBound;
+                lowerBound = upperBound;
+                upperBound = temp;
+            }
+        }
+
         if (lowerBound != null) {
             String value = lowerBound.toString();
             addQueryParam(name + ">", value);

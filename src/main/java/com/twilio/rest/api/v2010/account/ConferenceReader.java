@@ -286,14 +286,14 @@ public class ConferenceReader extends Reader<Conference> {
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
             request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (dateCreatedBefore != null || dateCreatedAfter != null) {
-            request.addQueryDateRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
 
         if (dateUpdated != null) {
             request.addQueryParam("DateUpdated", dateUpdated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (dateUpdatedBefore != null || dateUpdatedAfter != null) {
-            request.addQueryDateRange("DateUpdated", dateUpdatedBefore, dateUpdatedAfter);
+        } else if (dateUpdatedAfter != null || dateUpdatedBefore != null) {
+            request.addQueryDateRange("DateUpdated", dateUpdatedAfter, dateUpdatedBefore);
         }
 
         if (friendlyName != null) {

@@ -245,8 +245,8 @@ public class RecordingReader extends Reader<Recording> {
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
             request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (dateCreatedBefore != null || dateCreatedAfter != null) {
-            request.addQueryDateTimeRange("DateCreated", dateCreatedBefore, dateCreatedAfter);
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateTimeRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
 
         if (callSid != null) {

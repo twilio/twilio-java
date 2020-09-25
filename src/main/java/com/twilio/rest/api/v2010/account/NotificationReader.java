@@ -229,8 +229,8 @@ public class NotificationReader extends Reader<Notification> {
 
         if (messageDate != null) {
             request.addQueryParam("MessageDate", messageDate.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (messageDateBefore != null || messageDateAfter != null) {
-            request.addQueryDateRange("MessageDate", messageDateBefore, messageDateAfter);
+        } else if (messageDateAfter != null || messageDateBefore != null) {
+            request.addQueryDateRange("MessageDate", messageDateAfter, messageDateBefore);
         }
 
         if (getPageSize() != null) {

@@ -362,14 +362,14 @@ public class CallReader extends Reader<Call> {
 
         if (startTime != null) {
             request.addQueryParam("StartTime", startTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (startTimeBefore != null || startTimeAfter != null) {
-            request.addQueryDateTimeRange("StartTime", startTimeBefore, startTimeAfter);
+        } else if (startTimeAfter != null || startTimeBefore != null) {
+            request.addQueryDateTimeRange("StartTime", startTimeAfter, startTimeBefore);
         }
 
         if (endTime != null) {
             request.addQueryParam("EndTime", endTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (endTimeBefore != null || endTimeAfter != null) {
-            request.addQueryDateTimeRange("EndTime", endTimeBefore, endTimeAfter);
+        } else if (endTimeAfter != null || endTimeBefore != null) {
+            request.addQueryDateTimeRange("EndTime", endTimeAfter, endTimeBefore);
         }
 
         if (getPageSize() != null) {

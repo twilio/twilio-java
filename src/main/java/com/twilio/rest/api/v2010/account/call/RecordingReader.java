@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -27,8 +26,9 @@ import java.time.format.DateTimeFormatter;
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
     private final String pathCallSid;
-    private LocalDate absoluteDateCreated;
-    private Range<LocalDate> rangeDateCreated;
+    private LocalDate dateCreated;
+    private LocalDate dateCreatedBefore;
+    private LocalDate dateCreatedAfter;
 
     /**
      * Construct a new RecordingReader.
@@ -59,12 +59,13 @@ public class RecordingReader extends Reader<Recording> {
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param dateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public RecordingReader setDateCreated(final LocalDate absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public RecordingReader setDateCreated(final LocalDate dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
+        this.dateCreated = dateCreated;
         return this;
     }
 
@@ -75,12 +76,28 @@ public class RecordingReader extends Reader<Recording> {
      * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
      * midnight on a date..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param dateCreatedBefore The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public RecordingReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public RecordingReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+        this.dateCreated = null;
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. You can also specify inequality: `DateCreated&lt;=YYYY-MM-DD` will
+     * return recordings generated at or before midnight on a given date, and
+     * `DateCreated&gt;=YYYY-MM-DD` returns recordings generated at or after
+     * midnight on a date..
+     *
+     * @param dateCreatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
+    public RecordingReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+        this.dateCreated = null;
+        this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
@@ -202,10 +219,10 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateRange("DateCreated", rangeDateCreated);
+        if (dateCreated != null) {
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
 
         if (getPageSize() != null) {

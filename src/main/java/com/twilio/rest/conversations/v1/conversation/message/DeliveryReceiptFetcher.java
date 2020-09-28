@@ -17,10 +17,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
     private final String pathConversationSid;
     private final String pathMessageSid;

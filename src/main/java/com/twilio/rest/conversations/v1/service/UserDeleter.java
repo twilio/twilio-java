@@ -17,13 +17,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class UserDeleter extends Deleter<User> {
     private final String pathChatServiceSid;
     private final String pathSid;
+    private User.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new UserDeleter.
@@ -36,6 +33,17 @@ public class UserDeleter extends Deleter<User> {
                        final String pathSid) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public UserDeleter setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     /**
@@ -52,6 +60,7 @@ public class UserDeleter extends Deleter<User> {
             "/v1/Services/" + this.pathChatServiceSid + "/Users/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,5 +74,16 @@ public class UserDeleter extends Deleter<User> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 }

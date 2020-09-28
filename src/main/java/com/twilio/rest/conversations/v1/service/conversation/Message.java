@@ -35,10 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
@@ -378,9 +374,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns Absolute URLs to access the Receipts of this Message..
+     * Returns Absolute URL to access the receipts of this message..
      *
-     * @return Absolute URLs to access the Receipts of this Message.
+     * @return Absolute URL to access the receipts of this message.
      */
     public final Map<String, String> getLinks() {
         return this.links;

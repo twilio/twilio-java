@@ -33,11 +33,7 @@ public class RoomCreator extends Creator<Room> {
     private String mediaRegion;
 
     /**
-     * Deprecated. Whether to enable <a
-     * href="https://www.twilio.com/stun-turn">Twilio's Network Traversal TURN
-     * service</a>. TURN service is used when direct peer-to-peer media connections
-     * cannot be established due to firewall restrictions. This setting only applies
-     * to rooms with type `peer-to-peer`..
+     * Deprecated, now always considered to be true..
      *
      * @param enableTurn Enable Twilio's Network Traversal TURN service
      * @return this
@@ -48,8 +44,8 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
-     * The type of room. Can be: `peer-to-peer`, `group-small`, or `group`. The
-     * default value is `group`..
+     * The type of room. Can be: `go`, `peer-to-peer`, `group-small`, or `group`.
+     * The default value is `group`..
      *
      * @param type The type of room
      * @return this

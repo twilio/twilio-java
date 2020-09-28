@@ -66,7 +66,7 @@ public class Room extends Resource {
     }
 
     public enum RoomType {
-        PEER_TO_PEER_BASIC("peer-to-peer-basic"),
+        GO("go"),
         PEER_TO_PEER("peer-to-peer"),
         GROUP("group"),
         GROUP_SMALL("group-small");

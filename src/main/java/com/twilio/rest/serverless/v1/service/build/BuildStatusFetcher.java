@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1;
+package com.twilio.rest.serverless.v1.service.build;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,15 +17,24 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class CredentialFetcher extends Fetcher<Credential> {
+/**
+ * PLEASE NOTE that this class contains preview products that are subject to
+ * change. Use them with caution. If you currently do not have developer preview
+ * access, please contact help@twilio.com.
+ */
+public class BuildStatusFetcher extends Fetcher<BuildStatus> {
+    private final String pathServiceSid;
     private final String pathSid;
 
     /**
-     * Construct a new CredentialFetcher.
+     * Construct a new BuildStatusFetcher.
      *
-     * @param pathSid A 34 character string that uniquely identifies this resource.
+     * @param pathServiceSid The SID of the Service to fetch the Build resource from
+     * @param pathSid The SID of the Build resource to fetch
      */
-    public CredentialFetcher(final String pathSid) {
+    public BuildStatusFetcher(final String pathServiceSid,
+                              final String pathSid) {
+        this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
@@ -33,21 +42,21 @@ public class CredentialFetcher extends Fetcher<Credential> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Credential
+     * @return Fetched BuildStatus
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Credential fetch(final TwilioRestClient client) {
+    public BuildStatus fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            "/v1/Credentials/" + this.pathSid + ""
+            Domains.SERVERLESS.toString(),
+            "/v1/Services/" + this.pathServiceSid + "/Builds/" + this.pathSid + "/Status"
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Credential fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("BuildStatus fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -56,6 +65,6 @@ public class CredentialFetcher extends Fetcher<Credential> {
             throw new ApiException(restException);
         }
 
-        return Credential.fromJson(response.getStream(), client.getObjectMapper());
+        return BuildStatus.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

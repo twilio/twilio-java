@@ -30,10 +30,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
@@ -167,20 +163,20 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The absolute URL of the Service configuration resource.
+     * Returns An absolute URL for this service configuration..
      *
-     * @return The absolute URL of the Service configuration resource
+     * @return An absolute URL for this service configuration.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns Absolute URL to access the Push Notifications configuration of this
-     * Service..
+     * Returns Absolute URL to access the push notifications configuration of this
+     * service..
      *
-     * @return Absolute URL to access the Push Notifications configuration of this
-     *         Service.
+     * @return Absolute URL to access the push notifications configuration of this
+     *         service.
      */
     public final Map<String, String> getLinks() {
         return this.links;

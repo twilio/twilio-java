@@ -22,10 +22,6 @@ import com.twilio.rest.Domains;
 
 import java.util.List;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class BindingReader extends Reader<Binding> {
     private final String pathChatServiceSid;
     private List<Binding.BindingType> bindingType;

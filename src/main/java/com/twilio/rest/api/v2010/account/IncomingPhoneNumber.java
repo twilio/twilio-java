@@ -13,6 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -29,10 +31,17 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
+
+import org.apache.http.client.utils.URLEncodedUtils;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -379,6 +388,7 @@ public class IncomingPhoneNumber extends Resource {
                                 @JsonProperty("voice_method")
                                 final HttpMethod voiceMethod,
                                 @JsonProperty("voice_url")
+                                @JsonDeserialize(using = com.twilio.converter.UriEncodingDeserializer.class)
                                 final URI voiceUrl,
                                 @JsonProperty("emergency_status")
                                 final IncomingPhoneNumber.EmergencyStatus emergencyStatus,
@@ -421,6 +431,7 @@ public class IncomingPhoneNumber extends Resource {
         this.emergencyAddressSid = emergencyAddressSid;
         this.bundleSid = bundleSid;
         this.status = status;
+
     }
 
     /**

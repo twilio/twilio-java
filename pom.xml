@@ -129,7 +129,7 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.11.2</jackson.version>
+    <jackson.version>2.11.3</jackson.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>

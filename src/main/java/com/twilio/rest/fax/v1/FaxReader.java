@@ -20,7 +20,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.time.Instant;
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -208,15 +210,29 @@ public class FaxReader extends Reader<Fax> {
         }
 
         if (dateCreatedOnOrBefore != null) {
-            request.addQueryParam("DateCreatedOnOrBefore", dateCreatedOnOrBefore.toString());
+            request.addQueryParam("DateCreatedOnOrBefore", toZulu(dateCreatedOnOrBefore));
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", toZulu(dateCreatedAfter));
         }
 
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }
+
+    /**
+     * Converts the passed ZonedDateTime to UTC and returns a formatted string in
+     * the format "2020-10-05T06:29:31Z". Fax API only works with this format.
+     *
+     * @param date the date
+     * @return the the formatted string
+     */
+    private static String toZulu(ZonedDateTime date) {
+
+      Instant i = Instant.ofEpochSecond(date.toInstant().getEpochSecond());
+      return DateTimeFormatter.ISO_INSTANT.format(i);
+    }
+  
 }

@@ -25,10 +25,10 @@ public class RequestTest {
 
     @Test
     public void testConstructorWithDomain() {
-        Request request = new Request(HttpMethod.GET, Domains.IPMESSAGING.toString(), "/v1/uri");
+        Request request = new Request(HttpMethod.GET, Domains.FLEXAPI.toString(), "/v1/uri");
         assertNotNull(request);
         assertEquals(HttpMethod.GET, request.getMethod());
-        assertEquals("https://chat.twilio.com/v1/uri", request.getUrl());
+        assertEquals("https://flex-api.twilio.com/v1/uri", request.getUrl());
     }
 
     @Test

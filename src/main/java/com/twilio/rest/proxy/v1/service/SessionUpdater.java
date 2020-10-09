@@ -142,7 +142,7 @@ public class SessionUpdater extends Updater<Session> {
      */
     private void addPostParams(final Request request) {
         if (dateExpiry != null) {
-            request.addPostParam("DateExpiry", dateExpiry.toString());
+            request.addPostParam("DateExpiry", dateExpiry.toOffsetDateTime().toString());
         }
 
         if (ttl != null) {

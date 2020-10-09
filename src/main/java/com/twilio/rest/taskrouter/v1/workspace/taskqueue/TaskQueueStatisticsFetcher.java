@@ -146,7 +146,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
      */
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
         }
 
         if (minutes != null) {
@@ -154,7 +154,7 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
         }
 
         if (taskChannel != null) {

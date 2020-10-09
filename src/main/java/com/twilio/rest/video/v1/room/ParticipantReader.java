@@ -215,11 +215,11 @@ public class ParticipantReader extends Reader<Participant> {
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

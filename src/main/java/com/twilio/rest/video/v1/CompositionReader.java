@@ -206,11 +206,11 @@ public class CompositionReader extends Reader<Composition> {
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toOffsetDateTime().toString());
         }
 
         if (roomSid != null) {

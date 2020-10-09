@@ -181,11 +181,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
      */
     private void addQueryParams(final Request request) {
         if (end != null) {
-            request.addQueryParam("End", end.toString());
+            request.addQueryParam("End", end.toOffsetDateTime().toString());
         }
 
         if (start != null) {
-            request.addQueryParam("Start", start.toString());
+            request.addQueryParam("Start", start.toOffsetDateTime().toString());
         }
 
         if (granularity != null) {

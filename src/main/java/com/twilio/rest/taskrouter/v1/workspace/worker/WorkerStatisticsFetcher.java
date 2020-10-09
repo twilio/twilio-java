@@ -132,11 +132,11 @@ public class WorkerStatisticsFetcher extends Fetcher<WorkerStatistics> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
         }
 
         if (taskChannel != null) {

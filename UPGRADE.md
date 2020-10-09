@@ -117,8 +117,8 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 
 ResourceSet<Message> messages = Message.reader()
-            .setDateSentAfter(new ZonedDateTime.of(2019, 1, 1, 0, 0, 0, ZoneId.of("UTC")))
-            .setDateSentBefore(new ZonedDateTime.of(2019, 3, 1, 0, 0, 0, ZoneId.of("UTC")))
+            .setDateSentAfter(ZonedDateTime.of(2019, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")))
+            .setDateSentBefore(ZonedDateTime.of(2019, 3, 1, 0, 0, 0, 0, ZoneId.of("UTC")))
             .limit(20)
             .read();
 ```
@@ -202,6 +202,35 @@ import com.twilio.jwt.accesstoken.VoiceGrant;
 VoiceGrant vg = new VoiceGrant();
 vg.setRoom("sid");
 String sid = vg.getRoom();
+```
+
+### CHANGED - Updated `com.twilio.type.IceServer` URL types
+`IceServer` properties `url` and `urls` types have been changed from `java.net.URI` to `String`:
+```java
+// 7.x.x
+import com.twilio.rest.api.v2010.account.Token;
+import com.twilio.type.IceServer;
+import java.net.URI;
+
+Token token = Token.creator().create()
+
+for (IceServer iceServer : token.getIceServers()) {
+    URI url = iceServer.getUrl();
+    URI urls = iceServer.getUrls();
+}
+```
+
+```java
+// 8.x.x
+import com.twilio.rest.api.v2010.account.Token;
+import com.twilio.type.IceServer;
+
+Token token = Token.creator().create()
+
+for (IceServer iceServer : token.getIceServers()) {
+    String url = iceServer.getUrl();
+    String urls = iceServer.getUrls();
+}
 ```
 
 [2017-12-15] 7.16.x to 7.17.x

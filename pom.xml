@@ -5,7 +5,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>7.55.3</version>
+  <version>8.0.0</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -19,7 +19,7 @@
     <url>git@github.com:twilio/twilio-java.git</url>
     <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
     <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
-    <tag>7.55.3</tag>
+    <tag>8.0.0</tag>
   </scm>
   <developers>
     <developer>
@@ -129,7 +129,7 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.11.2</jackson.version>
+    <jackson.version>2.11.3</jackson.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
@@ -140,11 +140,6 @@
       <artifactId>lombok</artifactId>
       <version>1.18.12</version>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.google.guava</groupId>
-      <artifactId>guava</artifactId>
-      <version>29.0-android</version>
     </dependency>
     <dependency>
       <groupId>commons-codec</groupId>
@@ -298,7 +293,7 @@
         <configuration>
           <reportOutputDirectory>.</reportOutputDirectory>
           <destDir>docs</destDir>
-          <source>7</source>
+          <source>8</source>
           <show>public</show>
           <nohelp>true</nohelp>
           <author>true</author>

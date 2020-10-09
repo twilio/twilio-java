@@ -3,8 +3,8 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
 import com.twilio.converter.Promoter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -12,11 +12,12 @@ import java.util.Objects;
  * Pricing for inbound calls
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/voice/pricing>Pricing Docs</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/voice/pricing>Pricing Docs</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class InboundCallPrice {
     public enum Type {
         LOCAL("local"),
@@ -47,9 +48,9 @@ public class InboundCallPrice {
     /**
      * Initialize a InboundCallPrice.
      *
-     * @param basePrice base price of call
+     * @param basePrice    base price of call
      * @param currentPrice current price of call
-     * @param type type of phone number
+     * @param type         type of phone number
      */
     @JsonCreator
     public InboundCallPrice(@JsonProperty("base_price") final double basePrice,
@@ -85,21 +86,12 @@ public class InboundCallPrice {
         InboundCallPrice other = (InboundCallPrice) o;
 
         return (this.getBasePrice() == other.getBasePrice() &&
-                this.getCurrentPrice() == other.getCurrentPrice() &&
-                this.getType() == other.getType());
+            this.getCurrentPrice() == other.getCurrentPrice() &&
+            this.getType() == other.getType());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.basePrice, this.currentPrice, this.type);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("base_price", basePrice)
-                .add("current_price", currentPrice)
-                .add("type", type)
-                .toString();
     }
 }

@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.List;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class WebhookUpdater extends Updater<Webhook> {
     private String method;
     private List<String> filters;

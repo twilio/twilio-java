@@ -34,10 +34,6 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conversation extends Resource {
@@ -357,11 +353,11 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns Absolute URLs to access the Participants, Messages and Webhooks of
-     * this Conversation..
+     * Returns Absolute URLs to access the participants, messages and webhooks of
+     * this conversation..
      *
-     * @return Absolute URLs to access the Participants, Messages and Webhooks of
-     *         this Conversation.
+     * @return Absolute URLs to access the participants, messages and webhooks of
+     *         this conversation.
      */
     public final Map<String, String> getLinks() {
         return this.links;

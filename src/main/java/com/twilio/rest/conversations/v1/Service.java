@@ -32,10 +32,6 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
@@ -204,11 +200,11 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns Absolute URLs to access the Conversations, Users, Roles and Bindings
-     * of this Service..
+     * Returns Absolute URLs to access the conversations, users, roles, bindings and
+     * configuration of this service..
      *
-     * @return Absolute URLs to access the Conversations, Users, Roles and Bindings
-     *         of this Service.
+     * @return Absolute URLs to access the conversations, users, roles, bindings
+     *         and configuration of this service.
      */
     public final Map<String, String> getLinks() {
         return this.links;

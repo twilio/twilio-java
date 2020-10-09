@@ -3,8 +3,8 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
 import com.twilio.converter.Promoter;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -12,11 +12,12 @@ import java.util.Objects;
  * Object representation of a price of a phone number.
  *
  * <p>
- *  For more information see:
- *  <a href=https://www.twilio.com/voice/pricing>Pricing Docs</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/voice/pricing>Pricing Docs</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class PhoneNumberPrice {
 
     /**
@@ -62,9 +63,9 @@ public class PhoneNumberPrice {
     /**
      * Initialize a PhoneNumberPrice.
      *
-     * @param basePrice base price of the phone number
+     * @param basePrice    base price of the phone number
      * @param currentPrice current price of the phone number
-     * @param type type of phone number
+     * @param type         type of phone number
      */
     @JsonCreator
     public PhoneNumberPrice(@JsonProperty("base_price") final double basePrice,
@@ -77,6 +78,7 @@ public class PhoneNumberPrice {
 
     /**
      * Returns the base price of the phone number.
+     *
      * @return the base price of the phone number
      */
     public double getBasePrice() {
@@ -85,6 +87,7 @@ public class PhoneNumberPrice {
 
     /**
      * Returns the current price of the phone number.
+     *
      * @return the current price of the phone number
      */
     public double getCurrentPrice() {
@@ -93,6 +96,7 @@ public class PhoneNumberPrice {
 
     /**
      * Returns the type of phone number.
+     *
      * @return the type of phone number
      */
     public Type getType() {
@@ -111,21 +115,12 @@ public class PhoneNumberPrice {
 
         PhoneNumberPrice other = (PhoneNumberPrice) o;
         return Objects.equals(this.basePrice, other.basePrice) &&
-               Objects.equals(this.currentPrice, other.currentPrice) &&
-               Objects.equals(this.type, other.type);
+            Objects.equals(this.currentPrice, other.currentPrice) &&
+            Objects.equals(this.type, other.type);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(this.basePrice, this.currentPrice, this.type);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("base_price", basePrice)
-                .add("current_price", currentPrice)
-                .add("type", type)
-                .toString();
     }
 }

@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account.message;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -27,8 +26,9 @@ import java.time.format.DateTimeFormatter;
 public class MediaReader extends Reader<Media> {
     private String pathAccountSid;
     private final String pathMessageSid;
-    private ZonedDateTime absoluteDateCreated;
-    private Range<ZonedDateTime> rangeDateCreated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
 
     /**
      * Construct a new MediaReader.
@@ -62,12 +62,13 @@ public class MediaReader extends Reader<Media> {
      * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
      * created on or after midnight of this date..
      *
-     * @param absoluteDateCreated Only include media that was created on this date
+     * @param dateCreated Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final ZonedDateTime absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public MediaReader setDateCreated(final ZonedDateTime dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
+        this.dateCreated = dateCreated;
         return this;
     }
 
@@ -79,12 +80,29 @@ public class MediaReader extends Reader<Media> {
      * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
      * created on or after midnight of this date..
      *
-     * @param rangeDateCreated Only include media that was created on this date
+     * @param dateCreatedBefore Only include media that was created on this date
      * @return this
      */
-    public MediaReader setDateCreated(final Range<ZonedDateTime> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public MediaReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
+        this.dateCreated = null;
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * Only include media that was created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read media that was
+     * created on this date. You can also specify an inequality, such as
+     * `StartTime&lt;=YYYY-MM-DD`, to read media that was created on or before
+     * midnight of this date, and `StartTime&gt;=YYYY-MM-DD` to read media that was
+     * created on or after midnight of this date..
+     *
+     * @param dateCreatedAfter Only include media that was created on this date
+     * @return this
+     */
+    public MediaReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
+        this.dateCreated = null;
+        this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
@@ -206,10 +224,10 @@ public class MediaReader extends Reader<Media> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
+        if (dateCreated != null) {
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateTimeRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
 
         if (getPageSize() != null) {

@@ -30,7 +30,6 @@ public class FactorCreator extends Creator<Factor> {
     private final Factor.FactorTypes factorType;
     private final String config;
     private String twilioSandboxMode;
-    private String authorization;
 
     /**
      * Construct a new FactorCreator.
@@ -64,17 +63,6 @@ public class FactorCreator extends Creator<Factor> {
      */
     public FactorCreator setTwilioSandboxMode(final String twilioSandboxMode) {
         this.twilioSandboxMode = twilioSandboxMode;
-        return this;
-    }
-
-    /**
-     * The Authorization HTTP request header.
-     *
-     * @param authorization The Authorization HTTP request header
-     * @return this
-     */
-    public FactorCreator setAuthorization(final String authorization) {
-        this.authorization = authorization;
         return this;
     }
 
@@ -118,10 +106,6 @@ public class FactorCreator extends Creator<Factor> {
     private void addHeaderParams(final Request request) {
         if (twilioSandboxMode != null) {
             request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
-        }
-
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
         }
     }
 

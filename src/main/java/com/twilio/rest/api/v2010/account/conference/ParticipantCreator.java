@@ -60,6 +60,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private String jitterBufferSize;
     private String byoc;
     private String callerId;
+    private String callReason;
 
     /**
      * Construct a new ParticipantCreator.
@@ -696,6 +697,18 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The Reason for the outgoing call. Use it to specify the purpose of the call
+     * that is presented on the called party's phone. (Branded Calls Beta).
+     *
+     * @param callReason Reason for the call (Branded Calls Beta)
+     * @return this
+     */
+    public ParticipantCreator setCallReason(final String callReason) {
+        this.callReason = callReason;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -883,6 +896,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (callerId != null) {
             request.addPostParam("CallerId", callerId);
+        }
+
+        if (callReason != null) {
+            request.addPostParam("CallReason", callReason);
         }
     }
 }

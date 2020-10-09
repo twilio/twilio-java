@@ -46,6 +46,11 @@ public class ComplianceTest {
     }
 
     @Test
+    public void noClassesShouldUseJodaTime() {
+        NO_CLASSES_SHOULD_USE_JODATIME.check(twilioClasses);
+    }
+
+    @Test
     public void resourceClassSanityCheck() {
         GivenClassesConjunction resourceClasses = classes().that().areAssignableTo(com.twilio.base.Resource.class).and().doNotHaveFullyQualifiedName(com.twilio.base.Resource.class.getName());
 

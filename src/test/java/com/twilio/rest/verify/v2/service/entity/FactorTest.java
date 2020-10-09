@@ -47,7 +47,6 @@ public class FactorTest {
             request.addPostParam("FactorType", serialize(Factor.FactorTypes.PUSH));
             request.addPostParam("Config", serialize("config"));
             request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
-            request.addHeaderParam("Authorization", serialize("authorization"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -56,7 +55,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "binding", "friendly_name", Factor.FactorTypes.PUSH, "config").setTwilioSandboxMode("twilio_sandbox_mode").setAuthorization("authorization").create();
+            Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "binding", "friendly_name", Factor.FactorTypes.PUSH, "config").setTwilioSandboxMode("twilio_sandbox_mode").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +69,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "binding", "friendly_name", Factor.FactorTypes.PUSH, "config").setTwilioSandboxMode("twilio_sandbox_mode").setAuthorization("authorization").create();
+        Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "binding", "friendly_name", Factor.FactorTypes.PUSH, "config").setTwilioSandboxMode("twilio_sandbox_mode").create();
     }
 
     @Test

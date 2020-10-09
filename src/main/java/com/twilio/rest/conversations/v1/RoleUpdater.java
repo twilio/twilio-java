@@ -19,10 +19,6 @@ import com.twilio.rest.Domains;
 
 import java.util.List;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class RoleUpdater extends Updater<Role> {
     private final String pathSid;
     private final List<String> permission;

@@ -34,10 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Role extends Resource {
@@ -289,9 +285,9 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The absolute URL of the Role resource.
+     * Returns An absolute URL for this user role..
      *
-     * @return The absolute URL of the Role resource
+     * @return An absolute URL for this user role.
      */
     public final URI getUrl() {
         return this.url;

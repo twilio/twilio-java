@@ -30,10 +30,6 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
@@ -181,18 +177,20 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns The url.
+     * Returns An absolute URL for this global configuration..
      *
-     * @return The url
+     * @return An absolute URL for this global configuration.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns Absolute URLs to access the webhook and default service
+     * configurations..
      *
-     * @return The links
+     * @return Absolute URLs to access the webhook and default service
+     *         configurations.
      */
     public final Map<String, String> getLinks() {
         return this.links;

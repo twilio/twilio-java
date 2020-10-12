@@ -28,6 +28,11 @@ public class TwilioRestClient {
         this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
+
+        // This module configures the ObjectMapper to use
+        // public API methods for manipulating java.time.*
+        // classes. The alternative is to use reflection which
+        // generates warnings from the module system on Java 9+
         objectMapper.registerModule(new JavaTimeModule());
     }
 

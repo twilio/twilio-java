@@ -1,6 +1,7 @@
 package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.function.Predicate;
 
@@ -27,6 +28,7 @@ public class TwilioRestClient {
         this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     /**

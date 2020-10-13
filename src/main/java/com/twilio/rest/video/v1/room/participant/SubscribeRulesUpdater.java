@@ -40,8 +40,9 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
     }
 
     /**
-     * A JSON-encoded array of subscribe rules. See the [Specifying Subscribe
-     * Rules](https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr) section for further information..
+     * A JSON-encoded array of subscribe rules. See the <a
+     * href="https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr">Specifying
+     * Subscribe Rules</a> section for further information..
      *
      * @param rules A JSON-encoded array of subscribe rules
      * @return this
@@ -71,7 +72,7 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
         if (response == null) {
             throw new ApiConnectionException("SubscribeRules update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -38,8 +38,9 @@ public class WorkerCreator extends Creator<Worker> {
 
     /**
      * The SID of a valid Activity that will describe the new Worker's initial
-     * state. See [Activities](https://www.twilio.com/docs/taskrouter/api/activity)
-     * for more information. If not provided, the new Worker's initial state is the
+     * state. See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/activity">Activities</a> for
+     * more information. If not provided, the new Worker's initial state is the
      * `default_activity_sid` configured on the Workspace..
      *
      * @param activitySid The SID of a valid Activity that describes the new
@@ -85,7 +86,7 @@ public class WorkerCreator extends Creator<Worker> {
 
         if (response == null) {
             throw new ApiConnectionException("Worker creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +36,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class SubscribedEvent extends Resource {
     private static final long serialVersionUID = 128787608390551L;
 
@@ -47,44 +48,6 @@ public class SubscribedEvent extends Resource {
      */
     public static SubscribedEventReader reader(final String pathSubscriptionSid) {
         return new SubscribedEventReader(pathSubscriptionSid);
-    }
-
-    /**
-     * Create a SubscribedEventCreator to execute create.
-     *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param type Type of event being subscribed to.
-     * @return SubscribedEventCreator capable of executing the create
-     */
-    public static SubscribedEventCreator creator(final String pathSubscriptionSid,
-                                                 final String type) {
-        return new SubscribedEventCreator(pathSubscriptionSid, type);
-    }
-
-    /**
-     * Create a SubscribedEventUpdater to execute update.
-     *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param pathType Type of event being subscribed to.
-     * @param version The schema version that the subscription should use.
-     * @return SubscribedEventUpdater capable of executing the update
-     */
-    public static SubscribedEventUpdater updater(final String pathSubscriptionSid,
-                                                 final String pathType,
-                                                 final Integer version) {
-        return new SubscribedEventUpdater(pathSubscriptionSid, pathType, version);
-    }
-
-    /**
-     * Create a SubscribedEventDeleter to execute delete.
-     *
-     * @param pathSubscriptionSid Subscription SID.
-     * @param pathType Type of event being subscribed to.
-     * @return SubscribedEventDeleter capable of executing the delete
-     */
-    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid,
-                                                 final String pathType) {
-        return new SubscribedEventDeleter(pathSubscriptionSid, pathType);
     }
 
     /**
@@ -220,16 +183,5 @@ public class SubscribedEvent extends Resource {
                             version,
                             subscriptionSid,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("type", type)
-                          .add("version", version)
-                          .add("subscriptionSid", subscriptionSid)
-                          .add("url", url)
-                          .toString();
     }
 }

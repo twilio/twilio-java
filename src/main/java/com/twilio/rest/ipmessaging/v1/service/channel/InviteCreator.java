@@ -39,8 +39,9 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
-     * assigned to the new member..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> assigned to
+     * the new member..
      *
      * @param roleSid The Role assigned to the new member
      * @return this
@@ -70,7 +71,7 @@ public class InviteCreator extends Creator<Invite> {
 
         if (response == null) {
             throw new ApiConnectionException("Invite creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

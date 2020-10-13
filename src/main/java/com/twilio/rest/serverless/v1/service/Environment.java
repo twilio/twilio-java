@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Environment extends Resource {
     private static final long serialVersionUID = 171611678539835L;
 
@@ -70,7 +71,7 @@ public class Environment extends Resource {
      *
      * @param pathServiceSid The SID of the Service to create the Environment
      *                       resource under
-     * @param uniqueName An application-defined string that uniquely identifies the
+     * @param uniqueName A user-defined string that uniquely identifies the
      *                   Environment resource
      * @return EnvironmentCreator capable of executing the create
      */
@@ -137,8 +138,8 @@ public class Environment extends Resource {
     private final String uniqueName;
     private final String domainSuffix;
     private final String domainName;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -217,11 +218,11 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the
-     * Environment resource.
+     * Returns A user-defined string that uniquely identifies the Environment
+     * resource.
      *
-     * @return An application-defined string that uniquely identifies the
-     *         Environment resource
+     * @return A user-defined string that uniquely identifies the Environment
+     *         resource
      */
     public final String getUniqueName() {
         return this.uniqueName;
@@ -238,10 +239,10 @@ public class Environment extends Resource {
 
     /**
      * Returns The base domain name for all Functions and Assets deployed in the
-     * environment.
+     * Environment.
      *
      * @return The base domain name for all Functions and Assets deployed in the
-     *         environment
+     *         Environment
      */
     public final String getDomainName() {
         return this.domainName;
@@ -254,7 +255,7 @@ public class Environment extends Resource {
      * @return The ISO 8601 date and time in GMT when the Environment resource was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -265,7 +266,7 @@ public class Environment extends Resource {
      * @return The ISO 8601 date and time in GMT when the Environment resource was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -279,9 +280,9 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The URLs of the environment's nested resources.
+     * Returns The URLs of the Environment resource's nested resources.
      *
-     * @return The URLs of the environment's nested resources
+     * @return The URLs of the Environment resource's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -325,22 +326,5 @@ public class Environment extends Resource {
                             dateUpdated,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("buildSid", buildSid)
-                          .add("uniqueName", uniqueName)
-                          .add("domainSuffix", domainSuffix)
-                          .add("domainName", domainName)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

@@ -2,7 +2,6 @@ package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-
 import com.google.common.base.MoreObjects;
 
 import java.util.Objects;
@@ -11,8 +10,8 @@ import java.util.Objects;
  * Subscribe Rule
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
+ *    For more information see:
+ *    <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -40,11 +39,11 @@ public class SubscribeRule implements Rule {
     private final Priority priority;
 
     public SubscribeRule(@JsonProperty("type") final Type type,
-            @JsonProperty("all") final Boolean all,
-            @JsonProperty("publisher") final String publisher,
-            @JsonProperty("track") final String track,
-            @JsonProperty("kind") final Kind kind,
-            @JsonProperty("priority") final Priority priority) {
+                         @JsonProperty("all") final Boolean all,
+                         @JsonProperty("publisher") final String publisher,
+                         @JsonProperty("track") final String track,
+                         @JsonProperty("kind") final Kind kind,
+                         @JsonProperty("priority") final Priority priority) {
         this.type = type;
         this.all = all;
         this.publisher = publisher;
@@ -109,17 +108,25 @@ public class SubscribeRule implements Rule {
 
     interface BuilderMiddle {
         BuilderMiddleBuild withPublisher(final String publisher);
+
         BuilderMiddleBuild withKind(final Kind kind);
+
         BuilderMiddleBuild withTrack(final String track);
+
         BuilderMiddleBuild withPriority(final Priority priority);
+
         BuilderBuild withAll();
     }
 
     interface BuilderMiddleBuild {
         BuilderMiddleBuild withPublisher(final String publisher);
+
         BuilderMiddleBuild withKind(final Kind kind);
+
         BuilderMiddleBuild withTrack(final String track);
+
         BuilderMiddleBuild withPriority(final Priority priority);
+
         SubscribeRule build();
     }
 
@@ -129,10 +136,10 @@ public class SubscribeRule implements Rule {
 
 
     public static class Builder implements
-            BuilderStart,
-            BuilderMiddle,
-            BuilderMiddleBuild,
-            BuilderBuild {
+        BuilderStart,
+        BuilderMiddle,
+        BuilderMiddleBuild,
+        BuilderBuild {
         private Type type;
         private Boolean all;
         private String publisher;
@@ -152,19 +159,23 @@ public class SubscribeRule implements Rule {
             this.all = true;
             return this;
         }
+
         public BuilderMiddleBuild withPublisher(final String publisher) {
             this.publisher = publisher;
             return this;
         }
+
         public BuilderMiddleBuild withKind(final Kind kind) {
             this.kind = kind;
             return this;
         }
+
         public BuilderMiddleBuild withTrack(final String track) {
             this.track = track;
             return this;
         }
-        public BuilderMiddleBuild withPriority(final SubscribeRule.Priority priority) {
+
+        public BuilderMiddleBuild withPriority(final Priority priority) {
             this.priority = priority;
             return this;
         }
@@ -172,10 +183,10 @@ public class SubscribeRule implements Rule {
         private boolean hasOneFilter() {
             // at least one filter must be set
             return this.kind != null
-                    || this.all != null
-                    || this.track != null
-                    || this.publisher != null
-                    || this.priority != null;
+                || this.all != null
+                || this.track != null
+                || this.publisher != null
+                || this.priority != null;
         }
 
         private boolean hasType() {
@@ -201,27 +212,15 @@ public class SubscribeRule implements Rule {
         if (!(o instanceof SubscribeRule)) return false;
         SubscribeRule that = (SubscribeRule) o;
         return getType() == that.getType() &&
-                Objects.equals(getAll(), that.getAll()) &&
-                Objects.equals(getPublisher(), that.getPublisher()) &&
-                Objects.equals(getTrack(), that.getTrack()) &&
-                getKind() == that.getKind() &&
-                getPriority() == that.getPriority();
+            Objects.equals(getAll(), that.getAll()) &&
+            Objects.equals(getPublisher(), that.getPublisher()) &&
+            Objects.equals(getTrack(), that.getTrack()) &&
+            getKind() == that.getKind() &&
+            getPriority() == that.getPriority();
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getType(), getAll(), getPublisher(), getTrack(), getKind(), getPriority());
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("type", this.type)
-                .add("all", this.all)
-                .add("publisher", this.publisher)
-                .add("track", this.track)
-                .add("kind", this.kind)
-                .add("priority", this.priority)
-                .toString();
     }
 }

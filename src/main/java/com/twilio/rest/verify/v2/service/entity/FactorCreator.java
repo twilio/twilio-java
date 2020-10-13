@@ -30,7 +30,6 @@ public class FactorCreator extends Creator<Factor> {
     private final Factor.FactorTypes factorType;
     private final String config;
     private String twilioSandboxMode;
-    private String authorization;
 
     /**
      * Construct a new FactorCreator.
@@ -68,17 +67,6 @@ public class FactorCreator extends Creator<Factor> {
     }
 
     /**
-     * The Authorization HTTP request header.
-     *
-     * @param authorization The Authorization HTTP request header
-     * @return this
-     */
-    public FactorCreator setAuthorization(final String authorization) {
-        this.authorization = authorization;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -99,7 +87,7 @@ public class FactorCreator extends Creator<Factor> {
 
         if (response == null) {
             throw new ApiConnectionException("Factor creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -118,10 +106,6 @@ public class FactorCreator extends Creator<Factor> {
     private void addHeaderParams(final Request request) {
         if (twilioSandboxMode != null) {
             request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
-        }
-
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
         }
     }
 

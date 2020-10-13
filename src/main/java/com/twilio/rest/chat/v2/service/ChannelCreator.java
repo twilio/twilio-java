@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class ChannelCreator extends Creator<Channel> {
     private final String pathServiceSid;
@@ -25,8 +26,8 @@ public class ChannelCreator extends Creator<Channel> {
     private String uniqueName;
     private String attributes;
     private Channel.ChannelType type;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String createdBy;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
@@ -91,25 +92,25 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service.  Note that this should
-     * only be used in cases where a Channel is being recreated from a
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was created. The
+     * default value is the current time set by the Chat service.  Note that this
+     * should only be used in cases where a Channel is being recreated from a
      * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
      */
-    public ChannelCreator setDateCreated(final DateTime dateCreated) {
+    public ChannelCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`. Note that this parameter should only be used in
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was last updated.
+     * The default value is `null`. Note that this parameter should only be used in
      * cases where a Channel is being recreated from a backup/separate source  and
      * where a Message was previously updated..
      *
@@ -117,7 +118,7 @@ public class ChannelCreator extends Creator<Channel> {
      *                    updated
      * @return this
      */
-    public ChannelCreator setDateUpdated(final DateTime dateUpdated) {
+    public ChannelCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -165,7 +166,7 @@ public class ChannelCreator extends Creator<Channel> {
 
         if (response == null) {
             throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -210,11 +211,11 @@ public class ChannelCreator extends Creator<Channel> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (createdBy != null) {

@@ -114,10 +114,10 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * The currency of the `charge_amount`, formatted as [ISO
-     * 4127](http://www.iso.org/iso/home/standards/currency_codes.htm) format. The
-     * default value is `USD` and all values allowed from the &lt;Pay&gt; Connector
-     * are accepted..
+     * The currency of the `charge_amount`, formatted as <a
+     * href="http://www.iso.org/iso/home/standards/currency_codes.htm">ISO 4127</a>
+     * format. The default value is `USD` and all values allowed from the
+     * &lt;Pay&gt; Connector are accepted..
      *
      * @param currency The currency of the `charge_amount`.
      * @return this
@@ -170,8 +170,8 @@ public class PaymentCreator extends Creator<Payment> {
     /**
      * A single level JSON string that is required when accepting certain
      * information specific only to ACH payments. The information that has to be
-     * included here depends on the &lt;Pay&gt; Connector. [Read
-     * more](https://www.twilio.com/console/voice/pay-connectors)..
+     * included here depends on the &lt;Pay&gt; Connector. <a
+     * href="https://www.twilio.com/console/voice/pay-connectors">Read more</a>..
      *
      * @param parameter A single level JSON string that is required when accepting
      *                  certain information specific only to ACH payments.
@@ -184,9 +184,9 @@ public class PaymentCreator extends Creator<Payment> {
 
     /**
      * This is the unique name corresponding to the Payment Gateway Connector
-     * installed in the Twilio Add-ons. Learn more about [&lt;Pay&gt;
-     * Connectors](https://www.twilio.com/console/voice/pay-connectors). The default
-     * value is `Default`..
+     * installed in the Twilio Add-ons. Learn more about <a
+     * href="https://www.twilio.com/console/voice/pay-connectors">&lt;Pay&gt;
+     * Connectors</a>. The default value is `Default`..
      *
      * @param paymentConnector This is the unique name corresponding to the Payment
      *                         Gateway Connector installed in the Twilio Add-ons.
@@ -304,7 +304,7 @@ public class PaymentCreator extends Creator<Payment> {
 
         if (response == null) {
             throw new ApiConnectionException("Payment creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

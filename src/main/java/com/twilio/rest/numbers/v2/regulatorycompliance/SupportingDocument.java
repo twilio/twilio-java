@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,15 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class SupportingDocument extends Resource {
     private static final long serialVersionUID = 164064096878384L;
 
@@ -109,6 +110,16 @@ public class SupportingDocument extends Resource {
     }
 
     /**
+     * Create a SupportingDocumentDeleter to execute delete.
+     *
+     * @param pathSid The unique string that identifies the resource
+     * @return SupportingDocumentDeleter capable of executing the delete
+     */
+    public static SupportingDocumentDeleter deleter(final String pathSid) {
+        return new SupportingDocumentDeleter(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a SupportingDocument object using the provided
      * ObjectMapper.
      *
@@ -153,8 +164,8 @@ public class SupportingDocument extends Resource {
     private final SupportingDocument.Status status;
     private final String type;
     private final Map<String, Object> attributes;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -258,7 +269,7 @@ public class SupportingDocument extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -267,7 +278,7 @@ public class SupportingDocument extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -316,21 +327,5 @@ public class SupportingDocument extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("friendlyName", friendlyName)
-                          .add("mimeType", mimeType)
-                          .add("status", status)
-                          .add("type", type)
-                          .add("attributes", attributes)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

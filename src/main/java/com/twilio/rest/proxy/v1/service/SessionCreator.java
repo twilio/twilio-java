@@ -19,8 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +31,7 @@ import java.util.Map;
 public class SessionCreator extends Creator<Session> {
     private final String pathServiceSid;
     private String uniqueName;
-    private DateTime dateExpiry;
+    private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Mode mode;
     private Session.Status status;
@@ -62,13 +62,14 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date when the Session
-     * should expire. If this is value is present, it overrides the `ttl` value..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date when
+     * the Session should expire. If this is value is present, it overrides the
+     * `ttl` value..
      *
      * @param dateExpiry The ISO 8601 date when the Session should expire
      * @return this
      */
-    public SessionCreator setDateExpiry(final DateTime dateExpiry) {
+    public SessionCreator setDateExpiry(final ZonedDateTime dateExpiry) {
         this.dateExpiry = dateExpiry;
         return this;
     }
@@ -131,21 +132,22 @@ public class SessionCreator extends Creator<Session> {
     }
 
     /**
-     * [Experimental] Setting to true enables early opt-in to allowing Proxy to
-     * reject a Session create (with Participants) request that could cause the same
+     * [Experimental] For accounts with the ProxyAllowParticipantConflict account
+     * flag, setting to true enables per-request opt-in to allowing Proxy to reject
+     * a Session create (with Participants) request that could cause the same
      * Identifier/ProxyIdentifier pair to be active in multiple Sessions. Depending
      * on the context, this could be a 409 error (Twilio error code 80623) or a 400
-     * error (Twilio error code 80604). If not provided, or if set to false,
-     * requests will be allowed to succeed and a Debugger notification (80802) will
-     * be emitted. Having multiple, active Participants with the same
-     * Identifier/ProxyIdentifier pair causes calls and messages from affected
-     * Participants to be routed incorrectly. Please note, in a future release, the
-     * default behavior will be to reject the request as described unless an
-     * exception has been requested..
+     * error (Twilio error code 80604). If not provided, requests will be allowed to
+     * succeed and a Debugger notification (80802) will be emitted. Having multiple,
+     * active Participants with the same Identifier/ProxyIdentifier pair causes
+     * calls and messages from affected Participants to be routed incorrectly.
+     * Please note, the default behavior for accounts without the
+     * ProxyAllowParticipantConflict flag is to reject the request as described.
+     * This will eventually be the default for all accounts..
      *
-     * @param failOnParticipantConflict An experimental flag that instructs Proxy
-     *                                  to reject a Session create request when it
-     *                                  detects a Participant conflict.
+     * @param failOnParticipantConflict An experimental parameter to override the
+     *                                  ProxyAllowParticipantConflict account flag
+     *                                  on a per-request basis.
      * @return this
      */
     public SessionCreator setFailOnParticipantConflict(final Boolean failOnParticipantConflict) {
@@ -173,7 +175,7 @@ public class SessionCreator extends Creator<Session> {
 
         if (response == null) {
             throw new ApiConnectionException("Session creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -195,7 +197,7 @@ public class SessionCreator extends Creator<Session> {
         }
 
         if (dateExpiry != null) {
-            request.addPostParam("DateExpiry", dateExpiry.toString());
+            request.addPostParam("DateExpiry", dateExpiry.toOffsetDateTime().toString());
         }
 
         if (ttl != null) {

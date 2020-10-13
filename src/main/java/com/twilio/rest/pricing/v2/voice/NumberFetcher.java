@@ -33,10 +33,10 @@ public class NumberFetcher extends Fetcher<Number> {
     }
 
     /**
-     * The origination phone number, in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to
-     * fetch the origin-based voice pricing information. E.164 format consists of a
-     * + followed by the country code and subscriber number..
+     * The origination phone number, in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, for
+     * which to fetch the origin-based voice pricing information. E.164 format
+     * consists of a + followed by the country code and subscriber number..
      *
      * @param originationNumber The origination number for which to fetch pricing
      *                          information
@@ -48,10 +48,10 @@ public class NumberFetcher extends Fetcher<Number> {
     }
 
     /**
-     * The origination phone number, in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, for which to
-     * fetch the origin-based voice pricing information. E.164 format consists of a
-     * + followed by the country code and subscriber number..
+     * The origination phone number, in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, for
+     * which to fetch the origin-based voice pricing information. E.164 format
+     * consists of a + followed by the country code and subscriber number..
      *
      * @param originationNumber The origination number for which to fetch pricing
      *                          information
@@ -81,7 +81,7 @@ public class NumberFetcher extends Fetcher<Number> {
 
         if (response == null) {
             throw new ApiConnectionException("Number fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

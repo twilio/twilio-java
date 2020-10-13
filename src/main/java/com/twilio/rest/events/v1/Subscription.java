@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -40,6 +40,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Subscription extends Resource {
     private static final long serialVersionUID = 270385027985111L;
 
@@ -74,6 +75,16 @@ public class Subscription extends Resource {
                                               final String sinkSid,
                                               final List<Map<String, Object>> types) {
         return new SubscriptionCreator(description, sinkSid, types);
+    }
+
+    /**
+     * Create a SubscriptionUpdater to execute update.
+     *
+     * @param pathSid The sid
+     * @return SubscriptionUpdater capable of executing the update
+     */
+    public static SubscriptionUpdater updater(final String pathSid) {
+        return new SubscriptionUpdater(pathSid);
     }
 
     /**
@@ -126,8 +137,8 @@ public class Subscription extends Resource {
 
     private final String accountSid;
     private final String sid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String description;
     private final String sinkSid;
     private final URI url;
@@ -183,7 +194,7 @@ public class Subscription extends Resource {
      *
      * @return The date this Subscription was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -192,7 +203,7 @@ public class Subscription extends Resource {
      *
      * @return The date this Subscription was updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -264,19 +275,5 @@ public class Subscription extends Resource {
                             sinkSid,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("sid", sid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("description", description)
-                          .add("sinkSid", sinkSid)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

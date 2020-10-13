@@ -100,11 +100,12 @@ public class TriggerCreator extends Creator<Trigger> {
     }
 
     /**
-     * The field in the
-     * [UsageRecord](https://www.twilio.com/docs/usage/api/usage-record) resource
-     * that should fire the trigger.  Can be: `count`, `usage`, or `price` as
-     * described in the [UsageRecords
-     * documentation](https://www.twilio.com/docs/usage/api/usage-record#usage-count-price).  The default is `usage`..
+     * The field in the <a
+     * href="https://www.twilio.com/docs/usage/api/usage-record">UsageRecord</a>
+     * resource that should fire the trigger.  Can be: `count`, `usage`, or `price`
+     * as described in the <a
+     * href="https://www.twilio.com/docs/usage/api/usage-record#usage-count-price">UsageRecords
+     * documentation</a>.  The default is `usage`..
      *
      * @param triggerBy The field in the UsageRecord resource that fires the trigger
      * @return this
@@ -135,7 +136,7 @@ public class TriggerCreator extends Creator<Trigger> {
 
         if (response == null) {
             throw new ApiConnectionException("Trigger creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

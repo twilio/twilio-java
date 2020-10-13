@@ -39,10 +39,11 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * The phone number or [email](https://www.twilio.com/docs/verify/email) to
-     * verify. Either this parameter or the `verification_sid` must be specified.
-     * Phone numbers must be in [E.164
-     * format](https://www.twilio.com/docs/glossary/what-e164)..
+     * The phone number or <a
+     * href="https://www.twilio.com/docs/verify/email">email</a> to verify. Either
+     * this parameter or the `verification_sid` must be specified. Phone numbers
+     * must be in <a href="https://www.twilio.com/docs/glossary/what-e164">E.164
+     * format</a>..
      *
      * @param to The phone number or email to verify
      * @return this
@@ -54,8 +55,8 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
     /**
      * A SID that uniquely identifies the Verification Check. Either this parameter
-     * or the `to` phone number/[email](https://www.twilio.com/docs/verify/email)
-     * must be specified..
+     * or the `to` phone number/<a
+     * href="https://www.twilio.com/docs/verify/email">email</a> must be specified..
      *
      * @param verificationSid A SID that uniquely identifies the Verification Check
      * @return this
@@ -109,7 +110,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
         if (response == null) {
             throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

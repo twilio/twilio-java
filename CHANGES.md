@@ -1,6 +1,89 @@
 twilio-java changelog
 =====================
 
+[2020-09-28] Version 8.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2020-09-28-7xx-to-8xx) for detailed migration notes.
+
+**Library - Chore**
+- [PR #584](https://github.com/twilio/twilio-java/pull/584): remove Guava Range(). Thanks to [@thinkingserious](https://github.com/thinkingserious)! **(breaking change)**
+- [PR #585](https://github.com/twilio/twilio-java/pull/585): finish dropping Guava 'MoreObjects' usage. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #572](https://github.com/twilio/twilio-java/pull/572): remove joda-time dependency. Thanks to [@thinkingserious](https://github.com/thinkingserious)! **(breaking change)**
+- [PR #574](https://github.com/twilio/twilio-java/pull/574): remove guava functional interfaces. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #576](https://github.com/twilio/twilio-java/pull/576): replace Guava toString(). Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #575](https://github.com/twilio/twilio-java/pull/575): replace guava concurrency, hashing, and charstreams. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+- [PR #578](https://github.com/twilio/twilio-java/pull/578): remove deprecated twiml methods. Thanks to [@eshanholtz](https://github.com/eshanholtz)! **(breaking change)**
+
+**Library - Feature**
+- [PR #588](https://github.com/twilio/twilio-java/pull/588): make static 'Twilio' access synchronized. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #586](https://github.com/twilio/twilio-java/pull/586): add support for environment variables. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #587](https://github.com/twilio/twilio-java/pull/587): replace ICE Server URL properties with String types. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Library - Docs**
+- [PR #579](https://github.com/twilio/twilio-java/pull/579): Remove Java7 from supported languages and add upgrade guide. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional property `call_reason` in the participant create request
+- Make sip-domain-service endpoints available in stage-au1 and prod-au1
+
+**Messaging**
+- Removed beta feature gate from WhatsApp Templates API
+
+**Serverless**
+- Add Build Status endpoint
+
+**Video**
+- [Rooms] Add new room type "go" for WebRTC Go
+
+
+[2020-09-21] Version 7.55.3
+---------------------------
+**Library - Fix**
+- [PR #583](https://github.com/twilio/twilio-java/pull/583): allow API redirect responses. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #571](https://github.com/twilio/twilio-java/pull/571): paging breaks with + sign on phone number. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #582](https://github.com/twilio/twilio-java/pull/582): upgrade jackson and HTTP dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #581](https://github.com/twilio/twilio-java/pull/581): convert markdown links to href formatted links. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Accounts**
+- Add Auth Token rotation API
+
+**Conversations**
+- Change resource path for Webhook Configuration
+
+**Events**
+- Schemas API get all Schemas names and versions
+
+
+[2020-09-16] Version 7.55.2
+---------------------------
+**Conversations**
+- Expose Configuration and Service Configuration resources
+- Add Unique Name support for Conversations
+- Add Services Push Notification resource
+- Add Service scoped Conversation resources
+- Support Identity in Users resource endpoint
+
+**Messaging**
+- GA Deactivation List API
+- Add domain cert API's(fetch, update, create) for link tracker
+
+**Numbers**
+- Add API endpoint for Supporting Document deletion
+
+**Proxy**
+- Updated usage of FailOnParticipantConflict param to apply only to accounts with ProxyAllowParticipantConflict account flag
+
+**Supersim**
+- Add `AccountSid` parameter to Sim resource update request
+- Add `ready` status as an available status for a Sim resource
+
+
 [2020-09-02] Version 7.55.1
 ---------------------------
 **Ai**

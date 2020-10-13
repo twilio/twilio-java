@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,17 +25,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.FeedbackIssue;
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class FeedbackSummary extends Resource {
     private static final long serialVersionUID = 164951485289659L;
 
@@ -182,16 +183,16 @@ public class FeedbackSummary extends Resource {
     private final String accountSid;
     private final Integer callCount;
     private final Integer callFeedbackCount;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime endDate;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime endDate;
     private final Boolean includeSubaccounts;
     private final List<FeedbackIssue> issues;
     private final BigDecimal qualityScoreAverage;
     private final BigDecimal qualityScoreMedian;
     private final BigDecimal qualityScoreStandardDeviation;
     private final String sid;
-    private final DateTime startDate;
+    private final ZonedDateTime startDate;
     private final FeedbackSummary.Status status;
 
     @JsonCreator
@@ -271,7 +272,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The date this resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -280,7 +281,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The date this resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -289,7 +290,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The latest feedback entry date in the summary
      */
-    public final DateTime getEndDate() {
+    public final ZonedDateTime getEndDate() {
         return this.endDate;
     }
 
@@ -352,7 +353,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The earliest feedback entry date in the summary
      */
-    public final DateTime getStartDate() {
+    public final ZonedDateTime getStartDate() {
         return this.startDate;
     }
 
@@ -409,25 +410,5 @@ public class FeedbackSummary extends Resource {
                             sid,
                             startDate,
                             status);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("callCount", callCount)
-                          .add("callFeedbackCount", callFeedbackCount)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("endDate", endDate)
-                          .add("includeSubaccounts", includeSubaccounts)
-                          .add("issues", issues)
-                          .add("qualityScoreAverage", qualityScoreAverage)
-                          .add("qualityScoreMedian", qualityScoreMedian)
-                          .add("qualityScoreStandardDeviation", qualityScoreStandardDeviation)
-                          .add("sid", sid)
-                          .add("startDate", startDate)
-                          .add("status", status)
-                          .toString();
     }
 }

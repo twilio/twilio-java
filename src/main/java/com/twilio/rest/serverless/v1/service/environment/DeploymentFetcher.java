@@ -32,7 +32,7 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
      *
      * @param pathServiceSid The SID of the Service to fetch the Deployment
      *                       resource from
-     * @param pathEnvironmentSid The SID of the environment used by the Deployment
+     * @param pathEnvironmentSid The SID of the Environment used by the Deployment
      *                           to fetch
      * @param pathSid The SID that identifies the Deployment resource to fetch
      */
@@ -63,7 +63,7 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
 
         if (response == null) {
             throw new ApiConnectionException("Deployment fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

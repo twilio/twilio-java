@@ -32,7 +32,7 @@ public class VariableDeleter extends Deleter<Variable> {
      *
      * @param pathServiceSid The SID of the Service to delete the Variable resource
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variables to
+     * @param pathEnvironmentSid The SID of the Environment with the Variables to
      *                           delete
      * @param pathSid The SID of the Variable resource to delete
      */
@@ -62,7 +62,7 @@ public class VariableDeleter extends Deleter<Variable> {
 
         if (response == null) {
             throw new ApiConnectionException("Variable delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

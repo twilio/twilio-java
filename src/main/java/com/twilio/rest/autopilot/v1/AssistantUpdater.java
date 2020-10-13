@@ -119,8 +119,9 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * The JSON string that defines the Assistant's [style
-     * sheet](https://www.twilio.com/docs/autopilot/api/assistant/stylesheet).
+     * The JSON string that defines the Assistant's <a
+     * href="https://www.twilio.com/docs/autopilot/api/assistant/stylesheet">style
+     * sheet</a>.
      *
      * @param styleSheet A JSON string that defines the Assistant's style sheet
      * @return this
@@ -131,12 +132,14 @@ public class AssistantUpdater extends Updater<Assistant> {
     }
 
     /**
-     * A JSON object that defines the Assistant's [default
-     * tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for
-     * various scenarios, including initiation actions and fallback tasks..
+     * A JSON object that defines the Assistant's <a
+     * href="https://www.twilio.com/docs/autopilot/api/assistant/defaults">default
+     * tasks</a> for various scenarios, including initiation actions and fallback
+     * tasks..
      *
      * @param defaults A JSON object that defines the Assistant's [default
-     *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults) for various scenarios
+     *                 tasks](https://www.twilio.com/docs/autopilot/api/assistant/defaults)
+     *                 for various scenarios
      * @return this
      */
     public AssistantUpdater setDefaults(final Map<String, Object> defaults) {
@@ -175,7 +178,7 @@ public class AssistantUpdater extends Updater<Assistant> {
 
         if (response == null) {
             throw new ApiConnectionException("Assistant update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

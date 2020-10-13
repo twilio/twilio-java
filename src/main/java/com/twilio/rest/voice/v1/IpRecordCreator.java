@@ -44,13 +44,13 @@ public class IpRecordCreator extends Creator<IpRecord> {
     }
 
     /**
-     * An integer representing the length of the
-     * [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP
-     * address. By default the entire IP address is used, which for IPv4 is value
+     * An integer representing the length of the <a
+     * href="https://tools.ietf.org/html/rfc4632">CIDR</a> prefix to use with this
+     * IP address. By default the entire IP address is used, which for IPv4 is value
      * 32..
      *
      * @param cidrPrefixLength An integer representing the length of the
-     *                         [CIDR](https://tools.ietf.org/html/rfc4632) prefix to
+     *                         <a href="https://tools.ietf.org/html/rfc4632">CIDR</a> prefix to
      *                         use with this IP address. By default the entire IP
      *                         address is used, which for IPv4 is value 32.
      * @return this
@@ -80,7 +80,7 @@ public class IpRecordCreator extends Creator<IpRecord> {
 
         if (response == null) {
             throw new ApiConnectionException("IpRecord creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

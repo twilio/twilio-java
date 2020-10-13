@@ -1,8 +1,5 @@
 package com.twilio;
 
-import com.google.common.util.concurrent.ListeningExecutorService;
-import com.google.common.util.concurrent.MoreExecutors;
-
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
@@ -15,6 +12,7 @@ import com.twilio.http.TwilioRestClient;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import mockit.Mocked;
@@ -68,17 +66,15 @@ public class TwilioTest {
 
     @Test
     public void testSetExecutorService() {
-        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(
-                Executors.newCachedThreadPool());
-        Twilio.setExecutorService(listeningExecutorService);
-        assertEquals(listeningExecutorService, Twilio.getExecutorService());
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Twilio.setExecutorService(executorService);
+        assertEquals(executorService, Twilio.getExecutorService());
     }
 
     @Test
     public void testDestroyExecutorService() {
-        ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(
-                Executors.newCachedThreadPool());
-        Twilio.setExecutorService(listeningExecutorService);
+        ExecutorService executorService = Executors.newCachedThreadPool();
+        Twilio.setExecutorService(executorService);
         Twilio.destroy();
         assertTrue(Twilio.getExecutorService().isShutdown());
     }

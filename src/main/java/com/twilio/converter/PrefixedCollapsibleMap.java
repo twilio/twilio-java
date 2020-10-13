@@ -1,7 +1,5 @@
 package com.twilio.converter;
 
-import com.google.common.base.Joiner;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,7 +20,7 @@ public class PrefixedCollapsibleMap {
             if (entry.getValue() instanceof Map) {
                 flatten((Map<String, Object>) entry.getValue(), result, next);
             } else {
-                result.put(Joiner.on('.').join(next), entry.getValue().toString());
+                result.put(String.join(".", next), entry.getValue().toString());
             }
         }
 

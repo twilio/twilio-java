@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,15 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class RoomRecording extends Resource {
     private static final long serialVersionUID = 32348280451006L;
 
@@ -219,7 +220,7 @@ public class RoomRecording extends Resource {
 
     private final String accountSid;
     private final RoomRecording.Status status;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final String sid;
     private final String sourceSid;
     private final Long size;
@@ -308,7 +309,7 @@ public class RoomRecording extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -480,27 +481,5 @@ public class RoomRecording extends Resource {
                             offset,
                             roomSid,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("status", status)
-                          .add("dateCreated", dateCreated)
-                          .add("sid", sid)
-                          .add("sourceSid", sourceSid)
-                          .add("size", size)
-                          .add("url", url)
-                          .add("type", type)
-                          .add("duration", duration)
-                          .add("containerFormat", containerFormat)
-                          .add("codec", codec)
-                          .add("groupingSids", groupingSids)
-                          .add("trackName", trackName)
-                          .add("offset", offset)
-                          .add("roomSid", roomSid)
-                          .add("links", links)
-                          .toString();
     }
 }

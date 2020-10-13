@@ -48,9 +48,9 @@ public class WorkflowCreator extends Creator<Workflow> {
 
     /**
      * The URL from your application that will process task assignment events. See
-     * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
-     * for more details..
+     * <a
+     * href="https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks">Handling
+     * Task Assignment Callback</a> for more details..
      *
      * @param assignmentCallbackUrl The URL from your application that will process
      *                              task assignment events
@@ -63,9 +63,9 @@ public class WorkflowCreator extends Creator<Workflow> {
 
     /**
      * The URL from your application that will process task assignment events. See
-     * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
-     * for more details..
+     * <a
+     * href="https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks">Handling
+     * Task Assignment Callback</a> for more details..
      *
      * @param assignmentCallbackUrl The URL from your application that will process
      *                              task assignment events
@@ -135,7 +135,7 @@ public class WorkflowCreator extends Creator<Workflow> {
 
         if (response == null) {
             throw new ApiConnectionException("Workflow creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

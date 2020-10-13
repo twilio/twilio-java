@@ -1,11 +1,13 @@
 package com.twilio.http;
 
-import com.google.common.collect.Range;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.LocalDate;
+
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
 
 import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
@@ -175,9 +177,18 @@ public class Request {
                 host = joinIgnoreNull(".", product, targetEdge, targetRegion, domain);
             }
 
-            return new URI(parsedUrl.getProtocol(), parsedUrl.getUserInfo(), host, parsedUrl.getPort(),
-                    parsedUrl.getPath(), parsedUrl.getQuery(), parsedUrl.getRef()).toURL().toString();
-        } catch (final MalformedURLException | URISyntaxException e) {
+            String urlPort = parsedUrl.getPort() != -1 ? ":" + parsedUrl.getPort() : null;
+            String protocol = parsedUrl.getProtocol() + "://";
+            String[] pathPieces = parsedUrl.getPath().split("/");
+            for (int i = 0; i < pathPieces.length; i++) {
+                pathPieces[i] = URLEncoder.encode(pathPieces[i], "UTF-8");
+            }
+            String encodedPath = String.join("/", pathPieces);
+            String query = parsedUrl.getQuery() != null ? "?" + parsedUrl.getQuery() : null;
+            String ref = parsedUrl.getRef() != null ? "#" + parsedUrl.getRef() : null;
+            String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
+            return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
+        } catch (final MalformedURLException | UnsupportedEncodingException e) {
             throw new ApiException("Bad URL: " + url, e);
         }
     }
@@ -186,16 +197,17 @@ public class Request {
      * Add query parameters for date ranges.
      *
      * @param name  name of query parameter
-     * @param range date range
+     * @param lowerBound lower bound of LocalDate range
+     * @param upperBound upper bound of LocalDate range
      */
-    public void addQueryDateRange(final String name, final Range<LocalDate> range) {
-        if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+    public void addQueryDateRange(final String name, LocalDate lowerBound, LocalDate upperBound) {
+        if (lowerBound != null) {
+            String value = lowerBound.toString();
             addQueryParam(name + ">", value);
         }
 
-        if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().toString(QUERY_STRING_DATE_FORMAT);
+        if (upperBound != null) {
+            String value = upperBound.toString();
             addQueryParam(name + "<", value);
         }
     }
@@ -204,16 +216,17 @@ public class Request {
      * Add query parameters for date ranges.
      *
      * @param name  name of query parameter
-     * @param range date range
+     * @param lowerBound lower bound of ZonedDateTime range
+     * @param upperBound upper bound of ZonedDateTime range
      */
-    public void addQueryDateTimeRange(final String name, final Range<DateTime> range) {
-        if (range.hasLowerBound()) {
-            String value = range.lowerEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
+    public void addQueryDateTimeRange(final String name, ZonedDateTime lowerBound, ZonedDateTime upperBound) {
+        if (lowerBound != null) {
+            String value = lowerBound.withZoneSameInstant(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + ">", value);
         }
 
-        if (range.hasUpperBound()) {
-            String value = range.upperEndpoint().withZone(DateTimeZone.UTC).toString(QUERY_STRING_DATE_TIME_FORMAT);
+        if (upperBound != null) {
+            String value = upperBound.withZoneSameInstant(ZoneId.of("UTC")).format(DateTimeFormatter.ofPattern(QUERY_STRING_DATE_TIME_FORMAT));
             addQueryParam(name + "<", value);
         }
     }

@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -20,13 +19,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class NotificationReader extends Reader<Notification> {
     private String pathAccountSid;
     private Integer log;
-    private LocalDate absoluteMessageDate;
-    private Range<LocalDate> rangeMessageDate;
+    private LocalDate messageDate;
+    private LocalDate messageDateBefore;
+    private LocalDate messageDateAfter;
 
     /**
      * Construct a new NotificationReader.
@@ -63,12 +65,13 @@ public class NotificationReader extends Reader<Notification> {
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
      *
-     * @param absoluteMessageDate Filter by date
+     * @param messageDate Filter by date
      * @return this
      */
-    public NotificationReader setMessageDate(final LocalDate absoluteMessageDate) {
-        this.rangeMessageDate = null;
-        this.absoluteMessageDate = absoluteMessageDate;
+    public NotificationReader setMessageDate(final LocalDate messageDate) {
+        this.messageDateBefore = null;
+        this.messageDateAfter = null;
+        this.messageDate = messageDate;
         return this;
     }
 
@@ -78,12 +81,27 @@ public class NotificationReader extends Reader<Notification> {
      * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
      * logged at or after midnight on a date..
      *
-     * @param rangeMessageDate Filter by date
+     * @param messageDateBefore Filter by date
      * @return this
      */
-    public NotificationReader setMessageDate(final Range<LocalDate> rangeMessageDate) {
-        this.absoluteMessageDate = null;
-        this.rangeMessageDate = rangeMessageDate;
+    public NotificationReader setMessageDateBefore(final LocalDate messageDateBefore) {
+        this.messageDate = null;
+        this.messageDateBefore = messageDateBefore;
+        return this;
+    }
+
+    /**
+     * Only show notifications for the specified date, formatted as `YYYY-MM-DD`.
+     * You can also specify an inequality, such as `&lt;=YYYY-MM-DD` for messages
+     * logged at or before midnight on a date, or `&gt;=YYYY-MM-DD` for messages
+     * logged at or after midnight on a date..
+     *
+     * @param messageDateAfter Filter by date
+     * @return this
+     */
+    public NotificationReader setMessageDateAfter(final LocalDate messageDateAfter) {
+        this.messageDate = null;
+        this.messageDateAfter = messageDateAfter;
         return this;
     }
 
@@ -183,7 +201,7 @@ public class NotificationReader extends Reader<Notification> {
 
         if (response == null) {
             throw new ApiConnectionException("Notification read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -209,10 +227,10 @@ public class NotificationReader extends Reader<Notification> {
             request.addQueryParam("Log", log.toString());
         }
 
-        if (absoluteMessageDate != null) {
-            request.addQueryParam("MessageDate", absoluteMessageDate.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeMessageDate != null) {
-            request.addQueryDateRange("MessageDate", rangeMessageDate);
+        if (messageDate != null) {
+            request.addQueryParam("MessageDate", messageDate.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else if (messageDateAfter != null || messageDateBefore != null) {
+            request.addQueryDateRange("MessageDate", messageDateAfter, messageDateBefore);
         }
 
         if (getPageSize() != null) {

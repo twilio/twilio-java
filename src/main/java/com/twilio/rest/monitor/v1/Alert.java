@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,15 +23,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Alert extends Resource {
     private static final long serialVersionUID = 254359080075749L;
 
@@ -95,9 +96,9 @@ public class Alert extends Resource {
     private final String accountSid;
     private final String alertText;
     private final String apiVersion;
-    private final DateTime dateCreated;
-    private final DateTime dateGenerated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateGenerated;
+    private final ZonedDateTime dateUpdated;
     private final String errorCode;
     private final String logLevel;
     private final String moreInfo;
@@ -204,7 +205,7 @@ public class Alert extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -215,7 +216,7 @@ public class Alert extends Resource {
      * @return The date and time when the alert was generated specified in ISO 8601
      *         format
      */
-    public final DateTime getDateGenerated() {
+    public final ZonedDateTime getDateGenerated() {
         return this.dateGenerated;
     }
 
@@ -224,7 +225,7 @@ public class Alert extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -401,30 +402,5 @@ public class Alert extends Resource {
                             url,
                             requestHeaders,
                             serviceSid);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("alertText", alertText)
-                          .add("apiVersion", apiVersion)
-                          .add("dateCreated", dateCreated)
-                          .add("dateGenerated", dateGenerated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("errorCode", errorCode)
-                          .add("logLevel", logLevel)
-                          .add("moreInfo", moreInfo)
-                          .add("requestMethod", requestMethod)
-                          .add("requestUrl", requestUrl)
-                          .add("requestVariables", requestVariables)
-                          .add("resourceSid", resourceSid)
-                          .add("responseBody", responseBody)
-                          .add("responseHeaders", responseHeaders)
-                          .add("sid", sid)
-                          .add("url", url)
-                          .add("requestHeaders", requestHeaders)
-                          .add("serviceSid", serviceSid)
-                          .toString();
     }
 }

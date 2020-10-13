@@ -47,9 +47,8 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     /**
      * How to order the Map Items returned by their `key` value. Can be: `asc`
      * (ascending) or `desc` (descending) and the default is ascending. Map Items
-     * are [ordered
-     * lexicographically](https://en.wikipedia.org/wiki/Lexicographical_order) by
-     * Item key..
+     * are <a href="https://en.wikipedia.org/wiki/Lexicographical_order">ordered
+     * lexicographically</a> by Item key..
      *
      * @param order How to order the Map Items returned by their key value
      * @return this
@@ -179,7 +178,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
         if (response == null) {
             throw new ApiConnectionException("SyncMapItem read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

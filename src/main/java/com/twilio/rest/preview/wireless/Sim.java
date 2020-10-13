@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Sim extends Resource {
     private static final long serialVersionUID = 114188106016645L;
 
@@ -125,8 +126,8 @@ public class Sim extends Resource {
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -366,7 +367,7 @@ public class Sim extends Resource {
      *
      * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -375,7 +376,7 @@ public class Sim extends Resource {
      *
      * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -457,33 +458,5 @@ public class Sim extends Resource {
                             dateUpdated,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("uniqueName", uniqueName)
-                          .add("accountSid", accountSid)
-                          .add("ratePlanSid", ratePlanSid)
-                          .add("friendlyName", friendlyName)
-                          .add("iccid", iccid)
-                          .add("eId", eId)
-                          .add("status", status)
-                          .add("commandsCallbackUrl", commandsCallbackUrl)
-                          .add("commandsCallbackMethod", commandsCallbackMethod)
-                          .add("smsFallbackMethod", smsFallbackMethod)
-                          .add("smsFallbackUrl", smsFallbackUrl)
-                          .add("smsMethod", smsMethod)
-                          .add("smsUrl", smsUrl)
-                          .add("voiceFallbackMethod", voiceFallbackMethod)
-                          .add("voiceFallbackUrl", voiceFallbackUrl)
-                          .add("voiceMethod", voiceMethod)
-                          .add("voiceUrl", voiceUrl)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

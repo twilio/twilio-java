@@ -147,6 +147,38 @@ public class SubscriptionTest {
     }
 
     @Test
+    public void testUpdateRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.EVENTS.toString(),
+                                          "/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            Subscription.updater("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testUpdateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2020-07-30T20:01:33Z\",\"sid\": \"DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sink_sid\": \"DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab\",\"description\": \"Updated description\",\"url\": \"https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"subscribed_events\": \"https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Subscription.updater("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+    }
+
+    @Test
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,

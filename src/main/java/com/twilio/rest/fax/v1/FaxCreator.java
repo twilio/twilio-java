@@ -48,10 +48,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The [Fax Quality
-     * value](https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values)
-     * that describes the fax quality. Can be: `standard`, `fine`, or `superfine`
-     * and defaults to `fine`..
+     * The <a
+     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-quality-values">Fax
+     * Quality value</a> that describes the fax quality. Can be: `standard`, `fine`,
+     * or `superfine` and defaults to `fine`..
      *
      * @param quality The quality of this fax
      * @return this
@@ -62,8 +62,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The URL we should call using the `POST` method to send [status
-     * information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes..
+     * The URL we should call using the `POST` method to send <a
+     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback">status
+     * information</a> to your application when the status of the fax changes..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -75,8 +76,9 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The URL we should call using the `POST` method to send [status
-     * information](https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback) to your application when the status of the fax changes..
+     * The URL we should call using the `POST` method to send <a
+     * href="https://www.twilio.com/docs/fax/api/fax-resource#fax-status-callback">status
+     * information</a> to your application when the status of the fax changes..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -87,10 +89,10 @@ public class FaxCreator extends Creator<Fax> {
     }
 
     /**
-     * The number the fax was sent from. Can be the phone number in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format or the SIP
-     * `from` value. The caller ID displayed to the recipient uses this value. If
-     * this is a phone number, it must be a Twilio number or a verified outgoing
+     * The number the fax was sent from. Can be the phone number in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format or the
+     * SIP `from` value. The caller ID displayed to the recipient uses this value.
+     * If this is a phone number, it must be a Twilio number or a verified outgoing
      * caller id from your account. If `to` is a SIP address, this can be any
      * alphanumeric string (and also the characters `+`, `_`, `.`, and `-`), which
      * will be used in the `from` header of the SIP request..
@@ -171,7 +173,7 @@ public class FaxCreator extends Creator<Fax> {
 
         if (response == null) {
             throw new ApiConnectionException("Fax creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

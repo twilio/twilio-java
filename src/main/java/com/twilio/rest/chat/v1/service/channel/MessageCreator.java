@@ -41,8 +41,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The [identity](https://www.twilio.com/docs/api/chat/guides/identity) of the
-     * new message's author. The default value is `system`..
+     * The <a
+     * href="https://www.twilio.com/docs/api/chat/guides/identity">identity</a> of
+     * the new message's author. The default value is `system`..
      *
      * @param from The identity of the new message's author
      * @return this
@@ -83,7 +84,7 @@ public class MessageCreator extends Creator<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -51,7 +51,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * A descriptive string that you create to describe the Service resource. It can
-     * be up to 255 characters long..
+     * be a maximum of 255 characters..
      *
      * @param friendlyName A string to describe the Service resource
      * @return this
@@ -62,11 +62,11 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * Whether the Service's properties and subresources can be edited via the UI.
-     * The default value is `false`..
+     * Whether the Service resource's properties and subresources can be edited via
+     * the UI. The default value is `false`..
      *
-     * @param uiEditable Whether the Service's properties and subresources can be
-     *                   edited via the UI
+     * @param uiEditable Whether the Service resource's properties and subresources
+     *                   can be edited via the UI
      * @return this
      */
     public ServiceUpdater setUiEditable(final Boolean uiEditable) {
@@ -94,7 +94,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

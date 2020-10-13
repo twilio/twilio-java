@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -33,8 +34,8 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     private String isoCountry;
     private UsageRecord.Group group;
     private UsageRecord.Granularity granularity;
-    private DateTime startTime;
-    private DateTime endTime;
+    private ZonedDateTime startTime;
+    private ZonedDateTime endTime;
 
     /**
      * SID or unique name of a Sim resource. Only show UsageRecords representing
@@ -120,27 +121,27 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that occurred at or after this time, specified in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month
-     * before the `end_time`..
+     * Only include usage that occurred at or after this time, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
+     * one month before the `end_time`..
      *
      * @param startTime Only include usage that occurred at or after this time.
      * @return this
      */
-    public UsageRecordReader setStartTime(final DateTime startTime) {
+    public UsageRecordReader setStartTime(final ZonedDateTime startTime) {
         this.startTime = startTime;
         return this;
     }
 
     /**
-     * Only include usage that occurred before this time, specified in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current
-     * time..
+     * Only include usage that occurred before this time, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
+     * the current time..
      *
      * @param endTime Only include usage that occurred before this time.
      * @return this
      */
-    public UsageRecordReader setEndTime(final DateTime endTime) {
+    public UsageRecordReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
         return this;
     }
@@ -239,7 +240,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
         if (response == null) {
             throw new ApiConnectionException("UsageRecord read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -286,11 +287,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         }
 
         if (startTime != null) {
-            request.addQueryParam("StartTime", startTime.toString());
+            request.addQueryParam("StartTime", startTime.toOffsetDateTime().toString());
         }
 
         if (endTime != null) {
-            request.addQueryParam("EndTime", endTime.toString());
+            request.addQueryParam("EndTime", endTime.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

@@ -1,5 +1,8 @@
 package com.twilio.http;
 
+import org.apache.http.client.RedirectStrategy;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
+
 public abstract class HttpClient {
 
     public static final int ANY_500 = -500;
@@ -11,6 +14,9 @@ public abstract class HttpClient {
     public static final int[] RETRY_CODES = new int[]{ANY_500};
     public static final int RETRIES = 3;
     public static final long DELAY_MILLIS = 100L;
+
+    // Default redirect strategy to not auto-redirect for any methods (empty string array).
+    private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy(new String[0]);
 
     private Response lastResponse;
     private Request lastRequest;
@@ -28,9 +34,9 @@ public abstract class HttpClient {
     /**
      * Make a request.
      *
-     * @param request request to make
-     * @param retryCodes codes used for retries
-     * @param retries max number of retries
+     * @param request     request to make
+     * @param retryCodes  codes used for retries
+     * @param retries     max number of retries
      * @param delayMillis delays between retries
      * @return Response of the HTTP request
      */
@@ -111,6 +117,14 @@ public abstract class HttpClient {
             }
         }
         return false;
+    }
+
+    public RedirectStrategy getRedirectStrategy() {
+        return redirectStrategy;
+    }
+
+    public void setRedirectStrategy(final RedirectStrategy redirectStrategy) {
+        this.redirectStrategy = redirectStrategy;
     }
 
     public abstract Response makeRequest(final Request request);

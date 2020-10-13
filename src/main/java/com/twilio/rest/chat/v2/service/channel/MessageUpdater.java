@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class MessageUpdater extends Updater<Message> {
     private final String pathServiceSid;
@@ -25,8 +26,8 @@ public class MessageUpdater extends Updater<Message> {
     private final String pathSid;
     private String body;
     private String attributes;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String lastUpdatedBy;
     private String from;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
@@ -71,37 +72,37 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service. This parameter should only
-     * be used when a Chat's history is being recreated from a backup/separate
-     * source..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was created. The
+     * default value is the current time set by the Chat service. This parameter
+     * should only be used when a Chat's history is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
      */
-    public MessageUpdater setDateCreated(final DateTime dateCreated) {
+    public MessageUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was last updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
      */
-    public MessageUpdater setDateUpdated(final DateTime dateUpdated) {
+    public MessageUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
 
     /**
-     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
-     * last updated the Message, if applicable..
+     * The <a href="https://www.twilio.com/docs/chat/identity">Identity</a> of the
+     * User who last updated the Message, if applicable..
      *
      * @param lastUpdatedBy The Identity of the User who last updated the Message,
      *                      if applicable
@@ -113,8 +114,8 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The [Identity](https://www.twilio.com/docs/chat/identity) of the message's
-     * author..
+     * The <a href="https://www.twilio.com/docs/chat/identity">Identity</a> of the
+     * message's author..
      *
      * @param from The Identity of the message's author
      * @return this
@@ -156,7 +157,7 @@ public class MessageUpdater extends Updater<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -193,11 +194,11 @@ public class MessageUpdater extends Updater<Message> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (lastUpdatedBy != null) {

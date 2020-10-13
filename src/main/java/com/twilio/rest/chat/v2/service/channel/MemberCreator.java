@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class MemberCreator extends Creator<Member> {
     private final String pathServiceSid;
@@ -25,9 +26,9 @@ public class MemberCreator extends Creator<Member> {
     private final String identity;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
-    private DateTime lastConsumptionTimestamp;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime lastConsumptionTimestamp;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
@@ -47,9 +48,10 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/rest/service-resource)..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
+     * to the member. The default roles are those specified on the <a
+     * href="https://www.twilio.com/docs/chat/rest/service-resource">Service</a>..
      *
      * @param roleSid The SID of the Role to assign to the member
      * @return this
@@ -60,11 +62,11 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
-     * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
-     * read. This parameter should only be used when recreating a Member from a
-     * backup/separate source..
+     * The index of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a> in
+     * the <a href="https://www.twilio.com/docs/chat/channels">Channel</a> that the
+     * Member has read. This parameter should only be used when recreating a Member
+     * from a backup/separate source..
      *
      * @param lastConsumedMessageIndex The index of the last Message in the Channel
      *                                 the Member has read
@@ -76,49 +78,50 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
-     * for the Member within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
+     * of the last <a
+     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
+     * read event for the Member within the <a
+     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
      *
      * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
      *                                 representing the datetime of the last Message
      *                                 read event for the member within the Channel
      * @return this
      */
-    public MemberCreator setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+    public MemberCreator setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service.  Note that this parameter
-     * should only be used when a Member is being recreated from a backup/separate
-     * source..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was created. The
+     * default value is the current time set by the Chat service.  Note that this
+     * parameter should only be used when a Member is being recreated from a
+     * backup/separate source..
      *
      * @param dateCreated The ISO 8601 date and time in GMT when the resource was
      *                    created
      * @return this
      */
-    public MemberCreator setDateCreated(final DateTime dateCreated) {
+    public MemberCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated. The
-     * default value is `null`. Note that this parameter should only be used when a
-     * Member is being recreated from a backup/separate source and where a Member
-     * was previously updated..
+     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format, to assign to the resource as the date it was last updated.
+     * The default value is `null`. Note that this parameter should only be used
+     * when a Member is being recreated from a backup/separate source and where a
+     * Member was previously updated..
      *
      * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
      *                    updated
      * @return this
      */
-    public MemberCreator setDateUpdated(final DateTime dateUpdated) {
+    public MemberCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -166,7 +169,7 @@ public class MemberCreator extends Creator<Member> {
 
         if (response == null) {
             throw new ApiConnectionException("Member creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -207,15 +210,15 @@ public class MemberCreator extends Creator<Member> {
         }
 
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toString());
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toOffsetDateTime().toString());
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (attributes != null) {

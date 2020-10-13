@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class RecordingSettings extends Resource {
     private static final long serialVersionUID = 41622584466212L;
 
@@ -231,19 +232,5 @@ public class RecordingSettings extends Resource {
                             encryptionKeySid,
                             encryptionEnabled,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("friendlyName", friendlyName)
-                          .add("awsCredentialsSid", awsCredentialsSid)
-                          .add("awsS3Url", awsS3Url)
-                          .add("awsStorageEnabled", awsStorageEnabled)
-                          .add("encryptionKeySid", encryptionKeySid)
-                          .add("encryptionEnabled", encryptionEnabled)
-                          .add("url", url)
-                          .toString();
     }
 }

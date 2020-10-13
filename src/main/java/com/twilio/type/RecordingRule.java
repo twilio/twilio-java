@@ -2,18 +2,20 @@ package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
+import lombok.ToString;
 
 import java.util.Objects;
 
 /**
  * Recording Rule
+ *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class RecordingRule implements Rule {
 
     private static final RecordingRule recordAll = builder().withType(Type.INCLUDE).withAll().build();
@@ -189,16 +191,5 @@ public class RecordingRule implements Rule {
     @Override
     public int hashCode() {
         return Objects.hash(getType(), getAll(), getPublisher(), getTrack(), getKind());
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("type", this.type)
-                .add("all", this.all)
-                .add("publisher", this.publisher)
-                .add("track", this.track)
-                .add("kind", this.kind)
-                .toString();
     }
 }

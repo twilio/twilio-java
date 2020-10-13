@@ -1,10 +1,10 @@
 package com.twilio.type;
 
-import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import static org.junit.Assert.fail;
 
@@ -73,7 +73,7 @@ public class RecordingRuleTest extends TypeTest {
                 .withPublisher("presenter")
                 .build();
 
-        final RecordingRulesUpdate update = new RecordingRulesUpdate(Lists.newArrayList(
+        final RecordingRulesUpdate update = new RecordingRulesUpdate(Arrays.asList(
                 allAudio, presenterVideo
         ));
 

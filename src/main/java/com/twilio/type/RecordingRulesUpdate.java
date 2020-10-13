@@ -2,19 +2,21 @@ package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.common.base.MoreObjects;
+import lombok.ToString;
 
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Recording Rule Update - Used to update the list of Recording Rules
+ *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class RecordingRulesUpdate {
 
         @JsonProperty("rules")
@@ -39,12 +41,5 @@ public class RecordingRulesUpdate {
         @Override
         public int hashCode() {
             return Objects.hash(getRules());
-        }
-
-        @Override
-        public String toString() {
-            return MoreObjects.toStringHelper(this)
-                    .add("rules", this.rules)
-                    .toString();
         }
 }

@@ -7,9 +7,13 @@ import com.twilio.converter.Promoter;
 public interface Rule {
 
     Type getType();
+
     Boolean getAll();
+
     String getPublisher();
+
     String getTrack();
+
     Kind getKind();
 
     enum Type {
@@ -67,7 +71,7 @@ public interface Rule {
 
     enum Priority {
         LOW("low"),
-        MEDIUM("medium"),
+        STANDARD("standard"),
         HIGH("high");
 
         private final String value;

@@ -7,19 +7,19 @@ import lombok.ToString;
 import java.util.Objects;
 
 /**
- * Subscribe Rule
+ * Recording Rule
  *
  * <p>
  * For more information see:
- * <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
+ * <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class SubscribeRule implements Rule {
+public class RecordingRule implements Rule {
 
-    private static final SubscribeRule subscribeAll = builder().withType(Type.INCLUDE).withAll().build();
-    private static final SubscribeRule subscribeNone = builder().withType(Type.EXCLUDE).withAll().build();
+    private static final RecordingRule recordAll = builder().withType(Type.INCLUDE).withAll().build();
+    private static final RecordingRule recordNone = builder().withType(Type.EXCLUDE).withAll().build();
 
     @JsonProperty("type")
     private final Type type;
@@ -36,34 +36,111 @@ public class SubscribeRule implements Rule {
     @JsonProperty("kind")
     private final Kind kind;
 
-    @JsonProperty("priority")
-    private final Priority priority;
-
-    public SubscribeRule(@JsonProperty("type") final Type type,
+    public RecordingRule(@JsonProperty("type") final Type type,
             @JsonProperty("all") final Boolean all,
             @JsonProperty("publisher") final String publisher,
             @JsonProperty("track") final String track,
-            @JsonProperty("kind") final Kind kind,
-            @JsonProperty("priority") final Priority priority) {
+            @JsonProperty("kind") final Kind kind) {
         this.type = type;
         this.all = all;
         this.publisher = publisher;
         this.track = track;
         this.kind = kind;
-        this.priority = priority;
     }
 
-    public SubscribeRule() {
+    public RecordingRule() {
         this.type = null;
         this.all = null;
         this.publisher = null;
         this.track = null;
         this.kind = null;
-        this.priority = null;
     }
 
     public static BuilderStart builder() {
         return new Builder();
+    }
+
+    public interface BuilderStart {
+        BuilderMiddle withType(final Type type);
+    }
+
+    public interface BuilderMiddle {
+        BuilderMiddleBuild withPublisher(final String publisher);
+        BuilderMiddleBuild withKind(final Kind kind);
+        BuilderMiddleBuild withTrack(final String track);
+        BuilderBuild withAll();
+    }
+
+    public interface BuilderMiddleBuild {
+        BuilderMiddleBuild withPublisher(final String publisher);
+        BuilderMiddleBuild withKind(final Kind kind);
+        BuilderMiddleBuild withTrack(final String track);
+        RecordingRule build();
+    }
+
+    public interface BuilderBuild {
+        RecordingRule build();
+    }
+
+    public static class Builder implements
+            BuilderStart,
+            BuilderMiddle,
+            BuilderMiddleBuild,
+            BuilderBuild {
+        private Type type;
+        private Boolean all;
+        private String publisher;
+        private Kind kind;
+        private String track;
+
+        private Builder() {
+        }
+
+        public BuilderMiddle withType(final Type type) {
+            this.type = type;
+            return this;
+        }
+
+        public BuilderBuild withAll() {
+            this.all = true;
+            return this;
+        }
+        public BuilderMiddleBuild withPublisher(final String publisher) {
+            this.publisher = publisher;
+            return this;
+        }
+        public BuilderMiddleBuild withKind(final Kind kind) {
+            this.kind = kind;
+            return this;
+        }
+        public BuilderMiddleBuild withTrack(final String track) {
+            this.track = track;
+            return this;
+        }
+
+        private boolean hasOneFilter() {
+            // at least one filter must be set
+            return this.kind != null
+                    || this.all != null
+                    || this.track != null
+                    || this.publisher != null;
+        }
+
+        private boolean hasType() {
+            // every rule must have a type
+            return this.type != null;
+        }
+
+        public RecordingRule build() {
+            if (!hasType()) {
+                throw new IllegalArgumentException("Recording Rule must have a type");
+            }
+            if (!hasOneFilter()) {
+                throw new IllegalArgumentException("Recording Rule must have at least one filter");
+            }
+
+            return new RecordingRule(this.type, this.all, this.publisher, this.track, this.kind);
+        }
     }
 
     @Override
@@ -91,124 +168,28 @@ public class SubscribeRule implements Rule {
         return kind;
     }
 
-    public Priority getPriority() {
-        return priority;
+    public static RecordingRule all() {
+        return recordAll;
     }
 
-    public static SubscribeRule all() {
-        return subscribeAll;
-    }
-
-    public static SubscribeRule none() {
-        return subscribeNone;
-    }
-
-    public interface BuilderStart {
-        BuilderMiddle withType(final Type type);
-    }
-
-    public interface BuilderMiddle {
-        BuilderMiddleBuild withPublisher(final String publisher);
-        BuilderMiddleBuild withKind(final Kind kind);
-        BuilderMiddleBuild withTrack(final String track);
-        BuilderMiddleBuild withPriority(final Priority priority);
-        BuilderBuild withAll();
-    }
-
-    public interface BuilderMiddleBuild {
-        BuilderMiddleBuild withPublisher(final String publisher);
-        BuilderMiddleBuild withKind(final Kind kind);
-        BuilderMiddleBuild withTrack(final String track);
-        BuilderMiddleBuild withPriority(final Priority priority);
-        SubscribeRule build();
-    }
-
-    public interface BuilderBuild {
-        SubscribeRule build();
-    }
-
-    public static class Builder implements
-            BuilderStart,
-            BuilderMiddle,
-            BuilderMiddleBuild,
-            BuilderBuild {
-        private Type type;
-        private Boolean all;
-        private String publisher;
-        private Kind kind;
-        private String track;
-        private Priority priority;
-
-        private Builder() {
-        }
-
-        public BuilderMiddle withType(final Type type) {
-            this.type = type;
-            return this;
-        }
-
-        public BuilderBuild withAll() {
-            this.all = true;
-            return this;
-        }
-        public BuilderMiddleBuild withPublisher(final String publisher) {
-            this.publisher = publisher;
-            return this;
-        }
-        public BuilderMiddleBuild withKind(final Kind kind) {
-            this.kind = kind;
-            return this;
-        }
-        public BuilderMiddleBuild withTrack(final String track) {
-            this.track = track;
-            return this;
-        }
-        public BuilderMiddleBuild withPriority(final Priority priority) {
-            this.priority = priority;
-            return this;
-        }
-
-        private boolean hasOneFilter() {
-            // at least one filter must be set
-            return this.kind != null
-                    || this.all != null
-                    || this.track != null
-                    || this.publisher != null
-                    || this.priority != null;
-        }
-
-        private boolean hasType() {
-            // every rule must have a type
-            return this.type != null;
-        }
-
-        public SubscribeRule build() {
-            if (!hasType()) {
-                throw new IllegalArgumentException("Subscribe Rule must have a type");
-            }
-            if (!hasOneFilter()) {
-                throw new IllegalArgumentException("Subscribe Rule must have at least one filter");
-            }
-
-            return new SubscribeRule(this.type, this.all, this.publisher, this.track, this.kind, this.priority);
-        }
+    public static RecordingRule none() {
+        return recordNone;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof SubscribeRule)) return false;
-        SubscribeRule that = (SubscribeRule) o;
+        if (!(o instanceof RecordingRule)) return false;
+        RecordingRule that = (RecordingRule) o;
         return getType() == that.getType() &&
                 Objects.equals(getAll(), that.getAll()) &&
                 Objects.equals(getPublisher(), that.getPublisher()) &&
                 Objects.equals(getTrack(), that.getTrack()) &&
-                getKind() == that.getKind() &&
-                getPriority() == that.getPriority();
+                getKind() == that.getKind();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getType(), getAll(), getPublisher(), getTrack(), getKind(), getPriority());
+        return Objects.hash(getType(), getAll(), getPublisher(), getTrack(), getKind());
     }
 }

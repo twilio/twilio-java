@@ -1,70 +1,20 @@
 package com.twilio.type;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 import com.google.common.base.MoreObjects;
-import com.twilio.converter.Promoter;
 
 import java.util.Objects;
 
+/**
+ * Recording Rule
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
+ * </p>
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class RecordingRule {
-
-    public enum Type {
-        INCLUDE("include"),
-        EXCLUDE("exclude");
-
-        private final String value;
-
-        Type(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
-    public enum Kind {
-        AUDIO("audio"),
-        DATA("data"),
-        VIDEO("video");
-
-        private final String value;
-
-        Kind(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Kind forValue(final String value) {
-            return Promoter.enumFromString(value, Kind.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
+public class RecordingRule implements Rule {
 
     private static final RecordingRule recordAll = builder().withType(Type.INCLUDE).withAll().build();
     private static final RecordingRule recordNone = builder().withType(Type.EXCLUDE).withAll().build();
@@ -191,22 +141,27 @@ public class RecordingRule {
         }
     }
 
+    @Override
     public Type getType() {
         return type;
     }
 
+    @Override
     public Boolean getAll() {
         return all;
     }
 
+    @Override
     public String getPublisher() {
         return publisher;
     }
 
+    @Override
     public String getTrack() {
         return track;
     }
 
+    @Override
     public Kind getKind() {
         return kind;
     }

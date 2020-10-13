@@ -1,10 +1,7 @@
 package com.twilio.type;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.twilio.converter.Promoter;
 
 import com.google.common.base.MoreObjects;
 
@@ -19,86 +16,7 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SubscribeRule {
-    public enum Type {
-        INCLUDE("include"),
-        EXCLUDE("exclude");
-
-        private final String value;
-
-        Type(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
-    public enum Kind {
-        AUDIO("audio"),
-        DATA("data"),
-        VIDEO("video");
-
-        private final String value;
-
-        Kind(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Kind forValue(final String value) {
-            return Promoter.enumFromString(value, Kind.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
-    public enum Priority {
-        LOW("low"),
-        STANDARD("standard"),
-        HIGH("high");
-
-        private final String value;
-
-        Priority(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Priority forValue(final String value) {
-            return Promoter.enumFromString(value, Priority.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
+public class SubscribeRule implements Rule {
 
     private static final SubscribeRule subscribeAll = builder().withType(Type.INCLUDE).withAll().build();
     private static final SubscribeRule subscribeNone = builder().withType(Type.EXCLUDE).withAll().build();
@@ -148,11 +66,48 @@ public class SubscribeRule {
         return new Builder();
     }
 
-    public interface BuilderStart {
+    @Override
+    public Type getType() {
+        return type;
+    }
+
+    @Override
+    public Boolean getAll() {
+        return all;
+    }
+
+    @Override
+    public String getPublisher() {
+        return publisher;
+    }
+
+    @Override
+    public String getTrack() {
+        return track;
+    }
+
+    @Override
+    public Kind getKind() {
+        return kind;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public static SubscribeRule all() {
+        return subscribeAll;
+    }
+
+    public static SubscribeRule none() {
+        return subscribeNone;
+    }
+
+    interface BuilderStart {
         BuilderMiddle withType(final Type type);
     }
 
-    public interface BuilderMiddle {
+    interface BuilderMiddle {
         BuilderMiddleBuild withPublisher(final String publisher);
         BuilderMiddleBuild withKind(final Kind kind);
         BuilderMiddleBuild withTrack(final String track);
@@ -160,7 +115,7 @@ public class SubscribeRule {
         BuilderBuild withAll();
     }
 
-    public interface BuilderMiddleBuild {
+    interface BuilderMiddleBuild {
         BuilderMiddleBuild withPublisher(final String publisher);
         BuilderMiddleBuild withKind(final Kind kind);
         BuilderMiddleBuild withTrack(final String track);
@@ -168,9 +123,10 @@ public class SubscribeRule {
         SubscribeRule build();
     }
 
-    public interface BuilderBuild {
+    interface BuilderBuild {
         SubscribeRule build();
     }
+
 
     public static class Builder implements
             BuilderStart,
@@ -208,7 +164,7 @@ public class SubscribeRule {
             this.track = track;
             return this;
         }
-        public BuilderMiddleBuild withPriority(final Priority priority) {
+        public BuilderMiddleBuild withPriority(final SubscribeRule.Priority priority) {
             this.priority = priority;
             return this;
         }
@@ -237,38 +193,6 @@ public class SubscribeRule {
 
             return new SubscribeRule(this.type, this.all, this.publisher, this.track, this.kind, this.priority);
         }
-    }
-
-    public Type getType() {
-        return type;
-    }
-
-    public Boolean getAll() {
-        return all;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public String getTrack() {
-        return track;
-    }
-
-    public Kind getKind() {
-        return kind;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public static SubscribeRule all() {
-        return subscribeAll;
-    }
-
-    public static SubscribeRule none() {
-        return subscribeNone;
     }
 
     @Override

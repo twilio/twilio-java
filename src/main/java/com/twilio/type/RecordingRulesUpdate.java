@@ -7,6 +7,13 @@ import com.google.common.base.MoreObjects;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Recording Rule Update - Used to update the list of Recording Rules
+ * <p>
+ *     For more information see:
+ *     <a href=https://www.twilio.com/docs/video/api/recording-start/stop#specifying-sr>Specifying Recording Rules</a>
+ * </p>
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RecordingRulesUpdate {
 

@@ -8,7 +8,9 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,6 +21,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 import java.time.ZonedDateTime;
+import java.util.List;
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,8 +34,9 @@ public class ChallengeCreator extends Creator<Challenge> {
     private final String pathIdentity;
     private final String factorSid;
     private ZonedDateTime expirationDate;
-    private String details;
-    private String hiddenDetails;
+    private String detailsMessage;
+    private List<Map<String, Object>> detailsFields;
+    private Map<String, Object> hiddenDetails;
     private String twilioSandboxMode;
 
     /**
@@ -62,21 +67,42 @@ public class ChallengeCreator extends Creator<Challenge> {
     }
 
     /**
-     * Details provided to give context about the Challenge. Shown to the end user.
-     * It must be a stringified JSON with the following structure: {"message":
-     * "string", "fields": <a href="https://www.twilio.com/docs/verify/api/service">
-     * { "label": "string", "value": "string"}]}. `message` is required. If you send
-     * the `fields` property, each field has to include `label` and `value`
-     * properties. If you had set `include_date=true` in the `push` configuration of
-     * the [service</a>, the response will also include the challenge's date created
-     * value as an additional field called `date`.
+     * Shown to the user when the push notification arrives. Required when
+     * `factor_type` is `push`.
      *
-     * @param details Public details provided to contextualize the Challenge
+     * @param detailsMessage Shown to the user when the push notification arrives
      * @return this
      */
-    public ChallengeCreator setDetails(final String details) {
-        this.details = details;
+    public ChallengeCreator setDetailsMessage(final String detailsMessage) {
+        this.detailsMessage = detailsMessage;
         return this;
+    }
+
+    /**
+     * A list of objects that describe the Fields included in the Challenge. Each
+     * object contains the label and value of the field. Used when `factor_type` is
+     * `push`..
+     *
+     * @param detailsFields A list of objects that describe the Fields included in
+     *                      the Challenge
+     * @return this
+     */
+    public ChallengeCreator setDetailsFields(final List<Map<String, Object>> detailsFields) {
+        this.detailsFields = detailsFields;
+        return this;
+    }
+
+    /**
+     * A list of objects that describe the Fields included in the Challenge. Each
+     * object contains the label and value of the field. Used when `factor_type` is
+     * `push`..
+     *
+     * @param detailsFields A list of objects that describe the Fields included in
+     *                      the Challenge
+     * @return this
+     */
+    public ChallengeCreator setDetailsFields(final Map<String, Object> detailsFields) {
+        return setDetailsFields(Promoter.listOfOne(detailsFields));
     }
 
     /**
@@ -87,7 +113,7 @@ public class ChallengeCreator extends Creator<Challenge> {
      * @param hiddenDetails Hidden details provided to contextualize the Challenge
      * @return this
      */
-    public ChallengeCreator setHiddenDetails(final String hiddenDetails) {
+    public ChallengeCreator setHiddenDetails(final Map<String, Object> hiddenDetails) {
         this.hiddenDetails = hiddenDetails;
         return this;
     }
@@ -160,12 +186,18 @@ public class ChallengeCreator extends Creator<Challenge> {
             request.addPostParam("ExpirationDate", expirationDate.toOffsetDateTime().toString());
         }
 
-        if (details != null) {
-            request.addPostParam("Details", details);
+        if (detailsMessage != null) {
+            request.addPostParam("Details.Message", detailsMessage);
+        }
+
+        if (detailsFields != null) {
+            for (Map<String, Object> prop : detailsFields) {
+                request.addPostParam("Details.Fields", Converter.mapToJson(prop));
+            }
         }
 
         if (hiddenDetails != null) {
-            request.addPostParam("HiddenDetails", hiddenDetails);
+            request.addPostParam("HiddenDetails", Converter.mapToJson(hiddenDetails));
         }
     }
 }

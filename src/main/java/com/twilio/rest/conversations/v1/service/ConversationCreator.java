@@ -36,7 +36,8 @@ public class ConversationCreator extends Creator<Conversation> {
     /**
      * Construct a new ConversationCreator.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      */
     public ConversationCreator(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;

@@ -25,7 +25,8 @@ public class ConversationDeleter extends Deleter<Conversation> {
     /**
      * Construct a new ConversationDeleter.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public ConversationDeleter(final String pathChatServiceSid,

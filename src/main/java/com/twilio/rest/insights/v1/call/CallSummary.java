@@ -43,7 +43,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 48207038577913L;
+    private static final long serialVersionUID = 88369247708461L;
 
     public enum CallType {
         CARRIER("carrier"),
@@ -195,6 +195,7 @@ public class CallSummary extends Resource {
     private final URI url;
     private final Map<String, Object> attributes;
     private final Map<String, Object> properties;
+    private final Map<String, Object> trust;
 
     @JsonCreator
     private CallSummary(@JsonProperty("account_sid")
@@ -234,7 +235,9 @@ public class CallSummary extends Resource {
                         @JsonProperty("attributes")
                         final Map<String, Object> attributes,
                         @JsonProperty("properties")
-                        final Map<String, Object> properties) {
+                        final Map<String, Object> properties,
+                        @JsonProperty("trust")
+                        final Map<String, Object> trust) {
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.callType = callType;
@@ -254,6 +257,7 @@ public class CallSummary extends Resource {
         this.url = url;
         this.attributes = attributes;
         this.properties = properties;
+        this.trust = trust;
     }
 
     /**
@@ -427,6 +431,15 @@ public class CallSummary extends Resource {
         return this.properties;
     }
 
+    /**
+     * Returns The trust.
+     *
+     * @return The trust
+     */
+    public final Map<String, Object> getTrust() {
+        return this.trust;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -457,7 +470,8 @@ public class CallSummary extends Resource {
                Objects.equals(tags, other.tags) &&
                Objects.equals(url, other.url) &&
                Objects.equals(attributes, other.attributes) &&
-               Objects.equals(properties, other.properties);
+               Objects.equals(properties, other.properties) &&
+               Objects.equals(trust, other.trust);
     }
 
     @Override
@@ -480,6 +494,7 @@ public class CallSummary extends Resource {
                             tags,
                             url,
                             attributes,
-                            properties);
+                            properties,
+                            trust);
     }
 }

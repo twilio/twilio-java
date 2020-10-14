@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business.brand.brandedchannel;
+package com.twilio.rest.preview.trustedComms.brandedchannel;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -23,25 +23,17 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class ChannelCreator extends Creator<Channel> {
-    private final String pathBusinessSid;
-    private final String pathBrandSid;
     private final String pathBrandedChannelSid;
     private final String phoneNumberSid;
 
     /**
      * Construct a new ChannelCreator.
      *
-     * @param pathBusinessSid Business Sid.
-     * @param pathBrandSid Brand Sid.
      * @param pathBrandedChannelSid Branded Channel Sid.
      * @param phoneNumberSid Phone Number Sid to be branded.
      */
-    public ChannelCreator(final String pathBusinessSid,
-                          final String pathBrandSid,
-                          final String pathBrandedChannelSid,
+    public ChannelCreator(final String pathBrandedChannelSid,
                           final String phoneNumberSid) {
-        this.pathBusinessSid = pathBusinessSid;
-        this.pathBrandSid = pathBrandSid;
         this.pathBrandedChannelSid = pathBrandedChannelSid;
         this.phoneNumberSid = phoneNumberSid;
     }
@@ -58,7 +50,7 @@ public class ChannelCreator extends Creator<Channel> {
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathBrandSid + "/BrandedChannels/" + this.pathBrandedChannelSid + "/Channels"
+            "/TrustedComms/BrandedChannels/" + this.pathBrandedChannelSid + "/Channels"
         );
 
         addPostParams(request);

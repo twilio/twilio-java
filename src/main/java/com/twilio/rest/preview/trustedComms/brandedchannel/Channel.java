@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business.brand.brandedchannel;
+package com.twilio.rest.preview.trustedComms.brandedchannel;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,17 +43,13 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      *
-     * @param pathBusinessSid Business Sid.
-     * @param pathBrandSid Brand Sid.
      * @param pathBrandedChannelSid Branded Channel Sid.
      * @param phoneNumberSid Phone Number Sid to be branded.
      * @return ChannelCreator capable of executing the create
      */
-    public static ChannelCreator creator(final String pathBusinessSid,
-                                         final String pathBrandSid,
-                                         final String pathBrandedChannelSid,
+    public static ChannelCreator creator(final String pathBrandedChannelSid,
                                          final String phoneNumberSid) {
-        return new ChannelCreator(pathBusinessSid, pathBrandSid, pathBrandedChannelSid, phoneNumberSid);
+        return new ChannelCreator(pathBrandedChannelSid, phoneNumberSid);
     }
 
     /**

@@ -93,24 +93,45 @@ public class Factor extends Resource {
         }
     }
 
+    public enum NotificationPlatforms {
+        APN("apn"),
+        FCM("fcm");
+
+        private final String value;
+
+        private NotificationPlatforms(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a NotificationPlatforms from a string.
+         * @param value string value
+         * @return generated NotificationPlatforms
+         */
+        @JsonCreator
+        public static NotificationPlatforms forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationPlatforms.values());
+        }
+    }
+
     /**
      * Create a FactorCreator to execute create.
      *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique external identifier of the Entity
-     * @param binding A unique binding for this Factor as a json string
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
-     * @param config The config for this Factor as a json string
      * @return FactorCreator capable of executing the create
      */
     public static FactorCreator creator(final String pathServiceSid,
                                         final String pathIdentity,
-                                        final String binding,
                                         final String friendlyName,
-                                        final Factor.FactorTypes factorType,
-                                        final String config) {
-        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, factorType, config);
+                                        final Factor.FactorTypes factorType) {
+        return new FactorCreator(pathServiceSid, pathIdentity, friendlyName, factorType);
     }
 
     /**

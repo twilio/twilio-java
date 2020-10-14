@@ -24,7 +24,8 @@ public class ConversationFetcher extends Fetcher<Conversation> {
     /**
      * Construct a new ConversationFetcher.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public ConversationFetcher(final String pathChatServiceSid,

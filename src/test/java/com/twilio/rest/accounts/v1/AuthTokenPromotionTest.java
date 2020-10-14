@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business;
+package com.twilio.rest.accounts.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class BrandTest {
+public class AuthTokenPromotionTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -37,11 +37,11 @@ public class BrandTest {
     }
 
     @Test
-    public void testFetchRequest() {
+    public void testUpdateRequest() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.GET,
-                                          Domains.PREVIEW.toString(),
-                                          "/TrustedComms/Businesses/BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Brands/BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.ACCOUNTS.toString(),
+                                          "/v1/AuthTokens/Promote");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,20 +51,20 @@ public class BrandTest {
         }};
 
         try {
-            Brand.fetcher("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AuthTokenPromotion.updater().update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
 
     @Test
-    public void testFetchResponse() {
+    public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"business_sid\": \"BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"branded_channels\": \"https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Brands/BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/BrandedChannels\"},\"url\": \"https://preview.twilio.com/TrustedComms/Businesses/BXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Brands/BZaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"auth_token\": \"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\",\"date_created\": \"2015-07-31T04:00:00Z\",\"date_updated\": \"2015-07-31T04:00:00Z\",\"url\": \"https://accounts.twilio.com/v1/AuthTokens/Promote\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Brand.fetcher("BXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        AuthTokenPromotion.updater().update();
     }
 }

@@ -93,7 +93,8 @@ public class Conversation extends Resource {
     /**
      * Create a ConversationCreator to execute create.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @return ConversationCreator capable of executing the create
      */
     public static ConversationCreator creator(final String pathChatServiceSid) {
@@ -103,7 +104,8 @@ public class Conversation extends Resource {
     /**
      * Create a ConversationUpdater to execute update.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ConversationUpdater capable of executing the update
      */
@@ -115,7 +117,8 @@ public class Conversation extends Resource {
     /**
      * Create a ConversationDeleter to execute delete.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ConversationDeleter capable of executing the delete
      */
@@ -127,7 +130,8 @@ public class Conversation extends Resource {
     /**
      * Create a ConversationFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ConversationFetcher capable of executing the fetch
      */
@@ -139,7 +143,8 @@ public class Conversation extends Resource {
     /**
      * Create a ConversationReader to execute read.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @return ConversationReader capable of executing the read
      */
     public static ConversationReader reader(final String pathChatServiceSid) {

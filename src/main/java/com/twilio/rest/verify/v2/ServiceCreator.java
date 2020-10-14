@@ -8,7 +8,6 @@
 package com.twilio.rest.verify.v2;
 
 import com.twilio.base.Creator;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,8 +16,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-import java.util.Map;
 
 public class ServiceCreator extends Creator<Service> {
     private final String friendlyName;
@@ -30,7 +27,9 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean psd2Enabled;
     private Boolean doNotShareWarningEnabled;
     private Boolean customCodeEnabled;
-    private Map<String, Object> push;
+    private Boolean pushIncludeDate;
+    private String pushApnCredentialSid;
+    private String pushFcmCredentialSid;
 
     /**
      * Construct a new ServiceCreator.
@@ -145,21 +144,46 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
-     * Configurations for the Push factors (channel) created under this Service. If
-     * present, it must be a json string with the following format:
-     * {"notify_service_sid": "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "include_date":
-     * true}. If `include_date` is set to `true`, which is the default, that means
-     * that the push challenge’s response will include the date created value. If
-     * `include_date` is set to `false`, then the date created value will not be
-     * included. See <a
+     * Optional configuration for the Push factors. If true, include the date in the
+     * Challenge's reponse. Otherwise, the date is omitted from the response. See <a
      * href="https://www.twilio.com/docs/verify/api/challenge">Challenge</a>
-     * resource’s details parameter for more info.
+     * resource’s details parameter for more info. Default: true.
      *
-     * @param push Optional service level push factors configuration
+     * @param pushIncludeDate Optional. Include the date in the Challenge's
+     *                        reponse. Default: true
      * @return this
      */
-    public ServiceCreator setPush(final Map<String, Object> push) {
-        this.push = push;
+    public ServiceCreator setPushIncludeDate(final Boolean pushIncludeDate) {
+        this.pushIncludeDate = pushIncludeDate;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the Push factors. Set the APN Credential for this
+     * service. This will allow to send push notifications to iOS devices. See <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential
+     * Resource</a>.
+     *
+     * @param pushApnCredentialSid Optional. Set APN Credential for this service.
+     * @return this
+     */
+    public ServiceCreator setPushApnCredentialSid(final String pushApnCredentialSid) {
+        this.pushApnCredentialSid = pushApnCredentialSid;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the Push factors. Set the FCM Credential for this
+     * service. This will allow to send push notifications to Android devices. See
+     * <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential
+     * Resource</a>.
+     *
+     * @param pushFcmCredentialSid Optional. Set FCM Credential for this service.
+     * @return this
+     */
+    public ServiceCreator setPushFcmCredentialSid(final String pushFcmCredentialSid) {
+        this.pushFcmCredentialSid = pushFcmCredentialSid;
         return this;
     }
 
@@ -236,8 +260,16 @@ public class ServiceCreator extends Creator<Service> {
             request.addPostParam("CustomCodeEnabled", customCodeEnabled.toString());
         }
 
-        if (push != null) {
-            request.addPostParam("Push", Converter.mapToJson(push));
+        if (pushIncludeDate != null) {
+            request.addPostParam("Push.IncludeDate", pushIncludeDate.toString());
+        }
+
+        if (pushApnCredentialSid != null) {
+            request.addPostParam("Push.ApnCredentialSid", pushApnCredentialSid);
+        }
+
+        if (pushFcmCredentialSid != null) {
+            request.addPostParam("Push.FcmCredentialSid", pushFcmCredentialSid);
         }
     }
 }

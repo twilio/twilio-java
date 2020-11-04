@@ -178,11 +178,11 @@ public class ImpressionsRateFetcher extends Fetcher<ImpressionsRate> {
         }
 
         if (start != null) {
-            request.addQueryParam("Start", start.toString());
+            request.addQueryParam("Start", start.toOffsetDateTime().toString());
         }
 
         if (end != null) {
-            request.addQueryParam("End", end.toString());
+            request.addQueryParam("End", end.toOffsetDateTime().toString());
         }
 
         if (interval != null) {

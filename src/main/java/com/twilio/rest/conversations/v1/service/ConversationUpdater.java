@@ -31,12 +31,14 @@ public class ConversationUpdater extends Updater<Conversation> {
     private Conversation.State state;
     private String timersInactive;
     private String timersClosed;
+    private String uniqueName;
     private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ConversationUpdater.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
     public ConversationUpdater(final String pathChatServiceSid,
@@ -146,6 +148,19 @@ public class ConversationUpdater extends Updater<Conversation> {
     }
 
     /**
+     * An application-defined string that uniquely identifies the resource. It can
+     * be used to address the resource in place of the resource's `sid` in the URL..
+     *
+     * @param uniqueName An application-defined string that uniquely identifies the
+     *                   resource
+     * @return this
+     */
+    public ConversationUpdater setUniqueName(final String uniqueName) {
+        this.uniqueName = uniqueName;
+        return this;
+    }
+
+    /**
      * The X-Twilio-Webhook-Enabled HTTP request header.
      *
      * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
@@ -210,11 +225,11 @@ public class ConversationUpdater extends Updater<Conversation> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (attributes != null) {
@@ -235,6 +250,10 @@ public class ConversationUpdater extends Updater<Conversation> {
 
         if (timersClosed != null) {
             request.addPostParam("Timers.Closed", timersClosed);
+        }
+
+        if (uniqueName != null) {
+            request.addPostParam("UniqueName", uniqueName);
         }
     }
 }

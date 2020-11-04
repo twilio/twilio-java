@@ -208,11 +208,11 @@ public class FaxReader extends Reader<Fax> {
         }
 
         if (dateCreatedOnOrBefore != null) {
-            request.addQueryParam("DateCreatedOnOrBefore", dateCreatedOnOrBefore.toString());
+            request.addQueryParam("DateCreatedOnOrBefore", dateCreatedOnOrBefore.toOffsetDateTime().toString());
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

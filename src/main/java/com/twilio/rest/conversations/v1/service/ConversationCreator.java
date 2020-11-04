@@ -36,7 +36,8 @@ public class ConversationCreator extends Creator<Conversation> {
     /**
      * Construct a new ConversationCreator.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      */
     public ConversationCreator(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -232,11 +233,11 @@ public class ConversationCreator extends Creator<Conversation> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (state != null) {

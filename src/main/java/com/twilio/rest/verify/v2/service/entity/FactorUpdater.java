@@ -28,7 +28,8 @@ public class FactorUpdater extends Updater<Factor> {
     private final String pathSid;
     private String authPayload;
     private String friendlyName;
-    private String config;
+    private String configNotificationToken;
+    private String configSdkVersion;
     private String twilioSandboxMode;
 
     /**
@@ -70,14 +71,27 @@ public class FactorUpdater extends Updater<Factor> {
     }
 
     /**
-     * The new config for this Factor. It must be a json string with the required
-     * properties for the given factor type.
+     * For APN, the device token. For FCM the registration token. It used to send
+     * the push notifications. Required when `factor_type` is `push`.
      *
-     * @param config The config for this Factor as a json string
+     * @param configNotificationToken For APN, the device token. For FCM the
+     *                                registration token
      * @return this
      */
-    public FactorUpdater setConfig(final String config) {
-        this.config = config;
+    public FactorUpdater setConfigNotificationToken(final String configNotificationToken) {
+        this.configNotificationToken = configNotificationToken;
+        return this;
+    }
+
+    /**
+     * The Verify Push SDK version used to configure the factor.
+     *
+     * @param configSdkVersion The Verify Push SDK version used to configure the
+     *                         factor
+     * @return this
+     */
+    public FactorUpdater setConfigSdkVersion(final String configSdkVersion) {
+        this.configSdkVersion = configSdkVersion;
         return this;
     }
 
@@ -149,8 +163,12 @@ public class FactorUpdater extends Updater<Factor> {
             request.addPostParam("FriendlyName", friendlyName);
         }
 
-        if (config != null) {
-            request.addPostParam("Config", config);
+        if (configNotificationToken != null) {
+            request.addPostParam("Config.NotificationToken", configNotificationToken);
+        }
+
+        if (configSdkVersion != null) {
+            request.addPostParam("Config.SdkVersion", configSdkVersion);
         }
     }
 }

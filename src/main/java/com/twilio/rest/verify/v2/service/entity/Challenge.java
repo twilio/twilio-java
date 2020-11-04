@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -30,6 +31,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -41,7 +43,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 218254684366686L;
+    private static final long serialVersionUID = 252131191620543L;
 
     public enum ChallengeStatuses {
         PENDING("pending"),
@@ -224,8 +226,8 @@ public class Challenge extends Resource {
     private final ZonedDateTime expirationDate;
     private final Challenge.ChallengeStatuses status;
     private final Challenge.ChallengeReasons respondedReason;
-    private final String details;
-    private final String hiddenDetails;
+    private final Map<String, Object> details;
+    private final Map<String, Object> hiddenDetails;
     private final Challenge.FactorTypes factorType;
     private final URI url;
 
@@ -255,9 +257,9 @@ public class Challenge extends Resource {
                       @JsonProperty("responded_reason")
                       final Challenge.ChallengeReasons respondedReason,
                       @JsonProperty("details")
-                      final String details,
+                      final Map<String, Object> details,
                       @JsonProperty("hidden_details")
-                      final String hiddenDetails,
+                      final Map<String, Object> hiddenDetails,
                       @JsonProperty("factor_type")
                       final Challenge.FactorTypes factorType,
                       @JsonProperty("url")
@@ -389,11 +391,11 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns Public details provided to contextualize the Challenge.
+     * Returns The details.
      *
-     * @return Public details provided to contextualize the Challenge
+     * @return The details
      */
-    public final String getDetails() {
+    public final Map<String, Object> getDetails() {
         return this.details;
     }
 
@@ -402,7 +404,7 @@ public class Challenge extends Resource {
      *
      * @return Hidden details provided to contextualize the Challenge
      */
-    public final String getHiddenDetails() {
+    public final Map<String, Object> getHiddenDetails() {
         return this.hiddenDetails;
     }
 

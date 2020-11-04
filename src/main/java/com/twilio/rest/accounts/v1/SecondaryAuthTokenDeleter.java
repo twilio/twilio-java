@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1.service;
+package com.twilio.rest.accounts.v1;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,23 +17,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class BindingDeleter extends Deleter<Binding> {
-    private final String pathChatServiceSid;
-    private final String pathSid;
-
-    /**
-     * Construct a new BindingDeleter.
-     *
-     * @param pathChatServiceSid The SID of the Conversation Service to delete the
-     *                           resource from
-     * @param pathSid The SID of the resource to delete
-     */
-    public BindingDeleter(final String pathChatServiceSid,
-                          final String pathSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathSid = pathSid;
-    }
-
+public class SecondaryAuthTokenDeleter extends Deleter<SecondaryAuthToken> {
     /**
      * Make the request to the Twilio API to perform the delete.
      *
@@ -44,14 +28,14 @@ public class BindingDeleter extends Deleter<Binding> {
     public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.CONVERSATIONS.toString(),
-            "/v1/Services/" + this.pathChatServiceSid + "/Bindings/" + this.pathSid + ""
+            Domains.ACCOUNTS.toString(),
+            "/v1/AuthTokens/Secondary"
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Binding delete failed: Unable to connect to server");
+            throw new ApiConnectionException("SecondaryAuthToken delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

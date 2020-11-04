@@ -1,6 +1,43 @@
 twilio-java changelog
 =====================
 
+[2020-10-14] Version 8.1.0
+--------------------------
+**Library - Feature**
+- [PR #573](https://github.com/twilio/twilio-java/pull/573): Add RecordingRule and RecordingRulesUpdate. Thanks to [@FMV1491](https://github.com/FMV1491)!
+
+**Library - Chore**
+- [PR #598](https://github.com/twilio/twilio-java/pull/598): bump junit from 4.13 to 4.13.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #591](https://github.com/twilio/twilio-java/pull/591): upgrade Jackson to 2.11.3. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #596](https://github.com/twilio/twilio-java/pull/596): drop reflective access warnings to java.time.* classes. Thanks to [@mjg123](https://github.com/mjg123)!
+- [PR #595](https://github.com/twilio/twilio-java/pull/595): serialize ZonedDateTime parameters to ISO-8601. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Test**
+- [PR #594](https://github.com/twilio/twilio-java/pull/594): change RequestTest to use flexapi instead of ip-messaging. Thanks to [@mgmuscari](https://github.com/mgmuscari)!
+- [PR #590](https://github.com/twilio/twilio-java/pull/590): use ArchUnit to detect JodaTime usage. Thanks to [@sullis](https://github.com/sullis)!
+
+**Ai**
+- Add `Annotation Project` and `Annotation Task` endpoints
+- Add `Primitives` endpoints
+- Add `meta.total` to the search endpoint
+
+**Conversations**
+- Mutable Conversation Unique Names
+
+**Insights**
+- Added `trust` to summary.
+
+**Preview**
+- Simplified `Channels` resource. The path is now `/BrandedChannels/branded_channel_sid/Channels` **(breaking change)**
+
+**Verify**
+- Changed parameters (`config` and `binding`) to use dot notation instead of JSON string (e.i. Before: `binding={"alg":"ES256", "public_key": "xxx..."}`, Now: `Binding.Alg="ES256"`, `Binding.PublicKey="xxx..."`). **(breaking change)**
+- Changed parameters (`details` and `hidden_details`) to use dot notation instead of JSON string (e.i. Before: `details={"message":"Test message", "fields": "[{\"label\": \"Action 1\", \"value\":\"value 1\"}]"}`, Now: `details.Message="Test message"`, `Details.Fields=["{\"label\": \"Action 1\", \"value\":\"value 1\"}"]`). **(breaking change)**
+- Removed `notify_service_sid` from `push` service configuration object. Add `Push.IncludeDate`, `Push.ApnCredentialSid` and `Push.FcmCredentialSid` service configuration parameters. **(breaking change)**
+
+
 [2020-09-28] Version 8.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2020-09-28-7xx-to-8xx) for detailed migration notes.

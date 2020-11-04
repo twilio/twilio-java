@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business.brand;
+package com.twilio.rest.preview.trustedComms;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -43,15 +43,11 @@ public class BrandedChannel extends Resource {
     /**
      * Create a BrandedChannelFetcher to execute fetch.
      *
-     * @param pathBusinessSid Business Sid.
-     * @param pathBrandSid Brand Sid.
      * @param pathSid Branded Channel Sid.
      * @return BrandedChannelFetcher capable of executing the fetch
      */
-    public static BrandedChannelFetcher fetcher(final String pathBusinessSid,
-                                                final String pathBrandSid,
-                                                final String pathSid) {
-        return new BrandedChannelFetcher(pathBusinessSid, pathBrandSid, pathSid);
+    public static BrandedChannelFetcher fetcher(final String pathSid) {
+        return new BrandedChannelFetcher(pathSid);
     }
 
     /**

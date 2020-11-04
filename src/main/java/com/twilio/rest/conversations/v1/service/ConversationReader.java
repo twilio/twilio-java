@@ -25,7 +25,8 @@ public class ConversationReader extends Reader<Conversation> {
     /**
      * Construct a new ConversationReader.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service that the
+     *                           resource is associated with.
      */
     public ConversationReader(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;

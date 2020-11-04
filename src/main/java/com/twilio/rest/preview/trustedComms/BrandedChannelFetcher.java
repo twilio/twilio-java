@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.trustedComms.business;
+package com.twilio.rest.preview.trustedComms;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,19 +22,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class BrandFetcher extends Fetcher<Brand> {
-    private final String pathBusinessSid;
+public class BrandedChannelFetcher extends Fetcher<BrandedChannel> {
     private final String pathSid;
 
     /**
-     * Construct a new BrandFetcher.
+     * Construct a new BrandedChannelFetcher.
      *
-     * @param pathBusinessSid Business Sid.
-     * @param pathSid Brand Sid.
+     * @param pathSid Branded Channel Sid.
      */
-    public BrandFetcher(final String pathBusinessSid,
-                        final String pathSid) {
-        this.pathBusinessSid = pathBusinessSid;
+    public BrandedChannelFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
 
@@ -42,21 +38,21 @@ public class BrandFetcher extends Fetcher<Brand> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Brand
+     * @return Fetched BrandedChannel
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Brand fetch(final TwilioRestClient client) {
+    public BrandedChannel fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.PREVIEW.toString(),
-            "/TrustedComms/Businesses/" + this.pathBusinessSid + "/Brands/" + this.pathSid + ""
+            "/TrustedComms/BrandedChannels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Brand fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("BrandedChannel fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -65,6 +61,6 @@ public class BrandFetcher extends Fetcher<Brand> {
             throw new ApiException(restException);
         }
 
-        return Brand.fromJson(response.getStream(), client.getObjectMapper());
+        return BrandedChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

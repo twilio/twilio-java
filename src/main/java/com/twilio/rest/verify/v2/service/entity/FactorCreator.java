@@ -25,10 +25,14 @@ import com.twilio.rest.Domains;
 public class FactorCreator extends Creator<Factor> {
     private final String pathServiceSid;
     private final String pathIdentity;
-    private final String binding;
     private final String friendlyName;
     private final Factor.FactorTypes factorType;
-    private final String config;
+    private String bindingAlg;
+    private String bindingPublicKey;
+    private String configAppId;
+    private Factor.NotificationPlatforms configNotificationPlatform;
+    private String configNotificationToken;
+    private String configSdkVersion;
     private String twilioSandboxMode;
 
     /**
@@ -36,23 +40,91 @@ public class FactorCreator extends Creator<Factor> {
      *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique external identifier of the Entity
-     * @param binding A unique binding for this Factor as a json string
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
-     * @param config The config for this Factor as a json string
      */
     public FactorCreator(final String pathServiceSid,
                          final String pathIdentity,
-                         final String binding,
                          final String friendlyName,
-                         final Factor.FactorTypes factorType,
-                         final String config) {
+                         final Factor.FactorTypes factorType) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
-        this.binding = binding;
         this.friendlyName = friendlyName;
         this.factorType = factorType;
-        this.config = config;
+    }
+
+    /**
+     * The algorithm used when `factor_type` is `push`. Algorithm supported:
+     * `ES256`.
+     *
+     * @param bindingAlg The algorithm used when `factor_type` is `push`
+     * @return this
+     */
+    public FactorCreator setBindingAlg(final String bindingAlg) {
+        this.bindingAlg = bindingAlg;
+        return this;
+    }
+
+    /**
+     * The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.
+     *
+     * @param bindingPublicKey The public key encoded in Base64
+     * @return this
+     */
+    public FactorCreator setBindingPublicKey(final String bindingPublicKey) {
+        this.bindingPublicKey = bindingPublicKey;
+        return this;
+    }
+
+    /**
+     * The ID that uniquely identifies your app in the Google or Apple store, such
+     * as `com.example.myapp`. Required when `factor_type` is `push`.
+     *
+     * @param configAppId The ID that uniquely identifies your app in the Google or
+     *                    Apple store
+     * @return this
+     */
+    public FactorCreator setConfigAppId(final String configAppId) {
+        this.configAppId = configAppId;
+        return this;
+    }
+
+    /**
+     * The transport technology used to generate the Notification Token. Can be
+     * `apn` or `fcm`. Required when `factor_type` is `push`.
+     *
+     * @param configNotificationPlatform The transport technology used to generate
+     *                                   the Notification Token
+     * @return this
+     */
+    public FactorCreator setConfigNotificationPlatform(final Factor.NotificationPlatforms configNotificationPlatform) {
+        this.configNotificationPlatform = configNotificationPlatform;
+        return this;
+    }
+
+    /**
+     * For APN, the device token. For FCM the registration token. It used to send
+     * the push notifications. Required when `factor_type` is `push`.
+     *
+     * @param configNotificationToken For APN, the device token. For FCM the
+     *                                registration token
+     * @return this
+     */
+    public FactorCreator setConfigNotificationToken(final String configNotificationToken) {
+        this.configNotificationToken = configNotificationToken;
+        return this;
+    }
+
+    /**
+     * The Verify Push SDK version used to configure the factor.
+     *
+     * @param configSdkVersion The Verify Push SDK version used to configure the
+     *                         factor
+     * @return this
+     */
+    public FactorCreator setConfigSdkVersion(final String configSdkVersion) {
+        this.configSdkVersion = configSdkVersion;
+        return this;
     }
 
     /**
@@ -115,10 +187,6 @@ public class FactorCreator extends Creator<Factor> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (binding != null) {
-            request.addPostParam("Binding", binding);
-        }
-
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
         }
@@ -127,8 +195,28 @@ public class FactorCreator extends Creator<Factor> {
             request.addPostParam("FactorType", factorType.toString());
         }
 
-        if (config != null) {
-            request.addPostParam("Config", config);
+        if (bindingAlg != null) {
+            request.addPostParam("Binding.Alg", bindingAlg);
+        }
+
+        if (bindingPublicKey != null) {
+            request.addPostParam("Binding.PublicKey", bindingPublicKey.toString());
+        }
+
+        if (configAppId != null) {
+            request.addPostParam("Config.AppId", configAppId);
+        }
+
+        if (configNotificationPlatform != null) {
+            request.addPostParam("Config.NotificationPlatform", configNotificationPlatform.toString());
+        }
+
+        if (configNotificationToken != null) {
+            request.addPostParam("Config.NotificationToken", configNotificationToken);
+        }
+
+        if (configSdkVersion != null) {
+            request.addPostParam("Config.SdkVersion", configSdkVersion);
         }
     }
 }

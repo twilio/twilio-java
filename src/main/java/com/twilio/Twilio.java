@@ -18,7 +18,7 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "8.0.0";
+    public static final String VERSION = "8.1.0";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
     private static String username = System.getenv("TWILIO_ACCOUNT_SID");

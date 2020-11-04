@@ -68,7 +68,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingDeleter to execute delete.
      *
-     * @param pathChatServiceSid The chat_service_sid
+     * @param pathChatServiceSid The SID of the Conversation Service to delete the
+     *                           resource from
      * @param pathSid The SID of the resource to delete
      * @return BindingDeleter capable of executing the delete
      */

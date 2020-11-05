@@ -27,8 +27,8 @@ public class UserUpdater extends Updater<User> {
     /**
      * Construct a new UserUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public UserUpdater(final String pathServiceSid,
                        final String pathSid) {
@@ -37,11 +37,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The SID of the <a
-     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> assigned to
-     * this user..
+     * The role_sid.
      *
-     * @param roleSid The SID id of the Role assigned to this user
+     * @param roleSid The role_sid
      * @return this
      */
     public UserUpdater setRoleSid(final String roleSid) {
@@ -50,9 +48,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public UserUpdater setAttributes(final String attributes) {
@@ -61,10 +59,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It is often
-     * used for display purposes..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public UserUpdater setFriendlyName(final String friendlyName) {

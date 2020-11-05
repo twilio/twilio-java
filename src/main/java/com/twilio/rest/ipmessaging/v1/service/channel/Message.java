@@ -66,10 +66,9 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathChannelSid The unique ID of the Channel the message to fetch
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MessageFetcher capable of executing the fetch
      */
     public static MessageFetcher fetcher(final String pathServiceSid,
@@ -81,10 +80,9 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new resource belongs
-     *                       to
-     * @param body The message to send to the channel
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param body The body
      * @return MessageCreator capable of executing the create
      */
     public static MessageCreator creator(final String pathServiceSid,
@@ -96,9 +94,8 @@ public class Message extends Resource {
     /**
      * Create a MessageReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the Channel the message to read
-     *                       belongs to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathServiceSid,
@@ -109,10 +106,9 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathChannelSid The unique ID of the channel the message to delete
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MessageDeleter capable of executing the delete
      */
     public static MessageDeleter deleter(final String pathServiceSid,
@@ -124,9 +120,9 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathChannelSid he unique ID of the Channel the message belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathServiceSid,
@@ -229,117 +225,117 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The JSON string that stores application-specific data.
+     * Returns The attributes.
      *
-     * @return The JSON string that stores application-specific data
+     * @return The attributes
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The SID of the Channel that the message was sent to.
+     * Returns The to.
      *
-     * @return The SID of the Channel that the message was sent to
+     * @return The to
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The unique ID of the Channel the Message resource belongs to.
+     * Returns The channel_sid.
      *
-     * @return The unique ID of the Channel the Message resource belongs to
+     * @return The channel_sid
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The date_created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns Whether the message has been edited since  it was created.
+     * Returns The was_edited.
      *
-     * @return Whether the message has been edited since  it was created
+     * @return The was_edited
      */
     public final Boolean getWasEdited() {
         return this.wasEdited;
     }
 
     /**
-     * Returns The identity of the message's author.
+     * Returns The from.
      *
-     * @return The identity of the message's author
+     * @return The from
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The content of the message.
+     * Returns The body.
      *
-     * @return The content of the message
+     * @return The body
      */
     public final String getBody() {
         return this.body;
     }
 
     /**
-     * Returns The index of the message within the Channel.
+     * Returns The index.
      *
-     * @return The index of the message within the Channel
+     * @return The index
      */
     public final Integer getIndex() {
         return this.index;
     }
 
     /**
-     * Returns The absolute URL of the Message resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Message resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;

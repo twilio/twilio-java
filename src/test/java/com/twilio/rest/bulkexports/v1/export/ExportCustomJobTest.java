@@ -86,7 +86,9 @@ public class ExportCustomJobTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.BULKEXPORTS.toString(),
                                           "/v1/Exports/resource_type/Jobs");
-
+            request.addPostParam("StartDay", serialize("start_day"));
+            request.addPostParam("EndDay", serialize("end_day"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -95,7 +97,7 @@ public class ExportCustomJobTest {
         }};
 
         try {
-            ExportCustomJob.creator("resource_type").create();
+            ExportCustomJob.creator("resource_type", "start_day", "end_day", "friendly_name").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -109,6 +111,6 @@ public class ExportCustomJobTest {
             result = new ObjectMapper();
         }};
 
-        ExportCustomJob.creator("resource_type").create();
+        ExportCustomJob.creator("resource_type", "start_day", "end_day", "friendly_name").create();
     }
 }

@@ -25,7 +25,7 @@ public class RoleReader extends Reader<Role> {
     /**
      * Construct a new RoleReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      */
     public RoleReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

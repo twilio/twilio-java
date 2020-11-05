@@ -25,12 +25,9 @@ public class UserChannelFetcher extends Fetcher<UserChannel> {
     /**
      * Construct a new UserChannelFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the User Channel
-     *                       resource from
-     * @param pathUserSid The SID of the User to fetch the User Channel resource
-     *                    from
-     * @param pathChannelSid The SID of the Channel that has the User Channel to
-     *                       fetch
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathChannelSid The channel_sid
      */
     public UserChannelFetcher(final String pathServiceSid,
                               final String pathUserSid,

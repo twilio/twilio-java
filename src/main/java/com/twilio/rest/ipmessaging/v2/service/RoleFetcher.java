@@ -24,8 +24,8 @@ public class RoleFetcher extends Fetcher<Role> {
     /**
      * Construct a new RoleFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The SID of the Role resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public RoleFetcher(final String pathServiceSid,
                        final String pathSid) {

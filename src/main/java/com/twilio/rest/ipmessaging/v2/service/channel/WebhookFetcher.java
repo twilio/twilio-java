@@ -25,10 +25,9 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     /**
      * Construct a new WebhookFetcher.
      *
-     * @param pathServiceSid The SID of the Service with the Channel to fetch the
-     *                       Webhook resource from
-     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The SID of the Channel Webhook resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public WebhookFetcher(final String pathServiceSid,
                           final String pathChannelSid,

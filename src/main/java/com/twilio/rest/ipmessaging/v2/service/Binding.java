@@ -68,7 +68,7 @@ public class Binding extends Resource {
     /**
      * Create a BindingReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathServiceSid) {
@@ -78,8 +78,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The SID of the resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return BindingFetcher capable of executing the fetch
      */
     public static BindingFetcher fetcher(final String pathServiceSid,
@@ -90,8 +90,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The SID of the resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return BindingDeleter capable of executing the delete
      */
     public static BindingDeleter deleter(final String pathServiceSid,
@@ -189,108 +189,108 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the Binding resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the Binding resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The unique endpoint identifier for the Binding.
+     * Returns The endpoint.
      *
-     * @return The unique endpoint identifier for the Binding
+     * @return The endpoint
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The string that identifies the resource's User.
+     * Returns The identity.
      *
-     * @return The string that identifies the resource's User
+     * @return The identity
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The SID of the Credential for the binding.
+     * Returns The credential_sid.
      *
-     * @return The SID of the Credential for the binding
+     * @return The credential_sid
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The push technology to use for the binding.
+     * Returns The binding_type.
      *
-     * @return The push technology to use for the binding
+     * @return The binding_type
      */
     public final Binding.BindingType getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The Programmable Chat message types the binding is subscribed to.
+     * Returns The message_types.
      *
-     * @return The Programmable Chat message types the binding is subscribed to
+     * @return The message_types
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;
     }
 
     /**
-     * Returns The absolute URL of the Binding resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Binding resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The absolute URLs of the Binding's User.
+     * Returns The links.
      *
-     * @return The absolute URLs of the Binding's User
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;

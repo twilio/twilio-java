@@ -60,7 +60,7 @@ public class SinkTestTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"result\": \"valid\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"result\": \"submitted\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

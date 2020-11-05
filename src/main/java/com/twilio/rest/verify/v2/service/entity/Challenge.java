@@ -36,9 +36,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -391,18 +390,18 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The details.
+     * Returns Details about the Challenge..
      *
-     * @return The details
+     * @return Details about the Challenge.
      */
     public final Map<String, Object> getDetails() {
         return this.details;
     }
 
     /**
-     * Returns Hidden details provided to contextualize the Challenge.
+     * Returns Hidden details about the Challenge.
      *
-     * @return Hidden details provided to contextualize the Challenge
+     * @return Hidden details about the Challenge
      */
     public final Map<String, Object> getHiddenDetails() {
         return this.hiddenDetails;

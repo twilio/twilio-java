@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class AccessTokenCreator extends Creator<AccessToken> {
     private final String pathServiceSid;
@@ -30,7 +29,7 @@ public class AccessTokenCreator extends Creator<AccessToken> {
     /**
      * Construct a new AccessTokenCreator.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @param identity Unique external identifier of the Entity
      * @param factorType The Type of this Factor
      */

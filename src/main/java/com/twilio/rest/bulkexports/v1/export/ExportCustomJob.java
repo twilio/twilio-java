@@ -52,11 +52,20 @@ public class ExportCustomJob extends Resource {
     /**
      * Create a ExportCustomJobCreator to execute create.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages or Calls
+     * @param startDay The start day for the custom export specified as a string in
+     *                 the format of yyyy-mm-dd
+     * @param endDay The end day for the custom export specified as a string in the
+     *               format of yyyy-mm-dd. End day is inclusive and must be 2 days
+     *               earlier than the current UTC day.
+     * @param friendlyName The friendly name specified when creating the job
      * @return ExportCustomJobCreator capable of executing the create
      */
-    public static ExportCustomJobCreator creator(final String pathResourceType) {
-        return new ExportCustomJobCreator(pathResourceType);
+    public static ExportCustomJobCreator creator(final String pathResourceType,
+                                                 final String startDay,
+                                                 final String endDay,
+                                                 final String friendlyName) {
+        return new ExportCustomJobCreator(pathResourceType, startDay, endDay, friendlyName);
     }
 
     /**
@@ -156,18 +165,29 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The start time for the export specified when creating the job.
+     * Returns The start day for the custom export specified as a string in the
+     * format of yyyy-MM-dd.
      *
-     * @return The start time for the export specified when creating the job
+     * @return The start day for the custom export specified as a string in the
+     *         format of yyyy-MM-dd
      */
     public final String getStartDay() {
         return this.startDay;
     }
 
     /**
-     * Returns The end time for the export specified when creating the job.
+     * Returns The end day for the custom export specified as a string in the format
+     * of yyyy-MM-dd. This will be the last day exported. For instance, to export a
+     * single day, choose the same day for start and end day. To export the first 4
+     * days of July, you would set the start date to 2020-07-01 and the end date to
+     * 2020-07-04. The end date must be the UTC day before yesterday..
      *
-     * @return The end time for the export specified when creating the job
+     * @return The end day for the custom export specified as a string in the
+     *         format of yyyy-MM-dd. This will be the last day exported. For
+     *         instance, to export a single day, choose the same day for start and
+     *         end day. To export the first 4 days of July, you would set the start
+     *         date to 2020-07-01 and the end date to 2020-07-04. The end date must
+     *         be the UTC day before yesterday.
      */
     public final String getEndDay() {
         return this.endDay;
@@ -201,18 +221,22 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The job_sid returned when the export was created.
+     * Returns The unique job_sid returned when the custom export was created. This
+     * can be used to look up the status of the job..
      *
-     * @return The job_sid returned when the export was created
+     * @return The unique job_sid returned when the custom export was created. This
+     *         can be used to look up the status of the job.
      */
     public final String getJobSid() {
         return this.jobSid;
     }
 
     /**
-     * Returns The details.
+     * Returns The details of a job state which is an object that contains a status
+     * string, a day count integer, and list of days in the job.
      *
-     * @return The details
+     * @return The details of a job state which is an object that contains a status
+     *         string, a day count integer, and list of days in the job
      */
     public final Map<String, Object> getDetails() {
         return this.details;

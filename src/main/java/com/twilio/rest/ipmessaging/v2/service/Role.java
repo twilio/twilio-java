@@ -67,8 +67,8 @@ public class Role extends Resource {
     /**
      * Create a RoleFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The SID of the Role resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return RoleFetcher capable of executing the fetch
      */
     public static RoleFetcher fetcher(final String pathServiceSid,
@@ -79,8 +79,8 @@ public class Role extends Resource {
     /**
      * Create a RoleDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The SID of the Role resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return RoleDeleter capable of executing the delete
      */
     public static RoleDeleter deleter(final String pathServiceSid,
@@ -91,10 +91,10 @@ public class Role extends Resource {
     /**
      * Create a RoleCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param friendlyName A string to describe the new resource
-     * @param type The type of role
-     * @param permission A permission the role should have
+     * @param pathServiceSid The service_sid
+     * @param friendlyName The friendly_name
+     * @param type The type
+     * @param permission The permission
      * @return RoleCreator capable of executing the create
      */
     public static RoleCreator creator(final String pathServiceSid,
@@ -107,7 +107,7 @@ public class Role extends Resource {
     /**
      * Create a RoleReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      * @return RoleReader capable of executing the read
      */
     public static RoleReader reader(final String pathServiceSid) {
@@ -117,9 +117,9 @@ public class Role extends Resource {
     /**
      * Create a RoleUpdater to execute update.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The SID of the Role resource to update
-     * @param permission A permission the role should have
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
+     * @param permission The permission
      * @return RoleUpdater capable of executing the update
      */
     public static RoleUpdater updater(final String pathServiceSid,
@@ -206,81 +206,81 @@ public class Role extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The string that you assigned to describe the resource.
+     * Returns The friendly_name.
      *
-     * @return The string that you assigned to describe the resource
+     * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The type of role.
+     * Returns The type.
      *
-     * @return The type of role
+     * @return The type
      */
     public final Role.RoleType getType() {
         return this.type;
     }
 
     /**
-     * Returns An array of the permissions the role has been granted.
+     * Returns The permissions.
      *
-     * @return An array of the permissions the role has been granted
+     * @return The permissions
      */
     public final List<String> getPermissions() {
         return this.permissions;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The absolute URL of the Role resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Role resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;

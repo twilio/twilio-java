@@ -27,8 +27,8 @@ public class ChannelUpdater extends Updater<Channel> {
     /**
      * Construct a new ChannelUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public ChannelUpdater(final String pathServiceSid,
                           final String pathSid) {
@@ -37,10 +37,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It can be up
-     * to 64 characters long..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -49,13 +48,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the resource's `sid` in the URL.
-     * This value must be 64 characters or less in length and be unique within the
-     * Service..
+     * The unique_name.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     * @param uniqueName The unique_name
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -64,9 +59,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {

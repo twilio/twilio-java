@@ -34,8 +34,8 @@ public class ChannelUpdater extends Updater<Channel> {
     /**
      * Construct a new ChannelUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The SID of the Channel resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public ChannelUpdater(final String pathServiceSid,
                           final String pathSid) {
@@ -44,10 +44,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It can be up
-     * to 256 characters long..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -56,13 +55,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the resource's `sid` in the URL.
-     * This value must be 256 characters or less in length and unique within the
-     * Service..
+     * The unique_name.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     * @param uniqueName The unique_name
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -71,9 +66,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {
@@ -82,14 +77,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was created. The
-     * default value is the current time set by the Chat service.  Note that this
-     * should only be used in cases where a Channel is being recreated from a
-     * backup/separate source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
     public ChannelUpdater setDateCreated(final ZonedDateTime dateCreated) {
@@ -98,11 +88,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was last updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
     public ChannelUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
@@ -111,9 +99,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The `identity` of the User that created the channel. Default is: `system`..
+     * The created_by.
      *
-     * @param createdBy The identity of the User that created the Channel
+     * @param createdBy The created_by
      * @return this
      */
     public ChannelUpdater setCreatedBy(final String createdBy) {

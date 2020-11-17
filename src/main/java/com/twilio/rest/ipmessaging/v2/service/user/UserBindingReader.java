@@ -30,8 +30,8 @@ public class UserBindingReader extends Reader<UserBinding> {
     /**
      * Construct a new UserBindingReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resource from
-     * @param pathUserSid The SID of the User with the User Bindings to read
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
      */
     public UserBindingReader(final String pathServiceSid,
                              final String pathUserSid) {
@@ -40,13 +40,9 @@ public class UserBindingReader extends Reader<UserBinding> {
     }
 
     /**
-     * The push technology used by the User Binding resources to read. Can be:
-     * `apn`, `gcm`, or `fcm`.  See <a
-     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
-     * notification configuration</a> for more info..
+     * The binding_type.
      *
-     * @param bindingType The push technology used by the User Binding resources to
-     *                    read
+     * @param bindingType The binding_type
      * @return this
      */
     public UserBindingReader setBindingType(final List<UserBinding.BindingType> bindingType) {
@@ -55,13 +51,9 @@ public class UserBindingReader extends Reader<UserBinding> {
     }
 
     /**
-     * The push technology used by the User Binding resources to read. Can be:
-     * `apn`, `gcm`, or `fcm`.  See <a
-     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
-     * notification configuration</a> for more info..
+     * The binding_type.
      *
-     * @param bindingType The push technology used by the User Binding resources to
-     *                    read
+     * @param bindingType The binding_type
      * @return this
      */
     public UserBindingReader setBindingType(final UserBinding.BindingType bindingType) {

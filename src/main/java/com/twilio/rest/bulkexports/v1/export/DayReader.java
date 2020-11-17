@@ -25,8 +25,6 @@ import com.twilio.rest.Domains;
  */
 public class DayReader extends Reader<Day> {
     private final String pathResourceType;
-    private String nextToken;
-    private String previousToken;
 
     /**
      * Construct a new DayReader.
@@ -35,28 +33,6 @@ public class DayReader extends Reader<Day> {
      */
     public DayReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
-    }
-
-    /**
-     * The next_token.
-     *
-     * @param nextToken The next_token
-     * @return this
-     */
-    public DayReader setNextToken(final String nextToken) {
-        this.nextToken = nextToken;
-        return this;
-    }
-
-    /**
-     * The previous_token.
-     *
-     * @param previousToken The previous_token
-     * @return this
-     */
-    public DayReader setPreviousToken(final String previousToken) {
-        this.previousToken = previousToken;
-        return this;
     }
 
     /**
@@ -175,14 +151,6 @@ public class DayReader extends Reader<Day> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (nextToken != null) {
-            request.addQueryParam("NextToken", nextToken);
-        }
-
-        if (previousToken != null) {
-            request.addQueryParam("PreviousToken", previousToken);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -25,9 +25,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class ChallengeCreator extends Creator<Challenge> {
     private final String pathServiceSid;
@@ -37,7 +36,6 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String detailsMessage;
     private List<Map<String, Object>> detailsFields;
     private Map<String, Object> hiddenDetails;
-    private String twilioSandboxMode;
 
     /**
      * Construct a new ChallengeCreator.
@@ -119,17 +117,6 @@ public class ChallengeCreator extends Creator<Challenge> {
     }
 
     /**
-     * The Twilio-Sandbox-Mode HTTP request header.
-     *
-     * @param twilioSandboxMode The Twilio-Sandbox-Mode HTTP request header
-     * @return this
-     */
-    public ChallengeCreator setTwilioSandboxMode(final String twilioSandboxMode) {
-        this.twilioSandboxMode = twilioSandboxMode;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -145,7 +132,6 @@ public class ChallengeCreator extends Creator<Challenge> {
         );
 
         addPostParams(request);
-        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -159,17 +145,6 @@ public class ChallengeCreator extends Creator<Challenge> {
         }
 
         return Challenge.fromJson(response.getStream(), client.getObjectMapper());
-    }
-
-    /**
-     * Add the requested header parameters to the Request.
-     *
-     * @param request Request to add header params to
-     */
-    private void addHeaderParams(final Request request) {
-        if (twilioSandboxMode != null) {
-            request.addHeaderParam("Twilio-Sandbox-Mode", twilioSandboxMode);
-        }
     }
 
     /**

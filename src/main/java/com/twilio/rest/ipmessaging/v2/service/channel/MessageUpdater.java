@@ -35,9 +35,9 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * Construct a new MessageUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathChannelSid The SID of the Channel the message belongs to
-     * @param pathSid The SID of the Message resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MessageUpdater(final String pathServiceSid,
                           final String pathChannelSid,
@@ -48,11 +48,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The message to send to the channel. Can be an empty string or `null`, which
-     * sets the value as an empty string. You can send structured data in the body
-     * by serializing it as a string..
+     * The body.
      *
-     * @param body The message to send to the channel
+     * @param body The body
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -61,9 +59,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -72,14 +70,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was created. The
-     * default value is the current time set by the Chat service. This parameter
-     * should only be used when a Chat's history is being recreated from a
-     * backup/separate source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
     public MessageUpdater setDateCreated(final ZonedDateTime dateCreated) {
@@ -88,11 +81,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was last updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
     public MessageUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
@@ -101,11 +92,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The <a href="https://www.twilio.com/docs/chat/identity">Identity</a> of the
-     * User who last updated the Message, if applicable..
+     * The last_updated_by.
      *
-     * @param lastUpdatedBy The Identity of the User who last updated the Message,
-     *                      if applicable
+     * @param lastUpdatedBy The last_updated_by
      * @return this
      */
     public MessageUpdater setLastUpdatedBy(final String lastUpdatedBy) {
@@ -114,10 +103,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The <a href="https://www.twilio.com/docs/chat/identity">Identity</a> of the
-     * message's author..
+     * The from.
      *
-     * @param from The Identity of the message's author
+     * @param from The from
      * @return this
      */
     public MessageUpdater setFrom(final String from) {

@@ -35,9 +35,9 @@ public class MemberCreator extends Creator<Member> {
     /**
      * Construct a new MemberCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The SID of the channel the new member belongs to
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param identity The identity
      */
     public MemberCreator(final String pathServiceSid,
                          final String pathChannelSid,
@@ -48,12 +48,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the member. The default roles are those specified on the <a
-     * href="https://www.twilio.com/docs/chat/rest/service-resource">Service</a>..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role to assign to the member
+     * @param roleSid The role_sid
      * @return this
      */
     public MemberCreator setRoleSid(final String roleSid) {
@@ -62,14 +59,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The index of the last <a
-     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a> in
-     * the <a href="https://www.twilio.com/docs/chat/channels">Channel</a> that the
-     * Member has read. This parameter should only be used when recreating a Member
-     * from a backup/separate source..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last Message in the Channel
-     *                                 the Member has read
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public MemberCreator setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -78,15 +70,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
-     * of the last <a
-     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
-     * read event for the Member within the <a
-     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
+     * The last_consumption_timestamp.
      *
-     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the datetime of the last Message
-     *                                 read event for the member within the Channel
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
      * @return this
      */
     public MemberCreator setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
@@ -95,14 +81,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was created. The
-     * default value is the current time set by the Chat service.  Note that this
-     * parameter should only be used when a Member is being recreated from a
-     * backup/separate source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
     public MemberCreator setDateCreated(final ZonedDateTime dateCreated) {
@@ -111,14 +92,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was last updated.
-     * The default value is `null`. Note that this parameter should only be used
-     * when a Member is being recreated from a backup/separate source and where a
-     * Member was previously updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
     public MemberCreator setDateUpdated(final ZonedDateTime dateUpdated) {
@@ -127,9 +103,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public MemberCreator setAttributes(final String attributes) {

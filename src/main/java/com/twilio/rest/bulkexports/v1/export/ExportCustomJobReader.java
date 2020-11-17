@@ -25,8 +25,6 @@ import com.twilio.rest.Domains;
  */
 public class ExportCustomJobReader extends Reader<ExportCustomJob> {
     private final String pathResourceType;
-    private String nextToken;
-    private String previousToken;
 
     /**
      * Construct a new ExportCustomJobReader.
@@ -35,30 +33,6 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
      */
     public ExportCustomJobReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
-    }
-
-    /**
-     * The token for the next page of job results, and may be null if there are no
-     * more pages.
-     *
-     * @param nextToken The token for the next page of job results
-     * @return this
-     */
-    public ExportCustomJobReader setNextToken(final String nextToken) {
-        this.nextToken = nextToken;
-        return this;
-    }
-
-    /**
-     * The token for the previous page of results, and may be null if this is the
-     * first page.
-     *
-     * @param previousToken The token for the previous page of result
-     * @return this
-     */
-    public ExportCustomJobReader setPreviousToken(final String previousToken) {
-        this.previousToken = previousToken;
-        return this;
     }
 
     /**
@@ -177,14 +151,6 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (nextToken != null) {
-            request.addQueryParam("NextToken", nextToken);
-        }
-
-        if (previousToken != null) {
-            request.addQueryParam("PreviousToken", previousToken);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

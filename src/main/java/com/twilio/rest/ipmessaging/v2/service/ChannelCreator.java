@@ -34,18 +34,16 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the Channel resource
-     *                       under
+     * @param pathServiceSid The service_sid
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * A descriptive string that you create to describe the new resource. It can be
-     * up to 64 characters long..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the new resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public ChannelCreator setFriendlyName(final String friendlyName) {
@@ -54,13 +52,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the Channel resource's `sid` in
-     * the URL. This value must be 64 characters or less in length and be unique
-     * within the Service..
+     * The unique_name.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   Channel resource
+     * @param uniqueName The unique_name
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -69,9 +63,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public ChannelCreator setAttributes(final String attributes) {
@@ -80,10 +74,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The visibility of the channel. Can be: `public` or `private` and defaults to
-     * `public`..
+     * The type.
      *
-     * @param type The visibility of the channel
+     * @param type The type
      * @return this
      */
     public ChannelCreator setType(final Channel.ChannelType type) {
@@ -92,14 +85,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was created. The
-     * default value is the current time set by the Chat service.  Note that this
-     * should only be used in cases where a Channel is being recreated from a
-     * backup/separate source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
     public ChannelCreator setDateCreated(final ZonedDateTime dateCreated) {
@@ -108,14 +96,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was last updated.
-     * The default value is `null`. Note that this parameter should only be used in
-     * cases where a Channel is being recreated from a backup/separate source  and
-     * where a Message was previously updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
     public ChannelCreator setDateUpdated(final ZonedDateTime dateUpdated) {
@@ -124,9 +107,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The `identity` of the User that created the channel. Default is: `system`..
+     * The created_by.
      *
-     * @param createdBy The identity of the User that created the Channel
+     * @param createdBy The created_by
      * @return this
      */
     public ChannelCreator setCreatedBy(final String createdBy) {

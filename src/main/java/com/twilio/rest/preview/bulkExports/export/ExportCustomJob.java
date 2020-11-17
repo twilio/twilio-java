@@ -53,11 +53,20 @@ public class ExportCustomJob extends Resource {
     /**
      * Create a ExportCustomJobCreator to execute create.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages or Calls
+     * @param startDay The start day for the custom export specified as a string in
+     *                 the format of yyyy-mm-dd
+     * @param endDay The end day for the custom export specified as a string in the
+     *               format of yyyy-mm-dd. End day is inclusive and must be 2 days
+     *               earlier than the current UTC day.
+     * @param friendlyName The friendly name specified when creating the job
      * @return ExportCustomJobCreator capable of executing the create
      */
-    public static ExportCustomJobCreator creator(final String pathResourceType) {
-        return new ExportCustomJobCreator(pathResourceType);
+    public static ExportCustomJobCreator creator(final String pathResourceType,
+                                                 final String startDay,
+                                                 final String endDay,
+                                                 final String friendlyName) {
+        return new ExportCustomJobCreator(pathResourceType, startDay, endDay, friendlyName);
     }
 
     /**
@@ -157,18 +166,22 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The start time for the export specified when creating the job.
+     * Returns The start day for the custom export specified as a string in the
+     * format of yyyy-MM-dd.
      *
-     * @return The start time for the export specified when creating the job
+     * @return The start day for the custom export specified as a string in the
+     *         format of yyyy-MM-dd
      */
     public final String getStartDay() {
         return this.startDay;
     }
 
     /**
-     * Returns The end time for the export specified when creating the job.
+     * Returns The end day for the custom export specified as a string in the format
+     * of yyyy-MM-dd.
      *
-     * @return The end time for the export specified when creating the job
+     * @return The end day for the custom export specified as a string in the
+     *         format of yyyy-MM-dd
      */
     public final String getEndDay() {
         return this.endDay;
@@ -202,9 +215,11 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The job_sid returned when the export was created.
+     * Returns The unique job_sid returned when the custom export was created. This
+     * can be used to look up the status of the job..
      *
-     * @return The job_sid returned when the export was created
+     * @return The unique job_sid returned when the custom export was created. This
+     *         can be used to look up the status of the job.
      */
     public final String getJobSid() {
         return this.jobSid;

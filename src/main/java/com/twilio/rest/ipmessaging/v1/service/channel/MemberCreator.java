@@ -26,9 +26,9 @@ public class MemberCreator extends Creator<Member> {
     /**
      * Construct a new MemberCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the new member belongs to
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param identity The identity
      */
     public MemberCreator(final String pathServiceSid,
                          final String pathChannelSid,
@@ -39,12 +39,9 @@ public class MemberCreator extends Creator<Member> {
     }
 
     /**
-     * The SID of the <a
-     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> to assign to
-     * the member. The default roles are those specified on the <a
-     * href="https://www.twilio.com/docs/chat/api/services">Service</a>..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role to assign to the member
+     * @param roleSid The role_sid
      * @return this
      */
     public MemberCreator setRoleSid(final String roleSid) {

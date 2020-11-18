@@ -363,9 +363,9 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns The date this Challenge is expired.
+     * Returns The date-time when this Challenge expires.
      *
-     * @return The date this Challenge is expired
+     * @return The date-time when this Challenge expires
      */
     public final ZonedDateTime getExpirationDate() {
         return this.expirationDate;

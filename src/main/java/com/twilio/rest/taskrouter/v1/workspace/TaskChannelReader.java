@@ -25,7 +25,8 @@ public class TaskChannelReader extends Reader<TaskChannel> {
     /**
      * Construct a new TaskChannelReader.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to read
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
+     *                         read
      */
     public TaskChannelReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;

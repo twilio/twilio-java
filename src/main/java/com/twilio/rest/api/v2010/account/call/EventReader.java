@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.serverless.v1.service;
+package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,31 +19,39 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class FunctionReader extends Reader<Function> {
-    private final String pathServiceSid;
+public class EventReader extends Reader<Event> {
+    private String pathAccountSid;
+    private final String pathCallSid;
 
     /**
-     * Construct a new FunctionReader.
+     * Construct a new EventReader.
      *
-     * @param pathServiceSid The SID of the Service to read the Function resources
-     *                       from
+     * @param pathCallSid Call Sid.
      */
-    public FunctionReader(final String pathServiceSid) {
-        this.pathServiceSid = pathServiceSid;
+    public EventReader(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
+    }
+
+    /**
+     * Construct a new EventReader.
+     *
+     * @param pathAccountSid Account Sid.
+     * @param pathCallSid Call Sid.
+     */
+    public EventReader(final String pathAccountSid,
+                       final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Function ResourceSet
+     * @return Event ResourceSet
      */
     @Override
-    public ResourceSet<Function> read(final TwilioRestClient client) {
+    public ResourceSet<Event> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -51,15 +59,16 @@ public class FunctionReader extends Reader<Function> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Function ResourceSet
+     * @return Event ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Function> firstPage(final TwilioRestClient client) {
+    public Page<Event> firstPage(final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SERVERLESS.toString(),
-            "/v1/Services/" + this.pathServiceSid + "/Functions"
+            Domains.API.toString(),
+            "/2010-04-01/Accounts/" + this.pathAccountSid + "/Calls/" + this.pathCallSid + "/Events.json"
         );
 
         addQueryParams(request);
@@ -71,11 +80,12 @@ public class FunctionReader extends Reader<Function> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Function ResourceSet
+     * @return Event ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Function> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Event> getPage(final String targetUrl, final TwilioRestClient client) {
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -92,11 +102,11 @@ public class FunctionReader extends Reader<Function> {
      * @return Next Page
      */
     @Override
-    public Page<Function> nextPage(final Page<Function> page,
-                                   final TwilioRestClient client) {
+    public Page<Event> nextPage(final Page<Event> page,
+                                final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SERVERLESS.toString())
+            page.getNextPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
@@ -109,27 +119,27 @@ public class FunctionReader extends Reader<Function> {
      * @return Previous Page
      */
     @Override
-    public Page<Function> previousPage(final Page<Function> page,
-                                       final TwilioRestClient client) {
+    public Page<Event> previousPage(final Page<Event> page,
+                                    final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SERVERLESS.toString())
+            page.getPreviousPageUrl(Domains.API.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Function Resources for a given request.
+     * Generate a Page of Event Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Function> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Event> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Function read failed: Unable to connect to server");
+            throw new ApiConnectionException("Event read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -139,9 +149,9 @@ public class FunctionReader extends Reader<Function> {
         }
 
         return Page.fromJson(
-            "functions",
+            "events",
             response.getContent(),
-            Function.class,
+            Event.class,
             client.getObjectMapper()
         );
     }

@@ -30,8 +30,8 @@ public class MemberReader extends Reader<Member> {
     /**
      * Construct a new MemberReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the channel the member belongs to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
     public MemberReader(final String pathServiceSid,
                         final String pathChannelSid) {
@@ -40,12 +40,9 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
-     * details..
+     * The identity.
      *
-     * @param identity The `identity` value of the resources to read
+     * @param identity The identity
      * @return this
      */
     public MemberReader setIdentity(final List<String> identity) {
@@ -54,12 +51,9 @@ public class MemberReader extends Reader<Member> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
-     * details..
+     * The identity.
      *
-     * @param identity The `identity` value of the resources to read
+     * @param identity The identity
      * @return this
      */
     public MemberReader setIdentity(final String identity) {
@@ -160,7 +154,7 @@ public class MemberReader extends Reader<Member> {
 
         if (response == null) {
             throw new ApiConnectionException("Member read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

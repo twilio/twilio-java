@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,15 +23,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class IpRecord extends Resource {
     private static final long serialVersionUID = 74904859917733L;
 
@@ -128,8 +129,8 @@ public class IpRecord extends Resource {
     private final String friendlyName;
     private final String ipAddress;
     private final Integer cidrPrefixLength;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -196,15 +197,15 @@ public class IpRecord extends Resource {
     }
 
     /**
-     * Returns An integer representing the length of the
-     * [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this IP
-     * address. By default the entire IP address is used, which for IPv4 is value
+     * Returns An integer representing the length of the <a
+     * href="https://tools.ietf.org/html/rfc4632">CIDR</a> prefix to use with this
+     * IP address. By default the entire IP address is used, which for IPv4 is value
      * 32..
      *
-     * @return An integer representing the length of the
-     *         [CIDR](https://tools.ietf.org/html/rfc4632) prefix to use with this
-     *         IP address. By default the entire IP address is used, which for IPv4
-     *         is value 32.
+     * @return An integer representing the length of the <a
+     *         href="https://tools.ietf.org/html/rfc4632">CIDR</a> prefix to use
+     *         with this IP address. By default the entire IP address is used, which
+     *         for IPv4 is value 32.
      */
     public final Integer getCidrPrefixLength() {
         return this.cidrPrefixLength;
@@ -215,7 +216,7 @@ public class IpRecord extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -224,7 +225,7 @@ public class IpRecord extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -269,19 +270,5 @@ public class IpRecord extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("sid", sid)
-                          .add("friendlyName", friendlyName)
-                          .add("ipAddress", ipAddress)
-                          .add("cidrPrefixLength", cidrPrefixLength)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

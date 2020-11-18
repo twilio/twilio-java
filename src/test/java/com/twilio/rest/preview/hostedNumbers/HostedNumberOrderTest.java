@@ -178,18 +178,18 @@ public class HostedNumberOrderTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.PREVIEW.toString(),
-                                                      "/HostedNumbers/HostedNumberOrders");
-                        request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
-        request.addPostParam("SmsCapability", serialize(true));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.PREVIEW.toString(),
+                                          "/HostedNumbers/HostedNumberOrders");
+            request.addPostParam("PhoneNumber", serialize(new com.twilio.type.PhoneNumber("+15017122661")));
+            request.addPostParam("SmsCapability", serialize(true));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create();

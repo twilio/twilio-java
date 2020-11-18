@@ -44,9 +44,9 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     /**
      * Status of an instance resource. It can hold one of the values: 1. opened 2.
-     * signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled
-     * [Status
-     * Values](https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values) for more information on each of these statuses..
+     * signing, 3. signed LOA, 4. canceled, 5. failed. See the section entitled <a
+     * href="https://www.twilio.com/docs/api/phone-numbers/hosted-number-authorization-documents#status-values">Status
+     * Values</a> for more information on each of these statuses..
      *
      * @param status The Status of this HostedNumberOrder.
      * @return this
@@ -208,7 +208,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
         if (response == null) {
             throw new ApiConnectionException("DependentHostedNumberOrder read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

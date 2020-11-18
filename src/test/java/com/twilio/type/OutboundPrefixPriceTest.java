@@ -1,10 +1,10 @@
 package com.twilio.type;
 
-import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * Test class for {@link OutboundPrefixPrice}.
@@ -24,7 +24,7 @@ public class OutboundPrefixPriceTest extends TypeTest {
             "}";
 
         OutboundPrefixPrice opp = fromJson(json, OutboundPrefixPrice.class);
-        Assert.assertEquals(Lists.newArrayList("abc", "xyz"), opp.getPrefixes());
+        Assert.assertEquals(Arrays.asList("abc", "xyz"), opp.getPrefixes());
         Assert.assertEquals("name", opp.getFriendlyName());
         Assert.assertEquals(1.00, opp.getBasePrice(), 0.00);
         Assert.assertEquals(2.00, opp.getCurrentPrice(), 0.00);

@@ -27,17 +27,16 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
+     * @param pathServiceSid The service_sid
      */
     public ChannelCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * A descriptive string that you create to describe the new resource. It can be
-     * up to 64 characters long..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the new resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public ChannelCreator setFriendlyName(final String friendlyName) {
@@ -46,13 +45,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the resource's `sid` in the URL.
-     * This value must be 64 characters or less in length and be unique within the
-     * Service..
+     * The unique_name.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     * @param uniqueName The unique_name
      * @return this
      */
     public ChannelCreator setUniqueName(final String uniqueName) {
@@ -61,9 +56,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public ChannelCreator setAttributes(final String attributes) {
@@ -72,10 +67,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The visibility of the channel. Can be: `public` or `private` and defaults to
-     * `public`..
+     * The type.
      *
-     * @param type The visibility of the channel
+     * @param type The type
      * @return this
      */
     public ChannelCreator setType(final Channel.ChannelType type) {
@@ -103,7 +97,7 @@ public class ChannelCreator extends Creator<Channel> {
 
         if (response == null) {
             throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

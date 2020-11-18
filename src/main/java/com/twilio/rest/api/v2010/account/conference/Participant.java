@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,14 +24,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 239000322102976L;
 
@@ -261,8 +262,8 @@ public class Participant extends Resource {
     private final String callSidToCoach;
     private final Boolean coaching;
     private final String conferenceSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Boolean endConferenceOnExit;
     private final Boolean muted;
     private final Boolean hold;
@@ -374,7 +375,7 @@ public class Participant extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -383,7 +384,7 @@ public class Participant extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -487,25 +488,5 @@ public class Participant extends Resource {
                             startConferenceOnEnter,
                             status,
                             uri);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("callSid", callSid)
-                          .add("label", label)
-                          .add("callSidToCoach", callSidToCoach)
-                          .add("coaching", coaching)
-                          .add("conferenceSid", conferenceSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("endConferenceOnExit", endConferenceOnExit)
-                          .add("muted", muted)
-                          .add("hold", hold)
-                          .add("startConferenceOnEnter", startConferenceOnEnter)
-                          .add("status", status)
-                          .add("uri", uri)
-                          .toString();
     }
 }

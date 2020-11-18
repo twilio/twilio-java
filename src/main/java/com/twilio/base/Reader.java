@@ -1,10 +1,9 @@
 package com.twilio.base;
 
-import com.google.common.util.concurrent.ListenableFuture;
 import com.twilio.Twilio;
 import com.twilio.http.TwilioRestClient;
 
-import java.util.concurrent.Callable;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Executor for listing of a resource.
@@ -38,7 +37,7 @@ public abstract class Reader<T extends Resource> {
      *
      * @return future that resolves to the ResourceSet of objects
      */
-    public ListenableFuture<ResourceSet<T>> readAsync() {
+    public CompletableFuture<ResourceSet<T>> readAsync() {
         return readAsync(Twilio.getRestClient());
     }
 
@@ -48,12 +47,8 @@ public abstract class Reader<T extends Resource> {
      * @param client client used to make request
      * @return future that resolves to the ResourceSet of objects
      */
-    public ListenableFuture<ResourceSet<T>> readAsync(final TwilioRestClient client) {
-        return Twilio.getExecutorService().submit(new Callable<ResourceSet<T>>() {
-            public ResourceSet<T> call() {
-                return read(client);
-            }
-        });
+    public CompletableFuture<ResourceSet<T>> readAsync(final TwilioRestClient client) {
+        return CompletableFuture.supplyAsync(() -> read(client), Twilio.getExecutorService());
     }
 
     /**
@@ -87,7 +82,7 @@ public abstract class Reader<T extends Resource> {
      * Retrieve the target page of resources.
      *
      * @param targetUrl API-generated URL for the requested results page
-     * @param client client used to fetch
+     * @param client    client used to fetch
      * @return Page containing the target pageSize of resources
      */
     public abstract Page<T> getPage(final String targetUrl, final TwilioRestClient client);
@@ -105,7 +100,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Fetch the following page of resources using specified client.
      *
-     * @param page current page of resources
+     * @param page   current page of resources
      * @param client client used to fetch
      * @return Page containing the next pageSize of resources
      */
@@ -124,7 +119,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Fetch the prior page of resources using specified client.
      *
-     * @param page current page of resources
+     * @param page   current page of resources
      * @param client client used to fetch
      * @return Page containing the previous pageSize of resources
      */
@@ -153,10 +148,9 @@ public abstract class Reader<T extends Resource> {
         this.limit = limit;
 
         if (this.pageSize == null) {
-            this.pageSize = (new Long(this.limit)).intValue();
+            this.pageSize = this.limit.intValue();
         }
 
         return this;
     }
-
 }

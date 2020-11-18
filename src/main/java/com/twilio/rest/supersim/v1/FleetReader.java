@@ -29,7 +29,7 @@ public class FleetReader extends Reader<Fleet> {
 
     /**
      * The SID or unique name of the Network Access Profile that controls which
-     * cellular networks the Fleet's SIMs can connect to.
+     * cellular networks the Fleet's SIMs can connect to..
      *
      * @param networkAccessProfile The SID or unique name of the Network Access
      *                             Profile of the Fleet
@@ -134,7 +134,7 @@ public class FleetReader extends Reader<Fleet> {
 
         if (response == null) {
             throw new ApiConnectionException("Fleet read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

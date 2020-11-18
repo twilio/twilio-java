@@ -25,9 +25,9 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
     /**
      * Construct a new UserBindingDeleter.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathUserSid The SID of the User of the User Bindings to delete
-     * @param pathSid The SID of the User Binding resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathSid The sid
      */
     public UserBindingDeleter(final String pathServiceSid,
                               final String pathUserSid,
@@ -55,7 +55,7 @@ public class UserBindingDeleter extends Deleter<UserBinding> {
 
         if (response == null) {
             throw new ApiConnectionException("UserBinding delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

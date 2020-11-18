@@ -17,14 +17,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumulativeStatistics> {
     private final String pathWorkspaceSid;
     private final String pathTaskQueueSid;
-    private DateTime endDate;
+    private ZonedDateTime endDate;
     private Integer minutes;
-    private DateTime startDate;
+    private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
@@ -43,12 +44,13 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
 
     /**
      * Only calculate statistics from this date and time and earlier, specified in
-     * GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * GMT as an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * date-time..
      *
      * @param endDate Only calculate statistics from on or before this date
      * @return this
      */
-    public TaskQueueCumulativeStatisticsFetcher setEndDate(final DateTime endDate) {
+    public TaskQueueCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -66,13 +68,13 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public TaskQueueCumulativeStatisticsFetcher setStartDate(final DateTime startDate) {
+    public TaskQueueCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -125,7 +127,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
 
         if (response == null) {
             throw new ApiConnectionException("TaskQueueCumulativeStatistics fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -143,7 +145,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
      */
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
         }
 
         if (minutes != null) {
@@ -151,7 +153,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
         }
 
         if (taskChannel != null) {

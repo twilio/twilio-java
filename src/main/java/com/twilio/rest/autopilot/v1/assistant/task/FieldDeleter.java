@@ -33,7 +33,7 @@ public class FieldDeleter extends Deleter<Field> {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to delete
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resource to delete
      * @param pathSid The unique string that identifies the resource
      */
@@ -63,7 +63,7 @@ public class FieldDeleter extends Deleter<Field> {
 
         if (response == null) {
             throw new ApiConnectionException("Field delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

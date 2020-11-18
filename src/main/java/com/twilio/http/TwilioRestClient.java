@@ -1,19 +1,16 @@
 package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Predicate;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import java.util.function.Predicate;
 
 public class TwilioRestClient {
 
     public static final int HTTP_STATUS_CODE_CREATED = 201;
     public static final int HTTP_STATUS_CODE_NO_CONTENT = 204;
     public static final int HTTP_STATUS_CODE_OK = 200;
-    public static final Predicate<Integer> SUCCESS = new Predicate<Integer>() {
-        @Override
-        public boolean apply(Integer i) {
-            return i != null && i >= 200 && i < 300;
-        }
-    };
+    public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
     private final ObjectMapper objectMapper;
     private final String username;
@@ -31,6 +28,12 @@ public class TwilioRestClient {
         this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
+
+        // This module configures the ObjectMapper to use
+        // public API methods for manipulating java.time.*
+        // classes. The alternative is to use reflection which
+        // generates warnings from the module system on Java 9+
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     /**

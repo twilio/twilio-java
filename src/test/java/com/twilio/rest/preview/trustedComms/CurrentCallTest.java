@@ -42,7 +42,8 @@ public class CurrentCallTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.PREVIEW.toString(),
                                           "/TrustedComms/CurrentCall");
-
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number-From", serialize("x_xcnam_sensitive_phone_number_from"));
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number-To", serialize("x_xcnam_sensitive_phone_number_to"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +52,7 @@ public class CurrentCallTest {
         }};
 
         try {
-            CurrentCall.fetcher().fetch();
+            CurrentCall.fetcher().setXXcnamSensitivePhoneNumberFrom("x_xcnam_sensitive_phone_number_from").setXXcnamSensitivePhoneNumberTo("x_xcnam_sensitive_phone_number_to").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,6 +66,6 @@ public class CurrentCallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CurrentCall.fetcher().fetch());
+        assertNotNull(CurrentCall.fetcher().setXXcnamSensitivePhoneNumberFrom("x_xcnam_sensitive_phone_number_from").setXXcnamSensitivePhoneNumberTo("x_xcnam_sensitive_phone_number_to").fetch());
     }
 }

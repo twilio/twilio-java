@@ -183,9 +183,9 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The Contact URI of the worker when executing a Dequeue instruction. Can be
-     * the URI of the Twilio Client, the SIP URI for Programmable SIP, or the
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone
-     * number, depending on the destination..
+     * the URI of the Twilio Client, the SIP URI for Programmable SIP, or the <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> formatted
+     * phone number, depending on the destination..
      *
      * @param dequeueTo The Contact URI of the worker when executing a Dequeue
      *                  instruction
@@ -259,9 +259,9 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The Contact URI of the worker when executing a Call instruction.  Can be the
-     * URI of the Twilio Client, the SIP URI for Programmable SIP, or the
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone
-     * number, depending on the destination..
+     * URI of the Twilio Client, the SIP URI for Programmable SIP, or the <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> formatted
+     * phone number, depending on the destination..
      *
      * @param callTo The Contact URI of the worker when executing a Call instruction
      * @return this
@@ -384,9 +384,9 @@ public class ReservationUpdater extends Updater<Reservation> {
 
     /**
      * The Contact URI of the worker when executing a Conference instruction. Can be
-     * the URI of the Twilio Client, the SIP URI for Programmable SIP, or the
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) formatted phone
-     * number, depending on the destination..
+     * the URI of the Twilio Client, the SIP URI for Programmable SIP, or the <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> formatted
+     * phone number, depending on the destination..
      *
      * @param to The Contact URI of the worker when executing a Conference
      *           instruction
@@ -550,8 +550,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * The URL we should call using the `wait_method` for the music to play while
      * participants are waiting for the conference to start. The default value is
-     * the URL of our standard hold music. [Learn more about hold
-     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
+     * the URL of our standard hold music. <a
+     * href="https://www.twilio.com/labs/twimlets/holdmusic">Learn more about hold
+     * music</a>..
      *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
@@ -564,8 +565,9 @@ public class ReservationUpdater extends Updater<Reservation> {
     /**
      * The URL we should call using the `wait_method` for the music to play while
      * participants are waiting for the conference to start. The default value is
-     * the URL of our standard hold music. [Learn more about hold
-     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
+     * the URL of our standard hold music. <a
+     * href="https://www.twilio.com/labs/twimlets/holdmusic">Learn more about hold
+     * music</a>..
      *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
@@ -764,7 +766,9 @@ public class ReservationUpdater extends Updater<Reservation> {
      * is available..
      *
      * @param conferenceRecordingStatusCallback The URL we should call using the
-     *                                          `conference_recording_status_callback_method` when the conference recording is available
+     *                                          `conference_recording_status_callback_method`
+     *                                          when the conference recording is
+     *                                          available
      * @return this
      */
     public ReservationUpdater setConferenceRecordingStatusCallback(final URI conferenceRecordingStatusCallback) {
@@ -778,7 +782,9 @@ public class ReservationUpdater extends Updater<Reservation> {
      * is available..
      *
      * @param conferenceRecordingStatusCallback The URL we should call using the
-     *                                          `conference_recording_status_callback_method` when the conference recording is available
+     *                                          `conference_recording_status_callback_method`
+     *                                          when the conference recording is
+     *                                          available
      * @return this
      */
     public ReservationUpdater setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback) {
@@ -800,8 +806,10 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
-     * The
-     * [region](https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls) where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`, `br1`, `au1`, or `jp1`..
+     * The <a
+     * href="https://support.twilio.com/hc/en-us/articles/223132167-How-global-low-latency-routing-and-region-selection-work-for-conferences-and-Client-calls">region</a>
+     * where we should mix the recorded audio. Can be:`us1`, `ie1`, `de1`, `sg1`,
+     * `br1`, `au1`, or `jp1`..
      *
      * @param region The region where we should mix the conference audio
      * @return this
@@ -938,7 +946,7 @@ public class ReservationUpdater extends Updater<Reservation> {
 
         if (response == null) {
             throw new ApiConnectionException("Reservation update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

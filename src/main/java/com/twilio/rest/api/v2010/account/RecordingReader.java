@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -20,12 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class RecordingReader extends Reader<Recording> {
     private String pathAccountSid;
-    private DateTime absoluteDateCreated;
-    private Range<DateTime> rangeDateCreated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
     private String callSid;
     private String conferenceSid;
 
@@ -53,13 +55,13 @@ public class RecordingReader extends Reader<Recording> {
      * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
      * recordings that were created on or after midnight of this date..
      *
-     * @param absoluteDateCreated Only include recordings that were created on this
-     *                            date
+     * @param dateCreated Only include recordings that were created on this date
      * @return this
      */
-    public RecordingReader setDateCreated(final DateTime absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public RecordingReader setDateCreated(final ZonedDateTime dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
+        this.dateCreated = dateCreated;
         return this;
     }
 
@@ -71,19 +73,37 @@ public class RecordingReader extends Reader<Recording> {
      * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
      * recordings that were created on or after midnight of this date..
      *
-     * @param rangeDateCreated Only include recordings that were created on this
-     *                         date
+     * @param dateCreatedBefore Only include recordings that were created on this
+     *                          date
      * @return this
      */
-    public RecordingReader setDateCreated(final Range<DateTime> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public RecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
+        this.dateCreated = null;
+        this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
 
     /**
-     * The [Call](https://www.twilio.com/docs/voice/api/call-resource) SID of the
-     * resources to read..
+     * Only include recordings that were created on this date. Specify a date as
+     * `YYYY-MM-DD` in GMT, for example: `2009-07-06`, to read recordings that were
+     * created on this date. You can also specify an inequality, such as
+     * `DateCreated&lt;=YYYY-MM-DD`, to read recordings that were created on or
+     * before midnight of this date, and `DateCreated&gt;=YYYY-MM-DD` to read
+     * recordings that were created on or after midnight of this date..
+     *
+     * @param dateCreatedAfter Only include recordings that were created on this
+     *                         date
+     * @return this
+     */
+    public RecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
+        this.dateCreated = null;
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
+    }
+
+    /**
+     * The <a href="https://www.twilio.com/docs/voice/api/call-resource">Call</a>
+     * SID of the resources to read..
      *
      * @param callSid The Call SID of the resources to read
      * @return this
@@ -201,7 +221,7 @@ public class RecordingReader extends Reader<Recording> {
 
         if (response == null) {
             throw new ApiConnectionException("Recording read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -223,10 +243,10 @@ public class RecordingReader extends Reader<Recording> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateTimeRange("DateCreated", rangeDateCreated);
+        if (dateCreated != null) {
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateTimeRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
 
         if (callSid != null) {

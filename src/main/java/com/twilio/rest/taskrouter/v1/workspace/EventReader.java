@@ -19,15 +19,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class EventReader extends Reader<Event> {
     private final String pathWorkspaceSid;
-    private DateTime endDate;
+    private ZonedDateTime endDate;
     private String eventType;
     private Integer minutes;
     private String reservationSid;
-    private DateTime startDate;
+    private ZonedDateTime startDate;
     private String taskQueueSid;
     private String taskSid;
     private String workerSid;
@@ -46,12 +47,12 @@ public class EventReader extends Reader<Event> {
 
     /**
      * Only include Events that occurred on or before this date, specified in GMT as
-     * an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time..
      *
      * @param endDate Only include usage that occurred on or before this date
      * @return this
      */
-    public EventReader setEndDate(final DateTime endDate) {
+    public EventReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -93,14 +94,14 @@ public class EventReader extends Reader<Event> {
     }
 
     /**
-     * Only include Events from on or after this date and time, specified in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Task Attributes for
-     * Events older than 30 days will be redacted..
+     * Only include Events from on or after this date and time, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Task
+     * Attributes for Events older than 30 days will be redacted..
      *
      * @param startDate Only include Events from on or after this date
      * @return this
      */
-    public EventReader setStartDate(final DateTime startDate) {
+    public EventReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -270,7 +271,7 @@ public class EventReader extends Reader<Event> {
 
         if (response == null) {
             throw new ApiConnectionException("Event read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -293,7 +294,7 @@ public class EventReader extends Reader<Event> {
      */
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
         }
 
         if (eventType != null) {
@@ -309,7 +310,7 @@ public class EventReader extends Reader<Event> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
         }
 
         if (taskQueueSid != null) {

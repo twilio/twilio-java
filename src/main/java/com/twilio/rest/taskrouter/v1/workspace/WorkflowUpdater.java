@@ -57,9 +57,9 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
     /**
      * The URL from your application that will process task assignment events. See
-     * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
-     * for more details..
+     * <a
+     * href="https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks">Handling
+     * Task Assignment Callback</a> for more details..
      *
      * @param assignmentCallbackUrl The URL from your application that will process
      *                              task assignment events
@@ -72,9 +72,9 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
     /**
      * The URL from your application that will process task assignment events. See
-     * [Handling Task Assignment
-     * Callback](https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks)
-     * for more details..
+     * <a
+     * href="https://www.twilio.com/docs/taskrouter/handle-assignment-callbacks">Handling
+     * Task Assignment Callback</a> for more details..
      *
      * @param assignmentCallbackUrl The URL from your application that will process
      *                              task assignment events
@@ -110,10 +110,9 @@ public class WorkflowUpdater extends Updater<Workflow> {
     }
 
     /**
-     * A JSON string that contains the rules to apply to the Workflow. See
-     * [Configuring
-     * Workflows](https://www.twilio.com/docs/taskrouter/workflow-configuration) for
-     * more information..
+     * A JSON string that contains the rules to apply to the Workflow. See <a
+     * href="https://www.twilio.com/docs/taskrouter/workflow-configuration">Configuring
+     * Workflows</a> for more information..
      *
      * @param configuration A JSON string that contains the rules to apply to the
      *                      Workflow
@@ -172,7 +171,7 @@ public class WorkflowUpdater extends Updater<Workflow> {
 
         if (response == null) {
             throw new ApiConnectionException("Workflow update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

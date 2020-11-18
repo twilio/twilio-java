@@ -23,12 +23,13 @@ public class UserCreator extends Creator<User> {
     private String roleSid;
     private String attributes;
     private String friendlyName;
+    private User.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new UserCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the new resource under
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param identity The identity
      */
     public UserCreator(final String pathServiceSid,
                        final String identity) {
@@ -37,10 +38,9 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the new User..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role assigned to this user
+     * @param roleSid The role_sid
      * @return this
      */
     public UserCreator setRoleSid(final String roleSid) {
@@ -49,9 +49,9 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public UserCreator setAttributes(final String attributes) {
@@ -60,14 +60,24 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * A descriptive string that you create to describe the new resource. This value
-     * is often used for display purposes..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the new resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public UserCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public UserCreator setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -87,11 +97,12 @@ public class UserCreator extends Creator<User> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("User creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -100,6 +111,17 @@ public class UserCreator extends Creator<User> {
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

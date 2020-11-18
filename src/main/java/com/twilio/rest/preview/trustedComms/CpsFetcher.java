@@ -23,6 +23,19 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class CpsFetcher extends Fetcher<Cps> {
+    private String xXcnamSensitivePhoneNumber;
+
+    /**
+     * Phone number used to retrieve its corresponding CPS..
+     *
+     * @param xXcnamSensitivePhoneNumber Phone number to retrieve CPS.
+     * @return this
+     */
+    public CpsFetcher setXXcnamSensitivePhoneNumber(final String xXcnamSensitivePhoneNumber) {
+        this.xXcnamSensitivePhoneNumber = xXcnamSensitivePhoneNumber;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
@@ -38,11 +51,12 @@ public class CpsFetcher extends Fetcher<Cps> {
             "/TrustedComms/CPS"
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Cps fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -51,5 +65,16 @@ public class CpsFetcher extends Fetcher<Cps> {
         }
 
         return Cps.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xXcnamSensitivePhoneNumber != null) {
+            request.addHeaderParam("X-Xcnam-Sensitive-Phone-Number", xXcnamSensitivePhoneNumber);
+        }
     }
 }

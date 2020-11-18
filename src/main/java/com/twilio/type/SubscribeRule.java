@@ -1,12 +1,8 @@
 package com.twilio.type;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.twilio.converter.Promoter;
-
-import com.google.common.base.MoreObjects;
+import lombok.ToString;
 
 import java.util.Objects;
 
@@ -14,91 +10,13 @@ import java.util.Objects;
  * Subscribe Rule
  *
  * <p>
- *     For more information see:
- *     <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
+ * For more information see:
+ * <a href=https://www.twilio.com/docs/video/api/track-subscriptions#specifying-sr>Specifying Subscribe Rules</a>
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SubscribeRule {
-    public enum Type {
-        INCLUDE("include"),
-        EXCLUDE("exclude");
-
-        private final String value;
-
-        Type(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Type forValue(final String value) {
-            return Promoter.enumFromString(value, Type.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
-    public enum Kind {
-        AUDIO("audio"),
-        DATA("data"),
-        VIDEO("video");
-
-        private final String value;
-
-        Kind(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Kind forValue(final String value) {
-            return Promoter.enumFromString(value, Kind.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
-
-    public enum Priority {
-        LOW("low"),
-        STANDARD("standard"),
-        HIGH("high");
-
-        private final String value;
-
-        Priority(final String value) {
-            this.value = value;
-        }
-
-        @JsonCreator
-        public static Priority forValue(final String value) {
-            return Promoter.enumFromString(value, Priority.values());
-        }
-
-        @JsonValue
-        public String value() {
-            return this.value;
-        }
-
-        @Override
-        public String toString() {
-            return value;
-        }
-    }
+@ToString
+public class SubscribeRule implements Rule {
 
     private static final SubscribeRule subscribeAll = builder().withType(Type.INCLUDE).withAll().build();
     private static final SubscribeRule subscribeNone = builder().withType(Type.EXCLUDE).withAll().build();
@@ -146,6 +64,43 @@ public class SubscribeRule {
 
     public static BuilderStart builder() {
         return new Builder();
+    }
+
+    @Override
+    public Type getType() {
+        return type;
+    }
+
+    @Override
+    public Boolean getAll() {
+        return all;
+    }
+
+    @Override
+    public String getPublisher() {
+        return publisher;
+    }
+
+    @Override
+    public String getTrack() {
+        return track;
+    }
+
+    @Override
+    public Kind getKind() {
+        return kind;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    public static SubscribeRule all() {
+        return subscribeAll;
+    }
+
+    public static SubscribeRule none() {
+        return subscribeNone;
     }
 
     public interface BuilderStart {
@@ -239,38 +194,6 @@ public class SubscribeRule {
         }
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public Boolean getAll() {
-        return all;
-    }
-
-    public String getPublisher() {
-        return publisher;
-    }
-
-    public String getTrack() {
-        return track;
-    }
-
-    public Kind getKind() {
-        return kind;
-    }
-
-    public Priority getPriority() {
-        return priority;
-    }
-
-    public static SubscribeRule all() {
-        return subscribeAll;
-    }
-
-    public static SubscribeRule none() {
-        return subscribeNone;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -287,17 +210,5 @@ public class SubscribeRule {
     @Override
     public int hashCode() {
         return Objects.hash(getType(), getAll(), getPublisher(), getTrack(), getKind(), getPriority());
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                .add("type", this.type)
-                .add("all", this.all)
-                .add("publisher", this.publisher)
-                .add("track", this.track)
-                .add("kind", this.kind)
-                .add("priority", this.priority)
-                .toString();
     }
 }

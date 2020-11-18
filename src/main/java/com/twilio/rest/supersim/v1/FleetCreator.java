@@ -59,7 +59,7 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * Defines whether SIMs in the Fleet are capable of using 2G/3G/4G/LTE/CAT-M
-     * data connectivity.
+     * data connectivity. Defaults to `true`..
      *
      * @param dataEnabled Defines whether SIMs in the Fleet are capable of using
      *                    data connectivity
@@ -74,7 +74,7 @@ public class FleetCreator extends Creator<Fleet> {
      * The total data usage (download and upload combined) in Megabytes that each
      * Sim resource assigned to the Fleet resource can consume during a billing
      * period (normally one month). Value must be between 1MB (1) and 2TB
-     * (2,000,000)..
+     * (2,000,000). Defaults to 1GB (1,000)..
      *
      * @param dataLimit The total data usage (download and upload combined) in
      *                  Megabytes that each Sim resource assigned to the Fleet
@@ -88,7 +88,7 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * Defines whether SIMs in the Fleet are capable of sending and receiving
-     * machine-to-machine SMS via Commands..
+     * machine-to-machine SMS via Commands. Defaults to `true`..
      *
      * @param commandsEnabled Defines whether SIMs in the Fleet are capable of
      *                        sending and receiving machine-to-machine SMS via
@@ -129,7 +129,7 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * A string representing the HTTP method to use when making a request to
-     * `commands_url`. Can be one of POST or GET. Defaults to POST..
+     * `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
      *
      * @param commandsMethod A string representing the HTTP method to use when
      *                       making a request to `commands_url`
@@ -160,7 +160,7 @@ public class FleetCreator extends Creator<Fleet> {
 
         if (response == null) {
             throw new ApiConnectionException("Fleet creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

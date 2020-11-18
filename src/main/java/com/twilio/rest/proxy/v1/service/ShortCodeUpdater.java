@@ -40,9 +40,9 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
     /**
      * Whether the short code should be reserved and not be assigned to a
-     * participant using proxy pool logic. See [Reserved Phone
-     * Numbers](https://www.twilio.com/docs/proxy/reserved-phone-numbers) for more
-     * information..
+     * participant using proxy pool logic. See <a
+     * href="https://www.twilio.com/docs/proxy/reserved-phone-numbers">Reserved
+     * Phone Numbers</a> for more information..
      *
      * @param isReserved Whether the short code should be reserved for manual
      *                   assignment to participants only
@@ -73,7 +73,7 @@ public class ShortCodeUpdater extends Updater<ShortCode> {
 
         if (response == null) {
             throw new ApiConnectionException("ShortCode update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

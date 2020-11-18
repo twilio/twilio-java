@@ -26,9 +26,9 @@ public class InviteCreator extends Creator<Invite> {
     /**
      * Construct a new InviteCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The SID of the Channel the new resource belongs to
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param identity The identity
      */
     public InviteCreator(final String pathServiceSid,
                          final String pathChannelSid,
@@ -39,10 +39,9 @@ public class InviteCreator extends Creator<Invite> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource)
-     * assigned to the new member..
+     * The role_sid.
      *
-     * @param roleSid The Role assigned to the new member
+     * @param roleSid The role_sid
      * @return this
      */
     public InviteCreator setRoleSid(final String roleSid) {
@@ -70,7 +69,7 @@ public class InviteCreator extends Creator<Invite> {
 
         if (response == null) {
             throw new ApiConnectionException("Invite creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

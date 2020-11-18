@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,19 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 185754167608854L;
 
@@ -70,7 +67,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantCreator to execute create.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @return ParticipantCreator capable of executing the create
      */
@@ -81,7 +78,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantUpdater to execute update.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantUpdater capable of executing the update
@@ -94,7 +91,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantDeleter to execute delete.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantDeleter capable of executing the delete
@@ -107,7 +104,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return ParticipantFetcher capable of executing the fetch
@@ -120,7 +117,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for
+     * @param pathConversationSid The unique ID of the Conversation for
      *                            participants.
      * @return ParticipantReader capable of executing the read
      */
@@ -173,8 +170,8 @@ public class Participant extends Resource {
     private final String attributes;
     private final Map<String, Object> messagingBinding;
     private final String roleSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -211,18 +208,18 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this participant..
+     * Returns The unique ID of the Account responsible for this participant..
      *
-     * @return The unique id of the Account responsible for this participant.
+     * @return The unique ID of the Account responsible for this participant.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this participant..
+     * Returns The unique ID of the Conversation for this participant..
      *
-     * @return The unique id of the Conversation for this participant.
+     * @return The unique ID of the Conversation for this participant.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -238,11 +235,11 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns A unique string identifier for the conversation participant as Chat
-     * User..
+     * Returns A unique string identifier for the conversation participant as
+     * Conversation User..
      *
-     * @return A unique string identifier for the conversation participant as Chat
-     *         User.
+     * @return A unique string identifier for the conversation participant as
+     *         Conversation User.
      */
     public final String getIdentity() {
         return this.identity;
@@ -271,9 +268,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The SID of the Role to assign to the participant.
+     * Returns The SID of a conversation-level Role to assign to the participant.
      *
-     * @return The SID of the Role to assign to the participant
+     * @return The SID of a conversation-level Role to assign to the participant
      */
     public final String getRoleSid() {
         return this.roleSid;
@@ -284,7 +281,7 @@ public class Participant extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -293,7 +290,7 @@ public class Participant extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -342,21 +339,5 @@ public class Participant extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("conversationSid", conversationSid)
-                          .add("sid", sid)
-                          .add("identity", identity)
-                          .add("attributes", attributes)
-                          .add("messagingBinding", messagingBinding)
-                          .add("roleSid", roleSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

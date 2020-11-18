@@ -26,8 +26,9 @@ public class CommandReader extends Reader<Command> {
     private Command.Transport transport;
 
     /**
-     * The `sid` or `unique_name` of the [Sim
-     * resources](https://www.twilio.com/docs/wireless/api/sim-resource) to read..
+     * The `sid` or `unique_name` of the <a
+     * href="https://www.twilio.com/docs/wireless/api/sim-resource">Sim
+     * resources</a> to read..
      *
      * @param sim The sid or unique_name of the Sim resources to read
      * @return this
@@ -165,7 +166,7 @@ public class CommandReader extends Reader<Command> {
 
         if (response == null) {
             throw new ApiConnectionException("Command read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

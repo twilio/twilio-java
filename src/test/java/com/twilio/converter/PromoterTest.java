@@ -1,12 +1,12 @@
 package com.twilio.converter;
 
-import com.google.common.collect.Lists;
 import com.twilio.type.PhoneNumber;
 import com.twilio.type.Twiml;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.Collections;
 
 /**
  * Test class for {@link Promoter}
@@ -38,7 +38,7 @@ public class PromoterTest {
     public void testPromoteList() {
         String s = "hi";
         Assert.assertEquals(
-            Lists.newArrayList(s),
+            Collections.singletonList(s),
             Promoter.listOfOne(s)
         );
     }

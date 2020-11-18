@@ -23,7 +23,7 @@ public class ServiceDeleter extends Deleter<Service> {
     /**
      * Construct a new ServiceDeleter.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The sid
      */
     public ServiceDeleter(final String pathSid) {
         this.pathSid = pathSid;
@@ -47,7 +47,7 @@ public class ServiceDeleter extends Deleter<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

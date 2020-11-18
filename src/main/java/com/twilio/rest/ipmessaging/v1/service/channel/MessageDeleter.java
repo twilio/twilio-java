@@ -25,10 +25,9 @@ public class MessageDeleter extends Deleter<Message> {
     /**
      * Construct a new MessageDeleter.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathChannelSid The unique ID of the channel the message to delete
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MessageDeleter(final String pathServiceSid,
                           final String pathChannelSid,
@@ -56,7 +55,7 @@ public class MessageDeleter extends Deleter<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -27,9 +27,9 @@ public class MessageUpdater extends Updater<Message> {
     /**
      * Construct a new MessageUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathChannelSid he unique ID of the Channel the message belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MessageUpdater(final String pathServiceSid,
                           final String pathChannelSid,
@@ -40,11 +40,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * The message to send to the channel. Can also be an empty string or `null`,
-     * which sets the value as an empty string. You can send structured data in the
-     * body by serializing it as a string..
+     * The body.
      *
-     * @param body The message to send to the channel
+     * @param body The body
      * @return this
      */
     public MessageUpdater setBody(final String body) {
@@ -53,9 +51,9 @@ public class MessageUpdater extends Updater<Message> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public MessageUpdater setAttributes(final String attributes) {
@@ -83,7 +81,7 @@ public class MessageUpdater extends Updater<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

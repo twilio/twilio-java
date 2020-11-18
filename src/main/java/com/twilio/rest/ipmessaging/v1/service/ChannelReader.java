@@ -29,17 +29,16 @@ public class ChannelReader extends Reader<Channel> {
     /**
      * Construct a new ChannelReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      */
     public ChannelReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
     /**
-     * The visibility of the Channels to read. Can be: `public` or `private` and
-     * defaults to `public`..
+     * The type.
      *
-     * @param type The visibility of the channel to read
+     * @param type The type
      * @return this
      */
     public ChannelReader setType(final List<Channel.ChannelType> type) {
@@ -48,10 +47,9 @@ public class ChannelReader extends Reader<Channel> {
     }
 
     /**
-     * The visibility of the Channels to read. Can be: `public` or `private` and
-     * defaults to `public`..
+     * The type.
      *
-     * @param type The visibility of the channel to read
+     * @param type The type
      * @return this
      */
     public ChannelReader setType(final Channel.ChannelType type) {
@@ -152,7 +150,7 @@ public class ChannelReader extends Reader<Channel> {
 
         if (response == null) {
             throw new ApiConnectionException("Channel read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

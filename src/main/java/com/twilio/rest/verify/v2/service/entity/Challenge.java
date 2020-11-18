@@ -13,8 +13,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -25,22 +25,24 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 218254684366686L;
+    private static final long serialVersionUID = 252131191620543L;
 
     public enum ChallengeStatuses {
         PENDING("pending"),
@@ -217,14 +219,14 @@ public class Challenge extends Resource {
     private final String entitySid;
     private final String identity;
     private final String factorSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime dateResponded;
-    private final DateTime expirationDate;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime dateResponded;
+    private final ZonedDateTime expirationDate;
     private final Challenge.ChallengeStatuses status;
     private final Challenge.ChallengeReasons respondedReason;
-    private final String details;
-    private final String hiddenDetails;
+    private final Map<String, Object> details;
+    private final Map<String, Object> hiddenDetails;
     private final Challenge.FactorTypes factorType;
     private final URI url;
 
@@ -254,9 +256,9 @@ public class Challenge extends Resource {
                       @JsonProperty("responded_reason")
                       final Challenge.ChallengeReasons respondedReason,
                       @JsonProperty("details")
-                      final String details,
+                      final Map<String, Object> details,
                       @JsonProperty("hidden_details")
-                      final String hiddenDetails,
+                      final Map<String, Object> hiddenDetails,
                       @JsonProperty("factor_type")
                       final Challenge.FactorTypes factorType,
                       @JsonProperty("url")
@@ -338,7 +340,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -347,7 +349,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge was updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -356,7 +358,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge was responded
      */
-    public final DateTime getDateResponded() {
+    public final ZonedDateTime getDateResponded() {
         return this.dateResponded;
     }
 
@@ -365,7 +367,7 @@ public class Challenge extends Resource {
      *
      * @return The date this Challenge is expired
      */
-    public final DateTime getExpirationDate() {
+    public final ZonedDateTime getExpirationDate() {
         return this.expirationDate;
     }
 
@@ -388,20 +390,20 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Returns Public details provided to contextualize the Challenge.
+     * Returns Details about the Challenge..
      *
-     * @return Public details provided to contextualize the Challenge
+     * @return Details about the Challenge.
      */
-    public final String getDetails() {
+    public final Map<String, Object> getDetails() {
         return this.details;
     }
 
     /**
-     * Returns Hidden details provided to contextualize the Challenge.
+     * Returns Hidden details about the Challenge.
      *
-     * @return Hidden details provided to contextualize the Challenge
+     * @return Hidden details about the Challenge
      */
-    public final String getHiddenDetails() {
+    public final Map<String, Object> getHiddenDetails() {
         return this.hiddenDetails;
     }
 
@@ -471,27 +473,5 @@ public class Challenge extends Resource {
                             hiddenDetails,
                             factorType,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("entitySid", entitySid)
-                          .add("identity", identity)
-                          .add("factorSid", factorSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("dateResponded", dateResponded)
-                          .add("expirationDate", expirationDate)
-                          .add("status", status)
-                          .add("respondedReason", respondedReason)
-                          .add("details", details)
-                          .add("hiddenDetails", hiddenDetails)
-                          .add("factorType", factorType)
-                          .add("url", url)
-                          .toString();
     }
 }

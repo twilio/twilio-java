@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,24 +23,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Invite extends Resource {
     private static final long serialVersionUID = 189960368613614L;
 
     /**
      * Create a InviteFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The SID of the Invite resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return InviteFetcher capable of executing the fetch
      */
     public static InviteFetcher fetcher(final String pathServiceSid,
@@ -53,9 +54,9 @@ public class Invite extends Resource {
     /**
      * Create a InviteCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The SID of the Channel the new resource belongs to
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param identity The identity
      * @return InviteCreator capable of executing the create
      */
     public static InviteCreator creator(final String pathServiceSid,
@@ -67,8 +68,8 @@ public class Invite extends Resource {
     /**
      * Create a InviteReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The SID of the Channel the resources to read belong to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @return InviteReader capable of executing the read
      */
     public static InviteReader reader(final String pathServiceSid,
@@ -79,10 +80,9 @@ public class Invite extends Resource {
     /**
      * Create a InviteDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathChannelSid The SID of the Channel the resource to delete belongs
-     *                       to
-     * @param pathSid The SID of the Invite resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return InviteDeleter capable of executing the delete
      */
     public static InviteDeleter deleter(final String pathServiceSid,
@@ -133,8 +133,8 @@ public class Invite extends Resource {
     private final String channelSid;
     private final String serviceSid;
     private final String identity;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String roleSid;
     private final String createdBy;
     private final URI url;
@@ -173,90 +173,90 @@ public class Invite extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Channel the new resource belongs to.
+     * Returns The channel_sid.
      *
-     * @return The SID of the Channel the new resource belongs to
+     * @return The channel_sid
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The string that identifies the resource's User.
+     * Returns The identity.
      *
-     * @return The string that identifies the resource's User
+     * @return The identity
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The SID of the Role assigned to the member.
+     * Returns The role_sid.
      *
-     * @return The SID of the Role assigned to the member
+     * @return The role_sid
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The identity of the User that created the invite.
+     * Returns The created_by.
      *
-     * @return The identity of the User that created the invite
+     * @return The created_by
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The absolute URL of the Invite resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Invite resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
@@ -298,21 +298,5 @@ public class Invite extends Resource {
                             roleSid,
                             createdBy,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("channelSid", channelSid)
-                          .add("serviceSid", serviceSid)
-                          .add("identity", identity)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("roleSid", roleSid)
-                          .add("createdBy", createdBy)
-                          .add("url", url)
-                          .toString();
     }
 }

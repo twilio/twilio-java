@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class WorkspaceCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 278709267705066L;
 
@@ -87,8 +88,8 @@ public class WorkspaceCumulativeStatistics extends Resource {
 
     private final String accountSid;
     private final Integer avgTaskAcceptanceTime;
-    private final DateTime startTime;
-    private final DateTime endTime;
+    private final ZonedDateTime startTime;
+    private final ZonedDateTime endTime;
     private final Integer reservationsCreated;
     private final Integer reservationsAccepted;
     private final Integer reservationsRejected;
@@ -198,7 +199,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
      * @return The beginning of the interval during which these statistics were
      *         calculated
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -208,7 +209,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
      *
      * @return The end of the interval during which these statistics were calculated
      */
-    public final DateTime getEndTime() {
+    public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 
@@ -425,32 +426,5 @@ public class WorkspaceCumulativeStatistics extends Resource {
                             tasksTimedOutInWorkflow,
                             workspaceSid,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("avgTaskAcceptanceTime", avgTaskAcceptanceTime)
-                          .add("startTime", startTime)
-                          .add("endTime", endTime)
-                          .add("reservationsCreated", reservationsCreated)
-                          .add("reservationsAccepted", reservationsAccepted)
-                          .add("reservationsRejected", reservationsRejected)
-                          .add("reservationsTimedOut", reservationsTimedOut)
-                          .add("reservationsCanceled", reservationsCanceled)
-                          .add("reservationsRescinded", reservationsRescinded)
-                          .add("splitByWaitTime", splitByWaitTime)
-                          .add("waitDurationUntilAccepted", waitDurationUntilAccepted)
-                          .add("waitDurationUntilCanceled", waitDurationUntilCanceled)
-                          .add("tasksCanceled", tasksCanceled)
-                          .add("tasksCompleted", tasksCompleted)
-                          .add("tasksCreated", tasksCreated)
-                          .add("tasksDeleted", tasksDeleted)
-                          .add("tasksMoved", tasksMoved)
-                          .add("tasksTimedOutInWorkflow", tasksTimedOutInWorkflow)
-                          .add("workspaceSid", workspaceSid)
-                          .add("url", url)
-                          .toString();
     }
 }

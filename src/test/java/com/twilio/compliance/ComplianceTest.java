@@ -1,7 +1,5 @@
 package com.twilio.compliance;
 
-import com.google.common.collect.ImmutableList;
-
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaModifier;
@@ -18,6 +16,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ComplianceTest {
@@ -46,6 +46,11 @@ public class ComplianceTest {
     }
 
     @Test
+    public void noClassesShouldUseJodaTime() {
+        NO_CLASSES_SHOULD_USE_JODATIME.check(twilioClasses);
+    }
+
+    @Test
     public void resourceClassSanityCheck() {
         GivenClassesConjunction resourceClasses = classes().that().areAssignableTo(com.twilio.base.Resource.class).and().doNotHaveFullyQualifiedName(com.twilio.base.Resource.class.getName());
 
@@ -59,13 +64,13 @@ public class ComplianceTest {
     }
 
     private static List<Class> getResourceClasses(final JavaClasses jclasses) {
-        ImmutableList.Builder<Class> builder = ImmutableList.builder();
+        List<Class> builder = new ArrayList<>();
         for (JavaClass jclass : jclasses) {
           if (jclass.isAssignableTo(com.twilio.base.Resource.class)
               && (!jclass.getModifiers().contains(JavaModifier.ABSTRACT))) {
               builder.add(jclass.reflect());
             }
         }
-        return builder.build();
+        return Collections.unmodifiableList(builder);
     }
 }

@@ -430,10 +430,10 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
-     * The phone number to purchase specified in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone
-     * numbers consist of a + followed by the country code and subscriber number
-     * without punctuation characters. For example, +14155551234..
+     * The phone number to purchase specified in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format.
+     * E.164 phone numbers consist of a + followed by the country code and
+     * subscriber number without punctuation characters. For example, +14155551234..
      *
      * @param phoneNumber The phone number to purchase in E.164 format
      * @return this
@@ -444,10 +444,10 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
     }
 
     /**
-     * The phone number to purchase specified in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format.  E.164 phone
-     * numbers consist of a + followed by the country code and subscriber number
-     * without punctuation characters. For example, +14155551234..
+     * The phone number to purchase specified in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format.
+     * E.164 phone numbers consist of a + followed by the country code and
+     * subscriber number without punctuation characters. For example, +14155551234..
      *
      * @param phoneNumber The phone number to purchase in E.164 format
      * @return this
@@ -491,7 +491,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber> {
 
         if (response == null) {
             throw new ApiConnectionException("IncomingPhoneNumber creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -48,8 +48,10 @@ public class SampleUpdater extends Updater<Sample> {
     }
 
     /**
-     * The [ISO
-     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) string that specifies the language used for the sample. For example: `en-US`..
+     * The <a
+     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO
+     * language-country</a> string that specifies the language used for the sample.
+     * For example: `en-US`..
      *
      * @param language The ISO language-country string that specifies the language
      *                 used for the sample
@@ -62,8 +64,9 @@ public class SampleUpdater extends Updater<Sample> {
 
     /**
      * The text example of how end users might express the task. The sample can
-     * contain [Field tag
-     * blocks](https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging)..
+     * contain <a
+     * href="https://www.twilio.com/docs/autopilot/api/task-sample#field-tagging">Field
+     * tag blocks</a>..
      *
      * @param taggedText The text example of how end users might express the task
      * @return this
@@ -107,7 +110,7 @@ public class SampleUpdater extends Updater<Sample> {
 
         if (response == null) {
             throw new ApiConnectionException("Sample update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

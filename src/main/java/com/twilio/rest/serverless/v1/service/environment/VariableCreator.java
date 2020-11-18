@@ -33,10 +33,10 @@ public class VariableCreator extends Creator<Variable> {
      *
      * @param pathServiceSid The SID of the Service to create the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment in which the variable
+     * @param pathEnvironmentSid The SID of the Environment in which the Variable
      *                           exists
      * @param key A string by which the Variable resource can be referenced
-     * @param value A string that contains the actual value of the variable
+     * @param value A string that contains the actual value of the Variable
      */
     public VariableCreator(final String pathServiceSid,
                            final String pathEnvironmentSid,
@@ -68,7 +68,7 @@ public class VariableCreator extends Creator<Variable> {
 
         if (response == null) {
             throw new ApiConnectionException("Variable creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -47,8 +47,10 @@ public class FeedbackCreator extends Creator<Feedback> {
 
     /**
      * Whether the feedback has arrived. Can be: `unconfirmed` or `confirmed`. If
-     * `provide_feedback`=`true` in [the initial HTTP
-     * POST](https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource), the initial value of this property is `unconfirmed`. After the message arrives, update the value to `confirmed`..
+     * `provide_feedback`=`true` in <a
+     * href="https://www.twilio.com/docs/sms/api/message-resource#create-a-message-resource">the
+     * initial HTTP POST</a>, the initial value of this property is `unconfirmed`.
+     * After the message arrives, update the value to `confirmed`..
      *
      * @param outcome Whether the feedback has arrived
      * @return this
@@ -79,7 +81,7 @@ public class FeedbackCreator extends Creator<Feedback> {
 
         if (response == null) {
             throw new ApiConnectionException("Feedback creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

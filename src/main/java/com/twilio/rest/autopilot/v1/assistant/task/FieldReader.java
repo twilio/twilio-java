@@ -34,7 +34,7 @@ public class FieldReader extends Reader<Field> {
      * @param pathAssistantSid The SID of the Assistant that is the parent of the
      *                         Task associated with the resources to read.
      * @param pathTaskSid The SID of the
-     *                    [Task](https://www.twilio.com/docs/autopilot/api/task)
+     *                    <a href="https://www.twilio.com/docs/autopilot/api/task">Task</a>
      *                    resource associated with the Field resources to read
      */
     public FieldReader(final String pathAssistantSid,
@@ -137,7 +137,7 @@ public class FieldReader extends Reader<Field> {
 
         if (response == null) {
             throw new ApiConnectionException("Field read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

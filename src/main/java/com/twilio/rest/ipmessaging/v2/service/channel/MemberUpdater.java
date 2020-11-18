@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class MemberUpdater extends Updater<Member> {
     private final String pathServiceSid;
@@ -25,17 +26,18 @@ public class MemberUpdater extends Updater<Member> {
     private final String pathSid;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
-    private DateTime lastConsumptionTimestamp;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime lastConsumptionTimestamp;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
+    private Member.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MemberUpdater.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The SID of the channel the member to update belongs to
-     * @param pathSid The SID of the Member resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MemberUpdater(final String pathServiceSid,
                          final String pathChannelSid,
@@ -46,11 +48,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/rest/service-resource)..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role to assign to the member
+     * @param roleSid The role_sid
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -59,13 +59,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) that the
-     * Member has read within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last consumed Message for
-     *                                 the Channel for the Member
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -74,58 +70,57 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
-     * for the Member within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The last_consumption_timestamp.
      *
-     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the datetime of the last Message
-     *                                 read event for the Member within the Channel
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
      * @return this
      */
-    public MemberUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+    public MemberUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service.  Note that this parameter
-     * should only be used when a Member is being recreated from a backup/separate
-     * source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
-    public MemberUpdater setDateCreated(final DateTime dateCreated) {
+    public MemberUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
-    public MemberUpdater setDateUpdated(final DateTime dateUpdated) {
+    public MemberUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public MemberUpdater setAttributes(final String attributes) {
         this.attributes = attributes;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MemberUpdater setXTwilioWebhookEnabled(final Member.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -145,11 +140,12 @@ public class MemberUpdater extends Updater<Member> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Member update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -158,6 +154,17 @@ public class MemberUpdater extends Updater<Member> {
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**
@@ -175,15 +182,15 @@ public class MemberUpdater extends Updater<Member> {
         }
 
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toString());
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toOffsetDateTime().toString());
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (attributes != null) {

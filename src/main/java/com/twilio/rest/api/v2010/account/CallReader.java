@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -21,7 +20,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class CallReader extends Reader<Call> {
     private String pathAccountSid;
@@ -29,10 +30,12 @@ public class CallReader extends Reader<Call> {
     private com.twilio.type.PhoneNumber from;
     private String parentCallSid;
     private Call.Status status;
-    private DateTime absoluteStartTime;
-    private Range<DateTime> rangeStartTime;
-    private DateTime absoluteEndTime;
-    private Range<DateTime> rangeEndTime;
+    private ZonedDateTime startTime;
+    private ZonedDateTime startTimeBefore;
+    private ZonedDateTime startTimeAfter;
+    private ZonedDateTime endTime;
+    private ZonedDateTime endTimeBefore;
+    private ZonedDateTime endTimeAfter;
 
     /**
      * Construct a new CallReader.
@@ -127,12 +130,13 @@ public class CallReader extends Reader<Call> {
      * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
      * this date..
      *
-     * @param absoluteStartTime Only include calls that started on this date
+     * @param startTime Only include calls that started on this date
      * @return this
      */
-    public CallReader setStartTime(final DateTime absoluteStartTime) {
-        this.rangeStartTime = null;
-        this.absoluteStartTime = absoluteStartTime;
+    public CallReader setStartTime(final ZonedDateTime startTime) {
+        this.startTimeBefore = null;
+        this.startTimeAfter = null;
+        this.startTime = startTime;
         return this;
     }
 
@@ -144,12 +148,29 @@ public class CallReader extends Reader<Call> {
      * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
      * this date..
      *
-     * @param rangeStartTime Only include calls that started on this date
+     * @param startTimeBefore Only include calls that started on this date
      * @return this
      */
-    public CallReader setStartTime(final Range<DateTime> rangeStartTime) {
-        this.absoluteStartTime = null;
-        this.rangeStartTime = rangeStartTime;
+    public CallReader setStartTimeBefore(final ZonedDateTime startTimeBefore) {
+        this.startTime = null;
+        this.startTimeBefore = startTimeBefore;
+        return this;
+    }
+
+    /**
+     * Only include calls that started on this date. Specify a date as `YYYY-MM-DD`
+     * in GMT, for example: `2009-07-06`, to read only calls that started on this
+     * date. You can also specify an inequality, such as `StartTime&lt;=YYYY-MM-DD`,
+     * to read calls that started on or before midnight of this date, and
+     * `StartTime&gt;=YYYY-MM-DD` to read calls that started on or after midnight of
+     * this date..
+     *
+     * @param startTimeAfter Only include calls that started on this date
+     * @return this
+     */
+    public CallReader setStartTimeAfter(final ZonedDateTime startTimeAfter) {
+        this.startTime = null;
+        this.startTimeAfter = startTimeAfter;
         return this;
     }
 
@@ -161,12 +182,13 @@ public class CallReader extends Reader<Call> {
      * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
      * this date..
      *
-     * @param absoluteEndTime Only include calls that ended on this date
+     * @param endTime Only include calls that ended on this date
      * @return this
      */
-    public CallReader setEndTime(final DateTime absoluteEndTime) {
-        this.rangeEndTime = null;
-        this.absoluteEndTime = absoluteEndTime;
+    public CallReader setEndTime(final ZonedDateTime endTime) {
+        this.endTimeBefore = null;
+        this.endTimeAfter = null;
+        this.endTime = endTime;
         return this;
     }
 
@@ -178,12 +200,29 @@ public class CallReader extends Reader<Call> {
      * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
      * this date..
      *
-     * @param rangeEndTime Only include calls that ended on this date
+     * @param endTimeBefore Only include calls that ended on this date
      * @return this
      */
-    public CallReader setEndTime(final Range<DateTime> rangeEndTime) {
-        this.absoluteEndTime = null;
-        this.rangeEndTime = rangeEndTime;
+    public CallReader setEndTimeBefore(final ZonedDateTime endTimeBefore) {
+        this.endTime = null;
+        this.endTimeBefore = endTimeBefore;
+        return this;
+    }
+
+    /**
+     * Only include calls that ended on this date. Specify a date as `YYYY-MM-DD` in
+     * GMT, for example: `2009-07-06`, to read only calls that ended on this date.
+     * You can also specify an inequality, such as `EndTime&lt;=YYYY-MM-DD`, to read
+     * calls that ended on or before midnight of this date, and
+     * `EndTime&gt;=YYYY-MM-DD` to read calls that ended on or after midnight of
+     * this date..
+     *
+     * @param endTimeAfter Only include calls that ended on this date
+     * @return this
+     */
+    public CallReader setEndTimeAfter(final ZonedDateTime endTimeAfter) {
+        this.endTime = null;
+        this.endTimeAfter = endTimeAfter;
         return this;
     }
 
@@ -283,7 +322,7 @@ public class CallReader extends Reader<Call> {
 
         if (response == null) {
             throw new ApiConnectionException("Call read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -321,16 +360,16 @@ public class CallReader extends Reader<Call> {
             request.addQueryParam("Status", status.toString());
         }
 
-        if (absoluteStartTime != null) {
-            request.addQueryParam("StartTime", absoluteStartTime.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
-        } else if (rangeStartTime != null) {
-            request.addQueryDateTimeRange("StartTime", rangeStartTime);
+        if (startTime != null) {
+            request.addQueryParam("StartTime", startTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else if (startTimeAfter != null || startTimeBefore != null) {
+            request.addQueryDateTimeRange("StartTime", startTimeAfter, startTimeBefore);
         }
 
-        if (absoluteEndTime != null) {
-            request.addQueryParam("EndTime", absoluteEndTime.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
-        } else if (rangeEndTime != null) {
-            request.addQueryDateTimeRange("EndTime", rangeEndTime);
+        if (endTime != null) {
+            request.addQueryParam("EndTime", endTime.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else if (endTimeAfter != null || endTimeBefore != null) {
+            request.addQueryDateTimeRange("EndTime", endTimeAfter, endTimeBefore);
         }
 
         if (getPageSize() != null) {

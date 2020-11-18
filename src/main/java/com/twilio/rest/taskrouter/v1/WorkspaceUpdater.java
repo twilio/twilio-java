@@ -53,9 +53,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The URL we should call when an event occurs. See [Workspace
-     * Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * The URL we should call when an event occurs. See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
+     * for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -66,9 +66,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     }
 
     /**
-     * The URL we should call when an event occurs. See [Workspace
-     * Events](https://www.twilio.com/docs/taskrouter/api/event) for more
-     * information..
+     * The URL we should call when an event occurs. See <a
+     * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
+     * for more information..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -170,7 +170,7 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
         if (response == null) {
             throw new ApiConnectionException("Workspace update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -24,8 +24,8 @@ public class UserDeleter extends Deleter<User> {
     /**
      * Construct a new UserDeleter.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The SID of  the User resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public UserDeleter(final String pathServiceSid,
                        final String pathSid) {
@@ -51,7 +51,7 @@ public class UserDeleter extends Deleter<User> {
 
         if (response == null) {
             throw new ApiConnectionException("User delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -14,30 +14,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
  */
 public class VideoGrant implements Grant {
 
-    private String configurationProfileSid;
     private String room;
-
-    /**
-     * Get the configuration profile sid of this grant.
-     * @deprecated use {@link #getRoom()} instead.
-     * @return The configuration profile sid or null if not set.
-     */
-    @Deprecated
-    public String getConfigurationProfileSid() {
-        return this.configurationProfileSid;
-    }
-
-    /**
-     * Set the configuration profile sid on the grant.
-     * @deprecated use {@link #setRoom(String)} instead.
-     * @param configurationProfileSid configuration profile sid
-     * @return updated VideoGrant instance
-     */
-    @Deprecated
-    public VideoGrant setConfigurationProfileSid(final String configurationProfileSid) {
-        this.configurationProfileSid = configurationProfileSid;
-        return this;
-    }
 
     /**
      * Get the room configured in this grant.
@@ -69,11 +46,9 @@ public class VideoGrant implements Grant {
     @SuppressWarnings("checkstyle:membername")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     public class Payload {
-        public final String configuration_profile_sid;
         public final String room;
 
         public Payload(VideoGrant grant) {
-            this.configuration_profile_sid = grant.configurationProfileSid;
             this.room = grant.room;
         }
     }

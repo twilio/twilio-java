@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -20,14 +19,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ConferenceReader extends Reader<Conference> {
     private String pathAccountSid;
-    private LocalDate absoluteDateCreated;
-    private Range<LocalDate> rangeDateCreated;
-    private LocalDate absoluteDateUpdated;
-    private Range<LocalDate> rangeDateUpdated;
+    private LocalDate dateCreated;
+    private LocalDate dateCreatedBefore;
+    private LocalDate dateCreatedAfter;
+    private LocalDate dateUpdated;
+    private LocalDate dateUpdatedBefore;
+    private LocalDate dateUpdatedAfter;
     private String friendlyName;
     private Conference.Status status;
 
@@ -53,12 +56,13 @@ public class ConferenceReader extends Reader<Conference> {
      * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
      * midnight on a date, use `&gt;=YYYY-MM-DD`..
      *
-     * @param absoluteDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param dateCreated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateCreated(final LocalDate absoluteDateCreated) {
-        this.rangeDateCreated = null;
-        this.absoluteDateCreated = absoluteDateCreated;
+    public ConferenceReader setDateCreated(final LocalDate dateCreated) {
+        this.dateCreatedBefore = null;
+        this.dateCreatedAfter = null;
+        this.dateCreated = dateCreated;
         return this;
     }
 
@@ -68,12 +72,27 @@ public class ConferenceReader extends Reader<Conference> {
      * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
      * midnight on a date, use `&gt;=YYYY-MM-DD`..
      *
-     * @param rangeDateCreated The `YYYY-MM-DD` value of the resources to read
+     * @param dateCreatedBefore The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateCreated(final Range<LocalDate> rangeDateCreated) {
-        this.absoluteDateCreated = null;
-        this.rangeDateCreated = rangeDateCreated;
+    public ConferenceReader setDateCreatedBefore(final LocalDate dateCreatedBefore) {
+        this.dateCreated = null;
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
+    }
+
+    /**
+     * The `date_created` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that started on or before midnight on a date, use
+     * `&lt;=YYYY-MM-DD`, and to specify  conferences that started on or after
+     * midnight on a date, use `&gt;=YYYY-MM-DD`..
+     *
+     * @param dateCreatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
+    public ConferenceReader setDateCreatedAfter(final LocalDate dateCreatedAfter) {
+        this.dateCreated = null;
+        this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
@@ -83,12 +102,13 @@ public class ConferenceReader extends Reader<Conference> {
      * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
      * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
      *
-     * @param absoluteDateUpdated The `YYYY-MM-DD` value of the resources to read
+     * @param dateUpdated The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateUpdated(final LocalDate absoluteDateUpdated) {
-        this.rangeDateUpdated = null;
-        this.absoluteDateUpdated = absoluteDateUpdated;
+    public ConferenceReader setDateUpdated(final LocalDate dateUpdated) {
+        this.dateUpdatedBefore = null;
+        this.dateUpdatedAfter = null;
+        this.dateUpdated = dateUpdated;
         return this;
     }
 
@@ -98,12 +118,27 @@ public class ConferenceReader extends Reader<Conference> {
      * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
      * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
      *
-     * @param rangeDateUpdated The `YYYY-MM-DD` value of the resources to read
+     * @param dateUpdatedBefore The `YYYY-MM-DD` value of the resources to read
      * @return this
      */
-    public ConferenceReader setDateUpdated(final Range<LocalDate> rangeDateUpdated) {
-        this.absoluteDateUpdated = null;
-        this.rangeDateUpdated = rangeDateUpdated;
+    public ConferenceReader setDateUpdatedBefore(final LocalDate dateUpdatedBefore) {
+        this.dateUpdated = null;
+        this.dateUpdatedBefore = dateUpdatedBefore;
+        return this;
+    }
+
+    /**
+     * The `date_updated` value, specified as `YYYY-MM-DD`, of the resources to
+     * read. To read conferences that were last updated on or before midnight on a
+     * date, use `&lt;=YYYY-MM-DD`, and to specify conferences that were last
+     * updated on or after midnight on a given date, use  `&gt;=YYYY-MM-DD`..
+     *
+     * @param dateUpdatedAfter The `YYYY-MM-DD` value of the resources to read
+     * @return this
+     */
+    public ConferenceReader setDateUpdatedAfter(final LocalDate dateUpdatedAfter) {
+        this.dateUpdated = null;
+        this.dateUpdatedAfter = dateUpdatedAfter;
         return this;
     }
 
@@ -227,7 +262,7 @@ public class ConferenceReader extends Reader<Conference> {
 
         if (response == null) {
             throw new ApiConnectionException("Conference read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -249,16 +284,16 @@ public class ConferenceReader extends Reader<Conference> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (absoluteDateCreated != null) {
-            request.addQueryParam("DateCreated", absoluteDateCreated.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeDateCreated != null) {
-            request.addQueryDateRange("DateCreated", rangeDateCreated);
+        if (dateCreated != null) {
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
 
-        if (absoluteDateUpdated != null) {
-            request.addQueryParam("DateUpdated", absoluteDateUpdated.toString(Request.QUERY_STRING_DATE_FORMAT));
-        } else if (rangeDateUpdated != null) {
-            request.addQueryDateRange("DateUpdated", rangeDateUpdated);
+        if (dateUpdated != null) {
+            request.addQueryParam("DateUpdated", dateUpdated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        } else if (dateUpdatedAfter != null || dateUpdatedBefore != null) {
+            request.addQueryDateRange("DateUpdated", dateUpdatedAfter, dateUpdatedBefore);
         }
 
         if (friendlyName != null) {

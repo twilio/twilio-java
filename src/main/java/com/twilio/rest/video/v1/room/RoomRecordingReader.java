@@ -19,14 +19,15 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class RoomRecordingReader extends Reader<RoomRecording> {
     private final String pathRoomSid;
     private RoomRecording.Status status;
     private String sourceSid;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
 
     /**
      * Construct a new RoomRecordingReader.
@@ -62,27 +63,29 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
     }
 
     /**
-     * Read only recordings that started on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * Read only recordings that started on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
+     * zone..
      *
      * @param dateCreatedAfter Read only Recordings that started on or after this
      *                         ISO 8601 datetime with time zone
      * @return this
      */
-    public RoomRecordingReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public RoomRecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
 
     /**
-     * Read only Recordings that started before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) datetime with time zone..
+     * Read only Recordings that started before this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> datetime with time
+     * zone..
      *
      * @param dateCreatedBefore Read only Recordings that started before this ISO
      *                          8601 date-time with time zone
      * @return this
      */
-    public RoomRecordingReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public RoomRecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
@@ -181,7 +184,7 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
 
         if (response == null) {
             throw new ApiConnectionException("RoomRecording read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -212,11 +215,11 @@ public class RoomRecordingReader extends Reader<RoomRecording> {
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

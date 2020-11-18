@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +39,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Log extends Resource {
     private static final long serialVersionUID = 212890795162634L;
 
@@ -143,7 +144,7 @@ public class Log extends Resource {
     private final String requestSid;
     private final Log.Level level;
     private final String message;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator
@@ -280,7 +281,7 @@ public class Log extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the Log resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -333,23 +334,5 @@ public class Log extends Resource {
                             message,
                             dateCreated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("environmentSid", environmentSid)
-                          .add("buildSid", buildSid)
-                          .add("deploymentSid", deploymentSid)
-                          .add("functionSid", functionSid)
-                          .add("requestSid", requestSid)
-                          .add("level", level)
-                          .add("message", message)
-                          .add("dateCreated", dateCreated)
-                          .add("url", url)
-                          .toString();
     }
 }

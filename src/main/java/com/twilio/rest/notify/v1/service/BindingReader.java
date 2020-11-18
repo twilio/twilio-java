@@ -20,8 +20,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
 
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -69,8 +69,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -81,8 +81,8 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -210,7 +210,7 @@ public class BindingReader extends Reader<Binding> {
 
         if (response == null) {
             throw new ApiConnectionException("Binding read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

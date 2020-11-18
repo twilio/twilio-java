@@ -24,8 +24,8 @@ public class ChannelFetcher extends Fetcher<Channel> {
     /**
      * Construct a new ChannelFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The SID of the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public ChannelFetcher(final String pathServiceSid,
                           final String pathSid) {
@@ -52,7 +52,7 @@ public class ChannelFetcher extends Fetcher<Channel> {
 
         if (response == null) {
             throw new ApiConnectionException("Channel fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,11 +31,11 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class AccessToken extends Resource {
     private static final long serialVersionUID = 123884033173693L;
 
@@ -66,7 +66,7 @@ public class AccessToken extends Resource {
     /**
      * Create a AccessTokenCreator to execute create.
      *
-     * @param pathServiceSid The service_sid
+     * @param pathServiceSid Service Sid.
      * @param identity Unique external identifier of the Entity
      * @param factorType The Type of this Factor
      * @return AccessTokenCreator capable of executing the create
@@ -150,12 +150,5 @@ public class AccessToken extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(token);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("token", token)
-                          .toString();
     }
 }

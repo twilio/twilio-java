@@ -1,29 +1,23 @@
 package com.twilio.jwt.validation;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
-import com.google.common.hash.HashFunction;
-import com.google.common.hash.Hashing;
-import com.google.common.io.CharStreams;
-import com.twilio.http.HttpMethod;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpRequest;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.util.*;
+import java.util.function.Function;
 
 
 public class ValidationToken extends Jwt {
 
-    private static final HashFunction HASH_FUNCTION = Hashing.sha256();
     private static final String CTY = "twilio-pkrv;v=1";
 
     private final String accountSid;
@@ -71,16 +65,15 @@ public class ValidationToken extends Jwt {
 
         // Sort the signed headers
         Collections.sort(signedHeaders);
-        List<String> lowercaseSignedHeaders = Lists.transform(signedHeaders, LOWERCASE_STRING);
-        String includedHeaders = Joiner.on(";").join(lowercaseSignedHeaders);
+        signedHeaders.replaceAll(String::toLowerCase);
+        String includedHeaders = String.join(";", signedHeaders);
         payload.put("hrh", includedHeaders);
 
         String canonicalRequest =
-                new RequestCanonicalizer(method, uri, queryString, requestBody, headers).create(
-                        lowercaseSignedHeaders, HASH_FUNCTION);
+            new RequestCanonicalizer(method, uri, queryString, requestBody, headers).create(signedHeaders);
 
         // Hash and hex the canonical request
-        String hashedSignature = HASH_FUNCTION.hashString(canonicalRequest, Charsets.UTF_8).toString();
+        String hashedSignature = DigestUtils.sha256Hex(canonicalRequest);
         payload.put("rqh", hashedSignature);
 
         return payload;
@@ -89,15 +82,14 @@ public class ValidationToken extends Jwt {
     /**
      * Create a ValidationToken from an HTTP Request.
      *
-     * @param  accountSid Twilio Account SID
-     * @param  credentialSid Twilio Credential SID
-     * @param  signingKeySid Twilio Signing Key SID
-     * @param  privateKey Private Key
-     * @param  request HTTP Request
-     * @param  signedHeaders Headers to sign
-     *
-     * @throws IOException when unable to generate
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKeySid Twilio Signing Key SID
+     * @param privateKey    Private Key
+     * @param request       HTTP Request
+     * @param signedHeaders Headers to sign
      * @return The ValidationToken generated from the HttpRequest
+     * @throws IOException when unable to generate
      */
     public static ValidationToken fromHttpRequest(
         String accountSid,
@@ -132,7 +124,7 @@ public class ValidationToken extends Jwt {
          */
         if (request instanceof HttpEntityEnclosingRequest) {
             HttpEntity entity = ((HttpEntityEnclosingRequest) request).getEntity();
-            builder.requestBody(CharStreams.toString(new InputStreamReader(entity.getContent(), Charsets.UTF_8)));
+            builder.requestBody(IOUtils.toString(entity.getContent(), StandardCharsets.UTF_8));
         }
 
         return builder.build();
@@ -162,10 +154,10 @@ public class ValidationToken extends Jwt {
         /**
          * Create a new ValidationToken Builder.
          *
-         * @param  accountSid Twilio Account SID
-         * @param  credentialSid Twilio Crednetial SID
-         * @param  signingKeySid Twilio Signing Key SID
-         * @param  privateKey Private Key
+         * @param accountSid    Twilio Account SID
+         * @param credentialSid Twilio Crednetial SID
+         * @param signingKeySid Twilio Signing Key SID
+         * @param privateKey    Private Key
          */
         public Builder(String accountSid, String credentialSid, String signingKeySid, PrivateKey privateKey) {
             this.accountSid = accountSid;

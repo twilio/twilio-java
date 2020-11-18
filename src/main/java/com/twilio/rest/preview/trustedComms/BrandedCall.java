@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class BrandedCall extends Resource {
     private static final long serialVersionUID = 3046006266217L;
 
@@ -100,7 +101,7 @@ public class BrandedCall extends Resource {
     private final String businessSid;
     private final String callSid;
     private final String caller;
-    private final DateTime createdAt;
+    private final ZonedDateTime createdAt;
     private final String fontColor;
     private final String from;
     private final String logo;
@@ -237,7 +238,7 @@ public class BrandedCall extends Resource {
      *
      * @return The date this current phone call was created
      */
-    public final DateTime getCreatedAt() {
+    public final ZonedDateTime getCreatedAt() {
         return this.createdAt;
     }
 
@@ -383,29 +384,5 @@ public class BrandedCall extends Resource {
                             to,
                             url,
                             useCase);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("bgColor", bgColor)
-                          .add("brandSid", brandSid)
-                          .add("brandedChannelSid", brandedChannelSid)
-                          .add("businessSid", businessSid)
-                          .add("callSid", callSid)
-                          .add("caller", caller)
-                          .add("createdAt", createdAt)
-                          .add("fontColor", fontColor)
-                          .add("from", from)
-                          .add("logo", logo)
-                          .add("phoneNumberSid", phoneNumberSid)
-                          .add("reason", reason)
-                          .add("sid", sid)
-                          .add("status", status)
-                          .add("to", to)
-                          .add("url", url)
-                          .add("useCase", useCase)
-                          .toString();
     }
 }

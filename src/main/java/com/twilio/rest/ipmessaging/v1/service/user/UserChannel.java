@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +31,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class UserChannel extends Resource {
     private static final long serialVersionUID = 254880238496884L;
 
@@ -63,9 +64,8 @@ public class UserChannel extends Resource {
     /**
      * Create a UserChannelReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathUserSid The SID of the User to fetch the User Channel resources
-     *                    from
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
      * @return UserChannelReader capable of executing the read
      */
     public static UserChannelReader reader(final String pathServiceSid,
@@ -148,74 +148,72 @@ public class UserChannel extends Resource {
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The SID of the Channel the resource belongs to.
+     * Returns The channel_sid.
      *
-     * @return The SID of the Channel the resource belongs to
+     * @return The channel_sid
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The SID of the User as a Member in the Channel.
+     * Returns The member_sid.
      *
-     * @return The SID of the User as a Member in the Channel
+     * @return The member_sid
      */
     public final String getMemberSid() {
         return this.memberSid;
     }
 
     /**
-     * Returns The status of the User on the Channel.
+     * Returns The status.
      *
-     * @return The status of the User on the Channel
+     * @return The status
      */
     public final UserChannel.ChannelStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The index of the last Message in the Channel the Member has read.
+     * Returns The last_consumed_message_index.
      *
-     * @return The index of the last Message in the Channel the Member has read
+     * @return The last_consumed_message_index
      */
     public final Integer getLastConsumedMessageIndex() {
         return this.lastConsumedMessageIndex;
     }
 
     /**
-     * Returns The number of unread Messages in the Channel for the User.
+     * Returns The unread_messages_count.
      *
-     * @return The number of unread Messages in the Channel for the User
+     * @return The unread_messages_count
      */
     public final Integer getUnreadMessagesCount() {
         return this.unreadMessagesCount;
     }
 
     /**
-     * Returns Absolute URLs to access the Members, Messages , Invites and, if it
-     * exists, the last Message for the Channel.
+     * Returns The links.
      *
-     * @return Absolute URLs to access the Members, Messages , Invites and, if it
-     *         exists, the last Message for the Channel
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -253,19 +251,5 @@ public class UserChannel extends Resource {
                             lastConsumedMessageIndex,
                             unreadMessagesCount,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("channelSid", channelSid)
-                          .add("memberSid", memberSid)
-                          .add("status", status)
-                          .add("lastConsumedMessageIndex", lastConsumedMessageIndex)
-                          .add("unreadMessagesCount", unreadMessagesCount)
-                          .add("links", links)
-                          .toString();
     }
 }

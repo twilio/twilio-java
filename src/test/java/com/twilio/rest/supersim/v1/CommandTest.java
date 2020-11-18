@@ -38,18 +38,18 @@ public class CommandTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.SUPERSIM.toString(),
-                                                      "/v1/Commands");
-                        request.addPostParam("Sim", serialize("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
-        request.addPostParam("Command", serialize("command"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.SUPERSIM.toString(),
+                                          "/v1/Commands");
+            request.addPostParam("Sim", serialize("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            request.addPostParam("Command", serialize("command"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create();

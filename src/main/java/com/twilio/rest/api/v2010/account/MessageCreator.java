@@ -185,13 +185,14 @@ public class MessageCreator extends Creator<Message> {
      * The URL we should call using the `status_callback_method` to send status
      * information to your application. If specified, we POST these message status
      * changes to the URL: `queued`, `failed`, `sent`, `delivered`, or
-     * `undelivered`. Twilio will POST its [standard request
-     * parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well
-     * as some additional parameters including `MessageSid`, `MessageStatus`, and
-     * `ErrorCode`. If you include this parameter with the `messaging_service_sid`,
-     * we use this URL instead of the Status Callback URL of the [Messaging
-     * Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a
-     * valid hostname and underscores are not allowed..
+     * `undelivered`. Twilio will POST its <a
+     * href="https://www.twilio.com/docs/sms/twiml#request-parameters">standard
+     * request parameters</a> as well as some additional parameters including
+     * `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter
+     * with the `messaging_service_sid`, we use this URL instead of the Status
+     * Callback URL of the <a
+     * href="https://www.twilio.com/docs/sms/services/api">Messaging Service</a>.
+     * URLs must contain a valid hostname and underscores are not allowed..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -206,13 +207,14 @@ public class MessageCreator extends Creator<Message> {
      * The URL we should call using the `status_callback_method` to send status
      * information to your application. If specified, we POST these message status
      * changes to the URL: `queued`, `failed`, `sent`, `delivered`, or
-     * `undelivered`. Twilio will POST its [standard request
-     * parameters](https://www.twilio.com/docs/sms/twiml#request-parameters) as well
-     * as some additional parameters including `MessageSid`, `MessageStatus`, and
-     * `ErrorCode`. If you include this parameter with the `messaging_service_sid`,
-     * we use this URL instead of the Status Callback URL of the [Messaging
-     * Service](https://www.twilio.com/docs/sms/services/api). URLs must contain a
-     * valid hostname and underscores are not allowed..
+     * `undelivered`. Twilio will POST its <a
+     * href="https://www.twilio.com/docs/sms/twiml#request-parameters">standard
+     * request parameters</a> as well as some additional parameters including
+     * `MessageSid`, `MessageStatus`, and `ErrorCode`. If you include this parameter
+     * with the `messaging_service_sid`, we use this URL instead of the Status
+     * Callback URL of the <a
+     * href="https://www.twilio.com/docs/sms/services/api">Messaging Service</a>.
+     * URLs must contain a valid hostname and underscores are not allowed..
      *
      * @param statusCallback The URL we should call to send status information to
      *                       your application
@@ -225,8 +227,8 @@ public class MessageCreator extends Creator<Message> {
     /**
      * The SID of the application that should receive message status. We POST a
      * `message_sid` parameter and a `message_status` parameter with a value of
-     * `sent` or `failed` to the
-     * [application](https://www.twilio.com/docs/usage/api/applications)'s
+     * `sent` or `failed` to the <a
+     * href="https://www.twilio.com/docs/usage/api/applications">application</a>'s
      * `message_status_callback`. If a `status_callback` parameter is also passed,
      * it will be ignored and the application's `message_status_callback` parameter
      * will be used..
@@ -259,9 +261,9 @@ public class MessageCreator extends Creator<Message> {
     /**
      * Whether to confirm delivery of the message. Set this value to `true` if you
      * are sending messages that have a trackable user action and you intend to
-     * confirm delivery of the message using the [Message Feedback
-     * API](https://www.twilio.com/docs/sms/api/message-feedback-resource). This
-     * parameter is `false` by default..
+     * confirm delivery of the message using the <a
+     * href="https://www.twilio.com/docs/sms/api/message-feedback-resource">Message
+     * Feedback API</a>. This parameter is `false` by default..
      *
      * @param provideFeedback Whether to confirm delivery of the message
      * @return this
@@ -373,10 +375,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A Twilio phone number in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
-     * [alphanumeric sender
-     * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
+     * A Twilio phone number in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
+     * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
+     * sender ID</a>, or a <a
+     * href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel
+     * Endpoint address</a> that is enabled for the type of message you want to
+     * send. Phone numbers or <a
+     * href="https://www.twilio.com/docs/sms/api/short-code">short codes</a>
+     * purchased from Twilio also work here. You cannot, for example, spoof messages
+     * from a private cell phone number. If you are using `messaging_service_sid`,
+     * this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -387,10 +396,17 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A Twilio phone number in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format, an
-     * [alphanumeric sender
-     * ID](https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id), or a [Channel Endpoint address](https://www.twilio.com/docs/sms/channels#channel-addresses) that is enabled for the type of message you want to send. Phone numbers or [short codes](https://www.twilio.com/docs/sms/api/short-code) purchased from Twilio also work here. You cannot, for example, spoof messages from a private cell phone number. If you are using `messaging_service_sid`, this parameter must be empty..
+     * A Twilio phone number in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
+     * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
+     * sender ID</a>, or a <a
+     * href="https://www.twilio.com/docs/sms/channels#channel-addresses">Channel
+     * Endpoint address</a> that is enabled for the type of message you want to
+     * send. Phone numbers or <a
+     * href="https://www.twilio.com/docs/sms/api/short-code">short codes</a>
+     * purchased from Twilio also work here. You cannot, for example, spoof messages
+     * from a private cell phone number. If you are using `messaging_service_sid`,
+     * this parameter must be empty..
      *
      * @param from The phone number that initiated the message
      * @return this
@@ -400,8 +416,13 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The SID of the [Messaging
-     * Service](https://www.twilio.com/docs/sms/services#send-a-message-with-copilot) you want to associate with the Message. Set this parameter to use the [Messaging Service Settings and Copilot Features](https://www.twilio.com/console/sms/services) you have configured and leave the `from` parameter empty. When only this parameter is set, Twilio will use your enabled Copilot Features to select the `from` phone number for delivery..
+     * The SID of the <a
+     * href="https://www.twilio.com/docs/sms/services#send-a-message-with-copilot">Messaging
+     * Service</a> you want to associate with the Message. Set this parameter to use
+     * the <a href="https://www.twilio.com/console/sms/services">Messaging Service
+     * Settings and Copilot Features</a> you have configured and leave the `from`
+     * parameter empty. When only this parameter is set, Twilio will use your
+     * enabled Copilot Features to select the `from` phone number for delivery..
      *
      * @param messagingServiceSid The SID of the Messaging Service you want to
      *                            associate with the message.
@@ -429,10 +450,10 @@ public class MessageCreator extends Creator<Message> {
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
      * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
-     * and 500KB for [other
-     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
-     * media. To send more than one image in the message body, provide multiple
-     * `media_url` parameters in the POST request. You can include up to 10
+     * and 500KB for <a
+     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a> of
+     * accepted media. To send more than one image in the message body, provide
+     * multiple `media_url` parameters in the POST request. You can include up to 10
      * `media_url` parameters per message. You can send images in an SMS message in
      * only the US and Canada..
      *
@@ -448,10 +469,10 @@ public class MessageCreator extends Creator<Message> {
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
      * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
-     * and 500KB for [other
-     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
-     * media. To send more than one image in the message body, provide multiple
-     * `media_url` parameters in the POST request. You can include up to 10
+     * and 500KB for <a
+     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a> of
+     * accepted media. To send more than one image in the message body, provide
+     * multiple `media_url` parameters in the POST request. You can include up to 10
      * `media_url` parameters per message. You can send images in an SMS message in
      * only the US and Canada..
      *
@@ -466,10 +487,10 @@ public class MessageCreator extends Creator<Message> {
      * The URL of the media to send with the message. The media can be of type
      * `gif`, `png`, and `jpeg` and will be formatted correctly on the recipient's
      * device. The media size limit is 5MB for supported file types (JPEG, PNG, GIF)
-     * and 500KB for [other
-     * types](https://www.twilio.com/docs/sms/accepted-mime-types) of accepted
-     * media. To send more than one image in the message body, provide multiple
-     * `media_url` parameters in the POST request. You can include up to 10
+     * and 500KB for <a
+     * href="https://www.twilio.com/docs/sms/accepted-mime-types">other types</a> of
+     * accepted media. To send more than one image in the message body, provide
+     * multiple `media_url` parameters in the POST request. You can include up to 10
      * `media_url` parameters per message. You can send images in an SMS message in
      * only the US and Canada..
      *
@@ -501,7 +522,7 @@ public class MessageCreator extends Creator<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

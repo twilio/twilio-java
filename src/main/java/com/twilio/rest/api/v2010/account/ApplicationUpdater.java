@@ -274,11 +274,12 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL we should call using a POST method to send status information about
-     * SMS messages sent by the application..
+     * Same as message_status_callback: The URL we should call using a POST method
+     * to send status information about SMS messages sent by the application.
+     * Deprecated, included for backwards compatibility..
      *
-     * @param smsStatusCallback The URL to send status information to your
-     *                          application
+     * @param smsStatusCallback Same as message_status_callback. Deprecated,
+     *                          included for backwards compatibility.
      * @return this
      */
     public ApplicationUpdater setSmsStatusCallback(final URI smsStatusCallback) {
@@ -287,11 +288,12 @@ public class ApplicationUpdater extends Updater<Application> {
     }
 
     /**
-     * The URL we should call using a POST method to send status information about
-     * SMS messages sent by the application..
+     * Same as message_status_callback: The URL we should call using a POST method
+     * to send status information about SMS messages sent by the application.
+     * Deprecated, included for backwards compatibility..
      *
-     * @param smsStatusCallback The URL to send status information to your
-     *                          application
+     * @param smsStatusCallback Same as message_status_callback. Deprecated,
+     *                          included for backwards compatibility.
      * @return this
      */
     public ApplicationUpdater setSmsStatusCallback(final String smsStatusCallback) {
@@ -344,7 +346,7 @@ public class ApplicationUpdater extends Updater<Application> {
 
         if (response == null) {
             throw new ApiConnectionException("Application update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -17,27 +17,25 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
+import java.time.ZonedDateTime;
+
 public class ParticipantCreator extends Creator<Participant> {
     private final String pathConversationSid;
     private String identity;
     private String messagingBindingAddress;
     private String messagingBindingProxyAddress;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private String messagingBindingProjectedAddress;
     private String roleSid;
+    private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ParticipantCreator.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      */
     public ParticipantCreator(final String pathConversationSid) {
@@ -45,13 +43,13 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * A unique string identifier for the conversation participant as [Chat
-     * User](https://www.twilio.com/docs/chat/rest/user-resource). This parameter is
-     * non-null if (and only if) the participant is using the Programmable Chat SDK
-     * to communicate. Limited to 256 characters..
+     * A unique string identifier for the conversation participant as <a
+     * href="https://www.twilio.com/docs/conversations/api/user-resource">Conversation
+     * User</a>. This parameter is non-null if (and only if) the participant is
+     * using the Conversations SDK to communicate. Limited to 256 characters..
      *
      * @param identity A unique string identifier for the conversation participant
-     *                 as Chat User.
+     *                 as Conversation User.
      * @return this
      */
     public ParticipantCreator setIdentity(final String identity) {
@@ -60,10 +58,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the participant's device, e.g. a phone number or Messenger ID.
+     * The address of the participant's device, e.g. a phone or WhatsApp number.
      * Together with the Proxy address, this determines a participant uniquely. This
      * field (with proxy_address) is only null when the participant is interacting
-     * from a Chat endpoint (see the 'identity' field)..
+     * from an SDK endpoint (see the 'identity' field)..
      *
      * @param messagingBindingAddress The address of the participant's device.
      * @return this
@@ -74,10 +72,10 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The address of the Twilio phone number (or WhatsApp number, or Messenger Page
-     * ID) that the participant is in contact with. This field, together with
-     * participant address, is only null when the participant is interacting from a
-     * Chat endpoint (see the 'identity' field)..
+     * The address of the Twilio phone number (or WhatsApp number) that the
+     * participant is in contact with. This field, together with participant
+     * address, is only null when the participant is interacting from an SDK
+     * endpoint (see the 'identity' field)..
      *
      * @param messagingBindingProxyAddress The address of the Twilio phone number
      *                                     that the participant is in contact with.
@@ -94,7 +92,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param dateCreated The date that this resource was created.
      * @return this
      */
-    public ParticipantCreator setDateCreated(final DateTime dateCreated) {
+    public ParticipantCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -105,7 +103,7 @@ public class ParticipantCreator extends Creator<Participant> {
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
-    public ParticipantCreator setDateUpdated(final DateTime dateUpdated) {
+    public ParticipantCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -126,7 +124,7 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The address of the Twilio phone number that is used in Group MMS.
-     * Communication mask for the Chat participant with Identity..
+     * Communication mask for the Conversation participant with Identity..
      *
      * @param messagingBindingProjectedAddress The address of the Twilio phone
      *                                         number that is used in Group MMS.
@@ -138,14 +136,27 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the participant..
+     * The SID of a conversation-level <a
+     * href="https://www.twilio.com/docs/conversations/api/role-resource">Role</a>
+     * to assign to the participant..
      *
-     * @param roleSid The SID of the Role to assign to the participant
+     * @param roleSid The SID of a conversation-level Role to assign to the
+     *                participant
      * @return this
      */
     public ParticipantCreator setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ParticipantCreator setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -165,11 +176,12 @@ public class ParticipantCreator extends Creator<Participant> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Participant creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -178,6 +190,17 @@ public class ParticipantCreator extends Creator<Participant> {
         }
 
         return Participant.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**
@@ -199,11 +222,11 @@ public class ParticipantCreator extends Creator<Participant> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (attributes != null) {

@@ -147,15 +147,14 @@ public class NotificationCreator extends Creator<Notification> {
 
     /**
      * The custom key-value pairs of the notification's payload. For FCM and GCM,
-     * this value translates to `data` in the FCM and GCM payloads. FCM and GCM
-     * [reserve certain
-     * keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref) that
-     * cannot be used in those channels. For APNS, attributes of `data` are inserted
-     * into the APNS payload as custom properties outside of the `aps` dictionary.
-     * In all channels, we reserve keys that start with `twi_` for future use.
-     * Custom keys that start with `twi_` are not allowed and are rejected as 400
-     * Bad request with no delivery attempted. For SMS, this parameter is not
-     * supported and is omitted from deliveries to those channels..
+     * this value translates to `data` in the FCM and GCM payloads. FCM and GCM <a
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserve
+     * certain keys</a> that cannot be used in those channels. For APNS, attributes
+     * of `data` are inserted into the APNS payload as custom properties outside of
+     * the `aps` dictionary. In all channels, we reserve keys that start with `twi_`
+     * for future use. Custom keys that start with `twi_` are not allowed and are
+     * rejected as 400 Bad request with no delivery attempted. For SMS, this
+     * parameter is not supported and is omitted from deliveries to those channels..
      *
      * @param data The custom key-value pairs of the notification's payload
      * @return this
@@ -169,8 +168,10 @@ public class NotificationCreator extends Creator<Notification> {
      * The APNS-specific payload that overrides corresponding attributes in the
      * generic payload for APNS Bindings. This property maps to the APNS `Payload`
      * item, therefore the `aps` key must be used to change standard attributes.
-     * Adds custom key-value pairs to the root of the dictionary. See the [APNS
-     * documentation](https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html) for more details. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed..
+     * Adds custom key-value pairs to the root of the dictionary. See the <a
+     * href="https://developer.apple.com/library/content/documentation/NetworkingInternet/Conceptual/RemoteNotificationsPG/CommunicatingwithAPNs.html">APNS
+     * documentation</a> for more details. We reserve keys that start with `twi_`
+     * for future use. Custom keys that start with `twi_` are not allowed..
      *
      * @param apn The APNS-specific payload that overrides corresponding attributes
      *            in a generic payload for APNS Bindings
@@ -184,8 +185,14 @@ public class NotificationCreator extends Creator<Notification> {
     /**
      * The GCM-specific payload that overrides corresponding attributes in the
      * generic payload for GCM Bindings.  This property maps to the root JSON
-     * dictionary. See the [GCM
-     * documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref) for more details. Target parameters `to`, `registration_ids`, and `notification_key` are not allowed. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. GCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref)..
+     * dictionary. See the <a
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">GCM
+     * documentation</a> for more details. Target parameters `to`,
+     * `registration_ids`, and `notification_key` are not allowed. We reserve keys
+     * that start with `twi_` for future use. Custom keys that start with `twi_` are
+     * not allowed. GCM also <a
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves
+     * certain keys</a>..
      *
      * @param gcm The GCM-specific payload that overrides corresponding attributes
      *            in generic payload for GCM Bindings
@@ -199,9 +206,9 @@ public class NotificationCreator extends Creator<Notification> {
     /**
      * The SMS-specific payload that overrides corresponding attributes in the
      * generic payload for SMS Bindings.  Each attribute in this value maps to the
-     * corresponding `form` parameter of the Twilio
-     * [Message](https://www.twilio.com/docs/sms/send-messages) resource.  These
-     * parameters of the Message resource are supported in snake case format:
+     * corresponding `form` parameter of the Twilio <a
+     * href="https://www.twilio.com/docs/sms/send-messages">Message</a> resource.
+     * These parameters of the Message resource are supported in snake case format:
      * `body`, `media_urls`, `status_callback`, and `max_price`.  The
      * `status_callback` parameter overrides the corresponding parameter in the
      * messaging service, if configured. The `media_urls` property expects a JSON
@@ -230,8 +237,14 @@ public class NotificationCreator extends Creator<Notification> {
     /**
      * The FCM-specific payload that overrides corresponding attributes in the
      * generic payload for FCM Bindings. This property maps to the root JSON
-     * dictionary. See the [FCM
-     * documentation](https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream) for more details. Target parameters `to`, `registration_ids`, `condition`, and `notification_key` are not allowed in this parameter. We reserve keys that start with `twi_` for future use. Custom keys that start with `twi_` are not allowed. FCM also [reserves certain keys](https://firebase.google.com/docs/cloud-messaging/http-server-ref), which cannot be used in that channel..
+     * dictionary. See the <a
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref#downstream">FCM
+     * documentation</a> for more details. Target parameters `to`,
+     * `registration_ids`, `condition`, and `notification_key` are not allowed in
+     * this parameter. We reserve keys that start with `twi_` for future use. Custom
+     * keys that start with `twi_` are not allowed. FCM also <a
+     * href="https://firebase.google.com/docs/cloud-messaging/http-server-ref">reserves
+     * certain keys</a>, which cannot be used in that channel..
      *
      * @param fcm The FCM-specific payload that overrides corresponding attributes
      *            in generic payload for FCM Bindings
@@ -311,11 +324,12 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
-     * The `identity` value that uniquely identifies the new resource's
-     * [User](https://www.twilio.com/docs/chat/rest/user-resource) within the
-     * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
-     * will be attempted only to Bindings with an Identity in this list. No more
-     * than 20 items are allowed in this list..
+     * The `identity` value that uniquely identifies the new resource's <a
+     * href="https://www.twilio.com/docs/chat/rest/user-resource">User</a> within
+     * the <a
+     * href="https://www.twilio.com/docs/notify/api/service-resource">Service</a>.
+     * Delivery will be attempted only to Bindings with an Identity in this list. No
+     * more than 20 items are allowed in this list..
      *
      * @param identity The `identity` value that identifies the new resource's User
      * @return this
@@ -326,11 +340,12 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
-     * The `identity` value that uniquely identifies the new resource's
-     * [User](https://www.twilio.com/docs/chat/rest/user-resource) within the
-     * [Service](https://www.twilio.com/docs/notify/api/service-resource). Delivery
-     * will be attempted only to Bindings with an Identity in this list. No more
-     * than 20 items are allowed in this list..
+     * The `identity` value that uniquely identifies the new resource's <a
+     * href="https://www.twilio.com/docs/chat/rest/user-resource">User</a> within
+     * the <a
+     * href="https://www.twilio.com/docs/notify/api/service-resource">Service</a>.
+     * Delivery will be attempted only to Bindings with an Identity in this list. No
+     * more than 20 items are allowed in this list..
      *
      * @param identity The `identity` value that identifies the new resource's User
      * @return this
@@ -388,7 +403,7 @@ public class NotificationCreator extends Creator<Notification> {
 
         if (response == null) {
             throw new ApiConnectionException("Notification creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

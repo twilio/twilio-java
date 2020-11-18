@@ -1,8 +1,5 @@
 package com.twilio.converter;
 
-import com.google.common.base.Joiner;
-import com.google.common.collect.Lists;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,13 +14,13 @@ public class PrefixedCollapsibleMap {
         List<String> previous
     ) {
         for (Map.Entry<String, Object> entry : map.entrySet()) {
-            List<String> next = Lists.newArrayList(previous);
+            List<String> next = new ArrayList<>(previous);
             next.add(entry.getKey());
 
             if (entry.getValue() instanceof Map) {
-                flatten((Map<String, Object>)entry.getValue(), result, next);
+                flatten((Map<String, Object>) entry.getValue(), result, next);
             } else {
-                result.put(Joiner.on('.').join(next), entry.getValue().toString());
+                result.put(String.join(".", next), entry.getValue().toString());
             }
         }
 
@@ -34,7 +31,7 @@ public class PrefixedCollapsibleMap {
      * Flatten a Map of String, Object into a Map of String, String where keys are '.' separated
      * and prepends a key.
      *
-     * @param map map to transform
+     * @param map    map to transform
      * @param prefix key to prepend
      * @return flattened map
      */
@@ -52,5 +49,4 @@ public class PrefixedCollapsibleMap {
 
         return result;
     }
-    
 }

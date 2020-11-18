@@ -1,13 +1,13 @@
 package com.twilio.taskrouter;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Workflow extends TaskRouterResource {
 
     @JsonProperty("task_routing")
@@ -49,13 +50,6 @@ public class Workflow extends TaskRouterResource {
     @JsonIgnore
     public WorkflowRuleTarget getDefaultTarget() {
         return taskRouting.getDefaultTarget();
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .add("taskRouting", taskRouting)
-            .toString();
     }
 
     /**

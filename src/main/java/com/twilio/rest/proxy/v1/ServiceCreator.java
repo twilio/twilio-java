@@ -98,11 +98,11 @@ public class ServiceCreator extends Creator<Service> {
      * The preference for Proxy Number selection in the Service instance. Can be:
      * `prefer-sticky` or `avoid-sticky` and the default is `prefer-sticky`.
      * `prefer-sticky` means that we will try and select the same Proxy Number for a
-     * given participant if they have previous
-     * [Sessions](https://www.twilio.com/docs/proxy/api/session), but we will not
-     * fail if that Proxy Number cannot be used.  `avoid-sticky` means that we will
-     * try to use different Proxy Numbers as long as that is possible within a given
-     * pool rather than try and use a previously assigned number..
+     * given participant if they have previous <a
+     * href="https://www.twilio.com/docs/proxy/api/session">Sessions</a>, but we
+     * will not fail if that Proxy Number cannot be used.  `avoid-sticky` means that
+     * we will try to use different Proxy Numbers as long as that is possible within
+     * a given pool rather than try and use a previously assigned number..
      *
      * @param numberSelectionBehavior The preference for Proxy Number selection for
      *                                the Service instance
@@ -138,14 +138,14 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The URL we should call when an inbound call or SMS action occurs on a closed
-     * or non-existent Session. If your server (or a Twilio
-     * [function](https://www.twilio.com/functions)) responds with valid
-     * [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This
-     * means it is possible, for example, to play a message for a call, send an
+     * or non-existent Session. If your server (or a Twilio <a
+     * href="https://www.twilio.com/functions">function</a>) responds with valid <a
+     * href="https://www.twilio.com/docs/voice/twiml">TwiML</a>, we will process it.
+     * This means it is possible, for example, to play a message for a call, send an
      * automated text message response, or redirect a call to another Phone Number.
-     * See [Out-of-Session Callback Response
-     * Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide)
-     * for more information..
+     * See <a
+     * href="https://www.twilio.com/docs/proxy/out-session-callback-response-guide">Out-of-Session
+     * Callback Response Guide</a> for more information..
      *
      * @param outOfSessionCallbackUrl The URL we call when an inbound call or SMS
      *                                action occurs on a closed or non-existent
@@ -159,14 +159,14 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * The URL we should call when an inbound call or SMS action occurs on a closed
-     * or non-existent Session. If your server (or a Twilio
-     * [function](https://www.twilio.com/functions)) responds with valid
-     * [TwiML](https://www.twilio.com/docs/voice/twiml), we will process it. This
-     * means it is possible, for example, to play a message for a call, send an
+     * or non-existent Session. If your server (or a Twilio <a
+     * href="https://www.twilio.com/functions">function</a>) responds with valid <a
+     * href="https://www.twilio.com/docs/voice/twiml">TwiML</a>, we will process it.
+     * This means it is possible, for example, to play a message for a call, send an
      * automated text message response, or redirect a call to another Phone Number.
-     * See [Out-of-Session Callback Response
-     * Guide](https://www.twilio.com/docs/proxy/out-session-callback-response-guide)
-     * for more information..
+     * See <a
+     * href="https://www.twilio.com/docs/proxy/out-session-callback-response-guide">Out-of-Session
+     * Callback Response Guide</a> for more information..
      *
      * @param outOfSessionCallbackUrl The URL we call when an inbound call or SMS
      *                                action occurs on a closed or non-existent
@@ -210,7 +210,7 @@ public class ServiceCreator extends Creator<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

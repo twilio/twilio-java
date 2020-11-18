@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,20 +29,79 @@ import org.joda.time.DateTime;
  */
 public class UsageRecordReader extends Reader<UsageRecord> {
     private String sim;
+    private String fleet;
+    private String network;
+    private String isoCountry;
+    private UsageRecord.Group group;
     private UsageRecord.Granularity granularity;
-    private DateTime startTime;
-    private DateTime endTime;
+    private ZonedDateTime startTime;
+    private ZonedDateTime endTime;
 
     /**
-     * SID of a Sim resource. Only show UsageRecords representing usage incurred by
-     * this Super SIM..
+     * SID or unique name of a Sim resource. Only show UsageRecords representing
+     * usage incurred by this Super SIM..
      *
-     * @param sim SID of a Sim resource. Only show UsageRecords representing usage
-     *            incurred by this Super SIM.
+     * @param sim SID or unique name of a Sim resource. Only show UsageRecords
+     *            representing usage incurred by this Super SIM.
      * @return this
      */
     public UsageRecordReader setSim(final String sim) {
         this.sim = sim;
+        return this;
+    }
+
+    /**
+     * SID or unique name of a Fleet resource. Only show UsageRecords representing
+     * usage for Super SIMs belonging to this Fleet resource at the time the usage
+     * occurred..
+     *
+     * @param fleet SID or unique name of a Fleet resource. Only show UsageRecords
+     *              representing usage for Super SIMs belonging to this Fleet
+     *              resource at the time the usage occurred.
+     * @return this
+     */
+    public UsageRecordReader setFleet(final String fleet) {
+        this.fleet = fleet;
+        return this;
+    }
+
+    /**
+     * SID of a Network resource. Only show UsageRecords representing usage on this
+     * network..
+     *
+     * @param network SID of a Network resource. Only show UsageRecords
+     *                representing usage on this network.
+     * @return this
+     */
+    public UsageRecordReader setNetwork(final String network) {
+        this.network = network;
+        return this;
+    }
+
+    /**
+     * Alpha-2 ISO Country Code. Only show UsageRecords representing usage in this
+     * country..
+     *
+     * @param isoCountry Alpha-2 ISO Country Code. Only show UsageRecords
+     *                   representing usage in this country.
+     * @return this
+     */
+    public UsageRecordReader setIsoCountry(final String isoCountry) {
+        this.isoCountry = isoCountry;
+        return this;
+    }
+
+    /**
+     * Dimension over which to aggregate usage records. Can be: `sim`, `fleet`,
+     * `network`, `isoCountry`. Default is to not aggregate across any of these
+     * dimensions, UsageRecords will be aggregated into the time buckets described
+     * by the `Granularity` parameter..
+     *
+     * @param group Dimension over which to aggregate usage records.
+     * @return this
+     */
+    public UsageRecordReader setGroup(final UsageRecord.Group group) {
+        this.group = group;
         return this;
     }
 
@@ -61,27 +121,27 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that occurred at or after this time, specified in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is one month
-     * before the `end_time`..
+     * Only include usage that occurred at or after this time, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
+     * one month before the `end_time`..
      *
      * @param startTime Only include usage that occurred at or after this time.
      * @return this
      */
-    public UsageRecordReader setStartTime(final DateTime startTime) {
+    public UsageRecordReader setStartTime(final ZonedDateTime startTime) {
         this.startTime = startTime;
         return this;
     }
 
     /**
-     * Only include usage that occurred before this time, specified in [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) format. Default is the current
-     * time..
+     * Only include usage that occurred before this time, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
+     * the current time..
      *
      * @param endTime Only include usage that occurred before this time.
      * @return this
      */
-    public UsageRecordReader setEndTime(final DateTime endTime) {
+    public UsageRecordReader setEndTime(final ZonedDateTime endTime) {
         this.endTime = endTime;
         return this;
     }
@@ -180,7 +240,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
         if (response == null) {
             throw new ApiConnectionException("UsageRecord read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -206,16 +266,32 @@ public class UsageRecordReader extends Reader<UsageRecord> {
             request.addQueryParam("Sim", sim.toString());
         }
 
+        if (fleet != null) {
+            request.addQueryParam("Fleet", fleet.toString());
+        }
+
+        if (network != null) {
+            request.addQueryParam("Network", network);
+        }
+
+        if (isoCountry != null) {
+            request.addQueryParam("IsoCountry", isoCountry);
+        }
+
+        if (group != null) {
+            request.addQueryParam("Group", group.toString());
+        }
+
         if (granularity != null) {
             request.addQueryParam("Granularity", granularity.toString());
         }
 
         if (startTime != null) {
-            request.addQueryParam("StartTime", startTime.toString());
+            request.addQueryParam("StartTime", startTime.toOffsetDateTime().toString());
         }
 
         if (endTime != null) {
-            request.addQueryParam("EndTime", endTime.toString());
+            request.addQueryParam("EndTime", endTime.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

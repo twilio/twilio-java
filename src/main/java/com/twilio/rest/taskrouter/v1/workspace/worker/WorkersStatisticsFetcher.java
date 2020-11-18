@@ -17,13 +17,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     private final String pathWorkspaceSid;
     private Integer minutes;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
     private String taskQueueSid;
     private String taskQueueName;
     private String friendlyName;
@@ -52,25 +53,26 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     /**
-     * Only calculate statistics from this date and time and later, specified in
-     * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) format..
+     * Only calculate statistics from this date and time and later, specified in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
      *
      * @param startDate Only calculate statistics from on or after this date
      * @return this
      */
-    public WorkersStatisticsFetcher setStartDate(final DateTime startDate) {
+    public WorkersStatisticsFetcher setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
 
     /**
      * Only calculate statistics from this date and time and earlier, specified in
-     * GMT as an [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time..
+     * GMT as an <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>
+     * date-time..
      *
      * @param endDate Only calculate statistics from this date and time and earlier
      * @return this
      */
-    public WorkersStatisticsFetcher setEndDate(final DateTime endDate) {
+    public WorkersStatisticsFetcher setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -143,7 +145,7 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
 
         if (response == null) {
             throw new ApiConnectionException("WorkersStatistics fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -165,11 +167,11 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
         }
 
         if (taskQueueSid != null) {

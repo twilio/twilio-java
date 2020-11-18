@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Channel extends Resource {
     private static final long serialVersionUID = 275623534063843L;
 
@@ -90,8 +91,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The SID of the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return ChannelFetcher capable of executing the fetch
      */
     public static ChannelFetcher fetcher(final String pathServiceSid,
@@ -102,8 +103,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The SID of the Channel resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return ChannelDeleter capable of executing the delete
      */
     public static ChannelDeleter deleter(final String pathServiceSid,
@@ -114,8 +115,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the Channel resource
-     *                       under
+     * @param pathServiceSid The service_sid
      * @return ChannelCreator capable of executing the create
      */
     public static ChannelCreator creator(final String pathServiceSid) {
@@ -125,7 +125,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      * @return ChannelReader capable of executing the read
      */
     public static ChannelReader reader(final String pathServiceSid) {
@@ -135,8 +135,8 @@ public class Channel extends Resource {
     /**
      * Create a ChannelUpdater to execute update.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The SID of the Channel resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return ChannelUpdater capable of executing the update
      */
     public static ChannelUpdater updater(final String pathServiceSid,
@@ -188,8 +188,8 @@ public class Channel extends Resource {
     private final String uniqueName;
     private final String attributes;
     private final Channel.ChannelType type;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String createdBy;
     private final Integer membersCount;
     private final Integer messagesCount;
@@ -242,128 +242,126 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The string that you assigned to describe the resource.
+     * Returns The friendly_name.
      *
-     * @return The string that you assigned to describe the resource
+     * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the resource.
+     * Returns The unique_name.
      *
-     * @return An application-defined string that uniquely identifies the resource
+     * @return The unique_name
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The JSON string that stores application-specific data.
+     * Returns The attributes.
      *
-     * @return The JSON string that stores application-specific data
+     * @return The attributes
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The visibility of the channel. Can be: `public` or `private`.
+     * Returns The type.
      *
-     * @return The visibility of the channel. Can be: `public` or `private`
+     * @return The type
      */
     public final Channel.ChannelType getType() {
         return this.type;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The identity of the User that created the channel.
+     * Returns The created_by.
      *
-     * @return The identity of the User that created the channel
+     * @return The created_by
      */
     public final String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
-     * Returns The number of Members in the Channel.
+     * Returns The members_count.
      *
-     * @return The number of Members in the Channel
+     * @return The members_count
      */
     public final Integer getMembersCount() {
         return this.membersCount;
     }
 
     /**
-     * Returns The number of Messages that have been passed in the Channel.
+     * Returns The messages_count.
      *
-     * @return The number of Messages that have been passed in the Channel
+     * @return The messages_count
      */
     public final Integer getMessagesCount() {
         return this.messagesCount;
     }
 
     /**
-     * Returns The absolute URL of the Channel resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Channel resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns Absolute URLs to access the Members, Messages , Invites and, if it
-     * exists, the last Message for the Channel.
+     * Returns The links.
      *
-     * @return Absolute URLs to access the Members, Messages , Invites and, if it
-     *         exists, the last Message for the Channel
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -413,25 +411,5 @@ public class Channel extends Resource {
                             messagesCount,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("friendlyName", friendlyName)
-                          .add("uniqueName", uniqueName)
-                          .add("attributes", attributes)
-                          .add("type", type)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("createdBy", createdBy)
-                          .add("membersCount", membersCount)
-                          .add("messagesCount", messagesCount)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

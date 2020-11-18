@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -30,8 +31,8 @@ public class LogReader extends Reader<Log> {
     private final String pathServiceSid;
     private final String pathEnvironmentSid;
     private String functionSid;
-    private DateTime startDate;
-    private DateTime endDate;
+    private ZonedDateTime startDate;
+    private ZonedDateTime endDate;
 
     /**
      * Construct a new LogReader.
@@ -66,7 +67,7 @@ public class LogReader extends Reader<Log> {
      *                  been created.
      * @return this
      */
-    public LogReader setStartDate(final DateTime startDate) {
+    public LogReader setStartDate(final ZonedDateTime startDate) {
         this.startDate = startDate;
         return this;
     }
@@ -79,7 +80,7 @@ public class LogReader extends Reader<Log> {
      *                been created.
      * @return this
      */
-    public LogReader setEndDate(final DateTime endDate) {
+    public LogReader setEndDate(final ZonedDateTime endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -178,7 +179,7 @@ public class LogReader extends Reader<Log> {
 
         if (response == null) {
             throw new ApiConnectionException("Log read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -205,11 +206,11 @@ public class LogReader extends Reader<Log> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toString());
+            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toString());
+            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

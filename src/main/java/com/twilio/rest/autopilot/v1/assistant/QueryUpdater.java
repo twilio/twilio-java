@@ -42,9 +42,9 @@ public class QueryUpdater extends Updater<Query> {
     }
 
     /**
-     * The SID of an optional reference to the
-     * [Sample](https://www.twilio.com/docs/autopilot/api/task-sample) created from
-     * the query..
+     * The SID of an optional reference to the <a
+     * href="https://www.twilio.com/docs/autopilot/api/task-sample">Sample</a>
+     * created from the query..
      *
      * @param sampleSid The SID of an optional reference to the Sample created from
      *                  the query
@@ -87,7 +87,7 @@ public class QueryUpdater extends Updater<Query> {
 
         if (response == null) {
             throw new ApiConnectionException("Query update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

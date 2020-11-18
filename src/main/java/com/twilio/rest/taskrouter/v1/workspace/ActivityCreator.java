@@ -38,7 +38,8 @@ public class ActivityCreator extends Creator<Activity> {
     /**
      * Whether the Worker should be eligible to receive a Task when it occupies the
      * Activity. A value of `true`, `1`, or `yes` specifies the Activity is
-     * available. All other values specify that it is not..
+     * available. All other values specify that it is not. The value cannot be
+     * changed after the Activity is created..
      *
      * @param available Whether the Worker should be eligible to receive a Task
      *                  when it occupies the Activity
@@ -69,7 +70,7 @@ public class ActivityCreator extends Creator<Activity> {
 
         if (response == null) {
             throw new ApiConnectionException("Activity creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

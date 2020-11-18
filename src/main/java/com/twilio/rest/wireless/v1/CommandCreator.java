@@ -40,9 +40,9 @@ public class CommandCreator extends Creator<Command> {
     }
 
     /**
-     * The `sid` or `unique_name` of the
-     * [SIM](https://www.twilio.com/docs/wireless/api/sim-resource) to send the
-     * Command to..
+     * The `sid` or `unique_name` of the <a
+     * href="https://www.twilio.com/docs/wireless/api/sim-resource">SIM</a> to send
+     * the Command to..
      *
      * @param sim The sid or unique_name of the SIM to send the Command to
      * @return this
@@ -154,7 +154,7 @@ public class CommandCreator extends Creator<Command> {
 
         if (response == null) {
             throw new ApiConnectionException("Command creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

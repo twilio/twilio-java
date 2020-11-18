@@ -30,8 +30,8 @@ public class InviteReader extends Reader<Invite> {
     /**
      * Construct a new InviteReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The SID of the Channel the resources to read belong to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
     public InviteReader(final String pathServiceSid,
                         final String pathChannelSid) {
@@ -40,12 +40,9 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
-     * details..
+     * The identity.
      *
-     * @param identity The `identity` value of the resources to read
+     * @param identity The identity
      * @return this
      */
     public InviteReader setIdentity(final List<String> identity) {
@@ -54,12 +51,9 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/api/chat/rest/v1/user)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/api/chat/guides/create-tokens) for more
-     * details..
+     * The identity.
      *
-     * @param identity The `identity` value of the resources to read
+     * @param identity The identity
      * @return this
      */
     public InviteReader setIdentity(final String identity) {
@@ -160,7 +154,7 @@ public class InviteReader extends Reader<Invite> {
 
         if (response == null) {
             throw new ApiConnectionException("Invite read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

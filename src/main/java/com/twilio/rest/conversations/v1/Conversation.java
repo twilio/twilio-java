@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,21 +25,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 104618704631663L;
+    private static final long serialVersionUID = 235657538705254L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -184,10 +181,11 @@ public class Conversation extends Resource {
     private final String messagingServiceSid;
     private final String sid;
     private final String friendlyName;
+    private final String uniqueName;
     private final String attributes;
     private final Conversation.State state;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Map<String, Object> timers;
     private final URI url;
     private final Map<String, String> links;
@@ -203,6 +201,8 @@ public class Conversation extends Resource {
                          final String sid,
                          @JsonProperty("friendly_name")
                          final String friendlyName,
+                         @JsonProperty("unique_name")
+                         final String uniqueName,
                          @JsonProperty("attributes")
                          final String attributes,
                          @JsonProperty("state")
@@ -222,6 +222,7 @@ public class Conversation extends Resource {
         this.messagingServiceSid = messagingServiceSid;
         this.sid = sid;
         this.friendlyName = friendlyName;
+        this.uniqueName = uniqueName;
         this.attributes = attributes;
         this.state = state;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -232,27 +233,29 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this conversation..
+     * Returns The unique ID of the Account responsible for this conversation..
      *
-     * @return The unique id of the Account responsible for this conversation.
+     * @return The unique ID of the Account responsible for this conversation.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Chat Service this conversation belongs to..
+     * Returns The unique ID of the Conversation Service this conversation belongs
+     * to..
      *
-     * @return The unique id of the Chat Service this conversation belongs to.
+     * @return The unique ID of the Conversation Service this conversation belongs
+     *         to.
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
     }
 
     /**
-     * Returns The unique id of the SMS Service this conversation belongs to..
+     * Returns The unique ID of the Messaging Service this conversation belongs to..
      *
-     * @return The unique id of the SMS Service this conversation belongs to.
+     * @return The unique ID of the Messaging Service this conversation belongs to.
      */
     public final String getMessagingServiceSid() {
         return this.messagingServiceSid;
@@ -274,6 +277,15 @@ public class Conversation extends Resource {
      */
     public final String getFriendlyName() {
         return this.friendlyName;
+    }
+
+    /**
+     * Returns An application-defined string that uniquely identifies the resource.
+     *
+     * @return An application-defined string that uniquely identifies the resource
+     */
+    public final String getUniqueName() {
+        return this.uniqueName;
     }
 
     /**
@@ -301,7 +313,7 @@ public class Conversation extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -310,7 +322,7 @@ public class Conversation extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -333,9 +345,11 @@ public class Conversation extends Resource {
     }
 
     /**
-     * Returns Absolute URLs to access the Participants of this Conversation..
+     * Returns Absolute URLs to access the participants, messages and webhooks of
+     * this conversation..
      *
-     * @return Absolute URLs to access the Participants of this Conversation.
+     * @return Absolute URLs to access the participants, messages and webhooks of
+     *         this conversation.
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -358,6 +372,7 @@ public class Conversation extends Resource {
                Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
                Objects.equals(sid, other.sid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
+               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(attributes, other.attributes) &&
                Objects.equals(state, other.state) &&
                Objects.equals(dateCreated, other.dateCreated) &&
@@ -374,6 +389,7 @@ public class Conversation extends Resource {
                             messagingServiceSid,
                             sid,
                             friendlyName,
+                            uniqueName,
                             attributes,
                             state,
                             dateCreated,
@@ -381,23 +397,5 @@ public class Conversation extends Resource {
                             timers,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("chatServiceSid", chatServiceSid)
-                          .add("messagingServiceSid", messagingServiceSid)
-                          .add("sid", sid)
-                          .add("friendlyName", friendlyName)
-                          .add("attributes", attributes)
-                          .add("state", state)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("timers", timers)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

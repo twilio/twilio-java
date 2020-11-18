@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 152136077896645L;
 
@@ -157,8 +158,8 @@ public class PhoneNumber extends Resource {
     private final String apiVersion;
     private final Boolean beta;
     private final Map<String, String> capabilities;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final Map<String, String> links;
     private final com.twilio.type.PhoneNumber phoneNumber;
@@ -310,7 +311,7 @@ public class PhoneNumber extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -319,7 +320,7 @@ public class PhoneNumber extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -568,37 +569,5 @@ public class PhoneNumber extends Resource {
                             voiceFallbackUrl,
                             voiceMethod,
                             voiceUrl);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("addressRequirements", addressRequirements)
-                          .add("apiVersion", apiVersion)
-                          .add("beta", beta)
-                          .add("capabilities", capabilities)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("friendlyName", friendlyName)
-                          .add("links", links)
-                          .add("phoneNumber", phoneNumber)
-                          .add("sid", sid)
-                          .add("smsApplicationSid", smsApplicationSid)
-                          .add("smsFallbackMethod", smsFallbackMethod)
-                          .add("smsFallbackUrl", smsFallbackUrl)
-                          .add("smsMethod", smsMethod)
-                          .add("smsUrl", smsUrl)
-                          .add("statusCallback", statusCallback)
-                          .add("statusCallbackMethod", statusCallbackMethod)
-                          .add("trunkSid", trunkSid)
-                          .add("url", url)
-                          .add("voiceApplicationSid", voiceApplicationSid)
-                          .add("voiceCallerIdLookup", voiceCallerIdLookup)
-                          .add("voiceFallbackMethod", voiceFallbackMethod)
-                          .add("voiceFallbackUrl", voiceFallbackUrl)
-                          .add("voiceMethod", voiceMethod)
-                          .add("voiceUrl", voiceUrl)
-                          .toString();
     }
 }

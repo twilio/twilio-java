@@ -38,8 +38,9 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
-     * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read
      * @return this
@@ -51,8 +52,9 @@ public class BindingReader extends Reader<Binding> {
 
     /**
      * The push technology used by the Binding resources to read.  Can be: `apn`,
-     * `gcm`, or `fcm`.  See [push notification
-     * configuration](https://www.twilio.com/docs/chat/push-notification-configuration) for more info..
+     * `gcm`, or `fcm`.  See <a
+     * href="https://www.twilio.com/docs/chat/push-notification-configuration">push
+     * notification configuration</a> for more info..
      *
      * @param bindingType The push technology used by the Binding resources to read
      * @return this
@@ -62,9 +64,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read. See <a
+     * href="https://www.twilio.com/docs/chat/create-tokens">access tokens</a> for
+     * more details..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -75,9 +78,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     /**
-     * The [User](https://www.twilio.com/docs/chat/rest/user-resource)'s `identity`
-     * value of the resources to read. See [access
-     * tokens](https://www.twilio.com/docs/chat/create-tokens) for more details..
+     * The <a href="https://www.twilio.com/docs/chat/rest/user-resource">User</a>'s
+     * `identity` value of the resources to read. See <a
+     * href="https://www.twilio.com/docs/chat/create-tokens">access tokens</a> for
+     * more details..
      *
      * @param identity The `identity` value of the resources to read
      * @return this
@@ -180,7 +184,7 @@ public class BindingReader extends Reader<Binding> {
 
         if (response == null) {
             throw new ApiConnectionException("Binding read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

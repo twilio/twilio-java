@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,11 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +39,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class FunctionVersion extends Resource {
     private static final long serialVersionUID = 198867416400366L;
 
@@ -142,7 +143,7 @@ public class FunctionVersion extends Resource {
     private final String functionSid;
     private final String path;
     private final FunctionVersion.Visibility visibility;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -206,31 +207,33 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Returns The SID of the function that is the parent of the function version.
+     * Returns The SID of the Function resource that is the parent of the Function
+     * Version resource.
      *
-     * @return The SID of the function that is the parent of the function version
+     * @return The SID of the Function resource that is the parent of the Function
+     *         Version resource
      */
     public final String getFunctionSid() {
         return this.functionSid;
     }
 
     /**
-     * Returns The URL-friendly string by which the function version can be
+     * Returns The URL-friendly string by which the Function Version resource can be
      * referenced.
      *
-     * @return The URL-friendly string by which the function version can be
-     *         referenced
+     * @return The URL-friendly string by which the Function Version resource can
+     *         be referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The access control that determines how the function version can be
-     * accessed.
+     * Returns The access control that determines how the Function Version resource
+     * can be accessed.
      *
-     * @return The access control that determines how the function version can be
-     *         accessed
+     * @return The access control that determines how the Function Version resource
+     *         can be accessed
      */
     public final FunctionVersion.Visibility getVisibility() {
         return this.visibility;
@@ -243,7 +246,7 @@ public class FunctionVersion extends Resource {
      * @return The ISO 8601 date and time in GMT when the Function Version resource
      *         was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -299,20 +302,5 @@ public class FunctionVersion extends Resource {
                             dateCreated,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("functionSid", functionSid)
-                          .add("path", path)
-                          .add("visibility", visibility)
-                          .add("dateCreated", dateCreated)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

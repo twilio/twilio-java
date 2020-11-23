@@ -35,9 +35,9 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The SID of the channel the member to update belongs to
-     * @param pathSid The SID of the Member resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MemberUpdater(final String pathServiceSid,
                          final String pathChannelSid,
@@ -48,12 +48,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The SID of the <a
-     * href="https://www.twilio.com/docs/chat/rest/role-resource">Role</a> to assign
-     * to the member. The default roles are those specified on the <a
-     * href="https://www.twilio.com/docs/chat/rest/service-resource">Service</a>..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role to assign to the member
+     * @param roleSid The role_sid
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -62,13 +59,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The index of the last <a
-     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
-     * that the Member has read within the <a
-     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last consumed Message for
-     *                                 the Channel for the Member
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -77,15 +70,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
-     * of the last <a
-     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
-     * read event for the Member within the <a
-     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
+     * The last_consumption_timestamp.
      *
-     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string
-     *                                 representing the datetime of the last Message
-     *                                 read event for the Member within the Channel
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
      * @return this
      */
     public MemberUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
@@ -94,14 +81,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was created. The
-     * default value is the current time set by the Chat service.  Note that this
-     * parameter should only be used when a Member is being recreated from a
-     * backup/separate source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
     public MemberUpdater setDateCreated(final ZonedDateTime dateCreated) {
@@ -110,11 +92,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The date, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
-     * 8601</a> format, to assign to the resource as the date it was last updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
     public MemberUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
@@ -123,9 +103,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public MemberUpdater setAttributes(final String attributes) {

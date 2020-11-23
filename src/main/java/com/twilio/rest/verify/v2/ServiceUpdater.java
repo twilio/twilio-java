@@ -43,7 +43,7 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * A descriptive string that you create to describe the verification service. It
-     * can be up to 64 characters long. **This value should not contain PII.**.
+     * can be up to 30 characters long. **This value should not contain PII.**.
      *
      * @param friendlyName A string to describe the verification service
      * @return this

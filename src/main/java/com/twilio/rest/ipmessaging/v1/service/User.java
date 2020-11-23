@@ -40,8 +40,8 @@ public class User extends Resource {
     /**
      * Create a UserFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return UserFetcher capable of executing the fetch
      */
     public static UserFetcher fetcher(final String pathServiceSid,
@@ -52,8 +52,8 @@ public class User extends Resource {
     /**
      * Create a UserDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return UserDeleter capable of executing the delete
      */
     public static UserDeleter deleter(final String pathServiceSid,
@@ -64,8 +64,8 @@ public class User extends Resource {
     /**
      * Create a UserCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service to create the new resource under
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param identity The identity
      * @return UserCreator capable of executing the create
      */
     public static UserCreator creator(final String pathServiceSid,
@@ -76,7 +76,7 @@ public class User extends Resource {
     /**
      * Create a UserReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      * @return UserReader capable of executing the read
      */
     public static UserReader reader(final String pathServiceSid) {
@@ -86,8 +86,8 @@ public class User extends Resource {
     /**
      * Create a UserUpdater to execute update.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return UserUpdater capable of executing the update
      */
     public static UserUpdater updater(final String pathServiceSid,
@@ -193,132 +193,126 @@ public class User extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The JSON string that stores application-specific data.
+     * Returns The attributes.
      *
-     * @return The JSON string that stores application-specific data
+     * @return The attributes
      */
     public final String getAttributes() {
         return this.attributes;
     }
 
     /**
-     * Returns The string that you assigned to describe the resource.
+     * Returns The friendly_name.
      *
-     * @return The string that you assigned to describe the resource
+     * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The SID of the assigned to the user.
+     * Returns The role_sid.
      *
-     * @return The SID of the assigned to the user
+     * @return The role_sid
      */
     public final String getRoleSid() {
         return this.roleSid;
     }
 
     /**
-     * Returns The string that identifies the resource's User.
+     * Returns The identity.
      *
-     * @return The string that identifies the resource's User
+     * @return The identity
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns Whether the User is actively connected to the Service instance and
-     * online.
+     * Returns The is_online.
      *
-     * @return Whether the User is actively connected to the Service instance and
-     *         online
+     * @return The is_online
      */
     public final Boolean getIsOnline() {
         return this.isOnline;
     }
 
     /**
-     * Returns Whether the User has a potentially valid Push Notification
-     * registration for the Service instance.
+     * Returns The is_notifiable.
      *
-     * @return Whether the User has a potentially valid Push Notification
-     *         registration for the Service instance
+     * @return The is_notifiable
      */
     public final Boolean getIsNotifiable() {
         return this.isNotifiable;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The date_created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The number of Channels this User is a Member of.
+     * Returns The joined_channels_count.
      *
-     * @return The number of Channels this User is a Member of
+     * @return The joined_channels_count
      */
     public final Integer getJoinedChannelsCount() {
         return this.joinedChannelsCount;
     }
 
     /**
-     * Returns The absolute URLs of the Channel and Binding resources related to the
-     * user.
+     * Returns The links.
      *
-     * @return The absolute URLs of the Channel and Binding resources related to
-     *         the user
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;
     }
 
     /**
-     * Returns The absolute URL of the User resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the User resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;

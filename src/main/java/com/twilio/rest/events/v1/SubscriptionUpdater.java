@@ -30,7 +30,7 @@ public class SubscriptionUpdater extends Updater<Subscription> {
     /**
      * Construct a new SubscriptionUpdater.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Subscription.
      */
     public SubscriptionUpdater(final String pathSid) {
         this.pathSid = pathSid;

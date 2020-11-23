@@ -25,10 +25,9 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     /**
      * Construct a new UserChannelDeleter.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathUserSid The SID of the User to fetch the User Channel resources
-     *                    from
-     * @param pathChannelSid The SID of the Channel the resource belongs to
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathChannelSid The channel_sid
      */
     public UserChannelDeleter(final String pathServiceSid,
                               final String pathUserSid,

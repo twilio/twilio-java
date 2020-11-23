@@ -44,7 +44,6 @@ public class FactorTest {
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors");
             request.addPostParam("FriendlyName", serialize("friendly_name"));
             request.addPostParam("FactorType", serialize(Factor.FactorTypes.PUSH));
-            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -53,7 +52,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", Factor.FactorTypes.PUSH).setTwilioSandboxMode("twilio_sandbox_mode").create();
+            Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", Factor.FactorTypes.PUSH).create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -67,7 +66,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", Factor.FactorTypes.PUSH).setTwilioSandboxMode("twilio_sandbox_mode").create();
+        Factor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", Factor.FactorTypes.PUSH).create();
     }
 
     @Test
@@ -76,7 +75,7 @@ public class FactorTest {
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -85,7 +84,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").delete();
+            Factor.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -99,7 +98,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").delete();
+        Factor.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
@@ -108,7 +107,7 @@ public class FactorTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -117,7 +116,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").fetch();
+            Factor.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -131,7 +130,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").fetch());
+        assertNotNull(Factor.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 
     @Test
@@ -140,7 +139,7 @@ public class FactorTest {
             Request request = new Request(HttpMethod.GET,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors");
-            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -149,7 +148,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setTwilioSandboxMode("twilio_sandbox_mode").read();
+            Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +162,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setTwilioSandboxMode("twilio_sandbox_mode").read());
+        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
     }
 
     @Test
@@ -175,7 +174,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setTwilioSandboxMode("twilio_sandbox_mode").read());
+        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
     }
 
     @Test
@@ -184,7 +183,7 @@ public class FactorTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Entities/identity/Factors/YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addHeaderParam("Twilio-Sandbox-Mode", serialize("twilio_sandbox_mode"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -193,7 +192,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").update();
+            Factor.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,6 +206,6 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        Factor.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setTwilioSandboxMode("twilio_sandbox_mode").update();
+        Factor.updater("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 }

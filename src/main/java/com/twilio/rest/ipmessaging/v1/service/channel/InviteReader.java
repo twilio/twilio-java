@@ -30,8 +30,8 @@ public class InviteReader extends Reader<Invite> {
     /**
      * Construct a new InviteReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The SID of the Channel the resources to read belong to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
     public InviteReader(final String pathServiceSid,
                         final String pathChannelSid) {
@@ -40,12 +40,9 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The <a href="https://www.twilio.com/docs/api/chat/rest/v1/user">User</a>'s
-     * `identity` value of the resources to read. See <a
-     * href="https://www.twilio.com/docs/api/chat/guides/create-tokens">access
-     * tokens</a> for more details..
+     * The identity.
      *
-     * @param identity The `identity` value of the resources to read
+     * @param identity The identity
      * @return this
      */
     public InviteReader setIdentity(final List<String> identity) {
@@ -54,12 +51,9 @@ public class InviteReader extends Reader<Invite> {
     }
 
     /**
-     * The <a href="https://www.twilio.com/docs/api/chat/rest/v1/user">User</a>'s
-     * `identity` value of the resources to read. See <a
-     * href="https://www.twilio.com/docs/api/chat/guides/create-tokens">access
-     * tokens</a> for more details..
+     * The identity.
      *
-     * @param identity The `identity` value of the resources to read
+     * @param identity The identity
      * @return this
      */
     public InviteReader setIdentity(final String identity) {

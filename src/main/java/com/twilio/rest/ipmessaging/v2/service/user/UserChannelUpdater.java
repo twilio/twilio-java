@@ -31,11 +31,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     /**
      * Construct a new UserChannelUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathUserSid The SID of the User to update the User Channel resource
-     *                    from
-     * @param pathChannelSid The SID of the Channel with the User Channel resource
-     *                       to update
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathChannelSid The channel_sid
      */
     public UserChannelUpdater(final String pathServiceSid,
                               final String pathUserSid,
@@ -46,11 +44,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The push notification level to assign to the User Channel. Can be: `default`
-     * or `muted`..
+     * The notification_level.
      *
-     * @param notificationLevel The push notification level to assign to the User
-     *                          Channel
+     * @param notificationLevel The notification_level
      * @return this
      */
     public UserChannelUpdater setNotificationLevel(final UserChannel.NotificationLevel notificationLevel) {
@@ -59,13 +55,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The index of the last <a
-     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a> in
-     * the <a href="https://www.twilio.com/docs/chat/channels">Channel</a> that the
-     * Member has read..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last Message that the
-     *                                 Member has read within the Channel
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public UserChannelUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -74,15 +66,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> timestamp
-     * of the last <a
-     * href="https://www.twilio.com/docs/chat/rest/message-resource">Message</a>
-     * read event for the Member within the <a
-     * href="https://www.twilio.com/docs/chat/channels">Channel</a>..
+     * The last_consumption_timestamp.
      *
-     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string that
-     *                                 represents the datetime of the last Message
-     *                                 read event for the Member within the Channel
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
      * @return this
      */
     public UserChannelUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {

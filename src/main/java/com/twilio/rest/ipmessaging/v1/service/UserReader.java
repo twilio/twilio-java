@@ -25,7 +25,7 @@ public class UserReader extends Reader<User> {
     /**
      * Construct a new UserReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      */
     public UserReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;

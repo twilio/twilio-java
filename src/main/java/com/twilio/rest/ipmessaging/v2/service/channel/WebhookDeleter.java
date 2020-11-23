@@ -25,11 +25,9 @@ public class WebhookDeleter extends Deleter<Webhook> {
     /**
      * Construct a new WebhookDeleter.
      *
-     * @param pathServiceSid The SID of the Service with the Channel to delete the
-     *                       Webhook resource from
-     * @param pathChannelSid The SID of the channel the resource to delete belongs
-     *                       to
-     * @param pathSid The SID of the Channel Webhook resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public WebhookDeleter(final String pathServiceSid,
                           final String pathChannelSid,

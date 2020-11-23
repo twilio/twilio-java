@@ -76,7 +76,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialCreator to execute create.
      *
-     * @param type The type of push-notification service the credential is for
+     * @param type The type
      * @return CredentialCreator capable of executing the create
      */
     public static CredentialCreator creator(final Credential.PushService type) {
@@ -86,7 +86,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialFetcher to execute fetch.
      *
-     * @param pathSid The SID of the Credential resource to fetch
+     * @param pathSid The sid
      * @return CredentialFetcher capable of executing the fetch
      */
     public static CredentialFetcher fetcher(final String pathSid) {
@@ -96,7 +96,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialUpdater to execute update.
      *
-     * @param pathSid The SID of the Credential resource to update
+     * @param pathSid The sid
      * @return CredentialUpdater capable of executing the update
      */
     public static CredentialUpdater updater(final String pathSid) {
@@ -106,7 +106,7 @@ public class Credential extends Resource {
     /**
      * Create a CredentialDeleter to execute delete.
      *
-     * @param pathSid The SID of the Credential resource to delete
+     * @param pathSid The sid
      * @return CredentialDeleter capable of executing the delete
      */
     public static CredentialDeleter deleter(final String pathSid) {
@@ -188,72 +188,72 @@ public class Credential extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The string that you assigned to describe the resource.
+     * Returns The friendly_name.
      *
-     * @return The string that you assigned to describe the resource
+     * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The type of push-notification service the credential is for.
+     * Returns The type.
      *
-     * @return The type of push-notification service the credential is for
+     * @return The type
      */
     public final Credential.PushService getType() {
         return this.type;
     }
 
     /**
-     * Returns [APN only] Whether to send the credential to sandbox APNs.
+     * Returns The sandbox.
      *
-     * @return [APN only] Whether to send the credential to sandbox APNs
+     * @return The sandbox
      */
     public final String getSandbox() {
         return this.sandbox;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The absolute URL of the Credential resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Credential resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;

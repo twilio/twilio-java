@@ -27,10 +27,9 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the member to update
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MemberUpdater(final String pathServiceSid,
                          final String pathChannelSid,
@@ -41,12 +40,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The SID of the <a
-     * href="https://www.twilio.com/docs/api/chat/rest/roles">Role</a> to assign to
-     * the member. The default roles are those specified on the <a
-     * href="https://www.twilio.com/docs/chat/api/services">Service</a>..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role to assign to the member
+     * @param roleSid The role_sid
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -55,13 +51,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The index of the last <a
-     * href="https://www.twilio.com/docs/api/chat/rest/messages">Message</a> that
-     * the Member has read within the <a
-     * href="https://www.twilio.com/docs/api/chat/rest/channels">Channel</a>..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last consumed Message for
-     *                                 the Channel for the Member
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {

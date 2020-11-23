@@ -23,7 +23,7 @@ public class CredentialDeleter extends Deleter<Credential> {
     /**
      * Construct a new CredentialDeleter.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The sid
      */
     public CredentialDeleter(final String pathSid) {
         this.pathSid = pathSid;

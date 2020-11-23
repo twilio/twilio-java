@@ -17,7 +17,7 @@ public enum Domains {
     FAX("fax"),
     FLEXAPI("flex-api"),
     INSIGHTS("insights"),
-    IPMESSAGING("chat"),
+    IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
     MESSAGING("messaging"),
     MONITOR("monitor"),

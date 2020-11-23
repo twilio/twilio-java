@@ -25,6 +25,7 @@ import com.twilio.rest.Domains;
  */
 public class DocumentReader extends Reader<Document> {
     private final String pathServiceSid;
+    private Document.HideExpiredType hideExpired;
 
     /**
      * Construct a new DocumentReader.
@@ -34,6 +35,18 @@ public class DocumentReader extends Reader<Document> {
      */
     public DocumentReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
+    }
+
+    /**
+     * The default list of Sync Documents will show both active and expired items.
+     * It is possible to filter only the active ones by hiding the expired ones..
+     *
+     * @param hideExpired Hide expired Sync Documents and show only active ones.
+     * @return this
+     */
+    public DocumentReader setHideExpired(final Document.HideExpiredType hideExpired) {
+        this.hideExpired = hideExpired;
+        return this;
     }
 
     /**
@@ -152,6 +165,10 @@ public class DocumentReader extends Reader<Document> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (hideExpired != null) {
+            request.addQueryParam("HideExpired", hideExpired.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -23,7 +23,7 @@ public class CredentialFetcher extends Fetcher<Credential> {
     /**
      * Construct a new CredentialFetcher.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The sid
      */
     public CredentialFetcher(final String pathSid) {
         this.pathSid = pathSid;

@@ -2,6 +2,7 @@ package com.twilio.jwt.accesstoken;
 
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwsHeader;
 import io.jsonwebtoken.Jwts;
 import org.junit.Assert;
 import org.junit.Test;
@@ -91,6 +92,32 @@ public class AccessTokenTest {
 
         validateToken(claims);
         Assert.assertTrue(claims.getNotBefore().getTime() <= new Date().getTime());
+    }
+
+    @Test
+    public void testRegion() {
+        Jwt token = new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+          .region("foo")
+          .build();
+
+        JwsHeader header = Jwts.parser()
+            .setSigningKey(SECRET.getBytes())
+            .parseClaimsJws(token.toJwt())
+            .getHeader();
+
+        Assert.assertEquals("foo", header.get("twr"));
+    }
+
+    @Test
+    public void testEmptyRegion() {
+        Jwt token = new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET).build();
+
+        JwsHeader header = Jwts.parser()
+            .setSigningKey(SECRET.getBytes())
+            .parseClaimsJws(token.toJwt())
+            .getHeader();
+
+        Assert.assertEquals(null, header.get("twr"));
     }
 
     @Test

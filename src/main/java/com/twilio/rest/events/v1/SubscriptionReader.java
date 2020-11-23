@@ -25,6 +25,19 @@ import com.twilio.rest.Domains;
  * access, please contact help@twilio.com.
  */
 public class SubscriptionReader extends Reader<Subscription> {
+    private String sinkSid;
+
+    /**
+     * The SID of the sink that the list of Subscriptions should be filtered by..
+     *
+     * @param sinkSid Sink SID.
+     * @return this
+     */
+    public SubscriptionReader setSinkSid(final String sinkSid) {
+        this.sinkSid = sinkSid;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -141,6 +154,10 @@ public class SubscriptionReader extends Reader<Subscription> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (sinkSid != null) {
+            request.addQueryParam("SinkSid", sinkSid);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

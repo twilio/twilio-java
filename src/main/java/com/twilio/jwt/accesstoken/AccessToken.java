@@ -27,6 +27,7 @@ public class AccessToken extends Jwt {
     private final String id;
     private final String accountSid;
     private final String identity;
+    private final String region;
     private final Date nbf;
     private final Set<Grant> grants;
 
@@ -42,6 +43,7 @@ public class AccessToken extends Jwt {
         this.id = b.keySid + "-" + (int)(Math.floor(now.getTime() / 1000.0f));
         this.accountSid = b.accountSid;
         this.identity = b.identity;
+        this.region = b.region;
         this.nbf = b.nbf;
         this.grants = Collections.unmodifiableSet(b.grants);
     }
@@ -65,6 +67,9 @@ public class AccessToken extends Jwt {
     public Map<String, Object> getHeaders() {
         Map<String, Object> headers = new HashMap<>();
         headers.put("cty", CTY);
+        if (this.region != null && !"".equals(this.region)) {
+            headers.put("twr", this.region);
+        }
         return headers;
     }
 
@@ -91,6 +96,7 @@ public class AccessToken extends Jwt {
         private String keySid;
         private String secret;
         private String identity;
+        private String region;
         private Date nbf = null;
         private int ttl = 3600;
         private Set<Grant> grants = new HashSet<Grant>();
@@ -111,6 +117,11 @@ public class AccessToken extends Jwt {
         public Builder identity(String identity) {
             this.identity = identity;
             return this;
+        }
+
+        public Builder region(String region) {
+          this.region = region;
+          return this;
         }
 
         public Builder ttl(int ttl) {

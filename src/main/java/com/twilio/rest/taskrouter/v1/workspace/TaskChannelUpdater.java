@@ -26,9 +26,9 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     /**
      * Construct a new TaskChannelUpdater.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
      *                         update
-     * @param pathSid The SID of the TaskChannel resource to update
+     * @param pathSid The SID of the Task Channel resource to update
      */
     public TaskChannelUpdater(final String pathWorkspaceSid,
                               final String pathSid) {
@@ -37,10 +37,10 @@ public class TaskChannelUpdater extends Updater<TaskChannel> {
     }
 
     /**
-     * A descriptive string that you create to describe the TaskChannel. It can be
+     * A descriptive string that you create to describe the Task Channel. It can be
      * up to 64 characters long..
      *
-     * @param friendlyName A string to describe the TaskChannel resource
+     * @param friendlyName A string to describe the Task Channel resource
      * @return this
      */
     public TaskChannelUpdater setFriendlyName(final String friendlyName) {

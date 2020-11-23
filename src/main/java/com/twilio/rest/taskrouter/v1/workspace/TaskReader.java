@@ -56,9 +56,9 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The `assignment_status` of the Tasks to read. Can be: `pending`, `reserved`,
-     * `assigned`, `canceled`, and `completed`. Returns all Tasks in the Workspace
-     * with the specified `assignment_status`..
+     * The `assignment_status` of the Tasks you want to read. Can be: `pending`,
+     * `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all
+     * Tasks in the Workspace with the specified `assignment_status`..
      *
      * @param assignmentStatus Returns the list of all Tasks in the Workspace with
      *                         the specified assignment_status
@@ -70,9 +70,9 @@ public class TaskReader extends Reader<Task> {
     }
 
     /**
-     * The `assignment_status` of the Tasks to read. Can be: `pending`, `reserved`,
-     * `assigned`, `canceled`, and `completed`. Returns all Tasks in the Workspace
-     * with the specified `assignment_status`..
+     * The `assignment_status` of the Tasks you want to read. Can be: `pending`,
+     * `reserved`, `assigned`, `canceled`, `wrapping`, or `completed`. Returns all
+     * Tasks in the Workspace with the specified `assignment_status`..
      *
      * @param assignmentStatus Returns the list of all Tasks in the Workspace with
      *                         the specified assignment_status

@@ -36,7 +36,7 @@ public class LoggingTest {
     }
 
     @Test
-    public void testDefaultConfigurationFileDebugLogging() {
+    public void testUsingDefaultConfigurationFileDebugLogging() {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream outputStream = new PrintStream(output);
         PrintStream originalStream = System.out;

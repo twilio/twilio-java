@@ -17,7 +17,7 @@ public class LoggingTest {
     }
 
     @Test
-    public void testDebuggingLogging() {
+    public void testDebugLogging() {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         PrintStream outputStream = new PrintStream(output);
         PrintStream originalStream = System.out;
@@ -33,5 +33,22 @@ public class LoggingTest {
         System.setOut(originalStream);
         Assert.assertTrue(output.toString().contains("GET"));
         Assert.assertFalse(output.toString().contains("Authorization"));
+    }
+
+    @Test
+    public void testDefaultConfigurationFileDebugLogging() {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        PrintStream outputStream = new PrintStream(output);
+        PrintStream originalStream = System.out;
+        System.setOut(outputStream);
+        final Request request = new Request(HttpMethod.GET, Domains.API.toString(),
+                "/2010-04-01/Accounts/AC123/Messages/MM123.json");
+        request.addHeaderParam("Authorization", "authorization value");
+        request.addHeaderParam("Test Header", "test value");
+        TwilioRestClient twilioRestClient = Twilio.getRestClient();
+        twilioRestClient.logRequest(request);
+        System.out.flush();
+        System.setOut(originalStream);
+        Assert.assertTrue(output.toString().isEmpty());
     }
 }

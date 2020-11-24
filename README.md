@@ -96,7 +96,7 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 In order to enable debug logging, create a configuration file named log4j2.xml that defines the logger at the root level to at least 'debug'. An example of the configuration file can be found [here](src/main/java/com/twilio/example/log4j2.xml). For more configuration options please see the log4j configuration [documentation](https://logging.apache.org/log4j/2.x/manual/configuration.html).
 ```java
 Twilio.init(accountSid, authToken);
-Twilio.setLoggerConfiguration("path_to_log4j2.xml");
+Twilio.setLoggerConfiguration("path/to/log4j2.xml");
 ```
 
 ### Environment Variables

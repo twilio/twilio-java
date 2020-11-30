@@ -152,11 +152,11 @@ public class TwilioRestClient {
         final Map<String, List<String>> queryParams = request.getQueryParams();
         final Map<String, List<String>> headerParams = request.getHeaderParams();
 
-        if (queryParams.isEmpty() == false) {
+        if (!queryParams.isEmpty()) {
             logger.debug("query parameters: " + queryParams);
         }
 
-        if (headerParams.isEmpty() == false) {
+        if (!headerParams.isEmpty()) {
             logger.debug("header parameters: ");
             for (String key : headerParams.keySet()) {
                 if (!key.toLowerCase().contains("authorization")) {

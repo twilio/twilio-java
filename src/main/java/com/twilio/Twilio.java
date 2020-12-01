@@ -158,9 +158,11 @@ public class Twilio {
      * Set the logger configuration file path.
      *
      * @param filePath path to logging configuration file
+     * @param loggerContext defaults to false to get the appropriate logger context for the caller.
      */
-    public static synchronized void setLoggerConfiguration(final String filePath) {
-        LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(false);
+    public static synchronized void setLoggerConfiguration(final String filePath, final boolean... loggerContext) {
+        boolean logContext = (loggerContext.length >= 1) ? loggerContext[0] : false;
+        LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(logContext);
         File file = new File(filePath);
         context.setConfigLocation(file.toURI());
     }

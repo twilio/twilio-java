@@ -4,8 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.function.Predicate;
-import java.io.*;
-import java.util.*;
+import java.util.Map;
+import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,7 +25,7 @@ public class TwilioRestClient {
     private final String region;
     private final String edge;
     private final HttpClient httpClient;
-    private static final Logger logger = LogManager.getLogger("TwilioRestClient");
+    private static final Logger logger = LogManager.getLogger();
 
     private TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -61,7 +61,7 @@ public class TwilioRestClient {
         Response response = httpClient.reliableRequest(request);
         logger.debug("status code: " + response.getStatusCode());
         org.apache.http.Header[] responseHeaders = response.getHeaders();
-        logger.debug("respone headers:");
+        logger.debug("response headers:");
         for (int i = 0; i < responseHeaders.length; i++) {
             logger.debug(responseHeaders[i]);
         }

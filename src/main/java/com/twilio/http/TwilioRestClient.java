@@ -4,6 +4,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import java.util.function.Predicate;
+import java.util.Map;
+import java.util.List;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.LoggerContext;
 
 public class TwilioRestClient {
 
@@ -19,6 +25,7 @@ public class TwilioRestClient {
     private final String region;
     private final String edge;
     private final HttpClient httpClient;
+    private static final Logger logger = LogManager.getLogger();
 
     private TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -50,7 +57,16 @@ public class TwilioRestClient {
         if (edge != null)
             request.setEdge(edge);
 
-        return httpClient.reliableRequest(request);
+        logRequest(request);
+        Response response = httpClient.reliableRequest(request);
+        logger.debug("status code: " + response.getStatusCode());
+        org.apache.http.Header[] responseHeaders = response.getHeaders();
+        logger.debug("response headers:");
+        for (int i = 0; i < responseHeaders.length; i++) {
+            logger.debug(responseHeaders[i]);
+        }
+
+        return response;
     }
 
     public String getAccountSid() {
@@ -124,6 +140,31 @@ public class TwilioRestClient {
             }
             return new TwilioRestClient(this);
         }
+    }
+
+    /**
+     * Logging debug information about HTTP request.
+     */
+    public void logRequest(final Request request) {
+        logger.debug("-- BEGIN Twilio API Request --");
+        logger.debug("request method: " + request.getMethod());
+        logger.debug("request URL: " + request.getUrl());
+        final Map<String, List<String>> queryParams = request.getQueryParams();
+        final Map<String, List<String>> headerParams = request.getHeaderParams();
+
+        if (!queryParams.isEmpty()) {
+            logger.debug("query parameters: " + queryParams);
+        }
+
+        if (!headerParams.isEmpty()) {
+            logger.debug("header parameters: ");
+            for (String key : headerParams.keySet()) {
+                if (!key.toLowerCase().contains("authorization")) {
+                    logger.debug(key + ": " + headerParams.get(key));
+                }
+            }
+        }
+        logger.debug("-- END Twilio API Request --");
     }
 
 }

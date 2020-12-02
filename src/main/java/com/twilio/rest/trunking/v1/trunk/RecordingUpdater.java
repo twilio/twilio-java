@@ -19,14 +19,41 @@ import com.twilio.rest.Domains;
 
 public class RecordingUpdater extends Updater<Recording> {
     private final String pathTrunkSid;
+    private Recording.RecordingMode mode;
+    private Recording.RecordingTrim trim;
 
     /**
      * Construct a new RecordingUpdater.
      *
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk.
      */
     public RecordingUpdater(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
+    }
+
+    /**
+     * The recording mode for the trunk. Can be do-not-record (default),
+     * record-from-ringing, record-from-answer, record-from-ringing-dual, or
+     * record-from-answer-dual..
+     *
+     * @param mode The recording mode for the trunk.
+     * @return this
+     */
+    public RecordingUpdater setMode(final Recording.RecordingMode mode) {
+        this.mode = mode;
+        return this;
+    }
+
+    /**
+     * The recording trim setting for the trunk. Can be do-not-trim (default) or
+     * trim-silence..
+     *
+     * @param trim The recording trim setting for the trunk.
+     * @return this
+     */
+    public RecordingUpdater setTrim(final Recording.RecordingTrim trim) {
+        this.trim = trim;
+        return this;
     }
 
     /**
@@ -66,5 +93,12 @@ public class RecordingUpdater extends Updater<Recording> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (mode != null) {
+            request.addPostParam("Mode", mode.toString());
+        }
+
+        if (trim != null) {
+            request.addPostParam("Trim", trim.toString());
+        }
     }
 }

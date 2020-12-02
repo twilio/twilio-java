@@ -124,6 +124,23 @@ public class Conference extends TwiML {
         }
     }
 
+    public enum JitterBufferSize {
+        LARGE("large"),
+        MEDIUM("medium"),
+        SMALL("small"),
+        OFF("off");
+
+        private final String value;
+
+        private JitterBufferSize(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final Boolean muted;
     private final Conference.Beep beep;
     private final Boolean startConferenceOnEnter;
@@ -142,6 +159,8 @@ public class Conference extends TwiML {
     private final HttpMethod recordingStatusCallbackMethod;
     private final List<Conference.RecordingEvent> recordingStatusCallbackEvent;
     private final URI eventCallbackUrl;
+    private final Conference.JitterBufferSize jitterBufferSize;
+    private final String participantLabel;
     private final String name;
 
     /**
@@ -174,6 +193,8 @@ public class Conference extends TwiML {
         this.recordingStatusCallbackMethod = b.recordingStatusCallbackMethod;
         this.recordingStatusCallbackEvent = b.recordingStatusCallbackEvent;
         this.eventCallbackUrl = b.eventCallbackUrl;
+        this.jitterBufferSize = b.jitterBufferSize;
+        this.participantLabel = b.participantLabel;
         this.name = b.name;
     }
 
@@ -248,6 +269,12 @@ public class Conference extends TwiML {
         }
         if (this.getEventCallbackUrl() != null) {
             attrs.put("eventCallbackUrl", this.getEventCallbackUrl().toString());
+        }
+        if (this.getJitterBufferSize() != null) {
+            attrs.put("jitterBufferSize", this.getJitterBufferSize().toString());
+        }
+        if (this.getParticipantLabel() != null) {
+            attrs.put("participantLabel", this.getParticipantLabel());
         }
 
         return attrs;
@@ -440,6 +467,24 @@ public class Conference extends TwiML {
     }
 
     /**
+     * Size of jitter buffer for participant
+     *
+     * @return Size of jitter buffer for participant
+     */
+    public Conference.JitterBufferSize getJitterBufferSize() {
+        return jitterBufferSize;
+    }
+
+    /**
+     * A label for participant
+     *
+     * @return A label for participant
+     */
+    public String getParticipantLabel() {
+        return participantLabel;
+    }
+
+    /**
      * Conference name
      *
      * @return Conference name
@@ -470,6 +515,8 @@ public class Conference extends TwiML {
         private HttpMethod recordingStatusCallbackMethod;
         private List<Conference.RecordingEvent> recordingStatusCallbackEvent;
         private URI eventCallbackUrl;
+        private Conference.JitterBufferSize jitterBufferSize;
+        private String participantLabel;
         private String name;
 
         /**
@@ -668,6 +715,22 @@ public class Conference extends TwiML {
          */
         public Builder eventCallbackUrl(String eventCallbackUrl) {
             this.eventCallbackUrl = Promoter.uriFromString(eventCallbackUrl);
+            return this;
+        }
+
+        /**
+         * Size of jitter buffer for participant
+         */
+        public Builder jitterBufferSize(Conference.JitterBufferSize jitterBufferSize) {
+            this.jitterBufferSize = jitterBufferSize;
+            return this;
+        }
+
+        /**
+         * A label for participant
+         */
+        public Builder participantLabel(String participantLabel) {
+            this.participantLabel = participantLabel;
             return this;
         }
 

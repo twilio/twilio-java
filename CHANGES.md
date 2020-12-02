@@ -1,6 +1,27 @@
 twilio-java changelog
 =====================
 
+[2020-12-02] Version 8.4.0
+--------------------------
+**Library - Feature**
+- [PR #606](https://github.com/twilio/twilio-java/pull/606): add http logging for Java. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #602](https://github.com/twilio/twilio-java/pull/602): Regional support for access token. Thanks to [@charliesantos](https://github.com/charliesantos)!
+
+**Api**
+- Remove `RecordingTrack` parameter for create calls, create participants, and create call recordings **(breaking change)**
+- Added `RecordingTrack` parameter for create calls and create call recordings
+- Add optional property `recording_track` in the participant create request
+
+**Lookups**
+- Changed `caller_name` and `carrier` properties type to object **(breaking change)**
+
+**Trunking**
+- Added dual channel recording options for Trunks.
+
+**Twiml**
+- Add `jitterBufferSize` and `participantLabel` to `Conference`.
+
+
 [2020-11-18] Version 8.3.0
 --------------------------
 **Api**

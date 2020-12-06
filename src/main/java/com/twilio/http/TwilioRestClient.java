@@ -3,13 +3,12 @@ package com.twilio.http;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.function.Predicate;
 import java.util.Map;
 import java.util.List;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
 
 public class TwilioRestClient {
 
@@ -25,7 +24,7 @@ public class TwilioRestClient {
     private final String region;
     private final String edge;
     private final HttpClient httpClient;
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
     private TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -59,11 +58,14 @@ public class TwilioRestClient {
 
         logRequest(request);
         Response response = httpClient.reliableRequest(request);
-        logger.debug("status code: " + response.getStatusCode());
-        org.apache.http.Header[] responseHeaders = response.getHeaders();
-        logger.debug("response headers:");
-        for (int i = 0; i < responseHeaders.length; i++) {
-            logger.debug(responseHeaders[i]);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("status code: {}", response.getStatusCode());
+            org.apache.http.Header[] responseHeaders = response.getHeaders();
+            logger.debug("response headers:");
+            for (int i = 0; i < responseHeaders.length; i++) {
+                logger.debug("responseHeader: {}", responseHeaders[i]);
+            }
         }
 
         return response;

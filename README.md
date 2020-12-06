@@ -93,11 +93,11 @@ Twilio.setEdge("sydney");
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
 ### Enable Debug Logging
-In order to enable debug logging, create a configuration file named log4j2.xml that defines the logger at the root level to at least 'debug'. An example of the configuration file can be found [here](src/main/java/com/twilio/example/log4j2.xml). For more configuration options please see the log4j configuration [documentation](https://logging.apache.org/log4j/2.x/manual/configuration.html).
-```java
-Twilio.init(accountSid, authToken);
-Twilio.setLoggerConfiguration("path/to/log4j2.xml");
-```
+
+This library uses SLF4J for logging. Consult the SFL4J documentation
+for information about logging configuration:
+
+  http://slf4j.org/docs.html
 
 ### Environment Variables
 

@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2020-12-08] Version 8.5.0
+--------------------------
+**Library - Chore**
+- [PR #609](https://github.com/twilio/twilio-java/pull/609): [Snyk] Security upgrade org.apache.httpcomponents:httpclient from 4.5.12 to 4.5.13. Thanks to [@snyk-bot](https://github.com/snyk-bot)!
+
+**Api**
+- Added optional `RecordingTrack` parameter for create calls, create participants, and create call recordings
+- Removed deprecated Programmable Chat usage record categories **(breaking change)**
+
+**Twiml**
+- Add `recordingTrack` to `Dial`.
+
+
 [2020-12-02] Version 8.4.0
 --------------------------
 **Library - Feature**

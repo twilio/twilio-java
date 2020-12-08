@@ -123,6 +123,22 @@ public class Dial extends TwiML {
         }
     }
 
+    public enum RecordingTrack {
+        BOTH("both"),
+        INBOUND("inbound"),
+        OUTBOUND("outbound");
+
+        private final String value;
+
+        private RecordingTrack(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+    }
+
     private final URI action;
     private final HttpMethod method;
     private final Integer timeout;
@@ -136,6 +152,7 @@ public class Dial extends TwiML {
     private final List<Dial.RecordingEvent> recordingStatusCallbackEvent;
     private final Boolean answerOnBridge;
     private final Dial.RingTone ringTone;
+    private final Dial.RecordingTrack recordingTrack;
     private final String number;
 
     /**
@@ -163,6 +180,7 @@ public class Dial extends TwiML {
         this.recordingStatusCallbackEvent = b.recordingStatusCallbackEvent;
         this.answerOnBridge = b.answerOnBridge;
         this.ringTone = b.ringTone;
+        this.recordingTrack = b.recordingTrack;
         this.number = b.number;
     }
 
@@ -222,6 +240,9 @@ public class Dial extends TwiML {
         }
         if (this.getRingTone() != null) {
             attrs.put("ringTone", this.getRingTone().toString());
+        }
+        if (this.getRecordingTrack() != null) {
+            attrs.put("recordingTrack", this.getRecordingTrack().toString());
         }
 
         return attrs;
@@ -361,6 +382,15 @@ public class Dial extends TwiML {
     }
 
     /**
+     * To indicate which audio track should be recorded
+     *
+     * @return To indicate which audio track should be recorded
+     */
+    public Dial.RecordingTrack getRecordingTrack() {
+        return recordingTrack;
+    }
+
+    /**
      * Phone number to dial
      *
      * @return Phone number to dial
@@ -386,6 +416,7 @@ public class Dial extends TwiML {
         private List<Dial.RecordingEvent> recordingStatusCallbackEvent;
         private Boolean answerOnBridge;
         private Dial.RingTone ringTone;
+        private Dial.RecordingTrack recordingTrack;
         private String number;
 
         /**
@@ -528,6 +559,14 @@ public class Dial extends TwiML {
          */
         public Builder ringTone(Dial.RingTone ringTone) {
             this.ringTone = ringTone;
+            return this;
+        }
+
+        /**
+         * To indicate which audio track should be recorded
+         */
+        public Builder recordingTrack(Dial.RecordingTrack recordingTrack) {
+            this.recordingTrack = recordingTrack;
             return this;
         }
 

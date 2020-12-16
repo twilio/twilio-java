@@ -55,11 +55,12 @@ public class DialTest {
             .answerOnBridge(true)
             .ringTone(Dial.RingTone.AT)
             .recordingTrack(Dial.RecordingTrack.BOTH)
+            .sequential(true)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" ringTone=\"at\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
+            "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>",
             elem.toXml()
         );
     }

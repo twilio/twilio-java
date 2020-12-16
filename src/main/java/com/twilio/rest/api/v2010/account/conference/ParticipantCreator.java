@@ -710,12 +710,12 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
-     * The track to record. Can be: `inbound`, `outbound`, or `both`. The default is
-     * `both`. `inbound` only records the audio received by Twilio, `outbound` only
-     * records audio sent from Twilio, and `both` mixes the inbound and outbound
-     * audio..
+     * The audio track to record for the call. Can be: `inbound`, `outbound` or
+     * `both`. The default is `both`. `inbound` records the audio that is received
+     * by Twilio. `outbound` records the audio that is sent from Twilio. `both`
+     * records the audio that is received and sent by Twilio..
      *
-     * @param recordingTrack The track to record
+     * @param recordingTrack The track(s) to record
      * @return this
      */
     public ParticipantCreator setRecordingTrack(final String recordingTrack) {

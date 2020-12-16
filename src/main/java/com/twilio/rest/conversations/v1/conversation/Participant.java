@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-    private static final long serialVersionUID = 185754167608854L;
+    private static final long serialVersionUID = 233712836112652L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -173,6 +173,8 @@ public class Participant extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Long lastReadMessageIndex;
+    private final String lastReadTimestamp;
 
     @JsonCreator
     private Participant(@JsonProperty("account_sid")
@@ -194,7 +196,11 @@ public class Participant extends Resource {
                         @JsonProperty("date_updated")
                         final String dateUpdated,
                         @JsonProperty("url")
-                        final URI url) {
+                        final URI url,
+                        @JsonProperty("last_read_message_index")
+                        final Long lastReadMessageIndex,
+                        @JsonProperty("last_read_timestamp")
+                        final String lastReadTimestamp) {
         this.accountSid = accountSid;
         this.conversationSid = conversationSid;
         this.sid = sid;
@@ -205,6 +211,8 @@ public class Participant extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.lastReadMessageIndex = lastReadMessageIndex;
+        this.lastReadTimestamp = lastReadTimestamp;
     }
 
     /**
@@ -303,6 +311,27 @@ public class Participant extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns Index of last “read” message in the Conversation for the
+     * Participant..
+     *
+     * @return Index of last “read” message in the Conversation for the Participant.
+     */
+    public final Long getLastReadMessageIndex() {
+        return this.lastReadMessageIndex;
+    }
+
+    /**
+     * Returns Timestamp of last “read” message in the Conversation for the
+     * Participant..
+     *
+     * @return Timestamp of last “read” message in the Conversation for the
+     *         Participant.
+     */
+    public final String getLastReadTimestamp() {
+        return this.lastReadTimestamp;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -324,7 +353,9 @@ public class Participant extends Resource {
                Objects.equals(roleSid, other.roleSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(lastReadMessageIndex, other.lastReadMessageIndex) &&
+               Objects.equals(lastReadTimestamp, other.lastReadTimestamp);
     }
 
     @Override
@@ -338,6 +369,8 @@ public class Participant extends Resource {
                             roleSid,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            lastReadMessageIndex,
+                            lastReadTimestamp);
     }
 }

@@ -31,6 +31,8 @@ public class ParticipantUpdater extends Updater<Participant> {
     private String roleSid;
     private String messagingBindingProxyAddress;
     private String messagingBindingProjectedAddress;
+    private Long lastReadMessageIndex;
+    private String lastReadTimestamp;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
@@ -142,6 +144,34 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * Index of last “read” message in the <a
+     * href="https://www.twilio.com/docs/conversations/api/conversation-resource">Conversation</a>
+     * for the Participant..
+     *
+     * @param lastReadMessageIndex Index of last “read” message in the Conversation
+     *                             for the Participant.
+     * @return this
+     */
+    public ParticipantUpdater setLastReadMessageIndex(final Long lastReadMessageIndex) {
+        this.lastReadMessageIndex = lastReadMessageIndex;
+        return this;
+    }
+
+    /**
+     * Timestamp of last “read” message in the <a
+     * href="https://www.twilio.com/docs/conversations/api/conversation-resource">Conversation</a>
+     * for the Participant..
+     *
+     * @param lastReadTimestamp Timestamp of last “read” message in the
+     *                          Conversation for the Participant.
+     * @return this
+     */
+    public ParticipantUpdater setLastReadTimestamp(final String lastReadTimestamp) {
+        this.lastReadTimestamp = lastReadTimestamp;
+        return this;
+    }
+
+    /**
      * The X-Twilio-Webhook-Enabled HTTP request header.
      *
      * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
@@ -227,6 +257,14 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (messagingBindingProjectedAddress != null) {
             request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
+        }
+
+        if (lastReadMessageIndex != null) {
+            request.addPostParam("LastReadMessageIndex", lastReadMessageIndex.toString());
+        }
+
+        if (lastReadTimestamp != null) {
+            request.addPostParam("LastReadTimestamp", lastReadTimestamp);
         }
     }
 }

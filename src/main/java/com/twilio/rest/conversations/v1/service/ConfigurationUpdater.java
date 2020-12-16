@@ -22,6 +22,7 @@ public class ConfigurationUpdater extends Updater<Configuration> {
     private String defaultConversationCreatorRoleSid;
     private String defaultConversationRoleSid;
     private String defaultChatServiceRoleSid;
+    private Boolean reachabilityEnabled;
 
     /**
      * Construct a new ConfigurationUpdater.
@@ -80,6 +81,21 @@ public class ConfigurationUpdater extends Updater<Configuration> {
     }
 
     /**
+     * Whether the <a
+     * href="https://www.twilio.com/docs/chat/reachability-indicator">Reachability
+     * Indicator</a> is enabled for this Conversations Service. The default is
+     * `false`..
+     *
+     * @param reachabilityEnabled Whether the Reachability Indicator feature is
+     *                            enabled for this Conversations Service
+     * @return this
+     */
+    public ConfigurationUpdater setReachabilityEnabled(final Boolean reachabilityEnabled) {
+        this.reachabilityEnabled = reachabilityEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -126,6 +142,10 @@ public class ConfigurationUpdater extends Updater<Configuration> {
 
         if (defaultChatServiceRoleSid != null) {
             request.addPostParam("DefaultChatServiceRoleSid", defaultChatServiceRoleSid);
+        }
+
+        if (reachabilityEnabled != null) {
+            request.addPostParam("ReachabilityEnabled", reachabilityEnabled.toString());
         }
     }
 }

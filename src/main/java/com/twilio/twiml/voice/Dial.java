@@ -153,6 +153,7 @@ public class Dial extends TwiML {
     private final Boolean answerOnBridge;
     private final Dial.RingTone ringTone;
     private final Dial.RecordingTrack recordingTrack;
+    private final Boolean sequential;
     private final String number;
 
     /**
@@ -181,6 +182,7 @@ public class Dial extends TwiML {
         this.answerOnBridge = b.answerOnBridge;
         this.ringTone = b.ringTone;
         this.recordingTrack = b.recordingTrack;
+        this.sequential = b.sequential;
         this.number = b.number;
     }
 
@@ -243,6 +245,9 @@ public class Dial extends TwiML {
         }
         if (this.getRecordingTrack() != null) {
             attrs.put("recordingTrack", this.getRecordingTrack().toString());
+        }
+        if (this.isSequential() != null) {
+            attrs.put("sequential", this.isSequential().toString());
         }
 
         return attrs;
@@ -391,6 +396,19 @@ public class Dial extends TwiML {
     }
 
     /**
+     * Used to determine if child TwiML nouns should be dialed in order, one after
+     * the other (sequential) or dial all at once (parallel). Default is false,
+     * parallel
+     *
+     * @return Used to determine if child TwiML nouns should be dialed in order,
+     *         one after the other (sequential) or dial all at once (parallel).
+     *         Default is false, parallel
+     */
+    public Boolean isSequential() {
+        return sequential;
+    }
+
+    /**
      * Phone number to dial
      *
      * @return Phone number to dial
@@ -417,6 +435,7 @@ public class Dial extends TwiML {
         private Boolean answerOnBridge;
         private Dial.RingTone ringTone;
         private Dial.RecordingTrack recordingTrack;
+        private Boolean sequential;
         private String number;
 
         /**
@@ -567,6 +586,16 @@ public class Dial extends TwiML {
          */
         public Builder recordingTrack(Dial.RecordingTrack recordingTrack) {
             this.recordingTrack = recordingTrack;
+            return this;
+        }
+
+        /**
+         * Used to determine if child TwiML nouns should be dialed in order, one after
+         * the other (sequential) or dial all at once (parallel). Default is false,
+         * parallel
+         */
+        public Builder sequential(Boolean sequential) {
+            this.sequential = sequential;
             return this;
         }
 

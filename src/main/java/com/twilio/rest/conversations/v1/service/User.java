@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
-    private static final long serialVersionUID = 251738011021352L;
+    private static final long serialVersionUID = 219371871392689L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -171,6 +171,7 @@ public class User extends Resource {
     private final String friendlyName;
     private final String attributes;
     private final Boolean isOnline;
+    private final Boolean isNotifiable;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -192,6 +193,8 @@ public class User extends Resource {
                  final String attributes,
                  @JsonProperty("is_online")
                  final Boolean isOnline,
+                 @JsonProperty("is_notifiable")
+                 final Boolean isNotifiable,
                  @JsonProperty("date_created")
                  final String dateCreated,
                  @JsonProperty("date_updated")
@@ -206,6 +209,7 @@ public class User extends Resource {
         this.friendlyName = friendlyName;
         this.attributes = attributes;
         this.isOnline = isOnline;
+        this.isNotifiable = isNotifiable;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -277,14 +281,25 @@ public class User extends Resource {
     }
 
     /**
-     * Returns Whether the User is actively connected to the Service instance and
-     * online.
+     * Returns Whether the User is actively connected to this Conversations Service
+     * and online.
      *
-     * @return Whether the User is actively connected to the Service instance and
-     *         online
+     * @return Whether the User is actively connected to this Conversations Service
+     *         and online
      */
     public final Boolean getIsOnline() {
         return this.isOnline;
+    }
+
+    /**
+     * Returns Whether the User has a potentially valid Push Notification
+     * registration for this Conversations Service.
+     *
+     * @return Whether the User has a potentially valid Push Notification
+     *         registration for this Conversations Service
+     */
+    public final Boolean getIsNotifiable() {
+        return this.isNotifiable;
     }
 
     /**
@@ -334,6 +349,7 @@ public class User extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(attributes, other.attributes) &&
                Objects.equals(isOnline, other.isOnline) &&
+               Objects.equals(isNotifiable, other.isNotifiable) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
@@ -349,6 +365,7 @@ public class User extends Resource {
                             friendlyName,
                             attributes,
                             isOnline,
+                            isNotifiable,
                             dateCreated,
                             dateUpdated,
                             url);

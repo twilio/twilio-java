@@ -84,7 +84,7 @@ public class WebChannel extends Resource {
     /**
      * Create a WebChannelCreator to execute create.
      *
-     * @param flexFlowSid The SID of the FlexFlow
+     * @param flexFlowSid The SID of the Flex Flow
      * @param identity The chat identity
      * @param customerFriendlyName The chat participant's friendly name
      * @param chatFriendlyName The chat channel's friendly name
@@ -195,9 +195,9 @@ public class WebChannel extends Resource {
     }
 
     /**
-     * Returns The SID of the FlexFlow.
+     * Returns The SID of the Flex Flow.
      *
-     * @return The SID of the FlexFlow
+     * @return The SID of the Flex Flow
      */
     public final String getFlexFlowSid() {
         return this.flexFlowSid;

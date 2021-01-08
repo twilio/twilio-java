@@ -1,6 +1,81 @@
 twilio-java changelog
 =====================
 
+[2020-12-16] Version 8.5.1
+--------------------------
+**Api**
+- Updated `call_event` default_output_properties to request and response.
+
+**Conversations**
+- Added `last_read_message_index` and `last_read_timestamp` to Participant's resource update operation
+- Added `is_notifiable` and `is_online` to User's resource
+- Added `reachability_enabled` parameters to update method for Conversation Service Configuration resource
+
+**Messaging**
+- Added WA template quick reply, URL, and phone number buttons
+
+**Twiml**
+- Add `sequential` to `Dial`.
+
+
+[2020-12-08] Version 8.5.0
+--------------------------
+**Library - Chore**
+- [PR #609](https://github.com/twilio/twilio-java/pull/609): [Snyk] Security upgrade org.apache.httpcomponents:httpclient from 4.5.12 to 4.5.13. Thanks to [@snyk-bot](https://github.com/snyk-bot)!
+
+**Api**
+- Added optional `RecordingTrack` parameter for create calls, create participants, and create call recordings
+- Removed deprecated Programmable Chat usage record categories **(breaking change)**
+
+**Twiml**
+- Add `recordingTrack` to `Dial`.
+
+
+[2020-12-02] Version 8.4.0
+--------------------------
+**Library - Feature**
+- [PR #606](https://github.com/twilio/twilio-java/pull/606): add http logging for Java. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #602](https://github.com/twilio/twilio-java/pull/602): Regional support for access token. Thanks to [@charliesantos](https://github.com/charliesantos)!
+
+**Api**
+- Remove `RecordingTrack` parameter for create calls, create participants, and create call recordings **(breaking change)**
+- Added `RecordingTrack` parameter for create calls and create call recordings
+- Add optional property `recording_track` in the participant create request
+
+**Lookups**
+- Changed `caller_name` and `carrier` properties type to object **(breaking change)**
+
+**Trunking**
+- Added dual channel recording options for Trunks.
+
+**Twiml**
+- Add `jitterBufferSize` and `participantLabel` to `Conference`.
+
+
+[2020-11-18] Version 8.3.0
+--------------------------
+**Api**
+- Add new call events resource - GET /2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Events.json
+
+**Conversations**
+- Fixed default response property issue for Service Notifications Configuration
+
+**Insights**
+- Removing call_sid from participant summary. **(breaking change)**
+
+**Serverless**
+- Allow Service unique name to be used in path (in place of SID) in Service update request
+
+**Sync**
+- Added HideExpired query parameter for filtering Sync Documents with expired
+
+**Verify**
+- Challenge `Details` and `HiddenDetails` properties are now marked as `PII`
+- Challenge `expiration_date` attribute updated to set a default value of five (5) minutes and to allow max dates of one (1) hour after creation.
+- Entity `identity` attribute updated to allow values between 8 and 64 characters.
+- Verify Service frinedly_name attribute updated from 64 max lenght to 30 characters.
+
+
 [2020-11-05] Version 8.2.0
 --------------------------
 **Api**

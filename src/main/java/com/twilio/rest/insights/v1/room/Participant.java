@@ -42,7 +42,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-    private static final long serialVersionUID = 209002205048335L;
+    private static final long serialVersionUID = 94659261265559L;
 
     public enum RoomStatus {
         IN_PROGRESS("in_progress"),
@@ -95,75 +95,6 @@ public class Participant extends Resource {
         }
     }
 
-    public enum EndReason {
-        DISCONNECTED_VIA_API("disconnected_via_api"),
-        SIGNALING_CONNECTION_ERROR("signaling_connection_error"),
-        SIGNALING_CONNECTION_DISCONNECTED("signaling_connection_disconnected"),
-        SIGNALING_CONNECTION_TIMED_OUT("signaling_connection_timed_out"),
-        CLIENT_RECEIVED_AN_INVALID_SIGNALING_MESSAGE("client_received_an_invalid_signaling_message"),
-        CLIENT_SENT_AN_INVALID_SIGNALING_MESSAGE("client_sent_an_invalid_signaling_message"),
-        ROOM_NAME_IS_INVALID("room_name_is_invalid"),
-        ROOM_NAME_IS_TOO_LONG("room_name_is_too_long"),
-        ROOM_NAME_CONTAINS_INVALID_CHARACTERS("room_name_contains_invalid_characters"),
-        UNABLE_TO_CREATE_ROOM("unable_to_create_room"),
-        UNABLE_TO_CONNECT_TO_ROOM("unable_to_connect_to_room"),
-        ROOM_CONTAINS_TOO_MANY_PARTICIPANTS("room_contains_too_many_participants"),
-        ROOM_NOT_FOUND("room_not_found"),
-        MAX_PARTICIPANTS_IS_OUT_OF_RANGE("max_participants_is_out_of_range"),
-        ROOM_TYPE_IS_NOT_VALID("room_type_is_not_valid"),
-        TIMEOUT_IS_OUT_OF_RANGE("timeout_is_out_of_range"),
-        STATUS_CALLBACK_METHOD_IS_INVALID("status_callback_method_is_invalid"),
-        STATUS_CALLBACK_IS_INVALID("status_callback_is_invalid"),
-        STATUS_IS_INVALID("status_is_invalid"),
-        ROOM_CREATION_FAILED("room_creation_failed"),
-        ROOM_COMPLETED_ERROR("room_completed_error"),
-        THE_ROOM_ACCOUNT_LIMIT_WAS_EXCEEDED("the_room_account_limit_was_exceeded"),
-        INVALID_RECORDING_RULE("invalid_recording_rule"),
-        APPROACHING_ROOM_OR_PARTICIPANT_CONCURRENCY_LIMITS("approaching_room_or_participant_concurrency_limits"),
-        RECORDING_OPERATION_REQUESTED_IS_NOT_SUPPORTED_FOR_THE_ROOM_TYPE("recording_operation_requested_is_not_supported_for_the_Room_type"),
-        PARTICIPANT_IDENTITY_IS_INVALID("participant_identity_is_invalid"),
-        PARTICIPANT_IDENTITY_IS_TOO_LONG("participant_identity_is_too_long"),
-        PARTICIPANT_IDENTITY_CONTAINS_INVALID_CHARACTERS("participant_identity_contains_invalid_characters"),
-        PARTICIPANT_HAS_TOO_MANY_TRACKS("participant_has_too_many_tracks"),
-        PARTICIPANT_NOT_FOUND("participant_not_found"),
-        PARTICIPANT_DISCONNECTED_BECAUSE_OF_DUPLICATE_IDENTITY("participant_disconnected_because_of_duplicate_identity"),
-        PARTICIPANT_ACCOUNT_LIMIT_WAS_EXCEEDED("participant_account_limit_was_exceeded"),
-        INVALID_SUBSCRIBE_RULE("invalid_subscribe_rule"),
-        TRACK_IS_INVALID("track_is_invalid"),
-        TRACK_NAME_IS_INVALID("track_name_is_invalid"),
-        TRACK_NAME_IS_TOO_LONG("track_name_is_too_long"),
-        TRACK_NAME_CONTAINS_INVALID_CHARACTERS("track_name_contains_invalid_characters"),
-        TRACK_NAME_IS_DUPLICATED("track_name_is_duplicated"),
-        CLIENT_IS_UNABLE_TO_CREATE_OR_APPLY_A_LOCAL_MEDIA_DESCRIPTION("client_is_unable_to_create_or_apply_a_local_media_description"),
-        SERVER_IS_UNABLE_TO_CREATE_OR_APPLY_A_LOCAL_MEDIA_DESCRIPTION("server_is_unable_to_create_or_apply_a_local_media_description"),
-        CLIENT_IS_UNABLE_TO_APPLY_A_REMOTE_MEDIA_DESCRIPTION("client_is_unable_to_apply_a_remote_media_description"),
-        SERVER_IS_UNABLE_TO_APPLY_A_REMOTE_MEDIA_DESCRIPTION("server_is_unable_to_apply_a_remote_media_description"),
-        NO_SUPPORTED_CODEC("no_supported_codec"),
-        MEDIA_CONNECTION_FAILED_OR_MEDIA_ACTIVITY_CEASED("media_connection_failed_or_media_activity_ceased"),
-        UNABLE_TO_ACQUIRE_CONFIGURATION("unable_to_acquire_configuration"),
-        UNABLE_TO_ACQUIRE_TURN_CREDENTIALS("unable_to_acquire_TURN_credentials");
-
-        private final String value;
-
-        private EndReason(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a EndReason from a string.
-         * @param value string value
-         * @return generated EndReason
-         */
-        @JsonCreator
-        public static EndReason forValue(final String value) {
-            return Promoter.enumFromString(value, EndReason.values());
-        }
-    }
-
     public enum TwilioRealm {
         US1("us1"),
         US2("us2"),
@@ -174,19 +105,7 @@ public class Participant extends Resource {
         SG1("sg1"),
         IN1("in1"),
         DE1("de1"),
-        GLL("gll"),
-        OUTSIDE("outside"),
-        STAGE_US1("stage_us1"),
-        STAGE_US2("stage_us2"),
-        STAGE_AU1("stage_au1"),
-        STAGE_BR1("stage_br1"),
-        STAGE_IE1("stage_ie1"),
-        STAGE_JP1("stage_jp1"),
-        STAGE_SG1("stage_sg1"),
-        STAGE_IN1("stage_in1"),
-        STAGE_DE1("stage_de1"),
-        DEV_US1("dev_us1"),
-        DEV_US2("dev_us2");
+        GLL("gll");
 
         private final String value;
 
@@ -306,12 +225,11 @@ public class Participant extends Resource {
     private final ZonedDateTime joinTime;
     private final ZonedDateTime leaveTime;
     private final Long durationSec;
-    private final String callSid;
     private final String accountSid;
     private final String roomSid;
     private final Participant.RoomStatus status;
     private final List<Participant.Codec> codecs;
-    private final Participant.EndReason endReason;
+    private final String endReason;
     private final Integer errorCode;
     private final String errorCodeUrl;
     private final Participant.TwilioRealm mediaRegion;
@@ -331,8 +249,6 @@ public class Participant extends Resource {
                         final String leaveTime,
                         @JsonProperty("duration_sec")
                         final Long durationSec,
-                        @JsonProperty("call_sid")
-                        final String callSid,
                         @JsonProperty("account_sid")
                         final String accountSid,
                         @JsonProperty("room_sid")
@@ -342,7 +258,7 @@ public class Participant extends Resource {
                         @JsonProperty("codecs")
                         final List<Participant.Codec> codecs,
                         @JsonProperty("end_reason")
-                        final Participant.EndReason endReason,
+                        final String endReason,
                         @JsonProperty("error_code")
                         final Integer errorCode,
                         @JsonProperty("error_code_url")
@@ -362,7 +278,6 @@ public class Participant extends Resource {
         this.joinTime = DateConverter.iso8601DateTimeFromString(joinTime);
         this.leaveTime = DateConverter.iso8601DateTimeFromString(leaveTime);
         this.durationSec = durationSec;
-        this.callSid = callSid;
         this.accountSid = accountSid;
         this.roomSid = roomSid;
         this.status = status;
@@ -423,15 +338,6 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The call_sid.
-     *
-     * @return The call_sid
-     */
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    /**
      * Returns The account_sid.
      *
      * @return The account_sid
@@ -472,7 +378,7 @@ public class Participant extends Resource {
      *
      * @return The end_reason
      */
-    public final Participant.EndReason getEndReason() {
+    public final String getEndReason() {
         return this.endReason;
     }
 
@@ -556,7 +462,6 @@ public class Participant extends Resource {
                Objects.equals(joinTime, other.joinTime) &&
                Objects.equals(leaveTime, other.leaveTime) &&
                Objects.equals(durationSec, other.durationSec) &&
-               Objects.equals(callSid, other.callSid) &&
                Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(roomSid, other.roomSid) &&
                Objects.equals(status, other.status) &&
@@ -578,7 +483,6 @@ public class Participant extends Resource {
                             joinTime,
                             leaveTime,
                             durationSec,
-                            callSid,
                             accountSid,
                             roomSid,
                             status,

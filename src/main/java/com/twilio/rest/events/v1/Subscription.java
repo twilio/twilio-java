@@ -80,7 +80,7 @@ public class Subscription extends Resource {
     /**
      * Create a SubscriptionUpdater to execute update.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies this Subscription.
      * @return SubscriptionUpdater capable of executing the update
      */
     public static SubscriptionUpdater updater(final String pathSid) {

@@ -33,7 +33,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 20772202953081L;
+    private static final long serialVersionUID = 101380153560243L;
 
     /**
      * Create a ConfigurationFetcher to execute fetch.
@@ -101,6 +101,7 @@ public class Configuration extends Resource {
     private final String defaultChatServiceRoleSid;
     private final URI url;
     private final Map<String, String> links;
+    private final Boolean reachabilityEnabled;
 
     @JsonCreator
     private Configuration(@JsonProperty("chat_service_sid")
@@ -114,13 +115,16 @@ public class Configuration extends Resource {
                           @JsonProperty("url")
                           final URI url,
                           @JsonProperty("links")
-                          final Map<String, String> links) {
+                          final Map<String, String> links,
+                          @JsonProperty("reachability_enabled")
+                          final Boolean reachabilityEnabled) {
         this.chatServiceSid = chatServiceSid;
         this.defaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid;
         this.defaultConversationRoleSid = defaultConversationRoleSid;
         this.defaultChatServiceRoleSid = defaultChatServiceRoleSid;
         this.url = url;
         this.links = links;
+        this.reachabilityEnabled = reachabilityEnabled;
     }
 
     /**
@@ -182,6 +186,17 @@ public class Configuration extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns Whether the Reachability Indicator feature is enabled for this
+     * Conversations Service.
+     *
+     * @return Whether the Reachability Indicator feature is enabled for this
+     *         Conversations Service
+     */
+    public final Boolean getReachabilityEnabled() {
+        return this.reachabilityEnabled;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -199,7 +214,8 @@ public class Configuration extends Resource {
                Objects.equals(defaultConversationRoleSid, other.defaultConversationRoleSid) &&
                Objects.equals(defaultChatServiceRoleSid, other.defaultChatServiceRoleSid) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) &&
+               Objects.equals(reachabilityEnabled, other.reachabilityEnabled);
     }
 
     @Override
@@ -209,6 +225,7 @@ public class Configuration extends Resource {
                             defaultConversationRoleSid,
                             defaultChatServiceRoleSid,
                             url,
-                            links);
+                            links,
+                            reachabilityEnabled);
     }
 }

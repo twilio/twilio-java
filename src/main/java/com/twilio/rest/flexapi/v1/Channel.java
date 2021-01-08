@@ -60,7 +60,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      *
-     * @param flexFlowSid The SID of the FlexFlow
+     * @param flexFlowSid The SID of the Flex Flow
      * @param identity The identity value that identifies the new resource's chat
      *                 User
      * @param chatUserFriendlyName The chat participant's friendly name
@@ -169,9 +169,9 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The SID of the FlexFlow.
+     * Returns The SID of the Flex Flow.
      *
-     * @return The SID of the FlexFlow
+     * @return The SID of the Flex Flow
      */
     public final String getFlexFlowSid() {
         return this.flexFlowSid;
@@ -196,9 +196,9 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The SID of the TaskRouter task.
+     * Returns The SID of the TaskRouter Task.
      *
-     * @return The SID of the TaskRouter task
+     * @return The SID of the TaskRouter Task
      */
     public final String getTaskSid() {
         return this.taskSid;

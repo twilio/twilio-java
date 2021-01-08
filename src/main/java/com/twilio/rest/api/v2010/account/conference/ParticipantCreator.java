@@ -61,6 +61,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private String byoc;
     private String callerId;
     private String callReason;
+    private String recordingTrack;
 
     /**
      * Construct a new ParticipantCreator.
@@ -709,6 +710,20 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The audio track to record for the call. Can be: `inbound`, `outbound` or
+     * `both`. The default is `both`. `inbound` records the audio that is received
+     * by Twilio. `outbound` records the audio that is sent from Twilio. `both`
+     * records the audio that is received and sent by Twilio..
+     *
+     * @param recordingTrack The track(s) to record
+     * @return this
+     */
+    public ParticipantCreator setRecordingTrack(final String recordingTrack) {
+        this.recordingTrack = recordingTrack;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -900,6 +915,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (callReason != null) {
             request.addPostParam("CallReason", callReason);
+        }
+
+        if (recordingTrack != null) {
+            request.addPostParam("RecordingTrack", recordingTrack);
         }
     }
 }

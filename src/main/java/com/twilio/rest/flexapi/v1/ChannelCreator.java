@@ -32,7 +32,7 @@ public class ChannelCreator extends Creator<Channel> {
     /**
      * Construct a new ChannelCreator.
      *
-     * @param flexFlowSid The SID of the FlexFlow
+     * @param flexFlowSid The SID of the Flex Flow
      * @param identity The identity value that identifies the new resource's chat
      *                 User
      * @param chatUserFriendlyName The chat participant's friendly name
@@ -82,10 +82,10 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The SID of the TaskRouter task. Only valid when integration type is `task`.
+     * The SID of the TaskRouter Task. Only valid when integration type is `task`.
      * `null` for integration types `studio` &amp; `external`.
      *
-     * @param taskSid The SID of the TaskRouter task
+     * @param taskSid The SID of the TaskRouter Task
      * @return this
      */
     public ChannelCreator setTaskSid(final String taskSid) {
@@ -94,9 +94,9 @@ public class ChannelCreator extends Creator<Channel> {
     }
 
     /**
-     * The task attributes to be added for the TaskRouter Task..
+     * The Task attributes to be added for the TaskRouter Task..
      *
-     * @param taskAttributes The task attributes to be added for the TaskRouter Task
+     * @param taskAttributes The Task attributes to be added for the TaskRouter Task
      * @return this
      */
     public ChannelCreator setTaskAttributes(final String taskAttributes) {

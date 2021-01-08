@@ -29,6 +29,7 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
     private SyncMapItem.QueryResultOrder order;
     private String from;
     private SyncMapItem.QueryFromBoundType bounds;
+    private SyncMapItem.HideExpiredType hideExpired;
 
     /**
      * Construct a new SyncMapItemReader.
@@ -81,6 +82,18 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
      */
     public SyncMapItemReader setBounds(final SyncMapItem.QueryFromBoundType bounds) {
         this.bounds = bounds;
+        return this;
+    }
+
+    /**
+     * The default list of Sync Map items will show both active and expired items.
+     * It is possible to filter only the active ones by hiding the expired ones..
+     *
+     * @param hideExpired Hide expired Sync Map items and show only active ones.
+     * @return this
+     */
+    public SyncMapItemReader setHideExpired(final SyncMapItem.HideExpiredType hideExpired) {
+        this.hideExpired = hideExpired;
         return this;
     }
 
@@ -210,6 +223,10 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
         if (bounds != null) {
             request.addQueryParam("Bounds", bounds.toString());
+        }
+
+        if (hideExpired != null) {
+            request.addQueryParam("HideExpired", hideExpired.toString());
         }
 
         if (getPageSize() != null) {

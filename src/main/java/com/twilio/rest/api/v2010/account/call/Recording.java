@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 119371438714806L;
+    private static final long serialVersionUID = 239666513639752L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -285,6 +285,7 @@ public class Recording extends Resource {
     private final Integer channels;
     private final Recording.Source source;
     private final Integer errorCode;
+    private final String track;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -321,7 +322,9 @@ public class Recording extends Resource {
                       @JsonProperty("source")
                       final Recording.Source source,
                       @JsonProperty("error_code")
-                      final Integer errorCode) {
+                      final Integer errorCode,
+                      @JsonProperty("track")
+                      final String track) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -339,6 +342,7 @@ public class Recording extends Resource {
         this.channels = channels;
         this.source = source;
         this.errorCode = errorCode;
+        this.track = track;
     }
 
     /**
@@ -498,6 +502,15 @@ public class Recording extends Resource {
         return this.errorCode;
     }
 
+    /**
+     * Returns The recorded track. Can be: `inbound`, `outbound`, or `both`..
+     *
+     * @return The recorded track. Can be: `inbound`, `outbound`, or `both`.
+     */
+    public final String getTrack() {
+        return this.track;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -526,7 +539,8 @@ public class Recording extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(channels, other.channels) &&
                Objects.equals(source, other.source) &&
-               Objects.equals(errorCode, other.errorCode);
+               Objects.equals(errorCode, other.errorCode) &&
+               Objects.equals(track, other.track);
     }
 
     @Override
@@ -547,6 +561,7 @@ public class Recording extends Resource {
                             status,
                             channels,
                             source,
-                            errorCode);
+                            errorCode,
+                            track);
     }
 }

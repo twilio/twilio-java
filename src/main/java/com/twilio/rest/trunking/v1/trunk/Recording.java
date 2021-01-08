@@ -27,14 +27,13 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 156418505978006L;
+    private static final long serialVersionUID = 256465659878704L;
 
     public enum RecordingMode {
         DO_NOT_RECORD("do-not-record"),
@@ -103,7 +102,7 @@ public class Recording extends Resource {
     /**
      * Create a RecordingUpdater to execute update.
      *
-     * @param pathTrunkSid The trunk_sid
+     * @param pathTrunkSid The SID of the Trunk.
      * @return RecordingUpdater capable of executing the update
      */
     public static RecordingUpdater updater(final String pathTrunkSid) {
@@ -150,22 +149,14 @@ public class Recording extends Resource {
 
     private final Recording.RecordingMode mode;
     private final Recording.RecordingTrim trim;
-    private final URI url;
-    private final String trunkSid;
 
     @JsonCreator
     private Recording(@JsonProperty("mode")
                       final Recording.RecordingMode mode,
                       @JsonProperty("trim")
-                      final Recording.RecordingTrim trim,
-                      @JsonProperty("url")
-                      final URI url,
-                      @JsonProperty("trunk_sid")
-                      final String trunkSid) {
+                      final Recording.RecordingTrim trim) {
         this.mode = mode;
         this.trim = trim;
-        this.url = url;
-        this.trunkSid = trunkSid;
     }
 
     /**
@@ -186,24 +177,6 @@ public class Recording extends Resource {
         return this.trim;
     }
 
-    /**
-     * Returns The url.
-     *
-     * @return The url
-     */
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    /**
-     * Returns The trunk_sid.
-     *
-     * @return The trunk_sid
-     */
-    public final String getTrunkSid() {
-        return this.trunkSid;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -217,16 +190,12 @@ public class Recording extends Resource {
         Recording other = (Recording) o;
 
         return Objects.equals(mode, other.mode) &&
-               Objects.equals(trim, other.trim) &&
-               Objects.equals(url, other.url) &&
-               Objects.equals(trunkSid, other.trunkSid);
+               Objects.equals(trim, other.trim);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(mode,
-                            trim,
-                            url,
-                            trunkSid);
+                            trim);
     }
 }

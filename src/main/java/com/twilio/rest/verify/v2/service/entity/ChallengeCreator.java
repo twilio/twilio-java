@@ -53,10 +53,12 @@ public class ChallengeCreator extends Creator<Challenge> {
     }
 
     /**
-     * The future date in which this Challenge will expire, given in <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format..
+     * The date-time when this Challenge expires, given in <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. The
+     * default value is five (5) minutes after Challenge creation. The max value is
+     * sixty (60) minutes after creation..
      *
-     * @param expirationDate The future date in which this Challenge will expire
+     * @param expirationDate The date-time when this Challenge expires
      * @return this
      */
     public ChallengeCreator setExpirationDate(final ZonedDateTime expirationDate) {

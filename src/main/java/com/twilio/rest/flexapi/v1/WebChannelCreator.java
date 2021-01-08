@@ -28,7 +28,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
     /**
      * Construct a new WebChannelCreator.
      *
-     * @param flexFlowSid The SID of the FlexFlow
+     * @param flexFlowSid The SID of the Flex Flow
      * @param identity The chat identity
      * @param customerFriendlyName The chat participant's friendly name
      * @param chatFriendlyName The chat channel's friendly name

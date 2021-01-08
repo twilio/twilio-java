@@ -318,9 +318,9 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns Whether the FlexFlow is enabled.
+     * Returns Whether the Flex Flow is enabled.
      *
-     * @return Whether the FlexFlow is enabled
+     * @return Whether the Flex Flow is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
@@ -363,9 +363,9 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The absolute URL of the FlexFlow resource.
+     * Returns The absolute URL of the Flex Flow resource.
      *
-     * @return The absolute URL of the FlexFlow resource
+     * @return The absolute URL of the Flex Flow resource
      */
     public final URI getUrl() {
         return this.url;

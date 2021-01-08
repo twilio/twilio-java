@@ -92,6 +92,13 @@ Twilio.setEdge("sydney");
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
+### Enable Debug Logging
+In order to enable debug logging, create a configuration file named log4j2.xml that defines the logger at the root level to at least 'debug'. An example of the configuration file can be found [here](src/main/java/com/twilio/example/log4j2.xml). For more configuration options please see the log4j configuration [documentation](https://logging.apache.org/log4j/2.x/manual/configuration.html).
+```java
+Twilio.init(accountSid, authToken);
+Twilio.setLoggerConfiguration("path/to/log4j2.xml");
+```
+
 ### Environment Variables
 
 `twilio-java` supports the credentials, region, and edge values stored in the following environment variables:
@@ -139,7 +146,7 @@ try {
         new PhoneNumber("+15559994321"),  // From number
         "Hello world!"                    // SMS body
     ).create();
-    
+
     System.out.println(message.getSid());
 } catch (final ApiException e) {
     System.err.println(e);

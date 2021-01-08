@@ -12,13 +12,17 @@ import com.twilio.http.TwilioRestClient;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.io.File;
+
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.LogManager;
 
 /**
  * Singleton class to initialize Twilio environment.
  */
 public class Twilio {
 
-    public static final String VERSION = "8.2.0";
+    public static final String VERSION = "8.5.1";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
     private static String username = System.getenv("TWILIO_ACCOUNT_SID");
@@ -148,6 +152,19 @@ public class Twilio {
         }
 
         Twilio.edge = edge;
+    }
+
+    /**
+     * Set the logger configuration file path.
+     *
+     * @param filePath path to logging configuration file
+     * @param loggerContext defaults to false to get the appropriate logger context for the caller.
+     */
+    public static synchronized void setLoggerConfiguration(final String filePath, final boolean... loggerContext) {
+        boolean logContext = (loggerContext.length >= 1) ? loggerContext[0] : false;
+        LoggerContext context = (org.apache.logging.log4j.core.LoggerContext) LogManager.getContext(logContext);
+        File file = new File(filePath);
+        context.setConfigLocation(file.toURI());
     }
 
     /**

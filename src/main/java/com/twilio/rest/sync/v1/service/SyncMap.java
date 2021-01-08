@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -40,6 +41,31 @@ import java.util.Objects;
 @ToString
 public class SyncMap extends Resource {
     private static final long serialVersionUID = 113063121662943L;
+
+    public enum HideExpiredType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private HideExpiredType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a HideExpiredType from a string.
+         * @param value string value
+         * @return generated HideExpiredType
+         */
+        @JsonCreator
+        public static HideExpiredType forValue(final String value) {
+            return Promoter.enumFromString(value, HideExpiredType.values());
+        }
+    }
 
     /**
      * Create a SyncMapFetcher to execute fetch.

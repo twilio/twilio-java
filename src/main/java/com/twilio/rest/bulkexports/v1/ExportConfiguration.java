@@ -42,7 +42,8 @@ public class ExportConfiguration extends Resource {
     /**
      * Create a ExportConfigurationFetcher to execute fetch.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportConfigurationFetcher capable of executing the fetch
      */
     public static ExportConfigurationFetcher fetcher(final String pathResourceType) {
@@ -52,7 +53,8 @@ public class ExportConfiguration extends Resource {
     /**
      * Create a ExportConfigurationUpdater to execute update.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportConfigurationUpdater capable of executing the update
      */
     public static ExportConfigurationUpdater updater(final String pathResourceType) {
@@ -149,9 +151,11 @@ public class ExportConfiguration extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;

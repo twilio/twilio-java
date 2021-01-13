@@ -42,7 +42,8 @@ public class Export extends Resource {
     /**
      * Create a ExportFetcher to execute fetch.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportFetcher capable of executing the fetch
      */
     public static ExportFetcher fetcher(final String pathResourceType) {
@@ -103,9 +104,11 @@ public class Export extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;

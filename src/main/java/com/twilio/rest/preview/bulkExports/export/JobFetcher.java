@@ -28,7 +28,8 @@ public class JobFetcher extends Fetcher<Job> {
     /**
      * Construct a new JobFetcher.
      *
-     * @param pathJobSid The job_sid
+     * @param pathJobSid The unique string that that we created to identify the
+     *                   Bulk Export job
      */
     public JobFetcher(final String pathJobSid) {
         this.pathJobSid = pathJobSid;

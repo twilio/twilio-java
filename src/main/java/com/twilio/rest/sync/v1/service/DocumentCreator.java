@@ -54,7 +54,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * A JSON string that represents an arbitrary, schema-less object that the Sync
-     * Document stores. Can be up to 16KB in length..
+     * Document stores. Can be up to 16 KiB in length..
      *
      * @param data A JSON string that represents an arbitrary, schema-less object
      *             that the Sync Document stores

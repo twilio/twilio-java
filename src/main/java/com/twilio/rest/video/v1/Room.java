@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-    private static final long serialVersionUID = 123703237879933L;
+    private static final long serialVersionUID = 155845282259385L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -207,6 +207,7 @@ public class Room extends Resource {
     private final Integer duration;
     private final Room.RoomType type;
     private final Integer maxParticipants;
+    private final Integer maxConcurrentPublishedTracks;
     private final Boolean recordParticipantsOnConnect;
     private final List<Room.VideoCodec> videoCodecs;
     private final String mediaRegion;
@@ -240,6 +241,8 @@ public class Room extends Resource {
                  final Room.RoomType type,
                  @JsonProperty("max_participants")
                  final Integer maxParticipants,
+                 @JsonProperty("max_concurrent_published_tracks")
+                 final Integer maxConcurrentPublishedTracks,
                  @JsonProperty("record_participants_on_connect")
                  final Boolean recordParticipantsOnConnect,
                  @JsonProperty("video_codecs")
@@ -263,6 +266,7 @@ public class Room extends Resource {
         this.duration = duration;
         this.type = type;
         this.maxParticipants = maxParticipants;
+        this.maxConcurrentPublishedTracks = maxConcurrentPublishedTracks;
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
         this.videoCodecs = videoCodecs;
         this.mediaRegion = mediaRegion;
@@ -388,6 +392,17 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns The maximum number of published tracks allowed in the room at the
+     * same time.
+     *
+     * @return The maximum number of published tracks allowed in the room at the
+     *         same time
+     */
+    public final Integer getMaxConcurrentPublishedTracks() {
+        return this.maxConcurrentPublishedTracks;
+    }
+
+    /**
      * Returns Whether to start recording when Participants connect.
      *
      * @return Whether to start recording when Participants connect
@@ -459,6 +474,7 @@ public class Room extends Resource {
                Objects.equals(duration, other.duration) &&
                Objects.equals(type, other.type) &&
                Objects.equals(maxParticipants, other.maxParticipants) &&
+               Objects.equals(maxConcurrentPublishedTracks, other.maxConcurrentPublishedTracks) &&
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&
                Objects.equals(videoCodecs, other.videoCodecs) &&
                Objects.equals(mediaRegion, other.mediaRegion) &&
@@ -481,6 +497,7 @@ public class Room extends Resource {
                             duration,
                             type,
                             maxParticipants,
+                            maxConcurrentPublishedTracks,
                             recordParticipantsOnConnect,
                             videoCodecs,
                             mediaRegion,

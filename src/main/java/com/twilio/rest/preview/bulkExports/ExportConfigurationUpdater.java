@@ -34,7 +34,8 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     /**
      * Construct a new ExportConfigurationUpdater.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      */
     public ExportConfigurationUpdater(final String pathResourceType) {
         this.pathResourceType = pathResourceType;

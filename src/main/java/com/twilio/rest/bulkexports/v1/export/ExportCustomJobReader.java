@@ -29,7 +29,8 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
     /**
      * Construct a new ExportCustomJobReader.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      */
     public ExportCustomJobReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;

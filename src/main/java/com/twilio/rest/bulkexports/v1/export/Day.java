@@ -42,7 +42,8 @@ public class Day extends Resource {
     /**
      * Create a DayFetcher to execute fetch.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @param pathDay The date of the data in the file
      * @return DayFetcher capable of executing the fetch
      */
@@ -54,7 +55,8 @@ public class Day extends Resource {
     /**
      * Create a DayReader to execute read.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return DayReader capable of executing the read
      */
     public static DayReader reader(final String pathResourceType) {
@@ -172,9 +174,11 @@ public class Day extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;

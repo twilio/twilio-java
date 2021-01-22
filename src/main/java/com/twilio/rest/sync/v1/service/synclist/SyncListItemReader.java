@@ -29,7 +29,6 @@ public class SyncListItemReader extends Reader<SyncListItem> {
     private SyncListItem.QueryResultOrder order;
     private String from;
     private SyncListItem.QueryFromBoundType bounds;
-    private SyncListItem.HideExpiredType hideExpired;
 
     /**
      * Construct a new SyncListItemReader.
@@ -79,18 +78,6 @@ public class SyncListItemReader extends Reader<SyncListItem> {
      */
     public SyncListItemReader setBounds(final SyncListItem.QueryFromBoundType bounds) {
         this.bounds = bounds;
-        return this;
-    }
-
-    /**
-     * The default list of Sync List items will show both active and expired items.
-     * It is possible to filter only the active ones by hiding the expired ones..
-     *
-     * @param hideExpired Hide expired Sync List items and show only active ones.
-     * @return this
-     */
-    public SyncListItemReader setHideExpired(final SyncListItem.HideExpiredType hideExpired) {
-        this.hideExpired = hideExpired;
         return this;
     }
 
@@ -220,10 +207,6 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
         if (bounds != null) {
             request.addQueryParam("Bounds", bounds.toString());
-        }
-
-        if (hideExpired != null) {
-            request.addQueryParam("HideExpired", hideExpired.toString());
         }
 
         if (getPageSize() != null) {

@@ -193,7 +193,8 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * The unique address you reserve on Twilio to which you route your SIP traffic.
-     * Domain names can contain letters, digits, and "-"..
+     * Domain names can contain letters, digits, and "-" and must end with
+     * `sip.twilio.com`..
      *
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return this

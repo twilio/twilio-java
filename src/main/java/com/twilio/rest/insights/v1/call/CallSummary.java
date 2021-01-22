@@ -35,15 +35,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 88369247708461L;
+    private static final long serialVersionUID = 75005243869493L;
 
     public enum CallType {
         CARRIER("carrier"),
@@ -181,6 +176,7 @@ public class CallSummary extends Resource {
     private final CallSummary.CallType callType;
     private final CallSummary.CallState callState;
     private final CallSummary.ProcessingState processingState;
+    private final ZonedDateTime createdTime;
     private final ZonedDateTime startTime;
     private final ZonedDateTime endTime;
     private final Integer duration;
@@ -208,6 +204,8 @@ public class CallSummary extends Resource {
                         final CallSummary.CallState callState,
                         @JsonProperty("processing_state")
                         final CallSummary.ProcessingState processingState,
+                        @JsonProperty("created_time")
+                        final String createdTime,
                         @JsonProperty("start_time")
                         final String startTime,
                         @JsonProperty("end_time")
@@ -243,6 +241,7 @@ public class CallSummary extends Resource {
         this.callType = callType;
         this.callState = callState;
         this.processingState = processingState;
+        this.createdTime = DateConverter.iso8601DateTimeFromString(createdTime);
         this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
         this.endTime = DateConverter.iso8601DateTimeFromString(endTime);
         this.duration = duration;
@@ -303,6 +302,15 @@ public class CallSummary extends Resource {
      */
     public final CallSummary.ProcessingState getProcessingState() {
         return this.processingState;
+    }
+
+    /**
+     * Returns The created_time.
+     *
+     * @return The created_time
+     */
+    public final ZonedDateTime getCreatedTime() {
+        return this.createdTime;
     }
 
     /**
@@ -457,6 +465,7 @@ public class CallSummary extends Resource {
                Objects.equals(callType, other.callType) &&
                Objects.equals(callState, other.callState) &&
                Objects.equals(processingState, other.processingState) &&
+               Objects.equals(createdTime, other.createdTime) &&
                Objects.equals(startTime, other.startTime) &&
                Objects.equals(endTime, other.endTime) &&
                Objects.equals(duration, other.duration) &&
@@ -481,6 +490,7 @@ public class CallSummary extends Resource {
                             callType,
                             callState,
                             processingState,
+                            createdTime,
                             startTime,
                             endTime,
                             duration,

@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-    private static final long serialVersionUID = 233712836112652L;
+    private static final long serialVersionUID = 71791881065855L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -173,7 +173,7 @@ public class Participant extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
-    private final Long lastReadMessageIndex;
+    private final Integer lastReadMessageIndex;
     private final String lastReadTimestamp;
 
     @JsonCreator
@@ -198,7 +198,7 @@ public class Participant extends Resource {
                         @JsonProperty("url")
                         final URI url,
                         @JsonProperty("last_read_message_index")
-                        final Long lastReadMessageIndex,
+                        final Integer lastReadMessageIndex,
                         @JsonProperty("last_read_timestamp")
                         final String lastReadTimestamp) {
         this.accountSid = accountSid;
@@ -317,7 +317,7 @@ public class Participant extends Resource {
      *
      * @return Index of last “read” message in the Conversation for the Participant.
      */
-    public final Long getLastReadMessageIndex() {
+    public final Integer getLastReadMessageIndex() {
         return this.lastReadMessageIndex;
     }
 

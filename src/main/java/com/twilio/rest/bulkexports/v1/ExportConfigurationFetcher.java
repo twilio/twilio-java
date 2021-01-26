@@ -27,7 +27,8 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
     /**
      * Construct a new ExportConfigurationFetcher.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      */
     public ExportConfigurationFetcher(final String pathResourceType) {
         this.pathResourceType = pathResourceType;

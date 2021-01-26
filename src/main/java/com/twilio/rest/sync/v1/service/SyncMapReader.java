@@ -25,7 +25,6 @@ import com.twilio.rest.Domains;
  */
 public class SyncMapReader extends Reader<SyncMap> {
     private final String pathServiceSid;
-    private SyncMap.HideExpiredType hideExpired;
 
     /**
      * Construct a new SyncMapReader.
@@ -35,18 +34,6 @@ public class SyncMapReader extends Reader<SyncMap> {
      */
     public SyncMapReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
-    }
-
-    /**
-     * The default list of Sync Maps will show both active and expired items. It is
-     * possible to filter only the active ones by hiding the expired ones..
-     *
-     * @param hideExpired Hide expired Sync Maps and show only active ones.
-     * @return this
-     */
-    public SyncMapReader setHideExpired(final SyncMap.HideExpiredType hideExpired) {
-        this.hideExpired = hideExpired;
-        return this;
     }
 
     /**
@@ -165,10 +152,6 @@ public class SyncMapReader extends Reader<SyncMap> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (hideExpired != null) {
-            request.addQueryParam("HideExpired", hideExpired.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -33,7 +33,8 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob> {
     /**
      * Construct a new ExportCustomJobCreator.
      *
-     * @param pathResourceType The type of communication – Messages or Calls
+     * @param pathResourceType The type of communication – Messages or Calls,
+     *                         Conferences, and Participants
      * @param startDay The start day for the custom export specified as a string in
      *                 the format of yyyy-mm-dd
      * @param endDay The end day for the custom export specified as a string in the

@@ -43,7 +43,8 @@ public class Job extends Resource {
     /**
      * Create a JobFetcher to execute fetch.
      *
-     * @param pathJobSid The job_sid
+     * @param pathJobSid The unique string that that we created to identify the
+     *                   Bulk Export job
      * @return JobFetcher capable of executing the fetch
      */
     public static JobFetcher fetcher(final String pathJobSid) {
@@ -143,9 +144,11 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;

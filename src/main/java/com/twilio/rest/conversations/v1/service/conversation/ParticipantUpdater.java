@@ -31,7 +31,7 @@ public class ParticipantUpdater extends Updater<Participant> {
     private String roleSid;
     private String messagingBindingProxyAddress;
     private String messagingBindingProjectedAddress;
-    private Long lastReadMessageIndex;
+    private Integer lastReadMessageIndex;
     private String lastReadTimestamp;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
@@ -152,7 +152,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      *                             for the Participant.
      * @return this
      */
-    public ParticipantUpdater setLastReadMessageIndex(final Long lastReadMessageIndex) {
+    public ParticipantUpdater setLastReadMessageIndex(final Integer lastReadMessageIndex) {
         this.lastReadMessageIndex = lastReadMessageIndex;
         return this;
     }

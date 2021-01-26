@@ -29,7 +29,8 @@ public class DayReader extends Reader<Day> {
     /**
      * Construct a new DayReader.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      */
     public DayReader(final String pathResourceType) {
         this.pathResourceType = pathResourceType;

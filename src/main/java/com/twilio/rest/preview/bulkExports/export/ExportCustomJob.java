@@ -43,7 +43,8 @@ public class ExportCustomJob extends Resource {
     /**
      * Create a ExportCustomJobReader to execute read.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportCustomJobReader capable of executing the read
      */
     public static ExportCustomJobReader reader(final String pathResourceType) {
@@ -53,7 +54,8 @@ public class ExportCustomJob extends Resource {
     /**
      * Create a ExportCustomJobCreator to execute create.
      *
-     * @param pathResourceType The type of communication – Messages or Calls
+     * @param pathResourceType The type of communication – Messages or Calls,
+     *                         Conferences, and Participants
      * @param startDay The start day for the custom export specified as a string in
      *                 the format of yyyy-mm-dd
      * @param endDay The end day for the custom export specified as a string in the
@@ -157,9 +159,11 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;

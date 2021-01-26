@@ -29,7 +29,8 @@ public class DayFetcher extends Fetcher<Day> {
     /**
      * Construct a new DayFetcher.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @param pathDay The date of the data in the file
      */
     public DayFetcher(final String pathResourceType,

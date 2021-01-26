@@ -25,7 +25,6 @@ import com.twilio.rest.Domains;
  */
 public class SyncListReader extends Reader<SyncList> {
     private final String pathServiceSid;
-    private SyncList.HideExpiredType hideExpired;
 
     /**
      * Construct a new SyncListReader.
@@ -35,18 +34,6 @@ public class SyncListReader extends Reader<SyncList> {
      */
     public SyncListReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
-    }
-
-    /**
-     * The default list of Sync Lists will show both active and expired items. It is
-     * possible to filter only the active ones by hiding the expired ones..
-     *
-     * @param hideExpired Hide expired Sync Lists and show only active ones.
-     * @return this
-     */
-    public SyncListReader setHideExpired(final SyncList.HideExpiredType hideExpired) {
-        this.hideExpired = hideExpired;
-        return this;
     }
 
     /**
@@ -165,10 +152,6 @@ public class SyncListReader extends Reader<SyncList> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (hideExpired != null) {
-            request.addQueryParam("HideExpired", hideExpired.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

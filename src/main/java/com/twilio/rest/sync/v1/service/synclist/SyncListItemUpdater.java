@@ -53,7 +53,7 @@ public class SyncListItemUpdater extends Updater<SyncListItem> {
 
     /**
      * A JSON string that represents an arbitrary, schema-less object that the List
-     * Item stores. Can be up to 16KB in length..
+     * Item stores. Can be up to 16 KiB in length..
      *
      * @param data A JSON string that represents an arbitrary, schema-less object
      *             that the List Item stores

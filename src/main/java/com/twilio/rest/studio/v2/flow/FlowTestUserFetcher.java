@@ -17,17 +17,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
     private final String pathSid;
 
     /**
      * Construct a new FlowTestUserFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid Unique identifier of the flow.
      */
     public FlowTestUserFetcher(final String pathSid) {
         this.pathSid = pathSid;

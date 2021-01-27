@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class FlowValidateUpdater extends Updater<FlowValidate> {
     private final String friendlyName;
     private final FlowValidate.Status status;
@@ -33,9 +29,9 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
     /**
      * Construct a new FlowValidateUpdater.
      *
-     * @param friendlyName The friendly_name
-     * @param status The status
-     * @param definition The definition
+     * @param friendlyName The string that you assigned to describe the Flow
+     * @param status The status of the Flow
+     * @param definition JSON representation of flow definition
      */
     public FlowValidateUpdater(final String friendlyName,
                                final FlowValidate.Status status,
@@ -46,9 +42,9 @@ public class FlowValidateUpdater extends Updater<FlowValidate> {
     }
 
     /**
-     * The commit_message.
+     * Description of change made in the revision..
      *
-     * @param commitMessage The commit_message
+     * @param commitMessage Description of change made in the revision
      * @return this
      */
     public FlowValidateUpdater setCommitMessage(final String commitMessage) {

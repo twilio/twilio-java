@@ -71,6 +71,8 @@ public class ConnectTest {
                     .connectorName("connector_name")
                     .url("url")
                     .track(Stream.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
                     .build());
 
         Connect elem = builder.build();
@@ -80,7 +82,7 @@ public class ConnectTest {
             "<Connect>" +
                 "<Room participantIdentity=\"participant_identity\">name</Room>" +
                 "<Autopilot>name</Autopilot>" +
-                "<Stream connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\" url=\"url\"/>" +
+                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
             "</Connect>",
             elem.toXml()
         );

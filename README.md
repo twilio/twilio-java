@@ -99,6 +99,8 @@ for information about logging configuration:
 
   http://slf4j.org/docs.html
 
+For example, if you are using `log4j`, make sure you have `slf4j-log4j12-1.X.XX.jar`, `log4j-1.X.XX.jar` and `slf4j-api-1.X.XX.jar` in your classpath and a `log4j.properties` file in the root of your project.
+
 ### Environment Variables
 
 `twilio-java` supports the credentials, region, and edge values stored in the following environment variables:

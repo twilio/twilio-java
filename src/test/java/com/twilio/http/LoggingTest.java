@@ -2,13 +2,11 @@ package com.twilio.http;
 
 import com.twilio.Twilio;
 import com.twilio.rest.Domains;
-import com.twilio.rest.api.v2010.account.Message;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.Assert;
 
 import java.io.ByteArrayOutputStream;
-import java.io.OutputStream;
 import java.io.PrintStream;
 
 public class LoggingTest {

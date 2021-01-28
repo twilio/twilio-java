@@ -8,6 +8,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,15 +18,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.net.URI;
+
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class FleetUpdater extends Updater<Fleet> {
     private final String pathSid;
     private String uniqueName;
     private String networkAccessProfile;
+    private URI commandsUrl;
+    private HttpMethod commandsMethod;
 
     /**
      * Construct a new FleetUpdater.
@@ -59,6 +63,50 @@ public class FleetUpdater extends Updater<Fleet> {
      */
     public FleetUpdater setNetworkAccessProfile(final String networkAccessProfile) {
         this.networkAccessProfile = networkAccessProfile;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a SIM in the Fleet is used to send
+     * an SMS from your device (mobile originated) to the Commands number. Your
+     * server should respond with an HTTP status code in the 200 range; any response
+     * body will be ignored..
+     *
+     * @param commandsUrl The URL that will receive a webhook when a SIM in the
+     *                    Fleet is used to send an SMS from your device (mobile
+     *                    originated) to the Commands number
+     * @return this
+     */
+    public FleetUpdater setCommandsUrl(final URI commandsUrl) {
+        this.commandsUrl = commandsUrl;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a SIM in the Fleet is used to send
+     * an SMS from your device (mobile originated) to the Commands number. Your
+     * server should respond with an HTTP status code in the 200 range; any response
+     * body will be ignored..
+     *
+     * @param commandsUrl The URL that will receive a webhook when a SIM in the
+     *                    Fleet is used to send an SMS from your device (mobile
+     *                    originated) to the Commands number
+     * @return this
+     */
+    public FleetUpdater setCommandsUrl(final String commandsUrl) {
+        return setCommandsUrl(Promoter.uriFromString(commandsUrl));
+    }
+
+    /**
+     * A string representing the HTTP method to use when making a request to
+     * `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     *
+     * @param commandsMethod A string representing the HTTP method to use when
+     *                       making a request to `commands_url`
+     * @return this
+     */
+    public FleetUpdater setCommandsMethod(final HttpMethod commandsMethod) {
+        this.commandsMethod = commandsMethod;
         return this;
     }
 
@@ -105,6 +153,14 @@ public class FleetUpdater extends Updater<Fleet> {
 
         if (networkAccessProfile != null) {
             request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
+        }
+
+        if (commandsUrl != null) {
+            request.addPostParam("CommandsUrl", commandsUrl.toString());
+        }
+
+        if (commandsMethod != null) {
+            request.addPostParam("CommandsMethod", commandsMethod.toString());
         }
     }
 }

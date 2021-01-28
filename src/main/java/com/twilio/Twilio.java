@@ -19,7 +19,7 @@ import java.io.File;
  */
 public class Twilio {
 
-    public static final String VERSION = "8.6.0";
+    public static final String VERSION = "8.6.1";
     public static final String JAVA_VERSION = System.getProperty("java.version");
 
     private static String username = System.getenv("TWILIO_ACCOUNT_SID");

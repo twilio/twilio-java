@@ -34,9 +34,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -297,11 +296,12 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The URL that will receive a webhook when a SIM in the Fleet
-     * originates a machine-to-machine SMS via Commands.
+     * Returns The URL that will receive a webhook when a SIM in the Fleet is used
+     * to send an SMS from your device (mobile originated) to the Commands number.
      *
-     * @return The URL that will receive a webhook when a SIM in the Fleet
-     *         originates a machine-to-machine SMS via Commands
+     * @return The URL that will receive a webhook when a SIM in the Fleet is used
+     *         to send an SMS from your device (mobile originated) to the Commands
+     *         number
      */
     public final URI getCommandsUrl() {
         return this.commandsUrl;

@@ -35,12 +35,13 @@ public class TaskCreator extends Creator<Task> {
     }
 
     /**
-     * The amount of time in seconds the new task is allowed to live. Can be up to a
-     * maximum of 2 weeks (1,209,600 seconds). The default value is 24 hours (86,400
-     * seconds). On timeout, the `task.canceled` event will fire with description
-     * `Task TTL Exceeded`..
+     * The amount of time in seconds the new task can live before being assigned.
+     * Can be up to a maximum of 2 weeks (1,209,600 seconds). The default value is
+     * 24 hours (86,400 seconds). On timeout, the `task.canceled` event will fire
+     * with description `Task TTL Exceeded`..
      *
-     * @param timeout The amount of time in seconds the task is allowed to live
+     * @param timeout The amount of time in seconds the task can live before being
+     *                assigned
      * @return this
      */
     public TaskCreator setTimeout(final Integer timeout) {

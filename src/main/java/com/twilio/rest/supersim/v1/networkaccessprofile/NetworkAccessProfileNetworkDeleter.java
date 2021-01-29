@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessProfileNetwork> {
     private final String pathNetworkAccessProfileSid;
@@ -31,7 +30,7 @@ public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessPro
      *
      * @param pathNetworkAccessProfileSid The unique string that identifies the
      *                                    Network Access Profile resource
-     * @param pathSid The sid
+     * @param pathSid The SID that identifies the Network resource
      */
     public NetworkAccessProfileNetworkDeleter(final String pathNetworkAccessProfileSid,
                                               final String pathSid) {

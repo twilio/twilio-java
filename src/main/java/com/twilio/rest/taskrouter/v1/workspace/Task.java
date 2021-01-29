@@ -388,9 +388,11 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The amount of time in seconds that the Task is allowed to live.
+     * Returns The amount of time in seconds that the Task can live before being
+     * assigned.
      *
-     * @return The amount of time in seconds that the Task is allowed to live
+     * @return The amount of time in seconds that the Task can live before being
+     *         assigned
      */
     public final Integer getTimeout() {
         return this.timeout;

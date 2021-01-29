@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--logging configuration file example-->
 <Configuration status="warn" name="MyApp" packages="">
     <Appenders>
         <Console name="STDOUT" target="SYSTEM_OUT">

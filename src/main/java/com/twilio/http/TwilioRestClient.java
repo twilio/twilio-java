@@ -148,25 +148,28 @@ public class TwilioRestClient {
      * Logging debug information about HTTP request.
      */
     public void logRequest(final Request request) {
-        logger.debug("-- BEGIN Twilio API Request --");
-        logger.debug("request method: " + request.getMethod());
-        logger.debug("request URL: " + request.getUrl());
-        final Map<String, List<String>> queryParams = request.getQueryParams();
-        final Map<String, List<String>> headerParams = request.getHeaderParams();
+        if (logger.isDebugEnabled()) {
+            logger.debug("-- BEGIN Twilio API Request --");
+            logger.debug("request method: " + request.getMethod());
+            logger.debug("request URL: " + request.getUrl());
+            final Map<String, List<String>> queryParams = request.getQueryParams();
+            final Map<String, List<String>> headerParams = request.getHeaderParams();
 
-        if (!queryParams.isEmpty()) {
-            logger.debug("query parameters: " + queryParams);
-        }
+            if (queryParams != null && !queryParams.isEmpty()) {
+                logger.debug("query parameters: " + queryParams);
+            }
 
-        if (!headerParams.isEmpty()) {
-            logger.debug("header parameters: ");
-            for (String key : headerParams.keySet()) {
-                if (!key.toLowerCase().contains("authorization")) {
-                    logger.debug(key + ": " + headerParams.get(key));
+            if (headerParams != null && !headerParams.isEmpty()) {
+                logger.debug("header parameters: ");
+                for (String key : headerParams.keySet()) {
+                    if (!key.toLowerCase().contains("authorization")) {
+                        logger.debug(key + ": " + headerParams.get(key));
+                    }
                 }
             }
+
+            logger.debug("-- END Twilio API Request --");
         }
-        logger.debug("-- END Twilio API Request --");
     }
 
 }

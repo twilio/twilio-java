@@ -42,15 +42,4 @@ public class LoggingTest {
         Assert.assertTrue(output.toString().contains("GET"));
         Assert.assertFalse(output.toString().contains("Authorization"));
     }
-
-    @Test
-    public void testUsingDefaultConfigurationFileDebugLogging() {
-        logCapturingSetup();
-        final Request request = new Request(HttpMethod.GET, Domains.API.toString(),
-                "/2010-04-01/Accounts/AC123/Messages/MM123.json");
-        request.addHeaderParam("Authorization", "authorization value");
-        request.addHeaderParam("Test Header", "test value");
-        finishLogCapturingSetup(request);
-        Assert.assertTrue(output.toString().isEmpty());
-    }
 }

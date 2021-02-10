@@ -6,10 +6,14 @@ import com.tngtech.archunit.core.domain.JavaModifier;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.core.importer.ImportOptions;
+import com.tngtech.archunit.lang.ArchRule;
 import com.tngtech.archunit.lang.syntax.elements.GivenClassesConjunction;
 
 import nl.jqno.equalsverifier.EqualsVerifier;
 
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
+import static com.tngtech.archunit.lang.conditions.ArchConditions.dependOnClassesThat;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 import static com.tngtech.archunit.library.GeneralCodingRules.*;
 import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static org.junit.Assert.assertTrue;
@@ -46,6 +50,14 @@ public class ComplianceTest {
     }
 
     @Test
+    public void noClassesShouldUseLog4j() {
+        // disallow Log4j version 1.x
+        disallowPackage("org.apache.log4j").check(twilioClasses);
+        // disallow Log4j version 2.x
+        disallowPackage("org.apache.logging.log4j").check(twilioClasses);
+    }
+
+    @Test
     public void noClassesShouldUseJodaTime() {
         NO_CLASSES_SHOULD_USE_JODATIME.check(twilioClasses);
     }
@@ -72,5 +84,10 @@ public class ComplianceTest {
             }
         }
         return Collections.unmodifiableList(builder);
+    }
+
+    private static ArchRule disallowPackage(final String packageIdentifier) {
+        return noClasses()
+                .should(dependOnClassesThat(resideInAPackage(packageIdentifier)));
     }
 }

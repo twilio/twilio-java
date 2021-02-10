@@ -21,9 +21,8 @@ import com.twilio.rest.Domains;
 import java.net.URI;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class FleetCreator extends Creator<Fleet> {
     private final String networkAccessProfile;
@@ -101,12 +100,14 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
-     * The URL that will receive a webhook when a SIM in the Fleet originates a
-     * machine-to-machine SMS via Commands. Your server should respond with an HTTP
-     * status code in the 200 range; any response body will be ignored..
+     * The URL that will receive a webhook when a SIM in the Fleet is used to send
+     * an SMS from your device (mobile originated) to the Commands number. Your
+     * server should respond with an HTTP status code in the 200 range; any response
+     * body will be ignored..
      *
      * @param commandsUrl The URL that will receive a webhook when a SIM in the
-     *                    Fleet originates a machine-to-machine SMS via Commands
+     *                    Fleet is used to send an SMS from your device (mobile
+     *                    originated) to the Commands number
      * @return this
      */
     public FleetCreator setCommandsUrl(final URI commandsUrl) {
@@ -115,12 +116,14 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
-     * The URL that will receive a webhook when a SIM in the Fleet originates a
-     * machine-to-machine SMS via Commands. Your server should respond with an HTTP
-     * status code in the 200 range; any response body will be ignored..
+     * The URL that will receive a webhook when a SIM in the Fleet is used to send
+     * an SMS from your device (mobile originated) to the Commands number. Your
+     * server should respond with an HTTP status code in the 200 range; any response
+     * body will be ignored..
      *
      * @param commandsUrl The URL that will receive a webhook when a SIM in the
-     *                    Fleet originates a machine-to-machine SMS via Commands
+     *                    Fleet is used to send an SMS from your device (mobile
+     *                    originated) to the Commands number
      * @return this
      */
     public FleetCreator setCommandsUrl(final String commandsUrl) {

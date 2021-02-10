@@ -53,6 +53,8 @@ public class StopTest {
                     .connectorName("connector_name")
                     .url("url")
                     .track(Stream.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
                     .build());
 
         builder.siprec(new Siprec.Builder()
@@ -66,7 +68,7 @@ public class StopTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Stop>" +
-                "<Stream connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\" url=\"url\"/>" +
+                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>" +
             "</Stop>",
             elem.toXml()

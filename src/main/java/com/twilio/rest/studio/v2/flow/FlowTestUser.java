@@ -31,10 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowTestUser extends Resource {
@@ -43,7 +39,7 @@ public class FlowTestUser extends Resource {
     /**
      * Create a FlowTestUserFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid Unique identifier of the flow.
      * @return FlowTestUserFetcher capable of executing the fetch
      */
     public static FlowTestUserFetcher fetcher(final String pathSid) {
@@ -53,8 +49,9 @@ public class FlowTestUser extends Resource {
     /**
      * Create a FlowTestUserUpdater to execute update.
      *
-     * @param pathSid The sid
-     * @param testUsers The test_users
+     * @param pathSid Unique identifier of the flow.
+     * @param testUsers List of test user identities that can test draft versions
+     *                  of the flow.
      * @return FlowTestUserUpdater capable of executing the update
      */
     public static FlowTestUserUpdater updater(final String pathSid,
@@ -117,27 +114,29 @@ public class FlowTestUser extends Resource {
     }
 
     /**
-     * Returns The sid.
+     * Returns Unique identifier of the flow..
      *
-     * @return The sid
+     * @return Unique identifier of the flow.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The test_users.
+     * Returns List of test user identities that can test draft versions of the
+     * flow..
      *
-     * @return The test_users
+     * @return List of test user identities that can test draft versions of the
+     *         flow.
      */
     public final List<String> getTestUsers() {
         return this.testUsers;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

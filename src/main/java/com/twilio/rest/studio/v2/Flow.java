@@ -35,10 +35,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Flow extends Resource {
@@ -280,9 +276,9 @@ public class Flow extends Resource {
     }
 
     /**
-     * Returns Description on change made in the revision.
+     * Returns Description of change made in the revision.
      *
-     * @return Description on change made in the revision
+     * @return Description of change made in the revision
      */
     public final String getCommitMessage() {
         return this.commitMessage;

@@ -31,10 +31,6 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowValidate extends Resource {
@@ -68,9 +64,9 @@ public class FlowValidate extends Resource {
     /**
      * Create a FlowValidateUpdater to execute update.
      *
-     * @param friendlyName The friendly_name
-     * @param status The status
-     * @param definition The definition
+     * @param friendlyName The string that you assigned to describe the Flow
+     * @param status The status of the Flow
+     * @param definition JSON representation of flow definition
      * @return FlowValidateUpdater capable of executing the update
      */
     public static FlowValidateUpdater updater(final String friendlyName,
@@ -126,9 +122,9 @@ public class FlowValidate extends Resource {
     }
 
     /**
-     * Returns The valid.
+     * Returns Boolean if the flow definition is valid.
      *
-     * @return The valid
+     * @return Boolean if the flow definition is valid
      */
     public final Boolean getValid() {
         return this.valid;

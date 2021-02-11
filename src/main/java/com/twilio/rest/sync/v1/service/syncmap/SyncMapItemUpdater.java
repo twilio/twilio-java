@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private final String pathServiceSid;
     private final String pathMapSid;
@@ -110,7 +106,11 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     }
 
     /**
-     * The If-Match HTTP request header.
+     * If provided, applies this mutation if (and only if) the “revision” field of
+     * this <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match">map
+     * item] matches the provided value. This matches the semantics of (and is
+     * implemented with) the HTTP [If-Match header</a>..
      *
      * @param ifMatch The If-Match HTTP request header
      * @return this

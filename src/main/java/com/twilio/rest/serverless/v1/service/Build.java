@@ -42,7 +42,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Build extends Resource {
-    private static final long serialVersionUID = 112894986851836L;
+    private static final long serialVersionUID = 267460910114128L;
 
     public enum Status {
         BUILDING("building"),
@@ -67,6 +67,32 @@ public class Build extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Runtime {
+        NODE8("node8"),
+        NODE10("node10"),
+        NODE12("node12");
+
+        private final String value;
+
+        private Runtime(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Runtime from a string.
+         * @param value string value
+         * @return generated Runtime
+         */
+        @JsonCreator
+        public static Runtime forValue(final String value) {
+            return Promoter.enumFromString(value, Runtime.values());
         }
     }
 
@@ -160,6 +186,7 @@ public class Build extends Resource {
     private final List<Map<String, Object>> assetVersions;
     private final List<Map<String, Object>> functionVersions;
     private final List<Map<String, Object>> dependencies;
+    private final Build.Runtime runtime;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -180,6 +207,8 @@ public class Build extends Resource {
                   final List<Map<String, Object>> functionVersions,
                   @JsonProperty("dependencies")
                   final List<Map<String, Object>> dependencies,
+                  @JsonProperty("runtime")
+                  final Build.Runtime runtime,
                   @JsonProperty("date_created")
                   final String dateCreated,
                   @JsonProperty("date_updated")
@@ -195,6 +224,7 @@ public class Build extends Resource {
         this.assetVersions = assetVersions;
         this.functionVersions = functionVersions;
         this.dependencies = dependencies;
+        this.runtime = runtime;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -271,6 +301,15 @@ public class Build extends Resource {
     }
 
     /**
+     * Returns The Runtime version that will be used to run the Build..
+     *
+     * @return The Runtime version that will be used to run the Build.
+     */
+    public final Build.Runtime getRuntime() {
+        return this.runtime;
+    }
+
+    /**
      * Returns The ISO 8601 date and time in GMT when the Build resource was
      * created.
      *
@@ -328,6 +367,7 @@ public class Build extends Resource {
                Objects.equals(assetVersions, other.assetVersions) &&
                Objects.equals(functionVersions, other.functionVersions) &&
                Objects.equals(dependencies, other.dependencies) &&
+               Objects.equals(runtime, other.runtime) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -343,6 +383,7 @@ public class Build extends Resource {
                             assetVersions,
                             functionVersions,
                             dependencies,
+                            runtime,
                             dateCreated,
                             dateUpdated,
                             url,

@@ -29,6 +29,7 @@ public class BuildCreator extends Creator<Build> {
     private List<String> assetVersions;
     private List<String> functionVersions;
     private String dependencies;
+    private String runtime;
 
     /**
      * Construct a new BuildCreator.
@@ -100,6 +101,18 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
+     * The Runtime version that will be used to run the Build resource when it is
+     * deployed..
+     *
+     * @param runtime The Runtime version that will be used to run the Build.
+     * @return this
+     */
+    public BuildCreator setRuntime(final String runtime) {
+        this.runtime = runtime;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -150,6 +163,10 @@ public class BuildCreator extends Creator<Build> {
 
         if (dependencies != null) {
             request.addPostParam("Dependencies", dependencies);
+        }
+
+        if (runtime != null) {
+            request.addPostParam("Runtime", runtime);
         }
     }
 }

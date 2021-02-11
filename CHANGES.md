@@ -1,6 +1,44 @@
 twilio-java changelog
 =====================
 
+[2021-02-11] Version 8.7.0
+--------------------------
+**Library - Chore**
+- [PR #617](https://github.com/twilio/twilio-java/pull/617): archunit 0.16.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #618](https://github.com/twilio/twilio-java/pull/618): disallow Log4j. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #616](https://github.com/twilio/twilio-java/pull/616): equalsverifier 3.5.2. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #620](https://github.com/twilio/twilio-java/pull/620): temporarily remove log test. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #619](https://github.com/twilio/twilio-java/pull/619): no longer using log4j test config. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #610](https://github.com/twilio/twilio-java/pull/610): switch from log4j to SLF4J. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Revert change that conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Events**
+- Documentation should state that no fields are PII
+
+**Flex**
+- Adding `notifications` and `markdown` to Flex Configuration
+
+**Messaging**
+- Add A2P use cases API
+- Add Brand Registrations API
+- Add Campaigns API
+
+**Serverless**
+- Add runtime field to Build response and as an optional parameter to the Build create endpoint.
+- Add @twilio/runtime-handler dependency to Build response example.
+
+**Sync**
+- Remove If-Match header for Document **(breaking change)**
+
+**Twiml**
+- Add `refer_url` and `refer_method` to `Dial`.
+
+
 [2021-01-27] Version 8.6.1
 --------------------------
 **Studio**

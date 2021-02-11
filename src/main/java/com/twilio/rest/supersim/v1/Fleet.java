@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Fleet extends Resource {
-    private static final long serialVersionUID = 262022242180029L;
+    private static final long serialVersionUID = 130716130909044L;
 
     public enum DataMetering {
         PAYG("payg");
@@ -296,12 +296,11 @@ public class Fleet extends Resource {
     }
 
     /**
-     * Returns The URL that will receive a webhook when a SIM in the Fleet is used
-     * to send an SMS from your device (mobile originated) to the Commands number.
+     * Returns The URL that will receive a webhook when a Super SIM in the Fleet is
+     * used to send an SMS from your device to the Commands number.
      *
-     * @return The URL that will receive a webhook when a SIM in the Fleet is used
-     *         to send an SMS from your device (mobile originated) to the Commands
-     *         number
+     * @return The URL that will receive a webhook when a Super SIM in the Fleet is
+     *         used to send an SMS from your device to the Commands number
      */
     public final URI getCommandsUrl() {
         return this.commandsUrl;

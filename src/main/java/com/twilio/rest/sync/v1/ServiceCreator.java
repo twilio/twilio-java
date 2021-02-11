@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ServiceCreator extends Creator<Service> {
     private String friendlyName;
     private URI webhookUrl;

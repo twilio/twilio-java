@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,11 +30,8 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class DocumentPermission extends Resource {
     private static final long serialVersionUID = 172715793000822L;
 
@@ -288,19 +285,5 @@ public class DocumentPermission extends Resource {
                             write,
                             manage,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("documentSid", documentSid)
-                          .add("identity", identity)
-                          .add("read", read)
-                          .add("write", write)
-                          .add("manage", manage)
-                          .add("url", url)
-                          .toString();
     }
 }

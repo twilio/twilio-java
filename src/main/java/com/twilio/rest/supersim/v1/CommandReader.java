@@ -20,9 +20,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class CommandReader extends Reader<Command> {
     private String sim;
@@ -43,8 +42,9 @@ public class CommandReader extends Reader<Command> {
 
     /**
      * The status of the Command. Can be: `queued`, `sent`, `delivered`, `received`
-     * or `failed`. See the [Command Status
-     * Values](https://www.twilio.com/docs/wireless/api/command-resource#status-values) for a description of each..
+     * or `failed`. See the <a
+     * href="https://www.twilio.com/docs/wireless/api/command-resource#status-values">Command
+     * Status Values</a> for a description of each..
      *
      * @param status The status of the Command
      * @return this
@@ -161,7 +161,7 @@ public class CommandReader extends Reader<Command> {
 
         if (response == null) {
             throw new ApiConnectionException("Command read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

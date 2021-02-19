@@ -193,7 +193,8 @@ public class DomainUpdater extends Updater<Domain> {
 
     /**
      * The unique address you reserve on Twilio to which you route your SIP traffic.
-     * Domain names can contain letters, digits, and "-"..
+     * Domain names can contain letters, digits, and "-" and must end with
+     * `sip.twilio.com`..
      *
      * @param domainName The unique address on Twilio to route SIP traffic
      * @return this
@@ -275,7 +276,7 @@ public class DomainUpdater extends Updater<Domain> {
 
         if (response == null) {
             throw new ApiConnectionException("Domain update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

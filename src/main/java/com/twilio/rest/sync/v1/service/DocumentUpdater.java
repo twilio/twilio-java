@@ -20,15 +20,12 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class DocumentUpdater extends Updater<Document> {
     private final String pathServiceSid;
     private final String pathSid;
     private Map<String, Object> data;
     private Integer ttl;
+    private String ifMatch;
 
     /**
      * Construct a new DocumentUpdater.
@@ -45,7 +42,7 @@ public class DocumentUpdater extends Updater<Document> {
 
     /**
      * A JSON string that represents an arbitrary, schema-less object that the Sync
-     * Document stores. Can be up to 16KB in length..
+     * Document stores. Can be up to 16 KiB in length..
      *
      * @param data A JSON string that represents an arbitrary, schema-less object
      *             that the Sync Document stores
@@ -73,6 +70,17 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public DocumentUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -88,11 +96,12 @@ public class DocumentUpdater extends Updater<Document> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Document update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -101,6 +110,17 @@ public class DocumentUpdater extends Updater<Document> {
         }
 
         return Document.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

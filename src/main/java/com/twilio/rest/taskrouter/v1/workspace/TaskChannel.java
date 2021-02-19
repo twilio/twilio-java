@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,24 +23,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class TaskChannel extends Resource {
     private static final long serialVersionUID = 87520156212725L;
 
     /**
      * Create a TaskChannelFetcher to execute fetch.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
      *                         fetch
-     * @param pathSid The SID of the TaskChannel resource to fetch
+     * @param pathSid The SID of the Task Channel resource to fetch
      * @return TaskChannelFetcher capable of executing the fetch
      */
     public static TaskChannelFetcher fetcher(final String pathWorkspaceSid,
@@ -52,7 +53,8 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelReader to execute read.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to read
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
+     *                         read
      * @return TaskChannelReader capable of executing the read
      */
     public static TaskChannelReader reader(final String pathWorkspaceSid) {
@@ -62,9 +64,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelUpdater to execute update.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
      *                         update
-     * @param pathSid The SID of the TaskChannel resource to update
+     * @param pathSid The SID of the Task Channel resource to update
      * @return TaskChannelUpdater capable of executing the update
      */
     public static TaskChannelUpdater updater(final String pathWorkspaceSid,
@@ -75,9 +77,9 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelDeleter to execute delete.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
      *                         delete
-     * @param pathSid The SID of the TaskChannel resource to delete
+     * @param pathSid The SID of the Task Channel resource to delete
      * @return TaskChannelDeleter capable of executing the delete
      */
     public static TaskChannelDeleter deleter(final String pathWorkspaceSid,
@@ -88,11 +90,11 @@ public class TaskChannel extends Resource {
     /**
      * Create a TaskChannelCreator to execute create.
      *
-     * @param pathWorkspaceSid The SID of the Workspace that the new TaskChannel
+     * @param pathWorkspaceSid The SID of the Workspace that the new Task Channel
      *                         belongs to
-     * @param friendlyName A string to describe the TaskChannel resource
+     * @param friendlyName A string to describe the Task Channel resource
      * @param uniqueName An application-defined string that uniquely identifies the
-     *                   TaskChannel
+     *                   Task Channel
      * @return TaskChannelCreator capable of executing the create
      */
     public static TaskChannelCreator creator(final String pathWorkspaceSid,
@@ -140,8 +142,8 @@ public class TaskChannel extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final String sid;
     private final String uniqueName;
@@ -197,7 +199,7 @@ public class TaskChannel extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -206,7 +208,7 @@ public class TaskChannel extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -229,38 +231,38 @@ public class TaskChannel extends Resource {
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the
-     * TaskChannel.
+     * Returns An application-defined string that uniquely identifies the Task
+     * Channel.
      *
-     * @return An application-defined string that uniquely identifies the
-     *         TaskChannel
+     * @return An application-defined string that uniquely identifies the Task
+     *         Channel
      */
     public final String getUniqueName() {
         return this.uniqueName;
     }
 
     /**
-     * Returns The SID of the Workspace that contains the TaskChannel.
+     * Returns The SID of the Workspace that contains the Task Channel.
      *
-     * @return The SID of the Workspace that contains the TaskChannel
+     * @return The SID of the Workspace that contains the Task Channel
      */
     public final String getWorkspaceSid() {
         return this.workspaceSid;
     }
 
     /**
-     * Returns Whether the TaskChannel will prioritize Workers that have been idle.
+     * Returns Whether the Task Channel will prioritize Workers that have been idle.
      *
-     * @return Whether the TaskChannel will prioritize Workers that have been idle
+     * @return Whether the Task Channel will prioritize Workers that have been idle
      */
     public final Boolean getChannelOptimizedRouting() {
         return this.channelOptimizedRouting;
     }
 
     /**
-     * Returns The absolute URL of the TaskChannel resource.
+     * Returns The absolute URL of the Task Channel resource.
      *
-     * @return The absolute URL of the TaskChannel resource
+     * @return The absolute URL of the Task Channel resource
      */
     public final URI getUrl() {
         return this.url;
@@ -311,21 +313,5 @@ public class TaskChannel extends Resource {
                             channelOptimizedRouting,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("friendlyName", friendlyName)
-                          .add("sid", sid)
-                          .add("uniqueName", uniqueName)
-                          .add("workspaceSid", workspaceSid)
-                          .add("channelOptimizedRouting", channelOptimizedRouting)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

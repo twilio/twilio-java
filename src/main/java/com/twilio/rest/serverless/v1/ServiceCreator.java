@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class ServiceCreator extends Creator<Service> {
     private final String uniqueName;
@@ -31,8 +30,8 @@ public class ServiceCreator extends Creator<Service> {
     /**
      * Construct a new ServiceCreator.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   Service resource
+     * @param uniqueName A user-defined string that uniquely identifies the Service
+     *                   resource
      * @param friendlyName A string to describe the Service resource
      */
     public ServiceCreator(final String uniqueName,
@@ -43,7 +42,7 @@ public class ServiceCreator extends Creator<Service> {
 
     /**
      * Whether to inject Account credentials into a function invocation context. The
-     * default value is `false`..
+     * default value is `true`..
      *
      * @param includeCredentials Whether to inject Account credentials into a
      *                           function invocation context
@@ -87,7 +86,7 @@ public class ServiceCreator extends Creator<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

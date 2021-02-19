@@ -30,14 +30,17 @@ public class Assert {
     }
 
     public static void assertUrlsEqual(final String expected, final String actual) {
-        String[] expectedParts = expected.split("\\?");
-        String[] actualParts = actual.split("\\?");
+        String[] expectedParts = expected.split("[?#]");
+        String[] actualParts = actual.split("[?#]");
 
         assertEquals(expectedParts.length, actualParts.length);
         assertEquals(expectedParts[0], actualParts[0]);
 
-        if (expectedParts.length == 2) {
+        if (expectedParts.length >= 2) {
             assertQueryStringsEqual(expectedParts[1], actualParts[1]);
+        }
+        if (expectedParts.length == 3) {
+            assertEquals(expectedParts[2], actualParts[2]);
         }
     }
 

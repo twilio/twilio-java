@@ -33,7 +33,8 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     /**
      * Construct a new ExportConfigurationUpdater.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      */
     public ExportConfigurationUpdater(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
@@ -105,7 +106,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
 
         if (response == null) {
             throw new ApiConnectionException("ExportConfiguration update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

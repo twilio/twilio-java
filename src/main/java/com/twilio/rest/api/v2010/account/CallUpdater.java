@@ -58,8 +58,10 @@ public class CallUpdater extends Updater<Call> {
     /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
-     * information, see the [Url
-     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls)..
+     * information, see the <a
+     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url
+     * Parameter</a> section in <a
+     * href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
      *
      * @param url The absolute URL that returns TwiML for this call
      * @return this
@@ -72,8 +74,10 @@ public class CallUpdater extends Updater<Call> {
     /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
-     * information, see the [Url
-     * Parameter](https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter) section in [Making Calls](https://www.twilio.com/docs/voice/make-calls)..
+     * information, see the <a
+     * href="https://www.twilio.com/docs/voice/make-calls#specify-a-url-parameter">Url
+     * Parameter</a> section in <a
+     * href="https://www.twilio.com/docs/voice/make-calls">Making Calls</a>..
      *
      * @param url The absolute URL that returns TwiML for this call
      * @return this
@@ -235,7 +239,7 @@ public class CallUpdater extends Updater<Call> {
 
         if (response == null) {
             throw new ApiConnectionException("Call update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

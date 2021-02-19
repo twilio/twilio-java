@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,27 +25,29 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 237038422793901L;
+    private static final long serialVersionUID = 110040442840544L;
 
-    public enum RecordingSetting {
-        DO_NOT_RECORD("do-not-record"),
-        RECORD_FROM_RINGING("record-from-ringing"),
-        RECORD_FROM_ANSWER("record-from-answer");
+    public enum TransferSetting {
+        DISABLE_ALL("disable-all"),
+        ENABLE_ALL("enable-all"),
+        SIP_ONLY("sip-only");
 
         private final String value;
 
-        private RecordingSetting(final String value) {
+        private TransferSetting(final String value) {
             this.value = value;
         }
 
@@ -55,13 +56,13 @@ public class Trunk extends Resource {
         }
 
         /**
-         * Generate a RecordingSetting from a string.
+         * Generate a TransferSetting from a string.
          * @param value string value
-         * @return generated RecordingSetting
+         * @return generated TransferSetting
          */
         @JsonCreator
-        public static RecordingSetting forValue(final String value) {
-            return Promoter.enumFromString(value, RecordingSetting.values());
+        public static TransferSetting forValue(final String value) {
+            return Promoter.enumFromString(value, TransferSetting.values());
         }
     }
 
@@ -157,11 +158,12 @@ public class Trunk extends Resource {
     private final String friendlyName;
     private final Boolean secure;
     private final Map<String, Object> recording;
+    private final Trunk.TransferSetting transferMode;
     private final Boolean cnamLookupEnabled;
     private final String authType;
     private final List<String> authTypeSet;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String sid;
     private final URI url;
     private final Map<String, String> links;
@@ -181,6 +183,8 @@ public class Trunk extends Resource {
                   final Boolean secure,
                   @JsonProperty("recording")
                   final Map<String, Object> recording,
+                  @JsonProperty("transfer_mode")
+                  final Trunk.TransferSetting transferMode,
                   @JsonProperty("cnam_lookup_enabled")
                   final Boolean cnamLookupEnabled,
                   @JsonProperty("auth_type")
@@ -204,6 +208,7 @@ public class Trunk extends Resource {
         this.friendlyName = friendlyName;
         this.secure = secure;
         this.recording = recording;
+        this.transferMode = transferMode;
         this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
@@ -282,6 +287,15 @@ public class Trunk extends Resource {
     }
 
     /**
+     * Returns The call transfer settings for the trunk.
+     *
+     * @return The call transfer settings for the trunk
+     */
+    public final Trunk.TransferSetting getTransferMode() {
+        return this.transferMode;
+    }
+
+    /**
      * Returns Whether Caller ID Name (CNAM) lookup is enabled for the trunk.
      *
      * @return Whether Caller ID Name (CNAM) lookup is enabled for the trunk
@@ -313,7 +327,7 @@ public class Trunk extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -322,7 +336,7 @@ public class Trunk extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -372,6 +386,7 @@ public class Trunk extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(secure, other.secure) &&
                Objects.equals(recording, other.recording) &&
+               Objects.equals(transferMode, other.transferMode) &&
                Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
                Objects.equals(authType, other.authType) &&
                Objects.equals(authTypeSet, other.authTypeSet) &&
@@ -391,6 +406,7 @@ public class Trunk extends Resource {
                             friendlyName,
                             secure,
                             recording,
+                            transferMode,
                             cnamLookupEnabled,
                             authType,
                             authTypeSet,
@@ -399,26 +415,5 @@ public class Trunk extends Resource {
                             sid,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("domainName", domainName)
-                          .add("disasterRecoveryMethod", disasterRecoveryMethod)
-                          .add("disasterRecoveryUrl", disasterRecoveryUrl)
-                          .add("friendlyName", friendlyName)
-                          .add("secure", secure)
-                          .add("recording", recording)
-                          .add("cnamLookupEnabled", cnamLookupEnabled)
-                          .add("authType", authType)
-                          .add("authTypeSet", authTypeSet)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("sid", sid)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

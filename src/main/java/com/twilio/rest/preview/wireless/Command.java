@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,6 +38,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Command extends Resource {
     private static final long serialVersionUID = 102379842720145L;
 
@@ -115,8 +116,8 @@ public class Command extends Resource {
     private final String commandMode;
     private final String status;
     private final String direction;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -232,7 +233,7 @@ public class Command extends Resource {
      *
      * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -241,7 +242,7 @@ public class Command extends Resource {
      *
      * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -292,22 +293,5 @@ public class Command extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("deviceSid", deviceSid)
-                          .add("simSid", simSid)
-                          .add("command", command)
-                          .add("commandMode", commandMode)
-                          .add("status", status)
-                          .add("direction", direction)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

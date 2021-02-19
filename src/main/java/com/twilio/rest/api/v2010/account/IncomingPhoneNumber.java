@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,17 +25,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 149023433538541L;
+    private static final long serialVersionUID = 15921177976546L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -292,8 +293,8 @@ public class IncomingPhoneNumber extends Resource {
     private final String apiVersion;
     private final Boolean beta;
     private final PhoneNumberCapabilities capabilities;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final String identitySid;
     private final com.twilio.type.PhoneNumber phoneNumber;
@@ -308,6 +309,7 @@ public class IncomingPhoneNumber extends Resource {
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
     private final String uri;
+    private final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
@@ -317,6 +319,7 @@ public class IncomingPhoneNumber extends Resource {
     private final IncomingPhoneNumber.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
     private final String bundleSid;
+    private final String status;
 
     @JsonCreator
     private IncomingPhoneNumber(@JsonProperty("account_sid")
@@ -363,6 +366,8 @@ public class IncomingPhoneNumber extends Resource {
                                 final String trunkSid,
                                 @JsonProperty("uri")
                                 final String uri,
+                                @JsonProperty("voice_receive_mode")
+                                final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode,
                                 @JsonProperty("voice_application_sid")
                                 final String voiceApplicationSid,
                                 @JsonProperty("voice_caller_id_lookup")
@@ -380,7 +385,9 @@ public class IncomingPhoneNumber extends Resource {
                                 @JsonProperty("emergency_address_sid")
                                 final String emergencyAddressSid,
                                 @JsonProperty("bundle_sid")
-                                final String bundleSid) {
+                                final String bundleSid,
+                                @JsonProperty("status")
+                                final String status) {
         this.accountSid = accountSid;
         this.addressSid = addressSid;
         this.addressRequirements = addressRequirements;
@@ -403,6 +410,7 @@ public class IncomingPhoneNumber extends Resource {
         this.statusCallbackMethod = statusCallbackMethod;
         this.trunkSid = trunkSid;
         this.uri = uri;
+        this.voiceReceiveMode = voiceReceiveMode;
         this.voiceApplicationSid = voiceApplicationSid;
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -412,6 +420,7 @@ public class IncomingPhoneNumber extends Resource {
         this.emergencyStatus = emergencyStatus;
         this.emergencyAddressSid = emergencyAddressSid;
         this.bundleSid = bundleSid;
+        this.status = status;
     }
 
     /**
@@ -473,7 +482,7 @@ public class IncomingPhoneNumber extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -482,7 +491,7 @@ public class IncomingPhoneNumber extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -619,6 +628,15 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     /**
+     * Returns The voice_receive_mode.
+     *
+     * @return The voice_receive_mode
+     */
+    public final IncomingPhoneNumber.VoiceReceiveMode getVoiceReceiveMode() {
+        return this.voiceReceiveMode;
+    }
+
+    /**
      * Returns The SID of the application that handles calls to the phone number.
      *
      * @return The SID of the application that handles calls to the phone number
@@ -699,6 +717,15 @@ public class IncomingPhoneNumber extends Resource {
         return this.bundleSid;
     }
 
+    /**
+     * Returns The status.
+     *
+     * @return The status
+     */
+    public final String getStatus() {
+        return this.status;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -733,6 +760,7 @@ public class IncomingPhoneNumber extends Resource {
                Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
                Objects.equals(trunkSid, other.trunkSid) &&
                Objects.equals(uri, other.uri) &&
+               Objects.equals(voiceReceiveMode, other.voiceReceiveMode) &&
                Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&
                Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
                Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
@@ -741,7 +769,8 @@ public class IncomingPhoneNumber extends Resource {
                Objects.equals(voiceUrl, other.voiceUrl) &&
                Objects.equals(emergencyStatus, other.emergencyStatus) &&
                Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
-               Objects.equals(bundleSid, other.bundleSid);
+               Objects.equals(bundleSid, other.bundleSid) &&
+               Objects.equals(status, other.status);
     }
 
     @Override
@@ -768,6 +797,7 @@ public class IncomingPhoneNumber extends Resource {
                             statusCallbackMethod,
                             trunkSid,
                             uri,
+                            voiceReceiveMode,
                             voiceApplicationSid,
                             voiceCallerIdLookup,
                             voiceFallbackMethod,
@@ -776,43 +806,7 @@ public class IncomingPhoneNumber extends Resource {
                             voiceUrl,
                             emergencyStatus,
                             emergencyAddressSid,
-                            bundleSid);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("addressSid", addressSid)
-                          .add("addressRequirements", addressRequirements)
-                          .add("apiVersion", apiVersion)
-                          .add("beta", beta)
-                          .add("capabilities", capabilities)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("friendlyName", friendlyName)
-                          .add("identitySid", identitySid)
-                          .add("phoneNumber", phoneNumber)
-                          .add("origin", origin)
-                          .add("sid", sid)
-                          .add("smsApplicationSid", smsApplicationSid)
-                          .add("smsFallbackMethod", smsFallbackMethod)
-                          .add("smsFallbackUrl", smsFallbackUrl)
-                          .add("smsMethod", smsMethod)
-                          .add("smsUrl", smsUrl)
-                          .add("statusCallback", statusCallback)
-                          .add("statusCallbackMethod", statusCallbackMethod)
-                          .add("trunkSid", trunkSid)
-                          .add("uri", uri)
-                          .add("voiceApplicationSid", voiceApplicationSid)
-                          .add("voiceCallerIdLookup", voiceCallerIdLookup)
-                          .add("voiceFallbackMethod", voiceFallbackMethod)
-                          .add("voiceFallbackUrl", voiceFallbackUrl)
-                          .add("voiceMethod", voiceMethod)
-                          .add("voiceUrl", voiceUrl)
-                          .add("emergencyStatus", emergencyStatus)
-                          .add("emergencyAddressSid", emergencyAddressSid)
-                          .add("bundleSid", bundleSid)
-                          .toString();
+                            bundleSid,
+                            status);
     }
 }

@@ -102,21 +102,21 @@ public class OriginationUrlTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.TRUNKING.toString(),
-                                                      "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls");
-                        request.addPostParam("Weight", serialize(1));
-        request.addPostParam("Priority", serialize(1));
-        request.addPostParam("Enabled", serialize(true));
-        request.addPostParam("FriendlyName", serialize("friendly_name"));
-        request.addPostParam("SipUrl", serialize(URI.create("https://example.com")));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.TRUNKING.toString(),
+                                          "/v1/Trunks/TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/OriginationUrls");
+            request.addPostParam("Weight", serialize(1));
+            request.addPostParam("Priority", serialize(1));
+            request.addPostParam("Enabled", serialize(true));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            request.addPostParam("SipUrl", serialize(URI.create("https://example.com")));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             OriginationUrl.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create();

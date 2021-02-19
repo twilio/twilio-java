@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,22 +25,23 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Factor extends Resource {
-    private static final long serialVersionUID = 39175330410278L;
+    private static final long serialVersionUID = 201328569010526L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -69,9 +69,6 @@ public class Factor extends Resource {
     }
 
     public enum FactorTypes {
-        APP_PUSH("app-push"),
-        SMS("sms"),
-        TOTP("totp"),
         PUSH("push");
 
         private final String value;
@@ -95,31 +92,52 @@ public class Factor extends Resource {
         }
     }
 
+    public enum NotificationPlatforms {
+        APN("apn"),
+        FCM("fcm");
+
+        private final String value;
+
+        private NotificationPlatforms(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a NotificationPlatforms from a string.
+         * @param value string value
+         * @return generated NotificationPlatforms
+         */
+        @JsonCreator
+        public static NotificationPlatforms forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationPlatforms.values());
+        }
+    }
+
     /**
      * Create a FactorCreator to execute create.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
-     * @param binding A unique binding for this Factor as a json string
+     * @param pathIdentity Unique external identifier of the Entity
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
-     * @param config The config for this Factor as a json string
      * @return FactorCreator capable of executing the create
      */
     public static FactorCreator creator(final String pathServiceSid,
                                         final String pathIdentity,
-                                        final String binding,
                                         final String friendlyName,
-                                        final Factor.FactorTypes factorType,
-                                        final String config) {
-        return new FactorCreator(pathServiceSid, pathIdentity, binding, friendlyName, factorType, config);
+                                        final Factor.FactorTypes factorType) {
+        return new FactorCreator(pathServiceSid, pathIdentity, friendlyName, factorType);
     }
 
     /**
      * Create a FactorDeleter to execute delete.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorDeleter capable of executing the delete
      */
@@ -133,7 +151,7 @@ public class Factor extends Resource {
      * Create a FactorFetcher to execute fetch.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorFetcher capable of executing the fetch
      */
@@ -147,7 +165,7 @@ public class Factor extends Resource {
      * Create a FactorReader to execute read.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @return FactorReader capable of executing the read
      */
     public static FactorReader reader(final String pathServiceSid,
@@ -159,7 +177,7 @@ public class Factor extends Resource {
      * Create a FactorUpdater to execute update.
      *
      * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique identity of the Entity
+     * @param pathIdentity Unique external identifier of the Entity
      * @param pathSid A string that uniquely identifies this Factor.
      * @return FactorUpdater capable of executing the update
      */
@@ -211,14 +229,13 @@ public class Factor extends Resource {
     private final String serviceSid;
     private final String entitySid;
     private final String identity;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String friendlyName;
     private final Factor.FactorStatuses status;
     private final Factor.FactorTypes factorType;
     private final Map<String, Object> config;
     private final URI url;
-    private final Map<String, String> links;
 
     @JsonCreator
     private Factor(@JsonProperty("sid")
@@ -244,9 +261,7 @@ public class Factor extends Resource {
                    @JsonProperty("config")
                    final Map<String, Object> config,
                    @JsonProperty("url")
-                   final URI url,
-                   @JsonProperty("links")
-                   final Map<String, String> links) {
+                   final URI url) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -259,7 +274,6 @@ public class Factor extends Resource {
         this.factorType = factorType;
         this.config = config;
         this.url = url;
-        this.links = links;
     }
 
     /**
@@ -299,9 +313,9 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns Unique identity of the Entity.
+     * Returns Unique external identifier of the Entity.
      *
-     * @return Unique identity of the Entity
+     * @return Unique external identifier of the Entity
      */
     public final String getIdentity() {
         return this.identity;
@@ -312,7 +326,7 @@ public class Factor extends Resource {
      *
      * @return The date this Factor was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -321,7 +335,7 @@ public class Factor extends Resource {
      *
      * @return The date this Factor was updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -353,9 +367,9 @@ public class Factor extends Resource {
     }
 
     /**
-     * Returns The config.
+     * Returns Configurations for a `factor_type`..
      *
-     * @return The config
+     * @return Configurations for a `factor_type`.
      */
     public final Map<String, Object> getConfig() {
         return this.config;
@@ -368,15 +382,6 @@ public class Factor extends Resource {
      */
     public final URI getUrl() {
         return this.url;
-    }
-
-    /**
-     * Returns Nested resource URLs..
-     *
-     * @return Nested resource URLs.
-     */
-    public final Map<String, String> getLinks() {
-        return this.links;
     }
 
     @Override
@@ -402,8 +407,7 @@ public class Factor extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(config, other.config) &&
-               Objects.equals(url, other.url) &&
-               Objects.equals(links, other.links);
+               Objects.equals(url, other.url);
     }
 
     @Override
@@ -419,26 +423,6 @@ public class Factor extends Resource {
                             status,
                             factorType,
                             config,
-                            url,
-                            links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("entitySid", entitySid)
-                          .add("identity", identity)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("friendlyName", friendlyName)
-                          .add("status", status)
-                          .add("factorType", factorType)
-                          .add("config", config)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
+                            url);
     }
 }

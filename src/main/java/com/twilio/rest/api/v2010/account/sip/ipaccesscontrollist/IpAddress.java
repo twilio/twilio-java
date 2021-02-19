@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,14 +23,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class IpAddress extends Resource {
     private static final long serialVersionUID = 129871129530105L;
 
@@ -231,8 +232,8 @@ public class IpAddress extends Resource {
     private final String ipAddress;
     private final Integer cidrPrefixLength;
     private final String ipAccessControlListSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String uri;
 
     @JsonCreator
@@ -338,7 +339,7 @@ public class IpAddress extends Resource {
      * @return The date that this resource was created, given as GMT in RFC 2822
      *         format.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -349,7 +350,7 @@ public class IpAddress extends Resource {
      * @return The date that this resource was last updated, given as GMT in RFC
      *         2822 format.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -396,20 +397,5 @@ public class IpAddress extends Resource {
                             dateCreated,
                             dateUpdated,
                             uri);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("friendlyName", friendlyName)
-                          .add("ipAddress", ipAddress)
-                          .add("cidrPrefixLength", cidrPrefixLength)
-                          .add("ipAccessControlListSid", ipAccessControlListSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("uri", uri)
-                          .toString();
     }
 }

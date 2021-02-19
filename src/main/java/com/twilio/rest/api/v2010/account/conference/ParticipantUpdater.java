@@ -177,8 +177,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * The URL we should call using the `wait_method` for the music to play while
      * participants are waiting for the conference to start. The default value is
-     * the URL of our standard hold music. [Learn more about hold
-     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
+     * the URL of our standard hold music. <a
+     * href="https://www.twilio.com/labs/twimlets/holdmusic">Learn more about hold
+     * music</a>..
      *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
@@ -191,8 +192,9 @@ public class ParticipantUpdater extends Updater<Participant> {
     /**
      * The URL we should call using the `wait_method` for the music to play while
      * participants are waiting for the conference to start. The default value is
-     * the URL of our standard hold music. [Learn more about hold
-     * music](https://www.twilio.com/labs/twimlets/holdmusic)..
+     * the URL of our standard hold music. <a
+     * href="https://www.twilio.com/labs/twimlets/holdmusic">Learn more about hold
+     * music</a>..
      *
      * @param waitUrl URL that hosts pre-conference hold music
      * @return this
@@ -287,7 +289,7 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (response == null) {
             throw new ApiConnectionException("Participant update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

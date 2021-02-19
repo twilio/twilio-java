@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -28,12 +29,12 @@ import org.joda.time.DateTime;
 public class FaxReader extends Reader<Fax> {
     private String from;
     private String to;
-    private DateTime dateCreatedOnOrBefore;
-    private DateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedOnOrBefore;
+    private ZonedDateTime dateCreatedAfter;
 
     /**
-     * Retrieve only those faxes sent from this phone number, specified in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
+     * Retrieve only those faxes sent from this phone number, specified in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format..
      *
      * @param from Retrieve only those faxes sent from this phone number
      * @return this
@@ -44,8 +45,8 @@ public class FaxReader extends Reader<Fax> {
     }
 
     /**
-     * Retrieve only those faxes sent to this phone number, specified in
-     * [E.164](https://www.twilio.com/docs/glossary/what-e164) format..
+     * Retrieve only those faxes sent to this phone number, specified in <a
+     * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format..
      *
      * @param to Retrieve only those faxes sent to this phone number
      * @return this
@@ -57,27 +58,27 @@ public class FaxReader extends Reader<Fax> {
 
     /**
      * Retrieve only those faxes with a `date_created` that is before or equal to
-     * this value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format..
+     * this value, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format..
      *
      * @param dateCreatedOnOrBefore Retrieve only faxes created on or before this
      *                              date
      * @return this
      */
-    public FaxReader setDateCreatedOnOrBefore(final DateTime dateCreatedOnOrBefore) {
+    public FaxReader setDateCreatedOnOrBefore(final ZonedDateTime dateCreatedOnOrBefore) {
         this.dateCreatedOnOrBefore = dateCreatedOnOrBefore;
         return this;
     }
 
     /**
      * Retrieve only those faxes with a `date_created` that is later than this
-     * value, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format..
+     * value, specified in <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO
+     * 8601</a> format..
      *
      * @param dateCreatedAfter Retrieve only faxes created after this date
      * @return this
      */
-    public FaxReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public FaxReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -176,7 +177,7 @@ public class FaxReader extends Reader<Fax> {
 
         if (response == null) {
             throw new ApiConnectionException("Fax read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -207,11 +208,11 @@ public class FaxReader extends Reader<Fax> {
         }
 
         if (dateCreatedOnOrBefore != null) {
-            request.addQueryParam("DateCreatedOnOrBefore", dateCreatedOnOrBefore.toString());
+            request.addQueryParam("DateCreatedOnOrBefore", dateCreatedOnOrBefore.toOffsetDateTime().toString());
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

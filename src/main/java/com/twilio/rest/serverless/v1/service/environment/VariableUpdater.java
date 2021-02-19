@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class VariableUpdater extends Updater<Variable> {
     private final String pathServiceSid;
@@ -34,7 +33,7 @@ public class VariableUpdater extends Updater<Variable> {
      *
      * @param pathServiceSid The SID of the Service to update the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resource to update
      * @param pathSid The SID of the Variable resource to update
      */
@@ -47,8 +46,8 @@ public class VariableUpdater extends Updater<Variable> {
     }
 
     /**
-     * A string by which the Variable resource can be referenced. Must be less than
-     * 128 characters long..
+     * A string by which the Variable resource can be referenced. It can be a
+     * maximum of 128 characters..
      *
      * @param key A string by which the Variable resource can be referenced
      * @return this
@@ -59,10 +58,10 @@ public class VariableUpdater extends Updater<Variable> {
     }
 
     /**
-     * A string that contains the actual value of the variable. Must have less than
-     * 450 bytes..
+     * A string that contains the actual value of the Variable. It can be a maximum
+     * of 450 bytes in size..
      *
-     * @param value A string that contains the actual value of the variable
+     * @param value A string that contains the actual value of the Variable
      * @return this
      */
     public VariableUpdater setValue(final String value) {
@@ -90,7 +89,7 @@ public class VariableUpdater extends Updater<Variable> {
 
         if (response == null) {
             throw new ApiConnectionException("Variable update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

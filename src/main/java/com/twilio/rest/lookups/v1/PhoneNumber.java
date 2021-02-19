@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,8 +33,9 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 198564396301377L;
+    private static final long serialVersionUID = 57234140476199L;
 
     public enum Type {
         LANDLINE("landline"),
@@ -110,17 +111,17 @@ public class PhoneNumber extends Resource {
         }
     }
 
-    private final Map<String, String> callerName;
+    private final Map<String, Object> callerName;
     private final String countryCode;
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String nationalFormat;
-    private final Map<String, String> carrier;
+    private final Map<String, Object> carrier;
     private final Map<String, Object> addOns;
     private final URI url;
 
     @JsonCreator
     private PhoneNumber(@JsonProperty("caller_name")
-                        final Map<String, String> callerName,
+                        final Map<String, Object> callerName,
                         @JsonProperty("country_code")
                         final String countryCode,
                         @JsonProperty("phone_number")
@@ -128,7 +129,7 @@ public class PhoneNumber extends Resource {
                         @JsonProperty("national_format")
                         final String nationalFormat,
                         @JsonProperty("carrier")
-                        final Map<String, String> carrier,
+                        final Map<String, Object> carrier,
                         @JsonProperty("add_ons")
                         final Map<String, Object> addOns,
                         @JsonProperty("url")
@@ -147,7 +148,7 @@ public class PhoneNumber extends Resource {
      *
      * @return The name of the phone number's owner
      */
-    public final Map<String, String> getCallerName() {
+    public final Map<String, Object> getCallerName() {
         return this.callerName;
     }
 
@@ -183,7 +184,7 @@ public class PhoneNumber extends Resource {
      *
      * @return The telecom company that provides the phone number
      */
-    public final Map<String, String> getCarrier() {
+    public final Map<String, Object> getCarrier() {
         return this.carrier;
     }
 
@@ -235,18 +236,5 @@ public class PhoneNumber extends Resource {
                             carrier,
                             addOns,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("callerName", callerName)
-                          .add("countryCode", countryCode)
-                          .add("phoneNumber", phoneNumber)
-                          .add("nationalFormat", nationalFormat)
-                          .add("carrier", carrier)
-                          .add("addOns", addOns)
-                          .add("url", url)
-                          .toString();
     }
 }

@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class FlowUpdater extends Updater<Flow> {
     private final String pathSid;
     private final Flow.Status status;
@@ -66,9 +62,9 @@ public class FlowUpdater extends Updater<Flow> {
     }
 
     /**
-     * Description on change made in the revision..
+     * Description of change made in the revision..
      *
-     * @param commitMessage Description on change made in the revision
+     * @param commitMessage Description of change made in the revision
      * @return this
      */
     public FlowUpdater setCommitMessage(final String commitMessage) {
@@ -96,7 +92,7 @@ public class FlowUpdater extends Updater<Flow> {
 
         if (response == null) {
             throw new ApiConnectionException("Flow update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

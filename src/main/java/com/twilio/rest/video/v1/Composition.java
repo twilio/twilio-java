@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,11 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -41,6 +41,7 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Composition extends Resource {
     private static final long serialVersionUID = 61658716109908L;
 
@@ -177,9 +178,9 @@ public class Composition extends Resource {
 
     private final String accountSid;
     private final Composition.Status status;
-    private final DateTime dateCreated;
-    private final DateTime dateCompleted;
-    private final DateTime dateDeleted;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateCompleted;
+    private final ZonedDateTime dateDeleted;
     private final String sid;
     private final String roomSid;
     private final List<String> audioSources;
@@ -274,7 +275,7 @@ public class Composition extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -283,7 +284,7 @@ public class Composition extends Resource {
      *
      * @return Date when the media processing task finished
      */
-    public final DateTime getDateCompleted() {
+    public final ZonedDateTime getDateCompleted() {
         return this.dateCompleted;
     }
 
@@ -294,7 +295,7 @@ public class Composition extends Resource {
      * @return The ISO 8601 date and time in GMT when the composition generated
      *         media was deleted
      */
-    public final DateTime getDateDeleted() {
+    public final ZonedDateTime getDateDeleted() {
         return this.dateDeleted;
     }
 
@@ -473,29 +474,5 @@ public class Composition extends Resource {
                             duration,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("status", status)
-                          .add("dateCreated", dateCreated)
-                          .add("dateCompleted", dateCompleted)
-                          .add("dateDeleted", dateDeleted)
-                          .add("sid", sid)
-                          .add("roomSid", roomSid)
-                          .add("audioSources", audioSources)
-                          .add("audioSourcesExcluded", audioSourcesExcluded)
-                          .add("videoLayout", videoLayout)
-                          .add("resolution", resolution)
-                          .add("trim", trim)
-                          .add("format", format)
-                          .add("bitrate", bitrate)
-                          .add("size", size)
-                          .add("duration", duration)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

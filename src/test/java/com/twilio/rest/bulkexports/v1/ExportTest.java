@@ -60,7 +60,7 @@ public class ExportTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"resource_type\": \"Calls\",\"url\": \"https://bulkexports.twilio.com/v1/Exports/Calls\",\"links\": {\"days\": \"https://bulkexports.twilio.com/v1/Exports/Calls/Days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"resource_type\": \"Messages\",\"url\": \"https://bulkexports.twilio.com/v1/Exports/Messages\",\"links\": {\"days\": \"https://bulkexports.twilio.com/v1/Exports/Messages/Days\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

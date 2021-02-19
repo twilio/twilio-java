@@ -21,9 +21,8 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
     private String uniqueName;
@@ -87,7 +86,7 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile> {
 
         if (response == null) {
             throw new ApiConnectionException("NetworkAccessProfile creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

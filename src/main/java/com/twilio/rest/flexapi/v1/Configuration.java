@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,18 +25,20 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 278260139571846L;
+    private static final long serialVersionUID = 217500104430837L;
 
     public enum Status {
         OK("ok"),
@@ -131,8 +132,8 @@ public class Configuration extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final Map<String, Object> attributes;
     private final Configuration.Status status;
     private final String taskrouterWorkspaceSid;
@@ -165,8 +166,9 @@ public class Configuration extends Resource {
     private final List<Map<String, Object>> integrations;
     private final Map<String, Object> outboundCallFlows;
     private final List<String> serverlessServiceSids;
-    private final List<Map<String, Object>> wfmIntegrations;
     private final Map<String, Object> queueStatsConfiguration;
+    private final Map<String, Object> notifications;
+    private final Map<String, Object> markdown;
     private final URI url;
 
     @JsonCreator
@@ -240,10 +242,12 @@ public class Configuration extends Resource {
                           final Map<String, Object> outboundCallFlows,
                           @JsonProperty("serverless_service_sids")
                           final List<String> serverlessServiceSids,
-                          @JsonProperty("wfm_integrations")
-                          final List<Map<String, Object>> wfmIntegrations,
                           @JsonProperty("queue_stats_configuration")
                           final Map<String, Object> queueStatsConfiguration,
+                          @JsonProperty("notifications")
+                          final Map<String, Object> notifications,
+                          @JsonProperty("markdown")
+                          final Map<String, Object> markdown,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -281,8 +285,9 @@ public class Configuration extends Resource {
         this.integrations = integrations;
         this.outboundCallFlows = outboundCallFlows;
         this.serverlessServiceSids = serverlessServiceSids;
-        this.wfmIntegrations = wfmIntegrations;
         this.queueStatsConfiguration = queueStatsConfiguration;
+        this.notifications = notifications;
+        this.markdown = markdown;
         this.url = url;
     }
 
@@ -302,7 +307,7 @@ public class Configuration extends Resource {
      * @return The ISO 8601 date and time in GMT when the Configuration resource
      *         was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -313,7 +318,7 @@ public class Configuration extends Resource {
      * @return The ISO 8601 date and time in GMT when the Configuration resource
      *         was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -612,23 +617,30 @@ public class Configuration extends Resource {
     }
 
     /**
-     * Returns A list of objects that contain the configurations for the WFM
-     * Integrations supported in this configuration.
-     *
-     * @return A list of objects that contain the configurations for the WFM
-     *         Integrations supported in this configuration
-     */
-    public final List<Map<String, Object>> getWfmIntegrations() {
-        return this.wfmIntegrations;
-    }
-
-    /**
      * Returns Configurable parameters for Queues Statistics.
      *
      * @return Configurable parameters for Queues Statistics
      */
     public final Map<String, Object> getQueueStatsConfiguration() {
         return this.queueStatsConfiguration;
+    }
+
+    /**
+     * Returns Configurable parameters for Notifications.
+     *
+     * @return Configurable parameters for Notifications
+     */
+    public final Map<String, Object> getNotifications() {
+        return this.notifications;
+    }
+
+    /**
+     * Returns Configurable parameters for Markdown.
+     *
+     * @return Configurable parameters for Markdown
+     */
+    public final Map<String, Object> getMarkdown() {
+        return this.markdown;
     }
 
     /**
@@ -687,8 +699,9 @@ public class Configuration extends Resource {
                Objects.equals(integrations, other.integrations) &&
                Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
                Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
-               Objects.equals(wfmIntegrations, other.wfmIntegrations) &&
                Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&
+               Objects.equals(notifications, other.notifications) &&
+               Objects.equals(markdown, other.markdown) &&
                Objects.equals(url, other.url);
     }
 
@@ -729,52 +742,9 @@ public class Configuration extends Resource {
                             integrations,
                             outboundCallFlows,
                             serverlessServiceSids,
-                            wfmIntegrations,
                             queueStatsConfiguration,
+                            notifications,
+                            markdown,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("attributes", attributes)
-                          .add("status", status)
-                          .add("taskrouterWorkspaceSid", taskrouterWorkspaceSid)
-                          .add("taskrouterTargetWorkflowSid", taskrouterTargetWorkflowSid)
-                          .add("taskrouterTargetTaskqueueSid", taskrouterTargetTaskqueueSid)
-                          .add("taskrouterTaskqueues", taskrouterTaskqueues)
-                          .add("taskrouterSkills", taskrouterSkills)
-                          .add("taskrouterWorkerChannels", taskrouterWorkerChannels)
-                          .add("taskrouterWorkerAttributes", taskrouterWorkerAttributes)
-                          .add("taskrouterOfflineActivitySid", taskrouterOfflineActivitySid)
-                          .add("runtimeDomain", runtimeDomain)
-                          .add("messagingServiceInstanceSid", messagingServiceInstanceSid)
-                          .add("chatServiceInstanceSid", chatServiceInstanceSid)
-                          .add("flexServiceInstanceSid", flexServiceInstanceSid)
-                          .add("uiLanguage", uiLanguage)
-                          .add("uiAttributes", uiAttributes)
-                          .add("uiDependencies", uiDependencies)
-                          .add("uiVersion", uiVersion)
-                          .add("serviceVersion", serviceVersion)
-                          .add("callRecordingEnabled", callRecordingEnabled)
-                          .add("callRecordingWebhookUrl", callRecordingWebhookUrl)
-                          .add("crmEnabled", crmEnabled)
-                          .add("crmType", crmType)
-                          .add("crmCallbackUrl", crmCallbackUrl)
-                          .add("crmFallbackUrl", crmFallbackUrl)
-                          .add("crmAttributes", crmAttributes)
-                          .add("publicAttributes", publicAttributes)
-                          .add("pluginServiceEnabled", pluginServiceEnabled)
-                          .add("pluginServiceAttributes", pluginServiceAttributes)
-                          .add("integrations", integrations)
-                          .add("outboundCallFlows", outboundCallFlows)
-                          .add("serverlessServiceSids", serverlessServiceSids)
-                          .add("wfmIntegrations", wfmIntegrations)
-                          .add("queueStatsConfiguration", queueStatsConfiguration)
-                          .add("url", url)
-                          .toString();
     }
 }

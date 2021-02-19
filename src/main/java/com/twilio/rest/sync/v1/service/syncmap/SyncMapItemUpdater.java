@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private final String pathServiceSid;
     private final String pathMapSid;
@@ -32,6 +28,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
+    private String ifMatch;
 
     /**
      * Construct a new SyncMapItemUpdater.
@@ -52,7 +49,7 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
 
     /**
      * A JSON string that represents an arbitrary, schema-less object that the Map
-     * Item stores. Can be up to 16KB in length..
+     * Item stores. Can be up to 16 KiB in length..
      *
      * @param data A JSON string that represents an arbitrary, schema-less object
      *             that the Map Item stores
@@ -109,6 +106,21 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
     }
 
     /**
+     * If provided, applies this mutation if (and only if) the “revision” field of
+     * this <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match">map
+     * item] matches the provided value. This matches the semantics of (and is
+     * implemented with) the HTTP [If-Match header</a>..
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncMapItemUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -124,11 +136,12 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SyncMapItem update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -137,6 +150,17 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem> {
         }
 
         return SyncMapItem.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

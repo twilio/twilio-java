@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,23 +24,25 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 81815704097903L;
 
     /**
      * Create a ServiceFetcher to execute fetch.
      *
-     * @param pathSid The SID of the Service resource to fetch
+     * @param pathSid The sid
      * @return ServiceFetcher capable of executing the fetch
      */
     public static ServiceFetcher fetcher(final String pathSid) {
@@ -51,7 +52,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceDeleter to execute delete.
      *
-     * @param pathSid The SID of the Service resource to delete
+     * @param pathSid The sid
      * @return ServiceDeleter capable of executing the delete
      */
     public static ServiceDeleter deleter(final String pathSid) {
@@ -61,7 +62,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceCreator to execute create.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return ServiceCreator capable of executing the create
      */
     public static ServiceCreator creator(final String friendlyName) {
@@ -80,7 +81,7 @@ public class Service extends Resource {
     /**
      * Create a ServiceUpdater to execute update.
      *
-     * @param pathSid The SID of the Service resource to update
+     * @param pathSid The sid
      * @return ServiceUpdater capable of executing the update
      */
     public static ServiceUpdater updater(final String pathSid) {
@@ -127,8 +128,8 @@ public class Service extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String defaultServiceRoleSid;
     private final String defaultChannelRoleSid;
     private final String defaultChannelCreatorRoleSid;
@@ -221,217 +222,207 @@ public class Service extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The string that you assigned to describe the resource.
+     * Returns The friendly_name.
      *
-     * @return The string that you assigned to describe the resource
+     * @return The friendly_name
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The service role assigned to users when they are added to the
-     * service.
+     * Returns The default_service_role_sid.
      *
-     * @return The service role assigned to users when they are added to the service
+     * @return The default_service_role_sid
      */
     public final String getDefaultServiceRoleSid() {
         return this.defaultServiceRoleSid;
     }
 
     /**
-     * Returns The channel role assigned to users when they are added to a channel.
+     * Returns The default_channel_role_sid.
      *
-     * @return The channel role assigned to users when they are added to a channel
+     * @return The default_channel_role_sid
      */
     public final String getDefaultChannelRoleSid() {
         return this.defaultChannelRoleSid;
     }
 
     /**
-     * Returns The channel role assigned to a channel creator when they join a new
-     * channel.
+     * Returns The default_channel_creator_role_sid.
      *
-     * @return The channel role assigned to a channel creator when they join a new
-     *         channel
+     * @return The default_channel_creator_role_sid
      */
     public final String getDefaultChannelCreatorRoleSid() {
         return this.defaultChannelCreatorRoleSid;
     }
 
     /**
-     * Returns Whether the Message Consumption Horizon feature is enabled.
+     * Returns The read_status_enabled.
      *
-     * @return Whether the Message Consumption Horizon feature is enabled
+     * @return The read_status_enabled
      */
     public final Boolean getReadStatusEnabled() {
         return this.readStatusEnabled;
     }
 
     /**
-     * Returns Whether the Reachability Indicator feature is enabled for this
-     * Service instance.
+     * Returns The reachability_enabled.
      *
-     * @return Whether the Reachability Indicator feature is enabled for this
-     *         Service instance
+     * @return The reachability_enabled
      */
     public final Boolean getReachabilityEnabled() {
         return this.reachabilityEnabled;
     }
 
     /**
-     * Returns How long in seconds to wait before assuming the user is no longer
-     * typing.
+     * Returns The typing_indicator_timeout.
      *
-     * @return How long in seconds to wait before assuming the user is no longer
-     *         typing
+     * @return The typing_indicator_timeout
      */
     public final Integer getTypingIndicatorTimeout() {
         return this.typingIndicatorTimeout;
     }
 
     /**
-     * Returns DEPRECATED.
+     * Returns The consumption_report_interval.
      *
-     * @return DEPRECATED
+     * @return The consumption_report_interval
      */
     public final Integer getConsumptionReportInterval() {
         return this.consumptionReportInterval;
     }
 
     /**
-     * Returns An object that describes the limits of the service instance.
+     * Returns The limits.
      *
-     * @return An object that describes the limits of the service instance
+     * @return The limits
      */
     public final Map<String, Object> getLimits() {
         return this.limits;
     }
 
     /**
-     * Returns The webhook URL for pre-event webhooks.
+     * Returns The pre_webhook_url.
      *
-     * @return The webhook URL for pre-event webhooks
+     * @return The pre_webhook_url
      */
     public final String getPreWebhookUrl() {
         return this.preWebhookUrl;
     }
 
     /**
-     * Returns The URL for post-event webhooks.
+     * Returns The post_webhook_url.
      *
-     * @return The URL for post-event webhooks
+     * @return The post_webhook_url
      */
     public final String getPostWebhookUrl() {
         return this.postWebhookUrl;
     }
 
     /**
-     * Returns The HTTP method  to use for both PRE and POST webhooks.
+     * Returns The webhook_method.
      *
-     * @return The HTTP method  to use for both PRE and POST webhooks
+     * @return The webhook_method
      */
     public final String getWebhookMethod() {
         return this.webhookMethod;
     }
 
     /**
-     * Returns The list of webhook events that are enabled for this Service
-     * instance.
+     * Returns The webhook_filters.
      *
-     * @return The list of webhook events that are enabled for this Service instance
+     * @return The webhook_filters
      */
     public final List<String> getWebhookFilters() {
         return this.webhookFilters;
     }
 
     /**
-     * Returns Count of times webhook will be retried in case of timeout or
-     * 429/503/504 HTTP responses.
+     * Returns The pre_webhook_retry_count.
      *
-     * @return Count of times webhook will be retried in case of timeout or
-     *         429/503/504 HTTP responses
+     * @return The pre_webhook_retry_count
      */
     public final Integer getPreWebhookRetryCount() {
         return this.preWebhookRetryCount;
     }
 
     /**
-     * Returns The number of times calls to the `post_webhook_url` will be retried.
+     * Returns The post_webhook_retry_count.
      *
-     * @return The number of times calls to the `post_webhook_url` will be retried
+     * @return The post_webhook_retry_count
      */
     public final Integer getPostWebhookRetryCount() {
         return this.postWebhookRetryCount;
     }
 
     /**
-     * Returns The notification configuration for the Service instance.
+     * Returns The notifications.
      *
-     * @return The notification configuration for the Service instance
+     * @return The notifications
      */
     public final Map<String, Object> getNotifications() {
         return this.notifications;
     }
 
     /**
-     * Returns The properties of the media that the service supports.
+     * Returns The media.
      *
-     * @return The properties of the media that the service supports
+     * @return The media
      */
     public final Map<String, Object> getMedia() {
         return this.media;
     }
 
     /**
-     * Returns The absolute URL of the Service resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Service resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The absolute URLs of the Service's Channels, Roles, and Users.
+     * Returns The links.
      *
-     * @return The absolute URLs of the Service's Channels, Roles, and Users
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -499,34 +490,5 @@ public class Service extends Resource {
                             media,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("friendlyName", friendlyName)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("defaultServiceRoleSid", defaultServiceRoleSid)
-                          .add("defaultChannelRoleSid", defaultChannelRoleSid)
-                          .add("defaultChannelCreatorRoleSid", defaultChannelCreatorRoleSid)
-                          .add("readStatusEnabled", readStatusEnabled)
-                          .add("reachabilityEnabled", reachabilityEnabled)
-                          .add("typingIndicatorTimeout", typingIndicatorTimeout)
-                          .add("consumptionReportInterval", consumptionReportInterval)
-                          .add("limits", limits)
-                          .add("preWebhookUrl", preWebhookUrl)
-                          .add("postWebhookUrl", postWebhookUrl)
-                          .add("webhookMethod", webhookMethod)
-                          .add("webhookFilters", webhookFilters)
-                          .add("preWebhookRetryCount", preWebhookRetryCount)
-                          .add("postWebhookRetryCount", postWebhookRetryCount)
-                          .add("notifications", notifications)
-                          .add("media", media)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

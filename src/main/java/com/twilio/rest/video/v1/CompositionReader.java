@@ -19,7 +19,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 /**
  * PLEASE NOTE that this class contains preview products that are subject to
@@ -28,8 +29,8 @@ import org.joda.time.DateTime;
  */
 public class CompositionReader extends Reader<Composition> {
     private Composition.Status status;
-    private DateTime dateCreatedAfter;
-    private DateTime dateCreatedBefore;
+    private ZonedDateTime dateCreatedAfter;
+    private ZonedDateTime dateCreatedBefore;
     private String roomSid;
 
     /**
@@ -45,8 +46,9 @@ public class CompositionReader extends Reader<Composition> {
     }
 
     /**
-     * Read only Composition resources created on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time with time zone..
+     * Read only Composition resources created on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time with
+     * time zone..
      *
      * @param dateCreatedAfter Read only Composition resources created on or after
      *                         this [ISO
@@ -54,7 +56,7 @@ public class CompositionReader extends Reader<Composition> {
      *                         date-time with time zone
      * @return this
      */
-    public CompositionReader setDateCreatedAfter(final DateTime dateCreatedAfter) {
+    public CompositionReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
@@ -67,7 +69,7 @@ public class CompositionReader extends Reader<Composition> {
      *                          ISO 8601 date-time with time zone
      * @return this
      */
-    public CompositionReader setDateCreatedBefore(final DateTime dateCreatedBefore) {
+    public CompositionReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
@@ -177,7 +179,7 @@ public class CompositionReader extends Reader<Composition> {
 
         if (response == null) {
             throw new ApiConnectionException("Composition read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -204,11 +206,11 @@ public class CompositionReader extends Reader<Composition> {
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toString());
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toOffsetDateTime().toString());
         }
 
         if (roomSid != null) {

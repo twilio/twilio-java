@@ -44,8 +44,10 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     /**
-     * The [ISO
-     * language-country](https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html) tag that specifies the language of the value. Currently supported tags: `en-US`.
+     * The <a
+     * href="https://docs.oracle.com/cd/E13214_01/wli/docs92/xref/xqisocodes.html">ISO
+     * language-country</a> tag that specifies the language of the value. Currently
+     * supported tags: `en-US`.
      *
      * @param language The ISO language-country tag that identifies the language of
      *                 the value
@@ -150,7 +152,7 @@ public class FieldValueReader extends Reader<FieldValue> {
 
         if (response == null) {
             throw new ApiConnectionException("FieldValue read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

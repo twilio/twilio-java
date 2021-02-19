@@ -28,7 +28,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
     /**
      * Construct a new WebChannelCreator.
      *
-     * @param flexFlowSid The SID of the FlexFlow
+     * @param flexFlowSid The SID of the Flex Flow
      * @param identity The chat identity
      * @param customerFriendlyName The chat participant's friendly name
      * @param chatFriendlyName The chat channel's friendly name
@@ -85,7 +85,7 @@ public class WebChannelCreator extends Creator<WebChannel> {
 
         if (response == null) {
             throw new ApiConnectionException("WebChannel creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

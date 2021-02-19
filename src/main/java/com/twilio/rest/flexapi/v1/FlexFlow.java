@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,15 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class FlexFlow extends Resource {
     private static final long serialVersionUID = 100371261398167L;
 
@@ -185,8 +186,8 @@ public class FlexFlow extends Resource {
     }
 
     private final String accountSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String sid;
     private final String friendlyName;
     private final String chatServiceSid;
@@ -258,7 +259,7 @@ public class FlexFlow extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -267,7 +268,7 @@ public class FlexFlow extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -317,9 +318,9 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns Whether the FlexFlow is enabled.
+     * Returns Whether the Flex Flow is enabled.
      *
-     * @return Whether the FlexFlow is enabled
+     * @return Whether the Flex Flow is enabled
      */
     public final Boolean getEnabled() {
         return this.enabled;
@@ -362,9 +363,9 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The absolute URL of the FlexFlow resource.
+     * Returns The absolute URL of the Flex Flow resource.
      *
-     * @return The absolute URL of the FlexFlow resource
+     * @return The absolute URL of the Flex Flow resource
      */
     public final URI getUrl() {
         return this.url;
@@ -414,25 +415,5 @@ public class FlexFlow extends Resource {
                             longLived,
                             janitorEnabled,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("sid", sid)
-                          .add("friendlyName", friendlyName)
-                          .add("chatServiceSid", chatServiceSid)
-                          .add("channelType", channelType)
-                          .add("contactIdentity", contactIdentity)
-                          .add("enabled", enabled)
-                          .add("integrationType", integrationType)
-                          .add("integration", integration)
-                          .add("longLived", longLived)
-                          .add("janitorEnabled", janitorEnabled)
-                          .add("url", url)
-                          .toString();
     }
 }

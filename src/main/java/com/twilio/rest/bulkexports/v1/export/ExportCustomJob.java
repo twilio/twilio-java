@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,6 +23,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,13 +35,15 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class ExportCustomJob extends Resource {
     private static final long serialVersionUID = 147268074422838L;
 
     /**
      * Create a ExportCustomJobReader to execute read.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportCustomJobReader capable of executing the read
      */
     public static ExportCustomJobReader reader(final String pathResourceType) {
@@ -51,11 +53,21 @@ public class ExportCustomJob extends Resource {
     /**
      * Create a ExportCustomJobCreator to execute create.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages or Calls,
+     *                         Conferences, and Participants
+     * @param startDay The start day for the custom export specified as a string in
+     *                 the format of yyyy-mm-dd
+     * @param endDay The end day for the custom export specified as a string in the
+     *               format of yyyy-mm-dd. End day is inclusive and must be 2 days
+     *               earlier than the current UTC day.
+     * @param friendlyName The friendly name specified when creating the job
      * @return ExportCustomJobCreator capable of executing the create
      */
-    public static ExportCustomJobCreator creator(final String pathResourceType) {
-        return new ExportCustomJobCreator(pathResourceType);
+    public static ExportCustomJobCreator creator(final String pathResourceType,
+                                                 final String startDay,
+                                                 final String endDay,
+                                                 final String friendlyName) {
+        return new ExportCustomJobCreator(pathResourceType, startDay, endDay, friendlyName);
     }
 
     /**
@@ -146,27 +158,40 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;
     }
 
     /**
-     * Returns The start time for the export specified when creating the job.
+     * Returns The start day for the custom export specified as a string in the
+     * format of yyyy-MM-dd.
      *
-     * @return The start time for the export specified when creating the job
+     * @return The start day for the custom export specified as a string in the
+     *         format of yyyy-MM-dd
      */
     public final String getStartDay() {
         return this.startDay;
     }
 
     /**
-     * Returns The end time for the export specified when creating the job.
+     * Returns The end day for the custom export specified as a string in the format
+     * of yyyy-MM-dd. This will be the last day exported. For instance, to export a
+     * single day, choose the same day for start and end day. To export the first 4
+     * days of July, you would set the start date to 2020-07-01 and the end date to
+     * 2020-07-04. The end date must be the UTC day before yesterday..
      *
-     * @return The end time for the export specified when creating the job
+     * @return The end day for the custom export specified as a string in the
+     *         format of yyyy-MM-dd. This will be the last day exported. For
+     *         instance, to export a single day, choose the same day for start and
+     *         end day. To export the first 4 days of July, you would set the start
+     *         date to 2020-07-01 and the end date to 2020-07-04. The end date must
+     *         be the UTC day before yesterday.
      */
     public final String getEndDay() {
         return this.endDay;
@@ -200,18 +225,22 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The job_sid returned when the export was created.
+     * Returns The unique job_sid returned when the custom export was created. This
+     * can be used to look up the status of the job..
      *
-     * @return The job_sid returned when the export was created
+     * @return The unique job_sid returned when the custom export was created. This
+     *         can be used to look up the status of the job.
      */
     public final String getJobSid() {
         return this.jobSid;
     }
 
     /**
-     * Returns The details.
+     * Returns The details of a job state which is an object that contains a status
+     * string, a day count integer, and list of days in the job.
      *
-     * @return The details
+     * @return The details of a job state which is an object that contains a status
+     *         string, a day count integer, and list of days in the job
      */
     public final Map<String, Object> getDetails() {
         return this.details;
@@ -251,20 +280,5 @@ public class ExportCustomJob extends Resource {
                             email,
                             jobSid,
                             details);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("friendlyName", friendlyName)
-                          .add("resourceType", resourceType)
-                          .add("startDay", startDay)
-                          .add("endDay", endDay)
-                          .add("webhookUrl", webhookUrl)
-                          .add("webhookMethod", webhookMethod)
-                          .add("email", email)
-                          .add("jobSid", jobSid)
-                          .add("details", details)
-                          .toString();
     }
 }

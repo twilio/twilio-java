@@ -25,10 +25,9 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     /**
      * Construct a new UserChannelDeleter.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathUserSid The SID of the User to fetch the User Channel resources
-     *                    from
-     * @param pathChannelSid The SID of the Channel the resource belongs to
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathChannelSid The channel_sid
      */
     public UserChannelDeleter(final String pathServiceSid,
                               final String pathUserSid,
@@ -56,7 +55,7 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
 
         if (response == null) {
             throw new ApiConnectionException("UserChannel delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

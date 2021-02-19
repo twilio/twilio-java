@@ -7,7 +7,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.google.common.collect.Range;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
@@ -21,14 +20,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MessageReader extends Reader<Message> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
-    private DateTime absoluteDateSent;
-    private Range<DateTime> rangeDateSent;
+    private ZonedDateTime dateSent;
+    private ZonedDateTime dateSentBefore;
+    private ZonedDateTime dateSentAfter;
 
     /**
      * Construct a new MessageReader.
@@ -95,12 +97,13 @@ public class MessageReader extends Reader<Message> {
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
      *
-     * @param absoluteDateSent Filter by date sent
+     * @param dateSent Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final DateTime absoluteDateSent) {
-        this.rangeDateSent = null;
-        this.absoluteDateSent = absoluteDateSent;
+    public MessageReader setDateSent(final ZonedDateTime dateSent) {
+        this.dateSentBefore = null;
+        this.dateSentAfter = null;
+        this.dateSent = dateSent;
         return this;
     }
 
@@ -111,12 +114,28 @@ public class MessageReader extends Reader<Message> {
      * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
      * messages sent on or after midnight on a date..
      *
-     * @param rangeDateSent Filter by date sent
+     * @param dateSentBefore Filter by date sent
      * @return this
      */
-    public MessageReader setDateSent(final Range<DateTime> rangeDateSent) {
-        this.absoluteDateSent = null;
-        this.rangeDateSent = rangeDateSent;
+    public MessageReader setDateSentBefore(final ZonedDateTime dateSentBefore) {
+        this.dateSent = null;
+        this.dateSentBefore = dateSentBefore;
+        return this;
+    }
+
+    /**
+     * The date of the messages to show. Specify a date as `YYYY-MM-DD` in GMT to
+     * read only messages sent on this date. For example: `2009-07-06`. You can also
+     * specify an inequality, such as `DateSent&lt;=YYYY-MM-DD`, to read messages
+     * sent on or before midnight on a date, and `DateSent&gt;=YYYY-MM-DD` to read
+     * messages sent on or after midnight on a date..
+     *
+     * @param dateSentAfter Filter by date sent
+     * @return this
+     */
+    public MessageReader setDateSentAfter(final ZonedDateTime dateSentAfter) {
+        this.dateSent = null;
+        this.dateSentAfter = dateSentAfter;
         return this;
     }
 
@@ -216,7 +235,7 @@ public class MessageReader extends Reader<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -246,10 +265,10 @@ public class MessageReader extends Reader<Message> {
             request.addQueryParam("From", from.toString());
         }
 
-        if (absoluteDateSent != null) {
-            request.addQueryParam("DateSent", absoluteDateSent.toString(Request.QUERY_STRING_DATE_TIME_FORMAT));
-        } else if (rangeDateSent != null) {
-            request.addQueryDateTimeRange("DateSent", rangeDateSent);
+        if (dateSent != null) {
+            request.addQueryParam("DateSent", dateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else if (dateSentAfter != null || dateSentBefore != null) {
+            request.addQueryDateTimeRange("DateSent", dateSentAfter, dateSentBefore);
         }
 
         if (getPageSize() != null) {

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,15 +23,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class WorkerChannel extends Resource {
     private static final long serialVersionUID = 181596062682267L;
 
@@ -122,8 +123,8 @@ public class WorkerChannel extends Resource {
     private final Boolean available;
     private final Integer availableCapacityPercentage;
     private final Integer configuredCapacity;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String sid;
     private final String taskChannelSid;
     private final String taskChannelUniqueName;
@@ -224,7 +225,7 @@ public class WorkerChannel extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -233,7 +234,7 @@ public class WorkerChannel extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -333,24 +334,5 @@ public class WorkerChannel extends Resource {
                             workerSid,
                             workspaceSid,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("assignedTasks", assignedTasks)
-                          .add("available", available)
-                          .add("availableCapacityPercentage", availableCapacityPercentage)
-                          .add("configuredCapacity", configuredCapacity)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("sid", sid)
-                          .add("taskChannelSid", taskChannelSid)
-                          .add("taskChannelUniqueName", taskChannelUniqueName)
-                          .add("workerSid", workerSid)
-                          .add("workspaceSid", workspaceSid)
-                          .add("url", url)
-                          .toString();
     }
 }

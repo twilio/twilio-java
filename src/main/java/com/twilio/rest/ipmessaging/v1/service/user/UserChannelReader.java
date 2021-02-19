@@ -26,9 +26,8 @@ public class UserChannelReader extends Reader<UserChannel> {
     /**
      * Construct a new UserChannelReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathUserSid The SID of the User to fetch the User Channel resources
-     *                    from
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
      */
     public UserChannelReader(final String pathServiceSid,
                              final String pathUserSid) {
@@ -130,7 +129,7 @@ public class UserChannelReader extends Reader<UserChannel> {
 
         if (response == null) {
             throw new ApiConnectionException("UserChannel read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

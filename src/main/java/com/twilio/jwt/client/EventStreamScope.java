@@ -1,7 +1,5 @@
 package com.twilio.jwt.client;
 
-import com.google.common.base.Joiner;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ import java.util.Map;
  */
 public class EventStreamScope implements Scope {
 
-    private static final String SCOPE = Joiner.on(':').join("scope", "stream", "subscribe");
+    private static final String SCOPE = String.join(":", "scope", "stream", "subscribe");
 
     private final Map<String, String> filters;
 
@@ -28,25 +26,25 @@ public class EventStreamScope implements Scope {
         queryArgs.add("path=/2010-04-01/Events");
 
         if (!this.filters.isEmpty()) {
-            queryArgs.add(Joiner.on('=').join(
-                URLEncoder.encode("appParams", "UTF-8"),
+            queryArgs.add(String.join("=",
+                    URLEncoder.encode("appParams", "UTF-8"),
                 URLEncoder.encode(this.getFilterParams(), "UTF-8")
             ));
         }
 
-        String queryString = Joiner.on('&').join(queryArgs);
-        return Joiner.on('?').join(SCOPE, queryString);
+        String queryString = String.join("&", queryArgs);
+        return String.join("?", SCOPE, queryString);
     }
 
     private String getFilterParams() throws UnsupportedEncodingException {
         List<String> queryParams = new ArrayList<>();
         for (Map.Entry<String, String> param : filters.entrySet()) {
-            queryParams.add(Joiner.on('=').join(
-                URLEncoder.encode(param.getKey(), "UTF-8"),
+            queryParams.add(String.join("=",
+                    URLEncoder.encode(param.getKey(), "UTF-8"),
                 URLEncoder.encode(param.getValue(), "UTF-8")
             ));
         }
-        return Joiner.on('&').join(queryParams);
+        return String.join("&", queryParams);
     }
 
     public static class Builder {

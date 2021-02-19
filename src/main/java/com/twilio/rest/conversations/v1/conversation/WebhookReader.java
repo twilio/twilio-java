@@ -19,17 +19,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class WebhookReader extends Reader<Webhook> {
     private final String pathConversationSid;
 
     /**
      * Construct a new WebhookReader.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      */
     public WebhookReader(final String pathConversationSid) {
@@ -130,7 +126,7 @@ public class WebhookReader extends Reader<Webhook> {
 
         if (response == null) {
             throw new ApiConnectionException("Webhook read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

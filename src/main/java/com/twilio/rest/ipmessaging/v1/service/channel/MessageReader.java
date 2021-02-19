@@ -27,9 +27,8 @@ public class MessageReader extends Reader<Message> {
     /**
      * Construct a new MessageReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The unique ID of the Channel the message to read
-     *                       belongs to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
     public MessageReader(final String pathServiceSid,
                          final String pathChannelSid) {
@@ -38,10 +37,9 @@ public class MessageReader extends Reader<Message> {
     }
 
     /**
-     * The sort order of the returned messages. Can be: `asc` (ascending) or `desc`
-     * (descending) with `asc` as the default..
+     * The order.
      *
-     * @param order The sort order of the returned messages
+     * @param order The order
      * @return this
      */
     public MessageReader setOrder(final Message.OrderType order) {
@@ -143,7 +141,7 @@ public class MessageReader extends Reader<Message> {
 
         if (response == null) {
             throw new ApiConnectionException("Message read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

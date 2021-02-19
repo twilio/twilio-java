@@ -5,21 +5,10 @@ before_install:
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch || true
 matrix:
   include:
-    - jdk: openjdk7
-      dist: trusty
     - jdk: openjdk8
       dist: xenial
     - jdk: openjdk11
       dist: xenial
-    - jdk: oraclejdk7
-      dist: precise
-    - jdk: oraclejdk8
-      dist: trusty
-    - jdk: oraclejdk11
-      dist: trusty
-  allow_failures:
-    - jdk: openjdk7
-    - jdk: oraclejdk7
 services:
   - docker
 install:
@@ -40,7 +29,7 @@ deploy:
 
 notifications:
   slack:
-    if: branch = master
+    if: branch = main
     on_pull_requests: false
     on_success: never
     on_failure: change

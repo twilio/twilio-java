@@ -25,7 +25,7 @@ public class RoleReader extends Reader<Role> {
     /**
      * Construct a new RoleReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      */
     public RoleReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -125,7 +125,7 @@ public class RoleReader extends Reader<Role> {
 
         if (response == null) {
             throw new ApiConnectionException("Role read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

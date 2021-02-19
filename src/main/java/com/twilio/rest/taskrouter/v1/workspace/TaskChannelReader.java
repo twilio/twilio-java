@@ -25,7 +25,8 @@ public class TaskChannelReader extends Reader<TaskChannel> {
     /**
      * Construct a new TaskChannelReader.
      *
-     * @param pathWorkspaceSid The SID of the Workspace with the TaskChannel to read
+     * @param pathWorkspaceSid The SID of the Workspace with the Task Channel to
+     *                         read
      */
     public TaskChannelReader(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -125,7 +126,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
         if (response == null) {
             throw new ApiConnectionException("TaskChannel read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

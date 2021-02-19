@@ -34,11 +34,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * Construct a new WebhookUpdater.
      *
-     * @param pathServiceSid The SID of the Service with the Channel that has the
-     *                       Webhook resource to update
-     * @param pathChannelSid The SID of the Channel the resource to update belongs
-     *                       to
-     * @param pathSid The SID of the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public WebhookUpdater(final String pathServiceSid,
                           final String pathChannelSid,
@@ -49,9 +47,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The URL of the webhook to call using the `configuration.method`..
+     * The configuration.url.
      *
-     * @param configurationUrl The URL of the webhook to call
+     * @param configurationUrl The configuration.url
      * @return this
      */
     public WebhookUpdater setConfigurationUrl(final String configurationUrl) {
@@ -60,10 +58,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The HTTP method used to call `configuration.url`. Can be: `GET` or `POST` and
-     * the default is `POST`..
+     * The configuration.method.
      *
-     * @param configurationMethod The HTTP method used to call `configuration.url`
+     * @param configurationMethod The configuration.method
      * @return this
      */
     public WebhookUpdater setConfigurationMethod(final Webhook.Method configurationMethod) {
@@ -72,14 +69,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The events that cause us to call the Channel Webhook. Used when `type` is
-     * `webhook`. This parameter takes only one event. To specify more than one
-     * event, repeat this parameter for each event. For the list of possible events,
-     * see [Webhook Event
-     * Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger)..
+     * The configuration.filters.
      *
-     * @param configurationFilters The events that cause us to call the Channel
-     *                             Webhook
+     * @param configurationFilters The configuration.filters
      * @return this
      */
     public WebhookUpdater setConfigurationFilters(final List<String> configurationFilters) {
@@ -88,14 +80,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The events that cause us to call the Channel Webhook. Used when `type` is
-     * `webhook`. This parameter takes only one event. To specify more than one
-     * event, repeat this parameter for each event. For the list of possible events,
-     * see [Webhook Event
-     * Triggers](https://www.twilio.com/docs/chat/webhook-events#webhook-event-trigger)..
+     * The configuration.filters.
      *
-     * @param configurationFilters The events that cause us to call the Channel
-     *                             Webhook
+     * @param configurationFilters The configuration.filters
      * @return this
      */
     public WebhookUpdater setConfigurationFilters(final String configurationFilters) {
@@ -103,13 +90,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * A string that will cause us to call the webhook when it is present in a
-     * message body. This parameter takes only one trigger string. To specify more
-     * than one, repeat this parameter for each trigger string up to a total of 5
-     * trigger strings. Used only when `type` = `trigger`..
+     * The configuration.triggers.
      *
-     * @param configurationTriggers A string that will cause us to call the webhook
-     *                              when it is found in a message body
+     * @param configurationTriggers The configuration.triggers
      * @return this
      */
     public WebhookUpdater setConfigurationTriggers(final List<String> configurationTriggers) {
@@ -118,13 +101,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * A string that will cause us to call the webhook when it is present in a
-     * message body. This parameter takes only one trigger string. To specify more
-     * than one, repeat this parameter for each trigger string up to a total of 5
-     * trigger strings. Used only when `type` = `trigger`..
+     * The configuration.triggers.
      *
-     * @param configurationTriggers A string that will cause us to call the webhook
-     *                              when it is found in a message body
+     * @param configurationTriggers The configuration.triggers
      * @return this
      */
     public WebhookUpdater setConfigurationTriggers(final String configurationTriggers) {
@@ -132,12 +111,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The SID of the Studio
-     * [Flow](https://www.twilio.com/docs/studio/rest-api/flow) to call when an
-     * event in `configuration.filters` occurs. Used only when `type` = `studio`..
+     * The configuration.flow_sid.
      *
-     * @param configurationFlowSid The SID of the Studio Flow to call when an event
-     *                             occurs
+     * @param configurationFlowSid The configuration.flow_sid
      * @return this
      */
     public WebhookUpdater setConfigurationFlowSid(final String configurationFlowSid) {
@@ -146,11 +122,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The number of times to retry the webhook if the first attempt fails. Can be
-     * an integer between 0 and 3, inclusive, and the default is 0..
+     * The configuration.retry_count.
      *
-     * @param configurationRetryCount The number of times to retry the webhook if
-     *                                the first attempt fails
+     * @param configurationRetryCount The configuration.retry_count
      * @return this
      */
     public WebhookUpdater setConfigurationRetryCount(final Integer configurationRetryCount) {
@@ -178,7 +152,7 @@ public class WebhookUpdater extends Updater<Webhook> {
 
         if (response == null) {
             throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

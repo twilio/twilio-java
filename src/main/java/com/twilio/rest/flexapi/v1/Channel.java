@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,15 +23,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Channel extends Resource {
     private static final long serialVersionUID = 192292992411746L;
 
@@ -59,7 +60,7 @@ public class Channel extends Resource {
     /**
      * Create a ChannelCreator to execute create.
      *
-     * @param flexFlowSid The SID of the FlexFlow
+     * @param flexFlowSid The SID of the Flex Flow
      * @param identity The identity value that identifies the new resource's chat
      *                 User
      * @param chatUserFriendlyName The chat participant's friendly name
@@ -126,8 +127,8 @@ public class Channel extends Resource {
     private final String userSid;
     private final String taskSid;
     private final URI url;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
 
     @JsonCreator
     private Channel(@JsonProperty("account_sid")
@@ -168,9 +169,9 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The SID of the FlexFlow.
+     * Returns The SID of the Flex Flow.
      *
-     * @return The SID of the FlexFlow
+     * @return The SID of the Flex Flow
      */
     public final String getFlexFlowSid() {
         return this.flexFlowSid;
@@ -195,9 +196,9 @@ public class Channel extends Resource {
     }
 
     /**
-     * Returns The SID of the TaskRouter task.
+     * Returns The SID of the TaskRouter Task.
      *
-     * @return The SID of the TaskRouter task
+     * @return The SID of the TaskRouter Task
      */
     public final String getTaskSid() {
         return this.taskSid;
@@ -219,7 +220,7 @@ public class Channel extends Resource {
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -230,7 +231,7 @@ public class Channel extends Resource {
      * @return The ISO 8601 date and time in GMT when the Flex chat channel was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -266,19 +267,5 @@ public class Channel extends Resource {
                             url,
                             dateCreated,
                             dateUpdated);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("flexFlowSid", flexFlowSid)
-                          .add("sid", sid)
-                          .add("userSid", userSid)
-                          .add("taskSid", taskSid)
-                          .add("url", url)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .toString();
     }
 }

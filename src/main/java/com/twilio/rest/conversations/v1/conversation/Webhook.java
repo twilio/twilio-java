@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,19 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 99232637584802L;
 
@@ -96,7 +93,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @return WebhookReader capable of executing the read
      */
@@ -107,7 +104,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookFetcher capable of executing the fetch
@@ -120,7 +117,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookCreator to execute create.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param target The target of this webhook.
      * @return WebhookCreator capable of executing the create
@@ -133,7 +130,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookUpdater capable of executing the update
@@ -146,7 +143,7 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookDeleter to execute delete.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            webhook.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return WebhookDeleter capable of executing the delete
@@ -199,8 +196,8 @@ public class Webhook extends Resource {
     private final String target;
     private final URI url;
     private final Map<String, Object> configuration;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
 
     @JsonCreator
     private Webhook(@JsonProperty("sid")
@@ -239,18 +236,18 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The unique id of the Account responsible for this conversation..
+     * Returns The unique ID of the Account responsible for this conversation..
      *
-     * @return The unique id of the Account responsible for this conversation.
+     * @return The unique ID of the Account responsible for this conversation.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this webhook..
+     * Returns The unique ID of the Conversation for this webhook..
      *
-     * @return The unique id of the Conversation for this webhook.
+     * @return The unique ID of the Conversation for this webhook.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -288,7 +285,7 @@ public class Webhook extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -297,7 +294,7 @@ public class Webhook extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -333,19 +330,5 @@ public class Webhook extends Resource {
                             configuration,
                             dateCreated,
                             dateUpdated);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("conversationSid", conversationSid)
-                          .add("target", target)
-                          .add("url", url)
-                          .add("configuration", configuration)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .toString();
     }
 }

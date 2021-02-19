@@ -28,10 +28,10 @@ public class RoleCreator extends Creator<Role> {
     /**
      * Construct a new RoleCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param friendlyName A string to describe the new resource
-     * @param type The type of role
-     * @param permission A permission the role should have
+     * @param pathServiceSid The service_sid
+     * @param friendlyName The friendly_name
+     * @param type The type
+     * @param permission The permission
      */
     public RoleCreator(final String pathServiceSid,
                        final String friendlyName,
@@ -63,7 +63,7 @@ public class RoleCreator extends Creator<Role> {
 
         if (response == null) {
             throw new ApiConnectionException("Role creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

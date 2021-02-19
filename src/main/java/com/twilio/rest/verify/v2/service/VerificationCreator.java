@@ -24,6 +24,7 @@ public class VerificationCreator extends Creator<Verification> {
     private final String pathServiceSid;
     private final String to;
     private final String channel;
+    private String customFriendlyName;
     private String customMessage;
     private String sendDigits;
     private String locale;
@@ -51,6 +52,18 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
+     * A custom user defined friendly name that overwrites the existing one in the
+     * verification message.
+     *
+     * @param customFriendlyName A custom user defined friendly name
+     * @return this
+     */
+    public VerificationCreator setCustomFriendlyName(final String customFriendlyName) {
+        this.customFriendlyName = customFriendlyName;
+        return this;
+    }
+
+    /**
      * The text of a custom message to use for the verification..
      *
      * @param customMessage The text of a custom message to use for the verification
@@ -64,7 +77,8 @@ public class VerificationCreator extends Creator<Verification> {
     /**
      * The digits to send after a phone call is answered, for example, to dial an
      * extension. For more information, see the Programmable Voice documentation of
-     * [sendDigits](https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits)..
+     * <a
+     * href="https://www.twilio.com/docs/voice/twiml/number#attributes-sendDigits">sendDigits</a>..
      *
      * @param sendDigits The digits to send after a phone call is answered
      * @return this
@@ -126,10 +140,11 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * The custom key-value pairs of Programmable Rate Limits. Keys correspond to
-     * `unique_name` fields defined when [creating your Rate
-     * Limit](https://www.twilio.com/docs/verify/api/service-rate-limits).
-     * Associated value pairs represent values in the request that you are rate
-     * limiting on. You may include multiple Rate Limit values in each request..
+     * `unique_name` fields defined when <a
+     * href="https://www.twilio.com/docs/verify/api/service-rate-limits">creating
+     * your Rate Limit</a>. Associated value pairs represent values in the request
+     * that you are rate limiting on. You may include multiple Rate Limit values in
+     * each request..
      *
      * @param rateLimits The custom key-value pairs of Programmable Rate Limits.
      * @return this
@@ -140,8 +155,8 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * [`email`](https://www.twilio.com/docs/verify/email) channel configuration in
-     * json format. Must include 'from' and 'from_name'..
+     * <a href="https://www.twilio.com/docs/verify/email">`email`</a> channel
+     * configuration in json format. Must include 'from' and 'from_name'..
      *
      * @param channelConfiguration Channel specific configuration in json format.
      * @return this
@@ -152,8 +167,11 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * Your [App
-     * Hash](https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string) to be appended at the end of your verification SMS body. Applies only to SMS. Example SMS body: `&lt;#&gt; Your AppName verification code is: 1234 He42w354ol9`..
+     * Your <a
+     * href="https://developers.google.com/identity/sms-retriever/verify#computing_your_apps_hash_string">App
+     * Hash</a> to be appended at the end of your verification SMS body. Applies
+     * only to SMS. Example SMS body: `&lt;#&gt; Your AppName verification code is:
+     * 1234 He42w354ol9`..
      *
      * @param appHash Your App Hash to be appended at the end of an SMS.
      * @return this
@@ -183,7 +201,7 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (response == null) {
             throw new ApiConnectionException("Verification creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -206,6 +224,10 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (channel != null) {
             request.addPostParam("Channel", channel);
+        }
+
+        if (customFriendlyName != null) {
+            request.addPostParam("CustomFriendlyName", customFriendlyName);
         }
 
         if (customMessage != null) {

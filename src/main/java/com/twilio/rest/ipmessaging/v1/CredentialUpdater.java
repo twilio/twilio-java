@@ -29,17 +29,16 @@ public class CredentialUpdater extends Updater<Credential> {
     /**
      * Construct a new CredentialUpdater.
      *
-     * @param pathSid The unique string that identifies the resource
+     * @param pathSid The sid
      */
     public CredentialUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It can be up
-     * to 64 characters long..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public CredentialUpdater setFriendlyName(final String friendlyName) {
@@ -48,13 +47,9 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [APN only] The URL encoded representation of the certificate. For example,
-     * `-----BEGIN CERTIFICATE-----
-     * MIIFnTCCBIWgAwIBAgIIAjy9H849+E8wDQYJKoZIhvcNAQEFBQAwgZYxCzAJBgNV.....A==
-     * -----END CERTIFICATE-----`.
+     * The certificate.
      *
-     * @param certificate [APN only] The URL encoded representation of the
-     *                    certificate
+     * @param certificate The certificate
      * @return this
      */
     public CredentialUpdater setCertificate(final String certificate) {
@@ -63,13 +58,9 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [APN only] The URL encoded representation of the private key. For example,
-     * `-----BEGIN RSA PRIVATE KEY-----
-     * MIIEpQIBAAKCAQEAuyf/lNrH9ck8DmNyo3fGgvCI1l9s+cmBY3WIz+cUDqmxiieR.
-     * -----END RSA PRIVATE KEY-----`.
+     * The private_key.
      *
-     * @param privateKey [APN only] The URL encoded representation of the private
-     *                   key
+     * @param privateKey The private_key
      * @return this
      */
     public CredentialUpdater setPrivateKey(final String privateKey) {
@@ -78,10 +69,9 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [APN only] Whether to send the credential to sandbox APNs. Can be `true` to
-     * send to sandbox APNs or `false` to send to production..
+     * The sandbox.
      *
-     * @param sandbox [APN only] Whether to send the credential to sandbox APNs
+     * @param sandbox The sandbox
      * @return this
      */
     public CredentialUpdater setSandbox(final Boolean sandbox) {
@@ -90,12 +80,9 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [GCM only] The API key for the project that was obtained from the Google
-     * Developer console for your GCM Service application credential..
+     * The api_key.
      *
-     * @param apiKey [GCM only] The API key for the project that was obtained from
-     *               the Google Developer console for your GCM Service application
-     *               credential
+     * @param apiKey The api_key
      * @return this
      */
     public CredentialUpdater setApiKey(final String apiKey) {
@@ -104,10 +91,9 @@ public class CredentialUpdater extends Updater<Credential> {
     }
 
     /**
-     * [FCM only] The **Server key** of your project from the Firebase console,
-     * found under Settings / Cloud messaging..
+     * The secret.
      *
-     * @param secret [FCM only] The Server key of your project from Firebase console
+     * @param secret The secret
      * @return this
      */
     public CredentialUpdater setSecret(final String secret) {
@@ -135,7 +121,7 @@ public class CredentialUpdater extends Updater<Credential> {
 
         if (response == null) {
             throw new ApiConnectionException("Credential update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

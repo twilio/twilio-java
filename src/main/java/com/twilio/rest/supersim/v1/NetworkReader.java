@@ -20,9 +20,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class NetworkReader extends Reader<Network> {
     private String isoCountry;
@@ -30,8 +29,8 @@ public class NetworkReader extends Reader<Network> {
     private String mnc;
 
     /**
-     * The [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2) of
-     * the Network resources to read..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country
+     * code</a> of the Network resources to read..
      *
      * @param isoCountry The ISO country code of the Network resources to read
      * @return this
@@ -159,7 +158,7 @@ public class NetworkReader extends Reader<Network> {
 
         if (response == null) {
             throw new ApiConnectionException("Network read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

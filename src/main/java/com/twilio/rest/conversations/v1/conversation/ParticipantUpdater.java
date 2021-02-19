@@ -17,24 +17,27 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
+import java.time.ZonedDateTime;
+
 public class ParticipantUpdater extends Updater<Participant> {
     private final String pathConversationSid;
     private final String pathSid;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String attributes;
     private String roleSid;
+    private String messagingBindingProxyAddress;
+    private String messagingBindingProjectedAddress;
+    private String identity;
+    private Integer lastReadMessageIndex;
+    private String lastReadTimestamp;
+    private Participant.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ParticipantUpdater.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            participant.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      */
@@ -50,7 +53,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * @param dateCreated The date that this resource was created.
      * @return this
      */
-    public ParticipantUpdater setDateCreated(final DateTime dateCreated) {
+    public ParticipantUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
@@ -61,7 +64,7 @@ public class ParticipantUpdater extends Updater<Participant> {
      * @param dateUpdated The date that this resource was last updated.
      * @return this
      */
-    public ParticipantUpdater setDateUpdated(final DateTime dateUpdated) {
+    public ParticipantUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
@@ -81,14 +84,96 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the participant..
+     * The SID of a conversation-level <a
+     * href="https://www.twilio.com/docs/conversations/api/role-resource">Role</a>
+     * to assign to the participant..
      *
-     * @param roleSid The SID of the Role to assign to the participant
+     * @param roleSid The SID of a conversation-level Role to assign to the
+     *                participant
      * @return this
      */
     public ParticipantUpdater setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
+        return this;
+    }
+
+    /**
+     * The address of the Twilio phone number that the participant is in contact
+     * with. 'null' value will remove it..
+     *
+     * @param messagingBindingProxyAddress The address of the Twilio phone number
+     *                                     that the participant is in contact with.
+     * @return this
+     */
+    public ParticipantUpdater setMessagingBindingProxyAddress(final String messagingBindingProxyAddress) {
+        this.messagingBindingProxyAddress = messagingBindingProxyAddress;
+        return this;
+    }
+
+    /**
+     * The address of the Twilio phone number that is used in Group MMS. 'null'
+     * value will remove it..
+     *
+     * @param messagingBindingProjectedAddress The address of the Twilio phone
+     *                                         number that is used in Group MMS.
+     * @return this
+     */
+    public ParticipantUpdater setMessagingBindingProjectedAddress(final String messagingBindingProjectedAddress) {
+        this.messagingBindingProjectedAddress = messagingBindingProjectedAddress;
+        return this;
+    }
+
+    /**
+     * A unique string identifier for the conversation participant as <a
+     * href="https://www.twilio.com/docs/conversations/api/user-resource">Conversation
+     * User</a>. This parameter is non-null if (and only if) the participant is
+     * using the Conversations SDK to communicate. Limited to 256 characters..
+     *
+     * @param identity A unique string identifier for the conversation participant
+     *                 as Conversation User.
+     * @return this
+     */
+    public ParticipantUpdater setIdentity(final String identity) {
+        this.identity = identity;
+        return this;
+    }
+
+    /**
+     * Index of last “read” message in the <a
+     * href="https://www.twilio.com/docs/conversations/api/conversation-resource">Conversation</a>
+     * for the Participant..
+     *
+     * @param lastReadMessageIndex Index of last “read” message in the Conversation
+     *                             for the Participant.
+     * @return this
+     */
+    public ParticipantUpdater setLastReadMessageIndex(final Integer lastReadMessageIndex) {
+        this.lastReadMessageIndex = lastReadMessageIndex;
+        return this;
+    }
+
+    /**
+     * Timestamp of last “read” message in the <a
+     * href="https://www.twilio.com/docs/conversations/api/conversation-resource">Conversation</a>
+     * for the Participant..
+     *
+     * @param lastReadTimestamp Timestamp of last “read” message in the
+     *                          Conversation for the Participant.
+     * @return this
+     */
+    public ParticipantUpdater setLastReadTimestamp(final String lastReadTimestamp) {
+        this.lastReadTimestamp = lastReadTimestamp;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ParticipantUpdater setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -108,11 +193,12 @@ public class ParticipantUpdater extends Updater<Participant> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Participant update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -124,17 +210,28 @@ public class ParticipantUpdater extends Updater<Participant> {
     }
 
     /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
+    }
+
+    /**
      * Add the requested post parameters to the Request.
      *
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (attributes != null) {
@@ -143,6 +240,26 @@ public class ParticipantUpdater extends Updater<Participant> {
 
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
+        }
+
+        if (messagingBindingProxyAddress != null) {
+            request.addPostParam("MessagingBinding.ProxyAddress", messagingBindingProxyAddress);
+        }
+
+        if (messagingBindingProjectedAddress != null) {
+            request.addPostParam("MessagingBinding.ProjectedAddress", messagingBindingProjectedAddress);
+        }
+
+        if (identity != null) {
+            request.addPostParam("Identity", identity);
+        }
+
+        if (lastReadMessageIndex != null) {
+            request.addPostParam("LastReadMessageIndex", lastReadMessageIndex.toString());
+        }
+
+        if (lastReadTimestamp != null) {
+            request.addPostParam("LastReadTimestamp", lastReadTimestamp);
         }
     }
 }

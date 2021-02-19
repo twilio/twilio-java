@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,13 +35,15 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class ExportConfiguration extends Resource {
     private static final long serialVersionUID = 121290827357040L;
 
     /**
      * Create a ExportConfigurationFetcher to execute fetch.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportConfigurationFetcher capable of executing the fetch
      */
     public static ExportConfigurationFetcher fetcher(final String pathResourceType) {
@@ -51,7 +53,8 @@ public class ExportConfiguration extends Resource {
     /**
      * Create a ExportConfigurationUpdater to execute update.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return ExportConfigurationUpdater capable of executing the update
      */
     public static ExportConfigurationUpdater updater(final String pathResourceType) {
@@ -148,9 +151,11 @@ public class ExportConfiguration extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;
@@ -191,16 +196,5 @@ public class ExportConfiguration extends Resource {
                             webhookMethod,
                             resourceType,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("enabled", enabled)
-                          .add("webhookUrl", webhookUrl)
-                          .add("webhookMethod", webhookMethod)
-                          .add("resourceType", resourceType)
-                          .add("url", url)
-                          .toString();
     }
 }

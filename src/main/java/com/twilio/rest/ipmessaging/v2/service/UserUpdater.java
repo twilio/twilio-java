@@ -23,12 +23,13 @@ public class UserUpdater extends Updater<User> {
     private String roleSid;
     private String attributes;
     private String friendlyName;
+    private User.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new UserUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The SID of the User resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public UserUpdater(final String pathServiceSid,
                        final String pathSid) {
@@ -37,10 +38,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/chat/rest/role-resource) to
-     * assign to the User..
+     * The role_sid.
      *
-     * @param roleSid The SID id of the Role assigned to this user
+     * @param roleSid The role_sid
      * @return this
      */
     public UserUpdater setRoleSid(final String roleSid) {
@@ -49,9 +49,9 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public UserUpdater setAttributes(final String attributes) {
@@ -60,14 +60,24 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It is often
-     * used for display purposes..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public UserUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public UserUpdater setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -87,11 +97,12 @@ public class UserUpdater extends Updater<User> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("User update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -100,6 +111,17 @@ public class UserUpdater extends Updater<User> {
         }
 
         return User.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**

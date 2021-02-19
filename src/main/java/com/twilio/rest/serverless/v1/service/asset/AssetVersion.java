@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,20 +24,21 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class AssetVersion extends Resource {
     private static final long serialVersionUID = 182506144428248L;
 
@@ -142,7 +142,7 @@ public class AssetVersion extends Resource {
     private final String assetSid;
     private final String path;
     private final AssetVersion.Visibility visibility;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateCreated;
     private final URI url;
 
     @JsonCreator
@@ -202,29 +202,29 @@ public class AssetVersion extends Resource {
     }
 
     /**
-     * Returns The SID of the Asset resource that is the parent of the asset
-     * version.
+     * Returns The SID of the Asset resource that is the parent of the Asset
+     * Version.
      *
-     * @return The SID of the Asset resource that is the parent of the asset version
+     * @return The SID of the Asset resource that is the parent of the Asset Version
      */
     public final String getAssetSid() {
         return this.assetSid;
     }
 
     /**
-     * Returns The URL-friendly string by which the asset version can be referenced.
+     * Returns The URL-friendly string by which the Asset Version can be referenced.
      *
-     * @return The URL-friendly string by which the asset version can be referenced
+     * @return The URL-friendly string by which the Asset Version can be referenced
      */
     public final String getPath() {
         return this.path;
     }
 
     /**
-     * Returns The access control that determines how the asset version can be
+     * Returns The access control that determines how the Asset Version can be
      * accessed.
      *
-     * @return The access control that determines how the asset version can be
+     * @return The access control that determines how the Asset Version can be
      *         accessed
      */
     public final AssetVersion.Visibility getVisibility() {
@@ -238,7 +238,7 @@ public class AssetVersion extends Resource {
      * @return The ISO 8601 date and time in GMT when the Asset Version resource
      *         was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -283,19 +283,5 @@ public class AssetVersion extends Resource {
                             visibility,
                             dateCreated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("assetSid", assetSid)
-                          .add("path", path)
-                          .add("visibility", visibility)
-                          .add("dateCreated", dateCreated)
-                          .add("url", url)
-                          .toString();
     }
 }

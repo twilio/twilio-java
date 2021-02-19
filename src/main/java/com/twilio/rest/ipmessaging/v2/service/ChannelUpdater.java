@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class ChannelUpdater extends Updater<Channel> {
     private final String pathServiceSid;
@@ -25,15 +26,16 @@ public class ChannelUpdater extends Updater<Channel> {
     private String friendlyName;
     private String uniqueName;
     private String attributes;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String createdBy;
+    private Channel.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new ChannelUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathSid The SID of the Channel resource to update
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      */
     public ChannelUpdater(final String pathServiceSid,
                           final String pathSid) {
@@ -42,10 +44,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A descriptive string that you create to describe the resource. It can be up
-     * to 256 characters long..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public ChannelUpdater setFriendlyName(final String friendlyName) {
@@ -54,13 +55,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * An application-defined string that uniquely identifies the resource. It can
-     * be used to address the resource in place of the resource's `sid` in the URL.
-     * This value must be 256 characters or less in length and unique within the
-     * Service..
+     * The unique_name.
      *
-     * @param uniqueName An application-defined string that uniquely identifies the
-     *                   resource
+     * @param uniqueName The unique_name
      * @return this
      */
     public ChannelUpdater setUniqueName(final String uniqueName) {
@@ -69,9 +66,9 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public ChannelUpdater setAttributes(final String attributes) {
@@ -80,42 +77,46 @@ public class ChannelUpdater extends Updater<Channel> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service.  Note that this should
-     * only be used in cases where a Channel is being recreated from a
-     * backup/separate source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
-    public ChannelUpdater setDateCreated(final DateTime dateCreated) {
+    public ChannelUpdater setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
-    public ChannelUpdater setDateUpdated(final DateTime dateUpdated) {
+    public ChannelUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
 
     /**
-     * The `identity` of the User that created the channel. Default is: `system`..
+     * The created_by.
      *
-     * @param createdBy The identity of the User that created the Channel
+     * @param createdBy The created_by
      * @return this
      */
     public ChannelUpdater setCreatedBy(final String createdBy) {
         this.createdBy = createdBy;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public ChannelUpdater setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -135,11 +136,12 @@ public class ChannelUpdater extends Updater<Channel> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Channel update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -148,6 +150,17 @@ public class ChannelUpdater extends Updater<Channel> {
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**
@@ -169,11 +182,11 @@ public class ChannelUpdater extends Updater<Channel> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (createdBy != null) {

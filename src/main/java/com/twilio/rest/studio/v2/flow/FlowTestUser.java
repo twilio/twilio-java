@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,18 +31,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class FlowTestUser extends Resource {
     private static final long serialVersionUID = 179832058834973L;
 
     /**
      * Create a FlowTestUserFetcher to execute fetch.
      *
-     * @param pathSid The sid
+     * @param pathSid Unique identifier of the flow.
      * @return FlowTestUserFetcher capable of executing the fetch
      */
     public static FlowTestUserFetcher fetcher(final String pathSid) {
@@ -52,8 +49,9 @@ public class FlowTestUser extends Resource {
     /**
      * Create a FlowTestUserUpdater to execute update.
      *
-     * @param pathSid The sid
-     * @param testUsers The test_users
+     * @param pathSid Unique identifier of the flow.
+     * @param testUsers List of test user identities that can test draft versions
+     *                  of the flow.
      * @return FlowTestUserUpdater capable of executing the update
      */
     public static FlowTestUserUpdater updater(final String pathSid,
@@ -116,27 +114,29 @@ public class FlowTestUser extends Resource {
     }
 
     /**
-     * Returns The sid.
+     * Returns Unique identifier of the flow..
      *
-     * @return The sid
+     * @return Unique identifier of the flow.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The test_users.
+     * Returns List of test user identities that can test draft versions of the
+     * flow..
      *
-     * @return The test_users
+     * @return List of test user identities that can test draft versions of the
+     *         flow.
      */
     public final List<String> getTestUsers() {
         return this.testUsers;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
@@ -164,14 +164,5 @@ public class FlowTestUser extends Resource {
         return Objects.hash(sid,
                             testUsers,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("testUsers", testUsers)
-                          .add("url", url)
-                          .toString();
     }
 }

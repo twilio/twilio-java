@@ -17,24 +17,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class MessageCreator extends Creator<Message> {
     private final String pathServiceSid;
     private final String pathChannelSid;
     private String from;
     private String attributes;
-    private DateTime dateCreated;
-    private DateTime dateUpdated;
+    private ZonedDateTime dateCreated;
+    private ZonedDateTime dateUpdated;
     private String lastUpdatedBy;
     private String body;
     private String mediaSid;
+    private Message.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new MessageCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The SID of the Channel the new resource belongs to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
     public MessageCreator(final String pathServiceSid,
                           final String pathChannelSid) {
@@ -43,10 +45,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The [Identity](https://www.twilio.com/docs/chat/identity) of the new
-     * message's author. The default value is `system`..
+     * The from.
      *
-     * @param from The Identity of the new message's author
+     * @param from The from
      * @return this
      */
     public MessageCreator setFrom(final String from) {
@@ -55,9 +56,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public MessageCreator setAttributes(final String attributes) {
@@ -66,39 +67,31 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was created. The default
-     * value is the current time set by the Chat service. This parameter should only
-     * be used when a Chat's history is being recreated from a backup/separate
-     * source..
+     * The date_created.
      *
-     * @param dateCreated The ISO 8601 date and time in GMT when the resource was
-     *                    created
+     * @param dateCreated The date_created
      * @return this
      */
-    public MessageCreator setDateCreated(final DateTime dateCreated) {
+    public MessageCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
 
     /**
-     * The date, specified in [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-     * format, to assign to the resource as the date it was last updated..
+     * The date_updated.
      *
-     * @param dateUpdated The ISO 8601 date and time in GMT when the resource was
-     *                    updated
+     * @param dateUpdated The date_updated
      * @return this
      */
-    public MessageCreator setDateUpdated(final DateTime dateUpdated) {
+    public MessageCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
 
     /**
-     * The [Identity](https://www.twilio.com/docs/chat/identity) of the User who
-     * last updated the Message, if applicable..
+     * The last_updated_by.
      *
-     * @param lastUpdatedBy The Identity of the User who last updated the Message
+     * @param lastUpdatedBy The last_updated_by
      * @return this
      */
     public MessageCreator setLastUpdatedBy(final String lastUpdatedBy) {
@@ -107,11 +100,9 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The message to send to the channel. Can be an empty string or `null`, which
-     * sets the value as an empty string. You can send structured data in the body
-     * by serializing it as a string..
+     * The body.
      *
-     * @param body The message to send to the channel
+     * @param body The body
      * @return this
      */
     public MessageCreator setBody(final String body) {
@@ -120,14 +111,24 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
-     * The SID of the [Media](https://www.twilio.com/docs/chat/rest/media) to attach
-     * to the new Message..
+     * The media_sid.
      *
-     * @param mediaSid  The Media Sid to be attached to the new Message
+     * @param mediaSid The media_sid
      * @return this
      */
     public MessageCreator setMediaSid(final String mediaSid) {
         this.mediaSid = mediaSid;
+        return this;
+    }
+
+    /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
 
@@ -147,11 +148,12 @@ public class MessageCreator extends Creator<Message> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("Message creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -160,6 +162,17 @@ public class MessageCreator extends Creator<Message> {
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 
     /**
@@ -177,11 +190,11 @@ public class MessageCreator extends Creator<Message> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toString());
+            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toString());
+            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
         }
 
         if (lastUpdatedBy != null) {

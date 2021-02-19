@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,15 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 142993163058456L;
 
@@ -92,8 +93,8 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The SID of the Channel the resources to read belong to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      * @return WebhookReader capable of executing the read
      */
     public static WebhookReader reader(final String pathServiceSid,
@@ -104,10 +105,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service with the Channel to fetch the
-     *                       Webhook resource from
-     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The SID of the Channel Webhook resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return WebhookFetcher capable of executing the fetch
      */
     public static WebhookFetcher fetcher(final String pathServiceSid,
@@ -119,10 +119,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookCreator to execute create.
      *
-     * @param pathServiceSid The SID of the Service with the Channel to create the
-     *                       resource under
-     * @param pathChannelSid The SID of the Channel the new resource belongs to
-     * @param type The type of webhook
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param type The type
      * @return WebhookCreator capable of executing the create
      */
     public static WebhookCreator creator(final String pathServiceSid,
@@ -134,11 +133,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      *
-     * @param pathServiceSid The SID of the Service with the Channel that has the
-     *                       Webhook resource to update
-     * @param pathChannelSid The SID of the Channel the resource to update belongs
-     *                       to
-     * @param pathSid The SID of the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return WebhookUpdater capable of executing the update
      */
     public static WebhookUpdater updater(final String pathServiceSid,
@@ -150,11 +147,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service with the Channel to delete the
-     *                       Webhook resource from
-     * @param pathChannelSid The SID of the channel the resource to delete belongs
-     *                       to
-     * @param pathSid The SID of the Channel Webhook resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      * @return WebhookDeleter capable of executing the delete
      */
     public static WebhookDeleter deleter(final String pathServiceSid,
@@ -207,8 +202,8 @@ public class Webhook extends Resource {
     private final String type;
     private final URI url;
     private final Map<String, Object> configuration;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
 
     @JsonCreator
     private Webhook(@JsonProperty("sid")
@@ -241,87 +236,83 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the Channel Webhook resource is
-     * associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the Channel Webhook resource is
-     *         associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The SID of the Channel the Channel Webhook resource belongs to.
+     * Returns The channel_sid.
      *
-     * @return The SID of the Channel the Channel Webhook resource belongs to
+     * @return The channel_sid
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The type of webhook.
+     * Returns The type.
      *
-     * @return The type of webhook
+     * @return The type
      */
     public final String getType() {
         return this.type;
     }
 
     /**
-     * Returns The absolute URL of the Channel Webhook resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Channel Webhook resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The JSON string that describes the configuration object for the
-     * channel webhook.
+     * Returns The configuration.
      *
-     * @return The JSON string that describes the configuration object for the
-     *         channel webhook
+     * @return The configuration
      */
     public final Map<String, Object> getConfiguration() {
         return this.configuration;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -359,20 +350,5 @@ public class Webhook extends Resource {
                             configuration,
                             dateCreated,
                             dateUpdated);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("channelSid", channelSid)
-                          .add("type", type)
-                          .add("url", url)
-                          .add("configuration", configuration)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .toString();
     }
 }

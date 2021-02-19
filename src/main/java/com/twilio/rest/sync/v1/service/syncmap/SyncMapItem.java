@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,19 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class SyncMapItem extends Resource {
     private static final long serialVersionUID = 280430240185290L;
 
@@ -216,9 +213,9 @@ public class SyncMapItem extends Resource {
     private final URI url;
     private final String revision;
     private final Map<String, Object> data;
-    private final DateTime dateExpires;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateExpires;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String createdBy;
 
     @JsonCreator
@@ -325,7 +322,7 @@ public class SyncMapItem extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the Map Item expires
      */
-    public final DateTime getDateExpires() {
+    public final ZonedDateTime getDateExpires() {
         return this.dateExpires;
     }
 
@@ -334,7 +331,7 @@ public class SyncMapItem extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -343,7 +340,7 @@ public class SyncMapItem extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -394,22 +391,5 @@ public class SyncMapItem extends Resource {
                             dateCreated,
                             dateUpdated,
                             createdBy);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("key", key)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("mapSid", mapSid)
-                          .add("url", url)
-                          .add("revision", revision)
-                          .add("data", data)
-                          .add("dateExpires", dateExpires)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("createdBy", createdBy)
-                          .toString();
     }
 }

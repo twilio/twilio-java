@@ -1,10 +1,10 @@
 package com.twilio.type;
 
-import com.google.common.collect.Lists;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Collections;
 
 /**
  * Test class for {@link OutboundSmsPrice}.
@@ -28,7 +28,7 @@ public class OutboundSmsPriceTest extends TypeTest {
         Assert.assertEquals("mcc", osp.getMcc());
         Assert.assertEquals("mnc", osp.getMnc());
         Assert.assertEquals("att", osp.getCarrier());
-        Assert.assertEquals(Lists.newArrayList(
+        Assert.assertEquals(Collections.singletonList(
             new InboundSmsPrice(1.00, 2.00, InboundSmsPrice.Type.LOCAL)
         ), osp.getPrices());
     }

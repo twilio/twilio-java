@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class DocumentCreator extends Creator<Document> {
     private final String pathServiceSid;
     private String uniqueName;
@@ -54,7 +50,7 @@ public class DocumentCreator extends Creator<Document> {
 
     /**
      * A JSON string that represents an arbitrary, schema-less object that the Sync
-     * Document stores. Can be up to 16KB in length..
+     * Document stores. Can be up to 16 KiB in length..
      *
      * @param data A JSON string that represents an arbitrary, schema-less object
      *             that the Sync Document stores
@@ -102,7 +98,7 @@ public class DocumentCreator extends Creator<Document> {
 
         if (response == null) {
             throw new ApiConnectionException("Document creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

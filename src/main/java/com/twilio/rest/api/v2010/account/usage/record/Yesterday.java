@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,16 +25,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.LocalDate;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Yesterday extends Resource {
     private static final long serialVersionUID = 99746306378230L;
 
@@ -82,11 +83,7 @@ public class Yesterday extends Resource {
         GROUP_ROOMS_MEDIA_STORED("group-rooms-media-stored"),
         GROUP_ROOMS_PARTICIPANT_MINUTES("group-rooms-participant-minutes"),
         GROUP_ROOMS_RECORDED_MINUTES("group-rooms-recorded-minutes"),
-        IP_MESSAGING("ip-messaging"),
-        IP_MESSAGING_COMMANDS("ip-messaging-commands"),
-        IP_MESSAGING_DATA_STORAGE("ip-messaging-data-storage"),
-        IP_MESSAGING_DATA_TRANSFER("ip-messaging-data-transfer"),
-        IP_MESSAGING_ENDPOINT_CONNECTIVITY("ip-messaging-endpoint-connectivity"),
+        IMP_V1_USAGE("imp-v1-usage"),
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
         MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION("marketplace-algorithmia-named-entity-recognition"),
@@ -145,11 +142,6 @@ public class Yesterday extends Resource {
         NOTIFY_CHANNELS("notify-channels"),
         NUMBER_FORMAT_LOOKUPS("number-format-lookups"),
         PCHAT("pchat"),
-        PCHAT_ACTIONS("pchat-actions"),
-        PCHAT_APS("pchat-aps"),
-        PCHAT_MESSAGES("pchat-messages"),
-        PCHAT_NOTIFICATIONS("pchat-notifications"),
-        PCHAT_READS("pchat-reads"),
         PCHAT_USERS("pchat-users"),
         PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES("peer-to-peer-rooms-participant-minutes"),
         PFAX("pfax"),
@@ -239,6 +231,7 @@ public class Yesterday extends Resource {
         TURNMEGABYTES_USEAST("turnmegabytes-useast"),
         TURNMEGABYTES_USWEST("turnmegabytes-uswest"),
         TWILIO_INTERCONNECT("twilio-interconnect"),
+        VERIFY_PUSH("verify-push"),
         VIDEO_RECORDINGS("video-recordings"),
         VOICE_INSIGHTS("voice-insights"),
         VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE("voice-insights-client-insights-on-demand-minute"),
@@ -612,26 +605,5 @@ public class Yesterday extends Resource {
                             uri,
                             usage,
                             usageUnit);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("apiVersion", apiVersion)
-                          .add("asOf", asOf)
-                          .add("category", category)
-                          .add("count", count)
-                          .add("countUnit", countUnit)
-                          .add("description", description)
-                          .add("endDate", endDate)
-                          .add("price", price)
-                          .add("priceUnit", priceUnit)
-                          .add("startDate", startDate)
-                          .add("subresourceUris", subresourceUris)
-                          .add("uri", uri)
-                          .add("usage", usage)
-                          .add("usageUnit", usageUnit)
-                          .toString();
     }
 }

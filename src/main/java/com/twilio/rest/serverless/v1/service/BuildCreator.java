@@ -21,15 +21,15 @@ import com.twilio.rest.Domains;
 import java.util.List;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class BuildCreator extends Creator<Build> {
     private final String pathServiceSid;
     private List<String> assetVersions;
     private List<String> functionVersions;
     private String dependencies;
+    private String runtime;
 
     /**
      * Construct a new BuildCreator.
@@ -42,10 +42,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of Asset Version resource SIDs to include in the build..
+     * The list of Asset Version resource SIDs to include in the Build..
      *
      * @param assetVersions The list of Asset Version resource SIDs to include in
-     *                      the build
+     *                      the Build
      * @return this
      */
     public BuildCreator setAssetVersions(final List<String> assetVersions) {
@@ -54,10 +54,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of Asset Version resource SIDs to include in the build..
+     * The list of Asset Version resource SIDs to include in the Build..
      *
      * @param assetVersions The list of Asset Version resource SIDs to include in
-     *                      the build
+     *                      the Build
      * @return this
      */
     public BuildCreator setAssetVersions(final String assetVersions) {
@@ -65,10 +65,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of the Variable resource SIDs to include in the build..
+     * The list of the Function Version resource SIDs to include in the Build..
      *
-     * @param functionVersions The list of the Variable resource SIDs to include in
-     *                         the build
+     * @param functionVersions The list of the Function Version resource SIDs to
+     *                         include in the Build
      * @return this
      */
     public BuildCreator setFunctionVersions(final List<String> functionVersions) {
@@ -77,10 +77,10 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * The list of the Variable resource SIDs to include in the build..
+     * The list of the Function Version resource SIDs to include in the Build..
      *
-     * @param functionVersions The list of the Variable resource SIDs to include in
-     *                         the build
+     * @param functionVersions The list of the Function Version resource SIDs to
+     *                         include in the Build
      * @return this
      */
     public BuildCreator setFunctionVersions(final String functionVersions) {
@@ -88,15 +88,27 @@ public class BuildCreator extends Creator<Build> {
     }
 
     /**
-     * A list of objects that describe the Dependencies included in the build. Each
+     * A list of objects that describe the Dependencies included in the Build. Each
      * object contains the `name` and `version` of the dependency..
      *
      * @param dependencies A list of objects that describe the Dependencies
-     *                     included in the build
+     *                     included in the Build
      * @return this
      */
     public BuildCreator setDependencies(final String dependencies) {
         this.dependencies = dependencies;
+        return this;
+    }
+
+    /**
+     * The Runtime version that will be used to run the Build resource when it is
+     * deployed..
+     *
+     * @param runtime The Runtime version that will be used to run the Build.
+     * @return this
+     */
+    public BuildCreator setRuntime(final String runtime) {
+        this.runtime = runtime;
         return this;
     }
 
@@ -120,7 +132,7 @@ public class BuildCreator extends Creator<Build> {
 
         if (response == null) {
             throw new ApiConnectionException("Build creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -151,6 +163,10 @@ public class BuildCreator extends Creator<Build> {
 
         if (dependencies != null) {
             request.addPostParam("Dependencies", dependencies);
+        }
+
+        if (runtime != null) {
+            request.addPostParam("Runtime", runtime);
         }
     }
 }

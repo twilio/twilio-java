@@ -50,7 +50,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * A descriptive string that you create to describe the FlexFlow resource..
+     * A descriptive string that you create to describe the Flex Flow resource..
      *
      * @param friendlyName A string to describe the resource
      * @return this
@@ -95,9 +95,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Whether the FlexFlow is enabled..
+     * Whether the new Flex Flow is enabled..
      *
-     * @param enabled Whether the FlexFlow is enabled
+     * @param enabled Whether the new Flex Flow is enabled
      * @return this
      */
     public FlexFlowUpdater setEnabled(final Boolean enabled) {
@@ -117,9 +117,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The SID of the Flow when `integration_type` is `studio`..
+     * The SID of the Studio Flow. Required when `integrationType` is `studio`..
      *
-     * @param integrationFlowSid The SID of the Flow
+     * @param integrationFlowSid The SID of the Studio Flow
      * @return this
      */
     public FlexFlowUpdater setIntegrationFlowSid(final String integrationFlowSid) {
@@ -128,7 +128,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The External Webhook URL when `integration_type` is `external`..
+     * The URL of the external webhook. Required when `integrationType` is
+     * `external`..
      *
      * @param integrationUrl The External Webhook URL
      * @return this
@@ -139,7 +140,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The External Webhook URL when `integration_type` is `external`..
+     * The URL of the external webhook. Required when `integrationType` is
+     * `external`..
      *
      * @param integrationUrl The External Webhook URL
      * @return this
@@ -149,9 +151,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The Workspace SID for a new task when `integration_type` is `task`..
+     * The Workspace SID for a new Task. Required when `integrationType` is `task`..
      *
-     * @param integrationWorkspaceSid The Workspace SID for a new task
+     * @param integrationWorkspaceSid The Workspace SID for a new Task
      * @return this
      */
     public FlexFlowUpdater setIntegrationWorkspaceSid(final String integrationWorkspaceSid) {
@@ -160,9 +162,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The Workflow SID for a new task when `integration_type` is `task`..
+     * The Workflow SID for a new Task. Required when `integrationType` is `task`..
      *
-     * @param integrationWorkflowSid The Workflow SID for a new task
+     * @param integrationWorkflowSid The Workflow SID for a new Task
      * @return this
      */
     public FlexFlowUpdater setIntegrationWorkflowSid(final String integrationWorkflowSid) {
@@ -171,10 +173,11 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The task channel for a new task when `integration_type` is `task`. The
-     * default is `default`..
+     * The Task Channel for the TaskRouter Task that will be created. Applicable and
+     * required when integrationType is `task`. Set to `sms` for SMS, and to `chat`
+     * otherwise. The default value is `default`.
      *
-     * @param integrationChannel task channel for a new task
+     * @param integrationChannel The Task Channel for a new Task
      * @return this
      */
     public FlexFlowUpdater setIntegrationChannel(final String integrationChannel) {
@@ -183,10 +186,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The task timeout in seconds for a new task when `integration_type` is `task`.
-     * The default is `86,400` seconds (24 hours)..
+     * The Task timeout in seconds for a new Task. Default is 86,400 seconds (24
+     * hours). Optional when `integrationType` is `task`, not applicable otherwise..
      *
-     * @param integrationTimeout The task timeout in seconds for a new task
+     * @param integrationTimeout The Task timeout in seconds for a new Task
      * @return this
      */
     public FlexFlowUpdater setIntegrationTimeout(final Integer integrationTimeout) {
@@ -195,10 +198,10 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The task priority of a new task when `integration_type` is `task`. The
-     * default priority is `0`..
+     * The Task priority of a new Task. The default priority is 0. Optional when
+     * `integrationType` is `task`, not applicable otherwise..
      *
-     * @param integrationPriority The task priority of a new task
+     * @param integrationPriority The Task priority of a new Task
      * @return this
      */
     public FlexFlowUpdater setIntegrationPriority(final Integer integrationPriority) {
@@ -207,13 +210,13 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * Whether to create a task when the first message arrives when
-     * `integration_type` is `task`. If `false`, the task is created with the
-     * channel. **Note** that does not apply when channel type is `web`. Setting the
-     * value to `true` for channel type `web` will result in misconfigured Flex Flow
-     * and no tasks will be created..
+     * In the context of outbound messaging, defines whether to create a Task
+     * immediately (and therefore reserve the conversation to current agent), or
+     * delay Task creation until the customer sends the first response. Set to false
+     * to create immediately, true to delay Task creation. This setting is only
+     * applicable for outbound messaging..
      *
-     * @param integrationCreationOnMessage Whether to create a task when the first
+     * @param integrationCreationOnMessage Whether to create a Task when the first
      *                                     message arrives
      * @return this
      */
@@ -241,7 +244,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
      * `false`..
      *
      * @param janitorEnabled Remove active Proxy sessions if the corresponding Task
-     *                       is deleted.
+     *                       is deleted
      * @return this
      */
     public FlexFlowUpdater setJanitorEnabled(final Boolean janitorEnabled) {
@@ -251,7 +254,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
     /**
      * The number of times to retry the webhook if the first attempt fails. Can be
-     * an integer between 0 and 3, inclusive, and the default is 0..
+     * an integer between 0 and 3 (included), default is 0. Optional when
+     * integrationType is `external`, not applicable otherwise..
      *
      * @param integrationRetryCount The number of times to retry the webhook if the
      *                              first attempt fails
@@ -282,7 +286,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
 
         if (response == null) {
             throw new ApiConnectionException("FlexFlow update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -102,19 +102,19 @@ public class RoleTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.CHAT.toString(),
-                                                      "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles");
-                        request.addPostParam("FriendlyName", serialize("friendly_name"));
-        request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
-        request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.CHAT.toString(),
+                                          "/v2/Services/ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Roles");
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            request.addPostParam("Type", serialize(Role.RoleType.CHANNEL));
+            request.addPostParam("Permission", serialize(Promoter.listOfOne("permission")));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();

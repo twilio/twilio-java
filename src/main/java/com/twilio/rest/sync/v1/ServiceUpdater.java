@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ServiceUpdater extends Updater<Service> {
     private final String pathSid;
     private URI webhookUrl;
@@ -91,8 +87,8 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Whether token identities in the Service must be granted access to Sync
-     * objects by using the
-     * [Permissions](https://www.twilio.com/docs/sync/api/sync-permissions)
+     * objects by using the <a
+     * href="https://www.twilio.com/docs/sync/api/sync-permissions">Permissions</a>
      * resource..
      *
      * @param aclEnabled Whether token identities in the Service must be granted
@@ -171,7 +167,7 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

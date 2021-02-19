@@ -1,6 +1,410 @@
 twilio-java changelog
 =====================
 
+[2021-02-11] Version 8.7.0
+--------------------------
+**Library - Chore**
+- [PR #617](https://github.com/twilio/twilio-java/pull/617): archunit 0.16.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #618](https://github.com/twilio/twilio-java/pull/618): disallow Log4j. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #616](https://github.com/twilio/twilio-java/pull/616): equalsverifier 3.5.2. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #620](https://github.com/twilio/twilio-java/pull/620): temporarily remove log test. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #619](https://github.com/twilio/twilio-java/pull/619): no longer using log4j test config. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #610](https://github.com/twilio/twilio-java/pull/610): switch from log4j to SLF4J. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Revert change that conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Events**
+- Documentation should state that no fields are PII
+
+**Flex**
+- Adding `notifications` and `markdown` to Flex Configuration
+
+**Messaging**
+- Add A2P use cases API
+- Add Brand Registrations API
+- Add Campaigns API
+
+**Serverless**
+- Add runtime field to Build response and as an optional parameter to the Build create endpoint.
+- Add @twilio/runtime-handler dependency to Build response example.
+
+**Sync**
+- Remove If-Match header for Document **(breaking change)**
+
+**Twiml**
+- Add `refer_url` and `refer_method` to `Dial`.
+
+
+[2021-01-27] Version 8.6.1
+--------------------------
+**Studio**
+- Studio V2 API is now GA
+
+**Supersim**
+- Allow updating `CommandsUrl` and `CommandsMethod` on a Fleet
+
+**Twiml**
+- Add `status_callback` and `status_callback_method` to `Stream`.
+
+
+[2021-01-13] Version 8.6.0
+--------------------------
+**Api**
+- Add 'Electric Imp v1 Usage' to usage categories
+
+**Conversations**
+- Changed `last_read_message_index` type in Participant's resource **(breaking change)**
+
+**Insights**
+- Added `created_time` to call summary.
+
+**Sync**
+- Remove HideExpired query parameter for filtering Sync Documents with expired **(breaking change)**
+
+**Video**
+- [Rooms] Expose maxConcurrentPublishedTracks property in Room resource
+
+
+[2020-12-16] Version 8.5.1
+--------------------------
+**Api**
+- Updated `call_event` default_output_properties to request and response.
+
+**Conversations**
+- Added `last_read_message_index` and `last_read_timestamp` to Participant's resource update operation
+- Added `is_notifiable` and `is_online` to User's resource
+- Added `reachability_enabled` parameters to update method for Conversation Service Configuration resource
+
+**Messaging**
+- Added WA template quick reply, URL, and phone number buttons
+
+**Twiml**
+- Add `sequential` to `Dial`.
+
+
+[2020-12-08] Version 8.5.0
+--------------------------
+**Library - Chore**
+- [PR #609](https://github.com/twilio/twilio-java/pull/609): [Snyk] Security upgrade org.apache.httpcomponents:httpclient from 4.5.12 to 4.5.13. Thanks to [@snyk-bot](https://github.com/snyk-bot)!
+
+**Api**
+- Added optional `RecordingTrack` parameter for create calls, create participants, and create call recordings
+- Removed deprecated Programmable Chat usage record categories **(breaking change)**
+
+**Twiml**
+- Add `recordingTrack` to `Dial`.
+
+
+[2020-12-02] Version 8.4.0
+--------------------------
+**Library - Feature**
+- [PR #606](https://github.com/twilio/twilio-java/pull/606): add http logging for Java. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #602](https://github.com/twilio/twilio-java/pull/602): Regional support for access token. Thanks to [@charliesantos](https://github.com/charliesantos)!
+
+**Api**
+- Remove `RecordingTrack` parameter for create calls, create participants, and create call recordings **(breaking change)**
+- Added `RecordingTrack` parameter for create calls and create call recordings
+- Add optional property `recording_track` in the participant create request
+
+**Lookups**
+- Changed `caller_name` and `carrier` properties type to object **(breaking change)**
+
+**Trunking**
+- Added dual channel recording options for Trunks.
+
+**Twiml**
+- Add `jitterBufferSize` and `participantLabel` to `Conference`.
+
+
+[2020-11-18] Version 8.3.0
+--------------------------
+**Api**
+- Add new call events resource - GET /2010-04-01/Accounts/{account_sid}/Calls/{call_sid}/Events.json
+
+**Conversations**
+- Fixed default response property issue for Service Notifications Configuration
+
+**Insights**
+- Removing call_sid from participant summary. **(breaking change)**
+
+**Serverless**
+- Allow Service unique name to be used in path (in place of SID) in Service update request
+
+**Sync**
+- Added HideExpired query parameter for filtering Sync Documents with expired
+
+**Verify**
+- Challenge `Details` and `HiddenDetails` properties are now marked as `PII`
+- Challenge `expiration_date` attribute updated to set a default value of five (5) minutes and to allow max dates of one (1) hour after creation.
+- Entity `identity` attribute updated to allow values between 8 and 64 characters.
+- Verify Service frinedly_name attribute updated from 64 max lenght to 30 characters.
+
+
+[2020-11-05] Version 8.2.0
+--------------------------
+**Api**
+- Added `verify-push` to `usage_record` API
+
+**Bulkexports**
+- When creating a custom export the StartDay, EndDay, and FriendlyName fields were required but this was not reflected in the API documentation.  The API itself failed the request without these fields. **(breaking change)**
+- Added property descriptions for Custom Export create method
+- Clarified WebhookUrl and WebhookMethod must be provided together for Custom Export
+
+**Insights**
+- Added video room and participant summary apis.
+
+**Ip_messaging**
+- Create separate definition for ip-messaging
+- Restore v2 endpoints for ip-messaging
+
+**Verify**
+- Verify Push madurity were updated from `preview` to `beta`
+- `twilio_sandbox_mode` header was removed from Verify Push resources **(breaking change)**
+
+**Video**
+- [Rooms] Add Recording Rules API
+
+
+[2020-10-14] Version 8.1.0
+--------------------------
+**Library - Feature**
+- [PR #573](https://github.com/twilio/twilio-java/pull/573): Add RecordingRule and RecordingRulesUpdate. Thanks to [@FMV1491](https://github.com/FMV1491)!
+
+**Library - Chore**
+- [PR #598](https://github.com/twilio/twilio-java/pull/598): bump junit from 4.13 to 4.13.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #591](https://github.com/twilio/twilio-java/pull/591): upgrade Jackson to 2.11.3. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #596](https://github.com/twilio/twilio-java/pull/596): drop reflective access warnings to java.time.* classes. Thanks to [@mjg123](https://github.com/mjg123)!
+- [PR #595](https://github.com/twilio/twilio-java/pull/595): serialize ZonedDateTime parameters to ISO-8601. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Test**
+- [PR #594](https://github.com/twilio/twilio-java/pull/594): change RequestTest to use flexapi instead of ip-messaging. Thanks to [@mgmuscari](https://github.com/mgmuscari)!
+- [PR #590](https://github.com/twilio/twilio-java/pull/590): use ArchUnit to detect JodaTime usage. Thanks to [@sullis](https://github.com/sullis)!
+
+**Ai**
+- Add `Annotation Project` and `Annotation Task` endpoints
+- Add `Primitives` endpoints
+- Add `meta.total` to the search endpoint
+
+**Conversations**
+- Mutable Conversation Unique Names
+
+**Insights**
+- Added `trust` to summary.
+
+**Preview**
+- Simplified `Channels` resource. The path is now `/BrandedChannels/branded_channel_sid/Channels` **(breaking change)**
+
+**Verify**
+- Changed parameters (`config` and `binding`) to use dot notation instead of JSON string (e.i. Before: `binding={"alg":"ES256", "public_key": "xxx..."}`, Now: `Binding.Alg="ES256"`, `Binding.PublicKey="xxx..."`). **(breaking change)**
+- Changed parameters (`details` and `hidden_details`) to use dot notation instead of JSON string (e.i. Before: `details={"message":"Test message", "fields": "[{\"label\": \"Action 1\", \"value\":\"value 1\"}]"}`, Now: `details.Message="Test message"`, `Details.Fields=["{\"label\": \"Action 1\", \"value\":\"value 1\"}"]`). **(breaking change)**
+- Removed `notify_service_sid` from `push` service configuration object. Add `Push.IncludeDate`, `Push.ApnCredentialSid` and `Push.FcmCredentialSid` service configuration parameters. **(breaking change)**
+
+
+[2020-09-28] Version 8.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2020-09-28-7xx-to-8xx) for detailed migration notes.
+
+**Library - Chore**
+- [PR #584](https://github.com/twilio/twilio-java/pull/584): remove Guava Range(). Thanks to [@thinkingserious](https://github.com/thinkingserious)! **(breaking change)**
+- [PR #585](https://github.com/twilio/twilio-java/pull/585): finish dropping Guava 'MoreObjects' usage. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #572](https://github.com/twilio/twilio-java/pull/572): remove joda-time dependency. Thanks to [@thinkingserious](https://github.com/thinkingserious)! **(breaking change)**
+- [PR #574](https://github.com/twilio/twilio-java/pull/574): remove guava functional interfaces. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #576](https://github.com/twilio/twilio-java/pull/576): replace Guava toString(). Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #575](https://github.com/twilio/twilio-java/pull/575): replace guava concurrency, hashing, and charstreams. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+- [PR #578](https://github.com/twilio/twilio-java/pull/578): remove deprecated twiml methods. Thanks to [@eshanholtz](https://github.com/eshanholtz)! **(breaking change)**
+
+**Library - Feature**
+- [PR #588](https://github.com/twilio/twilio-java/pull/588): make static 'Twilio' access synchronized. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #586](https://github.com/twilio/twilio-java/pull/586): add support for environment variables. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #587](https://github.com/twilio/twilio-java/pull/587): replace ICE Server URL properties with String types. Thanks to [@childish-sambino](https://github.com/childish-sambino)! **(breaking change)**
+
+**Library - Docs**
+- [PR #579](https://github.com/twilio/twilio-java/pull/579): Remove Java7 from supported languages and add upgrade guide. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional property `call_reason` in the participant create request
+- Make sip-domain-service endpoints available in stage-au1 and prod-au1
+
+**Messaging**
+- Removed beta feature gate from WhatsApp Templates API
+
+**Serverless**
+- Add Build Status endpoint
+
+**Video**
+- [Rooms] Add new room type "go" for WebRTC Go
+
+
+[2020-09-21] Version 7.55.3
+---------------------------
+**Library - Fix**
+- [PR #583](https://github.com/twilio/twilio-java/pull/583): allow API redirect responses. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #571](https://github.com/twilio/twilio-java/pull/571): paging breaks with + sign on phone number. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Library - Chore**
+- [PR #582](https://github.com/twilio/twilio-java/pull/582): upgrade jackson and HTTP dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #581](https://github.com/twilio/twilio-java/pull/581): convert markdown links to href formatted links. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Accounts**
+- Add Auth Token rotation API
+
+**Conversations**
+- Change resource path for Webhook Configuration
+
+**Events**
+- Schemas API get all Schemas names and versions
+
+
+[2020-09-16] Version 7.55.2
+---------------------------
+**Conversations**
+- Expose Configuration and Service Configuration resources
+- Add Unique Name support for Conversations
+- Add Services Push Notification resource
+- Add Service scoped Conversation resources
+- Support Identity in Users resource endpoint
+
+**Messaging**
+- GA Deactivation List API
+- Add domain cert API's(fetch, update, create) for link tracker
+
+**Numbers**
+- Add API endpoint for Supporting Document deletion
+
+**Proxy**
+- Updated usage of FailOnParticipantConflict param to apply only to accounts with ProxyAllowParticipantConflict account flag
+
+**Supersim**
+- Add `AccountSid` parameter to Sim resource update request
+- Add `ready` status as an available status for a Sim resource
+
+
+[2020-09-02] Version 7.55.1
+---------------------------
+**Ai**
+- Initial release
+
+**Bulkexports**
+- removing public beta feature flag from BulkExports Jobs API
+
+**Messaging**
+- Add Deactivation List API
+- Added page token parameter for fetch in WhatsApp Templates API
+
+**Numbers**
+- Add API endpoint for End User deletion
+
+**Routes**
+- Add Resource Route Configurations API
+- Add Route Configurations API
+- Initial Release
+
+**Trunking**
+- Added `transfer_mode` property on Trunks.
+
+
+[2020-08-19] Version 7.55.0
+---------------------------
+**Library - Feature**
+- [PR #568](https://github.com/twilio/twilio-java/pull/568): add support for custom HTTP headers. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #567](https://github.com/twilio/twilio-java/pull/567): drop some of the Guava usage which is easily replaced. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #565](https://github.com/twilio/twilio-java/pull/565): update GitHub branch references to use HEAD. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Conversations**
+- Allow Identity addition to Participants
+
+**Events**
+- Sinks API Get all Sinks
+
+**Proxy**
+- Clarified usage of FailOnParticipantConflict param as experimental
+- Add FailOnParticipantConflict param to Proxy Session create and Proxy Participant create
+
+**Supersim**
+- Add fleet, network, and isoCountryCode to the UsageRecords resource
+- Change sort order of UsageRecords from ascending to descending with respect to start time field, records are now returned newest to oldest
+
+**Wireless**
+- Removed `Start` and `End` parameters from the Data Sessions list endpoint. **(breaking change)**
+
+
+[2020-08-05] Version 7.54.2
+---------------------------
+**Messaging**
+- Add rejection reason support to WhatsApp API
+- Removed status parameter for create and update in WhatsApp Templates API
+
+**Proxy**
+- Add FailOnParticipantConflict param to Proxy Session update
+
+**Verify**
+- Add `CustomFriendlyName` optional parameter on Verification creation.
+- Changes in `Challenge` resource to update documentation of both `details` and `hidden_details` properties.
+
+
+[2020-07-22] Version 7.54.1
+---------------------------
+**Library - Fix**
+- [PR #558](https://github.com/twilio/twilio-java/pull/558): encode path parameters. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional Click Tracking and Scheduling parameters to Create action of Message resource
+
+**Supersim**
+- Add callback_url and callback_method parameters to Sim resource update request
+
+
+[2020-07-08] Version 7.54.0
+---------------------------
+**Library - Feature**
+- [PR #555](https://github.com/twilio/twilio-java/pull/555): add fax capability to deserialized phone number capabilities. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #553](https://github.com/twilio/twilio-java/pull/553): include API response headers in 'Last Response'. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #554](https://github.com/twilio/twilio-java/pull/554): bump archunit from 0.13.0 to 0.14.1. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #550](https://github.com/twilio/twilio-java/pull/550): bump cobertura-maven-plugin from 2.2 to 2.7. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #551](https://github.com/twilio/twilio-java/pull/551): bump maven-assembly-plugin from 2.3 to 3.3.0. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #543](https://github.com/twilio/twilio-java/pull/543): bump joda-time from 2.5 to 2.10.6. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #545](https://github.com/twilio/twilio-java/pull/545): bump maven-surefire-plugin from 2.20 to 2.22.2. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #546](https://github.com/twilio/twilio-java/pull/546): bump spotbugs-maven-plugin from 3.1.12 to 4.0.4. Thanks to [@dependabot](https://github.com/dependabot)!
+- [PR #547](https://github.com/twilio/twilio-java/pull/547): bump maven-checkstyle-plugin from 2.17 to 3.1.1. Thanks to [@dependabot](https://github.com/dependabot)!
+
+**Conversations**
+- Allow Address updates for Participants
+- Message delivery receipts
+
+**Events**
+- Add account_sid to subscription and subscribed_events resources
+
+**Flex**
+- Changed `wfm_integrations` Flex Configuration key to private **(breaking change)**
+
+**Messaging**
+- Add error states to WhatsApp Sender status with failed reason **(breaking change)**
+- Delete WhatsApp Template API
+- Update WhatsApp Template API
+- Add WhatsApp Template Get Api (fetch and read)
+
+**Numbers**
+- Add `valid_until` in the Bundles resource
+- Add API for Bundle deletion
+
+**Verify**
+- Removed support for `sms`, `totp` and `app-push` factor types in Verify push **(breaking change)**
+
+
 [2020-06-24] Version 7.53.0
 ---------------------------
 **Library - Chore**
@@ -447,7 +851,7 @@ twilio-java changelog
 - [PR #487](https://github.com/twilio/twilio-java/pull/487): Bump jackson-databind from 2.9.9.1 to 2.9.10.1. Thanks to [@dependabot](https://github.com/dependabot)!
 - [PR #486](https://github.com/twilio/twilio-java/pull/486): add TLS 1.2 warning. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
 - [PR #485](https://github.com/twilio/twilio-java/pull/485): Move generated docs to common location. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
-- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to master. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+- [PR #484](https://github.com/twilio/twilio-java/pull/484): Auto-deploy via Travis CI upon tagged commit to main. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
 
 **Api**
 - Make `persistent_action` parameter public

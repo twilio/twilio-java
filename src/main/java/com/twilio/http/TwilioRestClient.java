@@ -1,19 +1,21 @@
 package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.Predicate;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.function.Predicate;
+import java.util.Map;
+import java.util.List;
 
 public class TwilioRestClient {
 
     public static final int HTTP_STATUS_CODE_CREATED = 201;
     public static final int HTTP_STATUS_CODE_NO_CONTENT = 204;
     public static final int HTTP_STATUS_CODE_OK = 200;
-    public static final Predicate<Integer> SUCCESS = new Predicate<Integer>() {
-        @Override
-        public boolean apply(Integer i) {
-            return i != null && i >= 200 && i < 300;
-        }
-    };
+    public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
     private final ObjectMapper objectMapper;
     private final String username;
@@ -22,6 +24,7 @@ public class TwilioRestClient {
     private final String region;
     private final String edge;
     private final HttpClient httpClient;
+    private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
     private TwilioRestClient(Builder b) {
         this.username = b.username;
@@ -31,6 +34,12 @@ public class TwilioRestClient {
         this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
+
+        // This module configures the ObjectMapper to use
+        // public API methods for manipulating java.time.*
+        // classes. The alternative is to use reflection which
+        // generates warnings from the module system on Java 9+
+        objectMapper.registerModule(new JavaTimeModule());
     }
 
     /**
@@ -47,7 +56,19 @@ public class TwilioRestClient {
         if (edge != null)
             request.setEdge(edge);
 
-        return httpClient.reliableRequest(request);
+        logRequest(request);
+        Response response = httpClient.reliableRequest(request);
+
+        if (logger.isDebugEnabled()) {
+            logger.debug("status code: {}", response.getStatusCode());
+            org.apache.http.Header[] responseHeaders = response.getHeaders();
+            logger.debug("response headers:");
+            for (int i = 0; i < responseHeaders.length; i++) {
+                logger.debug("responseHeader: {}", responseHeaders[i]);
+            }
+        }
+
+        return response;
     }
 
     public String getAccountSid() {
@@ -120,6 +141,34 @@ public class TwilioRestClient {
                 this.httpClient = new NetworkHttpClient();
             }
             return new TwilioRestClient(this);
+        }
+    }
+
+    /**
+     * Logging debug information about HTTP request.
+     */
+    public void logRequest(final Request request) {
+        if (logger.isDebugEnabled()) {
+            logger.debug("-- BEGIN Twilio API Request --");
+            logger.debug("request method: " + request.getMethod());
+            logger.debug("request URL: " + request.getUrl());
+            final Map<String, List<String>> queryParams = request.getQueryParams();
+            final Map<String, List<String>> headerParams = request.getHeaderParams();
+
+            if (queryParams != null && !queryParams.isEmpty()) {
+                logger.debug("query parameters: " + queryParams);
+            }
+
+            if (headerParams != null && !headerParams.isEmpty()) {
+                logger.debug("header parameters: ");
+                for (String key : headerParams.keySet()) {
+                    if (!key.toLowerCase().contains("authorization")) {
+                        logger.debug(key + ": " + headerParams.get(key));
+                    }
+                }
+            }
+
+            logger.debug("-- END Twilio API Request --");
         }
     }
 

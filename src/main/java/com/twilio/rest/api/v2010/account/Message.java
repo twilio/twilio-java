@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -26,17 +25,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 109887542891677L;
 
@@ -171,6 +172,31 @@ public class Message extends Resource {
         @JsonCreator
         public static TrafficType forValue(final String value) {
             return Promoter.enumFromString(value, TrafficType.values());
+        }
+    }
+
+    public enum ScheduleType {
+        FIXED("fixed"),
+        OPTIMIZE("optimize");
+
+        private final String value;
+
+        private ScheduleType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ScheduleType from a string.
+         * @param value string value
+         * @return generated ScheduleType
+         */
+        @JsonCreator
+        public static ScheduleType forValue(final String value) {
+            return Promoter.enumFromString(value, ScheduleType.values());
         }
     }
 
@@ -437,7 +463,7 @@ public class Message extends Resource {
     private final Message.Direction direction;
     private final com.twilio.type.PhoneNumber from;
     private final String to;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateUpdated;
     private final String price;
     private final String errorMessage;
     private final String uri;
@@ -446,8 +472,8 @@ public class Message extends Resource {
     private final Message.Status status;
     private final String messagingServiceSid;
     private final String sid;
-    private final DateTime dateSent;
-    private final DateTime dateCreated;
+    private final ZonedDateTime dateSent;
+    private final ZonedDateTime dateCreated;
     private final Integer errorCode;
     private final Currency priceUnit;
     private final String apiVersion;
@@ -567,7 +593,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -648,7 +674,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT when the message was sent
      */
-    public final DateTime getDateSent() {
+    public final ZonedDateTime getDateSent() {
         return this.dateSent;
     }
 
@@ -657,7 +683,7 @@ public class Message extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -753,31 +779,5 @@ public class Message extends Resource {
                             priceUnit,
                             apiVersion,
                             subresourceUris);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("body", body)
-                          .add("numSegments", numSegments)
-                          .add("direction", direction)
-                          .add("from", from)
-                          .add("to", to)
-                          .add("dateUpdated", dateUpdated)
-                          .add("price", price)
-                          .add("errorMessage", errorMessage)
-                          .add("uri", uri)
-                          .add("accountSid", accountSid)
-                          .add("numMedia", numMedia)
-                          .add("status", status)
-                          .add("messagingServiceSid", messagingServiceSid)
-                          .add("sid", sid)
-                          .add("dateSent", dateSent)
-                          .add("dateCreated", dateCreated)
-                          .add("errorCode", errorCode)
-                          .add("priceUnit", priceUnit)
-                          .add("apiVersion", apiVersion)
-                          .add("subresourceUris", subresourceUris)
-                          .toString();
     }
 }

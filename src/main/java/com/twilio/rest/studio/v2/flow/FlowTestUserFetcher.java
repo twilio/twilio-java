@@ -17,17 +17,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
     private final String pathSid;
 
     /**
      * Construct a new FlowTestUserFetcher.
      *
-     * @param pathSid The sid
+     * @param pathSid Unique identifier of the flow.
      */
     public FlowTestUserFetcher(final String pathSid) {
         this.pathSid = pathSid;
@@ -52,7 +48,7 @@ public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
 
         if (response == null) {
             throw new ApiConnectionException("FlowTestUser fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

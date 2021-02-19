@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Event extends Resource {
     private static final long serialVersionUID = 124591176455880L;
 
@@ -98,7 +99,7 @@ public class Event extends Resource {
     private final String actorType;
     private final String description;
     private final Map<String, Object> eventData;
-    private final DateTime eventDate;
+    private final ZonedDateTime eventDate;
     private final String eventType;
     private final String resourceSid;
     private final String resourceType;
@@ -205,7 +206,7 @@ public class Event extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the event was recorded
      */
-    public final DateTime getEventDate() {
+    public final ZonedDateTime getEventDate() {
         return this.eventDate;
     }
 
@@ -325,25 +326,5 @@ public class Event extends Resource {
                             sourceIpAddress,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("actorSid", actorSid)
-                          .add("actorType", actorType)
-                          .add("description", description)
-                          .add("eventData", eventData)
-                          .add("eventDate", eventDate)
-                          .add("eventType", eventType)
-                          .add("resourceSid", resourceSid)
-                          .add("resourceType", resourceType)
-                          .add("sid", sid)
-                          .add("source", source)
-                          .add("sourceIpAddress", sourceIpAddress)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

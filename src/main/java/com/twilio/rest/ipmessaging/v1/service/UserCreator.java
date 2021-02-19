@@ -27,8 +27,8 @@ public class UserCreator extends Creator<User> {
     /**
      * Construct a new UserCreator.
      *
-     * @param pathServiceSid The SID of the Service to create the new resource under
-     * @param identity The `identity` value that identifies the new resource's User
+     * @param pathServiceSid The service_sid
+     * @param identity The identity
      */
     public UserCreator(final String pathServiceSid,
                        final String identity) {
@@ -37,10 +37,9 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles)
-     * assigned to the new User..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role assigned to this user
+     * @param roleSid The role_sid
      * @return this
      */
     public UserCreator setRoleSid(final String roleSid) {
@@ -49,9 +48,9 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * A valid JSON string that contains application-specific data..
+     * The attributes.
      *
-     * @param attributes A valid JSON string that contains application-specific data
+     * @param attributes The attributes
      * @return this
      */
     public UserCreator setAttributes(final String attributes) {
@@ -60,10 +59,9 @@ public class UserCreator extends Creator<User> {
     }
 
     /**
-     * A descriptive string that you create to describe the new resource. This value
-     * is often used for display purposes..
+     * The friendly_name.
      *
-     * @param friendlyName A string to describe the new resource
+     * @param friendlyName The friendly_name
      * @return this
      */
     public UserCreator setFriendlyName(final String friendlyName) {
@@ -91,7 +89,7 @@ public class UserCreator extends Creator<User> {
 
         if (response == null) {
             throw new ApiConnectionException("User creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

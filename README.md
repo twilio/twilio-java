@@ -1,8 +1,12 @@
 # twilio-java
 
-[![Build Status](https://travis-ci.org/twilio/twilio-java.png?branch=master)](https://travis-ci.org/twilio/twilio-java)
+[![Build Status](https://travis-ci.com/twilio/twilio-java.png?branch=main)](https://travis-ci.com/twilio/twilio-java)
 [![Maven Central](https://img.shields.io/maven-central/v/com.twilio.sdk/twilio.svg)](https://mvnrepository.com/artifact/com.twilio.sdk/twilio)
 [![Learn with TwilioQuest](https://img.shields.io/static/v1?label=TwilioQuest&message=Learn%20to%20contribute%21&color=F22F46&labelColor=1f243c&style=flat-square&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIAAAACACAMAAAD04JH5AAAASFBMVEUAAAAZGRkcHBwjIyMoKCgAAABgYGBoaGiAgICMjIyzs7PJycnMzMzNzc3UoBfd3d3m5ubqrhfrMEDu7u739/f4vSb/3AD///9tbdyEAAAABXRSTlMAAAAAAMJrBrEAAAKoSURBVHgB7ZrRcuI6EESdyxXGYoNFvMD//+l2bSszRgyUYpFAsXOeiJGmj4NkuWx1Qeh+Ekl9DgEXOBwOx+Px5xyQhDykfgq4wG63MxxaR4ddIkg6Ul3g84vCIcjPBA5gmUMeXESrlukuoK33+33uID8TWeLAdOWsKpJYzwVMB7bOzYSGOciyUlXSn0/ABXTosJ1M1SbypZ4O4MbZuIDMU02PMbauhhHMHXbmebmALIiEbbbbbUrpF1gwE9kFfRNAJaP+FQEXCCTGyJ4ngDrjOFo3jEL5JdqjF/pueR4cCeCGgAtwmuRS6gDwaRiGvu+DMFwSBLTE3+jF8JyuV1okPZ+AC4hDFhCHyHQjdjPHUKFDlHSJkHQXMB3KpSwXNGJPcwwTdZiXlRN0gSp0zpWxNtM0beYE0nRH6QIbO7rawwXaBYz0j78gxjokDuv12gVeUuBD0MDi0OQCLvDaAho4juP1Q/jkAncXqIcCfd+7gAu4QLMACCLxpRsSuQh0igu0C9Svhi7weAGZg50L3IE3cai4IfkNZAC8dfdhsUD3CgKBVC9JE5ABAFzg4QL/taYPAAWrHdYcgfLaIgAXWJ7OV38n1LEF8tt2TH29E+QAoDoO5Ve/LtCQDmKM9kPbvCEBApK+IXzbcSJ0cIGF6e8gpcRhUDogWZ8JnaWjPXc/fNnBBUKRngiHgTUSivSzDRDgHZQOLvBQgf8rRt+VdBUUhwkU6VpJ+xcOwQUqZr+mR0kvBUgv6cB4+37hQAkXqE8PwGisGhJtN4xAHMzrsgvI7rccXqSvKh6jltGlrOHA3Xk1At3LC4QiPdX9/0ndHpGVvTjR4bZA1ypAKgVcwE5vx74ulwIugDt8e/X7JgfkucBMIAr26ndnB4UCLnDOqvteQsHlgX9N4A+c4cW3DXSPbwAAAABJRU5ErkJggg==)](https://twil.io/learn-open-source)
+
+## Announcements
+
+* **The default branch name for this repository has been changed to `main` as of 07/27/2020.**
 
 ## Documentation
 
@@ -22,12 +26,12 @@ New accounts and subaccounts are now required to use TLS 1.2 when accessing the 
 
 This library supports the following Java implementations:
 
-* OpenJDK 7
 * OpenJDK 8
 * OpenJDK 11
-* OracleJDK 7
 * OracleJDK 8
 * OracleJDK 11
+
+For Java 7 support, use `twilio-java` major version `7.X.X`.
 
 ## Installation
 
@@ -39,14 +43,14 @@ Use the following dependency in your project to grab via Maven:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio</artifactId>
-          <version>7.X.X</version>
+          <version>8.X.X</version>
           <scope>compile</scope>
        </dependency>
 ```
 
 or Gradle:
 ```groovy
-implementation "com.twilio.sdk:twilio:7.X.X"
+implementation "com.twilio.sdk:twilio:8.X.X"
 ```
 
 If you want to compile it yourself, here's how:
@@ -88,6 +92,25 @@ Twilio.setEdge("sydney");
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
 
+### Enable Debug Logging
+
+This library uses SLF4J for logging. Consult the SFL4J documentation
+for information about logging configuration:
+
+  http://slf4j.org/docs.html
+
+For example, if you are using `log4j`, make sure you have `slf4j-log4j12-1.X.XX.jar`, `log4j-1.X.XX.jar` and `slf4j-api-1.X.XX.jar` in your classpath and a `log4j.properties` file in the root of your project.
+
+### Environment Variables
+
+`twilio-java` supports the credentials, region, and edge values stored in the following environment variables:
+* `TWILIO_ACCOUNT_SID`
+* `TWILIO_AUTH_TOKEN`
+* `TWILIO_REGION`
+* `TWILIO_EDGE`
+
+If using these variables, the above client initialization can be skipped.
+
 ### Send an SMS
 
 ```java
@@ -125,7 +148,7 @@ try {
         new PhoneNumber("+15559994321"),  // From number
         "Hello world!"                    // SMS body
     ).create();
-    
+
     System.out.println(message.getSid());
 } catch (final ApiException e) {
     System.err.println(e);

@@ -64,9 +64,9 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * The URL of the AWS S3 bucket where the compositions should be stored. We only
      * support DNS-compliant URLs like
-     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
-     * where `compositions` is the path in which you want the compositions to be
-     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
+     * `https://documentation-example-twilio-bucket/compositions`, where
+     * `compositions` is the path in which you want the compositions to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
      * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
@@ -81,9 +81,9 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
     /**
      * The URL of the AWS S3 bucket where the compositions should be stored. We only
      * support DNS-compliant URLs like
-     * `https://&lt;my-bucket&gt;.s3-&lt;aws-region&gt;.amazonaws.com/compositions`,
-     * where `compositions` is the path in which you want the compositions to be
-     * stored. This URL accepts only URI-valid characters, as described in the &lt;a
+     * `https://documentation-example-twilio-bucket/compositions`, where
+     * `compositions` is the path in which you want the compositions to be stored.
+     * This URL accepts only URI-valid characters, as described in the &lt;a
      * href='https://tools.ietf.org/html/rfc3986#section-2'&gt;RFC 3986&lt;/a&gt;..
      *
      * @param awsS3Url The URL of the AWS S3 bucket where the compositions should
@@ -140,7 +140,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings> {
 
         if (response == null) {
             throw new ApiConnectionException("CompositionSettings creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

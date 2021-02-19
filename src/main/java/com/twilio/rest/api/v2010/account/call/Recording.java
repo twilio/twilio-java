@@ -14,7 +14,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -27,18 +26,20 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 119371438714806L;
+    private static final long serialVersionUID = 239666513639752L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -271,9 +272,9 @@ public class Recording extends Resource {
     private final String apiVersion;
     private final String callSid;
     private final String conferenceSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime startTime;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime startTime;
     private final String duration;
     private final String sid;
     private final BigDecimal price;
@@ -284,6 +285,7 @@ public class Recording extends Resource {
     private final Integer channels;
     private final Recording.Source source;
     private final Integer errorCode;
+    private final String track;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -320,7 +322,9 @@ public class Recording extends Resource {
                       @JsonProperty("source")
                       final Recording.Source source,
                       @JsonProperty("error_code")
-                      final Integer errorCode) {
+                      final Integer errorCode,
+                      @JsonProperty("track")
+                      final String track) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -338,6 +342,7 @@ public class Recording extends Resource {
         this.channels = channels;
         this.source = source;
         this.errorCode = errorCode;
+        this.track = track;
     }
 
     /**
@@ -383,7 +388,7 @@ public class Recording extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -392,7 +397,7 @@ public class Recording extends Resource {
      *
      * @return The RFC 2822 date and time in GMT that the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -401,7 +406,7 @@ public class Recording extends Resource {
      *
      * @return The start time of the recording, given in RFC 2822 format
      */
-    public final DateTime getStartTime() {
+    public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
@@ -497,6 +502,15 @@ public class Recording extends Resource {
         return this.errorCode;
     }
 
+    /**
+     * Returns The recorded track. Can be: `inbound`, `outbound`, or `both`..
+     *
+     * @return The recorded track. Can be: `inbound`, `outbound`, or `both`.
+     */
+    public final String getTrack() {
+        return this.track;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -525,7 +539,8 @@ public class Recording extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(channels, other.channels) &&
                Objects.equals(source, other.source) &&
-               Objects.equals(errorCode, other.errorCode);
+               Objects.equals(errorCode, other.errorCode) &&
+               Objects.equals(track, other.track);
     }
 
     @Override
@@ -546,29 +561,7 @@ public class Recording extends Resource {
                             status,
                             channels,
                             source,
-                            errorCode);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("apiVersion", apiVersion)
-                          .add("callSid", callSid)
-                          .add("conferenceSid", conferenceSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("startTime", startTime)
-                          .add("duration", duration)
-                          .add("sid", sid)
-                          .add("price", price)
-                          .add("uri", uri)
-                          .add("encryptionDetails", encryptionDetails)
-                          .add("priceUnit", priceUnit)
-                          .add("status", status)
-                          .add("channels", channels)
-                          .add("source", source)
-                          .add("errorCode", errorCode)
-                          .toString();
+                            errorCode,
+                            track);
     }
 }

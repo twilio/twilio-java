@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,20 +23,21 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Variable extends Resource {
     private static final long serialVersionUID = 42792745498769L;
 
@@ -46,7 +46,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to read the Variable resources
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resources to read
      * @return VariableReader capable of executing the read
      */
@@ -60,7 +60,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to fetch the Variable resource
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resource to fetch
      * @param pathSid The SID of the Variable resource to fetch
      * @return VariableFetcher capable of executing the fetch
@@ -76,10 +76,10 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to create the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment in which the variable
+     * @param pathEnvironmentSid The SID of the Environment in which the Variable
      *                           exists
      * @param key A string by which the Variable resource can be referenced
-     * @param value A string that contains the actual value of the variable
+     * @param value A string that contains the actual value of the Variable
      * @return VariableCreator capable of executing the create
      */
     public static VariableCreator creator(final String pathServiceSid,
@@ -94,7 +94,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to update the Variable resource
      *                       under
-     * @param pathEnvironmentSid The SID of the environment with the Variable
+     * @param pathEnvironmentSid The SID of the Environment with the Variable
      *                           resource to update
      * @param pathSid The SID of the Variable resource to update
      * @return VariableUpdater capable of executing the update
@@ -110,7 +110,7 @@ public class Variable extends Resource {
      *
      * @param pathServiceSid The SID of the Service to delete the Variable resource
      *                       from
-     * @param pathEnvironmentSid The SID of the environment with the Variables to
+     * @param pathEnvironmentSid The SID of the Environment with the Variables to
      *                           delete
      * @param pathSid The SID of the Variable resource to delete
      * @return VariableDeleter capable of executing the delete
@@ -165,8 +165,8 @@ public class Variable extends Resource {
     private final String environmentSid;
     private final String key;
     private final String value;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
@@ -227,9 +227,9 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns The SID of the environment in which the variable exists.
+     * Returns The SID of the Environment in which the Variable exists.
      *
-     * @return The SID of the environment in which the variable exists
+     * @return The SID of the Environment in which the Variable exists
      */
     public final String getEnvironmentSid() {
         return this.environmentSid;
@@ -245,9 +245,9 @@ public class Variable extends Resource {
     }
 
     /**
-     * Returns A string that contains the actual value of the variable.
+     * Returns A string that contains the actual value of the Variable.
      *
-     * @return A string that contains the actual value of the variable
+     * @return A string that contains the actual value of the Variable
      */
     public final String getValue() {
         return this.value;
@@ -260,7 +260,7 @@ public class Variable extends Resource {
      * @return The ISO 8601 date and time in GMT when the Variable resource was
      *         created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -271,7 +271,7 @@ public class Variable extends Resource {
      * @return The ISO 8601 date and time in GMT when the Variable resource was
      *         last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -318,20 +318,5 @@ public class Variable extends Resource {
                             dateCreated,
                             dateUpdated,
                             url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("environmentSid", environmentSid)
-                          .add("key", key)
-                          .add("value", value)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
     }
 }

@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,20 +23,21 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Asset extends Resource {
     private static final long serialVersionUID = 37942173237399L;
 
@@ -145,8 +145,8 @@ public class Asset extends Resource {
     private final String accountSid;
     private final String serviceSid;
     private final String friendlyName;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Map<String, String> links;
 
@@ -219,7 +219,7 @@ public class Asset extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the Asset resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -230,7 +230,7 @@ public class Asset extends Resource {
      * @return The ISO 8601 date and time in GMT when the Asset resource was last
      *         updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -244,9 +244,9 @@ public class Asset extends Resource {
     }
 
     /**
-     * Returns The links to the nested resources of the asset.
+     * Returns The URLs of the Asset resource's nested resources.
      *
-     * @return The links to the nested resources of the asset
+     * @return The URLs of the Asset resource's nested resources
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -284,19 +284,5 @@ public class Asset extends Resource {
                             dateUpdated,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("friendlyName", friendlyName)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

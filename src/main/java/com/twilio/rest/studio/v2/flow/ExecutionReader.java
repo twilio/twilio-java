@@ -19,16 +19,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
+import java.time.ZonedDateTime;
+
 public class ExecutionReader extends Reader<Execution> {
     private final String pathFlowSid;
-    private DateTime dateCreatedFrom;
-    private DateTime dateCreatedTo;
+    private ZonedDateTime dateCreatedFrom;
+    private ZonedDateTime dateCreatedTo;
 
     /**
      * Construct a new ExecutionReader.
@@ -40,29 +37,29 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     /**
-     * Only show Execution resources starting on or after this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
-     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Execution resources starting on or after this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
      * @param dateCreatedFrom Only show Executions that started on or after this
      *                        ISO 8601 date-time
      * @return this
      */
-    public ExecutionReader setDateCreatedFrom(final DateTime dateCreatedFrom) {
+    public ExecutionReader setDateCreatedFrom(final ZonedDateTime dateCreatedFrom) {
         this.dateCreatedFrom = dateCreatedFrom;
         return this;
     }
 
     /**
-     * Only show Execution resources starting before this [ISO
-     * 8601](https://en.wikipedia.org/wiki/ISO_8601) date-time, given as
-     * `YYYY-MM-DDThh:mm:ss-hh:mm`..
+     * Only show Execution resources starting before this <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> date-time, given
+     * as `YYYY-MM-DDThh:mm:ss-hh:mm`..
      *
      * @param dateCreatedTo Only show Executions that started before this ISO 8601
      *                      date-time
      * @return this
      */
-    public ExecutionReader setDateCreatedTo(final DateTime dateCreatedTo) {
+    public ExecutionReader setDateCreatedTo(final ZonedDateTime dateCreatedTo) {
         this.dateCreatedTo = dateCreatedTo;
         return this;
     }
@@ -161,7 +158,7 @@ public class ExecutionReader extends Reader<Execution> {
 
         if (response == null) {
             throw new ApiConnectionException("Execution read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -184,11 +181,11 @@ public class ExecutionReader extends Reader<Execution> {
      */
     private void addQueryParams(final Request request) {
         if (dateCreatedFrom != null) {
-            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toString());
+            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toOffsetDateTime().toString());
         }
 
         if (dateCreatedTo != null) {
-            request.addQueryParam("DateCreatedTo", dateCreatedTo.toString());
+            request.addQueryParam("DateCreatedTo", dateCreatedTo.toOffsetDateTime().toString());
         }
 
         if (getPageSize() != null) {

@@ -17,7 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+
+import java.time.ZonedDateTime;
 
 public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathServiceSid;
@@ -25,16 +26,14 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     private final String pathChannelSid;
     private UserChannel.NotificationLevel notificationLevel;
     private Integer lastConsumedMessageIndex;
-    private DateTime lastConsumptionTimestamp;
+    private ZonedDateTime lastConsumptionTimestamp;
 
     /**
      * Construct a new UserChannelUpdater.
      *
-     * @param pathServiceSid The SID of the Service to update the resource from
-     * @param pathUserSid The SID of the User to update the User Channel resource
-     *                    from
-     * @param pathChannelSid The SID of the Channel with the User Channel resource
-     *                       to update
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathChannelSid The channel_sid
      */
     public UserChannelUpdater(final String pathServiceSid,
                               final String pathUserSid,
@@ -45,11 +44,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The push notification level to assign to the User Channel. Can be: `default`
-     * or `muted`..
+     * The notification_level.
      *
-     * @param notificationLevel The push notification level to assign to the User
-     *                          Channel
+     * @param notificationLevel The notification_level
      * @return this
      */
     public UserChannelUpdater setNotificationLevel(final UserChannel.NotificationLevel notificationLevel) {
@@ -58,13 +55,9 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) in the
-     * [Channel](https://www.twilio.com/docs/chat/channels) that the Member has
-     * read..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last Message that the
-     *                                 Member has read within the Channel
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public UserChannelUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -73,17 +66,12 @@ public class UserChannelUpdater extends Updater<UserChannel> {
     }
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp of the last
-     * [Message](https://www.twilio.com/docs/chat/rest/message-resource) read event
-     * for the Member within the
-     * [Channel](https://www.twilio.com/docs/chat/channels)..
+     * The last_consumption_timestamp.
      *
-     * @param lastConsumptionTimestamp The ISO 8601 based timestamp string that
-     *                                 represents the datetime of the last Message
-     *                                 read event for the Member within the Channel
+     * @param lastConsumptionTimestamp The last_consumption_timestamp
      * @return this
      */
-    public UserChannelUpdater setLastConsumptionTimestamp(final DateTime lastConsumptionTimestamp) {
+    public UserChannelUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp) {
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
@@ -108,7 +96,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
 
         if (response == null) {
             throw new ApiConnectionException("UserChannel update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -134,7 +122,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
         }
 
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toString());
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toOffsetDateTime().toString());
         }
     }
 }

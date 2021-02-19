@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
@@ -26,22 +25,20 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Message extends Resource {
-    private static final long serialVersionUID = 205187398023238L;
+    private static final long serialVersionUID = 178517243734679L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -71,7 +68,7 @@ public class Message extends Resource {
     /**
      * Create a MessageCreator to execute create.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @return MessageCreator capable of executing the create
      */
@@ -82,7 +79,7 @@ public class Message extends Resource {
     /**
      * Create a MessageUpdater to execute update.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageUpdater capable of executing the update
@@ -95,7 +92,7 @@ public class Message extends Resource {
     /**
      * Create a MessageDeleter to execute delete.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageDeleter capable of executing the delete
@@ -108,7 +105,7 @@ public class Message extends Resource {
     /**
      * Create a MessageFetcher to execute fetch.
      *
-     * @param pathConversationSid The unique id of the Conversation for this
+     * @param pathConversationSid The unique ID of the Conversation for this
      *                            message.
      * @param pathSid A 34 character string that uniquely identifies this resource.
      * @return MessageFetcher capable of executing the fetch
@@ -121,7 +118,7 @@ public class Message extends Resource {
     /**
      * Create a MessageReader to execute read.
      *
-     * @param pathConversationSid The unique id of the Conversation for messages.
+     * @param pathConversationSid The unique ID of the Conversation for messages.
      * @return MessageReader capable of executing the read
      */
     public static MessageReader reader(final String pathConversationSid) {
@@ -174,9 +171,11 @@ public class Message extends Resource {
     private final List<Map<String, Object>> media;
     private final String attributes;
     private final String participantSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Map<String, Object> delivery;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Message(@JsonProperty("account_sid")
@@ -202,7 +201,11 @@ public class Message extends Resource {
                     @JsonProperty("date_updated")
                     final String dateUpdated,
                     @JsonProperty("url")
-                    final URI url) {
+                    final URI url,
+                    @JsonProperty("delivery")
+                    final Map<String, Object> delivery,
+                    @JsonProperty("links")
+                    final Map<String, String> links) {
         this.accountSid = accountSid;
         this.conversationSid = conversationSid;
         this.sid = sid;
@@ -215,21 +218,23 @@ public class Message extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.delivery = delivery;
+        this.links = links;
     }
 
     /**
-     * Returns The unique id of the Account responsible for this message..
+     * Returns The unique ID of the Account responsible for this message..
      *
-     * @return The unique id of the Account responsible for this message.
+     * @return The unique ID of the Account responsible for this message.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The unique id of the Conversation for this message..
+     * Returns The unique ID of the Conversation for this message..
      *
-     * @return The unique id of the Conversation for this message.
+     * @return The unique ID of the Conversation for this message.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -292,9 +297,9 @@ public class Message extends Resource {
     }
 
     /**
-     * Returns The unique id of messages's author participant..
+     * Returns The unique ID of messages's author participant..
      *
-     * @return The unique id of messages's author participant.
+     * @return The unique ID of messages's author participant.
      */
     public final String getParticipantSid() {
         return this.participantSid;
@@ -305,7 +310,7 @@ public class Message extends Resource {
      *
      * @return The date that this resource was created.
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -314,17 +319,37 @@ public class Message extends Resource {
      *
      * @return The date that this resource was last updated.
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns An absolute URL for this message..
+     * Returns An absolute API URL for this message..
      *
-     * @return An absolute URL for this message.
+     * @return An absolute API URL for this message.
      */
     public final URI getUrl() {
         return this.url;
+    }
+
+    /**
+     * Returns An object that contains the summary of delivery statuses for the
+     * message to non-chat participants..
+     *
+     * @return An object that contains the summary of delivery statuses for the
+     *         message to non-chat participants.
+     */
+    public final Map<String, Object> getDelivery() {
+        return this.delivery;
+    }
+
+    /**
+     * Returns Absolute URL to access the receipts of this message..
+     *
+     * @return Absolute URL to access the receipts of this message.
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
     }
 
     @Override
@@ -350,7 +375,9 @@ public class Message extends Resource {
                Objects.equals(participantSid, other.participantSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(delivery, other.delivery) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -366,24 +393,8 @@ public class Message extends Resource {
                             participantSid,
                             dateCreated,
                             dateUpdated,
-                            url);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("conversationSid", conversationSid)
-                          .add("sid", sid)
-                          .add("index", index)
-                          .add("author", author)
-                          .add("body", body)
-                          .add("media", media)
-                          .add("attributes", attributes)
-                          .add("participantSid", participantSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("url", url)
-                          .toString();
+                            url,
+                            delivery,
+                            links);
     }
 }

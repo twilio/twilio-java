@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class EnvironmentCreator extends Creator<Environment> {
     private final String pathServiceSid;
@@ -32,7 +31,7 @@ public class EnvironmentCreator extends Creator<Environment> {
      *
      * @param pathServiceSid The SID of the Service to create the Environment
      *                       resource under
-     * @param uniqueName An application-defined string that uniquely identifies the
+     * @param uniqueName A user-defined string that uniquely identifies the
      *                   Environment resource
      */
     public EnvironmentCreator(final String pathServiceSid,
@@ -43,7 +42,7 @@ public class EnvironmentCreator extends Creator<Environment> {
 
     /**
      * A URL-friendly name that represents the environment and forms part of the
-     * domain name. Must have fewer than 32 characters..
+     * domain name. It can be a maximum of 16 characters..
      *
      * @param domainSuffix A URL-friendly name that represents the environment
      * @return this
@@ -73,7 +72,7 @@ public class EnvironmentCreator extends Creator<Environment> {
 
         if (response == null) {
             throw new ApiConnectionException("Environment creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

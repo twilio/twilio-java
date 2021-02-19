@@ -25,9 +25,9 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
     /**
      * Construct a new UserBindingFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathUserSid The SID of the User with the binding
-     * @param pathSid The SID of the User Binding resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathUserSid The user_sid
+     * @param pathSid The sid
      */
     public UserBindingFetcher(final String pathServiceSid,
                               final String pathUserSid,
@@ -56,7 +56,7 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
 
         if (response == null) {
             throw new ApiConnectionException("UserBinding fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

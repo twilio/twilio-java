@@ -38,18 +38,18 @@ public class SourceIpMappingTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.VOICE.toString(),
-                                                      "/v1/SourceIpMappings");
-                        request.addPostParam("IpRecordSid", serialize("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
-        request.addPostParam("SipDomainSid", serialize("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.VOICE.toString(),
+                                          "/v1/SourceIpMappings");
+            request.addPostParam("IpRecordSid", serialize("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            request.addPostParam("SipDomainSid", serialize("SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             SourceIpMapping.creator("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();

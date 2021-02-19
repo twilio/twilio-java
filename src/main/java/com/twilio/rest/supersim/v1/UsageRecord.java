@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
@@ -25,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,13 +32,13 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class UsageRecord extends Resource {
-    private static final long serialVersionUID = 28569816228132L;
+    private static final long serialVersionUID = 259624164977521L;
 
     public enum Granularity {
         HOUR("hour"),
@@ -67,7 +67,10 @@ public class UsageRecord extends Resource {
     }
 
     public enum Group {
-        SIM("sim");
+        SIM("sim"),
+        FLEET("fleet"),
+        NETWORK("network"),
+        ISOCOUNTRY("isoCountry");
 
         private final String value;
 
@@ -111,31 +114,6 @@ public class UsageRecord extends Resource {
         @JsonCreator
         public static SortBy forValue(final String value) {
             return Promoter.enumFromString(value, SortBy.values());
-        }
-    }
-
-    public enum SortOrder {
-        DESC("desc"),
-        ASC("asc");
-
-        private final String value;
-
-        private SortOrder(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a SortOrder from a string.
-         * @param value string value
-         * @return generated SortOrder
-         */
-        @JsonCreator
-        public static SortOrder forValue(final String value) {
-            return Promoter.enumFromString(value, SortOrder.values());
         }
     }
 
@@ -188,6 +166,9 @@ public class UsageRecord extends Resource {
 
     private final String accountSid;
     private final String simSid;
+    private final String networkSid;
+    private final String fleetSid;
+    private final String isoCountry;
     private final Map<String, Object> period;
     private final Long dataUpload;
     private final Long dataDownload;
@@ -198,6 +179,12 @@ public class UsageRecord extends Resource {
                         final String accountSid,
                         @JsonProperty("sim_sid")
                         final String simSid,
+                        @JsonProperty("network_sid")
+                        final String networkSid,
+                        @JsonProperty("fleet_sid")
+                        final String fleetSid,
+                        @JsonProperty("iso_country")
+                        final String isoCountry,
                         @JsonProperty("period")
                         final Map<String, Object> period,
                         @JsonProperty("data_upload")
@@ -208,6 +195,9 @@ public class UsageRecord extends Resource {
                         final Long dataTotal) {
         this.accountSid = accountSid;
         this.simSid = simSid;
+        this.networkSid = networkSid;
+        this.fleetSid = fleetSid;
+        this.isoCountry = isoCountry;
         this.period = period;
         this.dataUpload = dataUpload;
         this.dataDownload = dataDownload;
@@ -230,6 +220,33 @@ public class UsageRecord extends Resource {
      */
     public final String getSimSid() {
         return this.simSid;
+    }
+
+    /**
+     * Returns SID of the Network resource on which the usage occurred..
+     *
+     * @return SID of the Network resource on which the usage occurred.
+     */
+    public final String getNetworkSid() {
+        return this.networkSid;
+    }
+
+    /**
+     * Returns SID of the Fleet resource on which the usage occurred..
+     *
+     * @return SID of the Fleet resource on which the usage occurred.
+     */
+    public final String getFleetSid() {
+        return this.fleetSid;
+    }
+
+    /**
+     * Returns Alpha-2 ISO Country Code of the country the usage occurred in..
+     *
+     * @return Alpha-2 ISO Country Code of the country the usage occurred in.
+     */
+    public final String getIsoCountry() {
+        return this.isoCountry;
     }
 
     /**
@@ -282,6 +299,9 @@ public class UsageRecord extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(simSid, other.simSid) &&
+               Objects.equals(networkSid, other.networkSid) &&
+               Objects.equals(fleetSid, other.fleetSid) &&
+               Objects.equals(isoCountry, other.isoCountry) &&
                Objects.equals(period, other.period) &&
                Objects.equals(dataUpload, other.dataUpload) &&
                Objects.equals(dataDownload, other.dataDownload) &&
@@ -292,21 +312,12 @@ public class UsageRecord extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             simSid,
+                            networkSid,
+                            fleetSid,
+                            isoCountry,
                             period,
                             dataUpload,
                             dataDownload,
                             dataTotal);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("simSid", simSid)
-                          .add("period", period)
-                          .add("dataUpload", dataUpload)
-                          .add("dataDownload", dataDownload)
-                          .add("dataTotal", dataTotal)
-                          .toString();
     }
 }

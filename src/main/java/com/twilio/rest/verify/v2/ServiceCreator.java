@@ -27,6 +27,9 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean psd2Enabled;
     private Boolean doNotShareWarningEnabled;
     private Boolean customCodeEnabled;
+    private Boolean pushIncludeDate;
+    private String pushApnCredentialSid;
+    private String pushFcmCredentialSid;
 
     /**
      * Construct a new ServiceCreator.
@@ -141,6 +144,50 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Optional configuration for the Push factors. If true, include the date in the
+     * Challenge's reponse. Otherwise, the date is omitted from the response. See <a
+     * href="https://www.twilio.com/docs/verify/api/challenge">Challenge</a>
+     * resource’s details parameter for more info. Default: true.
+     *
+     * @param pushIncludeDate Optional. Include the date in the Challenge's
+     *                        reponse. Default: true
+     * @return this
+     */
+    public ServiceCreator setPushIncludeDate(final Boolean pushIncludeDate) {
+        this.pushIncludeDate = pushIncludeDate;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the Push factors. Set the APN Credential for this
+     * service. This will allow to send push notifications to iOS devices. See <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential
+     * Resource</a>.
+     *
+     * @param pushApnCredentialSid Optional. Set APN Credential for this service.
+     * @return this
+     */
+    public ServiceCreator setPushApnCredentialSid(final String pushApnCredentialSid) {
+        this.pushApnCredentialSid = pushApnCredentialSid;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the Push factors. Set the FCM Credential for this
+     * service. This will allow to send push notifications to Android devices. See
+     * <a
+     * href="https://www.twilio.com/docs/notify/api/credential-resource">Credential
+     * Resource</a>.
+     *
+     * @param pushFcmCredentialSid Optional. Set FCM Credential for this service.
+     * @return this
+     */
+    public ServiceCreator setPushFcmCredentialSid(final String pushFcmCredentialSid) {
+        this.pushFcmCredentialSid = pushFcmCredentialSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -160,7 +207,7 @@ public class ServiceCreator extends Creator<Service> {
 
         if (response == null) {
             throw new ApiConnectionException("Service creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -211,6 +258,18 @@ public class ServiceCreator extends Creator<Service> {
 
         if (customCodeEnabled != null) {
             request.addPostParam("CustomCodeEnabled", customCodeEnabled.toString());
+        }
+
+        if (pushIncludeDate != null) {
+            request.addPostParam("Push.IncludeDate", pushIncludeDate.toString());
+        }
+
+        if (pushApnCredentialSid != null) {
+            request.addPostParam("Push.ApnCredentialSid", pushApnCredentialSid);
+        }
+
+        if (pushFcmCredentialSid != null) {
+            request.addPostParam("Push.FcmCredentialSid", pushFcmCredentialSid);
         }
     }
 }

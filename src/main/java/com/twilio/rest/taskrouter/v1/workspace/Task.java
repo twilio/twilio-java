@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,15 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Task extends Resource {
     private static final long serialVersionUID = 238267579862423L;
 
@@ -164,9 +165,9 @@ public class Task extends Resource {
     private final Task.Status assignmentStatus;
     private final String attributes;
     private final String addons;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
-    private final DateTime taskQueueEnteredDate;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
+    private final ZonedDateTime taskQueueEnteredDate;
     private final Integer priority;
     private final String reason;
     private final String sid;
@@ -297,7 +298,7 @@ public class Task extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
@@ -306,7 +307,7 @@ public class Task extends Resource {
      *
      * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
@@ -317,7 +318,7 @@ public class Task extends Resource {
      * @return The ISO 8601 date and time in GMT when the Task entered the
      *         TaskQueue.
      */
-    public final DateTime getTaskQueueEnteredDate() {
+    public final ZonedDateTime getTaskQueueEnteredDate() {
         return this.taskQueueEnteredDate;
     }
 
@@ -387,9 +388,11 @@ public class Task extends Resource {
     }
 
     /**
-     * Returns The amount of time in seconds that the Task is allowed to live.
+     * Returns The amount of time in seconds that the Task can live before being
+     * assigned.
      *
-     * @return The amount of time in seconds that the Task is allowed to live
+     * @return The amount of time in seconds that the Task can live before being
+     *         assigned
      */
     public final Integer getTimeout() {
         return this.timeout;
@@ -498,32 +501,5 @@ public class Task extends Resource {
                             workspaceSid,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("age", age)
-                          .add("assignmentStatus", assignmentStatus)
-                          .add("attributes", attributes)
-                          .add("addons", addons)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("taskQueueEnteredDate", taskQueueEnteredDate)
-                          .add("priority", priority)
-                          .add("reason", reason)
-                          .add("sid", sid)
-                          .add("taskQueueSid", taskQueueSid)
-                          .add("taskQueueFriendlyName", taskQueueFriendlyName)
-                          .add("taskChannelSid", taskChannelSid)
-                          .add("taskChannelUniqueName", taskChannelUniqueName)
-                          .add("timeout", timeout)
-                          .add("workflowSid", workflowSid)
-                          .add("workflowFriendlyName", workflowFriendlyName)
-                          .add("workspaceSid", workspaceSid)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

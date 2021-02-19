@@ -1,20 +1,9 @@
 package com.twilio.twiml;
 
-import com.google.common.base.MoreObjects;
-import com.google.common.base.Objects;
-
-import com.google.common.collect.ImmutableMap;
+import lombok.ToString;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-
-import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
@@ -23,12 +12,22 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
+@ToString
 public abstract class TwiML {
     private final String tagName;
     private final Builder builder;
-    private static final ImmutableMap<String, String> attrNameMapper = ImmutableMap.of("for_","for");
+    private static final Map<String, String> attrNameMapper = Collections.singletonMap("for_", "for");
 
     /**
      * @param tagName Element tag name
@@ -79,7 +78,7 @@ public abstract class TwiML {
     }
 
     /**
-     * Get transformed attribute name for this Twiml element. 
+     * Get transformed attribute name for this Twiml element.
      */
     private String getTransformedAttrName(final String attrName) {
         return attrNameMapper.containsKey(attrName) ? attrNameMapper.get(attrName) : attrName;
@@ -96,7 +95,7 @@ public abstract class TwiML {
             node.appendChild(parentDoc.createTextNode(body));
         }
 
-        for (Map.Entry<String,String> attr : this.getElementAttributes().entrySet()) {
+        for (Map.Entry<String, String> attr : this.getElementAttributes().entrySet()) {
             node.setAttribute(getTransformedAttrName(attr.getKey()), attr.getValue());
         }
 
@@ -163,32 +162,22 @@ public abstract class TwiML {
         }
 
         TwiML twiml = (TwiML) o;
-        return Objects.equal(this.getTagName(), twiml.getTagName()) &&
-            Objects.equal(this.getElementBody(), twiml.getElementBody()) &&
-            Objects.equal(this.getElementAttributes(), twiml.getElementAttributes()) &&
-            Objects.equal(this.getOptions(), twiml.getOptions()) &&
-            Objects.equal(this.getChildren(), twiml.getChildren());
+        return Objects.equals(this.getTagName(), twiml.getTagName()) &&
+            Objects.equals(this.getElementBody(), twiml.getElementBody()) &&
+            Objects.equals(this.getElementAttributes(), twiml.getElementAttributes()) &&
+            Objects.equals(this.getOptions(), twiml.getOptions()) &&
+            Objects.equals(this.getChildren(), twiml.getChildren());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(
+        return Objects.hash(
             this.getTagName(),
             this.getElementBody(),
             this.getElementAttributes(),
             this.getChildren(),
             this.getOptions()
         );
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-            .add("Body", this.getElementBody())
-            .add("Attributes", this.getElementAttributes())
-            .add("Children", this.getChildren())
-            .add("Options", this.getOptions())
-            .toString();
     }
 
     /**
@@ -204,7 +193,7 @@ public abstract class TwiML {
          */
         public T option(String key, String value) {
             this.options.put(key, value);
-            return (T)this;
+            return (T) this;
         }
 
         /**
@@ -212,7 +201,7 @@ public abstract class TwiML {
          */
         public T addText(String text) {
             this.children.add(new Text(text));
-            return (T)this;
+            return (T) this;
         }
 
         /**
@@ -220,9 +209,7 @@ public abstract class TwiML {
          */
         public T addChild(GenericNode node) {
             this.children.add(node);
-            return (T)this;
+            return (T) this;
         }
-
-
     }
 }

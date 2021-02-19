@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
@@ -25,16 +24,18 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import org.joda.time.DateTime;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Binding extends Resource {
     private static final long serialVersionUID = 102481637129176L;
 
@@ -67,7 +68,7 @@ public class Binding extends Resource {
     /**
      * Create a BindingReader to execute read.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
+     * @param pathServiceSid The service_sid
      * @return BindingReader capable of executing the read
      */
     public static BindingReader reader(final String pathServiceSid) {
@@ -77,8 +78,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingFetcher to execute fetch.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathSid The SID of the resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return BindingFetcher capable of executing the fetch
      */
     public static BindingFetcher fetcher(final String pathServiceSid,
@@ -89,8 +90,8 @@ public class Binding extends Resource {
     /**
      * Create a BindingDeleter to execute delete.
      *
-     * @param pathServiceSid The SID of the Service to delete the resource from
-     * @param pathSid The SID of the resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathSid The sid
      * @return BindingDeleter capable of executing the delete
      */
     public static BindingDeleter deleter(final String pathServiceSid,
@@ -138,8 +139,8 @@ public class Binding extends Resource {
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
-    private final DateTime dateCreated;
-    private final DateTime dateUpdated;
+    private final ZonedDateTime dateCreated;
+    private final ZonedDateTime dateUpdated;
     private final String endpoint;
     private final String identity;
     private final String credentialSid;
@@ -188,108 +189,108 @@ public class Binding extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The sid.
      *
-     * @return The unique string that identifies the resource
+     * @return The sid
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The SID of the Account that created the resource.
+     * Returns The account_sid.
      *
-     * @return The SID of the Account that created the resource
+     * @return The account_sid
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The SID of the Service that the Binding resource is associated with.
+     * Returns The service_sid.
      *
-     * @return The SID of the Service that the Binding resource is associated with
+     * @return The service_sid
      */
     public final String getServiceSid() {
         return this.serviceSid;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was created.
+     * Returns The date_created.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was created
+     * @return The date_created
      */
-    public final DateTime getDateCreated() {
+    public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
+     * Returns The date_updated.
      *
-     * @return The ISO 8601 date and time in GMT when the resource was last updated
+     * @return The date_updated
      */
-    public final DateTime getDateUpdated() {
+    public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
     }
 
     /**
-     * Returns The unique endpoint identifier for the Binding.
+     * Returns The endpoint.
      *
-     * @return The unique endpoint identifier for the Binding
+     * @return The endpoint
      */
     public final String getEndpoint() {
         return this.endpoint;
     }
 
     /**
-     * Returns The string that identifies the resource's User.
+     * Returns The identity.
      *
-     * @return The string that identifies the resource's User
+     * @return The identity
      */
     public final String getIdentity() {
         return this.identity;
     }
 
     /**
-     * Returns The SID of the Credential for the binding.
+     * Returns The credential_sid.
      *
-     * @return The SID of the Credential for the binding
+     * @return The credential_sid
      */
     public final String getCredentialSid() {
         return this.credentialSid;
     }
 
     /**
-     * Returns The push technology to use for the binding.
+     * Returns The binding_type.
      *
-     * @return The push technology to use for the binding
+     * @return The binding_type
      */
     public final Binding.BindingType getBindingType() {
         return this.bindingType;
     }
 
     /**
-     * Returns The Programmable Chat message types the binding is subscribed to.
+     * Returns The message_types.
      *
-     * @return The Programmable Chat message types the binding is subscribed to
+     * @return The message_types
      */
     public final List<String> getMessageTypes() {
         return this.messageTypes;
     }
 
     /**
-     * Returns The absolute URL of the Binding resource.
+     * Returns The url.
      *
-     * @return The absolute URL of the Binding resource
+     * @return The url
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The absolute URLs of the Binding's User.
+     * Returns The links.
      *
-     * @return The absolute URLs of the Binding's User
+     * @return The links
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -335,23 +336,5 @@ public class Binding extends Resource {
                             messageTypes,
                             url,
                             links);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("sid", sid)
-                          .add("accountSid", accountSid)
-                          .add("serviceSid", serviceSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("endpoint", endpoint)
-                          .add("identity", identity)
-                          .add("credentialSid", credentialSid)
-                          .add("bindingType", bindingType)
-                          .add("messageTypes", messageTypes)
-                          .add("url", url)
-                          .add("links", links)
-                          .toString();
     }
 }

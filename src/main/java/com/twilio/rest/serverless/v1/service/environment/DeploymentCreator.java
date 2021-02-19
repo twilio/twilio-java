@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class DeploymentCreator extends Creator<Deployment> {
     private final String pathServiceSid;
@@ -32,7 +31,7 @@ public class DeploymentCreator extends Creator<Deployment> {
      *
      * @param pathServiceSid The SID of the Service to create the Deployment
      *                       resource under
-     * @param pathEnvironmentSid The SID of the environment for the deployment
+     * @param pathEnvironmentSid The SID of the Environment for the Deployment
      */
     public DeploymentCreator(final String pathServiceSid,
                              final String pathEnvironmentSid) {
@@ -41,9 +40,9 @@ public class DeploymentCreator extends Creator<Deployment> {
     }
 
     /**
-     * The SID of the build for the deployment..
+     * The SID of the Build for the Deployment..
      *
-     * @param buildSid The SID of the build for the deployment
+     * @param buildSid The SID of the Build for the Deployment
      * @return this
      */
     public DeploymentCreator setBuildSid(final String buildSid) {
@@ -71,7 +70,7 @@ public class DeploymentCreator extends Creator<Deployment> {
 
         if (response == null) {
             throw new ApiConnectionException("Deployment creation failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -40,11 +40,13 @@ public class ConferenceTest {
             .recordingStatusCallbackMethod(HttpMethod.GET)
             .recordingStatusCallbackEvents(Promoter.listOfOne(Conference.RecordingEvent.IN_PROGRESS))
             .eventCallbackUrl(URI.create("https://example.com"))
+            .jitterBufferSize(Conference.JitterBufferSize.LARGE)
+            .participantLabel("participant_label")
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" maxParticipants=\"1\" muted=\"true\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>",
+            "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>",
             elem.toXml()
         );
     }

@@ -27,10 +27,9 @@ public class MemberUpdater extends Updater<Member> {
     /**
      * Construct a new MemberUpdater.
      *
-     * @param pathServiceSid The SID of the Service to create the resource under
-     * @param pathChannelSid The unique ID of the channel the member to update
-     *                       belongs to
-     * @param pathSid The unique string that identifies the resource
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public MemberUpdater(final String pathServiceSid,
                          final String pathChannelSid,
@@ -41,11 +40,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The SID of the [Role](https://www.twilio.com/docs/api/chat/rest/roles) to
-     * assign to the member. The default roles are those specified on the
-     * [Service](https://www.twilio.com/docs/chat/api/services)..
+     * The role_sid.
      *
-     * @param roleSid The SID of the Role to assign to the member
+     * @param roleSid The role_sid
      * @return this
      */
     public MemberUpdater setRoleSid(final String roleSid) {
@@ -54,13 +51,9 @@ public class MemberUpdater extends Updater<Member> {
     }
 
     /**
-     * The index of the last
-     * [Message](https://www.twilio.com/docs/api/chat/rest/messages) that the Member
-     * has read within the
-     * [Channel](https://www.twilio.com/docs/api/chat/rest/channels)..
+     * The last_consumed_message_index.
      *
-     * @param lastConsumedMessageIndex The index of the last consumed Message for
-     *                                 the Channel for the Member
+     * @param lastConsumedMessageIndex The last_consumed_message_index
      * @return this
      */
     public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex) {
@@ -88,7 +81,7 @@ public class MemberUpdater extends Updater<Member> {
 
         if (response == null) {
             throw new ApiConnectionException("Member update failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

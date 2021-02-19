@@ -28,7 +28,8 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
     /**
      * Construct a new ExportConfigurationFetcher.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      */
     public ExportConfigurationFetcher(final String pathResourceType) {
         this.pathResourceType = pathResourceType;
@@ -53,7 +54,7 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
 
         if (response == null) {
             throw new ApiConnectionException("ExportConfiguration fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

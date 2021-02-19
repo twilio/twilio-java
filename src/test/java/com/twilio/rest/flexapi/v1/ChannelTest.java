@@ -114,20 +114,20 @@ public class ChannelTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.FLEXAPI.toString(),
-                                                      "/v1/Channels");
-                        request.addPostParam("FlexFlowSid", serialize("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
-        request.addPostParam("Identity", serialize("identity"));
-        request.addPostParam("ChatUserFriendlyName", serialize("chat_user_friendly_name"));
-        request.addPostParam("ChatFriendlyName", serialize("chat_friendly_name"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.FLEXAPI.toString(),
+                                          "/v1/Channels");
+            request.addPostParam("FlexFlowSid", serialize("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            request.addPostParam("Identity", serialize("identity"));
+            request.addPostParam("ChatUserFriendlyName", serialize("chat_user_friendly_name"));
+            request.addPostParam("ChatFriendlyName", serialize("chat_friendly_name"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Channel.creator("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "chat_user_friendly_name", "chat_friendly_name").create();

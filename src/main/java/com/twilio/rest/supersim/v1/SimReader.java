@@ -20,9 +20,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class SimReader extends Reader<Sim> {
     private Sim.Status status;
@@ -30,8 +29,8 @@ public class SimReader extends Reader<Sim> {
     private String iccid;
 
     /**
-     * The status of the Sim resources to read. Can be `new`, `active`, `inactive`,
-     * or `scheduled`..
+     * The status of the Sim resources to read. Can be `new`, `ready`, `active`,
+     * `inactive`, or `scheduled`..
      *
      * @param status The status of the Sim resources to read
      * @return this
@@ -54,7 +53,8 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The [ICCID](https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID)
+     * The <a
+     * href="https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID">ICCID</a>
      * associated with a Super SIM to filter the list by. Passing this parameter
      * will always return a list containing zero or one SIMs..
      *
@@ -160,7 +160,7 @@ public class SimReader extends Reader<Sim> {
 
         if (response == null) {
             throw new ApiConnectionException("Sim read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

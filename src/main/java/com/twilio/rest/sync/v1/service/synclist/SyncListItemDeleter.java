@@ -17,14 +17,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class SyncListItemDeleter extends Deleter<SyncListItem> {
     private final String pathServiceSid;
     private final String pathListSid;
     private final Integer pathIndex;
+    private String ifMatch;
 
     /**
      * Construct a new SyncListItemDeleter.
@@ -44,6 +41,21 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     }
 
     /**
+     * If provided, applies this mutation if (and only if) the “revision” field of
+     * this <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match">map
+     * item] matches the provided value. This matches the semantics of (and is
+     * implemented with) the HTTP [If-Match header</a>..
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public SyncListItemDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
@@ -57,11 +69,12 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
             "/v1/Services/" + this.pathServiceSid + "/Lists/" + this.pathListSid + "/Items/" + this.pathIndex + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
             throw new ApiConnectionException("SyncListItem delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
@@ -70,5 +83,16 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

@@ -134,18 +134,18 @@ public class ServiceTest {
 
     @Test
     public void testCreateRequest() {
-                    new NonStrictExpectations() {{
-                        Request request = new Request(HttpMethod.POST,
-                                                      Domains.SERVERLESS.toString(),
-                                                      "/v1/Services");
-                        request.addPostParam("UniqueName", serialize("unique_name"));
-        request.addPostParam("FriendlyName", serialize("friendly_name"));
-                        twilioRestClient.request(request);
-                        times = 1;
-                        result = new Response("", 500);
-                        twilioRestClient.getAccountSid();
-                        result = "AC123";
-                    }};
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.SERVERLESS.toString(),
+                                          "/v1/Services");
+            request.addPostParam("UniqueName", serialize("unique_name"));
+            request.addPostParam("FriendlyName", serialize("friendly_name"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
 
         try {
             Service.creator("unique_name", "friendly_name").create();

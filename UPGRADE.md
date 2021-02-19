@@ -1,10 +1,240 @@
 # Upgrade Guide
 
-_After `7.4.0` all `MINOR` and `MAJOR` version bumps will have upgrade notes 
-posted here._
+_`MAJOR` version bumps will have upgrade notes posted here._
+
+[2020-09-28] 7.x.x to 8.x.x
+-----------------------------
+
+### Overview
+
+Version `8.x.x` is the first version that officially drops support for Java 7. 
+
+- Removal of dependencies offering functionality included in Java 8 and beyond:
+    - [Guava concurrency, hashing, and charstreams](https://github.com/twilio/twilio-java/pull/575)
+    - [Guava `com.google.common.collect.Range` removal](https://github.com/twilio/twilio-java/pull/584)
+    - [joda-time](https://github.com/twilio/twilio-java/pull/572)
+        - `org.joda.time.DateTime` -> `java.time.ZonedDateTime`
+        - `org.joda.time.LocalDate` -> `java.time.LocalDate`
+- [Removal of deprecated classes and methods](https://github.com/twilio/twilio-java/pull/578):
+    - `com.twilio.jwt.accesstoken.ConversationsGrant`
+    - `com.twilio.jwt.accesstoken.IpMessagingGrant`
+    - `com.twilio.jwt.accesstoken.VideoGrant.getConfigurationProfileSid()`
+    - `com.twilio.jwt.accesstoken.VideoGrant.setConfigurationProfileSid()`
+    - Renamed child TwiML methods:
+        - `com.twilio.twiml.voice.Refer.Builder.referSip`
+        - `com.twilio.twiml.voice.Say.Builder.ssml<Element>`
+        
+### CHANGED - Migration to built-in Java concurrency dependencies
+#### Getting/Setting a custom Executor Service
+```java
+// 7.x.x
+import com.google.common.util.concurrent.ListeningExecutorService;
+import com.google.common.util.concurrent.MoreExecutors;
+
+ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(Executors.newCachedThreadPool());
+Twilio.setExecutorService(listeningExecutorService);
+```
+```java
+// 8.x.x
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executor;
+
+ExecutorService executorService = Executors.newCachedThreadPool();
+Twilio.setExecutorService(executorService);
+```
+
+#### Making asynchronous requests
+Note that this change effects all asynchronous Create/Fetch/Update/Delete/Read return types. For example:
+```java
+// 7.x.x
+import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
+import com.twilio.type.PhoneNumber;
+import com.google.common.util.concurrent.ListenableFuture;
+
+ListenableFuture<IncomingPhoneNumber> incomingPhoneNumber = IncomingPhoneNumber.creator(new PhoneNumber("+11234567890")).createAsync();
+``` 
+
+```java
+// 8.x.x
+import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
+import com.twilio.type.PhoneNumber;
+import java.util.concurrent.CompletableFuture;
+
+CompletableFuture<IncomingPhoneNumber> incomingPhoneNumber = IncomingPhoneNumber.creator(new PhoneNumber("+11234567890")).createAsync();
+```
+
+### CHANGED - `RequestCanonicalizer` no longer requires a hash function parameter
+Note that this class is primarily used internally by `com.twilio.jwt.validation.ValidationToken`.
+```java
+// 7.x.x
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import com.twilio.jwt.validation;
+import org.apache.http.Header;
+import java.util.Arrays;
+import java.util.List;
+
+Header[] headers;
+List<String> signedHeaders = Arrays.asList("authorization", "duplicate", "host");
+HashFunction hasher = Hashing.sha256();
+
+String canonicalized = new RequestCanonicalizer("GET", "/Messages", "queryParam=Hello+World", "foobar", headers).create(signedHeaders, hasher);
+```
+
+```java
+// 8.x.x
+import com.twilio.jwt.validation;
+import org.apache.http.Header;
+import java.util.Arrays;
+import java.util.List;
+
+Header[] headers;
+List<String> signedHeaders = Arrays.asList("authorization", "duplicate", "host");
+
+String canonicalized = new RequestCanonicalizer("GET", "/Messages", "queryParam=Hello+World", "foobar", headers).create(signedHeaders);
+```
+
+### CHANGED - Guava Range removal
+Methods previously accepting a single `Range<T>` parameter now expect multiple date parameters representing the start and end of the range.
+```java
+// 7.x.x
+import com.google.common.collect.Range;
+import com.twilio.base.ResourceSet;
+import com.twilio.rest.api.v2010.account.Message;
+import org.joda.time.DateTime;
+
+ResourceSet<Message> messages = Message.reader()
+            .setDateSent(
+                Range.open(new DateTime(2019, 1, 1, 0, 0, 0), new DateTime(2019, 3, 1, 0, 0, 0)))
+            .limit(20)
+            .read();
+```
+```java
+// 8.x.x
+import com.twilio.base.ResourceSet;
+import com.twilio.rest.api.v2010.account.Message;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+
+ResourceSet<Message> messages = Message.reader()
+            .setDateSentAfter(ZonedDateTime.of(2019, 1, 1, 0, 0, 0, 0, ZoneId.of("UTC")))
+            .setDateSentBefore(ZonedDateTime.of(2019, 3, 1, 0, 0, 0, 0, ZoneId.of("UTC")))
+            .limit(20)
+            .read();
+```
+
+### CHANGED - Dates now use java.time
+This change effects the type needed for getting/setting date-related properties and parameters for all resources. For example:
+```java
+// 7.x.x
+import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
+import com.twilio.type.PhoneNumber;
+import org.joda.time.DateTime;
+
+IncomingPhoneNumber incomingPhoneNumber = IncomingPhoneNumber.fetcher("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+DateTime dateCreated = incomingPhoneNumber.getDateCreated();
+```
+
+```java
+// 8.x.x
+import com.twilio.rest.api.v2010.account.IncomingPhoneNumber;
+import com.twilio.type.PhoneNumber;
+import java.time.ZonedDateTime;
+
+IncomingPhoneNumber incomingPhoneNumber = IncomingPhoneNumber.fetcher("PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+ZonedDateTime dateCreated = incomingPhoneNumber.getDateCreated();
+```
+
+### CHANGED - Renamed nested TwiML methods
+Method names now match the nested element's TwiML verb/noun name (previously used the nested element's resource name). For example:
+```java
+// 7.x.x
+import com.twilio.twiml.voice.Refer;
+import com.twilio.twiml.voice.ReferSip;
+
+ReferSip sip = new ReferSip.Builder("sip:alice@example.com").build();
+Refer refer = new Refer.Builder().referSip(sip).build();
+```
+
+```java
+// 8.x.x
+import com.twilio.twiml.voice.Refer;
+import com.twilio.twiml.voice.ReferSip;
+
+ReferSip sip = new ReferSip.Builder("sip:alice@example.com").build();
+Refer refer = new Refer.Builder().sip(sip).build();
+```
+
+#### Effected methods:
+- `com.twilio.twiml.voice.Refer`
+    - `referSip(ReferSip referSip)` -> `sip(ReferSip referSip)`
+- `com.twilio.twiml.voice.Say`
+    - `ssmlBreak(SsmlBreak ssmlBreak)` -> `break_(SsmlBreak ssmlBreak)`
+    - `ssmlEmphasis(SsmlEmphasis ssmlEmphasis)` -> `emphasis(SsmlEmphasis ssmlEmphasis)`
+    - `ssmlLang(SsmlLang ssmlLang)` -> `lang(SsmlLang ssmlLang)`
+    - `ssmlP(SsmlP ssmlP)` -> `p(SsmlP ssmlP)`
+    - `ssmlPhoneme(SsmlPhoneme ssmlPhoneme)` -> `phoneme(SsmlPhoneme ssmlPhoneme)`
+    - `ssmlProsody(SsmlProsody ssmlProsody)` -> `prosody(SsmlProsody ssmlProsody)`
+    - `ssmlS(SsmlS ssmlS)` -> `s(SsmlS ssmlS)`
+    - `ssmlSayAs(SsmlSayAs ssmlSayAs)` -> `sayAs(SsmlSayAs ssmlSayAs)`
+    - `ssmlSub(SsmlSub ssmlSub)` -> `sub(SsmlSub ssmlSub)`
+    - `ssmlW(SsmlW ssmlW)` -> `w(SsmlW ssmlW)`
+    
+### CHANGED - Remove deprecated JWT Access Token Grants
+- `com.twilio.jwt.accesstoken.ConversationsGrant` has been deprecated in favor of `com.twilio.jwt.accesstoken.VoiceGrant`
+- `com.twilio.jwt.accesstoken.IpMessagingGrant` has no replacement
+
+### CHANGED - Remove deprecated `com.twilio.jwt.accesstoken.VoiceGrant` methods
+`configurationProfileSid` has been renamed to `room`. Getter and setter has been renamed:
+```java
+// 7.x.x
+import com.twilio.jwt.accesstoken.VoiceGrant;
+
+VoiceGrant vg = new VoiceGrant();
+vg.setConfigurationProfileSid("sid");
+String sid = vg.getConfigurationProfileSid();
+```
+
+```java
+// 8.x.x
+import com.twilio.jwt.accesstoken.VoiceGrant;
+
+VoiceGrant vg = new VoiceGrant();
+vg.setRoom("sid");
+String sid = vg.getRoom();
+```
+
+### CHANGED - Updated `com.twilio.type.IceServer` URL types
+`IceServer` properties `url` and `urls` types have been changed from `java.net.URI` to `String`:
+```java
+// 7.x.x
+import com.twilio.rest.api.v2010.account.Token;
+import com.twilio.type.IceServer;
+import java.net.URI;
+
+Token token = Token.creator().create()
+
+for (IceServer iceServer : token.getIceServers()) {
+    URI url = iceServer.getUrl();
+    URI urls = iceServer.getUrls();
+}
+```
+
+```java
+// 8.x.x
+import com.twilio.rest.api.v2010.account.Token;
+import com.twilio.type.IceServer;
+
+Token token = Token.creator().create()
+
+for (IceServer iceServer : token.getIceServers()) {
+    String url = iceServer.getUrl();
+    String urls = iceServer.getUrls();
+}
+```
 
 [2017-12-15] 7.16.x to 7.17.x
----------------------------
+-----------------------------
 
 ### Overview
 

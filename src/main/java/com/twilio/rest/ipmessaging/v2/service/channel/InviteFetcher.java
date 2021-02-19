@@ -25,9 +25,9 @@ public class InviteFetcher extends Fetcher<Invite> {
     /**
      * Construct a new InviteFetcher.
      *
-     * @param pathServiceSid The SID of the Service to fetch the resource from
-     * @param pathChannelSid The SID of the Channel the resource to fetch belongs to
-     * @param pathSid The SID of the Invite resource to fetch
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public InviteFetcher(final String pathServiceSid,
                          final String pathChannelSid,
@@ -56,7 +56,7 @@ public class InviteFetcher extends Fetcher<Invite> {
 
         if (response == null) {
             throw new ApiConnectionException("Invite fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

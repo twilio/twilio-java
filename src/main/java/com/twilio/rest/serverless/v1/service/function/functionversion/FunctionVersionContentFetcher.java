@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionContent> {
     private final String pathServiceSid;
@@ -32,7 +31,7 @@ public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionConten
      *
      * @param pathServiceSid The SID of the Service to fetch the Function Version
      *                       content from
-     * @param pathFunctionSid The SID of the function that is the parent of the
+     * @param pathFunctionSid The SID of the Function that is the parent of the
      *                        Function Version content to fetch
      * @param pathSid The SID that identifies the Function Version content to fetch
      */
@@ -63,7 +62,7 @@ public class FunctionVersionContentFetcher extends Fetcher<FunctionVersionConten
 
         if (response == null) {
             throw new ApiConnectionException("FunctionVersionContent fetch failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

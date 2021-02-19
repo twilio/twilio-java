@@ -1,6 +1,5 @@
 package com.twilio.jwt.validation;
 
-import com.google.common.collect.Lists;
 import com.twilio.http.ValidationInterceptor;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
@@ -22,6 +21,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -32,7 +32,7 @@ import java.util.concurrent.Future;
 
 public class ValidationTokenTest {
 
-    private static final List<String> SIGNED_HEADERS = Lists.newArrayList("host", "authorization");
+    private static final List<String> SIGNED_HEADERS = Arrays.asList("host", "authorization");
     private static final String ACCOUNT_SID = "AC123";
     private static final String CREDENTIAL_SID = "CR123";
     private static final String SIGNING_KEY_SID = "SK123";

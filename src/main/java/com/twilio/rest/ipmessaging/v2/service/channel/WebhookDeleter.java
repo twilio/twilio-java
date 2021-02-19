@@ -25,11 +25,9 @@ public class WebhookDeleter extends Deleter<Webhook> {
     /**
      * Construct a new WebhookDeleter.
      *
-     * @param pathServiceSid The SID of the Service with the Channel to delete the
-     *                       Webhook resource from
-     * @param pathChannelSid The SID of the channel the resource to delete belongs
-     *                       to
-     * @param pathSid The SID of the Channel Webhook resource to delete
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
+     * @param pathSid The sid
      */
     public WebhookDeleter(final String pathServiceSid,
                           final String pathChannelSid,
@@ -57,7 +55,7 @@ public class WebhookDeleter extends Deleter<Webhook> {
 
         if (response == null) {
             throw new ApiConnectionException("Webhook delete failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

@@ -33,8 +33,8 @@ public class CountryReader extends Reader<Country> {
     private Boolean highRiskTollfraudNumbersEnabled;
 
     /**
-     * Filter to retrieve the country permissions by specifying the [ISO country
-     * code](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2).
+     * Filter to retrieve the country permissions by specifying the <a
+     * href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country code</a>.
      *
      * @param isoCode Filter to retrieve the country permissions by specifying the
      *                ISO country code
@@ -58,8 +58,9 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter the results by specified [country
-     * codes](https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html).
+     * Filter the results by specified <a
+     * href="https://www.itu.int/itudoc/itu-t/ob-lists/icc/e164_763.html">country
+     * codes</a>.
      *
      * @param countryCode Country code filter
      * @return this
@@ -97,9 +98,9 @@ public class CountryReader extends Reader<Country> {
     }
 
     /**
-     * Filter to retrieve the country permissions with dialing to high-risk [toll
-     * fraud](https://www.twilio.com/learn/voice-and-video/toll-fraud) numbers
-     * enabled. Can be: `true` or `false`..
+     * Filter to retrieve the country permissions with dialing to high-risk <a
+     * href="https://www.twilio.com/learn/voice-and-video/toll-fraud">toll fraud</a>
+     * numbers enabled. Can be: `true` or `false`..
      *
      * @param highRiskTollfraudNumbersEnabled Filter to retrieve the country
      *                                        permissions with dialing to high-risk
@@ -205,7 +206,7 @@ public class CountryReader extends Reader<Country> {
 
         if (response == null) {
             throw new ApiConnectionException("Country read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

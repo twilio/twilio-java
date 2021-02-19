@@ -50,9 +50,9 @@ public class SimReader extends Reader<Sim> {
     }
 
     /**
-     * The SID or unique name of a [RatePlan
-     * resource](https://www.twilio.com/docs/wireless/api/rateplan-resource). Only
-     * return Sim resources assigned to this RatePlan resource..
+     * The SID or unique name of a <a
+     * href="https://www.twilio.com/docs/wireless/api/rateplan-resource">RatePlan
+     * resource</a>. Only return Sim resources assigned to this RatePlan resource..
      *
      * @param ratePlan Only return Sim resources assigned to this RatePlan resource
      * @return this
@@ -180,7 +180,7 @@ public class SimReader extends Reader<Sim> {
 
         if (response == null) {
             throw new ApiConnectionException("Sim read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

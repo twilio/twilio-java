@@ -26,8 +26,8 @@ public class WebhookReader extends Reader<Webhook> {
     /**
      * Construct a new WebhookReader.
      *
-     * @param pathServiceSid The SID of the Service to read the resources from
-     * @param pathChannelSid The SID of the Channel the resources to read belong to
+     * @param pathServiceSid The service_sid
+     * @param pathChannelSid The channel_sid
      */
     public WebhookReader(final String pathServiceSid,
                          final String pathChannelSid) {
@@ -129,7 +129,7 @@ public class WebhookReader extends Reader<Webhook> {
 
         if (response == null) {
             throw new ApiConnectionException("Webhook read failed: Unable to connect to server");
-        } else if (!TwilioRestClient.SUCCESS.apply(response.getStatusCode())) {
+        } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
                 throw new ApiException("Server Error, no content");

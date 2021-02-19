@@ -13,7 +13,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.common.base.MoreObjects;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -23,6 +22,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,13 +36,15 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
+@ToString
 public class Day extends Resource {
     private static final long serialVersionUID = 101410619433718L;
 
     /**
      * Create a DayFetcher to execute fetch.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @param pathDay The date of the data in the file
      * @return DayFetcher capable of executing the fetch
      */
@@ -54,7 +56,8 @@ public class Day extends Resource {
     /**
      * Create a DayReader to execute read.
      *
-     * @param pathResourceType The type of communication – Messages, Calls
+     * @param pathResourceType The type of communication – Messages, Calls,
+     *                         Conferences, and Participants
      * @return DayReader capable of executing the read
      */
     public static DayReader reader(final String pathResourceType) {
@@ -172,9 +175,11 @@ public class Day extends Resource {
     }
 
     /**
-     * Returns The type of communication – Messages, Calls.
+     * Returns The type of communication – Messages, Calls, Conferences, and
+     * Participants.
      *
-     * @return The type of communication – Messages, Calls
+     * @return The type of communication – Messages, Calls, Conferences, and
+     *         Participants
      */
     public final String getResourceType() {
         return this.resourceType;
@@ -208,17 +213,5 @@ public class Day extends Resource {
                             createDate,
                             friendlyName,
                             resourceType);
-    }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("redirectTo", redirectTo)
-                          .add("day", day)
-                          .add("size", size)
-                          .add("createDate", createDate)
-                          .add("friendlyName", friendlyName)
-                          .add("resourceType", resourceType)
-                          .toString();
     }
 }

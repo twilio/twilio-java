@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 129252167253244L;
+    private static final long serialVersionUID = 217500104430837L;
 
     public enum Status {
         OK("ok"),
@@ -167,6 +167,8 @@ public class Configuration extends Resource {
     private final Map<String, Object> outboundCallFlows;
     private final List<String> serverlessServiceSids;
     private final Map<String, Object> queueStatsConfiguration;
+    private final Map<String, Object> notifications;
+    private final Map<String, Object> markdown;
     private final URI url;
 
     @JsonCreator
@@ -242,6 +244,10 @@ public class Configuration extends Resource {
                           final List<String> serverlessServiceSids,
                           @JsonProperty("queue_stats_configuration")
                           final Map<String, Object> queueStatsConfiguration,
+                          @JsonProperty("notifications")
+                          final Map<String, Object> notifications,
+                          @JsonProperty("markdown")
+                          final Map<String, Object> markdown,
                           @JsonProperty("url")
                           final URI url) {
         this.accountSid = accountSid;
@@ -280,6 +286,8 @@ public class Configuration extends Resource {
         this.outboundCallFlows = outboundCallFlows;
         this.serverlessServiceSids = serverlessServiceSids;
         this.queueStatsConfiguration = queueStatsConfiguration;
+        this.notifications = notifications;
+        this.markdown = markdown;
         this.url = url;
     }
 
@@ -618,6 +626,24 @@ public class Configuration extends Resource {
     }
 
     /**
+     * Returns Configurable parameters for Notifications.
+     *
+     * @return Configurable parameters for Notifications
+     */
+    public final Map<String, Object> getNotifications() {
+        return this.notifications;
+    }
+
+    /**
+     * Returns Configurable parameters for Markdown.
+     *
+     * @return Configurable parameters for Markdown
+     */
+    public final Map<String, Object> getMarkdown() {
+        return this.markdown;
+    }
+
+    /**
      * Returns The absolute URL of the Configuration resource.
      *
      * @return The absolute URL of the Configuration resource
@@ -674,6 +700,8 @@ public class Configuration extends Resource {
                Objects.equals(outboundCallFlows, other.outboundCallFlows) &&
                Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&
                Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&
+               Objects.equals(notifications, other.notifications) &&
+               Objects.equals(markdown, other.markdown) &&
                Objects.equals(url, other.url);
     }
 
@@ -715,6 +743,8 @@ public class Configuration extends Resource {
                             outboundCallFlows,
                             serverlessServiceSids,
                             queueStatsConfiguration,
+                            notifications,
+                            markdown,
                             url);
     }
 }

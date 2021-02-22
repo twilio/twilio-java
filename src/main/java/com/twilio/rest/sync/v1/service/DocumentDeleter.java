@@ -17,14 +17,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class DocumentDeleter extends Deleter<Document> {
     private final String pathServiceSid;
     private final String pathSid;
-    private String ifMatch;
 
     /**
      * Construct a new DocumentDeleter.
@@ -37,17 +32,6 @@ public class DocumentDeleter extends Deleter<Document> {
                            final String pathSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
-    }
-
-    /**
-     * The If-Match HTTP request header.
-     *
-     * @param ifMatch The If-Match HTTP request header
-     * @return this
-     */
-    public DocumentDeleter setIfMatch(final String ifMatch) {
-        this.ifMatch = ifMatch;
-        return this;
     }
 
     /**
@@ -64,7 +48,6 @@ public class DocumentDeleter extends Deleter<Document> {
             "/v1/Services/" + this.pathServiceSid + "/Documents/" + this.pathSid + ""
         );
 
-        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -78,16 +61,5 @@ public class DocumentDeleter extends Deleter<Document> {
         }
 
         return response.getStatusCode() == 204;
-    }
-
-    /**
-     * Add the requested header parameters to the Request.
-     *
-     * @param request Request to add header params to
-     */
-    private void addHeaderParams(final Request request) {
-        if (ifMatch != null) {
-            request.addHeaderParam("If-Match", ifMatch);
-        }
     }
 }

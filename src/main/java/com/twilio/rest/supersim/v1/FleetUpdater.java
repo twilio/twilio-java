@@ -67,14 +67,14 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
-     * The URL that will receive a webhook when a SIM in the Fleet is used to send
-     * an SMS from your device (mobile originated) to the Commands number. Your
-     * server should respond with an HTTP status code in the 200 range; any response
-     * body will be ignored..
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a SIM in the
-     *                    Fleet is used to send an SMS from your device (mobile
-     *                    originated) to the Commands number
+     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
+     *                    the Fleet is used to send an SMS from your device to the
+     *                    Commands number
      * @return this
      */
     public FleetUpdater setCommandsUrl(final URI commandsUrl) {
@@ -83,14 +83,14 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
-     * The URL that will receive a webhook when a SIM in the Fleet is used to send
-     * an SMS from your device (mobile originated) to the Commands number. Your
-     * server should respond with an HTTP status code in the 200 range; any response
-     * body will be ignored..
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a SIM in the
-     *                    Fleet is used to send an SMS from your device (mobile
-     *                    originated) to the Commands number
+     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
+     *                    the Fleet is used to send an SMS from your device to the
+     *                    Commands number
      * @return this
      */
     public FleetUpdater setCommandsUrl(final String commandsUrl) {

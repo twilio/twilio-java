@@ -154,6 +154,8 @@ public class Dial extends TwiML {
     private final Dial.RingTone ringTone;
     private final Dial.RecordingTrack recordingTrack;
     private final Boolean sequential;
+    private final URI referUrl;
+    private final HttpMethod referMethod;
     private final String number;
 
     /**
@@ -183,6 +185,8 @@ public class Dial extends TwiML {
         this.ringTone = b.ringTone;
         this.recordingTrack = b.recordingTrack;
         this.sequential = b.sequential;
+        this.referUrl = b.referUrl;
+        this.referMethod = b.referMethod;
         this.number = b.number;
     }
 
@@ -248,6 +252,12 @@ public class Dial extends TwiML {
         }
         if (this.isSequential() != null) {
             attrs.put("sequential", this.isSequential().toString());
+        }
+        if (this.getReferUrl() != null) {
+            attrs.put("referUrl", this.getReferUrl().toString());
+        }
+        if (this.getReferMethod() != null) {
+            attrs.put("referMethod", this.getReferMethod().toString());
         }
 
         return attrs;
@@ -409,6 +419,24 @@ public class Dial extends TwiML {
     }
 
     /**
+     * Webhook that will receive future SIP REFER requests
+     *
+     * @return Webhook that will receive future SIP REFER requests
+     */
+    public URI getReferUrl() {
+        return referUrl;
+    }
+
+    /**
+     * The HTTP method to use for the refer Webhook
+     *
+     * @return The HTTP method to use for the refer Webhook
+     */
+    public HttpMethod getReferMethod() {
+        return referMethod;
+    }
+
+    /**
      * Phone number to dial
      *
      * @return Phone number to dial
@@ -436,6 +464,8 @@ public class Dial extends TwiML {
         private Dial.RingTone ringTone;
         private Dial.RecordingTrack recordingTrack;
         private Boolean sequential;
+        private URI referUrl;
+        private HttpMethod referMethod;
         private String number;
 
         /**
@@ -596,6 +626,30 @@ public class Dial extends TwiML {
          */
         public Builder sequential(Boolean sequential) {
             this.sequential = sequential;
+            return this;
+        }
+
+        /**
+         * Webhook that will receive future SIP REFER requests
+         */
+        public Builder referUrl(URI referUrl) {
+            this.referUrl = referUrl;
+            return this;
+        }
+
+        /**
+         * Webhook that will receive future SIP REFER requests
+         */
+        public Builder referUrl(String referUrl) {
+            this.referUrl = Promoter.uriFromString(referUrl);
+            return this;
+        }
+
+        /**
+         * The HTTP method to use for the refer Webhook
+         */
+        public Builder referMethod(HttpMethod referMethod) {
+            this.referMethod = referMethod;
             return this;
         }
 

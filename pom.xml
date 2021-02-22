@@ -228,13 +228,13 @@
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.13.1</version>
+      <version>4.13.2</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>com.tngtech.archunit</groupId>
       <artifactId>archunit</artifactId>
-      <version>0.16.0</version>
+      <version>0.17.0</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
@@ -246,7 +246,7 @@
     <dependency>
       <groupId>nl.jqno.equalsverifier</groupId>
       <artifactId>equalsverifier</artifactId>
-      <version>3.5.2</version>
+      <version>3.5.4</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

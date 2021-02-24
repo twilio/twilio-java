@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1;
+package com.twilio.rest.trusthub.v1.trustproducts;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,19 +19,26 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class UseCaseReader extends Reader<UseCase> {
+public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEntityAssignments> {
+    private final String pathTrustProductSid;
+
+    /**
+     * Construct a new TrustProductsEntityAssignmentsReader.
+     *
+     * @param pathTrustProductSid The unique string that identifies the resource.
+     */
+    public TrustProductsEntityAssignmentsReader(final String pathTrustProductSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return UseCase ResourceSet
+     * @return TrustProductsEntityAssignments ResourceSet
      */
     @Override
-    public ResourceSet<UseCase> read(final TwilioRestClient client) {
+    public ResourceSet<TrustProductsEntityAssignments> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -39,15 +46,15 @@ public class UseCaseReader extends Reader<UseCase> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return UseCase ResourceSet
+     * @return TrustProductsEntityAssignments ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<UseCase> firstPage(final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/a2p/UseCases"
+            Domains.TRUSTHUB.toString(),
+            "/v1/TrustProducts/" + this.pathTrustProductSid + "/EntityAssignments"
         );
 
         addQueryParams(request);
@@ -59,11 +66,11 @@ public class UseCaseReader extends Reader<UseCase> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return UseCase ResourceSet
+     * @return TrustProductsEntityAssignments ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<UseCase> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -80,11 +87,11 @@ public class UseCaseReader extends Reader<UseCase> {
      * @return Next Page
      */
     @Override
-    public Page<UseCase> nextPage(final Page<UseCase> page,
-                                  final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> nextPage(final Page<TrustProductsEntityAssignments> page,
+                                                         final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.MESSAGING.toString())
+            page.getNextPageUrl(Domains.TRUSTHUB.toString())
         );
         return pageForRequest(client, request);
     }
@@ -97,27 +104,28 @@ public class UseCaseReader extends Reader<UseCase> {
      * @return Previous Page
      */
     @Override
-    public Page<UseCase> previousPage(final Page<UseCase> page,
-                                      final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> previousPage(final Page<TrustProductsEntityAssignments> page,
+                                                             final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.MESSAGING.toString())
+            page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of UseCase Resources for a given request.
+     * Generate a Page of TrustProductsEntityAssignments Resources for a given
+     * request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<UseCase> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TrustProductsEntityAssignments> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("UseCase read failed: Unable to connect to server");
+            throw new ApiConnectionException("TrustProductsEntityAssignments read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -127,9 +135,9 @@ public class UseCaseReader extends Reader<UseCase> {
         }
 
         return Page.fromJson(
-            "data",
+            "results",
             response.getContent(),
-            UseCase.class,
+            TrustProductsEntityAssignments.class,
             client.getObjectMapper()
         );
     }

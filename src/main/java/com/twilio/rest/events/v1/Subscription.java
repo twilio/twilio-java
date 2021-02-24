@@ -68,7 +68,7 @@ public class Subscription extends Resource {
      *
      * @param description Subscription description
      * @param sinkSid Sink SID.
-     * @param types Nested resource URLs.
+     * @param types Subscribed Event Types
      * @return SubscriptionCreator capable of executing the create
      */
     public static SubscriptionCreator creator(final String description,

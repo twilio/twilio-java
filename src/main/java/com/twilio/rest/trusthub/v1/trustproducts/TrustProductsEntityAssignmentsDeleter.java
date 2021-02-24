@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1;
+package com.twilio.rest.trusthub.v1.trustproducts;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -17,41 +17,40 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class CampaignFetcher extends Fetcher<Campaign> {
+public class TrustProductsEntityAssignmentsDeleter extends Deleter<TrustProductsEntityAssignments> {
+    private final String pathTrustProductSid;
     private final String pathSid;
 
     /**
-     * Construct a new CampaignFetcher.
+     * Construct a new TrustProductsEntityAssignmentsDeleter.
      *
-     * @param pathSid The SID that identifies the resource to fetch
+     * @param pathTrustProductSid The unique string that identifies the resource.
+     * @param pathSid The unique string that identifies the resource
      */
-    public CampaignFetcher(final String pathSid) {
+    public TrustProductsEntityAssignmentsDeleter(final String pathTrustProductSid,
+                                                 final String pathSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
         this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Campaign
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Campaign fetch(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/a2p/Campaigns/" + this.pathSid + ""
+            HttpMethod.DELETE,
+            Domains.TRUSTHUB.toString(),
+            "/v1/TrustProducts/" + this.pathTrustProductSid + "/EntityAssignments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Campaign fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("TrustProductsEntityAssignments delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -60,6 +59,6 @@ public class CampaignFetcher extends Fetcher<Campaign> {
             throw new ApiException(restException);
         }
 
-        return Campaign.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
 }

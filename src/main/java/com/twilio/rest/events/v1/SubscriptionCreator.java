@@ -36,7 +36,7 @@ public class SubscriptionCreator extends Creator<Subscription> {
      *
      * @param description Subscription description
      * @param sinkSid Sink SID.
-     * @param types Nested resource URLs.
+     * @param types Subscribed Event Types
      */
     public SubscriptionCreator(final String description,
                                final String sinkSid,

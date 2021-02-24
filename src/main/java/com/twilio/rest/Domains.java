@@ -31,6 +31,7 @@ public enum Domains {
     SYNC("sync"),
     TASKROUTER("taskrouter"),
     TRUNKING("trunking"),
+    TRUSTHUB("trusthub"),
     VERIFY("verify"),
     VIDEO("video"),
     VOICE("voice"),

@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -124,7 +125,10 @@ public abstract class TwiML {
             doc.setXmlStandalone(true);
             doc.appendChild(this.buildXmlElement(doc));
 
-            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            TransformerFactory tFact = TransformerFactory.newInstance();
+            tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            Transformer transformer = tFact.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "no");
             DOMSource source = new DOMSource(doc);
             StreamResult output = new StreamResult(new StringWriter());

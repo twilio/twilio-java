@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1;
+package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,19 +19,26 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class CampaignReader extends Reader<Campaign> {
+public class CustomerProfilesEvaluationsReader extends Reader<CustomerProfilesEvaluations> {
+    private final String pathCustomerProfileSid;
+
+    /**
+     * Construct a new CustomerProfilesEvaluationsReader.
+     *
+     * @param pathCustomerProfileSid The unique string that identifies the resource.
+     */
+    public CustomerProfilesEvaluationsReader(final String pathCustomerProfileSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Campaign ResourceSet
+     * @return CustomerProfilesEvaluations ResourceSet
      */
     @Override
-    public ResourceSet<Campaign> read(final TwilioRestClient client) {
+    public ResourceSet<CustomerProfilesEvaluations> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -39,15 +46,15 @@ public class CampaignReader extends Reader<Campaign> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Campaign ResourceSet
+     * @return CustomerProfilesEvaluations ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Campaign> firstPage(final TwilioRestClient client) {
+    public Page<CustomerProfilesEvaluations> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.MESSAGING.toString(),
-            "/v1/a2p/Campaigns"
+            Domains.TRUSTHUB.toString(),
+            "/v1/CustomerProfiles/" + this.pathCustomerProfileSid + "/Evaluations"
         );
 
         addQueryParams(request);
@@ -59,11 +66,11 @@ public class CampaignReader extends Reader<Campaign> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Campaign ResourceSet
+     * @return CustomerProfilesEvaluations ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Campaign> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<CustomerProfilesEvaluations> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -80,11 +87,11 @@ public class CampaignReader extends Reader<Campaign> {
      * @return Next Page
      */
     @Override
-    public Page<Campaign> nextPage(final Page<Campaign> page,
-                                   final TwilioRestClient client) {
+    public Page<CustomerProfilesEvaluations> nextPage(final Page<CustomerProfilesEvaluations> page,
+                                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.MESSAGING.toString())
+            page.getNextPageUrl(Domains.TRUSTHUB.toString())
         );
         return pageForRequest(client, request);
     }
@@ -97,27 +104,27 @@ public class CampaignReader extends Reader<Campaign> {
      * @return Previous Page
      */
     @Override
-    public Page<Campaign> previousPage(final Page<Campaign> page,
-                                       final TwilioRestClient client) {
+    public Page<CustomerProfilesEvaluations> previousPage(final Page<CustomerProfilesEvaluations> page,
+                                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.MESSAGING.toString())
+            page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Campaign Resources for a given request.
+     * Generate a Page of CustomerProfilesEvaluations Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Campaign> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<CustomerProfilesEvaluations> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Campaign read failed: Unable to connect to server");
+            throw new ApiConnectionException("CustomerProfilesEvaluations read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -127,9 +134,9 @@ public class CampaignReader extends Reader<Campaign> {
         }
 
         return Page.fromJson(
-            "data",
+            "results",
             response.getContent(),
-            Campaign.class,
+            CustomerProfilesEvaluations.class,
             client.getObjectMapper()
         );
     }

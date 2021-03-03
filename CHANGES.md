@@ -1,6 +1,27 @@
 twilio-java changelog
 =====================
 
+[2021-02-24] Version 8.8.0
+--------------------------
+**Library - Chore**
+- [PR #622](https://github.com/twilio/twilio-java/pull/622): bump dependencies. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #621](https://github.com/twilio/twilio-java/pull/621): update jackson dependency. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Events**
+- Update description of types in the create sink resource
+
+**Messaging**
+- Add WA template header and footer
+- Remove A2P campaign and use cases API **(breaking change)**
+- Add number_registration_status field to read and fetch campaign responses
+
+**Trusthub**
+- Make all resources public
+
+**Verify**
+- Verify List Attempts API endpoints added.
+
+
 [2021-02-11] Version 8.7.0
 --------------------------
 **Library - Chore**

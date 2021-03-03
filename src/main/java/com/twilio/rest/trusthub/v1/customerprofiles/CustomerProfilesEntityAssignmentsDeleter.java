@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.messaging.v1;
+package com.twilio.rest.trusthub.v1.customerprofiles;
 
 import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
@@ -17,19 +17,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class CampaignDeleter extends Deleter<Campaign> {
+public class CustomerProfilesEntityAssignmentsDeleter extends Deleter<CustomerProfilesEntityAssignments> {
+    private final String pathCustomerProfileSid;
     private final String pathSid;
 
     /**
-     * Construct a new CampaignDeleter.
+     * Construct a new CustomerProfilesEntityAssignmentsDeleter.
      *
-     * @param pathSid The SID that identifies the resource to delete
+     * @param pathCustomerProfileSid The unique string that identifies the resource.
+     * @param pathSid The unique string that identifies the resource
      */
-    public CampaignDeleter(final String pathSid) {
+    public CustomerProfilesEntityAssignmentsDeleter(final String pathCustomerProfileSid,
+                                                    final String pathSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.pathSid = pathSid;
     }
 
@@ -43,14 +43,14 @@ public class CampaignDeleter extends Deleter<Campaign> {
     public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.DELETE,
-            Domains.MESSAGING.toString(),
-            "/v1/a2p/Campaigns/" + this.pathSid + ""
+            Domains.TRUSTHUB.toString(),
+            "/v1/CustomerProfiles/" + this.pathCustomerProfileSid + "/EntityAssignments/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Campaign delete failed: Unable to connect to server");
+            throw new ApiConnectionException("CustomerProfilesEntityAssignments delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {

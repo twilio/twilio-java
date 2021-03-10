@@ -1,5 +1,8 @@
 language: java
 sudo: false
+cache:
+  directories:
+  - $HOME/.m2
 before_install:
   - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch || true

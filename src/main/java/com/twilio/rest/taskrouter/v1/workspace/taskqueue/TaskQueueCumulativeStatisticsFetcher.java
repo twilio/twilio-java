@@ -145,7 +145,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
      */
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
+            request.addQueryParam("EndDate", endDate.toInstant().toString());
         }
 
         if (minutes != null) {
@@ -153,7 +153,7 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
+            request.addQueryParam("StartDate", startDate.toInstant().toString());
         }
 
         if (taskChannel != null) {

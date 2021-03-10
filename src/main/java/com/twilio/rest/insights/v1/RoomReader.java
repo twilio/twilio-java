@@ -243,11 +243,11 @@ public class RoomReader extends Reader<Room> {
         }
 
         if (createdAfter != null) {
-            request.addQueryParam("CreatedAfter", createdAfter.toOffsetDateTime().toString());
+            request.addQueryParam("CreatedAfter", createdAfter.toInstant().toString());
         }
 
         if (createdBefore != null) {
-            request.addQueryParam("CreatedBefore", createdBefore.toOffsetDateTime().toString());
+            request.addQueryParam("CreatedBefore", createdBefore.toInstant().toString());
         }
 
         if (getPageSize() != null) {

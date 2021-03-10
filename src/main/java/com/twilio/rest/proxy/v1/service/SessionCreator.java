@@ -197,7 +197,7 @@ public class SessionCreator extends Creator<Session> {
         }
 
         if (dateExpiry != null) {
-            request.addPostParam("DateExpiry", dateExpiry.toOffsetDateTime().toString());
+            request.addPostParam("DateExpiry", dateExpiry.toInstant().toString());
         }
 
         if (ttl != null) {

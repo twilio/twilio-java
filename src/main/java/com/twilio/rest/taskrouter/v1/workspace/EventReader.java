@@ -294,7 +294,7 @@ public class EventReader extends Reader<Event> {
      */
     private void addQueryParams(final Request request) {
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
+            request.addQueryParam("EndDate", endDate.toInstant().toString());
         }
 
         if (eventType != null) {
@@ -310,7 +310,7 @@ public class EventReader extends Reader<Event> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
+            request.addQueryParam("StartDate", startDate.toInstant().toString());
         }
 
         if (taskQueueSid != null) {

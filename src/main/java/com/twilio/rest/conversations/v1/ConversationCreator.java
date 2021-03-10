@@ -214,11 +214,11 @@ public class ConversationCreator extends Creator<Conversation> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
+            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
+            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
         }
 
         if (messagingServiceSid != null) {

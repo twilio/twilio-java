@@ -160,7 +160,7 @@ public class ChallengeCreator extends Creator<Challenge> {
         }
 
         if (expirationDate != null) {
-            request.addPostParam("ExpirationDate", expirationDate.toOffsetDateTime().toString());
+            request.addPostParam("ExpirationDate", expirationDate.toInstant().toString());
         }
 
         if (detailsMessage != null) {

@@ -286,11 +286,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
         }
 
         if (startTime != null) {
-            request.addQueryParam("StartTime", startTime.toOffsetDateTime().toString());
+            request.addQueryParam("StartTime", startTime.toInstant().toString());
         }
 
         if (endTime != null) {
-            request.addQueryParam("EndTime", endTime.toOffsetDateTime().toString());
+            request.addQueryParam("EndTime", endTime.toInstant().toString());
         }
 
         if (getPageSize() != null) {

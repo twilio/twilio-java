@@ -181,11 +181,11 @@ public class ExecutionReader extends Reader<Execution> {
      */
     private void addQueryParams(final Request request) {
         if (dateCreatedFrom != null) {
-            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toOffsetDateTime().toString());
+            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toInstant().toString());
         }
 
         if (dateCreatedTo != null) {
-            request.addQueryParam("DateCreatedTo", dateCreatedTo.toOffsetDateTime().toString());
+            request.addQueryParam("DateCreatedTo", dateCreatedTo.toInstant().toString());
         }
 
         if (getPageSize() != null) {

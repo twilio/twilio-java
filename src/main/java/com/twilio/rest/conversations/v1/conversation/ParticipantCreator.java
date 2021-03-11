@@ -222,11 +222,11 @@ public class ParticipantCreator extends Creator<Participant> {
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
+            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
+            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
         }
 
         if (attributes != null) {

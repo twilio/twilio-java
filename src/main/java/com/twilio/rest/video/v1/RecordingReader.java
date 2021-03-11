@@ -251,11 +251,11 @@ public class RecordingReader extends Reader<Recording> {
         }
 
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toOffsetDateTime().toString());
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toInstant().toString());
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toOffsetDateTime().toString());
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toInstant().toString());
         }
 
         if (mediaType != null) {

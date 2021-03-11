@@ -147,11 +147,11 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
         }
 
         if (startDate != null) {
-            request.addQueryParam("StartDate", startDate.toOffsetDateTime().toString());
+            request.addQueryParam("StartDate", startDate.toInstant().toString());
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", endDate.toOffsetDateTime().toString());
+            request.addQueryParam("EndDate", endDate.toInstant().toString());
         }
 
         if (taskChannel != null) {

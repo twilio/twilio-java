@@ -75,6 +75,13 @@ public class ConnectTest {
                     .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
                     .build());
 
+        builder.virtualAgent(new VirtualAgent.Builder()
+                    .connectorName("connector_name")
+                    .language("language")
+                    .sentimentAnalysis(true)
+                    .statusCallback("status_callback")
+                    .build());
+
         Connect elem = builder.build();
 
         Assert.assertEquals(
@@ -83,6 +90,7 @@ public class ConnectTest {
                 "<Room participantIdentity=\"participant_identity\">name</Room>" +
                 "<Autopilot>name</Autopilot>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
+                "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>" +
             "</Connect>",
             elem.toXml()
         );

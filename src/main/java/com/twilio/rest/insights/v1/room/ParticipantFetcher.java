@@ -28,8 +28,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     /**
      * Construct a new ParticipantFetcher.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathParticipantSid The participant_sid
+     * @param pathRoomSid The SID of the Room resource.
+     * @param pathParticipantSid The SID of the Participant resource.
      */
     public ParticipantFetcher(final String pathRoomSid,
                               final String pathParticipantSid) {

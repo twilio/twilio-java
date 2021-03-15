@@ -54,11 +54,9 @@ public class DocumentUpdater extends Updater<Document> {
     }
 
     /**
-     * How long, in seconds, before the Sync Document expires and is deleted
-     * (time-to-live). Can be an integer from 0 to 31,536,000 (1 year). The default
-     * value is `0`, which means the Document resource does not expire. The Document
-     * resource will be deleted automatically after it expires, but there can be a
-     * delay between the expiration time and the resources's deletion..
+     * How long, <a
+     * href="https://www.twilio.com/docs/sync/limits#sync-payload-limits">in
+     * seconds</a>, before the Sync Document expires and is deleted (time-to-live)..
      *
      * @param ttl How long, in seconds, before the Document resource expires and is
      *            deleted

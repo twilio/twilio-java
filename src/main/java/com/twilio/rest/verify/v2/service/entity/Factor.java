@@ -69,7 +69,8 @@ public class Factor extends Resource {
     }
 
     public enum FactorTypes {
-        PUSH("push");
+        PUSH("push"),
+        TOTP("totp");
 
         private final String value;
 
@@ -114,6 +115,32 @@ public class Factor extends Resource {
         @JsonCreator
         public static NotificationPlatforms forValue(final String value) {
             return Promoter.enumFromString(value, NotificationPlatforms.values());
+        }
+    }
+
+    public enum TotpAlgorithms {
+        SHA1("sha1"),
+        SHA256("sha256"),
+        SHA512("sha512");
+
+        private final String value;
+
+        private TotpAlgorithms(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TotpAlgorithms from a string.
+         * @param value string value
+         * @return generated TotpAlgorithms
+         */
+        @JsonCreator
+        public static TotpAlgorithms forValue(final String value) {
+            return Promoter.enumFromString(value, TotpAlgorithms.values());
         }
     }
 

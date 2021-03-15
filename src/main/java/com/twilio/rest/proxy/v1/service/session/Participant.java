@@ -235,9 +235,9 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The phone number of the Participant.
+     * Returns The phone number or channel identifier of the Participant.
      *
-     * @return The phone number of the Participant
+     * @return The phone number or channel identifier of the Participant
      */
     public final String getIdentifier() {
         return this.identifier;

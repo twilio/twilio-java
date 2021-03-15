@@ -29,7 +29,7 @@ public class ParticipantReader extends Reader<Participant> {
     /**
      * Construct a new ParticipantReader.
      *
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid The SID of the Room resource.
      */
     public ParticipantReader(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;

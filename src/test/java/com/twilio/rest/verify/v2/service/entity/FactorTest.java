@@ -58,7 +58,7 @@ public class FactorTest {
     }
 
     @Test
-    public void testCreateResponse() {
+    public void testCreatePushResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"sid\": \"YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"entity_sid\": \"YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"ff483d1ff591898a9942916050d2ca3f\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"status\": \"unverified\",\"factor_type\": \"push\",\"config\": {\"sdk_version\": \"1.0\",\"app_id\": \"com.example.myapp\",\"notification_platform\": \"fcm\",\"notification_token\": \"test_token\"},\"url\": \"https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
@@ -122,7 +122,7 @@ public class FactorTest {
     }
 
     @Test
-    public void testFetchResponse() {
+    public void testFetchPushResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"sid\": \"YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"entity_sid\": \"YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"ff483d1ff591898a9942916050d2ca3f\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"status\": \"unverified\",\"factor_type\": \"push\",\"config\": {\"sdk_version\": \"1.0\",\"app_id\": \"com.example.myapp\",\"notification_platform\": \"fcm\",\"notification_token\": \"test_token\"},\"url\": \"https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
@@ -198,7 +198,7 @@ public class FactorTest {
     }
 
     @Test
-    public void testVerifyResponse() {
+    public void testVerifyPushResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"sid\": \"YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"entity_sid\": \"YEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"ff483d1ff591898a9942916050d2ca3f\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"friendly_name\": \"friendly_name\",\"status\": \"verified\",\"factor_type\": \"push\",\"config\": {\"sdk_version\": \"1.0\",\"app_id\": \"com.example.myapp\",\"notification_platform\": \"fcm\",\"notification_token\": \"test_token\"},\"url\": \"https://verify.twilio.com/v2/Services/VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Entities/ff483d1ff591898a9942916050d2ca3f/Factors/YFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);

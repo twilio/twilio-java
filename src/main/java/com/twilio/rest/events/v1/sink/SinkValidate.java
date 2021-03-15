@@ -30,9 +30,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -42,7 +41,7 @@ public class SinkValidate extends Resource {
     /**
      * Create a SinkValidateCreator to execute create.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies the Sink being validated.
      * @param testId A string that uniquely identifies the test event for a Sink
      *               being validated.
      * @return SinkValidateCreator capable of executing the create

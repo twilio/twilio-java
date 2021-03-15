@@ -43,8 +43,8 @@ public class BrandRegistration extends Resource {
     private static final long serialVersionUID = 101106739421752L;
 
     public enum Status {
-        IN_PROGRESS("IN_PROGRESS"),
-        VERIFIED("VERIFIED"),
+        PENDING("PENDING"),
+        APPROVED("APPROVED"),
         FAILED("FAILED");
 
         private final String value;

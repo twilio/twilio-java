@@ -83,4 +83,12 @@ public class DateConverterTest {
         ZonedDateTime dateTime = DateConverter.iso8601DateTimeFromString("2016-01-15T21:49:24Z");
         Assert.assertNotNull(dateTime);
     }
+
+    @Test
+    public void testISO8601DateTimeConversion() {
+        String dateTimeString = "2016-01-15T21:49:00Z";
+        ZonedDateTime dateTime = DateConverter.iso8601DateTimeFromString(dateTimeString);
+        Assert.assertEquals(dateTimeString, dateTime.toInstant().toString());
+    }
+
 }

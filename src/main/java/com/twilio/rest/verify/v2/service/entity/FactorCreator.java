@@ -32,6 +32,11 @@ public class FactorCreator extends Creator<Factor> {
     private Factor.NotificationPlatforms configNotificationPlatform;
     private String configNotificationToken;
     private String configSdkVersion;
+    private String bindingSecret;
+    private Integer configTimeStep;
+    private Integer configSkew;
+    private Integer configCodeLength;
+    private Factor.TotpAlgorithms configAlg;
 
     /**
      * Construct a new FactorCreator.
@@ -76,7 +81,8 @@ public class FactorCreator extends Creator<Factor> {
 
     /**
      * The ID that uniquely identifies your app in the Google or Apple store, such
-     * as `com.example.myapp`. Required when `factor_type` is `push`.
+     * as `com.example.myapp`. Required when `factor_type` is `push`. If specified,
+     * it can be up to 100 characters long..
      *
      * @param configAppId The ID that uniquely identifies your app in the Google or
      *                    Apple store
@@ -102,7 +108,8 @@ public class FactorCreator extends Creator<Factor> {
 
     /**
      * For APN, the device token. For FCM the registration token. It used to send
-     * the push notifications. Required when `factor_type` is `push`.
+     * the push notifications. Required when `factor_type` is `push`. If specified,
+     * this value must be between 32 and 255 characters long..
      *
      * @param configNotificationToken For APN, the device token. For FCM the
      *                                registration token
@@ -122,6 +129,67 @@ public class FactorCreator extends Creator<Factor> {
      */
     public FactorCreator setConfigSdkVersion(final String configSdkVersion) {
         this.configSdkVersion = configSdkVersion;
+        return this;
+    }
+
+    /**
+     * The shared secret for TOTP factors encoded in Base32.
+     *
+     * @param bindingSecret The shared secret in Base32
+     * @return this
+     */
+    public FactorCreator setBindingSecret(final String bindingSecret) {
+        this.bindingSecret = bindingSecret;
+        return this;
+    }
+
+    /**
+     * Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code
+     * is generated every time_step seconds. Must be between 20 and 60 seconds,
+     * inclusive. Defaults to 30 seconds.
+     *
+     * @param configTimeStep How often, in seconds, are TOTP codes generated
+     * @return this
+     */
+    public FactorCreator setConfigTimeStep(final Integer configTimeStep) {
+        this.configTimeStep = configTimeStep;
+        return this;
+    }
+
+    /**
+     * The number of time-steps, past and future, that are valid for validation of
+     * TOTP codes. Must be between 0 and 2, inclusive. Defaults to 1.
+     *
+     * @param configSkew The number of past and future time-steps valid at a given
+     *                   time
+     * @return this
+     */
+    public FactorCreator setConfigSkew(final Integer configSkew) {
+        this.configSkew = configSkew;
+        return this;
+    }
+
+    /**
+     * Number of digits for generated TOTP codes. Must be between 3 and 8,
+     * inclusive. Defaults to 6.
+     *
+     * @param configCodeLength Number of digits for generated TOTP codes
+     * @return this
+     */
+    public FactorCreator setConfigCodeLength(final Integer configCodeLength) {
+        this.configCodeLength = configCodeLength;
+        return this;
+    }
+
+    /**
+     * The algorithm used to derive the TOTP codes. Can be `sha1`, `sha256` or
+     * `sha512`. Defaults to `sha1`.
+     *
+     * @param configAlg The algorithm used to derive the TOTP codes
+     * @return this
+     */
+    public FactorCreator setConfigAlg(final Factor.TotpAlgorithms configAlg) {
+        this.configAlg = configAlg;
         return this;
     }
 
@@ -192,6 +260,26 @@ public class FactorCreator extends Creator<Factor> {
 
         if (configSdkVersion != null) {
             request.addPostParam("Config.SdkVersion", configSdkVersion);
+        }
+
+        if (bindingSecret != null) {
+            request.addPostParam("Binding.Secret", bindingSecret);
+        }
+
+        if (configTimeStep != null) {
+            request.addPostParam("Config.TimeStep", configTimeStep.toString());
+        }
+
+        if (configSkew != null) {
+            request.addPostParam("Config.Skew", configSkew.toString());
+        }
+
+        if (configCodeLength != null) {
+            request.addPostParam("Config.CodeLength", configCodeLength.toString());
+        }
+
+        if (configAlg != null) {
+            request.addPostParam("Config.Alg", configAlg.toString());
         }
     }
 }

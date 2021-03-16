@@ -57,11 +57,9 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * How long, in seconds, before the List Item expires (time-to-live) and is
-     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
-     * is `0`, which means the List Item does not expire. The List Item will be
-     * deleted automatically after it expires, but there can be a delay between the
-     * expiration time and the resources's deletion..
+     * How long, <a
+     * href="https://www.twilio.com/docs/sync/limits#sync-payload-limits">in
+     * seconds</a>, before the List Item expires (time-to-live) and is deleted..
      *
      * @param itemTtl How long, in seconds, before the List Item expires
      * @return this
@@ -72,12 +70,10 @@ public class SyncListItemCreator extends Creator<SyncListItem> {
     }
 
     /**
-     * How long, in seconds, before the List Item's parent Sync List expires
-     * (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1
-     * year). The default value is `0`, which means the parent Sync List does not
-     * expire. The Sync List will be deleted automatically after it expires, but
-     * there can be a delay between the expiration time and the resources's
-     * deletion..
+     * How long, <a
+     * href="https://www.twilio.com/docs/sync/limits#sync-payload-limits">in
+     * seconds</a>, before the List Item's parent Sync List expires (time-to-live)
+     * and is deleted..
      *
      * @param collectionTtl How long, in seconds, before the List Item's parent
      *                      Sync List expires

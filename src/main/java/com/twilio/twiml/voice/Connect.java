@@ -131,6 +131,14 @@ public class Connect extends TwiML {
         }
 
         /**
+         * Add a child {@code <VirtualAgent>} element
+         */
+        public Builder virtualAgent(VirtualAgent virtualAgent) {
+            this.children.add(virtualAgent);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Connect>} element
          */
         public Connect build() {

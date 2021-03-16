@@ -61,11 +61,9 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * How long, in seconds, before the Map Item expires (time-to-live) and is
-     * deleted.  Can be an integer from 0 to 31,536,000 (1 year). The default value
-     * is `0`, which means the Map Item does not expire.  The Map Item will be
-     * deleted automatically after it expires, but there can be a delay between the
-     * expiration time and the resources's deletion..
+     * How long, <a
+     * href="https://www.twilio.com/docs/sync/limits#sync-payload-limits">in
+     * seconds</a>, before the Map Item expires (time-to-live) and is deleted..
      *
      * @param itemTtl How long, in seconds, before the Map Item expires
      * @return this
@@ -76,12 +74,10 @@ public class SyncMapItemCreator extends Creator<SyncMapItem> {
     }
 
     /**
-     * How long, in seconds, before the Map Item's parent Sync Map expires
-     * (time-to-live) and is deleted.  Can be an integer from 0 to 31,536,000 (1
-     * year). The default value is `0`, which means the parent Sync Map does not
-     * expire. The Sync Map will be deleted automatically after it expires, but
-     * there can be a delay between the expiration time and the resources's
-     * deletion..
+     * How long, <a
+     * href="https://www.twilio.com/docs/sync/limits#sync-payload-limits">in
+     * seconds</a>, before the Map Item's parent Sync Map expires (time-to-live) and
+     * is deleted..
      *
      * @param collectionTtl How long, in seconds, before the Map Item's parent Sync
      *                      Map expires and is deleted

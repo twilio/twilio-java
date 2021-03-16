@@ -1,6 +1,31 @@
 twilio-java changelog
 =====================
 
+[2021-03-15] Version 8.9.0
+--------------------------
+**Library - Fix**
+- [PR #625](https://github.com/twilio/twilio-java/pull/625): date time conversion to String. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #624](https://github.com/twilio/twilio-java/pull/624): Enable maven depedency caching for travis. Thanks to [@Taher-Ghaleb](https://github.com/Taher-Ghaleb)!
+- [PR #623](https://github.com/twilio/twilio-java/pull/623): protect against XML external entity injection. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Events**
+- Set maturity to beta
+
+**Messaging**
+- Adjust A2P brand registration status enum **(breaking change)**
+
+**Studio**
+- Remove internal safeguards for Studio V2 API usage now that it's GA
+
+**Verify**
+- Add support for creating and verifying totp factors. Support for totp factors is behind the `api.verify.totp` beta feature.
+
+**Twiml**
+- Add support for `<VirtualAgent>` noun
+
+
 [2021-02-24] Version 8.8.0
 --------------------------
 **Library - Chore**

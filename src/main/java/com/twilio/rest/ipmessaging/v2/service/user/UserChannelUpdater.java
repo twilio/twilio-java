@@ -122,7 +122,7 @@ public class UserChannelUpdater extends Updater<UserChannel> {
         }
 
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toOffsetDateTime().toString());
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toInstant().toString());
         }
     }
 }

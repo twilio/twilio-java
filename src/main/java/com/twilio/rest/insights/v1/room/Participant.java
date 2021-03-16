@@ -163,8 +163,8 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantFetcher to execute fetch.
      *
-     * @param pathRoomSid The room_sid
-     * @param pathParticipantSid The participant_sid
+     * @param pathRoomSid The SID of the Room resource.
+     * @param pathParticipantSid The SID of the Participant resource.
      * @return ParticipantFetcher capable of executing the fetch
      */
     public static ParticipantFetcher fetcher(final String pathRoomSid,
@@ -175,7 +175,7 @@ public class Participant extends Resource {
     /**
      * Create a ParticipantReader to execute read.
      *
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid The SID of the Room resource.
      * @return ParticipantReader capable of executing the read
      */
     public static ParticipantReader reader(final String pathRoomSid) {
@@ -293,153 +293,157 @@ public class Participant extends Resource {
     }
 
     /**
-     * Returns The participant_sid.
+     * Returns Unique identifier for the participant..
      *
-     * @return The participant_sid
+     * @return Unique identifier for the participant.
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The participant_identity.
+     * Returns The application-defined string that uniquely identifies the
+     * participant within a Room..
      *
-     * @return The participant_identity
+     * @return The application-defined string that uniquely identifies the
+     *         participant within a Room.
      */
     public final String getParticipantIdentity() {
         return this.participantIdentity;
     }
 
     /**
-     * Returns The join_time.
+     * Returns When the participant joined the room..
      *
-     * @return The join_time
+     * @return When the participant joined the room.
      */
     public final ZonedDateTime getJoinTime() {
         return this.joinTime;
     }
 
     /**
-     * Returns The leave_time.
+     * Returns When the participant left the room.
      *
-     * @return The leave_time
+     * @return When the participant left the room
      */
     public final ZonedDateTime getLeaveTime() {
         return this.leaveTime;
     }
 
     /**
-     * Returns The duration_sec.
+     * Returns Amount of time in seconds the participant was in the room..
      *
-     * @return The duration_sec
+     * @return Amount of time in seconds the participant was in the room.
      */
     public final Long getDurationSec() {
         return this.durationSec;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID associated with the room..
      *
-     * @return The account_sid
+     * @return Account SID associated with the room.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The room_sid.
+     * Returns Unique identifier for the room..
      *
-     * @return The room_sid
+     * @return Unique identifier for the room.
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The status.
+     * Returns Status of the room..
      *
-     * @return The status
+     * @return Status of the room.
      */
     public final Participant.RoomStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The codecs.
+     * Returns Codecs detected from the participant..
      *
-     * @return The codecs
+     * @return Codecs detected from the participant.
      */
     public final List<Participant.Codec> getCodecs() {
         return this.codecs;
     }
 
     /**
-     * Returns The end_reason.
+     * Returns Reason the participant left the room..
      *
-     * @return The end_reason
+     * @return Reason the participant left the room.
      */
     public final String getEndReason() {
         return this.endReason;
     }
 
     /**
-     * Returns The error_code.
+     * Returns Errors encountered by the participant..
      *
-     * @return The error_code
+     * @return Errors encountered by the participant.
      */
     public final Integer getErrorCode() {
         return this.errorCode;
     }
 
     /**
-     * Returns The error_code_url.
+     * Returns Twilio error code dictionary link..
      *
-     * @return The error_code_url
+     * @return Twilio error code dictionary link.
      */
     public final String getErrorCodeUrl() {
         return this.errorCodeUrl;
     }
 
     /**
-     * Returns The media_region.
+     * Returns Twilio media region the participant connected to..
      *
-     * @return The media_region
+     * @return Twilio media region the participant connected to.
      */
     public final Participant.TwilioRealm getMediaRegion() {
         return this.mediaRegion;
     }
 
     /**
-     * Returns The properties.
+     * Returns Object containing information about the participant's data from the
+     * room..
      *
-     * @return The properties
+     * @return Object containing information about the participant's data from the
+     *         room.
      */
     public final Map<String, Object> getProperties() {
         return this.properties;
     }
 
     /**
-     * Returns The edge_location.
+     * Returns Name of the edge location the participant connected to..
      *
-     * @return The edge_location
+     * @return Name of the edge location the participant connected to.
      */
     public final Participant.EdgeLocation getEdgeLocation() {
         return this.edgeLocation;
     }
 
     /**
-     * Returns The publisher_info.
+     * Returns Object containing information about the SDK name and version..
      *
-     * @return The publisher_info
+     * @return Object containing information about the SDK name and version.
      */
     public final Map<String, Object> getPublisherInfo() {
         return this.publisherInfo;
     }
 
     /**
-     * Returns The url.
+     * Returns URL of the participant resource..
      *
-     * @return The url
+     * @return URL of the participant resource.
      */
     public final URI getUrl() {
         return this.url;

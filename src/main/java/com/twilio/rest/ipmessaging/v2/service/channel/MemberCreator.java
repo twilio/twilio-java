@@ -186,15 +186,15 @@ public class MemberCreator extends Creator<Member> {
         }
 
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toOffsetDateTime().toString());
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toInstant().toString());
         }
 
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toOffsetDateTime().toString());
+            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
         }
 
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toOffsetDateTime().toString());
+            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
         }
 
         if (attributes != null) {

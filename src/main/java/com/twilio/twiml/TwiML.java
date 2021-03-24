@@ -126,8 +126,14 @@ public abstract class TwiML {
             doc.appendChild(this.buildXmlElement(doc));
 
             TransformerFactory tFact = TransformerFactory.newInstance();
-            tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
+            try {
+                tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            } catch (IllegalArgumentException e){
+                //Unsupported Attributes
+            }
+
             Transformer transformer = tFact.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "no");
             DOMSource source = new DOMSource(doc);

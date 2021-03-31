@@ -1,6 +1,9 @@
 package com.twilio.twiml;
 
+import com.twilio.http.TwilioRestClient;
 import lombok.ToString;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -29,6 +32,7 @@ public abstract class TwiML {
     private final String tagName;
     private final Builder builder;
     private static final Map<String, String> attrNameMapper = Collections.singletonMap("for_", "for");
+    private static final Logger logger = LoggerFactory.getLogger(TwiML.class);
 
     /**
      * @param tagName Element tag name
@@ -126,8 +130,14 @@ public abstract class TwiML {
             doc.appendChild(this.buildXmlElement(doc));
 
             TransformerFactory tFact = TransformerFactory.newInstance();
-            tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
-            tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+
+            try {
+                tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                tFact.setAttribute(XMLConstants.ACCESS_EXTERNAL_STYLESHEET, "");
+            } catch (IllegalArgumentException e) {
+                logger.debug("XML TransformerFactory does not support attribute: %s", e.getMessage());
+            }
+
             Transformer transformer = tFact.newTransformer();
             transformer.setOutputProperty(OutputKeys.INDENT, "no");
             DOMSource source = new DOMSource(doc);

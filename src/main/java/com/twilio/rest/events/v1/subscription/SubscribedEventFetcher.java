@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room;
+package com.twilio.rest.events.v1.subscription;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,38 +17,45 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
-    private final String pathRoomSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class SubscribedEventFetcher extends Fetcher<SubscribedEvent> {
+    private final String pathSubscriptionSid;
+    private final String pathType;
 
     /**
-     * Construct a new RecordingRulesFetcher.
+     * Construct a new SubscribedEventFetcher.
      *
-     * @param pathRoomSid The SID of the Room resource where the recording rules to
-     *                    fetch apply
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
      */
-    public RecordingRulesFetcher(final String pathRoomSid) {
-        this.pathRoomSid = pathRoomSid;
+    public SubscribedEventFetcher(final String pathSubscriptionSid,
+                                  final String pathType) {
+        this.pathSubscriptionSid = pathSubscriptionSid;
+        this.pathType = pathType;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched RecordingRules
+     * @return Fetched SubscribedEvent
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RecordingRules fetch(final TwilioRestClient client) {
+    public SubscribedEvent fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/RecordingRules"
+            Domains.EVENTS.toString(),
+            "/v1/Subscriptions/" + this.pathSubscriptionSid + "/SubscribedEvents/" + this.pathType + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RecordingRules fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("SubscribedEvent fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -57,6 +64,6 @@ public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
             throw new ApiException(restException);
         }
 
-        return RecordingRules.fromJson(response.getStream(), client.getObjectMapper());
+        return SubscribedEvent.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

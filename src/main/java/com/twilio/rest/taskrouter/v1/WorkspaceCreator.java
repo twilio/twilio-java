@@ -66,9 +66,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * The list of Workspace events for which to call event_callback_url. For
-     * example if `EventsFilter=task.created,task.canceled,worker.activity.update`,
-     * then TaskRouter will call event_callback_url only when a task is created,
-     * canceled, or a Worker activity is updated..
+     * example, if `EventsFilter=task.created, task.canceled,
+     * worker.activity.update`, then TaskRouter will call event_callback_url only
+     * when a task is created, canceled, or a Worker activity is updated..
      *
      * @param eventsFilter The list of Workspace events for which to call
      *                     event_callback_url
@@ -85,8 +85,8 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
      * can receive parallel reservations up to the per-channel maximums defined in
      * the Workers section. Otherwise, each Worker will only receive a new
-     * reservation when the previous task is completed. Learn more at
-     * [Multitasking][https://www.twilio.com/docs/taskrouter/multitasking]..
+     * reservation when the previous task is completed. Learn more at <a
+     * href="https://www.twilio.com/docs/taskrouter/multitasking">Multitasking</a>..
      *
      * @param multiTaskEnabled Whether multi-tasking is enabled
      * @return this
@@ -115,8 +115,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * The type of TaskQueue to prioritize when Workers are receiving Tasks from
      * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
-     * For more information, see [Queue
-     * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
+     * For more information, see <a
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Queue
+     * Ordering</a>..
      *
      * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers
      *                             are receiving Tasks from both types of TaskQueues

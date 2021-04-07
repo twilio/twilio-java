@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Job extends Resource {
-    private static final long serialVersionUID = 26365801574783L;
+    private static final long serialVersionUID = 238574679946947L;
 
     /**
      * Create a JobFetcher to execute fetch.
@@ -109,6 +109,8 @@ public class Job extends Resource {
     private final String webhookMethod;
     private final String email;
     private final URI url;
+    private final String jobQueuePosition;
+    private final String estimatedCompletionTime;
 
     @JsonCreator
     private Job(@JsonProperty("resource_type")
@@ -130,7 +132,11 @@ public class Job extends Resource {
                 @JsonProperty("email")
                 final String email,
                 @JsonProperty("url")
-                final URI url) {
+                final URI url,
+                @JsonProperty("job_queue_position")
+                final String jobQueuePosition,
+                @JsonProperty("estimated_completion_time")
+                final String estimatedCompletionTime) {
         this.resourceType = resourceType;
         this.friendlyName = friendlyName;
         this.details = details;
@@ -141,6 +147,8 @@ public class Job extends Resource {
         this.webhookMethod = webhookMethod;
         this.email = email;
         this.url = url;
+        this.jobQueuePosition = jobQueuePosition;
+        this.estimatedCompletionTime = estimatedCompletionTime;
     }
 
     /**
@@ -239,6 +247,34 @@ public class Job extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns This is the job position from the 1st in line. Your queue position
+     * will never increase. As jobs ahead of yours in the queue are processed, the
+     * queue position number will decrease.
+     *
+     * @return This is the job position from the 1st in line. Your queue position
+     *         will never increase. As jobs ahead of yours in the queue are
+     *         processed, the queue position number will decrease
+     */
+    public final String getJobQueuePosition() {
+        return this.jobQueuePosition;
+    }
+
+    /**
+     * Returns this is the time estimated until your job is complete. This is
+     * calculated each time you request the job list. The time is calculated based
+     * on the current rate of job completion (which may vary) and your job queue
+     * position.
+     *
+     * @return this is the time estimated until your job is complete. This is
+     *         calculated each time you request the job list. The time is calculated
+     *         based on the current rate of job completion (which may vary) and your
+     *         job queue position
+     */
+    public final String getEstimatedCompletionTime() {
+        return this.estimatedCompletionTime;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -260,7 +296,9 @@ public class Job extends Resource {
                Objects.equals(webhookUrl, other.webhookUrl) &&
                Objects.equals(webhookMethod, other.webhookMethod) &&
                Objects.equals(email, other.email) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
+               Objects.equals(estimatedCompletionTime, other.estimatedCompletionTime);
     }
 
     @Override
@@ -274,6 +312,8 @@ public class Job extends Resource {
                             webhookUrl,
                             webhookMethod,
                             email,
-                            url);
+                            url,
+                            jobQueuePosition,
+                            estimatedCompletionTime);
     }
 }

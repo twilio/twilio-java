@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Fleet extends Resource {
-    private static final long serialVersionUID = 130716130909044L;
+    private static final long serialVersionUID = 83912459681962L;
 
     public enum DataMetering {
         PAYG("payg");
@@ -155,6 +155,9 @@ public class Fleet extends Resource {
     private final Boolean commandsEnabled;
     private final URI commandsUrl;
     private final HttpMethod commandsMethod;
+    private final Boolean smsCommandsEnabled;
+    private final URI smsCommandsUrl;
+    private final HttpMethod smsCommandsMethod;
     private final String networkAccessProfileSid;
 
     @JsonCreator
@@ -182,6 +185,12 @@ public class Fleet extends Resource {
                   final URI commandsUrl,
                   @JsonProperty("commands_method")
                   final HttpMethod commandsMethod,
+                  @JsonProperty("sms_commands_enabled")
+                  final Boolean smsCommandsEnabled,
+                  @JsonProperty("sms_commands_url")
+                  final URI smsCommandsUrl,
+                  @JsonProperty("sms_commands_method")
+                  final HttpMethod smsCommandsMethod,
                   @JsonProperty("network_access_profile_sid")
                   final String networkAccessProfileSid) {
         this.accountSid = accountSid;
@@ -196,6 +205,9 @@ public class Fleet extends Resource {
         this.commandsEnabled = commandsEnabled;
         this.commandsUrl = commandsUrl;
         this.commandsMethod = commandsMethod;
+        this.smsCommandsEnabled = smsCommandsEnabled;
+        this.smsCommandsUrl = smsCommandsUrl;
+        this.smsCommandsMethod = smsCommandsMethod;
         this.networkAccessProfileSid = networkAccessProfileSid;
     }
 
@@ -318,6 +330,39 @@ public class Fleet extends Resource {
     }
 
     /**
+     * Returns Defines whether SIMs in the Fleet are capable of sending and
+     * receiving machine-to-machine SMS via Commands.
+     *
+     * @return Defines whether SIMs in the Fleet are capable of sending and
+     *         receiving machine-to-machine SMS via Commands
+     */
+    public final Boolean getSmsCommandsEnabled() {
+        return this.smsCommandsEnabled;
+    }
+
+    /**
+     * Returns The URL that will receive a webhook when a Super SIM in the Fleet is
+     * used to send an SMS from your device to the SMS Commands number.
+     *
+     * @return The URL that will receive a webhook when a Super SIM in the Fleet is
+     *         used to send an SMS from your device to the SMS Commands number
+     */
+    public final URI getSmsCommandsUrl() {
+        return this.smsCommandsUrl;
+    }
+
+    /**
+     * Returns A string representing the HTTP method to use when making a request to
+     * `sms_commands_url`.
+     *
+     * @return A string representing the HTTP method to use when making a request
+     *         to `sms_commands_url`
+     */
+    public final HttpMethod getSmsCommandsMethod() {
+        return this.smsCommandsMethod;
+    }
+
+    /**
      * Returns The SID of the Network Access Profile of the Fleet.
      *
      * @return The SID of the Network Access Profile of the Fleet
@@ -350,6 +395,9 @@ public class Fleet extends Resource {
                Objects.equals(commandsEnabled, other.commandsEnabled) &&
                Objects.equals(commandsUrl, other.commandsUrl) &&
                Objects.equals(commandsMethod, other.commandsMethod) &&
+               Objects.equals(smsCommandsEnabled, other.smsCommandsEnabled) &&
+               Objects.equals(smsCommandsUrl, other.smsCommandsUrl) &&
+               Objects.equals(smsCommandsMethod, other.smsCommandsMethod) &&
                Objects.equals(networkAccessProfileSid, other.networkAccessProfileSid);
     }
 
@@ -367,6 +415,9 @@ public class Fleet extends Resource {
                             commandsEnabled,
                             commandsUrl,
                             commandsMethod,
+                            smsCommandsEnabled,
+                            smsCommandsUrl,
+                            smsCommandsMethod,
                             networkAccessProfileSid);
     }
 }

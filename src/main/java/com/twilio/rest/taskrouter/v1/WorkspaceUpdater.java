@@ -110,8 +110,8 @@ public class WorkspaceUpdater extends Updater<Workspace> {
      * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
      * can receive parallel reservations up to the per-channel maximums defined in
      * the Workers section. Otherwise, each Worker will only receive a new
-     * reservation when the previous task is completed. Learn more at
-     * [Multitasking][https://www.twilio.com/docs/taskrouter/multitasking]..
+     * reservation when the previous task is completed. Learn more at <a
+     * href="https://www.twilio.com/docs/taskrouter/multitasking">Multitasking</a>..
      *
      * @param multiTaskEnabled Whether multi-tasking is enabled
      * @return this
@@ -138,8 +138,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The type of TaskQueue to prioritize when Workers are receiving Tasks from
      * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
-     * For more information, see [Queue
-     * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
+     * For more information, see <a
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Queue
+     * Ordering</a>..
      *
      * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers
      *                             are receiving Tasks from both types of TaskQueues

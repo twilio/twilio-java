@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room;
+package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,38 +17,41 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
-    private final String pathRoomSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class SmsCommandFetcher extends Fetcher<SmsCommand> {
+    private final String pathSid;
 
     /**
-     * Construct a new RecordingRulesFetcher.
+     * Construct a new SmsCommandFetcher.
      *
-     * @param pathRoomSid The SID of the Room resource where the recording rules to
-     *                    fetch apply
+     * @param pathSid The SID that identifies the resource to fetch
      */
-    public RecordingRulesFetcher(final String pathRoomSid) {
-        this.pathRoomSid = pathRoomSid;
+    public SmsCommandFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched RecordingRules
+     * @return Fetched SmsCommand
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RecordingRules fetch(final TwilioRestClient client) {
+    public SmsCommand fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/RecordingRules"
+            Domains.SUPERSIM.toString(),
+            "/v1/SmsCommands/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RecordingRules fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("SmsCommand fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -57,6 +60,6 @@ public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
             throw new ApiException(restException);
         }
 
-        return RecordingRules.fromJson(response.getStream(), client.getObjectMapper());
+        return SmsCommand.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

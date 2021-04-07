@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
+package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -17,38 +17,47 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class EvaluationCreator extends Creator<Evaluation> {
-    private final String pathBundleSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
+    private final String campaignId;
+    private final String messagingServiceSid;
 
     /**
-     * Construct a new EvaluationCreator.
+     * Construct a new ExternalCampaignCreator.
      *
-     * @param pathBundleSid The unique string that identifies the resource
+     * @param campaignId ID of the preregistered campaign.
+     * @param messagingServiceSid The SID of the Messaging Service the resource is
+     *                            associated with
      */
-    public EvaluationCreator(final String pathBundleSid) {
-        this.pathBundleSid = pathBundleSid;
+    public ExternalCampaignCreator(final String campaignId,
+                                   final String messagingServiceSid) {
+        this.campaignId = campaignId;
+        this.messagingServiceSid = messagingServiceSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Evaluation
+     * @return Created ExternalCampaign
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Evaluation create(final TwilioRestClient client) {
+    public ExternalCampaign create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations"
+            Domains.MESSAGING.toString(),
+            "/v1/Services/PreregisteredUsa2p"
         );
 
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Evaluation creation failed: Unable to connect to server");
+            throw new ApiConnectionException("ExternalCampaign creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -57,7 +66,7 @@ public class EvaluationCreator extends Creator<Evaluation> {
             throw new ApiException(restException);
         }
 
-        return Evaluation.fromJson(response.getStream(), client.getObjectMapper());
+        return ExternalCampaign.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -66,5 +75,12 @@ public class EvaluationCreator extends Creator<Evaluation> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (campaignId != null) {
+            request.addPostParam("CampaignId", campaignId);
+        }
+
+        if (messagingServiceSid != null) {
+            request.addPostParam("MessagingServiceSid", messagingServiceSid);
+        }
     }
 }

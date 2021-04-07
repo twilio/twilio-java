@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
+package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
@@ -17,38 +17,49 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class EvaluationCreator extends Creator<Evaluation> {
-    private final String pathBundleSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class SimCreator extends Creator<Sim> {
+    private final String iccid;
+    private final String registrationCode;
 
     /**
-     * Construct a new EvaluationCreator.
+     * Construct a new SimCreator.
      *
-     * @param pathBundleSid The unique string that identifies the resource
+     * @param iccid The
+     *              <a href="https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID">ICCID</a>
+     *              of the Super SIM to be added to your Account
+     * @param registrationCode The 10 digit code required to claim the Super SIM
+     *                         for your Account
      */
-    public EvaluationCreator(final String pathBundleSid) {
-        this.pathBundleSid = pathBundleSid;
+    public SimCreator(final String iccid,
+                      final String registrationCode) {
+        this.iccid = iccid;
+        this.registrationCode = registrationCode;
     }
 
     /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Evaluation
+     * @return Created Sim
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Evaluation create(final TwilioRestClient client) {
+    public Sim create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
-            Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations"
+            Domains.SUPERSIM.toString(),
+            "/v1/Sims"
         );
 
         addPostParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Evaluation creation failed: Unable to connect to server");
+            throw new ApiConnectionException("Sim creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -57,7 +68,7 @@ public class EvaluationCreator extends Creator<Evaluation> {
             throw new ApiException(restException);
         }
 
-        return Evaluation.fromJson(response.getStream(), client.getObjectMapper());
+        return Sim.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**
@@ -66,5 +77,12 @@ public class EvaluationCreator extends Creator<Evaluation> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (iccid != null) {
+            request.addPostParam("Iccid", iccid);
+        }
+
+        if (registrationCode != null) {
+            request.addPostParam("RegistrationCode", registrationCode);
+        }
     }
 }

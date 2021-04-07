@@ -50,6 +50,54 @@ public class SubscribedEvent extends Resource {
     }
 
     /**
+     * Create a SubscribedEventCreator to execute create.
+     *
+     * @param pathSubscriptionSid Subscription SID.
+     * @param type Type of event being subscribed to.
+     * @return SubscribedEventCreator capable of executing the create
+     */
+    public static SubscribedEventCreator creator(final String pathSubscriptionSid,
+                                                 final String type) {
+        return new SubscribedEventCreator(pathSubscriptionSid, type);
+    }
+
+    /**
+     * Create a SubscribedEventFetcher to execute fetch.
+     *
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
+     * @return SubscribedEventFetcher capable of executing the fetch
+     */
+    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid,
+                                                 final String pathType) {
+        return new SubscribedEventFetcher(pathSubscriptionSid, pathType);
+    }
+
+    /**
+     * Create a SubscribedEventUpdater to execute update.
+     *
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
+     * @return SubscribedEventUpdater capable of executing the update
+     */
+    public static SubscribedEventUpdater updater(final String pathSubscriptionSid,
+                                                 final String pathType) {
+        return new SubscribedEventUpdater(pathSubscriptionSid, pathType);
+    }
+
+    /**
+     * Create a SubscribedEventDeleter to execute delete.
+     *
+     * @param pathSubscriptionSid Subscription SID.
+     * @param pathType Type of event being subscribed to.
+     * @return SubscribedEventDeleter capable of executing the delete
+     */
+    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid,
+                                                 final String pathType) {
+        return new SubscribedEventDeleter(pathSubscriptionSid, pathType);
+    }
+
+    /**
      * Converts a JSON String into a SubscribedEvent object using the provided
      * ObjectMapper.
      *

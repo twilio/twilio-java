@@ -40,8 +40,8 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class Factor extends Resource {
-    private static final long serialVersionUID = 201328569010526L;
+public class NewFactor extends Resource {
+    private static final long serialVersionUID = 213031822004713L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -145,70 +145,33 @@ public class Factor extends Resource {
     }
 
     /**
-     * Create a FactorDeleter to execute delete.
+     * Create a NewFactorCreator to execute create.
      *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique external identifier of the Entity
-     * @param pathSid A string that uniquely identifies this Factor.
-     * @return FactorDeleter capable of executing the delete
+     * @param friendlyName The friendly name of this Factor
+     * @param factorType The Type of this Factor
+     * @return NewFactorCreator capable of executing the create
      */
-    public static FactorDeleter deleter(final String pathServiceSid,
-                                        final String pathIdentity,
-                                        final String pathSid) {
-        return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
+    public static NewFactorCreator creator(final String pathServiceSid,
+                                           final String pathIdentity,
+                                           final String friendlyName,
+                                           final NewFactor.FactorTypes factorType) {
+        return new NewFactorCreator(pathServiceSid, pathIdentity, friendlyName, factorType);
     }
 
     /**
-     * Create a FactorFetcher to execute fetch.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique external identifier of the Entity
-     * @param pathSid A string that uniquely identifies this Factor.
-     * @return FactorFetcher capable of executing the fetch
-     */
-    public static FactorFetcher fetcher(final String pathServiceSid,
-                                        final String pathIdentity,
-                                        final String pathSid) {
-        return new FactorFetcher(pathServiceSid, pathIdentity, pathSid);
-    }
-
-    /**
-     * Create a FactorReader to execute read.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique external identifier of the Entity
-     * @return FactorReader capable of executing the read
-     */
-    public static FactorReader reader(final String pathServiceSid,
-                                      final String pathIdentity) {
-        return new FactorReader(pathServiceSid, pathIdentity);
-    }
-
-    /**
-     * Create a FactorUpdater to execute update.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique external identifier of the Entity
-     * @param pathSid A string that uniquely identifies this Factor.
-     * @return FactorUpdater capable of executing the update
-     */
-    public static FactorUpdater updater(final String pathServiceSid,
-                                        final String pathIdentity,
-                                        final String pathSid) {
-        return new FactorUpdater(pathServiceSid, pathIdentity, pathSid);
-    }
-
-    /**
-     * Converts a JSON String into a Factor object using the provided ObjectMapper.
+     * Converts a JSON String into a NewFactor object using the provided
+     * ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Factor object represented by the provided JSON
+     * @return NewFactor object represented by the provided JSON
      */
-    public static Factor fromJson(final String json, final ObjectMapper objectMapper) {
+    public static NewFactor fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Factor.class);
+            return objectMapper.readValue(json, NewFactor.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -217,17 +180,17 @@ public class Factor extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Factor object using the provided
+     * Converts a JSON InputStream into a NewFactor object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Factor object represented by the provided JSON
+     * @return NewFactor object represented by the provided JSON
      */
-    public static Factor fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static NewFactor fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Factor.class);
+            return objectMapper.readValue(json, NewFactor.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -240,44 +203,48 @@ public class Factor extends Resource {
     private final String serviceSid;
     private final String entitySid;
     private final String identity;
+    private final Map<String, Object> binding;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String friendlyName;
-    private final Factor.FactorStatuses status;
-    private final Factor.FactorTypes factorType;
+    private final NewFactor.FactorStatuses status;
+    private final NewFactor.FactorTypes factorType;
     private final Map<String, Object> config;
     private final URI url;
 
     @JsonCreator
-    private Factor(@JsonProperty("sid")
-                   final String sid,
-                   @JsonProperty("account_sid")
-                   final String accountSid,
-                   @JsonProperty("service_sid")
-                   final String serviceSid,
-                   @JsonProperty("entity_sid")
-                   final String entitySid,
-                   @JsonProperty("identity")
-                   final String identity,
-                   @JsonProperty("date_created")
-                   final String dateCreated,
-                   @JsonProperty("date_updated")
-                   final String dateUpdated,
-                   @JsonProperty("friendly_name")
-                   final String friendlyName,
-                   @JsonProperty("status")
-                   final Factor.FactorStatuses status,
-                   @JsonProperty("factor_type")
-                   final Factor.FactorTypes factorType,
-                   @JsonProperty("config")
-                   final Map<String, Object> config,
-                   @JsonProperty("url")
-                   final URI url) {
+    private NewFactor(@JsonProperty("sid")
+                      final String sid,
+                      @JsonProperty("account_sid")
+                      final String accountSid,
+                      @JsonProperty("service_sid")
+                      final String serviceSid,
+                      @JsonProperty("entity_sid")
+                      final String entitySid,
+                      @JsonProperty("identity")
+                      final String identity,
+                      @JsonProperty("binding")
+                      final Map<String, Object> binding,
+                      @JsonProperty("date_created")
+                      final String dateCreated,
+                      @JsonProperty("date_updated")
+                      final String dateUpdated,
+                      @JsonProperty("friendly_name")
+                      final String friendlyName,
+                      @JsonProperty("status")
+                      final NewFactor.FactorStatuses status,
+                      @JsonProperty("factor_type")
+                      final NewFactor.FactorTypes factorType,
+                      @JsonProperty("config")
+                      final Map<String, Object> config,
+                      @JsonProperty("url")
+                      final URI url) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
         this.entitySid = entitySid;
         this.identity = identity;
+        this.binding = binding;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.friendlyName = friendlyName;
@@ -333,6 +300,15 @@ public class Factor extends Resource {
     }
 
     /**
+     * Returns Unique external identifier of the Entity.
+     *
+     * @return Unique external identifier of the Entity
+     */
+    public final Map<String, Object> getBinding() {
+        return this.binding;
+    }
+
+    /**
      * Returns The date this Factor was created.
      *
      * @return The date this Factor was created
@@ -364,7 +340,7 @@ public class Factor extends Resource {
      *
      * @return The Status of this Factor
      */
-    public final Factor.FactorStatuses getStatus() {
+    public final NewFactor.FactorStatuses getStatus() {
         return this.status;
     }
 
@@ -373,14 +349,14 @@ public class Factor extends Resource {
      *
      * @return The Type of this Factor
      */
-    public final Factor.FactorTypes getFactorType() {
+    public final NewFactor.FactorTypes getFactorType() {
         return this.factorType;
     }
 
     /**
-     * Returns Configurations for a `factor_type`..
+     * Returns Binding for a `factor_type`..
      *
-     * @return Configurations for a `factor_type`.
+     * @return Binding for a `factor_type`.
      */
     public final Map<String, Object> getConfig() {
         return this.config;
@@ -405,13 +381,14 @@ public class Factor extends Resource {
             return false;
         }
 
-        Factor other = (Factor) o;
+        NewFactor other = (NewFactor) o;
 
         return Objects.equals(sid, other.sid) &&
                Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(serviceSid, other.serviceSid) &&
                Objects.equals(entitySid, other.entitySid) &&
                Objects.equals(identity, other.identity) &&
+               Objects.equals(binding, other.binding) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(friendlyName, other.friendlyName) &&
@@ -428,6 +405,7 @@ public class Factor extends Resource {
                             serviceSid,
                             entitySid,
                             identity,
+                            binding,
                             dateCreated,
                             dateUpdated,
                             friendlyName,

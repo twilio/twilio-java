@@ -8,6 +8,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -20,6 +21,7 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 public class RoomCreator extends Creator<Room> {
     private Boolean enableTurn;
@@ -31,6 +33,7 @@ public class RoomCreator extends Creator<Room> {
     private Boolean recordParticipantsOnConnect;
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
+    private Map<String, Object> recordingRules;
 
     /**
      * Deprecated, now always considered to be true..
@@ -181,6 +184,18 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * A collection of Recording Rules that describe how to include or exclude
+     * matching tracks for recording.
+     *
+     * @param recordingRules A collection of Recording Rules
+     * @return this
+     */
+    public RoomCreator setRecordingRules(final Map<String, Object> recordingRules) {
+        this.recordingRules = recordingRules;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -253,6 +268,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (mediaRegion != null) {
             request.addPostParam("MediaRegion", mediaRegion);
+        }
+
+        if (recordingRules != null) {
+            request.addPostParam("RecordingRules", Converter.mapToJson(recordingRules));
         }
     }
 }

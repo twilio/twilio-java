@@ -57,6 +57,7 @@ public class CallCreator extends Creator<Call> {
     private HttpMethod asyncAmdStatusCallbackMethod;
     private String byoc;
     private String callReason;
+    private String callToken;
     private String recordingTrack;
 
     /**
@@ -620,6 +621,22 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * A token string needed to invoke a forwarded call. A call_token is generated
+     * when an incoming call is received on a Twilio number. this field should be
+     * populated by the incoming call's call_token to make this outgoing call as a
+     * forwarded call of incoming call. A forwarded call should bear the same
+     * caller-id of incoming call..
+     *
+     * @param callToken A token string needed to invoke a forwarded call with a
+     *                  caller-id recieved on a previous incoming call
+     * @return this
+     */
+    public CallCreator setCallToken(final String callToken) {
+        this.callToken = callToken;
+        return this;
+    }
+
+    /**
      * The audio track to record for the call. Can be: `inbound`, `outbound` or
      * `both`. The default is `both`. `inbound` records the audio that is received
      * by Twilio. `outbound` records the audio that is generated from Twilio. `both`
@@ -870,6 +887,10 @@ public class CallCreator extends Creator<Call> {
 
         if (callReason != null) {
             request.addPostParam("CallReason", callReason);
+        }
+
+        if (callToken != null) {
+            request.addPostParam("CallToken", callToken);
         }
 
         if (recordingTrack != null) {

@@ -39,15 +39,15 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class Sim extends Resource {
-    private static final long serialVersionUID = 267800275352549L;
+public class SmsCommand extends Resource {
+    private static final long serialVersionUID = 198262975015218L;
 
     public enum Status {
-        NEW("new"),
-        READY("ready"),
-        ACTIVE("active"),
-        INACTIVE("inactive"),
-        SCHEDULED("scheduled");
+        QUEUED("queued"),
+        SENT("sent"),
+        DELIVERED("delivered"),
+        RECEIVED("received"),
+        FAILED("failed");
 
         private final String value;
 
@@ -70,14 +70,13 @@ public class Sim extends Resource {
         }
     }
 
-    public enum StatusUpdate {
-        READY("ready"),
-        ACTIVE("active"),
-        INACTIVE("inactive");
+    public enum Direction {
+        TO_SIM("to_sim"),
+        FROM_SIM("from_sim");
 
         private final String value;
 
-        private StatusUpdate(final String value) {
+        private Direction(final String value) {
             this.value = value;
         }
 
@@ -86,71 +85,59 @@ public class Sim extends Resource {
         }
 
         /**
-         * Generate a StatusUpdate from a string.
+         * Generate a Direction from a string.
          * @param value string value
-         * @return generated StatusUpdate
+         * @return generated Direction
          */
         @JsonCreator
-        public static StatusUpdate forValue(final String value) {
-            return Promoter.enumFromString(value, StatusUpdate.values());
+        public static Direction forValue(final String value) {
+            return Promoter.enumFromString(value, Direction.values());
         }
     }
 
     /**
-     * Create a SimCreator to execute create.
+     * Create a SmsCommandCreator to execute create.
      *
-     * @param iccid The
-     *              <a href="https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID">ICCID</a>
-     *              of the Super SIM to be added to your Account
-     * @param registrationCode The 10 digit code required to claim the Super SIM
-     *                         for your Account
-     * @return SimCreator capable of executing the create
+     * @param sim The sid or unique_name of the SIM to send the SMS Command to
+     * @param payload The message body of the SMS Command
+     * @return SmsCommandCreator capable of executing the create
      */
-    public static SimCreator creator(final String iccid,
-                                     final String registrationCode) {
-        return new SimCreator(iccid, registrationCode);
+    public static SmsCommandCreator creator(final String sim,
+                                            final String payload) {
+        return new SmsCommandCreator(sim, payload);
     }
 
     /**
-     * Create a SimFetcher to execute fetch.
+     * Create a SmsCommandFetcher to execute fetch.
      *
      * @param pathSid The SID that identifies the resource to fetch
-     * @return SimFetcher capable of executing the fetch
+     * @return SmsCommandFetcher capable of executing the fetch
      */
-    public static SimFetcher fetcher(final String pathSid) {
-        return new SimFetcher(pathSid);
+    public static SmsCommandFetcher fetcher(final String pathSid) {
+        return new SmsCommandFetcher(pathSid);
     }
 
     /**
-     * Create a SimUpdater to execute update.
+     * Create a SmsCommandReader to execute read.
      *
-     * @param pathSid The SID that identifies the resource to update
-     * @return SimUpdater capable of executing the update
+     * @return SmsCommandReader capable of executing the read
      */
-    public static SimUpdater updater(final String pathSid) {
-        return new SimUpdater(pathSid);
+    public static SmsCommandReader reader() {
+        return new SmsCommandReader();
     }
 
     /**
-     * Create a SimReader to execute read.
-     *
-     * @return SimReader capable of executing the read
-     */
-    public static SimReader reader() {
-        return new SimReader();
-    }
-
-    /**
-     * Converts a JSON String into a Sim object using the provided ObjectMapper.
+     * Converts a JSON String into a SmsCommand object using the provided
+     * ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Sim object represented by the provided JSON
+     * @return SmsCommand object represented by the provided JSON
      */
-    public static Sim fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SmsCommand fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Sim.class);
+            return objectMapper.readValue(json, SmsCommand.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -159,17 +146,17 @@ public class Sim extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Sim object using the provided
+     * Converts a JSON InputStream into a SmsCommand object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Sim object represented by the provided JSON
+     * @return SmsCommand object represented by the provided JSON
      */
-    public static Sim fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SmsCommand fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Sim.class);
+            return objectMapper.readValue(json, SmsCommand.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -178,40 +165,40 @@ public class Sim extends Resource {
     }
 
     private final String sid;
-    private final String uniqueName;
     private final String accountSid;
-    private final String iccid;
-    private final Sim.Status status;
-    private final String fleetSid;
+    private final String simSid;
+    private final String payload;
+    private final SmsCommand.Status status;
+    private final SmsCommand.Direction direction;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
 
     @JsonCreator
-    private Sim(@JsonProperty("sid")
-                final String sid,
-                @JsonProperty("unique_name")
-                final String uniqueName,
-                @JsonProperty("account_sid")
-                final String accountSid,
-                @JsonProperty("iccid")
-                final String iccid,
-                @JsonProperty("status")
-                final Sim.Status status,
-                @JsonProperty("fleet_sid")
-                final String fleetSid,
-                @JsonProperty("date_created")
-                final String dateCreated,
-                @JsonProperty("date_updated")
-                final String dateUpdated,
-                @JsonProperty("url")
-                final URI url) {
+    private SmsCommand(@JsonProperty("sid")
+                       final String sid,
+                       @JsonProperty("account_sid")
+                       final String accountSid,
+                       @JsonProperty("sim_sid")
+                       final String simSid,
+                       @JsonProperty("payload")
+                       final String payload,
+                       @JsonProperty("status")
+                       final SmsCommand.Status status,
+                       @JsonProperty("direction")
+                       final SmsCommand.Direction direction,
+                       @JsonProperty("date_created")
+                       final String dateCreated,
+                       @JsonProperty("date_updated")
+                       final String dateUpdated,
+                       @JsonProperty("url")
+                       final URI url) {
         this.sid = sid;
-        this.uniqueName = uniqueName;
         this.accountSid = accountSid;
-        this.iccid = iccid;
+        this.simSid = simSid;
+        this.payload = payload;
         this.status = status;
-        this.fleetSid = fleetSid;
+        this.direction = direction;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -227,48 +214,48 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the resource.
+     * Returns The SID of the Account that created the resource.
      *
-     * @return An application-defined string that uniquely identifies the resource
-     */
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    /**
-     * Returns The SID of the Account that the Super SIM belongs to.
-     *
-     * @return The SID of the Account that the Super SIM belongs to
+     * @return The SID of the Account that created the resource
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The ICCID associated with the SIM.
+     * Returns The SID of the SIM that this SMS Command was sent to or from.
      *
-     * @return The ICCID associated with the SIM
+     * @return The SID of the SIM that this SMS Command was sent to or from
      */
-    public final String getIccid() {
-        return this.iccid;
+    public final String getSimSid() {
+        return this.simSid;
     }
 
     /**
-     * Returns The status of the Super SIM.
+     * Returns The message body of the SMS Command sent to or from the SIM.
      *
-     * @return The status of the Super SIM
+     * @return The message body of the SMS Command sent to or from the SIM
      */
-    public final Sim.Status getStatus() {
+    public final String getPayload() {
+        return this.payload;
+    }
+
+    /**
+     * Returns The status of the SMS Command.
+     *
+     * @return The status of the SMS Command
+     */
+    public final SmsCommand.Status getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The unique ID of the Fleet configured for this SIM.
+     * Returns The direction of the SMS Command.
      *
-     * @return The unique ID of the Fleet configured for this SIM
+     * @return The direction of the SMS Command
      */
-    public final String getFleetSid() {
-        return this.fleetSid;
+    public final SmsCommand.Direction getDirection() {
+        return this.direction;
     }
 
     /**
@@ -290,9 +277,9 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The absolute URL of the Sim Resource.
+     * Returns The absolute URL of the SMS Command resource.
      *
-     * @return The absolute URL of the Sim Resource
+     * @return The absolute URL of the SMS Command resource
      */
     public final URI getUrl() {
         return this.url;
@@ -308,14 +295,14 @@ public class Sim extends Resource {
             return false;
         }
 
-        Sim other = (Sim) o;
+        SmsCommand other = (SmsCommand) o;
 
         return Objects.equals(sid, other.sid) &&
-               Objects.equals(uniqueName, other.uniqueName) &&
                Objects.equals(accountSid, other.accountSid) &&
-               Objects.equals(iccid, other.iccid) &&
+               Objects.equals(simSid, other.simSid) &&
+               Objects.equals(payload, other.payload) &&
                Objects.equals(status, other.status) &&
-               Objects.equals(fleetSid, other.fleetSid) &&
+               Objects.equals(direction, other.direction) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url);
@@ -324,11 +311,11 @@ public class Sim extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(sid,
-                            uniqueName,
                             accountSid,
-                            iccid,
+                            simSid,
+                            payload,
                             status,
-                            fleetSid,
+                            direction,
                             dateCreated,
                             dateUpdated,
                             url);

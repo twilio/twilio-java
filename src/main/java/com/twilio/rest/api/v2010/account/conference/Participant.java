@@ -489,24 +489,4 @@ public class Participant extends Resource {
                             status,
                             uri);
     }
-
-    @Override
-    public String toString() {
-        return MoreObjects.toStringHelper(this)
-                          .add("accountSid", accountSid)
-                          .add("callSid", callSid)
-                          .add("label", label)
-                          .add("callSidToCoach", callSidToCoach)
-                          .add("coaching", coaching)
-                          .add("conferenceSid", conferenceSid)
-                          .add("dateCreated", dateCreated)
-                          .add("dateUpdated", dateUpdated)
-                          .add("endConferenceOnExit", endConferenceOnExit)
-                          .add("muted", muted)
-                          .add("hold", hold)
-                          .add("startConferenceOnEnter", startConferenceOnEnter)
-                          .add("status", status)
-                          .add("uri", uri)
-                          .toString();
-    }
 }

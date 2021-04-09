@@ -80,7 +80,8 @@ public class Conference extends TwiML {
         LEAVE("leave"),
         MUTE("mute"),
         HOLD("hold"),
-        SPEAKER("speaker");
+        SPEAKER("speaker"),
+        ANNOUNCEMENT("announcement");
 
         private final String value;
 

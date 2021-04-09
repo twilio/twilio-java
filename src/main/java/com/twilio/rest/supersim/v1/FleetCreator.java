@@ -32,6 +32,9 @@ public class FleetCreator extends Creator<Fleet> {
     private Boolean commandsEnabled;
     private URI commandsUrl;
     private HttpMethod commandsMethod;
+    private Boolean smsCommandsEnabled;
+    private URI smsCommandsUrl;
+    private HttpMethod smsCommandsMethod;
 
     /**
      * Construct a new FleetCreator.
@@ -144,6 +147,64 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
+     * Defines whether SIMs in the Fleet are capable of sending and receiving
+     * machine-to-machine SMS via Commands. Defaults to `true`..
+     *
+     * @param smsCommandsEnabled Defines whether SIMs in the Fleet are capable of
+     *                           sending and receiving machine-to-machine SMS via
+     *                           Commands
+     * @return this
+     */
+    public FleetCreator setSmsCommandsEnabled(final Boolean smsCommandsEnabled) {
+        this.smsCommandsEnabled = smsCommandsEnabled;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetCreator setSmsCommandsUrl(final URI smsCommandsUrl) {
+        this.smsCommandsUrl = smsCommandsUrl;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetCreator setSmsCommandsUrl(final String smsCommandsUrl) {
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+    }
+
+    /**
+     * A string representing the HTTP method to use when making a request to
+     * `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     *
+     * @param smsCommandsMethod A string representing the HTTP method to use when
+     *                          making a request to `sms_commands_url`
+     * @return this
+     */
+    public FleetCreator setSmsCommandsMethod(final HttpMethod smsCommandsMethod) {
+        this.smsCommandsMethod = smsCommandsMethod;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -206,6 +267,18 @@ public class FleetCreator extends Creator<Fleet> {
 
         if (commandsMethod != null) {
             request.addPostParam("CommandsMethod", commandsMethod.toString());
+        }
+
+        if (smsCommandsEnabled != null) {
+            request.addPostParam("SmsCommandsEnabled", smsCommandsEnabled.toString());
+        }
+
+        if (smsCommandsUrl != null) {
+            request.addPostParam("SmsCommandsUrl", smsCommandsUrl.toString());
+        }
+
+        if (smsCommandsMethod != null) {
+            request.addPostParam("SmsCommandsMethod", smsCommandsMethod.toString());
         }
     }
 }

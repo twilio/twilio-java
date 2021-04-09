@@ -79,4 +79,132 @@ public class SubscribedEventTest {
 
         assertNotNull(SubscribedEvent.reader("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
     }
+
+    @Test
+    public void testCreateRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.EVENTS.toString(),
+                                          "/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents");
+            request.addPostParam("Type", serialize("type"));
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            SubscribedEvent.creator("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").create();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testCreateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"subscription_sid\": \"DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"event.type\",\"version\": 2,\"url\": \"https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        SubscribedEvent.creator("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").create();
+    }
+
+    @Test
+    public void testFetchRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.GET,
+                                          Domains.EVENTS.toString(),
+                                          "/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            SubscribedEvent.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").fetch();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testFetchResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"subscription_sid\": \"DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"event.type\",\"version\": 2,\"url\": \"https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(SubscribedEvent.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").fetch());
+    }
+
+    @Test
+    public void testUpdateRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.EVENTS.toString(),
+                                          "/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            SubscribedEvent.updater("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").update();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testUpdateResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"subscription_sid\": \"DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"type\": \"event.type\",\"version\": 2,\"url\": \"https://events.twilio.com/v1/Subscriptions/DFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/SubscribedEvents/event.type\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        SubscribedEvent.updater("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").update();
+    }
+
+    @Test
+    public void testDeleteRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.DELETE,
+                                          Domains.EVENTS.toString(),
+                                          "/v1/Subscriptions/DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/SubscribedEvents/type");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            SubscribedEvent.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").delete();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testDeleteResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("null", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        SubscribedEvent.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").delete();
+    }
 }

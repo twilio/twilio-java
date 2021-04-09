@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
+package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,26 +19,62 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class EvaluationReader extends Reader<Evaluation> {
-    private final String pathBundleSid;
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class SmsCommandReader extends Reader<SmsCommand> {
+    private String sim;
+    private SmsCommand.Status status;
+    private SmsCommand.Direction direction;
 
     /**
-     * Construct a new EvaluationReader.
+     * The SID or unique name of the Sim that SMS Command was sent to or from..
      *
-     * @param pathBundleSid The unique string that identifies the resource
+     * @param sim The SID or unique name of the Sim that SMS Command was sent to or
+     *            from.
+     * @return this
      */
-    public EvaluationReader(final String pathBundleSid) {
-        this.pathBundleSid = pathBundleSid;
+    public SmsCommandReader setSim(final String sim) {
+        this.sim = sim;
+        return this;
+    }
+
+    /**
+     * The status of the SMS Command. Can be: `queued`, `sent`, `delivered`,
+     * `received` or `failed`. See the <a
+     * href="https://www.twilio.com/docs/wireless/api/smscommand-resource#status-values">SMS
+     * Command Status Values</a> for a description of each..
+     *
+     * @param status The status of the SMS Command
+     * @return this
+     */
+    public SmsCommandReader setStatus(final SmsCommand.Status status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The direction of the SMS Command. Can be `to_sim` or `from_sim`. The value of
+     * `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is
+     * synonymous with the term `mobile originated`..
+     *
+     * @param direction The direction of the SMS Command
+     * @return this
+     */
+    public SmsCommandReader setDirection(final SmsCommand.Direction direction) {
+        this.direction = direction;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Evaluation ResourceSet
+     * @return SmsCommand ResourceSet
      */
     @Override
-    public ResourceSet<Evaluation> read(final TwilioRestClient client) {
+    public ResourceSet<SmsCommand> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -46,15 +82,15 @@ public class EvaluationReader extends Reader<Evaluation> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Evaluation ResourceSet
+     * @return SmsCommand ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Evaluation> firstPage(final TwilioRestClient client) {
+    public Page<SmsCommand> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.NUMBERS.toString(),
-            "/v2/RegulatoryCompliance/Bundles/" + this.pathBundleSid + "/Evaluations"
+            Domains.SUPERSIM.toString(),
+            "/v1/SmsCommands"
         );
 
         addQueryParams(request);
@@ -66,11 +102,11 @@ public class EvaluationReader extends Reader<Evaluation> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Evaluation ResourceSet
+     * @return SmsCommand ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Evaluation> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<SmsCommand> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -87,11 +123,11 @@ public class EvaluationReader extends Reader<Evaluation> {
      * @return Next Page
      */
     @Override
-    public Page<Evaluation> nextPage(final Page<Evaluation> page,
+    public Page<SmsCommand> nextPage(final Page<SmsCommand> page,
                                      final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.NUMBERS.toString())
+            page.getNextPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }
@@ -104,27 +140,27 @@ public class EvaluationReader extends Reader<Evaluation> {
      * @return Previous Page
      */
     @Override
-    public Page<Evaluation> previousPage(final Page<Evaluation> page,
+    public Page<SmsCommand> previousPage(final Page<SmsCommand> page,
                                          final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.NUMBERS.toString())
+            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Evaluation Resources for a given request.
+     * Generate a Page of SmsCommand Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Evaluation> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<SmsCommand> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Evaluation read failed: Unable to connect to server");
+            throw new ApiConnectionException("SmsCommand read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -134,9 +170,9 @@ public class EvaluationReader extends Reader<Evaluation> {
         }
 
         return Page.fromJson(
-            "results",
+            "sms_commands",
             response.getContent(),
-            Evaluation.class,
+            SmsCommand.class,
             client.getObjectMapper()
         );
     }
@@ -147,6 +183,18 @@ public class EvaluationReader extends Reader<Evaluation> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (sim != null) {
+            request.addQueryParam("Sim", sim.toString());
+        }
+
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
+        }
+
+        if (direction != null) {
+            request.addQueryParam("Direction", direction.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -30,6 +30,8 @@ public class FleetUpdater extends Updater<Fleet> {
     private String networkAccessProfile;
     private URI commandsUrl;
     private HttpMethod commandsMethod;
+    private URI smsCommandsUrl;
+    private HttpMethod smsCommandsMethod;
 
     /**
      * Construct a new FleetUpdater.
@@ -111,6 +113,50 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetUpdater setSmsCommandsUrl(final URI smsCommandsUrl) {
+        this.smsCommandsUrl = smsCommandsUrl;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetUpdater setSmsCommandsUrl(final String smsCommandsUrl) {
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+    }
+
+    /**
+     * A string representing the HTTP method to use when making a request to
+     * `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     *
+     * @param smsCommandsMethod A string representing the HTTP method to use when
+     *                          making a request to `sms_commands_url`
+     * @return this
+     */
+    public FleetUpdater setSmsCommandsMethod(final HttpMethod smsCommandsMethod) {
+        this.smsCommandsMethod = smsCommandsMethod;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -161,6 +207,14 @@ public class FleetUpdater extends Updater<Fleet> {
 
         if (commandsMethod != null) {
             request.addPostParam("CommandsMethod", commandsMethod.toString());
+        }
+
+        if (smsCommandsUrl != null) {
+            request.addPostParam("SmsCommandsUrl", smsCommandsUrl.toString());
+        }
+
+        if (smsCommandsMethod != null) {
+            request.addPostParam("SmsCommandsMethod", smsCommandsMethod.toString());
         }
     }
 }

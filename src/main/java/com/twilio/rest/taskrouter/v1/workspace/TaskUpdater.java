@@ -25,6 +25,7 @@ public class TaskUpdater extends Updater<Task> {
     private String reason;
     private Integer priority;
     private String taskChannel;
+    private String ifMatch;
 
     /**
      * Construct a new TaskUpdater.
@@ -104,6 +105,22 @@ public class TaskUpdater extends Updater<Task> {
     }
 
     /**
+     * If provided, applies this mutation if (and only if) the <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag">ETag</a>
+     * header of the Task matches the provided value. This matches the semantics of
+     * (and is implemented with) the HTTP <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match">If-Match
+     * header</a>..
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public TaskUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -119,6 +136,7 @@ public class TaskUpdater extends Updater<Task> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -132,6 +150,17 @@ public class TaskUpdater extends Updater<Task> {
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

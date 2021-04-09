@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.video.v1.room;
+package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,38 +17,30 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
-    private final String pathRoomSid;
-
-    /**
-     * Construct a new RecordingRulesFetcher.
-     *
-     * @param pathRoomSid The SID of the Room resource where the recording rules to
-     *                    fetch apply
-     */
-    public RecordingRulesFetcher(final String pathRoomSid) {
-        this.pathRoomSid = pathRoomSid;
-    }
-
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
+public class UsecaseFetcher extends Fetcher<Usecase> {
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched RecordingRules
+     * @return Fetched Usecase
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public RecordingRules fetch(final TwilioRestClient client) {
+    public Usecase fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.VIDEO.toString(),
-            "/v1/Rooms/" + this.pathRoomSid + "/RecordingRules"
+            Domains.MESSAGING.toString(),
+            "/v1/Services/Usecases"
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("RecordingRules fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Usecase fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -57,6 +49,6 @@ public class RecordingRulesFetcher extends Fetcher<RecordingRules> {
             throw new ApiException(restException);
         }
 
-        return RecordingRules.fromJson(response.getStream(), client.getObjectMapper());
+        return Usecase.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

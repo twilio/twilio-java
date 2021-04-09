@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExportCustomJob extends Resource {
-    private static final long serialVersionUID = 147268074422838L;
+    private static final long serialVersionUID = 83292928964953L;
 
     /**
      * Create a ExportCustomJobReader to execute read.
@@ -117,6 +117,8 @@ public class ExportCustomJob extends Resource {
     private final String email;
     private final String jobSid;
     private final Map<String, Object> details;
+    private final String jobQueuePosition;
+    private final String estimatedCompletionTime;
 
     @JsonCreator
     private ExportCustomJob(@JsonProperty("friendly_name")
@@ -136,7 +138,11 @@ public class ExportCustomJob extends Resource {
                             @JsonProperty("job_sid")
                             final String jobSid,
                             @JsonProperty("details")
-                            final Map<String, Object> details) {
+                            final Map<String, Object> details,
+                            @JsonProperty("job_queue_position")
+                            final String jobQueuePosition,
+                            @JsonProperty("estimated_completion_time")
+                            final String estimatedCompletionTime) {
         this.friendlyName = friendlyName;
         this.resourceType = resourceType;
         this.startDay = startDay;
@@ -146,6 +152,8 @@ public class ExportCustomJob extends Resource {
         this.email = email;
         this.jobSid = jobSid;
         this.details = details;
+        this.jobQueuePosition = jobQueuePosition;
+        this.estimatedCompletionTime = estimatedCompletionTime;
     }
 
     /**
@@ -246,6 +254,34 @@ public class ExportCustomJob extends Resource {
         return this.details;
     }
 
+    /**
+     * Returns This is the job position from the 1st in line. Your queue position
+     * will never increase. As jobs ahead of yours in the queue are processed, the
+     * queue position number will decrease.
+     *
+     * @return This is the job position from the 1st in line. Your queue position
+     *         will never increase. As jobs ahead of yours in the queue are
+     *         processed, the queue position number will decrease
+     */
+    public final String getJobQueuePosition() {
+        return this.jobQueuePosition;
+    }
+
+    /**
+     * Returns this is the time estimated until your job is complete. This is
+     * calculated each time you request the job list. The time is calculated based
+     * on the current rate of job completion (which may vary) and your job queue
+     * position.
+     *
+     * @return this is the time estimated until your job is complete. This is
+     *         calculated each time you request the job list. The time is calculated
+     *         based on the current rate of job completion (which may vary) and your
+     *         job queue position
+     */
+    public final String getEstimatedCompletionTime() {
+        return this.estimatedCompletionTime;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -266,7 +302,9 @@ public class ExportCustomJob extends Resource {
                Objects.equals(webhookMethod, other.webhookMethod) &&
                Objects.equals(email, other.email) &&
                Objects.equals(jobSid, other.jobSid) &&
-               Objects.equals(details, other.details);
+               Objects.equals(details, other.details) &&
+               Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
+               Objects.equals(estimatedCompletionTime, other.estimatedCompletionTime);
     }
 
     @Override
@@ -279,6 +317,8 @@ public class ExportCustomJob extends Resource {
                             webhookMethod,
                             email,
                             jobSid,
-                            details);
+                            details,
+                            jobQueuePosition,
+                            estimatedCompletionTime);
     }
 }

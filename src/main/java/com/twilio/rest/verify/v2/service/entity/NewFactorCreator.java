@@ -21,35 +21,35 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class FactorCreator extends Creator<Factor> {
+public class NewFactorCreator extends Creator<NewFactor> {
     private final String pathServiceSid;
     private final String pathIdentity;
     private final String friendlyName;
-    private final Factor.FactorTypes factorType;
+    private final NewFactor.FactorTypes factorType;
     private String bindingAlg;
     private String bindingPublicKey;
     private String configAppId;
-    private Factor.NotificationPlatforms configNotificationPlatform;
+    private NewFactor.NotificationPlatforms configNotificationPlatform;
     private String configNotificationToken;
     private String configSdkVersion;
     private String bindingSecret;
     private Integer configTimeStep;
     private Integer configSkew;
     private Integer configCodeLength;
-    private Factor.TotpAlgorithms configAlg;
+    private NewFactor.TotpAlgorithms configAlg;
 
     /**
-     * Construct a new FactorCreator.
+     * Construct a new NewFactorCreator.
      *
      * @param pathServiceSid Service Sid.
      * @param pathIdentity Unique external identifier of the Entity
      * @param friendlyName The friendly name of this Factor
      * @param factorType The Type of this Factor
      */
-    public FactorCreator(final String pathServiceSid,
-                         final String pathIdentity,
-                         final String friendlyName,
-                         final Factor.FactorTypes factorType) {
+    public NewFactorCreator(final String pathServiceSid,
+                            final String pathIdentity,
+                            final String friendlyName,
+                            final NewFactor.FactorTypes factorType) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
         this.friendlyName = friendlyName;
@@ -63,7 +63,7 @@ public class FactorCreator extends Creator<Factor> {
      * @param bindingAlg The algorithm used when `factor_type` is `push`
      * @return this
      */
-    public FactorCreator setBindingAlg(final String bindingAlg) {
+    public NewFactorCreator setBindingAlg(final String bindingAlg) {
         this.bindingAlg = bindingAlg;
         return this;
     }
@@ -74,7 +74,7 @@ public class FactorCreator extends Creator<Factor> {
      * @param bindingPublicKey The public key encoded in Base64
      * @return this
      */
-    public FactorCreator setBindingPublicKey(final String bindingPublicKey) {
+    public NewFactorCreator setBindingPublicKey(final String bindingPublicKey) {
         this.bindingPublicKey = bindingPublicKey;
         return this;
     }
@@ -88,7 +88,7 @@ public class FactorCreator extends Creator<Factor> {
      *                    Apple store
      * @return this
      */
-    public FactorCreator setConfigAppId(final String configAppId) {
+    public NewFactorCreator setConfigAppId(final String configAppId) {
         this.configAppId = configAppId;
         return this;
     }
@@ -101,7 +101,7 @@ public class FactorCreator extends Creator<Factor> {
      *                                   the Notification Token
      * @return this
      */
-    public FactorCreator setConfigNotificationPlatform(final Factor.NotificationPlatforms configNotificationPlatform) {
+    public NewFactorCreator setConfigNotificationPlatform(final NewFactor.NotificationPlatforms configNotificationPlatform) {
         this.configNotificationPlatform = configNotificationPlatform;
         return this;
     }
@@ -115,7 +115,7 @@ public class FactorCreator extends Creator<Factor> {
      *                                registration token
      * @return this
      */
-    public FactorCreator setConfigNotificationToken(final String configNotificationToken) {
+    public NewFactorCreator setConfigNotificationToken(final String configNotificationToken) {
         this.configNotificationToken = configNotificationToken;
         return this;
     }
@@ -127,7 +127,7 @@ public class FactorCreator extends Creator<Factor> {
      *                         factor
      * @return this
      */
-    public FactorCreator setConfigSdkVersion(final String configSdkVersion) {
+    public NewFactorCreator setConfigSdkVersion(final String configSdkVersion) {
         this.configSdkVersion = configSdkVersion;
         return this;
     }
@@ -138,7 +138,7 @@ public class FactorCreator extends Creator<Factor> {
      * @param bindingSecret The shared secret in Base32
      * @return this
      */
-    public FactorCreator setBindingSecret(final String bindingSecret) {
+    public NewFactorCreator setBindingSecret(final String bindingSecret) {
         this.bindingSecret = bindingSecret;
         return this;
     }
@@ -151,7 +151,7 @@ public class FactorCreator extends Creator<Factor> {
      * @param configTimeStep How often, in seconds, are TOTP codes generated
      * @return this
      */
-    public FactorCreator setConfigTimeStep(final Integer configTimeStep) {
+    public NewFactorCreator setConfigTimeStep(final Integer configTimeStep) {
         this.configTimeStep = configTimeStep;
         return this;
     }
@@ -164,7 +164,7 @@ public class FactorCreator extends Creator<Factor> {
      *                   time
      * @return this
      */
-    public FactorCreator setConfigSkew(final Integer configSkew) {
+    public NewFactorCreator setConfigSkew(final Integer configSkew) {
         this.configSkew = configSkew;
         return this;
     }
@@ -176,7 +176,7 @@ public class FactorCreator extends Creator<Factor> {
      * @param configCodeLength Number of digits for generated TOTP codes
      * @return this
      */
-    public FactorCreator setConfigCodeLength(final Integer configCodeLength) {
+    public NewFactorCreator setConfigCodeLength(final Integer configCodeLength) {
         this.configCodeLength = configCodeLength;
         return this;
     }
@@ -188,7 +188,7 @@ public class FactorCreator extends Creator<Factor> {
      * @param configAlg The algorithm used to derive the TOTP codes
      * @return this
      */
-    public FactorCreator setConfigAlg(final Factor.TotpAlgorithms configAlg) {
+    public NewFactorCreator setConfigAlg(final NewFactor.TotpAlgorithms configAlg) {
         this.configAlg = configAlg;
         return this;
     }
@@ -197,11 +197,11 @@ public class FactorCreator extends Creator<Factor> {
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Created Factor
+     * @return Created NewFactor
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Factor create(final TwilioRestClient client) {
+    public NewFactor create(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
@@ -212,7 +212,7 @@ public class FactorCreator extends Creator<Factor> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Factor creation failed: Unable to connect to server");
+            throw new ApiConnectionException("NewFactor creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -221,7 +221,7 @@ public class FactorCreator extends Creator<Factor> {
             throw new ApiException(restException);
         }
 
-        return Factor.fromJson(response.getStream(), client.getObjectMapper());
+        return NewFactor.fromJson(response.getStream(), client.getObjectMapper());
     }
 
     /**

@@ -68,7 +68,7 @@ public class Evaluation extends Resource {
     /**
      * Create a EvaluationCreator to execute create.
      *
-     * @param pathBundleSid The bundle_sid
+     * @param pathBundleSid The unique string that identifies the resource
      * @return EvaluationCreator capable of executing the create
      */
     public static EvaluationCreator creator(final String pathBundleSid) {
@@ -78,7 +78,7 @@ public class Evaluation extends Resource {
     /**
      * Create a EvaluationReader to execute read.
      *
-     * @param pathBundleSid The bundle_sid
+     * @param pathBundleSid The unique string that identifies the resource
      * @return EvaluationReader capable of executing the read
      */
     public static EvaluationReader reader(final String pathBundleSid) {

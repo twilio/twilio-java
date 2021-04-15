@@ -26,7 +26,7 @@ public class TwilioRestClient {
     private final HttpClient httpClient;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
-    private TwilioRestClient(Builder b) {
+    protected TwilioRestClient(Builder b) {
         this.username = b.username;
         this.password = b.password;
         this.accountSid = b.accountSid;

@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -38,6 +39,37 @@ import java.util.Objects;
 @ToString
 public class ExportCustomJob extends Resource {
     private static final long serialVersionUID = 83292928964953L;
+
+    public enum Status {
+        ERRORDURINGRUN("ErrorDuringRun"),
+        SUBMITTED("Submitted"),
+        RUNNING("Running"),
+        COMPLETEDEMPTYRECORDS("CompletedEmptyRecords"),
+        COMPLETED("Completed"),
+        FAILED("Failed"),
+        RUNNINGTOBEDELETED("RunningToBeDeleted"),
+        DELETEDBYUSERREQUEST("DeletedByUserRequest");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
 
     /**
      * Create a ExportCustomJobReader to execute read.
@@ -244,11 +276,11 @@ public class ExportCustomJob extends Resource {
     }
 
     /**
-     * Returns The details of a job state which is an object that contains a status
-     * string, a day count integer, and list of days in the job.
+     * Returns The details of a job state which is an object that contains a
+     * `status` string, a day count integer, and list of days in the job.
      *
-     * @return The details of a job state which is an object that contains a status
-     *         string, a day count integer, and list of days in the job
+     * @return The details of a job state which is an object that contains a
+     *         `status` string, a day count integer, and list of days in the job
      */
     public final Map<String, Object> getDetails() {
         return this.details;

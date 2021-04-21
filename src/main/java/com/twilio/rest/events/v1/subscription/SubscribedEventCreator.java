@@ -24,7 +24,7 @@ import com.twilio.rest.Domains;
 public class SubscribedEventCreator extends Creator<SubscribedEvent> {
     private final String pathSubscriptionSid;
     private final String type;
-    private Integer version;
+    private Integer schemaVersion;
 
     /**
      * Construct a new SubscribedEventCreator.
@@ -41,11 +41,11 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
     /**
      * The schema version that the subscription should use..
      *
-     * @param version The schema version that the subscription should use.
+     * @param schemaVersion The schema version that the subscription should use.
      * @return this
      */
-    public SubscribedEventCreator setVersion(final Integer version) {
-        this.version = version;
+    public SubscribedEventCreator setSchemaVersion(final Integer schemaVersion) {
+        this.schemaVersion = schemaVersion;
         return this;
     }
 
@@ -90,8 +90,8 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent> {
             request.addPostParam("Type", type);
         }
 
-        if (version != null) {
-            request.addPostParam("Version", version.toString());
+        if (schemaVersion != null) {
+            request.addPostParam("SchemaVersion", schemaVersion.toString());
         }
     }
 }

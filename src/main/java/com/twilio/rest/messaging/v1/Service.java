@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
-    private static final long serialVersionUID = 16358178154133L;
+    private static final long serialVersionUID = 157234535736811L;
 
     public enum ScanMessageContent {
         INHERIT("inherit"),
@@ -174,6 +174,7 @@ public class Service extends Resource {
     private final Integer validityPeriod;
     private final URI url;
     private final Map<String, String> links;
+    private final Boolean useInboundWebhookOnNumber;
 
     @JsonCreator
     private Service(@JsonProperty("sid")
@@ -215,7 +216,9 @@ public class Service extends Resource {
                     @JsonProperty("url")
                     final URI url,
                     @JsonProperty("links")
-                    final Map<String, String> links) {
+                    final Map<String, String> links,
+                    @JsonProperty("use_inbound_webhook_on_number")
+                    final Boolean useInboundWebhookOnNumber) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -236,6 +239,7 @@ public class Service extends Resource {
         this.validityPeriod = validityPeriod;
         this.url = url;
         this.links = links;
+        this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
     }
 
     /**
@@ -285,10 +289,12 @@ public class Service extends Resource {
 
     /**
      * Returns The URL we call using inbound_method when a message is received by
-     * any phone number or short code in the Service.
+     * any phone number or short code in the Service. This field will be overridden
+     * if the `use_inbound_webhook_on_number` field is enabled..
      *
      * @return The URL we call using inbound_method when a message is received by
-     *         any phone number or short code in the Service
+     *         any phone number or short code in the Service. This field will be
+     *         overridden if the `use_inbound_webhook_on_number` field is enabled.
      */
     public final URI getInboundRequestUrl() {
         return this.inboundRequestUrl;
@@ -305,10 +311,13 @@ public class Service extends Resource {
 
     /**
      * Returns The URL that we call using fallback_method if an error occurs while
-     * retrieving or executing the TwiML from the Inbound Request URL.
+     * retrieving or executing the TwiML from the Inbound Request URL. This field
+     * will be overridden if the `use_inbound_webhook_on_number` field is enabled..
      *
      * @return The URL that we call using fallback_method if an error occurs while
-     *         retrieving or executing the TwiML from the Inbound Request URL
+     *         retrieving or executing the TwiML from the Inbound Request URL. This
+     *         field will be overridden if the `use_inbound_webhook_on_number` field
+     *         is enabled.
      */
     public final URI getFallbackUrl() {
         return this.fallbackUrl;
@@ -428,6 +437,19 @@ public class Service extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns If enabled, the webhook url configured on the phone number will be
+     * used and will override the `inbound_request_url`/`fallback_url` url called
+     * when an inbound message is received..
+     *
+     * @return If enabled, the webhook url configured on the phone number will be
+     *         used and will override the `inbound_request_url`/`fallback_url` url
+     *         called when an inbound message is received.
+     */
+    public final Boolean getUseInboundWebhookOnNumber() {
+        return this.useInboundWebhookOnNumber;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -459,7 +481,8 @@ public class Service extends Resource {
                Objects.equals(synchronousValidation, other.synchronousValidation) &&
                Objects.equals(validityPeriod, other.validityPeriod) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) &&
+               Objects.equals(useInboundWebhookOnNumber, other.useInboundWebhookOnNumber);
     }
 
     @Override
@@ -483,6 +506,7 @@ public class Service extends Resource {
                             synchronousValidation,
                             validityPeriod,
                             url,
-                            links);
+                            links,
+                            useInboundWebhookOnNumber);
     }
 }

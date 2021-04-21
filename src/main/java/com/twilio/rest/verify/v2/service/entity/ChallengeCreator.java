@@ -36,6 +36,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String detailsMessage;
     private List<Map<String, Object>> detailsFields;
     private Map<String, Object> hiddenDetails;
+    private String authPayload;
 
     /**
      * Construct a new ChallengeCreator.
@@ -119,6 +120,18 @@ public class ChallengeCreator extends Creator<Challenge> {
     }
 
     /**
+     * Optional payload used to verify the Challenge upon creation. Only used with a
+     * Factor of type `totp` to carry an OTP used in the verification..
+     *
+     * @param authPayload Optional payload to verify the Challenge
+     * @return this
+     */
+    public ChallengeCreator setAuthPayload(final String authPayload) {
+        this.authPayload = authPayload;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -175,6 +188,10 @@ public class ChallengeCreator extends Creator<Challenge> {
 
         if (hiddenDetails != null) {
             request.addPostParam("HiddenDetails", Converter.mapToJson(hiddenDetails));
+        }
+
+        if (authPayload != null) {
+            request.addPostParam("AuthPayload", authPayload);
         }
     }
 }

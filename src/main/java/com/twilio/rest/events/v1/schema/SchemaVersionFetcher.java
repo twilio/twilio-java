@@ -21,18 +21,18 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class VersionFetcher extends Fetcher<Version> {
+public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
     private final String pathId;
     private final Integer pathSchemaVersion;
 
     /**
-     * Construct a new VersionFetcher.
+     * Construct a new SchemaVersionFetcher.
      *
      * @param pathId The unique identifier of the schema.
      * @param pathSchemaVersion The version of the schema
      */
-    public VersionFetcher(final String pathId,
-                          final Integer pathSchemaVersion) {
+    public SchemaVersionFetcher(final String pathId,
+                                final Integer pathSchemaVersion) {
         this.pathId = pathId;
         this.pathSchemaVersion = pathSchemaVersion;
     }
@@ -41,11 +41,11 @@ public class VersionFetcher extends Fetcher<Version> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Version
+     * @return Fetched SchemaVersion
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Version fetch(final TwilioRestClient client) {
+    public SchemaVersion fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.EVENTS.toString(),
@@ -55,7 +55,7 @@ public class VersionFetcher extends Fetcher<Version> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Version fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("SchemaVersion fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -64,6 +64,6 @@ public class VersionFetcher extends Fetcher<Version> {
             throw new ApiException(restException);
         }
 
-        return Version.fromJson(response.getStream(), client.getObjectMapper());
+        return SchemaVersion.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -23,15 +23,15 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class VersionReader extends Reader<Version> {
+public class SchemaVersionReader extends Reader<SchemaVersion> {
     private final String pathId;
 
     /**
-     * Construct a new VersionReader.
+     * Construct a new SchemaVersionReader.
      *
      * @param pathId The unique identifier of the schema.
      */
-    public VersionReader(final String pathId) {
+    public SchemaVersionReader(final String pathId) {
         this.pathId = pathId;
     }
 
@@ -39,10 +39,10 @@ public class VersionReader extends Reader<Version> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Version ResourceSet
+     * @return SchemaVersion ResourceSet
      */
     @Override
-    public ResourceSet<Version> read(final TwilioRestClient client) {
+    public ResourceSet<SchemaVersion> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -50,11 +50,11 @@ public class VersionReader extends Reader<Version> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Version ResourceSet
+     * @return SchemaVersion ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Version> firstPage(final TwilioRestClient client) {
+    public Page<SchemaVersion> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.EVENTS.toString(),
@@ -70,11 +70,11 @@ public class VersionReader extends Reader<Version> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Version ResourceSet
+     * @return SchemaVersion ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Version> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<SchemaVersion> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -91,8 +91,8 @@ public class VersionReader extends Reader<Version> {
      * @return Next Page
      */
     @Override
-    public Page<Version> nextPage(final Page<Version> page,
-                                  final TwilioRestClient client) {
+    public Page<SchemaVersion> nextPage(final Page<SchemaVersion> page,
+                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.EVENTS.toString())
@@ -108,8 +108,8 @@ public class VersionReader extends Reader<Version> {
      * @return Previous Page
      */
     @Override
-    public Page<Version> previousPage(final Page<Version> page,
-                                      final TwilioRestClient client) {
+    public Page<SchemaVersion> previousPage(final Page<SchemaVersion> page,
+                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.EVENTS.toString())
@@ -118,17 +118,17 @@ public class VersionReader extends Reader<Version> {
     }
 
     /**
-     * Generate a Page of Version Resources for a given request.
+     * Generate a Page of SchemaVersion Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Version> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<SchemaVersion> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Version read failed: Unable to connect to server");
+            throw new ApiConnectionException("SchemaVersion read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -140,7 +140,7 @@ public class VersionReader extends Reader<Version> {
         return Page.fromJson(
             "schema_versions",
             response.getContent(),
-            Version.class,
+            SchemaVersion.class,
             client.getObjectMapper()
         );
     }

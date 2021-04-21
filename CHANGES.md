@@ -1,6 +1,36 @@
 twilio-java changelog
 =====================
 
+[2021-04-21] Version 8.11.0
+---------------------------
+**Library - Chore**
+- [PR #631](https://github.com/twilio/twilio-java/pull/631): protected TwilioRestClient constructor. Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Api**
+- Revert Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- moving enum to doc root for auto generating documentation
+- adding status enum and default output properties
+
+**Events**
+- Change schema_versions prop and key to versions **(breaking change)**
+
+**Messaging**
+- Add `use_inbound_webhook_on_number` field in Service API for fetch, create, update, read
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Delete
+
+**Verify**
+- Add `AuthPayload` parameter to support verifying a `Challenge` upon creation. This is only supported for `totp` factors.
+- Add support to resend the notifications of a `Challenge`. This is only supported for `push` factors.
+
+**Twiml**
+- Add Polly Neural voices.
+
+
 [2021-04-07] Version 8.10.0
 ---------------------------
 **Library - Fix**

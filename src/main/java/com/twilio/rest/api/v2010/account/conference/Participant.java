@@ -141,8 +141,8 @@ public class Participant extends Resource {
      */
     public static ParticipantCreator creator(final String pathAccountSid,
                                              final String pathConferenceSid,
-                                             final com.twilio.type.PhoneNumber from,
-                                             final com.twilio.type.PhoneNumber to) {
+                                             final com.twilio.type.Endpoint from,
+                                             final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(pathAccountSid, pathConferenceSid, from, to);
     }
 
@@ -157,8 +157,8 @@ public class Participant extends Resource {
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid,
-                                             final com.twilio.type.PhoneNumber from,
-                                             final com.twilio.type.PhoneNumber to) {
+                                             final com.twilio.type.Endpoint from,
+                                             final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(pathConferenceSid, from, to);
     }
 

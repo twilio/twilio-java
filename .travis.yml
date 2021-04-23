@@ -2,34 +2,35 @@ language: java
 sudo: false
 cache:
   directories:
-  - $HOME/.m2
+  - "$HOME/.m2"
 before_install:
-  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch || true
+- echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
+- echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch
+  || true
 matrix:
   include:
-    - jdk: openjdk8
-      dist: xenial
-    - jdk: openjdk11
-      dist: xenial
+  - jdk: openjdk8
+    dist: xenial
+  - jdk: openjdk11
+    dist: xenial
 services:
-  - docker
+- docker
 install:
-  - mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
+- mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
+  -B -V
 deploy:
-  - provider: script
-    script: make docker-build && make docker-push
-    skip_cleanup: true
-    on:
-      tags: true
-      jdk: openjdk8
-  - provider: script
-    script: mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
-    skip_cleanup: true
-    on:
-      tags: true
-      jdk: openjdk8
-
+- provider: script
+  script: make docker-build && make docker-push
+  skip_cleanup: true
+  on:
+    tags: true
+    jdk: openjdk8
+- provider: script
+  script: mvn clean deploy --settings .maven.xml -DskipTests=true -B -U -Prelease
+  skip_cleanup: true
+  on:
+    tags: true
+    jdk: openjdk8
 notifications:
   slack:
     if: branch = main
@@ -37,4 +38,4 @@ notifications:
     on_success: never
     on_failure: change
     rooms:
-      - secure: b8z28tzdVU/T3Dt70JQS0Km2dca0ebmL0gGh5g/f5zYHsAzTcPZsayqUWXjJ4tq08N7OlRzx04DSDr9oCErNXSdDPOVlKf46uH3irAeUPHjCDARimRs3uGaUgYwW5X0/xpqjQrVP2YVq9+FDznKEDiULV4ztLFacv5Hx0aMwb2Q=
+      secure: KuB/X99sXNgD6QfN4ssygi26UZd7O8BzvnAf1uL7Nm8N/6eQYc3TZ7CzXAxO0T5+5U2c+tsqLJeX6ar9C2taJaMk2JysbF2W1fV1mNy3QJ0ccGtJTWmVkqJ9A+vVJPBliKixsk4TC4PoXE5KEkY6wM0mlRa5UhOcyRtF4pMLQ+w=

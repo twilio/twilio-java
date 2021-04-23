@@ -92,7 +92,9 @@ public class Say extends TwiML {
         POLLY_JUSTIN_NEURAL("Polly.Justin-Neural"),
         POLLY_MATTHEW_NEURAL("Polly.Matthew-Neural"),
         POLLY_CAMILA_NEURAL("Polly.Camila-Neural"),
-        POLLY_LUPE_NEURAL("Polly.Lupe-Neural");
+        POLLY_LUPE_NEURAL("Polly.Lupe-Neural"),
+        POLLY_OLIVIA_NEURAL("Polly.Olivia-Neural"),
+        POLLY_KEVIN_NEURAL("Polly.Kevin-Neural");
 
         private final String value;
 

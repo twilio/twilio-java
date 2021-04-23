@@ -29,10 +29,11 @@ public class SmsCommandReader extends Reader<SmsCommand> {
     private SmsCommand.Direction direction;
 
     /**
-     * The SID or unique name of the Sim that SMS Command was sent to or from..
+     * The SID or unique name of the Sim resource that SMS Command was sent to or
+     * from..
      *
-     * @param sim The SID or unique name of the Sim that SMS Command was sent to or
-     *            from.
+     * @param sim The SID or unique name of the Sim resource that SMS Command was
+     *            sent to or from.
      * @return this
      */
     public SmsCommandReader setSim(final String sim) {

@@ -38,42 +38,43 @@ import java.util.Objects;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class Version extends Resource {
+public class SchemaVersion extends Resource {
     private static final long serialVersionUID = 53241776075196L;
 
     /**
-     * Create a VersionReader to execute read.
+     * Create a SchemaVersionReader to execute read.
      *
      * @param pathId The unique identifier of the schema.
-     * @return VersionReader capable of executing the read
+     * @return SchemaVersionReader capable of executing the read
      */
-    public static VersionReader reader(final String pathId) {
-        return new VersionReader(pathId);
+    public static SchemaVersionReader reader(final String pathId) {
+        return new SchemaVersionReader(pathId);
     }
 
     /**
-     * Create a VersionFetcher to execute fetch.
+     * Create a SchemaVersionFetcher to execute fetch.
      *
      * @param pathId The unique identifier of the schema.
      * @param pathSchemaVersion The version of the schema
-     * @return VersionFetcher capable of executing the fetch
+     * @return SchemaVersionFetcher capable of executing the fetch
      */
-    public static VersionFetcher fetcher(final String pathId,
-                                         final Integer pathSchemaVersion) {
-        return new VersionFetcher(pathId, pathSchemaVersion);
+    public static SchemaVersionFetcher fetcher(final String pathId,
+                                               final Integer pathSchemaVersion) {
+        return new SchemaVersionFetcher(pathId, pathSchemaVersion);
     }
 
     /**
-     * Converts a JSON String into a Version object using the provided ObjectMapper.
+     * Converts a JSON String into a SchemaVersion object using the provided
+     * ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return Version object represented by the provided JSON
+     * @return SchemaVersion object represented by the provided JSON
      */
-    public static Version fromJson(final String json, final ObjectMapper objectMapper) {
+    public static SchemaVersion fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Version.class);
+            return objectMapper.readValue(json, SchemaVersion.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -82,17 +83,17 @@ public class Version extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Version object using the provided
+     * Converts a JSON InputStream into a SchemaVersion object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return Version object represented by the provided JSON
+     * @return SchemaVersion object represented by the provided JSON
      */
-    public static Version fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static SchemaVersion fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Version.class);
+            return objectMapper.readValue(json, SchemaVersion.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -107,16 +108,16 @@ public class Version extends Resource {
     private final URI raw;
 
     @JsonCreator
-    private Version(@JsonProperty("id")
-                    final String id,
-                    @JsonProperty("schema_version")
-                    final Integer schemaVersion,
-                    @JsonProperty("date_created")
-                    final String dateCreated,
-                    @JsonProperty("url")
-                    final URI url,
-                    @JsonProperty("raw")
-                    final URI raw) {
+    private SchemaVersion(@JsonProperty("id")
+                          final String id,
+                          @JsonProperty("schema_version")
+                          final Integer schemaVersion,
+                          @JsonProperty("date_created")
+                          final String dateCreated,
+                          @JsonProperty("url")
+                          final URI url,
+                          @JsonProperty("raw")
+                          final URI raw) {
         this.id = id;
         this.schemaVersion = schemaVersion;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -179,7 +180,7 @@ public class Version extends Resource {
             return false;
         }
 
-        Version other = (Version) o;
+        SchemaVersion other = (SchemaVersion) o;
 
         return Objects.equals(id, other.id) &&
                Objects.equals(schemaVersion, other.schemaVersion) &&

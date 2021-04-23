@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class VersionTest {
+public class SchemaVersionTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -51,7 +51,7 @@ public class VersionTest {
         }};
 
         try {
-            Version.reader("id").read();
+            SchemaVersion.reader("id").read();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,24 +60,24 @@ public class VersionTest {
     public void testReadEmptyResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"schema_versions\": [],\"meta\": {\"page\": 0,\"page_size\": 10,\"first_page_url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=10&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=10&Page=0\",\"next_page_url\": null,\"key\": \"schema_versions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"schema_versions\": [],\"meta\": {\"page\": 0,\"page_size\": 10,\"first_page_url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=10&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=10&Page=0\",\"next_page_url\": null,\"key\": \"schema_versions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Version.reader("id").read());
+        assertNotNull(SchemaVersion.reader("id").read());
     }
 
     @Test
     public void testReadResultsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"schema_versions\": [{\"id\": \"DataTaps.TestEventSchema\",\"schema_version\": 1,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/DataTaps.TestEventSchema/1\"},{\"id\": \"DataTaps.TestEventSchema\",\"schema_version\": 2,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions/2\",\"raw\": \"https://events-schemas.twilio.com/DataTaps.TestEventSchema/2\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"schema_versions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"schema_versions\": [{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 1,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/1\"},{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 2,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/2\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"schema_versions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Version.reader("id").read());
+        assertNotNull(SchemaVersion.reader("id").read());
     }
 
     @Test
@@ -95,7 +95,7 @@ public class VersionTest {
         }};
 
         try {
-            Version.fetcher("id", 1).fetch();
+            SchemaVersion.fetcher("id", 1).fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -104,11 +104,11 @@ public class VersionTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"id\": \"DataTaps.TestEventSchema\",\"schema_version\": 1,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/DataTaps.TestEventSchema/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/DataTaps.TestEventSchema/1\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 1,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/1\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Version.fetcher("id", 1).fetch());
+        assertNotNull(SchemaVersion.fetcher("id", 1).fetch());
     }
 }

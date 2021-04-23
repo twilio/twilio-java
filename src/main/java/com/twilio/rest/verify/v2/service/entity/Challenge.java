@@ -42,7 +42,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 252131191620543L;
+    private static final long serialVersionUID = 27558061836839L;
 
     public enum ChallengeStatuses {
         PENDING("pending"),
@@ -230,6 +230,7 @@ public class Challenge extends Resource {
     private final Map<String, Object> hiddenDetails;
     private final Challenge.FactorTypes factorType;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Challenge(@JsonProperty("sid")
@@ -263,7 +264,9 @@ public class Challenge extends Resource {
                       @JsonProperty("factor_type")
                       final Challenge.FactorTypes factorType,
                       @JsonProperty("url")
-                      final URI url) {
+                      final URI url,
+                      @JsonProperty("links")
+                      final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -280,6 +283,7 @@ public class Challenge extends Resource {
         this.hiddenDetails = hiddenDetails;
         this.factorType = factorType;
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -426,6 +430,15 @@ public class Challenge extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns Nested resource URLs..
+     *
+     * @return Nested resource URLs.
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -453,7 +466,8 @@ public class Challenge extends Resource {
                Objects.equals(details, other.details) &&
                Objects.equals(hiddenDetails, other.hiddenDetails) &&
                Objects.equals(factorType, other.factorType) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -473,6 +487,7 @@ public class Challenge extends Resource {
                             details,
                             hiddenDetails,
                             factorType,
-                            url);
+                            url,
+                            links);
     }
 }

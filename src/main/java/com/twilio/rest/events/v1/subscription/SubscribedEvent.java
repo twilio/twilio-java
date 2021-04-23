@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribedEvent extends Resource {
-    private static final long serialVersionUID = 128787608390551L;
+    private static final long serialVersionUID = 173614979661166L;
 
     /**
      * Create a SubscribedEventReader to execute read.
@@ -137,7 +137,7 @@ public class SubscribedEvent extends Resource {
 
     private final String accountSid;
     private final String type;
-    private final Integer version;
+    private final Integer schemaVersion;
     private final String subscriptionSid;
     private final URI url;
 
@@ -146,15 +146,15 @@ public class SubscribedEvent extends Resource {
                             final String accountSid,
                             @JsonProperty("type")
                             final String type,
-                            @JsonProperty("version")
-                            final Integer version,
+                            @JsonProperty("schema_version")
+                            final Integer schemaVersion,
                             @JsonProperty("subscription_sid")
                             final String subscriptionSid,
                             @JsonProperty("url")
                             final URI url) {
         this.accountSid = accountSid;
         this.type = type;
-        this.version = version;
+        this.schemaVersion = schemaVersion;
         this.subscriptionSid = subscriptionSid;
         this.url = url;
     }
@@ -182,8 +182,8 @@ public class SubscribedEvent extends Resource {
      *
      * @return The schema version that the subscription should use.
      */
-    public final Integer getVersion() {
-        return this.version;
+    public final Integer getSchemaVersion() {
+        return this.schemaVersion;
     }
 
     /**
@@ -218,7 +218,7 @@ public class SubscribedEvent extends Resource {
 
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(type, other.type) &&
-               Objects.equals(version, other.version) &&
+               Objects.equals(schemaVersion, other.schemaVersion) &&
                Objects.equals(subscriptionSid, other.subscriptionSid) &&
                Objects.equals(url, other.url);
     }
@@ -227,7 +227,7 @@ public class SubscribedEvent extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid,
                             type,
-                            version,
+                            schemaVersion,
                             subscriptionSid,
                             url);
     }

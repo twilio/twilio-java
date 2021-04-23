@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
-    private static final long serialVersionUID = 64044796018507L;
+    private static final long serialVersionUID = 220055685211395L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -136,6 +136,7 @@ public class Service extends Resource {
     private final Boolean doNotShareWarningEnabled;
     private final Boolean customCodeEnabled;
     private final Map<String, Object> push;
+    private final Map<String, Object> totp;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -166,6 +167,8 @@ public class Service extends Resource {
                     final Boolean customCodeEnabled,
                     @JsonProperty("push")
                     final Map<String, Object> push,
+                    @JsonProperty("totp")
+                    final Map<String, Object> totp,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -186,6 +189,7 @@ public class Service extends Resource {
         this.doNotShareWarningEnabled = doNotShareWarningEnabled;
         this.customCodeEnabled = customCodeEnabled;
         this.push = push;
+        this.totp = totp;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -307,6 +311,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The service level configuration of factor TOTP type..
+     *
+     * @return The service level configuration of factor TOTP type.
+     */
+    public final Map<String, Object> getTotp() {
+        return this.totp;
+    }
+
+    /**
      * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
@@ -366,6 +379,7 @@ public class Service extends Resource {
                Objects.equals(doNotShareWarningEnabled, other.doNotShareWarningEnabled) &&
                Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
                Objects.equals(push, other.push) &&
+               Objects.equals(totp, other.totp) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -386,6 +400,7 @@ public class Service extends Resource {
                             doNotShareWarningEnabled,
                             customCodeEnabled,
                             push,
+                            totp,
                             dateCreated,
                             dateUpdated,
                             url,

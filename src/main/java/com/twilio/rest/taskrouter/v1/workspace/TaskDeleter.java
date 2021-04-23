@@ -20,6 +20,7 @@ import com.twilio.rest.Domains;
 public class TaskDeleter extends Deleter<Task> {
     private final String pathWorkspaceSid;
     private final String pathSid;
+    private String ifMatch;
 
     /**
      * Construct a new TaskDeleter.
@@ -31,6 +32,22 @@ public class TaskDeleter extends Deleter<Task> {
                        final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * If provided, deletes this Task if (and only if) the <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/ETag">ETag</a>
+     * header of the Task matches the provided value. This matches the semantics of
+     * (and is implemented with) the HTTP <a
+     * href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/If-Match">If-Match
+     * header</a>..
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public TaskDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     /**
@@ -47,6 +64,7 @@ public class TaskDeleter extends Deleter<Task> {
             "/v1/Workspaces/" + this.pathWorkspaceSid + "/Tasks/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -60,5 +78,16 @@ public class TaskDeleter extends Deleter<Task> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

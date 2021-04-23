@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -39,6 +40,37 @@ import java.util.Objects;
 @ToString
 public class Job extends Resource {
     private static final long serialVersionUID = 238574679946947L;
+
+    public enum Status {
+        ERRORDURINGRUN("ErrorDuringRun"),
+        SUBMITTED("Submitted"),
+        RUNNING("Running"),
+        COMPLETEDEMPTYRECORDS("CompletedEmptyRecords"),
+        COMPLETED("Completed"),
+        FAILED("Failed"),
+        RUNNINGTOBEDELETED("RunningToBeDeleted"),
+        DELETEDBYUSERREQUEST("DeletedByUserRequest");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
 
     /**
      * Create a JobFetcher to execute fetch.
@@ -172,13 +204,11 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns This is a list of the completed, pending, or errored dates within the
-     * export time range, with one entry for each status with more than one day in
-     * that status.
+     * Returns The details of a job state which is an object that contains a
+     * `status` string, a day count integer, and list of days in the job.
      *
-     * @return This is a list of the completed, pending, or errored dates within
-     *         the export time range, with one entry for each status with more than
-     *         one day in that status
+     * @return The details of a job state which is an object that contains a
+     *         `status` string, a day count integer, and list of days in the job
      */
     public final Map<String, Object> getDetails() {
         return this.details;

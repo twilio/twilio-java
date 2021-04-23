@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Schema extends Resource {
-    private static final long serialVersionUID = 182308016229610L;
+    private static final long serialVersionUID = 173014134409596L;
 
     /**
      * Create a SchemaFetcher to execute fetch.
@@ -91,8 +91,8 @@ public class Schema extends Resource {
     private final String id;
     private final URI url;
     private final Map<String, String> links;
-    private final ZonedDateTime lastCreated;
-    private final Integer lastVersion;
+    private final ZonedDateTime latestVersionDateCreated;
+    private final Integer latestVersion;
 
     @JsonCreator
     private Schema(@JsonProperty("id")
@@ -101,15 +101,15 @@ public class Schema extends Resource {
                    final URI url,
                    @JsonProperty("links")
                    final Map<String, String> links,
-                   @JsonProperty("last_created")
-                   final String lastCreated,
-                   @JsonProperty("last_version")
-                   final Integer lastVersion) {
+                   @JsonProperty("latest_version_date_created")
+                   final String latestVersionDateCreated,
+                   @JsonProperty("latest_version")
+                   final Integer latestVersion) {
         this.id = id;
         this.url = url;
         this.links = links;
-        this.lastCreated = DateConverter.iso8601DateTimeFromString(lastCreated);
-        this.lastVersion = lastVersion;
+        this.latestVersionDateCreated = DateConverter.iso8601DateTimeFromString(latestVersionDateCreated);
+        this.latestVersion = latestVersion;
     }
 
     /**
@@ -140,21 +140,21 @@ public class Schema extends Resource {
     }
 
     /**
-     * Returns The date that the last schema version was created..
+     * Returns The date that the latest schema version was created..
      *
-     * @return The date that the last schema version was created.
+     * @return The date that the latest schema version was created.
      */
-    public final ZonedDateTime getLastCreated() {
-        return this.lastCreated;
+    public final ZonedDateTime getLatestVersionDateCreated() {
+        return this.latestVersionDateCreated;
     }
 
     /**
-     * Returns Last schema version..
+     * Returns Latest schema version..
      *
-     * @return Last schema version.
+     * @return Latest schema version.
      */
-    public final Integer getLastVersion() {
-        return this.lastVersion;
+    public final Integer getLatestVersion() {
+        return this.latestVersion;
     }
 
     @Override
@@ -172,8 +172,8 @@ public class Schema extends Resource {
         return Objects.equals(id, other.id) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links) &&
-               Objects.equals(lastCreated, other.lastCreated) &&
-               Objects.equals(lastVersion, other.lastVersion);
+               Objects.equals(latestVersionDateCreated, other.latestVersionDateCreated) &&
+               Objects.equals(latestVersion, other.latestVersion);
     }
 
     @Override
@@ -181,7 +181,7 @@ public class Schema extends Resource {
         return Objects.hash(id,
                             url,
                             links,
-                            lastCreated,
-                            lastVersion);
+                            latestVersionDateCreated,
+                            latestVersion);
     }
 }

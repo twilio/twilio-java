@@ -30,6 +30,10 @@ public class ServiceCreator extends Creator<Service> {
     private Boolean pushIncludeDate;
     private String pushApnCredentialSid;
     private String pushFcmCredentialSid;
+    private String totpIssuer;
+    private Integer totpTimeStep;
+    private Integer totpCodeLength;
+    private Integer totpSkew;
 
     /**
      * Construct a new ServiceCreator.
@@ -188,6 +192,59 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * Optional configuration for the TOTP factors. Set TOTP Issuer for this
+     * service. This will allow to configure the issuer of the TOTP URI. Defaults to
+     * the service friendly name if not provided..
+     *
+     * @param totpIssuer Optional. Set TOTP Issuer for this service.
+     * @return this
+     */
+    public ServiceCreator setTotpIssuer(final String totpIssuer) {
+        this.totpIssuer = totpIssuer;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the TOTP factors. Defines how often, in seconds,
+     * are TOTP codes generated. i.e, a new TOTP code is generated every time_step
+     * seconds. Must be between 20 and 60 seconds, inclusive. Defaults to 30
+     * seconds.
+     *
+     * @param totpTimeStep Optional. How often, in seconds, are TOTP codes generated
+     * @return this
+     */
+    public ServiceCreator setTotpTimeStep(final Integer totpTimeStep) {
+        this.totpTimeStep = totpTimeStep;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the TOTP factors. Number of digits for generated
+     * TOTP codes. Must be between 3 and 8, inclusive. Defaults to 6.
+     *
+     * @param totpCodeLength Optional. Number of digits for generated TOTP codes
+     * @return this
+     */
+    public ServiceCreator setTotpCodeLength(final Integer totpCodeLength) {
+        this.totpCodeLength = totpCodeLength;
+        return this;
+    }
+
+    /**
+     * Optional configuration for the TOTP factors. The number of time-steps, past
+     * and future, that are valid for validation of TOTP codes. Must be between 0
+     * and 2, inclusive. Defaults to 1.
+     *
+     * @param totpSkew Optional. The number of past and future time-steps valid at
+     *                 a given time
+     * @return this
+     */
+    public ServiceCreator setTotpSkew(final Integer totpSkew) {
+        this.totpSkew = totpSkew;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -270,6 +327,22 @@ public class ServiceCreator extends Creator<Service> {
 
         if (pushFcmCredentialSid != null) {
             request.addPostParam("Push.FcmCredentialSid", pushFcmCredentialSid);
+        }
+
+        if (totpIssuer != null) {
+            request.addPostParam("Totp.Issuer", totpIssuer);
+        }
+
+        if (totpTimeStep != null) {
+            request.addPostParam("Totp.TimeStep", totpTimeStep.toString());
+        }
+
+        if (totpCodeLength != null) {
+            request.addPostParam("Totp.CodeLength", totpCodeLength.toString());
+        }
+
+        if (totpSkew != null) {
+            request.addPostParam("Totp.Skew", totpSkew.toString());
         }
     }
 }

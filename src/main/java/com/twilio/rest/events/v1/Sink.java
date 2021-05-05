@@ -139,6 +139,18 @@ public class Sink extends Resource {
     }
 
     /**
+     * Create a SinkUpdater to execute update.
+     *
+     * @param pathSid A string that uniquely identifies this Sink.
+     * @param description Sink Description
+     * @return SinkUpdater capable of executing the update
+     */
+    public static SinkUpdater updater(final String pathSid,
+                                      final String description) {
+        return new SinkUpdater(pathSid, description);
+    }
+
+    /**
      * Converts a JSON String into a Sink object using the provided ObjectMapper.
      *
      * @param json Raw JSON String

@@ -71,6 +71,8 @@ public class NewFactorCreator extends Creator<NewFactor> {
     /**
      * The Ecdsa public key in PKIX, ASN.1 DER format encoded in Base64.
      *
+     * Required when `factor_type` is `push`.
+     *
      * @param bindingPublicKey The public key encoded in Base64
      * @return this
      */
@@ -81,8 +83,10 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
     /**
      * The ID that uniquely identifies your app in the Google or Apple store, such
-     * as `com.example.myapp`. Required when `factor_type` is `push`. If specified,
-     * it can be up to 100 characters long..
+     * as `com.example.myapp`.
+     *
+     * Required when `factor_type` is `push`. If specified, it can be up to 100
+     * characters long..
      *
      * @param configAppId The ID that uniquely identifies your app in the Google or
      *                    Apple store
@@ -95,7 +99,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
     /**
      * The transport technology used to generate the Notification Token. Can be
-     * `apn` or `fcm`. Required when `factor_type` is `push`.
+     * `apn` or `fcm`.
+     *
+     * Required when `factor_type` is `push`.
      *
      * @param configNotificationPlatform The transport technology used to generate
      *                                   the Notification Token
@@ -108,8 +114,10 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
     /**
      * For APN, the device token. For FCM the registration token. It used to send
-     * the push notifications. Required when `factor_type` is `push`. If specified,
-     * this value must be between 32 and 255 characters long..
+     * the push notifications.
+     *
+     * Used when `factor_type` is `push`. If specified, must be between 32 and 255
+     * characters long..
      *
      * @param configNotificationToken For APN, the device token. For FCM the
      *                                registration token
@@ -121,7 +129,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
     }
 
     /**
-     * The Verify Push SDK version used to configure the factor.
+     * The Verify Push SDK version used to configure the factor
+     *
+     * Used when `factor_type` is `push`.
      *
      * @param configSdkVersion The Verify Push SDK version used to configure the
      *                         factor
@@ -133,7 +143,10 @@ public class NewFactorCreator extends Creator<NewFactor> {
     }
 
     /**
-     * The shared secret for TOTP factors encoded in Base32.
+     * The shared secret for TOTP factors encoded in Base32. This can be provided
+     * when creating the Factor, otherwise it will be generated.
+     *
+     * Used when `factor_type` is `totp`.
      *
      * @param bindingSecret The shared secret in Base32
      * @return this
@@ -147,7 +160,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
      * Defines how often, in seconds, are TOTP codes generated. i.e, a new TOTP code
      * is generated every time_step seconds. Must be between 20 and 60 seconds,
      * inclusive. The default value is defined at the service level in the property
-     * totp.time_step. If not configured defaults to 30 seconds.
+     * `totp.time_step`. Defaults to 30 seconds if not configured.
+     *
+     * Used when `factor_type` is `totp`.
      *
      * @param configTimeStep How often, in seconds, are TOTP codes generated
      * @return this
@@ -160,8 +175,10 @@ public class NewFactorCreator extends Creator<NewFactor> {
     /**
      * The number of time-steps, past and future, that are valid for validation of
      * TOTP codes. Must be between 0 and 2, inclusive. The default value is defined
-     * at the service level in the property totp.skew. If not configured defaults to
-     * 1.
+     * at the service level in the property `totp.skew`. If not configured defaults
+     * to 1.
+     *
+     * Used when `factor_type` is `totp`.
      *
      * @param configSkew The number of past and future time-steps valid at a given
      *                   time
@@ -175,7 +192,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
     /**
      * Number of digits for generated TOTP codes. Must be between 3 and 8,
      * inclusive. The default value is defined at the service level in the property
-     * totp.code_length. If not configured defaults to 6.
+     * `totp.code_length`. If not configured defaults to 6.
+     *
+     * Used when `factor_type` is `totp`.
      *
      * @param configCodeLength Number of digits for generated TOTP codes
      * @return this
@@ -188,6 +207,8 @@ public class NewFactorCreator extends Creator<NewFactor> {
     /**
      * The algorithm used to derive the TOTP codes. Can be `sha1`, `sha256` or
      * `sha512`. Defaults to `sha1`.
+     *
+     * Used when `factor_type` is `totp`.
      *
      * @param configAlg The algorithm used to derive the TOTP codes
      * @return this

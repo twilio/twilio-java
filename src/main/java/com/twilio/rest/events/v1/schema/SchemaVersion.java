@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SchemaVersion extends Resource {
-    private static final long serialVersionUID = 53241776075196L;
+    private static final long serialVersionUID = 166791189394626L;
 
     /**
      * Create a SchemaVersionReader to execute read.

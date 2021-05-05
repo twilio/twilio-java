@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
-    private static final long serialVersionUID = 60216685654848L;
+    private static final long serialVersionUID = 113815474055871L;
 
     /**
      * Create a UsAppToPersonCreator to execute create.
@@ -136,7 +136,7 @@ public class UsAppToPerson extends Resource {
     private final String usAppToPersonUsecase;
     private final Boolean hasEmbeddedLinks;
     private final Boolean hasEmbeddedPhone;
-    private final String status;
+    private final String campaignStatus;
     private final String campaignId;
     private final Boolean isExternallyRegistered;
     private final Map<String, Object> rateLimits;
@@ -161,8 +161,8 @@ public class UsAppToPerson extends Resource {
                           final Boolean hasEmbeddedLinks,
                           @JsonProperty("has_embedded_phone")
                           final Boolean hasEmbeddedPhone,
-                          @JsonProperty("status")
-                          final String status,
+                          @JsonProperty("campaign_status")
+                          final String campaignStatus,
                           @JsonProperty("campaign_id")
                           final String campaignId,
                           @JsonProperty("is_externally_registered")
@@ -183,7 +183,7 @@ public class UsAppToPerson extends Resource {
         this.usAppToPersonUsecase = usAppToPersonUsecase;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         this.hasEmbeddedPhone = hasEmbeddedPhone;
-        this.status = status;
+        this.campaignStatus = campaignStatus;
         this.campaignId = campaignId;
         this.isExternallyRegistered = isExternallyRegistered;
         this.rateLimits = rateLimits;
@@ -272,8 +272,8 @@ public class UsAppToPerson extends Resource {
      *
      * @return Campaign status
      */
-    public final String getStatus() {
-        return this.status;
+    public final String getCampaignStatus() {
+        return this.campaignStatus;
     }
 
     /**
@@ -350,7 +350,7 @@ public class UsAppToPerson extends Resource {
                Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&
                Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&
                Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&
-               Objects.equals(status, other.status) &&
+               Objects.equals(campaignStatus, other.campaignStatus) &&
                Objects.equals(campaignId, other.campaignId) &&
                Objects.equals(isExternallyRegistered, other.isExternallyRegistered) &&
                Objects.equals(rateLimits, other.rateLimits) &&
@@ -369,7 +369,7 @@ public class UsAppToPerson extends Resource {
                             usAppToPersonUsecase,
                             hasEmbeddedLinks,
                             hasEmbeddedPhone,
-                            status,
+                            campaignStatus,
                             campaignId,
                             isExternallyRegistered,
                             rateLimits,

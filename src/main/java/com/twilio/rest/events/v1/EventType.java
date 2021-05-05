@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EventType extends Resource {
-    private static final long serialVersionUID = 245530278393343L;
+    private static final long serialVersionUID = 60814324079305L;
 
     /**
      * Create a EventTypeReader to execute read.

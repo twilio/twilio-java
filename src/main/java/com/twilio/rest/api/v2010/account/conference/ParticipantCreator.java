@@ -17,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Endpoint;
 
 import java.net.URI;
 import java.util.List;
@@ -762,11 +763,11 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     private void addPostParams(final Request request) {
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            request.addPostParam("From", from.getEndpoint());
         }
 
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            request.addPostParam("To", to.getEndpoint());
         }
 
         if (statusCallback != null) {

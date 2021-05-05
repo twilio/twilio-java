@@ -121,7 +121,7 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Optional payload used to verify the Challenge upon creation. Only used with a
-     * Factor of type `totp` to carry an OTP used in the verification..
+     * Factor of type `totp` to carry the TOTP code that needs to be verified..
      *
      * @param authPayload Optional payload to verify the Challenge
      * @return this

@@ -72,7 +72,7 @@ public class SchemaVersionTest {
     public void testReadResultsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"schema_versions\": [{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 1,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/1\"},{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 2,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/2\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"schema_versions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"schema_versions\": [{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 1,\"public\": true,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/1\"},{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 2,\"public\": true,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/2\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/2\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"schema_versions\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,7 +104,7 @@ public class SchemaVersionTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 1,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/1\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"id\": \"Messaging.MessageStatus\",\"schema_version\": 1,\"public\": true,\"date_created\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions/1\",\"raw\": \"https://events-schemas.twilio.com/Messaging.MessageStatus/1\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

@@ -1,6 +1,32 @@
 twilio-java changelog
 =====================
 
+[2021-05-05] Version 8.12.0
+---------------------------
+**Library - Feature**
+- [PR #559](https://github.com/twilio/twilio-java/pull/559): allow conference participant to be any endpoint. Thanks to [@JaymoKang](https://github.com/JaymoKang)!
+
+**Library - Fix**
+- [PR #632](https://github.com/twilio/twilio-java/pull/632): log correct URL in TwilioRestClient. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Corrected the data types for feedback summary fields **(breaking change)**
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- promoting API maturity to GA
+
+**Events**
+- Add endpoint to update description in sink
+- Remove beta-feature account flag
+
+**Messaging**
+- Update `status` field in us_app_to_person api to `campaign_status` **(breaking change)**
+
+**Verify**
+- Improve documentation regarding `push` factor and include extra information about `totp` factor.
+
+
 [2021-04-21] Version 8.11.0
 ---------------------------
 **Library - Chore**

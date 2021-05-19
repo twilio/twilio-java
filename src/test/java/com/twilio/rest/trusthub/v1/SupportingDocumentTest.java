@@ -61,7 +61,7 @@ public class SupportingDocumentTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"status\": \"DRAFT\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"Business-profile-physical-address\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"status\": \"draft\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"Business-profile-physical-address\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -105,7 +105,7 @@ public class SupportingDocumentTest {
     public void testReadFullResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"results\": [{\"status\": \"DRAFT\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"Business-profile-physical-address\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://trusthub.twilio.com/v1/SupportingDocuments?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"results\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"results\": [{\"status\": \"draft\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"Business-profile-physical-address\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://trusthub.twilio.com/v1/SupportingDocuments?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"results\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -137,7 +137,7 @@ public class SupportingDocumentTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"status\": \"DRAFT\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"Business-profile-physical-address\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"status\": \"draft\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"Business-profile-physical-address\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -169,7 +169,7 @@ public class SupportingDocumentTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"status\": \"DRAFT\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"friendly_name\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"status\": \"draft\",\"date_updated\": \"2021-02-11T17:23:00Z\",\"friendly_name\": \"friendly_name\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://trusthub.twilio.com/v1/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2021-02-11T17:23:00Z\",\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"attributes\": {\"address_sids\": \"ADaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"type\": \"customer_profile_address\",\"mime_type\": null}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

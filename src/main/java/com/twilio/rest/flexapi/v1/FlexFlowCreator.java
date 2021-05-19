@@ -77,9 +77,11 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * The integration type. Can be: `studio`, `external`, or `task`..
+     * The software that will handle inbound messages. <a
+     * href="https://www.twilio.com/docs/flex/developer/messaging/manage-flows#integration-types">Integration
+     * Type</a> can be: `studio`, `external`, or `task`..
      *
-     * @param integrationType The integration type
+     * @param integrationType The software that will handle inbound messages.
      * @return this
      */
     public FlexFlowCreator setIntegrationType(final FlexFlow.IntegrationType integrationType) {
@@ -144,9 +146,9 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * The Task Channel for the TaskRouter Task that will be created. Applicable and
-     * required when integrationType is `task`. Set to `sms` for SMS, and to `chat`
-     * otherwise. The default value is `default`.
+     * The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the
+     * Task that will be created. Applicable and required when `integrationType` is
+     * `task`. The default value is `default`..
      *
      * @param integrationChannel The Task Channel for a new Task
      * @return this
@@ -225,8 +227,8 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
 
     /**
      * The number of times to retry the webhook if the first attempt fails. Can be
-     * an integer between 0 and 3 (included), default is 0. Optional when
-     * integrationType is `external`, not applicable otherwise..
+     * an integer between 0 and 3 (inclusive), default is 3. Optional when
+     * `integrationType` is `external`, not applicable otherwise..
      *
      * @param integrationRetryCount The number of times to retry the webhook if the
      *                              first attempt fails

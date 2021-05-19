@@ -65,7 +65,7 @@ public class UsAppToPersonTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"brand_registration_sid\": \"BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"messaging_service_sid\": \"MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"description\": \"Send marketing messages about sales and offers to opted in customers.\",\"message_samples\": [\"EXPRESS: Denim Days Event is ON\",\"LAST CHANCE: Book your next flight for just 1 (ONE) EUR\"],\"us_app_to_person_usecase\": \"MARKETING\",\"has_embedded_links\": true,\"has_embedded_phone\": false,\"campaign_status\": \"PENDING\",\"campaign_id\": \"CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"is_externally_registered\": false,\"rate_limits\": {\"att\": {\"mps\": 600,\"msg_class\": \"A\"},\"tmobile\": {\"brand_tier\": \"TOP\"}},\"date_created\": \"2021-02-18T14:48:52Z\",\"date_updated\": \"2021-02-18T14:48:52Z\",\"url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"QE2c6890da8086d771620e9b13fadeba0b\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"brand_registration_sid\": \"BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"messaging_service_sid\": \"MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"description\": \"Send marketing messages about sales to opted in customers.\",\"message_samples\": [\"EXPRESS: Denim Days Event is ON\",\"LAST CHANCE: Book your next flight for just 1 (ONE) EUR\"],\"us_app_to_person_usecase\": \"MARKETING\",\"has_embedded_links\": true,\"has_embedded_phone\": false,\"campaign_status\": \"PENDING\",\"campaign_id\": \"CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"is_externally_registered\": false,\"rate_limits\": {\"att\": {\"mps\": 600,\"msg_class\": \"A\"},\"tmobile\": {\"brand_tier\": \"TOP\"}},\"date_created\": \"2021-02-18T14:48:52Z\",\"date_updated\": \"2021-02-18T14:48:52Z\",\"url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -78,7 +78,7 @@ public class UsAppToPersonTest {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,
                                           Domains.MESSAGING.toString(),
-                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p");
+                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
 
             twilioRestClient.request(request);
             times = 1;
@@ -88,7 +88,7 @@ public class UsAppToPersonTest {
         }};
 
         try {
-            UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -102,11 +102,11 @@ public class UsAppToPersonTest {
             result = new ObjectMapper();
         }};
 
-        UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
     }
 
     @Test
-    public void testFetchRequest() {
+    public void testReadRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,
                                           Domains.MESSAGING.toString(),
@@ -120,7 +120,39 @@ public class UsAppToPersonTest {
         }};
 
         try {
-            UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            UsAppToPerson.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            fail("Expected TwilioException to be thrown for 500");
+        } catch (TwilioException e) {}
+    }
+
+    @Test
+    public void testReadFullResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"compliance\": [{\"sid\": \"QE2c6890da8086d771620e9b13fadeba0b\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"brand_registration_sid\": \"BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"messaging_service_sid\": \"MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"description\": \"Send marketing messages about sales to opted in customers.\",\"message_samples\": [\"EXPRESS: Denim Days Event is ON\",\"LAST CHANCE: Book your next flight for just 1 (ONE) EUR\"],\"us_app_to_person_usecase\": \"MARKETING\",\"has_embedded_links\": true,\"has_embedded_phone\": false,\"campaign_status\": \"PENDING\",\"campaign_id\": \"CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"is_externally_registered\": false,\"rate_limits\": {\"att\": {\"mps\": 600,\"msg_class\": \"A\"},\"tmobile\": {\"brand_tier\": \"TOP\"}},\"date_created\": \"2021-02-18T14:48:52Z\",\"date_updated\": \"2021-02-18T14:48:52Z\",\"url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p?PageSize=50&Page=0\",\"previous_page_url\": null,\"next_page_url\": null,\"url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p?PageSize=50&Page=0\",\"key\": \"compliance\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsAppToPerson.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+    }
+
+    @Test
+    public void testFetchRequest() {
+        new NonStrictExpectations() {{
+            Request request = new Request(HttpMethod.GET,
+                                          Domains.MESSAGING.toString(),
+                                          "/v1/Services/MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Compliance/Usa2p/QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+            twilioRestClient.request(request);
+            times = 1;
+            result = new Response("", 500);
+            twilioRestClient.getAccountSid();
+            result = "AC123";
+        }};
+
+        try {
+            UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,11 +161,11 @@ public class UsAppToPersonTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"brand_registration_sid\": \"BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"messaging_service_sid\": \"MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"description\": \"Send marketing messages about sales and offers to opted in customers.\",\"message_samples\": [\"EXPRESS: Denim Days Event is ON\",\"LAST CHANCE: Book your next flight for just 1 (ONE) EUR\"],\"us_app_to_person_usecase\": \"MARKETING\",\"has_embedded_links\": true,\"has_embedded_phone\": false,\"campaign_status\": \"PENDING\",\"campaign_id\": \"CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"is_externally_registered\": false,\"rate_limits\": {\"att\": {\"mps\": 600,\"msg_class\": \"A\"},\"tmobile\": {\"brand_tier\": \"TOP\"}},\"date_created\": \"2021-02-18T14:48:52Z\",\"date_updated\": \"2021-02-18T14:48:52Z\",\"url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"QE2c6890da8086d771620e9b13fadeba0b\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"brand_registration_sid\": \"BNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"messaging_service_sid\": \"MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"description\": \"Send marketing messages about sales to opted in customers.\",\"message_samples\": [\"EXPRESS: Denim Days Event is ON\",\"LAST CHANCE: Book your next flight for just 1 (ONE) EUR\"],\"us_app_to_person_usecase\": \"MARKETING\",\"has_embedded_links\": true,\"has_embedded_phone\": false,\"campaign_status\": \"PENDING\",\"campaign_id\": \"CXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"is_externally_registered\": false,\"rate_limits\": {\"att\": {\"mps\": 600,\"msg_class\": \"A\"},\"tmobile\": {\"brand_tier\": \"TOP\"}},\"date_created\": \"2021-02-18T14:48:52Z\",\"date_updated\": \"2021-02-18T14:48:52Z\",\"url\": \"https://messaging.twilio.com/v1/Services/MGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Compliance/Usa2p/QE2c6890da8086d771620e9b13fadeba0b\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
     }
 }

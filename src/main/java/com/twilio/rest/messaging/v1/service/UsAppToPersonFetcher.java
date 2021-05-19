@@ -23,15 +23,20 @@ import com.twilio.rest.Domains;
  */
 public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
     private final String pathMessagingServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new UsAppToPersonFetcher.
      *
      * @param pathMessagingServiceSid The SID of the Messaging Service to fetch the
      *                                resource from
+     * @param pathSid The SID that identifies the US A2P Compliance resource to
+     *                fetch
      */
-    public UsAppToPersonFetcher(final String pathMessagingServiceSid) {
+    public UsAppToPersonFetcher(final String pathMessagingServiceSid,
+                                final String pathSid) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -46,7 +51,7 @@ public class UsAppToPersonFetcher extends Fetcher<UsAppToPerson> {
         Request request = new Request(
             HttpMethod.GET,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathMessagingServiceSid + "/Compliance/Usa2p"
+            "/v1/Services/" + this.pathMessagingServiceSid + "/Compliance/Usa2p/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

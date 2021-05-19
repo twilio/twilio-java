@@ -23,11 +23,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class CompositionCreator extends Creator<Composition> {
     private final String roomSid;
     private Map<String, Object> videoLayout;

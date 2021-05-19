@@ -83,10 +83,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
     /**
      * The ID that uniquely identifies your app in the Google or Apple store, such
-     * as `com.example.myapp`.
+     * as `com.example.myapp`. It can be up to 100 characters long.
      *
-     * Required when `factor_type` is `push`. If specified, it can be up to 100
-     * characters long..
+     * Required when `factor_type` is `push`..
      *
      * @param configAppId The ID that uniquely identifies your app in the Google or
      *                    Apple store
@@ -101,7 +100,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
      * The transport technology used to generate the Notification Token. Can be
      * `apn` or `fcm`.
      *
-     * Required when `factor_type` is `push`.
+     * Required when `factor_type` is `push`..
      *
      * @param configNotificationPlatform The transport technology used to generate
      *                                   the Notification Token
@@ -114,10 +113,9 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
     /**
      * For APN, the device token. For FCM the registration token. It used to send
-     * the push notifications.
+     * the push notifications. Must be between 32 and 255 characters long.
      *
-     * Used when `factor_type` is `push`. If specified, must be between 32 and 255
-     * characters long..
+     * Required when `factor_type` is `push`..
      *
      * @param configNotificationToken For APN, the device token. For FCM the
      *                                registration token
@@ -131,7 +129,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
     /**
      * The Verify Push SDK version used to configure the factor
      *
-     * Used when `factor_type` is `push`.
+     * Required when `factor_type` is `push`.
      *
      * @param configSdkVersion The Verify Push SDK version used to configure the
      *                         factor

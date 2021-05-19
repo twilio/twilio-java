@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.events.v1;
+package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -23,42 +23,27 @@ import com.twilio.rest.Domains;
  * PLEASE NOTE that this class contains beta products that are subject to
  * change. Use them with caution.
  */
-public class SinkReader extends Reader<Sink> {
-    private Boolean inUse;
-    private String status;
+public class UsAppToPersonReader extends Reader<UsAppToPerson> {
+    private final String pathMessagingServiceSid;
 
     /**
-     * A boolean query parameter filtering the results to return sinks used/not used
-     * by a subscription..
+     * Construct a new UsAppToPersonReader.
      *
-     * @param inUse A boolean to return sinks used/not used by a subscription.
-     * @return this
+     * @param pathMessagingServiceSid The SID of the Messaging Service to fetch the
+     *                                resource from
      */
-    public SinkReader setInUse(final Boolean inUse) {
-        this.inUse = inUse;
-        return this;
-    }
-
-    /**
-     * A String query parameter filtering the results by status `initialized`,
-     * `validating`, `active` or `failed`..
-     *
-     * @param status A string to filter sinks by status.
-     * @return this
-     */
-    public SinkReader setStatus(final String status) {
-        this.status = status;
-        return this;
+    public UsAppToPersonReader(final String pathMessagingServiceSid) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Sink ResourceSet
+     * @return UsAppToPerson ResourceSet
      */
     @Override
-    public ResourceSet<Sink> read(final TwilioRestClient client) {
+    public ResourceSet<UsAppToPerson> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -66,15 +51,15 @@ public class SinkReader extends Reader<Sink> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Sink ResourceSet
+     * @return UsAppToPerson ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Sink> firstPage(final TwilioRestClient client) {
+    public Page<UsAppToPerson> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.EVENTS.toString(),
-            "/v1/Sinks"
+            Domains.MESSAGING.toString(),
+            "/v1/Services/" + this.pathMessagingServiceSid + "/Compliance/Usa2p"
         );
 
         addQueryParams(request);
@@ -86,11 +71,11 @@ public class SinkReader extends Reader<Sink> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Sink ResourceSet
+     * @return UsAppToPerson ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Sink> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<UsAppToPerson> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -107,11 +92,11 @@ public class SinkReader extends Reader<Sink> {
      * @return Next Page
      */
     @Override
-    public Page<Sink> nextPage(final Page<Sink> page,
-                               final TwilioRestClient client) {
+    public Page<UsAppToPerson> nextPage(final Page<UsAppToPerson> page,
+                                        final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.EVENTS.toString())
+            page.getNextPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -124,27 +109,27 @@ public class SinkReader extends Reader<Sink> {
      * @return Previous Page
      */
     @Override
-    public Page<Sink> previousPage(final Page<Sink> page,
-                                   final TwilioRestClient client) {
+    public Page<UsAppToPerson> previousPage(final Page<UsAppToPerson> page,
+                                            final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.EVENTS.toString())
+            page.getPreviousPageUrl(Domains.MESSAGING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Sink Resources for a given request.
+     * Generate a Page of UsAppToPerson Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Sink> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<UsAppToPerson> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Sink read failed: Unable to connect to server");
+            throw new ApiConnectionException("UsAppToPerson read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -154,9 +139,9 @@ public class SinkReader extends Reader<Sink> {
         }
 
         return Page.fromJson(
-            "sinks",
+            "compliance",
             response.getContent(),
-            Sink.class,
+            UsAppToPerson.class,
             client.getObjectMapper()
         );
     }
@@ -167,14 +152,6 @@ public class SinkReader extends Reader<Sink> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (inUse != null) {
-            request.addQueryParam("InUse", inUse.toString());
-        }
-
-        if (status != null) {
-            request.addQueryParam("Status", status);
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -108,7 +108,7 @@ public class Sink extends Resource {
     /**
      * Create a SinkCreator to execute create.
      *
-     * @param description Sink Description
+     * @param description Sink Description.
      * @param sinkConfiguration JSON Sink configuration.
      * @param sinkType Sink type.
      * @return SinkCreator capable of executing the create

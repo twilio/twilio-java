@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExternalCampaign extends Resource {
-    private static final long serialVersionUID = 5202740466165L;
+    private static final long serialVersionUID = 29276528543173L;
 
     /**
      * Create a ExternalCampaignCreator to execute create.
@@ -91,13 +91,16 @@ public class ExternalCampaign extends Resource {
         }
     }
 
+    private final String sid;
     private final String accountSid;
     private final String campaignId;
     private final String messagingServiceSid;
     private final ZonedDateTime dateCreated;
 
     @JsonCreator
-    private ExternalCampaign(@JsonProperty("account_sid")
+    private ExternalCampaign(@JsonProperty("sid")
+                             final String sid,
+                             @JsonProperty("account_sid")
                              final String accountSid,
                              @JsonProperty("campaign_id")
                              final String campaignId,
@@ -105,10 +108,20 @@ public class ExternalCampaign extends Resource {
                              final String messagingServiceSid,
                              @JsonProperty("date_created")
                              final String dateCreated) {
+        this.sid = sid;
         this.accountSid = accountSid;
         this.campaignId = campaignId;
         this.messagingServiceSid = messagingServiceSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
+    }
+
+    /**
+     * Returns The unique string that identifies a US A2P Compliance resource.
+     *
+     * @return The unique string that identifies a US A2P Compliance resource
+     */
+    public final String getSid() {
+        return this.sid;
     }
 
     /**
@@ -159,7 +172,8 @@ public class ExternalCampaign extends Resource {
 
         ExternalCampaign other = (ExternalCampaign) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(campaignId, other.campaignId) &&
                Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
                Objects.equals(dateCreated, other.dateCreated);
@@ -167,7 +181,8 @@ public class ExternalCampaign extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
+        return Objects.hash(sid,
+                            accountSid,
                             campaignId,
                             messagingServiceSid,
                             dateCreated);

@@ -32,7 +32,7 @@ public class SinkCreator extends Creator<Sink> {
     /**
      * Construct a new SinkCreator.
      *
-     * @param description Sink Description
+     * @param description Sink Description.
      * @param sinkConfiguration JSON Sink configuration.
      * @param sinkType Sink type.
      */

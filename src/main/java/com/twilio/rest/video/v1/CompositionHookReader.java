@@ -22,11 +22,6 @@ import com.twilio.rest.Domains;
 
 import java.time.ZonedDateTime;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 public class CompositionHookReader extends Reader<CompositionHook> {
     private Boolean enabled;
     private ZonedDateTime dateCreatedAfter;

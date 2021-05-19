@@ -31,7 +31,7 @@ public class SimCreator extends Creator<Sim> {
      * @param iccid The
      *              <a href="https://en.wikipedia.org/wiki/Subscriber_identity_module#ICCID">ICCID</a>
      *              of the Super SIM to be added to your Account
-     * @param registrationCode The 10 digit code required to claim the Super SIM
+     * @param registrationCode The 10-digit code required to claim the Super SIM
      *                         for your Account
      */
     public SimCreator(final String iccid,

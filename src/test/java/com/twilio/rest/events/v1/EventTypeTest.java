@@ -81,6 +81,18 @@ public class EventTypeTest {
     }
 
     @Test
+    public void testReadResultsWithSchemaIdResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"types\": [{\"date_created\": \"2020-08-13T13:28:20Z\",\"date_updated\": \"2020-08-13T13:28:20Z\",\"type\": \"com.twilio.messaging.message.delivered\",\"schema_id\": \"Messaging.MessageStatus\",\"public\": true,\"description\": \"Messaging- delivered message\",\"url\": \"https://events.twilio.com/v1/Types/com.twilio.messaging.message.delivered\",\"links\": {\"schema\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions\"}},{\"date_created\": \"2020-08-13T13:28:19Z\",\"date_updated\": \"2020-08-13T13:28:19Z\",\"type\": \"com.twilio.messaging.message.failed\",\"schema_id\": \"Messaging.MessageStatus\",\"public\": true,\"description\": \"Messaging- failed message\",\"url\": \"https://events.twilio.com/v1/Types/com.twilio.messaging.message.failed\",\"links\": {\"schema\": \"https://events.twilio.com/v1/Schemas/Messaging.MessageStatus/Versions\"}}],\"meta\": {\"page\": 0,\"page_size\": 20,\"first_page_url\": \"https://events.twilio.com/v1/Types?SchemaId=Messaging.MessageStatus&PageSize=20&Page=0\",\"previous_page_url\": null,\"url\": \"https://events.twilio.com/v1/Types?SchemaId=Messaging.MessageStatus&PageSize=20&Page=0\",\"next_page_url\": null,\"key\": \"types\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(EventType.reader().read());
+    }
+
+    @Test
     public void testFetchRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.GET,

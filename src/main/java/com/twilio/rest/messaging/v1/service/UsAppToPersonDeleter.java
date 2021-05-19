@@ -23,15 +23,20 @@ import com.twilio.rest.Domains;
  */
 public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
     private final String pathMessagingServiceSid;
+    private final String pathSid;
 
     /**
      * Construct a new UsAppToPersonDeleter.
      *
      * @param pathMessagingServiceSid The SID of the Messaging Service to delete
      *                                the resource from
+     * @param pathSid The SID that identifies the US A2P Compliance resource to
+     *                delete
      */
-    public UsAppToPersonDeleter(final String pathMessagingServiceSid) {
+    public UsAppToPersonDeleter(final String pathMessagingServiceSid,
+                                final String pathSid) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.pathSid = pathSid;
     }
 
     /**
@@ -45,7 +50,7 @@ public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
         Request request = new Request(
             HttpMethod.DELETE,
             Domains.MESSAGING.toString(),
-            "/v1/Services/" + this.pathMessagingServiceSid + "/Compliance/Usa2p"
+            "/v1/Services/" + this.pathMessagingServiceSid + "/Compliance/Usa2p/" + this.pathSid + ""
         );
 
         Response response = client.request(request);

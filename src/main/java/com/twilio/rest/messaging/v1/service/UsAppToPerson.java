@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
-    private static final long serialVersionUID = 113815474055871L;
+    private static final long serialVersionUID = 131982293842514L;
 
     /**
      * Create a UsAppToPersonCreator to execute create.
@@ -73,10 +73,24 @@ public class UsAppToPerson extends Resource {
      *
      * @param pathMessagingServiceSid The SID of the Messaging Service to delete
      *                                the resource from
+     * @param pathSid The SID that identifies the US A2P Compliance resource to
+     *                delete
      * @return UsAppToPersonDeleter capable of executing the delete
      */
-    public static UsAppToPersonDeleter deleter(final String pathMessagingServiceSid) {
-        return new UsAppToPersonDeleter(pathMessagingServiceSid);
+    public static UsAppToPersonDeleter deleter(final String pathMessagingServiceSid,
+                                               final String pathSid) {
+        return new UsAppToPersonDeleter(pathMessagingServiceSid, pathSid);
+    }
+
+    /**
+     * Create a UsAppToPersonReader to execute read.
+     *
+     * @param pathMessagingServiceSid The SID of the Messaging Service to fetch the
+     *                                resource from
+     * @return UsAppToPersonReader capable of executing the read
+     */
+    public static UsAppToPersonReader reader(final String pathMessagingServiceSid) {
+        return new UsAppToPersonReader(pathMessagingServiceSid);
     }
 
     /**
@@ -84,10 +98,13 @@ public class UsAppToPerson extends Resource {
      *
      * @param pathMessagingServiceSid The SID of the Messaging Service to fetch the
      *                                resource from
+     * @param pathSid The SID that identifies the US A2P Compliance resource to
+     *                fetch
      * @return UsAppToPersonFetcher capable of executing the fetch
      */
-    public static UsAppToPersonFetcher fetcher(final String pathMessagingServiceSid) {
-        return new UsAppToPersonFetcher(pathMessagingServiceSid);
+    public static UsAppToPersonFetcher fetcher(final String pathMessagingServiceSid,
+                                               final String pathSid) {
+        return new UsAppToPersonFetcher(pathMessagingServiceSid, pathSid);
     }
 
     /**
@@ -128,6 +145,7 @@ public class UsAppToPerson extends Resource {
         }
     }
 
+    private final String sid;
     private final String accountSid;
     private final String brandRegistrationSid;
     private final String messagingServiceSid;
@@ -145,7 +163,9 @@ public class UsAppToPerson extends Resource {
     private final URI url;
 
     @JsonCreator
-    private UsAppToPerson(@JsonProperty("account_sid")
+    private UsAppToPerson(@JsonProperty("sid")
+                          final String sid,
+                          @JsonProperty("account_sid")
                           final String accountSid,
                           @JsonProperty("brand_registration_sid")
                           final String brandRegistrationSid,
@@ -175,6 +195,7 @@ public class UsAppToPerson extends Resource {
                           final String dateUpdated,
                           @JsonProperty("url")
                           final URI url) {
+        this.sid = sid;
         this.accountSid = accountSid;
         this.brandRegistrationSid = brandRegistrationSid;
         this.messagingServiceSid = messagingServiceSid;
@@ -190,6 +211,15 @@ public class UsAppToPerson extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+    }
+
+    /**
+     * Returns The unique string that identifies a US A2P Compliance resource.
+     *
+     * @return The unique string that identifies a US A2P Compliance resource
+     */
+    public final String getSid() {
+        return this.sid;
     }
 
     /**
@@ -342,7 +372,8 @@ public class UsAppToPerson extends Resource {
 
         UsAppToPerson other = (UsAppToPerson) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&
+        return Objects.equals(sid, other.sid) &&
+               Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&
                Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
                Objects.equals(description, other.description) &&
@@ -361,7 +392,8 @@ public class UsAppToPerson extends Resource {
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid,
+        return Objects.hash(sid,
+                            accountSid,
                             brandRegistrationSid,
                             messagingServiceSid,
                             description,

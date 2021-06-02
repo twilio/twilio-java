@@ -187,18 +187,18 @@ public class Notification extends Resource {
     }
 
     /**
-     * Returns The priority of the Notification..
+     * Returns The priority of the notification..
      *
-     * @return The priority of the Notification.
+     * @return The priority of the notification.
      */
     public final String getPriority() {
         return this.priority;
     }
 
     /**
-     * Returns How long, in seconds, the Notification is valid..
+     * Returns How long, in seconds, the notification is valid..
      *
-     * @return How long, in seconds, the Notification is valid.
+     * @return How long, in seconds, the notification is valid.
      */
     public final Integer getTtl() {
         return this.ttl;

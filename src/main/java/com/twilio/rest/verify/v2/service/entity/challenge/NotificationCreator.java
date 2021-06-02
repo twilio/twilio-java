@@ -43,13 +43,12 @@ public class NotificationCreator extends Creator<Notification> {
     }
 
     /**
-     * How long, in seconds, the Notification is valid. Delivery will be attempted
-     * if the device is offline until the TTL elapses. 0 means that the notification
-     * delivery is attempted immediately, only once, and is not stored for future
-     * delivery. Must be an integer between 0 and 300 seconds, inclusive. Defaults
-     * to 300 seconds. .
+     * How long, in seconds, the notification is valid. Can be an integer between 0
+     * and 300. Default is 300. Delivery is attempted until the TTL elapses, even if
+     * the device is offline. 0 means that the notification delivery is attempted
+     * immediately, only once, and is not stored for future delivery..
      *
-     * @param ttl How long, in seconds, the Notification is valid.
+     * @param ttl How long, in seconds, the notification is valid.
      * @return this
      */
     public NotificationCreator setTtl(final Integer ttl) {

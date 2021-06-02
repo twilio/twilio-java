@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2021-06-02] Version 8.14.0
+---------------------------
+**Library - Feature**
+- [PR #636](https://github.com/twilio/twilio-java/pull/636): Update WorkflowRuleTarget to support Known Agent Routing. Thanks to [@akallimani](https://github.com/akallimani)!
+
+**Library - Chore**
+- [PR #634](https://github.com/twilio/twilio-java/pull/634): equalsverifier 3.6.1. Thanks to [@sullis](https://github.com/sullis)!
+
+**Events**
+- join Sinks and Subscriptions service
+
+**Verify**
+- Improved the documentation of `challenge` adding the maximum and minimum expected lengths of some fields.
+- Improve documentation regarding `notification` by updating the documentation of the field `ttl`.
+
+
 [2021-05-19] Version 8.13.0
 ---------------------------
 **Events**

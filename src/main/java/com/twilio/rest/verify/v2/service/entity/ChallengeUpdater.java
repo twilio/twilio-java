@@ -44,7 +44,8 @@ public class ChallengeUpdater extends Updater<Challenge> {
 
     /**
      * The optional payload needed to verify the Challenge. E.g., a TOTP would use
-     * the numeric code..
+     * the numeric code. For `TOTP` this value must be between 3 and 8 characters
+     * long. For `Push` this value can be up to 5456 characters in length.
      *
      * @param authPayload Optional payload to verify the Challenge
      * @return this

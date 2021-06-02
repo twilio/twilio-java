@@ -34,6 +34,12 @@ public class WorkflowRuleTarget extends TaskRouterResource {
     @JsonProperty("skip_if")
     private final String skipIf;
 
+    @JsonProperty("known_worker_sid")
+    private final String knownWorkerSid;
+
+    @JsonProperty("known_worker_friendly_name")
+    private final String knownWorkerFriendlyName;    
+
     @JsonCreator
     private WorkflowRuleTarget(
         @JsonProperty("queue") String queue,
@@ -41,7 +47,9 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         @JsonProperty("priority") Integer priority,
         @JsonProperty("timeout") Integer timeout,
         @JsonProperty("order_by") String orderBy,
-        @JsonProperty("skip_if") String skipIf
+        @JsonProperty("skip_if") String skipIf,
+        @JsonProperty("known_worker_sid") String knownWorkerSid,
+        @JsonProperty("known_worker_friendly_name") String knownWorkerFriendlyName
     ) {
         this.queue = queue;
         this.expression = expression;
@@ -49,6 +57,8 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         this.timeout = timeout;
         this.orderBy = orderBy;
         this.skipIf = skipIf;
+        this.knownWorkerSid = knownWorkerSid;
+        this.knownWorkerFriendlyName = knownWorkerFriendlyName;
     }
 
     private WorkflowRuleTarget(Builder b) throws IllegalArgumentException {
@@ -58,6 +68,8 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         this.timeout = b.timeout;
         this.orderBy = b.orderBy;
         this.skipIf = b.skipIf;
+        this.knownWorkerSid = b.knownWorkerSid;
+        this.knownWorkerFriendlyName = b.knownWorkerFriendlyName;
     }
 
     /**
@@ -115,6 +127,24 @@ public class WorkflowRuleTarget extends TaskRouterResource {
     }
 
     /**
+     * Get the knownWorkerSid expression for the workflow rule target.
+     *
+     * @return the knownWorkerSid expression
+     */
+    public String getKnownWorkerSid() {
+        return knownWorkerSid;
+    }
+
+    /**
+     * Get the knownWorkerFriendlyName expression for the workflow rule target.
+     *
+     * @return the knownWorkerFriendlyName expression
+     */
+    public String getKnownWorkerFriendlyName() {
+        return knownWorkerFriendlyName;
+    }
+
+    /**
      * Converts a JSON workflow configuration to a workflow configuration object.
      *
      * @param json JSON for workflow rule target
@@ -134,6 +164,8 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         private Integer timeout;
         private String orderBy;
         private String skipIf;
+        private String knownWorkerSid;
+        private String knownWorkerFriendlyName;
 
         public Builder(String queue) {
             this.queue = queue;
@@ -161,6 +193,16 @@ public class WorkflowRuleTarget extends TaskRouterResource {
 
         public Builder skipIf(String skipIf) {
             this.skipIf = skipIf;
+            return this;
+        }
+
+        public Builder knownWorkerSid(String knownWorkerSid) {
+            this.knownWorkerSid = knownWorkerSid;
+            return this;
+        }
+
+        public Builder knownWorkerFriendlyName(String knownWorkerFriendlyName) {
+            this.knownWorkerFriendlyName = knownWorkerFriendlyName;
             return this;
         }
 

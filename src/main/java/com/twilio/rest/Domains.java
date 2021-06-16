@@ -16,6 +16,7 @@ public enum Domains {
     EVENTS("events"),
     FAX("fax"),
     FLEXAPI("flex-api"),
+    FRONTLINEAPI("frontline-api"),
     INSIGHTS("insights"),
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),

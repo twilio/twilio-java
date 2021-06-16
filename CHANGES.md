@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2021-06-16] Version 8.15.0
+---------------------------
+**Library - Chore**
+- [PR #637](https://github.com/twilio/twilio-java/pull/637): archunit 0.19.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Update `status` enum for Messages to include 'canceled'
+- Update `update_status` enum for Messages to include 'canceled'
+
+**Trusthub**
+- Corrected the sid for policy sid in customer_profile_evaluation.json and trust_product_evaluation.json **(breaking change)**
+
+
 [2021-06-02] Version 8.14.0
 ---------------------------
 **Library - Feature**

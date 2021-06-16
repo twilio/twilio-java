@@ -42,7 +42,7 @@ public class TrustProductsEvaluationsTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.TRUSTHUB.toString(),
                                           "/v1/TrustProducts/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Evaluations");
-            request.addPostParam("PolicySid", serialize("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            request.addPostParam("PolicySid", serialize("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class TrustProductsEvaluationsTest {
         }};
 
         try {
-            TrustProductsEvaluations.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            TrustProductsEvaluations.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class TrustProductsEvaluationsTest {
             result = new ObjectMapper();
         }};
 
-        TrustProductsEvaluations.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        TrustProductsEvaluations.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test

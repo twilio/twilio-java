@@ -53,7 +53,8 @@ public class Message extends Resource {
         ACCEPTED("accepted"),
         SCHEDULED("scheduled"),
         READ("read"),
-        PARTIALLY_DELIVERED("partially_delivered");
+        PARTIALLY_DELIVERED("partially_delivered"),
+        CANCELED("canceled");
 
         private final String value;
 
@@ -73,6 +74,30 @@ public class Message extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum UpdateStatus {
+        CANCELED("canceled");
+
+        private final String value;
+
+        private UpdateStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a UpdateStatus from a string.
+         * @param value string value
+         * @return generated UpdateStatus
+         */
+        @JsonCreator
+        public static UpdateStatus forValue(final String value) {
+            return Promoter.enumFromString(value, UpdateStatus.values());
         }
     }
 

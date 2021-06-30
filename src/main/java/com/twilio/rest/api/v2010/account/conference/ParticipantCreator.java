@@ -399,8 +399,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference state changes that should generate a call to
      * `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`,
-     * `mute`, `hold`, `speaker`, and `announcement`. Separate multiple values with
-     * a space. Defaults to `start end`..
+     * `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple
+     * values with a space. Defaults to `start end`..
      *
      * @param conferenceStatusCallbackEvent The conference state changes that
      *                                      should generate a call to
@@ -415,8 +415,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference state changes that should generate a call to
      * `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`,
-     * `mute`, `hold`, `speaker`, and `announcement`. Separate multiple values with
-     * a space. Defaults to `start end`..
+     * `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple
+     * values with a space. Defaults to `start end`..
      *
      * @param conferenceStatusCallbackEvent The conference state changes that
      *                                      should generate a call to
@@ -562,9 +562,9 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The recording state changes that should generate a call to
-     * `recording_status_callback`. Can be: `in-progress`, `completed`, and
-     * `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `recording_status_callback`. Can be: `started`, `in-progress`, `paused`,
+     * `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple
+     * values with a space, ex: `'in-progress completed failed'`..
      *
      * @param recordingStatusCallbackEvent The recording state changes that should
      *                                     generate a call to
@@ -578,9 +578,9 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The recording state changes that should generate a call to
-     * `recording_status_callback`. Can be: `in-progress`, `completed`, and
-     * `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `recording_status_callback`. Can be: `started`, `in-progress`, `paused`,
+     * `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple
+     * values with a space, ex: `'in-progress completed failed'`..
      *
      * @param recordingStatusCallbackEvent The recording state changes that should
      *                                     generate a call to
@@ -594,8 +594,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference recording state changes that generate a call to
      * `conference_recording_status_callback`. Can be: `in-progress`, `completed`,
-     * and `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `failed`, and `absent`. Separate multiple values with a space, ex:
+     * `'in-progress completed failed'`.
      *
      * @param conferenceRecordingStatusCallbackEvent The conference recording state
      *                                               changes that should generate a
@@ -611,8 +611,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference recording state changes that generate a call to
      * `conference_recording_status_callback`. Can be: `in-progress`, `completed`,
-     * and `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `failed`, and `absent`. Separate multiple values with a space, ex:
+     * `'in-progress completed failed'`.
      *
      * @param conferenceRecordingStatusCallbackEvent The conference recording state
      *                                               changes that should generate a

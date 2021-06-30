@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sim extends Resource {
-    private static final long serialVersionUID = 267800275352549L;
+    private static final long serialVersionUID = 138273270353019L;
 
     public enum Status {
         NEW("new"),
@@ -186,6 +186,7 @@ public class Sim extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private Sim(@JsonProperty("sid")
@@ -205,7 +206,9 @@ public class Sim extends Resource {
                 @JsonProperty("date_updated")
                 final String dateUpdated,
                 @JsonProperty("url")
-                final URI url) {
+                final URI url,
+                @JsonProperty("links")
+                final Map<String, String> links) {
         this.sid = sid;
         this.uniqueName = uniqueName;
         this.accountSid = accountSid;
@@ -215,6 +218,7 @@ public class Sim extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -298,6 +302,15 @@ public class Sim extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -318,7 +331,8 @@ public class Sim extends Resource {
                Objects.equals(fleetSid, other.fleetSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -331,6 +345,7 @@ public class Sim extends Resource {
                             fleetSid,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            links);
     }
 }

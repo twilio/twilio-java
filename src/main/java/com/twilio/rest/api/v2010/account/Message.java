@@ -425,25 +425,21 @@ public class Message extends Resource {
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
-     * @param body The text of the message you want to send
      * @return MessageUpdater capable of executing the update
      */
     public static MessageUpdater updater(final String pathAccountSid,
-                                         final String pathSid,
-                                         final String body) {
-        return new MessageUpdater(pathAccountSid, pathSid, body);
+                                         final String pathSid) {
+        return new MessageUpdater(pathAccountSid, pathSid);
     }
 
     /**
      * Create a MessageUpdater to execute update.
      *
      * @param pathSid The unique string that identifies the resource
-     * @param body The text of the message you want to send
      * @return MessageUpdater capable of executing the update
      */
-    public static MessageUpdater updater(final String pathSid,
-                                         final String body) {
-        return new MessageUpdater(pathSid, body);
+    public static MessageUpdater updater(final String pathSid) {
+        return new MessageUpdater(pathSid);
     }
 
     /**

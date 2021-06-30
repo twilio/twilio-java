@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2021-06-30] Version 8.16.0
+---------------------------
+**Conversations**
+- Read-only Conversation Email Binding property `binding`
+
+**Supersim**
+- Add Billing Period resource for the Super Sim Pilot
+- Add List endpoint to Billing Period resource for Super Sim Pilot
+- Add Fetch endpoint to Billing Period resource for Super Sim Pilot
+
+**Taskrouter**
+- Update `transcribe` & `transcription_configuration` form params in Reservation update endpoint to have private visibility **(breaking change)**
+- Add `transcribe` & `transcription_configuration` form params to Reservation update endpoint
+
+**Twiml**
+- Add `modify` event to `statusCallbackEvent` for `<Conference>`.
+
+
 [2021-06-16] Version 8.15.0
 ---------------------------
 **Library - Chore**

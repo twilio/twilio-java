@@ -171,6 +171,8 @@ System.out.println(message.getSid());
 
 ### Using a Client With PKCV Authentication
 
+Additional documentation here: https://twilio.com/docs/iam/pkcv/quickstart
+
 ```java
 ValidationClient httpClient = new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate());
 TwilioRestClient client = new TwilioRestClient.Builder(signingKey.getSid(), signingKey.getSecret())

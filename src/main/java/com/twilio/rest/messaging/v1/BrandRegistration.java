@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 101106739421752L;
+    private static final long serialVersionUID = 28728237410282L;
 
     public enum Status {
         PENDING("PENDING"),
@@ -147,6 +147,7 @@ public class BrandRegistration extends Resource {
     private final String tcrId;
     private final String failureReason;
     private final URI url;
+    private final Integer brandScore;
 
     @JsonCreator
     private BrandRegistration(@JsonProperty("sid")
@@ -168,7 +169,9 @@ public class BrandRegistration extends Resource {
                               @JsonProperty("failure_reason")
                               final String failureReason,
                               @JsonProperty("url")
-                              final URI url) {
+                              final URI url,
+                              @JsonProperty("brand_score")
+                              final Integer brandScore) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.customerProfileBundleSid = customerProfileBundleSid;
@@ -179,6 +182,7 @@ public class BrandRegistration extends Resource {
         this.tcrId = tcrId;
         this.failureReason = failureReason;
         this.url = url;
+        this.brandScore = brandScore;
     }
 
     /**
@@ -271,6 +275,15 @@ public class BrandRegistration extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns Brand score.
+     *
+     * @return Brand score
+     */
+    public final Integer getBrandScore() {
+        return this.brandScore;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -292,7 +305,8 @@ public class BrandRegistration extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(tcrId, other.tcrId) &&
                Objects.equals(failureReason, other.failureReason) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(brandScore, other.brandScore);
     }
 
     @Override
@@ -306,6 +320,7 @@ public class BrandRegistration extends Resource {
                             status,
                             tcrId,
                             failureReason,
-                            url);
+                            url,
+                            brandScore);
     }
 }

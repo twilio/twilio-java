@@ -7,7 +7,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.DefaultRedirectStrategy;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -24,6 +23,10 @@ public class ValidationClient extends HttpClient {
 
     private static final int CONNECTION_TIMEOUT = 10000;
     private static final int SOCKET_TIMEOUT = 30500;
+    private static final RequestConfig DEFAULT_REQUEST_CONFIG = RequestConfig.custom()
+            .setConnectTimeout(CONNECTION_TIMEOUT)
+            .setSocketTimeout(SOCKET_TIMEOUT)
+            .build();;
 
     private final org.apache.http.client.HttpClient client;
 
@@ -36,11 +39,19 @@ public class ValidationClient extends HttpClient {
      * @param  privateKey Private Key
      */
     public ValidationClient(String accountSid, String credentialSid, String signingKey, PrivateKey privateKey) {
-        RequestConfig config = RequestConfig.custom()
-            .setConnectTimeout(CONNECTION_TIMEOUT)
-            .setSocketTimeout(SOCKET_TIMEOUT)
-            .build();
+        this(accountSid, credentialSid, signingKey, privateKey, DEFAULT_REQUEST_CONFIG);
+    }
 
+    /**
+     * Create a new ValidationClient.
+     *
+     * @param  accountSid Twilio Account SID
+     * @param  credentialSid Twilio Credential SID
+     * @param  signingKey Twilio Signing key
+     * @param  privateKey Private Key
+     * @param  config HTTP Request Config
+     */
+    public ValidationClient(String accountSid, String credentialSid, String signingKey, PrivateKey privateKey, RequestConfig config) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),

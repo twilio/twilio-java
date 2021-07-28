@@ -283,9 +283,9 @@ public class UserConversation extends Resource {
     }
 
     /**
-     * Returns The unique ID of the Conversation for this message..
+     * Returns The unique ID of the Conversation for this User Conversation..
      *
-     * @return The unique ID of the Conversation for this message.
+     * @return The unique ID of the Conversation for this User Conversation.
      */
     public final String getConversationSid() {
         return this.conversationSid;
@@ -402,9 +402,11 @@ public class UserConversation extends Resource {
     }
 
     /**
-     * Returns An application-defined string that uniquely identifies the resource.
+     * Returns An application-defined string that uniquely identifies the
+     * Conversation resource..
      *
-     * @return An application-defined string that uniquely identifies the resource
+     * @return An application-defined string that uniquely identifies the
+     *         Conversation resource.
      */
     public final String getUniqueName() {
         return this.uniqueName;

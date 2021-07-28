@@ -31,6 +31,7 @@ public class WebhookUpdater extends Updater<Webhook> {
     private List<String> eventTypes;
     private String webhookUrl;
     private Webhook.Status status;
+    private Webhook.Version version;
 
     /**
      * Construct a new WebhookUpdater.
@@ -105,6 +106,18 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
+     * The webhook version. Default value is `v2` which includes all the latest
+     * fields. Version `v1` is legacy and may be removed in the future..
+     *
+     * @param version The webhook version
+     * @return this
+     */
+    public WebhookUpdater setVersion(final Webhook.Version version) {
+        this.version = version;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -157,6 +170,10 @@ public class WebhookUpdater extends Updater<Webhook> {
 
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (version != null) {
+            request.addPostParam("Version", version.toString());
         }
     }
 }

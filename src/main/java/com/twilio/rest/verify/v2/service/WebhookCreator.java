@@ -29,6 +29,7 @@ public class WebhookCreator extends Creator<Webhook> {
     private final List<String> eventTypes;
     private final String webhookUrl;
     private Webhook.Status status;
+    private Webhook.Version version;
 
     /**
      * Construct a new WebhookCreator.
@@ -57,6 +58,18 @@ public class WebhookCreator extends Creator<Webhook> {
      */
     public WebhookCreator setStatus(final Webhook.Status status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * The webhook version. Default value is `v2` which includes all the latest
+     * fields. Version `v1` is legacy and may be removed in the future..
+     *
+     * @param version The webhook version
+     * @return this
+     */
+    public WebhookCreator setVersion(final Webhook.Version version) {
+        this.version = version;
         return this;
     }
 
@@ -113,6 +126,10 @@ public class WebhookCreator extends Creator<Webhook> {
 
         if (status != null) {
             request.addPostParam("Status", status.toString());
+        }
+
+        if (version != null) {
+            request.addPostParam("Version", version.toString());
         }
     }
 }

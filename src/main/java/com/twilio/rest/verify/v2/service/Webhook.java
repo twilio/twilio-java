@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-    private static final long serialVersionUID = 249630683343645L;
+    private static final long serialVersionUID = 188296693702794L;
 
     public enum Status {
         ENABLED("enabled"),
@@ -65,6 +65,31 @@ public class Webhook extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum Version {
+        V1("v1"),
+        V2("v2");
+
+        private final String value;
+
+        private Version(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Version from a string.
+         * @param value string value
+         * @return generated Version
+         */
+        @JsonCreator
+        public static Version forValue(final String value) {
+            return Promoter.enumFromString(value, Version.values());
         }
     }
 
@@ -198,6 +223,7 @@ public class Webhook extends Resource {
     private final String friendlyName;
     private final List<String> eventTypes;
     private final Webhook.Status status;
+    private final Webhook.Version version;
     private final URI webhookUrl;
     private final Webhook.Methods webhookMethod;
     private final ZonedDateTime dateCreated;
@@ -217,6 +243,8 @@ public class Webhook extends Resource {
                     final List<String> eventTypes,
                     @JsonProperty("status")
                     final Webhook.Status status,
+                    @JsonProperty("version")
+                    final Webhook.Version version,
                     @JsonProperty("webhook_url")
                     final URI webhookUrl,
                     @JsonProperty("webhook_method")
@@ -233,6 +261,7 @@ public class Webhook extends Resource {
         this.friendlyName = friendlyName;
         this.eventTypes = eventTypes;
         this.status = status;
+        this.version = version;
         this.webhookUrl = webhookUrl;
         this.webhookMethod = webhookMethod;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -295,6 +324,15 @@ public class Webhook extends Resource {
     }
 
     /**
+     * Returns The webhook version.
+     *
+     * @return The webhook version
+     */
+    public final Webhook.Version getVersion() {
+        return this.version;
+    }
+
+    /**
      * Returns The URL associated with this Webhook..
      *
      * @return The URL associated with this Webhook.
@@ -313,18 +351,18 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was created.
+     * Returns The ISO 8601 date and time in GMT when the resource was created.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was created
+     * @return The ISO 8601 date and time in GMT when the resource was created
      */
     public final ZonedDateTime getDateCreated() {
         return this.dateCreated;
     }
 
     /**
-     * Returns The RFC 2822 date and time in GMT when the resource was last updated.
+     * Returns The ISO 8601 date and time in GMT when the resource was last updated.
      *
-     * @return The RFC 2822 date and time in GMT when the resource was last updated
+     * @return The ISO 8601 date and time in GMT when the resource was last updated
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
@@ -357,6 +395,7 @@ public class Webhook extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(eventTypes, other.eventTypes) &&
                Objects.equals(status, other.status) &&
+               Objects.equals(version, other.version) &&
                Objects.equals(webhookUrl, other.webhookUrl) &&
                Objects.equals(webhookMethod, other.webhookMethod) &&
                Objects.equals(dateCreated, other.dateCreated) &&
@@ -372,6 +411,7 @@ public class Webhook extends Resource {
                             friendlyName,
                             eventTypes,
                             status,
+                            version,
                             webhookUrl,
                             webhookMethod,
                             dateCreated,

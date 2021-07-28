@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2021-07-28] Version 8.18.0
+---------------------------
+**Library - Feature**
+- [PR #640](https://github.com/twilio/twilio-java/pull/640): add new constructor to ValidationClient. Thanks to [@sullis](https://github.com/sullis)!
+
+**Conversations**
+- Expose ParticipantConversations resource
+
+**Taskrouter**
+- Adding `links` to the activity resource
+
+**Verify**
+- Added a `Version` to Verify Factors `Webhooks` to add new fields without breaking old Webhooks.
+
+
 [2021-07-14] Version 8.17.0
 ---------------------------
 **Conversations**

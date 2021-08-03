@@ -167,6 +167,9 @@
     <sonar.coverage.exclusions>
       **/test/**/*.*,**/rest/**/*.*
     </sonar.coverage.exclusions>
+    <sonar.cpd.exclusions>
+      **/rest/**/*.*
+    </sonar.cpd.exclusions>
   </properties>
   <dependencies>
     <dependency>

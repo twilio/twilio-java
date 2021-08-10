@@ -2,31 +2,32 @@ language: java
 sudo: false
 cache:
   directories:
-    - "$HOME/.m2"
+  - "$HOME/.m2"
 before_install:
-  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch
-    || true
+- echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import --batch || true
+- echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust --batch
+  || true
 jobs:
   include:
-    - jdk: openjdk8
-      dist: xenial
-      before_script:
-        - mvn test -B
-    - jdk: openjdk11
-      dist: xenial
-      after_success:
-        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=twilio_twilio-java -Dmaven.javadoc.skip=true
+  - jdk: openjdk8
+    dist: xenial
+    before_script:
+    - mvn test -B
+  - jdk: openjdk11
+    dist: xenial
+    after_success:
+    - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=twilio_twilio-java
+      -Dmaven.javadoc.skip=true
 services:
-  - docker
+- docker
 install:
-  - mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
-    -B -V
+- mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
+  -B -V
 script:
-  - echo "skipping tests"
-  - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin;
-    fi
+- echo "skipping tests"
+- if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST"
+  == "false" ]; then echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
+  --password-stdin; fi
 deploy:
 - provider: script
   script: make docker-build && make docker-push
@@ -50,6 +51,6 @@ notifications:
       secure: Yd0IZ2zGmRm64fVwbPebNJ+VJxT958iT3Zz7xP1CSkpR+w6rUulQhWvsn2ka4Kqge+TaXbhNu3I55wRdPCxLrEkTNgCdTkJ9y5HYMxPHpRcQ0XFxJHBmAW6y9foUdSbk2KdM1TKwNUnCp43QmSMWfaMjnvNbh2GzadS/JS1nmBI=
 addons:
   sonarcloud:
-    organization: "twilio"
+    organization: twilio
     token:
-      secure: EivSky9YwOBkCxRhxjocrCAL0d1V8ZunbiZFJK0MNtpwjajNJeZjMaVvE67Sf785NnaeiEStUKjH+usN+20kDrSq1JoF3Af17HQTtrY5yumRrdu9aJmCHnLW+qaqbtUJ6Z7XE5ULgKflo7l5ThbcVNu9gIBWFVKkLG4kUDv1/8Q=
+      secure: mW/dBirBaqBS4mkvYmpbcaUbhV89x+abzcRWdFZ/5ZGSdfGEuKlFa2oLWm0ojV+v4dMW9d3wMLwed4qHegNmoQocioLtamnUGg+89R558IytABdUTbtlayuyAB/gW/b1S0+hAd+KFIBHQXlY4Jr71mW2tqGyjQP/CJXMYDSdkes=

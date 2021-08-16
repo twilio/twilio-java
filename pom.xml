@@ -157,6 +157,16 @@
           </plugin>
         </plugins>
       </build>
+      <properties>
+        <sonar.coverage.exclusions>**/test/**/*.*,**/rest/**/*.*</sonar.coverage.exclusions>
+        <sonar.cpd.exclusions>**/rest/**/*.*</sonar.cpd.exclusions>
+        <sonar.sources>src/main/java</sonar.sources>
+        <sonar.projectKey>twilio_twilio-java</sonar.projectKey>
+        <sonar.projectName>twilio-java</sonar.projectName>
+        <sonar.organization>twilio</sonar.organization>
+        <sonar.exclusions>src/main/java/com/twilio/rest/**/*</sonar.exclusions>
+        <sonar.test.exclusions>src/test/java/com/twilio/rest/**/*.java</sonar.test.exclusions>
+      </properties>
     </profile>
   </profiles>
   <properties>
@@ -164,12 +174,6 @@
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
-    <sonar.coverage.exclusions>
-      **/test/**/*.*,**/rest/**/*.*
-    </sonar.coverage.exclusions>
-    <sonar.cpd.exclusions>
-      **/rest/**/*.*
-    </sonar.cpd.exclusions>
   </properties>
   <dependencies>
     <dependency>
@@ -411,7 +415,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M4</version>
         <configuration>
-          <argLine>@{argLine} -javaagent:${settings.localRepository}/org/jmockit/jmockit/1.24/jmockit-1.24.jar</argLine>
+          <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/1.24/jmockit-1.24.jar ${argLine}</argLine>
           <forkCount>8</forkCount>
           <reuseForks>true</reuseForks>
         </configuration>

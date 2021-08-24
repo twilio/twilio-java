@@ -19,6 +19,7 @@ install:
 - mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
   -B -V
 script:
+- mvn test -B
 - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST"
   == "false" ]; then echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
   --password-stdin; fi

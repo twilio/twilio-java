@@ -11,20 +11,14 @@ jobs:
   include:
   - jdk: openjdk8
     dist: xenial
-    before_script:
-    - mvn test -B
   - jdk: openjdk11
     dist: xenial
-    after_success:
-    - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -Dsonar.projectKey=twilio_twilio-java
-      -Dmaven.javadoc.skip=true
 services:
 - docker
 install:
 - mvn --settings .maven.xml install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true
   -B -V
 script:
-- echo "skipping tests"
 - if [[ "$TRAVIS_BRANCH" == "main"  ||  "$TRAVIS_BRANCH" == "travis" ]] && [ "$TRAVIS_PULL_REQUEST"
   == "false" ]; then echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}"
   --password-stdin; fi
@@ -49,8 +43,3 @@ notifications:
     on_failure: change
     rooms:
       secure: Yd0IZ2zGmRm64fVwbPebNJ+VJxT958iT3Zz7xP1CSkpR+w6rUulQhWvsn2ka4Kqge+TaXbhNu3I55wRdPCxLrEkTNgCdTkJ9y5HYMxPHpRcQ0XFxJHBmAW6y9foUdSbk2KdM1TKwNUnCp43QmSMWfaMjnvNbh2GzadS/JS1nmBI=
-addons:
-  sonarcloud:
-    organization: twilio
-    token:
-      secure: mW/dBirBaqBS4mkvYmpbcaUbhV89x+abzcRWdFZ/5ZGSdfGEuKlFa2oLWm0ojV+v4dMW9d3wMLwed4qHegNmoQocioLtamnUGg+89R558IytABdUTbtlayuyAB/gW/b1S0+hAd+KFIBHQXlY4Jr71mW2tqGyjQP/CJXMYDSdkes=

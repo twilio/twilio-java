@@ -127,49 +127,12 @@
         </plugins>
       </build>
     </profile>
-    <profile>
-      <id>coverage</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.7</version>
-            <executions>
-              <execution>
-                <id>prepare-agent</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-              </execution>
-              <!-- attached to Maven test phase -->
-              <execution>
-                <id>report</id>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-                <phase>verify</phase>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
   </profiles>
   <properties>
     <jackson.version>2.12.1</jackson.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
-    <sonar.coverage.exclusions>
-      **/test/**/*.*,**/rest/**/*.*
-    </sonar.coverage.exclusions>
-    <sonar.cpd.exclusions>
-      **/rest/**/*.*
-    </sonar.cpd.exclusions>
   </properties>
   <dependencies>
     <dependency>
@@ -411,7 +374,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M4</version>
         <configuration>
-          <argLine>@{argLine} -javaagent:${settings.localRepository}/org/jmockit/jmockit/1.24/jmockit-1.24.jar</argLine>
+          <argLine>-javaagent:${settings.localRepository}/org/jmockit/jmockit/1.24/jmockit-1.24.jar</argLine>
           <forkCount>8</forkCount>
           <reuseForks>true</reuseForks>
         </configuration>

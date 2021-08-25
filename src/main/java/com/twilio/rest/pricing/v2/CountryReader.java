@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1.service.conversation;
+package com.twilio.rest.pricing.v2;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,44 +19,15 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MessageReader extends Reader<Message> {
-    private final String pathChatServiceSid;
-    private final String pathConversationSid;
-    private Message.OrderType order;
-
-    /**
-     * Construct a new MessageReader.
-     *
-     * @param pathChatServiceSid The SID of the Conversation Service that the
-     *                           resource is associated with.
-     * @param pathConversationSid The unique ID of the Conversation for messages.
-     */
-    public MessageReader(final String pathChatServiceSid,
-                         final String pathConversationSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
-        this.pathConversationSid = pathConversationSid;
-    }
-
-    /**
-     * The sort order of the returned messages. Can be: `asc` (ascending) or `desc`
-     * (descending), with `asc` as the default..
-     *
-     * @param order The sort order of the returned messages
-     * @return this
-     */
-    public MessageReader setOrder(final Message.OrderType order) {
-        this.order = order;
-        return this;
-    }
-
+public class CountryReader extends Reader<Country> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Message ResourceSet
+     * @return Country ResourceSet
      */
     @Override
-    public ResourceSet<Message> read(final TwilioRestClient client) {
+    public ResourceSet<Country> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -64,15 +35,15 @@ public class MessageReader extends Reader<Message> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Message ResourceSet
+     * @return Country ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Message> firstPage(final TwilioRestClient client) {
+    public Page<Country> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            "/v1/Services/" + this.pathChatServiceSid + "/Conversations/" + this.pathConversationSid + "/Messages"
+            Domains.PRICING.toString(),
+            "/v2/Trunking/Countries"
         );
 
         addQueryParams(request);
@@ -84,11 +55,11 @@ public class MessageReader extends Reader<Message> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Message ResourceSet
+     * @return Country ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Message> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Country> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -105,11 +76,11 @@ public class MessageReader extends Reader<Message> {
      * @return Next Page
      */
     @Override
-    public Page<Message> nextPage(final Page<Message> page,
+    public Page<Country> nextPage(final Page<Country> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.CONVERSATIONS.toString())
+            page.getNextPageUrl(Domains.PRICING.toString())
         );
         return pageForRequest(client, request);
     }
@@ -122,27 +93,27 @@ public class MessageReader extends Reader<Message> {
      * @return Previous Page
      */
     @Override
-    public Page<Message> previousPage(final Page<Message> page,
+    public Page<Country> previousPage(final Page<Country> page,
                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
+            page.getPreviousPageUrl(Domains.PRICING.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Message Resources for a given request.
+     * Generate a Page of Country Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Message> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Country> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Message read failed: Unable to connect to server");
+            throw new ApiConnectionException("Country read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -152,9 +123,9 @@ public class MessageReader extends Reader<Message> {
         }
 
         return Page.fromJson(
-            "messages",
+            "countries",
             response.getContent(),
-            Message.class,
+            Country.class,
             client.getObjectMapper()
         );
     }
@@ -165,10 +136,6 @@ public class MessageReader extends Reader<Message> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (order != null) {
-            request.addQueryParam("Order", order.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -57,7 +57,19 @@ public class UsAppToPersonUsecaseTest {
     }
 
     @Test
-    public void testFetchResponse() {
+    public void testFetchWithBrandRegistrationSidResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"us_app_to_person_usecases\": [{\"code\": \"MARKETING\",\"name\": \"Marketing\",\"description\": \"Send marketing messages about sales and offers to opted in customers.\"},{\"code\": \"DELIVERY_NOTIFICATION\",\"name\": \"Delivery Notification\",\"description\": \"Information about the status of the delivery of a product or service.\"}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+    }
+
+    @Test
+    public void testFetchWithoutBrandRegistrationSidResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
             result = new Response("{\"us_app_to_person_usecases\": [{\"code\": \"MARKETING\",\"name\": \"Marketing\",\"description\": \"Send marketing messages about sales and offers to opted in customers.\"},{\"code\": \"DELIVERY_NOTIFICATION\",\"name\": \"Delivery Notification\",\"description\": \"Information about the status of the delivery of a product or service.\"}]}", TwilioRestClient.HTTP_STATUS_CODE_OK);

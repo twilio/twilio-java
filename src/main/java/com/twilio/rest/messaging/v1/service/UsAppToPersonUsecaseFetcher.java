@@ -23,6 +23,7 @@ import com.twilio.rest.Domains;
  */
 public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
     private final String pathMessagingServiceSid;
+    private String brandRegistrationSid;
 
     /**
      * Construct a new UsAppToPersonUsecaseFetcher.
@@ -32,6 +33,17 @@ public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
      */
     public UsAppToPersonUsecaseFetcher(final String pathMessagingServiceSid) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
+    }
+
+    /**
+     * The unique string to identify the A2P brand..
+     *
+     * @param brandRegistrationSid A2P Brand Registration SID
+     * @return this
+     */
+    public UsAppToPersonUsecaseFetcher setBrandRegistrationSid(final String brandRegistrationSid) {
+        this.brandRegistrationSid = brandRegistrationSid;
+        return this;
     }
 
     /**
@@ -49,6 +61,7 @@ public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
             "/v1/Services/" + this.pathMessagingServiceSid + "/Compliance/Usa2p/Usecases"
         );
 
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,5 +75,16 @@ public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
         }
 
         return UsAppToPersonUsecase.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     *
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (brandRegistrationSid != null) {
+            request.addQueryParam("BrandRegistrationSid", brandRegistrationSid);
+        }
     }
 }

@@ -28,6 +28,7 @@ public class ChallengeReader extends Reader<Challenge> {
     private final String pathIdentity;
     private String factorSid;
     private Challenge.ChallengeStatuses status;
+    private Challenge.ListOrders order;
 
     /**
      * Construct a new ChallengeReader.
@@ -61,6 +62,18 @@ public class ChallengeReader extends Reader<Challenge> {
      */
     public ChallengeReader setStatus(final Challenge.ChallengeStatuses status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * The desired sort order of the Challenges list. One of `asc` or `desc` for
+     * ascending and descending respectively. Defaults to `asc`..
+     *
+     * @param order The sort order of the Challenges list
+     * @return this
+     */
+    public ChallengeReader setOrder(final Challenge.ListOrders order) {
+        this.order = order;
         return this;
     }
 
@@ -186,6 +199,10 @@ public class ChallengeReader extends Reader<Challenge> {
 
         if (status != null) {
             request.addQueryParam("Status", status.toString());
+        }
+
+        if (order != null) {
+            request.addQueryParam("Order", order.toString());
         }
 
         if (getPageSize() != null) {

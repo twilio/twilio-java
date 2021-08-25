@@ -59,6 +59,7 @@ public class CallCreator extends Creator<Call> {
     private String callReason;
     private String callToken;
     private String recordingTrack;
+    private Integer timeLimit;
 
     /**
      * Construct a new CallCreator.
@@ -651,6 +652,18 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * The maximum duration of the call in seconds. Constraints depend on account
+     * and configuration..
+     *
+     * @param timeLimit The maximum duration of the call in seconds.
+     * @return this
+     */
+    public CallCreator setTimeLimit(final Integer timeLimit) {
+        this.timeLimit = timeLimit;
+        return this;
+    }
+
+    /**
      * The absolute URL that returns the TwiML instructions for the call. We will
      * call this URL using the `method` when the call connects. For more
      * information, see the <a
@@ -895,6 +908,10 @@ public class CallCreator extends Creator<Call> {
 
         if (recordingTrack != null) {
             request.addPostParam("RecordingTrack", recordingTrack);
+        }
+
+        if (timeLimit != null) {
+            request.addPostParam("TimeLimit", timeLimit.toString());
         }
     }
 }

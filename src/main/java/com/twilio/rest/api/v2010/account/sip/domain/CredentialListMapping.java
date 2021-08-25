@@ -34,7 +34,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CredentialListMapping extends Resource {
-    private static final long serialVersionUID = 214188792953524L;
+    private static final long serialVersionUID = 124631283719595L;
 
     /**
      * Create a CredentialListMappingCreator to execute create.
@@ -187,10 +187,10 @@ public class CredentialListMapping extends Resource {
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final String domainSid;
     private final String friendlyName;
     private final String sid;
     private final String uri;
-    private final Map<String, String> subresourceUris;
 
     @JsonCreator
     private CredentialListMapping(@JsonProperty("account_sid")
@@ -199,21 +199,21 @@ public class CredentialListMapping extends Resource {
                                   final String dateCreated,
                                   @JsonProperty("date_updated")
                                   final String dateUpdated,
+                                  @JsonProperty("domain_sid")
+                                  final String domainSid,
                                   @JsonProperty("friendly_name")
                                   final String friendlyName,
                                   @JsonProperty("sid")
                                   final String sid,
                                   @JsonProperty("uri")
-                                  final String uri,
-                                  @JsonProperty("subresource_uris")
-                                  final Map<String, String> subresourceUris) {
+                                  final String uri) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.domainSid = domainSid;
         this.friendlyName = friendlyName;
         this.sid = sid;
         this.uri = uri;
-        this.subresourceUris = subresourceUris;
     }
 
     /**
@@ -248,6 +248,15 @@ public class CredentialListMapping extends Resource {
     }
 
     /**
+     * Returns The unique string that identifies the SipDomain resource..
+     *
+     * @return The unique string that identifies the SipDomain resource.
+     */
+    public final String getDomainSid() {
+        return this.domainSid;
+    }
+
+    /**
      * Returns A human readable descriptive text for this resource, up to 64
      * characters long..
      *
@@ -276,15 +285,6 @@ public class CredentialListMapping extends Resource {
         return this.uri;
     }
 
-    /**
-     * Returns The credentials associated with this resource..
-     *
-     * @return The credentials associated with this resource.
-     */
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -300,10 +300,10 @@ public class CredentialListMapping extends Resource {
         return Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(domainSid, other.domainSid) &&
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(sid, other.sid) &&
-               Objects.equals(uri, other.uri) &&
-               Objects.equals(subresourceUris, other.subresourceUris);
+               Objects.equals(uri, other.uri);
     }
 
     @Override
@@ -311,9 +311,9 @@ public class CredentialListMapping extends Resource {
         return Objects.hash(accountSid,
                             dateCreated,
                             dateUpdated,
+                            domainSid,
                             friendlyName,
                             sid,
-                            uri,
-                            subresourceUris);
+                            uri);
     }
 }

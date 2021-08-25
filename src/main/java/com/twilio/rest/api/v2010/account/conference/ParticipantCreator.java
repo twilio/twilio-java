@@ -63,6 +63,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private String callerId;
     private String callReason;
     private String recordingTrack;
+    private Integer timeLimit;
 
     /**
      * Construct a new ParticipantCreator.
@@ -725,6 +726,18 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The maximum duration of the call in seconds. Constraints depend on account
+     * and configuration..
+     *
+     * @param timeLimit The maximum duration of the call in seconds.
+     * @return this
+     */
+    public ParticipantCreator setTimeLimit(final Integer timeLimit) {
+        this.timeLimit = timeLimit;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -920,6 +933,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (recordingTrack != null) {
             request.addPostParam("RecordingTrack", recordingTrack);
+        }
+
+        if (timeLimit != null) {
+            request.addPostParam("TimeLimit", timeLimit.toString());
         }
     }
 }

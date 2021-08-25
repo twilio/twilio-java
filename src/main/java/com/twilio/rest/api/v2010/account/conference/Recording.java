@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Currency;
 import java.util.Map;
@@ -39,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 119371438714806L;
+    private static final long serialVersionUID = 139030377775690L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -255,7 +254,7 @@ public class Recording extends Resource {
     private final ZonedDateTime startTime;
     private final String duration;
     private final String sid;
-    private final BigDecimal price;
+    private final String price;
     private final Currency priceUnit;
     private final Recording.Status status;
     private final Integer channels;
@@ -284,7 +283,7 @@ public class Recording extends Resource {
                       @JsonProperty("sid")
                       final String sid,
                       @JsonProperty("price")
-                      final BigDecimal price,
+                      final String price,
                       @JsonProperty("price_unit")
                       @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
                       final Currency priceUnit,
@@ -407,7 +406,7 @@ public class Recording extends Resource {
      *
      * @return The one-time cost of creating the recording.
      */
-    public final BigDecimal getPrice() {
+    public final String getPrice() {
         return this.price;
     }
 

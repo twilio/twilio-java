@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-    private static final long serialVersionUID = 239000322102976L;
+    private static final long serialVersionUID = 89883663840219L;
 
     public enum Status {
         QUEUED("queued"),

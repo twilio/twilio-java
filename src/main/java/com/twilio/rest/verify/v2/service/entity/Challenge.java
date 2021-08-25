@@ -122,6 +122,31 @@ public class Challenge extends Resource {
         }
     }
 
+    public enum ListOrders {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private ListOrders(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ListOrders from a string.
+         * @param value string value
+         * @return generated ListOrders
+         */
+        @JsonCreator
+        public static ListOrders forValue(final String value) {
+            return Promoter.enumFromString(value, ListOrders.values());
+        }
+    }
+
     /**
      * Create a ChallengeCreator to execute create.
      *

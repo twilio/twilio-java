@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 28728237410282L;
+    private static final long serialVersionUID = 22690009711624L;
 
     public enum Status {
         PENDING("PENDING"),
@@ -143,6 +143,7 @@ public class BrandRegistration extends Resource {
     private final String a2PProfileBundleSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final String brandType;
     private final BrandRegistration.Status status;
     private final String tcrId;
     private final String failureReason;
@@ -162,6 +163,8 @@ public class BrandRegistration extends Resource {
                               final String dateCreated,
                               @JsonProperty("date_updated")
                               final String dateUpdated,
+                              @JsonProperty("brand_type")
+                              final String brandType,
                               @JsonProperty("status")
                               final BrandRegistration.Status status,
                               @JsonProperty("tcr_id")
@@ -178,6 +181,7 @@ public class BrandRegistration extends Resource {
         this.a2PProfileBundleSid = a2PProfileBundleSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.brandType = brandType;
         this.status = status;
         this.tcrId = tcrId;
         this.failureReason = failureReason;
@@ -237,6 +241,15 @@ public class BrandRegistration extends Resource {
      */
     public final ZonedDateTime getDateUpdated() {
         return this.dateUpdated;
+    }
+
+    /**
+     * Returns Type of brand. One of: "STANDARD", "STARTER"..
+     *
+     * @return Type of brand. One of: "STANDARD", "STARTER".
+     */
+    public final String getBrandType() {
+        return this.brandType;
     }
 
     /**
@@ -302,6 +315,7 @@ public class BrandRegistration extends Resource {
                Objects.equals(a2PProfileBundleSid, other.a2PProfileBundleSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(brandType, other.brandType) &&
                Objects.equals(status, other.status) &&
                Objects.equals(tcrId, other.tcrId) &&
                Objects.equals(failureReason, other.failureReason) &&
@@ -317,6 +331,7 @@ public class BrandRegistration extends Resource {
                             a2PProfileBundleSid,
                             dateCreated,
                             dateUpdated,
+                            brandType,
                             status,
                             tcrId,
                             failureReason,

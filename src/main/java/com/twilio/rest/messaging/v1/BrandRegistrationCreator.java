@@ -24,6 +24,7 @@ import com.twilio.rest.Domains;
 public class BrandRegistrationCreator extends Creator<BrandRegistration> {
     private final String customerProfileBundleSid;
     private final String a2PProfileBundleSid;
+    private String brandType;
 
     /**
      * Construct a new BrandRegistrationCreator.
@@ -35,6 +36,18 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
                                     final String a2PProfileBundleSid) {
         this.customerProfileBundleSid = customerProfileBundleSid;
         this.a2PProfileBundleSid = a2PProfileBundleSid;
+    }
+
+    /**
+     * Type of brand being created. One of: "STANDARD", "STARTER". STARTER is for
+     * low volume, starter use cases. STANDARD is for all other use cases..
+     *
+     * @param brandType Type of brand being created. One of: "STANDARD", "STARTER".
+     * @return this
+     */
+    public BrandRegistrationCreator setBrandType(final String brandType) {
+        this.brandType = brandType;
+        return this;
     }
 
     /**
@@ -80,6 +93,10 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
 
         if (a2PProfileBundleSid != null) {
             request.addPostParam("A2PProfileBundleSid", a2PProfileBundleSid);
+        }
+
+        if (brandType != null) {
+            request.addPostParam("BrandType", brandType);
         }
     }
 }

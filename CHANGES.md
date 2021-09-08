@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2021-09-08] Version 8.19.1
+---------------------------
+**Library - Fix**
+- [PR #644](https://github.com/twilio/twilio-java/pull/644): deploy issues. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Revert adding `siprec` resource
+- Add `siprec` resource
+
+**Messaging**
+- Add 'mock' as an optional field to brand_registration api
+- Add 'mock' as an optional field to us_app_to_person api
+- Adds more Use Cases in us_app_to_person_usecase api transaction and updates us_app_to_person_usecase docs
+
+**Verify**
+- Verify List Templates API endpoint added.
+
+
 [2021-08-25] Version 8.19.0
 ---------------------------
 **Library - Chore**

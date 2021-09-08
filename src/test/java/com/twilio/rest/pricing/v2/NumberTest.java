@@ -60,7 +60,19 @@ public class NumberTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"country\": \"United States\",\"destination_number\": \"+18001234567\",\"originating_call_price\": {\"base_price\": null,\"current_price\": null,\"number_type\": null},\"iso_country\": \"US\",\"origination_number\": \"+987654321\",\"terminating_prefix_prices\": [{\"base_price\": \"\",\"current_price\": \"0.013\",\"destination_prefixes\": [\"1800\"],\"friendly_name\": \"Trunking Outbound Minute - United States Zone 1b\",\"origination_prefixes\": [\"ALL\"]}],\"price_unit\": \"USD\",\"url\": \"https://pricing.twilio.com/v2/Trunking/Numbers/+18001234567\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"country\": \"United States\",\"destination_number\": \"+18001234567\",\"originating_call_price\": {\"base_price\": null,\"current_price\": null,\"number_type\": null},\"iso_country\": \"US\",\"origination_number\": null,\"terminating_prefix_prices\": [{\"base_price\": null,\"current_price\": \"0.013\",\"destination_prefixes\": [\"1800\"],\"friendly_name\": \"Trunking Outbound Minute - United States Zone 1b\",\"origination_prefixes\": [\"ALL\"]}],\"price_unit\": \"USD\",\"url\": \"https://pricing.twilio.com/v2/Trunking/Numbers/+18001234567\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+    }
+
+    @Test
+    public void testFetchWithOriginationResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"country\": \"United States\",\"destination_number\": \"+18001234567\",\"originating_call_price\": {\"base_price\": null,\"current_price\": \"0.013\",\"number_type\": \"tollfree\"},\"iso_country\": \"US\",\"origination_number\": \"+15105556789\",\"terminating_prefix_prices\": [{\"base_price\": null,\"current_price\": \"0.001\",\"destination_prefixes\": [\"1800\"],\"friendly_name\": \"Trunking Outbound Minute - United States - Toll Free\",\"origination_prefixes\": [\"ALL\"]}],\"price_unit\": \"USD\",\"url\": \"https://pricing.twilio.com/v2/Trunking/Numbers/+18001234567\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

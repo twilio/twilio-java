@@ -25,6 +25,7 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
     private final String customerProfileBundleSid;
     private final String a2PProfileBundleSid;
     private String brandType;
+    private Boolean mock;
 
     /**
      * Construct a new BrandRegistrationCreator.
@@ -47,6 +48,21 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
      */
     public BrandRegistrationCreator setBrandType(final String brandType) {
         this.brandType = brandType;
+        return this;
+    }
+
+    /**
+     * A boolean that specifies whether brand should be a mock or not. If true,
+     * brand will be registered as a mock brand. Defaults to false if no value is
+     * provided..
+     *
+     * @param mock A boolean that specifies whether brand should be a mock or not.
+     *             If true, brand will be registered as a mock brand. Defaults to
+     *             false if no value is provided.
+     * @return this
+     */
+    public BrandRegistrationCreator setMock(final Boolean mock) {
+        this.mock = mock;
         return this;
     }
 
@@ -97,6 +113,10 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
 
         if (brandType != null) {
             request.addPostParam("BrandType", brandType);
+        }
+
+        if (mock != null) {
+            request.addPostParam("Mock", mock.toString());
         }
     }
 }

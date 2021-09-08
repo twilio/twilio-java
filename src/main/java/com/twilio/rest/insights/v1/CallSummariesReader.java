@@ -34,9 +34,9 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private Boolean hasTag;
     private String startTime;
     private String endTime;
-    private List<String> callType;
-    private List<String> callState;
-    private CallSummaries.CallDirection direction;
+    private List<CallSummaries.CallType> callType;
+    private List<CallSummaries.CallState> callState;
+    private List<CallSummaries.CallDirection> direction;
     private CallSummaries.ProcessingStateRequest processingState;
     private CallSummaries.SortBy sortBy;
     private String subaccount;
@@ -229,7 +229,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param callType The call_type
      * @return this
      */
-    public CallSummariesReader setCallType(final List<String> callType) {
+    public CallSummariesReader setCallType(final List<CallSummaries.CallType> callType) {
         this.callType = callType;
         return this;
     }
@@ -240,7 +240,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param callType The call_type
      * @return this
      */
-    public CallSummariesReader setCallType(final String callType) {
+    public CallSummariesReader setCallType(final CallSummaries.CallType callType) {
         return setCallType(Promoter.listOfOne(callType));
     }
 
@@ -250,7 +250,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param callState The call_state
      * @return this
      */
-    public CallSummariesReader setCallState(final List<String> callState) {
+    public CallSummariesReader setCallState(final List<CallSummaries.CallState> callState) {
         this.callState = callState;
         return this;
     }
@@ -261,7 +261,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param callState The call_state
      * @return this
      */
-    public CallSummariesReader setCallState(final String callState) {
+    public CallSummariesReader setCallState(final CallSummaries.CallState callState) {
         return setCallState(Promoter.listOfOne(callState));
     }
 
@@ -271,9 +271,19 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param direction The direction
      * @return this
      */
-    public CallSummariesReader setDirection(final CallSummaries.CallDirection direction) {
+    public CallSummariesReader setDirection(final List<CallSummaries.CallDirection> direction) {
         this.direction = direction;
         return this;
+    }
+
+    /**
+     * The direction.
+     *
+     * @param direction The direction
+     * @return this
+     */
+    public CallSummariesReader setDirection(final CallSummaries.CallDirection direction) {
+        return setDirection(Promoter.listOfOne(direction));
     }
 
     /**
@@ -493,19 +503,21 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         }
 
         if (callType != null) {
-            for (String prop : callType) {
-                request.addQueryParam("CallType", prop);
+            for (CallSummaries.CallType prop : callType) {
+                request.addQueryParam("CallType", prop.toString());
             }
         }
 
         if (callState != null) {
-            for (String prop : callState) {
-                request.addQueryParam("CallState", prop);
+            for (CallSummaries.CallState prop : callState) {
+                request.addQueryParam("CallState", prop.toString());
             }
         }
 
         if (direction != null) {
-            request.addQueryParam("Direction", direction.toString());
+            for (CallSummaries.CallDirection prop : direction) {
+                request.addQueryParam("Direction", prop.toString());
+            }
         }
 
         if (processingState != null) {

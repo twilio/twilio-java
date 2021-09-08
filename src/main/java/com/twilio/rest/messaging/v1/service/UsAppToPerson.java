@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
-    private static final long serialVersionUID = 131982293842514L;
+    private static final long serialVersionUID = 156924875301398L;
 
     /**
      * Create a UsAppToPersonCreator to execute create.
@@ -161,6 +161,7 @@ public class UsAppToPerson extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Boolean mock;
 
     @JsonCreator
     private UsAppToPerson(@JsonProperty("sid")
@@ -194,7 +195,9 @@ public class UsAppToPerson extends Resource {
                           @JsonProperty("date_updated")
                           final String dateUpdated,
                           @JsonProperty("url")
-                          final URI url) {
+                          final URI url,
+                          @JsonProperty("mock")
+                          final Boolean mock) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.brandRegistrationSid = brandRegistrationSid;
@@ -211,6 +214,7 @@ public class UsAppToPerson extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.mock = mock;
     }
 
     /**
@@ -360,6 +364,15 @@ public class UsAppToPerson extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns A boolean that specifies whether campaign is a mock or not..
+     *
+     * @return A boolean that specifies whether campaign is a mock or not.
+     */
+    public final Boolean getMock() {
+        return this.mock;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -387,7 +400,8 @@ public class UsAppToPerson extends Resource {
                Objects.equals(rateLimits, other.rateLimits) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(mock, other.mock);
     }
 
     @Override
@@ -407,6 +421,7 @@ public class UsAppToPerson extends Resource {
                             rateLimits,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            mock);
     }
 }

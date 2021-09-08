@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 22690009711624L;
+    private static final long serialVersionUID = 5353915230753L;
 
     public enum Status {
         PENDING("PENDING"),
@@ -149,6 +149,7 @@ public class BrandRegistration extends Resource {
     private final String failureReason;
     private final URI url;
     private final Integer brandScore;
+    private final Boolean mock;
 
     @JsonCreator
     private BrandRegistration(@JsonProperty("sid")
@@ -174,7 +175,9 @@ public class BrandRegistration extends Resource {
                               @JsonProperty("url")
                               final URI url,
                               @JsonProperty("brand_score")
-                              final Integer brandScore) {
+                              final Integer brandScore,
+                              @JsonProperty("mock")
+                              final Boolean mock) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.customerProfileBundleSid = customerProfileBundleSid;
@@ -187,6 +190,7 @@ public class BrandRegistration extends Resource {
         this.failureReason = failureReason;
         this.url = url;
         this.brandScore = brandScore;
+        this.mock = mock;
     }
 
     /**
@@ -297,6 +301,19 @@ public class BrandRegistration extends Resource {
         return this.brandScore;
     }
 
+    /**
+     * Returns A boolean that specifies whether brand should be a mock or not. If
+     * true, brand will be registered as a mock brand. Defaults to false if no value
+     * is provided..
+     *
+     * @return A boolean that specifies whether brand should be a mock or not. If
+     *         true, brand will be registered as a mock brand. Defaults to false if
+     *         no value is provided.
+     */
+    public final Boolean getMock() {
+        return this.mock;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -320,7 +337,8 @@ public class BrandRegistration extends Resource {
                Objects.equals(tcrId, other.tcrId) &&
                Objects.equals(failureReason, other.failureReason) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(brandScore, other.brandScore);
+               Objects.equals(brandScore, other.brandScore) &&
+               Objects.equals(mock, other.mock);
     }
 
     @Override
@@ -336,6 +354,7 @@ public class BrandRegistration extends Resource {
                             tcrId,
                             failureReason,
                             url,
-                            brandScore);
+                            brandScore,
+                            mock);
     }
 }

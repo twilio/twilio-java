@@ -81,11 +81,12 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or
-     * `false` to disable it. The default is `false`. Multi-tasking allows Workers
-     * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
-     * can receive parallel reservations up to the per-channel maximums defined in
-     * the Workers section. Otherwise, each Worker will only receive a new
-     * reservation when the previous task is completed. Learn more at <a
+     * `false` to disable it. However, all workspaces should be created as
+     * multi-tasking. The default is `true`. Multi-tasking allows Workers to handle
+     * multiple Tasks simultaneously. When enabled (`true`), each Worker can receive
+     * parallel reservations up to the per-channel maximums defined in the Workers
+     * section. In single-tasking mode (legacy mode), each Worker will only receive
+     * a new reservation when the previous task is completed. Learn more at <a
      * href="https://www.twilio.com/docs/taskrouter/multitasking">Multitasking</a>..
      *
      * @param multiTaskEnabled Whether multi-tasking is enabled

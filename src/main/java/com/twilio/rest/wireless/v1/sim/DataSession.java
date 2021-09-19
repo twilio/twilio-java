@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -33,7 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class DataSession extends Resource {
     private static final long serialVersionUID = 281325626490598L;
 
@@ -366,4 +356,8 @@ public class DataSession extends Resource {
                             end,
                             imei);
     }
+
+  public String toString() {
+    return "DataSession(sid=" + this.getSid() + ", simSid=" + this.getSimSid() + ", accountSid=" + this.getAccountSid() + ", radioLink=" + this.getRadioLink() + ", operatorMcc=" + this.getOperatorMcc() + ", operatorMnc=" + this.getOperatorMnc() + ", operatorCountry=" + this.getOperatorCountry() + ", operatorName=" + this.getOperatorName() + ", cellId=" + this.getCellId() + ", cellLocationEstimate=" + this.getCellLocationEstimate() + ", packetsUploaded=" + this.getPacketsUploaded() + ", packetsDownloaded=" + this.getPacketsDownloaded() + ", lastUpdated=" + this.getLastUpdated() + ", start=" + this.getStart() + ", end=" + this.getEnd() + ", imei=" + this.getImei() + ")";
+  }
 }

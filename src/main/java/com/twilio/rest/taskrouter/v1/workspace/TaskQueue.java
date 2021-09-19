@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class TaskQueue extends Resource {
     private static final long serialVersionUID = 31174194031326L;
 
-    public enum TaskOrder {
+  public String toString() {
+    return "TaskQueue(accountSid=" + this.getAccountSid() + ", assignmentActivitySid=" + this.getAssignmentActivitySid() + ", assignmentActivityName=" + this.getAssignmentActivityName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", maxReservedWorkers=" + this.getMaxReservedWorkers() + ", reservationActivitySid=" + this.getReservationActivitySid() + ", reservationActivityName=" + this.getReservationActivityName() + ", sid=" + this.getSid() + ", targetWorkers=" + this.getTargetWorkers() + ", taskOrder=" + this.getTaskOrder() + ", url=" + this.getUrl() + ", workspaceSid=" + this.getWorkspaceSid() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum TaskOrder {
         FIFO("FIFO"),
         LIFO("LIFO");
 

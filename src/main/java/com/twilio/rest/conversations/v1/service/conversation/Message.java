@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,11 +27,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 166901888663263L;
 
-    public enum OrderType {
+  public String toString() {
+    return "Message(accountSid=" + this.getAccountSid() + ", chatServiceSid=" + this.getChatServiceSid() + ", conversationSid=" + this.getConversationSid() + ", sid=" + this.getSid() + ", index=" + this.getIndex() + ", author=" + this.getAuthor() + ", body=" + this.getBody() + ", media=" + this.getMedia() + ", attributes=" + this.getAttributes() + ", participantSid=" + this.getParticipantSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", delivery=" + this.getDelivery() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum OrderType {
         ASC("asc"),
         DESC("desc");
 

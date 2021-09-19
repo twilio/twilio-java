@@ -14,19 +14,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,11 +27,15 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class DependentPhoneNumber extends Resource {
     private static final long serialVersionUID = 25853317680371L;
 
-    public enum AddressRequirement {
+  public String toString() {
+    return "DependentPhoneNumber(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", phoneNumber=" + this.getPhoneNumber() + ", voiceUrl=" + this.getVoiceUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceCallerIdLookup=" + this.getVoiceCallerIdLookup() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", smsFallbackMethod=" + this.getSmsFallbackMethod() + ", smsFallbackUrl=" + this.getSmsFallbackUrl() + ", smsMethod=" + this.getSmsMethod() + ", smsUrl=" + this.getSmsUrl() + ", addressRequirements=" + this.getAddressRequirements() + ", capabilities=" + this.getCapabilities() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", apiVersion=" + this.getApiVersion() + ", smsApplicationSid="
+        + this.getSmsApplicationSid() + ", voiceApplicationSid=" + this.getVoiceApplicationSid() + ", trunkSid=" + this.getTrunkSid() + ", emergencyStatus=" + this.getEmergencyStatus() + ", emergencyAddressSid=" + this.getEmergencyAddressSid() + ", uri=" + this.getUri() + ")";
+  }
+
+  public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
         LOCAL("local"),

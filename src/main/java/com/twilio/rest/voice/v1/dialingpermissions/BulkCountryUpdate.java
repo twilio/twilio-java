@@ -16,17 +16,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -35,7 +26,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class BulkCountryUpdate extends Resource {
     private static final long serialVersionUID = 82168182663718L;
 
@@ -138,4 +128,8 @@ public class BulkCountryUpdate extends Resource {
         return Objects.hash(updateCount,
                             updateRequest);
     }
+
+  public String toString() {
+    return "BulkCountryUpdate(updateCount=" + this.getUpdateCount() + ", updateRequest=" + this.getUpdateRequest() + ")";
+  }
 }

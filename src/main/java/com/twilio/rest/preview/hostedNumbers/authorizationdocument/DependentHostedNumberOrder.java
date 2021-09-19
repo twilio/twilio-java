@@ -18,20 +18,11 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -40,11 +31,15 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class DependentHostedNumberOrder extends Resource {
     private static final long serialVersionUID = 20864169614063L;
 
-    public enum Status {
+  public String toString() {
+    return "DependentHostedNumberOrder(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", incomingPhoneNumberSid=" + this.getIncomingPhoneNumberSid() + ", addressSid=" + this.getAddressSid() + ", signingDocumentSid=" + this.getSigningDocumentSid() + ", phoneNumber=" + this.getPhoneNumber() + ", capabilities=" + this.getCapabilities() + ", friendlyName=" + this.getFriendlyName() + ", uniqueName=" + this.getUniqueName() + ", status=" + this.getStatus() + ", failureReason=" + this.getFailureReason() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", verificationAttempts=" + this.getVerificationAttempts() + ", email=" + this.getEmail() + ", ccEmails=" + this.getCcEmails() + ", verificationType=" + this.getVerificationType() + ", verificationDocumentSid=" + this.getVerificationDocumentSid() + ", extension=" + this.getExtension() + ", callDelay=" + this.getCallDelay() + ", verificationCode=" + this.getVerificationCode()
+        + ", verificationCallSids=" + this.getVerificationCallSids() + ")";
+  }
+
+  public enum Status {
         RECEIVED("received"),
         PENDING_VERIFICATION("pending-verification"),
         VERIFIED("verified"),

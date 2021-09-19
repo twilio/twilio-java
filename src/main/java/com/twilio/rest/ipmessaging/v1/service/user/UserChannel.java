@@ -17,25 +17,20 @@ import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class UserChannel extends Resource {
     private static final long serialVersionUID = 254880238496884L;
 
-    public enum ChannelStatus {
+  public String toString() {
+    return "UserChannel(accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", channelSid=" + this.getChannelSid() + ", memberSid=" + this.getMemberSid() + ", status=" + this.getStatus() + ", lastConsumedMessageIndex=" + this.getLastConsumedMessageIndex() + ", unreadMessagesCount=" + this.getUnreadMessagesCount() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum ChannelStatus {
         JOINED("joined"),
         INVITED("invited"),
         NOT_PARTICIPATING("not_participating");

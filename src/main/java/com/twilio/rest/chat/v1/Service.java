@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,7 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 209287578457944L;
 
@@ -471,4 +461,9 @@ public class Service extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Service(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", defaultServiceRoleSid=" + this.getDefaultServiceRoleSid() + ", defaultChannelRoleSid=" + this.getDefaultChannelRoleSid() + ", defaultChannelCreatorRoleSid=" + this.getDefaultChannelCreatorRoleSid() + ", readStatusEnabled=" + this.getReadStatusEnabled() + ", reachabilityEnabled=" + this.getReachabilityEnabled() + ", typingIndicatorTimeout=" + this.getTypingIndicatorTimeout() + ", consumptionReportInterval=" + this.getConsumptionReportInterval() + ", limits=" + this.getLimits() + ", webhooks=" + this.getWebhooks() + ", preWebhookUrl=" + this.getPreWebhookUrl() + ", postWebhookUrl=" + this.getPostWebhookUrl() + ", webhookMethod=" + this.getWebhookMethod() + ", webhookFilters=" + this.getWebhookFilters() + ", notifications=" + this.getNotifications() + ", url="
+        + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

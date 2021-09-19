@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Step extends Resource {
     private static final long serialVersionUID = 221317830784095L;
 
@@ -302,4 +292,8 @@ public class Step extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Step(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", flowSid=" + this.getFlowSid() + ", engagementSid=" + this.getEngagementSid() + ", name=" + this.getName() + ", context=" + this.getContext() + ", transitionedFrom=" + this.getTransitionedFrom() + ", transitionedTo=" + this.getTransitionedTo() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

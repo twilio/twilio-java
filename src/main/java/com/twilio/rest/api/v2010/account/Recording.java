@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -34,11 +25,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 90678482961517L;
 
-    public enum Status {
+  public String toString() {
+    return "Recording(accountSid=" + this.getAccountSid() + ", apiVersion=" + this.getApiVersion() + ", callSid=" + this.getCallSid() + ", conferenceSid=" + this.getConferenceSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", startTime=" + this.getStartTime() + ", duration=" + this.getDuration() + ", sid=" + this.getSid() + ", price=" + this.getPrice() + ", priceUnit=" + this.getPriceUnit() + ", status=" + this.getStatus() + ", channels=" + this.getChannels() + ", source=" + this.getSource() + ", errorCode=" + this.getErrorCode() + ", uri=" + this.getUri() + ", encryptionDetails=" + this.getEncryptionDetails() + ", subresourceUris=" + this.getSubresourceUris() + ")";
+  }
+
+  public enum Status {
         IN_PROGRESS("in-progress"),
         PAUSED("paused"),
         STOPPED("stopped"),

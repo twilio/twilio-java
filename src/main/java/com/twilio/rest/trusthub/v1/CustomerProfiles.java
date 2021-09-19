@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class CustomerProfiles extends Resource {
     private static final long serialVersionUID = 173324482464515L;
 
-    public enum Status {
+  public String toString() {
+    return "CustomerProfiles(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", policySid=" + this.getPolicySid() + ", friendlyName=" + this.getFriendlyName() + ", status=" + this.getStatus() + ", validUntil=" + this.getValidUntil() + ", email=" + this.getEmail() + ", statusCallback=" + this.getStatusCallback() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
         IN_REVIEW("in-review"),

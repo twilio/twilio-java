@@ -18,27 +18,21 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Command extends Resource {
     private static final long serialVersionUID = 13823495312115L;
 
-    public enum Direction {
+  public String toString() {
+    return "Command(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", simSid=" + this.getSimSid() + ", command=" + this.getCommand() + ", commandMode=" + this.getCommandMode() + ", transport=" + this.getTransport() + ", deliveryReceiptRequested=" + this.getDeliveryReceiptRequested() + ", status=" + this.getStatus() + ", direction=" + this.getDirection() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Direction {
         FROM_SIM("from_sim"),
         TO_SIM("to_sim");
 

@@ -17,23 +17,14 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Alert extends Resource {
     private static final long serialVersionUID = 254359080075749L;
 
@@ -403,4 +394,8 @@ public class Alert extends Resource {
                             requestHeaders,
                             serviceSid);
     }
+
+  public String toString() {
+    return "Alert(accountSid=" + this.getAccountSid() + ", alertText=" + this.getAlertText() + ", apiVersion=" + this.getApiVersion() + ", dateCreated=" + this.getDateCreated() + ", dateGenerated=" + this.getDateGenerated() + ", dateUpdated=" + this.getDateUpdated() + ", errorCode=" + this.getErrorCode() + ", logLevel=" + this.getLogLevel() + ", moreInfo=" + this.getMoreInfo() + ", requestMethod=" + this.getRequestMethod() + ", requestUrl=" + this.getRequestUrl() + ", requestVariables=" + this.getRequestVariables() + ", resourceSid=" + this.getResourceSid() + ", responseBody=" + this.getResponseBody() + ", responseHeaders=" + this.getResponseHeaders() + ", sid=" + this.getSid() + ", url=" + this.getUrl() + ", requestHeaders=" + this.getRequestHeaders() + ", serviceSid=" + this.getServiceSid() + ")";
+  }
 }

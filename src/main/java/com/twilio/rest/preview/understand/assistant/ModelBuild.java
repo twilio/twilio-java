@@ -18,19 +18,10 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -39,11 +30,14 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class ModelBuild extends Resource {
     private static final long serialVersionUID = 48078492703405L;
 
-    public enum Status {
+  public String toString() {
+    return "ModelBuild(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", assistantSid=" + this.getAssistantSid() + ", sid=" + this.getSid() + ", status=" + this.getStatus() + ", uniqueName=" + this.getUniqueName() + ", url=" + this.getUrl() + ", buildDuration=" + this.getBuildDuration() + ", errorCode=" + this.getErrorCode() + ")";
+  }
+
+  public enum Status {
         ENQUEUED("enqueued"),
         BUILDING("building"),
         COMPLETED("completed"),

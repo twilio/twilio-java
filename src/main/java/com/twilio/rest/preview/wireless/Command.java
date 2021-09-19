@@ -17,19 +17,10 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,7 +29,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Command extends Resource {
     private static final long serialVersionUID = 102379842720145L;
 
@@ -294,4 +284,8 @@ public class Command extends Resource {
                             dateUpdated,
                             url);
     }
+
+  public String toString() {
+    return "Command(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", deviceSid=" + this.getDeviceSid() + ", simSid=" + this.getSimSid() + ", command=" + this.getCommand() + ", commandMode=" + this.getCommandMode() + ", status=" + this.getStatus() + ", direction=" + this.getDirection() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
 }

@@ -2,8 +2,6 @@ package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
-
 import java.util.Objects;
 
 /**
@@ -15,7 +13,6 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SubscribeRule implements Rule {
 
     private static final SubscribeRule subscribeAll = builder().withType(Type.INCLUDE).withAll().build();
@@ -103,7 +100,11 @@ public class SubscribeRule implements Rule {
         return subscribeNone;
     }
 
-    public interface BuilderStart {
+  public String toString() {
+    return "SubscribeRule(type=" + this.getType() + ", all=" + this.getAll() + ", publisher=" + this.getPublisher() + ", track=" + this.getTrack() + ", kind=" + this.getKind() + ", priority=" + this.getPriority() + ")";
+  }
+
+  public interface BuilderStart {
         BuilderMiddle withType(final Type type);
     }
 

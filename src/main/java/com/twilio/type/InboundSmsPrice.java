@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.twilio.converter.Promoter;
-import lombok.ToString;
-
 import java.util.Objects;
 
 /**
@@ -17,9 +15,13 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class InboundSmsPrice {
-    public enum Type {
+
+  public String toString() {
+    return "InboundSmsPrice(basePrice=" + this.getBasePrice() + ", currentPrice=" + this.getCurrentPrice() + ", type=" + this.getType() + ")";
+  }
+
+  public enum Type {
         LOCAL("local"),
         MOBILE("mobile"),
         NATIONAL("national"),

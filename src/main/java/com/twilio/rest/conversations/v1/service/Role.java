@@ -18,28 +18,22 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Role extends Resource {
     private static final long serialVersionUID = 19854929534813L;
 
-    public enum RoleType {
+  public String toString() {
+    return "Role(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", chatServiceSid=" + this.getChatServiceSid() + ", friendlyName=" + this.getFriendlyName() + ", type=" + this.getType() + ", permissions=" + this.getPermissions() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum RoleType {
         CONVERSATION("conversation"),
         SERVICE("service");
 

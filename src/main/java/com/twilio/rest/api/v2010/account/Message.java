@@ -19,14 +19,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -37,11 +29,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 109887542891677L;
 
-    public enum Status {
+  public String toString() {
+    return "Message(body=" + this.getBody() + ", numSegments=" + this.getNumSegments() + ", direction=" + this.getDirection() + ", from=" + this.getFrom() + ", to=" + this.getTo() + ", dateUpdated=" + this.getDateUpdated() + ", price=" + this.getPrice() + ", errorMessage=" + this.getErrorMessage() + ", uri=" + this.getUri() + ", accountSid=" + this.getAccountSid() + ", numMedia=" + this.getNumMedia() + ", status=" + this.getStatus() + ", messagingServiceSid=" + this.getMessagingServiceSid() + ", sid=" + this.getSid() + ", dateSent=" + this.getDateSent() + ", dateCreated=" + this.getDateCreated() + ", errorCode=" + this.getErrorCode() + ", priceUnit=" + this.getPriceUnit() + ", apiVersion=" + this.getApiVersion() + ", subresourceUris=" + this.getSubresourceUris() + ")";
+  }
+
+  public enum Status {
         QUEUED("queued"),
         SENDING("sending"),
         SENT("sent"),

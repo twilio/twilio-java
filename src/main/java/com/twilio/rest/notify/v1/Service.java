@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -37,7 +29,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 267258306183645L;
 
@@ -447,4 +438,9 @@ public class Service extends Resource {
                             deliveryCallbackUrl,
                             deliveryCallbackEnabled);
     }
+
+  public String toString() {
+    return "Service(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", apnCredentialSid=" + this.getApnCredentialSid() + ", gcmCredentialSid=" + this.getGcmCredentialSid() + ", fcmCredentialSid=" + this.getFcmCredentialSid() + ", messagingServiceSid=" + this.getMessagingServiceSid() + ", facebookMessengerPageId=" + this.getFacebookMessengerPageId() + ", defaultApnNotificationProtocolVersion=" + this.getDefaultApnNotificationProtocolVersion() + ", defaultGcmNotificationProtocolVersion=" + this.getDefaultGcmNotificationProtocolVersion() + ", defaultFcmNotificationProtocolVersion=" + this.getDefaultFcmNotificationProtocolVersion() + ", logEnabled=" + this.getLogEnabled() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ", alexaSkillId=" + this.getAlexaSkillId() + ", defaultAlexaNotificationProtocolVersion="
+        + this.getDefaultAlexaNotificationProtocolVersion() + ", deliveryCallbackUrl=" + this.getDeliveryCallbackUrl() + ", deliveryCallbackEnabled=" + this.getDeliveryCallbackEnabled() + ")";
+  }
 }

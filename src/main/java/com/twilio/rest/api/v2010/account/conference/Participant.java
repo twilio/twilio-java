@@ -18,27 +18,20 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import com.twilio.type.Endpoint;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 89883663840219L;
 
-    public enum Status {
+  public String toString() {
+    return "Participant(accountSid=" + this.getAccountSid() + ", callSid=" + this.getCallSid() + ", label=" + this.getLabel() + ", callSidToCoach=" + this.getCallSidToCoach() + ", coaching=" + this.getCoaching() + ", conferenceSid=" + this.getConferenceSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", endConferenceOnExit=" + this.getEndConferenceOnExit() + ", muted=" + this.getMuted() + ", hold=" + this.getHold() + ", startConferenceOnEnter=" + this.getStartConferenceOnEnter() + ", status=" + this.getStatus() + ", uri=" + this.getUri() + ")";
+  }
+
+  public enum Status {
         QUEUED("queued"),
         CONNECTING("connecting"),
         RINGING("ringing"),

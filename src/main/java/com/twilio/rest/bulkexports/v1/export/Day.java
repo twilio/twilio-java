@@ -16,22 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Day extends Resource {
     private static final long serialVersionUID = 101410619433718L;
 
@@ -209,4 +199,8 @@ public class Day extends Resource {
                             friendlyName,
                             resourceType);
     }
+
+  public String toString() {
+    return "Day(redirectTo=" + this.getRedirectTo() + ", day=" + this.getDay() + ", size=" + this.getSize() + ", createDate=" + this.getCreateDate() + ", friendlyName=" + this.getFriendlyName() + ", resourceType=" + this.getResourceType() + ")";
+  }
 }

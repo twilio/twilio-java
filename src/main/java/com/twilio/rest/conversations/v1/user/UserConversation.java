@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class UserConversation extends Resource {
     private static final long serialVersionUID = 228878200976815L;
 
-    public enum NotificationLevel {
+  public String toString() {
+    return "UserConversation(accountSid=" + this.getAccountSid() + ", chatServiceSid=" + this.getChatServiceSid() + ", conversationSid=" + this.getConversationSid() + ", unreadMessagesCount=" + this.getUnreadMessagesCount() + ", lastReadMessageIndex=" + this.getLastReadMessageIndex() + ", participantSid=" + this.getParticipantSid() + ", userSid=" + this.getUserSid() + ", friendlyName=" + this.getFriendlyName() + ", conversationState=" + this.getConversationState() + ", timers=" + this.getTimers() + ", attributes=" + this.getAttributes() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", createdBy=" + this.getCreatedBy() + ", notificationLevel=" + this.getNotificationLevel() + ", uniqueName=" + this.getUniqueName() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum NotificationLevel {
         DEFAULT("default"),
         MUTED("muted");
 

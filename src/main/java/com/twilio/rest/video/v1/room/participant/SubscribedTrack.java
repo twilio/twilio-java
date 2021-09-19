@@ -18,27 +18,21 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SubscribedTrack extends Resource {
     private static final long serialVersionUID = 63596798347062L;
 
-    public enum Kind {
+  public String toString() {
+    return "SubscribedTrack(sid=" + this.getSid() + ", participantSid=" + this.getParticipantSid() + ", publisherSid=" + this.getPublisherSid() + ", roomSid=" + this.getRoomSid() + ", name=" + this.getName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", enabled=" + this.getEnabled() + ", kind=" + this.getKind() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Kind {
         AUDIO("audio"),
         VIDEO("video"),
         DATA("data");

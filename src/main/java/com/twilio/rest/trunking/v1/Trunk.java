@@ -14,19 +14,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,11 +28,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Trunk extends Resource {
     private static final long serialVersionUID = 110040442840544L;
 
-    public enum TransferSetting {
+  public String toString() {
+    return "Trunk(accountSid=" + this.getAccountSid() + ", domainName=" + this.getDomainName() + ", disasterRecoveryMethod=" + this.getDisasterRecoveryMethod() + ", disasterRecoveryUrl=" + this.getDisasterRecoveryUrl() + ", friendlyName=" + this.getFriendlyName() + ", secure=" + this.getSecure() + ", recording=" + this.getRecording() + ", transferMode=" + this.getTransferMode() + ", cnamLookupEnabled=" + this.getCnamLookupEnabled() + ", authType=" + this.getAuthType() + ", authTypeSet=" + this.getAuthTypeSet() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", sid=" + this.getSid() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum TransferSetting {
         DISABLE_ALL("disable-all"),
         ENABLE_ALL("enable-all"),
         SIP_ONLY("sip-only");

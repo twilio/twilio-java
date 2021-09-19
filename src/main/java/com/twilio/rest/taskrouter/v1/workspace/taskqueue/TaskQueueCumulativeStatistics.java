@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class TaskQueueCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 205432946594841L;
 
@@ -453,4 +443,9 @@ public class TaskQueueCumulativeStatistics extends Resource {
                             workspaceSid,
                             url);
     }
+
+  public String toString() {
+    return "TaskQueueCumulativeStatistics(accountSid=" + this.getAccountSid() + ", avgTaskAcceptanceTime=" + this.getAvgTaskAcceptanceTime() + ", startTime=" + this.getStartTime() + ", endTime=" + this.getEndTime() + ", reservationsCreated=" + this.getReservationsCreated() + ", reservationsAccepted=" + this.getReservationsAccepted() + ", reservationsRejected=" + this.getReservationsRejected() + ", reservationsTimedOut=" + this.getReservationsTimedOut() + ", reservationsCanceled=" + this.getReservationsCanceled() + ", reservationsRescinded=" + this.getReservationsRescinded() + ", splitByWaitTime=" + this.getSplitByWaitTime() + ", taskQueueSid=" + this.getTaskQueueSid() + ", waitDurationUntilAccepted=" + this.getWaitDurationUntilAccepted() + ", waitDurationUntilCanceled=" + this.getWaitDurationUntilCanceled() + ", waitDurationInQueueUntilAccepted=" + this.getWaitDurationInQueueUntilAccepted() + ", tasksCanceled=" + this.getTasksCanceled() + ", tasksCompleted=" + this.getTasksCompleted()
+        + ", tasksDeleted=" + this.getTasksDeleted() + ", tasksEntered=" + this.getTasksEntered() + ", tasksMoved=" + this.getTasksMoved() + ", workspaceSid=" + this.getWorkspaceSid() + ", url=" + this.getUrl() + ")";
+  }
 }

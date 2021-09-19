@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,11 +30,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Sink extends Resource {
     private static final long serialVersionUID = 113592032469931L;
 
-    public enum Status {
+  public String toString() {
+    return "Sink(dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", description=" + this.getDescription() + ", sid=" + this.getSid() + ", sinkConfiguration=" + this.getSinkConfiguration() + ", sinkType=" + this.getSinkType() + ", status=" + this.getStatus() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum Status {
         INITIALIZED("initialized"),
         VALIDATING("validating"),
         ACTIVE("active"),

@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class FlexFlow extends Resource {
     private static final long serialVersionUID = 100371261398167L;
 
-    public enum ChannelType {
+  public String toString() {
+    return "FlexFlow(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", sid=" + this.getSid() + ", friendlyName=" + this.getFriendlyName() + ", chatServiceSid=" + this.getChatServiceSid() + ", channelType=" + this.getChannelType() + ", contactIdentity=" + this.getContactIdentity() + ", enabled=" + this.getEnabled() + ", integrationType=" + this.getIntegrationType() + ", integration=" + this.getIntegration() + ", longLived=" + this.getLongLived() + ", janitorEnabled=" + this.getJanitorEnabled() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum ChannelType {
         WEB("web"),
         SMS("sms"),
         FACEBOOK("facebook"),

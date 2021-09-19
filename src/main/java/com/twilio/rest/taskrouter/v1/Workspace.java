@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Workspace extends Resource {
     private static final long serialVersionUID = 173419493907327L;
 
-    public enum QueueOrder {
+  public String toString() {
+    return "Workspace(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", defaultActivityName=" + this.getDefaultActivityName() + ", defaultActivitySid=" + this.getDefaultActivitySid() + ", eventCallbackUrl=" + this.getEventCallbackUrl() + ", eventsFilter=" + this.getEventsFilter() + ", friendlyName=" + this.getFriendlyName() + ", multiTaskEnabled=" + this.getMultiTaskEnabled() + ", sid=" + this.getSid() + ", timeoutActivityName=" + this.getTimeoutActivityName() + ", timeoutActivitySid=" + this.getTimeoutActivitySid() + ", prioritizeQueueOrder=" + this.getPrioritizeQueueOrder() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum QueueOrder {
         FIFO("FIFO"),
         LIFO("LIFO");
 

@@ -17,23 +17,13 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class WorkerChannel extends Resource {
     private static final long serialVersionUID = 181596062682267L;
 
@@ -335,4 +325,8 @@ public class WorkerChannel extends Resource {
                             workspaceSid,
                             url);
     }
+
+  public String toString() {
+    return "WorkerChannel(accountSid=" + this.getAccountSid() + ", assignedTasks=" + this.getAssignedTasks() + ", available=" + this.getAvailable() + ", availableCapacityPercentage=" + this.getAvailableCapacityPercentage() + ", configuredCapacity=" + this.getConfiguredCapacity() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", sid=" + this.getSid() + ", taskChannelSid=" + this.getTaskChannelSid() + ", taskChannelUniqueName=" + this.getTaskChannelUniqueName() + ", workerSid=" + this.getWorkerSid() + ", workspaceSid=" + this.getWorkspaceSid() + ", url=" + this.getUrl() + ")";
+  }
 }

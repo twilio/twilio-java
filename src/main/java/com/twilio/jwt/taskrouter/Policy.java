@@ -6,18 +6,14 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.http.HttpMethod;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Objects;
 
-import lombok.ToString;
-
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Policy {
 
     @JsonProperty("url")
@@ -100,7 +96,11 @@ public class Policy {
         return Objects.hash(url, method, queryFilter, postFilter, allowed);
     }
 
-    public static class Builder {
+  public String toString() {
+    return "Policy(url=" + this.getUrl() + ", method=" + this.getMethod() + ", queryFilter=" + this.getQueryFilter() + ", postFilter=" + this.getPostFilter() + ", allowed=" + this.isAllowed() + ")";
+  }
+
+  public static class Builder {
         private String url;
         private HttpMethod method = HttpMethod.GET;
         private Map<String, FilterRequirement> queryFilter;

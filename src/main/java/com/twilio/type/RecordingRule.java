@@ -2,8 +2,6 @@ package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
-
 import java.util.Objects;
 
 /**
@@ -15,7 +13,6 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class RecordingRule implements Rule {
 
     private static final RecordingRule recordAll = builder().withType(Type.INCLUDE).withAll().build();
@@ -60,7 +57,11 @@ public class RecordingRule implements Rule {
         return new Builder();
     }
 
-    public interface BuilderStart {
+  public String toString() {
+    return "RecordingRule(type=" + this.getType() + ", all=" + this.getAll() + ", publisher=" + this.getPublisher() + ", track=" + this.getTrack() + ", kind=" + this.getKind() + ")";
+  }
+
+  public interface BuilderStart {
         BuilderMiddle withType(final Type type);
     }
 

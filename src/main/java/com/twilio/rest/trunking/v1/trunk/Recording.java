@@ -17,25 +17,19 @@ import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 256465659878704L;
 
-    public enum RecordingMode {
+  public String toString() {
+    return "Recording(mode=" + this.getMode() + ", trim=" + this.getTrim() + ")";
+  }
+
+  public enum RecordingMode {
         DO_NOT_RECORD("do-not-record"),
         RECORD_FROM_RINGING("record-from-ringing"),
         RECORD_FROM_ANSWER("record-from-answer"),

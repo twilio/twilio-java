@@ -17,24 +17,14 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
 import com.twilio.type.RecordingRule;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class RecordingRules extends Resource {
     private static final long serialVersionUID = 132882728526196L;
 
@@ -181,4 +171,8 @@ public class RecordingRules extends Resource {
                             dateCreated,
                             dateUpdated);
     }
+
+  public String toString() {
+    return "RecordingRules(roomSid=" + this.getRoomSid() + ", rules=" + this.getRules() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ")";
+  }
 }

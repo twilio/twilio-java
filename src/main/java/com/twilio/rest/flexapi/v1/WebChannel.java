@@ -18,27 +18,21 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class WebChannel extends Resource {
     private static final long serialVersionUID = 254450779434929L;
 
-    public enum ChatStatus {
+  public String toString() {
+    return "WebChannel(accountSid=" + this.getAccountSid() + ", flexFlowSid=" + this.getFlexFlowSid() + ", sid=" + this.getSid() + ", url=" + this.getUrl() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ")";
+  }
+
+  public enum ChatStatus {
         INACTIVE("inactive");
 
         private final String value;

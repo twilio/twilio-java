@@ -17,22 +17,12 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Queue extends Resource {
     private static final long serialVersionUID = 115549588553968L;
 
@@ -341,4 +331,8 @@ public class Queue extends Resource {
                             dateCreated,
                             maxSize);
     }
+
+  public String toString() {
+    return "Queue(dateUpdated=" + this.getDateUpdated() + ", currentSize=" + this.getCurrentSize() + ", friendlyName=" + this.getFriendlyName() + ", uri=" + this.getUri() + ", accountSid=" + this.getAccountSid() + ", averageWaitTime=" + this.getAverageWaitTime() + ", sid=" + this.getSid() + ", dateCreated=" + this.getDateCreated() + ", maxSize=" + this.getMaxSize() + ")";
+  }
 }

@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Conversation extends Resource {
     private static final long serialVersionUID = 166881016060302L;
 
-    public enum WebhookEnabledType {
+  public String toString() {
+    return "Conversation(accountSid=" + this.getAccountSid() + ", chatServiceSid=" + this.getChatServiceSid() + ", messagingServiceSid=" + this.getMessagingServiceSid() + ", sid=" + this.getSid() + ", friendlyName=" + this.getFriendlyName() + ", uniqueName=" + this.getUniqueName() + ", attributes=" + this.getAttributes() + ", state=" + this.getState() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", timers=" + this.getTimers() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ", bindings=" + this.getBindings() + ")";
+  }
+
+  public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
 

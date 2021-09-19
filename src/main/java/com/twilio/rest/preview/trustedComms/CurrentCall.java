@@ -17,19 +17,10 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,7 +29,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class CurrentCall extends Resource {
     private static final long serialVersionUID = 212286172550611L;
 
@@ -322,4 +312,8 @@ public class CurrentCall extends Resource {
                             url,
                             useCase);
     }
+
+  public String toString() {
+    return "CurrentCall(bgColor=" + this.getBgColor() + ", caller=" + this.getCaller() + ", createdAt=" + this.getCreatedAt() + ", fontColor=" + this.getFontColor() + ", from=" + this.getFrom() + ", logo=" + this.getLogo() + ", manager=" + this.getManager() + ", reason=" + this.getReason() + ", shieldImg=" + this.getShieldImg() + ", sid=" + this.getSid() + ", status=" + this.getStatus() + ", to=" + this.getTo() + ", url=" + this.getUrl() + ", useCase=" + this.getUseCase() + ")";
+  }
 }

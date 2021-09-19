@@ -16,22 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Deactivations extends Resource {
     private static final long serialVersionUID = 141886233784936L;
 
@@ -118,4 +108,8 @@ public class Deactivations extends Resource {
     public int hashCode() {
         return Objects.hash(redirectTo);
     }
+
+  public String toString() {
+    return "Deactivations(redirectTo=" + this.getRedirectTo() + ")";
+  }
 }

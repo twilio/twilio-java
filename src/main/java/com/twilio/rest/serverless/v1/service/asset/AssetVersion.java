@@ -18,19 +18,10 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,11 +29,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class AssetVersion extends Resource {
     private static final long serialVersionUID = 182506144428248L;
 
-    public enum Visibility {
+  public String toString() {
+    return "AssetVersion(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", assetSid=" + this.getAssetSid() + ", path=" + this.getPath() + ", visibility=" + this.getVisibility() + ", dateCreated=" + this.getDateCreated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Visibility {
         PUBLIC("public"),
         PRIVATE("private"),
         PROTECTED("protected");

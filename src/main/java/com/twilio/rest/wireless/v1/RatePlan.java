@@ -18,28 +18,22 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class RatePlan extends Resource {
     private static final long serialVersionUID = 112752591577872L;
 
-    public enum DataLimitStrategy {
+  public String toString() {
+    return "RatePlan(sid=" + this.getSid() + ", uniqueName=" + this.getUniqueName() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", dataEnabled=" + this.getDataEnabled() + ", dataMetering=" + this.getDataMetering() + ", dataLimit=" + this.getDataLimit() + ", messagingEnabled=" + this.getMessagingEnabled() + ", voiceEnabled=" + this.getVoiceEnabled() + ", nationalRoamingEnabled=" + this.getNationalRoamingEnabled() + ", nationalRoamingDataLimit=" + this.getNationalRoamingDataLimit() + ", internationalRoaming=" + this.getInternationalRoaming() + ", internationalRoamingDataLimit=" + this.getInternationalRoamingDataLimit() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum DataLimitStrategy {
         BLOCK("block"),
         THROTTLE("throttle");
 

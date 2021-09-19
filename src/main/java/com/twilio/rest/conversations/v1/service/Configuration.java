@@ -16,14 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -31,7 +23,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Configuration extends Resource {
     private static final long serialVersionUID = 101380153560243L;
 
@@ -228,4 +219,8 @@ public class Configuration extends Resource {
                             links,
                             reachabilityEnabled);
     }
+
+  public String toString() {
+    return "Configuration(chatServiceSid=" + this.getChatServiceSid() + ", defaultConversationCreatorRoleSid=" + this.getDefaultConversationCreatorRoleSid() + ", defaultConversationRoleSid=" + this.getDefaultConversationRoleSid() + ", defaultChatServiceRoleSid=" + this.getDefaultChatServiceRoleSid() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ", reachabilityEnabled=" + this.getReachabilityEnabled() + ")";
+  }
 }

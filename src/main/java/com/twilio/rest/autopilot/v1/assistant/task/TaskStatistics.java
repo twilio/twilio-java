@@ -16,18 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -36,7 +27,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class TaskStatistics extends Resource {
     private static final long serialVersionUID = 52568493998911L;
 
@@ -205,4 +195,8 @@ public class TaskStatistics extends Resource {
                             fieldsCount,
                             url);
     }
+
+  public String toString() {
+    return "TaskStatistics(accountSid=" + this.getAccountSid() + ", assistantSid=" + this.getAssistantSid() + ", taskSid=" + this.getTaskSid() + ", samplesCount=" + this.getSamplesCount() + ", fieldsCount=" + this.getFieldsCount() + ", url=" + this.getUrl() + ")";
+  }
 }

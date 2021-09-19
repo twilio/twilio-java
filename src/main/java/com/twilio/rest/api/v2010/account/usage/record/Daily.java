@@ -19,14 +19,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -36,11 +28,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Daily extends Resource {
     private static final long serialVersionUID = 244970500292554L;
 
-    public enum Category {
+  public String toString() {
+    return "Daily(accountSid=" + this.getAccountSid() + ", apiVersion=" + this.getApiVersion() + ", asOf=" + this.getAsOf() + ", category=" + this.getCategory() + ", count=" + this.getCount() + ", countUnit=" + this.getCountUnit() + ", description=" + this.getDescription() + ", endDate=" + this.getEndDate() + ", price=" + this.getPrice() + ", priceUnit=" + this.getPriceUnit() + ", startDate=" + this.getStartDate() + ", subresourceUris=" + this.getSubresourceUris() + ", uri=" + this.getUri() + ", usage=" + this.getUsage() + ", usageUnit=" + this.getUsageUnit() + ")";
+  }
+
+  public enum Category {
         AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),

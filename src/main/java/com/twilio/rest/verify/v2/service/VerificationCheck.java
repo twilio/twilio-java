@@ -18,26 +18,20 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class VerificationCheck extends Resource {
     private static final long serialVersionUID = 185560198235176L;
 
-    public enum Channel {
+  public String toString() {
+    return "VerificationCheck(sid=" + this.getSid() + ", serviceSid=" + this.getServiceSid() + ", accountSid=" + this.getAccountSid() + ", to=" + this.getTo() + ", channel=" + this.getChannel() + ", status=" + this.getStatus() + ", valid=" + this.getValid() + ", amount=" + this.getAmount() + ", payee=" + this.getPayee() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ")";
+  }
+
+  public enum Channel {
         SMS("sms"),
         CALL("call"),
         EMAIL("email"),

@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -33,11 +24,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Regulation extends Resource {
     private static final long serialVersionUID = 91152178992805L;
 
-    public enum EndUserType {
+  public String toString() {
+    return "Regulation(sid=" + this.getSid() + ", friendlyName=" + this.getFriendlyName() + ", isoCountry=" + this.getIsoCountry() + ", numberType=" + this.getNumberType() + ", endUserType=" + this.getEndUserType() + ", requirements=" + this.getRequirements() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum EndUserType {
         INDIVIDUAL("individual"),
         BUSINESS("business");
 

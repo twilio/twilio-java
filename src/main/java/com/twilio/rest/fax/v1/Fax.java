@@ -19,14 +19,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -41,11 +33,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Fax extends Resource {
     private static final long serialVersionUID = 272370485490742L;
 
-    public enum Direction {
+  public String toString() {
+    return "Fax(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", from=" + this.getFrom() + ", to=" + this.getTo() + ", quality=" + this.getQuality() + ", mediaSid=" + this.getMediaSid() + ", mediaUrl=" + this.getMediaUrl() + ", numPages=" + this.getNumPages() + ", duration=" + this.getDuration() + ", status=" + this.getStatus() + ", direction=" + this.getDirection() + ", apiVersion=" + this.getApiVersion() + ", price=" + this.getPrice() + ", priceUnit=" + this.getPriceUnit() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", links=" + this.getLinks() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Direction {
         INBOUND("inbound"),
         OUTBOUND("outbound");
 

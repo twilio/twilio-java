@@ -17,23 +17,13 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Member extends Resource {
     private static final long serialVersionUID = 8025703048462L;
 
@@ -266,4 +256,8 @@ public class Member extends Resource {
                             waitTime,
                             queueSid);
     }
+
+  public String toString() {
+    return "Member(callSid=" + this.getCallSid() + ", dateEnqueued=" + this.getDateEnqueued() + ", position=" + this.getPosition() + ", uri=" + this.getUri() + ", waitTime=" + this.getWaitTime() + ", queueSid=" + this.getQueueSid() + ")";
+  }
 }

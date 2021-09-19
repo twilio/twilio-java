@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -37,7 +29,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 233073623535354L;
 
@@ -349,4 +340,8 @@ public class Participant extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Participant(sid=" + this.getSid() + ", sessionSid=" + this.getSessionSid() + ", serviceSid=" + this.getServiceSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", identifier=" + this.getIdentifier() + ", proxyIdentifier=" + this.getProxyIdentifier() + ", proxyIdentifierSid=" + this.getProxyIdentifierSid() + ", dateDeleted=" + this.getDateDeleted() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

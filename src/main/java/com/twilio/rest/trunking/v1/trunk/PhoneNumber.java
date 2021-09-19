@@ -18,14 +18,7 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +27,15 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 152136077896645L;
 
-    public enum AddressRequirement {
+  public String toString() {
+    return "PhoneNumber(accountSid=" + this.getAccountSid() + ", addressRequirements=" + this.getAddressRequirements() + ", apiVersion=" + this.getApiVersion() + ", beta=" + this.getBeta() + ", capabilities=" + this.getCapabilities() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", links=" + this.getLinks() + ", phoneNumber=" + this.getPhoneNumber() + ", sid=" + this.getSid() + ", smsApplicationSid=" + this.getSmsApplicationSid() + ", smsFallbackMethod=" + this.getSmsFallbackMethod() + ", smsFallbackUrl=" + this.getSmsFallbackUrl() + ", smsMethod=" + this.getSmsMethod() + ", smsUrl=" + this.getSmsUrl() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", trunkSid=" + this.getTrunkSid() + ", url=" + this.getUrl() + ", voiceApplicationSid=" + this.getVoiceApplicationSid() + ", voiceCallerIdLookup=" + this.getVoiceCallerIdLookup()
+        + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceUrl=" + this.getVoiceUrl() + ")";
+  }
+
+  public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
         LOCAL("local"),

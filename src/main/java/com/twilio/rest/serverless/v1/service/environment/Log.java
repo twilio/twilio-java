@@ -18,19 +18,10 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,11 +29,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Log extends Resource {
     private static final long serialVersionUID = 212890795162634L;
 
-    public enum Level {
+  public String toString() {
+    return "Log(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", environmentSid=" + this.getEnvironmentSid() + ", buildSid=" + this.getBuildSid() + ", deploymentSid=" + this.getDeploymentSid() + ", functionSid=" + this.getFunctionSid() + ", requestSid=" + this.getRequestSid() + ", level=" + this.getLevel() + ", message=" + this.getMessage() + ", dateCreated=" + this.getDateCreated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Level {
         INFO("info"),
         WARN("warn"),
         ERROR("error");

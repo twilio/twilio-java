@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Task extends Resource {
     private static final long serialVersionUID = 238267579862423L;
 
-    public enum Status {
+  public String toString() {
+    return "Task(accountSid=" + this.getAccountSid() + ", age=" + this.getAge() + ", assignmentStatus=" + this.getAssignmentStatus() + ", attributes=" + this.getAttributes() + ", addons=" + this.getAddons() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", taskQueueEnteredDate=" + this.getTaskQueueEnteredDate() + ", priority=" + this.getPriority() + ", reason=" + this.getReason() + ", sid=" + this.getSid() + ", taskQueueSid=" + this.getTaskQueueSid() + ", taskQueueFriendlyName=" + this.getTaskQueueFriendlyName() + ", taskChannelSid=" + this.getTaskChannelSid() + ", taskChannelUniqueName=" + this.getTaskChannelUniqueName() + ", timeout=" + this.getTimeout() + ", workflowSid=" + this.getWorkflowSid() + ", workflowFriendlyName=" + this.getWorkflowFriendlyName() + ", workspaceSid=" + this.getWorkspaceSid() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum Status {
         PENDING("pending"),
         RESERVED("reserved"),
         ASSIGNED("assigned"),

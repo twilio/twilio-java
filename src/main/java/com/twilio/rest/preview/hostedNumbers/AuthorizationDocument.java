@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -40,11 +32,14 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class AuthorizationDocument extends Resource {
     private static final long serialVersionUID = 156014201571905L;
 
-    public enum Status {
+  public String toString() {
+    return "AuthorizationDocument(sid=" + this.getSid() + ", addressSid=" + this.getAddressSid() + ", status=" + this.getStatus() + ", email=" + this.getEmail() + ", ccEmails=" + this.getCcEmails() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum Status {
         OPENED("opened"),
         SIGNING("signing"),
         SIGNED("signed"),

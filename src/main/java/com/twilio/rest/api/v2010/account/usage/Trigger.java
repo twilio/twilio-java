@@ -18,27 +18,22 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Trigger extends Resource {
     private static final long serialVersionUID = 174561249107274L;
 
-    public enum UsageCategory {
+  public String toString() {
+    return "Trigger(accountSid=" + this.getAccountSid() + ", apiVersion=" + this.getApiVersion() + ", callbackMethod=" + this.getCallbackMethod() + ", callbackUrl=" + this.getCallbackUrl() + ", currentValue=" + this.getCurrentValue() + ", dateCreated=" + this.getDateCreated() + ", dateFired=" + this.getDateFired() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", recurring=" + this.getRecurring() + ", sid=" + this.getSid() + ", triggerBy=" + this.getTriggerBy() + ", triggerValue=" + this.getTriggerValue() + ", uri=" + this.getUri() + ", usageCategory=" + this.getUsageCategory() + ", usageRecordUri=" + this.getUsageRecordUri() + ")";
+  }
+
+  public enum UsageCategory {
         AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),

@@ -17,19 +17,10 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,7 +29,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class RestoreAssistant extends Resource {
     private static final long serialVersionUID = 267361082192414L;
 
@@ -291,4 +281,8 @@ public class RestoreAssistant extends Resource {
                             callbackUrl,
                             callbackEvents);
     }
+
+  public String toString() {
+    return "RestoreAssistant(accountSid=" + this.getAccountSid() + ", sid=" + this.getSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", uniqueName=" + this.getUniqueName() + ", friendlyName=" + this.getFriendlyName() + ", needsModelBuild=" + this.getNeedsModelBuild() + ", latestModelBuildSid=" + this.getLatestModelBuildSid() + ", logQueries=" + this.getLogQueries() + ", developmentStage=" + this.getDevelopmentStage() + ", callbackUrl=" + this.getCallbackUrl() + ", callbackEvents=" + this.getCallbackEvents() + ")";
+  }
 }

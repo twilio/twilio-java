@@ -16,14 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -31,7 +23,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Export extends Resource {
     private static final long serialVersionUID = 249832685506996L;
 
@@ -151,4 +142,8 @@ public class Export extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Export(resourceType=" + this.getResourceType() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

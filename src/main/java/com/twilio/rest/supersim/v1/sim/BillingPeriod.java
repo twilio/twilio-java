@@ -18,26 +18,20 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class BillingPeriod extends Resource {
     private static final long serialVersionUID = 174789131937976L;
 
-    public enum BpType {
+  public String toString() {
+    return "BillingPeriod(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", simSid=" + this.getSimSid() + ", startTime=" + this.getStartTime() + ", endTime=" + this.getEndTime() + ", periodType=" + this.getPeriodType() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ")";
+  }
+
+  public enum BpType {
         READY("ready"),
         ACTIVE("active");
 

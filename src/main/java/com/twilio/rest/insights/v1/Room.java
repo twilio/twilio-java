@@ -18,14 +18,7 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,11 +32,15 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Room extends Resource {
     private static final long serialVersionUID = 181047371989815L;
 
-    public enum RoomType {
+  public String toString() {
+    return "Room(accountSid=" + this.getAccountSid() + ", roomSid=" + this.getRoomSid() + ", roomName=" + this.getRoomName() + ", createTime=" + this.getCreateTime() + ", endTime=" + this.getEndTime() + ", roomType=" + this.getRoomType() + ", roomStatus=" + this.getRoomStatus() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", createdMethod=" + this.getCreatedMethod() + ", endReason=" + this.getEndReason() + ", maxParticipants=" + this.getMaxParticipants() + ", uniqueParticipants=" + this.getUniqueParticipants() + ", uniqueParticipantIdentities=" + this.getUniqueParticipantIdentities() + ", concurrentParticipants=" + this.getConcurrentParticipants() + ", maxConcurrentParticipants=" + this.getMaxConcurrentParticipants() + ", codecs=" + this.getCodecs() + ", mediaRegion=" + this.getMediaRegion() + ", durationSec=" + this.getDurationSec() + ", totalParticipantDurationSec=" + this.getTotalParticipantDurationSec()
+        + ", totalRecordingDurationSec=" + this.getTotalRecordingDurationSec() + ", processingState=" + this.getProcessingState() + ", recordingEnabled=" + this.getRecordingEnabled() + ", edgeLocation=" + this.getEdgeLocation() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum RoomType {
         GO("go"),
         PEER_TO_PEER("peer_to_peer"),
         GROUP("group"),

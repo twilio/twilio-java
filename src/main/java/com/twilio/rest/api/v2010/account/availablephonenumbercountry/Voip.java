@@ -16,23 +16,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.math.BigDecimal;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Voip extends Resource {
     private static final long serialVersionUID = 16937856072206L;
 
@@ -316,4 +306,8 @@ public class Voip extends Resource {
                             beta,
                             capabilities);
     }
+
+  public String toString() {
+    return "Voip(friendlyName=" + this.getFriendlyName() + ", phoneNumber=" + this.getPhoneNumber() + ", lata=" + this.getLata() + ", locality=" + this.getLocality() + ", rateCenter=" + this.getRateCenter() + ", latitude=" + this.getLatitude() + ", longitude=" + this.getLongitude() + ", region=" + this.getRegion() + ", postalCode=" + this.getPostalCode() + ", isoCountry=" + this.getIsoCountry() + ", addressRequirements=" + this.getAddressRequirements() + ", beta=" + this.getBeta() + ", capabilities=" + this.getCapabilities() + ")";
+  }
 }

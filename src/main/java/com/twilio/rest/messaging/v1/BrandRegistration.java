@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 5353915230753L;
+    private static final long serialVersionUID = 247102676073315L;
 
     public enum Status {
         PENDING("PENDING"),
@@ -65,6 +65,33 @@ public class BrandRegistration extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum IdentityStatus {
+        SELF_DECLARED("SELF_DECLARED"),
+        UNVERIFIED("UNVERIFIED"),
+        VERIFIED("VERIFIED"),
+        VETTED_VERIFIED("VETTED_VERIFIED");
+
+        private final String value;
+
+        private IdentityStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a IdentityStatus from a string.
+         * @param value string value
+         * @return generated IdentityStatus
+         */
+        @JsonCreator
+        public static IdentityStatus forValue(final String value) {
+            return Promoter.enumFromString(value, IdentityStatus.values());
         }
     }
 
@@ -149,6 +176,10 @@ public class BrandRegistration extends Resource {
     private final String failureReason;
     private final URI url;
     private final Integer brandScore;
+    private final BrandRegistration.IdentityStatus identityStatus;
+    private final Boolean russell3000;
+    private final String taxExemptStatus;
+    private final Boolean skipAutomaticSecVet;
     private final Boolean mock;
 
     @JsonCreator
@@ -176,6 +207,14 @@ public class BrandRegistration extends Resource {
                               final URI url,
                               @JsonProperty("brand_score")
                               final Integer brandScore,
+                              @JsonProperty("identity_status")
+                              final BrandRegistration.IdentityStatus identityStatus,
+                              @JsonProperty("russell_3000")
+                              final Boolean russell3000,
+                              @JsonProperty("tax_exempt_status")
+                              final String taxExemptStatus,
+                              @JsonProperty("skip_automatic_sec_vet")
+                              final Boolean skipAutomaticSecVet,
                               @JsonProperty("mock")
                               final Boolean mock) {
         this.sid = sid;
@@ -190,6 +229,10 @@ public class BrandRegistration extends Resource {
         this.failureReason = failureReason;
         this.url = url;
         this.brandScore = brandScore;
+        this.identityStatus = identityStatus;
+        this.russell3000 = russell3000;
+        this.taxExemptStatus = taxExemptStatus;
+        this.skipAutomaticSecVet = skipAutomaticSecVet;
         this.mock = mock;
     }
 
@@ -302,6 +345,42 @@ public class BrandRegistration extends Resource {
     }
 
     /**
+     * Returns Identity Status.
+     *
+     * @return Identity Status
+     */
+    public final BrandRegistration.IdentityStatus getIdentityStatus() {
+        return this.identityStatus;
+    }
+
+    /**
+     * Returns Russell 3000.
+     *
+     * @return Russell 3000
+     */
+    public final Boolean getRussell3000() {
+        return this.russell3000;
+    }
+
+    /**
+     * Returns Tax Exempt Status.
+     *
+     * @return Tax Exempt Status
+     */
+    public final String getTaxExemptStatus() {
+        return this.taxExemptStatus;
+    }
+
+    /**
+     * Returns Skip Automatic Secondary Vetting.
+     *
+     * @return Skip Automatic Secondary Vetting
+     */
+    public final Boolean getSkipAutomaticSecVet() {
+        return this.skipAutomaticSecVet;
+    }
+
+    /**
      * Returns A boolean that specifies whether brand should be a mock or not. If
      * true, brand will be registered as a mock brand. Defaults to false if no value
      * is provided..
@@ -338,6 +417,10 @@ public class BrandRegistration extends Resource {
                Objects.equals(failureReason, other.failureReason) &&
                Objects.equals(url, other.url) &&
                Objects.equals(brandScore, other.brandScore) &&
+               Objects.equals(identityStatus, other.identityStatus) &&
+               Objects.equals(russell3000, other.russell3000) &&
+               Objects.equals(taxExemptStatus, other.taxExemptStatus) &&
+               Objects.equals(skipAutomaticSecVet, other.skipAutomaticSecVet) &&
                Objects.equals(mock, other.mock);
     }
 
@@ -355,6 +438,10 @@ public class BrandRegistration extends Resource {
                             failureReason,
                             url,
                             brandScore,
+                            identityStatus,
+                            russell3000,
+                            taxExemptStatus,
+                            skipAutomaticSecVet,
                             mock);
     }
 }

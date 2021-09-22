@@ -26,6 +26,7 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
     private final String a2PProfileBundleSid;
     private String brandType;
     private Boolean mock;
+    private Boolean skipAutomaticSecVet;
 
     /**
      * Construct a new BrandRegistrationCreator.
@@ -63,6 +64,18 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
      */
     public BrandRegistrationCreator setMock(final Boolean mock) {
         this.mock = mock;
+        return this;
+    }
+
+    /**
+     * A flag to disable automatic secondary vetting for brands which it would
+     * otherwise be done..
+     *
+     * @param skipAutomaticSecVet Skip Automatic Secondary Vetting
+     * @return this
+     */
+    public BrandRegistrationCreator setSkipAutomaticSecVet(final Boolean skipAutomaticSecVet) {
+        this.skipAutomaticSecVet = skipAutomaticSecVet;
         return this;
     }
 
@@ -117,6 +130,10 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration> {
 
         if (mock != null) {
             request.addPostParam("Mock", mock.toString());
+        }
+
+        if (skipAutomaticSecVet != null) {
+            request.addPostParam("SkipAutomaticSecVet", skipAutomaticSecVet.toString());
         }
     }
 }

@@ -60,7 +60,8 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * The ISO country code of the Bundle's phone number country ownership request..
+     * The <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO country
+     * code</a> of the Bundle's phone number country ownership request..
      *
      * @param isoCountry The ISO country code of the country
      * @return this
@@ -71,7 +72,8 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * The type of phone number of the Bundle's ownership request..
+     * The type of phone number of the Bundle's ownership request. Can be `local`,
+     * `mobile`, `national`, or `toll free`..
      *
      * @param numberType The type of phone number
      * @return this

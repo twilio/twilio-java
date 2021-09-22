@@ -103,6 +103,18 @@ public class SinkTest {
     }
 
     @Test
+    public void testCreateSegmentResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"status\": \"initialized\",\"sink_configuration\": {\"write_key\": \"MY_WRITEKEY\"},\"description\": \"My segment Sink\",\"sid\": \"DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"date_created\": \"2015-07-30T20:00:00Z\",\"sink_type\": \"segment\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"url\": \"https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"sink_test\": \"https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Test\",\"sink_validate\": \"https://events.twilio.com/v1/Sinks/DGaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Validate\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create();
+    }
+
+    @Test
     public void testDeleteRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.DELETE,

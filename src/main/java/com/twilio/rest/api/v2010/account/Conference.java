@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -33,11 +25,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Conference extends Resource {
     private static final long serialVersionUID = 34504755798279L;
 
-    public enum Status {
+  public String toString() {
+    return "Conference(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", apiVersion=" + this.getApiVersion() + ", friendlyName=" + this.getFriendlyName() + ", region=" + this.getRegion() + ", sid=" + this.getSid() + ", status=" + this.getStatus() + ", uri=" + this.getUri() + ", subresourceUris=" + this.getSubresourceUris() + ", reasonConferenceEnded=" + this.getReasonConferenceEnded() + ", callSidEndingConference=" + this.getCallSidEndingConference() + ")";
+  }
+
+  public enum Status {
         INIT("init"),
         IN_PROGRESS("in-progress"),
         COMPLETED("completed");

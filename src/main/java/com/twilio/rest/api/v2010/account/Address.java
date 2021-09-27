@@ -17,22 +17,12 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Address extends Resource {
     private static final long serialVersionUID = 59858064655653L;
 
@@ -453,4 +443,8 @@ public class Address extends Resource {
                             validated,
                             verified);
     }
+
+  public String toString() {
+    return "Address(accountSid=" + this.getAccountSid() + ", city=" + this.getCity() + ", customerName=" + this.getCustomerName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", isoCountry=" + this.getIsoCountry() + ", postalCode=" + this.getPostalCode() + ", region=" + this.getRegion() + ", sid=" + this.getSid() + ", street=" + this.getStreet() + ", uri=" + this.getUri() + ", emergencyEnabled=" + this.getEmergencyEnabled() + ", validated=" + this.getValidated() + ", verified=" + this.getVerified() + ")";
+  }
 }

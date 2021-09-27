@@ -19,16 +19,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import com.twilio.type.Endpoint;
-import com.twilio.type.Twiml;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,11 +28,15 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Call extends Resource {
     private static final long serialVersionUID = 145756659403056L;
 
-    public enum Event {
+  public String toString() {
+    return "Call(sid=" + this.getSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", parentCallSid=" + this.getParentCallSid() + ", accountSid=" + this.getAccountSid() + ", to=" + this.getTo() + ", toFormatted=" + this.getToFormatted() + ", from=" + this.getFrom() + ", fromFormatted=" + this.getFromFormatted() + ", phoneNumberSid=" + this.getPhoneNumberSid() + ", status=" + this.getStatus() + ", startTime=" + this.getStartTime() + ", endTime=" + this.getEndTime() + ", duration=" + this.getDuration() + ", price=" + this.getPrice() + ", priceUnit=" + this.getPriceUnit() + ", direction=" + this.getDirection() + ", answeredBy=" + this.getAnsweredBy() + ", annotation=" + this.getAnnotation() + ", apiVersion=" + this.getApiVersion() + ", forwardedFrom=" + this.getForwardedFrom() + ", groupSid=" + this.getGroupSid() + ", callerName=" + this.getCallerName() + ", queueTime=" + this.getQueueTime() + ", trunkSid=" + this.getTrunkSid() + ", uri="
+        + this.getUri() + ", subresourceUris=" + this.getSubresourceUris() + ")";
+  }
+
+  public enum Event {
         INITIATED("initiated"),
         RINGING("ringing"),
         ANSWERED("answered"),

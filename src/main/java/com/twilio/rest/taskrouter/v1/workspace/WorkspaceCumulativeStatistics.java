@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class WorkspaceCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 278709267705066L;
 
@@ -427,4 +417,9 @@ public class WorkspaceCumulativeStatistics extends Resource {
                             workspaceSid,
                             url);
     }
+
+  public String toString() {
+    return "WorkspaceCumulativeStatistics(accountSid=" + this.getAccountSid() + ", avgTaskAcceptanceTime=" + this.getAvgTaskAcceptanceTime() + ", startTime=" + this.getStartTime() + ", endTime=" + this.getEndTime() + ", reservationsCreated=" + this.getReservationsCreated() + ", reservationsAccepted=" + this.getReservationsAccepted() + ", reservationsRejected=" + this.getReservationsRejected() + ", reservationsTimedOut=" + this.getReservationsTimedOut() + ", reservationsCanceled=" + this.getReservationsCanceled() + ", reservationsRescinded=" + this.getReservationsRescinded() + ", splitByWaitTime=" + this.getSplitByWaitTime() + ", waitDurationUntilAccepted=" + this.getWaitDurationUntilAccepted() + ", waitDurationUntilCanceled=" + this.getWaitDurationUntilCanceled() + ", tasksCanceled=" + this.getTasksCanceled() + ", tasksCompleted=" + this.getTasksCompleted() + ", tasksCreated=" + this.getTasksCreated() + ", tasksDeleted=" + this.getTasksDeleted() + ", tasksMoved=" + this.getTasksMoved()
+        + ", tasksTimedOutInWorkflow=" + this.getTasksTimedOutInWorkflow() + ", workspaceSid=" + this.getWorkspaceSid() + ", url=" + this.getUrl() + ")";
+  }
 }

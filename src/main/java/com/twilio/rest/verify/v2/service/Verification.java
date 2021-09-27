@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,11 +27,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Verification extends Resource {
     private static final long serialVersionUID = 216517595769072L;
 
-    public enum Channel {
+  public String toString() {
+    return "Verification(sid=" + this.getSid() + ", serviceSid=" + this.getServiceSid() + ", accountSid=" + this.getAccountSid() + ", to=" + this.getTo() + ", channel=" + this.getChannel() + ", status=" + this.getStatus() + ", valid=" + this.getValid() + ", lookup=" + this.getLookup() + ", amount=" + this.getAmount() + ", payee=" + this.getPayee() + ", sendCodeAttempts=" + this.getSendCodeAttempts() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Channel {
         SMS("sms"),
         CALL("call"),
         EMAIL("email"),

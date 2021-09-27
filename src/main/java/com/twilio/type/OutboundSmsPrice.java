@@ -3,8 +3,6 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -17,7 +15,6 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class OutboundSmsPrice {
     private final String mcc;
     private final String mnc;
@@ -79,4 +76,8 @@ public class OutboundSmsPrice {
     public int hashCode() {
         return Objects.hash(this.mcc, this.mnc, this.carrier, this.prices);
     }
+
+  public String toString() {
+    return "OutboundSmsPrice(mcc=" + this.getMcc() + ", mnc=" + this.getMnc() + ", carrier=" + this.getCarrier() + ", prices=" + this.getPrices() + ")";
+  }
 }

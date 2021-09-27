@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -39,7 +30,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class UsAppToPerson extends Resource {
     private static final long serialVersionUID = 156924875301398L;
 
@@ -424,4 +414,8 @@ public class UsAppToPerson extends Resource {
                             url,
                             mock);
     }
+
+  public String toString() {
+    return "UsAppToPerson(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", brandRegistrationSid=" + this.getBrandRegistrationSid() + ", messagingServiceSid=" + this.getMessagingServiceSid() + ", description=" + this.getDescription() + ", messageSamples=" + this.getMessageSamples() + ", usAppToPersonUsecase=" + this.getUsAppToPersonUsecase() + ", hasEmbeddedLinks=" + this.getHasEmbeddedLinks() + ", hasEmbeddedPhone=" + this.getHasEmbeddedPhone() + ", campaignStatus=" + this.getCampaignStatus() + ", campaignId=" + this.getCampaignId() + ", isExternallyRegistered=" + this.getIsExternallyRegistered() + ", rateLimits=" + this.getRateLimits() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", mock=" + this.getMock() + ")";
+  }
 }

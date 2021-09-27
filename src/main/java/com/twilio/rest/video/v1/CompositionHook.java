@@ -14,19 +14,11 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,11 +28,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class CompositionHook extends Resource {
     private static final long serialVersionUID = 281311376768009L;
 
-    public enum Format {
+  public String toString() {
+    return "CompositionHook(accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", enabled=" + this.getEnabled() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", sid=" + this.getSid() + ", audioSources=" + this.getAudioSources() + ", audioSourcesExcluded=" + this.getAudioSourcesExcluded() + ", videoLayout=" + this.getVideoLayout() + ", resolution=" + this.getResolution() + ", trim=" + this.getTrim() + ", format=" + this.getFormat() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Format {
         MP4("mp4"),
         WEBM("webm");
 

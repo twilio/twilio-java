@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,7 +30,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Assistant extends Resource {
     private static final long serialVersionUID = 244014125424501L;
 
@@ -359,4 +350,8 @@ public class Assistant extends Resource {
                             callbackUrl,
                             callbackEvents);
     }
+
+  public String toString() {
+    return "Assistant(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", latestModelBuildSid=" + this.getLatestModelBuildSid() + ", links=" + this.getLinks() + ", logQueries=" + this.getLogQueries() + ", developmentStage=" + this.getDevelopmentStage() + ", needsModelBuild=" + this.getNeedsModelBuild() + ", sid=" + this.getSid() + ", uniqueName=" + this.getUniqueName() + ", url=" + this.getUrl() + ", callbackUrl=" + this.getCallbackUrl() + ", callbackEvents=" + this.getCallbackEvents() + ")";
+  }
 }

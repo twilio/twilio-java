@@ -18,27 +18,21 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Member extends Resource {
     private static final long serialVersionUID = 35425349237098L;
 
-    public enum WebhookEnabledType {
+  public String toString() {
+    return "Member(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", channelSid=" + this.getChannelSid() + ", serviceSid=" + this.getServiceSid() + ", identity=" + this.getIdentity() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", roleSid=" + this.getRoleSid() + ", lastConsumedMessageIndex=" + this.getLastConsumedMessageIndex() + ", lastConsumptionTimestamp=" + this.getLastConsumptionTimestamp() + ", url=" + this.getUrl() + ", attributes=" + this.getAttributes() + ")";
+  }
+
+  public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
 

@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -33,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SyncStream extends Resource {
     private static final long serialVersionUID = 240146789601739L;
 
@@ -306,4 +297,8 @@ public class SyncStream extends Resource {
                             dateUpdated,
                             createdBy);
     }
+
+  public String toString() {
+    return "SyncStream(sid=" + this.getSid() + ", uniqueName=" + this.getUniqueName() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ", dateExpires=" + this.getDateExpires() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", createdBy=" + this.getCreatedBy() + ")";
+  }
 }

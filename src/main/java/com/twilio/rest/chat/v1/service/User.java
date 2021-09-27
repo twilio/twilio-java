@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -33,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class User extends Resource {
     private static final long serialVersionUID = 15176818292650L;
 
@@ -369,4 +360,8 @@ public class User extends Resource {
                             links,
                             url);
     }
+
+  public String toString() {
+    return "User(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", attributes=" + this.getAttributes() + ", friendlyName=" + this.getFriendlyName() + ", roleSid=" + this.getRoleSid() + ", identity=" + this.getIdentity() + ", isOnline=" + this.getIsOnline() + ", isNotifiable=" + this.getIsNotifiable() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", joinedChannelsCount=" + this.getJoinedChannelsCount() + ", links=" + this.getLinks() + ", url=" + this.getUrl() + ")";
+  }
 }

@@ -18,27 +18,21 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Credential extends Resource {
     private static final long serialVersionUID = 225197611451747L;
 
-    public enum PushType {
+  public String toString() {
+    return "Credential(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", type=" + this.getType() + ", sandbox=" + this.getSandbox() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum PushType {
         APN("apn"),
         GCM("gcm"),
         FCM("fcm");

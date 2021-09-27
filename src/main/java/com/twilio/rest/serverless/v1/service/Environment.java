@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -37,7 +29,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Environment extends Resource {
     private static final long serialVersionUID = 171611678539835L;
 
@@ -326,4 +317,8 @@ public class Environment extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Environment(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", buildSid=" + this.getBuildSid() + ", uniqueName=" + this.getUniqueName() + ", domainSuffix=" + this.getDomainSuffix() + ", domainName=" + this.getDomainName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

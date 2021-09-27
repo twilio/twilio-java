@@ -17,14 +17,7 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -33,7 +26,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Domain extends Resource {
     private static final long serialVersionUID = 137380357832668L;
 
@@ -521,4 +513,8 @@ public class Domain extends Resource {
                             byocTrunkSid,
                             emergencyCallerSid);
     }
+
+  public String toString() {
+    return "Domain(accountSid=" + this.getAccountSid() + ", apiVersion=" + this.getApiVersion() + ", authType=" + this.getAuthType() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", domainName=" + this.getDomainName() + ", friendlyName=" + this.getFriendlyName() + ", sid=" + this.getSid() + ", uri=" + this.getUri() + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceStatusCallbackMethod=" + this.getVoiceStatusCallbackMethod() + ", voiceStatusCallbackUrl=" + this.getVoiceStatusCallbackUrl() + ", voiceUrl=" + this.getVoiceUrl() + ", subresourceUris=" + this.getSubresourceUris() + ", sipRegistration=" + this.getSipRegistration() + ", emergencyCallingEnabled=" + this.getEmergencyCallingEnabled() + ", secure=" + this.getSecure() + ", byocTrunkSid=" + this.getByocTrunkSid() + ", emergencyCallerSid=" + this.getEmergencyCallerSid() + ")";
+  }
 }

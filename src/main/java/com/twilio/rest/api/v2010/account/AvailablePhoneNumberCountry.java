@@ -16,14 +16,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -31,7 +23,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class AvailablePhoneNumberCountry extends Resource {
     private static final long serialVersionUID = 118317602820324L;
 
@@ -217,4 +208,8 @@ public class AvailablePhoneNumberCountry extends Resource {
                             beta,
                             subresourceUris);
     }
+
+  public String toString() {
+    return "AvailablePhoneNumberCountry(countryCode=" + this.getCountryCode() + ", country=" + this.getCountry() + ", uri=" + this.getUri() + ", beta=" + this.getBeta() + ", subresourceUris=" + this.getSubresourceUris() + ")";
+  }
 }

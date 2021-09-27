@@ -17,19 +17,10 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,7 +29,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Device extends Resource {
     private static final long serialVersionUID = 144542670393653L;
 
@@ -336,4 +326,8 @@ public class Device extends Resource {
                             dateUpdated,
                             dateAuthenticated);
     }
+
+  public String toString() {
+    return "Device(sid=" + this.getSid() + ", url=" + this.getUrl() + ", uniqueName=" + this.getUniqueName() + ", friendlyName=" + this.getFriendlyName() + ", fleetSid=" + this.getFleetSid() + ", enabled=" + this.getEnabled() + ", accountSid=" + this.getAccountSid() + ", identity=" + this.getIdentity() + ", deploymentSid=" + this.getDeploymentSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", dateAuthenticated=" + this.getDateAuthenticated() + ")";
+  }
 }

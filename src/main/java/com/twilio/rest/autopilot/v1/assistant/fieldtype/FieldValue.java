@@ -17,19 +17,10 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,7 +29,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class FieldValue extends Resource {
     private static final long serialVersionUID = 196387084273361L;
 
@@ -320,4 +310,8 @@ public class FieldValue extends Resource {
                             url,
                             synonymOf);
     }
+
+  public String toString() {
+    return "FieldValue(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", fieldTypeSid=" + this.getFieldTypeSid() + ", language=" + this.getLanguage() + ", assistantSid=" + this.getAssistantSid() + ", sid=" + this.getSid() + ", value=" + this.getValue() + ", url=" + this.getUrl() + ", synonymOf=" + this.getSynonymOf() + ")";
+  }
 }

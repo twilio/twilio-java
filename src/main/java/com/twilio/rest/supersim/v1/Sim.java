@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,11 +30,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Sim extends Resource {
     private static final long serialVersionUID = 138273270353019L;
 
-    public enum Status {
+  public String toString() {
+    return "Sim(sid=" + this.getSid() + ", uniqueName=" + this.getUniqueName() + ", accountSid=" + this.getAccountSid() + ", iccid=" + this.getIccid() + ", status=" + this.getStatus() + ", fleetSid=" + this.getFleetSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum Status {
         NEW("new"),
         READY("ready"),
         ACTIVE("active"),

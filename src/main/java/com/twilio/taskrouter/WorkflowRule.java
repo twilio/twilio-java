@@ -7,15 +7,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class WorkflowRule extends TaskRouterResource {
 
     private final String expression;
@@ -86,7 +83,11 @@ public class WorkflowRule extends TaskRouterResource {
         return mapper.readValue(json, WorkflowRule.class);
     }
 
-    public static class Builder {
+  public String toString() {
+    return "WorkflowRule(expression=" + this.getExpression() + ", friendlyName=" + this.getFriendlyName() + ", targets=" + this.targets + ")";
+  }
+
+  public static class Builder {
 
         private String expression;
         private String friendlyName;

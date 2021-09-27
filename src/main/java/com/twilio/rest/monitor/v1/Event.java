@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,7 +25,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Event extends Resource {
     private static final long serialVersionUID = 124591176455880L;
 
@@ -327,4 +317,8 @@ public class Event extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Event(accountSid=" + this.getAccountSid() + ", actorSid=" + this.getActorSid() + ", actorType=" + this.getActorType() + ", description=" + this.getDescription() + ", eventData=" + this.getEventData() + ", eventDate=" + this.getEventDate() + ", eventType=" + this.getEventType() + ", resourceSid=" + this.getResourceSid() + ", resourceType=" + this.getResourceType() + ", sid=" + this.getSid() + ", source=" + this.getSource() + ", sourceIpAddress=" + this.getSourceIpAddress() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

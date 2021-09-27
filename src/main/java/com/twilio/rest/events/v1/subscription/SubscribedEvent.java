@@ -16,18 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -35,7 +26,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SubscribedEvent extends Resource {
     private static final long serialVersionUID = 173614979661166L;
 
@@ -231,4 +221,8 @@ public class SubscribedEvent extends Resource {
                             subscriptionSid,
                             url);
     }
+
+  public String toString() {
+    return "SubscribedEvent(accountSid=" + this.getAccountSid() + ", type=" + this.getType() + ", schemaVersion=" + this.getSchemaVersion() + ", subscriptionSid=" + this.getSubscriptionSid() + ", url=" + this.getUrl() + ")";
+  }
 }

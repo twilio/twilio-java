@@ -14,17 +14,8 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -33,7 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class TaskQueueRealTimeStatistics extends Resource {
     private static final long serialVersionUID = 241342137056087L;
 
@@ -321,4 +311,8 @@ public class TaskQueueRealTimeStatistics extends Resource {
                             workspaceSid,
                             url);
     }
+
+  public String toString() {
+    return "TaskQueueRealTimeStatistics(accountSid=" + this.getAccountSid() + ", activityStatistics=" + this.getActivityStatistics() + ", longestTaskWaitingAge=" + this.getLongestTaskWaitingAge() + ", longestTaskWaitingSid=" + this.getLongestTaskWaitingSid() + ", longestRelativeTaskAgeInQueue=" + this.getLongestRelativeTaskAgeInQueue() + ", longestRelativeTaskSidInQueue=" + this.getLongestRelativeTaskSidInQueue() + ", taskQueueSid=" + this.getTaskQueueSid() + ", tasksByPriority=" + this.getTasksByPriority() + ", tasksByStatus=" + this.getTasksByStatus() + ", totalAvailableWorkers=" + this.getTotalAvailableWorkers() + ", totalEligibleWorkers=" + this.getTotalEligibleWorkers() + ", totalTasks=" + this.getTotalTasks() + ", workspaceSid=" + this.getWorkspaceSid() + ", url=" + this.getUrl() + ")";
+  }
 }

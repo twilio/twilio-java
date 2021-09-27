@@ -16,18 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -36,7 +27,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SyncMapPermission extends Resource {
     private static final long serialVersionUID = 261843483205862L;
 
@@ -282,4 +272,8 @@ public class SyncMapPermission extends Resource {
                             manage,
                             url);
     }
+
+  public String toString() {
+    return "SyncMapPermission(accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", mapSid=" + this.getMapSid() + ", identity=" + this.getIdentity() + ", read=" + this.getRead() + ", write=" + this.getWrite() + ", manage=" + this.getManage() + ", url=" + this.getUrl() + ")";
+  }
 }

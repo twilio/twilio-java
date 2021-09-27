@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -32,7 +24,6 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class IpAccessControlList extends Resource {
     private static final long serialVersionUID = 214188792953524L;
 
@@ -311,4 +302,8 @@ public class IpAccessControlList extends Resource {
                             subresourceUris,
                             uri);
     }
+
+  public String toString() {
+    return "IpAccessControlList(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", subresourceUris=" + this.getSubresourceUris() + ", uri=" + this.getUri() + ")";
+  }
 }

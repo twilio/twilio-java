@@ -1,21 +1,5 @@
 package com.twilio.twiml;
 
-import com.twilio.http.TwilioRestClient;
-import lombok.ToString;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-
-import javax.xml.XMLConstants;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -25,9 +9,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import javax.xml.XMLConstants;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 @SuppressWarnings("checkstyle:abbreviationaswordinname")
-@ToString
 public abstract class TwiML {
     private final String tagName;
     private final Builder builder;
@@ -194,7 +190,11 @@ public abstract class TwiML {
         );
     }
 
-    /**
+  public String toString() {
+    return "TwiML(tagName=" + this.getTagName() + ", builder=" + this.builder + ")";
+  }
+
+  /**
      * Create a new {@code TwiML} node
      */
     public static class Builder<T extends Builder<T>> {

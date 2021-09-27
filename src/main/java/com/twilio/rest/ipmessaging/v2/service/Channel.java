@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Channel extends Resource {
     private static final long serialVersionUID = 275623534063843L;
 
-    public enum ChannelType {
+  public String toString() {
+    return "Channel(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", friendlyName=" + this.getFriendlyName() + ", uniqueName=" + this.getUniqueName() + ", attributes=" + this.getAttributes() + ", type=" + this.getType() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", createdBy=" + this.getCreatedBy() + ", membersCount=" + this.getMembersCount() + ", messagesCount=" + this.getMessagesCount() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum ChannelType {
         PUBLIC("public"),
         PRIVATE("private");
 

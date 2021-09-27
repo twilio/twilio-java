@@ -17,23 +17,14 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class ShortCode extends Resource {
     private static final long serialVersionUID = 186171326966142L;
 
@@ -344,4 +335,8 @@ public class ShortCode extends Resource {
                             smsUrl,
                             uri);
     }
+
+  public String toString() {
+    return "ShortCode(accountSid=" + this.getAccountSid() + ", apiVersion=" + this.getApiVersion() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", shortCode=" + this.getShortCode() + ", sid=" + this.getSid() + ", smsFallbackMethod=" + this.getSmsFallbackMethod() + ", smsFallbackUrl=" + this.getSmsFallbackUrl() + ", smsMethod=" + this.getSmsMethod() + ", smsUrl=" + this.getSmsUrl() + ", uri=" + this.getUri() + ")";
+  }
 }

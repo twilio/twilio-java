@@ -2,8 +2,6 @@ package com.twilio.type;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -16,7 +14,6 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SubscribeRulesUpdate {
     @JsonProperty("rules")
     private final List<SubscribeRule> rules;
@@ -41,4 +38,8 @@ public class SubscribeRulesUpdate {
     public int hashCode() {
         return Objects.hash(getRules());
     }
+
+  public String toString() {
+    return "SubscribeRulesUpdate(rules=" + this.getRules() + ")";
+  }
 }

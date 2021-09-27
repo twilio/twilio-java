@@ -16,22 +16,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class CompositionSettings extends Resource {
     private static final long serialVersionUID = 41622584466212L;
 
@@ -234,4 +224,8 @@ public class CompositionSettings extends Resource {
                             encryptionEnabled,
                             url);
     }
+
+  public String toString() {
+    return "CompositionSettings(accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", awsCredentialsSid=" + this.getAwsCredentialsSid() + ", awsS3Url=" + this.getAwsS3Url() + ", awsStorageEnabled=" + this.getAwsStorageEnabled() + ", encryptionKeySid=" + this.getEncryptionKeySid() + ", encryptionEnabled=" + this.getEncryptionEnabled() + ", url=" + this.getUrl() + ")";
+  }
 }

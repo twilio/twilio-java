@@ -17,19 +17,10 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -37,7 +28,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class FaxMedia extends Resource {
     private static final long serialVersionUID = 8543753722336L;
 
@@ -239,4 +229,8 @@ public class FaxMedia extends Resource {
                             dateUpdated,
                             url);
     }
+
+  public String toString() {
+    return "FaxMedia(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", faxSid=" + this.getFaxSid() + ", contentType=" + this.getContentType() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
 }

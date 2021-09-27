@@ -17,22 +17,12 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class OutgoingCallerId extends Resource {
     private static final long serialVersionUID = 160246512577628L;
 
@@ -289,4 +279,8 @@ public class OutgoingCallerId extends Resource {
                             phoneNumber,
                             uri);
     }
+
+  public String toString() {
+    return "OutgoingCallerId(sid=" + this.getSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", accountSid=" + this.getAccountSid() + ", phoneNumber=" + this.getPhoneNumber() + ", uri=" + this.getUri() + ")";
+  }
 }

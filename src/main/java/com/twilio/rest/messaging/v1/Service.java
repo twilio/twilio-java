@@ -18,14 +18,7 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,11 +31,15 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 157234535736811L;
 
-    public enum ScanMessageContent {
+  public String toString() {
+    return "Service(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", inboundRequestUrl=" + this.getInboundRequestUrl() + ", inboundMethod=" + this.getInboundMethod() + ", fallbackUrl=" + this.getFallbackUrl() + ", fallbackMethod=" + this.getFallbackMethod() + ", statusCallback=" + this.getStatusCallback() + ", stickySender=" + this.getStickySender() + ", mmsConverter=" + this.getMmsConverter() + ", smartEncoding=" + this.getSmartEncoding() + ", scanMessageContent=" + this.getScanMessageContent() + ", fallbackToLongCode=" + this.getFallbackToLongCode() + ", areaCodeGeomatch=" + this.getAreaCodeGeomatch() + ", synchronousValidation=" + this.getSynchronousValidation() + ", validityPeriod=" + this.getValidityPeriod() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ", useInboundWebhookOnNumber="
+        + this.getUseInboundWebhookOnNumber() + ")";
+  }
+
+  public enum ScanMessageContent {
         INHERIT("inherit"),
         ENABLE("enable"),
         DISABLE("disable");

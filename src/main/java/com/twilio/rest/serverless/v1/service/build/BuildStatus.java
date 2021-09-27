@@ -17,18 +17,9 @@ import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -36,11 +27,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class BuildStatus extends Resource {
     private static final long serialVersionUID = 147679596775059L;
 
-    public enum Status {
+  public String toString() {
+    return "BuildStatus(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", status=" + this.getStatus() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Status {
         BUILDING("building"),
         COMPLETED("completed"),
         FAILED("failed");

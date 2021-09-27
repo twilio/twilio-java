@@ -17,22 +17,12 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class IpAddress extends Resource {
     private static final long serialVersionUID = 129871129530105L;
 
@@ -398,4 +388,8 @@ public class IpAddress extends Resource {
                             dateUpdated,
                             uri);
     }
+
+  public String toString() {
+    return "IpAddress(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", ipAddress=" + this.getIpAddress() + ", cidrPrefixLength=" + this.getCidrPrefixLength() + ", ipAccessControlListSid=" + this.getIpAccessControlListSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", uri=" + this.getUri() + ")";
+  }
 }

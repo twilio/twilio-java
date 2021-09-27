@@ -18,14 +18,7 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,11 +28,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Room extends Resource {
     private static final long serialVersionUID = 155845282259385L;
 
-    public enum RoomStatus {
+  public String toString() {
+    return "Room(sid=" + this.getSid() + ", status=" + this.getStatus() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", accountSid=" + this.getAccountSid() + ", enableTurn=" + this.getEnableTurn() + ", uniqueName=" + this.getUniqueName() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", endTime=" + this.getEndTime() + ", duration=" + this.getDuration() + ", type=" + this.getType() + ", maxParticipants=" + this.getMaxParticipants() + ", maxConcurrentPublishedTracks=" + this.getMaxConcurrentPublishedTracks() + ", recordParticipantsOnConnect=" + this.getRecordParticipantsOnConnect() + ", videoCodecs=" + this.getVideoCodecs() + ", mediaRegion=" + this.getMediaRegion() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum RoomStatus {
         IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
         FAILED("failed");

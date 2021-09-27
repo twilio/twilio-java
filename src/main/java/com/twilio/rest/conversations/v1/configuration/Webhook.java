@@ -17,27 +17,21 @@ import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 177976816253651L;
 
-    public enum Target {
+  public String toString() {
+    return "Webhook(accountSid=" + this.getAccountSid() + ", method=" + this.getMethod() + ", filters=" + this.getFilters() + ", preWebhookUrl=" + this.getPreWebhookUrl() + ", postWebhookUrl=" + this.getPostWebhookUrl() + ", target=" + this.getTarget() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Target {
         WEBHOOK("webhook"),
         FLEX("flex");
 

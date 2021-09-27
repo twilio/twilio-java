@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,11 +30,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 93456310387892L;
 
-    public enum GeoMatchLevel {
+  public String toString() {
+    return "Service(sid=" + this.getSid() + ", uniqueName=" + this.getUniqueName() + ", accountSid=" + this.getAccountSid() + ", chatInstanceSid=" + this.getChatInstanceSid() + ", callbackUrl=" + this.getCallbackUrl() + ", defaultTtl=" + this.getDefaultTtl() + ", numberSelectionBehavior=" + this.getNumberSelectionBehavior() + ", geoMatchLevel=" + this.getGeoMatchLevel() + ", interceptCallbackUrl=" + this.getInterceptCallbackUrl() + ", outOfSessionCallbackUrl=" + this.getOutOfSessionCallbackUrl() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum GeoMatchLevel {
         AREA_CODE("area-code"),
         OVERLAY("overlay"),
         RADIUS("radius"),

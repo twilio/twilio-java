@@ -18,28 +18,24 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
 import com.twilio.type.PhoneNumberCapabilities;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Local extends Resource {
     private static final long serialVersionUID = 272193771301446L;
 
-    public enum AddressRequirement {
+  public String toString() {
+    return "Local(accountSid=" + this.getAccountSid() + ", addressSid=" + this.getAddressSid() + ", addressRequirements=" + this.getAddressRequirements() + ", apiVersion=" + this.getApiVersion() + ", beta=" + this.getBeta() + ", capabilities=" + this.getCapabilities() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", identitySid=" + this.getIdentitySid() + ", phoneNumber=" + this.getPhoneNumber() + ", origin=" + this.getOrigin() + ", sid=" + this.getSid() + ", smsApplicationSid=" + this.getSmsApplicationSid() + ", smsFallbackMethod=" + this.getSmsFallbackMethod() + ", smsFallbackUrl=" + this.getSmsFallbackUrl() + ", smsMethod=" + this.getSmsMethod() + ", smsUrl=" + this.getSmsUrl() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", trunkSid=" + this.getTrunkSid() + ", uri=" + this.getUri() + ", voiceReceiveMode="
+        + this.getVoiceReceiveMode() + ", voiceApplicationSid=" + this.getVoiceApplicationSid() + ", voiceCallerIdLookup=" + this.getVoiceCallerIdLookup() + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceUrl=" + this.getVoiceUrl() + ", emergencyStatus=" + this.getEmergencyStatus() + ", emergencyAddressSid=" + this.getEmergencyAddressSid() + ", bundleSid=" + this.getBundleSid() + ", status=" + this.getStatus() + ")";
+  }
+
+  public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
         LOCAL("local"),

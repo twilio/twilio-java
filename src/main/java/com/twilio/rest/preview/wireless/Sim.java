@@ -17,14 +17,7 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -38,7 +31,6 @@ import java.util.Objects;
  * access, please contact help@twilio.com.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Sim extends Resource {
     private static final long serialVersionUID = 114188106016645L;
 
@@ -459,4 +451,8 @@ public class Sim extends Resource {
                             url,
                             links);
     }
+
+  public String toString() {
+    return "Sim(sid=" + this.getSid() + ", uniqueName=" + this.getUniqueName() + ", accountSid=" + this.getAccountSid() + ", ratePlanSid=" + this.getRatePlanSid() + ", friendlyName=" + this.getFriendlyName() + ", iccid=" + this.getIccid() + ", eId=" + this.getEId() + ", status=" + this.getStatus() + ", commandsCallbackUrl=" + this.getCommandsCallbackUrl() + ", commandsCallbackMethod=" + this.getCommandsCallbackMethod() + ", smsFallbackMethod=" + this.getSmsFallbackMethod() + ", smsFallbackUrl=" + this.getSmsFallbackUrl() + ", smsMethod=" + this.getSmsMethod() + ", smsUrl=" + this.getSmsUrl() + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceUrl=" + this.getVoiceUrl() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
 }

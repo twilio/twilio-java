@@ -18,19 +18,10 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,11 +29,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Interaction extends Resource {
     private static final long serialVersionUID = 184706954085822L;
 
-    public enum Type {
+  public String toString() {
+    return "Interaction(sid=" + this.getSid() + ", sessionSid=" + this.getSessionSid() + ", serviceSid=" + this.getServiceSid() + ", accountSid=" + this.getAccountSid() + ", data=" + this.getData() + ", type=" + this.getType() + ", inboundParticipantSid=" + this.getInboundParticipantSid() + ", inboundResourceSid=" + this.getInboundResourceSid() + ", inboundResourceStatus=" + this.getInboundResourceStatus() + ", inboundResourceType=" + this.getInboundResourceType() + ", inboundResourceUrl=" + this.getInboundResourceUrl() + ", outboundParticipantSid=" + this.getOutboundParticipantSid() + ", outboundResourceSid=" + this.getOutboundResourceSid() + ", outboundResourceStatus=" + this.getOutboundResourceStatus() + ", outboundResourceType=" + this.getOutboundResourceType() + ", outboundResourceUrl=" + this.getOutboundResourceUrl() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Type {
         MESSAGE("message"),
         VOICE("voice"),
         UNKNOWN("unknown");

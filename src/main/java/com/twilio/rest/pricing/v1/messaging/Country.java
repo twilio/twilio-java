@@ -17,26 +17,16 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
 import com.twilio.type.InboundSmsPrice;
 import com.twilio.type.OutboundSmsPrice;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Currency;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Country extends Resource {
     private static final long serialVersionUID = 155838537182593L;
 
@@ -210,4 +200,8 @@ public class Country extends Resource {
                             priceUnit,
                             url);
     }
+
+  public String toString() {
+    return "Country(country=" + this.getCountry() + ", isoCountry=" + this.getIsoCountry() + ", outboundSmsPrices=" + this.getOutboundSmsPrices() + ", inboundSmsPrices=" + this.getInboundSmsPrices() + ", priceUnit=" + this.getPriceUnit() + ", url=" + this.getUrl() + ")";
+  }
 }

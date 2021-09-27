@@ -17,20 +17,11 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -38,7 +29,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 177917350059297L;
 
@@ -284,4 +274,8 @@ public class PhoneNumber extends Resource {
                             capabilities,
                             url);
     }
+
+  public String toString() {
+    return "PhoneNumber(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", phoneNumber=" + this.getPhoneNumber() + ", countryCode=" + this.getCountryCode() + ", capabilities=" + this.getCapabilities() + ", url=" + this.getUrl() + ")";
+  }
 }

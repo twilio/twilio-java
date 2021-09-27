@@ -18,20 +18,11 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -39,11 +30,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 188296693702794L;
 
-    public enum Status {
+  public String toString() {
+    return "Webhook(sid=" + this.getSid() + ", serviceSid=" + this.getServiceSid() + ", accountSid=" + this.getAccountSid() + ", friendlyName=" + this.getFriendlyName() + ", eventTypes=" + this.getEventTypes() + ", status=" + this.getStatus() + ", version=" + this.getVersion() + ", webhookUrl=" + this.getWebhookUrl() + ", webhookMethod=" + this.getWebhookMethod() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Status {
         ENABLED("enabled"),
         DISABLED("disabled");
 

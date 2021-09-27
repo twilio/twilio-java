@@ -16,18 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -35,7 +26,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class FunctionVersionContent extends Resource {
     private static final long serialVersionUID = 128349955760970L;
 
@@ -206,4 +196,8 @@ public class FunctionVersionContent extends Resource {
                             content,
                             url);
     }
+
+  public String toString() {
+    return "FunctionVersionContent(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", functionSid=" + this.getFunctionSid() + ", content=" + this.getContent() + ", url=" + this.getUrl() + ")";
+  }
 }

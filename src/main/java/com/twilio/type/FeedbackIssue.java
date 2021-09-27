@@ -3,8 +3,6 @@ package com.twilio.type;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
-
 import java.util.Objects;
 
 /**
@@ -16,7 +14,6 @@ import java.util.Objects;
  * </p>
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class FeedbackIssue {
     private final int count;
     private final String description;
@@ -70,4 +67,8 @@ public class FeedbackIssue {
     public int hashCode() {
         return Objects.hash(this.count, this.description, this.percentageOfTotalCalls);
     }
+
+  public String toString() {
+    return "FeedbackIssue(count=" + this.getCount() + ", description=" + this.getDescription() + ", percentageOfTotalCalls=" + this.getPercentageOfTotalCalls() + ")";
+  }
 }

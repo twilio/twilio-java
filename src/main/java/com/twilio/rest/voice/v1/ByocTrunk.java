@@ -17,23 +17,14 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class ByocTrunk extends Resource {
     private static final long serialVersionUID = 155966179208903L;
 
@@ -371,4 +362,8 @@ public class ByocTrunk extends Resource {
                             dateUpdated,
                             url);
     }
+
+  public String toString() {
+    return "ByocTrunk(accountSid=" + this.getAccountSid() + ", sid=" + this.getSid() + ", friendlyName=" + this.getFriendlyName() + ", voiceUrl=" + this.getVoiceUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", statusCallbackUrl=" + this.getStatusCallbackUrl() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", cnamLookupEnabled=" + this.getCnamLookupEnabled() + ", connectionPolicySid=" + this.getConnectionPolicySid() + ", fromDomainSid=" + this.getFromDomainSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", url=" + this.getUrl() + ")";
+  }
 }

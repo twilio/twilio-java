@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -36,11 +27,16 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Configuration extends Resource {
     private static final long serialVersionUID = 217500104430837L;
 
-    public enum Status {
+  public String toString() {
+    return "Configuration(accountSid=" + this.getAccountSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", attributes=" + this.getAttributes() + ", status=" + this.getStatus() + ", taskrouterWorkspaceSid=" + this.getTaskrouterWorkspaceSid() + ", taskrouterTargetWorkflowSid=" + this.getTaskrouterTargetWorkflowSid() + ", taskrouterTargetTaskqueueSid=" + this.getTaskrouterTargetTaskqueueSid() + ", taskrouterTaskqueues=" + this.getTaskrouterTaskqueues() + ", taskrouterSkills=" + this.getTaskrouterSkills() + ", taskrouterWorkerChannels=" + this.getTaskrouterWorkerChannels() + ", taskrouterWorkerAttributes=" + this.getTaskrouterWorkerAttributes() + ", taskrouterOfflineActivitySid=" + this.getTaskrouterOfflineActivitySid() + ", runtimeDomain=" + this.getRuntimeDomain() + ", messagingServiceInstanceSid=" + this.getMessagingServiceInstanceSid() + ", chatServiceInstanceSid=" + this.getChatServiceInstanceSid() + ", flexServiceInstanceSid="
+        + this.getFlexServiceInstanceSid() + ", uiLanguage=" + this.getUiLanguage() + ", uiAttributes=" + this.getUiAttributes() + ", uiDependencies=" + this.getUiDependencies() + ", uiVersion=" + this.getUiVersion() + ", serviceVersion=" + this.getServiceVersion() + ", callRecordingEnabled=" + this.getCallRecordingEnabled() + ", callRecordingWebhookUrl=" + this.getCallRecordingWebhookUrl() + ", crmEnabled=" + this.getCrmEnabled() + ", crmType=" + this.getCrmType() + ", crmCallbackUrl=" + this.getCrmCallbackUrl() + ", crmFallbackUrl=" + this.getCrmFallbackUrl() + ", crmAttributes=" + this.getCrmAttributes() + ", publicAttributes=" + this.getPublicAttributes() + ", pluginServiceEnabled=" + this.getPluginServiceEnabled() + ", pluginServiceAttributes=" + this.getPluginServiceAttributes() + ", integrations=" + this.getIntegrations() + ", outboundCallFlows=" + this.getOutboundCallFlows() + ", serverlessServiceSids=" + this.getServerlessServiceSids() + ", queueStatsConfiguration="
+        + this.getQueueStatsConfiguration() + ", notifications=" + this.getNotifications() + ", markdown=" + this.getMarkdown() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum Status {
         OK("ok"),
         INPROGRESS("inprogress"),
         NOTSTARTED("notstarted");

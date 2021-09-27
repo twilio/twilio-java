@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -35,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class SyncListItem extends Resource {
     private static final long serialVersionUID = 156990163506527L;
 
-    public enum QueryResultOrder {
+  public String toString() {
+    return "SyncListItem(index=" + this.getIndex() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", listSid=" + this.getListSid() + ", url=" + this.getUrl() + ", revision=" + this.getRevision() + ", data=" + this.getData() + ", dateExpires=" + this.getDateExpires() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", createdBy=" + this.getCreatedBy() + ")";
+  }
+
+  public enum QueryResultOrder {
         ASC("asc"),
         DESC("desc");
 

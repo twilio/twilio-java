@@ -17,14 +17,6 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -37,7 +29,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Schema extends Resource {
     private static final long serialVersionUID = 173014134409596L;
 
@@ -184,4 +175,8 @@ public class Schema extends Resource {
                             latestVersionDateCreated,
                             latestVersion);
     }
+
+  public String toString() {
+    return "Schema(id=" + this.getId() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ", latestVersionDateCreated=" + this.getLatestVersionDateCreated() + ", latestVersion=" + this.getLatestVersion() + ")";
+  }
 }

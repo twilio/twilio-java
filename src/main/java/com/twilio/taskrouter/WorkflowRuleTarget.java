@@ -6,14 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.ToString;
-
 import java.io.IOException;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class WorkflowRuleTarget extends TaskRouterResource {
 
     @JsonProperty("queue")
@@ -156,7 +153,11 @@ public class WorkflowRuleTarget extends TaskRouterResource {
         return mapper.readValue(json, WorkflowRuleTarget.class);
     }
 
-    public static class Builder {
+  public String toString() {
+    return "WorkflowRuleTarget(queue=" + this.getQueue() + ", expression=" + this.getExpression() + ", priority=" + this.getPriority() + ", timeout=" + this.getTimeout() + ", orderBy=" + this.getOrderBy() + ", skipIf=" + this.getSkipIf() + ", knownWorkerSid=" + this.getKnownWorkerSid() + ", knownWorkerFriendlyName=" + this.getKnownWorkerFriendlyName() + ")";
+  }
+
+  public static class Builder {
 
         private String queue;
         private String expression;

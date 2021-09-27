@@ -17,23 +17,14 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Application extends Resource {
     private static final long serialVersionUID = 30273898590025L;
 
@@ -507,4 +498,8 @@ public class Application extends Resource {
                             voiceMethod,
                             voiceUrl);
     }
+
+  public String toString() {
+    return "Application(accountSid=" + this.getAccountSid() + ", apiVersion=" + this.getApiVersion() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", friendlyName=" + this.getFriendlyName() + ", messageStatusCallback=" + this.getMessageStatusCallback() + ", sid=" + this.getSid() + ", smsFallbackMethod=" + this.getSmsFallbackMethod() + ", smsFallbackUrl=" + this.getSmsFallbackUrl() + ", smsMethod=" + this.getSmsMethod() + ", smsStatusCallback=" + this.getSmsStatusCallback() + ", smsUrl=" + this.getSmsUrl() + ", statusCallback=" + this.getStatusCallback() + ", statusCallbackMethod=" + this.getStatusCallbackMethod() + ", uri=" + this.getUri() + ", voiceCallerIdLookup=" + this.getVoiceCallerIdLookup() + ", voiceFallbackMethod=" + this.getVoiceFallbackMethod() + ", voiceFallbackUrl=" + this.getVoiceFallbackUrl() + ", voiceMethod=" + this.getVoiceMethod() + ", voiceUrl=" + this.getVoiceUrl() + ")";
+  }
 }

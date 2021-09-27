@@ -17,18 +17,9 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -36,7 +27,6 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Notification extends Resource {
     private static final long serialVersionUID = 58087406399871L;
 
@@ -248,4 +238,8 @@ public class Notification extends Resource {
                             ttl,
                             dateCreated);
     }
+
+  public String toString() {
+    return "Notification(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", entitySid=" + this.getEntitySid() + ", identity=" + this.getIdentity() + ", challengeSid=" + this.getChallengeSid() + ", priority=" + this.getPriority() + ", ttl=" + this.getTtl() + ", dateCreated=" + this.getDateCreated() + ")";
+  }
 }

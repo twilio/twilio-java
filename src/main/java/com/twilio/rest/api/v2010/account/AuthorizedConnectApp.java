@@ -18,28 +18,22 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class AuthorizedConnectApp extends Resource {
     private static final long serialVersionUID = 67218777245125L;
 
-    public enum Permission {
+  public String toString() {
+    return "AuthorizedConnectApp(accountSid=" + this.getAccountSid() + ", connectAppCompanyName=" + this.getConnectAppCompanyName() + ", connectAppDescription=" + this.getConnectAppDescription() + ", connectAppFriendlyName=" + this.getConnectAppFriendlyName() + ", connectAppHomepageUrl=" + this.getConnectAppHomepageUrl() + ", connectAppSid=" + this.getConnectAppSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", permissions=" + this.getPermissions() + ", uri=" + this.getUri() + ")";
+  }
+
+  public enum Permission {
         GET_ALL("get-all"),
         POST_ALL("post-all");
 

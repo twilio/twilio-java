@@ -18,27 +18,21 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 68490171213295L;
 
-    public enum OrderType {
+  public String toString() {
+    return "Message(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", attributes=" + this.getAttributes() + ", serviceSid=" + this.getServiceSid() + ", to=" + this.getTo() + ", channelSid=" + this.getChannelSid() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", wasEdited=" + this.getWasEdited() + ", from=" + this.getFrom() + ", body=" + this.getBody() + ", index=" + this.getIndex() + ", url=" + this.getUrl() + ")";
+  }
+
+  public enum OrderType {
         ASC("asc"),
         DESC("desc");
 

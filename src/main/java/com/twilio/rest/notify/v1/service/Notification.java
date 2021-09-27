@@ -14,19 +14,10 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
@@ -39,11 +30,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Notification extends Resource {
     private static final long serialVersionUID = 275926337068118L;
 
-    public enum Priority {
+  public String toString() {
+    return "Notification(sid=" + this.getSid() + ", accountSid=" + this.getAccountSid() + ", serviceSid=" + this.getServiceSid() + ", dateCreated=" + this.getDateCreated() + ", identities=" + this.getIdentities() + ", tags=" + this.getTags() + ", segments=" + this.getSegments() + ", priority=" + this.getPriority() + ", ttl=" + this.getTtl() + ", title=" + this.getTitle() + ", body=" + this.getBody() + ", sound=" + this.getSound() + ", action=" + this.getAction() + ", data=" + this.getData() + ", apn=" + this.getApn() + ", gcm=" + this.getGcm() + ", fcm=" + this.getFcm() + ", sms=" + this.getSms() + ", facebookMessenger=" + this.getFacebookMessenger() + ", alexa=" + this.getAlexa() + ")";
+  }
+
+  public enum Priority {
         HIGH("high"),
         LOW("low");
 

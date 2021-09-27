@@ -18,14 +18,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -34,11 +26,14 @@ import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 34001242407544L;
 
-    public enum Status {
+  public String toString() {
+    return "Participant(sid=" + this.getSid() + ", roomSid=" + this.getRoomSid() + ", accountSid=" + this.getAccountSid() + ", status=" + this.getStatus() + ", identity=" + this.getIdentity() + ", dateCreated=" + this.getDateCreated() + ", dateUpdated=" + this.getDateUpdated() + ", startTime=" + this.getStartTime() + ", endTime=" + this.getEndTime() + ", duration=" + this.getDuration() + ", url=" + this.getUrl() + ", links=" + this.getLinks() + ")";
+  }
+
+  public enum Status {
         CONNECTED("connected"),
         DISCONNECTED("disconnected");
 

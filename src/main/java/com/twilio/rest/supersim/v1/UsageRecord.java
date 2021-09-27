@@ -14,18 +14,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
-import com.twilio.exception.RestException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-import com.twilio.rest.Domains;
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -36,11 +27,14 @@ import java.util.Objects;
  * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-@ToString
 public class UsageRecord extends Resource {
     private static final long serialVersionUID = 259624164977521L;
 
-    public enum Granularity {
+  public String toString() {
+    return "UsageRecord(accountSid=" + this.getAccountSid() + ", simSid=" + this.getSimSid() + ", networkSid=" + this.getNetworkSid() + ", fleetSid=" + this.getFleetSid() + ", isoCountry=" + this.getIsoCountry() + ", period=" + this.getPeriod() + ", dataUpload=" + this.getDataUpload() + ", dataDownload=" + this.getDataDownload() + ", dataTotal=" + this.getDataTotal() + ")";
+  }
+
+  public enum Granularity {
         HOUR("hour"),
         DAY("day"),
         ALL("all");

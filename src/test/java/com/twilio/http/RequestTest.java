@@ -6,7 +6,6 @@ import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.junit.Test;
 
 import java.net.MalformedURLException;
@@ -20,6 +19,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.junit.Assert.assertThrows;
 
 public class RequestTest {
 
@@ -44,6 +44,20 @@ public class RequestTest {
         Request request = new Request(HttpMethod.DELETE, "http://{");
         request.constructURL();
         fail("ApiException was expected");
+    }
+
+    @Test
+    public void testConstructURLURISyntaxExceptionContent() {
+        Request request = new Request(HttpMethod.DELETE, "http://{");
+        ApiException e = assertThrows(ApiException.class, request::constructURL);
+        assertEquals("Bad URI", e.getMessage());
+    }
+
+    @Test
+    public void testConstructURLMalformedExceptionContent(){
+        Request request = new Request(HttpMethod.DELETE, "/2010-04-01/foo<>");
+        ApiException e = assertThrows(ApiException.class, request::constructURL);
+        assertEquals("Bad URL", e.getMessage());
     }
 
     @Test

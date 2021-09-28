@@ -145,9 +145,9 @@ public class Request {
             URI uri = new URI(stringUri);
             return uri.toURL();
         } catch (final URISyntaxException e) {
-            throw new ApiException("Bad URI: " + stringUri, e);
+            throw new ApiException("Bad URI");
         } catch (final MalformedURLException e) {
-            throw new ApiException("Bad URL: " + stringUri, e);
+            throw new ApiException("Bad URL");
         }
     }
 
@@ -189,7 +189,7 @@ public class Request {
             String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
             return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
         } catch (final MalformedURLException | UnsupportedEncodingException e) {
-            throw new ApiException("Bad URL: " + url, e);
+            throw new ApiException("Bad URL");
         }
     }
 

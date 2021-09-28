@@ -145,7 +145,7 @@ public class Request {
             URI uri = new URI(stringUri);
             return uri.toURL();
         } catch (final URISyntaxException e) {
-            throw new ApiException("Bad URI");
+            throw new ApiException("Bad URL");
         } catch (final MalformedURLException e) {
             throw new ApiException("Bad URL");
         }

@@ -50,7 +50,7 @@ public class RequestTest {
     public void testConstructURLURISyntaxExceptionContent() {
         Request request = new Request(HttpMethod.DELETE, "http://{");
         ApiException e = assertThrows(ApiException.class, request::constructURL);
-        assertEquals("Bad URI", e.getMessage());
+        assertEquals("Bad URL", e.getMessage());
     }
 
     @Test

@@ -20,6 +20,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertThat;
 
 public class RequestTest {
 
@@ -50,14 +51,14 @@ public class RequestTest {
     public void testConstructURLURISyntaxExceptionContent() {
         Request request = new Request(HttpMethod.DELETE, "http://{");
         ApiException e = assertThrows(ApiException.class, request::constructURL);
-        assertEquals("Bad URL", e.getMessage());
+        assertEquals("Bad URI: Illegal character in authority at index 7: http://{", e.getMessage());
     }
 
     @Test
     public void testConstructURLMalformedExceptionContent(){
         Request request = new Request(HttpMethod.DELETE, "/2010-04-01/foo<>");
         ApiException e = assertThrows(ApiException.class, request::constructURL);
-        assertEquals("Bad URL", e.getMessage());
+        assertEquals("Bad URL: no protocol: /2010-04-01/foo<>", e.getMessage());
     }
 
     @Test

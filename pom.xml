@@ -100,7 +100,7 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
-            <version>3.2.0</version>
+            <version>${javadoc.plugin.version}</version>
             <executions>
               <execution>
                 <id>attach-javadocs</id>
@@ -130,6 +130,7 @@
   </profiles>
   <properties>
     <jackson.version>2.12.1</jackson.version>
+    <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
@@ -327,7 +328,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
-        <version>3.2.0</version>
+        <version>${javadoc.plugin.version}</version>
         <configuration>
           <reportOutputDirectory>.</reportOutputDirectory>
           <destDir>docs</destDir>

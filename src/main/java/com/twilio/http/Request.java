@@ -3,7 +3,6 @@ package com.twilio.http;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -145,9 +144,9 @@ public class Request {
             URI uri = new URI(stringUri);
             return uri.toURL();
         } catch (final URISyntaxException e) {
-            throw new ApiException("Bad URI: " + stringUri, e);
+            throw new ApiException("Bad URI: " + e.getMessage());
         } catch (final MalformedURLException e) {
-            throw new ApiException("Bad URL: " + stringUri, e);
+            throw new ApiException("Bad URL: " + e.getMessage());
         }
     }
 
@@ -189,7 +188,7 @@ public class Request {
             String credentials = parsedUrl.getUserInfo() != null ? parsedUrl.getUserInfo() + "@" : null;
             return joinIgnoreNull("", protocol, credentials, host, urlPort, encodedPath, query, ref);
         } catch (final MalformedURLException | UnsupportedEncodingException e) {
-            throw new ApiException("Bad URL: " + url, e);
+            throw new ApiException("Bad URL: "+ e.getMessage());
         }
     }
 

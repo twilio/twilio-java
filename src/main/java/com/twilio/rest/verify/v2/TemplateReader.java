@@ -19,7 +19,7 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class VerificationTemplateReader extends Reader<VerificationTemplate> {
+public class TemplateReader extends Reader<Template> {
     private String friendlyName;
 
     /**
@@ -28,7 +28,7 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
      * @param friendlyName Filter templates using friendly name
      * @return this
      */
-    public VerificationTemplateReader setFriendlyName(final String friendlyName) {
+    public TemplateReader setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
@@ -37,10 +37,10 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return VerificationTemplate ResourceSet
+     * @return Template ResourceSet
      */
     @Override
-    public ResourceSet<VerificationTemplate> read(final TwilioRestClient client) {
+    public ResourceSet<Template> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -48,11 +48,11 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return VerificationTemplate ResourceSet
+     * @return Template ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<VerificationTemplate> firstPage(final TwilioRestClient client) {
+    public Page<Template> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             Domains.VERIFY.toString(),
@@ -68,11 +68,11 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return VerificationTemplate ResourceSet
+     * @return Template ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<VerificationTemplate> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Template> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -89,8 +89,8 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
      * @return Next Page
      */
     @Override
-    public Page<VerificationTemplate> nextPage(final Page<VerificationTemplate> page,
-                                               final TwilioRestClient client) {
+    public Page<Template> nextPage(final Page<Template> page,
+                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VERIFY.toString())
@@ -106,8 +106,8 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
      * @return Previous Page
      */
     @Override
-    public Page<VerificationTemplate> previousPage(final Page<VerificationTemplate> page,
-                                                   final TwilioRestClient client) {
+    public Page<Template> previousPage(final Page<Template> page,
+                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VERIFY.toString())
@@ -116,17 +116,17 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
     }
 
     /**
-     * Generate a Page of VerificationTemplate Resources for a given request.
+     * Generate a Page of Template Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<VerificationTemplate> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Template> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("VerificationTemplate read failed: Unable to connect to server");
+            throw new ApiConnectionException("Template read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -138,7 +138,7 @@ public class VerificationTemplateReader extends Reader<VerificationTemplate> {
         return Page.fromJson(
             "templates",
             response.getContent(),
-            VerificationTemplate.class,
+            Template.class,
             client.getObjectMapper()
         );
     }

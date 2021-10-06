@@ -20,6 +20,7 @@ import com.twilio.rest.Domains;
 public class WorkerDeleter extends Deleter<Worker> {
     private final String pathWorkspaceSid;
     private final String pathSid;
+    private String ifMatch;
 
     /**
      * Construct a new WorkerDeleter.
@@ -31,6 +32,17 @@ public class WorkerDeleter extends Deleter<Worker> {
                          final String pathSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public WorkerDeleter setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     /**
@@ -47,6 +59,7 @@ public class WorkerDeleter extends Deleter<Worker> {
             "/v1/Workspaces/" + this.pathWorkspaceSid + "/Workers/" + this.pathSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -60,5 +73,16 @@ public class WorkerDeleter extends Deleter<Worker> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 }

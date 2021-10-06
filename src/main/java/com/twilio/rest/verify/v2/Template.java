@@ -32,30 +32,30 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class VerificationTemplate extends Resource {
+public class Template extends Resource {
     private static final long serialVersionUID = 55612496215958L;
 
     /**
-     * Create a VerificationTemplateReader to execute read.
+     * Create a TemplateReader to execute read.
      *
-     * @return VerificationTemplateReader capable of executing the read
+     * @return TemplateReader capable of executing the read
      */
-    public static VerificationTemplateReader reader() {
-        return new VerificationTemplateReader();
+    public static TemplateReader reader() {
+        return new TemplateReader();
     }
 
     /**
-     * Converts a JSON String into a VerificationTemplate object using the provided
+     * Converts a JSON String into a Template object using the provided
      * ObjectMapper.
      *
      * @param json Raw JSON String
      * @param objectMapper Jackson ObjectMapper
-     * @return VerificationTemplate object represented by the provided JSON
+     * @return Template object represented by the provided JSON
      */
-    public static VerificationTemplate fromJson(final String json, final ObjectMapper objectMapper) {
+    public static Template fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, VerificationTemplate.class);
+            return objectMapper.readValue(json, Template.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -64,17 +64,17 @@ public class VerificationTemplate extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a VerificationTemplate object using the
-     * provided ObjectMapper.
+     * Converts a JSON InputStream into a Template object using the provided
+     * ObjectMapper.
      *
      * @param json Raw JSON InputStream
      * @param objectMapper Jackson ObjectMapper
-     * @return VerificationTemplate object represented by the provided JSON
+     * @return Template object represented by the provided JSON
      */
-    public static VerificationTemplate fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static Template fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, VerificationTemplate.class);
+            return objectMapper.readValue(json, Template.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -88,14 +88,14 @@ public class VerificationTemplate extends Resource {
     private final Map<String, Object> translations;
 
     @JsonCreator
-    private VerificationTemplate(@JsonProperty("sid")
-                                 final String sid,
-                                 @JsonProperty("account_sid")
-                                 final String accountSid,
-                                 @JsonProperty("friendly_name")
-                                 final String friendlyName,
-                                 @JsonProperty("translations")
-                                 final Map<String, Object> translations) {
+    private Template(@JsonProperty("sid")
+                     final String sid,
+                     @JsonProperty("account_sid")
+                     final String accountSid,
+                     @JsonProperty("friendly_name")
+                     final String friendlyName,
+                     @JsonProperty("translations")
+                     final Map<String, Object> translations) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -148,7 +148,7 @@ public class VerificationTemplate extends Resource {
             return false;
         }
 
-        VerificationTemplate other = (VerificationTemplate) o;
+        Template other = (Template) o;
 
         return Objects.equals(sid, other.sid) &&
                Objects.equals(accountSid, other.accountSid) &&

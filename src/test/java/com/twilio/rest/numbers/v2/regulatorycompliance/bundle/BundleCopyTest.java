@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.verify.v2;
+package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -27,7 +27,7 @@ import java.net.URI;
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
 
-public class VerificationTemplateTest {
+public class BundleCopyTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
@@ -37,11 +37,11 @@ public class VerificationTemplateTest {
     }
 
     @Test
-    public void testReadRequest() {
+    public void testCreateRequest() {
         new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.GET,
-                                          Domains.VERIFY.toString(),
-                                          "/v2/Templates");
+            Request request = new Request(HttpMethod.POST,
+                                          Domains.NUMBERS.toString(),
+                                          "/v2/RegulatoryCompliance/Bundles/BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Copies");
 
             twilioRestClient.request(request);
             times = 1;
@@ -51,20 +51,20 @@ public class VerificationTemplateTest {
         }};
 
         try {
-            VerificationTemplate.reader().read();
+            BundleCopy.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
 
     @Test
-    public void testListVerificationTemplatesResponse() {
+    public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"templates\": [{\"sid\": \"HJaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"Friendly Template\",\"translations\": {\"en\": {\"text\": \"Hello, your code is {code}.\",\"locale\": \"es\",\"status\": \"approved\",\"date_created\": \"2021-07-26T22:30:13.003505841Z\",\"date_updated\": \"2021-07-26T22:31:08.750971289Z\"}}}],\"meta\": {\"key\": \"templates\",\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://verify.twilio.com/v2/Templates?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://verify.twilio.com/v2/Templates?PageSize=50&Page=0\",\"next_page_url\": null}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"BUaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"regulation_sid\": \"RNaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"status\": \"draft\",\"valid_until\": \"2015-07-30T20:00:00Z\",\"email\": \"email\",\"status_callback\": \"http://www.example.com\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        assertNotNull(VerificationTemplate.reader().read());
+        BundleCopy.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

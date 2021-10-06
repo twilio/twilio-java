@@ -697,7 +697,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * TwiML instructions for the call Twilio will use without fetching Twiml from
      * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
-     * will be ignored..
+     * will be ignored. Max 4000 characters..
      *
      * @param twiml TwiML instructions for the call
      * @return this
@@ -710,7 +710,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * TwiML instructions for the call Twilio will use without fetching Twiml from
      * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
-     * will be ignored..
+     * will be ignored. Max 4000 characters..
      *
      * @param twiml TwiML instructions for the call
      * @return this

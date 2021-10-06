@@ -29,6 +29,7 @@ public class TrunkUpdater extends Updater<Trunk> {
     private Trunk.TransferSetting transferMode;
     private Boolean secure;
     private Boolean cnamLookupEnabled;
+    private Trunk.TransferCallerId transferCallerId;
 
     /**
      * Construct a new TrunkUpdater.
@@ -161,6 +162,18 @@ public class TrunkUpdater extends Updater<Trunk> {
     }
 
     /**
+     * Caller Id for transfer target. Can be: `from-transferee` (default) or
+     * `from-transferor`..
+     *
+     * @param transferCallerId Caller Id for transfer target
+     * @return this
+     */
+    public TrunkUpdater setTransferCallerId(final Trunk.TransferCallerId transferCallerId) {
+        this.transferCallerId = transferCallerId;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -223,6 +236,10 @@ public class TrunkUpdater extends Updater<Trunk> {
 
         if (cnamLookupEnabled != null) {
             request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
+        }
+
+        if (transferCallerId != null) {
+            request.addPostParam("TransferCallerId", transferCallerId.toString());
         }
     }
 }

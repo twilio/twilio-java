@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 217500104430837L;
+    private static final long serialVersionUID = 226995929189872L;
 
     public enum Status {
         OK("ok"),
@@ -170,6 +170,7 @@ public class Configuration extends Resource {
     private final Map<String, Object> notifications;
     private final Map<String, Object> markdown;
     private final URI url;
+    private final Map<String, Object> flexInsightsHr;
 
     @JsonCreator
     private Configuration(@JsonProperty("account_sid")
@@ -249,7 +250,9 @@ public class Configuration extends Resource {
                           @JsonProperty("markdown")
                           final Map<String, Object> markdown,
                           @JsonProperty("url")
-                          final URI url) {
+                          final URI url,
+                          @JsonProperty("flex_insights_hr")
+                          final Map<String, Object> flexInsightsHr) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -289,6 +292,7 @@ public class Configuration extends Resource {
         this.notifications = notifications;
         this.markdown = markdown;
         this.url = url;
+        this.flexInsightsHr = flexInsightsHr;
     }
 
     /**
@@ -652,6 +656,15 @@ public class Configuration extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns Object that controls workspace reporting.
+     *
+     * @return Object that controls workspace reporting
+     */
+    public final Map<String, Object> getFlexInsightsHr() {
+        return this.flexInsightsHr;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -702,7 +715,8 @@ public class Configuration extends Resource {
                Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&
                Objects.equals(notifications, other.notifications) &&
                Objects.equals(markdown, other.markdown) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(flexInsightsHr, other.flexInsightsHr);
     }
 
     @Override
@@ -745,6 +759,7 @@ public class Configuration extends Resource {
                             queueStatsConfiguration,
                             notifications,
                             markdown,
-                            url);
+                            url,
+                            flexInsightsHr);
     }
 }

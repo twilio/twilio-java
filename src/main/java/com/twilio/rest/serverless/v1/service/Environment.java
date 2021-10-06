@@ -237,10 +237,10 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The base domain name for all Functions and Assets deployed in the
+     * Returns The domain name for all Functions and Assets deployed in the
      * Environment.
      *
-     * @return The base domain name for all Functions and Assets deployed in the
+     * @return The domain name for all Functions and Assets deployed in the
      *         Environment
      */
     public final String getDomainName() {

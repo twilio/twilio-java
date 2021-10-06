@@ -345,11 +345,12 @@ public class MobileCreator extends Creator<Mobile> {
     }
 
     /**
-     * The configuration status parameter that determines whether the new phone
-     * number is enabled for emergency calling..
+     * The parameter displays if emergency calling is enabled for this number.
+     * Active numbers may place emergency calls by dialing valid emergency numbers
+     * for the country..
      *
-     * @param emergencyStatus Status determining whether the new phone number is
-     *                        enabled for emergency calling
+     * @param emergencyStatus Displays if emergency calling is enabled for this
+     *                        number.
      * @return this
      */
     public MobileCreator setEmergencyStatus(final Mobile.EmergencyStatus emergencyStatus) {

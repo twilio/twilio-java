@@ -30,6 +30,8 @@ public class NotificationUpdater extends Updater<Notification> {
     private Boolean removedFromConversationEnabled;
     private String removedFromConversationTemplate;
     private String removedFromConversationSound;
+    private Boolean newMessageWithMediaEnabled;
+    private String newMessageWithMediaTemplate;
 
     /**
      * Construct a new NotificationUpdater.
@@ -188,6 +190,36 @@ public class NotificationUpdater extends Updater<Notification> {
     }
 
     /**
+     * Whether to send a notification when a new message with media/file attachments
+     * is added to a conversation. The default is `false`..
+     *
+     * @param newMessageWithMediaEnabled Whether to send a notification when a new
+     *                                   message with media/file attachments is
+     *                                   added to a conversation.
+     * @return this
+     */
+    public NotificationUpdater setNewMessageWithMediaEnabled(final Boolean newMessageWithMediaEnabled) {
+        this.newMessageWithMediaEnabled = newMessageWithMediaEnabled;
+        return this;
+    }
+
+    /**
+     * The template to use to create the notification text displayed when a new
+     * message with media/file attachments is added to a conversation and
+     * `new_message.attachments.enabled` is `true`..
+     *
+     * @param newMessageWithMediaTemplate The template to use to create the
+     *                                    notification text displayed when a new
+     *                                    message with media/file attachments is
+     *                                    added to a conversation.
+     * @return this
+     */
+    public NotificationUpdater setNewMessageWithMediaTemplate(final String newMessageWithMediaTemplate) {
+        this.newMessageWithMediaTemplate = newMessageWithMediaTemplate;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -266,6 +298,14 @@ public class NotificationUpdater extends Updater<Notification> {
 
         if (removedFromConversationSound != null) {
             request.addPostParam("RemovedFromConversation.Sound", removedFromConversationSound);
+        }
+
+        if (newMessageWithMediaEnabled != null) {
+            request.addPostParam("NewMessage.WithMedia.Enabled", newMessageWithMediaEnabled.toString());
+        }
+
+        if (newMessageWithMediaTemplate != null) {
+            request.addPostParam("NewMessage.WithMedia.Template", newMessageWithMediaTemplate);
         }
     }
 }

@@ -691,9 +691,9 @@ public class IncomingPhoneNumber extends Resource {
     }
 
     /**
-     * Returns Whether the phone number is enabled for emergency calling.
+     * Returns Displays if emergency calling is enabled for this number..
      *
-     * @return Whether the phone number is enabled for emergency calling
+     * @return Displays if emergency calling is enabled for this number.
      */
     public final IncomingPhoneNumber.EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;

@@ -76,6 +76,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     private String postWorkActivitySid;
     private Boolean endConferenceOnCustomerExit;
     private Boolean beepOnCustomerEntrance;
+    private String ifMatch;
 
     /**
      * Construct a new ReservationUpdater.
@@ -901,6 +902,17 @@ public class ReservationUpdater extends Updater<Reservation> {
     }
 
     /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public ReservationUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -916,6 +928,7 @@ public class ReservationUpdater extends Updater<Reservation> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -929,6 +942,17 @@ public class ReservationUpdater extends Updater<Reservation> {
         }
 
         return Reservation.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

@@ -10,7 +10,6 @@ package com.twilio.rest.insights.v1;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -20,23 +19,21 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.util.List;
-
 public class CallSummariesReader extends Reader<CallSummaries> {
-    private List<String> from;
-    private List<String> to;
-    private List<String> fromCarrier;
-    private List<String> toCarrier;
-    private List<String> fromCountryCode;
-    private List<String> toCountryCode;
+    private String from;
+    private String to;
+    private String fromCarrier;
+    private String toCarrier;
+    private String fromCountryCode;
+    private String toCountryCode;
     private Boolean branded;
     private Boolean verifiedCaller;
     private Boolean hasTag;
     private String startTime;
     private String endTime;
-    private List<CallSummaries.CallType> callType;
-    private List<CallSummaries.CallState> callState;
-    private List<CallSummaries.CallDirection> direction;
+    private String callType;
+    private String callState;
+    private String direction;
     private CallSummaries.ProcessingStateRequest processingState;
     private CallSummaries.SortBy sortBy;
     private String subaccount;
@@ -48,29 +45,8 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param from The from
      * @return this
      */
-    public CallSummariesReader setFrom(final List<String> from) {
-        this.from = from;
-        return this;
-    }
-
-    /**
-     * The from.
-     *
-     * @param from The from
-     * @return this
-     */
     public CallSummariesReader setFrom(final String from) {
-        return setFrom(Promoter.listOfOne(from));
-    }
-
-    /**
-     * The to.
-     *
-     * @param to The to
-     * @return this
-     */
-    public CallSummariesReader setTo(final List<String> to) {
-        this.to = to;
+        this.from = from;
         return this;
     }
 
@@ -81,17 +57,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @return this
      */
     public CallSummariesReader setTo(final String to) {
-        return setTo(Promoter.listOfOne(to));
-    }
-
-    /**
-     * The from_carrier.
-     *
-     * @param fromCarrier The from_carrier
-     * @return this
-     */
-    public CallSummariesReader setFromCarrier(final List<String> fromCarrier) {
-        this.fromCarrier = fromCarrier;
+        this.to = to;
         return this;
     }
 
@@ -102,17 +68,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @return this
      */
     public CallSummariesReader setFromCarrier(final String fromCarrier) {
-        return setFromCarrier(Promoter.listOfOne(fromCarrier));
-    }
-
-    /**
-     * The to_carrier.
-     *
-     * @param toCarrier The to_carrier
-     * @return this
-     */
-    public CallSummariesReader setToCarrier(final List<String> toCarrier) {
-        this.toCarrier = toCarrier;
+        this.fromCarrier = fromCarrier;
         return this;
     }
 
@@ -123,17 +79,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @return this
      */
     public CallSummariesReader setToCarrier(final String toCarrier) {
-        return setToCarrier(Promoter.listOfOne(toCarrier));
-    }
-
-    /**
-     * The from_country_code.
-     *
-     * @param fromCountryCode The from_country_code
-     * @return this
-     */
-    public CallSummariesReader setFromCountryCode(final List<String> fromCountryCode) {
-        this.fromCountryCode = fromCountryCode;
+        this.toCarrier = toCarrier;
         return this;
     }
 
@@ -144,17 +90,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @return this
      */
     public CallSummariesReader setFromCountryCode(final String fromCountryCode) {
-        return setFromCountryCode(Promoter.listOfOne(fromCountryCode));
-    }
-
-    /**
-     * The to_country_code.
-     *
-     * @param toCountryCode The to_country_code
-     * @return this
-     */
-    public CallSummariesReader setToCountryCode(final List<String> toCountryCode) {
-        this.toCountryCode = toCountryCode;
+        this.fromCountryCode = fromCountryCode;
         return this;
     }
 
@@ -165,7 +101,8 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @return this
      */
     public CallSummariesReader setToCountryCode(final String toCountryCode) {
-        return setToCountryCode(Promoter.listOfOne(toCountryCode));
+        this.toCountryCode = toCountryCode;
+        return this;
     }
 
     /**
@@ -229,61 +166,31 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      * @param callType The call_type
      * @return this
      */
-    public CallSummariesReader setCallType(final List<CallSummaries.CallType> callType) {
+    public CallSummariesReader setCallType(final String callType) {
         this.callType = callType;
         return this;
     }
 
     /**
-     * The call_type.
-     *
-     * @param callType The call_type
-     * @return this
-     */
-    public CallSummariesReader setCallType(final CallSummaries.CallType callType) {
-        return setCallType(Promoter.listOfOne(callType));
-    }
-
-    /**
      * The call_state.
      *
      * @param callState The call_state
      * @return this
      */
-    public CallSummariesReader setCallState(final List<CallSummaries.CallState> callState) {
+    public CallSummariesReader setCallState(final String callState) {
         this.callState = callState;
         return this;
     }
 
     /**
-     * The call_state.
-     *
-     * @param callState The call_state
-     * @return this
-     */
-    public CallSummariesReader setCallState(final CallSummaries.CallState callState) {
-        return setCallState(Promoter.listOfOne(callState));
-    }
-
-    /**
      * The direction.
      *
      * @param direction The direction
      * @return this
      */
-    public CallSummariesReader setDirection(final List<CallSummaries.CallDirection> direction) {
+    public CallSummariesReader setDirection(final String direction) {
         this.direction = direction;
         return this;
-    }
-
-    /**
-     * The direction.
-     *
-     * @param direction The direction
-     * @return this
-     */
-    public CallSummariesReader setDirection(final CallSummaries.CallDirection direction) {
-        return setDirection(Promoter.listOfOne(direction));
     }
 
     /**
@@ -447,39 +354,27 @@ public class CallSummariesReader extends Reader<CallSummaries> {
      */
     private void addQueryParams(final Request request) {
         if (from != null) {
-            for (String prop : from) {
-                request.addQueryParam("From", prop);
-            }
+            request.addQueryParam("From", from);
         }
 
         if (to != null) {
-            for (String prop : to) {
-                request.addQueryParam("To", prop);
-            }
+            request.addQueryParam("To", to);
         }
 
         if (fromCarrier != null) {
-            for (String prop : fromCarrier) {
-                request.addQueryParam("FromCarrier", prop);
-            }
+            request.addQueryParam("FromCarrier", fromCarrier);
         }
 
         if (toCarrier != null) {
-            for (String prop : toCarrier) {
-                request.addQueryParam("ToCarrier", prop);
-            }
+            request.addQueryParam("ToCarrier", toCarrier);
         }
 
         if (fromCountryCode != null) {
-            for (String prop : fromCountryCode) {
-                request.addQueryParam("FromCountryCode", prop);
-            }
+            request.addQueryParam("FromCountryCode", fromCountryCode);
         }
 
         if (toCountryCode != null) {
-            for (String prop : toCountryCode) {
-                request.addQueryParam("ToCountryCode", prop);
-            }
+            request.addQueryParam("ToCountryCode", toCountryCode);
         }
 
         if (branded != null) {
@@ -503,21 +398,15 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         }
 
         if (callType != null) {
-            for (CallSummaries.CallType prop : callType) {
-                request.addQueryParam("CallType", prop.toString());
-            }
+            request.addQueryParam("CallType", callType);
         }
 
         if (callState != null) {
-            for (CallSummaries.CallState prop : callState) {
-                request.addQueryParam("CallState", prop.toString());
-            }
+            request.addQueryParam("CallState", callState);
         }
 
         if (direction != null) {
-            for (CallSummaries.CallDirection prop : direction) {
-                request.addQueryParam("Direction", prop.toString());
-            }
+            request.addQueryParam("Direction", direction);
         }
 
         if (processingState != null) {

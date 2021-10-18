@@ -1,6 +1,28 @@
 twilio-java changelog
 =====================
 
+[2021-10-18] Version 8.21.0
+---------------------------
+**Library - Chore**
+- [PR #653](https://github.com/twilio/twilio-java/pull/653): bump jackson dependency version. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #651](https://github.com/twilio/twilio-java/pull/651): upgrade maven-javadoc-plugin. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Feature**
+- [PR #652](https://github.com/twilio/twilio-java/pull/652): Add PlaybackGrant. Thanks to [@miguelgrinberg](https://github.com/miguelgrinberg)!
+
+**Api**
+- Corrected enum values for `emergency_address_status` values in `/IncomingPhoneNumbers` response. **(breaking change)**
+- Clarify `emergency_address_status` values in `/IncomingPhoneNumbers` response.
+
+**Messaging**
+- Add PUT and List brand vettings api
+- Removes beta feature flag based visibility for us_app_to_person_registered and usecase field.Updates test cases to add POLITICAL usecase. **(breaking change)**
+- Add brand_feedback as optional field to BrandRegistrations
+
+**Video**
+- Add `AudioOnly` to create room
+
+
 [2021-10-06] Version 8.20.0
 ---------------------------
 **Library - Fix**

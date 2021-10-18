@@ -34,6 +34,7 @@ public class RoomCreator extends Creator<Room> {
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
     private Map<String, Object> recordingRules;
+    private Boolean audioOnly;
 
     /**
      * Deprecated, now always considered to be true..
@@ -196,6 +197,19 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * When set to true, indicates that the participants in the room will only
+     * publish audio. No video tracks will be allowed. Group rooms only..
+     *
+     * @param audioOnly Indicates whether the room will only contain audio track
+     *                  participants for group rooms.
+     * @return this
+     */
+    public RoomCreator setAudioOnly(final Boolean audioOnly) {
+        this.audioOnly = audioOnly;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -272,6 +286,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (recordingRules != null) {
             request.addPostParam("RecordingRules", Converter.mapToJson(recordingRules));
+        }
+
+        if (audioOnly != null) {
+            request.addPostParam("AudioOnly", audioOnly.toString());
         }
     }
 }

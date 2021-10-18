@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-    private static final long serialVersionUID = 155845282259385L;
+    private static final long serialVersionUID = 36711913134535L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -211,6 +211,7 @@ public class Room extends Resource {
     private final Boolean recordParticipantsOnConnect;
     private final List<Room.VideoCodec> videoCodecs;
     private final String mediaRegion;
+    private final Boolean audioOnly;
     private final URI url;
     private final Map<String, String> links;
 
@@ -249,6 +250,8 @@ public class Room extends Resource {
                  final List<Room.VideoCodec> videoCodecs,
                  @JsonProperty("media_region")
                  final String mediaRegion,
+                 @JsonProperty("audio_only")
+                 final Boolean audioOnly,
                  @JsonProperty("url")
                  final URI url,
                  @JsonProperty("links")
@@ -270,6 +273,7 @@ public class Room extends Resource {
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
         this.videoCodecs = videoCodecs;
         this.mediaRegion = mediaRegion;
+        this.audioOnly = audioOnly;
         this.url = url;
         this.links = links;
     }
@@ -432,6 +436,17 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns Indicates whether the room will only contain audio track participants
+     * for group rooms..
+     *
+     * @return Indicates whether the room will only contain audio track
+     *         participants for group rooms.
+     */
+    public final Boolean getAudioOnly() {
+        return this.audioOnly;
+    }
+
+    /**
      * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
@@ -478,6 +493,7 @@ public class Room extends Resource {
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&
                Objects.equals(videoCodecs, other.videoCodecs) &&
                Objects.equals(mediaRegion, other.mediaRegion) &&
+               Objects.equals(audioOnly, other.audioOnly) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -501,6 +517,7 @@ public class Room extends Resource {
                             recordParticipantsOnConnect,
                             videoCodecs,
                             mediaRegion,
+                            audioOnly,
                             url,
                             links);
     }

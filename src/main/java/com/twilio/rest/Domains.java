@@ -20,6 +20,7 @@ public enum Domains {
     INSIGHTS("insights"),
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
+    MEDIA("media"),
     MESSAGING("messaging"),
     MONITOR("monitor"),
     NOTIFY("notify"),

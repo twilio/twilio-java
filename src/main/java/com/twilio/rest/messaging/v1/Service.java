@@ -174,6 +174,8 @@ public class Service extends Resource {
     private final Integer validityPeriod;
     private final URI url;
     private final Map<String, String> links;
+    private final String usecase;
+    private final Boolean usAppToPersonRegistered;
     private final Boolean useInboundWebhookOnNumber;
 
     @JsonCreator
@@ -217,6 +219,10 @@ public class Service extends Resource {
                     final URI url,
                     @JsonProperty("links")
                     final Map<String, String> links,
+                    @JsonProperty("usecase")
+                    final String usecase,
+                    @JsonProperty("us_app_to_person_registered")
+                    final Boolean usAppToPersonRegistered,
                     @JsonProperty("use_inbound_webhook_on_number")
                     final Boolean useInboundWebhookOnNumber) {
         this.sid = sid;
@@ -239,6 +245,8 @@ public class Service extends Resource {
         this.validityPeriod = validityPeriod;
         this.url = url;
         this.links = links;
+        this.usecase = usecase;
+        this.usAppToPersonRegistered = usAppToPersonRegistered;
         this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
     }
 
@@ -438,6 +446,26 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns A string describing the scenario in which the Messaging Service will
+     * be used.
+     *
+     * @return A string describing the scenario in which the Messaging Service will
+     *         be used
+     */
+    public final String getUsecase() {
+        return this.usecase;
+    }
+
+    /**
+     * Returns Whether US A2P campaign is registered for this Service..
+     *
+     * @return Whether US A2P campaign is registered for this Service.
+     */
+    public final Boolean getUsAppToPersonRegistered() {
+        return this.usAppToPersonRegistered;
+    }
+
+    /**
      * Returns If enabled, the webhook url configured on the phone number will be
      * used and will override the `inbound_request_url`/`fallback_url` url called
      * when an inbound message is received..
@@ -482,6 +510,8 @@ public class Service extends Resource {
                Objects.equals(validityPeriod, other.validityPeriod) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links) &&
+               Objects.equals(usecase, other.usecase) &&
+               Objects.equals(usAppToPersonRegistered, other.usAppToPersonRegistered) &&
                Objects.equals(useInboundWebhookOnNumber, other.useInboundWebhookOnNumber);
     }
 
@@ -507,6 +537,8 @@ public class Service extends Resource {
                             validityPeriod,
                             url,
                             links,
+                            usecase,
+                            usAppToPersonRegistered,
                             useInboundWebhookOnNumber);
     }
 }

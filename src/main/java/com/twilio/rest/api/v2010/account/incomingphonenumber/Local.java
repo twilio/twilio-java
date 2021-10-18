@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Local extends Resource {
-    private static final long serialVersionUID = 272193771301446L;
+    private static final long serialVersionUID = 164381293847196L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -88,6 +88,35 @@ public class Local extends Resource {
         @JsonCreator
         public static EmergencyStatus forValue(final String value) {
             return Promoter.enumFromString(value, EmergencyStatus.values());
+        }
+    }
+
+    public enum EmergencyAddressStatus {
+        REGISTERED("registered"),
+        UNREGISTERED("unregistered"),
+        PENDING_REGISTRATION("pending-registration"),
+        REGISTRATION_FAILURE("registration-failure"),
+        PENDING_UNREGISTRATION("pending-unregistration"),
+        UNREGISTRATION_FAILURE("unregistration-failure");
+
+        private final String value;
+
+        private EmergencyAddressStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a EmergencyAddressStatus from a string.
+         * @param value string value
+         * @return generated EmergencyAddressStatus
+         */
+        @JsonCreator
+        public static EmergencyAddressStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyAddressStatus.values());
         }
     }
 
@@ -226,6 +255,7 @@ public class Local extends Resource {
     private final URI voiceUrl;
     private final Local.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
+    private final Local.EmergencyAddressStatus emergencyAddressStatus;
     private final String bundleSid;
     private final String status;
 
@@ -292,6 +322,8 @@ public class Local extends Resource {
                   final Local.EmergencyStatus emergencyStatus,
                   @JsonProperty("emergency_address_sid")
                   final String emergencyAddressSid,
+                  @JsonProperty("emergency_address_status")
+                  final Local.EmergencyAddressStatus emergencyAddressStatus,
                   @JsonProperty("bundle_sid")
                   final String bundleSid,
                   @JsonProperty("status")
@@ -327,6 +359,7 @@ public class Local extends Resource {
         this.voiceUrl = voiceUrl;
         this.emergencyStatus = emergencyStatus;
         this.emergencyAddressSid = emergencyAddressSid;
+        this.emergencyAddressStatus = emergencyAddressStatus;
         this.bundleSid = bundleSid;
         this.status = status;
     }
@@ -615,6 +648,15 @@ public class Local extends Resource {
     }
 
     /**
+     * Returns State of the emergency address configuration for the phone number.
+     *
+     * @return State of the emergency address configuration for the phone number
+     */
+    public final Local.EmergencyAddressStatus getEmergencyAddressStatus() {
+        return this.emergencyAddressStatus;
+    }
+
+    /**
      * Returns The SID of the Bundle resource associated with number.
      *
      * @return The SID of the Bundle resource associated with number
@@ -675,6 +717,7 @@ public class Local extends Resource {
                Objects.equals(voiceUrl, other.voiceUrl) &&
                Objects.equals(emergencyStatus, other.emergencyStatus) &&
                Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
+               Objects.equals(emergencyAddressStatus, other.emergencyAddressStatus) &&
                Objects.equals(bundleSid, other.bundleSid) &&
                Objects.equals(status, other.status);
     }
@@ -712,6 +755,7 @@ public class Local extends Resource {
                             voiceUrl,
                             emergencyStatus,
                             emergencyAddressSid,
+                            emergencyAddressStatus,
                             bundleSid,
                             status);
     }

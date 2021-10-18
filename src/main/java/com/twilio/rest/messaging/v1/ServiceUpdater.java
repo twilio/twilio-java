@@ -40,6 +40,7 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean areaCodeGeomatch;
     private Integer validityPeriod;
     private Boolean synchronousValidation;
+    private String usecase;
     private Boolean useInboundWebhookOnNumber;
 
     /**
@@ -294,6 +295,19 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * A string that describes the scenario in which the Messaging Service will be
+     * used. Examples: [notification, marketing, verification, poll ..].
+     *
+     * @param usecase A string describing the scenario in which the Messaging
+     *                Service will be used
+     * @return this
+     */
+    public ServiceUpdater setUsecase(final String usecase) {
+        this.usecase = usecase;
+        return this;
+    }
+
+    /**
      * A boolean value that indicates either the webhook url configured on the phone
      * number will be used or `inbound_request_url`/`fallback_url` url will be
      * called when a message is received from the phone number. If this field is
@@ -403,6 +417,10 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (synchronousValidation != null) {
             request.addPostParam("SynchronousValidation", synchronousValidation.toString());
+        }
+
+        if (usecase != null) {
+            request.addPostParam("Usecase", usecase);
         }
 
         if (useInboundWebhookOnNumber != null) {

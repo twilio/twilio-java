@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 247102676073315L;
+    private static final long serialVersionUID = 20869620126107L;
 
     public enum Status {
         PENDING("PENDING"),
@@ -92,6 +93,34 @@ public class BrandRegistration extends Resource {
         @JsonCreator
         public static IdentityStatus forValue(final String value) {
             return Promoter.enumFromString(value, IdentityStatus.values());
+        }
+    }
+
+    public enum BrandFeedback {
+        TAX_ID("TAX_ID"),
+        STOCK_SYMBOL("STOCK_SYMBOL"),
+        NONPROFIT("NONPROFIT"),
+        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
+        OTHERS("OTHERS");
+
+        private final String value;
+
+        private BrandFeedback(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a BrandFeedback from a string.
+         * @param value string value
+         * @return generated BrandFeedback
+         */
+        @JsonCreator
+        public static BrandFeedback forValue(final String value) {
+            return Promoter.enumFromString(value, BrandFeedback.values());
         }
     }
 
@@ -176,11 +205,13 @@ public class BrandRegistration extends Resource {
     private final String failureReason;
     private final URI url;
     private final Integer brandScore;
+    private final List<BrandRegistration.BrandFeedback> brandFeedback;
     private final BrandRegistration.IdentityStatus identityStatus;
     private final Boolean russell3000;
     private final String taxExemptStatus;
     private final Boolean skipAutomaticSecVet;
     private final Boolean mock;
+    private final Map<String, String> links;
 
     @JsonCreator
     private BrandRegistration(@JsonProperty("sid")
@@ -207,6 +238,8 @@ public class BrandRegistration extends Resource {
                               final URI url,
                               @JsonProperty("brand_score")
                               final Integer brandScore,
+                              @JsonProperty("brand_feedback")
+                              final List<BrandRegistration.BrandFeedback> brandFeedback,
                               @JsonProperty("identity_status")
                               final BrandRegistration.IdentityStatus identityStatus,
                               @JsonProperty("russell_3000")
@@ -216,7 +249,9 @@ public class BrandRegistration extends Resource {
                               @JsonProperty("skip_automatic_sec_vet")
                               final Boolean skipAutomaticSecVet,
                               @JsonProperty("mock")
-                              final Boolean mock) {
+                              final Boolean mock,
+                              @JsonProperty("links")
+                              final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.customerProfileBundleSid = customerProfileBundleSid;
@@ -229,11 +264,13 @@ public class BrandRegistration extends Resource {
         this.failureReason = failureReason;
         this.url = url;
         this.brandScore = brandScore;
+        this.brandFeedback = brandFeedback;
         this.identityStatus = identityStatus;
         this.russell3000 = russell3000;
         this.taxExemptStatus = taxExemptStatus;
         this.skipAutomaticSecVet = skipAutomaticSecVet;
         this.mock = mock;
+        this.links = links;
     }
 
     /**
@@ -345,6 +382,15 @@ public class BrandRegistration extends Resource {
     }
 
     /**
+     * Returns Brand feedback.
+     *
+     * @return Brand feedback
+     */
+    public final List<BrandRegistration.BrandFeedback> getBrandFeedback() {
+        return this.brandFeedback;
+    }
+
+    /**
      * Returns Identity Status.
      *
      * @return Identity Status
@@ -393,6 +439,15 @@ public class BrandRegistration extends Resource {
         return this.mock;
     }
 
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -417,11 +472,13 @@ public class BrandRegistration extends Resource {
                Objects.equals(failureReason, other.failureReason) &&
                Objects.equals(url, other.url) &&
                Objects.equals(brandScore, other.brandScore) &&
+               Objects.equals(brandFeedback, other.brandFeedback) &&
                Objects.equals(identityStatus, other.identityStatus) &&
                Objects.equals(russell3000, other.russell3000) &&
                Objects.equals(taxExemptStatus, other.taxExemptStatus) &&
                Objects.equals(skipAutomaticSecVet, other.skipAutomaticSecVet) &&
-               Objects.equals(mock, other.mock);
+               Objects.equals(mock, other.mock) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -438,10 +495,12 @@ public class BrandRegistration extends Resource {
                             failureReason,
                             url,
                             brandScore,
+                            brandFeedback,
                             identityStatus,
                             russell3000,
                             taxExemptStatus,
                             skipAutomaticSecVet,
-                            mock);
+                            mock,
+                            links);
     }
 }

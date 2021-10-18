@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Environment extends Resource {
-    private static final long serialVersionUID = 171611678539835L;
+    private static final long serialVersionUID = 255224881596814L;
 
     /**
      * Create a EnvironmentReader to execute read.

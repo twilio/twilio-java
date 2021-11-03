@@ -122,6 +122,14 @@
                   <goal>sign</goal>
                 </goals>
               </execution>
+              <configuration>
+                  <keyname>${gpg.keyname}</keyname>
+                  <passphrase>${gpg.passphrase}</passphrase>
+                  <gpgArguments>
+                    <arg>--pinentry-mode</arg>
+                    <arg>loopback</arg>
+                  </gpgArguments>
+              </configuration>
             </executions>
           </plugin>
         </plugins>

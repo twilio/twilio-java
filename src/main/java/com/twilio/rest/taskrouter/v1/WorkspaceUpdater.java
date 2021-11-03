@@ -55,7 +55,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The URL we should call when an event occurs. See <a
      * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
-     * for more information..
+     * for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -68,7 +70,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The URL we should call when an event occurs. See <a
      * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
-     * for more information..
+     * for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this

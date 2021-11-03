@@ -1,6 +1,28 @@
 twilio-java changelog
 =====================
 
+[2021-11-03] Version 8.22.0
+---------------------------
+**Library - Chore**
+- [PR #655](https://github.com/twilio/twilio-java/pull/655): migrate from travis ci to gh actions. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Updated `media_url` property to be treated as PII
+
+**Messaging**
+- Added a new enum for brand registration status named DELETED **(breaking change)**
+- Add a new K12_EDUCATION use case in us_app_to_person_usecase api transaction
+- Added a new enum for brand registration status named IN_REVIEW
+
+**Serverless**
+- Add node14 as a valid Build runtime
+
+**Verify**
+- Fix typos in Verify Push Factor documentation for the `config.notification_token` parameter.
+- Added `TemplateCustomSubstitutions` on verification creation
+- Make `TemplateSid` parameter public for Verification resource and `DefaultTemplateSid` parameter public for Service resource. **(breaking change)**
+
+
 [2021-10-18] Version 8.21.0
 ---------------------------
 **Library - Chore**

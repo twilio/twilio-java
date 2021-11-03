@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
-    private static final long serialVersionUID = 220055685211395L;
+    private static final long serialVersionUID = 199881631251517L;
 
     /**
      * Create a ServiceCreator to execute create.
@@ -137,6 +137,7 @@ public class Service extends Resource {
     private final Boolean customCodeEnabled;
     private final Map<String, Object> push;
     private final Map<String, Object> totp;
+    private final String defaultTemplateSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -169,6 +170,8 @@ public class Service extends Resource {
                     final Map<String, Object> push,
                     @JsonProperty("totp")
                     final Map<String, Object> totp,
+                    @JsonProperty("default_template_sid")
+                    final String defaultTemplateSid,
                     @JsonProperty("date_created")
                     final String dateCreated,
                     @JsonProperty("date_updated")
@@ -190,6 +193,7 @@ public class Service extends Resource {
         this.customCodeEnabled = customCodeEnabled;
         this.push = push;
         this.totp = totp;
+        this.defaultTemplateSid = defaultTemplateSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -320,6 +324,15 @@ public class Service extends Resource {
     }
 
     /**
+     * Returns The default_template_sid.
+     *
+     * @return The default_template_sid
+     */
+    public final String getDefaultTemplateSid() {
+        return this.defaultTemplateSid;
+    }
+
+    /**
      * Returns The RFC 2822 date and time in GMT when the resource was created.
      *
      * @return The RFC 2822 date and time in GMT when the resource was created
@@ -380,6 +393,7 @@ public class Service extends Resource {
                Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
                Objects.equals(push, other.push) &&
                Objects.equals(totp, other.totp) &&
+               Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(url, other.url) &&
@@ -401,6 +415,7 @@ public class Service extends Resource {
                             customCodeEnabled,
                             push,
                             totp,
+                            defaultTemplateSid,
                             dateCreated,
                             dateUpdated,
                             url,

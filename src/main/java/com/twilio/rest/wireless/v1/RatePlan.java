@@ -293,9 +293,9 @@ public class RatePlan extends Resource {
     }
 
     /**
-     * Returns Whether SIMs can make and receive voice calls.
+     * Returns Deprecated. Whether SIMs can make and receive voice calls.
      *
-     * @return Whether SIMs can make and receive voice calls
+     * @return Deprecated. Whether SIMs can make and receive voice calls
      */
     public final Boolean getVoiceEnabled() {
         return this.voiceEnabled;

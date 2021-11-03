@@ -112,12 +112,12 @@ public class NewFactorCreator extends Creator<NewFactor> {
     }
 
     /**
-     * For APN, the device token. For FCM the registration token. It used to send
-     * the push notifications. Must be between 32 and 255 characters long.
+     * For APN, the device token. For FCM, the registration token. It is used to
+     * send the push notifications. Must be between 32 and 255 characters long.
      *
      * Required when `factor_type` is `push`..
      *
-     * @param configNotificationToken For APN, the device token. For FCM the
+     * @param configNotificationToken For APN, the device token. For FCM, the
      *                                registration token
      * @return this
      */

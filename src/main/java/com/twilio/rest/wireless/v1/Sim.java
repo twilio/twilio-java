@@ -371,78 +371,80 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns The HTTP method we use to call sms_fallback_url.
+     * Returns Deprecated. The HTTP method we use to call sms_fallback_url.
      *
-     * @return The HTTP method we use to call sms_fallback_url
+     * @return Deprecated. The HTTP method we use to call sms_fallback_url
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns The URL we call when an error occurs while retrieving or executing
-     * the TwiML requested from the sms_url.
+     * Returns Deprecated. The URL we call when an error occurs while retrieving or
+     * executing the TwiML requested from the sms_url.
      *
-     * @return The URL we call when an error occurs while retrieving or executing
-     *         the TwiML requested from the sms_url
+     * @return Deprecated. The URL we call when an error occurs while retrieving or
+     *         executing the TwiML requested from the sms_url
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method we use to call sms_url.
+     * Returns Deprecated. The HTTP method we use to call sms_url.
      *
-     * @return The HTTP method we use to call sms_url
+     * @return Deprecated. The HTTP method we use to call sms_url
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns The URL we call when the SIM-connected device sends an SMS message
-     * that is not a Command.
+     * Returns Deprecated. The URL we call when the SIM-connected device sends an
+     * SMS message that is not a Command.
      *
-     * @return The URL we call when the SIM-connected device sends an SMS message
-     *         that is not a Command
+     * @return Deprecated. The URL we call when the SIM-connected device sends an
+     *         SMS message that is not a Command
      */
     public final URI getSmsUrl() {
         return this.smsUrl;
     }
 
     /**
-     * Returns The HTTP method we use to call voice_fallback_url.
+     * Returns Deprecated. The HTTP method we use to call voice_fallback_url.
      *
-     * @return The HTTP method we use to call voice_fallback_url
+     * @return Deprecated. The HTTP method we use to call voice_fallback_url
      */
     public final HttpMethod getVoiceFallbackMethod() {
         return this.voiceFallbackMethod;
     }
 
     /**
-     * Returns The URL we call when an error occurs while retrieving or executing
-     * the TwiML requested from voice_url.
+     * Returns Deprecated. The URL we call when an error occurs while retrieving or
+     * executing the TwiML requested from voice_url.
      *
-     * @return The URL we call when an error occurs while retrieving or executing
-     *         the TwiML requested from voice_url
+     * @return Deprecated. The URL we call when an error occurs while retrieving or
+     *         executing the TwiML requested from voice_url
      */
     public final URI getVoiceFallbackUrl() {
         return this.voiceFallbackUrl;
     }
 
     /**
-     * Returns The HTTP method we use to call voice_url.
+     * Returns Deprecated. The HTTP method we use to call voice_url.
      *
-     * @return The HTTP method we use to call voice_url
+     * @return Deprecated. The HTTP method we use to call voice_url
      */
     public final HttpMethod getVoiceMethod() {
         return this.voiceMethod;
     }
 
     /**
-     * Returns The URL we call when the SIM-connected device makes a voice call.
+     * Returns Deprecated. The URL we call when the SIM-connected device makes a
+     * voice call.
      *
-     * @return The URL we call when the SIM-connected device makes a voice call
+     * @return Deprecated. The URL we call when the SIM-connected device makes a
+     *         voice call
      */
     public final URI getVoiceUrl() {
         return this.voiceUrl;

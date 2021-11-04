@@ -34,6 +34,7 @@ public class ServiceCreator extends Creator<Service> {
     private Integer totpTimeStep;
     private Integer totpCodeLength;
     private Integer totpSkew;
+    private String defaultTemplateSid;
 
     /**
      * Construct a new ServiceCreator.
@@ -245,6 +246,20 @@ public class ServiceCreator extends Creator<Service> {
     }
 
     /**
+     * The default message <a
+     * href="https://www.twilio.com/docs/verify/api/templates">template</a>. Will be
+     * used for all SMS verifications unless explicitly overriden. SMS channel
+     * only..
+     *
+     * @param defaultTemplateSid The verification template SMS messages.
+     * @return this
+     */
+    public ServiceCreator setDefaultTemplateSid(final String defaultTemplateSid) {
+        this.defaultTemplateSid = defaultTemplateSid;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -343,6 +358,10 @@ public class ServiceCreator extends Creator<Service> {
 
         if (totpSkew != null) {
             request.addPostParam("Totp.Skew", totpSkew.toString());
+        }
+
+        if (defaultTemplateSid != null) {
+            request.addPostParam("DefaultTemplateSid", defaultTemplateSid);
         }
     }
 }

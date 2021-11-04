@@ -73,11 +73,11 @@ public class FactorUpdater extends Updater<Factor> {
     }
 
     /**
-     * For APN, the device token. For FCM the registration token. It used to send
-     * the push notifications. Required when `factor_type` is `push`. If specified,
-     * this value must be between 32 and 255 characters long..
+     * For APN, the device token. For FCM, the registration token. It is used to
+     * send the push notifications. Required when `factor_type` is `push`. If
+     * specified, this value must be between 32 and 255 characters long..
      *
-     * @param configNotificationToken For APN, the device token. For FCM the
+     * @param configNotificationToken For APN, the device token. For FCM, the
      *                                registration token
      * @return this
      */

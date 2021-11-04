@@ -41,7 +41,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
      * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
-     * Events</a> for more information..
+     * Events</a> for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -55,7 +57,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
      * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
-     * Events</a> for more information..
+     * Events</a> for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this

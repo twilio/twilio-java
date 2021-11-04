@@ -268,11 +268,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we should use to call `voice_fallback_url`. Can be: `GET` or
-     * `POST`..
+     * Deprecated..
      *
-     * @param voiceFallbackMethod The HTTP method we should use to call
-     *                            voice_fallback_url
+     * @param voiceFallbackMethod Deprecated
      * @return this
      */
     public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod) {
@@ -281,12 +279,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_fallback_method` when an error occurs
-     * while retrieving or executing the TwiML requested from `voice_url`..
+     * Deprecated..
      *
-     * @param voiceFallbackUrl The URL we should call when an error occurs while
-     *                         retrieving or executing the TwiML requested from
-     *                         voice_url
+     * @param voiceFallbackUrl Deprecated
      * @return this
      */
     public SimUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
@@ -295,12 +290,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_fallback_method` when an error occurs
-     * while retrieving or executing the TwiML requested from `voice_url`..
+     * Deprecated..
      *
-     * @param voiceFallbackUrl The URL we should call when an error occurs while
-     *                         retrieving or executing the TwiML requested from
-     *                         voice_url
+     * @param voiceFallbackUrl Deprecated
      * @return this
      */
     public SimUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
@@ -308,10 +300,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The HTTP method we should use when we call `voice_url`. Can be: `GET` or
-     * `POST`..
+     * Deprecated..
      *
-     * @param voiceMethod The HTTP method we should use when we call voice_url
+     * @param voiceMethod Deprecated
      * @return this
      */
     public SimUpdater setVoiceMethod(final HttpMethod voiceMethod) {
@@ -320,11 +311,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_method` when the SIM-connected device
-     * makes a voice call..
+     * Deprecated..
      *
-     * @param voiceUrl The URL we should call when the SIM-connected device makes a
-     *                 voice call
+     * @param voiceUrl Deprecated
      * @return this
      */
     public SimUpdater setVoiceUrl(final URI voiceUrl) {
@@ -333,11 +322,9 @@ public class SimUpdater extends Updater<Sim> {
     }
 
     /**
-     * The URL we should call using the `voice_method` when the SIM-connected device
-     * makes a voice call..
+     * Deprecated..
      *
-     * @param voiceUrl The URL we should call when the SIM-connected device makes a
-     *                 voice call
+     * @param voiceUrl Deprecated
      * @return this
      */
     public SimUpdater setVoiceUrl(final String voiceUrl) {

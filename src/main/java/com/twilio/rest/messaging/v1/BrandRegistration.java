@@ -46,7 +46,9 @@ public class BrandRegistration extends Resource {
     public enum Status {
         PENDING("PENDING"),
         APPROVED("APPROVED"),
-        FAILED("FAILED");
+        FAILED("FAILED"),
+        IN_REVIEW("IN_REVIEW"),
+        DELETED("DELETED");
 
         private final String value;
 
@@ -337,9 +339,9 @@ public class BrandRegistration extends Resource {
     }
 
     /**
-     * Returns Brand Registration status.
+     * Returns Brand Registration status..
      *
-     * @return Brand Registration status
+     * @return Brand Registration status.
      */
     public final BrandRegistration.Status getStatus() {
         return this.status;

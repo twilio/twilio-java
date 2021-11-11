@@ -291,6 +291,10 @@
           <source>8</source>
           <target>8</target>
           <showDeprecation>true</showDeprecation>
+        	<fork>true</fork>
+        	<useIncrementalCompilation>true</useIncrementalCompilation>
+
+
         </configuration>
       </plugin>
       <plugin>

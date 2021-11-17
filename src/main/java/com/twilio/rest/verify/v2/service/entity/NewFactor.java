@@ -95,7 +95,8 @@ public class NewFactor extends Resource {
 
     public enum NotificationPlatforms {
         APN("apn"),
-        FCM("fcm");
+        FCM("fcm"),
+        NONE("none");
 
         private final String value;
 

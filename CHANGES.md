@@ -1,6 +1,31 @@
 twilio-java changelog
 =====================
 
+[2021-11-17] Version 8.22.1
+---------------------------
+**Library - Chore**
+- [PR #658](https://github.com/twilio/twilio-java/pull/658): lombok 1.18.16. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #643](https://github.com/twilio/twilio-java/pull/643): maven-enforcer-plugin 3.0.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #654](https://github.com/twilio/twilio-java/pull/654): archunit 0.22.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #657](https://github.com/twilio/twilio-java/pull/657): git log retrieval issues. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Frontline**
+- Added `is_available` to User's resource
+
+**Messaging**
+- Added GET vetting API
+
+**Verify**
+- Add `WHATSAPP` to the attempts API.
+- Allow to update `config.notification_platform` from `none` to `apn` or `fcm` and viceversa for Verify Push
+- Add `none` as a valid `config.notification_platform` value for Verify Push
+
+**Twiml**
+- Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+
+
 [2021-11-03] Version 8.22.0
 ---------------------------
 **Library - Chore**

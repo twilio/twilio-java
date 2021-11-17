@@ -60,7 +60,7 @@ public class UserTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"john@example.com\",\"friendly_name\": \"John Doe\",\"avatar\": \"https://example.com/profile.png\",\"state\": \"active\",\"url\": \"https://frontline-api.twilio.com/v1/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"john@example.com\",\"friendly_name\": \"John Doe\",\"avatar\": \"https://example.com/profile.png\",\"state\": \"active\",\"is_available\": true,\"url\": \"https://frontline-api.twilio.com/v1/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -92,7 +92,7 @@ public class UserTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"john@example.com\",\"friendly_name\": \"John Doe\",\"avatar\": \"https://example.com/profile.png\",\"state\": \"active\",\"url\": \"https://frontline-api.twilio.com/v1/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"identity\": \"john@example.com\",\"friendly_name\": \"John Doe\",\"avatar\": \"https://example.com/profile.png\",\"state\": \"active\",\"is_available\": true,\"url\": \"https://frontline-api.twilio.com/v1/Users/USaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

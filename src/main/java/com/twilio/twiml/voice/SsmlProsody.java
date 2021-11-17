@@ -25,7 +25,7 @@ public class SsmlProsody extends TwiML {
      * For XML Serialization/Deserialization
      */
     private SsmlProsody() {
-        this(new Builder((String) null));
+        this(new Builder());
     }
 
     /**
@@ -128,6 +128,12 @@ public class SsmlProsody extends TwiML {
         }
 
         /**
+         * Create a {@code <prosody>} with child elements
+         */
+        public Builder() {
+        }
+
+        /**
          * Specify the volume, available values: default, silent, x-soft, soft, medium,
          * loud, x-loud, +ndB, -ndB
          */
@@ -150,6 +156,86 @@ public class SsmlProsody extends TwiML {
          */
         public Builder pitch(String pitch) {
             this.pitch = pitch;
+            return this;
+        }
+
+        /**
+         * Add a child {@code <break>} element
+         */
+        public Builder break_(SsmlBreak ssmlBreak) {
+            this.children.add(ssmlBreak);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <emphasis>} element
+         */
+        public Builder emphasis(SsmlEmphasis ssmlEmphasis) {
+            this.children.add(ssmlEmphasis);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <lang>} element
+         */
+        public Builder lang(SsmlLang ssmlLang) {
+            this.children.add(ssmlLang);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <p>} element
+         */
+        public Builder p(SsmlP ssmlP) {
+            this.children.add(ssmlP);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <phoneme>} element
+         */
+        public Builder phoneme(SsmlPhoneme ssmlPhoneme) {
+            this.children.add(ssmlPhoneme);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <prosody>} element
+         */
+        public Builder prosody(SsmlProsody ssmlProsody) {
+            this.children.add(ssmlProsody);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <s>} element
+         */
+        public Builder s(SsmlS ssmlS) {
+            this.children.add(ssmlS);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <say-as>} element
+         */
+        public Builder sayAs(SsmlSayAs ssmlSayAs) {
+            this.children.add(ssmlSayAs);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <sub>} element
+         */
+        public Builder sub(SsmlSub ssmlSub) {
+            this.children.add(ssmlSub);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <w>} element
+         */
+        public Builder w(SsmlW ssmlW) {
+            this.children.add(ssmlW);
             return this;
         }
 

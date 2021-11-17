@@ -33,6 +33,7 @@ public class FactorUpdater extends Updater<Factor> {
     private Integer configSkew;
     private Integer configCodeLength;
     private Factor.TotpAlgorithms configAlg;
+    private String configNotificationPlatform;
 
     /**
      * Construct a new FactorUpdater.
@@ -149,6 +150,21 @@ public class FactorUpdater extends Updater<Factor> {
     }
 
     /**
+     * The transport technology used to generate the Notification Token. Can be
+     * `apn`, `fcm` or `none`.
+     *
+     * Required when `factor_type` is `push`..
+     *
+     * @param configNotificationPlatform The transport technology used to generate
+     *                                   the Notification Token
+     * @return this
+     */
+    public FactorUpdater setConfigNotificationPlatform(final String configNotificationPlatform) {
+        this.configNotificationPlatform = configNotificationPlatform;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -215,6 +231,10 @@ public class FactorUpdater extends Updater<Factor> {
 
         if (configAlg != null) {
             request.addPostParam("Config.Alg", configAlg.toString());
+        }
+
+        if (configNotificationPlatform != null) {
+            request.addPostParam("Config.NotificationPlatform", configNotificationPlatform);
         }
     }
 }

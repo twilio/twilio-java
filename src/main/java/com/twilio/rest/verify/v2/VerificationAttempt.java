@@ -42,7 +42,8 @@ public class VerificationAttempt extends Resource {
     public enum Channels {
         SMS("sms"),
         CALL("call"),
-        EMAIL("email");
+        EMAIL("email"),
+        WHATSAPP("whatsapp");
 
         private final String value;
 

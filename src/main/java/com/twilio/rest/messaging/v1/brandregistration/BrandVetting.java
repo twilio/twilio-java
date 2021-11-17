@@ -89,6 +89,18 @@ public class BrandVetting extends Resource {
     }
 
     /**
+     * Create a BrandVettingFetcher to execute fetch.
+     *
+     * @param pathBrandSid A2P BrandRegistration Sid
+     * @param pathBrandVettingSid SID for third-party vetting record
+     * @return BrandVettingFetcher capable of executing the fetch
+     */
+    public static BrandVettingFetcher fetcher(final String pathBrandSid,
+                                              final String pathBrandVettingSid) {
+        return new BrandVettingFetcher(pathBrandSid, pathBrandVettingSid);
+    }
+
+    /**
      * Converts a JSON String into a BrandVetting object using the provided
      * ObjectMapper.
      *

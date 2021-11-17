@@ -23,7 +23,7 @@ public class SsmlW extends TwiML {
      * For XML Serialization/Deserialization
      */
     private SsmlW() {
-        this(new Builder((String) null));
+        this(new Builder());
     }
 
     /**
@@ -95,11 +95,65 @@ public class SsmlW extends TwiML {
         }
 
         /**
+         * Create a {@code <w>} with child elements
+         */
+        public Builder() {
+        }
+
+        /**
          * Customize the pronunciation of words by specifying the word’s part of speech
          * or alternate meaning
          */
         public Builder role(String role) {
             this.role = role;
+            return this;
+        }
+
+        /**
+         * Add a child {@code <break>} element
+         */
+        public Builder break_(SsmlBreak ssmlBreak) {
+            this.children.add(ssmlBreak);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <emphasis>} element
+         */
+        public Builder emphasis(SsmlEmphasis ssmlEmphasis) {
+            this.children.add(ssmlEmphasis);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <phoneme>} element
+         */
+        public Builder phoneme(SsmlPhoneme ssmlPhoneme) {
+            this.children.add(ssmlPhoneme);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <prosody>} element
+         */
+        public Builder prosody(SsmlProsody ssmlProsody) {
+            this.children.add(ssmlProsody);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <say-as>} element
+         */
+        public Builder sayAs(SsmlSayAs ssmlSayAs) {
+            this.children.add(ssmlSayAs);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <sub>} element
+         */
+        public Builder sub(SsmlSub ssmlSub) {
+            this.children.add(ssmlSub);
             return this;
         }
 

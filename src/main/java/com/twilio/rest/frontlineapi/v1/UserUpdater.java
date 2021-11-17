@@ -26,6 +26,7 @@ public class UserUpdater extends Updater<User> {
     private String friendlyName;
     private String avatar;
     private User.StateType state;
+    private Boolean isAvailable;
 
     /**
      * Construct a new UserUpdater.
@@ -59,14 +60,27 @@ public class UserUpdater extends Updater<User> {
     }
 
     /**
-     * Current state of this user. Can be either `active` or `deactivated` and
-     * defaults to `active`.
+     * Current state of this user. Can be either `active` or `deactivated`..
      *
      * @param state Current state of this user
      * @return this
      */
     public UserUpdater setState(final User.StateType state) {
         this.state = state;
+        return this;
+    }
+
+    /**
+     * Whether the User is available for new conversations. Set to `false` to
+     * prevent User from receiving new inbound conversations if you are using <a
+     * href="https://www.twilio.com/docs/frontline/handle-incoming-conversations#3-pool-routing">Pool
+     * Routing</a>..
+     *
+     * @param isAvailable Whether the User is available for new conversations
+     * @return this
+     */
+    public UserUpdater setIsAvailable(final Boolean isAvailable) {
+        this.isAvailable = isAvailable;
         return this;
     }
 
@@ -117,6 +131,10 @@ public class UserUpdater extends Updater<User> {
 
         if (state != null) {
             request.addPostParam("State", state.toString());
+        }
+
+        if (isAvailable != null) {
+            request.addPostParam("IsAvailable", isAvailable.toString());
         }
     }
 }

@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
-    private static final long serialVersionUID = 146148351923263L;
+    private static final long serialVersionUID = 130602894485195L;
 
     public enum StateType {
         ACTIVE("active"),
@@ -127,6 +127,7 @@ public class User extends Resource {
     private final String friendlyName;
     private final String avatar;
     private final User.StateType state;
+    private final Boolean isAvailable;
     private final URI url;
 
     @JsonCreator
@@ -140,6 +141,8 @@ public class User extends Resource {
                  final String avatar,
                  @JsonProperty("state")
                  final User.StateType state,
+                 @JsonProperty("is_available")
+                 final Boolean isAvailable,
                  @JsonProperty("url")
                  final URI url) {
         this.sid = sid;
@@ -147,6 +150,7 @@ public class User extends Resource {
         this.friendlyName = friendlyName;
         this.avatar = avatar;
         this.state = state;
+        this.isAvailable = isAvailable;
         this.url = url;
     }
 
@@ -196,6 +200,15 @@ public class User extends Resource {
     }
 
     /**
+     * Returns Whether the User is available for new conversations.
+     *
+     * @return Whether the User is available for new conversations
+     */
+    public final Boolean getIsAvailable() {
+        return this.isAvailable;
+    }
+
+    /**
      * Returns An absolute URL for this user..
      *
      * @return An absolute URL for this user.
@@ -221,6 +234,7 @@ public class User extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(avatar, other.avatar) &&
                Objects.equals(state, other.state) &&
+               Objects.equals(isAvailable, other.isAvailable) &&
                Objects.equals(url, other.url);
     }
 
@@ -231,6 +245,7 @@ public class User extends Resource {
                             friendlyName,
                             avatar,
                             state,
+                            isAvailable,
                             url);
     }
 }

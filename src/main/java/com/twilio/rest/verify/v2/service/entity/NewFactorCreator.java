@@ -98,7 +98,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
     /**
      * The transport technology used to generate the Notification Token. Can be
-     * `apn` or `fcm`.
+     * `apn`, `fcm` or `none`.
      *
      * Required when `factor_type` is `push`..
      *

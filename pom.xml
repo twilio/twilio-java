@@ -5,7 +5,7 @@
   <artifactId>twilio</artifactId>
   <packaging>jar</packaging>
   <name>twilio</name>
-  <version>8.22.0</version>
+  <version>8.22.1</version>
   <description>Twilio Java Helper Library</description>
   <url>https://www.twilio.com</url>
   <licenses>
@@ -19,7 +19,7 @@
     <url>git@github.com:twilio/twilio-java.git</url>
     <connection>scm:git:git@github.com:twilio/twilio-java.git</connection>
     <developerConnection>scm:git:git@github.com:twilio/twilio-java.git</developerConnection>
-    <tag>8.22.0</tag>
+    <tag>8.22.1</tag>
   </scm>
   <developers>
     <developer>
@@ -57,7 +57,7 @@
                     <arg>--pinentry-mode</arg>
                     <arg>loopback</arg>
                   </gpgArguments>
-              </configuration>
+                </configuration>
               </execution>
             </executions>
           </plugin>
@@ -121,14 +121,14 @@
                 <goals>
                   <goal>sign</goal>
                 </goals>
-              <configuration>
+                <configuration>
                   <keyname>${gpg.keyname}</keyname>
                   <passphrase>${gpg.passphrase}</passphrase>
                   <gpgArguments>
                     <arg>--pinentry-mode</arg>
                     <arg>loopback</arg>
                   </gpgArguments>
-              </configuration>
+                </configuration>
               </execution>
             </executions>
           </plugin>

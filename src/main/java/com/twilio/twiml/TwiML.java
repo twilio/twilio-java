@@ -210,6 +210,7 @@ public abstract class TwiML {
             // Necessary to avoid conflict between <lang> tag and xml:lang attribute when deserializing XML.
             // See: https://github.com/FasterXML/jackson-dataformat-xml/issues/65
             xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
+            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
         }
         protected static final ObjectMapper OBJECT_MAPPER = new XmlMapper(
             new XmlFactory(xmlInputFactory, new WstxOutputFactory()))

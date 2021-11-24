@@ -205,16 +205,16 @@ public abstract class TwiML {
      * Create a new {@code TwiML} node
      */
     public static class Builder<T extends Builder<T>> {
-        private static final XMLInputFactory xmlInputFactory = new WstxInputFactory();
+        private static final XMLInputFactory XML_INPUT_FACTORY = new WstxInputFactory();
         static {
             // Necessary to avoid conflict between <lang> tag and xml:lang attribute when deserializing XML.
             // See: https://github.com/FasterXML/jackson-dataformat-xml/issues/65
-            xmlInputFactory.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
-            xmlInputFactory.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
-            xmlInputFactory.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+            XML_INPUT_FACTORY.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
+            XML_INPUT_FACTORY.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            XML_INPUT_FACTORY.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         }
         protected static final ObjectMapper OBJECT_MAPPER = new XmlMapper(
-            new XmlFactory(xmlInputFactory, new WstxOutputFactory()))
+            new XmlFactory(XML_INPUT_FACTORY, new WstxOutputFactory()))
                 .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
                 .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
 

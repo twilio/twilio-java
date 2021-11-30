@@ -1,6 +1,12 @@
 package com.twilio.twiml;
 
-import com.twilio.http.TwilioRestClient;
+import com.ctc.wstx.stax.WstxInputFactory;
+import com.ctc.wstx.stax.WstxOutputFactory;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlFactory;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlText;
 import lombok.ToString;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,6 +16,7 @@ import org.w3c.dom.Node;
 
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.stream.XMLInputFactory;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
@@ -198,6 +205,19 @@ public abstract class TwiML {
      * Create a new {@code TwiML} node
      */
     public static class Builder<T extends Builder<T>> {
+        private static final XMLInputFactory XML_INPUT_FACTORY = new WstxInputFactory();
+        static {
+            // Necessary to avoid conflict between <lang> tag and xml:lang attribute when deserializing XML.
+            // See: https://github.com/FasterXML/jackson-dataformat-xml/issues/65
+            XML_INPUT_FACTORY.setProperty(XMLInputFactory.IS_NAMESPACE_AWARE, false);
+            XML_INPUT_FACTORY.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+            XML_INPUT_FACTORY.setProperty(XMLInputFactory.SUPPORT_DTD, false);
+        }
+        protected static final ObjectMapper OBJECT_MAPPER = new XmlMapper(
+            new XmlFactory(XML_INPUT_FACTORY, new WstxOutputFactory()))
+                .configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true)
+                .configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
+
         protected Map<String, String> options = new HashMap<>();
         protected List<TwiML> children = new ArrayList<>();
 
@@ -213,6 +233,7 @@ public abstract class TwiML {
         /**
          * Add a text node as a child element
          */
+        @JacksonXmlText
         public T addText(String text) {
             this.children.add(new Text(text));
             return (T) this;

@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Record>}
  */
+@JsonDeserialize(builder = Record.Builder.class)
 public class Record extends TwiML {
     public enum Trim {
         TRIM_SILENCE("trim-silence"),
@@ -264,6 +269,20 @@ public class Record extends TwiML {
      * Create a new {@code <Record>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Record.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Record.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI action;
         private HttpMethod method;
         private Integer timeout;
@@ -280,6 +299,7 @@ public class Record extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -296,6 +316,7 @@ public class Record extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -304,6 +325,7 @@ public class Record extends TwiML {
         /**
          * Timeout to begin recording
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "timeout")
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
             return this;
@@ -312,6 +334,7 @@ public class Record extends TwiML {
         /**
          * Finish recording on key
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "finishOnKey")
         public Builder finishOnKey(String finishOnKey) {
             this.finishOnKey = finishOnKey;
             return this;
@@ -320,6 +343,7 @@ public class Record extends TwiML {
         /**
          * Max time to record in seconds
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "maxLength")
         public Builder maxLength(Integer maxLength) {
             this.maxLength = maxLength;
             return this;
@@ -328,6 +352,7 @@ public class Record extends TwiML {
         /**
          * Play beep
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "playBeep")
         public Builder playBeep(Boolean playBeep) {
             this.playBeep = playBeep;
             return this;
@@ -336,6 +361,7 @@ public class Record extends TwiML {
         /**
          * Trim the recording
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "trim")
         public Builder trim(Record.Trim trim) {
             this.trim = trim;
             return this;
@@ -344,6 +370,7 @@ public class Record extends TwiML {
         /**
          * Status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallback")
         public Builder recordingStatusCallback(URI recordingStatusCallback) {
             this.recordingStatusCallback = recordingStatusCallback;
             return this;
@@ -360,6 +387,7 @@ public class Record extends TwiML {
         /**
          * Status callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackMethod")
         public Builder recordingStatusCallbackMethod(HttpMethod recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
@@ -368,6 +396,7 @@ public class Record extends TwiML {
         /**
          * Recording status callback events
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackEvent")
         public Builder recordingStatusCallbackEvents(List<Record.RecordingEvent> recordingStatusCallbackEvent) {
             this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
             return this;
@@ -384,6 +413,7 @@ public class Record extends TwiML {
         /**
          * Transcribe the recording
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "transcribe")
         public Builder transcribe(Boolean transcribe) {
             this.transcribe = transcribe;
             return this;
@@ -392,6 +422,7 @@ public class Record extends TwiML {
         /**
          * Transcribe callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "transcribeCallback")
         public Builder transcribeCallback(URI transcribeCallback) {
             this.transcribeCallback = transcribeCallback;
             return this;

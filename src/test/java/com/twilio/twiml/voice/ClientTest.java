@@ -163,4 +163,39 @@ public class ClientTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Client elem = new Client.Builder("identity")
+            .url(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .statusCallbackEvents(Promoter.listOfOne(Client.Event.INITIATED))
+            .statusCallback(URI.create("https://example.com"))
+            .statusCallbackMethod(HttpMethod.GET)
+            .build();
+
+        Assert.assertEquals(
+            Client.Builder.fromXml("<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Client.Builder builder = new Client.Builder();
+
+        builder.identity(new Identity.Builder("client_identity").build());
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final Client elem = builder.build();
+
+        Assert.assertEquals(
+            Client.Builder.fromXml("<Client>" +
+                "<Identity>client_identity</Identity>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Client>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

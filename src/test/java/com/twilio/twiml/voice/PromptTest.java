@@ -164,4 +164,41 @@ public class PromptTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Prompt elem = new Prompt.Builder()
+            .for_(Prompt.For.PAYMENT_CARD_NUMBER)
+            .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
+            .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
+            .attempts(Promoter.listOfOne(1))
+            .build();
+
+        Assert.assertEquals(
+            Prompt.Builder.fromXml("<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Prompt.Builder builder = new Prompt.Builder();
+
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+
+        builder.play(new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build());
+
+        builder.pause(new Pause.Builder().length(1).build());
+
+        final Prompt elem = builder.build();
+
+        Assert.assertEquals(
+            Prompt.Builder.fromXml("<Prompt>" +
+                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
+                "<Pause length=\"1\"/>" +
+            "</Prompt>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

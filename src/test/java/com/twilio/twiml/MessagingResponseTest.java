@@ -151,4 +151,39 @@ public class MessagingResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final MessagingResponse elem = new MessagingResponse.Builder().build();
+
+        Assert.assertEquals(
+            MessagingResponse.Builder.fromXml("<Response/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final MessagingResponse.Builder builder = new MessagingResponse.Builder();
+
+        builder.message(new Message.Builder("body")
+                    .to("to")
+                    .from("from")
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallback(URI.create("https://example.com"))
+                    .build());
+
+        builder.redirect(new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        final MessagingResponse elem = builder.build();
+
+        Assert.assertEquals(
+            MessagingResponse.Builder.fromXml("<Response>" +
+                "<Message action=\"https://example.com\" from=\"from\" method=\"GET\" statusCallback=\"https://example.com\" to=\"to\">body</Message>" +
+                "<Redirect method=\"GET\">https://example.com</Redirect>" +
+            "</Response>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

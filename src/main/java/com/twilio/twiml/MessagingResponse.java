@@ -7,12 +7,17 @@
 
 package com.twilio.twiml;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.twilio.twiml.TwiMLException;
 import com.twilio.twiml.messaging.Message;
 import com.twilio.twiml.messaging.Redirect;
 
 /**
  * TwiML wrapper for {@code <Response>}
  */
+@JsonDeserialize(builder = MessagingResponse.Builder.class)
 public class MessagingResponse extends TwiML {
     /**
      * For XML Serialization/Deserialization
@@ -33,8 +38,23 @@ public class MessagingResponse extends TwiML {
      */
     public static class Builder extends TwiML.Builder<Builder> {
         /**
+         * Create and return a {@code <MessagingResponse.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a MessagingResponse.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
+        /**
          * Add a child {@code <Message>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Message")
         public Builder message(Message message) {
             this.children.add(message);
             return this;
@@ -43,6 +63,7 @@ public class MessagingResponse extends TwiML {
         /**
          * Add a child {@code <Redirect>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Redirect")
         public Builder redirect(Redirect redirect) {
             this.children.add(redirect);
             return this;

@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Start>}
  */
+@JsonDeserialize(builder = Start.Builder.class)
 public class Start extends TwiML {
     private final URI action;
     private final HttpMethod method;
@@ -79,12 +84,27 @@ public class Start extends TwiML {
      * Create a new {@code <Start>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Start.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Start.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI action;
         private HttpMethod method;
 
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -101,6 +121,7 @@ public class Start extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -109,6 +130,7 @@ public class Start extends TwiML {
         /**
          * Add a child {@code <Stream>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Stream")
         public Builder stream(Stream stream) {
             this.children.add(stream);
             return this;
@@ -117,6 +139,7 @@ public class Start extends TwiML {
         /**
          * Add a child {@code <Siprec>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Siprec")
         public Builder siprec(Siprec siprec) {
             this.children.add(siprec);
             return this;

@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Parameter>}
  */
+@JsonDeserialize(builder = Parameter.Builder.class)
 public class Parameter extends TwiML {
     private final String name;
     private final String value;
@@ -76,12 +81,27 @@ public class Parameter extends TwiML {
      * Create a new {@code <Parameter>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Parameter.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Parameter.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String name;
         private String value;
 
         /**
          * The name of the custom parameter
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "name")
         public Builder name(String name) {
             this.name = name;
             return this;
@@ -90,6 +110,7 @@ public class Parameter extends TwiML {
         /**
          * The value of the custom parameter
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "value")
         public Builder value(String value) {
             this.value = value;
             return this;

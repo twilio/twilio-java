@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Sip>}
  */
+@JsonDeserialize(builder = Sip.Builder.class)
 public class Sip extends TwiML {
     public enum Event {
         INITIATED("initiated"),
@@ -200,6 +205,20 @@ public class Sip extends TwiML {
      * Create a new {@code <Sip>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Sip.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Sip.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String username;
         private String password;
         private URI url;
@@ -224,8 +243,15 @@ public class Sip extends TwiML {
         }
 
         /**
+         * Create a {@code <Sip>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * SIP Username
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "username")
         public Builder username(String username) {
             this.username = username;
             return this;
@@ -234,6 +260,7 @@ public class Sip extends TwiML {
         /**
          * SIP Password
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "password")
         public Builder password(String password) {
             this.password = password;
             return this;
@@ -242,6 +269,7 @@ public class Sip extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "url")
         public Builder url(URI url) {
             this.url = url;
             return this;
@@ -258,6 +286,7 @@ public class Sip extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -266,6 +295,7 @@ public class Sip extends TwiML {
         /**
          * Status callback events
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackEvent")
         public Builder statusCallbackEvents(List<Sip.Event> statusCallbackEvent) {
             this.statusCallbackEvent = statusCallbackEvent;
             return this;
@@ -282,6 +312,7 @@ public class Sip extends TwiML {
         /**
          * Status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(URI statusCallback) {
             this.statusCallback = statusCallback;
             return this;
@@ -298,6 +329,7 @@ public class Sip extends TwiML {
         /**
          * Status callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
             return this;

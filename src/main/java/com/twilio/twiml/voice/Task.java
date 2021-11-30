@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Task>}
  */
+@JsonDeserialize(builder = Task.Builder.class)
 public class Task extends TwiML {
     private final Integer priority;
     private final Integer timeout;
@@ -96,6 +101,20 @@ public class Task extends TwiML {
      * Create a new {@code <Task>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Task.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Task.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private Integer priority;
         private Integer timeout;
         private String body;
@@ -108,8 +127,15 @@ public class Task extends TwiML {
         }
 
         /**
+         * Create a {@code <Task>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Task priority
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "priority")
         public Builder priority(Integer priority) {
             this.priority = priority;
             return this;
@@ -118,6 +144,7 @@ public class Task extends TwiML {
         /**
          * Timeout associated with task
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "timeout")
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
             return this;

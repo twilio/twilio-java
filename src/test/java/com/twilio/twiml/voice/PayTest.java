@@ -180,4 +180,57 @@ public class PayTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Pay elem = new Pay.Builder()
+            .input(Pay.Input.DTMF)
+            .action(URI.create("https://example.com"))
+            .bankAccountType(Pay.BankAccountType.CONSUMER_CHECKING)
+            .statusCallback(URI.create("https://example.com"))
+            .statusCallbackMethod(Pay.StatusCallbackMethod.GET)
+            .timeout(1)
+            .maxAttempts(1)
+            .securityCode(true)
+            .postalCode("postal_code")
+            .minPostalCodeLength(1)
+            .paymentConnector("payment_connector")
+            .paymentMethod(Pay.PaymentMethod.ACH_DEBIT)
+            .tokenType(Pay.TokenType.ONE_TIME)
+            .chargeAmount("charge_amount")
+            .currency("currency")
+            .description("description")
+            .validCardTypes(Promoter.listOfOne(Pay.ValidCardTypes.VISA))
+            .language(Pay.Language.DE_DE)
+            .build();
+
+        Assert.assertEquals(
+            Pay.Builder.fromXml("<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Pay.Builder builder = new Pay.Builder();
+
+        builder.prompt(new Prompt.Builder()
+                    .for_(Prompt.For.PAYMENT_CARD_NUMBER)
+                    .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
+                    .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
+                    .attempts(Promoter.listOfOne(1))
+                    .build());
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final Pay elem = builder.build();
+
+        Assert.assertEquals(
+            Pay.Builder.fromXml("<Pay>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Pay>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

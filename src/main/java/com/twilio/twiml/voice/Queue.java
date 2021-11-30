@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Queue>}
  */
+@JsonDeserialize(builder = Queue.Builder.class)
 public class Queue extends TwiML {
     private final URI url;
     private final HttpMethod method;
@@ -127,6 +132,20 @@ public class Queue extends TwiML {
      * Create a new {@code <Queue>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Queue.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Queue.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI url;
         private HttpMethod method;
         private String reservationSid;
@@ -141,8 +160,15 @@ public class Queue extends TwiML {
         }
 
         /**
+         * Create a {@code <Queue>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "url")
         public Builder url(URI url) {
             this.url = url;
             return this;
@@ -159,6 +185,7 @@ public class Queue extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -167,6 +194,7 @@ public class Queue extends TwiML {
         /**
          * TaskRouter Reservation SID
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "reservationSid")
         public Builder reservationSid(String reservationSid) {
             this.reservationSid = reservationSid;
             return this;
@@ -175,6 +203,7 @@ public class Queue extends TwiML {
         /**
          * TaskRouter Activity SID
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "postWorkActivitySid")
         public Builder postWorkActivitySid(String postWorkActivitySid) {
             this.postWorkActivitySid = postWorkActivitySid;
             return this;

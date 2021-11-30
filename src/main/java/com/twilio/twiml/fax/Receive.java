@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.fax;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Receive>}
  */
+@JsonDeserialize(builder = Receive.Builder.class)
 public class Receive extends TwiML {
     public enum MediaType {
         APPLICATION_PDF("application/pdf"),
@@ -152,6 +157,20 @@ public class Receive extends TwiML {
      * Create a new {@code <Receive>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Receive.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Receive.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI action;
         private HttpMethod method;
         private Receive.MediaType mediaType;
@@ -161,6 +180,7 @@ public class Receive extends TwiML {
         /**
          * Receive action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -177,6 +197,7 @@ public class Receive extends TwiML {
         /**
          * Receive action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -185,6 +206,7 @@ public class Receive extends TwiML {
         /**
          * The media type used to store media in the fax media store
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "mediaType")
         public Builder mediaType(Receive.MediaType mediaType) {
             this.mediaType = mediaType;
             return this;
@@ -193,6 +215,7 @@ public class Receive extends TwiML {
         /**
          * What size to interpret received pages as
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "pageSize")
         public Builder pageSize(Receive.PageSize pageSize) {
             this.pageSize = pageSize;
             return this;
@@ -201,6 +224,7 @@ public class Receive extends TwiML {
         /**
          * Whether or not to store received media in the fax media store
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "storeMedia")
         public Builder storeMedia(Boolean storeMedia) {
             this.storeMedia = storeMedia;
             return this;

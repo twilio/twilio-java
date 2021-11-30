@@ -152,4 +152,44 @@ public class StopTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Stop elem = new Stop.Builder().build();
+
+        Assert.assertEquals(
+            Stop.Builder.fromXml("<Stop/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Stop.Builder builder = new Stop.Builder();
+
+        builder.stream(new Stream.Builder()
+                    .name("name")
+                    .connectorName("connector_name")
+                    .url("url")
+                    .track(Stream.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+                    .build());
+
+        builder.siprec(new Siprec.Builder()
+                    .name("name")
+                    .connectorName("connector_name")
+                    .track(Siprec.Track.INBOUND_TRACK)
+                    .build());
+
+        final Stop elem = builder.build();
+
+        Assert.assertEquals(
+            Stop.Builder.fromXml("<Stop>" +
+                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
+                "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>" +
+            "</Stop>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

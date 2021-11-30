@@ -26,4 +26,14 @@ public class PlayTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Play elem = new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build();
+
+        Assert.assertEquals(
+            Play.Builder.fromXml("<Play digits=\"digits\" loop=\"1\">https://example.com</Play>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

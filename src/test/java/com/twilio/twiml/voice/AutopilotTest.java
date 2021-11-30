@@ -24,4 +24,14 @@ public class AutopilotTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Autopilot elem = new Autopilot.Builder("name").build();
+
+        Assert.assertEquals(
+            Autopilot.Builder.fromXml("<Autopilot>name</Autopilot>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

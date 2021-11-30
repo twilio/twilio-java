@@ -113,4 +113,14 @@ public class ParameterTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Parameter elem = new Parameter.Builder().name("name").value("value").build();
+
+        Assert.assertEquals(
+            Parameter.Builder.fromXml("<Parameter name=\"name\" value=\"value\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

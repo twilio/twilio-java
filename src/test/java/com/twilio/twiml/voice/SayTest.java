@@ -179,4 +179,60 @@ public class SayTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Say elem = new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build();
+
+        Assert.assertEquals(
+            Say.Builder.fromXml("<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Say.Builder builder = new Say.Builder();
+
+        builder.break_(new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build());
+
+        builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
+
+        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+
+        builder.p(new SsmlP.Builder("words").build());
+
+        builder.phoneme(new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build());
+
+        builder.prosody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
+
+        builder.s(new SsmlS.Builder("words").build());
+
+        builder.sayAs(new SsmlSayAs.Builder("words")
+                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
+                    .role(SsmlSayAs.Role.MDY)
+                    .build());
+
+        builder.sub(new SsmlSub.Builder("words").alias("alias").build());
+
+        builder.w(new SsmlW.Builder("words").role("role").build());
+
+        final Say elem = builder.build();
+
+        Assert.assertEquals(
+            Say.Builder.fromXml("<Say>" +
+                "<break strength=\"none\" time=\"time\"/>" +
+                "<emphasis level=\"strong\">words</emphasis>" +
+                "<lang xml:lang=\"da-DK\">words</lang>" +
+                "<p>words</p>" +
+                "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
+                "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
+                "<s>words</s>" +
+                "<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>" +
+                "<sub alias=\"alias\">words</sub>" +
+                "<w role=\"role\">words</w>" +
+            "</Say>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

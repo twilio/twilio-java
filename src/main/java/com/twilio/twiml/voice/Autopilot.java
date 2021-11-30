@@ -7,11 +7,15 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 /**
  * TwiML wrapper for {@code <Autopilot>}
  */
+@JsonDeserialize(builder = Autopilot.Builder.class)
 public class Autopilot extends TwiML {
     private final String name;
 
@@ -52,6 +56,20 @@ public class Autopilot extends TwiML {
      * Create a new {@code <Autopilot>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Autopilot.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Autopilot.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String name;
 
         /**
@@ -59,6 +77,12 @@ public class Autopilot extends TwiML {
          */
         public Builder(String name) {
             this.name = name;
+        }
+
+        /**
+         * Create a {@code <Autopilot>} (for XML deserialization)
+         */
+        private Builder() {
         }
 
         /**

@@ -24,4 +24,14 @@ public class TaskTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Task elem = new Task.Builder("body").priority(1).timeout(1).build();
+
+        Assert.assertEquals(
+            Task.Builder.fromXml("<Task priority=\"1\" timeout=\"1\">body</Task>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

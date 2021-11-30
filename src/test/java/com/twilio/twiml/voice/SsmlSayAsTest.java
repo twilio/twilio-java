@@ -27,4 +27,17 @@ public class SsmlSayAsTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final SsmlSayAs elem = new SsmlSayAs.Builder("words")
+            .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
+            .role(SsmlSayAs.Role.MDY)
+            .build();
+
+        Assert.assertEquals(
+            SsmlSayAs.Builder.fromXml("<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

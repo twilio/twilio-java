@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Room>}
  */
+@JsonDeserialize(builder = Room.Builder.class)
 public class Room extends TwiML {
     private final String participantIdentity;
     private final String name;
@@ -82,6 +87,20 @@ public class Room extends TwiML {
      * Create a new {@code <Room>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Room.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Room.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String participantIdentity;
         private String name;
 
@@ -93,8 +112,15 @@ public class Room extends TwiML {
         }
 
         /**
+         * Create a {@code <Room>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Participant identity when connecting to the Room
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "participantIdentity")
         public Builder participantIdentity(String participantIdentity) {
             this.participantIdentity = participantIdentity;
             return this;

@@ -24,4 +24,14 @@ public class RoomTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Room elem = new Room.Builder("name").participantIdentity("participant_identity").build();
+
+        Assert.assertEquals(
+            Room.Builder.fromXml("<Room participantIdentity=\"participant_identity\">name</Room>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

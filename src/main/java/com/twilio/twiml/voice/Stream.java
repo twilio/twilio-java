@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Stream>}
  */
+@JsonDeserialize(builder = Stream.Builder.class)
 public class Stream extends TwiML {
     public enum Track {
         INBOUND_TRACK("inbound_track"),
@@ -163,6 +168,20 @@ public class Stream extends TwiML {
      * Create a new {@code <Stream>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Stream.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Stream.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String name;
         private String connectorName;
         private String url;
@@ -173,6 +192,7 @@ public class Stream extends TwiML {
         /**
          * Friendly name given to the Stream
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "name")
         public Builder name(String name) {
             this.name = name;
             return this;
@@ -181,6 +201,7 @@ public class Stream extends TwiML {
         /**
          * Unique name for Stream Connector
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "connectorName")
         public Builder connectorName(String connectorName) {
             this.connectorName = connectorName;
             return this;
@@ -189,6 +210,7 @@ public class Stream extends TwiML {
         /**
          * URL of the remote service where the Stream is routed
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "url")
         public Builder url(String url) {
             this.url = url;
             return this;
@@ -197,6 +219,7 @@ public class Stream extends TwiML {
         /**
          * Track to be streamed to remote service
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "track")
         public Builder track(Stream.Track track) {
             this.track = track;
             return this;
@@ -205,6 +228,7 @@ public class Stream extends TwiML {
         /**
          * Status Callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(String statusCallback) {
             this.statusCallback = statusCallback;
             return this;
@@ -213,6 +237,7 @@ public class Stream extends TwiML {
         /**
          * Status Callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
         public Builder statusCallbackMethod(Stream.StatusCallbackMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
             return this;
@@ -221,6 +246,7 @@ public class Stream extends TwiML {
         /**
          * Add a child {@code <Parameter>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
         public Builder parameter(Parameter parameter) {
             this.children.add(parameter);
             return this;

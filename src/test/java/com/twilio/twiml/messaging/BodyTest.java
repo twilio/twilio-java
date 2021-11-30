@@ -24,4 +24,14 @@ public class BodyTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Body elem = new Body.Builder("message").build();
+
+        Assert.assertEquals(
+            Body.Builder.fromXml("<Body>message</Body>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

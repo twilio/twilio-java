@@ -33,4 +33,20 @@ public class SmsTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Sms elem = new Sms.Builder("message")
+            .to(new com.twilio.type.PhoneNumber("+15558675310"))
+            .from(new com.twilio.type.PhoneNumber("+15017122661"))
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .statusCallback(URI.create("https://example.com"))
+            .build();
+
+        Assert.assertEquals(
+            Sms.Builder.fromXml("<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

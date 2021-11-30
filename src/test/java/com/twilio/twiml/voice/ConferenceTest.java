@@ -50,4 +50,35 @@ public class ConferenceTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Conference elem = new Conference.Builder("name")
+            .muted(true)
+            .beep(Conference.Beep.TRUE)
+            .startConferenceOnEnter(true)
+            .endConferenceOnExit(true)
+            .waitUrl(URI.create("https://example.com"))
+            .waitMethod(HttpMethod.GET)
+            .maxParticipants(1)
+            .record(Conference.Record.DO_NOT_RECORD)
+            .region(Conference.Region.US1)
+            .coach("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .trim(Conference.Trim.TRIM_SILENCE)
+            .statusCallbackEvents(Promoter.listOfOne(Conference.Event.START))
+            .statusCallback(URI.create("https://example.com"))
+            .statusCallbackMethod(HttpMethod.GET)
+            .recordingStatusCallback(URI.create("https://example.com"))
+            .recordingStatusCallbackMethod(HttpMethod.GET)
+            .recordingStatusCallbackEvents(Promoter.listOfOne(Conference.RecordingEvent.IN_PROGRESS))
+            .eventCallbackUrl(URI.create("https://example.com"))
+            .jitterBufferSize(Conference.JitterBufferSize.LARGE)
+            .participantLabel("participant_label")
+            .build();
+
+        Assert.assertEquals(
+            Conference.Builder.fromXml("<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

@@ -7,8 +7,12 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -19,6 +23,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Pay>}
  */
+@JsonDeserialize(builder = Pay.Builder.class)
 public class Pay extends TwiML {
     public enum Input {
         DTMF("dtmf");
@@ -449,6 +454,20 @@ public class Pay extends TwiML {
      * Create a new {@code <Pay>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Pay.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Pay.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private Pay.Input input;
         private URI action;
         private Pay.BankAccountType bankAccountType;
@@ -471,6 +490,7 @@ public class Pay extends TwiML {
         /**
          * Input type Twilio should accept
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "input")
         public Builder input(Pay.Input input) {
             this.input = input;
             return this;
@@ -479,6 +499,7 @@ public class Pay extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -497,6 +518,7 @@ public class Pay extends TwiML {
          * be provided and value should be set to ach-debit. defaults to
          * consumer-checking
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "bankAccountType")
         public Builder bankAccountType(Pay.BankAccountType bankAccountType) {
             this.bankAccountType = bankAccountType;
             return this;
@@ -505,6 +527,7 @@ public class Pay extends TwiML {
         /**
          * Status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(URI statusCallback) {
             this.statusCallback = statusCallback;
             return this;
@@ -521,6 +544,7 @@ public class Pay extends TwiML {
         /**
          * Status callback method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
         public Builder statusCallbackMethod(Pay.StatusCallbackMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
             return this;
@@ -529,6 +553,7 @@ public class Pay extends TwiML {
         /**
          * Time to wait to gather input
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "timeout")
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
             return this;
@@ -537,6 +562,7 @@ public class Pay extends TwiML {
         /**
          * Maximum number of allowed retries when gathering input
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "maxAttempts")
         public Builder maxAttempts(Integer maxAttempts) {
             this.maxAttempts = maxAttempts;
             return this;
@@ -545,6 +571,7 @@ public class Pay extends TwiML {
         /**
          * Prompt for security code
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "securityCode")
         public Builder securityCode(Boolean securityCode) {
             this.securityCode = securityCode;
             return this;
@@ -553,6 +580,7 @@ public class Pay extends TwiML {
         /**
          * Prompt for postal code and it should be true/false or default postal code
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "postalCode")
         public Builder postalCode(String postalCode) {
             this.postalCode = postalCode;
             return this;
@@ -561,6 +589,7 @@ public class Pay extends TwiML {
         /**
          * Prompt for minimum postal code length
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "minPostalCodeLength")
         public Builder minPostalCodeLength(Integer minPostalCodeLength) {
             this.minPostalCodeLength = minPostalCodeLength;
             return this;
@@ -569,6 +598,7 @@ public class Pay extends TwiML {
         /**
          * Unique name for payment connector
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "paymentConnector")
         public Builder paymentConnector(String paymentConnector) {
             this.paymentConnector = paymentConnector;
             return this;
@@ -577,6 +607,7 @@ public class Pay extends TwiML {
         /**
          * Payment method to be used. defaults to credit-card
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "paymentMethod")
         public Builder paymentMethod(Pay.PaymentMethod paymentMethod) {
             this.paymentMethod = paymentMethod;
             return this;
@@ -585,6 +616,7 @@ public class Pay extends TwiML {
         /**
          * Type of token
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "tokenType")
         public Builder tokenType(Pay.TokenType tokenType) {
             this.tokenType = tokenType;
             return this;
@@ -594,6 +626,7 @@ public class Pay extends TwiML {
          * Amount to process. If value is greater than 0 then make the payment else
          * create a payment token
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "chargeAmount")
         public Builder chargeAmount(String chargeAmount) {
             this.chargeAmount = chargeAmount;
             return this;
@@ -602,6 +635,7 @@ public class Pay extends TwiML {
         /**
          * Currency of the amount attribute
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "currency")
         public Builder currency(String currency) {
             this.currency = currency;
             return this;
@@ -610,6 +644,7 @@ public class Pay extends TwiML {
         /**
          * Details regarding the payment
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "description")
         public Builder description(String description) {
             this.description = description;
             return this;
@@ -618,6 +653,7 @@ public class Pay extends TwiML {
         /**
          * Comma separated accepted card types
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "validCardTypes")
         public Builder validCardTypes(List<Pay.ValidCardTypes> validCardTypes) {
             this.validCardTypes = validCardTypes;
             return this;
@@ -634,6 +670,7 @@ public class Pay extends TwiML {
         /**
          * Language to use
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "language")
         public Builder language(Pay.Language language) {
             this.language = language;
             return this;
@@ -642,6 +679,7 @@ public class Pay extends TwiML {
         /**
          * Add a child {@code <Prompt>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Prompt")
         public Builder prompt(Prompt prompt) {
             this.children.add(prompt);
             return this;
@@ -650,6 +688,7 @@ public class Pay extends TwiML {
         /**
          * Add a child {@code <Parameter>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
         public Builder parameter(Parameter parameter) {
             this.children.add(parameter);
             return this;

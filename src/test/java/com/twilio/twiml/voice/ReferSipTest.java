@@ -26,4 +26,14 @@ public class ReferSipTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final ReferSip elem = new ReferSip.Builder(URI.create("https://example.com")).build();
+
+        Assert.assertEquals(
+            ReferSip.Builder.fromXml("<Sip>https://example.com</Sip>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

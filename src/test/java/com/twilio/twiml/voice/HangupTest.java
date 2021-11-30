@@ -102,4 +102,14 @@ public class HangupTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Hangup elem = new Hangup.Builder().build();
+
+        Assert.assertEquals(
+            Hangup.Builder.fromXml("<Hangup/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

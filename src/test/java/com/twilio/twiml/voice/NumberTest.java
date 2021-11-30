@@ -37,4 +37,22 @@ public class NumberTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Number elem = new Number.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
+            .sendDigits("send_digits")
+            .url(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .statusCallbackEvents(Promoter.listOfOne(Number.Event.INITIATED))
+            .statusCallback(URI.create("https://example.com"))
+            .statusCallbackMethod(HttpMethod.GET)
+            .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .build();
+
+        Assert.assertEquals(
+            Number.Builder.fromXml("<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

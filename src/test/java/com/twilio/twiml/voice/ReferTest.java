@@ -152,4 +152,30 @@ public class ReferTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Refer elem = new Refer.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
+
+        Assert.assertEquals(
+            Refer.Builder.fromXml("<Refer action=\"https://example.com\" method=\"GET\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Refer.Builder builder = new Refer.Builder();
+
+        builder.sip(new ReferSip.Builder(URI.create("https://example.com")).build());
+
+        final Refer elem = builder.build();
+
+        Assert.assertEquals(
+            Refer.Builder.fromXml("<Refer>" +
+                "<Sip>https://example.com</Sip>" +
+            "</Refer>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

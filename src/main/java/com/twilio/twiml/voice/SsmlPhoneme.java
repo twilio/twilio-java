@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <phoneme>}
  */
+@JsonDeserialize(builder = SsmlPhoneme.Builder.class)
 public class SsmlPhoneme extends TwiML {
     public enum Alphabet {
         IPA("ipa"),
@@ -111,6 +116,20 @@ public class SsmlPhoneme extends TwiML {
      * Create a new {@code <phoneme>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <SsmlPhoneme.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a SsmlPhoneme.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private SsmlPhoneme.Alphabet alphabet;
         private String ph;
         private String words;
@@ -123,8 +142,15 @@ public class SsmlPhoneme extends TwiML {
         }
 
         /**
+         * Create a {@code <phoneme>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Specify the phonetic alphabet
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "alphabet")
         public Builder alphabet(SsmlPhoneme.Alphabet alphabet) {
             this.alphabet = alphabet;
             return this;
@@ -133,6 +159,7 @@ public class SsmlPhoneme extends TwiML {
         /**
          * Specifiy the phonetic symbols for pronunciation
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "ph")
         public Builder ph(String ph) {
             this.ph = ph;
             return this;

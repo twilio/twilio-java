@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <w>}
  */
+@JsonDeserialize(builder = SsmlW.Builder.class)
 public class SsmlW extends TwiML {
     private final String role;
     private final String words;
@@ -84,6 +89,20 @@ public class SsmlW extends TwiML {
      * Create a new {@code <w>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <SsmlW.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a SsmlW.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String role;
         private String words;
 
@@ -104,6 +123,7 @@ public class SsmlW extends TwiML {
          * Customize the pronunciation of words by specifying the word’s part of speech
          * or alternate meaning
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "role")
         public Builder role(String role) {
             this.role = role;
             return this;
@@ -112,6 +132,7 @@ public class SsmlW extends TwiML {
         /**
          * Add a child {@code <break>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "break")
         public Builder break_(SsmlBreak ssmlBreak) {
             this.children.add(ssmlBreak);
             return this;
@@ -120,6 +141,7 @@ public class SsmlW extends TwiML {
         /**
          * Add a child {@code <emphasis>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "emphasis")
         public Builder emphasis(SsmlEmphasis ssmlEmphasis) {
             this.children.add(ssmlEmphasis);
             return this;
@@ -128,6 +150,7 @@ public class SsmlW extends TwiML {
         /**
          * Add a child {@code <phoneme>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "phoneme")
         public Builder phoneme(SsmlPhoneme ssmlPhoneme) {
             this.children.add(ssmlPhoneme);
             return this;
@@ -136,6 +159,7 @@ public class SsmlW extends TwiML {
         /**
          * Add a child {@code <prosody>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "prosody")
         public Builder prosody(SsmlProsody ssmlProsody) {
             this.children.add(ssmlProsody);
             return this;
@@ -144,6 +168,7 @@ public class SsmlW extends TwiML {
         /**
          * Add a child {@code <say-as>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "say-as")
         public Builder sayAs(SsmlSayAs ssmlSayAs) {
             this.children.add(ssmlSayAs);
             return this;
@@ -152,6 +177,7 @@ public class SsmlW extends TwiML {
         /**
          * Add a child {@code <sub>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "sub")
         public Builder sub(SsmlSub ssmlSub) {
             this.children.add(ssmlSub);
             return this;

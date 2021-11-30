@@ -24,4 +24,14 @@ public class SimTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Sim elem = new Sim.Builder("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").build();
+
+        Assert.assertEquals(
+            Sim.Builder.fromXml("<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

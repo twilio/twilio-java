@@ -158,4 +158,36 @@ public class EnqueueTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Enqueue elem = new Enqueue.Builder("name")
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .waitUrl(URI.create("https://example.com"))
+            .waitUrlMethod(HttpMethod.GET)
+            .workflowSid("workflow_sid")
+            .build();
+
+        Assert.assertEquals(
+            Enqueue.Builder.fromXml("<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Enqueue.Builder builder = new Enqueue.Builder();
+
+        builder.task(new Task.Builder("body").priority(1).timeout(1).build());
+
+        final Enqueue elem = builder.build();
+
+        Assert.assertEquals(
+            Enqueue.Builder.fromXml("<Enqueue>" +
+                "<Task priority=\"1\" timeout=\"1\">body</Task>" +
+            "</Enqueue>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

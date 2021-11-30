@@ -7,8 +7,12 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,6 +22,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Prompt>}
  */
+@JsonDeserialize(builder = Prompt.Builder.class)
 public class Prompt extends TwiML {
     public enum For {
         PAYMENT_CARD_NUMBER("payment-card-number"),
@@ -204,6 +209,20 @@ public class Prompt extends TwiML {
      * Create a new {@code <Prompt>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Prompt.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Prompt.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private Prompt.For for_;
         private List<Prompt.ErrorType> errorType;
         private List<Prompt.CardType> cardType;
@@ -212,6 +231,7 @@ public class Prompt extends TwiML {
         /**
          * Name of the payment source data element
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "for")
         public Builder for_(Prompt.For for_) {
             this.for_ = for_;
             return this;
@@ -220,6 +240,7 @@ public class Prompt extends TwiML {
         /**
          * Type of error
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "errorType")
         public Builder errorTypes(List<Prompt.ErrorType> errorType) {
             this.errorType = errorType;
             return this;
@@ -236,6 +257,7 @@ public class Prompt extends TwiML {
         /**
          * Type of the credit card
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "cardType")
         public Builder cardTypes(List<Prompt.CardType> cardType) {
             this.cardType = cardType;
             return this;
@@ -252,6 +274,7 @@ public class Prompt extends TwiML {
         /**
          * Current attempt count
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "attempt")
         public Builder attempts(List<Integer> attempt) {
             this.attempt = attempt;
             return this;
@@ -268,6 +291,7 @@ public class Prompt extends TwiML {
         /**
          * Add a child {@code <Say>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Say")
         public Builder say(Say say) {
             this.children.add(say);
             return this;
@@ -276,6 +300,7 @@ public class Prompt extends TwiML {
         /**
          * Add a child {@code <Play>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Play")
         public Builder play(Play play) {
             this.children.add(play);
             return this;
@@ -284,6 +309,7 @@ public class Prompt extends TwiML {
         /**
          * Add a child {@code <Pause>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Pause")
         public Builder pause(Pause pause) {
             this.children.add(pause);
             return this;

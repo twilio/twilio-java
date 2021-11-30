@@ -235,4 +235,111 @@ public class DialTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Dial elem = new Dial.Builder("number")
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .timeout(1)
+            .hangupOnStar(true)
+            .timeLimit(1)
+            .callerId("caller_id")
+            .record(Dial.Record.DO_NOT_RECORD)
+            .trim(Dial.Trim.TRIM_SILENCE)
+            .recordingStatusCallback(URI.create("https://example.com"))
+            .recordingStatusCallbackMethod(HttpMethod.GET)
+            .recordingStatusCallbackEvents(Promoter.listOfOne(Dial.RecordingEvent.IN_PROGRESS))
+            .answerOnBridge(true)
+            .ringTone(Dial.RingTone.AT)
+            .recordingTrack(Dial.RecordingTrack.BOTH)
+            .sequential(true)
+            .referUrl(URI.create("https://example.com"))
+            .referMethod(HttpMethod.GET)
+            .build();
+
+        Assert.assertEquals(
+            Dial.Builder.fromXml("<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Dial.Builder builder = new Dial.Builder();
+
+        builder.client(new Client.Builder("identity")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Client.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
+        builder.conference(new Conference.Builder("name")
+                    .muted(true)
+                    .beep(Conference.Beep.TRUE)
+                    .startConferenceOnEnter(true)
+                    .endConferenceOnExit(true)
+                    .waitUrl(URI.create("https://example.com"))
+                    .waitMethod(HttpMethod.GET)
+                    .maxParticipants(1)
+                    .record(Conference.Record.DO_NOT_RECORD)
+                    .region(Conference.Region.US1)
+                    .coach("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    .trim(Conference.Trim.TRIM_SILENCE)
+                    .statusCallbackEvents(Promoter.listOfOne(Conference.Event.START))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingStatusCallbackMethod(HttpMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Conference.RecordingEvent.IN_PROGRESS))
+                    .eventCallbackUrl(URI.create("https://example.com"))
+                    .jitterBufferSize(Conference.JitterBufferSize.LARGE)
+                    .participantLabel("participant_label")
+                    .build());
+
+        builder.number(new Number.Builder(new com.twilio.type.PhoneNumber("+15017122661"))
+                    .sendDigits("send_digits")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Number.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    .build());
+
+        builder.queue(new Queue.Builder("name")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .reservationSid("reservation_sid")
+                    .postWorkActivitySid("post_work_activity_sid")
+                    .build());
+
+        builder.sim(new Sim.Builder("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").build());
+
+        builder.sip(new Sip.Builder(URI.create("https://example.com"))
+                    .username("username")
+                    .password("password")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Sip.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
+        final Dial elem = builder.build();
+
+        Assert.assertEquals(
+            Dial.Builder.fromXml("<Dial>" +
+                "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
+                "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
+                "<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
+                "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
+                "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
+                "<Sip method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
+            "</Dial>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

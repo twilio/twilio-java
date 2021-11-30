@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <VirtualAgent>}
  */
+@JsonDeserialize(builder = VirtualAgent.Builder.class)
 public class VirtualAgent extends TwiML {
     private final String connectorName;
     private final String language;
@@ -104,6 +109,20 @@ public class VirtualAgent extends TwiML {
      * Create a new {@code <VirtualAgent>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <VirtualAgent.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a VirtualAgent.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String connectorName;
         private String language;
         private Boolean sentimentAnalysis;
@@ -112,6 +131,7 @@ public class VirtualAgent extends TwiML {
         /**
          * Defines the conversation profile Dialogflow needs to use
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "connectorName")
         public Builder connectorName(String connectorName) {
             this.connectorName = connectorName;
             return this;
@@ -120,6 +140,7 @@ public class VirtualAgent extends TwiML {
         /**
          * Language to be used by Dialogflow to transcribe speech
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "language")
         public Builder language(String language) {
             this.language = language;
             return this;
@@ -128,6 +149,7 @@ public class VirtualAgent extends TwiML {
         /**
          * Whether sentiment analysis needs to be enabled or not
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "sentimentAnalysis")
         public Builder sentimentAnalysis(Boolean sentimentAnalysis) {
             this.sentimentAnalysis = sentimentAnalysis;
             return this;
@@ -136,6 +158,7 @@ public class VirtualAgent extends TwiML {
         /**
          * URL to post status callbacks from Twilio
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(String statusCallback) {
             this.statusCallback = statusCallback;
             return this;

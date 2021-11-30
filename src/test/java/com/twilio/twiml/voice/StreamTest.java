@@ -156,4 +156,37 @@ public class StreamTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Stream elem = new Stream.Builder()
+            .name("name")
+            .connectorName("connector_name")
+            .url("url")
+            .track(Stream.Track.INBOUND_TRACK)
+            .statusCallback("status_callback")
+            .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+            .build();
+
+        Assert.assertEquals(
+            Stream.Builder.fromXml("<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Stream.Builder builder = new Stream.Builder();
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final Stream elem = builder.build();
+
+        Assert.assertEquals(
+            Stream.Builder.fromXml("<Stream>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Stream>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

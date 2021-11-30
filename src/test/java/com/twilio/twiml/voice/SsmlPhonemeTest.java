@@ -24,4 +24,14 @@ public class SsmlPhonemeTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final SsmlPhoneme elem = new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build();
+
+        Assert.assertEquals(
+            SsmlPhoneme.Builder.fromXml("<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

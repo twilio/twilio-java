@@ -167,4 +167,48 @@ public class SsmlWTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final SsmlW elem = new SsmlW.Builder("words").role("role").build();
+
+        Assert.assertEquals(
+            SsmlW.Builder.fromXml("<w role=\"role\">words</w>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final SsmlW.Builder builder = new SsmlW.Builder();
+
+        builder.break_(new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build());
+
+        builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
+
+        builder.phoneme(new SsmlPhoneme.Builder("words").alphabet(SsmlPhoneme.Alphabet.IPA).ph("ph").build());
+
+        builder.prosody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
+
+        builder.sayAs(new SsmlSayAs.Builder("words")
+                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
+                    .role(SsmlSayAs.Role.MDY)
+                    .build());
+
+        builder.sub(new SsmlSub.Builder("words").alias("alias").build());
+
+        final SsmlW elem = builder.build();
+
+        Assert.assertEquals(
+            SsmlW.Builder.fromXml("<w>" +
+                "<break strength=\"none\" time=\"time\"/>" +
+                "<emphasis level=\"strong\">words</emphasis>" +
+                "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
+                "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
+                "<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>" +
+                "<sub alias=\"alias\">words</sub>" +
+            "</w>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

@@ -7,11 +7,15 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 /**
  * TwiML wrapper for {@code <Sim>}
  */
+@JsonDeserialize(builder = Sim.Builder.class)
 public class Sim extends TwiML {
     private final String simSid;
 
@@ -52,6 +56,20 @@ public class Sim extends TwiML {
      * Create a new {@code <Sim>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Sim.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Sim.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String simSid;
 
         /**
@@ -59,6 +77,12 @@ public class Sim extends TwiML {
          */
         public Builder(String simSid) {
             this.simSid = simSid;
+        }
+
+        /**
+         * Create a {@code <Sim>} (for XML deserialization)
+         */
+        private Builder() {
         }
 
         /**

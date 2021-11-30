@@ -118,4 +118,19 @@ public class VirtualAgentTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final VirtualAgent elem = new VirtualAgent.Builder()
+            .connectorName("connector_name")
+            .language("language")
+            .sentimentAnalysis(true)
+            .statusCallback("status_callback")
+            .build();
+
+        Assert.assertEquals(
+            VirtualAgent.Builder.fromXml("<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

@@ -161,4 +161,39 @@ public class MessageTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Message elem = new Message.Builder("body")
+            .to("to")
+            .from("from")
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .statusCallback(URI.create("https://example.com"))
+            .build();
+
+        Assert.assertEquals(
+            Message.Builder.fromXml("<Message action=\"https://example.com\" from=\"from\" method=\"GET\" statusCallback=\"https://example.com\" to=\"to\">body</Message>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Message.Builder builder = new Message.Builder();
+
+        builder.body(new Body.Builder("message").build());
+
+        builder.media(new Media.Builder(URI.create("https://example.com")).build());
+
+        final Message elem = builder.build();
+
+        Assert.assertEquals(
+            Message.Builder.fromXml("<Message>" +
+                "<Body>message</Body>" +
+                "<Media>https://example.com</Media>" +
+            "</Message>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

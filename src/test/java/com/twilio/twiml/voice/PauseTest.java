@@ -113,4 +113,14 @@ public class PauseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Pause elem = new Pause.Builder().length(1).build();
+
+        Assert.assertEquals(
+            Pause.Builder.fromXml("<Pause length=\"1\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

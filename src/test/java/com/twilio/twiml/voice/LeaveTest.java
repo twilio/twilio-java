@@ -102,4 +102,14 @@ public class LeaveTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Leave elem = new Leave.Builder().build();
+
+        Assert.assertEquals(
+            Leave.Builder.fromXml("<Leave/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

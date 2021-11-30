@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Client>}
  */
+@JsonDeserialize(builder = Client.Builder.class)
 public class Client extends TwiML {
     public enum Event {
         INITIATED("initiated"),
@@ -172,6 +177,20 @@ public class Client extends TwiML {
      * Create a new {@code <Client>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Client.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Client.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI url;
         private HttpMethod method;
         private List<Client.Event> statusCallbackEvent;
@@ -195,6 +214,7 @@ public class Client extends TwiML {
         /**
          * Client URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "url")
         public Builder url(URI url) {
             this.url = url;
             return this;
@@ -211,6 +231,7 @@ public class Client extends TwiML {
         /**
          * Client URL Method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -219,6 +240,7 @@ public class Client extends TwiML {
         /**
          * Events to trigger status callback
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackEvent")
         public Builder statusCallbackEvents(List<Client.Event> statusCallbackEvent) {
             this.statusCallbackEvent = statusCallbackEvent;
             return this;
@@ -235,6 +257,7 @@ public class Client extends TwiML {
         /**
          * Status Callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(URI statusCallback) {
             this.statusCallback = statusCallback;
             return this;
@@ -251,6 +274,7 @@ public class Client extends TwiML {
         /**
          * Status Callback URL Method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
             return this;
@@ -259,6 +283,7 @@ public class Client extends TwiML {
         /**
          * Client identity
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "identity")
         public Builder identity(String identity) {
             this.identity = identity;
             return this;
@@ -267,6 +292,7 @@ public class Client extends TwiML {
         /**
          * Add a child {@code <Identity>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Identity")
         public Builder identity(Identity identity) {
             this.children.add(identity);
             return this;
@@ -275,6 +301,7 @@ public class Client extends TwiML {
         /**
          * Add a child {@code <Parameter>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
         public Builder parameter(Parameter parameter) {
             this.children.add(parameter);
             return this;

@@ -113,4 +113,14 @@ public class SsmlBreakTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final SsmlBreak elem = new SsmlBreak.Builder().strength(SsmlBreak.Strength.NONE).time("time").build();
+
+        Assert.assertEquals(
+            SsmlBreak.Builder.fromXml("<break strength=\"none\" time=\"time\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

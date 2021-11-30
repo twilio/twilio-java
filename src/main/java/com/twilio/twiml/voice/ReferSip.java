@@ -7,14 +7,18 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.converter.Promoter;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 
 /**
  * TwiML wrapper for {@code <Sip>}
  */
+@JsonDeserialize(builder = ReferSip.Builder.class)
 public class ReferSip extends TwiML {
     private final URI sipUrl;
 
@@ -55,6 +59,20 @@ public class ReferSip extends TwiML {
      * Create a new {@code <Sip>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <ReferSip.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a ReferSip.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI sipUrl;
 
         /**
@@ -69,6 +87,12 @@ public class ReferSip extends TwiML {
          */
         public Builder(String sipUrl) {
             this.sipUrl = Promoter.uriFromString(sipUrl);
+        }
+
+        /**
+         * Create a {@code <Sip>} (for XML deserialization)
+         */
+        private Builder() {
         }
 
         /**

@@ -173,4 +173,51 @@ public class ConnectTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Connect elem = new Connect.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
+
+        Assert.assertEquals(
+            Connect.Builder.fromXml("<Connect action=\"https://example.com\" method=\"GET\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Connect.Builder builder = new Connect.Builder();
+
+        builder.room(new Room.Builder("name").participantIdentity("participant_identity").build());
+
+        builder.autopilot(new Autopilot.Builder("name").build());
+
+        builder.stream(new Stream.Builder()
+                    .name("name")
+                    .connectorName("connector_name")
+                    .url("url")
+                    .track(Stream.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+                    .build());
+
+        builder.virtualAgent(new VirtualAgent.Builder()
+                    .connectorName("connector_name")
+                    .language("language")
+                    .sentimentAnalysis(true)
+                    .statusCallback("status_callback")
+                    .build());
+
+        final Connect elem = builder.build();
+
+        Assert.assertEquals(
+            Connect.Builder.fromXml("<Connect>" +
+                "<Room participantIdentity=\"participant_identity\">name</Room>" +
+                "<Autopilot>name</Autopilot>" +
+                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
+                "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>" +
+            "</Connect>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

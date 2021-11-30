@@ -37,4 +37,22 @@ public class SipTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Sip elem = new Sip.Builder(URI.create("https://example.com"))
+            .username("username")
+            .password("password")
+            .url(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .statusCallbackEvents(Promoter.listOfOne(Sip.Event.INITIATED))
+            .statusCallback(URI.create("https://example.com"))
+            .statusCallbackMethod(HttpMethod.GET)
+            .build();
+
+        Assert.assertEquals(
+            Sip.Builder.fromXml("<Sip method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

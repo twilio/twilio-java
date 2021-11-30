@@ -122,4 +122,20 @@ public class ReceiveTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Receive elem = new Receive.Builder()
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .mediaType(Receive.MediaType.APPLICATION_PDF)
+            .pageSize(Receive.PageSize.LETTER)
+            .storeMedia(true)
+            .build();
+
+        Assert.assertEquals(
+            Receive.Builder.fromXml("<Receive action=\"https://example.com\" mediaType=\"application/pdf\" method=\"GET\" pageSize=\"letter\" storeMedia=\"true\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

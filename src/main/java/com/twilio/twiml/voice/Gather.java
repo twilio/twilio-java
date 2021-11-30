@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Gather>}
  */
+@JsonDeserialize(builder = Gather.Builder.class)
 public class Gather extends TwiML {
     public enum Input {
         DTMF("dtmf"),
@@ -493,6 +498,20 @@ public class Gather extends TwiML {
      * Create a new {@code <Gather>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Gather.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Gather.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private List<Gather.Input> input;
         private URI action;
         private HttpMethod method;
@@ -515,6 +534,7 @@ public class Gather extends TwiML {
         /**
          * Input type Twilio should accept
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "input")
         public Builder inputs(List<Gather.Input> input) {
             this.input = input;
             return this;
@@ -531,6 +551,7 @@ public class Gather extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -547,6 +568,7 @@ public class Gather extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -555,6 +577,7 @@ public class Gather extends TwiML {
         /**
          * Time to wait to gather input
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "timeout")
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
             return this;
@@ -564,6 +587,7 @@ public class Gather extends TwiML {
          * Time to wait to gather speech input and it should be either auto or a
          * positive integer.
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "speechTimeout")
         public Builder speechTimeout(String speechTimeout) {
             this.speechTimeout = speechTimeout;
             return this;
@@ -572,6 +596,7 @@ public class Gather extends TwiML {
         /**
          * Max allowed time for speech input
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "maxSpeechTime")
         public Builder maxSpeechTime(Integer maxSpeechTime) {
             this.maxSpeechTime = maxSpeechTime;
             return this;
@@ -580,6 +605,7 @@ public class Gather extends TwiML {
         /**
          * Profanity Filter on speech
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "profanityFilter")
         public Builder profanityFilter(Boolean profanityFilter) {
             this.profanityFilter = profanityFilter;
             return this;
@@ -588,6 +614,7 @@ public class Gather extends TwiML {
         /**
          * Finish gather on key
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "finishOnKey")
         public Builder finishOnKey(String finishOnKey) {
             this.finishOnKey = finishOnKey;
             return this;
@@ -596,6 +623,7 @@ public class Gather extends TwiML {
         /**
          * Number of digits to collect
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "numDigits")
         public Builder numDigits(Integer numDigits) {
             this.numDigits = numDigits;
             return this;
@@ -604,6 +632,7 @@ public class Gather extends TwiML {
         /**
          * Partial result callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "partialResultCallback")
         public Builder partialResultCallback(URI partialResultCallback) {
             this.partialResultCallback = partialResultCallback;
             return this;
@@ -620,6 +649,7 @@ public class Gather extends TwiML {
         /**
          * Partial result callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "partialResultCallbackMethod")
         public Builder partialResultCallbackMethod(HttpMethod partialResultCallbackMethod) {
             this.partialResultCallbackMethod = partialResultCallbackMethod;
             return this;
@@ -628,6 +658,7 @@ public class Gather extends TwiML {
         /**
          * Language to use
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "language")
         public Builder language(Gather.Language language) {
             this.language = language;
             return this;
@@ -636,6 +667,7 @@ public class Gather extends TwiML {
         /**
          * Speech recognition hints
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "hints")
         public Builder hints(String hints) {
             this.hints = hints;
             return this;
@@ -644,6 +676,7 @@ public class Gather extends TwiML {
         /**
          * Stop playing media upon speech
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "bargeIn")
         public Builder bargeIn(Boolean bargeIn) {
             this.bargeIn = bargeIn;
             return this;
@@ -652,6 +685,7 @@ public class Gather extends TwiML {
         /**
          * Allow debug for gather
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "debug")
         public Builder debug(Boolean debug) {
             this.debug = debug;
             return this;
@@ -660,6 +694,7 @@ public class Gather extends TwiML {
         /**
          * Force webhook to the action URL event if there is no input
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "actionOnEmptyResult")
         public Builder actionOnEmptyResult(Boolean actionOnEmptyResult) {
             this.actionOnEmptyResult = actionOnEmptyResult;
             return this;
@@ -668,6 +703,7 @@ public class Gather extends TwiML {
         /**
          * Specify the model that is best suited for your use case
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "speechModel")
         public Builder speechModel(Gather.SpeechModel speechModel) {
             this.speechModel = speechModel;
             return this;
@@ -676,6 +712,7 @@ public class Gather extends TwiML {
         /**
          * Use enhanced speech model
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "enhanced")
         public Builder enhanced(Boolean enhanced) {
             this.enhanced = enhanced;
             return this;
@@ -684,6 +721,7 @@ public class Gather extends TwiML {
         /**
          * Add a child {@code <Say>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Say")
         public Builder say(Say say) {
             this.children.add(say);
             return this;
@@ -692,6 +730,7 @@ public class Gather extends TwiML {
         /**
          * Add a child {@code <Pause>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Pause")
         public Builder pause(Pause pause) {
             this.children.add(pause);
             return this;
@@ -700,6 +739,7 @@ public class Gather extends TwiML {
         /**
          * Add a child {@code <Play>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Play")
         public Builder play(Play play) {
             this.children.add(play);
             return this;

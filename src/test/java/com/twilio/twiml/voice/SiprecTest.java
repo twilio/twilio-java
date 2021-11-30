@@ -153,4 +153,34 @@ public class SiprecTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Siprec elem = new Siprec.Builder()
+            .name("name")
+            .connectorName("connector_name")
+            .track(Siprec.Track.INBOUND_TRACK)
+            .build();
+
+        Assert.assertEquals(
+            Siprec.Builder.fromXml("<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Siprec.Builder builder = new Siprec.Builder();
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final Siprec elem = builder.build();
+
+        Assert.assertEquals(
+            Siprec.Builder.fromXml("<Siprec>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Siprec>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

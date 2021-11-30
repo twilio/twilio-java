@@ -24,4 +24,14 @@ public class SsmlSubTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final SsmlSub elem = new SsmlSub.Builder("words").alias("alias").build();
+
+        Assert.assertEquals(
+            SsmlSub.Builder.fromXml("<sub alias=\"alias\">words</sub>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

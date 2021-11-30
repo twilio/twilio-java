@@ -147,4 +147,36 @@ public class FaxResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final FaxResponse elem = new FaxResponse.Builder().build();
+
+        Assert.assertEquals(
+            FaxResponse.Builder.fromXml("<Response/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final FaxResponse.Builder builder = new FaxResponse.Builder();
+
+        builder.receive(new Receive.Builder()
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .mediaType(Receive.MediaType.APPLICATION_PDF)
+                    .pageSize(Receive.PageSize.LETTER)
+                    .storeMedia(true)
+                    .build());
+
+        final FaxResponse elem = builder.build();
+
+        Assert.assertEquals(
+            FaxResponse.Builder.fromXml("<Response>" +
+                "<Receive action=\"https://example.com\" mediaType=\"application/pdf\" method=\"GET\" pageSize=\"letter\" storeMedia=\"true\"/>" +
+            "</Response>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

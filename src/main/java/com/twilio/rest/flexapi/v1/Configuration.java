@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 226995929189872L;
+    private static final long serialVersionUID = 260670157592273L;
 
     public enum Status {
         OK("ok"),
@@ -171,6 +171,8 @@ public class Configuration extends Resource {
     private final Map<String, Object> markdown;
     private final URI url;
     private final Map<String, Object> flexInsightsHr;
+    private final Boolean flexInsightsDrilldown;
+    private final URI flexUrl;
 
     @JsonCreator
     private Configuration(@JsonProperty("account_sid")
@@ -252,7 +254,11 @@ public class Configuration extends Resource {
                           @JsonProperty("url")
                           final URI url,
                           @JsonProperty("flex_insights_hr")
-                          final Map<String, Object> flexInsightsHr) {
+                          final Map<String, Object> flexInsightsHr,
+                          @JsonProperty("flex_insights_drilldown")
+                          final Boolean flexInsightsDrilldown,
+                          @JsonProperty("flex_url")
+                          final URI flexUrl) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -293,6 +299,8 @@ public class Configuration extends Resource {
         this.markdown = markdown;
         this.url = url;
         this.flexInsightsHr = flexInsightsHr;
+        this.flexInsightsDrilldown = flexInsightsDrilldown;
+        this.flexUrl = flexUrl;
     }
 
     /**
@@ -665,6 +673,24 @@ public class Configuration extends Resource {
         return this.flexInsightsHr;
     }
 
+    /**
+     * Returns Setting to enable Flex UI redirection.
+     *
+     * @return Setting to enable Flex UI redirection
+     */
+    public final Boolean getFlexInsightsDrilldown() {
+        return this.flexInsightsDrilldown;
+    }
+
+    /**
+     * Returns URL to redirect to in case drilldown is enabled..
+     *
+     * @return URL to redirect to in case drilldown is enabled.
+     */
+    public final URI getFlexUrl() {
+        return this.flexUrl;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -716,7 +742,9 @@ public class Configuration extends Resource {
                Objects.equals(notifications, other.notifications) &&
                Objects.equals(markdown, other.markdown) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(flexInsightsHr, other.flexInsightsHr);
+               Objects.equals(flexInsightsHr, other.flexInsightsHr) &&
+               Objects.equals(flexInsightsDrilldown, other.flexInsightsDrilldown) &&
+               Objects.equals(flexUrl, other.flexUrl);
     }
 
     @Override
@@ -760,6 +788,8 @@ public class Configuration extends Resource {
                             notifications,
                             markdown,
                             url,
-                            flexInsightsHr);
+                            flexInsightsHr,
+                            flexInsightsDrilldown,
+                            flexUrl);
     }
 }

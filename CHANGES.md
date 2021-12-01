@@ -1,6 +1,37 @@
 twilio-java changelog
 =====================
 
+[2021-12-01] Version 8.23.0
+---------------------------
+**Library - Feature**
+- [PR #661](https://github.com/twilio/twilio-java/pull/661): add fromXml method on builders (twiml). Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Library - Chore**
+- [PR #660](https://github.com/twilio/twilio-java/pull/660): setup for XML deserialization. Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Conversations**
+- Add `Service Webhook Configuration` resource
+
+**Flex**
+- Adding `flex_insights_drilldown` and `flex_url` objects to Flex Configuration
+
+**Messaging**
+- Update us_app_to_person endpoints to remove beta feature flag based access
+
+**Supersim**
+- Add IP Commands resource
+
+**Verify**
+- Add optional `factor_friendly_name` parameter to the create access token endpoint.
+
+**Video**
+- Add maxParticipantDuration param to Rooms
+
+**Twiml**
+- Unrevert Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+- Revert Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+
+
 [2021-11-17] Version 8.22.1
 ---------------------------
 **Library - Chore**

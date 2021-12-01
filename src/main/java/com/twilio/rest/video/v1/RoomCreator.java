@@ -35,6 +35,7 @@ public class RoomCreator extends Creator<Room> {
     private String mediaRegion;
     private Map<String, Object> recordingRules;
     private Boolean audioOnly;
+    private Integer maxParticipantDuration;
 
     /**
      * Deprecated, now always considered to be true..
@@ -210,6 +211,20 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * The maximum number of seconds a Participant can be connected to the room. The
+     * maximum possible value is 86400 seconds (24 hours). The default is 14400
+     * seconds (4 hours)..
+     *
+     * @param maxParticipantDuration The maximum number of seconds a Participant
+     *                               can be connected to the room
+     * @return this
+     */
+    public RoomCreator setMaxParticipantDuration(final Integer maxParticipantDuration) {
+        this.maxParticipantDuration = maxParticipantDuration;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -290,6 +305,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (audioOnly != null) {
             request.addPostParam("AudioOnly", audioOnly.toString());
+        }
+
+        if (maxParticipantDuration != null) {
+            request.addPostParam("MaxParticipantDuration", maxParticipantDuration.toString());
         }
     }
 }

@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-    private static final long serialVersionUID = 36711913134535L;
+    private static final long serialVersionUID = 265630819625967L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -207,6 +207,7 @@ public class Room extends Resource {
     private final Integer duration;
     private final Room.RoomType type;
     private final Integer maxParticipants;
+    private final Integer maxParticipantDuration;
     private final Integer maxConcurrentPublishedTracks;
     private final Boolean recordParticipantsOnConnect;
     private final List<Room.VideoCodec> videoCodecs;
@@ -242,6 +243,8 @@ public class Room extends Resource {
                  final Room.RoomType type,
                  @JsonProperty("max_participants")
                  final Integer maxParticipants,
+                 @JsonProperty("max_participant_duration")
+                 final Integer maxParticipantDuration,
                  @JsonProperty("max_concurrent_published_tracks")
                  final Integer maxConcurrentPublishedTracks,
                  @JsonProperty("record_participants_on_connect")
@@ -269,6 +272,7 @@ public class Room extends Resource {
         this.duration = duration;
         this.type = type;
         this.maxParticipants = maxParticipants;
+        this.maxParticipantDuration = maxParticipantDuration;
         this.maxConcurrentPublishedTracks = maxConcurrentPublishedTracks;
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
         this.videoCodecs = videoCodecs;
@@ -396,6 +400,17 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns The maximum number of seconds a Participant can be connected to the
+     * room.
+     *
+     * @return The maximum number of seconds a Participant can be connected to the
+     *         room
+     */
+    public final Integer getMaxParticipantDuration() {
+        return this.maxParticipantDuration;
+    }
+
+    /**
      * Returns The maximum number of published tracks allowed in the room at the
      * same time.
      *
@@ -489,6 +504,7 @@ public class Room extends Resource {
                Objects.equals(duration, other.duration) &&
                Objects.equals(type, other.type) &&
                Objects.equals(maxParticipants, other.maxParticipants) &&
+               Objects.equals(maxParticipantDuration, other.maxParticipantDuration) &&
                Objects.equals(maxConcurrentPublishedTracks, other.maxConcurrentPublishedTracks) &&
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&
                Objects.equals(videoCodecs, other.videoCodecs) &&
@@ -513,6 +529,7 @@ public class Room extends Resource {
                             duration,
                             type,
                             maxParticipants,
+                            maxParticipantDuration,
                             maxConcurrentPublishedTracks,
                             recordParticipantsOnConnect,
                             videoCodecs,

@@ -25,6 +25,7 @@ public class AccessTokenCreator extends Creator<AccessToken> {
     private final String pathServiceSid;
     private final String identity;
     private final AccessToken.FactorTypes factorType;
+    private String factorFriendlyName;
 
     /**
      * Construct a new AccessTokenCreator.
@@ -39,6 +40,18 @@ public class AccessTokenCreator extends Creator<AccessToken> {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.factorType = factorType;
+    }
+
+    /**
+     * The friendly name of the factor that is going to be created with this access
+     * token.
+     *
+     * @param factorFriendlyName The factor friendly name
+     * @return this
+     */
+    public AccessTokenCreator setFactorFriendlyName(final String factorFriendlyName) {
+        this.factorFriendlyName = factorFriendlyName;
+        return this;
     }
 
     /**
@@ -84,6 +97,10 @@ public class AccessTokenCreator extends Creator<AccessToken> {
 
         if (factorType != null) {
             request.addPostParam("FactorType", factorType.toString());
+        }
+
+        if (factorFriendlyName != null) {
+            request.addPostParam("FactorFriendlyName", factorFriendlyName);
         }
     }
 }

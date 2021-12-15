@@ -65,8 +65,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookUpdater to execute update.
      *
-     * @param pathChatServiceSid The unique ID of the Conversation Service this
-     *                           conversation belongs to.
+     * @param pathChatServiceSid The unique ID of the [Conversation
+     *                           Service](https://www.twilio.com/docs/conversations/api/service-resource)
+     *                           this conversation belongs to.
      * @return WebhookUpdater capable of executing the update
      */
     public static WebhookUpdater updater(final String pathChatServiceSid) {
@@ -76,8 +77,9 @@ public class Webhook extends Resource {
     /**
      * Create a WebhookFetcher to execute fetch.
      *
-     * @param pathChatServiceSid The unique ID of the Conversation Service this
-     *                           conversation belongs to.
+     * @param pathChatServiceSid The unique ID of the [Conversation
+     *                           Service](https://www.twilio.com/docs/conversations/api/service-resource)
+     *                           this conversation belongs to.
      * @return WebhookFetcher capable of executing the fetch
      */
     public static WebhookFetcher fetcher(final String pathChatServiceSid) {
@@ -163,9 +165,13 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The chat_service_sid.
+     * Returns The unique ID of the <a
+     * href="https://www.twilio.com/docs/conversations/api/service-resource">Conversation
+     * Service</a> this conversation belongs to..
      *
-     * @return The chat_service_sid
+     * @return The unique ID of the <a
+     *         href="https://www.twilio.com/docs/conversations/api/service-resource">Conversation
+     *         Service</a> this conversation belongs to.
      */
     public final String getChatServiceSid() {
         return this.chatServiceSid;
@@ -190,10 +196,11 @@ public class Webhook extends Resource {
     }
 
     /**
-     * Returns The list of webhook event triggers that are enabled for this
-     * Service..
+     * Returns The list of events that your configured webhook targets will receive.
+     * Events not configured here will not fire..
      *
-     * @return The list of webhook event triggers that are enabled for this Service.
+     * @return The list of events that your configured webhook targets will
+     *         receive. Events not configured here will not fire.
      */
     public final List<String> getFilters() {
         return this.filters;

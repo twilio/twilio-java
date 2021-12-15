@@ -28,6 +28,7 @@ public class MediaProcessorCreator extends Creator<MediaProcessor> {
     private Map<String, Object> extensionEnvironment;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+    private Integer maxDuration;
 
     /**
      * Construct a new MediaProcessorCreator.
@@ -96,6 +97,20 @@ public class MediaProcessorCreator extends Creator<MediaProcessor> {
     }
 
     /**
+     * The maximum time, in seconds, that the MediaProcessor can run before
+     * automatically ends. The default value is 300 seconds, and the maximum value
+     * is 90000 seconds. Once this maximum duration is reached, Twilio will end the
+     * MediaProcessor, regardless of whether media is still streaming..
+     *
+     * @param maxDuration Maximum MediaProcessor duration in minutes
+     * @return this
+     */
+    public MediaProcessorCreator setMaxDuration(final Integer maxDuration) {
+        this.maxDuration = maxDuration;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -150,6 +165,10 @@ public class MediaProcessorCreator extends Creator<MediaProcessor> {
 
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+
+        if (maxDuration != null) {
+            request.addPostParam("MaxDuration", maxDuration.toString());
         }
     }
 }

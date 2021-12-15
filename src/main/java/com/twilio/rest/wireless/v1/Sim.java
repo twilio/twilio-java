@@ -371,40 +371,36 @@ public class Sim extends Resource {
     }
 
     /**
-     * Returns Deprecated. The HTTP method we use to call sms_fallback_url.
+     * Returns Deprecated.
      *
-     * @return Deprecated. The HTTP method we use to call sms_fallback_url
+     * @return Deprecated
      */
     public final HttpMethod getSmsFallbackMethod() {
         return this.smsFallbackMethod;
     }
 
     /**
-     * Returns Deprecated. The URL we call when an error occurs while retrieving or
-     * executing the TwiML requested from the sms_url.
+     * Returns Deprecated.
      *
-     * @return Deprecated. The URL we call when an error occurs while retrieving or
-     *         executing the TwiML requested from the sms_url
+     * @return Deprecated
      */
     public final URI getSmsFallbackUrl() {
         return this.smsFallbackUrl;
     }
 
     /**
-     * Returns Deprecated. The HTTP method we use to call sms_url.
+     * Returns Deprecated.
      *
-     * @return Deprecated. The HTTP method we use to call sms_url
+     * @return Deprecated
      */
     public final HttpMethod getSmsMethod() {
         return this.smsMethod;
     }
 
     /**
-     * Returns Deprecated. The URL we call when the SIM-connected device sends an
-     * SMS message that is not a Command.
+     * Returns Deprecated.
      *
-     * @return Deprecated. The URL we call when the SIM-connected device sends an
-     *         SMS message that is not a Command
+     * @return Deprecated
      */
     public final URI getSmsUrl() {
         return this.smsUrl;

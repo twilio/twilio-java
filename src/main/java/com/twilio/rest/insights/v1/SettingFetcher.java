@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.conversations.v1.service.configuration;
+package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,39 +17,40 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WebhookFetcher extends Fetcher<Webhook> {
-    private final String pathChatServiceSid;
+public class SettingFetcher extends Fetcher<Setting> {
+    private String subaccountSid;
 
     /**
-     * Construct a new WebhookFetcher.
+     * The subaccount_sid.
      *
-     * @param pathChatServiceSid The unique ID of the [Conversation
-     *                           Service](https://www.twilio.com/docs/conversations/api/service-resource)
-     *                           this conversation belongs to.
+     * @param subaccountSid The subaccount_sid
+     * @return this
      */
-    public WebhookFetcher(final String pathChatServiceSid) {
-        this.pathChatServiceSid = pathChatServiceSid;
+    public SettingFetcher setSubaccountSid(final String subaccountSid) {
+        this.subaccountSid = subaccountSid;
+        return this;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Webhook
+     * @return Fetched Setting
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Webhook fetch(final TwilioRestClient client) {
+    public Setting fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.CONVERSATIONS.toString(),
-            "/v1/Services/" + this.pathChatServiceSid + "/Configuration/Webhooks"
+            Domains.INSIGHTS.toString(),
+            "/v1/Voice/Settings"
         );
 
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Setting fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -58,6 +59,17 @@ public class WebhookFetcher extends Fetcher<Webhook> {
             throw new ApiException(restException);
         }
 
-        return Webhook.fromJson(response.getStream(), client.getObjectMapper());
+        return Setting.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     *
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (subaccountSid != null) {
+            request.addQueryParam("SubaccountSid", subaccountSid);
+        }
     }
 }

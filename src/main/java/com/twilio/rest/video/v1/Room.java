@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-    private static final long serialVersionUID = 265630819625967L;
+    private static final long serialVersionUID = 203267334774517L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -213,6 +213,8 @@ public class Room extends Resource {
     private final List<Room.VideoCodec> videoCodecs;
     private final String mediaRegion;
     private final Boolean audioOnly;
+    private final Integer emptyRoomTimeout;
+    private final Integer unusedRoomTimeout;
     private final URI url;
     private final Map<String, String> links;
 
@@ -255,6 +257,10 @@ public class Room extends Resource {
                  final String mediaRegion,
                  @JsonProperty("audio_only")
                  final Boolean audioOnly,
+                 @JsonProperty("empty_room_timeout")
+                 final Integer emptyRoomTimeout,
+                 @JsonProperty("unused_room_timeout")
+                 final Integer unusedRoomTimeout,
                  @JsonProperty("url")
                  final URI url,
                  @JsonProperty("links")
@@ -278,6 +284,8 @@ public class Room extends Resource {
         this.videoCodecs = videoCodecs;
         this.mediaRegion = mediaRegion;
         this.audioOnly = audioOnly;
+        this.emptyRoomTimeout = emptyRoomTimeout;
+        this.unusedRoomTimeout = unusedRoomTimeout;
         this.url = url;
         this.links = links;
     }
@@ -462,6 +470,24 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns The time a room will remain active after last participant leaves..
+     *
+     * @return The time a room will remain active after last participant leaves.
+     */
+    public final Integer getEmptyRoomTimeout() {
+        return this.emptyRoomTimeout;
+    }
+
+    /**
+     * Returns The time a room will remain active when no one joins..
+     *
+     * @return The time a room will remain active when no one joins.
+     */
+    public final Integer getUnusedRoomTimeout() {
+        return this.unusedRoomTimeout;
+    }
+
+    /**
      * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
@@ -510,6 +536,8 @@ public class Room extends Resource {
                Objects.equals(videoCodecs, other.videoCodecs) &&
                Objects.equals(mediaRegion, other.mediaRegion) &&
                Objects.equals(audioOnly, other.audioOnly) &&
+               Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&
+               Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -535,6 +563,8 @@ public class Room extends Resource {
                             videoCodecs,
                             mediaRegion,
                             audioOnly,
+                            emptyRoomTimeout,
+                            unusedRoomTimeout,
                             url,
                             links);
     }

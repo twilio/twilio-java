@@ -31,8 +31,9 @@ public class WebhookUpdater extends Updater<Webhook> {
     /**
      * Construct a new WebhookUpdater.
      *
-     * @param pathChatServiceSid The unique ID of the Conversation Service this
-     *                           conversation belongs to.
+     * @param pathChatServiceSid The unique ID of the [Conversation
+     *                           Service](https://www.twilio.com/docs/conversations/api/service-resource)
+     *                           this conversation belongs to.
      */
     public WebhookUpdater(final String pathChatServiceSid) {
         this.pathChatServiceSid = pathChatServiceSid;
@@ -85,17 +86,18 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of webhook event triggers that are enabled for this Service.
-     * Possible values are `onParticipantAdd`, `onParticipantAdded`,
-     * `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`,
-     * `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`,
-     * `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`,
-     * `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`,
-     * `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`,
-     * `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`..
+     * The list of events that your configured webhook targets will receive. Events
+     * not configured here will not fire. Possible values are `onParticipantAdd`,
+     * `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`,
+     * `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`,
+     * `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`,
+     * `onConversationAdded`, `onMessageAdded`, `onConversationAdd`,
+     * `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`,
+     * `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or
+     * `onConversationStateUpdated`..
      *
-     * @param filters The list of webhook event triggers that are enabled for this
-     *                Service.
+     * @param filters The list of events that your configured webhook targets will
+     *                receive. Events not configured here will not fire.
      * @return this
      */
     public WebhookUpdater setFilters(final List<String> filters) {
@@ -104,17 +106,18 @@ public class WebhookUpdater extends Updater<Webhook> {
     }
 
     /**
-     * The list of webhook event triggers that are enabled for this Service.
-     * Possible values are `onParticipantAdd`, `onParticipantAdded`,
-     * `onDeliveryUpdated`, `onConversationUpdated`, `onConversationRemove`,
-     * `onParticipantRemove`, `onConversationUpdate`, `onMessageAdd`,
-     * `onMessageRemoved`, `onParticipantUpdated`, `onConversationAdded`,
-     * `onMessageAdded`, `onConversationAdd`, `onConversationRemoved`,
-     * `onParticipantUpdate`, `onMessageRemove`, `onMessageUpdated`,
-     * `onParticipantRemoved`, `onMessageUpdate` or `onConversationStateUpdated`..
+     * The list of events that your configured webhook targets will receive. Events
+     * not configured here will not fire. Possible values are `onParticipantAdd`,
+     * `onParticipantAdded`, `onDeliveryUpdated`, `onConversationUpdated`,
+     * `onConversationRemove`, `onParticipantRemove`, `onConversationUpdate`,
+     * `onMessageAdd`, `onMessageRemoved`, `onParticipantUpdated`,
+     * `onConversationAdded`, `onMessageAdded`, `onConversationAdd`,
+     * `onConversationRemoved`, `onParticipantUpdate`, `onMessageRemove`,
+     * `onMessageUpdated`, `onParticipantRemoved`, `onMessageUpdate` or
+     * `onConversationStateUpdated`..
      *
-     * @param filters The list of webhook event triggers that are enabled for this
-     *                Service.
+     * @param filters The list of events that your configured webhook targets will
+     *                receive. Events not configured here will not fire.
      * @return this
      */
     public WebhookUpdater setFilters(final String filters) {

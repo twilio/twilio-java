@@ -40,6 +40,7 @@ public class MessageCreator extends Creator<Message> {
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
+    private Boolean sendAsMms;
 
     /**
      * Construct a new MessageCreator.
@@ -375,6 +376,19 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * If set to True, Twilio will deliver the message as a single MMS message,
+     * regardless of the presence of media. This is a Beta Feature..
+     *
+     * @param sendAsMms If set to True, Twilio will deliver the message as a single
+     *                  MMS message, regardless of the presence of media
+     * @return this
+     */
+    public MessageCreator setSendAsMms(final Boolean sendAsMms) {
+        this.sendAsMms = sendAsMms;
+        return this;
+    }
+
+    /**
      * A Twilio phone number in <a
      * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
      * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
@@ -605,6 +619,10 @@ public class MessageCreator extends Creator<Message> {
             for (String prop : persistentAction) {
                 request.addPostParam("PersistentAction", prop);
             }
+        }
+
+        if (sendAsMms != null) {
+            request.addPostParam("SendAsMms", sendAsMms.toString());
         }
     }
 }

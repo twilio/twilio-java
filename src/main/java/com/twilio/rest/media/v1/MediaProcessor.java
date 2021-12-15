@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MediaProcessor extends Resource {
-    private static final long serialVersionUID = 126451664979454L;
+    private static final long serialVersionUID = 234389235546554L;
 
     public enum Status {
         FAILED("failed"),
@@ -205,6 +205,7 @@ public class MediaProcessor extends Resource {
     private final String endedReason;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
+    private final Integer maxDuration;
 
     @JsonCreator
     private MediaProcessor(@JsonProperty("account_sid")
@@ -228,7 +229,9 @@ public class MediaProcessor extends Resource {
                            @JsonProperty("status_callback")
                            final URI statusCallback,
                            @JsonProperty("status_callback_method")
-                           final HttpMethod statusCallbackMethod) {
+                           final HttpMethod statusCallbackMethod,
+                           @JsonProperty("max_duration")
+                           final Integer maxDuration) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -240,6 +243,7 @@ public class MediaProcessor extends Resource {
         this.endedReason = endedReason;
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
+        this.maxDuration = maxDuration;
     }
 
     /**
@@ -341,6 +345,15 @@ public class MediaProcessor extends Resource {
         return this.statusCallbackMethod;
     }
 
+    /**
+     * Returns Maximum MediaProcessor duration in minutes.
+     *
+     * @return Maximum MediaProcessor duration in minutes
+     */
+    public final Integer getMaxDuration() {
+        return this.maxDuration;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -363,7 +376,8 @@ public class MediaProcessor extends Resource {
                Objects.equals(url, other.url) &&
                Objects.equals(endedReason, other.endedReason) &&
                Objects.equals(statusCallback, other.statusCallback) &&
-               Objects.equals(statusCallbackMethod, other.statusCallbackMethod);
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+               Objects.equals(maxDuration, other.maxDuration);
     }
 
     @Override
@@ -378,6 +392,7 @@ public class MediaProcessor extends Resource {
                             url,
                             endedReason,
                             statusCallback,
-                            statusCallbackMethod);
+                            statusCallbackMethod,
+                            maxDuration);
     }
 }

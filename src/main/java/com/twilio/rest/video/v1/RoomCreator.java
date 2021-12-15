@@ -36,6 +36,8 @@ public class RoomCreator extends Creator<Room> {
     private Map<String, Object> recordingRules;
     private Boolean audioOnly;
     private Integer maxParticipantDuration;
+    private Integer emptyRoomTimeout;
+    private Integer unusedRoomTimeout;
 
     /**
      * Deprecated, now always considered to be true..
@@ -225,6 +227,32 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * Configures how long (in minutes) a room will remain active after last
+     * participant leaves. Valid values range from 1 to 60 minutes (no fractions)..
+     *
+     * @param emptyRoomTimeout Configures the time a room will remain active after
+     *                         last participant leaves.
+     * @return this
+     */
+    public RoomCreator setEmptyRoomTimeout(final Integer emptyRoomTimeout) {
+        this.emptyRoomTimeout = emptyRoomTimeout;
+        return this;
+    }
+
+    /**
+     * Configures how long (in minutes) a room will remain active if no one joins.
+     * Valid values range from 1 to 60 minutes (no fractions)..
+     *
+     * @param unusedRoomTimeout Configures the time a room will remain active when
+     *                          no one joins.
+     * @return this
+     */
+    public RoomCreator setUnusedRoomTimeout(final Integer unusedRoomTimeout) {
+        this.unusedRoomTimeout = unusedRoomTimeout;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -309,6 +337,14 @@ public class RoomCreator extends Creator<Room> {
 
         if (maxParticipantDuration != null) {
             request.addPostParam("MaxParticipantDuration", maxParticipantDuration.toString());
+        }
+
+        if (emptyRoomTimeout != null) {
+            request.addPostParam("EmptyRoomTimeout", emptyRoomTimeout.toString());
+        }
+
+        if (unusedRoomTimeout != null) {
+            request.addPostParam("UnusedRoomTimeout", unusedRoomTimeout.toString());
         }
     }
 }

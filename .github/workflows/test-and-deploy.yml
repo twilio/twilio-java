@@ -54,6 +54,13 @@ jobs:
       - name: Get tagged version
         run: echo "GITHUB_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
 
+      - name: Create GitHub Release
+        uses: sendgrid/dx-automator/actions/release@main
+        with:
+          footer: '**[Maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio/${version})**'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build and Push image
         run: make docker-build && make docker-push
 

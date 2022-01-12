@@ -187,6 +187,7 @@ public class Composition extends Resource {
     private final Integer bitrate;
     private final Long size;
     private final Integer duration;
+    private final URI mediaExternalLocation;
     private final URI url;
     private final Map<String, String> links;
 
@@ -223,6 +224,8 @@ public class Composition extends Resource {
                         final Long size,
                         @JsonProperty("duration")
                         final Integer duration,
+                        @JsonProperty("media_external_location")
+                        final URI mediaExternalLocation,
                         @JsonProperty("url")
                         final URI url,
                         @JsonProperty("links")
@@ -243,6 +246,7 @@ public class Composition extends Resource {
         this.bitrate = bitrate;
         this.size = size;
         this.duration = duration;
+        this.mediaExternalLocation = mediaExternalLocation;
         this.url = url;
         this.links = links;
     }
@@ -400,6 +404,17 @@ public class Composition extends Resource {
     }
 
     /**
+     * Returns The URL of the media file associated with the composition when stored
+     * externally.
+     *
+     * @return The URL of the media file associated with the composition when
+     *         stored externally
+     */
+    public final URI getMediaExternalLocation() {
+        return this.mediaExternalLocation;
+    }
+
+    /**
      * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
@@ -445,6 +460,7 @@ public class Composition extends Resource {
                Objects.equals(bitrate, other.bitrate) &&
                Objects.equals(size, other.size) &&
                Objects.equals(duration, other.duration) &&
+               Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -467,6 +483,7 @@ public class Composition extends Resource {
                             bitrate,
                             size,
                             duration,
+                            mediaExternalLocation,
                             url,
                             links);
     }

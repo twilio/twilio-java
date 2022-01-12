@@ -201,8 +201,7 @@ public class Message extends Resource {
     }
 
     public enum ScheduleType {
-        FIXED("fixed"),
-        OPTIMIZE("optimize");
+        FIXED("fixed");
 
         private final String value;
 

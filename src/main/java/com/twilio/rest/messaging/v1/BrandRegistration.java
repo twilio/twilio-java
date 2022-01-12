@@ -158,6 +158,16 @@ public class BrandRegistration extends Resource {
     }
 
     /**
+     * Create a BrandRegistrationUpdater to execute update.
+     *
+     * @param pathSid The SID that identifies the resource to update
+     * @return BrandRegistrationUpdater capable of executing the update
+     */
+    public static BrandRegistrationUpdater updater(final String pathSid) {
+        return new BrandRegistrationUpdater(pathSid);
+    }
+
+    /**
      * Converts a JSON String into a BrandRegistration object using the provided
      * ObjectMapper.
      *

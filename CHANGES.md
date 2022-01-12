@@ -1,6 +1,27 @@
 twilio-java changelog
 =====================
 
+[2022-01-12] Version 8.25.0
+---------------------------
+**Library - Feature**
+- [PR #666](https://github.com/twilio/twilio-java/pull/666): add GitHub release step during deploy. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #665](https://github.com/twilio/twilio-java/pull/665): migrate sonatype hosts. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Make fixed time scheduling parameters public **(breaking change)**
+
+**Messaging**
+- Add update brand registration API
+
+**Numbers**
+- Add API endpoint for List Bundle Copies resource
+
+**Video**
+- Enable external storage for all customers
+
+
 [2021-12-15] Version 8.24.0
 ---------------------------
 **Library - Feature**

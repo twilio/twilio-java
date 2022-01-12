@@ -21,6 +21,7 @@ public class MessageUpdater extends Updater<Message> {
     private String pathAccountSid;
     private final String pathSid;
     private String body;
+    private Message.UpdateStatus status;
 
     /**
      * Construct a new MessageUpdater.
@@ -53,6 +54,18 @@ public class MessageUpdater extends Updater<Message> {
      */
     public MessageUpdater setBody(final String body) {
         this.body = body;
+        return this;
+    }
+
+    /**
+     * When set as `canceled`, allows a message cancelation request if a message has
+     * not yet been sent..
+     *
+     * @param status Set as `canceled` to cancel a message from being sent.
+     * @return this
+     */
+    public MessageUpdater setStatus(final Message.UpdateStatus status) {
+        this.status = status;
         return this;
     }
 
@@ -96,6 +109,10 @@ public class MessageUpdater extends Updater<Message> {
     private void addPostParams(final Request request) {
         if (body != null) {
             request.addPostParam("Body", body);
+        }
+
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
         }
     }
 }

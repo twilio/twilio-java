@@ -232,6 +232,7 @@ public class RoomRecording extends Resource {
     private final Map<String, Object> groupingSids;
     private final String trackName;
     private final Long offset;
+    private final URI mediaExternalLocation;
     private final String roomSid;
     private final Map<String, String> links;
 
@@ -264,6 +265,8 @@ public class RoomRecording extends Resource {
                           final String trackName,
                           @JsonProperty("offset")
                           final Long offset,
+                          @JsonProperty("media_external_location")
+                          final URI mediaExternalLocation,
                           @JsonProperty("room_sid")
                           final String roomSid,
                           @JsonProperty("links")
@@ -282,6 +285,7 @@ public class RoomRecording extends Resource {
         this.groupingSids = groupingSids;
         this.trackName = trackName;
         this.offset = offset;
+        this.mediaExternalLocation = mediaExternalLocation;
         this.roomSid = roomSid;
         this.links = links;
     }
@@ -416,6 +420,17 @@ public class RoomRecording extends Resource {
     }
 
     /**
+     * Returns The URL of the media file associated with the recording when stored
+     * externally.
+     *
+     * @return The URL of the media file associated with the recording when stored
+     *         externally
+     */
+    public final URI getMediaExternalLocation() {
+        return this.mediaExternalLocation;
+    }
+
+    /**
      * Returns The SID of the Room resource the recording is associated with.
      *
      * @return The SID of the Room resource the recording is associated with
@@ -459,6 +474,7 @@ public class RoomRecording extends Resource {
                Objects.equals(groupingSids, other.groupingSids) &&
                Objects.equals(trackName, other.trackName) &&
                Objects.equals(offset, other.offset) &&
+               Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
                Objects.equals(roomSid, other.roomSid) &&
                Objects.equals(links, other.links);
     }
@@ -479,6 +495,7 @@ public class RoomRecording extends Resource {
                             groupingSids,
                             trackName,
                             offset,
+                            mediaExternalLocation,
                             roomSid,
                             links);
     }

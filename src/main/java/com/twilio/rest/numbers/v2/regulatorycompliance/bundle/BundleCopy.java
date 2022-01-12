@@ -108,6 +108,16 @@ public class BundleCopy extends Resource {
     }
 
     /**
+     * Create a BundleCopyReader to execute read.
+     *
+     * @param pathBundleSid The unique string that identifies the resource.
+     * @return BundleCopyReader capable of executing the read
+     */
+    public static BundleCopyReader reader(final String pathBundleSid) {
+        return new BundleCopyReader(pathBundleSid);
+    }
+
+    /**
      * Converts a JSON String into a BundleCopy object using the provided
      * ObjectMapper.
      *

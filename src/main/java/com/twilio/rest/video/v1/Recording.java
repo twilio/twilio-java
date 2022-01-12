@@ -225,6 +225,7 @@ public class Recording extends Resource {
     private final Map<String, Object> groupingSids;
     private final String trackName;
     private final Long offset;
+    private final URI mediaExternalLocation;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -256,6 +257,8 @@ public class Recording extends Resource {
                       final String trackName,
                       @JsonProperty("offset")
                       final Long offset,
+                      @JsonProperty("media_external_location")
+                      final URI mediaExternalLocation,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -272,6 +275,7 @@ public class Recording extends Resource {
         this.groupingSids = groupingSids;
         this.trackName = trackName;
         this.offset = offset;
+        this.mediaExternalLocation = mediaExternalLocation;
         this.links = links;
     }
 
@@ -405,6 +409,17 @@ public class Recording extends Resource {
     }
 
     /**
+     * Returns The URL of the media file associated with the recording when stored
+     * externally.
+     *
+     * @return The URL of the media file associated with the recording when stored
+     *         externally
+     */
+    public final URI getMediaExternalLocation() {
+        return this.mediaExternalLocation;
+    }
+
+    /**
      * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
@@ -439,6 +454,7 @@ public class Recording extends Resource {
                Objects.equals(groupingSids, other.groupingSids) &&
                Objects.equals(trackName, other.trackName) &&
                Objects.equals(offset, other.offset) &&
+               Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
                Objects.equals(links, other.links);
     }
 
@@ -458,6 +474,7 @@ public class Recording extends Resource {
                             groupingSids,
                             trackName,
                             offset,
+                            mediaExternalLocation,
                             links);
     }
 }

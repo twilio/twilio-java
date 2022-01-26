@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 20869620126107L;
+    private static final long serialVersionUID = 239504245100314L;
 
     public enum Status {
         PENDING("PENDING"),
@@ -220,6 +220,7 @@ public class BrandRegistration extends Resource {
     private final List<BrandRegistration.BrandFeedback> brandFeedback;
     private final BrandRegistration.IdentityStatus identityStatus;
     private final Boolean russell3000;
+    private final Boolean governmentEntity;
     private final String taxExemptStatus;
     private final Boolean skipAutomaticSecVet;
     private final Boolean mock;
@@ -256,6 +257,8 @@ public class BrandRegistration extends Resource {
                               final BrandRegistration.IdentityStatus identityStatus,
                               @JsonProperty("russell_3000")
                               final Boolean russell3000,
+                              @JsonProperty("government_entity")
+                              final Boolean governmentEntity,
                               @JsonProperty("tax_exempt_status")
                               final String taxExemptStatus,
                               @JsonProperty("skip_automatic_sec_vet")
@@ -279,6 +282,7 @@ public class BrandRegistration extends Resource {
         this.brandFeedback = brandFeedback;
         this.identityStatus = identityStatus;
         this.russell3000 = russell3000;
+        this.governmentEntity = governmentEntity;
         this.taxExemptStatus = taxExemptStatus;
         this.skipAutomaticSecVet = skipAutomaticSecVet;
         this.mock = mock;
@@ -421,6 +425,15 @@ public class BrandRegistration extends Resource {
     }
 
     /**
+     * Returns Government Entity.
+     *
+     * @return Government Entity
+     */
+    public final Boolean getGovernmentEntity() {
+        return this.governmentEntity;
+    }
+
+    /**
      * Returns Tax Exempt Status.
      *
      * @return Tax Exempt Status
@@ -487,6 +500,7 @@ public class BrandRegistration extends Resource {
                Objects.equals(brandFeedback, other.brandFeedback) &&
                Objects.equals(identityStatus, other.identityStatus) &&
                Objects.equals(russell3000, other.russell3000) &&
+               Objects.equals(governmentEntity, other.governmentEntity) &&
                Objects.equals(taxExemptStatus, other.taxExemptStatus) &&
                Objects.equals(skipAutomaticSecVet, other.skipAutomaticSecVet) &&
                Objects.equals(mock, other.mock) &&
@@ -510,6 +524,7 @@ public class BrandRegistration extends Resource {
                             brandFeedback,
                             identityStatus,
                             russell3000,
+                            governmentEntity,
                             taxExemptStatus,
                             skipAutomaticSecVet,
                             mock,

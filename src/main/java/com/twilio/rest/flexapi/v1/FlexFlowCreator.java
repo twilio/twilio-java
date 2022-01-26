@@ -226,12 +226,12 @@ public class FlexFlowCreator extends Creator<FlexFlow> {
     }
 
     /**
-     * The number of times to retry the webhook if the first attempt fails. Can be
-     * an integer between 0 and 3 (inclusive), default is 3. Optional when
-     * `integrationType` is `external`, not applicable otherwise..
+     * The number of times to retry the Studio Flow or webhook in case of failure.
+     * Takes integer values from 0 to 3 with the default being 3. Optional when
+     * `integrationType` is `studio` or `external`, not applicable otherwise..
      *
-     * @param integrationRetryCount The number of times to retry the webhook if the
-     *                              first attempt fails
+     * @param integrationRetryCount The number of times to retry the Studio Flow or
+     *                              webhook in case of failure
      * @return this
      */
     public FlexFlowCreator setIntegrationRetryCount(final Integer integrationRetryCount) {

@@ -72,8 +72,13 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or
-     * `custom`..
+     * The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or
+     * `custom`. By default, Studio’s Send to Flex widget passes it on to the Task
+     * attributes for Tasks created based on this Flex Flow. The Task attributes
+     * will be used by the Flex UI to render the respective Task as appropriate
+     * (applying channel-specific design and length limits). If `channelType` is
+     * `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task
+     * Channel to Programmable Chat..
      *
      * @param channelType The channel type
      * @return this
@@ -255,12 +260,12 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The number of times to retry the webhook if the first attempt fails. Can be
-     * an integer between 0 and 3 (inclusive), default is 3. Optional when
-     * `integrationType` is `external`, not applicable otherwise..
+     * The number of times to retry the Studio Flow or webhook in case of failure.
+     * Takes integer values from 0 to 3 with the default being 3. Optional when
+     * `integrationType` is `studio` or `external`, not applicable otherwise..
      *
-     * @param integrationRetryCount The number of times to retry the webhook if the
-     *                              first attempt fails
+     * @param integrationRetryCount The number of times to retry the Studio Flow or
+     *                              webhook in case of failure
      * @return this
      */
     public FlexFlowUpdater setIntegrationRetryCount(final Integer integrationRetryCount) {

@@ -137,7 +137,7 @@
     </profile>
   </profiles>
   <properties>
-    <jackson.version>2.12.5</jackson.version>
+    <jackson.version>2.12.6</jackson.version>
     <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
@@ -352,8 +352,8 @@
           <version>true</version>
           <use>true</use>
           <windowtitle>Twilio Java</windowtitle>
-          <doctitle>&lt;h1&gt;Twilio Java&lt;/h1&gt;</doctitle>
-          <bottom>&lt;i&gt;Copyright &amp;#169; 2019 Twilio, Inc. All Rights Reserved.&lt;/i&gt;</bottom>
+          <doctitle>&lt;h1>Twilio Java&lt;/h1></doctitle>
+          <bottom>&lt;i>Copyright &amp;#169; 2019 Twilio, Inc. All Rights Reserved.&lt;/i></bottom>
         </configuration>
         <executions>
           <execution>
@@ -416,7 +416,7 @@
             </goals>
             <configuration>
               <rules>
-                <dependencyConvergence></dependencyConvergence>
+                <dependencyConvergence/>
               </rules>
             </configuration>
           </execution>

@@ -7,6 +7,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.config.SocketConfig;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -21,37 +22,56 @@ import java.util.Map;
 
 public class ValidationClient extends HttpClient {
 
-    private static final int CONNECTION_TIMEOUT = 10000;
-    private static final int SOCKET_TIMEOUT = 30500;
-    private static final RequestConfig DEFAULT_REQUEST_CONFIG = RequestConfig.custom()
-            .setConnectTimeout(CONNECTION_TIMEOUT)
-            .setSocketTimeout(SOCKET_TIMEOUT)
-            .build();;
-
     private final org.apache.http.client.HttpClient client;
 
     /**
      * Create a new ValidationClient.
      *
-     * @param  accountSid Twilio Account SID
-     * @param  credentialSid Twilio Credential SID
-     * @param  signingKey Twilio Signing key
-     * @param  privateKey Private Key
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKey    Twilio Signing key
+     * @param privateKey    Private Key
      */
-    public ValidationClient(String accountSid, String credentialSid, String signingKey, PrivateKey privateKey) {
+    public ValidationClient(final String accountSid,
+                            final String credentialSid,
+                            final String signingKey,
+                            final PrivateKey privateKey) {
         this(accountSid, credentialSid, signingKey, privateKey, DEFAULT_REQUEST_CONFIG);
     }
 
     /**
      * Create a new ValidationClient.
      *
-     * @param  accountSid Twilio Account SID
-     * @param  credentialSid Twilio Credential SID
-     * @param  signingKey Twilio Signing key
-     * @param  privateKey Private Key
-     * @param  config HTTP Request Config
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKey    Twilio Signing key
+     * @param privateKey    Private Key
+     * @param requestConfig HTTP Request Config
      */
-    public ValidationClient(String accountSid, String credentialSid, String signingKey, PrivateKey privateKey, RequestConfig config) {
+    public ValidationClient(final String accountSid,
+                            final String credentialSid,
+                            final String signingKey,
+                            final PrivateKey privateKey,
+                            final RequestConfig requestConfig) {
+        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG);
+    }
+
+    /**
+     * Create a new ValidationClient.
+     *
+     * @param accountSid    Twilio Account SID
+     * @param credentialSid Twilio Credential SID
+     * @param signingKey    Twilio Signing key
+     * @param privateKey    Private Key
+     * @param requestConfig HTTP Request Config
+     * @param socketConfig  HTTP Socket Config
+     */
+    public ValidationClient(final String accountSid,
+                            final String credentialSid,
+                            final String signingKey,
+                            final PrivateKey privateKey,
+                            final RequestConfig requestConfig,
+                            final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
@@ -59,9 +79,12 @@ public class ValidationClient extends HttpClient {
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
 
+        final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        connectionManager.setDefaultSocketConfig(socketConfig);
+
         client = HttpClientBuilder.create()
-            .setConnectionManager(new PoolingHttpClientConnectionManager())
-            .setDefaultRequestConfig(config)
+            .setConnectionManager(connectionManager)
+            .setDefaultRequestConfig(requestConfig)
             .setDefaultHeaders(headers)
             .setMaxConnPerRoute(10)
             .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey))

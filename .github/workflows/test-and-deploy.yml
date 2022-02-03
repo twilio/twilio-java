@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout twilio-java
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
 
       - name: Set up Java
         uses: actions/setup-java@v2
@@ -29,9 +31,23 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'maven'
 
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
       - run: mvn install -DskipTests=true -Dgpg.skip -Dmaven.javadoc.skip=true -B -V
       - name: Run Unit Tests
         run: mvn test -B
+
+      - name: SonarCloud Scan
+        if: ${{ (github.event_name == 'pull_request' || github.ref_type == 'branch') && matrix.java == 11 && !github.event.pull_request.head.repo.fork }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: mvn org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=twilio_twilio-java
 
   deploy:
     name: Deploy

@@ -170,7 +170,7 @@
   </profiles>
 
   <properties>
-    <jackson.version>2.12.5</jackson.version>
+    <jackson.version>2.12.6</jackson.version>
     <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
@@ -460,7 +460,7 @@
             </goals>
             <configuration>
               <rules>
-                <dependencyConvergence></dependencyConvergence>
+                <dependencyConvergence/>
               </rules>
             </configuration>
           </execution>
@@ -475,7 +475,7 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.7</version>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 

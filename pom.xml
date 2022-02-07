@@ -396,8 +396,8 @@
           <version>true</version>
           <use>true</use>
           <windowtitle>Twilio Java</windowtitle>
-          <doctitle>&lt;h1>Twilio Java&lt;/h1></doctitle>
-          <bottom>&lt;i>Copyright &amp;#169; 2019 Twilio, Inc. All Rights Reserved.&lt;/i></bottom>
+          <doctitle>&lt;h1&gt;Twilio Java&lt;/h1&gt;</doctitle>
+          <bottom>&lt;i&gt;Copyright &amp;#169; 2019 Twilio, Inc. All Rights Reserved.&lt;/i&gt;</bottom>
         </configuration>
         <executions>
           <execution>
@@ -475,7 +475,7 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.7</version>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 

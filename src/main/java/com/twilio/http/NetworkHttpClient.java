@@ -2,17 +2,6 @@ package com.twilio.http;
 
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpVersion;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.entity.BufferedHttpEntity;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.RequestBuilder;
-import org.apache.http.impl.client.HttpClientBuilder;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.message.BasicHeader;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -21,10 +10,20 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public class NetworkHttpClient extends HttpClient {
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.config.SocketConfig;
+import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicHeader;
 
-    private static final int CONNECTION_TIMEOUT = 10000;
-    private static final int SOCKET_TIMEOUT = 30500;
+public class NetworkHttpClient extends HttpClient {
 
     private final org.apache.http.client.HttpClient client;
 
@@ -32,18 +31,25 @@ public class NetworkHttpClient extends HttpClient {
      * Create a new HTTP Client.
      */
     public NetworkHttpClient() {
-        this(RequestConfig.custom()
-            .setConnectTimeout(CONNECTION_TIMEOUT)
-            .setSocketTimeout(SOCKET_TIMEOUT)
-            .build()
-        );
+        this(DEFAULT_REQUEST_CONFIG);
     }
 
     /**
      * Create a new HTTP Client with a custom request config.
-     * @param config a RequestConfig.
+     *
+     * @param requestConfig a RequestConfig.
      */
-    public NetworkHttpClient(RequestConfig config) {
+    public NetworkHttpClient(final RequestConfig requestConfig) {
+        this(requestConfig, DEFAULT_SOCKET_CONFIG);
+    }
+
+    /**
+     * Create a new HTTP Client with a custom request and socket config.
+     *
+     * @param requestConfig a RequestConfig.
+     * @param socketConfig  a SocketConfig.
+     */
+    public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
             new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
@@ -61,12 +67,13 @@ public class NetworkHttpClient extends HttpClient {
         }
 
         PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
-	      connectionManager.setDefaultMaxPerRoute(10);
-	      connectionManager.setMaxTotal(10*2);
+        connectionManager.setDefaultSocketConfig(socketConfig);
+        connectionManager.setDefaultMaxPerRoute(10);
+        connectionManager.setMaxTotal(10 * 2);
 
         client = clientBuilder
             .setConnectionManager(connectionManager)
-            .setDefaultRequestConfig(config)
+            .setDefaultRequestConfig(requestConfig)
             .setDefaultHeaders(headers)
             .setRedirectStrategy(this.getRedirectStrategy())
             .build();
@@ -145,6 +152,5 @@ public class NetworkHttpClient extends HttpClient {
             HttpClientUtils.closeQuietly(response);
 
         }
-
     }
 }

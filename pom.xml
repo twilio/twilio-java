@@ -190,7 +190,7 @@
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
-      <version>1.18.16</version>
+      <version>1.18.22</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -475,7 +475,7 @@
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.7</version>
-      </plugin> 
+      </plugin>
     </plugins>
   </build>
 

@@ -24,10 +24,9 @@ New accounts and subaccounts are now required to use TLS 1.2 when accessing the 
 
 This library supports the following Java implementations:
 
-* OpenJDK 8
-* OpenJDK 11
-* OracleJDK 8
-* OracleJDK 11
+* Java 8
+* Java 11
+* Java 17
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 

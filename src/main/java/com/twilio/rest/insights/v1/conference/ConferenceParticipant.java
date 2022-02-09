@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConferenceParticipant extends Resource {
-    private static final long serialVersionUID = 181807717782019L;
+    private static final long serialVersionUID = 53685364073316L;
 
     public enum CallDirection {
         INBOUND("inbound"),
@@ -65,7 +65,7 @@ public class ConferenceParticipant extends Resource {
         }
     }
 
-    public enum CallState {
+    public enum CallStatus {
         ANSWERED("answered"),
         COMPLETED("completed"),
         BUSY("busy"),
@@ -76,7 +76,7 @@ public class ConferenceParticipant extends Resource {
 
         private final String value;
 
-        private CallState(final String value) {
+        private CallStatus(final String value) {
             this.value = value;
         }
 
@@ -85,13 +85,13 @@ public class ConferenceParticipant extends Resource {
         }
 
         /**
-         * Generate a CallState from a string.
+         * Generate a CallStatus from a string.
          * @param value string value
-         * @return generated CallState
+         * @return generated CallStatus
          */
         @JsonCreator
-        public static CallState forValue(final String value) {
-            return Promoter.enumFromString(value, CallState.values());
+        public static CallStatus forValue(final String value) {
+            return Promoter.enumFromString(value, CallStatus.values());
         }
     }
 
@@ -179,11 +179,37 @@ public class ConferenceParticipant extends Resource {
         }
     }
 
+    public enum ProcessingState {
+        COMPLETE("complete"),
+        IN_PROGRESS("in_progress"),
+        TIMEOUT("timeout");
+
+        private final String value;
+
+        private ProcessingState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ProcessingState from a string.
+         * @param value string value
+         * @return generated ProcessingState
+         */
+        @JsonCreator
+        public static ProcessingState forValue(final String value) {
+            return Promoter.enumFromString(value, ProcessingState.values());
+        }
+    }
+
     /**
      * Create a ConferenceParticipantFetcher to execute fetch.
      *
-     * @param pathConferenceSid The conference_sid
-     * @param pathParticipantSid The participant_sid
+     * @param pathConferenceSid Conference SID.
+     * @param pathParticipantSid Participant SID.
      * @return ConferenceParticipantFetcher capable of executing the fetch
      */
     public static ConferenceParticipantFetcher fetcher(final String pathConferenceSid,
@@ -194,7 +220,7 @@ public class ConferenceParticipant extends Resource {
     /**
      * Create a ConferenceParticipantReader to execute read.
      *
-     * @param pathConferenceSid The conference_sid
+     * @param pathConferenceSid Conference SID.
      * @return ConferenceParticipantReader capable of executing the read
      */
     public static ConferenceParticipantReader reader(final String pathConferenceSid) {
@@ -247,14 +273,12 @@ public class ConferenceParticipant extends Resource {
     private final ConferenceParticipant.CallDirection callDirection;
     private final String from;
     private final String to;
-    private final ConferenceParticipant.CallState callState;
+    private final ConferenceParticipant.CallStatus callStatus;
     private final String countryCode;
     private final Boolean isModerator;
     private final ZonedDateTime joinTime;
     private final ZonedDateTime leaveTime;
     private final Integer durationSeconds;
-    private final String whisper;
-    private final Boolean agentAudio;
     private final Integer outboundQueueLength;
     private final Integer outboundTimeInQueue;
     private final ConferenceParticipant.JitterBufferSize jitterBufferSize;
@@ -263,7 +287,7 @@ public class ConferenceParticipant extends Resource {
     private final ConferenceParticipant.Region participantRegion;
     private final ConferenceParticipant.Region conferenceRegion;
     private final ConferenceParticipant.CallType callType;
-    private final Integer qualityIssues;
+    private final ConferenceParticipant.ProcessingState processingState;
     private final Map<String, Object> properties;
     private final Map<String, Object> events;
     private final Map<String, Object> metrics;
@@ -286,8 +310,8 @@ public class ConferenceParticipant extends Resource {
                                   final String from,
                                   @JsonProperty("to")
                                   final String to,
-                                  @JsonProperty("call_state")
-                                  final ConferenceParticipant.CallState callState,
+                                  @JsonProperty("call_status")
+                                  final ConferenceParticipant.CallStatus callStatus,
                                   @JsonProperty("country_code")
                                   final String countryCode,
                                   @JsonProperty("is_moderator")
@@ -298,10 +322,6 @@ public class ConferenceParticipant extends Resource {
                                   final String leaveTime,
                                   @JsonProperty("duration_seconds")
                                   final Integer durationSeconds,
-                                  @JsonProperty("whisper")
-                                  final String whisper,
-                                  @JsonProperty("agent_audio")
-                                  final Boolean agentAudio,
                                   @JsonProperty("outbound_queue_length")
                                   final Integer outboundQueueLength,
                                   @JsonProperty("outbound_time_in_queue")
@@ -318,8 +338,8 @@ public class ConferenceParticipant extends Resource {
                                   final ConferenceParticipant.Region conferenceRegion,
                                   @JsonProperty("call_type")
                                   final ConferenceParticipant.CallType callType,
-                                  @JsonProperty("quality_issues")
-                                  final Integer qualityIssues,
+                                  @JsonProperty("processing_state")
+                                  final ConferenceParticipant.ProcessingState processingState,
                                   @JsonProperty("properties")
                                   final Map<String, Object> properties,
                                   @JsonProperty("events")
@@ -336,14 +356,12 @@ public class ConferenceParticipant extends Resource {
         this.callDirection = callDirection;
         this.from = from;
         this.to = to;
-        this.callState = callState;
+        this.callStatus = callStatus;
         this.countryCode = countryCode;
         this.isModerator = isModerator;
         this.joinTime = DateConverter.iso8601DateTimeFromString(joinTime);
         this.leaveTime = DateConverter.iso8601DateTimeFromString(leaveTime);
         this.durationSeconds = durationSeconds;
-        this.whisper = whisper;
-        this.agentAudio = agentAudio;
         this.outboundQueueLength = outboundQueueLength;
         this.outboundTimeInQueue = outboundTimeInQueue;
         this.jitterBufferSize = jitterBufferSize;
@@ -352,7 +370,7 @@ public class ConferenceParticipant extends Resource {
         this.participantRegion = participantRegion;
         this.conferenceRegion = conferenceRegion;
         this.callType = callType;
-        this.qualityIssues = qualityIssues;
+        this.processingState = processingState;
         this.properties = properties;
         this.events = events;
         this.metrics = metrics;
@@ -360,261 +378,247 @@ public class ConferenceParticipant extends Resource {
     }
 
     /**
-     * Returns The participant_sid.
+     * Returns SID for this participant..
      *
-     * @return The participant_sid
+     * @return SID for this participant.
      */
     public final String getParticipantSid() {
         return this.participantSid;
     }
 
     /**
-     * Returns The label.
+     * Returns The user-specified label of this participant..
      *
-     * @return The label
+     * @return The user-specified label of this participant.
      */
     public final String getLabel() {
         return this.label;
     }
 
     /**
-     * Returns The conference_sid.
+     * Returns Conference SID..
      *
-     * @return The conference_sid
+     * @return Conference SID.
      */
     public final String getConferenceSid() {
         return this.conferenceSid;
     }
 
     /**
-     * Returns The call_sid.
+     * Returns Unique SID identifier of the call..
      *
-     * @return The call_sid
+     * @return Unique SID identifier of the call.
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID..
      *
-     * @return The account_sid
+     * @return Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The call_direction.
+     * Returns Call direction of the participant..
      *
-     * @return The call_direction
+     * @return Call direction of the participant.
      */
     public final ConferenceParticipant.CallDirection getCallDirection() {
         return this.callDirection;
     }
 
     /**
-     * Returns The from.
+     * Returns Caller ID of the calling party..
      *
-     * @return The from
+     * @return Caller ID of the calling party.
      */
     public final String getFrom() {
         return this.from;
     }
 
     /**
-     * Returns The to.
+     * Returns Called party..
      *
-     * @return The to
+     * @return Called party.
      */
     public final String getTo() {
         return this.to;
     }
 
     /**
-     * Returns The call_state.
+     * Returns Call status of the call that generated the participant..
      *
-     * @return The call_state
+     * @return Call status of the call that generated the participant.
      */
-    public final ConferenceParticipant.CallState getCallState() {
-        return this.callState;
+    public final ConferenceParticipant.CallStatus getCallStatus() {
+        return this.callStatus;
     }
 
     /**
-     * Returns The country_code.
+     * Returns ISO alpha-2 country code of the participant..
      *
-     * @return The country_code
+     * @return ISO alpha-2 country code of the participant.
      */
     public final String getCountryCode() {
         return this.countryCode;
     }
 
     /**
-     * Returns The is_moderator.
+     * Returns Boolean. Indicates whether participant had
+     * startConferenceOnEnter=true or endConferenceOnExit=true..
      *
-     * @return The is_moderator
+     * @return Boolean. Indicates whether participant had
+     *         startConferenceOnEnter=true or endConferenceOnExit=true.
      */
     public final Boolean getIsModerator() {
         return this.isModerator;
     }
 
     /**
-     * Returns The join_time.
+     * Returns ISO 8601 timestamp of participant join event..
      *
-     * @return The join_time
+     * @return ISO 8601 timestamp of participant join event.
      */
     public final ZonedDateTime getJoinTime() {
         return this.joinTime;
     }
 
     /**
-     * Returns The leave_time.
+     * Returns ISO 8601 timestamp of participant leave event..
      *
-     * @return The leave_time
+     * @return ISO 8601 timestamp of participant leave event.
      */
     public final ZonedDateTime getLeaveTime() {
         return this.leaveTime;
     }
 
     /**
-     * Returns The duration_seconds.
+     * Returns Participant durations in seconds..
      *
-     * @return The duration_seconds
+     * @return Participant durations in seconds.
      */
     public final Integer getDurationSeconds() {
         return this.durationSeconds;
     }
 
     /**
-     * Returns The whisper.
+     * Returns Estimated time in queue at call creation..
      *
-     * @return The whisper
-     */
-    public final String getWhisper() {
-        return this.whisper;
-    }
-
-    /**
-     * Returns The agent_audio.
-     *
-     * @return The agent_audio
-     */
-    public final Boolean getAgentAudio() {
-        return this.agentAudio;
-    }
-
-    /**
-     * Returns The outbound_queue_length.
-     *
-     * @return The outbound_queue_length
+     * @return Estimated time in queue at call creation.
      */
     public final Integer getOutboundQueueLength() {
         return this.outboundQueueLength;
     }
 
     /**
-     * Returns The outbound_time_in_queue.
+     * Returns Actual time in queue (seconds)..
      *
-     * @return The outbound_time_in_queue
+     * @return Actual time in queue (seconds).
      */
     public final Integer getOutboundTimeInQueue() {
         return this.outboundTimeInQueue;
     }
 
     /**
-     * Returns The jitter_buffer_size.
+     * Returns The Jitter Buffer Size of this Conference Participant..
      *
-     * @return The jitter_buffer_size
+     * @return The Jitter Buffer Size of this Conference Participant.
      */
     public final ConferenceParticipant.JitterBufferSize getJitterBufferSize() {
         return this.jitterBufferSize;
     }
 
     /**
-     * Returns The is_coach.
+     * Returns Boolean. Indicated whether participant was a coach..
      *
-     * @return The is_coach
+     * @return Boolean. Indicated whether participant was a coach.
      */
     public final Boolean getIsCoach() {
         return this.isCoach;
     }
 
     /**
-     * Returns The coached_participants.
+     * Returns Call SIDs coached by this participant..
      *
-     * @return The coached_participants
+     * @return Call SIDs coached by this participant.
      */
     public final List<String> getCoachedParticipants() {
         return this.coachedParticipants;
     }
 
     /**
-     * Returns The participant_region.
+     * Returns Twilio region where the participant media originates..
      *
-     * @return The participant_region
+     * @return Twilio region where the participant media originates.
      */
     public final ConferenceParticipant.Region getParticipantRegion() {
         return this.participantRegion;
     }
 
     /**
-     * Returns The conference_region.
+     * Returns The Conference Region of this Conference Participant..
      *
-     * @return The conference_region
+     * @return The Conference Region of this Conference Participant.
      */
     public final ConferenceParticipant.Region getConferenceRegion() {
         return this.conferenceRegion;
     }
 
     /**
-     * Returns The call_type.
+     * Returns The Call Type of this Conference Participant..
      *
-     * @return The call_type
+     * @return The Call Type of this Conference Participant.
      */
     public final ConferenceParticipant.CallType getCallType() {
         return this.callType;
     }
 
     /**
-     * Returns The quality_issues.
+     * Returns Processing state of the Participant Summary..
      *
-     * @return The quality_issues
+     * @return Processing state of the Participant Summary.
      */
-    public final Integer getQualityIssues() {
-        return this.qualityIssues;
+    public final ConferenceParticipant.ProcessingState getProcessingState() {
+        return this.processingState;
     }
 
     /**
-     * Returns The properties.
+     * Returns Participant properties and metadata..
      *
-     * @return The properties
+     * @return Participant properties and metadata.
      */
     public final Map<String, Object> getProperties() {
         return this.properties;
     }
 
     /**
-     * Returns The events.
+     * Returns Object containing information of actions taken by participants.
+     * Nested resource URLs..
      *
-     * @return The events
+     * @return Object containing information of actions taken by participants.
+     *         Nested resource URLs.
      */
     public final Map<String, Object> getEvents() {
         return this.events;
     }
 
     /**
-     * Returns The metrics.
+     * Returns Object. Contains participant quality metrics..
      *
-     * @return The metrics
+     * @return Object. Contains participant quality metrics.
      */
     public final Map<String, Object> getMetrics() {
         return this.metrics;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
@@ -640,14 +644,12 @@ public class ConferenceParticipant extends Resource {
                Objects.equals(callDirection, other.callDirection) &&
                Objects.equals(from, other.from) &&
                Objects.equals(to, other.to) &&
-               Objects.equals(callState, other.callState) &&
+               Objects.equals(callStatus, other.callStatus) &&
                Objects.equals(countryCode, other.countryCode) &&
                Objects.equals(isModerator, other.isModerator) &&
                Objects.equals(joinTime, other.joinTime) &&
                Objects.equals(leaveTime, other.leaveTime) &&
                Objects.equals(durationSeconds, other.durationSeconds) &&
-               Objects.equals(whisper, other.whisper) &&
-               Objects.equals(agentAudio, other.agentAudio) &&
                Objects.equals(outboundQueueLength, other.outboundQueueLength) &&
                Objects.equals(outboundTimeInQueue, other.outboundTimeInQueue) &&
                Objects.equals(jitterBufferSize, other.jitterBufferSize) &&
@@ -656,7 +658,7 @@ public class ConferenceParticipant extends Resource {
                Objects.equals(participantRegion, other.participantRegion) &&
                Objects.equals(conferenceRegion, other.conferenceRegion) &&
                Objects.equals(callType, other.callType) &&
-               Objects.equals(qualityIssues, other.qualityIssues) &&
+               Objects.equals(processingState, other.processingState) &&
                Objects.equals(properties, other.properties) &&
                Objects.equals(events, other.events) &&
                Objects.equals(metrics, other.metrics) &&
@@ -673,14 +675,12 @@ public class ConferenceParticipant extends Resource {
                             callDirection,
                             from,
                             to,
-                            callState,
+                            callStatus,
                             countryCode,
                             isModerator,
                             joinTime,
                             leaveTime,
                             durationSeconds,
-                            whisper,
-                            agentAudio,
                             outboundQueueLength,
                             outboundTimeInQueue,
                             jitterBufferSize,
@@ -689,7 +689,7 @@ public class ConferenceParticipant extends Resource {
                             participantRegion,
                             conferenceRegion,
                             callType,
-                            qualityIssues,
+                            processingState,
                             properties,
                             events,
                             metrics,

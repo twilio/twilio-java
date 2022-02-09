@@ -130,9 +130,9 @@ public class Template extends Resource {
     }
 
     /**
-     * Returns Ojbect with the template translations..
+     * Returns Object with the template translations..
      *
-     * @return Ojbect with the template translations.
+     * @return Object with the template translations.
      */
     public final Map<String, Object> getTranslations() {
         return this.translations;

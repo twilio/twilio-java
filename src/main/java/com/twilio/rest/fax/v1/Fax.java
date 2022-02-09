@@ -173,28 +173,6 @@ public class Fax extends Resource {
     }
 
     /**
-     * Create a FaxCreator to execute create.
-     *
-     * @param to The phone number to receive the fax
-     * @param mediaUrl The URL of the PDF that contains the fax
-     * @return FaxCreator capable of executing the create
-     */
-    public static FaxCreator creator(final String to,
-                                     final URI mediaUrl) {
-        return new FaxCreator(to, mediaUrl);
-    }
-
-    /**
-     * Create a FaxUpdater to execute update.
-     *
-     * @param pathSid The unique string that identifies the resource
-     * @return FaxUpdater capable of executing the update
-     */
-    public static FaxUpdater updater(final String pathSid) {
-        return new FaxUpdater(pathSid);
-    }
-
-    /**
      * Create a FaxDeleter to execute delete.
      *
      * @param pathSid The unique string that identifies the resource

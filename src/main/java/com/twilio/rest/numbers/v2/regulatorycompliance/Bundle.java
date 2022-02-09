@@ -92,6 +92,56 @@ public class Bundle extends Resource {
         }
     }
 
+    public enum SortBy {
+        ASC("ASC"),
+        DESC("DESC");
+
+        private final String value;
+
+        private SortBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a SortBy from a string.
+         * @param value string value
+         * @return generated SortBy
+         */
+        @JsonCreator
+        public static SortBy forValue(final String value) {
+            return Promoter.enumFromString(value, SortBy.values());
+        }
+    }
+
+    public enum SortDirection {
+        VALID_UNTIL_DATE("valid_until_date"),
+        DATE_UPDATED("date_updated");
+
+        private final String value;
+
+        private SortDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a SortDirection from a string.
+         * @param value string value
+         * @return generated SortDirection
+         */
+        @JsonCreator
+        public static SortDirection forValue(final String value) {
+            return Promoter.enumFromString(value, SortDirection.values());
+        }
+    }
+
     /**
      * Create a BundleCreator to execute create.
      *

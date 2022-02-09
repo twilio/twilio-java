@@ -26,12 +26,17 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private String channelDataTo;
+    private String country;
+    private VerificationAttempt.Channels channel;
+    private String verifyServiceSid;
+    private String verificationSid;
+    private VerificationAttempt.ConversionStatus status;
 
     /**
      * Datetime filter used to query Verification Attempts created after this
-     * datetime..
+     * datetime. Given as GMT in RFC 2822 format..
      *
-     * @param dateCreatedAfter Filter verification attempts after this date
+     * @param dateCreatedAfter Filter verification attempts after this date.
      * @return this
      */
     public VerificationAttemptReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter) {
@@ -41,9 +46,9 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
 
     /**
      * Datetime filter used to query Verification Attempts created before this
-     * datetime..
+     * datetime. Given as GMT in RFC 2822 format..
      *
-     * @param dateCreatedBefore Filter verification attempts befor this date
+     * @param dateCreatedBefore Filter verification attempts before this date.
      * @return this
      */
     public VerificationAttemptReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore) {
@@ -52,14 +57,74 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
     }
 
     /**
-     * Destination of a verification. Depending on the type of channel, it could be
-     * a phone number in E.164 format or an email address..
+     * Destination of a verification. It is phone number in E.164 format..
      *
-     * @param channelDataTo Destination of a verification
+     * @param channelDataTo Filters by destination of the verification attempt.
      * @return this
      */
     public VerificationAttemptReader setChannelDataTo(final String channelDataTo) {
         this.channelDataTo = channelDataTo;
+        return this;
+    }
+
+    /**
+     * Filter used to query Verification Attempts sent to the specified destination
+     * country..
+     *
+     * @param country Filter verification attempts by destination country.
+     * @return this
+     */
+    public VerificationAttemptReader setCountry(final String country) {
+        this.country = country;
+        return this;
+    }
+
+    /**
+     * Filter used to query Verification Attempts by communication channel. Valid
+     * values are `SMS` and `CALL`.
+     *
+     * @param channel Filter verification attempts by communication channel.
+     * @return this
+     */
+    public VerificationAttemptReader setChannel(final VerificationAttempt.Channels channel) {
+        this.channel = channel;
+        return this;
+    }
+
+    /**
+     * Filter used to query Verification Attempts by verify service. Only attempts
+     * of the provided SID will be returned..
+     *
+     * @param verifyServiceSid Filter verification attempts by verify service.
+     * @return this
+     */
+    public VerificationAttemptReader setVerifyServiceSid(final String verifyServiceSid) {
+        this.verifyServiceSid = verifyServiceSid;
+        return this;
+    }
+
+    /**
+     * Filter used to return all the Verification Attempts of a single verification.
+     * Only attempts of the provided verification SID will be returned..
+     *
+     * @param verificationSid Filter attempts by verification.
+     * @return this
+     */
+    public VerificationAttemptReader setVerificationSid(final String verificationSid) {
+        this.verificationSid = verificationSid;
+        return this;
+    }
+
+    /**
+     * Filter used to query Verification Attempts by conversion status. Valid values
+     * are `UNCONVERTED`, for attempts that were not converted, and `CONVERTED`, for
+     * attempts that were confirmed..
+     *
+     * @param status Filter verification attempts by conversion status.
+     * @return this
+     */
+    public VerificationAttemptReader setStatus(final VerificationAttempt.ConversionStatus status) {
+        this.status = status;
         return this;
     }
 
@@ -189,6 +254,26 @@ public class VerificationAttemptReader extends Reader<VerificationAttempt> {
 
         if (channelDataTo != null) {
             request.addQueryParam("ChannelData.To", channelDataTo);
+        }
+
+        if (country != null) {
+            request.addQueryParam("Country", country);
+        }
+
+        if (channel != null) {
+            request.addQueryParam("Channel", channel.toString());
+        }
+
+        if (verifyServiceSid != null) {
+            request.addQueryParam("VerifyServiceSid", verifyServiceSid);
+        }
+
+        if (verificationSid != null) {
+            request.addQueryParam("VerificationSid", verificationSid);
+        }
+
+        if (status != null) {
+            request.addQueryParam("Status", status.toString());
         }
 
         if (getPageSize() != null) {

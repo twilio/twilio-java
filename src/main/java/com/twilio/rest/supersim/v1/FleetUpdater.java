@@ -30,6 +30,8 @@ public class FleetUpdater extends Updater<Fleet> {
     private String networkAccessProfile;
     private URI commandsUrl;
     private HttpMethod commandsMethod;
+    private URI ipCommandsUrl;
+    private HttpMethod ipCommandsMethod;
     private URI smsCommandsUrl;
     private HttpMethod smsCommandsMethod;
 
@@ -69,14 +71,12 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
-     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
-     * send an SMS from your device to the Commands number. Your server should
-     * respond with an HTTP status code in the 200 range; any response body will be
-     * ignored..
+     * Deprecated. Use `sms_commands_url` instead. The URL that will receive a
+     * webhook when a Super SIM in the Fleet is used to send an SMS from your device
+     * to the Commands number. Your server should respond with an HTTP status code
+     * in the 200 range; any response body will be ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
-     *                    the Fleet is used to send an SMS from your device to the
-     *                    Commands number
+     * @param commandsUrl Deprecated
      * @return this
      */
     public FleetUpdater setCommandsUrl(final URI commandsUrl) {
@@ -85,14 +85,12 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
-     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
-     * send an SMS from your device to the Commands number. Your server should
-     * respond with an HTTP status code in the 200 range; any response body will be
-     * ignored..
+     * Deprecated. Use `sms_commands_url` instead. The URL that will receive a
+     * webhook when a Super SIM in the Fleet is used to send an SMS from your device
+     * to the Commands number. Your server should respond with an HTTP status code
+     * in the 200 range; any response body will be ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
-     *                    the Fleet is used to send an SMS from your device to the
-     *                    Commands number
+     * @param commandsUrl Deprecated
      * @return this
      */
     public FleetUpdater setCommandsUrl(final String commandsUrl) {
@@ -100,15 +98,57 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
-     * A string representing the HTTP method to use when making a request to
-     * `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     * Deprecated. Use `sms_commands_method` instead. A string representing the HTTP
+     * method to use when making a request to `commands_url`. Can be one of `POST`
+     * or `GET`. Defaults to `POST`..
      *
-     * @param commandsMethod A string representing the HTTP method to use when
-     *                       making a request to `commands_url`
+     * @param commandsMethod Deprecated
      * @return this
      */
     public FleetUpdater setCommandsMethod(final HttpMethod commandsMethod) {
         this.commandsMethod = commandsMethod;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an IP Command from your device to a special IP address. Your server
+     * should respond with an HTTP status code in the 200 range; any response body
+     * will be ignored..
+     *
+     * @param ipCommandsUrl The URL that will receive a webhook when a Super SIM in
+     *                      the Fleet is used to send an IP Command from your device
+     * @return this
+     */
+    public FleetUpdater setIpCommandsUrl(final URI ipCommandsUrl) {
+        this.ipCommandsUrl = ipCommandsUrl;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an IP Command from your device to a special IP address. Your server
+     * should respond with an HTTP status code in the 200 range; any response body
+     * will be ignored..
+     *
+     * @param ipCommandsUrl The URL that will receive a webhook when a Super SIM in
+     *                      the Fleet is used to send an IP Command from your device
+     * @return this
+     */
+    public FleetUpdater setIpCommandsUrl(final String ipCommandsUrl) {
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
+    }
+
+    /**
+     * A string representing the HTTP method to use when making a request to
+     * `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     *
+     * @param ipCommandsMethod A string representing the HTTP method to use when
+     *                         making a request to `ip_commands_url`
+     * @return this
+     */
+    public FleetUpdater setIpCommandsMethod(final HttpMethod ipCommandsMethod) {
+        this.ipCommandsMethod = ipCommandsMethod;
         return this;
     }
 
@@ -207,6 +247,14 @@ public class FleetUpdater extends Updater<Fleet> {
 
         if (commandsMethod != null) {
             request.addPostParam("CommandsMethod", commandsMethod.toString());
+        }
+
+        if (ipCommandsUrl != null) {
+            request.addPostParam("IpCommandsUrl", ipCommandsUrl.toString());
+        }
+
+        if (ipCommandsMethod != null) {
+            request.addPostParam("IpCommandsMethod", ipCommandsMethod.toString());
         }
 
         if (smsCommandsUrl != null) {

@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationAttempt extends Resource {
-    private static final long serialVersionUID = 105153290434346L;
+    private static final long serialVersionUID = 76976954570700L;
 
     public enum Channels {
         SMS("sms"),
@@ -66,6 +66,73 @@ public class VerificationAttempt extends Resource {
         }
     }
 
+    public enum CallStatus {
+        QUEUED("queued"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        BUSY("busy"),
+        FAILED("failed"),
+        NO_ANSWER("no-answer"),
+        RINGING("ringing"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private CallStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a CallStatus from a string.
+         * @param value string value
+         * @return generated CallStatus
+         */
+        @JsonCreator
+        public static CallStatus forValue(final String value) {
+            return Promoter.enumFromString(value, CallStatus.values());
+        }
+    }
+
+    public enum MessageStatus {
+        QUEUED("queued"),
+        SENDING("sending"),
+        SENT("sent"),
+        FAILED("failed"),
+        DELIVERED("delivered"),
+        UNDELIVERED("undelivered"),
+        RECEIVING("receiving"),
+        RECEIVED("received"),
+        ACCEPTED("accepted"),
+        SCHEDULED("scheduled"),
+        READ("read"),
+        PARTIALLY_DELIVERED("partially_delivered"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private MessageStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a MessageStatus from a string.
+         * @param value string value
+         * @return generated MessageStatus
+         */
+        @JsonCreator
+        public static MessageStatus forValue(final String value) {
+            return Promoter.enumFromString(value, MessageStatus.values());
+        }
+    }
+
     public enum ConversionStatus {
         CONVERTED("converted"),
         UNCONVERTED("unconverted");
@@ -88,6 +155,32 @@ public class VerificationAttempt extends Resource {
         @JsonCreator
         public static ConversionStatus forValue(final String value) {
             return Promoter.enumFromString(value, ConversionStatus.values());
+        }
+    }
+
+    public enum AttemptStatus {
+        CONFIRMED("confirmed"),
+        UNCONFIRMED("unconfirmed"),
+        EXPIRED("expired");
+
+        private final String value;
+
+        private AttemptStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a AttemptStatus from a string.
+         * @param value string value
+         * @return generated AttemptStatus
+         */
+        @JsonCreator
+        public static AttemptStatus forValue(final String value) {
+            return Promoter.enumFromString(value, AttemptStatus.values());
         }
     }
 
@@ -151,10 +244,12 @@ public class VerificationAttempt extends Resource {
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
+    private final String verificationSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final VerificationAttempt.ConversionStatus conversionStatus;
     private final VerificationAttempt.Channels channel;
+    private final Map<String, Object> price;
     private final Map<String, Object> channelData;
     private final URI url;
 
@@ -165,6 +260,8 @@ public class VerificationAttempt extends Resource {
                                 final String accountSid,
                                 @JsonProperty("service_sid")
                                 final String serviceSid,
+                                @JsonProperty("verification_sid")
+                                final String verificationSid,
                                 @JsonProperty("date_created")
                                 final String dateCreated,
                                 @JsonProperty("date_updated")
@@ -173,6 +270,8 @@ public class VerificationAttempt extends Resource {
                                 final VerificationAttempt.ConversionStatus conversionStatus,
                                 @JsonProperty("channel")
                                 final VerificationAttempt.Channels channel,
+                                @JsonProperty("price")
+                                final Map<String, Object> price,
                                 @JsonProperty("channel_data")
                                 final Map<String, Object> channelData,
                                 @JsonProperty("url")
@@ -180,39 +279,50 @@ public class VerificationAttempt extends Resource {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
+        this.verificationSid = verificationSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.conversionStatus = conversionStatus;
         this.channel = channel;
+        this.price = price;
         this.channelData = channelData;
         this.url = url;
     }
 
     /**
-     * Returns A string that uniquely identifies this Verification Attempt.
+     * Returns The SID that uniquely identifies the verification attempt..
      *
-     * @return A string that uniquely identifies this Verification Attempt
+     * @return The SID that uniquely identifies the verification attempt.
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns Account Sid.
+     * Returns The SID of the Account that created the verification..
      *
-     * @return Account Sid
+     * @return The SID of the Account that created the verification.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The service_sid.
+     * Returns The SID of the verify service that generated this attempt..
      *
-     * @return The service_sid
+     * @return The SID of the verify service that generated this attempt.
      */
     public final String getServiceSid() {
         return this.serviceSid;
+    }
+
+    /**
+     * Returns The SID of the verification that generated this attempt..
+     *
+     * @return The SID of the verification that generated this attempt.
+     */
+    public final String getVerificationSid() {
+        return this.verificationSid;
     }
 
     /**
@@ -234,27 +344,37 @@ public class VerificationAttempt extends Resource {
     }
 
     /**
-     * Returns Status of a conversion.
+     * Returns Status of the conversion for the verification..
      *
-     * @return Status of a conversion
+     * @return Status of the conversion for the verification.
      */
     public final VerificationAttempt.ConversionStatus getConversionStatus() {
         return this.conversionStatus;
     }
 
     /**
-     * Returns Channel used for the attempt.
+     * Returns Communication channel used for the attempt..
      *
-     * @return Channel used for the attempt
+     * @return Communication channel used for the attempt.
      */
     public final VerificationAttempt.Channels getChannel() {
         return this.channel;
     }
 
     /**
-     * Returns Object with the channel information for an attempt.
+     * Returns An object containing the charge for this verification attempt..
      *
-     * @return Object with the channel information for an attempt
+     * @return An object containing the charge for this verification attempt.
+     */
+    public final Map<String, Object> getPrice() {
+        return this.price;
+    }
+
+    /**
+     * Returns An object containing the channel specific information for an
+     * attempt..
+     *
+     * @return An object containing the channel specific information for an attempt.
      */
     public final Map<String, Object> getChannelData() {
         return this.channelData;
@@ -284,10 +404,12 @@ public class VerificationAttempt extends Resource {
         return Objects.equals(sid, other.sid) &&
                Objects.equals(accountSid, other.accountSid) &&
                Objects.equals(serviceSid, other.serviceSid) &&
+               Objects.equals(verificationSid, other.verificationSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(conversionStatus, other.conversionStatus) &&
                Objects.equals(channel, other.channel) &&
+               Objects.equals(price, other.price) &&
                Objects.equals(channelData, other.channelData) &&
                Objects.equals(url, other.url);
     }
@@ -297,10 +419,12 @@ public class VerificationAttempt extends Resource {
         return Objects.hash(sid,
                             accountSid,
                             serviceSid,
+                            verificationSid,
                             dateCreated,
                             dateUpdated,
                             conversionStatus,
                             channel,
+                            price,
                             channelData,
                             url);
     }

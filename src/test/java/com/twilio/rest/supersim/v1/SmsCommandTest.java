@@ -42,7 +42,7 @@ public class SmsCommandTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SUPERSIM.toString(),
                                           "/v1/SmsCommands");
-            request.addPostParam("Sim", serialize("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"));
+            request.addPostParam("Sim", serialize("sim"));
             request.addPostParam("Payload", serialize("payload"));
             twilioRestClient.request(request);
             times = 1;
@@ -52,7 +52,7 @@ public class SmsCommandTest {
         }};
 
         try {
-            SmsCommand.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "payload").create();
+            SmsCommand.creator("sim", "payload").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -66,7 +66,7 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        SmsCommand.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "payload").create();
+        SmsCommand.creator("sim", "payload").create();
     }
 
     @Test
@@ -78,7 +78,7 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        SmsCommand.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "payload").create();
+        SmsCommand.creator("sim", "payload").create();
     }
 
     @Test

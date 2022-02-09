@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conference extends Resource {
-    private static final long serialVersionUID = 212374686072337L;
+    private static final long serialVersionUID = 37768258321037L;
 
     public enum ConferenceStatus {
         IN_PROGRESS("in_progress"),
@@ -159,10 +159,36 @@ public class Conference extends Resource {
         }
     }
 
+    public enum ProcessingState {
+        COMPLETE("complete"),
+        IN_PROGRESS("in_progress"),
+        TIMEOUT("timeout");
+
+        private final String value;
+
+        private ProcessingState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ProcessingState from a string.
+         * @param value string value
+         * @return generated ProcessingState
+         */
+        @JsonCreator
+        public static ProcessingState forValue(final String value) {
+            return Promoter.enumFromString(value, ProcessingState.values());
+        }
+    }
+
     /**
      * Create a ConferenceFetcher to execute fetch.
      *
-     * @param pathConferenceSid The conference_sid
+     * @param pathConferenceSid Conference SID.
      * @return ConferenceFetcher capable of executing the fetch
      */
     public static ConferenceFetcher fetcher(final String pathConferenceSid) {
@@ -236,6 +262,7 @@ public class Conference extends Resource {
     private final Map<String, Object> detectedIssues;
     private final List<Conference.Tag> tags;
     private final Map<String, Object> tagInfo;
+    private final Conference.ProcessingState processingState;
     private final URI url;
     private final Map<String, String> links;
 
@@ -280,6 +307,8 @@ public class Conference extends Resource {
                        final List<Conference.Tag> tags,
                        @JsonProperty("tag_info")
                        final Map<String, Object> tagInfo,
+                       @JsonProperty("processing_state")
+                       final Conference.ProcessingState processingState,
                        @JsonProperty("url")
                        final URI url,
                        @JsonProperty("links")
@@ -304,203 +333,213 @@ public class Conference extends Resource {
         this.detectedIssues = detectedIssues;
         this.tags = tags;
         this.tagInfo = tagInfo;
+        this.processingState = processingState;
         this.url = url;
         this.links = links;
     }
 
     /**
-     * Returns The conference_sid.
+     * Returns Conference SID..
      *
-     * @return The conference_sid
+     * @return Conference SID.
      */
     public final String getConferenceSid() {
         return this.conferenceSid;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID..
      *
-     * @return The account_sid
+     * @return Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The friendly_name.
+     * Returns Custom label for the conference..
      *
-     * @return The friendly_name
+     * @return Custom label for the conference.
      */
     public final String getFriendlyName() {
         return this.friendlyName;
     }
 
     /**
-     * Returns The create_time.
+     * Returns Conference creation date/time..
      *
-     * @return The create_time
+     * @return Conference creation date/time.
      */
     public final ZonedDateTime getCreateTime() {
         return this.createTime;
     }
 
     /**
-     * Returns The start_time.
+     * Returns Timestamp in ISO 8601 format when the conference started..
      *
-     * @return The start_time
+     * @return Timestamp in ISO 8601 format when the conference started.
      */
     public final ZonedDateTime getStartTime() {
         return this.startTime;
     }
 
     /**
-     * Returns The end_time.
+     * Returns Conference end date/time..
      *
-     * @return The end_time
+     * @return Conference end date/time.
      */
     public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The duration_seconds.
+     * Returns Conference duration in seconds..
      *
-     * @return The duration_seconds
+     * @return Conference duration in seconds.
      */
     public final Integer getDurationSeconds() {
         return this.durationSeconds;
     }
 
     /**
-     * Returns The connect_duration_seconds.
+     * Returns Duration of the conference in seconds..
      *
-     * @return The connect_duration_seconds
+     * @return Duration of the conference in seconds.
      */
     public final Integer getConnectDurationSeconds() {
         return this.connectDurationSeconds;
     }
 
     /**
-     * Returns The status.
+     * Returns Status of conference.
      *
-     * @return The status
+     * @return Status of conference
      */
     public final Conference.ConferenceStatus getStatus() {
         return this.status;
     }
 
     /**
-     * Returns The max_participants.
+     * Returns Max participants specified in config..
      *
-     * @return The max_participants
+     * @return Max participants specified in config.
      */
     public final Integer getMaxParticipants() {
         return this.maxParticipants;
     }
 
     /**
-     * Returns The max_concurrent_participants.
+     * Returns Actual maximum concurrent participants..
      *
-     * @return The max_concurrent_participants
+     * @return Actual maximum concurrent participants.
      */
     public final Integer getMaxConcurrentParticipants() {
         return this.maxConcurrentParticipants;
     }
 
     /**
-     * Returns The unique_participants.
+     * Returns Unique conference participants..
      *
-     * @return The unique_participants
+     * @return Unique conference participants.
      */
     public final Integer getUniqueParticipants() {
         return this.uniqueParticipants;
     }
 
     /**
-     * Returns The end_reason.
+     * Returns Conference end reason..
      *
-     * @return The end_reason
+     * @return Conference end reason.
      */
     public final Conference.ConferenceEndReason getEndReason() {
         return this.endReason;
     }
 
     /**
-     * Returns The ended_by.
+     * Returns Call SID that ended the conference..
      *
-     * @return The ended_by
+     * @return Call SID that ended the conference.
      */
     public final String getEndedBy() {
         return this.endedBy;
     }
 
     /**
-     * Returns The mixer_region.
+     * Returns Region where the conference was mixed..
      *
-     * @return The mixer_region
+     * @return Region where the conference was mixed.
      */
     public final Conference.Region getMixerRegion() {
         return this.mixerRegion;
     }
 
     /**
-     * Returns The mixer_region_requested.
+     * Returns Configuration-requested conference mixer region..
      *
-     * @return The mixer_region_requested
+     * @return Configuration-requested conference mixer region.
      */
     public final Conference.Region getMixerRegionRequested() {
         return this.mixerRegionRequested;
     }
 
     /**
-     * Returns The recording_enabled.
+     * Returns Boolean. Indicates whether recording was enabled..
      *
-     * @return The recording_enabled
+     * @return Boolean. Indicates whether recording was enabled.
      */
     public final Boolean getRecordingEnabled() {
         return this.recordingEnabled;
     }
 
     /**
-     * Returns The detected_issues.
+     * Returns Potential issues detected during the conference..
      *
-     * @return The detected_issues
+     * @return Potential issues detected during the conference.
      */
     public final Map<String, Object> getDetectedIssues() {
         return this.detectedIssues;
     }
 
     /**
-     * Returns The tags.
+     * Returns Tags for detected conference conditions and participant behaviors..
      *
-     * @return The tags
+     * @return Tags for detected conference conditions and participant behaviors.
      */
     public final List<Conference.Tag> getTags() {
         return this.tags;
     }
 
     /**
-     * Returns The tag_info.
+     * Returns Object. Contains details about conference tags..
      *
-     * @return The tag_info
+     * @return Object. Contains details about conference tags.
      */
     public final Map<String, Object> getTagInfo() {
         return this.tagInfo;
     }
 
     /**
-     * Returns The url.
+     * Returns Processing state for the Conference Summary resource..
      *
-     * @return The url
+     * @return Processing state for the Conference Summary resource.
+     */
+    public final Conference.ProcessingState getProcessingState() {
+        return this.processingState;
+    }
+
+    /**
+     * Returns The URL of this resource..
+     *
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns Nested resource URLs..
      *
-     * @return The links
+     * @return Nested resource URLs.
      */
     public final Map<String, String> getLinks() {
         return this.links;
@@ -538,6 +577,7 @@ public class Conference extends Resource {
                Objects.equals(detectedIssues, other.detectedIssues) &&
                Objects.equals(tags, other.tags) &&
                Objects.equals(tagInfo, other.tagInfo) &&
+               Objects.equals(processingState, other.processingState) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -564,6 +604,7 @@ public class Conference extends Resource {
                             detectedIssues,
                             tags,
                             tagInfo,
+                            processingState,
                             url,
                             links);
     }

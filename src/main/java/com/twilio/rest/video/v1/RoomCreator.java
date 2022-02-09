@@ -65,10 +65,12 @@ public class RoomCreator extends Creator<Room> {
     /**
      * An application-defined string that uniquely identifies the resource. It can
      * be used as a `room_sid` in place of the resource's `sid` in the URL to
-     * address the resource. This value is unique for `in-progress` rooms. SDK
-     * clients can use this name to connect to the room. REST API clients can use
-     * this name in place of the Room SID to interact with the room as long as the
-     * room is `in-progress`..
+     * address the resource, assuming it does not contain any <a
+     * href="https://tools.ietf.org/html/rfc3986#section-2.2">reserved
+     * characters</a> that would need to be URL encoded. This value is unique for
+     * `in-progress` rooms. SDK clients can use this name to connect to the room.
+     * REST API clients can use this name in place of the Room SID to interact with
+     * the room as long as the room is `in-progress`..
      *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource

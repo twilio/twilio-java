@@ -1,6 +1,41 @@
 twilio-java changelog
 =====================
 
+[2022-02-09] Version 8.26.0
+---------------------------
+**Library - Chore**
+- [PR #668](https://github.com/twilio/twilio-java/pull/668): Fix for 1 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #669](https://github.com/twilio/twilio-java/pull/669): added sonarcloud integration. Thanks to [@BrimmingDev](https://github.com/BrimmingDev)!
+
+**Library - Fix**
+- [PR #670](https://github.com/twilio/twilio-java/pull/670): set socket config with blocking operation timeout. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add `stream` resource
+
+**Conversations**
+- Fixed DELETE request to accept "sid_like" params in Address Configuration resources **(breaking change)**
+- Expose Address Configuration resource for `sms` and `whatsapp`
+
+**Fax**
+- Removed deprecated Programmable Fax Create and Update methods **(breaking change)**
+
+**Insights**
+- Rename `call_state` to `call_status` and remove `whisper` in conference participant summary **(breaking change)**
+
+**Numbers**
+- Expose valid_until filters as part of provisionally-approved compliance feature on the List Bundles resource
+
+**Supersim**
+- Fix typo in Fleet resource docs
+- Updated documentation for the Fleet resource indicating that fields related to commands have been deprecated and to use sms_command fields instead.
+- Add support for setting and reading `ip_commands_url` and `ip_commands_method` on Fleets resource for helper libraries
+- Changed `sim` property in requests to create an SMS Command made to the /SmsCommands to accept SIM UniqueNames in addition to SIDs
+
+**Verify**
+- Update list attempts API to include new filters and response fields.
+
+
 [2022-01-26] Version 8.25.1
 ---------------------------
 **Insights**

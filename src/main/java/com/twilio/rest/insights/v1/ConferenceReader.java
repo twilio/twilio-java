@@ -32,9 +32,9 @@ public class ConferenceReader extends Reader<Conference> {
     private String endReason;
 
     /**
-     * The conference_sid.
+     * The SID of the conference..
      *
-     * @param conferenceSid The conference_sid
+     * @param conferenceSid The SID of the conference.
      * @return this
      */
     public ConferenceReader setConferenceSid(final String conferenceSid) {
@@ -43,9 +43,9 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The friendly_name.
+     * Custom label for the conference resource, up to 64 characters..
      *
-     * @param friendlyName The friendly_name
+     * @param friendlyName Custom label for the conference.
      * @return this
      */
     public ConferenceReader setFriendlyName(final String friendlyName) {
@@ -54,9 +54,9 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The status.
+     * Conference status..
      *
-     * @param status The status
+     * @param status Conference status.
      * @return this
      */
     public ConferenceReader setStatus(final String status) {
@@ -65,9 +65,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The created_after.
+     * Conferences created after the provided timestamp specified in ISO 8601
+     * format.
      *
-     * @param createdAfter The created_after
+     * @param createdAfter Conferences created after timestamp.
      * @return this
      */
     public ConferenceReader setCreatedAfter(final String createdAfter) {
@@ -76,9 +77,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The created_before.
+     * Conferences created before the provided timestamp specified in ISO 8601
+     * format..
      *
-     * @param createdBefore The created_before
+     * @param createdBefore Conferences created before timestamp.
      * @return this
      */
     public ConferenceReader setCreatedBefore(final String createdBefore) {
@@ -87,9 +89,9 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The mixer_region.
+     * Twilio region where the conference media was mixed..
      *
-     * @param mixerRegion The mixer_region
+     * @param mixerRegion Region where the conference was mixed.
      * @return this
      */
     public ConferenceReader setMixerRegion(final String mixerRegion) {
@@ -98,9 +100,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The tags.
+     * Tags applied by Twilio for common potential configuration, quality, or
+     * performance issues..
      *
-     * @param tags The tags
+     * @param tags Tags applied by Twilio for common issues.
      * @return this
      */
     public ConferenceReader setTags(final String tags) {
@@ -109,9 +112,9 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The subaccount.
+     * Account SID for the subaccount whose resources you wish to retrieve..
      *
-     * @param subaccount The subaccount
+     * @param subaccount Account SID for the subaccount.
      * @return this
      */
     public ConferenceReader setSubaccount(final String subaccount) {
@@ -120,9 +123,10 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The detected_issues.
+     * Potential configuration, behavior, or performance issues detected during the
+     * conference..
      *
-     * @param detectedIssues The detected_issues
+     * @param detectedIssues Potential issues detected during the conference.
      * @return this
      */
     public ConferenceReader setDetectedIssues(final String detectedIssues) {
@@ -131,9 +135,9 @@ public class ConferenceReader extends Reader<Conference> {
     }
 
     /**
-     * The end_reason.
+     * Conference end reason; e.g. last participant left, modified by API, etc..
      *
-     * @param endReason The end_reason
+     * @param endReason Conference end reason.
      * @return this
      */
     public ConferenceReader setEndReason(final String endReason) {

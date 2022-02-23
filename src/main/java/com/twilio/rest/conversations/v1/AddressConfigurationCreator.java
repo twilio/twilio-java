@@ -70,7 +70,7 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
     }
 
     /**
-     * Type of Auto Creation. Value can be one of `webhook`, `studio`, `default`..
+     * Type of Auto Creation. Value can be one of `webhook`, `studio` or `default`..
      *
      * @param autoCreationType Type of Auto Creation.
      * @return this
@@ -119,7 +119,11 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
     }
 
     /**
-     * The list of events, firing webhook event for this Conversation..
+     * The list of events, firing webhook event for this Conversation. Values can be
+     * any of the following: `onMessageAdded`, `onMessageUpdated`,
+     * `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`,
+     * `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`,
+     * `onParticipantRemoved`, `onDeliveryUpdated`.
      *
      * @param autoCreationWebhookFilters The list of events, firing webhook event
      *                                   for this Conversation.
@@ -131,7 +135,11 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
     }
 
     /**
-     * The list of events, firing webhook event for this Conversation..
+     * The list of events, firing webhook event for this Conversation. Values can be
+     * any of the following: `onMessageAdded`, `onMessageUpdated`,
+     * `onMessageRemoved`, `onConversationUpdated`, `onConversationStateUpdated`,
+     * `onConversationRemoved`, `onParticipantAdded`, `onParticipantUpdated`,
+     * `onParticipantRemoved`, `onDeliveryUpdated`.
      *
      * @param autoCreationWebhookFilters The list of events, firing webhook event
      *                                   for this Conversation.
@@ -142,9 +150,9 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration> {
     }
 
     /**
-     * For type `studio`, the studio flow SID, where the webhook should be sent to..
+     * For type `studio`, the studio flow SID where the webhook should be sent to..
      *
-     * @param autoCreationStudioFlowSid For type `studio`, the studio flow SID,
+     * @param autoCreationStudioFlowSid For type `studio`, the studio flow SID
      *                                  where the webhook should be sent to.
      * @return this
      */

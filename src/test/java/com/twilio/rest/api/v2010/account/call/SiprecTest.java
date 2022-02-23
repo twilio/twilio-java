@@ -60,7 +60,7 @@ public class SiprecTest {
     public void testCreateNoArgsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": null,\"status\": \"in-progress\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": null,\"status\": \"in-progress\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\",\"uri\": \"/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -72,7 +72,7 @@ public class SiprecTest {
     public void testCreateWithArgsResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": \"myName\",\"status\": \"in-progress\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": \"myName\",\"status\": \"in-progress\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\",\"uri\": \"/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,7 +104,7 @@ public class SiprecTest {
     public void testUpdateBySidResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": null,\"status\": \"stopped\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": null,\"status\": \"stopped\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\",\"uri\": \"/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -116,7 +116,7 @@ public class SiprecTest {
     public void testUpdateByNameResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": \"mySiprec\",\"status\": \"stopped\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"name\": \"mySiprec\",\"status\": \"stopped\",\"date_updated\": \"Thu, 30 Jul 2015 20:00:00 +0000\",\"uri\": \"/2010-04-01/Accounts/ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Calls/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Siprec/SRaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.json\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

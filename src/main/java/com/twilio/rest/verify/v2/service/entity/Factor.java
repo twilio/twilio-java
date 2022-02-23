@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Factor extends Resource {
-    private static final long serialVersionUID = 201328569010526L;
+    private static final long serialVersionUID = 226640630873682L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -247,6 +247,7 @@ public class Factor extends Resource {
     private final Factor.FactorStatuses status;
     private final Factor.FactorTypes factorType;
     private final Map<String, Object> config;
+    private final Map<String, Object> metadata;
     private final URI url;
 
     @JsonCreator
@@ -272,6 +273,8 @@ public class Factor extends Resource {
                    final Factor.FactorTypes factorType,
                    @JsonProperty("config")
                    final Map<String, Object> config,
+                   @JsonProperty("metadata")
+                   final Map<String, Object> metadata,
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -285,6 +288,7 @@ public class Factor extends Resource {
         this.status = status;
         this.factorType = factorType;
         this.config = config;
+        this.metadata = metadata;
         this.url = url;
     }
 
@@ -388,6 +392,15 @@ public class Factor extends Resource {
     }
 
     /**
+     * Returns Metadata of the factor..
+     *
+     * @return Metadata of the factor.
+     */
+    public final Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    /**
      * Returns The URL of this resource..
      *
      * @return The URL of this resource.
@@ -419,6 +432,7 @@ public class Factor extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(config, other.config) &&
+               Objects.equals(metadata, other.metadata) &&
                Objects.equals(url, other.url);
     }
 
@@ -435,6 +449,7 @@ public class Factor extends Resource {
                             status,
                             factorType,
                             config,
+                            metadata,
                             url);
     }
 }

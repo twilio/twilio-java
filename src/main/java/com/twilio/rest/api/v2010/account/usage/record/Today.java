@@ -41,6 +41,7 @@ public class Today extends Resource {
     private static final long serialVersionUID = 20731854742344L;
 
     public enum Category {
+        A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),

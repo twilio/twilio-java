@@ -35,7 +35,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Siprec extends Resource {
-    private static final long serialVersionUID = 268819701788968L;
+    private static final long serialVersionUID = 120054953189179L;
 
     public enum Track {
         INBOUND_TRACK("inbound_track"),
@@ -207,6 +207,7 @@ public class Siprec extends Resource {
     private final String name;
     private final Siprec.Status status;
     private final ZonedDateTime dateUpdated;
+    private final String uri;
 
     @JsonCreator
     private Siprec(@JsonProperty("sid")
@@ -220,13 +221,16 @@ public class Siprec extends Resource {
                    @JsonProperty("status")
                    final Siprec.Status status,
                    @JsonProperty("date_updated")
-                   final String dateUpdated) {
+                   final String dateUpdated,
+                   @JsonProperty("uri")
+                   final String uri) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.callSid = callSid;
         this.name = name;
         this.status = status;
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
+        this.uri = uri;
     }
 
     /**
@@ -284,6 +288,15 @@ public class Siprec extends Resource {
         return this.dateUpdated;
     }
 
+    /**
+     * Returns The URI of the resource, relative to `https://api.twilio.com`.
+     *
+     * @return The URI of the resource, relative to `https://api.twilio.com`
+     */
+    public final String getUri() {
+        return this.uri;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -301,7 +314,8 @@ public class Siprec extends Resource {
                Objects.equals(callSid, other.callSid) &&
                Objects.equals(name, other.name) &&
                Objects.equals(status, other.status) &&
-               Objects.equals(dateUpdated, other.dateUpdated);
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(uri, other.uri);
     }
 
     @Override
@@ -311,6 +325,7 @@ public class Siprec extends Resource {
                             callSid,
                             name,
                             status,
-                            dateUpdated);
+                            dateUpdated,
+                            uri);
     }
 }

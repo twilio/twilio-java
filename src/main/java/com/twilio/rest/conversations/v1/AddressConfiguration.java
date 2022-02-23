@@ -42,7 +42,8 @@ public class AddressConfiguration extends Resource {
     public enum Type {
         SMS("sms"),
         WHATSAPP("whatsapp"),
-        MESSENGER("messenger");
+        MESSENGER("messenger"),
+        GBM("gbm");
 
         private final String value;
 
@@ -264,9 +265,9 @@ public class AddressConfiguration extends Resource {
     }
 
     /**
-     * Returns Type of Address, value can be `whatsapp` or `sms`..
+     * Returns Type of Address..
      *
-     * @return Type of Address, value can be `whatsapp` or `sms`.
+     * @return Type of Address.
      */
     public final String getType() {
         return this.type;

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -28,6 +29,7 @@ import lombok.ToString;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AccessToken extends Resource {
-    private static final long serialVersionUID = 136404642668583L;
+    private static final long serialVersionUID = 108521635761261L;
 
     public enum FactorTypes {
         PUSH("push");
@@ -136,6 +138,8 @@ public class AccessToken extends Resource {
     private final String factorFriendlyName;
     private final String token;
     private final URI url;
+    private final Integer ttl;
+    private final ZonedDateTime dateCreated;
 
     @JsonCreator
     private AccessToken(@JsonProperty("sid")
@@ -153,7 +157,11 @@ public class AccessToken extends Resource {
                         @JsonProperty("token")
                         final String token,
                         @JsonProperty("url")
-                        final URI url) {
+                        final URI url,
+                        @JsonProperty("ttl")
+                        final Integer ttl,
+                        @JsonProperty("date_created")
+                        final String dateCreated) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -162,6 +170,8 @@ public class AccessToken extends Resource {
         this.factorFriendlyName = factorFriendlyName;
         this.token = token;
         this.url = url;
+        this.ttl = ttl;
+        this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
     }
 
     /**
@@ -236,6 +246,24 @@ public class AccessToken extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns How long, in seconds, the access token is valid..
+     *
+     * @return How long, in seconds, the access token is valid.
+     */
+    public final Integer getTtl() {
+        return this.ttl;
+    }
+
+    /**
+     * Returns The date this access token was created.
+     *
+     * @return The date this access token was created
+     */
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -255,7 +283,9 @@ public class AccessToken extends Resource {
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(factorFriendlyName, other.factorFriendlyName) &&
                Objects.equals(token, other.token) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(ttl, other.ttl) &&
+               Objects.equals(dateCreated, other.dateCreated);
     }
 
     @Override
@@ -267,6 +297,8 @@ public class AccessToken extends Resource {
                             factorType,
                             factorFriendlyName,
                             token,
-                            url);
+                            url,
+                            ttl,
+                            dateCreated);
     }
 }

@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewFactor extends Resource {
-    private static final long serialVersionUID = 213031822004713L;
+    private static final long serialVersionUID = 278938314214948L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -211,6 +211,7 @@ public class NewFactor extends Resource {
     private final NewFactor.FactorStatuses status;
     private final NewFactor.FactorTypes factorType;
     private final Map<String, Object> config;
+    private final Map<String, Object> metadata;
     private final URI url;
 
     @JsonCreator
@@ -238,6 +239,8 @@ public class NewFactor extends Resource {
                       final NewFactor.FactorTypes factorType,
                       @JsonProperty("config")
                       final Map<String, Object> config,
+                      @JsonProperty("metadata")
+                      final Map<String, Object> metadata,
                       @JsonProperty("url")
                       final URI url) {
         this.sid = sid;
@@ -252,6 +255,7 @@ public class NewFactor extends Resource {
         this.status = status;
         this.factorType = factorType;
         this.config = config;
+        this.metadata = metadata;
         this.url = url;
     }
 
@@ -301,9 +305,9 @@ public class NewFactor extends Resource {
     }
 
     /**
-     * Returns Unique external identifier of the Entity.
+     * Returns Binding of the factor.
      *
-     * @return Unique external identifier of the Entity
+     * @return Binding of the factor
      */
     public final Map<String, Object> getBinding() {
         return this.binding;
@@ -355,12 +359,21 @@ public class NewFactor extends Resource {
     }
 
     /**
-     * Returns Binding for a `factor_type`..
+     * Returns Configurations for a `factor_type`..
      *
-     * @return Binding for a `factor_type`.
+     * @return Configurations for a `factor_type`.
      */
     public final Map<String, Object> getConfig() {
         return this.config;
+    }
+
+    /**
+     * Returns Metadata of the factor..
+     *
+     * @return Metadata of the factor.
+     */
+    public final Map<String, Object> getMetadata() {
+        return this.metadata;
     }
 
     /**
@@ -396,6 +409,7 @@ public class NewFactor extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(config, other.config) &&
+               Objects.equals(metadata, other.metadata) &&
                Objects.equals(url, other.url);
     }
 
@@ -413,6 +427,7 @@ public class NewFactor extends Resource {
                             status,
                             factorType,
                             config,
+                            metadata,
                             url);
     }
 }

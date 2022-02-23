@@ -8,6 +8,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,8 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -37,6 +40,7 @@ public class NewFactorCreator extends Creator<NewFactor> {
     private Integer configSkew;
     private Integer configCodeLength;
     private NewFactor.TotpAlgorithms configAlg;
+    private Map<String, Object> metadata;
 
     /**
      * Construct a new NewFactorCreator.
@@ -217,6 +221,20 @@ public class NewFactorCreator extends Creator<NewFactor> {
     }
 
     /**
+     * Custom metadata associated with the factor. This is added by the Device/SDK
+     * directly to allow for the inclusion of device information. It must be a
+     * stringified JSON with only strings values eg. `{"os": "Android"}`. Can be up
+     * to 1024 characters in length..
+     *
+     * @param metadata Metadata of the factor.
+     * @return this
+     */
+    public NewFactorCreator setMetadata(final Map<String, Object> metadata) {
+        this.metadata = metadata;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -303,6 +321,10 @@ public class NewFactorCreator extends Creator<NewFactor> {
 
         if (configAlg != null) {
             request.addPostParam("Config.Alg", configAlg.toString());
+        }
+
+        if (metadata != null) {
+            request.addPostParam("Metadata", Converter.mapToJson(metadata));
         }
     }
 }

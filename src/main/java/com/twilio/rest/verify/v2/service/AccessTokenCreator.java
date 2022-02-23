@@ -26,6 +26,7 @@ public class AccessTokenCreator extends Creator<AccessToken> {
     private final String identity;
     private final AccessToken.FactorTypes factorType;
     private String factorFriendlyName;
+    private Integer ttl;
 
     /**
      * Construct a new AccessTokenCreator.
@@ -51,6 +52,18 @@ public class AccessTokenCreator extends Creator<AccessToken> {
      */
     public AccessTokenCreator setFactorFriendlyName(final String factorFriendlyName) {
         this.factorFriendlyName = factorFriendlyName;
+        return this;
+    }
+
+    /**
+     * How long, in seconds, the access token is valid. Can be an integer between 60
+     * and 300. Default is 60..
+     *
+     * @param ttl How long, in seconds, the access token is valid.
+     * @return this
+     */
+    public AccessTokenCreator setTtl(final Integer ttl) {
+        this.ttl = ttl;
         return this;
     }
 
@@ -101,6 +114,10 @@ public class AccessTokenCreator extends Creator<AccessToken> {
 
         if (factorFriendlyName != null) {
             request.addPostParam("FactorFriendlyName", factorFriendlyName);
+        }
+
+        if (ttl != null) {
+            request.addPostParam("Ttl", ttl.toString());
         }
     }
 }

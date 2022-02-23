@@ -133,11 +133,11 @@ public class UsageRecordReader extends Reader<UsageRecord> {
     }
 
     /**
-     * Only include usage that occurred before this time, specified in <a
-     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default is
-     * the current time..
+     * Only include usage that occurred before this time (exclusive), specified in
+     * <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> format. Default
+     * is the current time..
      *
-     * @param endTime Only include usage that occurred before this time.
+     * @param endTime Only include usage that occurred before this time (exclusive).
      * @return this
      */
     public UsageRecordReader setEndTime(final ZonedDateTime endTime) {

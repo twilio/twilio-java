@@ -93,8 +93,8 @@ public class Bundle extends Resource {
     }
 
     public enum SortBy {
-        ASC("ASC"),
-        DESC("DESC");
+        VALID_UNTIL("valid-until"),
+        DATE_UPDATED("date-updated");
 
         private final String value;
 
@@ -118,8 +118,8 @@ public class Bundle extends Resource {
     }
 
     public enum SortDirection {
-        VALID_UNTIL_DATE("valid_until_date"),
-        DATE_UPDATED("date_updated");
+        ASC("ASC"),
+        DESC("DESC");
 
         private final String value;
 

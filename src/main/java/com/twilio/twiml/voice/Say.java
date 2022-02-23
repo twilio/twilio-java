@@ -99,7 +99,16 @@ public class Say extends TwiML {
         POLLY_CAMILA_NEURAL("Polly.Camila-Neural"),
         POLLY_LUPE_NEURAL("Polly.Lupe-Neural"),
         POLLY_OLIVIA_NEURAL("Polly.Olivia-Neural"),
-        POLLY_KEVIN_NEURAL("Polly.Kevin-Neural");
+        POLLY_KEVIN_NEURAL("Polly.Kevin-Neural"),
+        POLLY_ARIA_NEURAL("Polly.Aria-Neural"),
+        POLLY_AYANDA_NEURAL("Polly.Ayanda-Neural"),
+        POLLY_GABRIELLE_NEURAL("Polly.Gabrielle-Neural"),
+        POLLY_LEA_NEURAL("Polly.Lea-Neural"),
+        POLLY_VICKI_NEURAL("Polly.Vicki-Neural"),
+        POLLY_BIANCA_NEURAL("Polly.Bianca-Neural"),
+        POLLY_TAKUMI_NEURAL("Polly.Takumi-Neural"),
+        POLLY_SEOYEON_NEURAL("Polly.Seoyeon-Neural"),
+        POLLY_LUCIA_NEURAL("Polly.Lucia-Neural");
 
         private final String value;
 
@@ -123,6 +132,8 @@ public class Say extends TwiML {
         EN_GB("en-GB"),
         EN_GB_WLS("en-GB-WLS"),
         EN_IN("en-IN"),
+        EN_NZ("en-NZ"),
+        EN_ZA("en-ZA"),
         EN_US("en-US"),
         ES_ES("es-ES"),
         ES_MX("es-MX"),

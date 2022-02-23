@@ -112,10 +112,10 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * Can be `ValidUntilDate` or `DateUpdated`. Defaults to `DateCreated`.
+     * Can be `valid-until` or `date-updated`. Defaults to `date-created`..
      *
-     * @param sortBy Can be `ValidUntilDate` or `DateUpdated`. Defaults to
-     *               `DateCreated`
+     * @param sortBy Can be `valid-until` or `date-updated`. Defaults to
+     *               `date-created`.
      * @return this
      */
     public BundleReader setSortBy(final Bundle.SortBy sortBy) {

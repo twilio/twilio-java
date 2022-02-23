@@ -3,6 +3,7 @@
 install:
 	@java -version || (echo "Java is not installed, please install Java >= 7"; exit 1);
 	mvn clean install
+	mvn dependency:resolve-plugins
 
 analysis:
 	mvn checkstyle:check

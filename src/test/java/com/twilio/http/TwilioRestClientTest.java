@@ -14,11 +14,13 @@ public class TwilioRestClientTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
+    @Mocked
+    private Twilio tw;
+
     @Before
     public void setUp() throws Exception {
-        Twilio.init("AC123", "AUTH TOKEN");
+        tw = new Twilio("AC123", "AUTH TOKEN");
     }
-
     @Test
     public void testFetchRedirect() {
         new Expectations() {{

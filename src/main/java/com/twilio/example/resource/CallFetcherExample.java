@@ -12,7 +12,7 @@ public class CallFetcherExample {
 
     @SuppressWarnings("checkstyle:javadocmethod")
     public static void main(String[] args) {
-        Twilio.init("AC123", "AUTH TOKEN");
+        Twilio tw = new Twilio("AC123", "AUTH TOKEN");
 
         try {
 

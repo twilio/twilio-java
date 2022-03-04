@@ -9,6 +9,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
@@ -25,6 +26,9 @@ import static org.junit.Assert.fail;
 
 public class TwilioTest {
 
+    @Mocked
+    private Twilio tw;
+
     public static String serialize(Object object) {
         return object.toString();
     }
@@ -37,6 +41,12 @@ public class TwilioTest {
     @Mocked
     private NetworkHttpClient networkHttpClient;
 
+    @Before
+    public void setUp() throws Exception {
+        tw = new Twilio("AC123", "AUTH TOKEN");
+        System.out.println("in before");
+    }
+
     @Test
     public void testGetExecutorService() {
         assertNotNull(Twilio.getExecutorService());
@@ -45,8 +55,8 @@ public class TwilioTest {
     @Test(expected = AuthenticationException.class)
     public void testGetRestClientNullAccountSid() {
         Twilio.setRestClient(null);
-        Twilio.setUsername(null);
-        Twilio.setPassword(null);
+        tw.setUsername(null);
+        tw.setPassword(null);
 
         Twilio.getRestClient();
         fail("AuthenticationException was expected");
@@ -54,13 +64,13 @@ public class TwilioTest {
 
     @Test(expected = AuthenticationException.class)
     public void testSetAccountSidNull() {
-        Twilio.setUsername(null);
+        tw.setUsername(null);
         fail("AuthenticationException was expected");
     }
 
     @Test(expected = AuthenticationException.class)
     public void testSetAuthTokenNull() {
-        Twilio.setPassword(null);
+        tw.setPassword(null);
         fail("AuthenticationException was expected");
     }
 
@@ -75,7 +85,7 @@ public class TwilioTest {
     public void testDestroyExecutorService() {
         ExecutorService executorService = Executors.newCachedThreadPool();
         Twilio.setExecutorService(executorService);
-        Twilio.destroy();
+        tw.destroy();
         assertTrue(Twilio.getExecutorService().isShutdown());
     }
 

@@ -13,7 +13,7 @@ public class CallDeleterExample {
 
     @SuppressWarnings("checkstyle:javadocmethod")
     public static void main(final String[] args) {
-        Twilio.init("AC123", "AUTH TOKEN");
+        Twilio tw = new Twilio("AC123", "AUTH TOKEN");
 
         try {
 

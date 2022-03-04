@@ -36,7 +36,7 @@ public class Example {
      */
     public static void main(String[] args) throws TwiMLException, URISyntaxException {
 
-        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        Twilio tw = new Twilio(ACCOUNT_SID, AUTH_TOKEN);
 
         Iterable<Record> usage = Record.reader().read();
         for (Record record : usage) {

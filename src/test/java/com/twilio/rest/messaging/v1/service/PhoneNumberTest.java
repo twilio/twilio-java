@@ -54,7 +54,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            PhoneNumber.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        PhoneNumber.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        PhoneNumber.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        PhoneNumber.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        PhoneNumber.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

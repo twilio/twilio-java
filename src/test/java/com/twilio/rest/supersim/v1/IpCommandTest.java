@@ -56,7 +56,7 @@ public class IpCommandTest {
         }};
 
         try {
-            IpCommand.creator("sim", "payload", 1).create();
+            IpCommand.creator("sim", "payload", 1).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class IpCommandTest {
             result = new ObjectMapper();
         }};
 
-        IpCommand.creator("sim", "payload", 1).create();
+        IpCommand.creator("sim", "payload", 1).create(tw);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class IpCommandTest {
             result = new ObjectMapper();
         }};
 
-        IpCommand.creator("sim", "payload", 1).create();
+        IpCommand.creator("sim", "payload", 1).create(tw);
     }
 
     @Test

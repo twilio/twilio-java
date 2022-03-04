@@ -86,7 +86,7 @@ public class RoomTest {
         }};
 
         try {
-            Room.creator().create();
+            Room.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test
@@ -124,7 +124,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test
@@ -136,7 +136,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test
@@ -148,7 +148,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test
@@ -160,7 +160,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test
@@ -172,7 +172,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.creator().create();
+        Room.creator().create(tw);
     }
 
     @Test

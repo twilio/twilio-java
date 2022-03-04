@@ -86,7 +86,7 @@ public class RecordingSettingsTest {
         }};
 
         try {
-            RecordingSettings.creator("friendly_name").create();
+            RecordingSettings.creator("friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class RecordingSettingsTest {
             result = new ObjectMapper();
         }};
 
-        RecordingSettings.creator("friendly_name").create();
+        RecordingSettings.creator("friendly_name").create(tw);
     }
 }

@@ -130,7 +130,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.creator().create();
+            RatePlan.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        RatePlan.creator().create();
+        RatePlan.creator().create(tw);
     }
 
     @Test

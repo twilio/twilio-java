@@ -55,7 +55,7 @@ public class CommandTest {
         }};
 
         try {
-            Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create();
+            Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class CommandTest {
             result = new ObjectMapper();
         }};
 
-        Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create();
+        Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create(tw);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class CommandTest {
             result = new ObjectMapper();
         }};
 
-        Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create();
+        Command.creator("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "command").create(tw);
     }
 
     @Test

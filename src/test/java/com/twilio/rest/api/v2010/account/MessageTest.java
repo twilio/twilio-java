@@ -56,7 +56,7 @@ public class MessageTest {
         }};
 
         try {
-            Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+            Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test
@@ -94,7 +94,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test
@@ -118,7 +118,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test
@@ -130,7 +130,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test
@@ -142,7 +142,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create();
+        Message.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), "body").create(tw);
     }
 
     @Test

@@ -55,7 +55,7 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
         }};
 
         try {
-            CustomerProfilesChannelEndpointAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "channel_endpoint_type", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            CustomerProfilesChannelEndpointAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "channel_endpoint_type", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        CustomerProfilesChannelEndpointAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "channel_endpoint_type", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        CustomerProfilesChannelEndpointAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "channel_endpoint_type", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

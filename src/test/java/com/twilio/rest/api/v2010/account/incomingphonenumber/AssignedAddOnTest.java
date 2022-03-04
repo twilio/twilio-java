@@ -130,7 +130,7 @@ public class AssignedAddOnTest {
         }};
 
         try {
-            AssignedAddOn.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            AssignedAddOn.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class AssignedAddOnTest {
             result = new ObjectMapper();
         }};
 
-        AssignedAddOn.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        AssignedAddOn.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

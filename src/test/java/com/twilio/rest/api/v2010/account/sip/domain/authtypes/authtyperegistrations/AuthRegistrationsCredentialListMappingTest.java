@@ -54,7 +54,7 @@ public class AuthRegistrationsCredentialListMappingTest {
         }};
 
         try {
-            AuthRegistrationsCredentialListMapping.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            AuthRegistrationsCredentialListMapping.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class AuthRegistrationsCredentialListMappingTest {
             result = new ObjectMapper();
         }};
 
-        AuthRegistrationsCredentialListMapping.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        AuthRegistrationsCredentialListMapping.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

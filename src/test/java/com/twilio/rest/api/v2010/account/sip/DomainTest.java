@@ -98,7 +98,7 @@ public class DomainTest {
         }};
 
         try {
-            Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domain_name").create();
+            Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domain_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
 
-        Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domain_name").create();
+        Domain.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "domain_name").create(tw);
     }
 
     @Test

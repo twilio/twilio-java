@@ -54,7 +54,7 @@ public class EntityTest {
         }};
 
         try {
-            Entity.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create();
+            Entity.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        Entity.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create();
+        Entity.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create(tw);
     }
 
     @Test

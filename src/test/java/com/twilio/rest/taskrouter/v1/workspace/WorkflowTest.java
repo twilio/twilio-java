@@ -195,7 +195,7 @@ public class WorkflowTest {
         }};
 
         try {
-            Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "configuration").create();
+            Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "configuration").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -209,6 +209,6 @@ public class WorkflowTest {
             result = new ObjectMapper();
         }};
 
-        Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "configuration").create();
+        Workflow.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "configuration").create(tw);
     }
 }

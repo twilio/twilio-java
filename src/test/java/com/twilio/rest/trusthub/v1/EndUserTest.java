@@ -55,7 +55,7 @@ public class EndUserTest {
         }};
 
         try {
-            EndUser.creator("friendly_name", "type").create();
+            EndUser.creator("friendly_name", "type").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class EndUserTest {
             result = new ObjectMapper();
         }};
 
-        EndUser.creator("friendly_name", "type").create();
+        EndUser.creator("friendly_name", "type").create(tw);
     }
 
     @Test

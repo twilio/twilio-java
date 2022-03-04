@@ -54,7 +54,7 @@ public class EvaluationTest {
         }};
 
         try {
-            Evaluation.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Evaluation.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class EvaluationTest {
             result = new ObjectMapper();
         }};
 
-        Evaluation.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Evaluation.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

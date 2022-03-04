@@ -98,7 +98,7 @@ public class CredentialListTest {
         }};
 
         try {
-            CredentialList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            CredentialList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        CredentialList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        CredentialList.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 
     @Test

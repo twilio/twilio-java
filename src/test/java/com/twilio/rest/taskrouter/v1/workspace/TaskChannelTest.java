@@ -231,7 +231,7 @@ public class TaskChannelTest {
         }};
 
         try {
-            TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "unique_name").create();
+            TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "unique_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -245,6 +245,6 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "unique_name").create();
+        TaskChannel.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "unique_name").create(tw);
     }
 }

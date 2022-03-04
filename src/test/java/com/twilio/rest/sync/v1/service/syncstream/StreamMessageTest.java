@@ -54,7 +54,7 @@ public class StreamMessageTest {
         }};
 
         try {
-            StreamMessage.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create();
+            StreamMessage.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class StreamMessageTest {
             result = new ObjectMapper();
         }};
 
-        StreamMessage.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create();
+        StreamMessage.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create(tw);
     }
 }

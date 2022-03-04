@@ -55,7 +55,7 @@ public class InstalledAddOnTest {
         }};
 
         try {
-            InstalledAddOn.creator("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).create();
+            InstalledAddOn.creator("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        InstalledAddOn.creator("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).create();
+        InstalledAddOn.creator("XBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", true).create(tw);
     }
 
     @Test

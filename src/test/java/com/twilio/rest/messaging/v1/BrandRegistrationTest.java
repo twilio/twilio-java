@@ -119,7 +119,7 @@ public class BrandRegistrationTest {
         }};
 
         try {
-            BrandRegistration.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            BrandRegistration.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,7 +133,7 @@ public class BrandRegistrationTest {
             result = new ObjectMapper();
         }};
 
-        BrandRegistration.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        BrandRegistration.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

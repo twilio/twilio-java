@@ -99,7 +99,7 @@ public class IpAddressTest {
         }};
 
         try {
-            IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "ip_address").create();
+            IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "ip_address").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -113,7 +113,7 @@ public class IpAddressTest {
             result = new ObjectMapper();
         }};
 
-        IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "ip_address").create();
+        IpAddress.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", "ip_address").create(tw);
     }
 
     @Test

@@ -55,7 +55,7 @@ public class SourceIpMappingTest {
         }};
 
         try {
-            SourceIpMapping.creator("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            SourceIpMapping.creator("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class SourceIpMappingTest {
             result = new ObjectMapper();
         }};
 
-        SourceIpMapping.creator("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        SourceIpMapping.creator("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

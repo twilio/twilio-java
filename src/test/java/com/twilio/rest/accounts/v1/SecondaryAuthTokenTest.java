@@ -54,7 +54,7 @@ public class SecondaryAuthTokenTest {
         }};
 
         try {
-            SecondaryAuthToken.creator().create();
+            SecondaryAuthToken.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SecondaryAuthTokenTest {
             result = new ObjectMapper();
         }};
 
-        SecondaryAuthToken.creator().create();
+        SecondaryAuthToken.creator().create(tw);
     }
 
     @Test

@@ -98,7 +98,7 @@ public class WorkerTest {
         }};
 
         try {
-            Worker.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            Worker.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
 
-        Worker.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        Worker.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 
     @Test

@@ -130,7 +130,7 @@ public class AssistantTest {
         }};
 
         try {
-            Assistant.creator().create();
+            Assistant.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class AssistantTest {
             result = new ObjectMapper();
         }};
 
-        Assistant.creator().create();
+        Assistant.creator().create(tw);
     }
 
     @Test

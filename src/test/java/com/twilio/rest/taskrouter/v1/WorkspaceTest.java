@@ -162,7 +162,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.creator("friendly_name").create();
+            Workspace.creator("friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -176,7 +176,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        Workspace.creator("friendly_name").create();
+        Workspace.creator("friendly_name").create(tw);
     }
 
     @Test

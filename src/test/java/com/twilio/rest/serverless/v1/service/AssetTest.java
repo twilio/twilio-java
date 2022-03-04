@@ -150,7 +150,7 @@ public class AssetTest {
         }};
 
         try {
-            Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,7 +164,7 @@ public class AssetTest {
             result = new ObjectMapper();
         }};
 
-        Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        Asset.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 
     @Test

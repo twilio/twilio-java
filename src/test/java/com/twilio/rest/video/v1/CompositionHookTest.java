@@ -162,7 +162,7 @@ public class CompositionHookTest {
         }};
 
         try {
-            CompositionHook.creator("friendly_name").create();
+            CompositionHook.creator("friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -176,7 +176,7 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.creator("friendly_name").create();
+        CompositionHook.creator("friendly_name").create(tw);
     }
 
     @Test

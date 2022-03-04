@@ -119,7 +119,7 @@ public class VariableTest {
         }};
 
         try {
-            Variable.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", "value").create();
+            Variable.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", "value").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,7 +133,7 @@ public class VariableTest {
             result = new ObjectMapper();
         }};
 
-        Variable.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", "value").create();
+        Variable.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", "value").create(tw);
     }
 
     @Test

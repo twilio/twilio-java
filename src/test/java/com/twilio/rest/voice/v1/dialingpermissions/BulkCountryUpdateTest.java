@@ -54,7 +54,7 @@ public class BulkCountryUpdateTest {
         }};
 
         try {
-            BulkCountryUpdate.creator("update_request").create();
+            BulkCountryUpdate.creator("update_request").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class BulkCountryUpdateTest {
             result = new ObjectMapper();
         }};
 
-        BulkCountryUpdate.creator("update_request").create();
+        BulkCountryUpdate.creator("update_request").create(tw);
     }
 }

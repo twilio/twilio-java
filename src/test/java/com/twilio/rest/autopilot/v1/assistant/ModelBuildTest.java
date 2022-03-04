@@ -130,7 +130,7 @@ public class ModelBuildTest {
         }};
 
         try {
-            ModelBuild.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            ModelBuild.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class ModelBuildTest {
             result = new ObjectMapper();
         }};
 
-        ModelBuild.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        ModelBuild.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

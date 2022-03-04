@@ -55,7 +55,7 @@ public class AccessTokenTest {
         }};
 
         try {
-            AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create();
+            AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class AccessTokenTest {
             result = new ObjectMapper();
         }};
 
-        AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create();
+        AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create(tw);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class AccessTokenTest {
             result = new ObjectMapper();
         }};
 
-        AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create();
+        AccessToken.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", AccessToken.FactorTypes.PUSH).create(tw);
     }
 
     @Test

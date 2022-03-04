@@ -131,7 +131,7 @@ public class FieldValueTest {
         }};
 
         try {
-            FieldValue.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "value").create();
+            FieldValue.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "value").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class FieldValueTest {
             result = new ObjectMapper();
         }};
 
-        FieldValue.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "value").create();
+        FieldValue.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "value").create(tw);
     }
 
     @Test

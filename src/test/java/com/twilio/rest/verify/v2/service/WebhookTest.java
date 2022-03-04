@@ -56,7 +56,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Promoter.listOfOne("event_types"), "webhook_url").create();
+            Webhook.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Promoter.listOfOne("event_types"), "webhook_url").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class WebhookTest {
             result = new ObjectMapper();
         }};
 
-        Webhook.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Promoter.listOfOne("event_types"), "webhook_url").create();
+        Webhook.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Promoter.listOfOne("event_types"), "webhook_url").create(tw);
     }
 
     @Test

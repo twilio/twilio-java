@@ -54,7 +54,7 @@ public class ReplaceItemsTest {
         }};
 
         try {
-            ReplaceItems.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            ReplaceItems.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class ReplaceItemsTest {
             result = new ObjectMapper();
         }};
 
-        ReplaceItems.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        ReplaceItems.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 }

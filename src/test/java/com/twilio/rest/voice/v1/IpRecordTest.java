@@ -54,7 +54,7 @@ public class IpRecordTest {
         }};
 
         try {
-            IpRecord.creator("ip_address").create();
+            IpRecord.creator("ip_address").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class IpRecordTest {
             result = new ObjectMapper();
         }};
 
-        IpRecord.creator("ip_address").create();
+        IpRecord.creator("ip_address").create(tw);
     }
 
     @Test

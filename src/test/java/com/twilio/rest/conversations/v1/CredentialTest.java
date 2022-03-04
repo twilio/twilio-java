@@ -54,7 +54,7 @@ public class CredentialTest {
         }};
 
         try {
-            Credential.creator(Credential.PushType.APN).create();
+            Credential.creator(Credential.PushType.APN).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
 
-        Credential.creator(Credential.PushType.APN).create();
+        Credential.creator(Credential.PushType.APN).create(tw);
     }
 
     @Test

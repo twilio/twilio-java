@@ -88,7 +88,7 @@ public class SinkTest {
         }};
 
         try {
-            Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create();
+            Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -102,7 +102,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create();
+        Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create(tw);
     }
 
     @Test
@@ -114,7 +114,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create();
+        Sink.creator("description", new java.util.HashMap<String, Object>(), Sink.SinkType.KINESIS).create(tw);
     }
 
     @Test

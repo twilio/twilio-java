@@ -98,7 +98,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.creator("publickey").create();
+            PublicKey.creator("publickey").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        PublicKey.creator("publickey").create();
+        PublicKey.creator("publickey").create(tw);
     }
 
     @Test

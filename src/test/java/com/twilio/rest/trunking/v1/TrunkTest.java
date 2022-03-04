@@ -118,7 +118,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.creator().create();
+            Trunk.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        Trunk.creator().create();
+        Trunk.creator().create(tw);
     }
 
     @Test

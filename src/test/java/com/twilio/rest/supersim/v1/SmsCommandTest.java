@@ -55,7 +55,7 @@ public class SmsCommandTest {
         }};
 
         try {
-            SmsCommand.creator("sim", "payload").create();
+            SmsCommand.creator("sim", "payload").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        SmsCommand.creator("sim", "payload").create();
+        SmsCommand.creator("sim", "payload").create(tw);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        SmsCommand.creator("sim", "payload").create();
+        SmsCommand.creator("sim", "payload").create(tw);
     }
 
     @Test

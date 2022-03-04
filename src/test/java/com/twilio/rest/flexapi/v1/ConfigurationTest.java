@@ -86,7 +86,7 @@ public class ConfigurationTest {
         }};
 
         try {
-            Configuration.creator().create();
+            Configuration.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class ConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        Configuration.creator().create();
+        Configuration.creator().create(tw);
     }
 
     @Test

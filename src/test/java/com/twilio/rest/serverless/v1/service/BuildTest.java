@@ -150,7 +150,7 @@ public class BuildTest {
         }};
 
         try {
-            Build.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Build.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,6 +164,6 @@ public class BuildTest {
             result = new ObjectMapper();
         }};
 
-        Build.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Build.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 }

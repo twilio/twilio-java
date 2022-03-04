@@ -118,7 +118,7 @@ public class SyncMapTest {
         }};
 
         try {
-            SyncMap.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            SyncMap.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class SyncMapTest {
             result = new ObjectMapper();
         }};
 
-        SyncMap.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        SyncMap.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

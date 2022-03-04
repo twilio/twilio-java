@@ -130,7 +130,7 @@ public class TaskTest {
         }};
 
         try {
-            Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
+            Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class TaskTest {
             result = new ObjectMapper();
         }};
 
-        Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
+        Task.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create(tw);
     }
 
     @Test

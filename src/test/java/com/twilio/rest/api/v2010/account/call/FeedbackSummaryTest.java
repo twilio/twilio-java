@@ -55,7 +55,7 @@ public class FeedbackSummaryTest {
         }};
 
         try {
-            FeedbackSummary.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
+            FeedbackSummary.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
 
-        FeedbackSummary.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create();
+        FeedbackSummary.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", DateConverter.localDateFromString("2008-01-02"), DateConverter.localDateFromString("2008-01-02")).create(tw);
     }
 
     @Test

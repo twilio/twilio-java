@@ -152,7 +152,7 @@ public class TriggerTest {
         }};
 
         try {
-            Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "trigger_value", Trigger.UsageCategory.A2P_REGISTRATION_FEES).create();
+            Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "trigger_value", Trigger.UsageCategory.A2P_REGISTRATION_FEES).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -166,7 +166,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
 
-        Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "trigger_value", Trigger.UsageCategory.A2P_REGISTRATION_FEES).create();
+        Trigger.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com"), "trigger_value", Trigger.UsageCategory.A2P_REGISTRATION_FEES).create(tw);
     }
 
     @Test

@@ -118,7 +118,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificate_data").create();
+            Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificate_data").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificate_data").create();
+        Certificate.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "certificate_data").create(tw);
     }
 
     @Test

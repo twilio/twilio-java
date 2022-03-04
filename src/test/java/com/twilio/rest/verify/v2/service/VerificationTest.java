@@ -55,7 +55,7 @@ public class VerificationTest {
         }};
 
         try {
-            Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create();
+            Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create();
+        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create(tw);
     }
 
     @Test
@@ -81,7 +81,7 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create();
+        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create(tw);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create();
+        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create(tw);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create();
+        Verification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "to", "channel").create(tw);
     }
 
     @Test

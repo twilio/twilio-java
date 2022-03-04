@@ -55,7 +55,7 @@ public class SupportingDocumentTest {
         }};
 
         try {
-            SupportingDocument.creator("friendly_name", "type").create();
+            SupportingDocument.creator("friendly_name", "type").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class SupportingDocumentTest {
             result = new ObjectMapper();
         }};
 
-        SupportingDocument.creator("friendly_name", "type").create();
+        SupportingDocument.creator("friendly_name", "type").create(tw);
     }
 
     @Test

@@ -56,7 +56,7 @@ public class TrustProductsTest {
         }};
 
         try {
-            TrustProducts.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            TrustProducts.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class TrustProductsTest {
             result = new ObjectMapper();
         }};
 
-        TrustProducts.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        TrustProducts.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

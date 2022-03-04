@@ -130,7 +130,7 @@ public class CommandTest {
         }};
 
         try {
-            Command.creator("command").create();
+            Command.creator("command").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,6 +144,6 @@ public class CommandTest {
             result = new ObjectMapper();
         }};
 
-        Command.creator("command").create();
+        Command.creator("command").create(tw);
     }
 }

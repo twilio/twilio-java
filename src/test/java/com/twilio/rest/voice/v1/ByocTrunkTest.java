@@ -54,7 +54,7 @@ public class ByocTrunkTest {
         }};
 
         try {
-            ByocTrunk.creator().create();
+            ByocTrunk.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ByocTrunkTest {
             result = new ObjectMapper();
         }};
 
-        ByocTrunk.creator().create();
+        ByocTrunk.creator().create(tw);
     }
 
     @Test

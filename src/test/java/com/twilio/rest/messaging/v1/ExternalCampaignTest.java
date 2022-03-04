@@ -55,7 +55,7 @@ public class ExternalCampaignTest {
         }};
 
         try {
-            ExternalCampaign.creator("campaign_id", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            ExternalCampaign.creator("campaign_id", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,6 +69,6 @@ public class ExternalCampaignTest {
             result = new ObjectMapper();
         }};
 
-        ExternalCampaign.creator("campaign_id", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        ExternalCampaign.creator("campaign_id", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 }

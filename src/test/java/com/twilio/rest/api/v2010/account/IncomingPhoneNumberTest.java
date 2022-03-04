@@ -194,7 +194,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
+            IncomingPhoneNumber.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -208,6 +208,6 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        IncomingPhoneNumber.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
+        IncomingPhoneNumber.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create(tw);
     }
 }

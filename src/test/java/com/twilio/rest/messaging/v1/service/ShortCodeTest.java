@@ -54,7 +54,7 @@ public class ShortCodeTest {
         }};
 
         try {
-            ShortCode.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            ShortCode.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ShortCodeTest {
             result = new ObjectMapper();
         }};
 
-        ShortCode.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        ShortCode.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

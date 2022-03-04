@@ -54,7 +54,7 @@ public class ConnectionPolicyTargetTest {
         }};
 
         try {
-            ConnectionPolicyTarget.creator("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).create();
+            ConnectionPolicyTarget.creator("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ConnectionPolicyTargetTest {
             result = new ObjectMapper();
         }};
 
-        ConnectionPolicyTarget.creator("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).create();
+        ConnectionPolicyTarget.creator("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", URI.create("https://example.com")).create(tw);
     }
 
     @Test

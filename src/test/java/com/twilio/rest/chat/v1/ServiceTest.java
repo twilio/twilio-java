@@ -118,7 +118,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.creator("friendly_name").create();
+            Service.creator("friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        Service.creator("friendly_name").create();
+        Service.creator("friendly_name").create(tw);
     }
 
     @Test

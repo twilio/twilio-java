@@ -54,7 +54,7 @@ public class RateLimitTest {
         }};
 
         try {
-            RateLimit.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
+            RateLimit.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class RateLimitTest {
             result = new ObjectMapper();
         }};
 
-        RateLimit.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
+        RateLimit.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create(tw);
     }
 
     @Test

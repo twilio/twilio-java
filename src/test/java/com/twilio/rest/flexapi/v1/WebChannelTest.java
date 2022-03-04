@@ -133,7 +133,7 @@ public class WebChannelTest {
         }};
 
         try {
-            WebChannel.creator("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "customer_friendly_name", "chat_friendly_name").create();
+            WebChannel.creator("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "customer_friendly_name", "chat_friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -147,7 +147,7 @@ public class WebChannelTest {
             result = new ObjectMapper();
         }};
 
-        WebChannel.creator("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "customer_friendly_name", "chat_friendly_name").create();
+        WebChannel.creator("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "customer_friendly_name", "chat_friendly_name").create(tw);
     }
 
     @Test

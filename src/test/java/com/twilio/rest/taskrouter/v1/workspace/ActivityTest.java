@@ -194,7 +194,7 @@ public class ActivityTest {
         }};
 
         try {
-            Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -208,6 +208,6 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
 
-        Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        Activity.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 }

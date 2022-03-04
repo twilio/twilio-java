@@ -119,7 +119,7 @@ public class UserTest {
         }};
 
         try {
-            User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setXTwilioWebhookEnabled(User.WebhookEnabledType.TRUE).create();
+            User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setXTwilioWebhookEnabled(User.WebhookEnabledType.TRUE).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,7 +133,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setXTwilioWebhookEnabled(User.WebhookEnabledType.TRUE).create();
+        User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").setXTwilioWebhookEnabled(User.WebhookEnabledType.TRUE).create(tw);
     }
 
     @Test

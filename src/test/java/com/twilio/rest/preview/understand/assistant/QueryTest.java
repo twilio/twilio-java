@@ -131,7 +131,7 @@ public class QueryTest {
         }};
 
         try {
-            Query.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "query").create();
+            Query.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "query").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class QueryTest {
             result = new ObjectMapper();
         }};
 
-        Query.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "query").create();
+        Query.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "query").create(tw);
     }
 
     @Test

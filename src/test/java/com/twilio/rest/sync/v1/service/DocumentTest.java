@@ -118,7 +118,7 @@ public class DocumentTest {
         }};
 
         try {
-            Document.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Document.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class DocumentTest {
             result = new ObjectMapper();
         }};
 
-        Document.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Document.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

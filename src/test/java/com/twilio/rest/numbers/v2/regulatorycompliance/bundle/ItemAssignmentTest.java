@@ -54,7 +54,7 @@ public class ItemAssignmentTest {
         }};
 
         try {
-            ItemAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            ItemAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ItemAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        ItemAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        ItemAssignment.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

@@ -54,7 +54,7 @@ public class NetworkAccessProfileTest {
         }};
 
         try {
-            NetworkAccessProfile.creator().create();
+            NetworkAccessProfile.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class NetworkAccessProfileTest {
             result = new ObjectMapper();
         }};
 
-        NetworkAccessProfile.creator().create();
+        NetworkAccessProfile.creator().create(tw);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class NetworkAccessProfileTest {
             result = new ObjectMapper();
         }};
 
-        NetworkAccessProfile.creator().create();
+        NetworkAccessProfile.creator().create(tw);
     }
 
     @Test

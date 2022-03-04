@@ -166,7 +166,7 @@ public class AuthorizationDocumentTest {
         }};
 
         try {
-            AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create();
+            AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -180,6 +180,6 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create();
+        AuthorizationDocument.creator(Promoter.listOfOne("hosted_number_order_sids"), "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "email", "contact_title", "contact_phone_number").create(tw);
     }
 }

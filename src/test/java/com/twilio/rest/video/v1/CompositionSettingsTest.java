@@ -86,7 +86,7 @@ public class CompositionSettingsTest {
         }};
 
         try {
-            CompositionSettings.creator("friendly_name").create();
+            CompositionSettings.creator("friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class CompositionSettingsTest {
             result = new ObjectMapper();
         }};
 
-        CompositionSettings.creator("friendly_name").create();
+        CompositionSettings.creator("friendly_name").create(tw);
     }
 }

@@ -98,7 +98,7 @@ public class TollFreeTest {
         }};
 
         try {
-            TollFree.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
+            TollFree.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
 
-        TollFree.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create();
+        TollFree.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15017122661")).create(tw);
     }
 }

@@ -55,7 +55,7 @@ public class BucketTest {
         }};
 
         try {
-            Bucket.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1).create();
+            Bucket.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class BucketTest {
             result = new ObjectMapper();
         }};
 
-        Bucket.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1).create();
+        Bucket.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1).create(tw);
     }
 
     @Test

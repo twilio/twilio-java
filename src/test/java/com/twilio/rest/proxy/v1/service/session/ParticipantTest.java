@@ -130,7 +130,7 @@ public class ParticipantTest {
         }};
 
         try {
-            Participant.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identifier").create();
+            Participant.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identifier").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class ParticipantTest {
             result = new ObjectMapper();
         }};
 
-        Participant.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identifier").create();
+        Participant.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identifier").create(tw);
     }
 
     @Test
@@ -156,7 +156,7 @@ public class ParticipantTest {
             result = new ObjectMapper();
         }};
 
-        Participant.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identifier").create();
+        Participant.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identifier").create(tw);
     }
 
     @Test

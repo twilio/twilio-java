@@ -55,7 +55,7 @@ public class MediaProcessorTest {
         }};
 
         try {
-            MediaProcessor.creator("extension", "extension_context").create();
+            MediaProcessor.creator("extension", "extension_context").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class MediaProcessorTest {
             result = new ObjectMapper();
         }};
 
-        MediaProcessor.creator("extension", "extension_context").create();
+        MediaProcessor.creator("extension", "extension_context").create(tw);
     }
 
     @Test

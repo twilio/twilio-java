@@ -54,7 +54,7 @@ public class TrustProductsEntityAssignmentsTest {
         }};
 
         try {
-            TrustProductsEntityAssignments.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            TrustProductsEntityAssignments.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TrustProductsEntityAssignmentsTest {
             result = new ObjectMapper();
         }};
 
-        TrustProductsEntityAssignments.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        TrustProductsEntityAssignments.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

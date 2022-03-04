@@ -54,7 +54,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            PhoneNumber.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        PhoneNumber.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        PhoneNumber.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

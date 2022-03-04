@@ -86,7 +86,7 @@ public class PlayerStreamerTest {
         }};
 
         try {
-            PlayerStreamer.creator().create();
+            PlayerStreamer.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class PlayerStreamerTest {
             result = new ObjectMapper();
         }};
 
-        PlayerStreamer.creator().create();
+        PlayerStreamer.creator().create(tw);
     }
 
     @Test

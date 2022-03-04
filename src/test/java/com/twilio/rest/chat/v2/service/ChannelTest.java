@@ -118,7 +118,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).create();
+            Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).create();
+        Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Channel.WebhookEnabledType.TRUE).create(tw);
     }
 
     @Test

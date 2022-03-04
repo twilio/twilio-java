@@ -54,7 +54,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alpha_sender").create();
+            AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alpha_sender").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alpha_sender").create();
+        AlphaSender.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "alpha_sender").create(tw);
     }
 
     @Test

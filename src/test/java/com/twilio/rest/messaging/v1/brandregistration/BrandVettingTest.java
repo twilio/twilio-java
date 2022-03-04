@@ -54,7 +54,7 @@ public class BrandVettingTest {
         }};
 
         try {
-            BrandVetting.creator("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", BrandVetting.VettingProvider.CAMPAIGN_VERIFY).create();
+            BrandVetting.creator("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", BrandVetting.VettingProvider.CAMPAIGN_VERIFY).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class BrandVettingTest {
             result = new ObjectMapper();
         }};
 
-        BrandVetting.creator("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", BrandVetting.VettingProvider.CAMPAIGN_VERIFY).create();
+        BrandVetting.creator("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", BrandVetting.VettingProvider.CAMPAIGN_VERIFY).create(tw);
     }
 
     @Test

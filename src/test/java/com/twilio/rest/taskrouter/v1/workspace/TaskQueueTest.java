@@ -162,7 +162,7 @@ public class TaskQueueTest {
         }};
 
         try {
-            TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -176,7 +176,7 @@ public class TaskQueueTest {
             result = new ObjectMapper();
         }};
 
-        TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        TaskQueue.creator("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 
     @Test

@@ -120,7 +120,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
+            Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -134,7 +134,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create();
+        Role.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name", Role.RoleType.CHANNEL, Promoter.listOfOne("permission")).create(tw);
     }
 
     @Test

@@ -54,7 +54,7 @@ public class FeedbackTest {
         }};
 
         try {
-            Feedback.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Feedback.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class FeedbackTest {
             result = new ObjectMapper();
         }};
 
-        Feedback.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Feedback.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 }

@@ -56,7 +56,7 @@ public class CallTest {
         }};
 
         try {
-            Call.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create();
+            Call.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        Call.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create();
+        Call.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create(tw);
     }
 
     @Test
@@ -82,7 +82,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        Call.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create();
+        Call.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new com.twilio.type.PhoneNumber("+15558675310"), new com.twilio.type.PhoneNumber("+15017122661"), URI.create("https://example.com")).create(tw);
     }
 
     @Test

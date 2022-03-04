@@ -120,7 +120,7 @@ public class BindingTest {
         }};
 
         try {
-            Binding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", Binding.BindingType.APN, "address").create();
+            Binding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", Binding.BindingType.APN, "address").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -134,7 +134,7 @@ public class BindingTest {
             result = new ObjectMapper();
         }};
 
-        Binding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", Binding.BindingType.APN, "address").create();
+        Binding.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", Binding.BindingType.APN, "address").create(tw);
     }
 
     @Test

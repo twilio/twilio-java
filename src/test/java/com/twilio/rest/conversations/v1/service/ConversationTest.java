@@ -54,7 +54,7 @@ public class ConversationTest {
         }};
 
         try {
-            Conversation.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).create();
+            Conversation.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ConversationTest {
             result = new ObjectMapper();
         }};
 
-        Conversation.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).create();
+        Conversation.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).create(tw);
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ConversationTest {
             result = new ObjectMapper();
         }};
 
-        Conversation.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).create();
+        Conversation.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).create(tw);
     }
 
     @Test

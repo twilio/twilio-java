@@ -54,7 +54,7 @@ public class ConnectionPolicyTest {
         }};
 
         try {
-            ConnectionPolicy.creator().create();
+            ConnectionPolicy.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ConnectionPolicyTest {
             result = new ObjectMapper();
         }};
 
-        ConnectionPolicy.creator().create();
+        ConnectionPolicy.creator().create(tw);
     }
 
     @Test

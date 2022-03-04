@@ -56,7 +56,7 @@ public class CustomerProfilesTest {
         }};
 
         try {
-            CustomerProfiles.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            CustomerProfiles.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -70,7 +70,7 @@ public class CustomerProfilesTest {
             result = new ObjectMapper();
         }};
 
-        CustomerProfiles.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        CustomerProfiles.creator("friendly_name", "email", "RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

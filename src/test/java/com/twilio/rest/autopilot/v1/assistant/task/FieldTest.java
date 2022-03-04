@@ -131,7 +131,7 @@ public class FieldTest {
         }};
 
         try {
-            Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "field_type", "unique_name").create();
+            Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "field_type", "unique_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class FieldTest {
             result = new ObjectMapper();
         }};
 
-        Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "field_type", "unique_name").create();
+        Field.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "field_type", "unique_name").create(tw);
     }
 
     @Test

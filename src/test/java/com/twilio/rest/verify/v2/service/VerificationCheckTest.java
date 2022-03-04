@@ -54,7 +54,7 @@ public class VerificationCheckTest {
         }};
 
         try {
-            VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+            VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class VerificationCheckTest {
             result = new ObjectMapper();
         }};
 
-        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create(tw);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class VerificationCheckTest {
             result = new ObjectMapper();
         }};
 
-        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create(tw);
     }
 }

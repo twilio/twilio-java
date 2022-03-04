@@ -99,7 +99,7 @@ public class CredentialTest {
         }};
 
         try {
-            Credential.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "username", "password").create();
+            Credential.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "username", "password").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -113,7 +113,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
 
-        Credential.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "username", "password").create();
+        Credential.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "username", "password").create(tw);
     }
 
     @Test

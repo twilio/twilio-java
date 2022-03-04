@@ -55,7 +55,7 @@ public class NewFactorTest {
         }};
 
         try {
-            NewFactor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", NewFactor.FactorTypes.PUSH).create();
+            NewFactor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", NewFactor.FactorTypes.PUSH).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class NewFactorTest {
             result = new ObjectMapper();
         }};
 
-        NewFactor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", NewFactor.FactorTypes.PUSH).create();
+        NewFactor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", NewFactor.FactorTypes.PUSH).create(tw);
     }
 
     @Test
@@ -81,6 +81,6 @@ public class NewFactorTest {
             result = new ObjectMapper();
         }};
 
-        NewFactor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", NewFactor.FactorTypes.PUSH).create();
+        NewFactor.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "friendly_name", NewFactor.FactorTypes.PUSH).create(tw);
     }
 }

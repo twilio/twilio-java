@@ -144,7 +144,7 @@ public class SubscriptionTest {
         }};
 
         try {
-            Subscription.creator("description", "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Promoter.listOfOne((java.util.Map<String, Object>)new java.util.HashMap<String, Object>())).create();
+            Subscription.creator("description", "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Promoter.listOfOne((java.util.Map<String, Object>)new java.util.HashMap<String, Object>())).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -158,7 +158,7 @@ public class SubscriptionTest {
             result = new ObjectMapper();
         }};
 
-        Subscription.creator("description", "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Promoter.listOfOne((java.util.Map<String, Object>)new java.util.HashMap<String, Object>())).create();
+        Subscription.creator("description", "DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Promoter.listOfOne((java.util.Map<String, Object>)new java.util.HashMap<String, Object>())).create(tw);
     }
 
     @Test

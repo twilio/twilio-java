@@ -118,7 +118,7 @@ public class UserTest {
         }};
 
         try {
-            User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create();
+            User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create();
+        User.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").create(tw);
     }
 
     @Test

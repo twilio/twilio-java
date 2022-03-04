@@ -54,7 +54,7 @@ public class NotificationTest {
         }};
 
         try {
-            Notification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Notification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class NotificationTest {
             result = new ObjectMapper();
         }};
 
-        Notification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Notification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test
@@ -80,6 +80,6 @@ public class NotificationTest {
             result = new ObjectMapper();
         }};
 
-        Notification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Notification.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity", "YCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 }

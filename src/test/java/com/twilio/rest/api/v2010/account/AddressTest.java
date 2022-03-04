@@ -59,7 +59,7 @@ public class AddressTest {
         }};
 
         try {
-            Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customer_name", "street", "city", "region", "postal_code", "US").create();
+            Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customer_name", "street", "city", "region", "postal_code", "US").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -73,7 +73,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customer_name", "street", "city", "region", "postal_code", "US").create();
+        Address.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "customer_name", "street", "city", "region", "postal_code", "US").create(tw);
     }
 
     @Test

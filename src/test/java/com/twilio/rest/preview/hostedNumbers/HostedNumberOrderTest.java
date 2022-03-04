@@ -195,7 +195,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create();
+            HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -209,7 +209,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create();
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create(tw);
     }
 
     @Test
@@ -221,7 +221,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create();
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create(tw);
     }
 
     @Test
@@ -233,6 +233,6 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create();
+        HostedNumberOrder.creator(new com.twilio.type.PhoneNumber("+15017122661"), true).create(tw);
     }
 }

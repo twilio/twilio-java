@@ -98,7 +98,7 @@ public class CredentialTest {
         }};
 
         try {
-            Credential.creator(Credential.PushService.GCM).create();
+            Credential.creator(Credential.PushService.GCM).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
 
-        Credential.creator(Credential.PushService.GCM).create();
+        Credential.creator(Credential.PushService.GCM).create(tw);
     }
 
     @Test

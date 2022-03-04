@@ -55,7 +55,7 @@ public class BundleTest {
         }};
 
         try {
-            Bundle.creator("friendly_name", "email").create();
+            Bundle.creator("friendly_name", "email").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        Bundle.creator("friendly_name", "email").create();
+        Bundle.creator("friendly_name", "email").create(tw);
     }
 
     @Test

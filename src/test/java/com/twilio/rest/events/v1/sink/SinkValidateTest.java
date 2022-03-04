@@ -54,7 +54,7 @@ public class SinkValidateTest {
         }};
 
         try {
-            SinkValidate.creator("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "test_id").create();
+            SinkValidate.creator("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "test_id").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class SinkValidateTest {
             result = new ObjectMapper();
         }};
 
-        SinkValidate.creator("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "test_id").create();
+        SinkValidate.creator("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "test_id").create(tw);
     }
 }

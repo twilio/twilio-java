@@ -55,7 +55,7 @@ public class PaymentTest {
         }};
 
         try {
-            Payment.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).create();
+            Payment.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class PaymentTest {
             result = new ObjectMapper();
         }};
 
-        Payment.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).create();
+        Payment.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).create(tw);
     }
 
     @Test

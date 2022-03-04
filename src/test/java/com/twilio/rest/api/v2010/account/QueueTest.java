@@ -194,7 +194,7 @@ public class QueueTest {
         }};
 
         try {
-            Queue.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            Queue.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -208,6 +208,6 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
 
-        Queue.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        Queue.creator("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 }

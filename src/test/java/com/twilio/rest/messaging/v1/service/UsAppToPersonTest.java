@@ -59,7 +59,7 @@ public class UsAppToPersonTest {
         }};
 
         try {
-            UsAppToPerson.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "description", Promoter.listOfOne("message_samples"), "us_app_to_person_usecase", true, true).create();
+            UsAppToPerson.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "description", Promoter.listOfOne("message_samples"), "us_app_to_person_usecase", true, true).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -73,7 +73,7 @@ public class UsAppToPersonTest {
             result = new ObjectMapper();
         }};
 
-        UsAppToPerson.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "description", Promoter.listOfOne("message_samples"), "us_app_to_person_usecase", true, true).create();
+        UsAppToPerson.creator("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "description", Promoter.listOfOne("message_samples"), "us_app_to_person_usecase", true, true).create(tw);
     }
 
     @Test

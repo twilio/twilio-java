@@ -122,7 +122,7 @@ public class OriginationUrlTest {
         }};
 
         try {
-            OriginationUrl.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create();
+            OriginationUrl.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -136,7 +136,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
 
-        OriginationUrl.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create();
+        OriginationUrl.creator("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1, 1, true, "friendly_name", URI.create("https://example.com")).create(tw);
     }
 
     @Test

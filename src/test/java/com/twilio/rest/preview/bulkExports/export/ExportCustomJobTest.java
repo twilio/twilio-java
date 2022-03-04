@@ -100,7 +100,7 @@ public class ExportCustomJobTest {
         }};
 
         try {
-            ExportCustomJob.creator("resource_type", "start_day", "end_day", "friendly_name").create();
+            ExportCustomJob.creator("resource_type", "start_day", "end_day", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -114,6 +114,6 @@ public class ExportCustomJobTest {
             result = new ObjectMapper();
         }};
 
-        ExportCustomJob.creator("resource_type", "start_day", "end_day", "friendly_name").create();
+        ExportCustomJob.creator("resource_type", "start_day", "end_day", "friendly_name").create(tw);
     }
 }

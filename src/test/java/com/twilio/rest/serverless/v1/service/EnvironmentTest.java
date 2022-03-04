@@ -118,7 +118,7 @@ public class EnvironmentTest {
         }};
 
         try {
-            Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
+            Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class EnvironmentTest {
             result = new ObjectMapper();
         }};
 
-        Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create();
+        Environment.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "unique_name").create(tw);
     }
 
     @Test

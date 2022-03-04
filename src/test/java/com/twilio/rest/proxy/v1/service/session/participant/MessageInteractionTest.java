@@ -54,7 +54,7 @@ public class MessageInteractionTest {
         }};
 
         try {
-            MessageInteraction.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "body").create();
+            MessageInteraction.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "body").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class MessageInteractionTest {
             result = new ObjectMapper();
         }};
 
-        MessageInteraction.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "body").create();
+        MessageInteraction.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "body").create(tw);
     }
 
     @Test

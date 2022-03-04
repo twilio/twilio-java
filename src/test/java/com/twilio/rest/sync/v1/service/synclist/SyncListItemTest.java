@@ -118,7 +118,7 @@ public class SyncListItemTest {
         }};
 
         try {
-            SyncListItem.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create();
+            SyncListItem.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class SyncListItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncListItem.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create();
+        SyncListItem.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", new java.util.HashMap<String, Object>()).create(tw);
     }
 
     @Test

@@ -118,7 +118,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Channel.creator("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

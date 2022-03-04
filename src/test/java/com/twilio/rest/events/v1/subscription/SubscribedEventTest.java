@@ -98,7 +98,7 @@ public class SubscribedEventTest {
         }};
 
         try {
-            SubscribedEvent.creator("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").create();
+            SubscribedEvent.creator("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class SubscribedEventTest {
             result = new ObjectMapper();
         }};
 
-        SubscribedEvent.creator("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").create();
+        SubscribedEvent.creator("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").create(tw);
     }
 
     @Test

@@ -54,7 +54,7 @@ public class BundleCopyTest {
         }};
 
         try {
-            BundleCopy.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            BundleCopy.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class BundleCopyTest {
             result = new ObjectMapper();
         }};
 
-        BundleCopy.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        BundleCopy.creator("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

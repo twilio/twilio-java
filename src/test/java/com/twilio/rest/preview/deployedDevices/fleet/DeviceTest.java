@@ -118,7 +118,7 @@ public class DeviceTest {
         }};
 
         try {
-            Device.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Device.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class DeviceTest {
             result = new ObjectMapper();
         }};
 
-        Device.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Device.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

@@ -150,7 +150,7 @@ public class FunctionTest {
         }};
 
         try {
-            Function.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+            Function.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,7 +164,7 @@ public class FunctionTest {
             result = new ObjectMapper();
         }};
 
-        Function.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create();
+        Function.creator("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").create(tw);
     }
 
     @Test

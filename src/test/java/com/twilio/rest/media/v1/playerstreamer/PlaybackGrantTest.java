@@ -54,7 +54,7 @@ public class PlaybackGrantTest {
         }};
 
         try {
-            PlaybackGrant.creator("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            PlaybackGrant.creator("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class PlaybackGrantTest {
             result = new ObjectMapper();
         }};
 
-        PlaybackGrant.creator("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        PlaybackGrant.creator("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

@@ -54,7 +54,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.creator("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Fleet.creator("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        Fleet.creator("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Fleet.creator("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

@@ -118,7 +118,7 @@ public class SessionTest {
         }};
 
         try {
-            Session.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Session.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class SessionTest {
             result = new ObjectMapper();
         }};
 
-        Session.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Session.creator("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

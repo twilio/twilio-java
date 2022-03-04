@@ -55,7 +55,7 @@ public class MessagingConfigurationTest {
         }};
 
         try {
-            MessagingConfiguration.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            MessagingConfiguration.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class MessagingConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        MessagingConfiguration.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        MessagingConfiguration.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country", "MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

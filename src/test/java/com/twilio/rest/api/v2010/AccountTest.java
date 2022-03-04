@@ -54,7 +54,7 @@ public class AccountTest {
         }};
 
         try {
-            Account.creator().create();
+            Account.creator().create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
 
-        Account.creator().create();
+        Account.creator().create(tw);
     }
 
     @Test

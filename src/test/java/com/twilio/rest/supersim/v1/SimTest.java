@@ -55,7 +55,7 @@ public class SimTest {
         }};
 
         try {
-            Sim.creator("iccid", "registration_code").create();
+            Sim.creator("iccid", "registration_code").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,7 +69,7 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        Sim.creator("iccid", "registration_code").create();
+        Sim.creator("iccid", "registration_code").create(tw);
     }
 
     @Test

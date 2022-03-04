@@ -54,11 +54,11 @@ public class TwilioTest {
 
     @Test(expected = AuthenticationException.class)
     public void testGetRestClientNullAccountSid() {
-        Twilio.setRestClient(null);
+        tw.setRestClient(null);
         tw.setUsername(null);
         tw.setPassword(null);
 
-        Twilio.getRestClient();
+        tw.getRestClient();
         fail("AuthenticationException was expected");
     }
 
@@ -92,8 +92,8 @@ public class TwilioTest {
     @Test
     public void testSetRestClient() {
         TwilioRestClient twilioRestClient = new TwilioRestClient.Builder("AC123", "AUTH TOKEN").build();
-        Twilio.setRestClient(twilioRestClient);
-        assertEquals(twilioRestClient, Twilio.getRestClient());
+        tw.setRestClient(twilioRestClient);
+        assertEquals(twilioRestClient, tw.getRestClient());
     }
 
     @Test

@@ -131,7 +131,7 @@ public class SampleTest {
         }};
 
         try {
-            Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "tagged_text").create();
+            Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "tagged_text").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class SampleTest {
             result = new ObjectMapper();
         }};
 
-        Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "tagged_text").create();
+        Sample.creator("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "language", "tagged_text").create(tw);
     }
 
     @Test

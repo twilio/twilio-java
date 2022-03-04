@@ -132,7 +132,7 @@ public class FlexFlowTest {
         }};
 
         try {
-            FlexFlow.creator("friendly_name", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create();
+            FlexFlow.creator("friendly_name", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -146,7 +146,7 @@ public class FlexFlowTest {
             result = new ObjectMapper();
         }};
 
-        FlexFlow.creator("friendly_name", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create();
+        FlexFlow.creator("friendly_name", "ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", FlexFlow.ChannelType.WEB).create(tw);
     }
 
     @Test

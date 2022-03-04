@@ -131,7 +131,7 @@ public class AddressConfigurationTest {
         }};
 
         try {
-            AddressConfiguration.creator(AddressConfiguration.Type.SMS, "address").create();
+            AddressConfiguration.creator(AddressConfiguration.Type.SMS, "address").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class AddressConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        AddressConfiguration.creator(AddressConfiguration.Type.SMS, "address").create();
+        AddressConfiguration.creator(AddressConfiguration.Type.SMS, "address").create(tw);
     }
 
     @Test

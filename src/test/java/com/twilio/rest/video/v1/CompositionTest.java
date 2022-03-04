@@ -174,7 +174,7 @@ public class CompositionTest {
         }};
 
         try {
-            Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -188,6 +188,6 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Composition.creator("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 }

@@ -118,7 +118,7 @@ public class DeploymentTest {
         }};
 
         try {
-            Deployment.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+            Deployment.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class DeploymentTest {
             result = new ObjectMapper();
         }};
 
-        Deployment.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+        Deployment.creator("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create(tw);
     }
 
     @Test

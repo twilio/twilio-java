@@ -17,8 +17,8 @@ public abstract class Creator<T extends Resource> {
      *
      * @return future that resolves to requested object
      */
-    public CompletableFuture<T> createAsync() {
-        return createAsync(Twilio.getRestClient());
+    public CompletableFuture<T> createAsync(Twilio tw) {
+        return createAsync(tw.getRestClient());
     }
 
     /**
@@ -36,8 +36,8 @@ public abstract class Creator<T extends Resource> {
      *
      * @return Requested object
      */
-    public T create() {
-        return create(Twilio.getRestClient());
+    public T create(Twilio tw) {
+        return create(tw.getRestClient());
     }
 
     /**

@@ -15,10 +15,12 @@ import java.net.URISyntaxException;
  * Update a call.
  */
 public class CallUpdaterExample {
+    public static Twilio tw;
+
 
     @SuppressWarnings("checkstyle:javadocmethod")
     public static void main(final String[] args) {
-        Twilio tw = new Twilio("AC123", "AUTH TOKEN");
+        tw = new Twilio("AC123", "AUTH TOKEN");
 
         try {
 
@@ -28,7 +30,7 @@ public class CallUpdaterExample {
                 new PhoneNumber("+14154888928"),
                 new URI("http://twimlbin.com/cc413d9d")
             );
-            Call call = creator.create();
+            Call call = creator.create(tw);
 
             System.out.println(call.getSid());
             System.out.println(call.getStatus());

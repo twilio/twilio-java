@@ -28,6 +28,8 @@ public class Example {
 
     public static final PhoneNumber PHONE_NUMBER = new PhoneNumber("+18885551234");
 
+    public static Twilio tw;
+
     /**
      * Example Twilio usage.
      *
@@ -36,7 +38,7 @@ public class Example {
      */
     public static void main(String[] args) throws TwiMLException, URISyntaxException {
 
-        Twilio tw = new Twilio(ACCOUNT_SID, AUTH_TOKEN);
+        tw = new Twilio(ACCOUNT_SID, AUTH_TOKEN);
 
         Iterable<Record> usage = Record.reader().read();
         for (Record record : usage) {
@@ -53,7 +55,7 @@ public class Example {
             PHONE_NUMBER,
             number.getPhoneNumber(),
             "Hello world!"
-        ).create();
+        ).create(tw);
 
         System.out.println(message.getSid());
         System.out.println(message.getBody());
@@ -64,7 +66,7 @@ public class Example {
             PHONE_NUMBER,
             number.getPhoneNumber(),
             URI.create("https://twilio.com")
-        ).create();
+        ).create(tw);
         System.out.println(call.getSid());
 
         // Print all the messages
@@ -83,7 +85,7 @@ public class Example {
         Trunk trunk = new TrunkCreator()
             .setFriendlyName("shiny trunk")
             .setSecure(false)
-            .create();
+            .create(tw);
 
         System.out.println(trunk);
 
@@ -106,7 +108,7 @@ public class Example {
             return IncomingPhoneNumber.creator(
                 ACCOUNT_SID,
                 local.getPhoneNumber()
-            ).create();
+            ).create(tw);
         }
 
         return null;

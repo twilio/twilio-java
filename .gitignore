@@ -12,3 +12,6 @@ release.properties
 .project
 .settings/
 settings.json
+
+
+*.DS_Store

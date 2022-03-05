@@ -17,8 +17,8 @@ public abstract class Fetcher<T extends Resource> {
      *
      * @return future that resolves to requested object
      */
-    public CompletableFuture<T> fetchAsync() {
-        return fetchAsync(Twilio.getRestClient());
+    public CompletableFuture<T> fetchAsync(Twilio tw) {
+        return fetchAsync(tw.getRestClient());
     }
 
     /**
@@ -36,8 +36,8 @@ public abstract class Fetcher<T extends Resource> {
      *
      * @return Requested object
      */
-    public T fetch() {
-        return fetch(Twilio.getRestClient());
+    public T fetch(Twilio tw) {
+        return fetch(tw.getRestClient());
     }
 
     /**

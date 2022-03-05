@@ -87,7 +87,7 @@ public class MediaProcessorTest {
         }};
 
         try {
-            MediaProcessor.fetcher("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            MediaProcessor.fetcher("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -101,7 +101,7 @@ public class MediaProcessorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MediaProcessor.fetcher("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(MediaProcessor.fetcher("ZXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class MemberTest {
         }};
 
         try {
-            Member.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Member.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class MemberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Member.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Member.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class MemberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Member.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Member.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

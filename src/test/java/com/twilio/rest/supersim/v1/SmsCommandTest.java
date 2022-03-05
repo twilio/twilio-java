@@ -99,7 +99,7 @@ public class SmsCommandTest {
         }};
 
         try {
-            SmsCommand.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            SmsCommand.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -113,7 +113,7 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SmsCommand.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(SmsCommand.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

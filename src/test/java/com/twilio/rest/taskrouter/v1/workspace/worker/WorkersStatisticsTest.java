@@ -54,7 +54,7 @@ public class WorkersStatisticsTest {
         }};
 
         try {
-            WorkersStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            WorkersStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class WorkersStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(WorkersStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(WorkersStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

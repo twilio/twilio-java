@@ -54,7 +54,7 @@ public class StyleSheetTest {
         }};
 
         try {
-            StyleSheet.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            StyleSheet.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class StyleSheetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(StyleSheet.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(StyleSheet.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

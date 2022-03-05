@@ -192,7 +192,7 @@ public class MessageTest {
         }};
 
         try {
-            Message.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Message.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,7 +206,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Message.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -86,7 +86,7 @@ public class IpRecordTest {
         }};
 
         try {
-            IpRecord.fetcher("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            IpRecord.fetcher("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class IpRecordTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpRecord.fetcher("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(IpRecord.fetcher("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class ExportConfigurationTest {
         }};
 
         try {
-            ExportConfiguration.fetcher("resource_type").fetch();
+            ExportConfiguration.fetcher("resource_type").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ExportConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ExportConfiguration.fetcher("resource_type").fetch());
+        assertNotNull(ExportConfiguration.fetcher("resource_type").fetch(tw));
     }
 
     @Test

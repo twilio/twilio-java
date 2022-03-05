@@ -86,7 +86,7 @@ public class MediaTest {
         }};
 
         try {
-            Media.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Media.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class MediaTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Media.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Media.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

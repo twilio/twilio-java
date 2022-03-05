@@ -119,7 +119,7 @@ public class InstalledAddOnTest {
         }};
 
         try {
-            InstalledAddOn.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            InstalledAddOn.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,7 +133,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(InstalledAddOn.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(InstalledAddOn.fetcher("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

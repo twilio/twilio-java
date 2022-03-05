@@ -132,7 +132,7 @@ public class CustomerProfilesTest {
         }};
 
         try {
-            CustomerProfiles.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            CustomerProfiles.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -146,7 +146,7 @@ public class CustomerProfilesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CustomerProfiles.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(CustomerProfiles.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class PlayerStreamerTest {
         }};
 
         try {
-            PlayerStreamer.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            PlayerStreamer.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class PlayerStreamerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PlayerStreamer.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(PlayerStreamer.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

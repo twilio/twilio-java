@@ -54,7 +54,7 @@ public class UsecaseTest {
         }};
 
         try {
-            Usecase.fetcher().fetch();
+            Usecase.fetcher().fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class UsecaseTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Usecase.fetcher().fetch());
+        assertNotNull(Usecase.fetcher().fetch(tw));
     }
 }

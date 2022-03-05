@@ -118,7 +118,7 @@ public class BrandVettingTest {
         }};
 
         try {
-            BrandVetting.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            BrandVetting.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,6 +132,6 @@ public class BrandVettingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandVetting.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(BrandVetting.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "VTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

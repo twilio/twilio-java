@@ -118,7 +118,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AlphaSender.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AlphaSender.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AlphaSender.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

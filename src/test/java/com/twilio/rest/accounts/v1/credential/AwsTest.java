@@ -130,7 +130,7 @@ public class AwsTest {
         }};
 
         try {
-            Aws.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Aws.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Aws.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Aws.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

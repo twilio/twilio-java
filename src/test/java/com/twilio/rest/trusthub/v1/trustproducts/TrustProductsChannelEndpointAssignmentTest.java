@@ -131,7 +131,7 @@ public class TrustProductsChannelEndpointAssignmentTest {
         }};
 
         try {
-            TrustProductsChannelEndpointAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            TrustProductsChannelEndpointAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class TrustProductsChannelEndpointAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TrustProductsChannelEndpointAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(TrustProductsChannelEndpointAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

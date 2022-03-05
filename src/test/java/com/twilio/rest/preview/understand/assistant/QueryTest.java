@@ -54,7 +54,7 @@ public class QueryTest {
         }};
 
         try {
-            Query.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Query.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class QueryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Query.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Query.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class SyncMapPermissionTest {
         }};
 
         try {
-            SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch();
+            SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SyncMapPermissionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch());
+        assertNotNull(SyncMapPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch(tw));
     }
 
     @Test

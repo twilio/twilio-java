@@ -98,7 +98,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.fetcher("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            RatePlan.fetcher("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RatePlan.fetcher("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(RatePlan.fetcher("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch();
+            PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -128,7 +128,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -152,6 +152,6 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(PhoneNumber.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 }

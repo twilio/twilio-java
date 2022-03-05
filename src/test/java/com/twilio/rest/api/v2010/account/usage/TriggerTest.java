@@ -54,7 +54,7 @@ public class TriggerTest {
         }};
 
         try {
-            Trigger.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Trigger.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trigger.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Trigger.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

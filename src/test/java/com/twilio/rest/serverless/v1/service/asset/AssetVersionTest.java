@@ -86,7 +86,7 @@ public class AssetVersionTest {
         }};
 
         try {
-            AssetVersion.fetcher("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AssetVersion.fetcher("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class AssetVersionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AssetVersion.fetcher("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AssetVersion.fetcher("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

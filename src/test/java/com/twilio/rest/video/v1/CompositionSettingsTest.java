@@ -54,7 +54,7 @@ public class CompositionSettingsTest {
         }};
 
         try {
-            CompositionSettings.fetcher().fetch();
+            CompositionSettings.fetcher().fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class CompositionSettingsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CompositionSettings.fetcher().fetch());
+        assertNotNull(CompositionSettings.fetcher().fetch(tw));
     }
 
     @Test

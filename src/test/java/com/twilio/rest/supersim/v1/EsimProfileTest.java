@@ -98,7 +98,7 @@ public class EsimProfileTest {
         }};
 
         try {
-            EsimProfile.fetcher("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            EsimProfile.fetcher("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class EsimProfileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EsimProfile.fetcher("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(EsimProfile.fetcher("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

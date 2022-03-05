@@ -54,7 +54,7 @@ public class RecordingRulesTest {
         }};
 
         try {
-            RecordingRules.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            RecordingRules.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class RecordingRulesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RecordingRules.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(RecordingRules.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

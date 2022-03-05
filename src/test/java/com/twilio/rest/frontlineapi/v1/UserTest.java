@@ -54,7 +54,7 @@ public class UserTest {
         }};
 
         try {
-            User.fetcher("sid").fetch();
+            User.fetcher("sid").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(User.fetcher("sid").fetch());
+        assertNotNull(User.fetcher("sid").fetch(tw));
     }
 
     @Test

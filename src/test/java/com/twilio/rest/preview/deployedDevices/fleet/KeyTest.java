@@ -54,7 +54,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Key.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Key.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Key.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

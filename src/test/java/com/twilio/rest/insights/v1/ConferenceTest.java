@@ -54,7 +54,7 @@ public class ConferenceTest {
         }};
 
         try {
-            Conference.fetcher("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Conference.fetcher("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.fetcher("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Conference.fetcher("CFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

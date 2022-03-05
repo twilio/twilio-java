@@ -55,7 +55,7 @@ public class CurrentCallTest {
         }};
 
         try {
-            CurrentCall.fetcher().setXXcnamSensitivePhoneNumberFrom("x_xcnam_sensitive_phone_number_from").setXXcnamSensitivePhoneNumberTo("x_xcnam_sensitive_phone_number_to").fetch();
+            CurrentCall.fetcher().setXXcnamSensitivePhoneNumberFrom("x_xcnam_sensitive_phone_number_from").setXXcnamSensitivePhoneNumberTo("x_xcnam_sensitive_phone_number_to").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -69,6 +69,6 @@ public class CurrentCallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CurrentCall.fetcher().setXXcnamSensitivePhoneNumberFrom("x_xcnam_sensitive_phone_number_from").setXXcnamSensitivePhoneNumberTo("x_xcnam_sensitive_phone_number_to").fetch());
+        assertNotNull(CurrentCall.fetcher().setXXcnamSensitivePhoneNumberFrom("x_xcnam_sensitive_phone_number_from").setXXcnamSensitivePhoneNumberTo("x_xcnam_sensitive_phone_number_to").fetch(tw));
     }
 }

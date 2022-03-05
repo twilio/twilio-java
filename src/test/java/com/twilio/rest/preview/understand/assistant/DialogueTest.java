@@ -54,7 +54,7 @@ public class DialogueTest {
         }};
 
         try {
-            Dialogue.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Dialogue.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class DialogueTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Dialogue.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Dialogue.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

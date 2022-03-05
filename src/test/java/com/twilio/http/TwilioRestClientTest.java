@@ -32,7 +32,7 @@ public class TwilioRestClientTest {
             result = new Response("{\"redirect_to\": \"somewhere\"}", 307);
         }};
 
-        final Message response = Message.fetcher("AC123", "MM123").fetch();
+        final Message response = Message.fetcher("AC123", "MM123").fetch(tw);
         assertNotNull(response);
     }
 }

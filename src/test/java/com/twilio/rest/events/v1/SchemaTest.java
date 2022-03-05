@@ -54,7 +54,7 @@ public class SchemaTest {
         }};
 
         try {
-            Schema.fetcher("id").fetch();
+            Schema.fetcher("id").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class SchemaTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Schema.fetcher("id").fetch());
+        assertNotNull(Schema.fetcher("id").fetch(tw));
     }
 }

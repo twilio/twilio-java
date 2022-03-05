@@ -87,7 +87,7 @@ public class SimTest {
         }};
 
         try {
-            Sim.fetcher("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Sim.fetcher("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -101,7 +101,7 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sim.fetcher("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Sim.fetcher("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

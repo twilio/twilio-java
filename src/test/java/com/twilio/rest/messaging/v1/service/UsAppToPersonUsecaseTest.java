@@ -54,7 +54,7 @@ public class UsAppToPersonUsecaseTest {
         }};
 
         try {
-            UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class UsAppToPersonUsecaseTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class UsAppToPersonUsecaseTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(UsAppToPersonUsecase.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

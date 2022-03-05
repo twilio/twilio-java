@@ -54,7 +54,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.fetcher("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            HostedNumberOrder.fetcher("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(HostedNumberOrder.fetcher("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(HostedNumberOrder.fetcher("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

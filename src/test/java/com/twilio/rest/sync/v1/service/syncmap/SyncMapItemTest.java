@@ -54,7 +54,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").fetch();
+            SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").fetch());
+        assertNotNull(SyncMapItem.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class NumberTest {
         }};
 
         try {
-            Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch();
+            Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class NumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class NumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch());
+        assertNotNull(Number.fetcher(new com.twilio.type.PhoneNumber("+15017122661")).fetch(tw));
     }
 }

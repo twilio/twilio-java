@@ -87,7 +87,7 @@ public class SourceIpMappingTest {
         }};
 
         try {
-            SourceIpMapping.fetcher("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            SourceIpMapping.fetcher("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -101,7 +101,7 @@ public class SourceIpMappingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SourceIpMapping.fetcher("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(SourceIpMapping.fetcher("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

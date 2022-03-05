@@ -54,7 +54,7 @@ public class OriginationUrlTest {
         }};
 
         try {
-            OriginationUrl.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            OriginationUrl.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(OriginationUrl.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(OriginationUrl.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

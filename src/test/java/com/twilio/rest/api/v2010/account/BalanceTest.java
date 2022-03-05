@@ -54,7 +54,7 @@ public class BalanceTest {
         }};
 
         try {
-            Balance.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Balance.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class BalanceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Balance.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Balance.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

@@ -86,7 +86,7 @@ public class AccountTest {
         }};
 
         try {
-            Account.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Account.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Account.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Account.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

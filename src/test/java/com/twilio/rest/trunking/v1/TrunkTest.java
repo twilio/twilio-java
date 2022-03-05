@@ -54,7 +54,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Trunk.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trunk.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Trunk.fetcher("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

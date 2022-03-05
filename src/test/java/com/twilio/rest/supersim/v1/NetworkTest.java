@@ -54,7 +54,7 @@ public class NetworkTest {
         }};
 
         try {
-            Network.fetcher("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Network.fetcher("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class NetworkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Network.fetcher("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Network.fetcher("HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class SinkTest {
         }};
 
         try {
-            Sink.fetcher("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Sink.fetcher("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sink.fetcher("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Sink.fetcher("DGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -167,7 +167,7 @@ public class BundleTest {
         }};
 
         try {
-            Bundle.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Bundle.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -181,7 +181,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bundle.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Bundle.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

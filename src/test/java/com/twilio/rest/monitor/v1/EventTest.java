@@ -54,7 +54,7 @@ public class EventTest {
         }};
 
         try {
-            Event.fetcher("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Event.fetcher("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class EventTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Event.fetcher("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Event.fetcher("AEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

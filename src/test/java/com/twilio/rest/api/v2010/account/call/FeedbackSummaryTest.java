@@ -87,7 +87,7 @@ public class FeedbackSummaryTest {
         }};
 
         try {
-            FeedbackSummary.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            FeedbackSummary.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -101,7 +101,7 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FeedbackSummary.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(FeedbackSummary.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

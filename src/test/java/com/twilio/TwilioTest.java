@@ -19,14 +19,10 @@ import java.util.concurrent.Executors;
 import mockit.Mocked;
 import mockit.NonStrictExpectations;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TwilioTest {
 
-    @Mocked
     private Twilio tw;
 
     public static String serialize(Object object) {
@@ -44,7 +40,6 @@ public class TwilioTest {
     @Before
     public void setUp() throws Exception {
         tw = new Twilio("AC123", "AUTH TOKEN");
-        System.out.println("in before");
     }
 
     @Test
@@ -140,5 +135,13 @@ public class TwilioTest {
         }};
 
         Twilio.validateSslCertificate();
+    }
+
+    @Test
+    public void testMultiTenantUse() {
+        Twilio tw1 = new Twilio("usr1", "pwd1");
+        Twilio tw2 = new Twilio("usr2", "pwd2");
+
+        assertNotEquals(tw1.getRestClient(), tw2.getRestClient());
     }
 }

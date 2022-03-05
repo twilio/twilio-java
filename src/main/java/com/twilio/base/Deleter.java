@@ -17,8 +17,8 @@ public abstract class Deleter<T extends Resource> {
      *
      * @return future that resolves to true if the object was deleted
      */
-    public CompletableFuture<Boolean> deleteAsync() {
-        return deleteAsync(Twilio.getRestClient());
+    public CompletableFuture<Boolean> deleteAsync(Twilio tw) {
+        return deleteAsync(tw.getRestClient());
     }
 
     /**
@@ -36,8 +36,8 @@ public abstract class Deleter<T extends Resource> {
      *
      * @return true if the object was deleted
      */
-    public boolean delete() {
-        return delete(Twilio.getRestClient());
+    public boolean delete(Twilio tw) {
+        return delete(tw.getRestClient());
     }
 
     /**

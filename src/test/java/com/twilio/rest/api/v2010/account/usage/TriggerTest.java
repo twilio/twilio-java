@@ -116,7 +116,7 @@ public class TriggerTest {
         }};
 
         try {
-            Trigger.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Trigger.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
 
-        Trigger.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Trigger.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

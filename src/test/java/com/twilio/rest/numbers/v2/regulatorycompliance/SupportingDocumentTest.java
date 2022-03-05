@@ -191,7 +191,7 @@ public class SupportingDocumentTest {
         }};
 
         try {
-            SupportingDocument.deleter("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            SupportingDocument.deleter("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class SupportingDocumentTest {
             result = new ObjectMapper();
         }};
 
-        SupportingDocument.deleter("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        SupportingDocument.deleter("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -190,7 +190,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            PublicKey.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        PublicKey.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        PublicKey.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -82,7 +82,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.deleter("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            HostedNumberOrder.deleter("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        HostedNumberOrder.deleter("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        HostedNumberOrder.deleter("HRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

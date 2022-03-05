@@ -82,7 +82,7 @@ public class DeviceTest {
         }};
 
         try {
-            Device.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Device.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class DeviceTest {
             result = new ObjectMapper();
         }};
 
-        Device.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Device.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

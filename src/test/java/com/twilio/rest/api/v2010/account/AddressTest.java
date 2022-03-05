@@ -87,7 +87,7 @@ public class AddressTest {
         }};
 
         try {
-            Address.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Address.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -101,7 +101,7 @@ public class AddressTest {
             result = new ObjectMapper();
         }};
 
-        Address.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Address.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ADXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

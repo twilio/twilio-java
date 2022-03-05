@@ -163,7 +163,7 @@ public class FieldValueTest {
         }};
 
         try {
-            FieldValue.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            FieldValue.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -177,6 +177,6 @@ public class FieldValueTest {
             result = new ObjectMapper();
         }};
 
-        FieldValue.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        FieldValue.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -82,7 +82,7 @@ public class SyncListItemTest {
         }};
 
         try {
-            SyncListItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1).setIfMatch("if_match").delete();
+            SyncListItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1).setIfMatch("if_match").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class SyncListItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncListItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1).setIfMatch("if_match").delete();
+        SyncListItem.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", 1).setIfMatch("if_match").delete(tw);
     }
 
     @Test

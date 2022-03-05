@@ -126,7 +126,7 @@ public class CompositionHookTest {
         }};
 
         try {
-            CompositionHook.deleter("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            CompositionHook.deleter("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -140,7 +140,7 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.deleter("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        CompositionHook.deleter("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

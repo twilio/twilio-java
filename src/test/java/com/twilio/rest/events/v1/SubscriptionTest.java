@@ -205,7 +205,7 @@ public class SubscriptionTest {
         }};
 
         try {
-            Subscription.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Subscription.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -219,6 +219,6 @@ public class SubscriptionTest {
             result = new ObjectMapper();
         }};
 
-        Subscription.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Subscription.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

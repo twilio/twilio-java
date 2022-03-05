@@ -193,7 +193,7 @@ public class WebChannelTest {
         }};
 
         try {
-            WebChannel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            WebChannel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -207,6 +207,6 @@ public class WebChannelTest {
             result = new ObjectMapper();
         }};
 
-        WebChannel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        WebChannel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

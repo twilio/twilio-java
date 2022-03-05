@@ -191,7 +191,7 @@ public class SourceIpMappingTest {
         }};
 
         try {
-            SourceIpMapping.deleter("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            SourceIpMapping.deleter("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class SourceIpMappingTest {
             result = new ObjectMapper();
         }};
 
-        SourceIpMapping.deleter("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        SourceIpMapping.deleter("IBXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -83,7 +83,7 @@ public class InstalledAddOnTest {
         }};
 
         try {
-            InstalledAddOn.deleter("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            InstalledAddOn.deleter("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class InstalledAddOnTest {
             result = new ObjectMapper();
         }};
 
-        InstalledAddOn.deleter("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        InstalledAddOn.deleter("XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

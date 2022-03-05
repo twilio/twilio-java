@@ -191,7 +191,7 @@ public class BucketTest {
         }};
 
         try {
-            Bucket.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Bucket.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class BucketTest {
             result = new ObjectMapper();
         }};
 
-        Bucket.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Bucket.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

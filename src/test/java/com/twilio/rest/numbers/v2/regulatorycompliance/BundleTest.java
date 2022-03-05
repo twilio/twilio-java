@@ -227,7 +227,7 @@ public class BundleTest {
         }};
 
         try {
-            Bundle.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Bundle.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -241,6 +241,6 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        Bundle.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Bundle.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

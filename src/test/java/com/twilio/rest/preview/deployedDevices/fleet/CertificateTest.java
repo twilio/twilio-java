@@ -82,7 +82,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Certificate.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        Certificate.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Certificate.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

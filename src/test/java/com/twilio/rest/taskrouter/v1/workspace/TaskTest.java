@@ -114,7 +114,7 @@ public class TaskTest {
         }};
 
         try {
-            Task.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete();
+            Task.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class TaskTest {
             result = new ObjectMapper();
         }};
 
-        Task.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete();
+        Task.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete(tw);
     }
 
     @Test

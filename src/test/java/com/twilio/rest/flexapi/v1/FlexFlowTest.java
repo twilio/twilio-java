@@ -192,7 +192,7 @@ public class FlexFlowTest {
         }};
 
         try {
-            FlexFlow.deleter("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            FlexFlow.deleter("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class FlexFlowTest {
             result = new ObjectMapper();
         }};
 
-        FlexFlow.deleter("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        FlexFlow.deleter("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

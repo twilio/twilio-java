@@ -190,7 +190,7 @@ public class ConnectionPolicyTest {
         }};
 
         try {
-            ConnectionPolicy.deleter("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            ConnectionPolicy.deleter("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class ConnectionPolicyTest {
             result = new ObjectMapper();
         }};
 
-        ConnectionPolicy.deleter("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        ConnectionPolicy.deleter("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

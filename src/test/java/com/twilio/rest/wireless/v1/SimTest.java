@@ -182,7 +182,7 @@ public class SimTest {
         }};
 
         try {
-            Sim.deleter("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Sim.deleter("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -196,6 +196,6 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        Sim.deleter("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Sim.deleter("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

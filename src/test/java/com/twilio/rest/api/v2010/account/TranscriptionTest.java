@@ -86,7 +86,7 @@ public class TranscriptionTest {
         }};
 
         try {
-            Transcription.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Transcription.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class TranscriptionTest {
             result = new ObjectMapper();
         }};
 
-        Transcription.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Transcription.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

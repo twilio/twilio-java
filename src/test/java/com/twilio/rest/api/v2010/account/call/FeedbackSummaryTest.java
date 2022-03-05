@@ -119,7 +119,7 @@ public class FeedbackSummaryTest {
         }};
 
         try {
-            FeedbackSummary.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            FeedbackSummary.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -133,6 +133,6 @@ public class FeedbackSummaryTest {
             result = new ObjectMapper();
         }};
 
-        FeedbackSummary.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        FeedbackSummary.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

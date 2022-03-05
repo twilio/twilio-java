@@ -191,7 +191,7 @@ public class QueryTest {
         }};
 
         try {
-            Query.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Query.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class QueryTest {
             result = new ObjectMapper();
         }};
 
-        Query.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Query.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

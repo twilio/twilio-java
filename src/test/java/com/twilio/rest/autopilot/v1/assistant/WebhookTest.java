@@ -194,7 +194,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Webhook.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -208,6 +208,6 @@ public class WebhookTest {
             result = new ObjectMapper();
         }};
 
-        Webhook.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Webhook.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -198,7 +198,7 @@ public class CommandTest {
         }};
 
         try {
-            Command.deleter("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Command.deleter("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -212,6 +212,6 @@ public class CommandTest {
             result = new ObjectMapper();
         }};
 
-        Command.deleter("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Command.deleter("DCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

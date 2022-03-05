@@ -190,7 +190,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Workspace.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        Workspace.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Workspace.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

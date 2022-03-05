@@ -130,7 +130,7 @@ public class FaxTest {
         }};
 
         try {
-            Fax.deleter("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Fax.deleter("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,6 +144,6 @@ public class FaxTest {
             result = new ObjectMapper();
         }};
 
-        Fax.deleter("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Fax.deleter("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -192,7 +192,7 @@ public class CustomerProfilesTest {
         }};
 
         try {
-            CustomerProfiles.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            CustomerProfiles.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class CustomerProfilesTest {
             result = new ObjectMapper();
         }};
 
-        CustomerProfiles.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        CustomerProfiles.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

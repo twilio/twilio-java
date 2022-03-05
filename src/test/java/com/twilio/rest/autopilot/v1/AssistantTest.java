@@ -190,7 +190,7 @@ public class AssistantTest {
         }};
 
         try {
-            Assistant.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Assistant.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class AssistantTest {
             result = new ObjectMapper();
         }};
 
-        Assistant.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Assistant.deleter("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

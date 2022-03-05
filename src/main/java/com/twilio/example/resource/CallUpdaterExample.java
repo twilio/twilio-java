@@ -46,7 +46,7 @@ public class CallUpdaterExample {
                 "AC123",
                 call.getSid()
             ).setUrl(new URI("http://twimlbin.com/4397e62f"));
-            Call updated = updater.update();
+            Call updated = updater.update(tw);
 
             System.out.println(updated.getSid());
             System.out.println(updated.getStatus());

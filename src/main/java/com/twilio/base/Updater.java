@@ -17,8 +17,8 @@ public abstract class Updater<T extends Resource> {
      *
      * @return future that resolves to requested object
      */
-    public CompletableFuture<T> updateAsync() {
-        return updateAsync(Twilio.getRestClient());
+    public CompletableFuture<T> updateAsync(Twilio tw) {
+        return updateAsync(tw.getRestClient());
     }
 
     /**
@@ -35,9 +35,10 @@ public abstract class Updater<T extends Resource> {
      * Execute a request using default client.
      *
      * @return Requested object
+     * @param tw
      */
-    public T update() {
-        return update(Twilio.getRestClient());
+    public T update(Twilio tw) {
+        return update(tw.getRestClient());
     }
 
     /**

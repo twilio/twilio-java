@@ -118,7 +118,7 @@ public class FlowTest {
         }};
 
         try {
-            Flow.deleter("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Flow.deleter("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,6 +132,6 @@ public class FlowTest {
             result = new ObjectMapper();
         }};
 
-        Flow.deleter("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Flow.deleter("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

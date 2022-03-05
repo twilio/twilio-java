@@ -191,7 +191,7 @@ public class IpAddressTest {
         }};
 
         try {
-            IpAddress.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            IpAddress.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class IpAddressTest {
             result = new ObjectMapper();
         }};
 
-        IpAddress.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        IpAddress.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ALXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "IPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

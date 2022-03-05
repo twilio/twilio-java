@@ -91,7 +91,7 @@ public class UsAppToPersonTest {
         }};
 
         try {
-            UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -105,7 +105,7 @@ public class UsAppToPersonTest {
             result = new ObjectMapper();
         }};
 
-        UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        UsAppToPerson.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

@@ -178,7 +178,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Service.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -192,6 +192,6 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        Service.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Service.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -190,7 +190,7 @@ public class IpRecordTest {
         }};
 
         try {
-            IpRecord.deleter("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            IpRecord.deleter("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class IpRecordTest {
             result = new ObjectMapper();
         }};
 
-        IpRecord.deleter("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        IpRecord.deleter("ILXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

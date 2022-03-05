@@ -114,7 +114,7 @@ public class SigningKeyTest {
         }};
 
         try {
-            SigningKey.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            SigningKey.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class SigningKeyTest {
             result = new ObjectMapper();
         }};
 
-        SigningKey.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        SigningKey.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

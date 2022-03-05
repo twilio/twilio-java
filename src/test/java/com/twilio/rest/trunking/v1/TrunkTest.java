@@ -82,7 +82,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.deleter("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Trunk.deleter("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        Trunk.deleter("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Trunk.deleter("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

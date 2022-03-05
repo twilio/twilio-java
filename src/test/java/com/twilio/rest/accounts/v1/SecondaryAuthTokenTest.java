@@ -86,7 +86,7 @@ public class SecondaryAuthTokenTest {
         }};
 
         try {
-            SecondaryAuthToken.deleter().delete();
+            SecondaryAuthToken.deleter().delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class SecondaryAuthTokenTest {
             result = new ObjectMapper();
         }};
 
-        SecondaryAuthToken.deleter().delete();
+        SecondaryAuthToken.deleter().delete(tw);
     }
 }

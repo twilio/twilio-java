@@ -86,7 +86,7 @@ public class EntityTest {
         }};
 
         try {
-            Entity.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete();
+            Entity.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        Entity.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete();
+        Entity.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").delete(tw);
     }
 
     @Test

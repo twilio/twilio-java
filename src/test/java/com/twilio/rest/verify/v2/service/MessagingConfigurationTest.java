@@ -191,7 +191,7 @@ public class MessagingConfigurationTest {
         }};
 
         try {
-            MessagingConfiguration.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").delete();
+            MessagingConfiguration.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class MessagingConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        MessagingConfiguration.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").delete();
+        MessagingConfiguration.deleter("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").delete(tw);
     }
 }

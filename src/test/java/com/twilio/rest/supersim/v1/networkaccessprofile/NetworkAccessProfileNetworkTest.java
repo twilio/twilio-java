@@ -118,7 +118,7 @@ public class NetworkAccessProfileNetworkTest {
         }};
 
         try {
-            NetworkAccessProfileNetwork.deleter("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            NetworkAccessProfileNetwork.deleter("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class NetworkAccessProfileNetworkTest {
             result = new ObjectMapper();
         }};
 
-        NetworkAccessProfileNetwork.deleter("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        NetworkAccessProfileNetwork.deleter("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "HWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

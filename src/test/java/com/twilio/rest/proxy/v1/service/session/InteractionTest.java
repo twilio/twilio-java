@@ -118,7 +118,7 @@ public class InteractionTest {
         }};
 
         try {
-            Interaction.deleter("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Interaction.deleter("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,6 +132,6 @@ public class InteractionTest {
             result = new ObjectMapper();
         }};
 
-        Interaction.deleter("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Interaction.deleter("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "KIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

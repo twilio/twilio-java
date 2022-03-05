@@ -54,7 +54,7 @@ public class ArchivedCallTest {
         }};
 
         try {
-            ArchivedCall.deleter(DateConverter.localDateFromString("2008-01-02"), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            ArchivedCall.deleter(DateConverter.localDateFromString("2008-01-02"), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class ArchivedCallTest {
             result = new ObjectMapper();
         }};
 
-        ArchivedCall.deleter(DateConverter.localDateFromString("2008-01-02"), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        ArchivedCall.deleter(DateConverter.localDateFromString("2008-01-02"), "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

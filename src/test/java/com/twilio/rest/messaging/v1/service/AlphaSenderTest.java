@@ -150,7 +150,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            AlphaSender.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,6 +164,6 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        AlphaSender.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        AlphaSender.deleter("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "AIXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

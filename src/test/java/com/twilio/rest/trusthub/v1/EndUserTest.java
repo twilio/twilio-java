@@ -191,7 +191,7 @@ public class EndUserTest {
         }};
 
         try {
-            EndUser.deleter("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            EndUser.deleter("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class EndUserTest {
             result = new ObjectMapper();
         }};
 
-        EndUser.deleter("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        EndUser.deleter("ITXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -114,7 +114,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Key.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        Key.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Key.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

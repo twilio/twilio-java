@@ -190,7 +190,7 @@ public class WorkerTest {
         }};
 
         try {
-            Worker.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete();
+            Worker.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
 
-        Worker.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete();
+        Worker.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setIfMatch("if_match").delete(tw);
     }
 }

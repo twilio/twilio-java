@@ -86,7 +86,7 @@ public class JobTest {
         }};
 
         try {
-            Job.deleter("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Job.deleter("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class JobTest {
             result = new ObjectMapper();
         }};
 
-        Job.deleter("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Job.deleter("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

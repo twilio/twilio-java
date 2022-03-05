@@ -192,7 +192,7 @@ public class TrustProductsTest {
         }};
 
         try {
-            TrustProducts.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            TrustProducts.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -206,6 +206,6 @@ public class TrustProductsTest {
             result = new ObjectMapper();
         }};
 
-        TrustProducts.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        TrustProducts.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

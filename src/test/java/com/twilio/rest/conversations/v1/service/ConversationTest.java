@@ -126,7 +126,7 @@ public class ConversationTest {
         }};
 
         try {
-            Conversation.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).delete();
+            Conversation.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -140,7 +140,7 @@ public class ConversationTest {
             result = new ObjectMapper();
         }};
 
-        Conversation.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).delete();
+        Conversation.deleter("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").setXTwilioWebhookEnabled(Conversation.WebhookEnabledType.TRUE).delete(tw);
     }
 
     @Test

@@ -163,7 +163,7 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
         }};
 
         try {
-            CustomerProfilesChannelEndpointAssignment.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            CustomerProfilesChannelEndpointAssignment.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -177,6 +177,6 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        CustomerProfilesChannelEndpointAssignment.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        CustomerProfilesChannelEndpointAssignment.deleter("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

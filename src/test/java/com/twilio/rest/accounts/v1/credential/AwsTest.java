@@ -190,7 +190,7 @@ public class AwsTest {
         }};
 
         try {
-            Aws.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Aws.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        Aws.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Aws.deleter("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

@@ -190,7 +190,7 @@ public class SubscribedEventTest {
         }};
 
         try {
-            SubscribedEvent.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").delete();
+            SubscribedEvent.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class SubscribedEventTest {
             result = new ObjectMapper();
         }};
 
-        SubscribedEvent.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").delete();
+        SubscribedEvent.deleter("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").delete(tw);
     }
 }

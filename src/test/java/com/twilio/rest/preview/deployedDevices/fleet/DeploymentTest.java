@@ -82,7 +82,7 @@ public class DeploymentTest {
         }};
 
         try {
-            Deployment.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Deployment.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class DeploymentTest {
             result = new ObjectMapper();
         }};
 
-        Deployment.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Deployment.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

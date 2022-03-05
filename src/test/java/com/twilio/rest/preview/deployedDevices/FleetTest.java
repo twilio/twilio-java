@@ -82,7 +82,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Fleet.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        Fleet.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Fleet.deleter("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

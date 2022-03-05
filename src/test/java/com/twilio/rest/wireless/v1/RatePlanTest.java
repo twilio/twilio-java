@@ -190,7 +190,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.deleter("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            RatePlan.deleter("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        RatePlan.deleter("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        RatePlan.deleter("WPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

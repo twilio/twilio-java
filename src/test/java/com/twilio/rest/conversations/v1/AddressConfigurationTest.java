@@ -191,7 +191,7 @@ public class AddressConfigurationTest {
         }};
 
         try {
-            AddressConfiguration.deleter("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            AddressConfiguration.deleter("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -205,6 +205,6 @@ public class AddressConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        AddressConfiguration.deleter("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        AddressConfiguration.deleter("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

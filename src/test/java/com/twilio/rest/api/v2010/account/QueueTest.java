@@ -114,7 +114,7 @@ public class QueueTest {
         }};
 
         try {
-            Queue.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Queue.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
 
-        Queue.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Queue.deleter("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

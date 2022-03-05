@@ -182,7 +182,7 @@ public class TaskChannelTest {
         }};
 
         try {
-            TaskChannel.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            TaskChannel.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -196,7 +196,7 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        TaskChannel.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        TaskChannel.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test
@@ -208,7 +208,7 @@ public class TaskChannelTest {
             result = new ObjectMapper();
         }};
 
-        TaskChannel.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        TaskChannel.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

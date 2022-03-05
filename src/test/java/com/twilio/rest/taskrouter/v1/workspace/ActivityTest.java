@@ -114,7 +114,7 @@ public class ActivityTest {
         }};
 
         try {
-            Activity.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Activity.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
 
-        Activity.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Activity.deleter("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 
     @Test

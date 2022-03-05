@@ -190,7 +190,7 @@ public class ByocTrunkTest {
         }};
 
         try {
-            ByocTrunk.deleter("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            ByocTrunk.deleter("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -204,6 +204,6 @@ public class ByocTrunkTest {
             result = new ObjectMapper();
         }};
 
-        ByocTrunk.deleter("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        ByocTrunk.deleter("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

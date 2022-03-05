@@ -165,7 +165,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+            Channel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -179,6 +179,6 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        Channel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete();
+        Channel.deleter("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").delete(tw);
     }
 }

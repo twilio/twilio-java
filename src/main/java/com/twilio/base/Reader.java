@@ -20,8 +20,8 @@ public abstract class Reader<T extends Resource> {
      *
      * @return ResourceSet of objects
      */
-    public ResourceSet<T> read() {
-        return read(Twilio.getRestClient());
+    public ResourceSet<T> read(Twilio tw) {
+        return read(tw.getRestClient());
     }
 
     /**
@@ -37,8 +37,8 @@ public abstract class Reader<T extends Resource> {
      *
      * @return future that resolves to the ResourceSet of objects
      */
-    public CompletableFuture<ResourceSet<T>> readAsync() {
-        return readAsync(Twilio.getRestClient());
+    public CompletableFuture<ResourceSet<T>> readAsync(Twilio tw) {
+        return readAsync(tw.getRestClient());
     }
 
     /**
@@ -56,8 +56,8 @@ public abstract class Reader<T extends Resource> {
      *
      * @return Page containing the first pageSize of resources
      */
-    public Page<T> firstPage() {
-        return firstPage(Twilio.getRestClient());
+    public Page<T> firstPage(Twilio tw) {
+        return firstPage(tw.getRestClient());
     }
 
     /**
@@ -74,8 +74,8 @@ public abstract class Reader<T extends Resource> {
      * @param targetUrl API-generated URL for the requested results page
      * @return Page containing the target pageSize of resources
      */
-    public Page<T> getPage(final String targetUrl) {
-        return getPage(targetUrl, Twilio.getRestClient());
+    public Page<T> getPage(final String targetUrl, Twilio tw) {
+        return getPage(targetUrl, tw.getRestClient());
     }
 
     /**
@@ -93,8 +93,8 @@ public abstract class Reader<T extends Resource> {
      * @param page current page of resources
      * @return Page containing the next pageSize of resources
      */
-    public Page<T> nextPage(final Page<T> page) {
-        return nextPage(page, Twilio.getRestClient());
+    public Page<T> nextPage(final Page<T> page, Twilio tw) {
+        return nextPage(page, tw.getRestClient());
     }
 
     /**
@@ -112,8 +112,8 @@ public abstract class Reader<T extends Resource> {
      * @param page current page of resources
      * @return Page containing the previous pageSize of resources
      */
-    public Page<T> previousPage(final Page<T> page) {
-        return previousPage(page, Twilio.getRestClient());
+    public Page<T> previousPage(final Page<T> page, Twilio tw) {
+        return previousPage(page, tw.getRestClient());
     }
 
     /**

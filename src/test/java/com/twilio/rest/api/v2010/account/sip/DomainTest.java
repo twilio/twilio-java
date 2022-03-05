@@ -9,8 +9,6 @@ package com.twilio.rest.api.v2010.account.sip;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -21,8 +19,6 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -162,7 +158,7 @@ public class DomainTest {
         }};
 
         try {
-            Domain.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            Domain.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -176,7 +172,7 @@ public class DomainTest {
             result = new ObjectMapper();
         }};
 
-        Domain.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        Domain.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
     }
 
     @Test

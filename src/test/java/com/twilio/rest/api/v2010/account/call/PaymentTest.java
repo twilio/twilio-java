@@ -9,8 +9,6 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -88,7 +86,7 @@ public class PaymentTest {
         }};
 
         try {
-            Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update();
+            Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -102,7 +100,7 @@ public class PaymentTest {
             result = new ObjectMapper();
         }};
 
-        Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update();
+        Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update(tw);
     }
 
     @Test
@@ -114,7 +112,7 @@ public class PaymentTest {
             result = new ObjectMapper();
         }};
 
-        Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update();
+        Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update(tw);
     }
 
     @Test
@@ -126,6 +124,6 @@ public class PaymentTest {
             result = new ObjectMapper();
         }};
 
-        Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update();
+        Payment.updater("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "idempotency_key", URI.create("https://example.com")).update(tw);
     }
 }

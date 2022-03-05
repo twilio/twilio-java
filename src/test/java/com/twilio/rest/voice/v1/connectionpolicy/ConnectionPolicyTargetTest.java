@@ -9,8 +9,6 @@ package com.twilio.rest.voice.v1.connectionpolicy;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -162,7 +160,7 @@ public class ConnectionPolicyTargetTest {
         }};
 
         try {
-            ConnectionPolicyTarget.updater("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            ConnectionPolicyTarget.updater("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -176,7 +174,7 @@ public class ConnectionPolicyTargetTest {
             result = new ObjectMapper();
         }};
 
-        ConnectionPolicyTarget.updater("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        ConnectionPolicyTarget.updater("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "NEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
     }
 
     @Test

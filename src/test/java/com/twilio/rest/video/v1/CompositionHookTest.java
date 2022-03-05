@@ -9,8 +9,6 @@ package com.twilio.rest.video.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -21,8 +19,6 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -194,7 +190,7 @@ public class CompositionHookTest {
         }};
 
         try {
-            CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
+            CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -208,7 +204,7 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
+        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update(tw);
     }
 
     @Test
@@ -220,6 +216,6 @@ public class CompositionHookTest {
             result = new ObjectMapper();
         }};
 
-        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update();
+        CompositionHook.updater("HKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "friendly_name").update(tw);
     }
 }

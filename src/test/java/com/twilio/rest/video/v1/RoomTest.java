@@ -9,8 +9,6 @@ package com.twilio.rest.video.v1;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -21,8 +19,6 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -234,7 +230,7 @@ public class RoomTest {
         }};
 
         try {
-            Room.updater("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Room.RoomStatus.IN_PROGRESS).update();
+            Room.updater("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Room.RoomStatus.IN_PROGRESS).update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -248,6 +244,6 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        Room.updater("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Room.RoomStatus.IN_PROGRESS).update();
+        Room.updater("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", Room.RoomStatus.IN_PROGRESS).update(tw);
     }
 }

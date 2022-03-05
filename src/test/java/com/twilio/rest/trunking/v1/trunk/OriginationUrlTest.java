@@ -9,8 +9,6 @@ package com.twilio.rest.trunking.v1.trunk;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -198,7 +196,7 @@ public class OriginationUrlTest {
         }};
 
         try {
-            OriginationUrl.updater("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            OriginationUrl.updater("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -212,6 +210,6 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
 
-        OriginationUrl.updater("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        OriginationUrl.updater("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "OUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
     }
 }

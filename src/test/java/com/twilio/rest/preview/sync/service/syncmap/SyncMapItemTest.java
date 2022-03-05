@@ -9,8 +9,6 @@ package com.twilio.rest.preview.sync.service.syncmap;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -21,8 +19,6 @@ import mockit.Mocked;
 import mockit.NonStrictExpectations;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.net.URI;
 
 import static com.twilio.TwilioTest.serialize;
 import static org.junit.Assert.*;
@@ -196,7 +192,7 @@ public class SyncMapItemTest {
         }};
 
         try {
-            SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).setIfMatch("if_match").update();
+            SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).setIfMatch("if_match").update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -210,6 +206,6 @@ public class SyncMapItemTest {
             result = new ObjectMapper();
         }};
 
-        SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).setIfMatch("if_match").update();
+        SyncMapItem.updater("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "key", new java.util.HashMap<String, Object>()).setIfMatch("if_match").update(tw);
     }
 }

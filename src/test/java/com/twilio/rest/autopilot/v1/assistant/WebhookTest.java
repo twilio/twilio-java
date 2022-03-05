@@ -9,8 +9,6 @@ package com.twilio.rest.autopilot.v1.assistant;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
-import com.twilio.converter.DateConverter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.TwilioException;
 import com.twilio.http.HttpMethod;
 import com.twilio.http.Request;
@@ -164,7 +162,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.updater("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+            Webhook.updater("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -178,7 +176,7 @@ public class WebhookTest {
             result = new ObjectMapper();
         }};
 
-        Webhook.updater("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
+        Webhook.updater("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update(tw);
     }
 
     @Test

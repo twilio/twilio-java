@@ -87,7 +87,10 @@ Overall results with link to a copy or excerpt of the logs (before/after
 refactoring).
 
 ## `UML class diagram and its description`
+### `Before`
+![TwilioUMLbefore](https://user-images.githubusercontent.com/29179827/156886053-98acced6-ac30-4cf6-9713-bd84cb448c5f.png)
 
+### `After`
 ![TwilioUML drawio](https://user-images.githubusercontent.com/29179827/156884986-49db2d55-35bc-40e7-87e4-384e1d26a1fb.png)
 
 Shows how the Twilio class implements the TwilioAPI interface, and how Twilio.java is at the center of the SDK.  

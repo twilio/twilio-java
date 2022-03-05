@@ -70,7 +70,7 @@ public class Twilio implements TwilioAPI {
      * {@inheritdoc}
      */
     public synchronized void setUsername(final String username) {
-        if (this.username == null) {
+        if (username == null) {
             throw new AuthenticationException("Username can not be null");
         }
 

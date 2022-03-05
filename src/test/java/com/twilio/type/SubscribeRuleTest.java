@@ -64,7 +64,7 @@ public class SubscribeRuleTest extends TypeTest {
     }
 
     @Test
-    public void testupdate(tw) throws IOException {
+    public void testUpdate() throws IOException {
         final SubscribeRule allAudio = SubscribeRule.builder()
                 .withType(SubscribeRule.Type.INCLUDE)
                 .withKind(SubscribeRule.Kind.AUDIO)

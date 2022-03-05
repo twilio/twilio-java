@@ -62,7 +62,7 @@ public class RecordingRuleTest extends TypeTest {
     }
 
     @Test
-    public void testupdate(tw) throws IOException {
+    public void testUpdate() throws IOException {
         final RecordingRule allAudio = RecordingRule.builder()
                 .withType(RecordingRule.Type.INCLUDE)
                 .withKind(RecordingRule.Kind.AUDIO)

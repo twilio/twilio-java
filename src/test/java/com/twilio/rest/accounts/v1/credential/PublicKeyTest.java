@@ -50,7 +50,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.reader().read();
+            PublicKey.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PublicKey.reader().read());
+        assertNotNull(PublicKey.reader().read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PublicKey.reader().read());
+        assertNotNull(PublicKey.reader().read(tw));
     }
 
     @Test

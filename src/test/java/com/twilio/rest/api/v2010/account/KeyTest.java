@@ -146,7 +146,7 @@ public class KeyTest {
         }};
 
         try {
-            Key.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Key.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Key.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Key.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -172,6 +172,6 @@ public class KeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Key.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Key.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

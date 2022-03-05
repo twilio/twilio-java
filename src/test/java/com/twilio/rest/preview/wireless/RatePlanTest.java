@@ -50,7 +50,7 @@ public class RatePlanTest {
         }};
 
         try {
-            RatePlan.reader().read();
+            RatePlan.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RatePlan.reader().read());
+        assertNotNull(RatePlan.reader().read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class RatePlanTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RatePlan.reader().read());
+        assertNotNull(RatePlan.reader().read(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class ExecutionStepTest {
         }};
 
         try {
-            ExecutionStep.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            ExecutionStep.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ExecutionStepTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ExecutionStep.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ExecutionStep.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "FNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

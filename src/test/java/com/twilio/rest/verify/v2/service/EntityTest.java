@@ -150,7 +150,7 @@ public class EntityTest {
         }};
 
         try {
-            Entity.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Entity.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,7 +164,7 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Entity.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Entity.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -176,6 +176,6 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Entity.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Entity.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

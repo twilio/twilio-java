@@ -54,7 +54,7 @@ public class SchemaVersionTest {
         }};
 
         try {
-            SchemaVersion.reader("id").read();
+            SchemaVersion.reader("id").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SchemaVersionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SchemaVersion.reader("id").read());
+        assertNotNull(SchemaVersion.reader("id").read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class SchemaVersionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SchemaVersion.reader("id").read());
+        assertNotNull(SchemaVersion.reader("id").read(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class DataSessionTest {
         }};
 
         try {
-            DataSession.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            DataSession.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class DataSessionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DataSession.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(DataSession.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

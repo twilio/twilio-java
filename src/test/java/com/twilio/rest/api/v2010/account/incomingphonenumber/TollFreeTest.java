@@ -54,7 +54,7 @@ public class TollFreeTest {
         }};
 
         try {
-            TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class TollFreeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(TollFree.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

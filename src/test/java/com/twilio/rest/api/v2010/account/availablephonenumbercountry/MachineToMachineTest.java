@@ -54,7 +54,7 @@ public class MachineToMachineTest {
         }};
 
         try {
-            MachineToMachine.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read();
+            MachineToMachine.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class MachineToMachineTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MachineToMachine.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(MachineToMachine.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class MachineToMachineTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MachineToMachine.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(MachineToMachine.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 }

@@ -54,7 +54,7 @@ public class BuildTest {
         }};
 
         try {
-            Build.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Build.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class BuildTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Build.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Build.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

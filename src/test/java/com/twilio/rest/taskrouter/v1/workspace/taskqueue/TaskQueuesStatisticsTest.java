@@ -54,7 +54,7 @@ public class TaskQueuesStatisticsTest {
         }};
 
         try {
-            TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TaskQueuesStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class TaskQueuesStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(TaskQueuesStatistics.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

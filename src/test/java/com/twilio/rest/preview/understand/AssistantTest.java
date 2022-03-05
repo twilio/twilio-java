@@ -82,7 +82,7 @@ public class AssistantTest {
         }};
 
         try {
-            Assistant.reader().read();
+            Assistant.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class AssistantTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Assistant.reader().read());
+        assertNotNull(Assistant.reader().read(tw));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class AssistantTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Assistant.reader().read());
+        assertNotNull(Assistant.reader().read(tw));
     }
 
     @Test

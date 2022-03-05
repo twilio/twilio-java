@@ -54,7 +54,7 @@ public class DependentHostedNumberOrderTest {
         }};
 
         try {
-            DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class DependentHostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class DependentHostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(DependentHostedNumberOrder.reader("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

@@ -50,7 +50,7 @@ public class IpAccessControlListTest {
         }};
 
         try {
-            IpAccessControlList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            IpAccessControlList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpAccessControlList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(IpAccessControlList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class IpAccessControlListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpAccessControlList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(IpAccessControlList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

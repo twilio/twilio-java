@@ -54,7 +54,7 @@ public class BillingPeriodTest {
         }};
 
         try {
-            BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class BillingPeriodTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class BillingPeriodTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -92,6 +92,6 @@ public class BillingPeriodTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(BillingPeriod.reader("HSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

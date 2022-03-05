@@ -54,7 +54,7 @@ public class TemplateTest {
         }};
 
         try {
-            Template.reader().read();
+            Template.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class TemplateTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Template.reader().read());
+        assertNotNull(Template.reader().read(tw));
     }
 }

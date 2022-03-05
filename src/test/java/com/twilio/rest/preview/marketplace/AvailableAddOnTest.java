@@ -86,7 +86,7 @@ public class AvailableAddOnTest {
         }};
 
         try {
-            AvailableAddOn.reader().read();
+            AvailableAddOn.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class AvailableAddOnTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailableAddOn.reader().read());
+        assertNotNull(AvailableAddOn.reader().read(tw));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class AvailableAddOnTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailableAddOn.reader().read());
+        assertNotNull(AvailableAddOn.reader().read(tw));
     }
 }

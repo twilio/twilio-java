@@ -54,7 +54,7 @@ public class RegulationTest {
         }};
 
         try {
-            Regulation.reader().read();
+            Regulation.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class RegulationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Regulation.reader().read());
+        assertNotNull(Regulation.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class RegulationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Regulation.reader().read());
+        assertNotNull(Regulation.reader().read(tw));
     }
 
     @Test

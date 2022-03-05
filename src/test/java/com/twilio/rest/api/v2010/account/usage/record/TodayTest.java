@@ -54,7 +54,7 @@ public class TodayTest {
         }};
 
         try {
-            Today.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Today.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TodayTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Today.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Today.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class TodayTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Today.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Today.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

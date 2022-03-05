@@ -83,7 +83,7 @@ public class BundleTest {
         }};
 
         try {
-            Bundle.reader().read();
+            Bundle.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -97,7 +97,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bundle.reader().read());
+        assertNotNull(Bundle.reader().read(tw));
     }
 
     @Test
@@ -109,7 +109,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bundle.reader().read());
+        assertNotNull(Bundle.reader().read(tw));
     }
 
     @Test
@@ -121,7 +121,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bundle.reader().read());
+        assertNotNull(Bundle.reader().read(tw));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bundle.reader().read());
+        assertNotNull(Bundle.reader().read(tw));
     }
 
     @Test
@@ -145,7 +145,7 @@ public class BundleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bundle.reader().read());
+        assertNotNull(Bundle.reader().read(tw));
     }
 
     @Test

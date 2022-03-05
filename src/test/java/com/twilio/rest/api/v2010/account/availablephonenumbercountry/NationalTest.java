@@ -54,7 +54,7 @@ public class NationalTest {
         }};
 
         try {
-            National.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read();
+            National.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class NationalTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(National.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(National.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class NationalTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(National.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(National.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 }

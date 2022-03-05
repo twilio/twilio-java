@@ -51,7 +51,7 @@ public class SubscriptionTest {
         }};
 
         try {
-            Subscription.reader().read();
+            Subscription.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class SubscriptionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Subscription.reader().read());
+        assertNotNull(Subscription.reader().read(tw));
     }
 
     @Test
@@ -77,7 +77,7 @@ public class SubscriptionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Subscription.reader().read());
+        assertNotNull(Subscription.reader().read(tw));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class SubscriptionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Subscription.reader().read());
+        assertNotNull(Subscription.reader().read(tw));
     }
 
     @Test

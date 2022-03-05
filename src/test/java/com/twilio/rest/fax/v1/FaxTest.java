@@ -86,7 +86,7 @@ public class FaxTest {
         }};
 
         try {
-            Fax.reader().read();
+            Fax.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class FaxTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fax.reader().read());
+        assertNotNull(Fax.reader().read(tw));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class FaxTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fax.reader().read());
+        assertNotNull(Fax.reader().read(tw));
     }
 
     @Test

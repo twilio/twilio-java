@@ -50,7 +50,7 @@ public class AwsTest {
         }};
 
         try {
-            Aws.reader().read();
+            Aws.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Aws.reader().read());
+        assertNotNull(Aws.reader().read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class AwsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Aws.reader().read());
+        assertNotNull(Aws.reader().read(tw));
     }
 
     @Test

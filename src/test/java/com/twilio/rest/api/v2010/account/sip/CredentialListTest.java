@@ -50,7 +50,7 @@ public class CredentialListTest {
         }};
 
         try {
-            CredentialList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            CredentialList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CredentialList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CredentialList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class CredentialListTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CredentialList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CredentialList.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

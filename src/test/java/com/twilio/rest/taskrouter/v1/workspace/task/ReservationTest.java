@@ -50,7 +50,7 @@ public class ReservationTest {
         }};
 
         try {
-            Reservation.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Reservation.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Reservation.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Reservation.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Reservation.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Reservation.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

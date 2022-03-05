@@ -50,7 +50,7 @@ public class AssetTest {
         }};
 
         try {
-            Asset.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Asset.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class AssetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Asset.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Asset.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

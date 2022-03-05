@@ -54,7 +54,7 @@ public class MetricTest {
         }};
 
         try {
-            Metric.reader("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Metric.reader("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class MetricTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Metric.reader("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Metric.reader("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class MetricTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Metric.reader("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Metric.reader("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

@@ -114,7 +114,7 @@ public class ByocTrunkTest {
         }};
 
         try {
-            ByocTrunk.reader().read();
+            ByocTrunk.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class ByocTrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ByocTrunk.reader().read());
+        assertNotNull(ByocTrunk.reader().read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ByocTrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ByocTrunk.reader().read());
+        assertNotNull(ByocTrunk.reader().read(tw));
     }
 
     @Test

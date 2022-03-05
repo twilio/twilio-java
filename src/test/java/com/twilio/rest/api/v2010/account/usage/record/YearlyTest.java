@@ -54,7 +54,7 @@ public class YearlyTest {
         }};
 
         try {
-            Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class YearlyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class YearlyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Yearly.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

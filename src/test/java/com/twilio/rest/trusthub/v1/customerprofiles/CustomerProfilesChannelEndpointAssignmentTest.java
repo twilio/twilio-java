@@ -87,7 +87,7 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
         }};
 
         try {
-            CustomerProfilesChannelEndpointAssignment.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            CustomerProfilesChannelEndpointAssignment.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -101,7 +101,7 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CustomerProfilesChannelEndpointAssignment.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CustomerProfilesChannelEndpointAssignment.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -113,7 +113,7 @@ public class CustomerProfilesChannelEndpointAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CustomerProfilesChannelEndpointAssignment.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CustomerProfilesChannelEndpointAssignment.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

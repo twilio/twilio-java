@@ -82,7 +82,7 @@ public class BrandRegistrationTest {
         }};
 
         try {
-            BrandRegistration.reader().read();
+            BrandRegistration.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class BrandRegistrationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandRegistration.reader().read());
+        assertNotNull(BrandRegistration.reader().read(tw));
     }
 
     @Test

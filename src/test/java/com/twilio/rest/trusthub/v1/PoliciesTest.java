@@ -54,7 +54,7 @@ public class PoliciesTest {
         }};
 
         try {
-            Policies.reader().read();
+            Policies.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class PoliciesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Policies.reader().read());
+        assertNotNull(Policies.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class PoliciesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Policies.reader().read());
+        assertNotNull(Policies.reader().read(tw));
     }
 
     @Test

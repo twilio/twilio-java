@@ -114,7 +114,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.reader().read();
+            Service.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Service.reader().read());
+        assertNotNull(Service.reader().read(tw));
     }
 
     @Test

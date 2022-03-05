@@ -186,7 +186,7 @@ public class RoomTest {
         }};
 
         try {
-            Room.reader().read();
+            Room.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -200,7 +200,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Room.reader().read());
+        assertNotNull(Room.reader().read(tw));
     }
 
     @Test
@@ -212,7 +212,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Room.reader().read());
+        assertNotNull(Room.reader().read(tw));
     }
 
     @Test

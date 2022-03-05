@@ -86,7 +86,7 @@ public class AuthRegistrationsCredentialListMappingTest {
         }};
 
         try {
-            AuthRegistrationsCredentialListMapping.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            AuthRegistrationsCredentialListMapping.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class AuthRegistrationsCredentialListMappingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthRegistrationsCredentialListMapping.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(AuthRegistrationsCredentialListMapping.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class AuthRegistrationsCredentialListMappingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthRegistrationsCredentialListMapping.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(AuthRegistrationsCredentialListMapping.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "SDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

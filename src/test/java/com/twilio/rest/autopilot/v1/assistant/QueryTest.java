@@ -82,7 +82,7 @@ public class QueryTest {
         }};
 
         try {
-            Query.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Query.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class QueryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Query.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Query.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class QueryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Query.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Query.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

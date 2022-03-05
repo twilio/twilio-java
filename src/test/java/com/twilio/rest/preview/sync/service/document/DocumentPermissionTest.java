@@ -114,7 +114,7 @@ public class DocumentPermissionTest {
         }};
 
         try {
-            DocumentPermission.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            DocumentPermission.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class DocumentPermissionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DocumentPermission.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(DocumentPermission.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class DocumentPermissionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(DocumentPermission.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(DocumentPermission.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ETXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

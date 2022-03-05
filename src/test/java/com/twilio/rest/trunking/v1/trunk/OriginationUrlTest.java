@@ -152,7 +152,7 @@ public class OriginationUrlTest {
         }};
 
         try {
-            OriginationUrl.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            OriginationUrl.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -166,7 +166,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(OriginationUrl.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(OriginationUrl.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -178,7 +178,7 @@ public class OriginationUrlTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(OriginationUrl.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(OriginationUrl.reader("TKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

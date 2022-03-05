@@ -147,7 +147,7 @@ public class BucketTest {
         }};
 
         try {
-            Bucket.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Bucket.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class BucketTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bucket.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Bucket.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class BucketTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bucket.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Bucket.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

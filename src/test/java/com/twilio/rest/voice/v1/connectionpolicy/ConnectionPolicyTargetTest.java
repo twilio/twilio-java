@@ -116,7 +116,7 @@ public class ConnectionPolicyTargetTest {
         }};
 
         try {
-            ConnectionPolicyTarget.reader("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            ConnectionPolicyTarget.reader("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class ConnectionPolicyTargetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectionPolicyTarget.reader("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ConnectionPolicyTarget.reader("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -142,7 +142,7 @@ public class ConnectionPolicyTargetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectionPolicyTarget.reader("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ConnectionPolicyTarget.reader("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

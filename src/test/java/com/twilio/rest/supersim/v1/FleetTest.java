@@ -114,7 +114,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.reader().read();
+            Fleet.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fleet.reader().read());
+        assertNotNull(Fleet.reader().read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fleet.reader().read());
+        assertNotNull(Fleet.reader().read(tw));
     }
 
     @Test

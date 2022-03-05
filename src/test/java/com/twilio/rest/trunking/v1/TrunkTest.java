@@ -146,7 +146,7 @@ public class TrunkTest {
         }};
 
         try {
-            Trunk.reader().read();
+            Trunk.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trunk.reader().read());
+        assertNotNull(Trunk.reader().read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class TrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trunk.reader().read());
+        assertNotNull(Trunk.reader().read(tw));
     }
 
     @Test

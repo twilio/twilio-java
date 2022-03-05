@@ -54,7 +54,7 @@ public class NetworkAccessProfileNetworkTest {
         }};
 
         try {
-            NetworkAccessProfileNetwork.reader("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            NetworkAccessProfileNetwork.reader("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class NetworkAccessProfileNetworkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(NetworkAccessProfileNetwork.reader("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(NetworkAccessProfileNetwork.reader("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

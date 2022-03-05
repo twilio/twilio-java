@@ -195,7 +195,7 @@ public class SimTest {
         }};
 
         try {
-            Sim.reader().read();
+            Sim.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -209,7 +209,7 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sim.reader().read());
+        assertNotNull(Sim.reader().read(tw));
     }
 
     @Test
@@ -221,7 +221,7 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sim.reader().read());
+        assertNotNull(Sim.reader().read(tw));
     }
 
     @Test
@@ -233,7 +233,7 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sim.reader().read());
+        assertNotNull(Sim.reader().read(tw));
     }
 
     @Test
@@ -245,6 +245,6 @@ public class SimTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sim.reader().read());
+        assertNotNull(Sim.reader().read(tw));
     }
 }

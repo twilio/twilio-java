@@ -86,7 +86,7 @@ public class AssignedAddOnExtensionTest {
         }};
 
         try {
-            AssignedAddOnExtension.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            AssignedAddOnExtension.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class AssignedAddOnExtensionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AssignedAddOnExtension.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(AssignedAddOnExtension.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class AssignedAddOnExtensionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AssignedAddOnExtension.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(AssignedAddOnExtension.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "XEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

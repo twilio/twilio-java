@@ -86,7 +86,7 @@ public class CompositionTest {
         }};
 
         try {
-            Composition.reader().read();
+            Composition.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Composition.reader().read());
+        assertNotNull(Composition.reader().read(tw));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Composition.reader().read());
+        assertNotNull(Composition.reader().read(tw));
     }
 
     @Test
@@ -124,7 +124,7 @@ public class CompositionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Composition.reader().read());
+        assertNotNull(Composition.reader().read(tw));
     }
 
     @Test

@@ -86,7 +86,7 @@ public class DayTest {
         }};
 
         try {
-            Day.reader("resource_type").read();
+            Day.reader("resource_type").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class DayTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Day.reader("resource_type").read());
+        assertNotNull(Day.reader("resource_type").read(tw));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class DayTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Day.reader("resource_type").read());
+        assertNotNull(Day.reader("resource_type").read(tw));
     }
 }

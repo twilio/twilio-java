@@ -54,7 +54,7 @@ public class SharedCostTest {
         }};
 
         try {
-            SharedCost.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read();
+            SharedCost.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SharedCostTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SharedCost.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(SharedCost.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class SharedCostTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SharedCost.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(SharedCost.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 }

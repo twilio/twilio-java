@@ -54,7 +54,7 @@ public class CountryTest {
         }};
 
         try {
-            Country.reader().read();
+            Country.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class CountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Country.reader().read());
+        assertNotNull(Country.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class CountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Country.reader().read());
+        assertNotNull(Country.reader().read(tw));
     }
 
     @Test

@@ -118,7 +118,7 @@ public class MediaTest {
         }};
 
         try {
-            Media.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Media.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class MediaTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Media.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Media.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -144,6 +144,6 @@ public class MediaTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Media.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Media.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

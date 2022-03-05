@@ -146,7 +146,7 @@ public class OutgoingCallerIdTest {
         }};
 
         try {
-            OutgoingCallerId.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            OutgoingCallerId.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(OutgoingCallerId.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(OutgoingCallerId.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -172,6 +172,6 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(OutgoingCallerId.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(OutgoingCallerId.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

@@ -178,7 +178,7 @@ public class SyncStreamTest {
         }};
 
         try {
-            SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -192,7 +192,7 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -204,6 +204,6 @@ public class SyncStreamTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(SyncStream.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

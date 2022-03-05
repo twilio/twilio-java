@@ -54,7 +54,7 @@ public class VerificationAttemptTest {
         }};
 
         try {
-            VerificationAttempt.reader().read();
+            VerificationAttempt.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class VerificationAttemptTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(VerificationAttempt.reader().read());
+        assertNotNull(VerificationAttempt.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class VerificationAttemptTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(VerificationAttempt.reader().read());
+        assertNotNull(VerificationAttempt.reader().read(tw));
     }
 
     @Test

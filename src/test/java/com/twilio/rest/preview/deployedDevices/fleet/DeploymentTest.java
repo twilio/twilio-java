@@ -146,7 +146,7 @@ public class DeploymentTest {
         }};
 
         try {
-            Deployment.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Deployment.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class DeploymentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Deployment.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Deployment.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class DeploymentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Deployment.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Deployment.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

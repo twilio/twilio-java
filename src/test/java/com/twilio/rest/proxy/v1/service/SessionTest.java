@@ -82,7 +82,7 @@ public class SessionTest {
         }};
 
         try {
-            Session.reader("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Session.reader("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class SessionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Session.reader("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Session.reader("KSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

@@ -114,7 +114,7 @@ public class IpRecordTest {
         }};
 
         try {
-            IpRecord.reader().read();
+            IpRecord.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class IpRecordTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpRecord.reader().read());
+        assertNotNull(IpRecord.reader().read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class IpRecordTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpRecord.reader().read());
+        assertNotNull(IpRecord.reader().read(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.reader().read();
+            Channel.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Channel.reader().read());
+        assertNotNull(Channel.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Channel.reader().read());
+        assertNotNull(Channel.reader().read(tw));
     }
 
     @Test

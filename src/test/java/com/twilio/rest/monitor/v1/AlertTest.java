@@ -86,7 +86,7 @@ public class AlertTest {
         }};
 
         try {
-            Alert.reader().read();
+            Alert.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Alert.reader().read());
+        assertNotNull(Alert.reader().read(tw));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Alert.reader().read());
+        assertNotNull(Alert.reader().read(tw));
     }
 }

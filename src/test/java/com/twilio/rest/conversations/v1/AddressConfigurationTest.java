@@ -50,7 +50,7 @@ public class AddressConfigurationTest {
         }};
 
         try {
-            AddressConfiguration.reader().read();
+            AddressConfiguration.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class AddressConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AddressConfiguration.reader().read());
+        assertNotNull(AddressConfiguration.reader().read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class AddressConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AddressConfiguration.reader().read());
+        assertNotNull(AddressConfiguration.reader().read(tw));
     }
 
     @Test

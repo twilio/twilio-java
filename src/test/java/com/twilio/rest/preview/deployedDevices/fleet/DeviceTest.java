@@ -146,7 +146,7 @@ public class DeviceTest {
         }};
 
         try {
-            Device.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Device.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class DeviceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Device.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Device.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class DeviceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Device.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Device.reader("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

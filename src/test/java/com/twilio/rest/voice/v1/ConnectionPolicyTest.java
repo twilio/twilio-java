@@ -114,7 +114,7 @@ public class ConnectionPolicyTest {
         }};
 
         try {
-            ConnectionPolicy.reader().read();
+            ConnectionPolicy.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class ConnectionPolicyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectionPolicy.reader().read());
+        assertNotNull(ConnectionPolicy.reader().read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ConnectionPolicyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectionPolicy.reader().read());
+        assertNotNull(ConnectionPolicy.reader().read(tw));
     }
 
     @Test

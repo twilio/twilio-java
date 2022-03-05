@@ -220,7 +220,7 @@ public class MessageTest {
         }};
 
         try {
-            Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -234,7 +234,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -246,7 +246,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -258,7 +258,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -270,7 +270,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -282,7 +282,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -294,7 +294,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -306,7 +306,7 @@ public class MessageTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Message.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

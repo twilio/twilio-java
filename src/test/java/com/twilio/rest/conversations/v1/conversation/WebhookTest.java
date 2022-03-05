@@ -50,7 +50,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.reader("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Webhook.reader("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class WebhookTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Webhook.reader("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Webhook.reader("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class WebhookTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Webhook.reader("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Webhook.reader("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

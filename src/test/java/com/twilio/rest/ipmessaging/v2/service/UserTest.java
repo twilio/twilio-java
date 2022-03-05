@@ -147,7 +147,7 @@ public class UserTest {
         }};
 
         try {
-            User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class UserTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(User.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

@@ -114,7 +114,7 @@ public class WorkspaceTest {
         }};
 
         try {
-            Workspace.reader().read();
+            Workspace.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Workspace.reader().read());
+        assertNotNull(Workspace.reader().read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class WorkspaceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Workspace.reader().read());
+        assertNotNull(Workspace.reader().read(tw));
     }
 
     @Test

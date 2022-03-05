@@ -126,7 +126,7 @@ public class FactorTest {
         }};
 
         try {
-            Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read();
+            Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -140,7 +140,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw));
     }
 
     @Test
@@ -152,7 +152,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class FactorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Factor.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class HighriskSpecialPrefixTest {
         }};
 
         try {
-            HighriskSpecialPrefix.reader("US").read();
+            HighriskSpecialPrefix.reader("US").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class HighriskSpecialPrefixTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(HighriskSpecialPrefix.reader("US").read());
+        assertNotNull(HighriskSpecialPrefix.reader("US").read(tw));
     }
 }

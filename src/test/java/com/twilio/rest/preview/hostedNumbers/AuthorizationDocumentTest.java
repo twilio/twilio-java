@@ -115,7 +115,7 @@ public class AuthorizationDocumentTest {
         }};
 
         try {
-            AuthorizationDocument.reader().read();
+            AuthorizationDocument.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthorizationDocument.reader().read());
+        assertNotNull(AuthorizationDocument.reader().read(tw));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthorizationDocument.reader().read());
+        assertNotNull(AuthorizationDocument.reader().read(tw));
     }
 
     @Test

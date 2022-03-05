@@ -86,7 +86,7 @@ public class NetworkTest {
         }};
 
         try {
-            Network.reader().read();
+            Network.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class NetworkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Network.reader().read());
+        assertNotNull(Network.reader().read(tw));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class NetworkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Network.reader().read());
+        assertNotNull(Network.reader().read(tw));
     }
 }

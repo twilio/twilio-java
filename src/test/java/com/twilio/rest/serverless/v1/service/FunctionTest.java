@@ -50,7 +50,7 @@ public class FunctionTest {
         }};
 
         try {
-            Function.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Function.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class FunctionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Function.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Function.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

@@ -86,7 +86,7 @@ public class BrandVettingTest {
         }};
 
         try {
-            BrandVetting.reader("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            BrandVetting.reader("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class BrandVettingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandVetting.reader("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(BrandVetting.reader("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

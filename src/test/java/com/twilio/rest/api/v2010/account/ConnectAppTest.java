@@ -114,7 +114,7 @@ public class ConnectAppTest {
         }};
 
         try {
-            ConnectApp.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            ConnectApp.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class ConnectAppTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectApp.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ConnectApp.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class ConnectAppTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectApp.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ConnectApp.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

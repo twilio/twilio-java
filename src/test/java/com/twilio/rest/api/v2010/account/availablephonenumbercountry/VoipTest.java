@@ -54,7 +54,7 @@ public class VoipTest {
         }};
 
         try {
-            Voip.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read();
+            Voip.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class VoipTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Voip.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(Voip.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 
     @Test
@@ -80,6 +80,6 @@ public class VoipTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Voip.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read());
+        assertNotNull(Voip.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").read(tw));
     }
 }

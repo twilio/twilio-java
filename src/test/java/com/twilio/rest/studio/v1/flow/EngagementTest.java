@@ -54,7 +54,7 @@ public class EngagementTest {
         }};
 
         try {
-            Engagement.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Engagement.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class EngagementTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Engagement.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Engagement.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

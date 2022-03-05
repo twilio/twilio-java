@@ -146,7 +146,7 @@ public class IncomingPhoneNumberTest {
         }};
 
         try {
-            IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class IncomingPhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(IncomingPhoneNumber.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

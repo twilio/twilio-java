@@ -86,7 +86,7 @@ public class AlphaSenderTest {
         }};
 
         try {
-            AlphaSender.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            AlphaSender.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class AlphaSenderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AlphaSender.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(AlphaSender.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

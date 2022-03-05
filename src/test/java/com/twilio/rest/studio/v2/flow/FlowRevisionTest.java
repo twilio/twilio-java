@@ -54,7 +54,7 @@ public class FlowRevisionTest {
         }};
 
         try {
-            FlowRevision.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            FlowRevision.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class FlowRevisionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FlowRevision.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(FlowRevision.reader("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

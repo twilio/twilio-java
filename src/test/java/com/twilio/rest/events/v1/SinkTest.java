@@ -160,7 +160,7 @@ public class SinkTest {
         }};
 
         try {
-            Sink.reader().read();
+            Sink.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -174,7 +174,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sink.reader().read());
+        assertNotNull(Sink.reader().read(tw));
     }
 
     @Test
@@ -186,7 +186,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sink.reader().read());
+        assertNotNull(Sink.reader().read(tw));
     }
 
     @Test
@@ -198,7 +198,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sink.reader().read());
+        assertNotNull(Sink.reader().read(tw));
     }
 
     @Test
@@ -210,7 +210,7 @@ public class SinkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Sink.reader().read());
+        assertNotNull(Sink.reader().read(tw));
     }
 
     @Test

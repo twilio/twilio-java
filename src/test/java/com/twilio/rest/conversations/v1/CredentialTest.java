@@ -178,7 +178,7 @@ public class CredentialTest {
         }};
 
         try {
-            Credential.reader().read();
+            Credential.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -192,7 +192,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Credential.reader().read());
+        assertNotNull(Credential.reader().read(tw));
     }
 
     @Test
@@ -204,6 +204,6 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Credential.reader().read());
+        assertNotNull(Credential.reader().read(tw));
     }
 }

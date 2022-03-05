@@ -115,7 +115,7 @@ public class SourceIpMappingTest {
         }};
 
         try {
-            SourceIpMapping.reader().read();
+            SourceIpMapping.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class SourceIpMappingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SourceIpMapping.reader().read());
+        assertNotNull(SourceIpMapping.reader().read(tw));
     }
 
     @Test
@@ -141,7 +141,7 @@ public class SourceIpMappingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SourceIpMapping.reader().read());
+        assertNotNull(SourceIpMapping.reader().read(tw));
     }
 
     @Test

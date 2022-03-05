@@ -118,7 +118,7 @@ public class ShortCodeTest {
         }};
 
         try {
-            ShortCode.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            ShortCode.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class ShortCodeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ShortCode.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ShortCode.reader("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

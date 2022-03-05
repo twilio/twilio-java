@@ -54,7 +54,7 @@ public class UsageRecordTest {
         }};
 
         try {
-            UsageRecord.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            UsageRecord.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class UsageRecordTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UsageRecord.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(UsageRecord.reader("DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

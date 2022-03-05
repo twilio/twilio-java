@@ -86,7 +86,7 @@ public class FaxMediaTest {
         }};
 
         try {
-            FaxMedia.reader("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            FaxMedia.reader("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class FaxMediaTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FaxMedia.reader("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(FaxMedia.reader("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

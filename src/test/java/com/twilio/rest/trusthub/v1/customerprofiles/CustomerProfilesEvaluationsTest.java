@@ -86,7 +86,7 @@ public class CustomerProfilesEvaluationsTest {
         }};
 
         try {
-            CustomerProfilesEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            CustomerProfilesEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class CustomerProfilesEvaluationsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CustomerProfilesEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CustomerProfilesEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class CustomerProfilesEvaluationsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CustomerProfilesEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(CustomerProfilesEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

@@ -146,7 +146,7 @@ public class PlayerStreamerTest {
         }};
 
         try {
-            PlayerStreamer.reader().read();
+            PlayerStreamer.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class PlayerStreamerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PlayerStreamer.reader().read());
+        assertNotNull(PlayerStreamer.reader().read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class PlayerStreamerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PlayerStreamer.reader().read());
+        assertNotNull(PlayerStreamer.reader().read(tw));
     }
 
     @Test
@@ -184,6 +184,6 @@ public class PlayerStreamerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PlayerStreamer.reader().read());
+        assertNotNull(PlayerStreamer.reader().read(tw));
     }
 }

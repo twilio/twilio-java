@@ -54,7 +54,7 @@ public class CallSummariesTest {
         }};
 
         try {
-            CallSummaries.reader().read();
+            CallSummaries.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class CallSummariesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CallSummaries.reader().read());
+        assertNotNull(CallSummaries.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class CallSummariesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CallSummaries.reader().read());
+        assertNotNull(CallSummaries.reader().read(tw));
     }
 
     @Test
@@ -92,7 +92,7 @@ public class CallSummariesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CallSummaries.reader().read());
+        assertNotNull(CallSummaries.reader().read(tw));
     }
 
     @Test
@@ -104,7 +104,7 @@ public class CallSummariesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CallSummaries.reader().read());
+        assertNotNull(CallSummaries.reader().read(tw));
     }
 
     @Test
@@ -116,6 +116,6 @@ public class CallSummariesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CallSummaries.reader().read());
+        assertNotNull(CallSummaries.reader().read(tw));
     }
 }

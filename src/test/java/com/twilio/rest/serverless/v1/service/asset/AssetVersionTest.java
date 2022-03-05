@@ -54,7 +54,7 @@ public class AssetVersionTest {
         }};
 
         try {
-            AssetVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            AssetVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class AssetVersionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AssetVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(AssetVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

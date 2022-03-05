@@ -132,7 +132,7 @@ public class IpCommandTest {
         }};
 
         try {
-            IpCommand.reader().read();
+            IpCommand.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -146,7 +146,7 @@ public class IpCommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpCommand.reader().read());
+        assertNotNull(IpCommand.reader().read(tw));
     }
 
     @Test
@@ -158,6 +158,6 @@ public class IpCommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpCommand.reader().read());
+        assertNotNull(IpCommand.reader().read(tw));
     }
 }

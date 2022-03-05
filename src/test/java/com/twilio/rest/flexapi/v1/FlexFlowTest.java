@@ -50,7 +50,7 @@ public class FlexFlowTest {
         }};
 
         try {
-            FlexFlow.reader().read();
+            FlexFlow.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class FlexFlowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FlexFlow.reader().read());
+        assertNotNull(FlexFlow.reader().read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class FlexFlowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FlexFlow.reader().read());
+        assertNotNull(FlexFlow.reader().read(tw));
     }
 
     @Test

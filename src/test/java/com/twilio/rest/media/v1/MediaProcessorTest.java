@@ -147,7 +147,7 @@ public class MediaProcessorTest {
         }};
 
         try {
-            MediaProcessor.reader().read();
+            MediaProcessor.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -161,7 +161,7 @@ public class MediaProcessorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MediaProcessor.reader().read());
+        assertNotNull(MediaProcessor.reader().read(tw));
     }
 
     @Test
@@ -173,7 +173,7 @@ public class MediaProcessorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MediaProcessor.reader().read());
+        assertNotNull(MediaProcessor.reader().read(tw));
     }
 
     @Test
@@ -185,7 +185,7 @@ public class MediaProcessorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MediaProcessor.reader().read());
+        assertNotNull(MediaProcessor.reader().read(tw));
     }
 
     @Test
@@ -197,6 +197,6 @@ public class MediaProcessorTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MediaProcessor.reader().read());
+        assertNotNull(MediaProcessor.reader().read(tw));
     }
 }

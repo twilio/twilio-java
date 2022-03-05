@@ -114,7 +114,7 @@ public class AccountTest {
         }};
 
         try {
-            Account.reader().read();
+            Account.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Account.reader().read());
+        assertNotNull(Account.reader().read(tw));
     }
 
     @Test
@@ -140,7 +140,7 @@ public class AccountTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Account.reader().read());
+        assertNotNull(Account.reader().read(tw));
     }
 
     @Test

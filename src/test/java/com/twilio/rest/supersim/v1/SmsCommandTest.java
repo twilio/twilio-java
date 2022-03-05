@@ -131,7 +131,7 @@ public class SmsCommandTest {
         }};
 
         try {
-            SmsCommand.reader().read();
+            SmsCommand.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -145,7 +145,7 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SmsCommand.reader().read());
+        assertNotNull(SmsCommand.reader().read(tw));
     }
 
     @Test
@@ -157,6 +157,6 @@ public class SmsCommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SmsCommand.reader().read());
+        assertNotNull(SmsCommand.reader().read(tw));
     }
 }

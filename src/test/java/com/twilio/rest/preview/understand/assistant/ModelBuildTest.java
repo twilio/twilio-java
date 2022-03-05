@@ -82,7 +82,7 @@ public class ModelBuildTest {
         }};
 
         try {
-            ModelBuild.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            ModelBuild.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class ModelBuildTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ModelBuild.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ModelBuild.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class ModelBuildTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ModelBuild.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(ModelBuild.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

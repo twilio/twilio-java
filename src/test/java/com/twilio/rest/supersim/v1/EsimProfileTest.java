@@ -130,7 +130,7 @@ public class EsimProfileTest {
         }};
 
         try {
-            EsimProfile.reader().read();
+            EsimProfile.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class EsimProfileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EsimProfile.reader().read());
+        assertNotNull(EsimProfile.reader().read(tw));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class EsimProfileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EsimProfile.reader().read());
+        assertNotNull(EsimProfile.reader().read(tw));
     }
 
     @Test
@@ -168,7 +168,7 @@ public class EsimProfileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EsimProfile.reader().read());
+        assertNotNull(EsimProfile.reader().read(tw));
     }
 
     @Test
@@ -180,6 +180,6 @@ public class EsimProfileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EsimProfile.reader().read());
+        assertNotNull(EsimProfile.reader().read(tw));
     }
 }

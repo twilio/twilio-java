@@ -54,7 +54,7 @@ public class SupportingDocumentTypeTest {
         }};
 
         try {
-            SupportingDocumentType.reader().read();
+            SupportingDocumentType.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class SupportingDocumentTypeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SupportingDocumentType.reader().read());
+        assertNotNull(SupportingDocumentType.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class SupportingDocumentTypeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SupportingDocumentType.reader().read());
+        assertNotNull(SupportingDocumentType.reader().read(tw));
     }
 
     @Test

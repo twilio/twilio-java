@@ -116,7 +116,7 @@ public class FlowTest {
         }};
 
         try {
-            Flow.reader().read();
+            Flow.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class FlowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Flow.reader().read());
+        assertNotNull(Flow.reader().read(tw));
     }
 
     @Test

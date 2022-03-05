@@ -54,7 +54,7 @@ public class FunctionVersionTest {
         }};
 
         try {
-            FunctionVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            FunctionVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class FunctionVersionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FunctionVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(FunctionVersion.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ZHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

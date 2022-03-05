@@ -182,7 +182,7 @@ public class TriggerTest {
         }};
 
         try {
-            Trigger.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Trigger.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -196,7 +196,7 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trigger.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Trigger.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -208,6 +208,6 @@ public class TriggerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Trigger.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Trigger.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

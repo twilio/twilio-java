@@ -118,7 +118,7 @@ public class ConferenceTest {
         }};
 
         try {
-            Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -144,7 +144,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -156,7 +156,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -168,7 +168,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -180,7 +180,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -192,7 +192,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -204,7 +204,7 @@ public class ConferenceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Conference.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

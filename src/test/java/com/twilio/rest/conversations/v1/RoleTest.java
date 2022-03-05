@@ -181,7 +181,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.reader().read();
+            Role.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -195,7 +195,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Role.reader().read());
+        assertNotNull(Role.reader().read(tw));
     }
 
     @Test
@@ -207,6 +207,6 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Role.reader().read());
+        assertNotNull(Role.reader().read(tw));
     }
 }

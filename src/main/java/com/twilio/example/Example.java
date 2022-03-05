@@ -40,7 +40,7 @@ public class Example {
 
         tw = new Twilio(ACCOUNT_SID, AUTH_TOKEN);
 
-        Iterable<Record> usage = Record.reader().read();
+        Iterable<Record> usage = Record.reader().read(tw);
         for (Record record : usage) {
             System.out.println(record);
         }
@@ -70,14 +70,14 @@ public class Example {
         System.out.println(call.getSid());
 
         // Print all the messages
-        Iterable<Message> messages = Message.reader().read();
+        Iterable<Message> messages = Message.reader().read(tw);
         for (Message m : messages) {
             System.out.println(m.getSid());
             System.out.println(m.getBody());
         }
 
         // Get some calls
-        Iterable<Call> calls = Call.reader().pageSize(2).read();
+        Iterable<Call> calls = Call.reader().pageSize(2).read(tw);
         for (Call c : calls) {
             System.out.println(c.getSid());
         }
@@ -99,7 +99,7 @@ public class Example {
 
     private static IncomingPhoneNumber buyNumber() {
         // Look up some phone numbers
-        Iterable<Local> numbers = Local.reader(ACCOUNT_SID, "US").read();
+        Iterable<Local> numbers = Local.reader(ACCOUNT_SID, "US").read(tw);
 
         // Buy the first phone number
         Iterator<Local> iter = numbers.iterator();

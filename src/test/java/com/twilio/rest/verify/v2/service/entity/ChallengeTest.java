@@ -138,7 +138,7 @@ public class ChallengeTest {
         }};
 
         try {
-            Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read();
+            Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -152,7 +152,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw));
     }
 
     @Test
@@ -164,7 +164,7 @@ public class ChallengeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read());
+        assertNotNull(Challenge.reader("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").read(tw));
     }
 
     @Test

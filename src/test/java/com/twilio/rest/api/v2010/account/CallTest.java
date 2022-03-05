@@ -162,7 +162,7 @@ public class CallTest {
         }};
 
         try {
-            Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -176,7 +176,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -188,7 +188,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -200,7 +200,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -212,7 +212,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -224,7 +224,7 @@ public class CallTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Call.reader("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

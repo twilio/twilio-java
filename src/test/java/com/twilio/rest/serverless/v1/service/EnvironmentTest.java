@@ -54,7 +54,7 @@ public class EnvironmentTest {
         }};
 
         try {
-            Environment.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Environment.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class EnvironmentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Environment.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Environment.reader("ZSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

@@ -50,7 +50,7 @@ public class WorkerTest {
         }};
 
         try {
-            Worker.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Worker.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Worker.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Worker.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class WorkerTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Worker.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Worker.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

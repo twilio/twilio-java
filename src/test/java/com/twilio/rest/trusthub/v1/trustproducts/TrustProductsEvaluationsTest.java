@@ -86,7 +86,7 @@ public class TrustProductsEvaluationsTest {
         }};
 
         try {
-            TrustProductsEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            TrustProductsEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class TrustProductsEvaluationsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TrustProductsEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(TrustProductsEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -112,7 +112,7 @@ public class TrustProductsEvaluationsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TrustProductsEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(TrustProductsEvaluations.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

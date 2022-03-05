@@ -86,7 +86,7 @@ public class BundleCopyTest {
         }};
 
         try {
-            BundleCopy.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            BundleCopy.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,7 +100,7 @@ public class BundleCopyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BundleCopy.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(BundleCopy.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -112,6 +112,6 @@ public class BundleCopyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BundleCopy.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(BundleCopy.reader("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

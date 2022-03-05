@@ -146,7 +146,7 @@ public class HostedNumberOrderTest {
         }};
 
         try {
-            HostedNumberOrder.reader().read();
+            HostedNumberOrder.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(HostedNumberOrder.reader().read());
+        assertNotNull(HostedNumberOrder.reader().read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class HostedNumberOrderTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(HostedNumberOrder.reader().read());
+        assertNotNull(HostedNumberOrder.reader().read(tw));
     }
 
     @Test

@@ -50,7 +50,7 @@ public class WebChannelTest {
         }};
 
         try {
-            WebChannel.reader().read();
+            WebChannel.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class WebChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(WebChannel.reader().read());
+        assertNotNull(WebChannel.reader().read(tw));
     }
 
     @Test
@@ -76,7 +76,7 @@ public class WebChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(WebChannel.reader().read());
+        assertNotNull(WebChannel.reader().read(tw));
     }
 
     @Test

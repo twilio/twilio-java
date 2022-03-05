@@ -54,7 +54,7 @@ public class EndUserTypeTest {
         }};
 
         try {
-            EndUserType.reader().read();
+            EndUserType.reader().read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class EndUserTypeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EndUserType.reader().read());
+        assertNotNull(EndUserType.reader().read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class EndUserTypeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(EndUserType.reader().read());
+        assertNotNull(EndUserType.reader().read(tw));
     }
 
     @Test

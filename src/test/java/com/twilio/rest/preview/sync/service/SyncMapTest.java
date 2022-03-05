@@ -150,7 +150,7 @@ public class SyncMapTest {
         }};
 
         try {
-            SyncMap.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            SyncMap.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -164,7 +164,7 @@ public class SyncMapTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncMap.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(SyncMap.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -176,6 +176,6 @@ public class SyncMapTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncMap.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(SyncMap.reader("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 }

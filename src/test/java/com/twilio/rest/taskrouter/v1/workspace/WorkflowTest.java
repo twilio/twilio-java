@@ -146,7 +146,7 @@ public class WorkflowTest {
         }};
 
         try {
-            Workflow.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            Workflow.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class WorkflowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Workflow.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Workflow.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -172,7 +172,7 @@ public class WorkflowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Workflow.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(Workflow.reader("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

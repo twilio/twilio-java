@@ -54,7 +54,7 @@ public class ExportCustomJobTest {
         }};
 
         try {
-            ExportCustomJob.reader("resource_type").read();
+            ExportCustomJob.reader("resource_type").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class ExportCustomJobTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ExportCustomJob.reader("resource_type").read());
+        assertNotNull(ExportCustomJob.reader("resource_type").read(tw));
     }
 
     @Test
@@ -80,7 +80,7 @@ public class ExportCustomJobTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ExportCustomJob.reader("resource_type").read());
+        assertNotNull(ExportCustomJob.reader("resource_type").read(tw));
     }
 
     @Test

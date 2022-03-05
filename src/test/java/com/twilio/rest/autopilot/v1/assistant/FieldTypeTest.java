@@ -82,7 +82,7 @@ public class FieldTypeTest {
         }};
 
         try {
-            FieldType.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read();
+            FieldType.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class FieldTypeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FieldType.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(FieldType.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test
@@ -108,7 +108,7 @@ public class FieldTypeTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FieldType.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read());
+        assertNotNull(FieldType.reader("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").read(tw));
     }
 
     @Test

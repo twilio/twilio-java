@@ -107,7 +107,21 @@ Optional (point 2): relation to design pattern(s).
 What are your main take-aways from this project? What did you learn?
 
 ### `Essence`
-How did you grow as a team, using the Essence standard to evaluate yourself?
+
+| State      | Checklist | Fulfilled (yes/no/comments) |
+| ----------- | ----------- | ----------- |
+| Seeded      | The team mission has been defined in terms of the opportunities and outcomes. <br> Constraints on the team's operation are known. <br> Mechanisms to grow the team are in place.<br> The composition of the team is defined.<br>Any constraints on where and<br>how the work is carried out are defined.<br>The team's responsibilities are outlined.<br>The level of team commitment is clear.<br>Required competencies are identified.<br>The team size is determined.<br>Governance rules are defined.<br>Leadership model is determined    | Yes |
+| Formed   | Individual responsibilities are understood.<br>Enough team members have been recruited to enable the work to progress.<br>Every team member understands how the team is organized and what their individual role is.<br>All team members understand how to perform their work.<br>The team members have met (perhaps virtually) and are beginning to get to know each other.<br>The team members understand their responsibilities and how they align with their competencies.<br>Team members are accepting work.<br>Any external collaborators (organizations, teams and individuals) are identified.<br>Team communication mechanisms have been defined.<br>Each team member commits to working on the team as defined.       | Yes|
+| Collaborating | The team is working as one cohesive unit.<br>Communication within the team is open and honest.<br>The team is focused on achieving the team mission.<br>The team members know and trust each other | Partly fulfilled |
+| Performing | The team consistently meets its commitments.<br>The team continuously adapts to the changing context.<br>The team identifies and addresses problems without outside help.<br>Effective progress is being achieved with minimal avoidable backtracking and reworking.<br>Wasted work and the potential for wasted work are continuously identified and eliminated.| Partly fulfilled |
+| Adjourned | The team responsibilities have been handed over or fulfilled.<br>The team members are available for assignment to other teams.<br>No further effort is being put in by the team to complete the mission.| No |
+
+
+<h2>
+Summmary
+</h2>
+
+The current state of the team is between "Collaborating" and "Performing" as some of the criteria are fulfilled for both of the states but not all of them for each state. Since the last assessment of the checklist, the team was also between the "Collaborating" and "Performing" states, however, the team has made progress on both states. The first sentence in the "Collaborating" state has been greatly improved as the assignments have progressed. For this assignment, the delegation of tasks hasn't been obvious but due to more experience in working as a team and overall software development, the team has found ways to work more effectively even in more abstract tasks. Some points that can still be improved are the last points in the "Performing" state. Even though the effectiveness has improved, there are still "unknowns" that has caused unnecessary backtracking on some tasks. This is also connected to the last point since the potential for wasted work is not being continuously identified. This could be improved through having "retrospective" sessions where the team reflects on the previous assignment for example.
 
 Optional (point 6): How would you put your work in context with best software engineering practice?
 

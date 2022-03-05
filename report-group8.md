@@ -88,6 +88,11 @@ refactoring).
 
 ## `UML class diagram and its description`
 
+![TwilioUML drawio](https://user-images.githubusercontent.com/29179827/156884986-49db2d55-35bc-40e7-87e4-384e1d26a1fb.png)
+
+Shows how the Twilio class implements the TwilioAPI interface, and how Twilio.java is at the center of the SDK.  
+The abstract classes (Creator, Fetcher, Updater, Reader, Deleter) are base classes inherited by other services such as Messages, etc, and is the foundation upon which these services build upon. A core part of these services is to utilize the TwilioRestClient for network transactions, which is now tied to certain instances of the Twilio Class, as opposed to a singleton used in sdk version 8 and before.
+
 ### `Key changes/classes affected`
 
 Optional (point 1): Architectural overview.

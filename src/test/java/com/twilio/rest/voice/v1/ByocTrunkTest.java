@@ -82,7 +82,7 @@ public class ByocTrunkTest {
         }};
 
         try {
-            ByocTrunk.fetcher("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            ByocTrunk.fetcher("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class ByocTrunkTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ByocTrunk.fetcher("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(ByocTrunk.fetcher("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

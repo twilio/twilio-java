@@ -115,7 +115,7 @@ public class BucketTest {
         }};
 
         try {
-            Bucket.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Bucket.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class BucketTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Bucket.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Bucket.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

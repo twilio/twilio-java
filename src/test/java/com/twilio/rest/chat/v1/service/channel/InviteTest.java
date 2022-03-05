@@ -54,7 +54,7 @@ public class InviteTest {
         }};
 
         try {
-            Invite.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Invite.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class InviteTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Invite.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Invite.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "INXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

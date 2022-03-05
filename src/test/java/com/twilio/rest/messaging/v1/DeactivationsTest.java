@@ -54,7 +54,7 @@ public class DeactivationsTest {
         }};
 
         try {
-            Deactivations.fetcher().fetch();
+            Deactivations.fetcher().fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class DeactivationsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Deactivations.fetcher().fetch());
+        assertNotNull(Deactivations.fetcher().fetch(tw));
     }
 }

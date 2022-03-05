@@ -51,7 +51,7 @@ public class AuthorizationDocumentTest {
         }};
 
         try {
-            AuthorizationDocument.fetcher("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AuthorizationDocument.fetcher("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class AuthorizationDocumentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthorizationDocument.fetcher("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AuthorizationDocument.fetcher("PXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

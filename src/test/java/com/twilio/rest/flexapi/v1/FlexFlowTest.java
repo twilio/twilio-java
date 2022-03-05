@@ -94,7 +94,7 @@ public class FlexFlowTest {
         }};
 
         try {
-            FlexFlow.fetcher("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            FlexFlow.fetcher("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -108,7 +108,7 @@ public class FlexFlowTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FlexFlow.fetcher("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(FlexFlow.fetcher("FOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

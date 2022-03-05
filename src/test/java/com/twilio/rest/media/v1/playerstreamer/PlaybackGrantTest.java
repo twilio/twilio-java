@@ -86,7 +86,7 @@ public class PlaybackGrantTest {
         }};
 
         try {
-            PlaybackGrant.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            PlaybackGrant.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class PlaybackGrantTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PlaybackGrant.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(PlaybackGrant.fetcher("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

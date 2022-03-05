@@ -130,7 +130,7 @@ public class EvaluationTest {
         }};
 
         try {
-            Evaluation.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Evaluation.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,6 +144,6 @@ public class EvaluationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Evaluation.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Evaluation.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ELXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

@@ -50,7 +50,7 @@ public class DeviceTest {
         }};
 
         try {
-            Device.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Device.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class DeviceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Device.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Device.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "THXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

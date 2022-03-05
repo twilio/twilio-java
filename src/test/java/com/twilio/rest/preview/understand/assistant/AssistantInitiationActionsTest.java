@@ -50,7 +50,7 @@ public class AssistantInitiationActionsTest {
         }};
 
         try {
-            AssistantInitiationActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AssistantInitiationActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class AssistantInitiationActionsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AssistantInitiationActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AssistantInitiationActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

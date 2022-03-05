@@ -50,7 +50,7 @@ public class BrandRegistrationTest {
         }};
 
         try {
-            BrandRegistration.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            BrandRegistration.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class BrandRegistrationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandRegistration.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(BrandRegistration.fetcher("BNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

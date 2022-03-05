@@ -54,7 +54,7 @@ public class AuthorizedConnectAppTest {
         }};
 
         try {
-            AuthorizedConnectApp.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AuthorizedConnectApp.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class AuthorizedConnectAppTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AuthorizedConnectApp.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AuthorizedConnectApp.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

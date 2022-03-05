@@ -146,7 +146,7 @@ public class CredentialTest {
         }};
 
         try {
-            Credential.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Credential.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class CredentialTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Credential.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Credential.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

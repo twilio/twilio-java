@@ -82,7 +82,7 @@ public class FleetTest {
         }};
 
         try {
-            Fleet.fetcher("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Fleet.fetcher("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class FleetTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Fleet.fetcher("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Fleet.fetcher("HFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

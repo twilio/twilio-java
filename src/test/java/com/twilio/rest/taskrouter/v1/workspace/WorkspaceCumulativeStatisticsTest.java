@@ -54,7 +54,7 @@ public class WorkspaceCumulativeStatisticsTest {
         }};
 
         try {
-            WorkspaceCumulativeStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            WorkspaceCumulativeStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class WorkspaceCumulativeStatisticsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(WorkspaceCumulativeStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(WorkspaceCumulativeStatistics.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

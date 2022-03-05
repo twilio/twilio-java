@@ -50,7 +50,7 @@ public class DefaultsTest {
         }};
 
         try {
-            Defaults.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Defaults.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class DefaultsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Defaults.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Defaults.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

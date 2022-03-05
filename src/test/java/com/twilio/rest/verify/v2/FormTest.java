@@ -54,7 +54,7 @@ public class FormTest {
         }};
 
         try {
-            Form.fetcher(Form.FormTypes.FORM_PUSH).fetch();
+            Form.fetcher(Form.FormTypes.FORM_PUSH).fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class FormTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Form.fetcher(Form.FormTypes.FORM_PUSH).fetch());
+        assertNotNull(Form.fetcher(Form.FormTypes.FORM_PUSH).fetch(tw));
     }
 }

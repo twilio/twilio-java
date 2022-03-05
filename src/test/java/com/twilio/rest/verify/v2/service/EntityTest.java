@@ -118,7 +118,7 @@ public class EntityTest {
         }};
 
         try {
-            Entity.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch();
+            Entity.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -132,7 +132,7 @@ public class EntityTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Entity.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch());
+        assertNotNull(Entity.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch(tw));
     }
 
     @Test

@@ -98,7 +98,7 @@ public class SchemaVersionTest {
         }};
 
         try {
-            SchemaVersion.fetcher("id", 1).fetch();
+            SchemaVersion.fetcher("id", 1).fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class SchemaVersionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SchemaVersion.fetcher("id", 1).fetch());
+        assertNotNull(SchemaVersion.fetcher("id", 1).fetch(tw));
     }
 }

@@ -54,7 +54,7 @@ public class BrandedChannelTest {
         }};
 
         try {
-            BrandedChannel.fetcher("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            BrandedChannel.fetcher("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class BrandedChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandedChannel.fetcher("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(BrandedChannel.fetcher("BWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

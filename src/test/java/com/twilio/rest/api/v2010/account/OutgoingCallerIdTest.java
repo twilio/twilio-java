@@ -50,7 +50,7 @@ public class OutgoingCallerIdTest {
         }};
 
         try {
-            OutgoingCallerId.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            OutgoingCallerId.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class OutgoingCallerIdTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(OutgoingCallerId.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(OutgoingCallerId.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "PNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

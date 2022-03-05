@@ -82,7 +82,7 @@ public class NotificationTest {
         }};
 
         try {
-            Notification.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Notification.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,6 +96,6 @@ public class NotificationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Notification.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Notification.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

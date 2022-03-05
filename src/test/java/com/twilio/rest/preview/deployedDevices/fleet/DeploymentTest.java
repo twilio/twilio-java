@@ -50,7 +50,7 @@ public class DeploymentTest {
         }};
 
         try {
-            Deployment.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Deployment.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class DeploymentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Deployment.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Deployment.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "DLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

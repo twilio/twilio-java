@@ -54,7 +54,7 @@ public class JobTest {
         }};
 
         try {
-            Job.fetcher("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Job.fetcher("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class JobTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Job.fetcher("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Job.fetcher("JSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

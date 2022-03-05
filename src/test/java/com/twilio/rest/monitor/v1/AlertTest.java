@@ -54,7 +54,7 @@ public class AlertTest {
         }};
 
         try {
-            Alert.fetcher("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Alert.fetcher("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class AlertTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Alert.fetcher("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Alert.fetcher("NOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -54,7 +54,7 @@ public class BrandsInformationTest {
         }};
 
         try {
-            BrandsInformation.fetcher().setIfNoneMatch("if_none_match").fetch();
+            BrandsInformation.fetcher().setIfNoneMatch("if_none_match").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class BrandsInformationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(BrandsInformation.fetcher().setIfNoneMatch("if_none_match").fetch());
+        assertNotNull(BrandsInformation.fetcher().setIfNoneMatch("if_none_match").fetch(tw));
     }
 }

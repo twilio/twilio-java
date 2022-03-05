@@ -50,7 +50,7 @@ public class CertificateTest {
         }};
 
         try {
-            Certificate.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Certificate.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class CertificateTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Certificate.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Certificate.fetcher("FLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "CYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

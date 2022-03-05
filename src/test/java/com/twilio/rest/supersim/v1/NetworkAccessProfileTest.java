@@ -94,7 +94,7 @@ public class NetworkAccessProfileTest {
         }};
 
         try {
-            NetworkAccessProfile.fetcher("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            NetworkAccessProfile.fetcher("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -108,7 +108,7 @@ public class NetworkAccessProfileTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(NetworkAccessProfile.fetcher("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(NetworkAccessProfile.fetcher("HAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -52,7 +52,7 @@ public class WebhookTest {
         }};
 
         try {
-            Webhook.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Webhook.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -66,7 +66,7 @@ public class WebhookTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Webhook.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Webhook.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

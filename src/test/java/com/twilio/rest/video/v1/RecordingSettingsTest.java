@@ -54,7 +54,7 @@ public class RecordingSettingsTest {
         }};
 
         try {
-            RecordingSettings.fetcher().fetch();
+            RecordingSettings.fetcher().fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class RecordingSettingsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RecordingSettings.fetcher().fetch());
+        assertNotNull(RecordingSettings.fetcher().fetch(tw));
     }
 
     @Test

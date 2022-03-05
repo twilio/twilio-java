@@ -54,7 +54,7 @@ public class CallSummaryTest {
         }};
 
         try {
-            CallSummary.fetcher("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            CallSummary.fetcher("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class CallSummaryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(CallSummary.fetcher("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(CallSummary.fetcher("CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

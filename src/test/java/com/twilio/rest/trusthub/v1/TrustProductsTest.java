@@ -128,7 +128,7 @@ public class TrustProductsTest {
         }};
 
         try {
-            TrustProducts.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            TrustProducts.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -142,7 +142,7 @@ public class TrustProductsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(TrustProducts.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(TrustProducts.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

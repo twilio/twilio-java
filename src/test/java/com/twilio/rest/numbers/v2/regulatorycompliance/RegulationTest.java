@@ -98,7 +98,7 @@ public class RegulationTest {
         }};
 
         try {
-            Regulation.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Regulation.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class RegulationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Regulation.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Regulation.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

@@ -100,7 +100,7 @@ public class IpCommandTest {
         }};
 
         try {
-            IpCommand.fetcher("HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            IpCommand.fetcher("HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -114,7 +114,7 @@ public class IpCommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(IpCommand.fetcher("HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(IpCommand.fetcher("HGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

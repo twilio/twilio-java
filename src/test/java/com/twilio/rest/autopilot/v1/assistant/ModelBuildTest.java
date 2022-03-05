@@ -50,7 +50,7 @@ public class ModelBuildTest {
         }};
 
         try {
-            ModelBuild.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            ModelBuild.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class ModelBuildTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ModelBuild.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(ModelBuild.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

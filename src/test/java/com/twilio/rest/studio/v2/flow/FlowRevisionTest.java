@@ -86,7 +86,7 @@ public class FlowRevisionTest {
         }};
 
         try {
-            FlowRevision.fetcher("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "revision").fetch();
+            FlowRevision.fetcher("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "revision").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -100,6 +100,6 @@ public class FlowRevisionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FlowRevision.fetcher("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "revision").fetch());
+        assertNotNull(FlowRevision.fetcher("FWXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "revision").fetch(tw));
     }
 }

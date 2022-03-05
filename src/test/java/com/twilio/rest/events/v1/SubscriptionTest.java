@@ -107,7 +107,7 @@ public class SubscriptionTest {
         }};
 
         try {
-            Subscription.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Subscription.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -121,7 +121,7 @@ public class SubscriptionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Subscription.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Subscription.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -115,7 +115,7 @@ public class MessagingConfigurationTest {
         }};
 
         try {
-            MessagingConfiguration.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").fetch();
+            MessagingConfiguration.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class MessagingConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(MessagingConfiguration.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").fetch());
+        assertNotNull(MessagingConfiguration.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "country").fetch(tw));
     }
 
     @Test

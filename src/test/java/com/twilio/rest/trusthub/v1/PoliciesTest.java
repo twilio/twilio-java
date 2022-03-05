@@ -98,7 +98,7 @@ public class PoliciesTest {
         }};
 
         try {
-            Policies.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Policies.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class PoliciesTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Policies.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Policies.fetcher("RNXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

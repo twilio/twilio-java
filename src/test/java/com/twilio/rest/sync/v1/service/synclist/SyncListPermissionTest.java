@@ -50,7 +50,7 @@ public class SyncListPermissionTest {
         }};
 
         try {
-            SyncListPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch();
+            SyncListPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class SyncListPermissionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SyncListPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch());
+        assertNotNull(SyncListPermission.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "ESXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "identity").fetch(tw));
     }
 
     @Test

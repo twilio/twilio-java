@@ -126,7 +126,7 @@ public class SubscribedEventTest {
         }};
 
         try {
-            SubscribedEvent.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").fetch();
+            SubscribedEvent.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -140,7 +140,7 @@ public class SubscribedEventTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SubscribedEvent.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").fetch());
+        assertNotNull(SubscribedEvent.fetcher("DFXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "type").fetch(tw));
     }
 
     @Test

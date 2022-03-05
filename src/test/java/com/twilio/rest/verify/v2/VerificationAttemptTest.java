@@ -98,7 +98,7 @@ public class VerificationAttemptTest {
         }};
 
         try {
-            VerificationAttempt.fetcher("VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            VerificationAttempt.fetcher("VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class VerificationAttemptTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(VerificationAttempt.fetcher("VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(VerificationAttempt.fetcher("VLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

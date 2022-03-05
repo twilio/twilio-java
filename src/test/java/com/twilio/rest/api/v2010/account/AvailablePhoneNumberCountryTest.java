@@ -98,7 +98,7 @@ public class AvailablePhoneNumberCountryTest {
         }};
 
         try {
-            AvailablePhoneNumberCountry.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").fetch();
+            AvailablePhoneNumberCountry.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class AvailablePhoneNumberCountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AvailablePhoneNumberCountry.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").fetch());
+        assertNotNull(AvailablePhoneNumberCountry.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "US").fetch(tw));
     }
 }

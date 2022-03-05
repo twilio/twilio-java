@@ -50,7 +50,7 @@ public class RoomTest {
         }};
 
         try {
-            Room.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Room.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class RoomTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Room.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Room.fetcher("RMXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

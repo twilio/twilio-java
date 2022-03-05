@@ -98,7 +98,7 @@ public class CountryTest {
         }};
 
         try {
-            Country.fetcher("US").fetch();
+            Country.fetcher("US").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,6 +112,6 @@ public class CountryTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Country.fetcher("US").fetch());
+        assertNotNull(Country.fetcher("US").fetch(tw));
     }
 }

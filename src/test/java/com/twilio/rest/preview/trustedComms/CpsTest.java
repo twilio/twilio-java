@@ -54,7 +54,7 @@ public class CpsTest {
         }};
 
         try {
-            Cps.fetcher().setXXcnamSensitivePhoneNumber("x_xcnam_sensitive_phone_number").fetch();
+            Cps.fetcher().setXXcnamSensitivePhoneNumber("x_xcnam_sensitive_phone_number").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,6 +68,6 @@ public class CpsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Cps.fetcher().setXXcnamSensitivePhoneNumber("x_xcnam_sensitive_phone_number").fetch());
+        assertNotNull(Cps.fetcher().setXXcnamSensitivePhoneNumber("x_xcnam_sensitive_phone_number").fetch(tw));
     }
 }

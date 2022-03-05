@@ -82,7 +82,7 @@ public class ConnectionPolicyTest {
         }};
 
         try {
-            ConnectionPolicy.fetcher("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            ConnectionPolicy.fetcher("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -96,7 +96,7 @@ public class ConnectionPolicyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ConnectionPolicy.fetcher("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(ConnectionPolicy.fetcher("NYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

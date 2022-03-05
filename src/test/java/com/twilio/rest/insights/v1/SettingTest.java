@@ -50,7 +50,7 @@ public class SettingTest {
         }};
 
         try {
-            Setting.fetcher().fetch();
+            Setting.fetcher().fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class SettingTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Setting.fetcher().fetch());
+        assertNotNull(Setting.fetcher().fetch(tw));
     }
 
     @Test

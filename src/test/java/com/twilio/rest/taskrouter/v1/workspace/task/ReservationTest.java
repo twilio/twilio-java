@@ -94,7 +94,7 @@ public class ReservationTest {
         }};
 
         try {
-            Reservation.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Reservation.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -108,7 +108,7 @@ public class ReservationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Reservation.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Reservation.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WTXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

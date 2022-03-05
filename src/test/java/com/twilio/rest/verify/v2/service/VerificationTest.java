@@ -163,7 +163,7 @@ public class VerificationTest {
         }};
 
         try {
-            Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch();
+            Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -177,6 +177,6 @@ public class VerificationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch());
+        assertNotNull(Verification.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "sid").fetch(tw));
     }
 }

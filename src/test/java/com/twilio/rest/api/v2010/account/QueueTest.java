@@ -50,7 +50,7 @@ public class QueueTest {
         }};
 
         try {
-            Queue.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Queue.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class QueueTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Queue.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Queue.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

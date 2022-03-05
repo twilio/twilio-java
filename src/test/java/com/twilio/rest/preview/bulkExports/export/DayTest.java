@@ -54,7 +54,7 @@ public class DayTest {
         }};
 
         try {
-            Day.fetcher("resource_type", "day").fetch();
+            Day.fetcher("resource_type", "day").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class DayTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Day.fetcher("resource_type", "day").fetch());
+        assertNotNull(Day.fetcher("resource_type", "day").fetch(tw));
     }
 
     @Test

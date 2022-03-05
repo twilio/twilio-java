@@ -155,7 +155,7 @@ public class UsAppToPersonTest {
         }};
 
         try {
-            UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -169,6 +169,6 @@ public class UsAppToPersonTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(UsAppToPerson.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "QEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

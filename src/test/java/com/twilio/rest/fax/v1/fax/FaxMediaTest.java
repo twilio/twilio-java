@@ -54,7 +54,7 @@ public class FaxMediaTest {
         }};
 
         try {
-            FaxMedia.fetcher("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            FaxMedia.fetcher("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class FaxMediaTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(FaxMedia.fetcher("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(FaxMedia.fetcher("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "MEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

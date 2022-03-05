@@ -94,7 +94,7 @@ public class WebChannelTest {
         }};
 
         try {
-            WebChannel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            WebChannel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -108,7 +108,7 @@ public class WebChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(WebChannel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(WebChannel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

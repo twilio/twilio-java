@@ -114,7 +114,7 @@ public class RateLimitTest {
         }};
 
         try {
-            RateLimit.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            RateLimit.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class RateLimitTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(RateLimit.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(RateLimit.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -50,7 +50,7 @@ public class ActivityTest {
         }};
 
         try {
-            Activity.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Activity.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class ActivityTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Activity.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Activity.fetcher("WSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "WAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

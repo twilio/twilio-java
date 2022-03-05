@@ -114,7 +114,7 @@ public class ApplicationTest {
         }};
 
         try {
-            Application.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Application.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -128,7 +128,7 @@ public class ApplicationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Application.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Application.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "APXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

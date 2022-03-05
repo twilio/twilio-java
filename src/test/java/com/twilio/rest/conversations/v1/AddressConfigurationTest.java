@@ -94,7 +94,7 @@ public class AddressConfigurationTest {
         }};
 
         try {
-            AddressConfiguration.fetcher("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AddressConfiguration.fetcher("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -108,7 +108,7 @@ public class AddressConfigurationTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AddressConfiguration.fetcher("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AddressConfiguration.fetcher("IGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

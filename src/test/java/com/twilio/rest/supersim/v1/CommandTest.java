@@ -99,7 +99,7 @@ public class CommandTest {
         }};
 
         try {
-            Command.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Command.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -113,7 +113,7 @@ public class CommandTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Command.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Command.fetcher("HCXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -50,7 +50,7 @@ public class AssistantFallbackActionsTest {
         }};
 
         try {
-            AssistantFallbackActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AssistantFallbackActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -64,7 +64,7 @@ public class AssistantFallbackActionsTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AssistantFallbackActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AssistantFallbackActions.fetcher("UAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -99,7 +99,7 @@ public class AccessTokenTest {
         }};
 
         try {
-            AccessToken.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "YKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            AccessToken.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "YKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -113,6 +113,6 @@ public class AccessTokenTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(AccessToken.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "YKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(AccessToken.fetcher("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "YKXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 }

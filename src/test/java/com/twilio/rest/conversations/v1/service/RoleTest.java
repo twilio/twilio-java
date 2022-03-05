@@ -149,7 +149,7 @@ public class RoleTest {
         }};
 
         try {
-            Role.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Role.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -163,7 +163,7 @@ public class RoleTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Role.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Role.fetcher("ISXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "RLXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

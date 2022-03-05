@@ -126,7 +126,7 @@ public class PublicKeyTest {
         }};
 
         try {
-            PublicKey.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            PublicKey.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -140,7 +140,7 @@ public class PublicKeyTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(PublicKey.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(PublicKey.fetcher("CRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -146,7 +146,7 @@ public class ServiceTest {
         }};
 
         try {
-            Service.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Service.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -160,7 +160,7 @@ public class ServiceTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Service.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Service.fetcher("MGXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -127,7 +127,7 @@ public class SupportingDocumentTest {
         }};
 
         try {
-            SupportingDocument.fetcher("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            SupportingDocument.fetcher("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -141,7 +141,7 @@ public class SupportingDocumentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(SupportingDocument.fetcher("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(SupportingDocument.fetcher("RDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

@@ -130,7 +130,7 @@ public class ItemAssignmentTest {
         }};
 
         try {
-            ItemAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            ItemAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -144,7 +144,7 @@ public class ItemAssignmentTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(ItemAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(ItemAssignment.fetcher("BUXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "BVXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

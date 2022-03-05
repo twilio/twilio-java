@@ -54,7 +54,7 @@ public class TranscriptionTest {
         }};
 
         try {
-            Transcription.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Transcription.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -68,7 +68,7 @@ public class TranscriptionTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Transcription.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Transcription.fetcher("ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "TRXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

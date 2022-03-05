@@ -98,7 +98,7 @@ public class ChannelTest {
         }};
 
         try {
-            Channel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch();
+            Channel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw);
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -112,7 +112,7 @@ public class ChannelTest {
             result = new ObjectMapper();
         }};
 
-        assertNotNull(Channel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+        assertNotNull(Channel.fetcher("CHXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch(tw));
     }
 
     @Test

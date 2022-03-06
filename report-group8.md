@@ -22,23 +22,26 @@ The onboarding of this project, as compared to the previous one was drastically 
 
 For each team member, how much time was spent in
 
-1. plenary discussions/meetings;
+### Emil (23h)
 
-2. discussions within parts of the group;
+1. Find relevant issue `1h`
 
-3. reading documentation;
+2. Meetings `5,5h`
 
-4. configuration and setup;
+3. setup of project/onboarding `1h`  
+(A couple of internal packages didn't resolve, tinkered with project structure but resetting intellij finally solved it.)
 
-5. analyzing code/output;
+4. reading documentation `4,5h`
 
-6. writing documentation;
+5. analyzing code/output `2h`
 
-7. writing code;
+6. write documentation `3h`
 
-8. running code?
+7. writing code `4h`
 
-For setting up tools and libraries (step 4), enumerate all dependencies
+8. Running code (test) `2h`
+
+For setting up tools and libraries (step 3), enumerate all dependencies
 you took care of and where you spent your time, if that time exceeds
 30 minutes.
 
@@ -73,9 +76,51 @@ Optional (point 3): trace tests to requirements.
 
 ### `Patch`
 
-(copy your changes or the add git command to show them)
+`run in ./twilio-java`  
+Twilio.java
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/Twilio.java"
+```
 
-git diff ...
+TwilioAPI.java
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/TwilioAPI.java"
+```
+
+Creator.java
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/base/Creator.java"
+```
+
+Deleter.java  
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/base/Deleter.java"
+```
+
+Fetcher.java
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/base/Fetcher.java"
+```
+
+Reader.java
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/base/Reader.java"
+```
+
+Updater.java
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/base/Updater.java"
+```
+
+./example
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/main/java/com/twilio/example/"
+```
+
+TwilioTest.java  
+```
+git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/test/java/com/twilio/TwilioTest.java"
+```
 
 Optional (point 4): the patch is clean.
 
@@ -104,7 +149,9 @@ Optional (point 2): relation to design pattern(s).
 
 ## `Overall experience`
 
-What are your main take-aways from this project? What did you learn?
+### `What are your main take-aways from this project? What did you learn?`
+
+The overall experience of working within this project has been really nice. The project used maven which we are familiar with, having used it in assignment 1 and 2, and built fine as long as a supported JDK was used. Further, the readme has clear build instructions which allowed us all to get going quite quickly. The project is 250k loc, with more than 3000 tests, which felt a bit daunting at first, but after diving into the codebase we noticed that the code was actually quite modular; in the end we only had to refactor 6-7 classes. This definitely taught us valuable lessons in working with open source software, and how issues that at first seem quite large can actually have a smaller solution, as long as you know the software and codebase you are working with. Getting to know it can take some time, but it is doable even in large projects such as this one. Seeing as this was also a more "serious" project, with rules regarding contributing, than the one we used in assignment 3, it gave us a greater understanding of what is expected by contributors in terms of conforming to existing standards etc. 
 
 ### `Essence`
 

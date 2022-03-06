@@ -75,7 +75,7 @@ If you run into trouble with local tests, use:
 String accountSid = "ACXXXXXX";
 String authToken = "XXXXXXXX";
 
-Twilio.init(accountSid, authToken);
+Twilio twilio = new Twilio(accountSid, authToken);
 ```
 
 ### Specify Region and/or Edge
@@ -83,9 +83,9 @@ Twilio.init(accountSid, authToken);
 To take advantage of Twilio's [Global Infrastructure](https://www.twilio.com/docs/global-infrastructure), specify the target Region and/or Edge for the client:
 
 ```java
-Twilio.init(accountSid, authToken);
-Twilio.setRegion("au1");
-Twilio.setEdge("sydney");
+Twilio twilio = new Twilio(accountSid, authToken);
+twilio.setRegion("au1");
+twilio.setEdge("sydney");
 ```
 
 This will result in the `hostname` transforming from `api.twilio.com` to `api.sydney.au1.twilio.com`.
@@ -112,11 +112,13 @@ If using these variables, the above client initialization can be skipped.
 ### Send an SMS
 
 ```java
+Twilio twilio = new Twilio(accountSid, authToken);
+
 Message message = Message.creator(
     new PhoneNumber("+15558881234"),  // To number
     new PhoneNumber("+15559994321"),  // From number
     "Hello world!"                    // SMS body
-).create();
+).create(twilio);
 
 System.out.println(message.getSid());
 ```
@@ -124,13 +126,15 @@ System.out.println(message.getSid());
 ### Make a Call
 
 ```java
+Twilio twilio = new Twilio(accountSid, authToken);
+
 Call call = Call.creator(
     new PhoneNumber("+15558881234"),  // To number
     new PhoneNumber("+15559994321"),  // From number
 
     // Read TwiML at this URL when a call connects (hold music)
     new URI("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
-).create();
+).create(twilio);
 
 System.out.println(call.getSid());
 ```
@@ -141,11 +145,13 @@ System.out.println(call.getSid());
 import com.twilio.exception.ApiException;
 
 try {
+    Twilio twilio = new Twilio(accountSid, authToken);
+    
     Message message = Message.creator(
         new PhoneNumber("+15558881234"),  // To number
         new PhoneNumber("+15559994321"),  // From number
         "Hello world!"                    // SMS body
-    ).create();
+    ).create(twilio);
 
     System.out.println(message.getSid());
 } catch (final ApiException e) {

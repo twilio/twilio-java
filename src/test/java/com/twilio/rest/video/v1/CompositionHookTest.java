@@ -27,7 +27,6 @@ public class CompositionHookTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
 
     @Before

@@ -29,7 +29,6 @@ public class WebhookTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
     
     @Before

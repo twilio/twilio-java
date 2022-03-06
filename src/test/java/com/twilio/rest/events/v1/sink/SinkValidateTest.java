@@ -31,7 +31,6 @@ public class SinkValidateTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
 
     @Before

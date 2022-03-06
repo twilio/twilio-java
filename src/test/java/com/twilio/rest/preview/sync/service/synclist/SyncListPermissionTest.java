@@ -27,7 +27,6 @@ public class SyncListPermissionTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
 
     @Before

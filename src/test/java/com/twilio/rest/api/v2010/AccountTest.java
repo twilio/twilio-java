@@ -27,7 +27,6 @@ public class AccountTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
     
     @Before

@@ -28,7 +28,6 @@ public class FlowTestUserTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
 
     @Before

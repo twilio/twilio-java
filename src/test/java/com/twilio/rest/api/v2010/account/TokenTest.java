@@ -31,7 +31,6 @@ public class TokenTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
     
     @Before

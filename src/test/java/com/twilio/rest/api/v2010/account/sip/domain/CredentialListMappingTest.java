@@ -31,7 +31,6 @@ public class CredentialListMappingTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
     
     @Before

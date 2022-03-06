@@ -31,7 +31,6 @@ public class AddOnResultTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
     
     @Before

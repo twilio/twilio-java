@@ -27,7 +27,6 @@ public class ExportConfigurationTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
     
     @Before

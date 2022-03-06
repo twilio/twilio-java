@@ -27,7 +27,6 @@ public class SigningKeyTest {
     @Mocked
     private TwilioRestClient twilioRestClient;
 
-    @Mocked
     private Twilio tw;
 
     @Before

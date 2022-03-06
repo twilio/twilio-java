@@ -145,7 +145,12 @@ The abstract classes (Creator, Fetcher, Updater, Reader, Deleter) are base class
 
 Optional (point 1): Architectural overview.
 
-Optional (point 2): relation to design pattern(s).
+There were a couple design patterns that were used in the previous implementation that was removed with the new implementation:
+
+Creational pattern Singleton: This design pattern is no longer used as per requirement for the issue. 
+
+Concurrency pattern Event-based synchronous: This design pattern is no longer used since there is no longer a singleton instance, meaning there is no longer a need to adress the asynchronous pattern for multithreaded programs.
+
 
 ## `Overall experience`
 

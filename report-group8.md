@@ -88,10 +88,10 @@ Title: "Java library should not use singletons"
 
 URL: https://github.com/twilio/twilio-java/issues/650
 
-In its' current version, the Twilio SDK is initialized using Twilio.init() and is a global singleton, while the issue at hand suggests implementing it in the standard java way, i.e. new Twilio() and giving the user a non-singleton object. This would allow for multiple uses and configurations in a single production environment, and also conforms more to java standards. 
+In its' current version, the Twilio SDK is initialized using Twilio.init() and is a global singleton, while the issue at hand suggests implementing it in the standard java way, i.e. new Twilio() and giving the user a non-singleton object. This would allow for multiple uses and configurations in a single production environment, as well as increasing testability due to the global scope of singletons. This also conforms more to java standards. 
 
 `Scope (functionality and code affected).`   
-Since the singleton instance is accessed through static methods all over the code base, it is a massive refactoring, something that we noticed as worked progressed rather than instantly. When changing one thing, a ton of classes referencing static methods in the twilio class break.
+Since the singleton instance is accessed through static methods all over the code base, it is a massive refactoring, something that we noticed as worked progressed rather than instantly. When changing one thing, a ton of classes referencing static methods in the twilio class break. In total, around 10 library classes are affected, 3 classes with examples of how to use the code, and hundreds of test classes. However, many of the changes needed are quite easily achievable by simply replacing many identical lines of code using an IDE or text editor. 
 
 ## `Requirements for the new feature or requirements affected by functionality being refactored`
 
@@ -106,8 +106,6 @@ This multitenant use would also finally solve the thread safety concerns raised 
 This means that current tests should of course still pass with the new initialization, and that new tests can be added to test that the multiple uses are separate from eachother.
 
 Issue: Implement a TwilioAPI interface and refactor the Twilio.java file and all of it's usages to make use of non-static methods as well as the new initializer.
-
-Optional (point 3): trace tests to requirements.
 
 ## `Code changes`
 
@@ -158,10 +156,6 @@ TwilioTest.java
 ```
 git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6b5561ae334 "./src/test/java/com/twilio/TwilioTest.java"
 ```
-
-Optional (point 4): the patch is clean.
-
-Optional (point 5): considered for acceptance (passes all automated checks).
 
 ## `Test results`
 

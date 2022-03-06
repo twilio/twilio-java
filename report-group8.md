@@ -49,7 +49,7 @@ For each team member, how much time was spent in
 
 3. setup of project/onboarding `1h`  
 
-4. reading documentation `1,55h`
+4. reading documentation `2,5h`
 
 5. analyzing code/output `2h`
 

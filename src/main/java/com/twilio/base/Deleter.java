@@ -15,6 +15,7 @@ public abstract class Deleter<T extends Resource> {
     /**
      * Execute an async request using default client.
      *
+     * @param tw Twilio object
      * @return future that resolves to true if the object was deleted
      */
     public CompletableFuture<Boolean> deleteAsync(Twilio tw) {
@@ -34,6 +35,7 @@ public abstract class Deleter<T extends Resource> {
     /**
      * Execute a request using default client.
      *
+     * @param tw Twilio object
      * @return true if the object was deleted
      */
     public boolean delete(Twilio tw) {

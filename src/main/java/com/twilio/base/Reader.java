@@ -18,6 +18,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Execute a request using default client.
      *
+     * @param tw Twilio object
      * @return ResourceSet of objects
      */
     public ResourceSet<T> read(Twilio tw) {
@@ -35,6 +36,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Execute an async request using default client.
      *
+     * @param tw Twilio object
      * @return future that resolves to the ResourceSet of objects
      */
     public CompletableFuture<ResourceSet<T>> readAsync(Twilio tw) {
@@ -54,6 +56,7 @@ public abstract class Reader<T extends Resource> {
     /**
      * Fetch the first page of resources.
      *
+     * @param tw Twilio object
      * @return Page containing the first pageSize of resources
      */
     public Page<T> firstPage(Twilio tw) {
@@ -72,6 +75,7 @@ public abstract class Reader<T extends Resource> {
      * Retrieve the target page of resources.
      *
      * @param targetUrl API-generated URL for the requested results page
+     * @param tw        Twilio object
      * @return Page containing the target pageSize of resources
      */
     public Page<T> getPage(final String targetUrl, Twilio tw) {
@@ -91,6 +95,7 @@ public abstract class Reader<T extends Resource> {
      * Fetch the following page of resources.
      *
      * @param page current page of resources
+     * @param tw   Twilio object
      * @return Page containing the next pageSize of resources
      */
     public Page<T> nextPage(final Page<T> page, Twilio tw) {
@@ -110,6 +115,7 @@ public abstract class Reader<T extends Resource> {
      * Fetch the prior page of resources.
      *
      * @param page current page of resources
+     * @param tw   Twilio object
      * @return Page containing the previous pageSize of resources
      */
     public Page<T> previousPage(final Page<T> page, Twilio tw) {

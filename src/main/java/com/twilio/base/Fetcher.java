@@ -15,6 +15,7 @@ public abstract class Fetcher<T extends Resource> {
     /**
      * Execute an async request using default client.
      *
+     * @param tw Twilio object
      * @return future that resolves to requested object
      */
     public CompletableFuture<T> fetchAsync(Twilio tw) {
@@ -34,6 +35,7 @@ public abstract class Fetcher<T extends Resource> {
     /**
      * Execute a request using default client.
      *
+     * @param tw Twilio object
      * @return Requested object
      */
     public T fetch(Twilio tw) {

@@ -42,6 +42,13 @@ public class RequestValidatorTest {
     }
 
     @Test
+    public void testFailsWhenNull() {
+        boolean isValid = validator.validate(url, params, null);
+
+        Assert.assertFalse("Request should have failed validation, but didn't", isValid);
+    }
+
+    @Test
     public void testValidateBody() {
         boolean isValid = validator.validateBody(body, bodyHash);
 
@@ -53,6 +60,15 @@ public class RequestValidatorTest {
         boolean isValid = validator.validateBody(body, "WRONG");
 
         Assert.assertFalse("Body validation should have failed, but didn't", isValid);
+    }
+
+    @Test
+    public void testValidateBodyThrowsExceptionWhenNull() {
+        try {
+            validator.validateBody(null, "WRONG");
+        } catch (NullPointerException e) {
+            Assert.assertEquals(NullPointerException.class, e.getClass());
+        }
     }
 
     @Test
@@ -98,6 +114,15 @@ public class RequestValidatorTest {
     }
 
     @Test
+    public void testValidateNotAllowedPort() {
+        String url = this.url.replace(".com", ".com:1234").replace("https", "hp");
+        String expectedSignature = "Zmvh+3yNM1Phv2jhDCwEM3q5ebU="; // hash of http uri with port 1234
+        boolean isValid = validator.validate(url, params, expectedSignature);
+
+        Assert.assertFalse("Validator did not strip port from url", isValid);
+    }
+
+    @Test
     public void testValidateAddsPortHttps() {
         String expectedSignature = "kvajT1Ptam85bY51eRf/AJRuM3w="; // hash of https uri with port 443
         boolean isValid = validator.validate(url, params, expectedSignature);
@@ -112,6 +137,15 @@ public class RequestValidatorTest {
         boolean isValid = validator.validate(url, params, expectedSignature);
 
         Assert.assertTrue("Validator did not add port 80 to http url", isValid);
+    }
+
+    @Test
+    public void testInvalidateAddsWrongPort() {
+        String url = this.url.replace("https", "http");
+        String expectedSignature = "kvajT1Ptam85bY51eRf/AJRuM3w="; // hash of http uri with port 433
+        boolean isValid = validator.validate(url, params, expectedSignature);
+
+        Assert.assertFalse("Validator did not add port 80 to http url", isValid);
     }
 
 }

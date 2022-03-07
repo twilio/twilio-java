@@ -15,13 +15,13 @@ import java.util.concurrent.Executors;
 
 
 /**
- * Singleton class to initialize Twilio environment.
+ * Class to initialize Twilio environment.
  */
 public class Twilio implements TwilioAPI {
 
     private String username = System.getenv("TWILIO_ACCOUNT_SID");
     private String password = System.getenv("TWILIO_AUTH_TOKEN");
-    private String accountSid; // username used if Twilio is null
+    private String accountSid; // username used if this is null
     private String region = System.getenv("TWILIO_REGION");
     private String edge = System.getenv("TWILIO_EDGE");
     private volatile TwilioRestClient restClient;

@@ -95,7 +95,23 @@ For each team member, how much time was spent in
 
 8. Running code (test) `2h`
 
+### Simon (23h)
 
+1. Find relevant issue `2h`
+
+2. Meetings `5,5h`
+
+3. setup of project/onboarding `1h`  (Some dependencies had to be configured. Letting IntelliJ downlaod and index everything take time with bad internet and a slow computer. The correct project structure needed to be configured in IntelliJ.)
+
+4. reading documentation `3h`
+
+5. analyzing code/output `2,5h`
+
+6. write documentation `1h`
+
+7. writing code `6h`
+
+8. Running code (test) `2h`
 
 For setting up tools and libraries (step 3), enumerate all dependencies
 you took care of and where you spent your time, if that time exceeds

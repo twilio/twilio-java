@@ -179,8 +179,7 @@ git diff a540ced19643008a7a034e9ef3f1d0502314d9b9 bc0d329c013e1529abe2637d5901d6
 
 ## `Test results`
 
-Overall results with link to a copy or excerpt of the logs (before/after
-refactoring).
+Test logs before/after changes can be found in the Logs folder in the repository.
 
 ## `UML class diagram and its description`
 ### `Before`

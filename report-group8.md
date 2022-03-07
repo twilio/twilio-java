@@ -20,7 +20,7 @@ The onboarding of this project, as compared to the previous one was drastically 
 
 ## `Effort spent`
 
-For each team member, how much time was spent in
+For each team member, how much time was spent in each step. Links to relevant commit. 
 
 ### Emil (23h)
 
@@ -36,8 +36,12 @@ For each team member, how much time was spent in
 5. analyzing code/output `2h`
 
 6. write documentation `3h`
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/de9621278a8731e6e56e754c78251e298cb54fcc) 
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/f742ad756e4c7bc66d085d7ffe61c9665449e48f)
 
 7. writing code `4h`
+  - [code](https://github.com/DD2480-Group-8/twilio-java/commit/33d7dc3a07954a148f9939d00e4d5f98189b991a)
+  - [tests](https://github.com/DD2480-Group-8/twilio-java/commit/ab2861adf5302354dfe68def933dff7fb44cd36b)
 
 8. Running code (test) `2h`
 
@@ -54,8 +58,12 @@ For each team member, how much time was spent in
 5. analyzing code/output `2h`
 
 6. write documentation `2h`
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/a05cf771460d5d2b3de44d060bc5cb087878c5db)
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/64db5328d94903e8089f57510339430470bbf09c)
 
 7. writing code `6,5h`
+  - [code](https://github.com/DD2480-Group-8/twilio-java/commit/dd1eb0c458ece2178a37055314a43a01a820a382)
+  - [test](https://github.com/DD2480-Group-8/twilio-java/commit/158fd06c74bfc7c53933970c35e5fa79d7a43186)
 
 8. Running code (test) `1,5h`
 
@@ -72,9 +80,13 @@ For each team member, how much time was spent in
 5. analyzing code/output `2h`
 
 6. write documentation `3h`
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/48709322d2d2d408e6368b3b7334dd103f3f1047)
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/33bccd9810fd8ea7c70b7a85314dfa0f3d24993a)
 
 7. writing code `4h`
-
+  - [code](https://github.com/DD2480-Group-8/twilio-java/commit/c40893ca90adebf7ffd0b7cbb2dc40ec683c6802)
+  - [tests](https://github.com/DD2480-Group-8/twilio-java/commit/6192b3a852a5e1be51462efbd78ea6e07c74759c)
+  
 8. Running code (test) `2h`
 
 ### Jovan (20h)
@@ -92,6 +104,8 @@ For each team member, how much time was spent in
 6. write documentation `2,5h`
 
 7. writing code `3h`
+  - [code](https://github.com/DD2480-Group-8/twilio-java/commit/ecb54210d078467532e6591aaf524128833bd85a)
+  - [tests](https://github.com/DD2480-Group-8/twilio-java/commit/8af7acca520b769fbdc519ae99fe80e59cd72096)
 
 8. Running code (test) `2h`
 
@@ -108,8 +122,13 @@ For each team member, how much time was spent in
 5. analyzing code/output `2,5h`
 
 6. write documentation `1h`
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/ae8a731acb88b163e15f880668b695c68fd01ad8)
+  - [docs](https://github.com/DD2480-Group-8/twilio-java/commit/75b368ce0e7a4d8b8f6c72b210bb3f4dbc50a6f7)
 
 7. writing code `6h`
+  - [code](https://github.com/DD2480-Group-8/twilio-java/commit/41c4ff90a15810fe54dbc9623937646f1ef920fb)
+  - [test](https://github.com/DD2480-Group-8/twilio-java/commit/3e40e096ebdb6cfcddd19c67a6f6db823f89c993)
+  - [cleanup](https://github.com/DD2480-Group-8/twilio-java/commit/b90e61532e632702a0d8451bf5a8acb387871c74)
 
 8. Running code (test) `2h`
 
@@ -140,6 +159,31 @@ and use these two separately, while still maintaining all of the existing featur
 This multitenant use would also finally solve the thread safety concerns raised in the [issue referenced by ours](https://github.com/twilio/twilio-java/issues/430).
 
 This means that current tests should of course still pass with the new initialization, and that new tests can be added to test that the multiple uses are separate from eachother.
+After a lot of digging and discussion regarding how to change the architecture in the optimal way, we figured that in order to do this, we will change the relevant methods in the base abstract classes to take a Twilio object as a parameter in order for the entire system to be able to reference the same object, even when multiple instances exist. In order to make this possible, the Twilio class needs to be non-static in all the relevant places. We chose to make all fields and methods non-static except for the ExecutorService field and its related methods. The reason for this is that executorservice is related to threading, and threading is not an issue within an instance of an object.
+
+The files that need refactoring to make this happen are:
+
+Twilio.java
+* Make all the relevant fields non-static. ExecutorService can remain static.
+* Create constructors and remove .init() methods.
+
+TwilioApi.java
+* Extract the methods from Twilio.java that are most commonly used by users of the SDK and put them in the interface.
+
+Creator.java
+* The .create() methods that reference Twilio.getRestClient() need to be altered to take a Twilio object as an input parameter tw, and call .getRestClient() on that object.
+
+Updater.java
+* The .update() methods that reference Twilio.getRestClient() need to be altered to take a Twilio object as an input parameter tw, and call .getRestClient() on that object.
+
+Deleter.java
+* The .delete() methods that reference Twilio.getRestClient() need to be altered to take a Twilio object as an input parameter tw, and call .getRestClient() on that object.
+
+Fetcher.java
+* The .fetch() methods that reference Twilio.getRestClient() need to be altered to take a Twilio object as an input parameter tw, and call .getRestClient() on that object.
+
+Reader.java
+* The .read() methods that reference Twilio.getRestClient() need to be altered to take a Twilio object as an input parameter tw, and call .getRestClient() on that object.
 
 Issue: Implement a TwilioAPI interface and refactor the Twilio.java file and all of it's usages to make use of non-static methods as well as the new initializer.
 

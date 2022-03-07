@@ -77,6 +77,26 @@ For each team member, how much time was spent in
 
 8. Running code (test) `2h`
 
+### Jovan (20h)
+
+1. Find relevant issue `1h`
+
+2. Meetings `5,5h`
+
+3. setup of project/onboarding `2h`  
+
+4. reading documentation `2h`
+
+5. analyzing code/output `2h`
+
+6. write documentation `2,5h`
+
+7. writing code `3h`
+
+8. Running code (test) `2h`
+
+
+
 For setting up tools and libraries (step 3), enumerate all dependencies
 you took care of and where you spent your time, if that time exceeds
 30 minutes.

@@ -30,6 +30,7 @@ public class RecordingReader extends Reader<Recording> {
     private ZonedDateTime dateCreatedAfter;
     private String callSid;
     private String conferenceSid;
+    private Boolean includeSoftDeleted;
 
     /**
      * Construct a new RecordingReader.
@@ -122,6 +123,19 @@ public class RecordingReader extends Reader<Recording> {
      */
     public RecordingReader setConferenceSid(final String conferenceSid) {
         this.conferenceSid = conferenceSid;
+        return this;
+    }
+
+    /**
+     * A boolean parameter indicating whether to retrieve soft deleted recordings or
+     * not. Recordings are kept after deletion for a retention period of 40 days..
+     *
+     * @param includeSoftDeleted A boolean parameter indicating whether to retrieve
+     *                           soft deleted recordings or not.
+     * @return this
+     */
+    public RecordingReader setIncludeSoftDeleted(final Boolean includeSoftDeleted) {
+        this.includeSoftDeleted = includeSoftDeleted;
         return this;
     }
 
@@ -255,6 +269,10 @@ public class RecordingReader extends Reader<Recording> {
 
         if (conferenceSid != null) {
             request.addQueryParam("ConferenceSid", conferenceSid);
+        }
+
+        if (includeSoftDeleted != null) {
+            request.addQueryParam("IncludeSoftDeleted", includeSoftDeleted.toString());
         }
 
         if (getPageSize() != null) {

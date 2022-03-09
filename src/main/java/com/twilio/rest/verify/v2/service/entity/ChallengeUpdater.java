@@ -8,6 +8,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -16,6 +17,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * PLEASE NOTE that this class contains beta products that are subject to
@@ -26,6 +30,7 @@ public class ChallengeUpdater extends Updater<Challenge> {
     private final String pathIdentity;
     private final String pathSid;
     private String authPayload;
+    private Map<String, Object> metadata;
 
     /**
      * Construct a new ChallengeUpdater.
@@ -52,6 +57,20 @@ public class ChallengeUpdater extends Updater<Challenge> {
      */
     public ChallengeUpdater setAuthPayload(final String authPayload) {
         this.authPayload = authPayload;
+        return this;
+    }
+
+    /**
+     * Custom metadata associated with the challenge. This is added by the
+     * Device/SDK directly to allow for the inclusion of device information. It must
+     * be a stringified JSON with only strings values eg. `{"os": "Android"}`. Can
+     * be up to 1024 characters in length..
+     *
+     * @param metadata Metadata of the challenge.
+     * @return this
+     */
+    public ChallengeUpdater setMetadata(final Map<String, Object> metadata) {
+        this.metadata = metadata;
         return this;
     }
 
@@ -94,6 +113,10 @@ public class ChallengeUpdater extends Updater<Challenge> {
     private void addPostParams(final Request request) {
         if (authPayload != null) {
             request.addPostParam("AuthPayload", authPayload);
+        }
+
+        if (metadata != null) {
+            request.addPostParam("Metadata", Converter.mapToJson(metadata));
         }
     }
 }

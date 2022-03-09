@@ -42,7 +42,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Challenge extends Resource {
-    private static final long serialVersionUID = 27558061836839L;
+    private static final long serialVersionUID = 103779483621919L;
 
     public enum ChallengeStatuses {
         PENDING("pending"),
@@ -253,6 +253,7 @@ public class Challenge extends Resource {
     private final Challenge.ChallengeReasons respondedReason;
     private final Map<String, Object> details;
     private final Map<String, Object> hiddenDetails;
+    private final Map<String, Object> metadata;
     private final Challenge.FactorTypes factorType;
     private final URI url;
     private final Map<String, String> links;
@@ -286,6 +287,8 @@ public class Challenge extends Resource {
                       final Map<String, Object> details,
                       @JsonProperty("hidden_details")
                       final Map<String, Object> hiddenDetails,
+                      @JsonProperty("metadata")
+                      final Map<String, Object> metadata,
                       @JsonProperty("factor_type")
                       final Challenge.FactorTypes factorType,
                       @JsonProperty("url")
@@ -306,6 +309,7 @@ public class Challenge extends Resource {
         this.respondedReason = respondedReason;
         this.details = details;
         this.hiddenDetails = hiddenDetails;
+        this.metadata = metadata;
         this.factorType = factorType;
         this.url = url;
         this.links = links;
@@ -438,6 +442,15 @@ public class Challenge extends Resource {
     }
 
     /**
+     * Returns Metadata of the challenge..
+     *
+     * @return Metadata of the challenge.
+     */
+    public final Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    /**
      * Returns The Factor Type of this Challenge.
      *
      * @return The Factor Type of this Challenge
@@ -490,6 +503,7 @@ public class Challenge extends Resource {
                Objects.equals(respondedReason, other.respondedReason) &&
                Objects.equals(details, other.details) &&
                Objects.equals(hiddenDetails, other.hiddenDetails) &&
+               Objects.equals(metadata, other.metadata) &&
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
@@ -511,6 +525,7 @@ public class Challenge extends Resource {
                             respondedReason,
                             details,
                             hiddenDetails,
+                            metadata,
                             factorType,
                             url,
                             links);

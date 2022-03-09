@@ -21,6 +21,7 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     private final String pathServiceSid;
     private final String pathUserSid;
     private final String pathChannelSid;
+    private UserChannel.WebhookEnabledType xTwilioWebhookEnabled;
 
     /**
      * Construct a new UserChannelDeleter.
@@ -39,6 +40,17 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     }
 
     /**
+     * The X-Twilio-Webhook-Enabled HTTP request header.
+     *
+     * @param xTwilioWebhookEnabled The X-Twilio-Webhook-Enabled HTTP request header
+     * @return this
+     */
+    public UserChannelDeleter setXTwilioWebhookEnabled(final UserChannel.WebhookEnabledType xTwilioWebhookEnabled) {
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
@@ -52,6 +64,7 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
             "/v2/Services/" + this.pathServiceSid + "/Users/" + this.pathUserSid + "/Channels/" + this.pathChannelSid + ""
         );
 
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -65,5 +78,16 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
         }
 
         return response.getStatusCode() == 204;
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (xTwilioWebhookEnabled != null) {
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+        }
     }
 }

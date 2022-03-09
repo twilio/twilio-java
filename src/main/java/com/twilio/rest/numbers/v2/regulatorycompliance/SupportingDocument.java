@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SupportingDocument extends Resource {
-    private static final long serialVersionUID = 164064096878384L;
+    private static final long serialVersionUID = 219363725393749L;
 
     public enum Status {
         DRAFT("draft"),
@@ -162,6 +162,7 @@ public class SupportingDocument extends Resource {
     private final String friendlyName;
     private final String mimeType;
     private final SupportingDocument.Status status;
+    private final String failureReason;
     private final String type;
     private final Map<String, Object> attributes;
     private final ZonedDateTime dateCreated;
@@ -179,6 +180,8 @@ public class SupportingDocument extends Resource {
                                final String mimeType,
                                @JsonProperty("status")
                                final SupportingDocument.Status status,
+                               @JsonProperty("failure_reason")
+                               final String failureReason,
                                @JsonProperty("type")
                                final String type,
                                @JsonProperty("attributes")
@@ -194,6 +197,7 @@ public class SupportingDocument extends Resource {
         this.friendlyName = friendlyName;
         this.mimeType = mimeType;
         this.status = status;
+        this.failureReason = failureReason;
         this.type = type;
         this.attributes = attributes;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -244,6 +248,15 @@ public class SupportingDocument extends Resource {
      */
     public final SupportingDocument.Status getStatus() {
         return this.status;
+    }
+
+    /**
+     * Returns The failure reason of the Supporting Document Resource..
+     *
+     * @return The failure reason of the Supporting Document Resource.
+     */
+    public final String getFailureReason() {
+        return this.failureReason;
     }
 
     /**
@@ -308,6 +321,7 @@ public class SupportingDocument extends Resource {
                Objects.equals(friendlyName, other.friendlyName) &&
                Objects.equals(mimeType, other.mimeType) &&
                Objects.equals(status, other.status) &&
+               Objects.equals(failureReason, other.failureReason) &&
                Objects.equals(type, other.type) &&
                Objects.equals(attributes, other.attributes) &&
                Objects.equals(dateCreated, other.dateCreated) &&
@@ -322,6 +336,7 @@ public class SupportingDocument extends Resource {
                             friendlyName,
                             mimeType,
                             status,
+                            failureReason,
                             type,
                             attributes,
                             dateCreated,

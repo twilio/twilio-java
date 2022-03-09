@@ -61,7 +61,7 @@ public class SupportingDocumentTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"failure_reason\": null,\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -105,7 +105,19 @@ public class SupportingDocumentTest {
     public void testReadFullResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"results\": [{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"results\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"results\": [{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"failure_reason\": null,\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"results\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(SupportingDocument.reader().read());
+    }
+
+    @Test
+    public void testReadRejectedDocumentResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"results\": [{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"twilio-rejected\",\"failure_reason\": \"Some failure reason.\",\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"page\": 0,\"page_size\": 50,\"first_page_url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0\",\"previous_page_url\": null,\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments?PageSize=50&Page=0\",\"next_page_url\": null,\"key\": \"results\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -137,7 +149,7 @@ public class SupportingDocumentTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"failure_reason\": null,\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -169,7 +181,7 @@ public class SupportingDocumentTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"mime_type\": \"mime_type\",\"status\": \"draft\",\"failure_reason\": null,\"type\": \"type\",\"attributes\": {\"first_name\": \"foo\",\"last_name\": \"bar\"},\"date_created\": \"2019-07-31T02:11:52Z\",\"date_updated\": \"2019-07-31T02:11:52Z\",\"url\": \"https://numbers.twilio.com/v2/RegulatoryCompliance/SupportingDocuments/RDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

@@ -87,6 +87,31 @@ public class UserChannel extends Resource {
         }
     }
 
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a WebhookEnabledType from a string.
+         * @param value string value
+         * @return generated WebhookEnabledType
+         */
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
+        }
+    }
+
     /**
      * Create a UserChannelReader to execute read.
      *

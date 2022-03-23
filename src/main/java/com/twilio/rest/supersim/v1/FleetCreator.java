@@ -29,9 +29,6 @@ public class FleetCreator extends Creator<Fleet> {
     private String uniqueName;
     private Boolean dataEnabled;
     private Integer dataLimit;
-    private Boolean commandsEnabled;
-    private URI commandsUrl;
-    private HttpMethod commandsMethod;
     private URI ipCommandsUrl;
     private HttpMethod ipCommandsMethod;
     private Boolean smsCommandsEnabled;
@@ -87,59 +84,6 @@ public class FleetCreator extends Creator<Fleet> {
      */
     public FleetCreator setDataLimit(final Integer dataLimit) {
         this.dataLimit = dataLimit;
-        return this;
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_enabled` instead. Defines whether SIMs in the
-     * Fleet are capable of sending and receiving machine-to-machine SMS via
-     * Commands. Defaults to `true`..
-     *
-     * @param commandsEnabled Deprecated
-     * @return this
-     */
-    public FleetCreator setCommandsEnabled(final Boolean commandsEnabled) {
-        this.commandsEnabled = commandsEnabled;
-        return this;
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_url` instead. The URL that will receive a
-     * webhook when a Super SIM in the Fleet is used to send an SMS from your device
-     * to the Commands number. Your server should respond with an HTTP status code
-     * in the 200 range; any response body will be ignored..
-     *
-     * @param commandsUrl Deprecated
-     * @return this
-     */
-    public FleetCreator setCommandsUrl(final URI commandsUrl) {
-        this.commandsUrl = commandsUrl;
-        return this;
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_url` instead. The URL that will receive a
-     * webhook when a Super SIM in the Fleet is used to send an SMS from your device
-     * to the Commands number. Your server should respond with an HTTP status code
-     * in the 200 range; any response body will be ignored..
-     *
-     * @param commandsUrl Deprecated
-     * @return this
-     */
-    public FleetCreator setCommandsUrl(final String commandsUrl) {
-        return setCommandsUrl(Promoter.uriFromString(commandsUrl));
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_method` instead. A string representing the HTTP
-     * method to use when making a request to `commands_url`. Can be one of `POST`
-     * or `GET`. Defaults to `POST`..
-     *
-     * @param commandsMethod Deprecated
-     * @return this
-     */
-    public FleetCreator setCommandsMethod(final HttpMethod commandsMethod) {
-        this.commandsMethod = commandsMethod;
         return this;
     }
 
@@ -294,18 +238,6 @@ public class FleetCreator extends Creator<Fleet> {
 
         if (dataLimit != null) {
             request.addPostParam("DataLimit", dataLimit.toString());
-        }
-
-        if (commandsEnabled != null) {
-            request.addPostParam("CommandsEnabled", commandsEnabled.toString());
-        }
-
-        if (commandsUrl != null) {
-            request.addPostParam("CommandsUrl", commandsUrl.toString());
-        }
-
-        if (commandsMethod != null) {
-            request.addPostParam("CommandsMethod", commandsMethod.toString());
         }
 
         if (ipCommandsUrl != null) {

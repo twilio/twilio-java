@@ -46,7 +46,8 @@ public class RecordingFetcher extends Fetcher<Recording> {
 
     /**
      * A boolean parameter indicating whether to retrieve soft deleted recordings or
-     * not. Recordings are kept after deletion for a retention period of 40 days..
+     * not. Recordings metadata are kept after deletion for a retention period of 40
+     * days..
      *
      * @param includeSoftDeleted A boolean parameter indicating whether to retrieve
      *                           soft deleted recordings or not.

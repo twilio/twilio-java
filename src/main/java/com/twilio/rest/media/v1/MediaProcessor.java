@@ -346,9 +346,9 @@ public class MediaProcessor extends Resource {
     }
 
     /**
-     * Returns Maximum MediaProcessor duration in minutes.
+     * Returns Maximum MediaProcessor duration in seconds.
      *
-     * @return Maximum MediaProcessor duration in minutes
+     * @return Maximum MediaProcessor duration in seconds
      */
     public final Integer getMaxDuration() {
         return this.maxDuration;

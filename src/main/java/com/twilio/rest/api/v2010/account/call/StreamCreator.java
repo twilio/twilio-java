@@ -23,8 +23,8 @@ import java.net.URI;
 public class StreamCreator extends Creator<Stream> {
     private String pathAccountSid;
     private final String pathCallSid;
+    private final URI url;
     private String name;
-    private URI url;
     private Stream.Track track;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
@@ -231,9 +231,12 @@ public class StreamCreator extends Creator<Stream> {
      * Construct a new StreamCreator.
      *
      * @param pathCallSid The SID of the Call the resource is associated with
+     * @param url Url where WebSocket connection will be established.
      */
-    public StreamCreator(final String pathCallSid) {
+    public StreamCreator(final String pathCallSid,
+                         final URI url) {
         this.pathCallSid = pathCallSid;
+        this.url = url;
     }
 
     /**
@@ -241,11 +244,14 @@ public class StreamCreator extends Creator<Stream> {
      *
      * @param pathAccountSid The SID of the Account that created this resource
      * @param pathCallSid The SID of the Call the resource is associated with
+     * @param url Url where WebSocket connection will be established.
      */
     public StreamCreator(final String pathAccountSid,
-                         final String pathCallSid) {
+                         final String pathCallSid,
+                         final URI url) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
+        this.url = url;
     }
 
     /**
@@ -258,27 +264,6 @@ public class StreamCreator extends Creator<Stream> {
     public StreamCreator setName(final String name) {
         this.name = name;
         return this;
-    }
-
-    /**
-     * Relative or absolute url where WebSocket connection will be established..
-     *
-     * @param url Url where WebSocket connection will be established.
-     * @return this
-     */
-    public StreamCreator setUrl(final URI url) {
-        this.url = url;
-        return this;
-    }
-
-    /**
-     * Relative or absolute url where WebSocket connection will be established..
-     *
-     * @param url Url where WebSocket connection will be established.
-     * @return this
-     */
-    public StreamCreator setUrl(final String url) {
-        return setUrl(Promoter.uriFromString(url));
     }
 
     /**
@@ -2540,12 +2525,12 @@ public class StreamCreator extends Creator<Stream> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (name != null) {
-            request.addPostParam("Name", name);
-        }
-
         if (url != null) {
             request.addPostParam("Url", url.toString());
+        }
+
+        if (name != null) {
+            request.addPostParam("Name", name);
         }
 
         if (track != null) {

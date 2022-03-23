@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.supersim.v1;
+package com.twilio.rest.flexapi.v1.interaction.interactionchannel;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -19,62 +19,30 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class CommandReader extends Reader<Command> {
-    private String sim;
-    private Command.Status status;
-    private Command.Direction direction;
+public class InteractionChannelInviteReader extends Reader<InteractionChannelInvite> {
+    private final String pathInteractionSid;
+    private final String pathChannelSid;
 
     /**
-     * The SID or unique name of the Sim that Command was sent to or from..
+     * Construct a new InteractionChannelInviteReader.
      *
-     * @param sim The SID or unique name of the Sim that Command was sent to or
-     *            from.
-     * @return this
+     * @param pathInteractionSid The interaction_sid
+     * @param pathChannelSid The channel_sid
      */
-    public CommandReader setSim(final String sim) {
-        this.sim = sim;
-        return this;
-    }
-
-    /**
-     * The status of the Command. Can be: `queued`, `sent`, `delivered`, `received`
-     * or `failed`. See the <a
-     * href="https://www.twilio.com/docs/wireless/api/command-resource#status-values">Command
-     * Status Values</a> for a description of each..
-     *
-     * @param status The status of the Command
-     * @return this
-     */
-    public CommandReader setStatus(final Command.Status status) {
-        this.status = status;
-        return this;
-    }
-
-    /**
-     * The direction of the Command. Can be `to_sim` or `from_sim`. The value of
-     * `to_sim` is synonymous with the term `mobile terminated`, and `from_sim` is
-     * synonymous with the term `mobile originated`..
-     *
-     * @param direction The direction of the Command
-     * @return this
-     */
-    public CommandReader setDirection(final Command.Direction direction) {
-        this.direction = direction;
-        return this;
+    public InteractionChannelInviteReader(final String pathInteractionSid,
+                                          final String pathChannelSid) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Command ResourceSet
+     * @return InteractionChannelInvite ResourceSet
      */
     @Override
-    public ResourceSet<Command> read(final TwilioRestClient client) {
+    public ResourceSet<InteractionChannelInvite> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -82,15 +50,15 @@ public class CommandReader extends Reader<Command> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Command ResourceSet
+     * @return InteractionChannelInvite ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Command> firstPage(final TwilioRestClient client) {
+    public Page<InteractionChannelInvite> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            "/v1/Commands"
+            Domains.FLEXAPI.toString(),
+            "/v1/Interactions/" + this.pathInteractionSid + "/Channels/" + this.pathChannelSid + "/Invites"
         );
 
         addQueryParams(request);
@@ -102,11 +70,11 @@ public class CommandReader extends Reader<Command> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Command ResourceSet
+     * @return InteractionChannelInvite ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Command> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<InteractionChannelInvite> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -123,11 +91,11 @@ public class CommandReader extends Reader<Command> {
      * @return Next Page
      */
     @Override
-    public Page<Command> nextPage(final Page<Command> page,
-                                  final TwilioRestClient client) {
+    public Page<InteractionChannelInvite> nextPage(final Page<InteractionChannelInvite> page,
+                                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.SUPERSIM.toString())
+            page.getNextPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
@@ -140,27 +108,27 @@ public class CommandReader extends Reader<Command> {
      * @return Previous Page
      */
     @Override
-    public Page<Command> previousPage(final Page<Command> page,
-                                      final TwilioRestClient client) {
+    public Page<InteractionChannelInvite> previousPage(final Page<InteractionChannelInvite> page,
+                                                       final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.SUPERSIM.toString())
+            page.getPreviousPageUrl(Domains.FLEXAPI.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Command Resources for a given request.
+     * Generate a Page of InteractionChannelInvite Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Command> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<InteractionChannelInvite> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Command read failed: Unable to connect to server");
+            throw new ApiConnectionException("InteractionChannelInvite read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -170,9 +138,9 @@ public class CommandReader extends Reader<Command> {
         }
 
         return Page.fromJson(
-            "commands",
+            "invites",
             response.getContent(),
-            Command.class,
+            InteractionChannelInvite.class,
             client.getObjectMapper()
         );
     }
@@ -183,18 +151,6 @@ public class CommandReader extends Reader<Command> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (sim != null) {
-            request.addQueryParam("Sim", sim.toString());
-        }
-
-        if (status != null) {
-            request.addQueryParam("Status", status.toString());
-        }
-
-        if (direction != null) {
-            request.addQueryParam("Direction", direction.toString());
-        }
-
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 260670157592273L;
+    private static final long serialVersionUID = 174477349057134L;
 
     public enum Status {
         OK("ok"),
@@ -173,6 +173,7 @@ public class Configuration extends Resource {
     private final Map<String, Object> flexInsightsHr;
     private final Boolean flexInsightsDrilldown;
     private final URI flexUrl;
+    private final List<Map<String, Object>> channelConfigs;
 
     @JsonCreator
     private Configuration(@JsonProperty("account_sid")
@@ -258,7 +259,9 @@ public class Configuration extends Resource {
                           @JsonProperty("flex_insights_drilldown")
                           final Boolean flexInsightsDrilldown,
                           @JsonProperty("flex_url")
-                          final URI flexUrl) {
+                          final URI flexUrl,
+                          @JsonProperty("channel_configs")
+                          final List<Map<String, Object>> channelConfigs) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -301,6 +304,7 @@ public class Configuration extends Resource {
         this.flexInsightsHr = flexInsightsHr;
         this.flexInsightsDrilldown = flexInsightsDrilldown;
         this.flexUrl = flexUrl;
+        this.channelConfigs = channelConfigs;
     }
 
     /**
@@ -691,6 +695,15 @@ public class Configuration extends Resource {
         return this.flexUrl;
     }
 
+    /**
+     * Returns Flex Conversations channels' attachments configurations.
+     *
+     * @return Flex Conversations channels' attachments configurations
+     */
+    public final List<Map<String, Object>> getChannelConfigs() {
+        return this.channelConfigs;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -744,7 +757,8 @@ public class Configuration extends Resource {
                Objects.equals(url, other.url) &&
                Objects.equals(flexInsightsHr, other.flexInsightsHr) &&
                Objects.equals(flexInsightsDrilldown, other.flexInsightsDrilldown) &&
-               Objects.equals(flexUrl, other.flexUrl);
+               Objects.equals(flexUrl, other.flexUrl) &&
+               Objects.equals(channelConfigs, other.channelConfigs);
     }
 
     @Override
@@ -790,6 +804,7 @@ public class Configuration extends Resource {
                             url,
                             flexInsightsHr,
                             flexInsightsDrilldown,
-                            flexUrl);
+                            flexUrl,
+                            channelConfigs);
     }
 }

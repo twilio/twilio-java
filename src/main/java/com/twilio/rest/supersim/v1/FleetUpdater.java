@@ -28,8 +28,6 @@ public class FleetUpdater extends Updater<Fleet> {
     private final String pathSid;
     private String uniqueName;
     private String networkAccessProfile;
-    private URI commandsUrl;
-    private HttpMethod commandsMethod;
     private URI ipCommandsUrl;
     private HttpMethod ipCommandsMethod;
     private URI smsCommandsUrl;
@@ -67,46 +65,6 @@ public class FleetUpdater extends Updater<Fleet> {
      */
     public FleetUpdater setNetworkAccessProfile(final String networkAccessProfile) {
         this.networkAccessProfile = networkAccessProfile;
-        return this;
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_url` instead. The URL that will receive a
-     * webhook when a Super SIM in the Fleet is used to send an SMS from your device
-     * to the Commands number. Your server should respond with an HTTP status code
-     * in the 200 range; any response body will be ignored..
-     *
-     * @param commandsUrl Deprecated
-     * @return this
-     */
-    public FleetUpdater setCommandsUrl(final URI commandsUrl) {
-        this.commandsUrl = commandsUrl;
-        return this;
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_url` instead. The URL that will receive a
-     * webhook when a Super SIM in the Fleet is used to send an SMS from your device
-     * to the Commands number. Your server should respond with an HTTP status code
-     * in the 200 range; any response body will be ignored..
-     *
-     * @param commandsUrl Deprecated
-     * @return this
-     */
-    public FleetUpdater setCommandsUrl(final String commandsUrl) {
-        return setCommandsUrl(Promoter.uriFromString(commandsUrl));
-    }
-
-    /**
-     * Deprecated. Use `sms_commands_method` instead. A string representing the HTTP
-     * method to use when making a request to `commands_url`. Can be one of `POST`
-     * or `GET`. Defaults to `POST`..
-     *
-     * @param commandsMethod Deprecated
-     * @return this
-     */
-    public FleetUpdater setCommandsMethod(final HttpMethod commandsMethod) {
-        this.commandsMethod = commandsMethod;
         return this;
     }
 
@@ -239,14 +197,6 @@ public class FleetUpdater extends Updater<Fleet> {
 
         if (networkAccessProfile != null) {
             request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
-        }
-
-        if (commandsUrl != null) {
-            request.addPostParam("CommandsUrl", commandsUrl.toString());
-        }
-
-        if (commandsMethod != null) {
-            request.addPostParam("CommandsMethod", commandsMethod.toString());
         }
 
         if (ipCommandsUrl != null) {

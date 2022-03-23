@@ -28,6 +28,7 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
@@ -117,21 +118,25 @@ public class Stream extends Resource {
      *
      * @param pathAccountSid The SID of the Account that created this resource
      * @param pathCallSid The SID of the Call the resource is associated with
+     * @param url Url where WebSocket connection will be established.
      * @return StreamCreator capable of executing the create
      */
     public static StreamCreator creator(final String pathAccountSid,
-                                        final String pathCallSid) {
-        return new StreamCreator(pathAccountSid, pathCallSid);
+                                        final String pathCallSid,
+                                        final URI url) {
+        return new StreamCreator(pathAccountSid, pathCallSid, url);
     }
 
     /**
      * Create a StreamCreator to execute create.
      *
      * @param pathCallSid The SID of the Call the resource is associated with
+     * @param url Url where WebSocket connection will be established.
      * @return StreamCreator capable of executing the create
      */
-    public static StreamCreator creator(final String pathCallSid) {
-        return new StreamCreator(pathCallSid);
+    public static StreamCreator creator(final String pathCallSid,
+                                        final URI url) {
+        return new StreamCreator(pathCallSid, url);
     }
 
     /**

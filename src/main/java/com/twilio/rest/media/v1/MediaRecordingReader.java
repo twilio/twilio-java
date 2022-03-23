@@ -27,6 +27,8 @@ import com.twilio.rest.Domains;
 public class MediaRecordingReader extends Reader<MediaRecording> {
     private MediaRecording.Order order;
     private MediaRecording.Status status;
+    private String processorSid;
+    private String sourceSid;
 
     /**
      * The sort order of the list by `date_created`. Can be: `asc` (ascending) or
@@ -49,6 +51,28 @@ public class MediaRecordingReader extends Reader<MediaRecording> {
      */
     public MediaRecordingReader setStatus(final MediaRecording.Status status) {
         this.status = status;
+        return this;
+    }
+
+    /**
+     * SID of a MediaProcessor to filter by..
+     *
+     * @param processorSid MediaProcessor to filter by
+     * @return this
+     */
+    public MediaRecordingReader setProcessorSid(final String processorSid) {
+        this.processorSid = processorSid;
+        return this;
+    }
+
+    /**
+     * SID of a MediaRecording source to filter by..
+     *
+     * @param sourceSid Source SID to filter by
+     * @return this
+     */
+    public MediaRecordingReader setSourceSid(final String sourceSid) {
+        this.sourceSid = sourceSid;
         return this;
     }
 
@@ -174,6 +198,14 @@ public class MediaRecordingReader extends Reader<MediaRecording> {
 
         if (status != null) {
             request.addQueryParam("Status", status.toString());
+        }
+
+        if (processorSid != null) {
+            request.addQueryParam("ProcessorSid", processorSid);
+        }
+
+        if (sourceSid != null) {
+            request.addQueryParam("SourceSid", sourceSid);
         }
 
         if (getPageSize() != null) {

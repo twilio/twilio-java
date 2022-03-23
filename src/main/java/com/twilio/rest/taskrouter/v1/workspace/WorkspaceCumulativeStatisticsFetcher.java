@@ -94,10 +94,11 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
      * in seconds are computed. For example, `5,30` would show splits of Tasks that
      * were canceled or accepted before and after 5 seconds and before and after 30
      * seconds. This can be used to show short abandoned Tasks or Tasks that failed
-     * to meet an SLA..
+     * to meet an SLA. TaskRouter will calculate statistics on up to 10,000 Tasks
+     * for any given threshold..
      *
      * @param splitByWaitTime A comma separated list of values that describes the
-     *                        thresholds to calculate statistics on
+     *                        thresholds, in seconds, to calculate statistics on
      * @return this
      */
     public WorkspaceCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {

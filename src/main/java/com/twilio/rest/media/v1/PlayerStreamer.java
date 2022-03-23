@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PlayerStreamer extends Resource {
-    private static final long serialVersionUID = 200958137353202L;
+    private static final long serialVersionUID = 33267214480961L;
 
     public enum Status {
         CREATED("created"),
@@ -230,6 +230,7 @@ public class PlayerStreamer extends Resource {
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final PlayerStreamer.EndedReason endedReason;
+    private final Integer maxDuration;
 
     @JsonCreator
     private PlayerStreamer(@JsonProperty("account_sid")
@@ -253,7 +254,9 @@ public class PlayerStreamer extends Resource {
                            @JsonProperty("status_callback_method")
                            final HttpMethod statusCallbackMethod,
                            @JsonProperty("ended_reason")
-                           final PlayerStreamer.EndedReason endedReason) {
+                           final PlayerStreamer.EndedReason endedReason,
+                           @JsonProperty("max_duration")
+                           final Integer maxDuration) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -265,6 +268,7 @@ public class PlayerStreamer extends Resource {
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
         this.endedReason = endedReason;
+        this.maxDuration = maxDuration;
     }
 
     /**
@@ -366,6 +370,15 @@ public class PlayerStreamer extends Resource {
         return this.endedReason;
     }
 
+    /**
+     * Returns Maximum PlayerStreamer duration in seconds.
+     *
+     * @return Maximum PlayerStreamer duration in seconds
+     */
+    public final Integer getMaxDuration() {
+        return this.maxDuration;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -388,7 +401,8 @@ public class PlayerStreamer extends Resource {
                Objects.equals(url, other.url) &&
                Objects.equals(statusCallback, other.statusCallback) &&
                Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-               Objects.equals(endedReason, other.endedReason);
+               Objects.equals(endedReason, other.endedReason) &&
+               Objects.equals(maxDuration, other.maxDuration);
     }
 
     @Override
@@ -403,6 +417,7 @@ public class PlayerStreamer extends Resource {
                             url,
                             statusCallback,
                             statusCallbackMethod,
-                            endedReason);
+                            endedReason,
+                            maxDuration);
     }
 }

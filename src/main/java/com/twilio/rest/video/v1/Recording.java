@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 75716728838736L;
+    private static final long serialVersionUID = 87969802291838L;
 
     public enum Status {
         PROCESSING("processing"),
@@ -226,6 +226,8 @@ public class Recording extends Resource {
     private final String trackName;
     private final Long offset;
     private final URI mediaExternalLocation;
+    private final URI statusCallback;
+    private final HttpMethod statusCallbackMethod;
     private final Map<String, String> links;
 
     @JsonCreator
@@ -259,6 +261,10 @@ public class Recording extends Resource {
                       final Long offset,
                       @JsonProperty("media_external_location")
                       final URI mediaExternalLocation,
+                      @JsonProperty("status_callback")
+                      final URI statusCallback,
+                      @JsonProperty("status_callback_method")
+                      final HttpMethod statusCallbackMethod,
                       @JsonProperty("links")
                       final Map<String, String> links) {
         this.accountSid = accountSid;
@@ -276,6 +282,8 @@ public class Recording extends Resource {
         this.trackName = trackName;
         this.offset = offset;
         this.mediaExternalLocation = mediaExternalLocation;
+        this.statusCallback = statusCallback;
+        this.statusCallbackMethod = statusCallbackMethod;
         this.links = links;
     }
 
@@ -420,6 +428,24 @@ public class Recording extends Resource {
     }
 
     /**
+     * Returns The URL called to send status information on every recording event..
+     *
+     * @return The URL called to send status information on every recording event.
+     */
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    /**
+     * Returns The HTTP method used to call `status_callback`.
+     *
+     * @return The HTTP method used to call `status_callback`
+     */
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    /**
      * Returns The URLs of related resources.
      *
      * @return The URLs of related resources
@@ -455,6 +481,8 @@ public class Recording extends Resource {
                Objects.equals(trackName, other.trackName) &&
                Objects.equals(offset, other.offset) &&
                Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
                Objects.equals(links, other.links);
     }
 
@@ -475,6 +503,8 @@ public class Recording extends Resource {
                             trackName,
                             offset,
                             mediaExternalLocation,
+                            statusCallback,
+                            statusCallbackMethod,
                             links);
     }
 }

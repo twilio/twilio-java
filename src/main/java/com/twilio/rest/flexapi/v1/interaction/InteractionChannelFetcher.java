@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.supersim.v1;
+package com.twilio.rest.flexapi.v1.interaction;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,19 +17,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
-public class CommandFetcher extends Fetcher<Command> {
+public class InteractionChannelFetcher extends Fetcher<InteractionChannel> {
+    private final String pathInteractionSid;
     private final String pathSid;
 
     /**
-     * Construct a new CommandFetcher.
+     * Construct a new InteractionChannelFetcher.
      *
-     * @param pathSid The SID that identifies the resource to fetch
+     * @param pathInteractionSid The Interaction Sid for this channel.
+     * @param pathSid The Channel Sid for this Participant.
      */
-    public CommandFetcher(final String pathSid) {
+    public InteractionChannelFetcher(final String pathInteractionSid,
+                                     final String pathSid) {
+        this.pathInteractionSid = pathInteractionSid;
         this.pathSid = pathSid;
     }
 
@@ -37,21 +37,21 @@ public class CommandFetcher extends Fetcher<Command> {
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Command
+     * @return Fetched InteractionChannel
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Command fetch(final TwilioRestClient client) {
+    public InteractionChannel fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.SUPERSIM.toString(),
-            "/v1/Commands/" + this.pathSid + ""
+            Domains.FLEXAPI.toString(),
+            "/v1/Interactions/" + this.pathInteractionSid + "/Channels/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Command fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("InteractionChannel fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -60,6 +60,6 @@ public class CommandFetcher extends Fetcher<Command> {
             throw new ApiException(restException);
         }
 
-        return Command.fromJson(response.getStream(), client.getObjectMapper());
+        return InteractionChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

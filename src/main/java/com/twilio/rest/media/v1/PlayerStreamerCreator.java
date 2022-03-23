@@ -24,6 +24,7 @@ public class PlayerStreamerCreator extends Creator<PlayerStreamer> {
     private Boolean video;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
+    private Integer maxDuration;
 
     /**
      * Specifies whether the PlayerStreamer is configured to stream video. Defaults
@@ -78,6 +79,20 @@ public class PlayerStreamerCreator extends Creator<PlayerStreamer> {
     }
 
     /**
+     * The maximum time, in seconds, that the PlayerStreamer can run before
+     * automatically ends. The default value is 300 seconds, and the maximum value
+     * is 90000 seconds. Once this maximum duration is reached, Twilio will end the
+     * PlayerStreamer, regardless of whether media is still streaming..
+     *
+     * @param maxDuration Maximum PlayerStreamer duration in seconds
+     * @return this
+     */
+    public PlayerStreamerCreator setMaxDuration(final Integer maxDuration) {
+        this.maxDuration = maxDuration;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -124,6 +139,10 @@ public class PlayerStreamerCreator extends Creator<PlayerStreamer> {
 
         if (statusCallbackMethod != null) {
             request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+        }
+
+        if (maxDuration != null) {
+            request.addPostParam("MaxDuration", maxDuration.toString());
         }
     }
 }

@@ -96,10 +96,11 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
      * A comma separated list of values that describes the thresholds, in seconds,
      * to calculate statistics on. For each threshold specified, the number of Tasks
      * canceled and reservations accepted above and below the specified thresholds
-     * in seconds are computed..
+     * in seconds are computed. TaskRouter will calculate statistics on up to 10,000
+     * Tasks/Reservations for any given threshold..
      *
      * @param splitByWaitTime A comma separated list of values that describes the
-     *                        thresholds to calculate statistics on
+     *                        thresholds, in seconds, to calculate statistics on
      * @return this
      */
     public TaskQueueCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime) {

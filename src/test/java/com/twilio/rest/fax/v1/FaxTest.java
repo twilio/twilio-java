@@ -60,7 +60,7 @@ public class FaxTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"api_version\": \"v1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"direction\": \"outbound\",\"from\": \"+14155551234\",\"media_url\": \"https://www.example.com/fax.pdf\",\"media_sid\": \"MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"num_pages\": null,\"price\": null,\"price_unit\": null,\"quality\": null,\"sid\": \"FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"queued\",\"to\": \"+14155554321\",\"duration\": null,\"links\": {\"media\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"},\"url\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"api_version\": \"v1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"direction\": \"outbound\",\"from\": \"+14155551234\",\"media_url\": \"https://www.example.com/fax.pdf\",\"media_sid\": \"MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"num_pages\": null,\"price\": null,\"price_unit\": null,\"quality\": \"fine\",\"sid\": \"FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"queued\",\"to\": \"+14155554321\",\"duration\": null,\"links\": {\"media\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"},\"url\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -104,77 +104,12 @@ public class FaxTest {
     public void testReadFullResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"faxes\": [{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"api_version\": \"v1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"direction\": \"outbound\",\"from\": \"+14155551234\",\"media_url\": \"https://www.example.com/fax.pdf\",\"media_sid\": \"MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"num_pages\": null,\"price\": null,\"price_unit\": null,\"quality\": null,\"sid\": \"FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"queued\",\"to\": \"+14155554321\",\"duration\": null,\"links\": {\"media\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"},\"url\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://fax.twilio.com/v1/Faxes?To=%2B14155554321&From=%2B14155551234&PageSize=50&Page=0\",\"key\": \"faxes\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://fax.twilio.com/v1/Faxes?To=%2B14155554321&From=%2B14155551234&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"faxes\": [{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"api_version\": \"v1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"direction\": \"outbound\",\"from\": \"+14155551234\",\"media_url\": \"https://www.example.com/fax.pdf\",\"media_sid\": \"MEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"num_pages\": null,\"price\": null,\"price_unit\": null,\"quality\": \"fine\",\"sid\": \"FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"queued\",\"to\": \"+14155554321\",\"duration\": null,\"links\": {\"media\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"},\"url\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://fax.twilio.com/v1/Faxes?To=%2B14155554321&From=%2B14155551234&PageSize=50&Page=0\",\"key\": \"faxes\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://fax.twilio.com/v1/Faxes?To=%2B14155554321&From=%2B14155551234&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
         assertNotNull(Fax.reader().read());
-    }
-
-    @Test
-    public void testCreateRequest() {
-        new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
-                                          Domains.FAX.toString(),
-                                          "/v1/Faxes");
-            request.addPostParam("To", serialize("to"));
-            request.addPostParam("MediaUrl", serialize(URI.create("https://example.com")));
-            twilioRestClient.request(request);
-            times = 1;
-            result = new Response("", 500);
-            twilioRestClient.getAccountSid();
-            result = "AC123";
-        }};
-
-        try {
-            Fax.creator("to", URI.create("https://example.com")).create();
-            fail("Expected TwilioException to be thrown for 500");
-        } catch (TwilioException e) {}
-    }
-
-    @Test
-    public void testCreateResponse() {
-        new NonStrictExpectations() {{
-            twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"api_version\": \"v1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"direction\": \"outbound\",\"from\": \"+14155551234\",\"media_url\": null,\"media_sid\": null,\"num_pages\": null,\"price\": null,\"price_unit\": null,\"quality\": \"superfine\",\"sid\": \"FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"queued\",\"to\": \"+14155554321\",\"duration\": null,\"links\": {\"media\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"},\"url\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
-        }};
-
-        Fax.creator("to", URI.create("https://example.com")).create();
-    }
-
-    @Test
-    public void testUpdateRequest() {
-        new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
-                                          Domains.FAX.toString(),
-                                          "/v1/Faxes/FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-
-            twilioRestClient.request(request);
-            times = 1;
-            result = new Response("", 500);
-            twilioRestClient.getAccountSid();
-            result = "AC123";
-        }};
-
-        try {
-            Fax.updater("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
-            fail("Expected TwilioException to be thrown for 500");
-        } catch (TwilioException e) {}
-    }
-
-    @Test
-    public void testUpdateResponse() {
-        new NonStrictExpectations() {{
-            twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"api_version\": \"v1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\",\"direction\": \"outbound\",\"from\": \"+14155551234\",\"media_url\": null,\"media_sid\": null,\"num_pages\": null,\"price\": null,\"price_unit\": null,\"quality\": null,\"sid\": \"FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"canceled\",\"to\": \"+14155554321\",\"duration\": null,\"links\": {\"media\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Media\"},\"url\": \"https://fax.twilio.com/v1/Faxes/FXaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
-        }};
-
-        Fax.updater("FXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").update();
     }
 
     @Test

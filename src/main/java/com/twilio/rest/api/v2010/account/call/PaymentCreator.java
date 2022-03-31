@@ -168,13 +168,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * A single level JSON string that is required when accepting certain
-     * information specific only to ACH payments. The information that has to be
+     * A single-level JSON object used to pass custom parameters to payment
+     * processors. (Required for ACH payments). The information that has to be
      * included here depends on the &lt;Pay&gt; Connector. <a
      * href="https://www.twilio.com/console/voice/pay-connectors">Read more</a>..
      *
-     * @param parameter A single level JSON string that is required when accepting
-     *                  certain information specific only to ACH payments.
+     * @param parameter A single-level JSON object used to pass custom parameters
+     *                  to payment processors. (Required for ACH payments)
      * @return this
      */
     public PaymentCreator setParameter(final Map<String, Object> parameter) {

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -24,7 +25,6 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.type.FeedbackIssue;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FeedbackSummary extends Resource {
-    private static final long serialVersionUID = 164951485289659L;
+    private static final long serialVersionUID = 164120127653703L;
 
     public enum Status {
         QUEUED("queued"),
@@ -185,14 +185,14 @@ public class FeedbackSummary extends Resource {
     private final Integer callFeedbackCount;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final ZonedDateTime endDate;
+    private final LocalDate endDate;
     private final Boolean includeSubaccounts;
-    private final List<FeedbackIssue> issues;
+    private final List<Map<String, Object>> issues;
     private final BigDecimal qualityScoreAverage;
     private final BigDecimal qualityScoreMedian;
     private final BigDecimal qualityScoreStandardDeviation;
     private final String sid;
-    private final ZonedDateTime startDate;
+    private final LocalDate startDate;
     private final FeedbackSummary.Status status;
 
     @JsonCreator
@@ -211,7 +211,7 @@ public class FeedbackSummary extends Resource {
                             @JsonProperty("include_subaccounts")
                             final Boolean includeSubaccounts,
                             @JsonProperty("issues")
-                            final List<FeedbackIssue> issues,
+                            final List<Map<String, Object>> issues,
                             @JsonProperty("quality_score_average")
                             final BigDecimal qualityScoreAverage,
                             @JsonProperty("quality_score_median")
@@ -229,14 +229,14 @@ public class FeedbackSummary extends Resource {
         this.callFeedbackCount = callFeedbackCount;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.endDate = DateConverter.iso8601DateTimeFromString(endDate);
+        this.endDate = DateConverter.localDateFromString(endDate);
         this.includeSubaccounts = includeSubaccounts;
         this.issues = issues;
         this.qualityScoreAverage = qualityScoreAverage;
         this.qualityScoreMedian = qualityScoreMedian;
         this.qualityScoreStandardDeviation = qualityScoreStandardDeviation;
         this.sid = sid;
-        this.startDate = DateConverter.iso8601DateTimeFromString(startDate);
+        this.startDate = DateConverter.localDateFromString(startDate);
         this.status = status;
     }
 
@@ -290,7 +290,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The latest feedback entry date in the summary
      */
-    public final ZonedDateTime getEndDate() {
+    public final LocalDate getEndDate() {
         return this.endDate;
     }
 
@@ -308,7 +308,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return Issues experienced during the call
      */
-    public final List<FeedbackIssue> getIssues() {
+    public final List<Map<String, Object>> getIssues() {
         return this.issues;
     }
 
@@ -353,7 +353,7 @@ public class FeedbackSummary extends Resource {
      *
      * @return The earliest feedback entry date in the summary
      */
-    public final ZonedDateTime getStartDate() {
+    public final LocalDate getStartDate() {
         return this.startDate;
     }
 

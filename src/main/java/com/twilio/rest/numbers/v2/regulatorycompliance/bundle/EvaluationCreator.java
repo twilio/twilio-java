@@ -23,7 +23,7 @@ public class EvaluationCreator extends Creator<Evaluation> {
     /**
      * Construct a new EvaluationCreator.
      *
-     * @param pathBundleSid The bundle_sid
+     * @param pathBundleSid The unique string that identifies the resource
      */
     public EvaluationCreator(final String pathBundleSid) {
         this.pathBundleSid = pathBundleSid;

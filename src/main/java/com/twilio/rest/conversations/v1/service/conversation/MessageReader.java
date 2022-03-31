@@ -22,6 +22,7 @@ import com.twilio.rest.Domains;
 public class MessageReader extends Reader<Message> {
     private final String pathChatServiceSid;
     private final String pathConversationSid;
+    private Message.OrderType order;
 
     /**
      * Construct a new MessageReader.
@@ -34,6 +35,18 @@ public class MessageReader extends Reader<Message> {
                          final String pathConversationSid) {
         this.pathChatServiceSid = pathChatServiceSid;
         this.pathConversationSid = pathConversationSid;
+    }
+
+    /**
+     * The sort order of the returned messages. Can be: `asc` (ascending) or `desc`
+     * (descending), with `asc` as the default..
+     *
+     * @param order The sort order of the returned messages
+     * @return this
+     */
+    public MessageReader setOrder(final Message.OrderType order) {
+        this.order = order;
+        return this;
     }
 
     /**
@@ -152,6 +165,10 @@ public class MessageReader extends Reader<Message> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (order != null) {
+            request.addQueryParam("Order", order.toString());
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

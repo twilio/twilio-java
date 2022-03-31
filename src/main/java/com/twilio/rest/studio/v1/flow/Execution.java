@@ -91,8 +91,8 @@ public class Execution extends Resource {
      *
      * @param pathFlowSid The SID of the Flow
      * @param to The Contact phone number to start a Studio Flow Execution
-     * @param from The Twilio phone number to send messages or initiate calls from
-     *             during the Flow Execution
+     * @param from The Twilio phone number or Messaging Service SID to send
+     *             messages or initiate calls from during the Flow Execution
      * @return ExecutionCreator capable of executing the create
      */
     public static ExecutionCreator creator(final String pathFlowSid,

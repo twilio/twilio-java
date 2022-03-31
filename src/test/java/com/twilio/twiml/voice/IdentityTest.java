@@ -24,4 +24,14 @@ public class IdentityTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Identity elem = new Identity.Builder("client_identity").build();
+
+        Assert.assertEquals(
+            Identity.Builder.fromXml("<Identity>client_identity</Identity>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

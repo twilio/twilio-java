@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trunk extends Resource {
-    private static final long serialVersionUID = 110040442840544L;
+    private static final long serialVersionUID = 202668321487445L;
 
     public enum TransferSetting {
         DISABLE_ALL("disable-all"),
@@ -63,6 +63,31 @@ public class Trunk extends Resource {
         @JsonCreator
         public static TransferSetting forValue(final String value) {
             return Promoter.enumFromString(value, TransferSetting.values());
+        }
+    }
+
+    public enum TransferCallerId {
+        FROM_TRANSFEREE("from-transferee"),
+        FROM_TRANSFEROR("from-transferor");
+
+        private final String value;
+
+        private TransferCallerId(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TransferCallerId from a string.
+         * @param value string value
+         * @return generated TransferCallerId
+         */
+        @JsonCreator
+        public static TransferCallerId forValue(final String value) {
+            return Promoter.enumFromString(value, TransferCallerId.values());
         }
     }
 
@@ -159,6 +184,7 @@ public class Trunk extends Resource {
     private final Boolean secure;
     private final Map<String, Object> recording;
     private final Trunk.TransferSetting transferMode;
+    private final Trunk.TransferCallerId transferCallerId;
     private final Boolean cnamLookupEnabled;
     private final String authType;
     private final List<String> authTypeSet;
@@ -185,6 +211,8 @@ public class Trunk extends Resource {
                   final Map<String, Object> recording,
                   @JsonProperty("transfer_mode")
                   final Trunk.TransferSetting transferMode,
+                  @JsonProperty("transfer_caller_id")
+                  final Trunk.TransferCallerId transferCallerId,
                   @JsonProperty("cnam_lookup_enabled")
                   final Boolean cnamLookupEnabled,
                   @JsonProperty("auth_type")
@@ -209,6 +237,7 @@ public class Trunk extends Resource {
         this.secure = secure;
         this.recording = recording;
         this.transferMode = transferMode;
+        this.transferCallerId = transferCallerId;
         this.cnamLookupEnabled = cnamLookupEnabled;
         this.authType = authType;
         this.authTypeSet = authTypeSet;
@@ -293,6 +322,15 @@ public class Trunk extends Resource {
      */
     public final Trunk.TransferSetting getTransferMode() {
         return this.transferMode;
+    }
+
+    /**
+     * Returns Caller Id for transfer target.
+     *
+     * @return Caller Id for transfer target
+     */
+    public final Trunk.TransferCallerId getTransferCallerId() {
+        return this.transferCallerId;
     }
 
     /**
@@ -387,6 +425,7 @@ public class Trunk extends Resource {
                Objects.equals(secure, other.secure) &&
                Objects.equals(recording, other.recording) &&
                Objects.equals(transferMode, other.transferMode) &&
+               Objects.equals(transferCallerId, other.transferCallerId) &&
                Objects.equals(cnamLookupEnabled, other.cnamLookupEnabled) &&
                Objects.equals(authType, other.authType) &&
                Objects.equals(authTypeSet, other.authTypeSet) &&
@@ -407,6 +446,7 @@ public class Trunk extends Resource {
                             secure,
                             recording,
                             transferMode,
+                            transferCallerId,
                             cnamLookupEnabled,
                             authType,
                             authTypeSet,

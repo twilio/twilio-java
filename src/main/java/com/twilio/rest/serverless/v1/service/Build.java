@@ -73,7 +73,8 @@ public class Build extends Resource {
     public enum Runtime {
         NODE8("node8"),
         NODE10("node10"),
-        NODE12("node12");
+        NODE12("node12"),
+        NODE14("node14");
 
         private final String value;
 

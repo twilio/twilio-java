@@ -166,4 +166,44 @@ public class StartTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Start elem = new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build();
+
+        Assert.assertEquals(
+            Start.Builder.fromXml("<Start action=\"https://example.com\" method=\"GET\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Start.Builder builder = new Start.Builder();
+
+        builder.stream(new Stream.Builder()
+                    .name("name")
+                    .connectorName("connector_name")
+                    .url("url")
+                    .track(Stream.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Stream.StatusCallbackMethod.GET)
+                    .build());
+
+        builder.siprec(new Siprec.Builder()
+                    .name("name")
+                    .connectorName("connector_name")
+                    .track(Siprec.Track.INBOUND_TRACK)
+                    .build());
+
+        final Start elem = builder.build();
+
+        Assert.assertEquals(
+            Start.Builder.fromXml("<Start>" +
+                "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
+                "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>" +
+            "</Start>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

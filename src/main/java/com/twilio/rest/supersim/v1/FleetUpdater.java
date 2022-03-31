@@ -28,8 +28,10 @@ public class FleetUpdater extends Updater<Fleet> {
     private final String pathSid;
     private String uniqueName;
     private String networkAccessProfile;
-    private URI commandsUrl;
-    private HttpMethod commandsMethod;
+    private URI ipCommandsUrl;
+    private HttpMethod ipCommandsMethod;
+    private URI smsCommandsUrl;
+    private HttpMethod smsCommandsMethod;
 
     /**
      * Construct a new FleetUpdater.
@@ -68,45 +70,87 @@ public class FleetUpdater extends Updater<Fleet> {
 
     /**
      * The URL that will receive a webhook when a Super SIM in the Fleet is used to
-     * send an SMS from your device to the Commands number. Your server should
-     * respond with an HTTP status code in the 200 range; any response body will be
-     * ignored..
+     * send an IP Command from your device to a special IP address. Your server
+     * should respond with an HTTP status code in the 200 range; any response body
+     * will be ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
-     *                    the Fleet is used to send an SMS from your device to the
-     *                    Commands number
+     * @param ipCommandsUrl The URL that will receive a webhook when a Super SIM in
+     *                      the Fleet is used to send an IP Command from your device
      * @return this
      */
-    public FleetUpdater setCommandsUrl(final URI commandsUrl) {
-        this.commandsUrl = commandsUrl;
+    public FleetUpdater setIpCommandsUrl(final URI ipCommandsUrl) {
+        this.ipCommandsUrl = ipCommandsUrl;
         return this;
     }
 
     /**
      * The URL that will receive a webhook when a Super SIM in the Fleet is used to
-     * send an SMS from your device to the Commands number. Your server should
-     * respond with an HTTP status code in the 200 range; any response body will be
-     * ignored..
+     * send an IP Command from your device to a special IP address. Your server
+     * should respond with an HTTP status code in the 200 range; any response body
+     * will be ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
-     *                    the Fleet is used to send an SMS from your device to the
-     *                    Commands number
+     * @param ipCommandsUrl The URL that will receive a webhook when a Super SIM in
+     *                      the Fleet is used to send an IP Command from your device
      * @return this
      */
-    public FleetUpdater setCommandsUrl(final String commandsUrl) {
-        return setCommandsUrl(Promoter.uriFromString(commandsUrl));
+    public FleetUpdater setIpCommandsUrl(final String ipCommandsUrl) {
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
     }
 
     /**
      * A string representing the HTTP method to use when making a request to
-     * `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     * `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
      *
-     * @param commandsMethod A string representing the HTTP method to use when
-     *                       making a request to `commands_url`
+     * @param ipCommandsMethod A string representing the HTTP method to use when
+     *                         making a request to `ip_commands_url`
      * @return this
      */
-    public FleetUpdater setCommandsMethod(final HttpMethod commandsMethod) {
-        this.commandsMethod = commandsMethod;
+    public FleetUpdater setIpCommandsMethod(final HttpMethod ipCommandsMethod) {
+        this.ipCommandsMethod = ipCommandsMethod;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetUpdater setSmsCommandsUrl(final URI smsCommandsUrl) {
+        this.smsCommandsUrl = smsCommandsUrl;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetUpdater setSmsCommandsUrl(final String smsCommandsUrl) {
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+    }
+
+    /**
+     * A string representing the HTTP method to use when making a request to
+     * `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     *
+     * @param smsCommandsMethod A string representing the HTTP method to use when
+     *                          making a request to `sms_commands_url`
+     * @return this
+     */
+    public FleetUpdater setSmsCommandsMethod(final HttpMethod smsCommandsMethod) {
+        this.smsCommandsMethod = smsCommandsMethod;
         return this;
     }
 
@@ -155,12 +199,20 @@ public class FleetUpdater extends Updater<Fleet> {
             request.addPostParam("NetworkAccessProfile", networkAccessProfile.toString());
         }
 
-        if (commandsUrl != null) {
-            request.addPostParam("CommandsUrl", commandsUrl.toString());
+        if (ipCommandsUrl != null) {
+            request.addPostParam("IpCommandsUrl", ipCommandsUrl.toString());
         }
 
-        if (commandsMethod != null) {
-            request.addPostParam("CommandsMethod", commandsMethod.toString());
+        if (ipCommandsMethod != null) {
+            request.addPostParam("IpCommandsMethod", ipCommandsMethod.toString());
+        }
+
+        if (smsCommandsUrl != null) {
+            request.addPostParam("SmsCommandsUrl", smsCommandsUrl.toString());
+        }
+
+        if (smsCommandsMethod != null) {
+            request.addPostParam("SmsCommandsMethod", smsCommandsMethod.toString());
         }
     }
 }

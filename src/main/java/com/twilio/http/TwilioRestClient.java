@@ -26,7 +26,7 @@ public class TwilioRestClient {
     private final HttpClient httpClient;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
-    private TwilioRestClient(Builder b) {
+    protected TwilioRestClient(Builder b) {
         this.username = b.username;
         this.password = b.password;
         this.accountSid = b.accountSid;
@@ -151,7 +151,7 @@ public class TwilioRestClient {
         if (logger.isDebugEnabled()) {
             logger.debug("-- BEGIN Twilio API Request --");
             logger.debug("request method: " + request.getMethod());
-            logger.debug("request URL: " + request.getUrl());
+            logger.debug("request URL: " + request.constructURL().toString());
             final Map<String, List<String>> queryParams = request.getQueryParams();
             final Map<String, List<String>> headerParams = request.getHeaderParams();
 

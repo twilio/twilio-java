@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Factor extends Resource {
-    private static final long serialVersionUID = 201328569010526L;
+    private static final long serialVersionUID = 226640630873682L;
 
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
@@ -69,7 +69,8 @@ public class Factor extends Resource {
     }
 
     public enum FactorTypes {
-        PUSH("push");
+        PUSH("push"),
+        TOTP("totp");
 
         private final String value;
 
@@ -94,7 +95,8 @@ public class Factor extends Resource {
 
     public enum NotificationPlatforms {
         APN("apn"),
-        FCM("fcm");
+        FCM("fcm"),
+        NONE("none");
 
         private final String value;
 
@@ -117,20 +119,30 @@ public class Factor extends Resource {
         }
     }
 
-    /**
-     * Create a FactorCreator to execute create.
-     *
-     * @param pathServiceSid Service Sid.
-     * @param pathIdentity Unique external identifier of the Entity
-     * @param friendlyName The friendly name of this Factor
-     * @param factorType The Type of this Factor
-     * @return FactorCreator capable of executing the create
-     */
-    public static FactorCreator creator(final String pathServiceSid,
-                                        final String pathIdentity,
-                                        final String friendlyName,
-                                        final Factor.FactorTypes factorType) {
-        return new FactorCreator(pathServiceSid, pathIdentity, friendlyName, factorType);
+    public enum TotpAlgorithms {
+        SHA1("sha1"),
+        SHA256("sha256"),
+        SHA512("sha512");
+
+        private final String value;
+
+        private TotpAlgorithms(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a TotpAlgorithms from a string.
+         * @param value string value
+         * @return generated TotpAlgorithms
+         */
+        @JsonCreator
+        public static TotpAlgorithms forValue(final String value) {
+            return Promoter.enumFromString(value, TotpAlgorithms.values());
+        }
     }
 
     /**
@@ -235,6 +247,7 @@ public class Factor extends Resource {
     private final Factor.FactorStatuses status;
     private final Factor.FactorTypes factorType;
     private final Map<String, Object> config;
+    private final Map<String, Object> metadata;
     private final URI url;
 
     @JsonCreator
@@ -260,6 +273,8 @@ public class Factor extends Resource {
                    final Factor.FactorTypes factorType,
                    @JsonProperty("config")
                    final Map<String, Object> config,
+                   @JsonProperty("metadata")
+                   final Map<String, Object> metadata,
                    @JsonProperty("url")
                    final URI url) {
         this.sid = sid;
@@ -273,6 +288,7 @@ public class Factor extends Resource {
         this.status = status;
         this.factorType = factorType;
         this.config = config;
+        this.metadata = metadata;
         this.url = url;
     }
 
@@ -376,6 +392,15 @@ public class Factor extends Resource {
     }
 
     /**
+     * Returns Metadata of the factor..
+     *
+     * @return Metadata of the factor.
+     */
+    public final Map<String, Object> getMetadata() {
+        return this.metadata;
+    }
+
+    /**
      * Returns The URL of this resource..
      *
      * @return The URL of this resource.
@@ -407,6 +432,7 @@ public class Factor extends Resource {
                Objects.equals(status, other.status) &&
                Objects.equals(factorType, other.factorType) &&
                Objects.equals(config, other.config) &&
+               Objects.equals(metadata, other.metadata) &&
                Objects.equals(url, other.url);
     }
 
@@ -423,6 +449,7 @@ public class Factor extends Resource {
                             status,
                             factorType,
                             config,
+                            metadata,
                             url);
     }
 }

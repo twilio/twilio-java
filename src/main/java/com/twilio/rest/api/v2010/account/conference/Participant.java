@@ -24,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Endpoint;
 import lombok.ToString;
 
 import java.io.IOException;
@@ -35,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-    private static final long serialVersionUID = 239000322102976L;
+    private static final long serialVersionUID = 89883663840219L;
 
     public enum Status {
         QUEUED("queued"),
@@ -141,8 +142,8 @@ public class Participant extends Resource {
      */
     public static ParticipantCreator creator(final String pathAccountSid,
                                              final String pathConferenceSid,
-                                             final com.twilio.type.PhoneNumber from,
-                                             final com.twilio.type.PhoneNumber to) {
+                                             final com.twilio.type.Endpoint from,
+                                             final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(pathAccountSid, pathConferenceSid, from, to);
     }
 
@@ -157,8 +158,8 @@ public class Participant extends Resource {
      * @return ParticipantCreator capable of executing the create
      */
     public static ParticipantCreator creator(final String pathConferenceSid,
-                                             final com.twilio.type.PhoneNumber from,
-                                             final com.twilio.type.PhoneNumber to) {
+                                             final com.twilio.type.Endpoint from,
+                                             final com.twilio.type.Endpoint to) {
         return new ParticipantCreator(pathConferenceSid, from, to);
     }
 

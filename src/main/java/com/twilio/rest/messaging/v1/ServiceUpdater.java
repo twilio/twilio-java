@@ -40,6 +40,8 @@ public class ServiceUpdater extends Updater<Service> {
     private Boolean areaCodeGeomatch;
     private Integer validityPeriod;
     private Boolean synchronousValidation;
+    private String usecase;
+    private Boolean useInboundWebhookOnNumber;
 
     /**
      * Construct a new ServiceUpdater.
@@ -63,13 +65,18 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The URL we should call using `inbound_method` when a message is received by
-     * any phone number or short code in the Service. When this property is `null`,
-     * receiving inbound messages is disabled..
+     * The URL we call using `inbound_method` when a message is received by any
+     * phone number or short code in the Service. When this property is `null`,
+     * receiving inbound messages is disabled. All messages sent to the Twilio phone
+     * number or short code will not be logged and received on the Account. If the
+     * `use_inbound_webhook_on_number` field is enabled then the webhook url defined
+     * on the phone number will override the `inbound_request_url` defined for the
+     * Messaging Service..
      *
      * @param inboundRequestUrl The URL we call using inbound_method when a message
      *                          is received by any phone number or short code in the
-     *                          Service
+     *                          Service. This field will be overridden if the
+     *                          `use_inbound_webhook_on_number` field is enabled.
      * @return this
      */
     public ServiceUpdater setInboundRequestUrl(final URI inboundRequestUrl) {
@@ -78,13 +85,18 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The URL we should call using `inbound_method` when a message is received by
-     * any phone number or short code in the Service. When this property is `null`,
-     * receiving inbound messages is disabled..
+     * The URL we call using `inbound_method` when a message is received by any
+     * phone number or short code in the Service. When this property is `null`,
+     * receiving inbound messages is disabled. All messages sent to the Twilio phone
+     * number or short code will not be logged and received on the Account. If the
+     * `use_inbound_webhook_on_number` field is enabled then the webhook url defined
+     * on the phone number will override the `inbound_request_url` defined for the
+     * Messaging Service..
      *
      * @param inboundRequestUrl The URL we call using inbound_method when a message
      *                          is received by any phone number or short code in the
-     *                          Service
+     *                          Service. This field will be overridden if the
+     *                          `use_inbound_webhook_on_number` field is enabled.
      * @return this
      */
     public ServiceUpdater setInboundRequestUrl(final String inboundRequestUrl) {
@@ -105,12 +117,16 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The URL that we should call using `fallback_method` if an error occurs while
-     * retrieving or executing the TwiML from the Inbound Request URL..
+     * The URL that we call using `fallback_method` if an error occurs while
+     * retrieving or executing the TwiML from the Inbound Request URL. If the
+     * `use_inbound_webhook_on_number` field is enabled then the webhook url defined
+     * on the phone number will override the `fallback_url` defined for the
+     * Messaging Service..
      *
      * @param fallbackUrl The URL that we call using fallback_method if an error
      *                    occurs while retrieving or executing the TwiML from the
-     *                    Inbound Request URL
+     *                    Inbound Request URL. This field will be overridden if the
+     *                    `use_inbound_webhook_on_number` field is enabled.
      * @return this
      */
     public ServiceUpdater setFallbackUrl(final URI fallbackUrl) {
@@ -119,12 +135,16 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
-     * The URL that we should call using `fallback_method` if an error occurs while
-     * retrieving or executing the TwiML from the Inbound Request URL..
+     * The URL that we call using `fallback_method` if an error occurs while
+     * retrieving or executing the TwiML from the Inbound Request URL. If the
+     * `use_inbound_webhook_on_number` field is enabled then the webhook url defined
+     * on the phone number will override the `fallback_url` defined for the
+     * Messaging Service..
      *
      * @param fallbackUrl The URL that we call using fallback_method if an error
      *                    occurs while retrieving or executing the TwiML from the
-     *                    Inbound Request URL
+     *                    Inbound Request URL. This field will be overridden if the
+     *                    `use_inbound_webhook_on_number` field is enabled.
      * @return this
      */
     public ServiceUpdater setFallbackUrl(final String fallbackUrl) {
@@ -275,6 +295,38 @@ public class ServiceUpdater extends Updater<Service> {
     }
 
     /**
+     * A string that describes the scenario in which the Messaging Service will be
+     * used. Examples: [notification, marketing, verification, poll ..].
+     *
+     * @param usecase A string describing the scenario in which the Messaging
+     *                Service will be used
+     * @return this
+     */
+    public ServiceUpdater setUsecase(final String usecase) {
+        this.usecase = usecase;
+        return this;
+    }
+
+    /**
+     * A boolean value that indicates either the webhook url configured on the phone
+     * number will be used or `inbound_request_url`/`fallback_url` url will be
+     * called when a message is received from the phone number. If this field is
+     * enabled then the webhook url defined on the phone number will override the
+     * `inbound_request_url`/`fallback_url` defined for the Messaging Service..
+     *
+     * @param useInboundWebhookOnNumber If enabled, the webhook url configured on
+     *                                  the phone number will be used and will
+     *                                  override the
+     *                                  `inbound_request_url`/`fallback_url` url
+     *                                  called when an inbound message is received.
+     * @return this
+     */
+    public ServiceUpdater setUseInboundWebhookOnNumber(final Boolean useInboundWebhookOnNumber) {
+        this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -365,6 +417,14 @@ public class ServiceUpdater extends Updater<Service> {
 
         if (synchronousValidation != null) {
             request.addPostParam("SynchronousValidation", synchronousValidation.toString());
+        }
+
+        if (usecase != null) {
+            request.addPostParam("Usecase", usecase);
+        }
+
+        if (useInboundWebhookOnNumber != null) {
+            request.addPostParam("UseInboundWebhookOnNumber", useInboundWebhookOnNumber.toString());
         }
     }
 }

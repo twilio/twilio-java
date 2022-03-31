@@ -36,9 +36,9 @@ public class RoomReader extends Reader<Room> {
     private ZonedDateTime createdBefore;
 
     /**
-     * The room_type.
+     * Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`..
      *
-     * @param roomType The room_type
+     * @param roomType Type of room.
      * @return this
      */
     public RoomReader setRoomType(final List<Room.RoomType> roomType) {
@@ -47,9 +47,9 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The room_type.
+     * Type of room. Can be `go`, `peer_to_peer`, `group`, or `group_small`..
      *
-     * @param roomType The room_type
+     * @param roomType Type of room.
      * @return this
      */
     public RoomReader setRoomType(final Room.RoomType roomType) {
@@ -57,9 +57,9 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The codec.
+     * Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`..
      *
-     * @param codec The codec
+     * @param codec Codecs used by participants in the room.
      * @return this
      */
     public RoomReader setCodec(final List<Room.Codec> codec) {
@@ -68,9 +68,9 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The codec.
+     * Codecs used by participants in the room. Can be `VP8`, `H264`, or `VP9`..
      *
-     * @param codec The codec
+     * @param codec Codecs used by participants in the room.
      * @return this
      */
     public RoomReader setCodec(final Room.Codec codec) {
@@ -78,9 +78,9 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The room_name.
+     * Room friendly name..
      *
-     * @param roomName The room_name
+     * @param roomName Room friendly name.
      * @return this
      */
     public RoomReader setRoomName(final String roomName) {
@@ -89,9 +89,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The created_after.
+     * Only read rooms that started on or after this ISO 8601 timestamp..
      *
-     * @param createdAfter The created_after
+     * @param createdAfter Only read rooms that started on or after this ISO 8601
+     *                     timestamp.
      * @return this
      */
     public RoomReader setCreatedAfter(final ZonedDateTime createdAfter) {
@@ -100,9 +101,10 @@ public class RoomReader extends Reader<Room> {
     }
 
     /**
-     * The created_before.
+     * Only read rooms that started before this ISO 8601 timestamp..
      *
-     * @param createdBefore The created_before
+     * @param createdBefore Only read rooms that started before this ISO 8601
+     *                      timestamp.
      * @return this
      */
     public RoomReader setCreatedBefore(final ZonedDateTime createdBefore) {
@@ -243,11 +245,11 @@ public class RoomReader extends Reader<Room> {
         }
 
         if (createdAfter != null) {
-            request.addQueryParam("CreatedAfter", createdAfter.toOffsetDateTime().toString());
+            request.addQueryParam("CreatedAfter", createdAfter.toInstant().toString());
         }
 
         if (createdBefore != null) {
-            request.addQueryParam("CreatedBefore", createdBefore.toOffsetDateTime().toString());
+            request.addQueryParam("CreatedBefore", createdBefore.toInstant().toString());
         }
 
         if (getPageSize() != null) {

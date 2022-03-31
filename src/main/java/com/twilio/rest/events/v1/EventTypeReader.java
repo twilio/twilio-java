@@ -20,11 +20,24 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class EventTypeReader extends Reader<EventType> {
+    private String schemaId;
+
+    /**
+     * A string parameter filtering the results to return only the Event Types using
+     * a given schema..
+     *
+     * @param schemaId A string to filter Event Types by schema.
+     * @return this
+     */
+    public EventTypeReader setSchemaId(final String schemaId) {
+        this.schemaId = schemaId;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -141,6 +154,10 @@ public class EventTypeReader extends Reader<EventType> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (schemaId != null) {
+            request.addQueryParam("SchemaId", schemaId);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

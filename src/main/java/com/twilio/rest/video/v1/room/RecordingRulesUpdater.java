@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.util.Map;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class RecordingRulesUpdater extends Updater<RecordingRules> {
     private final String pathRoomSid;
     private Map<String, Object> rules;

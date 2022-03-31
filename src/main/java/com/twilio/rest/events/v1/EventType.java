@@ -33,14 +33,13 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EventType extends Resource {
-    private static final long serialVersionUID = 245530278393343L;
+    private static final long serialVersionUID = 60814324079305L;
 
     /**
      * Create a EventTypeReader to execute read.

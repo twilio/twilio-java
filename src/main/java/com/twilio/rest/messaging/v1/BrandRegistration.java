@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -40,12 +41,14 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistration extends Resource {
-    private static final long serialVersionUID = 101106739421752L;
+    private static final long serialVersionUID = 239504245100314L;
 
     public enum Status {
-        IN_PROGRESS("IN_PROGRESS"),
-        VERIFIED("VERIFIED"),
-        FAILED("FAILED");
+        PENDING("PENDING"),
+        APPROVED("APPROVED"),
+        FAILED("FAILED"),
+        IN_REVIEW("IN_REVIEW"),
+        DELETED("DELETED");
 
         private final String value;
 
@@ -65,6 +68,61 @@ public class BrandRegistration extends Resource {
         @JsonCreator
         public static Status forValue(final String value) {
             return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum IdentityStatus {
+        SELF_DECLARED("SELF_DECLARED"),
+        UNVERIFIED("UNVERIFIED"),
+        VERIFIED("VERIFIED"),
+        VETTED_VERIFIED("VETTED_VERIFIED");
+
+        private final String value;
+
+        private IdentityStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a IdentityStatus from a string.
+         * @param value string value
+         * @return generated IdentityStatus
+         */
+        @JsonCreator
+        public static IdentityStatus forValue(final String value) {
+            return Promoter.enumFromString(value, IdentityStatus.values());
+        }
+    }
+
+    public enum BrandFeedback {
+        TAX_ID("TAX_ID"),
+        STOCK_SYMBOL("STOCK_SYMBOL"),
+        NONPROFIT("NONPROFIT"),
+        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
+        OTHERS("OTHERS");
+
+        private final String value;
+
+        private BrandFeedback(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a BrandFeedback from a string.
+         * @param value string value
+         * @return generated BrandFeedback
+         */
+        @JsonCreator
+        public static BrandFeedback forValue(final String value) {
+            return Promoter.enumFromString(value, BrandFeedback.values());
         }
     }
 
@@ -97,6 +155,16 @@ public class BrandRegistration extends Resource {
     public static BrandRegistrationCreator creator(final String customerProfileBundleSid,
                                                    final String a2PProfileBundleSid) {
         return new BrandRegistrationCreator(customerProfileBundleSid, a2PProfileBundleSid);
+    }
+
+    /**
+     * Create a BrandRegistrationUpdater to execute update.
+     *
+     * @param pathSid The SID that identifies the resource to update
+     * @return BrandRegistrationUpdater capable of executing the update
+     */
+    public static BrandRegistrationUpdater updater(final String pathSid) {
+        return new BrandRegistrationUpdater(pathSid);
     }
 
     /**
@@ -143,10 +211,20 @@ public class BrandRegistration extends Resource {
     private final String a2PProfileBundleSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final String brandType;
     private final BrandRegistration.Status status;
     private final String tcrId;
     private final String failureReason;
     private final URI url;
+    private final Integer brandScore;
+    private final List<BrandRegistration.BrandFeedback> brandFeedback;
+    private final BrandRegistration.IdentityStatus identityStatus;
+    private final Boolean russell3000;
+    private final Boolean governmentEntity;
+    private final String taxExemptStatus;
+    private final Boolean skipAutomaticSecVet;
+    private final Boolean mock;
+    private final Map<String, String> links;
 
     @JsonCreator
     private BrandRegistration(@JsonProperty("sid")
@@ -161,6 +239,8 @@ public class BrandRegistration extends Resource {
                               final String dateCreated,
                               @JsonProperty("date_updated")
                               final String dateUpdated,
+                              @JsonProperty("brand_type")
+                              final String brandType,
                               @JsonProperty("status")
                               final BrandRegistration.Status status,
                               @JsonProperty("tcr_id")
@@ -168,17 +248,45 @@ public class BrandRegistration extends Resource {
                               @JsonProperty("failure_reason")
                               final String failureReason,
                               @JsonProperty("url")
-                              final URI url) {
+                              final URI url,
+                              @JsonProperty("brand_score")
+                              final Integer brandScore,
+                              @JsonProperty("brand_feedback")
+                              final List<BrandRegistration.BrandFeedback> brandFeedback,
+                              @JsonProperty("identity_status")
+                              final BrandRegistration.IdentityStatus identityStatus,
+                              @JsonProperty("russell_3000")
+                              final Boolean russell3000,
+                              @JsonProperty("government_entity")
+                              final Boolean governmentEntity,
+                              @JsonProperty("tax_exempt_status")
+                              final String taxExemptStatus,
+                              @JsonProperty("skip_automatic_sec_vet")
+                              final Boolean skipAutomaticSecVet,
+                              @JsonProperty("mock")
+                              final Boolean mock,
+                              @JsonProperty("links")
+                              final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.customerProfileBundleSid = customerProfileBundleSid;
         this.a2PProfileBundleSid = a2PProfileBundleSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.brandType = brandType;
         this.status = status;
         this.tcrId = tcrId;
         this.failureReason = failureReason;
         this.url = url;
+        this.brandScore = brandScore;
+        this.brandFeedback = brandFeedback;
+        this.identityStatus = identityStatus;
+        this.russell3000 = russell3000;
+        this.governmentEntity = governmentEntity;
+        this.taxExemptStatus = taxExemptStatus;
+        this.skipAutomaticSecVet = skipAutomaticSecVet;
+        this.mock = mock;
+        this.links = links;
     }
 
     /**
@@ -236,9 +344,18 @@ public class BrandRegistration extends Resource {
     }
 
     /**
-     * Returns Brand Registration status.
+     * Returns Type of brand. One of: "STANDARD", "STARTER"..
      *
-     * @return Brand Registration status
+     * @return Type of brand. One of: "STANDARD", "STARTER".
+     */
+    public final String getBrandType() {
+        return this.brandType;
+    }
+
+    /**
+     * Returns Brand Registration status..
+     *
+     * @return Brand Registration status.
      */
     public final BrandRegistration.Status getStatus() {
         return this.status;
@@ -271,6 +388,91 @@ public class BrandRegistration extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns Brand score.
+     *
+     * @return Brand score
+     */
+    public final Integer getBrandScore() {
+        return this.brandScore;
+    }
+
+    /**
+     * Returns Brand feedback.
+     *
+     * @return Brand feedback
+     */
+    public final List<BrandRegistration.BrandFeedback> getBrandFeedback() {
+        return this.brandFeedback;
+    }
+
+    /**
+     * Returns Identity Status.
+     *
+     * @return Identity Status
+     */
+    public final BrandRegistration.IdentityStatus getIdentityStatus() {
+        return this.identityStatus;
+    }
+
+    /**
+     * Returns Russell 3000.
+     *
+     * @return Russell 3000
+     */
+    public final Boolean getRussell3000() {
+        return this.russell3000;
+    }
+
+    /**
+     * Returns Government Entity.
+     *
+     * @return Government Entity
+     */
+    public final Boolean getGovernmentEntity() {
+        return this.governmentEntity;
+    }
+
+    /**
+     * Returns Tax Exempt Status.
+     *
+     * @return Tax Exempt Status
+     */
+    public final String getTaxExemptStatus() {
+        return this.taxExemptStatus;
+    }
+
+    /**
+     * Returns Skip Automatic Secondary Vetting.
+     *
+     * @return Skip Automatic Secondary Vetting
+     */
+    public final Boolean getSkipAutomaticSecVet() {
+        return this.skipAutomaticSecVet;
+    }
+
+    /**
+     * Returns A boolean that specifies whether brand should be a mock or not. If
+     * true, brand will be registered as a mock brand. Defaults to false if no value
+     * is provided..
+     *
+     * @return A boolean that specifies whether brand should be a mock or not. If
+     *         true, brand will be registered as a mock brand. Defaults to false if
+     *         no value is provided.
+     */
+    public final Boolean getMock() {
+        return this.mock;
+    }
+
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -289,10 +491,20 @@ public class BrandRegistration extends Resource {
                Objects.equals(a2PProfileBundleSid, other.a2PProfileBundleSid) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(brandType, other.brandType) &&
                Objects.equals(status, other.status) &&
                Objects.equals(tcrId, other.tcrId) &&
                Objects.equals(failureReason, other.failureReason) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(brandScore, other.brandScore) &&
+               Objects.equals(brandFeedback, other.brandFeedback) &&
+               Objects.equals(identityStatus, other.identityStatus) &&
+               Objects.equals(russell3000, other.russell3000) &&
+               Objects.equals(governmentEntity, other.governmentEntity) &&
+               Objects.equals(taxExemptStatus, other.taxExemptStatus) &&
+               Objects.equals(skipAutomaticSecVet, other.skipAutomaticSecVet) &&
+               Objects.equals(mock, other.mock) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -303,9 +515,19 @@ public class BrandRegistration extends Resource {
                             a2PProfileBundleSid,
                             dateCreated,
                             dateUpdated,
+                            brandType,
                             status,
                             tcrId,
                             failureReason,
-                            url);
+                            url,
+                            brandScore,
+                            brandFeedback,
+                            identityStatus,
+                            russell3000,
+                            governmentEntity,
+                            taxExemptStatus,
+                            skipAutomaticSecVet,
+                            mock,
+                            links);
     }
 }

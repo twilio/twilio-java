@@ -41,7 +41,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
      * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
-     * Events</a> for more information..
+     * Events</a> for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -55,7 +57,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
      * The URL we should call when an event occurs. If provided, the Workspace will
      * publish events to this URL, for example, to collect data for reporting. See
      * <a href="https://www.twilio.com/docs/taskrouter/api/event">Workspace
-     * Events</a> for more information..
+     * Events</a> for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -66,9 +70,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * The list of Workspace events for which to call event_callback_url. For
-     * example if `EventsFilter=task.created,task.canceled,worker.activity.update`,
-     * then TaskRouter will call event_callback_url only when a task is created,
-     * canceled, or a Worker activity is updated..
+     * example, if `EventsFilter=task.created, task.canceled,
+     * worker.activity.update`, then TaskRouter will call event_callback_url only
+     * when a task is created, canceled, or a Worker activity is updated..
      *
      * @param eventsFilter The list of Workspace events for which to call
      *                     event_callback_url
@@ -81,12 +85,13 @@ public class WorkspaceCreator extends Creator<Workspace> {
 
     /**
      * Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or
-     * `false` to disable it. The default is `false`. Multi-tasking allows Workers
-     * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
-     * can receive parallel reservations up to the per-channel maximums defined in
-     * the Workers section. Otherwise, each Worker will only receive a new
-     * reservation when the previous task is completed. Learn more at
-     * [Multitasking][https://www.twilio.com/docs/taskrouter/multitasking]..
+     * `false` to disable it. However, all workspaces should be created as
+     * multi-tasking. The default is `true`. Multi-tasking allows Workers to handle
+     * multiple Tasks simultaneously. When enabled (`true`), each Worker can receive
+     * parallel reservations up to the per-channel maximums defined in the Workers
+     * section. In single-tasking mode (legacy mode), each Worker will only receive
+     * a new reservation when the previous task is completed. Learn more at <a
+     * href="https://www.twilio.com/docs/taskrouter/multitasking">Multitasking</a>..
      *
      * @param multiTaskEnabled Whether multi-tasking is enabled
      * @return this
@@ -115,8 +120,9 @@ public class WorkspaceCreator extends Creator<Workspace> {
     /**
      * The type of TaskQueue to prioritize when Workers are receiving Tasks from
      * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
-     * For more information, see [Queue
-     * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
+     * For more information, see <a
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Queue
+     * Ordering</a>..
      *
      * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers
      *                             are receiving Tasks from both types of TaskQueues

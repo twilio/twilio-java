@@ -188,6 +188,32 @@ public class AccessTokenTest {
     }
 
     @Test
+    public void testPlaybackGrant() {
+        Map<String, Object> grantPayload = new HashMap<>();
+        grantPayload.put("requestCredentials", null);
+        grantPayload.put("playbackUrl", "https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx");
+        grantPayload.put("playerStreamerSid", "VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+
+        PlaybackGrant pg = new PlaybackGrant().setGrant(grantPayload);
+        Jwt token =
+            new AccessToken.Builder(ACCOUNT_SID, SIGNING_KEY_SID, SECRET)
+                .grant(pg)
+                .build();
+
+        Claims claims = getClaimFromJwtToken(token);
+
+        validateToken(claims);
+
+        Map<String, Object> decodedGrants = (Map<String, Object>) claims.get("grants");
+        Assert.assertEquals(1, decodedGrants.size());
+
+        Map<String, Object> grant = (Map<String, Object>) decodedGrants.get("player");
+        Assert.assertNull(grant.get("requestCredentials"));
+        Assert.assertEquals("https://000.us-east-1.playback.live-video.net/api/video/v1/us-east-000.channel.000?token=xxxxx", grant.get("playbackUrl"));
+        Assert.assertEquals("VJXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", grant.get("playerStreamerSid"));
+    }
+
+    @Test
     public void testTaskRouterGrant() {
         TaskRouterGrant trg = new TaskRouterGrant()
                 .setWorkspaceSid("WS123")

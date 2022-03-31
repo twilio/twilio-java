@@ -113,4 +113,14 @@ public class RejectTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Reject elem = new Reject.Builder().reason(Reject.Reason.REJECTED).build();
+
+        Assert.assertEquals(
+            Reject.Builder.fromXml("<Reject reason=\"rejected\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

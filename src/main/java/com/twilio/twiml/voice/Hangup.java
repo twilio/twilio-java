@@ -7,7 +7,9 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 /**
  * TwiML wrapper for {@code <Hangup>}
@@ -31,6 +33,20 @@ public class Hangup extends TwiML {
      * Create a new {@code <Hangup>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Hangup.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Hangup.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         /**
          * Create and return resulting {@code <Hangup>} element
          */

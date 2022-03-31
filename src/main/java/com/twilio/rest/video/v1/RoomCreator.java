@@ -8,6 +8,7 @@
 package com.twilio.rest.video.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -20,6 +21,7 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 public class RoomCreator extends Creator<Room> {
     private Boolean enableTurn;
@@ -31,6 +33,11 @@ public class RoomCreator extends Creator<Room> {
     private Boolean recordParticipantsOnConnect;
     private List<Room.VideoCodec> videoCodecs;
     private String mediaRegion;
+    private Map<String, Object> recordingRules;
+    private Boolean audioOnly;
+    private Integer maxParticipantDuration;
+    private Integer emptyRoomTimeout;
+    private Integer unusedRoomTimeout;
 
     /**
      * Deprecated, now always considered to be true..
@@ -58,10 +65,12 @@ public class RoomCreator extends Creator<Room> {
     /**
      * An application-defined string that uniquely identifies the resource. It can
      * be used as a `room_sid` in place of the resource's `sid` in the URL to
-     * address the resource. This value is unique for `in-progress` rooms. SDK
-     * clients can use this name to connect to the room. REST API clients can use
-     * this name in place of the Room SID to interact with the room as long as the
-     * room is `in-progress`..
+     * address the resource, assuming it does not contain any <a
+     * href="https://tools.ietf.org/html/rfc3986#section-2.2">reserved
+     * characters</a> that would need to be URL encoded. This value is unique for
+     * `in-progress` rooms. SDK clients can use this name to connect to the room.
+     * REST API clients can use this name in place of the Room SID to interact with
+     * the room as long as the room is `in-progress`..
      *
      * @param uniqueName An application-defined string that uniquely identifies the
      *                   resource
@@ -181,6 +190,71 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * A collection of Recording Rules that describe how to include or exclude
+     * matching tracks for recording.
+     *
+     * @param recordingRules A collection of Recording Rules
+     * @return this
+     */
+    public RoomCreator setRecordingRules(final Map<String, Object> recordingRules) {
+        this.recordingRules = recordingRules;
+        return this;
+    }
+
+    /**
+     * When set to true, indicates that the participants in the room will only
+     * publish audio. No video tracks will be allowed. Group rooms only..
+     *
+     * @param audioOnly Indicates whether the room will only contain audio track
+     *                  participants for group rooms.
+     * @return this
+     */
+    public RoomCreator setAudioOnly(final Boolean audioOnly) {
+        this.audioOnly = audioOnly;
+        return this;
+    }
+
+    /**
+     * The maximum number of seconds a Participant can be connected to the room. The
+     * maximum possible value is 86400 seconds (24 hours). The default is 14400
+     * seconds (4 hours)..
+     *
+     * @param maxParticipantDuration The maximum number of seconds a Participant
+     *                               can be connected to the room
+     * @return this
+     */
+    public RoomCreator setMaxParticipantDuration(final Integer maxParticipantDuration) {
+        this.maxParticipantDuration = maxParticipantDuration;
+        return this;
+    }
+
+    /**
+     * Configures how long (in minutes) a room will remain active after last
+     * participant leaves. Valid values range from 1 to 60 minutes (no fractions)..
+     *
+     * @param emptyRoomTimeout Configures the time a room will remain active after
+     *                         last participant leaves.
+     * @return this
+     */
+    public RoomCreator setEmptyRoomTimeout(final Integer emptyRoomTimeout) {
+        this.emptyRoomTimeout = emptyRoomTimeout;
+        return this;
+    }
+
+    /**
+     * Configures how long (in minutes) a room will remain active if no one joins.
+     * Valid values range from 1 to 60 minutes (no fractions)..
+     *
+     * @param unusedRoomTimeout Configures the time a room will remain active when
+     *                          no one joins.
+     * @return this
+     */
+    public RoomCreator setUnusedRoomTimeout(final Integer unusedRoomTimeout) {
+        this.unusedRoomTimeout = unusedRoomTimeout;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -253,6 +327,26 @@ public class RoomCreator extends Creator<Room> {
 
         if (mediaRegion != null) {
             request.addPostParam("MediaRegion", mediaRegion);
+        }
+
+        if (recordingRules != null) {
+            request.addPostParam("RecordingRules", Converter.mapToJson(recordingRules));
+        }
+
+        if (audioOnly != null) {
+            request.addPostParam("AudioOnly", audioOnly.toString());
+        }
+
+        if (maxParticipantDuration != null) {
+            request.addPostParam("MaxParticipantDuration", maxParticipantDuration.toString());
+        }
+
+        if (emptyRoomTimeout != null) {
+            request.addPostParam("EmptyRoomTimeout", emptyRoomTimeout.toString());
+        }
+
+        if (unusedRoomTimeout != null) {
+            request.addPostParam("UnusedRoomTimeout", unusedRoomTimeout.toString());
         }
     }
 }

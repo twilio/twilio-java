@@ -70,6 +70,28 @@ public class Feedback extends Resource {
     }
 
     /**
+     * Create a FeedbackFetcher to execute fetch.
+     *
+     * @param pathAccountSid The unique sid that identifies this account
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @return FeedbackFetcher capable of executing the fetch
+     */
+    public static FeedbackFetcher fetcher(final String pathAccountSid,
+                                          final String pathCallSid) {
+        return new FeedbackFetcher(pathAccountSid, pathCallSid);
+    }
+
+    /**
+     * Create a FeedbackFetcher to execute fetch.
+     *
+     * @param pathCallSid The call sid that uniquely identifies the call
+     * @return FeedbackFetcher capable of executing the fetch
+     */
+    public static FeedbackFetcher fetcher(final String pathCallSid) {
+        return new FeedbackFetcher(pathCallSid);
+    }
+
+    /**
      * Create a FeedbackCreator to execute create.
      *
      * @param pathAccountSid The unique sid that identifies this account
@@ -96,51 +118,25 @@ public class Feedback extends Resource {
     }
 
     /**
-     * Create a FeedbackFetcher to execute fetch.
-     *
-     * @param pathAccountSid The unique sid that identifies this account
-     * @param pathCallSid The call sid that uniquely identifies the call
-     * @return FeedbackFetcher capable of executing the fetch
-     */
-    public static FeedbackFetcher fetcher(final String pathAccountSid,
-                                          final String pathCallSid) {
-        return new FeedbackFetcher(pathAccountSid, pathCallSid);
-    }
-
-    /**
-     * Create a FeedbackFetcher to execute fetch.
-     *
-     * @param pathCallSid The call sid that uniquely identifies the call
-     * @return FeedbackFetcher capable of executing the fetch
-     */
-    public static FeedbackFetcher fetcher(final String pathCallSid) {
-        return new FeedbackFetcher(pathCallSid);
-    }
-
-    /**
      * Create a FeedbackUpdater to execute update.
      *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid The call sid that uniquely identifies the call
-     * @param qualityScore The call quality expressed as an integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
     public static FeedbackUpdater updater(final String pathAccountSid,
-                                          final String pathCallSid,
-                                          final Integer qualityScore) {
-        return new FeedbackUpdater(pathAccountSid, pathCallSid, qualityScore);
+                                          final String pathCallSid) {
+        return new FeedbackUpdater(pathAccountSid, pathCallSid);
     }
 
     /**
      * Create a FeedbackUpdater to execute update.
      *
      * @param pathCallSid The call sid that uniquely identifies the call
-     * @param qualityScore The call quality expressed as an integer from 1 to 5
      * @return FeedbackUpdater capable of executing the update
      */
-    public static FeedbackUpdater updater(final String pathCallSid,
-                                          final Integer qualityScore) {
-        return new FeedbackUpdater(pathCallSid, qualityScore);
+    public static FeedbackUpdater updater(final String pathCallSid) {
+        return new FeedbackUpdater(pathCallSid);
     }
 
     /**

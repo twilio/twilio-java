@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-    private static final long serialVersionUID = 155845282259385L;
+    private static final long serialVersionUID = 203267334774517L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -207,10 +207,14 @@ public class Room extends Resource {
     private final Integer duration;
     private final Room.RoomType type;
     private final Integer maxParticipants;
+    private final Integer maxParticipantDuration;
     private final Integer maxConcurrentPublishedTracks;
     private final Boolean recordParticipantsOnConnect;
     private final List<Room.VideoCodec> videoCodecs;
     private final String mediaRegion;
+    private final Boolean audioOnly;
+    private final Integer emptyRoomTimeout;
+    private final Integer unusedRoomTimeout;
     private final URI url;
     private final Map<String, String> links;
 
@@ -241,6 +245,8 @@ public class Room extends Resource {
                  final Room.RoomType type,
                  @JsonProperty("max_participants")
                  final Integer maxParticipants,
+                 @JsonProperty("max_participant_duration")
+                 final Integer maxParticipantDuration,
                  @JsonProperty("max_concurrent_published_tracks")
                  final Integer maxConcurrentPublishedTracks,
                  @JsonProperty("record_participants_on_connect")
@@ -249,6 +255,12 @@ public class Room extends Resource {
                  final List<Room.VideoCodec> videoCodecs,
                  @JsonProperty("media_region")
                  final String mediaRegion,
+                 @JsonProperty("audio_only")
+                 final Boolean audioOnly,
+                 @JsonProperty("empty_room_timeout")
+                 final Integer emptyRoomTimeout,
+                 @JsonProperty("unused_room_timeout")
+                 final Integer unusedRoomTimeout,
                  @JsonProperty("url")
                  final URI url,
                  @JsonProperty("links")
@@ -266,10 +278,14 @@ public class Room extends Resource {
         this.duration = duration;
         this.type = type;
         this.maxParticipants = maxParticipants;
+        this.maxParticipantDuration = maxParticipantDuration;
         this.maxConcurrentPublishedTracks = maxConcurrentPublishedTracks;
         this.recordParticipantsOnConnect = recordParticipantsOnConnect;
         this.videoCodecs = videoCodecs;
         this.mediaRegion = mediaRegion;
+        this.audioOnly = audioOnly;
+        this.emptyRoomTimeout = emptyRoomTimeout;
+        this.unusedRoomTimeout = unusedRoomTimeout;
         this.url = url;
         this.links = links;
     }
@@ -392,6 +408,17 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns The maximum number of seconds a Participant can be connected to the
+     * room.
+     *
+     * @return The maximum number of seconds a Participant can be connected to the
+     *         room
+     */
+    public final Integer getMaxParticipantDuration() {
+        return this.maxParticipantDuration;
+    }
+
+    /**
      * Returns The maximum number of published tracks allowed in the room at the
      * same time.
      *
@@ -429,6 +456,35 @@ public class Room extends Resource {
      */
     public final String getMediaRegion() {
         return this.mediaRegion;
+    }
+
+    /**
+     * Returns Indicates whether the room will only contain audio track participants
+     * for group rooms..
+     *
+     * @return Indicates whether the room will only contain audio track
+     *         participants for group rooms.
+     */
+    public final Boolean getAudioOnly() {
+        return this.audioOnly;
+    }
+
+    /**
+     * Returns The time a room will remain active after last participant leaves..
+     *
+     * @return The time a room will remain active after last participant leaves.
+     */
+    public final Integer getEmptyRoomTimeout() {
+        return this.emptyRoomTimeout;
+    }
+
+    /**
+     * Returns The time a room will remain active when no one joins..
+     *
+     * @return The time a room will remain active when no one joins.
+     */
+    public final Integer getUnusedRoomTimeout() {
+        return this.unusedRoomTimeout;
     }
 
     /**
@@ -474,10 +530,14 @@ public class Room extends Resource {
                Objects.equals(duration, other.duration) &&
                Objects.equals(type, other.type) &&
                Objects.equals(maxParticipants, other.maxParticipants) &&
+               Objects.equals(maxParticipantDuration, other.maxParticipantDuration) &&
                Objects.equals(maxConcurrentPublishedTracks, other.maxConcurrentPublishedTracks) &&
                Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&
                Objects.equals(videoCodecs, other.videoCodecs) &&
                Objects.equals(mediaRegion, other.mediaRegion) &&
+               Objects.equals(audioOnly, other.audioOnly) &&
+               Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&
+               Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -497,10 +557,14 @@ public class Room extends Resource {
                             duration,
                             type,
                             maxParticipants,
+                            maxParticipantDuration,
                             maxConcurrentPublishedTracks,
                             recordParticipantsOnConnect,
                             videoCodecs,
                             mediaRegion,
+                            audioOnly,
+                            emptyRoomTimeout,
+                            unusedRoomTimeout,
                             url,
                             links);
     }

@@ -131,4 +131,27 @@ public class RecordTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Record elem = new Record.Builder()
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .timeout(1)
+            .finishOnKey("finish_on_key")
+            .maxLength(1)
+            .playBeep(true)
+            .trim(Record.Trim.TRIM_SILENCE)
+            .recordingStatusCallback(URI.create("https://example.com"))
+            .recordingStatusCallbackMethod(HttpMethod.GET)
+            .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
+            .transcribe(true)
+            .transcribeCallback(URI.create("https://example.com"))
+            .build();
+
+        Assert.assertEquals(
+            Record.Builder.fromXml("<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

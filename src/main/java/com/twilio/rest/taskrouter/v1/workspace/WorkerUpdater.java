@@ -24,6 +24,7 @@ public class WorkerUpdater extends Updater<Worker> {
     private String attributes;
     private String friendlyName;
     private Boolean rejectPendingReservations;
+    private String ifMatch;
 
     /**
      * Construct a new WorkerUpdater.
@@ -79,13 +80,28 @@ public class WorkerUpdater extends Updater<Worker> {
     }
 
     /**
-     * Whether to reject pending reservations..
+     * Whether to reject the Worker's pending reservations. This option is only
+     * valid if the Worker's new <a
+     * href="https://www.twilio.com/docs/taskrouter/api/activity">Activity</a>
+     * resource has its `availability` property set to `False`..
      *
-     * @param rejectPendingReservations Whether to reject pending reservations
+     * @param rejectPendingReservations Whether to reject the Worker's pending
+     *                                  reservations
      * @return this
      */
     public WorkerUpdater setRejectPendingReservations(final Boolean rejectPendingReservations) {
         this.rejectPendingReservations = rejectPendingReservations;
+        return this;
+    }
+
+    /**
+     * The If-Match HTTP request header.
+     *
+     * @param ifMatch The If-Match HTTP request header
+     * @return this
+     */
+    public WorkerUpdater setIfMatch(final String ifMatch) {
+        this.ifMatch = ifMatch;
         return this;
     }
 
@@ -105,6 +121,7 @@ public class WorkerUpdater extends Updater<Worker> {
         );
 
         addPostParams(request);
+        addHeaderParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -118,6 +135,17 @@ public class WorkerUpdater extends Updater<Worker> {
         }
 
         return Worker.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested header parameters to the Request.
+     *
+     * @param request Request to add header params to
+     */
+    private void addHeaderParams(final Request request) {
+        if (ifMatch != null) {
+            request.addHeaderParam("If-Match", ifMatch);
+        }
     }
 
     /**

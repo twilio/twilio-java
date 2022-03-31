@@ -8,6 +8,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -20,6 +21,7 @@ import com.twilio.rest.Domains;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class MessageCreator extends Creator<Message> {
@@ -40,6 +42,9 @@ public class MessageCreator extends Creator<Message> {
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
+    private Message.ScheduleType scheduleType;
+    private ZonedDateTime sendAt;
+    private Boolean sendAsMms;
 
     /**
      * Construct a new MessageCreator.
@@ -375,6 +380,44 @@ public class MessageCreator extends Creator<Message> {
     }
 
     /**
+     * Indicates your intent to schedule a message. Pass the value `fixed` to
+     * schedule a message at a fixed time..
+     *
+     * @param scheduleType Pass the value `fixed` to schedule a message at a fixed
+     *                     time.
+     * @return this
+     */
+    public MessageCreator setScheduleType(final Message.ScheduleType scheduleType) {
+        this.scheduleType = scheduleType;
+        return this;
+    }
+
+    /**
+     * The time that Twilio will send the message. Must be in ISO 8601 format..
+     *
+     * @param sendAt The time that Twilio will send the message. Must be in ISO
+     *               8601 format.
+     * @return this
+     */
+    public MessageCreator setSendAt(final ZonedDateTime sendAt) {
+        this.sendAt = sendAt;
+        return this;
+    }
+
+    /**
+     * If set to True, Twilio will deliver the message as a single MMS message,
+     * regardless of the presence of media. This is a Beta Feature..
+     *
+     * @param sendAsMms If set to True, Twilio will deliver the message as a single
+     *                  MMS message, regardless of the presence of media
+     * @return this
+     */
+    public MessageCreator setSendAsMms(final Boolean sendAsMms) {
+        this.sendAsMms = sendAsMms;
+        return this;
+    }
+
+    /**
      * A Twilio phone number in <a
      * href="https://www.twilio.com/docs/glossary/what-e164">E.164</a> format, an <a
      * href="https://www.twilio.com/docs/sms/send-messages#use-an-alphanumeric-sender-id">alphanumeric
@@ -605,6 +648,18 @@ public class MessageCreator extends Creator<Message> {
             for (String prop : persistentAction) {
                 request.addPostParam("PersistentAction", prop);
             }
+        }
+
+        if (scheduleType != null) {
+            request.addPostParam("ScheduleType", scheduleType.toString());
+        }
+
+        if (sendAt != null) {
+            request.addPostParam("SendAt", sendAt.toInstant().toString());
+        }
+
+        if (sendAsMms != null) {
+            request.addPostParam("SendAsMms", sendAsMms.toString());
         }
     }
 }

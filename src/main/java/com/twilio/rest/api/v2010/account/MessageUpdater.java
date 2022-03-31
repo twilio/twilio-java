@@ -20,18 +20,16 @@ import com.twilio.rest.Domains;
 public class MessageUpdater extends Updater<Message> {
     private String pathAccountSid;
     private final String pathSid;
-    private final String body;
+    private String body;
+    private Message.UpdateStatus status;
 
     /**
      * Construct a new MessageUpdater.
      *
      * @param pathSid The unique string that identifies the resource
-     * @param body The text of the message you want to send
      */
-    public MessageUpdater(final String pathSid,
-                          final String body) {
+    public MessageUpdater(final String pathSid) {
         this.pathSid = pathSid;
-        this.body = body;
     }
 
     /**
@@ -40,14 +38,35 @@ public class MessageUpdater extends Updater<Message> {
      * @param pathAccountSid The SID of the Account that created the resources to
      *                       update
      * @param pathSid The unique string that identifies the resource
-     * @param body The text of the message you want to send
      */
     public MessageUpdater(final String pathAccountSid,
-                          final String pathSid,
-                          final String body) {
+                          final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
+    }
+
+    /**
+     * The text of the message you want to send. Can be up to 1,600 characters
+     * long..
+     *
+     * @param body The text of the message you want to send
+     * @return this
+     */
+    public MessageUpdater setBody(final String body) {
         this.body = body;
+        return this;
+    }
+
+    /**
+     * When set as `canceled`, allows a message cancelation request if a message has
+     * not yet been sent..
+     *
+     * @param status Set as `canceled` to cancel a message from being sent.
+     * @return this
+     */
+    public MessageUpdater setStatus(final Message.UpdateStatus status) {
+        this.status = status;
+        return this;
     }
 
     /**
@@ -90,6 +109,10 @@ public class MessageUpdater extends Updater<Message> {
     private void addPostParams(final Request request) {
         if (body != null) {
             request.addPostParam("Body", body);
+        }
+
+        if (status != null) {
+            request.addPostParam("Status", status.toString());
         }
     }
 }

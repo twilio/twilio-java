@@ -102,4 +102,14 @@ public class EchoTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Echo elem = new Echo.Builder().build();
+
+        Assert.assertEquals(
+            Echo.Builder.fromXml("<Echo/>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

@@ -327,9 +327,9 @@ public class FlexFlow extends Resource {
     }
 
     /**
-     * Returns The integration type.
+     * Returns The software that will handle inbound messages..
      *
-     * @return The integration type
+     * @return The software that will handle inbound messages.
      */
     public final FlexFlow.IntegrationType getIntegrationType() {
         return this.integrationType;

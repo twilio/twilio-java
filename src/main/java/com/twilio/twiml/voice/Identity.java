@@ -7,11 +7,15 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 /**
  * TwiML wrapper for {@code <Identity>}
  */
+@JsonDeserialize(builder = Identity.Builder.class)
 public class Identity extends TwiML {
     private final String clientIdentity;
 
@@ -52,6 +56,20 @@ public class Identity extends TwiML {
      * Create a new {@code <Identity>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Identity.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Identity.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String clientIdentity;
 
         /**
@@ -59,6 +77,12 @@ public class Identity extends TwiML {
          */
         public Builder(String clientIdentity) {
             this.clientIdentity = clientIdentity;
+        }
+
+        /**
+         * Create a {@code <Identity>} (for XML deserialization)
+         */
+        private Builder() {
         }
 
         /**

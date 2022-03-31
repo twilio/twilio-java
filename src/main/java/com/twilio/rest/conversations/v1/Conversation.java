@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Conversation extends Resource {
-    private static final long serialVersionUID = 235657538705254L;
+    private static final long serialVersionUID = 166881016060302L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -189,6 +189,7 @@ public class Conversation extends Resource {
     private final Map<String, Object> timers;
     private final URI url;
     private final Map<String, String> links;
+    private final Map<String, Object> bindings;
 
     @JsonCreator
     private Conversation(@JsonProperty("account_sid")
@@ -216,7 +217,9 @@ public class Conversation extends Resource {
                          @JsonProperty("url")
                          final URI url,
                          @JsonProperty("links")
-                         final Map<String, String> links) {
+                         final Map<String, String> links,
+                         @JsonProperty("bindings")
+                         final Map<String, Object> bindings) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
         this.messagingServiceSid = messagingServiceSid;
@@ -230,6 +233,7 @@ public class Conversation extends Resource {
         this.timers = timers;
         this.url = url;
         this.links = links;
+        this.bindings = bindings;
     }
 
     /**
@@ -355,6 +359,15 @@ public class Conversation extends Resource {
         return this.links;
     }
 
+    /**
+     * Returns The bindings.
+     *
+     * @return The bindings
+     */
+    public final Map<String, Object> getBindings() {
+        return this.bindings;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -379,7 +392,8 @@ public class Conversation extends Resource {
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(timers, other.timers) &&
                Objects.equals(url, other.url) &&
-               Objects.equals(links, other.links);
+               Objects.equals(links, other.links) &&
+               Objects.equals(bindings, other.bindings);
     }
 
     @Override
@@ -396,6 +410,7 @@ public class Conversation extends Resource {
                             dateUpdated,
                             timers,
                             url,
-                            links);
+                            links,
+                            bindings);
     }
 }

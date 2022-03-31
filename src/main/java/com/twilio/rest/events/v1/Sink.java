@@ -35,9 +35,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -73,7 +72,8 @@ public class Sink extends Resource {
 
     public enum SinkType {
         KINESIS("kinesis"),
-        WEBHOOK("webhook");
+        WEBHOOK("webhook"),
+        SEGMENT("segment");
 
         private final String value;
 
@@ -109,7 +109,7 @@ public class Sink extends Resource {
     /**
      * Create a SinkCreator to execute create.
      *
-     * @param description Sink Description
+     * @param description Sink Description.
      * @param sinkConfiguration JSON Sink configuration.
      * @param sinkType Sink type.
      * @return SinkCreator capable of executing the create
@@ -137,6 +137,18 @@ public class Sink extends Resource {
      */
     public static SinkReader reader() {
         return new SinkReader();
+    }
+
+    /**
+     * Create a SinkUpdater to execute update.
+     *
+     * @param pathSid A string that uniquely identifies this Sink.
+     * @param description Sink Description
+     * @return SinkUpdater capable of executing the update
+     */
+    public static SinkUpdater updater(final String pathSid,
+                                      final String description) {
+        return new SinkUpdater(pathSid, description);
     }
 
     /**

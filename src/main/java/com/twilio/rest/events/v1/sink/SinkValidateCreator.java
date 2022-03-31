@@ -18,9 +18,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class SinkValidateCreator extends Creator<SinkValidate> {
     private final String pathSid;
@@ -29,7 +28,7 @@ public class SinkValidateCreator extends Creator<SinkValidate> {
     /**
      * Construct a new SinkValidateCreator.
      *
-     * @param pathSid The sid
+     * @param pathSid A string that uniquely identifies the Sink being validated.
      * @param testId A string that uniquely identifies the test event for a Sink
      *               being validated.
      */

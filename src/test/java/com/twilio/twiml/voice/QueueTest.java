@@ -32,4 +32,19 @@ public class QueueTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Queue elem = new Queue.Builder("name")
+            .url(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .reservationSid("reservation_sid")
+            .postWorkActivitySid("post_work_activity_sid")
+            .build();
+
+        Assert.assertEquals(
+            Queue.Builder.fromXml("<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

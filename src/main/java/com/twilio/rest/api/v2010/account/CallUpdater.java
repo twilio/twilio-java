@@ -32,6 +32,7 @@ public class CallUpdater extends Updater<Call> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private com.twilio.type.Twiml twiml;
+    private Integer timeLimit;
 
     /**
      * Construct a new CallUpdater.
@@ -219,6 +220,18 @@ public class CallUpdater extends Updater<Call> {
     }
 
     /**
+     * The maximum duration of the call in seconds. Constraints depend on account
+     * and configuration..
+     *
+     * @param timeLimit The maximum duration of the call in seconds.
+     * @return this
+     */
+    public CallUpdater setTimeLimit(final Integer timeLimit) {
+        this.timeLimit = timeLimit;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -286,6 +299,10 @@ public class CallUpdater extends Updater<Call> {
 
         if (twiml != null) {
             request.addPostParam("Twiml", twiml.toString());
+        }
+
+        if (timeLimit != null) {
+            request.addPostParam("TimeLimit", timeLimit.toString());
         }
     }
 }

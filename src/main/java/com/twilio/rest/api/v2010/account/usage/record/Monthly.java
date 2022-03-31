@@ -41,6 +41,7 @@ public class Monthly extends Resource {
     private static final long serialVersionUID = 189664300873381L;
 
     public enum Category {
+        A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
@@ -64,6 +65,7 @@ public class Monthly extends Resource {
         CALLS_SIP("calls-sip"),
         CALLS_SIP_INBOUND("calls-sip-inbound"),
         CALLS_SIP_OUTBOUND("calls-sip-outbound"),
+        CALLS_TRANSFERS("calls-transfers"),
         CARRIER_LOOKUPS("carrier-lookups"),
         CONVERSATIONS("conversations"),
         CONVERSATIONS_API_REQUESTS("conversations-api-requests"),
@@ -73,6 +75,7 @@ public class Monthly extends Resource {
         CONVERSATIONS_PARTICIPANT_EVENTS("conversations-participant-events"),
         CONVERSATIONS_PARTICIPANTS("conversations-participants"),
         CPS("cps"),
+        FLEX_USAGE("flex-usage"),
         FRAUD_LOOKUPS("fraud-lookups"),
         GROUP_ROOMS("group-rooms"),
         GROUP_ROOMS_DATA_TRACK("group-rooms-data-track"),
@@ -232,6 +235,8 @@ public class Monthly extends Resource {
         TURNMEGABYTES_USWEST("turnmegabytes-uswest"),
         TWILIO_INTERCONNECT("twilio-interconnect"),
         VERIFY_PUSH("verify-push"),
+        VERIFY_TOTP("verify-totp"),
+        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED("verify-whatsapp-conversations-business-initiated"),
         VIDEO_RECORDINGS("video-recordings"),
         VOICE_INSIGHTS("voice-insights"),
         VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE("voice-insights-client-insights-on-demand-minute"),

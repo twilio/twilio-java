@@ -55,7 +55,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The URL we should call when an event occurs. See <a
      * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
-     * for more information..
+     * for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -68,7 +70,9 @@ public class WorkspaceUpdater extends Updater<Workspace> {
     /**
      * The URL we should call when an event occurs. See <a
      * href="https://www.twilio.com/docs/taskrouter/api/event">Workspace Events</a>
-     * for more information..
+     * for more information. This parameter supports Twilio's <a
+     * href="https://www.twilio.com/docs/usage/webhooks/webhooks-connection-overrides">Webhooks
+     * (HTTP callbacks) Connection Overrides</a>..
      *
      * @param eventCallbackUrl The URL we should call when an event occurs
      * @return this
@@ -106,12 +110,16 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     /**
      * Whether to enable multi-tasking. Can be: `true` to enable multi-tasking, or
-     * `false` to disable it. The default is `false`. Multi-tasking allows Workers
-     * to handle multiple Tasks simultaneously. When enabled (`true`), each Worker
-     * can receive parallel reservations up to the per-channel maximums defined in
-     * the Workers section. Otherwise, each Worker will only receive a new
-     * reservation when the previous task is completed. Learn more at
-     * [Multitasking][https://www.twilio.com/docs/taskrouter/multitasking]..
+     * `false` to disable it. However, all workspaces should be maintained as
+     * multi-tasking. There is no default when omitting this parameter. A
+     * multi-tasking Workspace can't be updated to single-tasking unless it is not a
+     * Flex Project and another (legacy) single-tasking Workspace exists.
+     * Multi-tasking allows Workers to handle multiple Tasks simultaneously. In
+     * multi-tasking mode, each Worker can receive parallel reservations up to the
+     * per-channel maximums defined in the Workers section. In single-tasking mode
+     * (legacy mode), each Worker will only receive a new reservation when the
+     * previous task is completed. Learn more at <a
+     * href="https://www.twilio.com/docs/taskrouter/multitasking">Multitasking</a>..
      *
      * @param multiTaskEnabled Whether multi-tasking is enabled
      * @return this
@@ -137,9 +145,10 @@ public class WorkspaceUpdater extends Updater<Workspace> {
 
     /**
      * The type of TaskQueue to prioritize when Workers are receiving Tasks from
-     * both types of TaskQueues. Can be: `LIFO` or `FIFO` and the default is `FIFO`.
-     * For more information, see [Queue
-     * Ordering][https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo]..
+     * both types of TaskQueues. Can be: `LIFO` or `FIFO`. For more information, see
+     * <a
+     * href="https://www.twilio.com/docs/taskrouter/queue-ordering-last-first-out-lifo">Queue
+     * Ordering</a>..
      *
      * @param prioritizeQueueOrder The type of TaskQueue to prioritize when Workers
      *                             are receiving Tasks from both types of TaskQueues

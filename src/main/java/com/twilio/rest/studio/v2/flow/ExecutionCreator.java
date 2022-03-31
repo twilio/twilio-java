@@ -31,8 +31,8 @@ public class ExecutionCreator extends Creator<Execution> {
      *
      * @param pathFlowSid The SID of the Flow
      * @param to The Contact phone number to start a Studio Flow Execution
-     * @param from The Twilio phone number to send messages or initiate calls from
-     *             during the Flow Execution
+     * @param from The Twilio phone number or Messaging Service SID to send
+     *             messages or initiate calls from during the Flow Execution
      */
     public ExecutionCreator(final String pathFlowSid,
                             final com.twilio.type.PhoneNumber to,

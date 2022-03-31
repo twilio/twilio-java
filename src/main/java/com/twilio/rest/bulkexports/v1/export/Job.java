@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -31,14 +32,41 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Job extends Resource {
-    private static final long serialVersionUID = 26365801574783L;
+    private static final long serialVersionUID = 238574679946947L;
+
+    public enum Status {
+        ERRORDURINGRUN("ErrorDuringRun"),
+        SUBMITTED("Submitted"),
+        RUNNING("Running"),
+        COMPLETEDEMPTYRECORDS("CompletedEmptyRecords"),
+        COMPLETED("Completed"),
+        FAILED("Failed"),
+        RUNNINGTOBEDELETED("RunningToBeDeleted"),
+        DELETEDBYUSERREQUEST("DeletedByUserRequest");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a Status from a string.
+         * @param value string value
+         * @return generated Status
+         */
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
 
     /**
      * Create a JobFetcher to execute fetch.
@@ -109,6 +137,8 @@ public class Job extends Resource {
     private final String webhookMethod;
     private final String email;
     private final URI url;
+    private final String jobQueuePosition;
+    private final String estimatedCompletionTime;
 
     @JsonCreator
     private Job(@JsonProperty("resource_type")
@@ -130,7 +160,11 @@ public class Job extends Resource {
                 @JsonProperty("email")
                 final String email,
                 @JsonProperty("url")
-                final URI url) {
+                final URI url,
+                @JsonProperty("job_queue_position")
+                final String jobQueuePosition,
+                @JsonProperty("estimated_completion_time")
+                final String estimatedCompletionTime) {
         this.resourceType = resourceType;
         this.friendlyName = friendlyName;
         this.details = details;
@@ -141,6 +175,8 @@ public class Job extends Resource {
         this.webhookMethod = webhookMethod;
         this.email = email;
         this.url = url;
+        this.jobQueuePosition = jobQueuePosition;
+        this.estimatedCompletionTime = estimatedCompletionTime;
     }
 
     /**
@@ -164,13 +200,11 @@ public class Job extends Resource {
     }
 
     /**
-     * Returns This is a list of the completed, pending, or errored dates within the
-     * export time range, with one entry for each status with more than one day in
-     * that status.
+     * Returns The details of a job state which is an object that contains a
+     * `status` string, a day count integer, and list of days in the job.
      *
-     * @return This is a list of the completed, pending, or errored dates within
-     *         the export time range, with one entry for each status with more than
-     *         one day in that status
+     * @return The details of a job state which is an object that contains a
+     *         `status` string, a day count integer, and list of days in the job
      */
     public final Map<String, Object> getDetails() {
         return this.details;
@@ -239,6 +273,34 @@ public class Job extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns This is the job position from the 1st in line. Your queue position
+     * will never increase. As jobs ahead of yours in the queue are processed, the
+     * queue position number will decrease.
+     *
+     * @return This is the job position from the 1st in line. Your queue position
+     *         will never increase. As jobs ahead of yours in the queue are
+     *         processed, the queue position number will decrease
+     */
+    public final String getJobQueuePosition() {
+        return this.jobQueuePosition;
+    }
+
+    /**
+     * Returns this is the time estimated until your job is complete. This is
+     * calculated each time you request the job list. The time is calculated based
+     * on the current rate of job completion (which may vary) and your job queue
+     * position.
+     *
+     * @return this is the time estimated until your job is complete. This is
+     *         calculated each time you request the job list. The time is calculated
+     *         based on the current rate of job completion (which may vary) and your
+     *         job queue position
+     */
+    public final String getEstimatedCompletionTime() {
+        return this.estimatedCompletionTime;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -260,7 +322,9 @@ public class Job extends Resource {
                Objects.equals(webhookUrl, other.webhookUrl) &&
                Objects.equals(webhookMethod, other.webhookMethod) &&
                Objects.equals(email, other.email) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(jobQueuePosition, other.jobQueuePosition) &&
+               Objects.equals(estimatedCompletionTime, other.estimatedCompletionTime);
     }
 
     @Override
@@ -274,6 +338,8 @@ public class Job extends Resource {
                             webhookUrl,
                             webhookMethod,
                             email,
-                            url);
+                            url,
+                            jobQueuePosition,
+                            estimatedCompletionTime);
     }
 }

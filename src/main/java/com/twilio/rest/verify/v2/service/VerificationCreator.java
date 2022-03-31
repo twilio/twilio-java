@@ -34,6 +34,8 @@ public class VerificationCreator extends Creator<Verification> {
     private Map<String, Object> rateLimits;
     private Map<String, Object> channelConfiguration;
     private String appHash;
+    private String templateSid;
+    private String templateCustomSubstitutions;
 
     /**
      * Construct a new VerificationCreator.
@@ -89,12 +91,13 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * The locale to use for the verification SMS or call. Can be: `af`, `ar`, `ca`,
-     * `cs`, `da`, `de`, `el`, `en`, `en-GB`, `es`, `fi`, `fr`, `he`, `hi`, `hr`,
-     * `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`, `pr-BR`, `ro`,
-     * `ru`, `sv`, `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or `zh-HK.`.
+     * The locale to use for the verification SMS, WhatsApp or call. Can be: `af`,
+     * `ar`, `ca`, `cs`, `da`, `de`, `el`, `en`, `en-GB`, `es`, `fi`, `fr`, `he`,
+     * `hi`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`,
+     * `pr-BR`, `ro`, `ru`, `sv`, `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or
+     * `zh-HK.`.
      *
-     * @param locale The locale to use for the verification SMS or call
+     * @param locale The locale to use for the verification SMS, WhatsApp or call
      * @return this
      */
     public VerificationCreator setLocale(final String locale) {
@@ -182,6 +185,33 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
+     * The message <a
+     * href="https://www.twilio.com/docs/verify/api/templates">template</a>. If
+     * provided, will override the default template for the Service. SMS channel
+     * only..
+     *
+     * @param templateSid The verification template SMS messages.
+     * @return this
+     */
+    public VerificationCreator setTemplateSid(final String templateSid) {
+        this.templateSid = templateSid;
+        return this;
+    }
+
+    /**
+     * A stringified JSON object in which the keys are the template's special
+     * variables and the values are the variables substitutions..
+     *
+     * @param templateCustomSubstitutions The values of the special variables
+     *                                    declared on the message template.
+     * @return this
+     */
+    public VerificationCreator setTemplateCustomSubstitutions(final String templateCustomSubstitutions) {
+        this.templateCustomSubstitutions = templateCustomSubstitutions;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -264,6 +294,14 @@ public class VerificationCreator extends Creator<Verification> {
 
         if (appHash != null) {
             request.addPostParam("AppHash", appHash);
+        }
+
+        if (templateSid != null) {
+            request.addPostParam("TemplateSid", templateSid);
+        }
+
+        if (templateCustomSubstitutions != null) {
+            request.addPostParam("TemplateCustomSubstitutions", templateCustomSubstitutions);
         }
     }
 }

@@ -36,6 +36,7 @@ public class ChallengeCreator extends Creator<Challenge> {
     private String detailsMessage;
     private List<Map<String, Object>> detailsFields;
     private Map<String, Object> hiddenDetails;
+    private String authPayload;
 
     /**
      * Construct a new ChallengeCreator.
@@ -68,7 +69,7 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * Shown to the user when the push notification arrives. Required when
-     * `factor_type` is `push`.
+     * `factor_type` is `push`. Can be up to 256 characters in length.
      *
      * @param detailsMessage Shown to the user when the push notification arrives
      * @return this
@@ -80,8 +81,9 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * A list of objects that describe the Fields included in the Challenge. Each
-     * object contains the label and value of the field. Used when `factor_type` is
-     * `push`..
+     * object contains the label and value of the field, the label can be up to 36
+     * characters in length and the value can be up to 128 characters in length.
+     * Used when `factor_type` is `push`. There can be up to 20 details fields..
      *
      * @param detailsFields A list of objects that describe the Fields included in
      *                      the Challenge
@@ -94,8 +96,9 @@ public class ChallengeCreator extends Creator<Challenge> {
 
     /**
      * A list of objects that describe the Fields included in the Challenge. Each
-     * object contains the label and value of the field. Used when `factor_type` is
-     * `push`..
+     * object contains the label and value of the field, the label can be up to 36
+     * characters in length and the value can be up to 128 characters in length.
+     * Used when `factor_type` is `push`. There can be up to 20 details fields..
      *
      * @param detailsFields A list of objects that describe the Fields included in
      *                      the Challenge
@@ -108,13 +111,26 @@ public class ChallengeCreator extends Creator<Challenge> {
     /**
      * Details provided to give context about the Challenge. Not shown to the end
      * user. It must be a stringified JSON with only strings values eg. `{"ip":
-     * "172.168.1.234"}`.
+     * "172.168.1.234"}`. Can be up to 1024 characters in length.
      *
      * @param hiddenDetails Hidden details provided to contextualize the Challenge
      * @return this
      */
     public ChallengeCreator setHiddenDetails(final Map<String, Object> hiddenDetails) {
         this.hiddenDetails = hiddenDetails;
+        return this;
+    }
+
+    /**
+     * Optional payload used to verify the Challenge upon creation. Only used with a
+     * Factor of type `totp` to carry the TOTP code that needs to be verified. For
+     * `TOTP` this value must be between 3 and 8 characters long..
+     *
+     * @param authPayload Optional payload to verify the Challenge
+     * @return this
+     */
+    public ChallengeCreator setAuthPayload(final String authPayload) {
+        this.authPayload = authPayload;
         return this;
     }
 
@@ -160,7 +176,7 @@ public class ChallengeCreator extends Creator<Challenge> {
         }
 
         if (expirationDate != null) {
-            request.addPostParam("ExpirationDate", expirationDate.toOffsetDateTime().toString());
+            request.addPostParam("ExpirationDate", expirationDate.toInstant().toString());
         }
 
         if (detailsMessage != null) {
@@ -175,6 +191,10 @@ public class ChallengeCreator extends Creator<Challenge> {
 
         if (hiddenDetails != null) {
             request.addPostParam("HiddenDetails", Converter.mapToJson(hiddenDetails));
+        }
+
+        if (authPayload != null) {
+            request.addPostParam("AuthPayload", authPayload);
         }
     }
 }

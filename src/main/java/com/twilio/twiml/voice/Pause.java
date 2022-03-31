@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Pause>}
  */
+@JsonDeserialize(builder = Pause.Builder.class)
 public class Pause extends TwiML {
     private final Integer length;
 
@@ -62,11 +67,26 @@ public class Pause extends TwiML {
      * Create a new {@code <Pause>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Pause.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Pause.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private Integer length;
 
         /**
          * Length in seconds to pause
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "length")
         public Builder length(Integer length) {
             this.length = length;
             return this;

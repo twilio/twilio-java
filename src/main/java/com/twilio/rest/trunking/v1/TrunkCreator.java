@@ -28,6 +28,7 @@ public class TrunkCreator extends Creator<Trunk> {
     private Trunk.TransferSetting transferMode;
     private Boolean secure;
     private Boolean cnamLookupEnabled;
+    private Trunk.TransferCallerId transferCallerId;
 
     /**
      * A descriptive string that you create to describe the resource. It can be up
@@ -151,6 +152,18 @@ public class TrunkCreator extends Creator<Trunk> {
     }
 
     /**
+     * Caller Id for transfer target. Can be: `from-transferee` (default) or
+     * `from-transferor`..
+     *
+     * @param transferCallerId Caller Id for transfer target
+     * @return this
+     */
+    public TrunkCreator setTransferCallerId(final Trunk.TransferCallerId transferCallerId) {
+        this.transferCallerId = transferCallerId;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -213,6 +226,10 @@ public class TrunkCreator extends Creator<Trunk> {
 
         if (cnamLookupEnabled != null) {
             request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
+        }
+
+        if (transferCallerId != null) {
+            request.addPostParam("TransferCallerId", transferCallerId.toString());
         }
     }
 }

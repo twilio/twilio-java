@@ -23,19 +23,16 @@ import java.util.List;
 public class FeedbackUpdater extends Updater<Feedback> {
     private String pathAccountSid;
     private final String pathCallSid;
-    private final Integer qualityScore;
+    private Integer qualityScore;
     private List<Feedback.Issues> issue;
 
     /**
      * Construct a new FeedbackUpdater.
      *
      * @param pathCallSid The call sid that uniquely identifies the call
-     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
-    public FeedbackUpdater(final String pathCallSid,
-                           final Integer qualityScore) {
+    public FeedbackUpdater(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
-        this.qualityScore = qualityScore;
     }
 
     /**
@@ -43,14 +40,23 @@ public class FeedbackUpdater extends Updater<Feedback> {
      *
      * @param pathAccountSid The unique sid that identifies this account
      * @param pathCallSid The call sid that uniquely identifies the call
-     * @param qualityScore The call quality expressed as an integer from 1 to 5
      */
     public FeedbackUpdater(final String pathAccountSid,
-                           final String pathCallSid,
-                           final Integer qualityScore) {
+                           final String pathCallSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
+    }
+
+    /**
+     * The call quality expressed as an integer from `1` to `5` where `1` represents
+     * very poor call quality and `5` represents a perfect call..
+     *
+     * @param qualityScore The call quality expressed as an integer from 1 to 5
+     * @return this
+     */
+    public FeedbackUpdater setQualityScore(final Integer qualityScore) {
         this.qualityScore = qualityScore;
+        return this;
     }
 
     /**

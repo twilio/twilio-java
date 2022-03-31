@@ -29,9 +29,11 @@ public class FleetCreator extends Creator<Fleet> {
     private String uniqueName;
     private Boolean dataEnabled;
     private Integer dataLimit;
-    private Boolean commandsEnabled;
-    private URI commandsUrl;
-    private HttpMethod commandsMethod;
+    private URI ipCommandsUrl;
+    private HttpMethod ipCommandsMethod;
+    private Boolean smsCommandsEnabled;
+    private URI smsCommandsUrl;
+    private HttpMethod smsCommandsMethod;
 
     /**
      * Construct a new FleetCreator.
@@ -86,60 +88,102 @@ public class FleetCreator extends Creator<Fleet> {
     }
 
     /**
-     * Defines whether SIMs in the Fleet are capable of sending and receiving
-     * machine-to-machine SMS via Commands. Defaults to `true`..
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an IP Command from your device to a special IP address. Your server
+     * should respond with an HTTP status code in the 200 range; any response body
+     * will be ignored..
      *
-     * @param commandsEnabled Defines whether SIMs in the Fleet are capable of
-     *                        sending and receiving machine-to-machine SMS via
-     *                        Commands
+     * @param ipCommandsUrl The URL that will receive a webhook when a Super SIM in
+     *                      the Fleet is used to send an IP Command from your device
      * @return this
      */
-    public FleetCreator setCommandsEnabled(final Boolean commandsEnabled) {
-        this.commandsEnabled = commandsEnabled;
+    public FleetCreator setIpCommandsUrl(final URI ipCommandsUrl) {
+        this.ipCommandsUrl = ipCommandsUrl;
         return this;
     }
 
     /**
      * The URL that will receive a webhook when a Super SIM in the Fleet is used to
-     * send an SMS from your device to the Commands number. Your server should
-     * respond with an HTTP status code in the 200 range; any response body will be
-     * ignored..
+     * send an IP Command from your device to a special IP address. Your server
+     * should respond with an HTTP status code in the 200 range; any response body
+     * will be ignored..
      *
-     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
-     *                    the Fleet is used to send an SMS from your device to the
-     *                    Commands number
+     * @param ipCommandsUrl The URL that will receive a webhook when a Super SIM in
+     *                      the Fleet is used to send an IP Command from your device
      * @return this
      */
-    public FleetCreator setCommandsUrl(final URI commandsUrl) {
-        this.commandsUrl = commandsUrl;
-        return this;
-    }
-
-    /**
-     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
-     * send an SMS from your device to the Commands number. Your server should
-     * respond with an HTTP status code in the 200 range; any response body will be
-     * ignored..
-     *
-     * @param commandsUrl The URL that will receive a webhook when a Super SIM in
-     *                    the Fleet is used to send an SMS from your device to the
-     *                    Commands number
-     * @return this
-     */
-    public FleetCreator setCommandsUrl(final String commandsUrl) {
-        return setCommandsUrl(Promoter.uriFromString(commandsUrl));
+    public FleetCreator setIpCommandsUrl(final String ipCommandsUrl) {
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
     }
 
     /**
      * A string representing the HTTP method to use when making a request to
-     * `commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     * `ip_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
      *
-     * @param commandsMethod A string representing the HTTP method to use when
-     *                       making a request to `commands_url`
+     * @param ipCommandsMethod A string representing the HTTP method to use when
+     *                         making a request to `ip_commands_url`
      * @return this
      */
-    public FleetCreator setCommandsMethod(final HttpMethod commandsMethod) {
-        this.commandsMethod = commandsMethod;
+    public FleetCreator setIpCommandsMethod(final HttpMethod ipCommandsMethod) {
+        this.ipCommandsMethod = ipCommandsMethod;
+        return this;
+    }
+
+    /**
+     * Defines whether SIMs in the Fleet are capable of sending and receiving
+     * machine-to-machine SMS via Commands. Defaults to `true`..
+     *
+     * @param smsCommandsEnabled Defines whether SIMs in the Fleet are capable of
+     *                           sending and receiving machine-to-machine SMS via
+     *                           Commands
+     * @return this
+     */
+    public FleetCreator setSmsCommandsEnabled(final Boolean smsCommandsEnabled) {
+        this.smsCommandsEnabled = smsCommandsEnabled;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetCreator setSmsCommandsUrl(final URI smsCommandsUrl) {
+        this.smsCommandsUrl = smsCommandsUrl;
+        return this;
+    }
+
+    /**
+     * The URL that will receive a webhook when a Super SIM in the Fleet is used to
+     * send an SMS from your device to the SMS Commands number. Your server should
+     * respond with an HTTP status code in the 200 range; any response body will be
+     * ignored..
+     *
+     * @param smsCommandsUrl The URL that will receive a webhook when a Super SIM
+     *                       in the Fleet is used to send an SMS from your device to
+     *                       the SMS Commands number
+     * @return this
+     */
+    public FleetCreator setSmsCommandsUrl(final String smsCommandsUrl) {
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
+    }
+
+    /**
+     * A string representing the HTTP method to use when making a request to
+     * `sms_commands_url`. Can be one of `POST` or `GET`. Defaults to `POST`..
+     *
+     * @param smsCommandsMethod A string representing the HTTP method to use when
+     *                          making a request to `sms_commands_url`
+     * @return this
+     */
+    public FleetCreator setSmsCommandsMethod(final HttpMethod smsCommandsMethod) {
+        this.smsCommandsMethod = smsCommandsMethod;
         return this;
     }
 
@@ -196,16 +240,24 @@ public class FleetCreator extends Creator<Fleet> {
             request.addPostParam("DataLimit", dataLimit.toString());
         }
 
-        if (commandsEnabled != null) {
-            request.addPostParam("CommandsEnabled", commandsEnabled.toString());
+        if (ipCommandsUrl != null) {
+            request.addPostParam("IpCommandsUrl", ipCommandsUrl.toString());
         }
 
-        if (commandsUrl != null) {
-            request.addPostParam("CommandsUrl", commandsUrl.toString());
+        if (ipCommandsMethod != null) {
+            request.addPostParam("IpCommandsMethod", ipCommandsMethod.toString());
         }
 
-        if (commandsMethod != null) {
-            request.addPostParam("CommandsMethod", commandsMethod.toString());
+        if (smsCommandsEnabled != null) {
+            request.addPostParam("SmsCommandsEnabled", smsCommandsEnabled.toString());
+        }
+
+        if (smsCommandsUrl != null) {
+            request.addPostParam("SmsCommandsUrl", smsCommandsUrl.toString());
+        }
+
+        if (smsCommandsMethod != null) {
+            request.addPostParam("SmsCommandsMethod", smsCommandsMethod.toString());
         }
     }
 }

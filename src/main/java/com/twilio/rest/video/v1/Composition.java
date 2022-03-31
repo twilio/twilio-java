@@ -35,15 +35,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Composition extends Resource {
-    private static final long serialVersionUID = 61658716109908L;
+    private static final long serialVersionUID = 71293544509903L;
 
     public enum Status {
         ENQUEUED("enqueued"),
@@ -192,6 +187,9 @@ public class Composition extends Resource {
     private final Integer bitrate;
     private final Long size;
     private final Integer duration;
+    private final URI mediaExternalLocation;
+    private final URI statusCallback;
+    private final HttpMethod statusCallbackMethod;
     private final URI url;
     private final Map<String, String> links;
 
@@ -228,6 +226,12 @@ public class Composition extends Resource {
                         final Long size,
                         @JsonProperty("duration")
                         final Integer duration,
+                        @JsonProperty("media_external_location")
+                        final URI mediaExternalLocation,
+                        @JsonProperty("status_callback")
+                        final URI statusCallback,
+                        @JsonProperty("status_callback_method")
+                        final HttpMethod statusCallbackMethod,
                         @JsonProperty("url")
                         final URI url,
                         @JsonProperty("links")
@@ -248,6 +252,9 @@ public class Composition extends Resource {
         this.bitrate = bitrate;
         this.size = size;
         this.duration = duration;
+        this.mediaExternalLocation = mediaExternalLocation;
+        this.statusCallback = statusCallback;
+        this.statusCallbackMethod = statusCallbackMethod;
         this.url = url;
         this.links = links;
     }
@@ -405,6 +412,36 @@ public class Composition extends Resource {
     }
 
     /**
+     * Returns The URL of the media file associated with the composition when stored
+     * externally.
+     *
+     * @return The URL of the media file associated with the composition when
+     *         stored externally
+     */
+    public final URI getMediaExternalLocation() {
+        return this.mediaExternalLocation;
+    }
+
+    /**
+     * Returns The URL called to send status information on every composition
+     * event..
+     *
+     * @return The URL called to send status information on every composition event.
+     */
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    /**
+     * Returns The HTTP method used to call `status_callback`.
+     *
+     * @return The HTTP method used to call `status_callback`
+     */
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    /**
      * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
@@ -450,6 +487,9 @@ public class Composition extends Resource {
                Objects.equals(bitrate, other.bitrate) &&
                Objects.equals(size, other.size) &&
                Objects.equals(duration, other.duration) &&
+               Objects.equals(mediaExternalLocation, other.mediaExternalLocation) &&
+               Objects.equals(statusCallback, other.statusCallback) &&
+               Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -472,6 +512,9 @@ public class Composition extends Resource {
                             bitrate,
                             size,
                             duration,
+                            mediaExternalLocation,
+                            statusCallback,
+                            statusCallbackMethod,
                             url,
                             links);
     }

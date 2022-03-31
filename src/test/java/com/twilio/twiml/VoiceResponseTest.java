@@ -310,4 +310,178 @@ public class VoiceResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final VoiceResponse elem = new VoiceResponse.Builder().build();
+
+        Assert.assertEquals(
+            VoiceResponse.Builder.fromXml("<Response/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final VoiceResponse.Builder builder = new VoiceResponse.Builder();
+
+        builder.connect(new Connect.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        builder.dial(new Dial.Builder("number")
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .timeout(1)
+                    .hangupOnStar(true)
+                    .timeLimit(1)
+                    .callerId("caller_id")
+                    .record(Dial.Record.DO_NOT_RECORD)
+                    .trim(Dial.Trim.TRIM_SILENCE)
+                    .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingStatusCallbackMethod(HttpMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Dial.RecordingEvent.IN_PROGRESS))
+                    .answerOnBridge(true)
+                    .ringTone(Dial.RingTone.AT)
+                    .recordingTrack(Dial.RecordingTrack.BOTH)
+                    .sequential(true)
+                    .referUrl(URI.create("https://example.com"))
+                    .referMethod(HttpMethod.GET)
+                    .build());
+
+        builder.echo(new Echo.Builder().build());
+
+        builder.enqueue(new Enqueue.Builder("name")
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .waitUrl(URI.create("https://example.com"))
+                    .waitUrlMethod(HttpMethod.GET)
+                    .workflowSid("workflow_sid")
+                    .build());
+
+        builder.gather(new Gather.Builder()
+                    .inputs(Promoter.listOfOne(Gather.Input.DTMF))
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .timeout(1)
+                    .speechTimeout("speech_timeout")
+                    .maxSpeechTime(1)
+                    .profanityFilter(true)
+                    .finishOnKey("finish_on_key")
+                    .numDigits(1)
+                    .partialResultCallback(URI.create("https://example.com"))
+                    .partialResultCallbackMethod(HttpMethod.GET)
+                    .language(Gather.Language.AF_ZA)
+                    .hints("hints")
+                    .bargeIn(true)
+                    .debug(true)
+                    .actionOnEmptyResult(true)
+                    .speechModel(Gather.SpeechModel.DEFAULT)
+                    .enhanced(true)
+                    .build());
+
+        builder.hangup(new Hangup.Builder().build());
+
+        builder.leave(new Leave.Builder().build());
+
+        builder.pause(new Pause.Builder().length(1).build());
+
+        builder.play(new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build());
+
+        builder.queue(new Queue.Builder("name")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .reservationSid("reservation_sid")
+                    .postWorkActivitySid("post_work_activity_sid")
+                    .build());
+
+        builder.record(new Record.Builder()
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .timeout(1)
+                    .finishOnKey("finish_on_key")
+                    .maxLength(1)
+                    .playBeep(true)
+                    .trim(Record.Trim.TRIM_SILENCE)
+                    .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingStatusCallbackMethod(HttpMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Record.RecordingEvent.IN_PROGRESS))
+                    .transcribe(true)
+                    .transcribeCallback(URI.create("https://example.com"))
+                    .build());
+
+        builder.redirect(new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        builder.reject(new Reject.Builder().reason(Reject.Reason.REJECTED).build());
+
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+
+        builder.sms(new Sms.Builder("message")
+                    .to(new com.twilio.type.PhoneNumber("+15558675310"))
+                    .from(new com.twilio.type.PhoneNumber("+15017122661"))
+                    .action(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallback(URI.create("https://example.com"))
+                    .build());
+
+        builder.pay(new Pay.Builder()
+                    .input(Pay.Input.DTMF)
+                    .action(URI.create("https://example.com"))
+                    .bankAccountType(Pay.BankAccountType.CONSUMER_CHECKING)
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(Pay.StatusCallbackMethod.GET)
+                    .timeout(1)
+                    .maxAttempts(1)
+                    .securityCode(true)
+                    .postalCode("postal_code")
+                    .minPostalCodeLength(1)
+                    .paymentConnector("payment_connector")
+                    .paymentMethod(Pay.PaymentMethod.ACH_DEBIT)
+                    .tokenType(Pay.TokenType.ONE_TIME)
+                    .chargeAmount("charge_amount")
+                    .currency("currency")
+                    .description("description")
+                    .validCardTypes(Promoter.listOfOne(Pay.ValidCardTypes.VISA))
+                    .language(Pay.Language.DE_DE)
+                    .build());
+
+        builder.prompt(new Prompt.Builder()
+                    .for_(Prompt.For.PAYMENT_CARD_NUMBER)
+                    .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
+                    .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
+                    .attempts(Promoter.listOfOne(1))
+                    .build());
+
+        builder.start(new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        builder.stop(new Stop.Builder().build());
+
+        builder.refer(new Refer.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
+
+        final VoiceResponse elem = builder.build();
+
+        Assert.assertEquals(
+            VoiceResponse.Builder.fromXml("<Response>" +
+                "<Connect action=\"https://example.com\" method=\"GET\"/>" +
+                "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
+                "<Echo/>" +
+                "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
+                "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
+                "<Hangup/>" +
+                "<Leave/>" +
+                "<Pause length=\"1\"/>" +
+                "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
+                "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
+                "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
+                "<Redirect method=\"GET\">https://example.com</Redirect>" +
+                "<Reject reason=\"rejected\"/>" +
+                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
+                "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Start action=\"https://example.com\" method=\"GET\"/>" +
+                "<Stop/>" +
+                "<Refer action=\"https://example.com\" method=\"GET\"/>" +
+            "</Response>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

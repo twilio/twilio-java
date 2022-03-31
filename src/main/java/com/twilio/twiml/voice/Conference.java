@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Conference>}
  */
+@JsonDeserialize(builder = Conference.Builder.class)
 public class Conference extends TwiML {
     public enum Beep {
         TRUE("true"),
@@ -80,7 +85,9 @@ public class Conference extends TwiML {
         LEAVE("leave"),
         MUTE("mute"),
         HOLD("hold"),
-        SPEAKER("speaker");
+        MODIFY("modify"),
+        SPEAKER("speaker"),
+        ANNOUNCEMENT("announcement");
 
         private final String value;
 
@@ -497,6 +504,20 @@ public class Conference extends TwiML {
      * Create a new {@code <Conference>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Conference.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Conference.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private Boolean muted;
         private Conference.Beep beep;
         private Boolean startConferenceOnEnter;
@@ -527,8 +548,15 @@ public class Conference extends TwiML {
         }
 
         /**
+         * Create a {@code <Conference>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Join the conference muted
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "muted")
         public Builder muted(Boolean muted) {
             this.muted = muted;
             return this;
@@ -537,6 +565,7 @@ public class Conference extends TwiML {
         /**
          * Play beep when joining
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "beep")
         public Builder beep(Conference.Beep beep) {
             this.beep = beep;
             return this;
@@ -545,6 +574,7 @@ public class Conference extends TwiML {
         /**
          * Start the conference on enter
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "startConferenceOnEnter")
         public Builder startConferenceOnEnter(Boolean startConferenceOnEnter) {
             this.startConferenceOnEnter = startConferenceOnEnter;
             return this;
@@ -553,6 +583,7 @@ public class Conference extends TwiML {
         /**
          * End the conferenceon exit
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "endConferenceOnExit")
         public Builder endConferenceOnExit(Boolean endConferenceOnExit) {
             this.endConferenceOnExit = endConferenceOnExit;
             return this;
@@ -561,6 +592,7 @@ public class Conference extends TwiML {
         /**
          * Wait URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "waitUrl")
         public Builder waitUrl(URI waitUrl) {
             this.waitUrl = waitUrl;
             return this;
@@ -577,6 +609,7 @@ public class Conference extends TwiML {
         /**
          * Wait URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "waitMethod")
         public Builder waitMethod(HttpMethod waitMethod) {
             this.waitMethod = waitMethod;
             return this;
@@ -585,6 +618,7 @@ public class Conference extends TwiML {
         /**
          * Maximum number of participants
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "maxParticipants")
         public Builder maxParticipants(Integer maxParticipants) {
             this.maxParticipants = maxParticipants;
             return this;
@@ -593,6 +627,7 @@ public class Conference extends TwiML {
         /**
          * Record the conference
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "record")
         public Builder record(Conference.Record record) {
             this.record = record;
             return this;
@@ -601,6 +636,7 @@ public class Conference extends TwiML {
         /**
          * Conference region
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "region")
         public Builder region(Conference.Region region) {
             this.region = region;
             return this;
@@ -609,6 +645,7 @@ public class Conference extends TwiML {
         /**
          * Call coach
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "coach")
         public Builder coach(String coach) {
             this.coach = coach;
             return this;
@@ -617,6 +654,7 @@ public class Conference extends TwiML {
         /**
          * Trim the conference recording
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "trim")
         public Builder trim(Conference.Trim trim) {
             this.trim = trim;
             return this;
@@ -625,6 +663,7 @@ public class Conference extends TwiML {
         /**
          * Events to call status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackEvent")
         public Builder statusCallbackEvents(List<Conference.Event> statusCallbackEvent) {
             this.statusCallbackEvent = statusCallbackEvent;
             return this;
@@ -641,6 +680,7 @@ public class Conference extends TwiML {
         /**
          * Status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(URI statusCallback) {
             this.statusCallback = statusCallback;
             return this;
@@ -657,6 +697,7 @@ public class Conference extends TwiML {
         /**
          * Status callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
         public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
             this.statusCallbackMethod = statusCallbackMethod;
             return this;
@@ -665,6 +706,7 @@ public class Conference extends TwiML {
         /**
          * Recording status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallback")
         public Builder recordingStatusCallback(URI recordingStatusCallback) {
             this.recordingStatusCallback = recordingStatusCallback;
             return this;
@@ -681,6 +723,7 @@ public class Conference extends TwiML {
         /**
          * Recording status callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackMethod")
         public Builder recordingStatusCallbackMethod(HttpMethod recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
@@ -689,6 +732,7 @@ public class Conference extends TwiML {
         /**
          * Recording status callback events
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackEvent")
         public Builder recordingStatusCallbackEvents(List<Conference.RecordingEvent> recordingStatusCallbackEvent) {
             this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
             return this;
@@ -705,6 +749,7 @@ public class Conference extends TwiML {
         /**
          * Event callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "eventCallbackUrl")
         public Builder eventCallbackUrl(URI eventCallbackUrl) {
             this.eventCallbackUrl = eventCallbackUrl;
             return this;
@@ -721,6 +766,7 @@ public class Conference extends TwiML {
         /**
          * Size of jitter buffer for participant
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "jitterBufferSize")
         public Builder jitterBufferSize(Conference.JitterBufferSize jitterBufferSize) {
             this.jitterBufferSize = jitterBufferSize;
             return this;
@@ -729,6 +775,7 @@ public class Conference extends TwiML {
         /**
          * A label for participant
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "participantLabel")
         public Builder participantLabel(String participantLabel) {
             this.participantLabel = participantLabel;
             return this;

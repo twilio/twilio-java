@@ -1,6 +1,629 @@
 twilio-java changelog
 =====================
 
+[2022-03-23] Version 8.28.0
+---------------------------
+**Api**
+- Change `stream` url parameter to non optional
+- Add `verify-totp` and `verify-whatsapp-conversations-business-initiated` categories to `usage_record` API
+
+**Chat**
+- Added v3 Channel update endpoint to support Public to Private channel migration
+
+**Flex**
+- Private Beta release of the Interactions API to support the upcoming release of Flex Conversations at the end of Q1 2022.
+- Adding `channel_configs` object to Flex Configuration
+
+**Media**
+- Add max_duration param to PlayerStreamer
+
+**Supersim**
+- Remove Commands resource, use SmsCommands resource instead **(breaking change)**
+
+**Taskrouter**
+- Add limits to `split_by_wait_time` for Cumulative Statistics Endpoint
+
+**Video**
+- Change recording `status_callback_method` type from `enum` to `http_method` **(breaking change)**
+- Add `status_callback` and `status_callback_method` to composition
+- Add `status_callback` and `status_callback_method` to recording
+
+
+[2022-03-09] Version 8.27.1
+---------------------------
+**Library - Chore**
+- [PR #672](https://github.com/twilio/twilio-java/pull/672): push Datadog Release Metric upon deploy success. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Add optional boolean include_soft_deleted parameter to retrieve soft deleted recordings
+
+**Chat**
+- Add `X-Twilio-Wehook-Enabled` header to `delete` method in UserChannel resource
+
+**Numbers**
+- Expose `failure_reason` in the Supporting Documents resources
+
+**Verify**
+- Add optional `metadata` parameter to "verify challenge" endpoint, so the SDK/App can attach relevant information from the device when responding to challenges.
+- remove beta feature flag to list atempt api operations.
+
+
+[2022-02-23] Version 8.27.0
+---------------------------
+**Library - Chore**
+- [PR #671](https://github.com/twilio/twilio-java/pull/671): archunit 0.23.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Add `uri` to `stream` resource
+- Add A2P Registration Fee category (`a2p-registration-fee`) to usage records
+- Detected a bug and removed optional boolean include_soft_deleted parameter to retrieve soft deleted recordings. **(breaking change)**
+- Add optional boolean include_soft_deleted parameter to retrieve soft deleted recordings.
+
+**Numbers**
+- Unrevert valid_until and sort filter params added to List Bundles resource
+- Revert valid_until and sort filter params added to List Bundles resource
+- Update sorting params added to List Bundles resource in the previous release
+
+**Preview**
+- Moved `web_channels` from preview to beta under `flex-api` **(breaking change)**
+
+**Taskrouter**
+- Add `ETag` as Response Header to List of Task, Reservation & Worker
+
+**Verify**
+- Add `ttl` and `date_created` properties to `AccessTokens`.
+- Remove outdated documentation commentary to contact sales. Product is already in public beta.
+- Add optional `metadata` to factors.
+
+**Twiml**
+- Add new Polly Neural voices
+
+
+[2022-02-09] Version 8.26.0
+---------------------------
+**Library - Chore**
+- [PR #668](https://github.com/twilio/twilio-java/pull/668): Fix for 1 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+- [PR #669](https://github.com/twilio/twilio-java/pull/669): added sonarcloud integration. Thanks to [@BrimmingDev](https://github.com/BrimmingDev)!
+
+**Library - Fix**
+- [PR #670](https://github.com/twilio/twilio-java/pull/670): set socket config with blocking operation timeout. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add `stream` resource
+
+**Conversations**
+- Fixed DELETE request to accept "sid_like" params in Address Configuration resources **(breaking change)**
+- Expose Address Configuration resource for `sms` and `whatsapp`
+
+**Fax**
+- Removed deprecated Programmable Fax Create and Update methods **(breaking change)**
+
+**Insights**
+- Rename `call_state` to `call_status` and remove `whisper` in conference participant summary **(breaking change)**
+
+**Numbers**
+- Expose valid_until filters as part of provisionally-approved compliance feature on the List Bundles resource
+
+**Supersim**
+- Fix typo in Fleet resource docs
+- Updated documentation for the Fleet resource indicating that fields related to commands have been deprecated and to use sms_command fields instead.
+- Add support for setting and reading `ip_commands_url` and `ip_commands_method` on Fleets resource for helper libraries
+- Changed `sim` property in requests to create an SMS Command made to the /SmsCommands to accept SIM UniqueNames in addition to SIDs
+
+**Verify**
+- Update list attempts API to include new filters and response fields.
+
+
+[2022-01-26] Version 8.25.1
+---------------------------
+**Insights**
+- Added new endpoint to fetch Conference Participant Summary
+- Added new endpoint to fetch Conference Summary
+
+**Messaging**
+- Add government_entity parameter to brand apis
+
+**Verify**
+- Add Access Token fetch endpoint to retrieve a previously created token.
+- Add Access Token payload to the Access Token creation endpoint, including a unique Sid, so it's addressable while it's TTL is valid.
+
+
+[2022-01-12] Version 8.25.0
+---------------------------
+**Library - Feature**
+- [PR #666](https://github.com/twilio/twilio-java/pull/666): add GitHub release step during deploy. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #665](https://github.com/twilio/twilio-java/pull/665): migrate sonatype hosts. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Make fixed time scheduling parameters public **(breaking change)**
+
+**Messaging**
+- Add update brand registration API
+
+**Numbers**
+- Add API endpoint for List Bundle Copies resource
+
+**Video**
+- Enable external storage for all customers
+
+
+[2021-12-15] Version 8.24.0
+---------------------------
+**Library - Feature**
+- [PR #662](https://github.com/twilio/twilio-java/pull/662): run tests before deploying. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Add optional boolean send_as_mms parameter to the create action of Message resource **(breaking change)**
+- Change team ownership for `call` delete
+
+**Conversations**
+- Change wording for `Service Webhook Configuration` resource fields
+
+**Insights**
+- Added new APIs for updating and getting voice insights flags by accountSid.
+
+**Media**
+- Add max_duration param to MediaProcessor
+
+**Video**
+- Add `EmptyRoomTimeout` and `UnusedRoomTimeout` properties to a room; add corresponding parameters to room creation
+
+**Voice**
+- Add endpoint to delete archived Calls
+
+
+[2021-12-01] Version 8.23.0
+---------------------------
+**Library - Feature**
+- [PR #661](https://github.com/twilio/twilio-java/pull/661): add fromXml method on builders (twiml). Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Library - Chore**
+- [PR #660](https://github.com/twilio/twilio-java/pull/660): setup for XML deserialization. Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Conversations**
+- Add `Service Webhook Configuration` resource
+
+**Flex**
+- Adding `flex_insights_drilldown` and `flex_url` objects to Flex Configuration
+
+**Messaging**
+- Update us_app_to_person endpoints to remove beta feature flag based access
+
+**Supersim**
+- Add IP Commands resource
+
+**Verify**
+- Add optional `factor_friendly_name` parameter to the create access token endpoint.
+
+**Video**
+- Add maxParticipantDuration param to Rooms
+
+**Twiml**
+- Unrevert Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+- Revert Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+
+
+[2021-11-17] Version 8.22.1
+---------------------------
+**Library - Chore**
+- [PR #658](https://github.com/twilio/twilio-java/pull/658): lombok 1.18.16. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #643](https://github.com/twilio/twilio-java/pull/643): maven-enforcer-plugin 3.0.0. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #654](https://github.com/twilio/twilio-java/pull/654): archunit 0.22.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Fix**
+- [PR #657](https://github.com/twilio/twilio-java/pull/657): git log retrieval issues. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Frontline**
+- Added `is_available` to User's resource
+
+**Messaging**
+- Added GET vetting API
+
+**Verify**
+- Add `WHATSAPP` to the attempts API.
+- Allow to update `config.notification_platform` from `none` to `apn` or `fcm` and viceversa for Verify Push
+- Add `none` as a valid `config.notification_platform` value for Verify Push
+
+**Twiml**
+- Add supported SSML children to `<emphasis>`, `<lang>`, `<p>`, `<prosody>`, `<s>`, and `<w>`.
+
+
+[2021-11-03] Version 8.22.0
+---------------------------
+**Library - Chore**
+- [PR #655](https://github.com/twilio/twilio-java/pull/655): migrate from travis ci to gh actions. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Api**
+- Updated `media_url` property to be treated as PII
+
+**Messaging**
+- Added a new enum for brand registration status named DELETED **(breaking change)**
+- Add a new K12_EDUCATION use case in us_app_to_person_usecase api transaction
+- Added a new enum for brand registration status named IN_REVIEW
+
+**Serverless**
+- Add node14 as a valid Build runtime
+
+**Verify**
+- Fix typos in Verify Push Factor documentation for the `config.notification_token` parameter.
+- Added `TemplateCustomSubstitutions` on verification creation
+- Make `TemplateSid` parameter public for Verification resource and `DefaultTemplateSid` parameter public for Service resource. **(breaking change)**
+
+
+[2021-10-18] Version 8.21.0
+---------------------------
+**Library - Chore**
+- [PR #653](https://github.com/twilio/twilio-java/pull/653): bump jackson dependency version. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+- [PR #651](https://github.com/twilio/twilio-java/pull/651): upgrade maven-javadoc-plugin. Thanks to [@sullis](https://github.com/sullis)!
+
+**Library - Feature**
+- [PR #652](https://github.com/twilio/twilio-java/pull/652): Add PlaybackGrant. Thanks to [@miguelgrinberg](https://github.com/miguelgrinberg)!
+
+**Api**
+- Corrected enum values for `emergency_address_status` values in `/IncomingPhoneNumbers` response. **(breaking change)**
+- Clarify `emergency_address_status` values in `/IncomingPhoneNumbers` response.
+
+**Messaging**
+- Add PUT and List brand vettings api
+- Removes beta feature flag based visibility for us_app_to_person_registered and usecase field.Updates test cases to add POLITICAL usecase. **(breaking change)**
+- Add brand_feedback as optional field to BrandRegistrations
+
+**Video**
+- Add `AudioOnly` to create room
+
+
+[2021-10-06] Version 8.20.0
+---------------------------
+**Library - Fix**
+- [PR #649](https://github.com/twilio/twilio-java/pull/649): System Information Leak. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+
+**Api**
+- Add `emergency_address_status` attribute to `/IncomingPhoneNumbers` response.
+- Add `siprec` resource
+
+**Conversations**
+- Added attachment parameters in configuration for `NewMessage` type of push notifications
+
+**Flex**
+- Adding `flex_insights_hr` object to Flex Configuration
+
+**Numbers**
+- Add API endpoint for Bundle ReplaceItems resource
+- Add API endpoint for Bundle Copies resource
+
+**Serverless**
+- Add domain_base field to Service response
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Worker Delete **(breaking change)**
+- Add `If-Match` Header based on Etag for Reservation Update
+- Add `If-Match` Header based on ETag for Worker Update
+- Add `If-Match` Header based on ETag for Worker Delete
+- Add `ETag` as Response Header to Worker
+
+**Trunking**
+- Added `transfer_caller_id` property on Trunks.
+
+**Verify**
+- Document new pilot `whatsapp` channel.
+
+
+[2021-09-22] Version 8.19.2
+---------------------------
+**Events**
+- Add segment sink
+
+**Messaging**
+- Add post_approval_required attribute in GET us_app_to_person_usecase api response
+- Add Identity Status, Russell 3000, Tax Exempt Status and Should Skip SecVet fields for Brand Registrations
+- Add Should Skip Secondary Vetting optional flag parameter to create Brand API
+
+
+[2021-09-08] Version 8.19.1
+---------------------------
+**Library - Fix**
+- [PR #644](https://github.com/twilio/twilio-java/pull/644): deploy issues. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Revert adding `siprec` resource
+- Add `siprec` resource
+
+**Messaging**
+- Add 'mock' as an optional field to brand_registration api
+- Add 'mock' as an optional field to us_app_to_person api
+- Adds more Use Cases in us_app_to_person_usecase api transaction and updates us_app_to_person_usecase docs
+
+**Verify**
+- Verify List Templates API endpoint added.
+
+
+[2021-08-25] Version 8.19.0
+---------------------------
+**Library - Chore**
+- [PR #641](https://github.com/twilio/twilio-java/pull/641): integrate with sonarcloud. Thanks to [@shwetha-manvinkurke](https://github.com/shwetha-manvinkurke)!
+
+**Api**
+- Add Programmabled Voice SIP Refer call transfers (`calls-transfers`) to usage records
+- Add Flex Voice Usage category (`flex-usage`) to usage records
+- Corrected the `price`, `call_sid_to_coach`, and `uri` data types for Conference, Participant, and Recording **(breaking change)**
+- Made documentation for property `time_limit` in the call api public. **(breaking change)**
+- Added `domain_sid` in sip_credential_list_mapping and sip_ip_access_control_list_mapping APIs **(breaking change)**
+
+**Conversations**
+- Add `Order` query parameter to Message resource read operation
+
+**Insights**
+- Added `partial` to enum processing_state_request
+- Added abnormal session filter in Call Summaries
+- Added new endpoint to fetch Call Summaries
+
+**Messaging**
+- Add brand_registration_sid as an optional query param for us_app_to_person_usecase api
+- Add brand_type field to a2p brand_registration api
+- Revert brand registration api update to add brand_type field
+- Add brand_type field to a2p brand_registration api
+
+**Pricing**
+- add trunking_numbers resource (v2)
+- add trunking_country resource (v2)
+
+**Taskrouter**
+- Add `X-Rate-Limit-Limit`, `X-Rate-Limit-Remaining`, and `X-Rate-Limit-Config` as Response Headers to all TaskRouter endpoints
+
+**Verify**
+- Changed to private beta the `TemplateSid` optional parameter on Verification creation.
+- Added the optional parameter `Order` to the list Challenges endpoint to define the list order.
+- Add `TemplateSid` optional parameter on Verification creation.
+- Include `whatsapp` as a channel type in the verifications API.
+
+
+[2021-07-28] Version 8.18.0
+---------------------------
+**Library - Feature**
+- [PR #640](https://github.com/twilio/twilio-java/pull/640): add new constructor to ValidationClient. Thanks to [@sullis](https://github.com/sullis)!
+
+**Conversations**
+- Expose ParticipantConversations resource
+
+**Taskrouter**
+- Adding `links` to the activity resource
+
+**Verify**
+- Added a `Version` to Verify Factors `Webhooks` to add new fields without breaking old Webhooks.
+
+
+[2021-07-14] Version 8.17.0
+---------------------------
+**Conversations**
+- Changed `last_read_message_index` and `unread_messages_count` type in User Conversation's resource **(breaking change)**
+- Expose UserConversations resource
+
+**Messaging**
+- Add brand_score field to brand registration responses
+
+
+[2021-06-30] Version 8.16.0
+---------------------------
+**Conversations**
+- Read-only Conversation Email Binding property `binding`
+
+**Supersim**
+- Add Billing Period resource for the Super Sim Pilot
+- Add List endpoint to Billing Period resource for Super Sim Pilot
+- Add Fetch endpoint to Billing Period resource for Super Sim Pilot
+
+**Taskrouter**
+- Update `transcribe` & `transcription_configuration` form params in Reservation update endpoint to have private visibility **(breaking change)**
+- Add `transcribe` & `transcription_configuration` form params to Reservation update endpoint
+
+**Twiml**
+- Add `modify` event to `statusCallbackEvent` for `<Conference>`.
+
+
+[2021-06-16] Version 8.15.0
+---------------------------
+**Library - Chore**
+- [PR #637](https://github.com/twilio/twilio-java/pull/637): archunit 0.19.0. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Update `status` enum for Messages to include 'canceled'
+- Update `update_status` enum for Messages to include 'canceled'
+
+**Trusthub**
+- Corrected the sid for policy sid in customer_profile_evaluation.json and trust_product_evaluation.json **(breaking change)**
+
+
+[2021-06-02] Version 8.14.0
+---------------------------
+**Library - Feature**
+- [PR #636](https://github.com/twilio/twilio-java/pull/636): Update WorkflowRuleTarget to support Known Agent Routing. Thanks to [@akallimani](https://github.com/akallimani)!
+
+**Library - Chore**
+- [PR #634](https://github.com/twilio/twilio-java/pull/634): equalsverifier 3.6.1. Thanks to [@sullis](https://github.com/sullis)!
+
+**Events**
+- join Sinks and Subscriptions service
+
+**Verify**
+- Improved the documentation of `challenge` adding the maximum and minimum expected lengths of some fields.
+- Improve documentation regarding `notification` by updating the documentation of the field `ttl`.
+
+
+[2021-05-19] Version 8.13.0
+---------------------------
+**Events**
+- add query param to return types filtered by Schema Id
+- Add query param to return sinks filtered by status
+- Add query param to return sinks used/not used by a subscription
+
+**Messaging**
+- Add fetch and delete instance endpoints to us_app_to_person api **(breaking change)**
+- Remove delete list endpoint from us_app_to_person api **(breaking change)**
+- Update read list endpoint to return a list of us_app_to_person compliance objects **(breaking change)**
+- Add `sid` field to Preregistered US App To Person response
+
+**Supersim**
+- Mark `unique_name` in Sim, Fleet, NAP resources as not PII
+
+**Video**
+- [Composer] GA maturity level
+
+
+[2021-05-05] Version 8.12.0
+---------------------------
+**Library - Feature**
+- [PR #559](https://github.com/twilio/twilio-java/pull/559): allow conference participant to be any endpoint. Thanks to [@JaymoKang](https://github.com/JaymoKang)!
+
+**Library - Fix**
+- [PR #632](https://github.com/twilio/twilio-java/pull/632): log correct URL in TwilioRestClient. Thanks to [@sullis](https://github.com/sullis)!
+
+**Api**
+- Corrected the data types for feedback summary fields **(breaking change)**
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- promoting API maturity to GA
+
+**Events**
+- Add endpoint to update description in sink
+- Remove beta-feature account flag
+
+**Messaging**
+- Update `status` field in us_app_to_person api to `campaign_status` **(breaking change)**
+
+**Verify**
+- Improve documentation regarding `push` factor and include extra information about `totp` factor.
+
+
+[2021-04-21] Version 8.11.0
+---------------------------
+**Library - Chore**
+- [PR #631](https://github.com/twilio/twilio-java/pull/631): protected TwilioRestClient constructor. Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Api**
+- Revert Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+- Update the conference participant create `from` and `to` param to be endpoint type for supporting client identifier and sip address
+
+**Bulkexports**
+- moving enum to doc root for auto generating documentation
+- adding status enum and default output properties
+
+**Events**
+- Change schema_versions prop and key to versions **(breaking change)**
+
+**Messaging**
+- Add `use_inbound_webhook_on_number` field in Service API for fetch, create, update, read
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Delete
+
+**Verify**
+- Add `AuthPayload` parameter to support verifying a `Challenge` upon creation. This is only supported for `totp` factors.
+- Add support to resend the notifications of a `Challenge`. This is only supported for `push` factors.
+
+**Twiml**
+- Add Polly Neural voices.
+
+
+[2021-04-07] Version 8.10.0
+---------------------------
+**Library - Fix**
+- [PR #629](https://github.com/twilio/twilio-java/pull/629): handle case where XML transformer attributes are not supported. Thanks to [@codylerum](https://github.com/codylerum)!
+
+**Api**
+- Added `announcement` event to conference status callback events
+- Removed optional property `time_limit` in the call create request. **(breaking change)**
+- Added optional parameter `CallToken` for create calls api
+- Add optional property `time_limit` in the call create request.
+
+**Bulkexports**
+- adding two new fields with job api queue_position and estimated_completion_time
+
+**Events**
+- Add new endpoints to manage subscribed_events in subscriptions
+
+**Messaging**
+- Add rate_limits field to Messaging Services US App To Person API
+- Add usecase field in Service API for fetch, create, update, read
+- Add us app to person api and us app to person usecase api as dependents in service
+- Add us_app_to_person_registered field in service api for fetch, read, create, update
+- Add us app to person api
+- Add us app to person usecase api
+- Add A2P external campaign api
+- Add Usecases API
+
+**Numbers**
+- Remove feature flags for RegulatoryCompliance endpoints
+
+**Supersim**
+- Add Create endpoint to Sims resource
+- Add SmsCommands resource
+- Add fields `SmsCommandsUrl`, `SmsCommandsMethod` and `SmsCommandsEnabled` to a Fleet resource
+
+**Taskrouter**
+- Add `If-Match` Header based on ETag for Task Update
+- Add `ETag` as Response Headers to Tasks and Reservations
+
+**Verify**
+- The `Binding` field is now returned when creating a `Factor`. This value won't be returned for other endpoints.
+
+**Video**
+- [Rooms] max_concurrent_published_tracks has got GA maturity
+- Recording rule beta flag **(breaking change)**
+- [Rooms] Add RecordingRules param to Rooms
+
+**Twiml**
+- Add `announcement` event to `statusCallbackEvent` for `<Conference>`.
+
+
+[2021-03-15] Version 8.9.0
+--------------------------
+**Library - Fix**
+- [PR #625](https://github.com/twilio/twilio-java/pull/625): date time conversion to String. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Library - Chore**
+- [PR #624](https://github.com/twilio/twilio-java/pull/624): Enable maven depedency caching for travis. Thanks to [@Taher-Ghaleb](https://github.com/Taher-Ghaleb)!
+- [PR #623](https://github.com/twilio/twilio-java/pull/623): protect against XML external entity injection. Thanks to [@eshanholtz](https://github.com/eshanholtz)!
+
+**Events**
+- Set maturity to beta
+
+**Messaging**
+- Adjust A2P brand registration status enum **(breaking change)**
+
+**Studio**
+- Remove internal safeguards for Studio V2 API usage now that it's GA
+
+**Verify**
+- Add support for creating and verifying totp factors. Support for totp factors is behind the `api.verify.totp` beta feature.
+
+**Twiml**
+- Add support for `<VirtualAgent>` noun
+
+
+[2021-02-24] Version 8.8.0
+--------------------------
+**Library - Chore**
+- [PR #622](https://github.com/twilio/twilio-java/pull/622): bump dependencies. Thanks to [@sullis](https://github.com/sullis)!
+- [PR #621](https://github.com/twilio/twilio-java/pull/621): update jackson dependency. Thanks to [@thinkingserious](https://github.com/thinkingserious)!
+
+**Events**
+- Update description of types in the create sink resource
+
+**Messaging**
+- Add WA template header and footer
+- Remove A2P campaign and use cases API **(breaking change)**
+- Add number_registration_status field to read and fetch campaign responses
+
+**Trusthub**
+- Make all resources public
+
+**Verify**
+- Verify List Attempts API endpoints added.
+
+
 [2021-02-11] Version 8.7.0
 --------------------------
 **Library - Chore**

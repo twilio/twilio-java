@@ -7,8 +7,12 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -17,6 +21,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Play>}
  */
+@JsonDeserialize(builder = Play.Builder.class)
 public class Play extends TwiML {
     private final Integer loop;
     private final String digits;
@@ -98,6 +103,20 @@ public class Play extends TwiML {
      * Create a new {@code <Play>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Play.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Play.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private Integer loop;
         private String digits;
         private URI url;
@@ -125,6 +144,7 @@ public class Play extends TwiML {
         /**
          * Times to loop media
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "loop")
         public Builder loop(Integer loop) {
             this.loop = loop;
             return this;
@@ -133,6 +153,7 @@ public class Play extends TwiML {
         /**
          * Play DTMF tones for digits
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "digits")
         public Builder digits(String digits) {
             this.digits = digits;
             return this;
@@ -141,6 +162,7 @@ public class Play extends TwiML {
         /**
          * Media URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "url")
         public Builder url(URI url) {
             this.url = url;
             return this;

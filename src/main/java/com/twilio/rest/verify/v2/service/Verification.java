@@ -43,7 +43,8 @@ public class Verification extends Resource {
     public enum Channel {
         SMS("sms"),
         CALL("call"),
-        EMAIL("email");
+        EMAIL("email"),
+        WHATSAPP("whatsapp");
 
         private final String value;
 

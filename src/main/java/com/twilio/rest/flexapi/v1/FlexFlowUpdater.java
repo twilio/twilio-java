@@ -72,8 +72,13 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The channel type. Can be: `web`, `facebook`, `sms`, `whatsapp`, `line` or
-     * `custom`..
+     * The channel type. One of `web`, `facebook`, `sms`, `whatsapp`, `line` or
+     * `custom`. By default, Studio’s Send to Flex widget passes it on to the Task
+     * attributes for Tasks created based on this Flex Flow. The Task attributes
+     * will be used by the Flex UI to render the respective Task as appropriate
+     * (applying channel-specific design and length limits). If `channelType` is
+     * `facebook`, `whatsapp` or `line`, the Send to Flex widget should set the Task
+     * Channel to Programmable Chat..
      *
      * @param channelType The channel type
      * @return this
@@ -106,9 +111,11 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The integration type. Can be: `studio`, `external`, or `task`..
+     * The software that will handle inbound messages. <a
+     * href="https://www.twilio.com/docs/flex/developer/messaging/manage-flows#integration-types">Integration
+     * Type</a> can be: `studio`, `external`, or `task`..
      *
-     * @param integrationType The integration type
+     * @param integrationType The software that will handle inbound messages.
      * @return this
      */
     public FlexFlowUpdater setIntegrationType(final FlexFlow.IntegrationType integrationType) {
@@ -173,9 +180,9 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The Task Channel for the TaskRouter Task that will be created. Applicable and
-     * required when integrationType is `task`. Set to `sms` for SMS, and to `chat`
-     * otherwise. The default value is `default`.
+     * The Task Channel SID (TCXXXX) or unique name (e.g., `sms`) to use for the
+     * Task that will be created. Applicable and required when `integrationType` is
+     * `task`. The default value is `default`..
      *
      * @param integrationChannel The Task Channel for a new Task
      * @return this
@@ -253,12 +260,12 @@ public class FlexFlowUpdater extends Updater<FlexFlow> {
     }
 
     /**
-     * The number of times to retry the webhook if the first attempt fails. Can be
-     * an integer between 0 and 3 (included), default is 0. Optional when
-     * integrationType is `external`, not applicable otherwise..
+     * The number of times to retry the Studio Flow or webhook in case of failure.
+     * Takes integer values from 0 to 3 with the default being 3. Optional when
+     * `integrationType` is `studio` or `external`, not applicable otherwise..
      *
-     * @param integrationRetryCount The number of times to retry the webhook if the
-     *                              first attempt fails
+     * @param integrationRetryCount The number of times to retry the Studio Flow or
+     *                              webhook in case of failure
      * @return this
      */
     public FlexFlowUpdater setIntegrationRetryCount(final Integer integrationRetryCount) {

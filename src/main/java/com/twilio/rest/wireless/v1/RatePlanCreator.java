@@ -112,9 +112,9 @@ public class RatePlanCreator extends Creator<RatePlan> {
     }
 
     /**
-     * Whether SIMs can make and receive voice calls..
+     * Deprecated..
      *
-     * @param voiceEnabled Whether SIMs can make and receive voice calls
+     * @param voiceEnabled Deprecated
      * @return this
      */
     public RatePlanCreator setVoiceEnabled(final Boolean voiceEnabled) {
@@ -139,8 +139,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The list of services that SIMs capable of using GPRS/3G/4G/LTE data
-     * connectivity can use outside of the United States. Can be: `data`, `voice`,
-     * and `messaging`..
+     * connectivity can use outside of the United States. Can contain: `data` and
+     * `messaging`..
      *
      * @param internationalRoaming The services that SIMs capable of using
      *                             GPRS/3G/4G/LTE data connectivity can use outside
@@ -154,8 +154,8 @@ public class RatePlanCreator extends Creator<RatePlan> {
 
     /**
      * The list of services that SIMs capable of using GPRS/3G/4G/LTE data
-     * connectivity can use outside of the United States. Can be: `data`, `voice`,
-     * and `messaging`..
+     * connectivity can use outside of the United States. Can contain: `data` and
+     * `messaging`..
      *
      * @param internationalRoaming The services that SIMs capable of using
      *                             GPRS/3G/4G/LTE data connectivity can use outside

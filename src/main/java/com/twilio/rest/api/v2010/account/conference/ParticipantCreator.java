@@ -17,6 +17,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.type.Endpoint;
 
 import java.net.URI;
 import java.util.List;
@@ -24,8 +25,8 @@ import java.util.List;
 public class ParticipantCreator extends Creator<Participant> {
     private String pathAccountSid;
     private final String pathConferenceSid;
-    private final com.twilio.type.PhoneNumber from;
-    private final com.twilio.type.PhoneNumber to;
+    private final com.twilio.type.Endpoint from;
+    private final com.twilio.type.Endpoint to;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
@@ -62,6 +63,7 @@ public class ParticipantCreator extends Creator<Participant> {
     private String callerId;
     private String callReason;
     private String recordingTrack;
+    private Integer timeLimit;
 
     /**
      * Construct a new ParticipantCreator.
@@ -73,8 +75,8 @@ public class ParticipantCreator extends Creator<Participant> {
      *           this call.
      */
     public ParticipantCreator(final String pathConferenceSid,
-                              final com.twilio.type.PhoneNumber from,
-                              final com.twilio.type.PhoneNumber to) {
+                              final com.twilio.type.Endpoint from,
+                              final com.twilio.type.Endpoint to) {
         this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
@@ -92,8 +94,8 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     public ParticipantCreator(final String pathAccountSid,
                               final String pathConferenceSid,
-                              final com.twilio.type.PhoneNumber from,
-                              final com.twilio.type.PhoneNumber to) {
+                              final com.twilio.type.Endpoint from,
+                              final com.twilio.type.Endpoint to) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
         this.from = from;
@@ -398,8 +400,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference state changes that should generate a call to
      * `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`,
-     * `mute`, `hold`, and `speaker`. Separate multiple values with a space.
-     * Defaults to `start end`..
+     * `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple
+     * values with a space. Defaults to `start end`..
      *
      * @param conferenceStatusCallbackEvent The conference state changes that
      *                                      should generate a call to
@@ -414,8 +416,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference state changes that should generate a call to
      * `conference_status_callback`. Can be: `start`, `end`, `join`, `leave`,
-     * `mute`, `hold`, and `speaker`. Separate multiple values with a space.
-     * Defaults to `start end`..
+     * `mute`, `hold`, `modify`, `speaker`, and `announcement`. Separate multiple
+     * values with a space. Defaults to `start end`..
      *
      * @param conferenceStatusCallbackEvent The conference state changes that
      *                                      should generate a call to
@@ -561,9 +563,9 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The recording state changes that should generate a call to
-     * `recording_status_callback`. Can be: `in-progress`, `completed`, and
-     * `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `recording_status_callback`. Can be: `started`, `in-progress`, `paused`,
+     * `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple
+     * values with a space, ex: `'in-progress completed failed'`..
      *
      * @param recordingStatusCallbackEvent The recording state changes that should
      *                                     generate a call to
@@ -577,9 +579,9 @@ public class ParticipantCreator extends Creator<Participant> {
 
     /**
      * The recording state changes that should generate a call to
-     * `recording_status_callback`. Can be: `in-progress`, `completed`, and
-     * `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `recording_status_callback`. Can be: `started`, `in-progress`, `paused`,
+     * `resumed`, `stopped`, `completed`, `failed`, and `absent`. Separate multiple
+     * values with a space, ex: `'in-progress completed failed'`..
      *
      * @param recordingStatusCallbackEvent The recording state changes that should
      *                                     generate a call to
@@ -593,8 +595,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference recording state changes that generate a call to
      * `conference_recording_status_callback`. Can be: `in-progress`, `completed`,
-     * and `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `failed`, and `absent`. Separate multiple values with a space, ex:
+     * `'in-progress completed failed'`.
      *
      * @param conferenceRecordingStatusCallbackEvent The conference recording state
      *                                               changes that should generate a
@@ -610,8 +612,8 @@ public class ParticipantCreator extends Creator<Participant> {
     /**
      * The conference recording state changes that generate a call to
      * `conference_recording_status_callback`. Can be: `in-progress`, `completed`,
-     * and `failed`. Separate multiple values with a space. The default value is
-     * `in-progress completed failed`..
+     * `failed`, and `absent`. Separate multiple values with a space, ex:
+     * `'in-progress completed failed'`.
      *
      * @param conferenceRecordingStatusCallbackEvent The conference recording state
      *                                               changes that should generate a
@@ -724,6 +726,18 @@ public class ParticipantCreator extends Creator<Participant> {
     }
 
     /**
+     * The maximum duration of the call in seconds. Constraints depend on account
+     * and configuration..
+     *
+     * @param timeLimit The maximum duration of the call in seconds.
+     * @return this
+     */
+    public ParticipantCreator setTimeLimit(final Integer timeLimit) {
+        this.timeLimit = timeLimit;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -762,11 +776,11 @@ public class ParticipantCreator extends Creator<Participant> {
      */
     private void addPostParams(final Request request) {
         if (from != null) {
-            request.addPostParam("From", from.toString());
+            request.addPostParam("From", from.getEndpoint());
         }
 
         if (to != null) {
-            request.addPostParam("To", to.toString());
+            request.addPostParam("To", to.getEndpoint());
         }
 
         if (statusCallback != null) {
@@ -919,6 +933,10 @@ public class ParticipantCreator extends Creator<Participant> {
 
         if (recordingTrack != null) {
             request.addPostParam("RecordingTrack", recordingTrack);
+        }
+
+        if (timeLimit != null) {
+            request.addPostParam("TimeLimit", timeLimit.toString());
         }
     }
 }

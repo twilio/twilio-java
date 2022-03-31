@@ -26,4 +26,14 @@ public class MediaTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Media elem = new Media.Builder(URI.create("https://example.com")).build();
+
+        Assert.assertEquals(
+            Media.Builder.fromXml("<Media>https://example.com</Media>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

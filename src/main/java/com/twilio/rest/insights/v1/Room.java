@@ -265,7 +265,7 @@ public class Room extends Resource {
     /**
      * Create a RoomFetcher to execute fetch.
      *
-     * @param pathRoomSid The room_sid
+     * @param pathRoomSid The SID of the Room resource.
      * @return RoomFetcher capable of executing the fetch
      */
     public static RoomFetcher fetcher(final String pathRoomSid) {
@@ -427,234 +427,241 @@ public class Room extends Resource {
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID associated with this room..
      *
-     * @return The account_sid
+     * @return Account SID associated with this room.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The room_sid.
+     * Returns Unique identifier for the room..
      *
-     * @return The room_sid
+     * @return Unique identifier for the room.
      */
     public final String getRoomSid() {
         return this.roomSid;
     }
 
     /**
-     * Returns The room_name.
+     * Returns room friendly name..
      *
-     * @return The room_name
+     * @return room friendly name.
      */
     public final String getRoomName() {
         return this.roomName;
     }
 
     /**
-     * Returns The create_time.
+     * Returns Creation time of the room..
      *
-     * @return The create_time
+     * @return Creation time of the room.
      */
     public final ZonedDateTime getCreateTime() {
         return this.createTime;
     }
 
     /**
-     * Returns The end_time.
+     * Returns End time for the room..
      *
-     * @return The end_time
+     * @return End time for the room.
      */
     public final ZonedDateTime getEndTime() {
         return this.endTime;
     }
 
     /**
-     * Returns The room_type.
+     * Returns Type of room..
      *
-     * @return The room_type
+     * @return Type of room.
      */
     public final Room.RoomType getRoomType() {
         return this.roomType;
     }
 
     /**
-     * Returns The room_status.
+     * Returns Status of the room..
      *
-     * @return The room_status
+     * @return Status of the room.
      */
     public final Room.RoomStatus getRoomStatus() {
         return this.roomStatus;
     }
 
     /**
-     * Returns The status_callback.
+     * Returns Webhook provided for status callbacks..
      *
-     * @return The status_callback
+     * @return Webhook provided for status callbacks.
      */
     public final URI getStatusCallback() {
         return this.statusCallback;
     }
 
     /**
-     * Returns The status_callback_method.
+     * Returns HTTP method provided for status callback URL..
      *
-     * @return The status_callback_method
+     * @return HTTP method provided for status callback URL.
      */
     public final HttpMethod getStatusCallbackMethod() {
         return this.statusCallbackMethod;
     }
 
     /**
-     * Returns The created_method.
+     * Returns How the room was created..
      *
-     * @return The created_method
+     * @return How the room was created.
      */
     public final Room.CreatedMethod getCreatedMethod() {
         return this.createdMethod;
     }
 
     /**
-     * Returns The end_reason.
+     * Returns Reason the room ended..
      *
-     * @return The end_reason
+     * @return Reason the room ended.
      */
     public final Room.EndReason getEndReason() {
         return this.endReason;
     }
 
     /**
-     * Returns The max_participants.
+     * Returns Max number of total participants allowed by the application
+     * settings..
      *
-     * @return The max_participants
+     * @return Max number of total participants allowed by the application settings.
      */
     public final Integer getMaxParticipants() {
         return this.maxParticipants;
     }
 
     /**
-     * Returns The unique_participants.
+     * Returns Number of participants. May include duplicate identities for
+     * participants who left and rejoined..
      *
-     * @return The unique_participants
+     * @return Number of participants. May include duplicate identities for
+     *         participants who left and rejoined.
      */
     public final Integer getUniqueParticipants() {
         return this.uniqueParticipants;
     }
 
     /**
-     * Returns The unique_participant_identities.
+     * Returns Unique number of participant identities..
      *
-     * @return The unique_participant_identities
+     * @return Unique number of participant identities.
      */
     public final Integer getUniqueParticipantIdentities() {
         return this.uniqueParticipantIdentities;
     }
 
     /**
-     * Returns The concurrent_participants.
+     * Returns Actual number of concurrent participants..
      *
-     * @return The concurrent_participants
+     * @return Actual number of concurrent participants.
      */
     public final Integer getConcurrentParticipants() {
         return this.concurrentParticipants;
     }
 
     /**
-     * Returns The max_concurrent_participants.
+     * Returns Maximum number of participants allowed in the room at the same time
+     * allowed by the application settings..
      *
-     * @return The max_concurrent_participants
+     * @return Maximum number of participants allowed in the room at the same time
+     *         allowed by the application settings.
      */
     public final Integer getMaxConcurrentParticipants() {
         return this.maxConcurrentParticipants;
     }
 
     /**
-     * Returns The codecs.
+     * Returns Codecs used by participants in the room..
      *
-     * @return The codecs
+     * @return Codecs used by participants in the room.
      */
     public final List<Room.Codec> getCodecs() {
         return this.codecs;
     }
 
     /**
-     * Returns The media_region.
+     * Returns Region of Twilio media servers for the room..
      *
-     * @return The media_region
+     * @return Region of Twilio media servers for the room.
      */
     public final Room.TwilioRealm getMediaRegion() {
         return this.mediaRegion;
     }
 
     /**
-     * Returns The duration_sec.
+     * Returns Total room duration from create time to end time..
      *
-     * @return The duration_sec
+     * @return Total room duration from create time to end time.
      */
     public final Long getDurationSec() {
         return this.durationSec;
     }
 
     /**
-     * Returns The total_participant_duration_sec.
+     * Returns Combined amount of participant time in the room..
      *
-     * @return The total_participant_duration_sec
+     * @return Combined amount of participant time in the room.
      */
     public final Long getTotalParticipantDurationSec() {
         return this.totalParticipantDurationSec;
     }
 
     /**
-     * Returns The total_recording_duration_sec.
+     * Returns Combined amount of recorded seconds for participants in the room..
      *
-     * @return The total_recording_duration_sec
+     * @return Combined amount of recorded seconds for participants in the room.
      */
     public final Long getTotalRecordingDurationSec() {
         return this.totalRecordingDurationSec;
     }
 
     /**
-     * Returns The processing_state.
+     * Returns Video Log Analyzer resource state. Will be either `in-progress` or
+     * `complete`..
      *
-     * @return The processing_state
+     * @return Video Log Analyzer resource state. Will be either `in-progress` or
+     *         `complete`.
      */
     public final Room.ProcessingState getProcessingState() {
         return this.processingState;
     }
 
     /**
-     * Returns The recording_enabled.
+     * Returns Boolean indicating if recording is enabled for the room..
      *
-     * @return The recording_enabled
+     * @return Boolean indicating if recording is enabled for the room.
      */
     public final Boolean getRecordingEnabled() {
         return this.recordingEnabled;
     }
 
     /**
-     * Returns The edge_location.
+     * Returns Edge location of Twilio media servers for the room..
      *
-     * @return The edge_location
+     * @return Edge location of Twilio media servers for the room.
      */
     public final Room.EdgeLocation getEdgeLocation() {
         return this.edgeLocation;
     }
 
     /**
-     * Returns The url.
+     * Returns URL for the room resource..
      *
-     * @return The url
+     * @return URL for the room resource.
      */
     public final URI getUrl() {
         return this.url;
     }
 
     /**
-     * Returns The links.
+     * Returns Room subresources..
      *
-     * @return The links
+     * @return Room subresources.
      */
     public final Map<String, String> getLinks() {
         return this.links;

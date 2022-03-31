@@ -57,7 +57,9 @@ public class CallCreator extends Creator<Call> {
     private HttpMethod asyncAmdStatusCallbackMethod;
     private String byoc;
     private String callReason;
+    private String callToken;
     private String recordingTrack;
+    private Integer timeLimit;
 
     /**
      * Construct a new CallCreator.
@@ -620,6 +622,22 @@ public class CallCreator extends Creator<Call> {
     }
 
     /**
+     * A token string needed to invoke a forwarded call. A call_token is generated
+     * when an incoming call is received on a Twilio number. Pass an incoming call's
+     * call_token value to a forwarded call via the call_token parameter when
+     * creating a new call. A forwarded call should bear the same CallerID of the
+     * original incoming call..
+     *
+     * @param callToken A token string needed to invoke a forwarded call with a
+     *                  CallerId recieved on a previous incoming call
+     * @return this
+     */
+    public CallCreator setCallToken(final String callToken) {
+        this.callToken = callToken;
+        return this;
+    }
+
+    /**
      * The audio track to record for the call. Can be: `inbound`, `outbound` or
      * `both`. The default is `both`. `inbound` records the audio that is received
      * by Twilio. `outbound` records the audio that is generated from Twilio. `both`
@@ -630,6 +648,18 @@ public class CallCreator extends Creator<Call> {
      */
     public CallCreator setRecordingTrack(final String recordingTrack) {
         this.recordingTrack = recordingTrack;
+        return this;
+    }
+
+    /**
+     * The maximum duration of the call in seconds. Constraints depend on account
+     * and configuration..
+     *
+     * @param timeLimit The maximum duration of the call in seconds.
+     * @return this
+     */
+    public CallCreator setTimeLimit(final Integer timeLimit) {
+        this.timeLimit = timeLimit;
         return this;
     }
 
@@ -667,7 +697,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * TwiML instructions for the call Twilio will use without fetching Twiml from
      * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
-     * will be ignored..
+     * will be ignored. Max 4000 characters..
      *
      * @param twiml TwiML instructions for the call
      * @return this
@@ -680,7 +710,7 @@ public class CallCreator extends Creator<Call> {
     /**
      * TwiML instructions for the call Twilio will use without fetching Twiml from
      * url parameter. If both `twiml` and `url` are provided then `twiml` parameter
-     * will be ignored..
+     * will be ignored. Max 4000 characters..
      *
      * @param twiml TwiML instructions for the call
      * @return this
@@ -872,8 +902,16 @@ public class CallCreator extends Creator<Call> {
             request.addPostParam("CallReason", callReason);
         }
 
+        if (callToken != null) {
+            request.addPostParam("CallToken", callToken);
+        }
+
         if (recordingTrack != null) {
             request.addPostParam("RecordingTrack", recordingTrack);
+        }
+
+        if (timeLimit != null) {
+            request.addPostParam("TimeLimit", timeLimit.toString());
         }
     }
 }

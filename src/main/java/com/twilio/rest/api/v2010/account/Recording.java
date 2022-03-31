@@ -44,7 +44,8 @@ public class Recording extends Resource {
         STOPPED("stopped"),
         PROCESSING("processing"),
         COMPLETED("completed"),
-        ABSENT("absent");
+        ABSENT("absent"),
+        DELETED("deleted");
 
         private final String value;
 

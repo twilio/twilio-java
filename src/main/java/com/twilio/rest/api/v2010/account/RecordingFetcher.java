@@ -20,6 +20,7 @@ import com.twilio.rest.Domains;
 public class RecordingFetcher extends Fetcher<Recording> {
     private String pathAccountSid;
     private final String pathSid;
+    private Boolean includeSoftDeleted;
 
     /**
      * Construct a new RecordingFetcher.
@@ -44,6 +45,20 @@ public class RecordingFetcher extends Fetcher<Recording> {
     }
 
     /**
+     * A boolean parameter indicating whether to retrieve soft deleted recordings or
+     * not. Recordings metadata are kept after deletion for a retention period of 40
+     * days..
+     *
+     * @param includeSoftDeleted A boolean parameter indicating whether to retrieve
+     *                           soft deleted recordings or not.
+     * @return this
+     */
+    public RecordingFetcher setIncludeSoftDeleted(final Boolean includeSoftDeleted) {
+        this.includeSoftDeleted = includeSoftDeleted;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
@@ -59,6 +74,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
             "/2010-04-01/Accounts/" + this.pathAccountSid + "/Recordings/" + this.pathSid + ".json"
         );
 
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -72,5 +88,16 @@ public class RecordingFetcher extends Fetcher<Recording> {
         }
 
         return Recording.fromJson(response.getStream(), client.getObjectMapper());
+    }
+
+    /**
+     * Add the requested query string arguments to the Request.
+     *
+     * @param request Request to add query string arguments to
+     */
+    private void addQueryParams(final Request request) {
+        if (includeSoftDeleted != null) {
+            request.addQueryParam("IncludeSoftDeleted", includeSoftDeleted.toString());
+        }
     }
 }

@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.messaging;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Message>}
  */
+@JsonDeserialize(builder = Message.Builder.class)
 public class Message extends TwiML {
     private final String to;
     private final String from;
@@ -141,6 +146,20 @@ public class Message extends TwiML {
      * Create a new {@code <Message>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Message.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Message.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String to;
         private String from;
         private URI action;
@@ -164,6 +183,7 @@ public class Message extends TwiML {
         /**
          * Phone Number to send Message to
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "to")
         public Builder to(String to) {
             this.to = to;
             return this;
@@ -172,6 +192,7 @@ public class Message extends TwiML {
         /**
          * Phone Number to send Message from
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "from")
         public Builder from(String from) {
             this.from = from;
             return this;
@@ -180,6 +201,7 @@ public class Message extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -196,6 +218,7 @@ public class Message extends TwiML {
         /**
          * Action URL Method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -204,6 +227,7 @@ public class Message extends TwiML {
         /**
          * Status callback URL. Deprecated in favor of action.
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(URI statusCallback) {
             this.statusCallback = statusCallback;
             return this;
@@ -220,6 +244,7 @@ public class Message extends TwiML {
         /**
          * Add a child {@code <Body>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Body")
         public Builder body(Body body) {
             this.children.add(body);
             return this;
@@ -228,6 +253,7 @@ public class Message extends TwiML {
         /**
          * Add a child {@code <Media>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Media")
         public Builder media(Media media) {
             this.children.add(media);
             return this;

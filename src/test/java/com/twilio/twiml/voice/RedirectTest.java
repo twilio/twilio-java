@@ -27,4 +27,14 @@ public class RedirectTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Redirect elem = new Redirect.Builder(URI.create("https://example.com")).method(HttpMethod.GET).build();
+
+        Assert.assertEquals(
+            Redirect.Builder.fromXml("<Redirect method=\"GET\">https://example.com</Redirect>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

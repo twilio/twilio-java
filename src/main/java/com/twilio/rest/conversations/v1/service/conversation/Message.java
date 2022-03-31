@@ -40,6 +40,31 @@ import java.util.Objects;
 public class Message extends Resource {
     private static final long serialVersionUID = 166901888663263L;
 
+    public enum OrderType {
+        ASC("asc"),
+        DESC("desc");
+
+        private final String value;
+
+        private OrderType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a OrderType from a string.
+         * @param value string value
+         * @return generated OrderType
+         */
+        @JsonCreator
+        public static OrderType forValue(final String value) {
+            return Promoter.enumFromString(value, OrderType.values());
+        }
+    }
+
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");

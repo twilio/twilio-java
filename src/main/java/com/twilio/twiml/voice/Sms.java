@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -18,6 +22,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Sms>}
  */
+@JsonDeserialize(builder = Sms.Builder.class)
 public class Sms extends TwiML {
     private final com.twilio.type.PhoneNumber to;
     private final com.twilio.type.PhoneNumber from;
@@ -141,6 +146,20 @@ public class Sms extends TwiML {
      * Create a new {@code <Sms>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Sms.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Sms.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private com.twilio.type.PhoneNumber to;
         private com.twilio.type.PhoneNumber from;
         private URI action;
@@ -156,8 +175,15 @@ public class Sms extends TwiML {
         }
 
         /**
+         * Create a {@code <Sms>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Number to send message to
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "to")
         public Builder to(com.twilio.type.PhoneNumber to) {
             this.to = to;
             return this;
@@ -174,6 +200,7 @@ public class Sms extends TwiML {
         /**
          * Number to send message from
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "from")
         public Builder from(com.twilio.type.PhoneNumber from) {
             this.from = from;
             return this;
@@ -190,6 +217,7 @@ public class Sms extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -206,6 +234,7 @@ public class Sms extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -214,6 +243,7 @@ public class Sms extends TwiML {
         /**
          * Status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(URI statusCallback) {
             this.statusCallback = statusCallback;
             return this;

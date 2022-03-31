@@ -179,4 +179,55 @@ public class GatherTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlAttributesDeserialization() {
+        final Gather elem = new Gather.Builder()
+            .inputs(Promoter.listOfOne(Gather.Input.DTMF))
+            .action(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
+            .timeout(1)
+            .speechTimeout("speech_timeout")
+            .maxSpeechTime(1)
+            .profanityFilter(true)
+            .finishOnKey("finish_on_key")
+            .numDigits(1)
+            .partialResultCallback(URI.create("https://example.com"))
+            .partialResultCallbackMethod(HttpMethod.GET)
+            .language(Gather.Language.AF_ZA)
+            .hints("hints")
+            .bargeIn(true)
+            .debug(true)
+            .actionOnEmptyResult(true)
+            .speechModel(Gather.SpeechModel.DEFAULT)
+            .enhanced(true)
+            .build();
+
+        Assert.assertEquals(
+            Gather.Builder.fromXml("<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Gather.Builder builder = new Gather.Builder();
+
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+
+        builder.pause(new Pause.Builder().length(1).build());
+
+        builder.play(new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build());
+
+        final Gather elem = builder.build();
+
+        Assert.assertEquals(
+            Gather.Builder.fromXml("<Gather>" +
+                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Pause length=\"1\"/>" +
+                "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
+            "</Gather>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

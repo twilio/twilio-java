@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Environment extends Resource {
-    private static final long serialVersionUID = 171611678539835L;
+    private static final long serialVersionUID = 255224881596814L;
 
     /**
      * Create a EnvironmentReader to execute read.
@@ -237,10 +237,10 @@ public class Environment extends Resource {
     }
 
     /**
-     * Returns The base domain name for all Functions and Assets deployed in the
+     * Returns The domain name for all Functions and Assets deployed in the
      * Environment.
      *
-     * @return The base domain name for all Functions and Assets deployed in the
+     * @return The domain name for all Functions and Assets deployed in the
      *         Environment
      */
     public final String getDomainName() {

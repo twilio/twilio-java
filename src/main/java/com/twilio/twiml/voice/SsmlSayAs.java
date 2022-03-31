@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <say-as>}
  */
+@JsonDeserialize(builder = SsmlSayAs.Builder.class)
 public class SsmlSayAs extends TwiML {
     public enum InterpretAs {
         CHARACTER("character"),
@@ -146,6 +151,20 @@ public class SsmlSayAs extends TwiML {
      * Create a new {@code <say-as>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <SsmlSayAs.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a SsmlSayAs.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private SsmlSayAs.InterpretAs interpretAs;
         private SsmlSayAs.Role role;
         private String words;
@@ -158,8 +177,15 @@ public class SsmlSayAs extends TwiML {
         }
 
         /**
+         * Create a {@code <say-as>} (for XML deserialization)
+         */
+        private Builder() {
+        }
+
+        /**
          * Specify the type of words are spoken
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "interpret-as")
         public Builder interpretAs(SsmlSayAs.InterpretAs interpretAs) {
             this.interpretAs = interpretAs;
             return this;
@@ -168,6 +194,7 @@ public class SsmlSayAs extends TwiML {
         /**
          * Specify the format of the date when interpret-as is set to date
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "role")
         public Builder role(SsmlSayAs.Role role) {
             this.role = role;
             return this;

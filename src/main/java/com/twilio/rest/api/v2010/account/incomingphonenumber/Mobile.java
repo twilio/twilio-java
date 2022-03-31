@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Mobile extends Resource {
-    private static final long serialVersionUID = 89458301105703L;
+    private static final long serialVersionUID = 281042537775773L;
 
     public enum AddressRequirement {
         NONE("none"),
@@ -88,6 +88,35 @@ public class Mobile extends Resource {
         @JsonCreator
         public static EmergencyStatus forValue(final String value) {
             return Promoter.enumFromString(value, EmergencyStatus.values());
+        }
+    }
+
+    public enum EmergencyAddressStatus {
+        REGISTERED("registered"),
+        UNREGISTERED("unregistered"),
+        PENDING_REGISTRATION("pending-registration"),
+        REGISTRATION_FAILURE("registration-failure"),
+        PENDING_UNREGISTRATION("pending-unregistration"),
+        UNREGISTRATION_FAILURE("unregistration-failure");
+
+        private final String value;
+
+        private EmergencyAddressStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a EmergencyAddressStatus from a string.
+         * @param value string value
+         * @return generated EmergencyAddressStatus
+         */
+        @JsonCreator
+        public static EmergencyAddressStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyAddressStatus.values());
         }
     }
 
@@ -226,6 +255,7 @@ public class Mobile extends Resource {
     private final URI voiceUrl;
     private final Mobile.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
+    private final Mobile.EmergencyAddressStatus emergencyAddressStatus;
     private final String bundleSid;
     private final String status;
 
@@ -292,6 +322,8 @@ public class Mobile extends Resource {
                    final Mobile.EmergencyStatus emergencyStatus,
                    @JsonProperty("emergency_address_sid")
                    final String emergencyAddressSid,
+                   @JsonProperty("emergency_address_status")
+                   final Mobile.EmergencyAddressStatus emergencyAddressStatus,
                    @JsonProperty("bundle_sid")
                    final String bundleSid,
                    @JsonProperty("status")
@@ -327,6 +359,7 @@ public class Mobile extends Resource {
         this.voiceUrl = voiceUrl;
         this.emergencyStatus = emergencyStatus;
         this.emergencyAddressSid = emergencyAddressSid;
+        this.emergencyAddressStatus = emergencyAddressStatus;
         this.bundleSid = bundleSid;
         this.status = status;
     }
@@ -599,9 +632,9 @@ public class Mobile extends Resource {
     }
 
     /**
-     * Returns Whether the phone number is enabled for emergency calling.
+     * Returns Displays if emergency calling is enabled for this number..
      *
-     * @return Whether the phone number is enabled for emergency calling
+     * @return Displays if emergency calling is enabled for this number.
      */
     public final Mobile.EmergencyStatus getEmergencyStatus() {
         return this.emergencyStatus;
@@ -614,6 +647,15 @@ public class Mobile extends Resource {
      */
     public final String getEmergencyAddressSid() {
         return this.emergencyAddressSid;
+    }
+
+    /**
+     * Returns State of the emergency address configuration for the phone number.
+     *
+     * @return State of the emergency address configuration for the phone number
+     */
+    public final Mobile.EmergencyAddressStatus getEmergencyAddressStatus() {
+        return this.emergencyAddressStatus;
     }
 
     /**
@@ -677,6 +719,7 @@ public class Mobile extends Resource {
                Objects.equals(voiceUrl, other.voiceUrl) &&
                Objects.equals(emergencyStatus, other.emergencyStatus) &&
                Objects.equals(emergencyAddressSid, other.emergencyAddressSid) &&
+               Objects.equals(emergencyAddressStatus, other.emergencyAddressStatus) &&
                Objects.equals(bundleSid, other.bundleSid) &&
                Objects.equals(status, other.status);
     }
@@ -714,6 +757,7 @@ public class Mobile extends Resource {
                             voiceUrl,
                             emergencyStatus,
                             emergencyAddressSid,
+                            emergencyAddressStatus,
                             bundleSid,
                             status);
     }

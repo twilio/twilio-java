@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Siprec>}
  */
+@JsonDeserialize(builder = Siprec.Builder.class)
 public class Siprec extends TwiML {
     public enum Track {
         INBOUND_TRACK("inbound_track"),
@@ -106,6 +111,20 @@ public class Siprec extends TwiML {
      * Create a new {@code <Siprec>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Siprec.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Siprec.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String name;
         private String connectorName;
         private Siprec.Track track;
@@ -113,6 +132,7 @@ public class Siprec extends TwiML {
         /**
          * Friendly name given to SIPREC
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "name")
         public Builder name(String name) {
             this.name = name;
             return this;
@@ -121,6 +141,7 @@ public class Siprec extends TwiML {
         /**
          * Unique name for Connector
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "connectorName")
         public Builder connectorName(String connectorName) {
             this.connectorName = connectorName;
             return this;
@@ -129,6 +150,7 @@ public class Siprec extends TwiML {
         /**
          * Track to be streamed to remote service
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "track")
         public Builder track(Siprec.Track track) {
             this.track = track;
             return this;
@@ -137,6 +159,7 @@ public class Siprec extends TwiML {
         /**
          * Add a child {@code <Parameter>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
         public Builder parameter(Parameter parameter) {
             this.children.add(parameter);
             return this;

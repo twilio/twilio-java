@@ -20,10 +20,6 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-/**
- * PLEASE NOTE that this class contains beta products that are subject to
- * change. Use them with caution.
- */
 public class ExportConfigurationUpdater extends Updater<ExportConfiguration> {
     private final String pathResourceType;
     private Boolean enabled;

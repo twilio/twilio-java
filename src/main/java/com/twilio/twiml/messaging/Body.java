@@ -7,11 +7,15 @@
 
 package com.twilio.twiml.messaging;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 /**
  * TwiML wrapper for {@code <Body>}
  */
+@JsonDeserialize(builder = Body.Builder.class)
 public class Body extends TwiML {
     private final String message;
 
@@ -52,6 +56,20 @@ public class Body extends TwiML {
      * Create a new {@code <Body>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Body.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Body.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private String message;
 
         /**
@@ -59,6 +77,12 @@ public class Body extends TwiML {
          */
         public Builder(String message) {
             this.message = message;
+        }
+
+        /**
+         * Create a {@code <Body>} (for XML deserialization)
+         */
+        private Builder() {
         }
 
         /**

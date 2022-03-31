@@ -25,7 +25,7 @@ public class EvaluationReader extends Reader<Evaluation> {
     /**
      * Construct a new EvaluationReader.
      *
-     * @param pathBundleSid The bundle_sid
+     * @param pathBundleSid The unique string that identifies the resource
      */
     public EvaluationReader(final String pathBundleSid) {
         this.pathBundleSid = pathBundleSid;

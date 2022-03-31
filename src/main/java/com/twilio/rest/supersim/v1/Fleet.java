@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Fleet extends Resource {
-    private static final long serialVersionUID = 130716130909044L;
+    private static final long serialVersionUID = 21250601850052L;
 
     public enum DataMetering {
         PAYG("payg");
@@ -152,10 +152,12 @@ public class Fleet extends Resource {
     private final Boolean dataEnabled;
     private final Integer dataLimit;
     private final Fleet.DataMetering dataMetering;
-    private final Boolean commandsEnabled;
-    private final URI commandsUrl;
-    private final HttpMethod commandsMethod;
+    private final Boolean smsCommandsEnabled;
+    private final URI smsCommandsUrl;
+    private final HttpMethod smsCommandsMethod;
     private final String networkAccessProfileSid;
+    private final URI ipCommandsUrl;
+    private final HttpMethod ipCommandsMethod;
 
     @JsonCreator
     private Fleet(@JsonProperty("account_sid")
@@ -176,14 +178,18 @@ public class Fleet extends Resource {
                   final Integer dataLimit,
                   @JsonProperty("data_metering")
                   final Fleet.DataMetering dataMetering,
-                  @JsonProperty("commands_enabled")
-                  final Boolean commandsEnabled,
-                  @JsonProperty("commands_url")
-                  final URI commandsUrl,
-                  @JsonProperty("commands_method")
-                  final HttpMethod commandsMethod,
+                  @JsonProperty("sms_commands_enabled")
+                  final Boolean smsCommandsEnabled,
+                  @JsonProperty("sms_commands_url")
+                  final URI smsCommandsUrl,
+                  @JsonProperty("sms_commands_method")
+                  final HttpMethod smsCommandsMethod,
                   @JsonProperty("network_access_profile_sid")
-                  final String networkAccessProfileSid) {
+                  final String networkAccessProfileSid,
+                  @JsonProperty("ip_commands_url")
+                  final URI ipCommandsUrl,
+                  @JsonProperty("ip_commands_method")
+                  final HttpMethod ipCommandsMethod) {
         this.accountSid = accountSid;
         this.sid = sid;
         this.uniqueName = uniqueName;
@@ -193,10 +199,12 @@ public class Fleet extends Resource {
         this.dataEnabled = dataEnabled;
         this.dataLimit = dataLimit;
         this.dataMetering = dataMetering;
-        this.commandsEnabled = commandsEnabled;
-        this.commandsUrl = commandsUrl;
-        this.commandsMethod = commandsMethod;
+        this.smsCommandsEnabled = smsCommandsEnabled;
+        this.smsCommandsUrl = smsCommandsUrl;
+        this.smsCommandsMethod = smsCommandsMethod;
         this.networkAccessProfileSid = networkAccessProfileSid;
+        this.ipCommandsUrl = ipCommandsUrl;
+        this.ipCommandsMethod = ipCommandsMethod;
     }
 
     /**
@@ -291,30 +299,30 @@ public class Fleet extends Resource {
      * @return Defines whether SIMs in the Fleet are capable of sending and
      *         receiving machine-to-machine SMS via Commands
      */
-    public final Boolean getCommandsEnabled() {
-        return this.commandsEnabled;
+    public final Boolean getSmsCommandsEnabled() {
+        return this.smsCommandsEnabled;
     }
 
     /**
      * Returns The URL that will receive a webhook when a Super SIM in the Fleet is
-     * used to send an SMS from your device to the Commands number.
+     * used to send an SMS from your device to the SMS Commands number.
      *
      * @return The URL that will receive a webhook when a Super SIM in the Fleet is
-     *         used to send an SMS from your device to the Commands number
+     *         used to send an SMS from your device to the SMS Commands number
      */
-    public final URI getCommandsUrl() {
-        return this.commandsUrl;
+    public final URI getSmsCommandsUrl() {
+        return this.smsCommandsUrl;
     }
 
     /**
      * Returns A string representing the HTTP method to use when making a request to
-     * `commands_url`.
+     * `sms_commands_url`.
      *
      * @return A string representing the HTTP method to use when making a request
-     *         to `commands_url`
+     *         to `sms_commands_url`
      */
-    public final HttpMethod getCommandsMethod() {
-        return this.commandsMethod;
+    public final HttpMethod getSmsCommandsMethod() {
+        return this.smsCommandsMethod;
     }
 
     /**
@@ -324,6 +332,28 @@ public class Fleet extends Resource {
      */
     public final String getNetworkAccessProfileSid() {
         return this.networkAccessProfileSid;
+    }
+
+    /**
+     * Returns The URL that will receive a webhook when a Super SIM in the Fleet is
+     * used to send an IP Command from your device.
+     *
+     * @return The URL that will receive a webhook when a Super SIM in the Fleet is
+     *         used to send an IP Command from your device
+     */
+    public final URI getIpCommandsUrl() {
+        return this.ipCommandsUrl;
+    }
+
+    /**
+     * Returns A string representing the HTTP method to use when making a request to
+     * `ip_commands_url`.
+     *
+     * @return A string representing the HTTP method to use when making a request
+     *         to `ip_commands_url`
+     */
+    public final HttpMethod getIpCommandsMethod() {
+        return this.ipCommandsMethod;
     }
 
     @Override
@@ -347,10 +377,12 @@ public class Fleet extends Resource {
                Objects.equals(dataEnabled, other.dataEnabled) &&
                Objects.equals(dataLimit, other.dataLimit) &&
                Objects.equals(dataMetering, other.dataMetering) &&
-               Objects.equals(commandsEnabled, other.commandsEnabled) &&
-               Objects.equals(commandsUrl, other.commandsUrl) &&
-               Objects.equals(commandsMethod, other.commandsMethod) &&
-               Objects.equals(networkAccessProfileSid, other.networkAccessProfileSid);
+               Objects.equals(smsCommandsEnabled, other.smsCommandsEnabled) &&
+               Objects.equals(smsCommandsUrl, other.smsCommandsUrl) &&
+               Objects.equals(smsCommandsMethod, other.smsCommandsMethod) &&
+               Objects.equals(networkAccessProfileSid, other.networkAccessProfileSid) &&
+               Objects.equals(ipCommandsUrl, other.ipCommandsUrl) &&
+               Objects.equals(ipCommandsMethod, other.ipCommandsMethod);
     }
 
     @Override
@@ -364,9 +396,11 @@ public class Fleet extends Resource {
                             dataEnabled,
                             dataLimit,
                             dataMetering,
-                            commandsEnabled,
-                            commandsUrl,
-                            commandsMethod,
-                            networkAccessProfileSid);
+                            smsCommandsEnabled,
+                            smsCommandsUrl,
+                            smsCommandsMethod,
+                            networkAccessProfileSid,
+                            ipCommandsUrl,
+                            ipCommandsMethod);
     }
 }

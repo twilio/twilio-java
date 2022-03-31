@@ -36,7 +36,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
-    private static final long serialVersionUID = 219371871392689L;
+    private static final long serialVersionUID = 60594343304027L;
 
     public enum WebhookEnabledType {
         TRUE("true"),
@@ -175,6 +175,7 @@ public class User extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private User(@JsonProperty("sid")
@@ -200,7 +201,9 @@ public class User extends Resource {
                  @JsonProperty("date_updated")
                  final String dateUpdated,
                  @JsonProperty("url")
-                 final URI url) {
+                 final URI url,
+                 @JsonProperty("links")
+                 final Map<String, String> links) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -213,6 +216,7 @@ public class User extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.links = links;
     }
 
     /**
@@ -329,6 +333,15 @@ public class User extends Resource {
         return this.url;
     }
 
+    /**
+     * Returns The links.
+     *
+     * @return The links
+     */
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -352,7 +365,8 @@ public class User extends Resource {
                Objects.equals(isNotifiable, other.isNotifiable) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
-               Objects.equals(url, other.url);
+               Objects.equals(url, other.url) &&
+               Objects.equals(links, other.links);
     }
 
     @Override
@@ -368,6 +382,7 @@ public class User extends Resource {
                             isNotifiable,
                             dateCreated,
                             dateUpdated,
-                            url);
+                            url,
+                            links);
     }
 }

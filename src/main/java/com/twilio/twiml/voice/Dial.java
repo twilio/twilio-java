@@ -7,9 +7,13 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.net.URI;
 import java.util.HashMap;
@@ -20,6 +24,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <Dial>}
  */
+@JsonDeserialize(builder = Dial.Builder.class)
 public class Dial extends TwiML {
     public enum Trim {
         TRIM_SILENCE("trim-silence"),
@@ -449,6 +454,20 @@ public class Dial extends TwiML {
      * Create a new {@code <Dial>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <Dial.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a Dial.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private URI action;
         private HttpMethod method;
         private Integer timeout;
@@ -484,6 +503,7 @@ public class Dial extends TwiML {
         /**
          * Action URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "action")
         public Builder action(URI action) {
             this.action = action;
             return this;
@@ -500,6 +520,7 @@ public class Dial extends TwiML {
         /**
          * Action URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
         public Builder method(HttpMethod method) {
             this.method = method;
             return this;
@@ -508,6 +529,7 @@ public class Dial extends TwiML {
         /**
          * Time to wait for answer
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "timeout")
         public Builder timeout(Integer timeout) {
             this.timeout = timeout;
             return this;
@@ -516,6 +538,7 @@ public class Dial extends TwiML {
         /**
          * Hangup call on star press
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "hangupOnStar")
         public Builder hangupOnStar(Boolean hangupOnStar) {
             this.hangupOnStar = hangupOnStar;
             return this;
@@ -524,6 +547,7 @@ public class Dial extends TwiML {
         /**
          * Max time length
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "timeLimit")
         public Builder timeLimit(Integer timeLimit) {
             this.timeLimit = timeLimit;
             return this;
@@ -532,6 +556,7 @@ public class Dial extends TwiML {
         /**
          * Caller ID to display
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "callerId")
         public Builder callerId(String callerId) {
             this.callerId = callerId;
             return this;
@@ -540,6 +565,7 @@ public class Dial extends TwiML {
         /**
          * Record the call
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "record")
         public Builder record(Dial.Record record) {
             this.record = record;
             return this;
@@ -548,6 +574,7 @@ public class Dial extends TwiML {
         /**
          * Trim the recording
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "trim")
         public Builder trim(Dial.Trim trim) {
             this.trim = trim;
             return this;
@@ -556,6 +583,7 @@ public class Dial extends TwiML {
         /**
          * Recording status callback URL
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallback")
         public Builder recordingStatusCallback(URI recordingStatusCallback) {
             this.recordingStatusCallback = recordingStatusCallback;
             return this;
@@ -572,6 +600,7 @@ public class Dial extends TwiML {
         /**
          * Recording status callback URL method
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackMethod")
         public Builder recordingStatusCallbackMethod(HttpMethod recordingStatusCallbackMethod) {
             this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
             return this;
@@ -580,6 +609,7 @@ public class Dial extends TwiML {
         /**
          * Recording status callback events
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingStatusCallbackEvent")
         public Builder recordingStatusCallbackEvents(List<Dial.RecordingEvent> recordingStatusCallbackEvent) {
             this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
             return this;
@@ -597,6 +627,7 @@ public class Dial extends TwiML {
          * Preserve the ringing behavior of the inbound call until the Dialed call picks
          * up
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "answerOnBridge")
         public Builder answerOnBridge(Boolean answerOnBridge) {
             this.answerOnBridge = answerOnBridge;
             return this;
@@ -606,6 +637,7 @@ public class Dial extends TwiML {
          * Ringtone allows you to override the ringback tone that Twilio will play back
          * to the caller while executing the Dial
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "ringTone")
         public Builder ringTone(Dial.RingTone ringTone) {
             this.ringTone = ringTone;
             return this;
@@ -614,6 +646,7 @@ public class Dial extends TwiML {
         /**
          * To indicate which audio track should be recorded
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "recordingTrack")
         public Builder recordingTrack(Dial.RecordingTrack recordingTrack) {
             this.recordingTrack = recordingTrack;
             return this;
@@ -624,6 +657,7 @@ public class Dial extends TwiML {
          * the other (sequential) or dial all at once (parallel). Default is false,
          * parallel
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "sequential")
         public Builder sequential(Boolean sequential) {
             this.sequential = sequential;
             return this;
@@ -632,6 +666,7 @@ public class Dial extends TwiML {
         /**
          * Webhook that will receive future SIP REFER requests
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "referUrl")
         public Builder referUrl(URI referUrl) {
             this.referUrl = referUrl;
             return this;
@@ -648,6 +683,7 @@ public class Dial extends TwiML {
         /**
          * The HTTP method to use for the refer Webhook
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "referMethod")
         public Builder referMethod(HttpMethod referMethod) {
             this.referMethod = referMethod;
             return this;
@@ -656,6 +692,7 @@ public class Dial extends TwiML {
         /**
          * Phone number to dial
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "number")
         public Builder number(String number) {
             this.number = number;
             return this;
@@ -664,6 +701,7 @@ public class Dial extends TwiML {
         /**
          * Add a child {@code <Client>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Client")
         public Builder client(Client client) {
             this.children.add(client);
             return this;
@@ -672,6 +710,7 @@ public class Dial extends TwiML {
         /**
          * Add a child {@code <Conference>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Conference")
         public Builder conference(Conference conference) {
             this.children.add(conference);
             return this;
@@ -680,6 +719,7 @@ public class Dial extends TwiML {
         /**
          * Add a child {@code <Number>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Number")
         public Builder number(Number number) {
             this.children.add(number);
             return this;
@@ -688,6 +728,7 @@ public class Dial extends TwiML {
         /**
          * Add a child {@code <Queue>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Queue")
         public Builder queue(Queue queue) {
             this.children.add(queue);
             return this;
@@ -696,6 +737,7 @@ public class Dial extends TwiML {
         /**
          * Add a child {@code <Sim>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Sim")
         public Builder sim(Sim sim) {
             this.children.add(sim);
             return this;
@@ -704,6 +746,7 @@ public class Dial extends TwiML {
         /**
          * Add a child {@code <Sip>} element
          */
+        @JacksonXmlProperty(isAttribute = false, localName = "Sip")
         public Builder sip(Sip sip) {
             this.children.add(sip);
             return this;

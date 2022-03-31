@@ -10,6 +10,7 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -19,15 +20,26 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class BundleReader extends Reader<Bundle> {
     private Bundle.Status status;
     private String friendlyName;
     private String regulationSid;
     private String isoCountry;
     private String numberType;
+    private Boolean hasValidUntilDate;
+    private Bundle.SortBy sortBy;
+    private Bundle.SortDirection sortDirection;
+    private ZonedDateTime validUntilDate;
+    private ZonedDateTime validUntilDateBefore;
+    private ZonedDateTime validUntilDateAfter;
 
     /**
-     * The verification status of the Bundle resource..
+     * The verification status of the Bundle resource. Please refer to <a
+     * href="https://www.twilio.com/docs/phone-numbers/regulatory/api/bundles#bundle-statuses">Bundle
+     * Statuses</a> for more details..
      *
      * @param status The verification status of the Bundle resource
      * @return this
@@ -38,7 +50,8 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * The string that you assigned to describe the resource..
+     * The string that you assigned to describe the resource. The column can contain
+     * 255 variable characters..
      *
      * @param friendlyName The string that you assigned to describe the resource
      * @return this
@@ -49,7 +62,9 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * The unique string of a regulation that is associated to the Bundle resource..
+     * The unique string of a <a
+     * href="https://www.twilio.com/docs/phone-numbers/regulatory/api/regulations">Regulation
+     * resource</a> that is associated to the Bundle resource..
      *
      * @param regulationSid The unique string of a regulation.
      * @return this
@@ -60,7 +75,8 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * The ISO country code of the Bundle's phone number country ownership request..
+     * The 2-digit <a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO
+     * country code</a> of the Bundle's phone number country ownership request..
      *
      * @param isoCountry The ISO country code of the country
      * @return this
@@ -71,13 +87,110 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     /**
-     * The type of phone number of the Bundle's ownership request..
+     * The type of phone number of the Bundle's ownership request. Can be `local`,
+     * `mobile`, `national`, or `tollfree`..
      *
      * @param numberType The type of phone number
      * @return this
      */
     public BundleReader setNumberType(final String numberType) {
         this.numberType = numberType;
+        return this;
+    }
+
+    /**
+     * Indicates that the Bundle is a valid Bundle until a specified expiration
+     * date..
+     *
+     * @param hasValidUntilDate Indicates that the Bundle is a valid Bundle until a
+     *                          specified expiration date.
+     * @return this
+     */
+    public BundleReader setHasValidUntilDate(final Boolean hasValidUntilDate) {
+        this.hasValidUntilDate = hasValidUntilDate;
+        return this;
+    }
+
+    /**
+     * Can be `valid-until` or `date-updated`. Defaults to `date-created`..
+     *
+     * @param sortBy Can be `valid-until` or `date-updated`. Defaults to
+     *               `date-created`.
+     * @return this
+     */
+    public BundleReader setSortBy(final Bundle.SortBy sortBy) {
+        this.sortBy = sortBy;
+        return this;
+    }
+
+    /**
+     * Default is `DESC`. Can be `ASC` or `DESC`..
+     *
+     * @param sortDirection Default is `DESC`. Can be `ASC` or `DESC`.
+     * @return this
+     */
+    public BundleReader setSortDirection(final Bundle.SortDirection sortDirection) {
+        this.sortDirection = sortDirection;
+        return this;
+    }
+
+    /**
+     * Date to filter Bundles having their `valid_until_date` before or after the
+     * specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both
+     * can be used in conjunction as well. <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is the acceptable
+     * date format..
+     *
+     * @param validUntilDate Date to filter Bundles having their `valid_until_date`
+     *                       before or after the specified date. Can be
+     *                       `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both
+     *                       can be used in conjunction as well.
+     * @return this
+     */
+    public BundleReader setValidUntilDate(final ZonedDateTime validUntilDate) {
+        this.validUntilDateBefore = null;
+        this.validUntilDateAfter = null;
+        this.validUntilDate = validUntilDate;
+        return this;
+    }
+
+    /**
+     * Date to filter Bundles having their `valid_until_date` before or after the
+     * specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both
+     * can be used in conjunction as well. <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is the acceptable
+     * date format..
+     *
+     * @param validUntilDateBefore Date to filter Bundles having their
+     *                             `valid_until_date` before or after the specified
+     *                             date. Can be `ValidUntilDate&gt;=` or
+     *                             `ValidUntilDate&lt;=`. Both can be used in
+     *                             conjunction as well.
+     * @return this
+     */
+    public BundleReader setValidUntilDateBefore(final ZonedDateTime validUntilDateBefore) {
+        this.validUntilDate = null;
+        this.validUntilDateBefore = validUntilDateBefore;
+        return this;
+    }
+
+    /**
+     * Date to filter Bundles having their `valid_until_date` before or after the
+     * specified date. Can be `ValidUntilDate&gt;=` or `ValidUntilDate&lt;=`. Both
+     * can be used in conjunction as well. <a
+     * href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a> is the acceptable
+     * date format..
+     *
+     * @param validUntilDateAfter Date to filter Bundles having their
+     *                            `valid_until_date` before or after the specified
+     *                            date. Can be `ValidUntilDate&gt;=` or
+     *                            `ValidUntilDate&lt;=`. Both can be used in
+     *                            conjunction as well.
+     * @return this
+     */
+    public BundleReader setValidUntilDateAfter(final ZonedDateTime validUntilDateAfter) {
+        this.validUntilDate = null;
+        this.validUntilDateAfter = validUntilDateAfter;
         return this;
     }
 
@@ -215,6 +328,24 @@ public class BundleReader extends Reader<Bundle> {
 
         if (numberType != null) {
             request.addQueryParam("NumberType", numberType);
+        }
+
+        if (hasValidUntilDate != null) {
+            request.addQueryParam("HasValidUntilDate", hasValidUntilDate.toString());
+        }
+
+        if (sortBy != null) {
+            request.addQueryParam("SortBy", sortBy.toString());
+        }
+
+        if (sortDirection != null) {
+            request.addQueryParam("SortDirection", sortDirection.toString());
+        }
+
+        if (validUntilDate != null) {
+            request.addQueryParam("ValidUntilDate", validUntilDate.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        } else if (validUntilDateAfter != null || validUntilDateBefore != null) {
+            request.addQueryDateTimeRange("ValidUntilDate", validUntilDateAfter, validUntilDateBefore);
         }
 
         if (getPageSize() != null) {

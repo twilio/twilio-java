@@ -20,11 +20,37 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 /**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
  */
 public class SinkReader extends Reader<Sink> {
+    private Boolean inUse;
+    private String status;
+
+    /**
+     * A boolean query parameter filtering the results to return sinks used/not used
+     * by a subscription..
+     *
+     * @param inUse A boolean to return sinks used/not used by a subscription.
+     * @return this
+     */
+    public SinkReader setInUse(final Boolean inUse) {
+        this.inUse = inUse;
+        return this;
+    }
+
+    /**
+     * A String query parameter filtering the results by status `initialized`,
+     * `validating`, `active` or `failed`..
+     *
+     * @param status A string to filter sinks by status.
+     * @return this
+     */
+    public SinkReader setStatus(final String status) {
+        this.status = status;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -141,6 +167,14 @@ public class SinkReader extends Reader<Sink> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (inUse != null) {
+            request.addQueryParam("InUse", inUse.toString());
+        }
+
+        if (status != null) {
+            request.addQueryParam("Status", status);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

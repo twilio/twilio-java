@@ -7,7 +7,11 @@
 
 package com.twilio.twiml.voice;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
+import com.twilio.twiml.TwiMLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,6 +19,7 @@ import java.util.Map;
 /**
  * TwiML wrapper for {@code <break>}
  */
+@JsonDeserialize(builder = SsmlBreak.Builder.class)
 public class SsmlBreak extends TwiML {
     public enum Strength {
         NONE("none"),
@@ -97,12 +102,27 @@ public class SsmlBreak extends TwiML {
      * Create a new {@code <break>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
+        /**
+         * Create and return a {@code <SsmlBreak.Builder>} from an XML string
+         */
+        public static Builder fromXml(final String xml) throws TwiMLException {
+            try {
+                return OBJECT_MAPPER.readValue(xml, Builder.class);
+            } catch (final JsonProcessingException jpe) {
+                throw new TwiMLException(
+                    "Failed to deserialize a SsmlBreak.Builder from the provided XML string: " + jpe.getMessage());
+            } catch (final Exception e) {
+                throw new TwiMLException("Unhandled exception: " + e.getMessage());
+            }
+        }
+
         private SsmlBreak.Strength strength;
         private String time;
 
         /**
          * Set a pause based on strength
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "strength")
         public Builder strength(SsmlBreak.Strength strength) {
             this.strength = strength;
             return this;
@@ -112,6 +132,7 @@ public class SsmlBreak extends TwiML {
          * Set a pause to a specific length of time in seconds or milliseconds,
          * available values: [number]s, [number]ms
          */
+        @JacksonXmlProperty(isAttribute = true, localName = "time")
         public Builder time(String time) {
             this.time = time;
             return this;

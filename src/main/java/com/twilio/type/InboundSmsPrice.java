@@ -22,7 +22,7 @@ public class InboundSmsPrice {
     public enum Type {
         LOCAL("local"),
         MOBILE("mobile"),
-        NATIONAL("national"),
+        SHORTCODE("shortcode"),
         TOLLFREE("toll free");
 
         private final String value;

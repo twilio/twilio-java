@@ -23,6 +23,7 @@ public class InboundSmsPrice {
         LOCAL("local"),
         MOBILE("mobile"),
         NATIONAL("national"),
+        SHORTCODE("shortcode"),
         TOLLFREE("toll free");
 
         private final String value;

@@ -159,7 +159,8 @@ public class VerificationCreator extends Creator<Verification> {
 
     /**
      * <a href="https://www.twilio.com/docs/verify/email">`email`</a> channel
-     * configuration in json format. Must include 'from' and 'from_name'..
+     * configuration in json format. The fields 'from' and 'from_name' are optional
+     * but if included the 'from' field must have a valid email address..
      *
      * @param channelConfiguration Channel specific configuration in json format.
      * @return this

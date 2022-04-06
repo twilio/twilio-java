@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2022-04-06] Version 8.29.0
+---------------------------
+**Library - Feature**
+- [PR #676](https://github.com/twilio/twilio-java/pull/676): support shortcode as an InboundSmsPrice type. Thanks to [@beebzz](https://github.com/beebzz)!
+
+**Api**
+- Updated `provider_sid` visibility to private
+
+**Verify**
+- Verify List Attempts API summary endpoint added.
+- Update PII documentation for `AccessTokens` `factor_friendly_name` property.
+
+**Voice**
+- make annotation parameter from /Calls API private
+
+
 [2022-03-23] Version 8.28.0
 ---------------------------
 **Api**

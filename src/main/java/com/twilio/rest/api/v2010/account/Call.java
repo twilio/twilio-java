@@ -361,7 +361,6 @@ public class Call extends Resource {
     private final Currency priceUnit;
     private final String direction;
     private final String answeredBy;
-    private final String annotation;
     private final String apiVersion;
     private final String forwardedFrom;
     private final String groupSid;
@@ -409,8 +408,6 @@ public class Call extends Resource {
                  final String direction,
                  @JsonProperty("answered_by")
                  final String answeredBy,
-                 @JsonProperty("annotation")
-                 final String annotation,
                  @JsonProperty("api_version")
                  final String apiVersion,
                  @JsonProperty("forwarded_from")
@@ -445,7 +442,6 @@ public class Call extends Resource {
         this.priceUnit = priceUnit;
         this.direction = direction;
         this.answeredBy = answeredBy;
-        this.annotation = annotation;
         this.apiVersion = apiVersion;
         this.forwardedFrom = forwardedFrom;
         this.groupSid = groupSid;
@@ -653,15 +649,6 @@ public class Call extends Resource {
     }
 
     /**
-     * Returns The annotation provided for the call.
-     *
-     * @return The annotation provided for the call
-     */
-    public final String getAnnotation() {
-        return this.annotation;
-    }
-
-    /**
      * Returns The API Version used to create the call.
      *
      * @return The API Version used to create the call
@@ -773,7 +760,6 @@ public class Call extends Resource {
                Objects.equals(priceUnit, other.priceUnit) &&
                Objects.equals(direction, other.direction) &&
                Objects.equals(answeredBy, other.answeredBy) &&
-               Objects.equals(annotation, other.annotation) &&
                Objects.equals(apiVersion, other.apiVersion) &&
                Objects.equals(forwardedFrom, other.forwardedFrom) &&
                Objects.equals(groupSid, other.groupSid) &&
@@ -804,7 +790,6 @@ public class Call extends Resource {
                             priceUnit,
                             direction,
                             answeredBy,
-                            annotation,
                             apiVersion,
                             forwardedFrom,
                             groupSid,

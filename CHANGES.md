@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2022-04-20] Version 8.29.1
+---------------------------
+**Library - Chore**
+- [PR #678](https://github.com/twilio/twilio-java/pull/678): update testcase to remove dependency from generated files. Thanks to [@shrutiburman](https://github.com/shrutiburman)!
+
+
 [2022-04-06] Version 8.29.0
 ---------------------------
 **Library - Feature**

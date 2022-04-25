@@ -168,25 +168,25 @@ public class Page<T> {
     }
 
     private static <T> Page<T> buildNextGenPage(JsonNode root, List<T> results) {
-        JsonNode meta = root.get("meta");
-        Builder<T> builder = new Builder<T>().url(meta.get("url").asText());
+        JsonNode metaProperties = (root.get("meta") != null) ? root.get("meta") : root;
+        Builder<T> builder = new Builder<T>().url(metaProperties.get("url").asText());
 
-        JsonNode nextPageNode = meta.get("next_page_url");
+        JsonNode nextPageNode = metaProperties.get("next_page_url");
         if (!nextPageNode.isNull()) {
             builder.nextPageUrl(nextPageNode.asText());
         }
 
-        JsonNode previousPageNode = meta.get("previous_page_url");
+        JsonNode previousPageNode = metaProperties.get("previous_page_url");
         if (!previousPageNode.isNull()) {
             builder.previousPageUrl(previousPageNode.asText());
         }
 
-        JsonNode firstPageNode = meta.get("first_page_url");
+        JsonNode firstPageNode = metaProperties.get("first_page_url");
         if (!firstPageNode.isNull()) {
             builder.firstPageUrl(firstPageNode.asText());
         }
 
-        JsonNode pageSizeNode = meta.get("page_size");
+        JsonNode pageSizeNode = metaProperties.get("page_size");
         if (!pageSizeNode.isNull()) {
             builder.pageSize(pageSizeNode.asInt());
         } else {

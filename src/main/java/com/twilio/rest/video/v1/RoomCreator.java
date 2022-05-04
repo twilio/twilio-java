@@ -38,6 +38,7 @@ public class RoomCreator extends Creator<Room> {
     private Integer maxParticipantDuration;
     private Integer emptyRoomTimeout;
     private Integer unusedRoomTimeout;
+    private Boolean largeRoom;
 
     /**
      * Deprecated, now always considered to be true..
@@ -255,6 +256,17 @@ public class RoomCreator extends Creator<Room> {
     }
 
     /**
+     * When set to true, indicated that this is the large room..
+     *
+     * @param largeRoom Indicates whether this is a large room.
+     * @return this
+     */
+    public RoomCreator setLargeRoom(final Boolean largeRoom) {
+        this.largeRoom = largeRoom;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -347,6 +359,10 @@ public class RoomCreator extends Creator<Room> {
 
         if (unusedRoomTimeout != null) {
             request.addPostParam("UnusedRoomTimeout", unusedRoomTimeout.toString());
+        }
+
+        if (largeRoom != null) {
+            request.addPostParam("LargeRoom", largeRoom.toString());
         }
     }
 }

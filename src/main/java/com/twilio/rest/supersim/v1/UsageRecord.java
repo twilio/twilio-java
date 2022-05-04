@@ -13,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
@@ -28,6 +29,8 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.Currency;
 import java.util.Map;
 import java.util.Objects;
 
@@ -38,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsageRecord extends Resource {
-    private static final long serialVersionUID = 259624164977521L;
+    private static final long serialVersionUID = 160757536902041L;
 
     public enum Granularity {
         HOUR("hour"),
@@ -173,6 +176,8 @@ public class UsageRecord extends Resource {
     private final Long dataUpload;
     private final Long dataDownload;
     private final Long dataTotal;
+    private final BigDecimal dataTotalBilled;
+    private final Currency billedUnit;
 
     @JsonCreator
     private UsageRecord(@JsonProperty("account_sid")
@@ -192,7 +197,12 @@ public class UsageRecord extends Resource {
                         @JsonProperty("data_download")
                         final Long dataDownload,
                         @JsonProperty("data_total")
-                        final Long dataTotal) {
+                        final Long dataTotal,
+                        @JsonProperty("data_total_billed")
+                        final BigDecimal dataTotalBilled,
+                        @JsonProperty("billed_unit")
+                        @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+                        final Currency billedUnit) {
         this.accountSid = accountSid;
         this.simSid = simSid;
         this.networkSid = networkSid;
@@ -202,6 +212,8 @@ public class UsageRecord extends Resource {
         this.dataUpload = dataUpload;
         this.dataDownload = dataDownload;
         this.dataTotal = dataTotal;
+        this.dataTotalBilled = dataTotalBilled;
+        this.billedUnit = billedUnit;
     }
 
     /**
@@ -285,6 +297,28 @@ public class UsageRecord extends Resource {
         return this.dataTotal;
     }
 
+    /**
+     * Returns Total amount in the `billed_unit` that was charged for the data
+     * uploaded or downloaded..
+     *
+     * @return Total amount in the `billed_unit` that was charged for the data
+     *         uploaded or downloaded.
+     */
+    public final BigDecimal getDataTotalBilled() {
+        return this.dataTotalBilled;
+    }
+
+    /**
+     * Returns The currency in which the billed amounts are measured, specified in
+     * the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`)..
+     *
+     * @return The currency in which the billed amounts are measured, specified in
+     *         the 3 letter ISO 4127 format (e.g. `USD`, `EUR`, `JPY`).
+     */
+    public final Currency getBilledUnit() {
+        return this.billedUnit;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -305,7 +339,9 @@ public class UsageRecord extends Resource {
                Objects.equals(period, other.period) &&
                Objects.equals(dataUpload, other.dataUpload) &&
                Objects.equals(dataDownload, other.dataDownload) &&
-               Objects.equals(dataTotal, other.dataTotal);
+               Objects.equals(dataTotal, other.dataTotal) &&
+               Objects.equals(dataTotalBilled, other.dataTotalBilled) &&
+               Objects.equals(billedUnit, other.billedUnit);
     }
 
     @Override
@@ -318,6 +354,8 @@ public class UsageRecord extends Resource {
                             period,
                             dataUpload,
                             dataDownload,
-                            dataTotal);
+                            dataTotal,
+                            dataTotalBilled,
+                            billedUnit);
     }
 }

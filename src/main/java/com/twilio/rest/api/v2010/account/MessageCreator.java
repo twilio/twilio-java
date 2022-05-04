@@ -406,10 +406,10 @@ public class MessageCreator extends Creator<Message> {
 
     /**
      * If set to True, Twilio will deliver the message as a single MMS message,
-     * regardless of the presence of media. This is a Beta Feature..
+     * regardless of the presence of media..
      *
      * @param sendAsMms If set to True, Twilio will deliver the message as a single
-     *                  MMS message, regardless of the presence of media
+     *                  MMS message, regardless of the presence of media.
      * @return this
      */
     public MessageCreator setSendAsMms(final Boolean sendAsMms) {

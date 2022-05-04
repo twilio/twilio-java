@@ -22,18 +22,9 @@ import com.twilio.rest.Domains;
  * change. Use them with caution.
  */
 public class EsimProfileCreator extends Creator<EsimProfile> {
-    private final String eid;
     private String callbackUrl;
     private HttpMethod callbackMethod;
-
-    /**
-     * Construct a new EsimProfileCreator.
-     *
-     * @param eid Identifier of the eUICC that will claim the eSIM Profile
-     */
-    public EsimProfileCreator(final String eid) {
-        this.eid = eid;
-    }
+    private String eid;
 
     /**
      * The URL we should call using the `callback_method` when the status of the
@@ -59,6 +50,17 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
      */
     public EsimProfileCreator setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
+        return this;
+    }
+
+    /**
+     * Identifier of the eUICC that will claim the eSIM Profile..
+     *
+     * @param eid Identifier of the eUICC that will claim the eSIM Profile
+     * @return this
+     */
+    public EsimProfileCreator setEid(final String eid) {
+        this.eid = eid;
         return this;
     }
 
@@ -99,16 +101,16 @@ public class EsimProfileCreator extends Creator<EsimProfile> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
-        if (eid != null) {
-            request.addPostParam("Eid", eid);
-        }
-
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl);
         }
 
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+        }
+
+        if (eid != null) {
+            request.addPostParam("Eid", eid);
         }
     }
 }

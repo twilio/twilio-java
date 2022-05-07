@@ -98,6 +98,7 @@ public class TwilioRestClient {
         private String region;
         private String edge;
         private HttpClient httpClient;
+        private List<String> userAgentExtensions;
 
         /**
          * Create a new Twilio Rest Client.
@@ -131,6 +132,11 @@ public class TwilioRestClient {
             return this;
         }
 
+        public Builder userAgentExtensions(final List<String> userAgentExtensions) {
+            this.userAgentExtensions = userAgentExtensions;
+            return this;
+        }
+
         /**
          * Build new TwilioRestClient.
          *
@@ -138,7 +144,7 @@ public class TwilioRestClient {
          */
         public TwilioRestClient build() {
             if (this.httpClient == null) {
-                this.httpClient = new NetworkHttpClient();
+                this.httpClient = new NetworkHttpClient(userAgentExtensions);
             }
             return new TwilioRestClient(this);
         }

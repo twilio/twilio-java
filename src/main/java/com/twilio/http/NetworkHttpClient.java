@@ -30,8 +30,8 @@ public class NetworkHttpClient extends HttpClient {
     /**
      * Create a new HTTP Client.
      */
-    public NetworkHttpClient() {
-        this(DEFAULT_REQUEST_CONFIG);
+    public NetworkHttpClient(final List<String>... userAgentExtensions) {
+        this(DEFAULT_REQUEST_CONFIG, userAgentExtensions);
     }
 
     /**
@@ -39,8 +39,8 @@ public class NetworkHttpClient extends HttpClient {
      *
      * @param requestConfig a RequestConfig.
      */
-    public NetworkHttpClient(final RequestConfig requestConfig) {
-        this(requestConfig, DEFAULT_SOCKET_CONFIG);
+    public NetworkHttpClient(final RequestConfig requestConfig, final List<String>... userAgentExtensions) {
+        this(requestConfig, DEFAULT_SOCKET_CONFIG, userAgentExtensions);
     }
 
     /**
@@ -49,10 +49,11 @@ public class NetworkHttpClient extends HttpClient {
      * @param requestConfig a RequestConfig.
      * @param socketConfig  a SocketConfig.
      */
-    public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
+    public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig,
+                             final List<String>... userAgentExtensions) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
+            new BasicHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(userAgentExtensions)),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
@@ -83,11 +84,11 @@ public class NetworkHttpClient extends HttpClient {
      * Create a new HTTP Client using custom configuration.
      * @param clientBuilder an HttpClientBuilder.
      */
-    public NetworkHttpClient(HttpClientBuilder clientBuilder) {
+    public NetworkHttpClient(HttpClientBuilder clientBuilder, final List<String>... userAgentExtensions) {
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
                 new BasicHeader(
-                    HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
+                    HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(userAgentExtensions) + " custom"
                 ),
                 new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")

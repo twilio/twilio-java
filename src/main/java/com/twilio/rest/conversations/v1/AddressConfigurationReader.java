@@ -20,6 +20,20 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 public class AddressConfigurationReader extends Reader<AddressConfiguration> {
+    private String type;
+
+    /**
+     * Filter the address configurations by its type. This value can be one of:
+     * `whatsapp`, `sms`..
+     *
+     * @param type The type of address configuration.
+     * @return this
+     */
+    public AddressConfigurationReader setType(final String type) {
+        this.type = type;
+        return this;
+    }
+
     /**
      * Make the request to the Twilio API to perform the read.
      *
@@ -136,6 +150,10 @@ public class AddressConfigurationReader extends Reader<AddressConfiguration> {
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
+        if (type != null) {
+            request.addQueryParam("Type", type);
+        }
+
         if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }

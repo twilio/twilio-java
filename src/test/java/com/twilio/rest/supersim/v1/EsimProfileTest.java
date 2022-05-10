@@ -42,7 +42,7 @@ public class EsimProfileTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.SUPERSIM.toString(),
                                           "/v1/ESimProfiles");
-            request.addPostParam("Eid", serialize("eid"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class EsimProfileTest {
         }};
 
         try {
-            EsimProfile.creator("eid").create();
+            EsimProfile.creator().create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -60,24 +60,36 @@ public class EsimProfileTest {
     public void testCreateDefaultSmdpResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": null,\"sim_sid\": null,\"status\": \"reserving\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": null,\"sim_sid\": null,\"status\": \"new\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": null,\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        EsimProfile.creator("eid").create();
+        EsimProfile.creator().create();
+    }
+
+    @Test
+    public void testCreateActivationCodeResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": null,\"sim_sid\": null,\"status\": \"new\",\"eid\": null,\"smdp_plus_address\": null,\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        EsimProfile.creator().create();
     }
 
     @Test
     public void testCreateWithCallbackResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": null,\"sim_sid\": null,\"status\": \"reserving\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": null,\"sim_sid\": null,\"status\": \"reserving\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": null,\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
 
-        EsimProfile.creator("eid").create();
+        EsimProfile.creator().create();
     }
 
     @Test
@@ -101,10 +113,22 @@ public class EsimProfileTest {
     }
 
     @Test
-    public void testFetchResponse() {
+    public void testFetchDefaultSmdpResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"https://sm-dp-plus.twilio.com\",\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"sm-dp-plus.twilio.com\",\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        assertNotNull(EsimProfile.fetcher("HPXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").fetch());
+    }
+
+    @Test
+    public void testFetchActivationCodeResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": null,\"smdp_plus_address\": \"sm-dp-plus.twilio.com\",\"matching_id\": \"AAAAA-BBBBB-CCCCC-DDDDD-EEEEE\",\"activation_code\": \"1$SM-DP-PLUS.TWILIO.COM$AAAAA-BBBBB-CCCCC-DDDDD-EEEEE\",\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -136,7 +160,7 @@ public class EsimProfileTest {
     public void testReadAllResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"https://sm-dp-plus.twilio.com\",\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"sm-dp-plus.twilio.com\",\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -148,7 +172,7 @@ public class EsimProfileTest {
     public void testReadByEidResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"https://sm-dp-plus.twilio.com\",\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?Eid=89049032005008882600033489aaaaaa&PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?Eid=89049032005008882600033489aaaaaa&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"sm-dp-plus.twilio.com\",\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?Eid=89049032005008882600033489aaaaaa&PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?Eid=89049032005008882600033489aaaaaa&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -160,7 +184,7 @@ public class EsimProfileTest {
     public void testReadBySimSidResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"https://sm-dp-plus.twilio.com\",\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?SimSid=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?SimSid=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"available\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"sm-dp-plus.twilio.com\",\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?SimSid=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?SimSid=HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -172,7 +196,7 @@ public class EsimProfileTest {
     public void testReadByStatusResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"downloaded\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"https://sm-dp-plus.twilio.com\",\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?Status=downloaded&PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?Status=downloaded&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"esim_profiles\": [{\"sid\": \"HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"iccid\": \"8988307aaaaaaaaaaaaa\",\"sim_sid\": \"HSaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"status\": \"downloaded\",\"eid\": \"89049032005008882600033489aaaaaa\",\"smdp_plus_address\": \"sm-dp-plus.twilio.com\",\"matching_id\": null,\"activation_code\": null,\"error_code\": null,\"error_message\": null,\"date_created\": \"2020-09-01T20:00:00Z\",\"date_updated\": \"2020-09-01T20:00:00Z\",\"url\": \"https://supersim.twilio.com/v1/ESimProfiles/HPaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}],\"meta\": {\"first_page_url\": \"https://supersim.twilio.com/v1/ESimProfiles?Status=downloaded&PageSize=50&Page=0\",\"key\": \"esim_profiles\",\"next_page_url\": null,\"page\": 0,\"page_size\": 50,\"previous_page_url\": null,\"url\": \"https://supersim.twilio.com/v1/ESimProfiles?Status=downloaded&PageSize=50&Page=0\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

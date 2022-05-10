@@ -17,7 +17,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -26,6 +28,8 @@ import static org.junit.Assert.fail;
 public class NetworkHttpClientTest {
 
     private NetworkHttpClient client;
+
+    private NetworkHttpClient clientExtensible;
 
     @Mocked
     private Request mockRequest;
@@ -48,6 +52,8 @@ public class NetworkHttpClientTest {
     @Mocked
     private HttpEntity mockEntity;
 
+    private List<String> userAgentExtensions;
+
     @Before
     public void setUp() {
         new NonStrictExpectations() {{
@@ -59,6 +65,10 @@ public class NetworkHttpClientTest {
         }};
 
         client = new NetworkHttpClient(mockBuilder);
+        userAgentExtensions = new ArrayList<>();
+        userAgentExtensions.add("Developer Interface");
+        userAgentExtensions.add("Developer Experience");
+        clientExtensible = new NetworkHttpClient(mockBuilder, userAgentExtensions);
     }
 
     private void setup(
@@ -112,6 +122,16 @@ public class NetworkHttpClientTest {
         setup(200, "frobozz", HttpMethod.GET, false);
 
         Response resp = client.makeRequest(mockRequest);
+
+        assertEquals(resp.getStatusCode(), 200);
+        assertEquals(resp.getContent(), "frobozz");
+    }
+
+    @Test
+    public void testGetUserAgentExtensible() throws IOException {
+        setup(200, "frobozz", HttpMethod.GET, false);
+
+        Response resp = clientExtensible.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 200);
         assertEquals(resp.getContent(), "frobozz");

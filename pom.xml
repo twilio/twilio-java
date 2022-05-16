@@ -173,7 +173,7 @@
     <skip.tests>false</skip.tests>
     <dependency.skip>false</dependency.skip>
     <sonar.organization>twilio</sonar.organization>
-    <sonar.host.url>http://localhost:9000</sonar.host.url>
+    <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.projectName>twilio-java</sonar.projectName>
     <sonar.coverage.exclusions>**/test/**/*.*</sonar.coverage.exclusions>
     <sonar.cpd.exclusions>**/rest/**/*.*</sonar.cpd.exclusions>

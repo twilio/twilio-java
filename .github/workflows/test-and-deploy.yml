@@ -4,7 +4,7 @@ on:
     branches: [ '*' ]
     tags: [ '*' ]
   pull_request:
-    branches: [ main ]
+    branches: [ 9.0.0-rc ]
   schedule:
     # Run automatically at 8AM PST Monday-Friday
     - cron: '0 15 * * 1-5'
@@ -17,7 +17,7 @@ jobs:
     timeout-minutes: 20
     strategy:
       matrix:
-        java: [ 8, 11 ]
+        java: [ 11, 17 ]
     steps:
       - name: Checkout twilio-java
         uses: actions/checkout@v2
@@ -83,7 +83,7 @@ jobs:
       - name: Set up Sonatype Maven
         uses: actions/setup-java@v2
         with:
-          java-version: 8
+          java-version: 11
           distribution: temurin
           server-id: ossrh
           server-username: MAVEN_USERNAME

@@ -41,7 +41,8 @@ public class VerificationCheck extends Resource {
         SMS("sms"),
         CALL("call"),
         EMAIL("email"),
-        WHATSAPP("whatsapp");
+        WHATSAPP("whatsapp"),
+        SILENT("silent");
 
         private final String value;
 

@@ -3,7 +3,11 @@ package com.twilio;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
-import com.twilio.http.*;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.NetworkHttpClient;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +31,6 @@ public class Twilio {
     private static List<String> userAgentExtensions;
     private static String region = System.getenv("TWILIO_REGION");
     private static String edge = System.getenv("TWILIO_EDGE");
-
-
     private static volatile TwilioRestClient restClient;
     private static volatile ExecutorService executorService;
 
@@ -71,35 +73,6 @@ public class Twilio {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
         Twilio.setAccountSid(accountSid);
-    }
-
-    /**
-     * Initialize the Twilio environment.
-     *
-     * @param username account to use
-     * @param password auth token for the account
-     * @param userAgentExtensions offers ability to extend the User-Agent string
-     */
-    public static synchronized void init(final String username, final String password, List<String> userAgentExtensions) {
-        Twilio.setUsername(username);
-        Twilio.setPassword(password);
-        Twilio.setUserAgentExtensions(userAgentExtensions);
-    }
-
-    /**
-     * Initialize the Twilio environment.
-     *
-     * @param username   account to use
-     * @param password   auth token for the account
-     * @param accountSid account sid to use
-     * @param userAgentExtensions offers ability to extend the User-Agent string
-     */
-    public static synchronized void init(final String username, final String password, final String accountSid,
-                                         List<String> userAgentExtensions) {
-        Twilio.setUsername(username);
-        Twilio.setPassword(password);
-        Twilio.setAccountSid(accountSid);
-        Twilio.setUserAgentExtensions(userAgentExtensions);
     }
 
     /**
@@ -157,7 +130,7 @@ public class Twilio {
     }
 
     public static synchronized void setUserAgentExtensions(final List<String> userAgentExtensions) {
-        if (userAgentExtensions != null) {
+        if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
             Twilio.userAgentExtensions = new ArrayList<>(userAgentExtensions);
         }
     }

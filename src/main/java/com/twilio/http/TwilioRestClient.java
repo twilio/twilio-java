@@ -6,6 +6,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.Map;
 import java.util.List;
@@ -24,6 +25,7 @@ public class TwilioRestClient {
     private final String region;
     private final String edge;
     private final HttpClient httpClient;
+    private List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
     protected TwilioRestClient(Builder b) {
@@ -34,6 +36,7 @@ public class TwilioRestClient {
         this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
+        this.userAgentExtensions = b.userAgentExtensions;
 
         // This module configures the ObjectMapper to use
         // public API methods for manipulating java.time.*
@@ -55,6 +58,10 @@ public class TwilioRestClient {
             request.setRegion(region);
         if (edge != null)
             request.setEdge(edge);
+
+        if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
+            request.setUserAgentExtensions(userAgentExtensions);
+        }
 
         logRequest(request);
         Response response = httpClient.reliableRequest(request);
@@ -133,7 +140,9 @@ public class TwilioRestClient {
         }
 
         public Builder userAgentExtensions(final List<String> userAgentExtensions) {
-            this.userAgentExtensions = userAgentExtensions;
+            if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
+                this.userAgentExtensions = new ArrayList<>(userAgentExtensions);
+            }
             return this;
         }
 
@@ -144,7 +153,7 @@ public class TwilioRestClient {
          */
         public TwilioRestClient build() {
             if (this.httpClient == null) {
-                this.httpClient = new NetworkHttpClient(userAgentExtensions);
+                this.httpClient = new NetworkHttpClient();
             }
             return new TwilioRestClient(this);
         }

@@ -35,9 +35,8 @@ public class ValidationClient extends HttpClient {
     public ValidationClient(final String accountSid,
                             final String credentialSid,
                             final String signingKey,
-                            final PrivateKey privateKey,
-                            final List<String>... userAgentExtensions) {
-        this(accountSid, credentialSid, signingKey, privateKey, DEFAULT_REQUEST_CONFIG, userAgentExtensions);
+                            final PrivateKey privateKey) {
+        this(accountSid, credentialSid, signingKey, privateKey, DEFAULT_REQUEST_CONFIG);
     }
 
     /**
@@ -53,9 +52,8 @@ public class ValidationClient extends HttpClient {
                             final String credentialSid,
                             final String signingKey,
                             final PrivateKey privateKey,
-                            final RequestConfig requestConfig,
-                            final List<String>... userAgentExtensions) {
-        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG, userAgentExtensions);
+                            final RequestConfig requestConfig) {
+        this(accountSid, credentialSid, signingKey, privateKey, requestConfig, DEFAULT_SOCKET_CONFIG);
     }
 
     /**
@@ -73,11 +71,9 @@ public class ValidationClient extends HttpClient {
                             final String signingKey,
                             final PrivateKey privateKey,
                             final RequestConfig requestConfig,
-                            final SocketConfig socketConfig,
-                            final List<String>... userAgentExtensions) {
+                            final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(userAgentExtensions)),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
@@ -116,6 +112,8 @@ public class ValidationClient extends HttpClient {
                 }
             }
         }
+
+        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
 
         try {
             HttpResponse response = client.execute(builder.build());

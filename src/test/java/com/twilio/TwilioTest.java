@@ -11,6 +11,7 @@ import com.twilio.http.TwilioRestClient;
 
 import org.junit.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -61,6 +62,7 @@ public class TwilioTest {
     @Test(expected = AuthenticationException.class)
     public void testSetAuthTokenNull() {
         Twilio.setPassword(null);
+        Twilio.setUserAgentExtensions(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
         fail("AuthenticationException was expected");
     }
 

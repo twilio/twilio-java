@@ -8,16 +8,14 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
-
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
-import mockit.Mocked;
-import mockit.NonStrictExpectations;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -62,10 +60,26 @@ public class TwilioTest {
     @Test(expected = AuthenticationException.class)
     public void testSetAuthTokenNull() {
         Twilio.setPassword(null);
-        Twilio.setUserAgentExtensions(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
         fail("AuthenticationException was expected");
     }
 
+    @Test
+    public void testUserAgentExtensions() {
+        Twilio.setUsername("UserName");
+        Twilio.setPassword("Password");
+        Twilio.setUserAgentExtensions(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
+        TwilioRestClient twilioRestClient = Twilio.getRestClient();
+        assertNotNull(twilioRestClient);
+    }
+
+    @Test
+    public void testUserAgentExtensionsEmpty() {
+        Twilio.setUsername("UserName");
+        Twilio.setPassword("Password");
+        Twilio.setUserAgentExtensions(Arrays.asList());
+        TwilioRestClient twilioRestClient = Twilio.getRestClient();
+        assertNotNull(twilioRestClient);
+    }
     @Test
     public void testSetExecutorService() {
         ExecutorService executorService = Executors.newCachedThreadPool();

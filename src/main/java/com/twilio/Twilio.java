@@ -8,6 +8,7 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class Twilio {
     private static String username = System.getenv("TWILIO_ACCOUNT_SID");
     private static String password = System.getenv("TWILIO_AUTH_TOKEN");
     private static String accountSid; // username used if this is null
-
+    @Getter
     private static List<String> userAgentExtensions;
     private static String region = System.getenv("TWILIO_REGION");
     private static String edge = System.getenv("TWILIO_EDGE");
@@ -132,6 +133,9 @@ public class Twilio {
     public static synchronized void setUserAgentExtensions(final List<String> userAgentExtensions) {
         if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
             Twilio.userAgentExtensions = new ArrayList<>(userAgentExtensions);
+        } else {
+            // In case a developer wants to reset userAgentExtensions
+            Twilio.userAgentExtensions = null;
         }
     }
 

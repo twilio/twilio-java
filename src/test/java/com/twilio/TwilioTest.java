@@ -19,6 +19,7 @@ import java.util.concurrent.Executors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -68,18 +69,28 @@ public class TwilioTest {
         Twilio.setUsername("UserName");
         Twilio.setPassword("Password");
         Twilio.setUserAgentExtensions(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
-        TwilioRestClient twilioRestClient = Twilio.getRestClient();
-        assertNotNull(twilioRestClient);
+        Twilio.getRestClient();
+        assertEquals(Twilio.getUserAgentExtensions(), Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
     }
 
     @Test
     public void testUserAgentExtensionsEmpty() {
         Twilio.setUsername("UserName");
         Twilio.setPassword("Password");
-        Twilio.setUserAgentExtensions(Arrays.asList());
-        TwilioRestClient twilioRestClient = Twilio.getRestClient();
-        assertNotNull(twilioRestClient);
+        Twilio.setUserAgentExtensions(Arrays.asList()); // Reseting userAgentExtension
+        Twilio.getRestClient();
+        assertNull(Twilio.getUserAgentExtensions());
     }
+
+    @Test
+    public void testUserAgentExtensionsNull() {
+        Twilio.setUsername("UserName");
+        Twilio.setPassword("Password");
+        Twilio.setUserAgentExtensions(null); // Reseting userAgentExtension
+        Twilio.getRestClient();
+        assertNull(Twilio.getUserAgentExtensions());
+    }
+
     @Test
     public void testSetExecutorService() {
         ExecutorService executorService = Executors.newCachedThreadPool();

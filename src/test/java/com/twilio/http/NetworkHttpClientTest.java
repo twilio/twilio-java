@@ -17,7 +17,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Collection;
 
 import static org.junit.Assert.assertEquals;
@@ -30,8 +29,6 @@ public class NetworkHttpClientTest {
 
     @Mocked
     private Request mockRequest;
-
-    private Request mockRequestExtension;
 
     @Mocked
     private URL mockUrl;
@@ -154,17 +151,6 @@ public class NetworkHttpClientTest {
         setup(201, "frobozz", HttpMethod.POST, false);
 
         Response resp = client.makeRequest(mockRequest);
-
-        assertEquals(resp.getStatusCode(), 201);
-        assertEquals(resp.getContent(), "frobozz");
-    }
-
-    @Test
-    public void testuserAgentExtensions() throws IOException {
-        setup(201, "frobozz", HttpMethod.POST, false);
-        mockRequestExtension = new Request(HttpMethod.GET, "http://testUrl");
-        mockRequestExtension.setUserAgentExtensions(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
-        Response resp = client.makeRequest(mockRequestExtension);
 
         assertEquals(resp.getStatusCode(), 201);
         assertEquals(resp.getContent(), "frobozz");

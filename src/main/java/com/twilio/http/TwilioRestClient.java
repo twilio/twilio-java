@@ -2,14 +2,15 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.function.Predicate;
-import java.util.Map;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+
 
 public class TwilioRestClient {
 
@@ -18,14 +19,20 @@ public class TwilioRestClient {
     public static final int HTTP_STATUS_CODE_OK = 200;
     public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
+    @Getter
     private final ObjectMapper objectMapper;
     private final String username;
     private final String password;
+    @Getter
     private final String accountSid;
+    @Getter
     private final String region;
+    @Getter
     private final String edge;
+    @Getter
     private final HttpClient httpClient;
-    private List<String> userAgentExtensions;
+    @Getter
+    private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
     protected TwilioRestClient(Builder b) {
@@ -76,26 +83,6 @@ public class TwilioRestClient {
         }
 
         return response;
-    }
-
-    public String getAccountSid() {
-        return accountSid;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getEdge() {
-        return edge;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
-
-    public HttpClient getHttpClient() {
-        return httpClient;
     }
 
     public static class Builder {

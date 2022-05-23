@@ -2,7 +2,7 @@ package com.twilio.http;
 
 import com.twilio.exception.ApiConnectionException;
 import mockit.Mocked;
-import mockit.NonStrictExpectations;
+import mockit.Expectations;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -50,7 +50,7 @@ public class NetworkHttpClientTest {
 
     @Before
     public void setUp() {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             mockBuilder.setDefaultHeaders((Collection<Header>) any);
             result = mockBuilder;
 
@@ -69,7 +69,7 @@ public class NetworkHttpClientTest {
     ) throws IOException {
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
-        new NonStrictExpectations() {{
+        new Expectations() {{
             mockRequest.getMethod();
             result = method;
 
@@ -119,7 +119,7 @@ public class NetworkHttpClientTest {
 
     @Test(expected = ApiConnectionException.class)
     public void testMakeRequestIOException() throws IOException {
-        new NonStrictExpectations() {{
+        new Expectations() {{
             mockBuilder.setDefaultHeaders((Collection<Header>) any);
             result = mockBuilder;
 
@@ -160,7 +160,7 @@ public class NetworkHttpClientTest {
     public void testReliableRequest() {
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(client) {{
+        new Expectations(client) {{
             client.makeRequest((Request) any);
             result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
         }};
@@ -174,10 +174,10 @@ public class NetworkHttpClientTest {
     public void testReliableRequestWithRetries() {
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(client) {{
+        new Expectations(client) {{
             client.makeRequest((Request) any);
             result = null;
-            times = 3;
+            minTimes = 3;
         }};
 
         client.reliableRequest(request);
@@ -187,7 +187,7 @@ public class NetworkHttpClientTest {
     public void testReliableRequestWithRetries100() {
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(client) {{
+        new Expectations(client) {{
             client.makeRequest((Request) any);
             result = new Response("", 500);
         }};

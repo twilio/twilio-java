@@ -10,8 +10,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class HttpUtilityTest {
-    private List<String> userAgentExtensionsEmpty = new ArrayList<>();;
-    private List<String> userAgentExtensions = Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange");;
+    private List<String> userAgentExtensionsEmpty = new ArrayList<>();
+    private List<String> userAgentExtensions = Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange");
 
     @Test
     public void getUserAgentStringTest() {

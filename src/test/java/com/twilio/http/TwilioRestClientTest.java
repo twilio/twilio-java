@@ -8,10 +8,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class TwilioRestClientTest {
     @Mocked
@@ -20,12 +22,17 @@ public class TwilioRestClientTest {
     @Injectable
     private TwilioRestClient twilioRestClientExtension;
 
-    private List<String> userAgentStringExtensions;
+    private List<String> userAgentStringExtensions = Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange");
+
+    private static final String USER_NAME = "AC123";
+
+    private static final String TOKEN = "AUTH TOKEN";
+
+    private static final String URI = "/2010-04-01/Accounts/AC123/Messages/MM123.json";
 
     @Before
     public void setUp() throws Exception {
-        Twilio.init("AC123", "AUTH TOKEN");
-        userAgentStringExtensions = Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange");
+        Twilio.init(USER_NAME, TOKEN);
     }
 
     @Test
@@ -33,7 +40,7 @@ public class TwilioRestClientTest {
         Request request = new Request(
                 HttpMethod.GET,
                 Domains.API.toString(),
-                "/2010-04-01/Accounts/" + "AC123" + "/Messages/" + "MM123" + ".json"
+                URI
         );
 
         Response resp = twilioRestClient.request(request);
@@ -41,44 +48,44 @@ public class TwilioRestClientTest {
     }
 
     @Test
-    public void testRequestWithExtention() {
+    public void testRequestWithExtension() {
         Request request = new Request(
                 HttpMethod.GET,
                 Domains.API.toString(),
-                "/2010-04-01/Accounts/" + "AC123" + "/Messages/" + "MM123" + ".json"
+                URI
         );
-        twilioRestClientExtension = new TwilioRestClient.Builder("AC123", "AUTH TOKEN")
+        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(userAgentStringExtensions)
                 .build();
         twilioRestClientExtension.request(request);
-        assertEquals(request.getUserAgentExtensions(), userAgentStringExtensions);
+        assertEquals(userAgentStringExtensions, request.getUserAgentExtensions());
     }
 
     @Test
-    public void testRequestWithExtentionEmpty() {
+    public void testRequestWithExtensionEmpty() {
         Request request = new Request(
                 HttpMethod.GET,
                 Domains.API.toString(),
-                "/2010-04-01/Accounts/" + "AC123" + "/Messages/" + "MM123" + ".json"
+                URI
         );
-        twilioRestClientExtension = new TwilioRestClient.Builder("AC123", "AUTH TOKEN")
-                .userAgentExtensions(Arrays.asList())
+        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
+                .userAgentExtensions(Collections.emptyList())
                 .build();
         twilioRestClientExtension.request(request);
-        assertEquals(request.getUserAgentExtensions(), null);
+        assertNull(request.getUserAgentExtensions());
     }
 
     @Test
-    public void testRequestWithExtentionNull() {
+    public void testRequestWithExtensionNull() {
         Request request = new Request(
                 HttpMethod.GET,
                 Domains.API.toString(),
-                "/2010-04-01/Accounts/" + "AC123" + "/Messages/" + "MM123" + ".json"
+                URI
         );
-        twilioRestClientExtension = new TwilioRestClient.Builder("AC123", "AUTH TOKEN")
+        twilioRestClientExtension = new TwilioRestClient.Builder(USER_NAME, TOKEN)
                 .userAgentExtensions(null)
                 .build();
         twilioRestClientExtension.request(request);
-        assertEquals(request.getUserAgentExtensions(), null);
+        assertNull(request.getUserAgentExtensions());
     }
 }

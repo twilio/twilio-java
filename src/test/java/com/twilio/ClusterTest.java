@@ -29,7 +29,7 @@ public class ClusterTest {
         // only run when ClusterTest property is passed (mvn test -Dtest="ClusterTest"), skip test run on mvn test
         Assume.assumeThat(System.getProperty("Test"), CoreMatchers.is("ClusterTest"));
         fromNumber = System.getenv("TWILIO_FROM_NUMBER");
-	    toNumber = System.getenv("TWILIO_TO_NUMBER");
+        toNumber = System.getenv("TWILIO_TO_NUMBER");
         String apiKey = System.getenv("TWILIO_API_KEY");
         String secret = System.getenv("TWILIO_API_SECRET");
         String accountSid = System.getenv("TWILIO_ACCOUNT_SID");
@@ -94,7 +94,6 @@ public class ClusterTest {
         types2.put("type", "com.twilio.messaging.message.sent");
         types.add(types1);
         types.add(types2);
-
 
         Sink sink = Sink.creator("test sink java", sinkConfiguration, Sink.SinkType.WEBHOOK).create();
         assertNotNull(sink);

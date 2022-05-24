@@ -24,9 +24,8 @@ public class CallCreatorExample {
             CallCreator creator =
                 Call.creator(
                     "AC123",
-                    new PhoneNumber("+14156085895"),
-                    new PhoneNumber("+14154888928"),
-                    new URI("http://twimlbin.com/4397e62f")
+                    "+14156085895",
+                    "+14154888928"
                 );
 
             Call call = creator.create();
@@ -34,7 +33,7 @@ public class CallCreatorExample {
             System.out.println(call.getSid());
             System.out.println(call.getStatus().toString());
 
-        } catch (URISyntaxException | ApiException e) {
+        } catch (ApiException e) {
             System.err.println("womp womp");
             System.exit(1);
         }

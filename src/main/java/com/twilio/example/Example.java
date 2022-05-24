@@ -50,9 +50,7 @@ public class Example {
         // Send a text message
         Message message = Message.creator(
             ACCOUNT_SID,
-            PHONE_NUMBER,
-            number.getPhoneNumber(),
-            "Hello world!"
+            PHONE_NUMBER
         ).create();
 
         System.out.println(message.getSid());
@@ -61,9 +59,8 @@ public class Example {
         // Make a phone call
         Call call = new CallCreator(
             ACCOUNT_SID,
-            PHONE_NUMBER,
-            number.getPhoneNumber(),
-            URI.create("https://twilio.com")
+            PHONE_NUMBER.toString(),
+            number.getPhoneNumber().toString()
         ).create();
         System.out.println(call.getSid());
 
@@ -104,8 +101,7 @@ public class Example {
         if (iter.hasNext()) {
             Local local = iter.next();
             return IncomingPhoneNumber.creator(
-                ACCOUNT_SID,
-                local.getPhoneNumber()
+                ACCOUNT_SID
             ).create();
         }
 

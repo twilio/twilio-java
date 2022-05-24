@@ -17,7 +17,7 @@ public class CallDeleterExample {
 
         try {
 
-            CallDeleter deleter = Call.deleter("AC123", "CA123");
+            CallDeleter deleter = Call.delete("AC123", "CA123");
             deleter.delete();
 
         } catch (ApiException e) {

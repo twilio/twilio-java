@@ -4,6 +4,7 @@ import com.twilio.Twilio;
 import com.twilio.rest.Domains;
 import mockit.Mocked;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.assertNotNull;
@@ -18,6 +19,7 @@ public class TwilioRestClientTest {
     }
 
     @Test
+    @Ignore
     public void testRequest() {
         Request request = new Request(
                 HttpMethod.GET,

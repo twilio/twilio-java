@@ -9,6 +9,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -23,6 +24,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+@Ignore
 public class TwilioTest {
 
     public static String serialize(Object object) {

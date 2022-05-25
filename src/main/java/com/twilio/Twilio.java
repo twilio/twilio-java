@@ -116,14 +116,9 @@ public class Twilio {
      * Set the account sid.
      *
      * @param accountSid account sid to use
-     * @throws AuthenticationException if account sid is null
      */
     public static synchronized void setAccountSid(final String accountSid) {
-        if (accountSid == null) {
-            throw new AuthenticationException("AccountSid can not be null");
-        }
-
-        if (!accountSid.equals(Twilio.accountSid)) {
+        if (!Objects.equals(accountSid, Twilio.accountSid)) {
             Twilio.invalidate();
         }
 

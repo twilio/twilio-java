@@ -36,6 +36,8 @@ public class Request {
     private String username;
     private String password;
 
+    private List<String> userAgentExtensions;
+
     /**
      * Create a new API request.
      *
@@ -102,6 +104,14 @@ public class Request {
 
     public void setEdge(final String edge) {
         this.edge = edge;
+    }
+
+    public void setUserAgentExtensions(List<String> userAgentExtensions) {
+        this.userAgentExtensions = userAgentExtensions;
+    }
+
+    public List<String> getUserAgentExtensions() {
+        return this.userAgentExtensions;
     }
 
     /**

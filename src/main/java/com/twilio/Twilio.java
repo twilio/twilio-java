@@ -61,6 +61,7 @@ public class Twilio {
     public static synchronized void init(final String username, final String password) {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
+        Twilio.setAccountSid(null);
     }
 
     /**

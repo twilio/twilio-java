@@ -4,16 +4,15 @@ import com.twilio.http.ValidationInterceptor;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import mockit.Expectations;
-import mockit.Mocked;
 import org.apache.http.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.message.BasicHttpRequest;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -21,17 +20,14 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
-@Ignore
+import static org.mockito.Mockito.when;
+
 public class ValidationTokenTest {
 
     private static final List<String> SIGNED_HEADERS = Arrays.asList("host", "authorization");
@@ -42,17 +38,21 @@ public class ValidationTokenTest {
     private Header[] headers;
     private PrivateKey privateKey;
 
-    @Mocked
+    @Mock
     private HttpRequest request;
 
-    @Mocked
+    @Mock
+    private RequestLine requestLine;
+
+    @Mock
     private HttpEntityEnclosingRequest requestWithEntity;
 
-    @Mocked
+    @Mock
     private HttpEntity entity;
 
     @Before
     public void setup() throws Exception {
+        MockitoAnnotations.initMocks(this);
         headers = new Header[2];
         headers[0] = new BasicHeader("host", "api.twilio.com");
         headers[1] = new BasicHeader("authorization", "foobar");
@@ -75,8 +75,8 @@ public class ValidationTokenTest {
             .build();
 
         Claims claims =
-            Jwts.parser()
-                .setSigningKey(privateKey)
+                Jwts.parserBuilder()
+                .setSigningKey(privateKey).build()
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
 
@@ -88,24 +88,17 @@ public class ValidationTokenTest {
 
     @Test
     public void testTokenFromHttpRequest() throws IOException {
-        new Expectations() {{
-            request.getRequestLine().getMethod();
-            result = "POST";
+        when(request.getRequestLine()).thenReturn(requestLine);
+        when(requestLine.getMethod()).thenReturn("POST");
+        when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
+        when(request.getAllHeaders()).thenReturn(headers);
 
-            request.getRequestLine().getUri();
-            result = "/Messages?PageSize=5&Limit=10";
-
-            request.getAllHeaders();
-            result = headers;
-        }};
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims =
-            Jwts.parser()
-                .setSigningKey(privateKey)
+                Jwts.parserBuilder().setSigningKey(privateKey).build()
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
-
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
@@ -114,30 +107,20 @@ public class ValidationTokenTest {
 
     @Test
     public void testTokenFromEntityRequest() throws IOException {
-        new Expectations() {{
-            requestWithEntity.getRequestLine().getMethod();
-            result = "POST";
 
-            requestWithEntity.getRequestLine().getUri();
-            result = "/Messages";
-
-            requestWithEntity.getAllHeaders();
-            result = headers;
-
-            requestWithEntity.getEntity();
-            result = entity;
-
-            entity.getContent();
-            result = new ByteArrayInputStream("testbody".getBytes(StandardCharsets.UTF_8));
-        }};
+        when(requestWithEntity.getRequestLine()).thenReturn(requestLine);
+        when(requestWithEntity.getAllHeaders()).thenReturn(headers);
+        when(requestWithEntity.getEntity()).thenReturn(entity);
+        when(entity.getContent()).thenReturn( new ByteArrayInputStream("testbody".getBytes(StandardCharsets.UTF_8)));
+        when(requestLine.getMethod()).thenReturn("POST");
+        when(requestLine.getUri()).thenReturn("/Messages");
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, requestWithEntity, SIGNED_HEADERS);
         Claims claims =
-            Jwts.parser()
-                .setSigningKey(privateKey)
+            Jwts.parserBuilder()
+                .setSigningKey(privateKey).build()
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
-
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
@@ -147,21 +130,16 @@ public class ValidationTokenTest {
     @Test
     public void testTokenFromHttpRequestWithHostPort() throws IOException {
         headers[0] = new BasicHeader("host", "api.twilio.com:443");
-        new Expectations() {{
-            request.getRequestLine().getMethod();
-            result = "GET";
 
-            request.getRequestLine().getUri();
-            result = "/Messages?PageSize=5&Limit=10";
-
-            request.getAllHeaders();
-            result = headers;
-        }};
+        when(request.getRequestLine()).thenReturn(requestLine);
+        when(requestLine.getMethod()).thenReturn("GET");
+        when(requestLine.getUri()).thenReturn("/Messages?PageSize=5&Limit=10");
+        when(request.getAllHeaders()).thenReturn(headers);
 
         Jwt jwt = ValidationToken.fromHttpRequest(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey, request, SIGNED_HEADERS);
         Claims claims =
-                Jwts.parser()
-                    .setSigningKey(privateKey)
+                Jwts.parserBuilder()
+                    .setSigningKey(privateKey).build()
                     .parseClaimsJws(jwt.toJwt())
                     .getBody();
 

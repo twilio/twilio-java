@@ -29,9 +29,9 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
     /**
      * Construct a new InteractionChannelUpdater.
      *
-     * @param pathInteractionSid The Interaction Sid for this channel.
+     * @param pathInteractionSid The unique string that identifies the resource
      * @param pathSid The unique string that identifies the resource
-     * @param status The Interaction Channels's status
+     * @param status Required. The Interaction channels's status
      */
     public InteractionChannelUpdater(final String pathInteractionSid,
                                      final String pathSid,
@@ -42,11 +42,10 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
     }
 
     /**
-     * The Interaction Channel's routing parameters.  Optional, may contain `status`
-     * to set the agent's Reservation state to either `closed` or `wrapup`.  Default
-     * is `wrapup` if unspecified..
+     * Optional. The state of associated tasks. If not specified, all tasks will be
+     * set to `wrapping`..
      *
-     * @param routing The Interaction Channels's optional routing parameters
+     * @param routing Optional. The state of associated tasks.
      * @return this
      */
     public InteractionChannelUpdater setRouting(final Map<String, Object> routing) {

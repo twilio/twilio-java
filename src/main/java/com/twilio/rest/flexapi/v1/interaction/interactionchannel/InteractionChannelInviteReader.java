@@ -26,8 +26,8 @@ public class InteractionChannelInviteReader extends Reader<InteractionChannelInv
     /**
      * Construct a new InteractionChannelInviteReader.
      *
-     * @param pathInteractionSid The interaction_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathInteractionSid The Interaction SID for this Channel
+     * @param pathChannelSid The Channel SID for this Participant
      */
     public InteractionChannelInviteReader(final String pathInteractionSid,
                                           final String pathChannelSid) {

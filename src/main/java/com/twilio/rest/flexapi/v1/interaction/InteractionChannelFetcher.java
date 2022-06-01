@@ -24,8 +24,8 @@ public class InteractionChannelFetcher extends Fetcher<InteractionChannel> {
     /**
      * Construct a new InteractionChannelFetcher.
      *
-     * @param pathInteractionSid The Interaction Sid for this channel.
-     * @param pathSid The Channel Sid for this Participant.
+     * @param pathInteractionSid The unique string that identifies the resource
+     * @param pathSid The unique string that identifies the resource
      */
     public InteractionChannelFetcher(final String pathInteractionSid,
                                      final String pathSid) {

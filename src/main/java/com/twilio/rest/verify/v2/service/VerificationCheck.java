@@ -42,7 +42,7 @@ public class VerificationCheck extends Resource {
         CALL("call"),
         EMAIL("email"),
         WHATSAPP("whatsapp"),
-        SILENT("silent");
+        SNA("sna");
 
         private final String value;
 

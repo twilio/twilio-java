@@ -89,9 +89,9 @@ public class InteractionChannelInvite extends Resource {
     /**
      * Create a InteractionChannelInviteCreator to execute create.
      *
-     * @param pathInteractionSid The interaction_sid
-     * @param pathChannelSid The channel_sid
-     * @param routing The routing
+     * @param pathInteractionSid The Interaction SID for this Channel
+     * @param pathChannelSid The Channel SID for this Invite
+     * @param routing The Interaction's routing logic
      * @return InteractionChannelInviteCreator capable of executing the create
      */
     public static InteractionChannelInviteCreator creator(final String pathInteractionSid,
@@ -103,8 +103,8 @@ public class InteractionChannelInvite extends Resource {
     /**
      * Create a InteractionChannelInviteReader to execute read.
      *
-     * @param pathInteractionSid The interaction_sid
-     * @param pathChannelSid The channel_sid
+     * @param pathInteractionSid The Interaction SID for this Channel
+     * @param pathChannelSid The Channel SID for this Participant
      * @return InteractionChannelInviteReader capable of executing the read
      */
     public static InteractionChannelInviteReader reader(final String pathInteractionSid,
@@ -175,36 +175,38 @@ public class InteractionChannelInvite extends Resource {
     }
 
     /**
-     * Returns The sid.
+     * Returns The unique string that identifies the resource.
      *
-     * @return The sid
+     * @return The unique string that identifies the resource
      */
     public final String getSid() {
         return this.sid;
     }
 
     /**
-     * Returns The interaction_sid.
+     * Returns The Interaction SID for this Channel.
      *
-     * @return The interaction_sid
+     * @return The Interaction SID for this Channel
      */
     public final String getInteractionSid() {
         return this.interactionSid;
     }
 
     /**
-     * Returns The channel_sid.
+     * Returns The Channel SID for this Invite.
      *
-     * @return The channel_sid
+     * @return The Channel SID for this Invite
      */
     public final String getChannelSid() {
         return this.channelSid;
     }
 
     /**
-     * Returns The routing.
+     * Returns A JSON object representing the routing rules for the Interaction
+     * Channel.
      *
-     * @return The routing
+     * @return A JSON object representing the routing rules for the Interaction
+     *         Channel
      */
     public final Map<String, Object> getRouting() {
         return this.routing;

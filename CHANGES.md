@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2022-06-01] Version 8.31.0
+---------------------------
+**Library - Chore**
+- [PR #693](https://github.com/twilio/twilio-java/pull/693): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #692](https://github.com/twilio/twilio-java/pull/692): reset account sid when using username and password only. Thanks to [@aarya-brex](https://github.com/aarya-brex)!
+- [PR #688](https://github.com/twilio/twilio-java/pull/688): support setting null account sid. Thanks to [@aarya-brex](https://github.com/aarya-brex)!
+
+**Library - Feature**
+- [PR #683](https://github.com/twilio/twilio-java/pull/683): modify user agent string. Thanks to [@sbansla](https://github.com/sbansla)!
+
+
 [2022-05-18] Version 8.30.1
 ---------------------------
 **Api**

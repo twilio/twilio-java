@@ -14,7 +14,6 @@ public enum Domains {
     CHAT("chat"),
     CONVERSATIONS("conversations"),
     EVENTS("events"),
-    FAX("fax"),
     FLEXAPI("flex-api"),
     FRONTLINEAPI("frontline-api"),
     INSIGHTS("insights"),

@@ -28,9 +28,9 @@ public class InteractionChannelInviteCreator extends Creator<InteractionChannelI
     /**
      * Construct a new InteractionChannelInviteCreator.
      *
-     * @param pathInteractionSid The interaction_sid
-     * @param pathChannelSid The channel_sid
-     * @param routing The routing
+     * @param pathInteractionSid The Interaction SID for this Channel
+     * @param pathChannelSid The Channel SID for this Invite
+     * @param routing The Interaction's routing logic
      */
     public InteractionChannelInviteCreator(final String pathInteractionSid,
                                            final String pathChannelSid,

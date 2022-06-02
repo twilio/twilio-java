@@ -269,12 +269,6 @@
       <version>2.3.1</version>
     </dependency>
     <dependency>
-      <groupId>org.jmockit</groupId>
-      <artifactId>jmockit</artifactId>
-      <version>1.49</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>4.13.2</version>
@@ -434,7 +428,6 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.0.0-M6</version>
         <configuration>
-          <argLine>@{argLine} -javaagent:${settings.localRepository}/org/jmockit/jmockit/1.49/jmockit-1.49.jar</argLine>
           <forkCount>8</forkCount>
           <reuseForks>true</reuseForks>
         </configuration>

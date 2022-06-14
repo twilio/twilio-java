@@ -1,5 +1,6 @@
 package com.twilio.compliance;
 
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaModifier;
@@ -23,27 +24,30 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ComplianceTest {
     static final private ImportOptions importOpts = new ImportOptions().with(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS);
     static final private JavaClasses twilioClasses = new ClassFileImporter(importOpts).importPackages("com.twilio");
     static final private List<Class> resourceClasses = getResourceClasses(twilioClasses);
+    static final private List<Class> variantClasses = new ArrayList<Class>(); // classes that do not follow the generic template
 
     @Before
     public void setUp() {
         assertTrue(twilioClasses.size() > 0);
         assertTrue(resourceClasses.size() > 1);
+        variantClasses.add(com.twilio.rest.voice.v1.ArchivedCall.class);
     }
 
     @Test
     public void testEqualsMethods() {
-        for (Class clazz : resourceClasses) {
+        List <Class> eligibleResourceClasses = resourceClasses.stream().filter( c -> !variantClasses.contains(c)).collect(Collectors.toList());
+        for (Class clazz : eligibleResourceClasses) {
             EqualsVerifier.forClass(clazz)
                     .usingGetClass()
                     .verify();
         }
     }
-
     @Test
     public void noClassesShouldUseJavaUtilLogging() {
         NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING.check(twilioClasses);
@@ -64,7 +68,10 @@ public class ComplianceTest {
 
     @Test
     public void resourceClassSanityCheck() {
-        GivenClassesConjunction resourceClasses = classes().that().areAssignableTo(com.twilio.base.Resource.class).and().doNotHaveFullyQualifiedName(com.twilio.base.Resource.class.getName());
+
+        GivenClassesConjunction resourceClasses = classes().that().areAssignableTo(com.twilio.base.Resource.class).and()
+                .doNotHaveFullyQualifiedName(com.twilio.base.Resource.class.getName()).and().
+                doNotBelongToAnyOf(variantClasses.get(0));
 
         resourceClasses.should()
             .beAnnotatedWith(com.fasterxml.jackson.annotation.JsonIgnoreProperties.class)

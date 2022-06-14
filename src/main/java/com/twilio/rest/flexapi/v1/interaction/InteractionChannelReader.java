@@ -25,7 +25,7 @@ public class InteractionChannelReader extends Reader<InteractionChannel> {
     /**
      * Construct a new InteractionChannelReader.
      *
-     * @param pathInteractionSid The Interaction Sid for this channel.
+     * @param pathInteractionSid The unique string that identifies the resource
      */
     public InteractionChannelReader(final String pathInteractionSid) {
         this.pathInteractionSid = pathInteractionSid;

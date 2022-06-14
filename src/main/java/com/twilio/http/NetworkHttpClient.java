@@ -27,6 +27,8 @@ public class NetworkHttpClient extends HttpClient {
 
     private final org.apache.http.client.HttpClient client;
 
+    private boolean isCustomClient;
+
     /**
      * Create a new HTTP Client.
      */
@@ -52,7 +54,6 @@ public class NetworkHttpClient extends HttpClient {
     public NetworkHttpClient(final RequestConfig requestConfig, final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
@@ -86,12 +87,10 @@ public class NetworkHttpClient extends HttpClient {
     public NetworkHttpClient(HttpClientBuilder clientBuilder) {
         Collection<BasicHeader> headers = Arrays.asList(
                 new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-                new BasicHeader(
-                    HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ") custom"
-                ),
                 new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
                 new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
+        isCustomClient = true;
 
         client = clientBuilder
             .setDefaultHeaders(headers)
@@ -132,6 +131,7 @@ public class NetworkHttpClient extends HttpClient {
                 }
             }
         }
+        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), isCustomClient));
 
         HttpResponse response = null;
 

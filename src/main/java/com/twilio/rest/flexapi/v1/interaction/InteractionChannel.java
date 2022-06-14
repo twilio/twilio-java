@@ -94,8 +94,8 @@ public class InteractionChannel extends Resource {
     /**
      * Create a InteractionChannelFetcher to execute fetch.
      *
-     * @param pathInteractionSid The Interaction Sid for this channel.
-     * @param pathSid The Channel Sid for this Participant.
+     * @param pathInteractionSid The unique string that identifies the resource
+     * @param pathSid The unique string that identifies the resource
      * @return InteractionChannelFetcher capable of executing the fetch
      */
     public static InteractionChannelFetcher fetcher(final String pathInteractionSid,
@@ -106,7 +106,7 @@ public class InteractionChannel extends Resource {
     /**
      * Create a InteractionChannelReader to execute read.
      *
-     * @param pathInteractionSid The Interaction Sid for this channel.
+     * @param pathInteractionSid The unique string that identifies the resource
      * @return InteractionChannelReader capable of executing the read
      */
     public static InteractionChannelReader reader(final String pathInteractionSid) {
@@ -116,9 +116,9 @@ public class InteractionChannel extends Resource {
     /**
      * Create a InteractionChannelUpdater to execute update.
      *
-     * @param pathInteractionSid The Interaction Sid for this channel.
+     * @param pathInteractionSid The unique string that identifies the resource
      * @param pathSid The unique string that identifies the resource
-     * @param status The Interaction Channels's status
+     * @param status Required. The Interaction channels's status
      * @return InteractionChannelUpdater capable of executing the update
      */
     public static InteractionChannelUpdater updater(final String pathInteractionSid,
@@ -199,9 +199,9 @@ public class InteractionChannel extends Resource {
     }
 
     /**
-     * Returns The Interaction Sid for this channel..
+     * Returns The unique string that identifies the resource.
      *
-     * @return The Interaction Sid for this channel.
+     * @return The unique string that identifies the resource
      */
     public final String getInteractionSid() {
         return this.interactionSid;

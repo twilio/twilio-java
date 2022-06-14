@@ -60,7 +60,7 @@ public class InteractionTest {
     public void testFetchResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"channel\": {\"type\": \"email\"},\"routing\": {\"properties\": {\"workflow_sid\": \"WWxx\",\"attributes\": \"WWxx\",\"task_channel_unique_name\": \"email\",\"routing_target\": \"WKXX\",\"queue_name\": \"WQXX\"}},\"url\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"channels\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"sid\": \"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"channel\": {\"type\": \"sms\",\"sid\": \"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"routing\": {\"properties\": {\"workflow_sid\": \"WWxx\",\"attributes\": \"WWxx\",\"task_channel_unique_name\": \"sms\",\"routing_target\": \"WKXX\",\"queue_name\": \"WQXX\"}},\"url\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"channels\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels\"}}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -93,7 +93,7 @@ public class InteractionTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"sid\": \"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"channel\": {\"type\": \"email\"},\"routing\": {\"properties\": {\"workflow_sid\": \"WWxx\",\"attributes\": \"WWxx\",\"task_channel_unique_name\": \"email\",\"routing_target\": \"WKXX\",\"queue_name\": \"WQXX\"}},\"url\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"channels\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"sid\": \"KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"channel\": {\"type\": \"sms\",\"sid\": \"UOaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"},\"routing\": {\"properties\": {\"workflow_sid\": \"WWxx\",\"attributes\": \"WWxx\",\"task_channel_unique_name\": \"sms\",\"routing_target\": \"WKXX\",\"queue_name\": \"WQXX\"}},\"url\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"links\": {\"channels\": \"https://flex-api.twilio.com/v1/Interactions/KDaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Channels\"}}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

@@ -74,7 +74,6 @@ public class ValidationClient extends HttpClient {
                             final SocketConfig socketConfig) {
         Collection<BasicHeader> headers = Arrays.asList(
             new BasicHeader("X-Twilio-Client", "java-" + Twilio.VERSION),
-            new BasicHeader(HttpHeaders.USER_AGENT, "twilio-java/" + Twilio.VERSION + " (" + Twilio.JAVA_VERSION + ")"),
             new BasicHeader(HttpHeaders.ACCEPT, "application/json"),
             new BasicHeader(HttpHeaders.ACCEPT_ENCODING, "utf-8")
         );
@@ -113,6 +112,8 @@ public class ValidationClient extends HttpClient {
                 }
             }
         }
+
+        builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions()));
 
         try {
             HttpResponse response = client.execute(builder.build());

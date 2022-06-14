@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EsimProfile extends Resource {
-    private static final long serialVersionUID = 71259308992784L;
+    private static final long serialVersionUID = 221129799677038L;
 
     public enum Status {
         NEW("new"),
@@ -74,11 +74,10 @@ public class EsimProfile extends Resource {
     /**
      * Create a EsimProfileCreator to execute create.
      *
-     * @param eid Identifier of the eUICC that will claim the eSIM Profile
      * @return EsimProfileCreator capable of executing the create
      */
-    public static EsimProfileCreator creator(final String eid) {
-        return new EsimProfileCreator(eid);
+    public static EsimProfileCreator creator() {
+        return new EsimProfileCreator();
     }
 
     /**

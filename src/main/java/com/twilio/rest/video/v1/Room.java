@@ -37,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-    private static final long serialVersionUID = 203267334774517L;
+    private static final long serialVersionUID = 57950149308949L;
 
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
@@ -215,6 +215,7 @@ public class Room extends Resource {
     private final Boolean audioOnly;
     private final Integer emptyRoomTimeout;
     private final Integer unusedRoomTimeout;
+    private final Boolean largeRoom;
     private final URI url;
     private final Map<String, String> links;
 
@@ -261,6 +262,8 @@ public class Room extends Resource {
                  final Integer emptyRoomTimeout,
                  @JsonProperty("unused_room_timeout")
                  final Integer unusedRoomTimeout,
+                 @JsonProperty("large_room")
+                 final Boolean largeRoom,
                  @JsonProperty("url")
                  final URI url,
                  @JsonProperty("links")
@@ -286,6 +289,7 @@ public class Room extends Resource {
         this.audioOnly = audioOnly;
         this.emptyRoomTimeout = emptyRoomTimeout;
         this.unusedRoomTimeout = unusedRoomTimeout;
+        this.largeRoom = largeRoom;
         this.url = url;
         this.links = links;
     }
@@ -488,6 +492,15 @@ public class Room extends Resource {
     }
 
     /**
+     * Returns Indicates if this is a large room..
+     *
+     * @return Indicates if this is a large room.
+     */
+    public final Boolean getLargeRoom() {
+        return this.largeRoom;
+    }
+
+    /**
      * Returns The absolute URL of the resource.
      *
      * @return The absolute URL of the resource
@@ -538,6 +551,7 @@ public class Room extends Resource {
                Objects.equals(audioOnly, other.audioOnly) &&
                Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&
                Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&
+               Objects.equals(largeRoom, other.largeRoom) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -565,6 +579,7 @@ public class Room extends Resource {
                             audioOnly,
                             emptyRoomTimeout,
                             unusedRoomTimeout,
+                            largeRoom,
                             url,
                             links);
     }

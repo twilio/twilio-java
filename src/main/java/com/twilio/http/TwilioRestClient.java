@@ -2,13 +2,15 @@ package com.twilio.http;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-
+import lombok.Getter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.function.Predicate;
-import java.util.Map;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+
 
 public class TwilioRestClient {
 
@@ -17,13 +19,20 @@ public class TwilioRestClient {
     public static final int HTTP_STATUS_CODE_OK = 200;
     public static final Predicate<Integer> SUCCESS = i -> i != null && i >= 200 && i < 400;
 
+    @Getter
     private final ObjectMapper objectMapper;
     private final String username;
     private final String password;
+    @Getter
     private final String accountSid;
+    @Getter
     private final String region;
+    @Getter
     private final String edge;
+    @Getter
     private final HttpClient httpClient;
+    @Getter
+    private final List<String> userAgentExtensions;
     private static final Logger logger = LoggerFactory.getLogger(TwilioRestClient.class);
 
     protected TwilioRestClient(Builder b) {
@@ -34,6 +43,7 @@ public class TwilioRestClient {
         this.edge = b.edge;
         this.httpClient = b.httpClient;
         this.objectMapper = new ObjectMapper();
+        this.userAgentExtensions = b.userAgentExtensions;
 
         // This module configures the ObjectMapper to use
         // public API methods for manipulating java.time.*
@@ -56,6 +66,10 @@ public class TwilioRestClient {
         if (edge != null)
             request.setEdge(edge);
 
+        if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
+            request.setUserAgentExtensions(userAgentExtensions);
+        }
+
         logRequest(request);
         Response response = httpClient.reliableRequest(request);
 
@@ -71,26 +85,6 @@ public class TwilioRestClient {
         return response;
     }
 
-    public String getAccountSid() {
-        return accountSid;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public String getEdge() {
-        return edge;
-    }
-
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
-
-    public HttpClient getHttpClient() {
-        return httpClient;
-    }
-
     public static class Builder {
         private String username;
         private String password;
@@ -98,6 +92,7 @@ public class TwilioRestClient {
         private String region;
         private String edge;
         private HttpClient httpClient;
+        private List<String> userAgentExtensions;
 
         /**
          * Create a new Twilio Rest Client.
@@ -128,6 +123,13 @@ public class TwilioRestClient {
 
         public Builder httpClient(final HttpClient httpClient) {
             this.httpClient = httpClient;
+            return this;
+        }
+
+        public Builder userAgentExtensions(final List<String> userAgentExtensions) {
+            if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
+                this.userAgentExtensions = new ArrayList<>(userAgentExtensions);
+            }
             return this;
         }
 

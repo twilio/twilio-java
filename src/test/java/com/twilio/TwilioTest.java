@@ -3,27 +3,24 @@ package com.twilio;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
-import com.twilio.http.HttpMethod;
-import com.twilio.http.NetworkHttpClient;
-import com.twilio.http.Request;
-import com.twilio.http.Response;
-import com.twilio.http.TwilioRestClient;
-
+import com.twilio.http.*;
+import mockit.Mocked;
+import mockit.NonStrictExpectations;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import mockit.Mocked;
-import mockit.NonStrictExpectations;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 public class TwilioTest {
+
+    private static final String USER_NAME = "UserName";
+
+    private static final String TOKEN = "Password";
 
     public static String serialize(Object object) {
         return object.toString();
@@ -62,6 +59,33 @@ public class TwilioTest {
     public void testSetAuthTokenNull() {
         Twilio.setPassword(null);
         fail("AuthenticationException was expected");
+    }
+
+    @Test
+    public void testUserAgentExtensions() {
+        Twilio.setUsername(USER_NAME);
+        Twilio.setPassword(TOKEN);
+        Twilio.setUserAgentExtensions(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"));
+        Twilio.getRestClient();
+        assertEquals(Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange"), Twilio.getUserAgentExtensions());
+    }
+
+    @Test
+    public void testUserAgentExtensionsEmpty() {
+        Twilio.setUsername(USER_NAME);
+        Twilio.setPassword(TOKEN);
+        Twilio.setUserAgentExtensions(Collections.emptyList()); // Resetting userAgentExtension
+        Twilio.getRestClient();
+        assertNull(Twilio.getUserAgentExtensions());
+    }
+
+    @Test
+    public void testUserAgentExtensionsNull() {
+        Twilio.setUsername(USER_NAME);
+        Twilio.setPassword(TOKEN);
+        Twilio.setUserAgentExtensions(null); // Resetting userAgentExtension
+        Twilio.getRestClient();
+        assertNull(Twilio.getUserAgentExtensions());
     }
 
     @Test

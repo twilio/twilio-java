@@ -1,6 +1,47 @@
 twilio-java changelog
 =====================
 
+[2022-06-01] Version 8.31.0
+---------------------------
+**Library - Chore**
+- [PR #693](https://github.com/twilio/twilio-java/pull/693): use Docker 'rc' tag for release candidate images. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Fix**
+- [PR #692](https://github.com/twilio/twilio-java/pull/692): reset account sid when using username and password only. Thanks to [@aarya-brex](https://github.com/aarya-brex)!
+- [PR #688](https://github.com/twilio/twilio-java/pull/688): support setting null account sid. Thanks to [@aarya-brex](https://github.com/aarya-brex)!
+
+**Library - Feature**
+- [PR #683](https://github.com/twilio/twilio-java/pull/683): modify user agent string. Thanks to [@sbansla](https://github.com/sbansla)!
+
+
+[2022-05-18] Version 8.30.1
+---------------------------
+**Api**
+- Add property `media_url` to the recording resources
+
+**Verify**
+- Include `silent` as a channel type in the verifications API.
+
+
+[2022-05-04] Version 8.30.0
+---------------------------
+**Conversations**
+- Expose query parameter `type` in list operation on Address Configurations resource
+
+**Supersim**
+- Add `data_total_billed` and `billed_units` fields to Super SIM UsageRecords API response.
+- Change ESimProfiles `Eid` parameter to optional to enable Activation Code download method support **(breaking change)**
+
+**Verify**
+- Deprecate `push.include_date` parameter in create and update service.
+
+
+[2022-04-20] Version 8.29.1
+---------------------------
+**Library - Chore**
+- [PR #678](https://github.com/twilio/twilio-java/pull/678): update testcase to remove dependency from generated files. Thanks to [@shrutiburman](https://github.com/shrutiburman)!
+
+
 [2022-04-06] Version 8.29.0
 ---------------------------
 **Library - Feature**

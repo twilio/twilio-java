@@ -8,23 +8,28 @@ import com.twilio.http.NetworkHttpClient;
 import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
+import lombok.Getter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.io.File;
 
 /**
  * Singleton class to initialize Twilio environment.
  */
 public class Twilio {
 
-    public static final String VERSION = "8.29.0";
+    public static final String VERSION = "8.31.0";
     public static final String JAVA_VERSION = System.getProperty("java.version");
-
+    public static final String OS_NAME = System.getProperty("os.name");
+    public static final String OS_ARCH = System.getProperty("os.arch");
     private static String username = System.getenv("TWILIO_ACCOUNT_SID");
     private static String password = System.getenv("TWILIO_AUTH_TOKEN");
     private static String accountSid; // username used if this is null
+    @Getter
+    private static List<String> userAgentExtensions;
     private static String region = System.getenv("TWILIO_REGION");
     private static String edge = System.getenv("TWILIO_EDGE");
     private static volatile TwilioRestClient restClient;
@@ -56,6 +61,7 @@ public class Twilio {
     public static synchronized void init(final String username, final String password) {
         Twilio.setUsername(username);
         Twilio.setPassword(password);
+        Twilio.setAccountSid(null);
     }
 
     /**
@@ -111,18 +117,22 @@ public class Twilio {
      * Set the account sid.
      *
      * @param accountSid account sid to use
-     * @throws AuthenticationException if account sid is null
      */
     public static synchronized void setAccountSid(final String accountSid) {
-        if (accountSid == null) {
-            throw new AuthenticationException("AccountSid can not be null");
-        }
-
-        if (!accountSid.equals(Twilio.accountSid)) {
+        if (!Objects.equals(accountSid, Twilio.accountSid)) {
             Twilio.invalidate();
         }
 
         Twilio.accountSid = accountSid;
+    }
+
+    public static synchronized void setUserAgentExtensions(final List<String> userAgentExtensions) {
+        if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
+            Twilio.userAgentExtensions = new ArrayList<>(userAgentExtensions);
+        } else {
+            // In case a developer wants to reset userAgentExtensions
+            Twilio.userAgentExtensions = null;
+        }
     }
 
     /**
@@ -180,6 +190,10 @@ public class Twilio {
 
         if (Twilio.accountSid != null) {
             builder.accountSid(Twilio.accountSid);
+        }
+
+        if (userAgentExtensions != null) {
+            builder.userAgentExtensions(Twilio.userAgentExtensions);
         }
 
         builder.region(Twilio.region);

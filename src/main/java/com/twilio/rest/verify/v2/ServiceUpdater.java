@@ -161,12 +161,14 @@ public class ServiceUpdater extends Updater<Service> {
 
     /**
      * Optional configuration for the Push factors. If true, include the date in the
-     * Challenge's reponse. Otherwise, the date is omitted from the response. See <a
-     * href="https://www.twilio.com/docs/verify/api/challenge">Challenge</a>
-     * resource’s details parameter for more info. Default: true.
+     * Challenge's response. Otherwise, the date is omitted from the response. See
+     * <a href="https://www.twilio.com/docs/verify/api/challenge">Challenge</a>
+     * resource’s details parameter for more info. Default: false. **Deprecated** do
+     * not use this parameter..
      *
      * @param pushIncludeDate Optional. Include the date in the Challenge's
-     *                        reponse. Default: true
+     *                        response. Default: false. **Deprecated** do not use
+     *                        this parameter.
      * @return this
      */
     public ServiceUpdater setPushIncludeDate(final Boolean pushIncludeDate) {

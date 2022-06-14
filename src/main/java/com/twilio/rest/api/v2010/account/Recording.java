@@ -29,6 +29,7 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 90678482961517L;
+    private static final long serialVersionUID = 264097390215567L;
 
     public enum Status {
         IN_PROGRESS("in-progress"),
@@ -220,6 +221,7 @@ public class Recording extends Resource {
     private final String uri;
     private final Map<String, Object> encryptionDetails;
     private final Map<String, String> subresourceUris;
+    private final URI mediaUrl;
 
     @JsonCreator
     private Recording(@JsonProperty("account_sid")
@@ -257,7 +259,9 @@ public class Recording extends Resource {
                       @JsonProperty("encryption_details")
                       final Map<String, Object> encryptionDetails,
                       @JsonProperty("subresource_uris")
-                      final Map<String, String> subresourceUris) {
+                      final Map<String, String> subresourceUris,
+                      @JsonProperty("media_url")
+                      final URI mediaUrl) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
         this.callSid = callSid;
@@ -276,6 +280,7 @@ public class Recording extends Resource {
         this.uri = uri;
         this.encryptionDetails = encryptionDetails;
         this.subresourceUris = subresourceUris;
+        this.mediaUrl = mediaUrl;
     }
 
     /**
@@ -442,6 +447,15 @@ public class Recording extends Resource {
         return this.subresourceUris;
     }
 
+    /**
+     * Returns The URL of the media file..
+     *
+     * @return The URL of the media file.
+     */
+    public final URI getMediaUrl() {
+        return this.mediaUrl;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -471,7 +485,8 @@ public class Recording extends Resource {
                Objects.equals(errorCode, other.errorCode) &&
                Objects.equals(uri, other.uri) &&
                Objects.equals(encryptionDetails, other.encryptionDetails) &&
-               Objects.equals(subresourceUris, other.subresourceUris);
+               Objects.equals(subresourceUris, other.subresourceUris) &&
+               Objects.equals(mediaUrl, other.mediaUrl);
     }
 
     @Override
@@ -493,6 +508,7 @@ public class Recording extends Resource {
                             errorCode,
                             uri,
                             encryptionDetails,
-                            subresourceUris);
+                            subresourceUris,
+                            mediaUrl);
     }
 }

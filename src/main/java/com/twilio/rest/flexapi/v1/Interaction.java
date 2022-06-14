@@ -166,9 +166,11 @@ public class Interaction extends Resource {
     }
 
     /**
-     * Returns The Interaction's routing logic.
+     * Returns A JSON Object representing the routing rules for the Interaction
+     * Channel.
      *
-     * @return The Interaction's routing logic
+     * @return A JSON Object representing the routing rules for the Interaction
+     *         Channel
      */
     public final Map<String, Object> getRouting() {
         return this.routing;

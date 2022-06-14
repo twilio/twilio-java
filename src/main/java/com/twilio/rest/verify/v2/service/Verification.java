@@ -38,13 +38,14 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Verification extends Resource {
-    private static final long serialVersionUID = 216517595769072L;
+    private static final long serialVersionUID = 142424476827446L;
 
     public enum Channel {
         SMS("sms"),
         CALL("call"),
         EMAIL("email"),
-        WHATSAPP("whatsapp");
+        WHATSAPP("whatsapp"),
+        SNA("sna");
 
         private final String value;
 
@@ -186,6 +187,7 @@ public class Verification extends Resource {
     private final List<Map<String, Object>> sendCodeAttempts;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final Map<String, Object> sna;
     private final URI url;
 
     @JsonCreator
@@ -215,6 +217,8 @@ public class Verification extends Resource {
                          final String dateCreated,
                          @JsonProperty("date_updated")
                          final String dateUpdated,
+                         @JsonProperty("sna")
+                         final Map<String, Object> sna,
                          @JsonProperty("url")
                          final URI url) {
         this.sid = sid;
@@ -230,6 +234,7 @@ public class Verification extends Resource {
         this.sendCodeAttempts = sendCodeAttempts;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.sna = sna;
         this.url = url;
     }
 
@@ -351,6 +356,16 @@ public class Verification extends Resource {
     }
 
     /**
+     * Returns The set of fields used for a silent network auth (`sna`)
+     * verification.
+     *
+     * @return The set of fields used for a silent network auth (`sna`) verification
+     */
+    public final Map<String, Object> getSna() {
+        return this.sna;
+    }
+
+    /**
      * Returns The absolute URL of the Verification resource.
      *
      * @return The absolute URL of the Verification resource
@@ -384,6 +399,7 @@ public class Verification extends Resource {
                Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(sna, other.sna) &&
                Objects.equals(url, other.url);
     }
 
@@ -402,6 +418,7 @@ public class Verification extends Resource {
                             sendCodeAttempts,
                             dateCreated,
                             dateUpdated,
+                            sna,
                             url);
     }
 }

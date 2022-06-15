@@ -108,7 +108,12 @@ public class Say extends TwiML {
         POLLY_BIANCA_NEURAL("Polly.Bianca-Neural"),
         POLLY_TAKUMI_NEURAL("Polly.Takumi-Neural"),
         POLLY_SEOYEON_NEURAL("Polly.Seoyeon-Neural"),
-        POLLY_LUCIA_NEURAL("Polly.Lucia-Neural");
+        POLLY_LUCIA_NEURAL("Polly.Lucia-Neural"),
+        POLLY_ARLET_NEURAL("Polly.Arlet-Neural"),
+        POLLY_HANNAH_NEURAL("Polly.Hannah-Neural"),
+        POLLY_MIA_NEURAL("Polly.Mia-Neural"),
+        POLLY_VITORIA_NEURAL("Polly.Vitoria-Neural"),
+        POLLY_INES_NEURAL("Polly.Ines-Neural");
 
         private final String value;
 
@@ -127,6 +132,7 @@ public class Say extends TwiML {
         CY_GB("cy-GB"),
         DA_DK("da-DK"),
         DE_DE("de-DE"),
+        DE_AT("de-AT"),
         EN_AU("en-AU"),
         EN_CA("en-CA"),
         EN_GB("en-GB"),
@@ -243,9 +249,9 @@ public class Say extends TwiML {
     }
 
     /**
-     * Message langauge
+     * Message language
      *
-     * @return Message langauge
+     * @return Message language
      */
     public Say.Language getLanguage() {
         return language;
@@ -315,7 +321,7 @@ public class Say extends TwiML {
         }
 
         /**
-         * Message langauge
+         * Message language
          */
         @JacksonXmlProperty(isAttribute = true, localName = "language")
         public Builder language(Say.Language language) {

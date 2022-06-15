@@ -164,6 +164,15 @@ public class Connect extends TwiML {
         }
 
         /**
+         * Add a child {@code <Conversation>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Conversation")
+        public Builder conversation(Conversation conversation) {
+            this.children.add(conversation);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Connect>} element
          */
         public Connect build() {

@@ -7,6 +7,7 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
@@ -40,11 +41,12 @@ public class VirtualAgentTest {
             .language("language")
             .sentimentAnalysis(true)
             .statusCallback("status_callback")
+            .statusCallbackMethod(HttpMethod.GET)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>",
+            "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>",
             elem.toXml()
         );
     }
@@ -56,6 +58,26 @@ public class VirtualAgentTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<VirtualAgent a=\"b\" foo=\"bar\"/>",
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testElementWithChildren() {
+        VirtualAgent.Builder builder = new VirtualAgent.Builder();
+
+        builder.config(new Config.Builder().name("name").value("value").build());
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        VirtualAgent elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<VirtualAgent>" +
+                "<Config name=\"name\" value=\"value\"/>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</VirtualAgent>",
             elem.toXml()
         );
     }
@@ -120,16 +142,55 @@ public class VirtualAgentTest {
     }
 
     @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        VirtualAgent.Builder builder = new VirtualAgent.Builder();
+        VirtualAgent elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<VirtualAgent>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</VirtualAgent>",
+            elem.toXml()
+        );
+    }
+
+    @Test
     public void testXmlAttributesDeserialization() {
         final VirtualAgent elem = new VirtualAgent.Builder()
             .connectorName("connector_name")
             .language("language")
             .sentimentAnalysis(true)
             .statusCallback("status_callback")
+            .statusCallbackMethod(HttpMethod.GET)
             .build();
 
         Assert.assertEquals(
-            VirtualAgent.Builder.fromXml("<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>").build().toXml(),
+            VirtualAgent.Builder.fromXml("<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final VirtualAgent.Builder builder = new VirtualAgent.Builder();
+
+        builder.config(new Config.Builder().name("name").value("value").build());
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final VirtualAgent elem = builder.build();
+
+        Assert.assertEquals(
+            VirtualAgent.Builder.fromXml("<VirtualAgent>" +
+                "<Config name=\"name\" value=\"value\"/>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</VirtualAgent>").build().toXml(),
             elem.toXml()
         );
     }

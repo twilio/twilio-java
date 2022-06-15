@@ -95,8 +95,8 @@ public class PaymentUpdater extends Updater<Payment> {
     /**
      * Indicates whether the current payment session should be cancelled or
      * completed. When `cancel` the payment session is cancelled. When `complete`,
-     * Twilio sends the payment information to the selected &lt;Pay&gt; connector
-     * for processing..
+     * Twilio sends the payment information to the selected Pay Connector for
+     * processing..
      *
      * @param status Indicates whether the current payment session should be
      *               cancelled or completed.

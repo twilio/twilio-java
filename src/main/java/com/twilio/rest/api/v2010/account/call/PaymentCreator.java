@@ -116,8 +116,8 @@ public class PaymentCreator extends Creator<Payment> {
     /**
      * The currency of the `charge_amount`, formatted as <a
      * href="http://www.iso.org/iso/home/standards/currency_codes.htm">ISO 4127</a>
-     * format. The default value is `USD` and all values allowed from the
-     * &lt;Pay&gt; Connector are accepted..
+     * format. The default value is `USD` and all values allowed from the Pay
+     * Connector are accepted..
      *
      * @param currency The currency of the `charge_amount`.
      * @return this
@@ -183,13 +183,13 @@ public class PaymentCreator extends Creator<Payment> {
     }
 
     /**
-     * This is the unique name corresponding to the Payment Gateway Connector
-     * installed in the Twilio Add-ons. Learn more about <a
+     * This is the unique name corresponding to the Pay Connector installed in the
+     * Twilio Add-ons. Learn more about <a
      * href="https://www.twilio.com/console/voice/pay-connectors">&lt;Pay&gt;
      * Connectors</a>. The default value is `Default`..
      *
-     * @param paymentConnector This is the unique name corresponding to the Payment
-     *                         Gateway Connector installed in the Twilio Add-ons.
+     * @param paymentConnector This is the unique name corresponding to the Pay
+     *                         Connector installed in the Twilio Add-ons.
      * @return this
      */
     public PaymentCreator setPaymentConnector(final String paymentConnector) {

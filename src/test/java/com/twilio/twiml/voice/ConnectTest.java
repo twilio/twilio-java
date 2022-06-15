@@ -7,12 +7,14 @@
 
 package com.twilio.twiml.voice;
 
+import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
 import com.twilio.twiml.GenericNode;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.net.URI;
+import java.util.List;
 
 /**
  * Test class for {@link Connect}
@@ -80,6 +82,22 @@ public class ConnectTest {
                     .language("language")
                     .sentimentAnalysis(true)
                     .statusCallback("status_callback")
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
+        builder.conversation(new Conversation.Builder()
+                    .serviceInstanceSid("service_instance_sid")
+                    .inboundAutocreation(true)
+                    .routingAssignmentTimeout(1)
+                    .inboundTimeout(1)
+                    .record(Conversation.Record.DO_NOT_RECORD)
+                    .trim(Conversation.Trim.TRIM_SILENCE)
+                    .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingStatusCallbackMethod(HttpMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Conversation.RecordingEvent.IN_PROGRESS))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Conversation.Event.CALL_INITIATED))
                     .build());
 
         Connect elem = builder.build();
@@ -90,7 +108,8 @@ public class ConnectTest {
                 "<Room participantIdentity=\"participant_identity\">name</Room>" +
                 "<Autopilot>name</Autopilot>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
-                "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>" +
+                "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
+                "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\"/>" +
             "</Connect>",
             elem.toXml()
         );
@@ -206,6 +225,22 @@ public class ConnectTest {
                     .language("language")
                     .sentimentAnalysis(true)
                     .statusCallback("status_callback")
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .build());
+
+        builder.conversation(new Conversation.Builder()
+                    .serviceInstanceSid("service_instance_sid")
+                    .inboundAutocreation(true)
+                    .routingAssignmentTimeout(1)
+                    .inboundTimeout(1)
+                    .record(Conversation.Record.DO_NOT_RECORD)
+                    .trim(Conversation.Trim.TRIM_SILENCE)
+                    .recordingStatusCallback(URI.create("https://example.com"))
+                    .recordingStatusCallbackMethod(HttpMethod.GET)
+                    .recordingStatusCallbackEvents(Promoter.listOfOne(Conversation.RecordingEvent.IN_PROGRESS))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Conversation.Event.CALL_INITIATED))
                     .build());
 
         final Connect elem = builder.build();
@@ -215,7 +250,8 @@ public class ConnectTest {
                 "<Room participantIdentity=\"participant_identity\">name</Room>" +
                 "<Autopilot>name</Autopilot>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
-                "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\"/>" +
+                "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
+                "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\"/>" +
             "</Connect>").build().toXml(),
             elem.toXml()
         );

@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MediaRecording extends Resource {
-    private static final long serialVersionUID = 198699821184692L;
+    private static final long serialVersionUID = 71787517230218L;
 
     public enum Format {
         MP4("mp4"),
@@ -198,7 +198,7 @@ public class MediaRecording extends Resource {
     private final String resolution;
     private final String sourceSid;
     private final String sid;
-    private final Long size;
+    private final Long mediaSize;
     private final MediaRecording.Status status;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
@@ -227,8 +227,8 @@ public class MediaRecording extends Resource {
                            final String sourceSid,
                            @JsonProperty("sid")
                            final String sid,
-                           @JsonProperty("size")
-                           final Long size,
+                           @JsonProperty("media_size")
+                           final Long mediaSize,
                            @JsonProperty("status")
                            final MediaRecording.Status status,
                            @JsonProperty("status_callback")
@@ -248,7 +248,7 @@ public class MediaRecording extends Resource {
         this.resolution = resolution;
         this.sourceSid = sourceSid;
         this.sid = sid;
-        this.size = size;
+        this.mediaSize = mediaSize;
         this.status = status;
         this.statusCallback = statusCallback;
         this.statusCallbackMethod = statusCallbackMethod;
@@ -355,12 +355,12 @@ public class MediaRecording extends Resource {
     }
 
     /**
-     * Returns The size of the recording.
+     * Returns The size of the recording media.
      *
-     * @return The size of the recording
+     * @return The size of the recording media
      */
-    public final Long getSize() {
-        return this.size;
+    public final Long getMediaSize() {
+        return this.mediaSize;
     }
 
     /**
@@ -422,7 +422,7 @@ public class MediaRecording extends Resource {
                Objects.equals(resolution, other.resolution) &&
                Objects.equals(sourceSid, other.sourceSid) &&
                Objects.equals(sid, other.sid) &&
-               Objects.equals(size, other.size) &&
+               Objects.equals(mediaSize, other.mediaSize) &&
                Objects.equals(status, other.status) &&
                Objects.equals(statusCallback, other.statusCallback) &&
                Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
@@ -442,7 +442,7 @@ public class MediaRecording extends Resource {
                             resolution,
                             sourceSid,
                             sid,
-                            size,
+                            mediaSize,
                             status,
                             statusCallback,
                             statusCallbackMethod,

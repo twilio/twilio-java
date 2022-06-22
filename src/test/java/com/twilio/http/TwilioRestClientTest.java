@@ -1,11 +1,9 @@
 package com.twilio.http;
-
-import com.twilio.Twilio;
 import com.twilio.rest.Domains;
-import mockit.Injectable;
-import mockit.Mocked;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,12 +12,13 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Mockito.when;
 
 public class TwilioRestClientTest {
-    @Mocked
     private TwilioRestClient twilioRestClient;
+    @Mock
+    private HttpClient httpClient;
 
-    @Injectable
     private TwilioRestClient twilioRestClientExtension;
 
     private List<String> userAgentStringExtensions = Arrays.asList("ce-appointment-reminders/1.0.0", "code-exchange");
@@ -32,7 +31,8 @@ public class TwilioRestClientTest {
 
     @Before
     public void setUp() throws Exception {
-        Twilio.init(USER_NAME, TOKEN);
+        MockitoAnnotations.initMocks(this);
+        twilioRestClient = new TwilioRestClient(new TwilioRestClient.Builder("AC123", "AUTH TOKEN").httpClient(httpClient));
     }
 
     @Test
@@ -42,6 +42,7 @@ public class TwilioRestClientTest {
                 Domains.API.toString(),
                 URI
         );
+        when(httpClient.reliableRequest(request)).thenReturn(new Response("", 200));
 
         Response resp = twilioRestClient.request(request);
         assertNotNull(resp);

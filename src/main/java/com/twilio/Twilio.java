@@ -247,14 +247,18 @@ public class Twilio {
      */
     public static void validateSslCertificate() {
         final NetworkHttpClient client = new NetworkHttpClient();
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        validateSslCertificate(client);
+    }
 
+
+    public static void validateSslCertificate(NetworkHttpClient client) {
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
         try {
             final Response response = client.makeRequest(request);
 
             if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
                 throw new CertificateValidationException(
-                    "Unexpected response from certificate endpoint", request, response
+                        "Unexpected response from certificate endpoint", request, response
                 );
             }
         } catch (final ApiException e) {

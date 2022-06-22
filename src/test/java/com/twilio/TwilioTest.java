@@ -3,18 +3,29 @@ package com.twilio;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.AuthenticationException;
 import com.twilio.exception.CertificateValidationException;
-import com.twilio.http.*;
-import mockit.Mocked;
-import mockit.NonStrictExpectations;
-import org.junit.Test;
+import com.twilio.http.HttpMethod;
+import com.twilio.http.NetworkHttpClient;
+import com.twilio.http.Request;
+import com.twilio.http.Response;
+import com.twilio.http.TwilioRestClient;
 
 import java.util.Arrays;
 import java.util.Collections;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import static org.junit.Assert.*;
+import org.mockito.MockitoAnnotations;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
 public class TwilioTest {
 
@@ -31,8 +42,13 @@ public class TwilioTest {
         return list.get(0).toString();
     }
 
-    @Mocked
+    @Mock
     private NetworkHttpClient networkHttpClient;
+
+    @Before
+    public void init() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void testGetExecutorService() {
@@ -112,15 +128,10 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateError() {
-        new NonStrictExpectations() {{
-            final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
-            networkHttpClient.makeRequest(request);
-            times = 1;
-            result = new Response("", 500);
-        }};
-
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        when(networkHttpClient.makeRequest(request)).thenReturn(new Response("", 500));
         try {
-            Twilio.validateSslCertificate();
+            Twilio.validateSslCertificate(networkHttpClient);
             fail("Excepted CertificateValidationException");
         } catch (final CertificateValidationException e) {
             assertEquals("Unexpected response from certificate endpoint", e.getMessage());
@@ -129,15 +140,11 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateException() {
-        new NonStrictExpectations() {{
-            final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
-            networkHttpClient.makeRequest(request);
-            times = 1;
-            result = new ApiException("No");
-        }};
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        when(networkHttpClient.makeRequest(request)).thenThrow(new ApiException("No"));
 
         try {
-            Twilio.validateSslCertificate();
+            Twilio.validateSslCertificate(networkHttpClient);
             fail("Excepted CertificateValidationException");
         } catch (final CertificateValidationException e) {
             assertEquals("Could not get response from certificate endpoint", e.getMessage());
@@ -146,13 +153,9 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateSuccess() {
-        new NonStrictExpectations() {{
-            final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
-            networkHttpClient.makeRequest(request);
-            times = 1;
-            result = new Response("", 200);
-        }};
+        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        when(networkHttpClient.makeRequest(request)).thenReturn(new Response("", 200));
 
-        Twilio.validateSslCertificate();
+        Twilio.validateSslCertificate(networkHttpClient);
     }
 }

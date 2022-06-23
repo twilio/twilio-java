@@ -23,8 +23,8 @@ public class ClientCapabilityTest {
         Jwt jwt = new ClientCapability.Builder(ACCOUNT_SID, SECRET).build();
 
         Claims claims =
-            Jwts.parserBuilder()
-                .setSigningKey(SECRET.getBytes()).build()
+            Jwts.parser()
+                .setSigningKey(SECRET.getBytes())
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
 

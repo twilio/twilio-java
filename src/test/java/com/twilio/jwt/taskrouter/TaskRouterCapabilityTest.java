@@ -35,8 +35,8 @@ public class TaskRouterCapabilityTest {
                 .policies(policies)
                 .build();
         Claims claims =
-            Jwts.parserBuilder()
-                .setSigningKey(AUTH_TOKEN.getBytes()).build()
+            Jwts.parser()
+                .setSigningKey(AUTH_TOKEN.getBytes())
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
 
@@ -78,8 +78,8 @@ public class TaskRouterCapabilityTest {
                         .policies(policies)
                         .build();
         final Claims claims =
-                Jwts.parserBuilder()
-                        .setSigningKey(AUTH_TOKEN.getBytes()).build()
+                Jwts.parser()
+                        .setSigningKey(AUTH_TOKEN.getBytes())
                         .parseClaimsJws(jwt.toJwt())
                         .getBody();
 

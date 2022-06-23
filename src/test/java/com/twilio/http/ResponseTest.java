@@ -1,19 +1,14 @@
 package com.twilio.http;
 
+import mockit.Mocked;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
+import java.io.IOException;
 import java.io.InputStream;
 
 import static org.junit.Assert.assertEquals;
 
-@RunWith(MockitoJUnitRunner.class)
 public class ResponseTest {
-
-    @Mock
-    private InputStream stream;
 
     @Test
     public void testGetContentInputStream() {
@@ -31,7 +26,7 @@ public class ResponseTest {
     }
 
     @Test
-    public void testGetStream() {
+    public void testGetStream(@Mocked final InputStream stream) {
         Response response = new Response(stream, TwilioRestClient.HTTP_STATUS_CODE_OK);
         assertEquals(stream, response.getStream());
     }

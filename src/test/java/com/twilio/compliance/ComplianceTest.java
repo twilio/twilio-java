@@ -1,5 +1,6 @@
 package com.twilio.compliance;
 
+import com.tngtech.archunit.base.DescribedPredicate;
 import com.tngtech.archunit.core.domain.JavaClass;
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.domain.JavaModifier;
@@ -7,8 +8,10 @@ import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.core.importer.ImportOptions;
 import com.tngtech.archunit.lang.ArchRule;
+import com.tngtech.archunit.lang.syntax.elements.GivenClasses;
 import com.tngtech.archunit.lang.syntax.elements.GivenClassesConjunction;
 
+import com.twilio.base.Resource;
 import nl.jqno.equalsverifier.EqualsVerifier;
 
 import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAPackage;
@@ -23,27 +26,39 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ComplianceTest {
     static final private ImportOptions importOpts = new ImportOptions().with(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS);
     static final private JavaClasses twilioClasses = new ClassFileImporter(importOpts).importPackages("com.twilio");
     static final private List<Class> resourceClasses = getResourceClasses(twilioClasses);
+    static final private List<Class> variantClasses = new ArrayList<Class>(); // classes that do not follow the generic template
+
+    private static DescribedPredicate<JavaClass> areNotInVariantList() {
+        return new DescribedPredicate<JavaClass>("classes that follow the same template pattern") {
+            @Override
+            public boolean apply(final JavaClass input) {
+                return !variantClasses.contains(input.getName());
+            }
+        };
+    }
 
     @Before
     public void setUp() {
         assertTrue(twilioClasses.size() > 0);
         assertTrue(resourceClasses.size() > 1);
+        variantClasses.add(com.twilio.rest.voice.v1.ArchivedCall.class);
     }
 
     @Test
     public void testEqualsMethods() {
-        for (Class clazz : resourceClasses) {
+        List <Class> eligibleResourceClasses = resourceClasses.stream().filter( c -> !variantClasses.contains(c)).collect(Collectors.toList());
+        for (Class clazz : eligibleResourceClasses) {
             EqualsVerifier.forClass(clazz)
                     .usingGetClass()
                     .verify();
         }
     }
-
     @Test
     public void noClassesShouldUseJavaUtilLogging() {
         NO_CLASSES_SHOULD_USE_JAVA_UTIL_LOGGING.check(twilioClasses);
@@ -64,23 +79,26 @@ public class ComplianceTest {
 
     @Test
     public void resourceClassSanityCheck() {
-        GivenClassesConjunction resourceClasses = classes().that().areAssignableTo(com.twilio.base.Resource.class).and().doNotHaveFullyQualifiedName(com.twilio.base.Resource.class.getName());
+
+        GivenClasses filteredClasses = (GivenClasses) classes().that(areNotInVariantList());
+        GivenClassesConjunction resourceClasses = filteredClasses.that().areAssignableTo(Resource.class).and()
+                .doNotHaveFullyQualifiedName(Resource.class.getName());
 
         resourceClasses.should()
-            .beAnnotatedWith(com.fasterxml.jackson.annotation.JsonIgnoreProperties.class)
-            .andShould()
-            .haveOnlyFinalFields()
-            .andShould()
-            .haveOnlyPrivateConstructors()
-            .check(twilioClasses);
+                .beAnnotatedWith(com.fasterxml.jackson.annotation.JsonIgnoreProperties.class)
+                .andShould()
+                .haveOnlyFinalFields()
+                .andShould()
+                .haveOnlyPrivateConstructors()
+                .check(twilioClasses);
     }
 
     private static List<Class> getResourceClasses(final JavaClasses jclasses) {
         List<Class> builder = new ArrayList<>();
         for (JavaClass jclass : jclasses) {
-          if (jclass.isAssignableTo(com.twilio.base.Resource.class)
-              && (!jclass.getModifiers().contains(JavaModifier.ABSTRACT))) {
-              builder.add(jclass.reflect());
+            if (jclass.isAssignableTo(com.twilio.base.Resource.class)
+                    && (!jclass.getModifiers().contains(JavaModifier.ABSTRACT))) {
+                builder.add(jclass.reflect());
             }
         }
         return Collections.unmodifiableList(builder);

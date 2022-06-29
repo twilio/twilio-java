@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MediaRecording extends Resource {
-    private static final long serialVersionUID = 71787517230218L;
+    private static final long serialVersionUID = 167129947120614L;
 
     public enum Format {
         MP4("mp4"),
@@ -188,7 +188,6 @@ public class MediaRecording extends Resource {
     }
 
     private final String accountSid;
-    private final Integer bitrate;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Integer duration;
@@ -207,8 +206,6 @@ public class MediaRecording extends Resource {
     @JsonCreator
     private MediaRecording(@JsonProperty("account_sid")
                            final String accountSid,
-                           @JsonProperty("bitrate")
-                           final Integer bitrate,
                            @JsonProperty("date_created")
                            final String dateCreated,
                            @JsonProperty("date_updated")
@@ -238,7 +235,6 @@ public class MediaRecording extends Resource {
                            @JsonProperty("url")
                            final URI url) {
         this.accountSid = accountSid;
-        this.bitrate = bitrate;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.duration = duration;
@@ -262,15 +258,6 @@ public class MediaRecording extends Resource {
      */
     public final String getAccountSid() {
         return this.accountSid;
-    }
-
-    /**
-     * Returns The bitrate of the media.
-     *
-     * @return The bitrate of the media
-     */
-    public final Integer getBitrate() {
-        return this.bitrate;
     }
 
     /**
@@ -412,7 +399,6 @@ public class MediaRecording extends Resource {
         MediaRecording other = (MediaRecording) o;
 
         return Objects.equals(accountSid, other.accountSid) &&
-               Objects.equals(bitrate, other.bitrate) &&
                Objects.equals(dateCreated, other.dateCreated) &&
                Objects.equals(dateUpdated, other.dateUpdated) &&
                Objects.equals(duration, other.duration) &&
@@ -432,7 +418,6 @@ public class MediaRecording extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(accountSid,
-                            bitrate,
                             dateCreated,
                             dateUpdated,
                             duration,

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.insights.v1;
+package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Updater;
 import com.twilio.exception.ApiConnectionException;
@@ -17,6 +17,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
 public class AnnotationUpdater extends Updater<Annotation> {
     private final String pathCallSid;
     private Annotation.AnsweredBy answeredBy;
@@ -30,16 +34,21 @@ public class AnnotationUpdater extends Updater<Annotation> {
     /**
      * Construct a new AnnotationUpdater.
      *
-     * @param pathCallSid The call_sid
+     * @param pathCallSid The SID of the call.
      */
     public AnnotationUpdater(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
     }
 
     /**
-     * The answered_by.
+     * Which entity answered the call as determined by Answering Machine Detection.
+     * Use this to provide feedback on Answering Machine Detection accuracy.
+     * Possible enumerated values, one of: human, machine. human indicates the call
+     * was answered by a person. machine indicates the call was answered by an
+     * answering machine..
      *
-     * @param answeredBy The answered_by
+     * @param answeredBy Indicates the answering entity as determined by Answering
+     *                   Machine Detection.
      * @return this
      */
     public AnnotationUpdater setAnsweredBy(final Annotation.AnsweredBy answeredBy) {
@@ -48,9 +57,11 @@ public class AnnotationUpdater extends Updater<Annotation> {
     }
 
     /**
-     * The connectivity_issue.
+     * Specify if the call had any connectivity issues. Possible enumerated values,
+     * one : no_connectivity_issue, invalid_number, caller_id, dropped_call,
+     * number_reachability..
      *
-     * @param connectivityIssue The connectivity_issue
+     * @param connectivityIssue Indicates if the call had any connectivity issue
      * @return this
      */
     public AnnotationUpdater setConnectivityIssue(final Annotation.ConnectivityIssue connectivityIssue) {
@@ -59,9 +70,12 @@ public class AnnotationUpdater extends Updater<Annotation> {
     }
 
     /**
-     * The quality_issues.
+     * Specify if the call had any subjective quality issues. Possible values, one
+     * or more of:  no_quality_issue, low_volume, choppy_robotic, echo, dtmf,
+     * latency, owa, static_noise. Use comma separated values to indicate multiple
+     * quality issues for the same call.
      *
-     * @param qualityIssues The quality_issues
+     * @param qualityIssues Indicates if the call had audio quality issues.
      * @return this
      */
     public AnnotationUpdater setQualityIssues(final String qualityIssues) {
@@ -70,9 +84,12 @@ public class AnnotationUpdater extends Updater<Annotation> {
     }
 
     /**
-     * The spam.
+     * Specify if the call was a spam call. Use this to provide feedback on whether
+     * calls placed from your account were marked as spam, or if inbound calls
+     * received by your account were unwanted spam. Is of type Boolean: true, false.
+     * Use true if the call was a spam call..
      *
-     * @param spam The spam
+     * @param spam Call spam indicator
      * @return this
      */
     public AnnotationUpdater setSpam(final Boolean spam) {
@@ -81,9 +98,11 @@ public class AnnotationUpdater extends Updater<Annotation> {
     }
 
     /**
-     * The call_score.
+     * Specify the call score. This is of type integer. Use a range of 1-5 to
+     * indicate the call experience score, with the following mapping as a reference
+     * for rating the call [5: Excellent, 4: Good, 3 : Fair, 2 : Poor, 1: Bad]..
      *
-     * @param callScore The call_score
+     * @param callScore Call Score
      * @return this
      */
     public AnnotationUpdater setCallScore(final Integer callScore) {
@@ -92,9 +111,11 @@ public class AnnotationUpdater extends Updater<Annotation> {
     }
 
     /**
-     * The comment.
+     * Specify any comments pertaining to the call. This of type string with a max
+     * limit of 100 characters. Twilio does not treat this field as PII, so don’t
+     * put any PII in here..
      *
-     * @param comment The comment
+     * @param comment User comments
      * @return this
      */
     public AnnotationUpdater setComment(final String comment) {
@@ -103,9 +124,11 @@ public class AnnotationUpdater extends Updater<Annotation> {
     }
 
     /**
-     * The incident.
+     * Associate this call with an incident or support ticket. This is of type
+     * string with a max limit of 100 characters. Twilio does not treat this field
+     * as PII, so don’t put any PII in here..
      *
-     * @param incident The incident
+     * @param incident Call tag for incidents or support ticket
      * @return this
      */
     public AnnotationUpdater setIncident(final String incident) {

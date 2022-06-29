@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.insights.v1;
+package com.twilio.rest.insights.v1.call;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.Twilio;
@@ -60,7 +60,7 @@ public class AnnotationTest {
     public void testUpdateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"answered_by\": \"human\",\"connectivity_issue\": \"invalid_number\",\"quality_issues\": [\"low_volume\"],\"spam\": true,\"call_score\": 2,\"comment\": \"this is a call\",\"incident\": \"https://twilio.zendesk.com/support/tickets/17353089\",\"url\": \"https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Annotation\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"call_sid\": \"CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"answered_by\": \"human\",\"connectivity_issue\": \"invalid_number\",\"quality_issues\": [\"low_volume\",\"choppy_robotic\"],\"spam\": true,\"call_score\": 2,\"comment\": \"this is a call\",\"incident\": \"https://twilio.zendesk.com/support/tickets/17353089\",\"url\": \"https://insights.twilio.com/v1/Voice/CAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa/Annotation\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

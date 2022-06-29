@@ -43,6 +43,7 @@ public class Daily extends Resource {
     public enum Category {
         A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
+        AMAZON_POLLY("amazon-polly"),
         ANSWERING_MACHINE_DETECTION("answering-machine-detection"),
         AUTHY_AUTHENTICATIONS("authy-authentications"),
         AUTHY_CALLS_OUTBOUND("authy-calls-outbound"),

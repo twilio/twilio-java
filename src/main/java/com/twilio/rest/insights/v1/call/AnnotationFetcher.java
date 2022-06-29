@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.insights.v1;
+package com.twilio.rest.insights.v1.call;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,13 +17,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
 public class AnnotationFetcher extends Fetcher<Annotation> {
     private final String pathCallSid;
 
     /**
      * Construct a new AnnotationFetcher.
      *
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Call SID.
      */
     public AnnotationFetcher(final String pathCallSid) {
         this.pathCallSid = pathCallSid;

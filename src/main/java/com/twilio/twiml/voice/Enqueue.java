@@ -25,6 +25,7 @@ import java.util.Map;
 @JsonDeserialize(builder = Enqueue.Builder.class)
 public class Enqueue extends TwiML {
     private final URI action;
+    private final Integer maxQueueSize;
     private final HttpMethod method;
     private final URI waitUrl;
     private final HttpMethod waitUrlMethod;
@@ -44,6 +45,7 @@ public class Enqueue extends TwiML {
     private Enqueue(Builder b) {
         super("Enqueue", b);
         this.action = b.action;
+        this.maxQueueSize = b.maxQueueSize;
         this.method = b.method;
         this.waitUrl = b.waitUrl;
         this.waitUrlMethod = b.waitUrlMethod;
@@ -72,6 +74,9 @@ public class Enqueue extends TwiML {
         if (this.getAction() != null) {
             attrs.put("action", this.getAction().toString());
         }
+        if (this.getMaxQueueSize() != null) {
+            attrs.put("maxQueueSize", this.getMaxQueueSize().toString());
+        }
         if (this.getMethod() != null) {
             attrs.put("method", this.getMethod().toString());
         }
@@ -95,6 +100,15 @@ public class Enqueue extends TwiML {
      */
     public URI getAction() {
         return action;
+    }
+
+    /**
+     * Maximum size of queue
+     *
+     * @return Maximum size of queue
+     */
+    public Integer getMaxQueueSize() {
+        return maxQueueSize;
     }
 
     /**
@@ -161,6 +175,7 @@ public class Enqueue extends TwiML {
         }
 
         private URI action;
+        private Integer maxQueueSize;
         private HttpMethod method;
         private URI waitUrl;
         private HttpMethod waitUrlMethod;
@@ -194,6 +209,15 @@ public class Enqueue extends TwiML {
          */
         public Builder action(String action) {
             this.action = Promoter.uriFromString(action);
+            return this;
+        }
+
+        /**
+         * Maximum size of queue
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "maxQueueSize")
+        public Builder maxQueueSize(Integer maxQueueSize) {
+            this.maxQueueSize = maxQueueSize;
             return this;
         }
 

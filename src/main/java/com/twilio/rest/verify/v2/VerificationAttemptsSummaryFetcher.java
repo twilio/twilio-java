@@ -21,7 +21,7 @@ import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 
 public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAttemptsSummary> {
-    private String verifyServiceSid;
+    private String serviceSid;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private String country;
@@ -32,12 +32,12 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
      * Filter used to consider only Verification Attempts of the given verify
      * service on the summary aggregation..
      *
-     * @param verifyServiceSid Filter the verification attempts considered on the
-     *                         summary by verify service.
+     * @param serviceSid Filter the verification attempts considered on the summary
+     *                   by verify service.
      * @return this
      */
-    public VerificationAttemptsSummaryFetcher setVerifyServiceSid(final String verifyServiceSid) {
-        this.verifyServiceSid = verifyServiceSid;
+    public VerificationAttemptsSummaryFetcher setServiceSid(final String serviceSid) {
+        this.serviceSid = serviceSid;
         return this;
     }
 
@@ -143,8 +143,8 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
      * @param request Request to add query string arguments to
      */
     private void addQueryParams(final Request request) {
-        if (verifyServiceSid != null) {
-            request.addQueryParam("VerifyServiceSid", verifyServiceSid);
+        if (serviceSid != null) {
+            request.addQueryParam("ServiceSid", serviceSid);
         }
 
         if (dateCreatedAfter != null) {

@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.insights.v1;
+package com.twilio.rest.insights.v1.call;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -32,6 +32,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * PLEASE NOTE that this class contains beta products that are subject to
+ * change. Use them with caution.
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Annotation extends Resource {
@@ -127,7 +131,7 @@ public class Annotation extends Resource {
     /**
      * Create a AnnotationUpdater to execute update.
      *
-     * @param pathCallSid The call_sid
+     * @param pathCallSid The SID of the call.
      * @return AnnotationUpdater capable of executing the update
      */
     public static AnnotationUpdater updater(final String pathCallSid) {
@@ -137,7 +141,7 @@ public class Annotation extends Resource {
     /**
      * Create a AnnotationFetcher to execute fetch.
      *
-     * @param pathCallSid The call_sid
+     * @param pathCallSid Call SID.
      * @return AnnotationFetcher capable of executing the fetch
      */
     public static AnnotationFetcher fetcher(final String pathCallSid) {
@@ -227,90 +231,92 @@ public class Annotation extends Resource {
     }
 
     /**
-     * Returns The call_sid.
+     * Returns Call SID..
      *
-     * @return The call_sid
+     * @return Call SID.
      */
     public final String getCallSid() {
         return this.callSid;
     }
 
     /**
-     * Returns The account_sid.
+     * Returns Account SID..
      *
-     * @return The account_sid
+     * @return Account SID.
      */
     public final String getAccountSid() {
         return this.accountSid;
     }
 
     /**
-     * Returns The answered_by.
+     * Returns Indicates the answering entity as determined by Answering Machine
+     * Detection..
      *
-     * @return The answered_by
+     * @return Indicates the answering entity as determined by Answering Machine
+     *         Detection.
      */
     public final Annotation.AnsweredBy getAnsweredBy() {
         return this.answeredBy;
     }
 
     /**
-     * Returns The connectivity_issue.
+     * Returns Indicates if the call had any connectivity issue.
      *
-     * @return The connectivity_issue
+     * @return Indicates if the call had any connectivity issue
      */
     public final Annotation.ConnectivityIssue getConnectivityIssue() {
         return this.connectivityIssue;
     }
 
     /**
-     * Returns The quality_issues.
+     * Returns Indicates if the call had audio quality issues..
      *
-     * @return The quality_issues
+     * @return Indicates if the call had audio quality issues.
      */
     public final List<String> getQualityIssues() {
         return this.qualityIssues;
     }
 
     /**
-     * Returns The spam.
+     * Returns Call spam indicator.
      *
-     * @return The spam
+     * @return Call spam indicator
      */
     public final Boolean getSpam() {
         return this.spam;
     }
 
     /**
-     * Returns The call_score.
+     * Returns Call Score.
      *
-     * @return The call_score
+     * @return Call Score
      */
     public final Integer getCallScore() {
         return this.callScore;
     }
 
     /**
-     * Returns The comment.
+     * Returns User comments.
      *
-     * @return The comment
+     * @return User comments
      */
     public final String getComment() {
         return this.comment;
     }
 
     /**
-     * Returns The incident.
+     * Returns Call tag for incidents or support ticket.
      *
-     * @return The incident
+     * @return Call tag for incidents or support ticket
      */
     public final String getIncident() {
         return this.incident;
     }
 
     /**
-     * Returns The url.
+     * Returns The URL of this resource..
      *
-     * @return The url
+     * @return The URL of this resource.
      */
     public final URI getUrl() {
         return this.url;

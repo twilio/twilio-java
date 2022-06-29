@@ -98,6 +98,7 @@ public class VoiceResponseTest {
 
         builder.enqueue(new Enqueue.Builder("name")
                     .action(URI.create("https://example.com"))
+                    .maxQueueSize(1)
                     .method(HttpMethod.GET)
                     .waitUrl(URI.create("https://example.com"))
                     .waitUrlMethod(HttpMethod.GET)
@@ -211,7 +212,7 @@ public class VoiceResponseTest {
                 "<Connect action=\"https://example.com\" method=\"GET\"/>" +
                 "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
-                "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
+                "<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
                 "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
                 "<Hangup/>" +
                 "<Leave/>" +
@@ -351,6 +352,7 @@ public class VoiceResponseTest {
 
         builder.enqueue(new Enqueue.Builder("name")
                     .action(URI.create("https://example.com"))
+                    .maxQueueSize(1)
                     .method(HttpMethod.GET)
                     .waitUrl(URI.create("https://example.com"))
                     .waitUrlMethod(HttpMethod.GET)
@@ -463,7 +465,7 @@ public class VoiceResponseTest {
                 "<Connect action=\"https://example.com\" method=\"GET\"/>" +
                 "<Dial action=\"https://example.com\" answerOnBridge=\"true\" callerId=\"caller_id\" hangupOnStar=\"true\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" recordingTrack=\"both\" referMethod=\"GET\" referUrl=\"https://example.com\" ringTone=\"at\" sequential=\"true\" timeLimit=\"1\" timeout=\"1\" trim=\"trim-silence\">number</Dial>" +
                 "<Echo/>" +
-                "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
+                "<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>" +
                 "<Gather action=\"https://example.com\" actionOnEmptyResult=\"true\" bargeIn=\"true\" debug=\"true\" enhanced=\"true\" finishOnKey=\"finish_on_key\" hints=\"hints\" input=\"dtmf\" language=\"af-ZA\" maxSpeechTime=\"1\" method=\"GET\" numDigits=\"1\" partialResultCallback=\"https://example.com\" partialResultCallbackMethod=\"GET\" profanityFilter=\"true\" speechModel=\"default\" speechTimeout=\"speech_timeout\" timeout=\"1\"/>" +
                 "<Hangup/>" +
                 "<Leave/>" +

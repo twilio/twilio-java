@@ -70,12 +70,10 @@ public class VerificationCheck extends Resource {
      *
      * @param pathServiceSid The SID of the verification Service to create the
      *                       resource under
-     * @param code The verification string
      * @return VerificationCheckCreator capable of executing the create
      */
-    public static VerificationCheckCreator creator(final String pathServiceSid,
-                                                   final String code) {
-        return new VerificationCheckCreator(pathServiceSid, code);
+    public static VerificationCheckCreator creator(final String pathServiceSid) {
+        return new VerificationCheckCreator(pathServiceSid);
     }
 
     /**

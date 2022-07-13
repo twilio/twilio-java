@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 206018408619276L;
+    private static final long serialVersionUID = 269732024573840L;
 
     public enum Type {
         LANDLINE("landline"),
@@ -155,7 +155,6 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> simSwap;
     private final Map<String, Object> callForwarding;
     private final Map<String, Object> liveActivity;
-    private final Map<String, Object> enhancedLineType;
     private final Map<String, Object> lineTypeIntelligence;
     private final URI url;
 
@@ -180,8 +179,6 @@ public class PhoneNumber extends Resource {
                         final Map<String, Object> callForwarding,
                         @JsonProperty("live_activity")
                         final Map<String, Object> liveActivity,
-                        @JsonProperty("enhanced_line_type")
-                        final Map<String, Object> enhancedLineType,
                         @JsonProperty("line_type_intelligence")
                         final Map<String, Object> lineTypeIntelligence,
                         @JsonProperty("url")
@@ -196,7 +193,6 @@ public class PhoneNumber extends Resource {
         this.simSwap = simSwap;
         this.callForwarding = callForwarding;
         this.liveActivity = liveActivity;
-        this.enhancedLineType = enhancedLineType;
         this.lineTypeIntelligence = lineTypeIntelligence;
         this.url = url;
     }
@@ -296,15 +292,6 @@ public class PhoneNumber extends Resource {
      *
      * @return An object that contains line type information
      */
-    public final Map<String, Object> getEnhancedLineType() {
-        return this.enhancedLineType;
-    }
-
-    /**
-     * Returns An object that contains line type information.
-     *
-     * @return An object that contains line type information
-     */
     public final Map<String, Object> getLineTypeIntelligence() {
         return this.lineTypeIntelligence;
     }
@@ -340,7 +327,6 @@ public class PhoneNumber extends Resource {
                Objects.equals(simSwap, other.simSwap) &&
                Objects.equals(callForwarding, other.callForwarding) &&
                Objects.equals(liveActivity, other.liveActivity) &&
-               Objects.equals(enhancedLineType, other.enhancedLineType) &&
                Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&
                Objects.equals(url, other.url);
     }
@@ -357,7 +343,6 @@ public class PhoneNumber extends Resource {
                             simSwap,
                             callForwarding,
                             liveActivity,
-                            enhancedLineType,
                             lineTypeIntelligence,
                             url);
     }

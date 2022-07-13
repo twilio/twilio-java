@@ -37,8 +37,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
 
     /**
      * A comma-separated list of fields to return. Possible values are caller_name,
-     * sim_swap, call_forwarding, live_activity, enhanced_line_type or
-     * line_type_intelligence..
+     * sim_swap, call_forwarding, live_activity, line_type_intelligence..
      *
      * @param fields Fields to return
      * @return this

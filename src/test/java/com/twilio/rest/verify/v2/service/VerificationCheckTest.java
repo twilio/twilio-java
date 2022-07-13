@@ -42,7 +42,7 @@ public class VerificationCheckTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.VERIFY.toString(),
                                           "/v2/Services/VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/VerificationCheck");
-            request.addPostParam("Code", serialize("code"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -51,7 +51,7 @@ public class VerificationCheckTest {
         }};
 
         try {
-            VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+            VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -65,7 +65,7 @@ public class VerificationCheckTest {
             result = new ObjectMapper();
         }};
 
-        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 
     @Test
@@ -77,6 +77,18 @@ public class VerificationCheckTest {
             result = new ObjectMapper();
         }};
 
-        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "code").create();
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
+    }
+
+    @Test
+    public void testSnaVerificationChecksResponse() {
+        new NonStrictExpectations() {{
+            twilioRestClient.request((Request) any);
+            result = new Response("{\"sid\": \"VEaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"service_sid\": \"VAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"to\": \"+15017122661\",\"channel\": \"sna\",\"status\": \"approved\",\"valid\": true,\"amount\": null,\"payee\": null,\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            twilioRestClient.getObjectMapper();
+            result = new ObjectMapper();
+        }};
+
+        VerificationCheck.creator("VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX").create();
     }
 }

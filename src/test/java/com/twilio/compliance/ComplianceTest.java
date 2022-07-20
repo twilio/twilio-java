@@ -82,7 +82,8 @@ public class ComplianceTest {
 
         GivenClasses filteredClasses = (GivenClasses) classes().that(areNotInVariantList());
         GivenClassesConjunction resourceClasses = filteredClasses.that().areAssignableTo(Resource.class).and()
-                .doNotHaveFullyQualifiedName(Resource.class.getName());
+                .doNotHaveFullyQualifiedName(Resource.class.getName()).and().
+                doNotBelongToAnyOf(variantClasses.get(0));
 
         resourceClasses.should()
                 .beAnnotatedWith(com.fasterxml.jackson.annotation.JsonIgnoreProperties.class)

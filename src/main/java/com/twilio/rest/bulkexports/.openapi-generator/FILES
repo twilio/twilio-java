@@ -1,0 +1,15 @@
+.openapi-generator-ignore
+v1/Export.java
+v1/ExportConfiguration.java
+v1/ExportConfigurationFetcher.java
+v1/ExportConfigurationUpdater.java
+v1/ExportFetcher.java
+v1/export/Day.java
+v1/export/DayFetcher.java
+v1/export/DayReader.java
+v1/export/ExportCustomJob.java
+v1/export/ExportCustomJobCreator.java
+v1/export/ExportCustomJobReader.java
+v1/export/Job.java
+v1/export/JobDeleter.java
+v1/export/JobFetcher.java

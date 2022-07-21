@@ -80,7 +80,7 @@ public class Conversation extends TwiML {
     public enum Event {
         CALL_INITIATED("call-initiated"),
         CALL_RINGING("call-ringing"),
-        CALL_ANSWERED("call-answered"),
+        CALL_IN_PROGRESS("call-in-progress"),
         CALL_COMPLETED("call-completed");
 
         private final String value;

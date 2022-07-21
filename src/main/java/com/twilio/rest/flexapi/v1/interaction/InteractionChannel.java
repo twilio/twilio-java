@@ -34,7 +34,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannel extends Resource {
-    private static final long serialVersionUID = 78467581118874L;
+    private static final long serialVersionUID = 82635228380289L;
 
     public enum Status {
         CLOSE("close"),
@@ -68,7 +68,9 @@ public class InteractionChannel extends Resource {
         EMAIL("email"),
         WEB("web"),
         WHATSAPP("whatsapp"),
-        CHAT("chat");
+        CHAT("chat"),
+        MESSENGER("messenger"),
+        GBM("gbm");
 
         private final String value;
 
@@ -88,6 +90,33 @@ public class InteractionChannel extends Resource {
         @JsonCreator
         public static Type forValue(final String value) {
             return Promoter.enumFromString(value, Type.values());
+        }
+    }
+
+    public enum ChannelStatus {
+        SETUP("setup"),
+        ACTIVE("active"),
+        FAILED("failed"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private ChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        /**
+         * Generate a ChannelStatus from a string.
+         * @param value string value
+         * @return generated ChannelStatus
+         */
+        @JsonCreator
+        public static ChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelStatus.values());
         }
     }
 
@@ -168,6 +197,9 @@ public class InteractionChannel extends Resource {
     private final String sid;
     private final String interactionSid;
     private final InteractionChannel.Type type;
+    private final InteractionChannel.ChannelStatus status;
+    private final Integer errorCode;
+    private final String errorMessage;
     private final URI url;
     private final Map<String, String> links;
 
@@ -178,6 +210,12 @@ public class InteractionChannel extends Resource {
                                final String interactionSid,
                                @JsonProperty("type")
                                final InteractionChannel.Type type,
+                               @JsonProperty("status")
+                               final InteractionChannel.ChannelStatus status,
+                               @JsonProperty("error_code")
+                               final Integer errorCode,
+                               @JsonProperty("error_message")
+                               final String errorMessage,
                                @JsonProperty("url")
                                final URI url,
                                @JsonProperty("links")
@@ -185,6 +223,9 @@ public class InteractionChannel extends Resource {
         this.sid = sid;
         this.interactionSid = interactionSid;
         this.type = type;
+        this.status = status;
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
         this.url = url;
         this.links = links;
     }
@@ -199,9 +240,9 @@ public class InteractionChannel extends Resource {
     }
 
     /**
-     * Returns The unique string that identifies the resource.
+     * Returns The unique string that identifies the resource..
      *
-     * @return The unique string that identifies the resource
+     * @return The unique string that identifies the resource.
      */
     public final String getInteractionSid() {
         return this.interactionSid;
@@ -214,6 +255,33 @@ public class InteractionChannel extends Resource {
      */
     public final InteractionChannel.Type getType() {
         return this.type;
+    }
+
+    /**
+     * Returns The status of this channel..
+     *
+     * @return The status of this channel.
+     */
+    public final InteractionChannel.ChannelStatus getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Returns The Twilio error code for a failed channel..
+     *
+     * @return The Twilio error code for a failed channel.
+     */
+    public final Integer getErrorCode() {
+        return this.errorCode;
+    }
+
+    /**
+     * Returns The error message for a failed channel..
+     *
+     * @return The error message for a failed channel.
+     */
+    public final String getErrorMessage() {
+        return this.errorMessage;
     }
 
     /**
@@ -249,6 +317,9 @@ public class InteractionChannel extends Resource {
         return Objects.equals(sid, other.sid) &&
                Objects.equals(interactionSid, other.interactionSid) &&
                Objects.equals(type, other.type) &&
+               Objects.equals(status, other.status) &&
+               Objects.equals(errorCode, other.errorCode) &&
+               Objects.equals(errorMessage, other.errorMessage) &&
                Objects.equals(url, other.url) &&
                Objects.equals(links, other.links);
     }
@@ -258,6 +329,9 @@ public class InteractionChannel extends Resource {
         return Objects.hash(sid,
                             interactionSid,
                             type,
+                            status,
+                            errorCode,
+                            errorMessage,
                             url,
                             links);
     }

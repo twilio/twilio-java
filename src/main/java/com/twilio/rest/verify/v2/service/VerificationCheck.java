@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
@@ -29,13 +30,14 @@ import lombok.ToString;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationCheck extends Resource {
-    private static final long serialVersionUID = 185560198235176L;
+    private static final long serialVersionUID = 164854105347758L;
 
     public enum Channel {
         SMS("sms"),
@@ -125,6 +127,7 @@ public class VerificationCheck extends Resource {
     private final String payee;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
+    private final List<Map<String, Object>> snaAttemptsErrorCodes;
 
     @JsonCreator
     private VerificationCheck(@JsonProperty("sid")
@@ -148,7 +151,9 @@ public class VerificationCheck extends Resource {
                               @JsonProperty("date_created")
                               final String dateCreated,
                               @JsonProperty("date_updated")
-                              final String dateUpdated) {
+                              final String dateUpdated,
+                              @JsonProperty("sna_attempts_error_codes")
+                              final List<Map<String, Object>> snaAttemptsErrorCodes) {
         this.sid = sid;
         this.serviceSid = serviceSid;
         this.accountSid = accountSid;
@@ -160,6 +165,7 @@ public class VerificationCheck extends Resource {
         this.payee = payee;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
+        this.snaAttemptsErrorCodes = snaAttemptsErrorCodes;
     }
 
     /**
@@ -265,6 +271,17 @@ public class VerificationCheck extends Resource {
         return this.dateUpdated;
     }
 
+    /**
+     * Returns List of error codes as a result of attempting a verification using
+     * the `sna` channel..
+     *
+     * @return List of error codes as a result of attempting a verification using
+     *         the `sna` channel.
+     */
+    public final List<Map<String, Object>> getSnaAttemptsErrorCodes() {
+        return this.snaAttemptsErrorCodes;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -287,7 +304,8 @@ public class VerificationCheck extends Resource {
                Objects.equals(amount, other.amount) &&
                Objects.equals(payee, other.payee) &&
                Objects.equals(dateCreated, other.dateCreated) &&
-               Objects.equals(dateUpdated, other.dateUpdated);
+               Objects.equals(dateUpdated, other.dateUpdated) &&
+               Objects.equals(snaAttemptsErrorCodes, other.snaAttemptsErrorCodes);
     }
 
     @Override
@@ -302,6 +320,7 @@ public class VerificationCheck extends Resource {
                             amount,
                             payee,
                             dateCreated,
-                            dateUpdated);
+                            dateUpdated,
+                            snaAttemptsErrorCodes);
     }
 }

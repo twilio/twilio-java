@@ -19,11 +19,11 @@ import com.twilio.rest.Domains;
 
 public class VerificationCheckCreator extends Creator<VerificationCheck> {
     private final String pathServiceSid;
+    private String code;
     private String to;
     private String verificationSid;
     private String amount;
     private String payee;
-    private String code;
 
     /**
      * Construct a new VerificationCheckCreator.
@@ -33,6 +33,17 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      */
     public VerificationCheckCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
+    }
+
+    /**
+     * The 4-10 character string being verified..
+     *
+     * @param code The verification string
+     * @return this
+     */
+    public VerificationCheckCreator setCode(final String code) {
+        this.code = code;
+        return this;
     }
 
     /**
@@ -88,17 +99,6 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
     }
 
     /**
-     * The 4-10 character string being verified..
-     *
-     * @param code The verification string
-     * @return this
-     */
-    public VerificationCheckCreator setCode(final String code) {
-        this.code = code;
-        return this;
-    }
-
-    /**
      * Make the request to the Twilio API to perform the create.
      *
      * @param client TwilioRestClient with which to make the request
@@ -135,6 +135,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
      * @param request Request to add post params to
      */
     private void addPostParams(final Request request) {
+        if (code != null) {
+            request.addPostParam("Code", code);
+        }
+
         if (to != null) {
             request.addPostParam("To", to);
         }
@@ -149,10 +153,6 @@ public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
         if (payee != null) {
             request.addPostParam("Payee", payee);
-        }
-
-        if (code != null) {
-            request.addPostParam("Code", code);
         }
     }
 }

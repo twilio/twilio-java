@@ -40,6 +40,7 @@ public class EnqueueTest {
     public void testElementWithParams() {
         Enqueue elem = new Enqueue.Builder("name")
             .action(URI.create("https://example.com"))
+            .maxQueueSize(1)
             .method(HttpMethod.GET)
             .waitUrl(URI.create("https://example.com"))
             .waitUrlMethod(HttpMethod.GET)
@@ -48,7 +49,7 @@ public class EnqueueTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>",
+            "<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>",
             elem.toXml()
         );
     }
@@ -163,6 +164,7 @@ public class EnqueueTest {
     public void testXmlAttributesDeserialization() {
         final Enqueue elem = new Enqueue.Builder("name")
             .action(URI.create("https://example.com"))
+            .maxQueueSize(1)
             .method(HttpMethod.GET)
             .waitUrl(URI.create("https://example.com"))
             .waitUrlMethod(HttpMethod.GET)
@@ -170,7 +172,7 @@ public class EnqueueTest {
             .build();
 
         Assert.assertEquals(
-            Enqueue.Builder.fromXml("<Enqueue action=\"https://example.com\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>").build().toXml(),
+            Enqueue.Builder.fromXml("<Enqueue action=\"https://example.com\" maxQueueSize=\"1\" method=\"GET\" waitUrl=\"https://example.com\" waitUrlMethod=\"GET\" workflowSid=\"workflow_sid\">name</Enqueue>").build().toXml(),
             elem.toXml()
         );
     }

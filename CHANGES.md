@@ -1,6 +1,58 @@
 twilio-java changelog
 =====================
 
+[2022-07-21] Version 9.0.0-rc.1
+-------------------------------
+**Library - Fix**
+- [PR #701](https://github.com/twilio/twilio-java/pull/701): fixing compliance test. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #695](https://github.com/twilio/twilio-java/pull/695): added back Java 8 support. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #697](https://github.com/twilio/twilio-java/pull/697): improve compliance tests. Thanks to [@shrutiburman](https://github.com/shrutiburman)!
+
+**Library - Chore**
+- [PR #691](https://github.com/twilio/twilio-java/pull/691): jmockit to mockito migration. Thanks to [@kridai](https://github.com/kridai)!
+- [PR #685](https://github.com/twilio/twilio-java/pull/685): add cluster test. Thanks to [@kridai](https://github.com/kridai)!
+
+**Api**
+- Added `amazon-polly` to `usage_record` API.
+
+**Conversations**
+- Allowed to use `identity` as part of Participant's resource **(breaking change)**
+
+**Flex**
+- Add `status`, `error_code`, and `error_message` fields to Interaction `Channel`
+- Adding `messenger` and `gbm` as supported channels for Interactions API
+
+**Insights**
+- Added `annotation` field in call summary
+- Added new endpoint to fetch/create/update Call Annotations
+
+**Lookups**
+- Remove `enhanced_line_type` from the lookup response **(breaking change)**
+- Adding support for Lookup V2 API
+
+**Messaging**
+- Update alpha_sender docs with new valid characters
+
+**Studio**
+- Corrected PII labels to be 30 days and added context to be PII
+
+**Supersim**
+- Add support for `sim_ip_addresses` resource to helper libraries
+
+**Verify**
+- Rollback List Attempts API V2 back to pilot stage.
+- Changed summary param `service_sid` to `verify_service_sid` to be consistent with list attempts API **(breaking change)**
+- Make `code` optional on Verification check to support `sna` attempts.
+- Remove `api.verify.totp` beta flag and set maturity to `beta` for Verify TOTP properties and parameters. **(breaking change)**
+- Changed summary param `verify_service_sid` to `service_sid` to be consistent with list attempts API **(breaking change)**
+
+**Twiml**
+- Add `maxQueueSize` to `Enqueue`
+- Add `statusCallbackMethod` attribute, nested `<Config` and `<Parameter>` elements to `<VirtualAgent>` noun.
+- Add support for new Amazon Polly voices (Q2 2022) for `Say` verb
+- Add support for `<Conversation>` noun
+
+
 [2022-07-21] Version 9.0.0-rc.0
 ---------------------------
 - Release Candidate prep

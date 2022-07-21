@@ -10,6 +10,7 @@ package com.twilio.twiml.voice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import com.twilio.http.HttpMethod;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 
@@ -25,6 +26,7 @@ public class VirtualAgent extends TwiML {
     private final String language;
     private final Boolean sentimentAnalysis;
     private final String statusCallback;
+    private final HttpMethod statusCallbackMethod;
 
     /**
      * For XML Serialization/Deserialization
@@ -42,6 +44,7 @@ public class VirtualAgent extends TwiML {
         this.language = b.language;
         this.sentimentAnalysis = b.sentimentAnalysis;
         this.statusCallback = b.statusCallback;
+        this.statusCallbackMethod = b.statusCallbackMethod;
     }
 
     /**
@@ -64,6 +67,9 @@ public class VirtualAgent extends TwiML {
         }
         if (this.getStatusCallback() != null) {
             attrs.put("statusCallback", this.getStatusCallback());
+        }
+        if (this.getStatusCallbackMethod() != null) {
+            attrs.put("statusCallbackMethod", this.getStatusCallbackMethod().toString());
         }
 
         return attrs;
@@ -106,6 +112,15 @@ public class VirtualAgent extends TwiML {
     }
 
     /**
+     * HTTP method to use when requesting the status callback URL
+     *
+     * @return HTTP method to use when requesting the status callback URL
+     */
+    public HttpMethod getStatusCallbackMethod() {
+        return statusCallbackMethod;
+    }
+
+    /**
      * Create a new {@code <VirtualAgent>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
@@ -127,6 +142,7 @@ public class VirtualAgent extends TwiML {
         private String language;
         private Boolean sentimentAnalysis;
         private String statusCallback;
+        private HttpMethod statusCallbackMethod;
 
         /**
          * Defines the conversation profile Dialogflow needs to use
@@ -161,6 +177,33 @@ public class VirtualAgent extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "statusCallback")
         public Builder statusCallback(String statusCallback) {
             this.statusCallback = statusCallback;
+            return this;
+        }
+
+        /**
+         * HTTP method to use when requesting the status callback URL
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "statusCallbackMethod")
+        public Builder statusCallbackMethod(HttpMethod statusCallbackMethod) {
+            this.statusCallbackMethod = statusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Config>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Config")
+        public Builder config(Config config) {
+            this.children.add(config);
+            return this;
+        }
+
+        /**
+         * Add a child {@code <Parameter>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
+        public Builder parameter(Parameter parameter) {
+            this.children.add(parameter);
             return this;
         }
 

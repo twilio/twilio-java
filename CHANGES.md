@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2022-07-27] Version 9.0.0-rc.2
+-------------------------------
+**Verify**
+- Reorder Verification Check parameters so `code` stays as the first parameter **(breaking change)**
+
+
 [2022-07-21] Version 9.0.0-rc.1
 -------------------------------
 **Library - Fix**

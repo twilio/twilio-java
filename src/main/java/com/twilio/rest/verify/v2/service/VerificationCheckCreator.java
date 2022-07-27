@@ -33,7 +33,7 @@ import com.twilio.rest.Domains;
     *
     * This is the public Twilio REST API.
     *
-    * API version: 1.31.1
+    * API version: 1.32.0
     * Contact: support@twilio.com
 */
 
@@ -42,16 +42,20 @@ import com.twilio.rest.Domains;
 
 public class VerificationCheckCreator extends Creator<VerificationCheck>{
     private String serviceSid;
+    private String code;
     private String to;
     private String verificationSid;
     private String amount;
     private String payee;
-    private String code;
 
     public VerificationCheckCreator(final String serviceSid) {
         this.serviceSid = serviceSid;
     }
 
+    public VerificationCheckCreator setCode(final String code){
+        this.code = code;
+        return this;
+    }
     public VerificationCheckCreator setTo(final String to){
         this.to = to;
         return this;
@@ -66,10 +70,6 @@ public class VerificationCheckCreator extends Creator<VerificationCheck>{
     }
     public VerificationCheckCreator setPayee(final String payee){
         this.payee = payee;
-        return this;
-    }
-    public VerificationCheckCreator setCode(final String code){
-        this.code = code;
         return this;
     }
 
@@ -99,6 +99,10 @@ public class VerificationCheckCreator extends Creator<VerificationCheck>{
         return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addPostParams(final Request request) {
+        if (code != null) {
+            request.addPostParam("Code", code);
+    
+        }
         if (to != null) {
             request.addPostParam("To", to);
     
@@ -113,10 +117,6 @@ public class VerificationCheckCreator extends Creator<VerificationCheck>{
         }
         if (payee != null) {
             request.addPostParam("Payee", payee);
-    
-        }
-        if (code != null) {
-            request.addPostParam("Code", code);
     
         }
     }

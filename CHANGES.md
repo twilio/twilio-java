@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2022-08-10] Version 8.34.1
+---------------------------
+**Library - Docs**
+- [PR #702](https://github.com/twilio/twilio-java/pull/702): updated readme.md for java release candidate. Thanks to [@kridai](https://github.com/kridai)!
+
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
 [2022-07-21] Version 8.34.0
 ---------------------------
 **Flex**

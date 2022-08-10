@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.microvisor.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,27 +24,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class DayReader extends Reader<Day> {
-    private final String pathResourceType;
-
-    /**
-     * Construct a new DayReader.
-     *
-     * @param pathResourceType The type of communication – Messages, Calls,
-     *                         Conferences, and Participants
-     */
-    public DayReader(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
-    }
-
+public class AppReader extends Reader<App> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return App ResourceSet
      */
     @Override
-    public ResourceSet<Day> read(final TwilioRestClient client) {
+    public ResourceSet<App> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -52,15 +40,15 @@ public class DayReader extends Reader<Day> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return App ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> firstPage(final TwilioRestClient client) {
+    public Page<App> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Days"
+            Domains.MICROVISOR.toString(),
+            "/v1/Apps"
         );
 
         addQueryParams(request);
@@ -72,11 +60,11 @@ public class DayReader extends Reader<Day> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return Day ResourceSet
+     * @return App ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<Day> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<App> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -93,11 +81,11 @@ public class DayReader extends Reader<Day> {
      * @return Next Page
      */
     @Override
-    public Page<Day> nextPage(final Page<Day> page,
+    public Page<App> nextPage(final Page<App> page,
                               final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.PREVIEW.toString())
+            page.getNextPageUrl(Domains.MICROVISOR.toString())
         );
         return pageForRequest(client, request);
     }
@@ -110,27 +98,27 @@ public class DayReader extends Reader<Day> {
      * @return Previous Page
      */
     @Override
-    public Page<Day> previousPage(final Page<Day> page,
+    public Page<App> previousPage(final Page<App> page,
                                   final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.PREVIEW.toString())
+            page.getPreviousPageUrl(Domains.MICROVISOR.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of Day Resources for a given request.
+     * Generate a Page of App Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<Day> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<App> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Day read failed: Unable to connect to server");
+            throw new ApiConnectionException("App read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -140,9 +128,9 @@ public class DayReader extends Reader<Day> {
         }
 
         return Page.fromJson(
-            "days",
+            "apps",
             response.getContent(),
-            Day.class,
+            App.class,
             client.getObjectMapper()
         );
     }

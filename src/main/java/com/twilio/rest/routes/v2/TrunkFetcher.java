@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.routes.v2;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,47 +17,37 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class DayFetcher extends Fetcher<Day> {
-    private final String pathResourceType;
-    private final String pathDay;
+public class TrunkFetcher extends Fetcher<Trunk> {
+    private final String pathSipTrunkDomain;
 
     /**
-     * Construct a new DayFetcher.
+     * Construct a new TrunkFetcher.
      *
-     * @param pathResourceType The type of communication – Messages, Calls,
-     *                         Conferences, and Participants
-     * @param pathDay The date of the data in the file
+     * @param pathSipTrunkDomain The SIP Trunk
      */
-    public DayFetcher(final String pathResourceType,
-                      final String pathDay) {
-        this.pathResourceType = pathResourceType;
-        this.pathDay = pathDay;
+    public TrunkFetcher(final String pathSipTrunkDomain) {
+        this.pathSipTrunkDomain = pathSipTrunkDomain;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Day
+     * @return Fetched Trunk
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Day fetch(final TwilioRestClient client) {
+    public Trunk fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Days/" + this.pathDay + ""
+            Domains.ROUTES.toString(),
+            "/v2/Trunks/" + this.pathSipTrunkDomain + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Day fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Trunk fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -66,6 +56,6 @@ public class DayFetcher extends Fetcher<Day> {
             throw new ApiException(restException);
         }
 
-        return Day.fromJson(response.getStream(), client.getObjectMapper());
+        return Trunk.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

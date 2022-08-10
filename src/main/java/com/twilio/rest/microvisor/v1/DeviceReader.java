@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.microvisor.v1;
 
 import com.twilio.base.Page;
 import com.twilio.base.Reader;
@@ -24,27 +24,15 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ExportCustomJobReader extends Reader<ExportCustomJob> {
-    private final String pathResourceType;
-
-    /**
-     * Construct a new ExportCustomJobReader.
-     *
-     * @param pathResourceType The type of communication – Messages, Calls,
-     *                         Conferences, and Participants
-     */
-    public ExportCustomJobReader(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
-    }
-
+public class DeviceReader extends Reader<Device> {
     /**
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return ExportCustomJob ResourceSet
+     * @return Device ResourceSet
      */
     @Override
-    public ResourceSet<ExportCustomJob> read(final TwilioRestClient client) {
+    public ResourceSet<Device> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
@@ -52,15 +40,15 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
      * Make the request to the Twilio API to perform the read.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return ExportCustomJob ResourceSet
+     * @return Device ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
+    public Page<Device> firstPage(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Jobs"
+            Domains.MICROVISOR.toString(),
+            "/v1/Devices"
         );
 
         addQueryParams(request);
@@ -72,11 +60,11 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
      *
      * @param targetUrl API-generated URL for the requested results page
      * @param client TwilioRestClient with which to make the request
-     * @return ExportCustomJob ResourceSet
+     * @return Device ResourceSet
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Page<ExportCustomJob> getPage(final String targetUrl, final TwilioRestClient client) {
+    public Page<Device> getPage(final String targetUrl, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             targetUrl
@@ -93,11 +81,11 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
      * @return Next Page
      */
     @Override
-    public Page<ExportCustomJob> nextPage(final Page<ExportCustomJob> page,
-                                          final TwilioRestClient client) {
+    public Page<Device> nextPage(final Page<Device> page,
+                                 final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getNextPageUrl(Domains.PREVIEW.toString())
+            page.getNextPageUrl(Domains.MICROVISOR.toString())
         );
         return pageForRequest(client, request);
     }
@@ -110,27 +98,27 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
      * @return Previous Page
      */
     @Override
-    public Page<ExportCustomJob> previousPage(final Page<ExportCustomJob> page,
-                                              final TwilioRestClient client) {
+    public Page<Device> previousPage(final Page<Device> page,
+                                     final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            page.getPreviousPageUrl(Domains.PREVIEW.toString())
+            page.getPreviousPageUrl(Domains.MICROVISOR.toString())
         );
         return pageForRequest(client, request);
     }
 
     /**
-     * Generate a Page of ExportCustomJob Resources for a given request.
+     * Generate a Page of Device Resources for a given request.
      *
      * @param client TwilioRestClient with which to make the request
      * @param request Request to generate a page for
      * @return Page for the Request
      */
-    private Page<ExportCustomJob> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Device> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ExportCustomJob read failed: Unable to connect to server");
+            throw new ApiConnectionException("Device read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -140,9 +128,9 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
         }
 
         return Page.fromJson(
-            "jobs",
+            "devices",
             response.getContent(),
-            ExportCustomJob.class,
+            Device.class,
             client.getObjectMapper()
         );
     }

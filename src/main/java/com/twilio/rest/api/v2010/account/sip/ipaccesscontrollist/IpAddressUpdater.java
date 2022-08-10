@@ -73,11 +73,11 @@ public class IpAddressUpdater extends Updater<IpAddress> {
     }
 
     /**
-     * A human readable descriptive text for this resource, up to 64 characters
+     * A human readable descriptive text for this resource, up to 255 characters
      * long..
      *
      * @param friendlyName A human readable descriptive text for this resource, up
-     *                     to 64 characters long.
+     *                     to 255 characters long.
      * @return this
      */
     public IpAddressUpdater setFriendlyName(final String friendlyName) {

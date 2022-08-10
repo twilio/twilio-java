@@ -35,7 +35,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Application extends Resource {
-    private static final long serialVersionUID = 30273898590025L;
+    private static final long serialVersionUID = 107659369979785L;
 
     /**
      * Create a ApplicationCreator to execute create.

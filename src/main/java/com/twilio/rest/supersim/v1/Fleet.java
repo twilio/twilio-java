@@ -274,10 +274,10 @@ public class Fleet extends Resource {
 
     /**
      * Returns The total data usage (download and upload combined) in Megabytes that
-     * each Sim resource assigned to the Fleet resource can consume.
+     * each Super SIM assigned to the Fleet can consume.
      *
      * @return The total data usage (download and upload combined) in Megabytes
-     *         that each Sim resource assigned to the Fleet resource can consume
+     *         that each Super SIM assigned to the Fleet can consume
      */
     public final Integer getDataLimit() {
         return this.dataLimit;

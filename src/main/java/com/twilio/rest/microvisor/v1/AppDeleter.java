@@ -5,9 +5,9 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports;
+package com.twilio.rest.microvisor.v1;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -22,38 +22,36 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
-    private final String pathResourceType;
+public class AppDeleter extends Deleter<App> {
+    private final String pathSid;
 
     /**
-     * Construct a new ExportConfigurationFetcher.
+     * Construct a new AppDeleter.
      *
-     * @param pathResourceType The type of communication – Messages, Calls,
-     *                         Conferences, and Participants
+     * @param pathSid A string that uniquely identifies this App.
      */
-    public ExportConfigurationFetcher(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
+    public AppDeleter(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
-     * Make the request to the Twilio API to perform the fetch.
+     * Make the request to the Twilio API to perform the delete.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched ExportConfiguration
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public ExportConfiguration fetch(final TwilioRestClient client) {
+    public boolean delete(final TwilioRestClient client) {
         Request request = new Request(
-            HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + "/Configuration"
+            HttpMethod.DELETE,
+            Domains.MICROVISOR.toString(),
+            "/v1/Apps/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("ExportConfiguration fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("App delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -62,6 +60,6 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
             throw new ApiException(restException);
         }
 
-        return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
 }

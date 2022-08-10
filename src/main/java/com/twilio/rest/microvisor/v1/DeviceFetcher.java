@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports.export;
+package com.twilio.rest.microvisor.v1;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -22,38 +22,37 @@ import com.twilio.rest.Domains;
  * change. Use them with caution. If you currently do not have developer preview
  * access, please contact help@twilio.com.
  */
-public class JobFetcher extends Fetcher<Job> {
-    private final String pathJobSid;
+public class DeviceFetcher extends Fetcher<Device> {
+    private final String pathSid;
 
     /**
-     * Construct a new JobFetcher.
+     * Construct a new DeviceFetcher.
      *
-     * @param pathJobSid The unique string that that we created to identify the
-     *                   Bulk Export job
+     * @param pathSid A string that uniquely identifies this Device.
      */
-    public JobFetcher(final String pathJobSid) {
-        this.pathJobSid = pathJobSid;
+    public DeviceFetcher(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Job
+     * @return Fetched Device
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Job fetch(final TwilioRestClient client) {
+    public Device fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/Jobs/" + this.pathJobSid + ""
+            Domains.MICROVISOR.toString(),
+            "/v1/Devices/" + this.pathSid + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Job fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("Device fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -62,6 +61,6 @@ public class JobFetcher extends Fetcher<Job> {
             throw new ApiException(restException);
         }
 
-        return Job.fromJson(response.getStream(), client.getObjectMapper());
+        return Device.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

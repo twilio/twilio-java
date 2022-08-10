@@ -35,7 +35,7 @@ import java.net.URI;
     *
     * This is the public Twilio REST API.
     *
-    * API version: 1.32.0
+    * API version: 1.33.0
     * Contact: support@twilio.com
 */
 
@@ -50,6 +50,7 @@ public class FleetUpdater extends Updater<Fleet>{
     private HttpMethod ipCommandsMethod;
     private URI smsCommandsUrl;
     private HttpMethod smsCommandsMethod;
+    private Integer dataLimit;
 
     public FleetUpdater(final String sid){
         this.sid = sid;
@@ -87,6 +88,10 @@ public class FleetUpdater extends Updater<Fleet>{
     }
     public FleetUpdater setSmsCommandsMethod(final HttpMethod smsCommandsMethod){
         this.smsCommandsMethod = smsCommandsMethod;
+        return this;
+    }
+    public FleetUpdater setDataLimit(final Integer dataLimit){
+        this.dataLimit = dataLimit;
         return this;
     }
 
@@ -138,6 +143,10 @@ public class FleetUpdater extends Updater<Fleet>{
         }
         if (smsCommandsMethod != null) {
             request.addPostParam("SmsCommandsMethod", smsCommandsMethod.toString());
+    
+        }
+        if (dataLimit != null) {
+            request.addPostParam("DataLimit", dataLimit.toString());
     
         }
     }

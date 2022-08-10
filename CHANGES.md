@@ -1,6 +1,15 @@
 twilio-java changelog
 =====================
 
+[2022-08-10] Version 9.0.0-rc.3
+-------------------------------
+**Routes**
+- Inbound Proccessing Region API - Public GA
+
+**Supersim**
+- Allow updating `DataLimit` on a Fleet
+
+
 [2022-07-27] Version 9.0.0-rc.2
 -------------------------------
 **Verify**

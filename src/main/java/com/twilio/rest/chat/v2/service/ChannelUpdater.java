@@ -34,7 +34,7 @@ import java.time.ZonedDateTime;
     *
     * This is the public Twilio REST API.
     *
-    * API version: 1.32.0
+    * API version: 1.33.0
     * Contact: support@twilio.com
 */
 

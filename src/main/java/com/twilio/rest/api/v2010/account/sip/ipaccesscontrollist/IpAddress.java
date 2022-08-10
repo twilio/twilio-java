@@ -67,7 +67,7 @@ public class IpAddress extends Resource {
      * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
      *                                   associate the created IpAddress resource
      * @param friendlyName A human readable descriptive text for this resource, up
-     *                     to 64 characters long.
+     *                     to 255 characters long.
      * @param ipAddress An IP address in dotted decimal notation from which you
      *                  want to accept traffic. Any SIP requests from this IP
      *                  address will be allowed by Twilio. IPv4 only supported
@@ -87,7 +87,7 @@ public class IpAddress extends Resource {
      * @param pathIpAccessControlListSid The IpAccessControlList Sid with which to
      *                                   associate the created IpAddress resource
      * @param friendlyName A human readable descriptive text for this resource, up
-     *                     to 64 characters long.
+     *                     to 255 characters long.
      * @param ipAddress An IP address in dotted decimal notation from which you
      *                  want to accept traffic. Any SIP requests from this IP
      *                  address will be allowed by Twilio. IPv4 only supported
@@ -285,10 +285,10 @@ public class IpAddress extends Resource {
     }
 
     /**
-     * Returns A human readable descriptive text for this resource, up to 64
+     * Returns A human readable descriptive text for this resource, up to 255
      * characters long..
      *
-     * @return A human readable descriptive text for this resource, up to 64
+     * @return A human readable descriptive text for this resource, up to 255
      *         characters long.
      */
     public final String getFriendlyName() {

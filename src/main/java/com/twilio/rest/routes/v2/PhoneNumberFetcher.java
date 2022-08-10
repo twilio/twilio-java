@@ -5,7 +5,7 @@
  *       /       /
  */
 
-package com.twilio.rest.preview.bulkExports;
+package com.twilio.rest.routes.v2;
 
 import com.twilio.base.Fetcher;
 import com.twilio.exception.ApiConnectionException;
@@ -17,43 +17,37 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-/**
- * PLEASE NOTE that this class contains preview products that are subject to
- * change. Use them with caution. If you currently do not have developer preview
- * access, please contact help@twilio.com.
- */
-public class ExportFetcher extends Fetcher<Export> {
-    private final String pathResourceType;
+public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
+    private final String pathPhoneNumber;
 
     /**
-     * Construct a new ExportFetcher.
+     * Construct a new PhoneNumberFetcher.
      *
-     * @param pathResourceType The type of communication – Messages, Calls,
-     *                         Conferences, and Participants
+     * @param pathPhoneNumber The phone number
      */
-    public ExportFetcher(final String pathResourceType) {
-        this.pathResourceType = pathResourceType;
+    public PhoneNumberFetcher(final String pathPhoneNumber) {
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
     /**
      * Make the request to the Twilio API to perform the fetch.
      *
      * @param client TwilioRestClient with which to make the request
-     * @return Fetched Export
+     * @return Fetched PhoneNumber
      */
     @Override
     @SuppressWarnings("checkstyle:linelength")
-    public Export fetch(final TwilioRestClient client) {
+    public PhoneNumber fetch(final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
-            Domains.PREVIEW.toString(),
-            "/BulkExports/Exports/" + this.pathResourceType + ""
+            Domains.ROUTES.toString(),
+            "/v2/PhoneNumbers/" + this.pathPhoneNumber + ""
         );
 
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Export fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("PhoneNumber fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -62,6 +56,6 @@ public class ExportFetcher extends Fetcher<Export> {
             throw new ApiException(restException);
         }
 
-        return Export.fromJson(response.getStream(), client.getObjectMapper());
+        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

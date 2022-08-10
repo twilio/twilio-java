@@ -73,13 +73,13 @@ public class FleetCreator extends Creator<Fleet> {
 
     /**
      * The total data usage (download and upload combined) in Megabytes that each
-     * Sim resource assigned to the Fleet resource can consume during a billing
-     * period (normally one month). Value must be between 1MB (1) and 2TB
-     * (2,000,000). Defaults to 1GB (1,000)..
+     * Super SIM assigned to the Fleet can consume during a billing period (normally
+     * one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to
+     * 1GB (1,000)..
      *
      * @param dataLimit The total data usage (download and upload combined) in
-     *                  Megabytes that each Sim resource assigned to the Fleet
-     *                  resource can consume
+     *                  Megabytes that each Super SIM resource assigned to the Fleet
+     *                  can consume
      * @return this
      */
     public FleetCreator setDataLimit(final Integer dataLimit) {

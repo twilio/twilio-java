@@ -32,6 +32,7 @@ public class FleetUpdater extends Updater<Fleet> {
     private HttpMethod ipCommandsMethod;
     private URI smsCommandsUrl;
     private HttpMethod smsCommandsMethod;
+    private Integer dataLimit;
 
     /**
      * Construct a new FleetUpdater.
@@ -155,6 +156,22 @@ public class FleetUpdater extends Updater<Fleet> {
     }
 
     /**
+     * The total data usage (download and upload combined) in Megabytes that each
+     * Super SIM assigned to the Fleet can consume during a billing period (normally
+     * one month). Value must be between 1MB (1) and 2TB (2,000,000). Defaults to
+     * 1GB (1,000)..
+     *
+     * @param dataLimit The total data usage (download and upload combined) in
+     *                  Megabytes that each Super SIM assigned to the Fleet can
+     *                  consume
+     * @return this
+     */
+    public FleetUpdater setDataLimit(final Integer dataLimit) {
+        this.dataLimit = dataLimit;
+        return this;
+    }
+
+    /**
      * Make the request to the Twilio API to perform the update.
      *
      * @param client TwilioRestClient with which to make the request
@@ -213,6 +230,10 @@ public class FleetUpdater extends Updater<Fleet> {
 
         if (smsCommandsMethod != null) {
             request.addPostParam("SmsCommandsMethod", smsCommandsMethod.toString());
+        }
+
+        if (dataLimit != null) {
+            request.addPostParam("DataLimit", dataLimit.toString());
         }
     }
 }

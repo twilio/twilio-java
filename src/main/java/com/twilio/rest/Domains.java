@@ -27,6 +27,7 @@ public enum Domains {
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),
+    ROUTES("routes"),
     SERVERLESS("serverless"),
     STUDIO("studio"),
     SYNC("sync"),
@@ -38,7 +39,8 @@ public enum Domains {
     VOICE("voice"),
     WIRELESS("wireless"),
     SUPERSIM("supersim"),
-    BULKEXPORTS("bulkexports");
+    BULKEXPORTS("bulkexports"),
+    MICROVISOR("microvisor");
 
     private final String value;
 

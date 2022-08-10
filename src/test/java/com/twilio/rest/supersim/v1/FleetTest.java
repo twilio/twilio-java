@@ -60,7 +60,7 @@ public class FleetTest {
     public void testCreateResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"unique_name\": \"unique_name\",\"data_enabled\": true,\"data_limit\": 1000,\"data_metering\": \"payg\",\"date_created\": \"2019-07-30T20:00:00Z\",\"date_updated\": \"2019-07-30T20:00:00Z\",\"sms_commands_enabled\": true,\"sms_commands_method\": \"GET\",\"sms_commands_url\": \"https://google.com\",\"ip_commands_method\": \"GET\",\"ip_commands_url\": \"https://google.com\",\"network_access_profile_sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"unique_name\": \"unique_name\",\"data_enabled\": true,\"data_limit\": 500,\"data_metering\": \"payg\",\"date_created\": \"2019-07-30T20:00:00Z\",\"date_updated\": \"2019-07-30T20:00:00Z\",\"sms_commands_enabled\": true,\"sms_commands_method\": \"GET\",\"sms_commands_url\": \"https://google.com\",\"ip_commands_method\": \"GET\",\"ip_commands_url\": \"https://google.com\",\"network_access_profile_sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};
@@ -165,10 +165,10 @@ public class FleetTest {
     }
 
     @Test
-    public void testUpdateUniqueNameResponse() {
+    public void testUpdateUniqueNameAndDataLimitResponse() {
         new NonStrictExpectations() {{
             twilioRestClient.request((Request) any);
-            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"unique_name\": \"unique_name\",\"data_enabled\": true,\"data_limit\": 1000,\"data_metering\": \"payg\",\"date_created\": \"2019-10-15T20:00:00Z\",\"date_updated\": \"2019-10-15T20:00:00Z\",\"sms_commands_enabled\": true,\"sms_commands_method\": \"POST\",\"sms_commands_url\": null,\"ip_commands_method\": \"POST\",\"ip_commands_url\": null,\"network_access_profile_sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
+            result = new Response("{\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"unique_name\": \"GPS Trackers Fleet 5GB\",\"data_enabled\": true,\"data_limit\": 5000,\"data_metering\": \"payg\",\"date_created\": \"2019-10-15T20:00:00Z\",\"date_updated\": \"2019-10-15T20:00:00Z\",\"sms_commands_enabled\": true,\"sms_commands_method\": \"POST\",\"sms_commands_url\": null,\"ip_commands_method\": \"POST\",\"ip_commands_url\": null,\"network_access_profile_sid\": \"HAaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"sid\": \"HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"url\": \"https://supersim.twilio.com/v1/Fleets/HFaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\"}", TwilioRestClient.HTTP_STATUS_CODE_OK);
             twilioRestClient.getObjectMapper();
             result = new ObjectMapper();
         }};

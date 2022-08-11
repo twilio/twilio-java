@@ -1,4 +1,4 @@
-.PHONY: install analysis test docs
+.PHONY: install analysis test test-docker docs
 
 install:
 	@java -version || (echo "Java is not installed, please install Java >= 7"; exit 1);
@@ -10,6 +10,10 @@ analysis:
 
 test:
 	mvn test
+
+test-docker:
+	docker build -t twilio/twilio-java .
+	docker run twilio/twilio-java mvn test
 
 docs:
 	rm -rf docs

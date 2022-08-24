@@ -49,8 +49,8 @@ public class PhoneNumber extends Resource {
 
 
 
-    public static PhoneNumberUpdater updater(final String phoneNumber, final String voiceRegion, final String friendlyName){
-        return new PhoneNumberUpdater(phoneNumber, voiceRegion, friendlyName);
+    public static PhoneNumberUpdater updater(final String phoneNumber){
+        return new PhoneNumberUpdater(phoneNumber);
     }
 
     /**

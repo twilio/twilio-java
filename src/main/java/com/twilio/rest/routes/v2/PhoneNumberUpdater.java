@@ -33,7 +33,7 @@ import com.twilio.rest.Domains;
     *
     * This is the public Twilio REST API.
     *
-    * API version: 1.33.0
+    * API version: 1.34.0
     * Contact: support@twilio.com
 */
 
@@ -45,10 +45,8 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber>{
     private String voiceRegion;
     private String friendlyName;
 
-    public PhoneNumberUpdater(final String phoneNumber, final String voiceRegion, final String friendlyName){
+    public PhoneNumberUpdater(final String phoneNumber){
         this.phoneNumber = phoneNumber;
-        this.voiceRegion = voiceRegion;
-        this.friendlyName = friendlyName;
     }
 
     public PhoneNumberUpdater setVoiceRegion(final String voiceRegion){
@@ -65,8 +63,6 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber>{
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
         path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.toString());
-        path = path.replace("{"+"VoiceRegion"+"}", this.voiceRegion.toString());
-        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(
             HttpMethod.POST,

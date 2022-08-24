@@ -63,7 +63,7 @@ public class SsmlProsodyTest {
 
         builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
 
-        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build());
 
         builder.p(new SsmlP.Builder("words").build());
 
@@ -89,7 +89,7 @@ public class SsmlProsodyTest {
             "<prosody>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
-                "<lang xml:lang=\"da-DK\">words</lang>" +
+                "<lang xml:lang=\"arb\">words</lang>" +
                 "<p>words</p>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
@@ -198,7 +198,7 @@ public class SsmlProsodyTest {
 
         builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
 
-        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build());
 
         builder.p(new SsmlP.Builder("words").build());
 
@@ -223,7 +223,7 @@ public class SsmlProsodyTest {
             SsmlProsody.Builder.fromXml("<prosody>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
-                "<lang xml:lang=\"da-DK\">words</lang>" +
+                "<lang xml:lang=\"arb\">words</lang>" +
                 "<p>words</p>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +

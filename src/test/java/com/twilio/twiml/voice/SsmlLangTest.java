@@ -35,11 +35,11 @@ public class SsmlLangTest {
 
     @Test
     public void testElementWithParams() {
-        SsmlLang elem = new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build();
+        SsmlLang elem = new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<lang xml:lang=\"da-DK\">words</lang>",
+            "<lang xml:lang=\"arb\">words</lang>",
             elem.toXml()
         );
     }
@@ -63,7 +63,7 @@ public class SsmlLangTest {
 
         builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
 
-        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build());
 
         builder.p(new SsmlP.Builder("words").build());
 
@@ -89,7 +89,7 @@ public class SsmlLangTest {
             "<lang>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
-                "<lang xml:lang=\"da-DK\">words</lang>" +
+                "<lang xml:lang=\"arb\">words</lang>" +
                 "<p>words</p>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
@@ -182,10 +182,10 @@ public class SsmlLangTest {
 
     @Test
     public void testXmlAttributesDeserialization() {
-        final SsmlLang elem = new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build();
+        final SsmlLang elem = new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build();
 
         Assert.assertEquals(
-            SsmlLang.Builder.fromXml("<lang xml:lang=\"da-DK\">words</lang>").build().toXml(),
+            SsmlLang.Builder.fromXml("<lang xml:lang=\"arb\">words</lang>").build().toXml(),
             elem.toXml()
         );
     }
@@ -198,7 +198,7 @@ public class SsmlLangTest {
 
         builder.emphasis(new SsmlEmphasis.Builder("words").level(SsmlEmphasis.Level.STRONG).build());
 
-        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.DA_DK).build());
+        builder.lang(new SsmlLang.Builder("words").xmlLang(SsmlLang.XmlLang.ARB).build());
 
         builder.p(new SsmlP.Builder("words").build());
 
@@ -223,7 +223,7 @@ public class SsmlLangTest {
             SsmlLang.Builder.fromXml("<lang>" +
                 "<break strength=\"none\" time=\"time\"/>" +
                 "<emphasis level=\"strong\">words</emphasis>" +
-                "<lang xml:lang=\"da-DK\">words</lang>" +
+                "<lang xml:lang=\"arb\">words</lang>" +
                 "<p>words</p>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +

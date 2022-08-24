@@ -37,38 +37,6 @@ public class SipDomainTest {
     }
 
     @Test
-    public void testCreateRequest() {
-        new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
-                                          Domains.ROUTES.toString(),
-                                          "/v2/SipDomains/sip_domain");
-
-            twilioRestClient.request(request);
-            times = 1;
-            result = new Response("", 500);
-            twilioRestClient.getAccountSid();
-            result = "AC123";
-        }};
-
-        try {
-            SipDomain.creator("sip_domain").create();
-            fail("Expected TwilioException to be thrown for 500");
-        } catch (TwilioException e) {}
-    }
-
-    @Test
-    public void testCreateResponse() {
-        new NonStrictExpectations() {{
-            twilioRestClient.request((Request) any);
-            result = new Response("{\"url\": \"https://routes.twilio.com/v2/SipDomains/test.sip.twilio.com\",\"sip_domain\": \"test.sip.twilio.com\",\"sid\": \"QQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"voice_region\": \"au1\",\"date_created\": \"2020-08-07T22:29:24Z\",\"date_updated\": \"2020-08-07T22:29:24Z\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
-        }};
-
-        SipDomain.creator("sip_domain").create();
-    }
-
-    @Test
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,

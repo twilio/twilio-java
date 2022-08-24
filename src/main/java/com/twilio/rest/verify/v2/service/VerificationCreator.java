@@ -91,13 +91,14 @@ public class VerificationCreator extends Creator<Verification> {
     }
 
     /**
-     * The locale to use for the verification SMS, WhatsApp or call. Can be: `af`,
-     * `ar`, `ca`, `cs`, `da`, `de`, `el`, `en`, `en-GB`, `es`, `fi`, `fr`, `he`,
-     * `hi`, `hr`, `hu`, `id`, `it`, `ja`, `ko`, `ms`, `nb`, `nl`, `pl`, `pt`,
-     * `pr-BR`, `ro`, `ru`, `sv`, `th`, `tl`, `tr`, `vi`, `zh`, `zh-CN`, or
-     * `zh-HK.`.
+     * Locale will automatically resolve based on phone number country code for SMS,
+     * WhatsApp and call channel verifications. This parameter will override the
+     * automatic locale. <a
+     * href="https://www.twilio.com/docs/verify/supported-languages">See supported
+     * languages and more information here.</a>..
      *
-     * @param locale The locale to use for the verification SMS, WhatsApp or call
+     * @param locale The override locale to use for the verification SMS, WhatsApp
+     *               or call
      * @return this
      */
     public VerificationCreator setLocale(final String locale) {

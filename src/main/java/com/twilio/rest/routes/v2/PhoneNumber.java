@@ -38,28 +38,13 @@ public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 224923539890397L;
 
     /**
-     * Create a PhoneNumberCreator to execute create.
-     *
-     * @param pathPhoneNumber The phone number
-     * @return PhoneNumberCreator capable of executing the create
-     */
-    public static PhoneNumberCreator creator(final String pathPhoneNumber) {
-        return new PhoneNumberCreator(pathPhoneNumber);
-    }
-
-    /**
      * Create a PhoneNumberUpdater to execute update.
      *
      * @param pathPhoneNumber The phone number
-     * @param voiceRegion The Inbound Processing Region used for this phone number
-     *                    for voice
-     * @param friendlyName A human readable description of this resource.
      * @return PhoneNumberUpdater capable of executing the update
      */
-    public static PhoneNumberUpdater updater(final String pathPhoneNumber,
-                                             final String voiceRegion,
-                                             final String friendlyName) {
-        return new PhoneNumberUpdater(pathPhoneNumber, voiceRegion, friendlyName);
+    public static PhoneNumberUpdater updater(final String pathPhoneNumber) {
+        return new PhoneNumberUpdater(pathPhoneNumber);
     }
 
     /**

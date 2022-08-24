@@ -37,45 +37,12 @@ public class PhoneNumberTest {
     }
 
     @Test
-    public void testCreateRequest() {
-        new NonStrictExpectations() {{
-            Request request = new Request(HttpMethod.POST,
-                                          Domains.ROUTES.toString(),
-                                          "/v2/PhoneNumbers/phone_number");
-
-            twilioRestClient.request(request);
-            times = 1;
-            result = new Response("", 500);
-            twilioRestClient.getAccountSid();
-            result = "AC123";
-        }};
-
-        try {
-            PhoneNumber.creator("phone_number").create();
-            fail("Expected TwilioException to be thrown for 500");
-        } catch (TwilioException e) {}
-    }
-
-    @Test
-    public void testCreateResponse() {
-        new NonStrictExpectations() {{
-            twilioRestClient.request((Request) any);
-            result = new Response("{\"phone_number\": \"+18001234567\",\"url\": \"https://routes.twilio.com/v2/PhoneNumbers/+18001234567\",\"sid\": \"QQaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"account_sid\": \"ACaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"friendly_name\": \"friendly_name\",\"voice_region\": \"au1\",\"date_created\": \"2015-07-30T20:00:00Z\",\"date_updated\": \"2015-07-30T20:00:00Z\"}", TwilioRestClient.HTTP_STATUS_CODE_CREATED);
-            twilioRestClient.getObjectMapper();
-            result = new ObjectMapper();
-        }};
-
-        PhoneNumber.creator("phone_number").create();
-    }
-
-    @Test
     public void testUpdateRequest() {
         new NonStrictExpectations() {{
             Request request = new Request(HttpMethod.POST,
                                           Domains.ROUTES.toString(),
                                           "/v2/PhoneNumbers/phone_number");
-            request.addPostParam("VoiceRegion", serialize("voice_region"));
-            request.addPostParam("FriendlyName", serialize("friendly_name"));
+
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -84,7 +51,7 @@ public class PhoneNumberTest {
         }};
 
         try {
-            PhoneNumber.updater("phone_number", "voice_region", "friendly_name").update();
+            PhoneNumber.updater("phone_number").update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -98,7 +65,7 @@ public class PhoneNumberTest {
             result = new ObjectMapper();
         }};
 
-        PhoneNumber.updater("phone_number", "voice_region", "friendly_name").update();
+        PhoneNumber.updater("phone_number").update();
     }
 
     @Test

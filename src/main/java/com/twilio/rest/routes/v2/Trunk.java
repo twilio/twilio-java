@@ -38,16 +38,6 @@ public class Trunk extends Resource {
     private static final long serialVersionUID = 13001491705512L;
 
     /**
-     * Create a TrunkCreator to execute create.
-     *
-     * @param pathSipTrunkDomain The SIP Trunk
-     * @return TrunkCreator capable of executing the create
-     */
-    public static TrunkCreator creator(final String pathSipTrunkDomain) {
-        return new TrunkCreator(pathSipTrunkDomain);
-    }
-
-    /**
      * Create a TrunkUpdater to execute update.
      *
      * @param pathSipTrunkDomain The SIP Trunk

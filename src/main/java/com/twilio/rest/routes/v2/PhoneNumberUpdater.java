@@ -19,23 +19,39 @@ import com.twilio.rest.Domains;
 
 public class PhoneNumberUpdater extends Updater<PhoneNumber> {
     private final String pathPhoneNumber;
-    private final String voiceRegion;
-    private final String friendlyName;
+    private String voiceRegion;
+    private String friendlyName;
 
     /**
      * Construct a new PhoneNumberUpdater.
      *
      * @param pathPhoneNumber The phone number
+     */
+    public PhoneNumberUpdater(final String pathPhoneNumber) {
+        this.pathPhoneNumber = pathPhoneNumber;
+    }
+
+    /**
+     * The Inbound Processing Region used for this phone number for voice.
+     *
      * @param voiceRegion The Inbound Processing Region used for this phone number
      *                    for voice
-     * @param friendlyName A human readable description of this resource.
+     * @return this
      */
-    public PhoneNumberUpdater(final String pathPhoneNumber,
-                              final String voiceRegion,
-                              final String friendlyName) {
-        this.pathPhoneNumber = pathPhoneNumber;
+    public PhoneNumberUpdater setVoiceRegion(final String voiceRegion) {
         this.voiceRegion = voiceRegion;
+        return this;
+    }
+
+    /**
+     * A human readable description of this resource, up to 64 characters..
+     *
+     * @param friendlyName A human readable description of this resource.
+     * @return this
+     */
+    public PhoneNumberUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
+        return this;
     }
 
     /**

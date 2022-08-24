@@ -22,31 +22,39 @@ import java.util.Map;
 @JsonDeserialize(builder = SsmlLang.Builder.class)
 public class SsmlLang extends TwiML {
     public enum XmlLang {
+        ARB("arb"),
+        CA_ES("ca-ES"),
+        CMN_CN("cmn-CN"),
+        CY_GB("cy-GB"),
         DA_DK("da-DK"),
-        NL_NL("nl-NL"),
+        DE_DE("de-DE"),
+        DE_AT("de-AT"),
         EN_AU("en-AU"),
         EN_GB("en-GB"),
-        EN_IN("en-IN"),
-        EN_US("en-US"),
         EN_GB_WLS("en-GB-WLS"),
-        FR_FR("fr-FR"),
+        EN_IN("en-IN"),
+        EN_NZ("en-NZ"),
+        EN_US("en-US"),
+        EN_ZA("en-ZA"),
+        ES_ES("es-ES"),
+        ES_MX("es-MX"),
+        ES_US("es-US"),
         FR_CA("fr-CA"),
-        DE_DE("de-DE"),
+        FR_FR("fr-FR"),
+        HI_IN("hi-IN"),
         IS_IS("is-IS"),
         IT_IT("it-IT"),
         JA_JP("ja-JP"),
         KO_KR("ko-KR"),
         NB_NO("nb-NO"),
+        NL_NL("nl-NL"),
         PL_PL("pl-PL"),
         PT_BR("pt-BR"),
         PT_PT("pt-PT"),
         RO_RO("ro-RO"),
         RU_RU("ru-RU"),
-        ES_ES("es-ES"),
-        ES_US("es-US"),
         SV_SE("sv-SE"),
-        TR_TR("tr-TR"),
-        CY_GB("cy-GB");
+        TR_TR("tr-TR");
 
         private final String value;
 

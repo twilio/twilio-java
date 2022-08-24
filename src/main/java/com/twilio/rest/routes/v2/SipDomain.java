@@ -38,16 +38,6 @@ public class SipDomain extends Resource {
     private static final long serialVersionUID = 232215828935411L;
 
     /**
-     * Create a SipDomainCreator to execute create.
-     *
-     * @param pathSipDomain The sip_domain
-     * @return SipDomainCreator capable of executing the create
-     */
-    public static SipDomainCreator creator(final String pathSipDomain) {
-        return new SipDomainCreator(pathSipDomain);
-    }
-
-    /**
      * Create a SipDomainUpdater to execute update.
      *
      * @param pathSipDomain The sip_domain

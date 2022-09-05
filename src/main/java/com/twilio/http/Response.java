@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class Response {
 
     private final InputStream stream;
-    private final String content;
+    private String content;
     private final int statusCode;
     private final Header[] headers;
 
@@ -85,10 +85,10 @@ public class Response {
                 return "";
             }
 
-            String data = scanner.next();
+            content = scanner.next();
             scanner.close();
 
-            return data;
+            return content;
         }
 
         return "";

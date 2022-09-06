@@ -19,6 +19,17 @@ public class ResponseTest {
         assertEquals(testValue, response.getContent());
     }
 
+
+    @Test
+    public void testRepeatedCallGetContent() {
+        String testValue = "TestRepeatedCalls";
+        TestInputStream stream = new TestInputStream(testValue);
+        Response response = new Response(stream, TwilioRestClient.HTTP_STATUS_CODE_OK);
+
+        assertEquals(testValue, response.getContent());
+        assertEquals(testValue, response.getContent());
+    }
+
     @Test
     public void testGetContentString() {
         Response response = new Response("Test", TwilioRestClient.HTTP_STATUS_CODE_OK);

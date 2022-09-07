@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Map;
@@ -42,7 +41,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOn extends Resource {
-    private static final long serialVersionUID = 63867993612574L;
+    private static final long serialVersionUID = 31086980826580L;
 
     public static AssignedAddOnCreator creator(final String resourceSid, final String installedAddOnSid){
         return new AssignedAddOnCreator(resourceSid, installedAddOnSid);
@@ -119,7 +118,7 @@ public class AssignedAddOn extends Resource {
     private final String uniqueName;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final URI uri;
+    private final String uri;
     private final Map<String, String> subresourceUris;
 
     @JsonCreator
@@ -152,7 +151,7 @@ public class AssignedAddOn extends Resource {
         final String dateUpdated,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("subresource_uris")
         final Map<String, String> subresourceUris
@@ -197,7 +196,7 @@ public class AssignedAddOn extends Resource {
         public final ZonedDateTime getDateUpdated() {
             return this.dateUpdated;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Map<String, String> getSubresourceUris() {

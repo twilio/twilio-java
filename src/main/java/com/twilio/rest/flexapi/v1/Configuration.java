@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 263522240899226L;
+    private static final long serialVersionUID = 245464555538400L;
 
 
     public static ConfigurationFetcher fetcher(){
@@ -154,6 +154,8 @@ public class Configuration extends Resource {
     private final Boolean flexInsightsDrilldown;
     private final URI flexUrl;
     private final List<Map<String, Object>> channelConfigs;
+    private final Map<String, Object> debuggerIntegration;
+    private final Map<String, Object> flexUiStatusReport;
 
     @JsonCreator
     private Configuration(
@@ -284,7 +286,13 @@ public class Configuration extends Resource {
         final URI flexUrl,
 
         @JsonProperty("channel_configs")
-        final List<Map<String, Object>> channelConfigs
+        final List<Map<String, Object>> channelConfigs,
+
+        @JsonProperty("debugger_integration")
+        final Map<String, Object> debuggerIntegration,
+
+        @JsonProperty("flex_ui_status_report")
+        final Map<String, Object> flexUiStatusReport
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -329,6 +337,8 @@ public class Configuration extends Resource {
         this.flexInsightsDrilldown = flexInsightsDrilldown;
         this.flexUrl = flexUrl;
         this.channelConfigs = channelConfigs;
+        this.debuggerIntegration = debuggerIntegration;
+        this.flexUiStatusReport = flexUiStatusReport;
     }
 
         public final String getAccountSid() {
@@ -460,6 +470,12 @@ public class Configuration extends Resource {
         public final List<Map<String, Object>> getChannelConfigs() {
             return this.channelConfigs;
         }
+        public final Map<String, Object> getDebuggerIntegration() {
+            return this.debuggerIntegration;
+        }
+        public final Map<String, Object> getFlexUiStatusReport() {
+            return this.flexUiStatusReport;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -473,12 +489,12 @@ public class Configuration extends Resource {
 
         Configuration other = (Configuration) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(status, other.status) &&  Objects.equals(taskrouterWorkspaceSid, other.taskrouterWorkspaceSid) &&  Objects.equals(taskrouterTargetWorkflowSid, other.taskrouterTargetWorkflowSid) &&  Objects.equals(taskrouterTargetTaskqueueSid, other.taskrouterTargetTaskqueueSid) &&  Objects.equals(taskrouterTaskqueues, other.taskrouterTaskqueues) &&  Objects.equals(taskrouterSkills, other.taskrouterSkills) &&  Objects.equals(taskrouterWorkerChannels, other.taskrouterWorkerChannels) &&  Objects.equals(taskrouterWorkerAttributes, other.taskrouterWorkerAttributes) &&  Objects.equals(taskrouterOfflineActivitySid, other.taskrouterOfflineActivitySid) &&  Objects.equals(runtimeDomain, other.runtimeDomain) &&  Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) &&  Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&  Objects.equals(flexServiceInstanceSid, other.flexServiceInstanceSid) &&  Objects.equals(uiLanguage, other.uiLanguage) &&  Objects.equals(uiAttributes, other.uiAttributes) &&  Objects.equals(uiDependencies, other.uiDependencies) &&  Objects.equals(uiVersion, other.uiVersion) &&  Objects.equals(serviceVersion, other.serviceVersion) &&  Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&  Objects.equals(callRecordingWebhookUrl, other.callRecordingWebhookUrl) &&  Objects.equals(crmEnabled, other.crmEnabled) &&  Objects.equals(crmType, other.crmType) &&  Objects.equals(crmCallbackUrl, other.crmCallbackUrl) &&  Objects.equals(crmFallbackUrl, other.crmFallbackUrl) &&  Objects.equals(crmAttributes, other.crmAttributes) &&  Objects.equals(publicAttributes, other.publicAttributes) &&  Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&  Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&  Objects.equals(integrations, other.integrations) &&  Objects.equals(outboundCallFlows, other.outboundCallFlows) &&  Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&  Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&  Objects.equals(notifications, other.notifications) &&  Objects.equals(markdown, other.markdown) &&  Objects.equals(url, other.url) &&  Objects.equals(flexInsightsHr, other.flexInsightsHr) &&  Objects.equals(flexInsightsDrilldown, other.flexInsightsDrilldown) &&  Objects.equals(flexUrl, other.flexUrl) &&  Objects.equals(channelConfigs, other.channelConfigs)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(status, other.status) &&  Objects.equals(taskrouterWorkspaceSid, other.taskrouterWorkspaceSid) &&  Objects.equals(taskrouterTargetWorkflowSid, other.taskrouterTargetWorkflowSid) &&  Objects.equals(taskrouterTargetTaskqueueSid, other.taskrouterTargetTaskqueueSid) &&  Objects.equals(taskrouterTaskqueues, other.taskrouterTaskqueues) &&  Objects.equals(taskrouterSkills, other.taskrouterSkills) &&  Objects.equals(taskrouterWorkerChannels, other.taskrouterWorkerChannels) &&  Objects.equals(taskrouterWorkerAttributes, other.taskrouterWorkerAttributes) &&  Objects.equals(taskrouterOfflineActivitySid, other.taskrouterOfflineActivitySid) &&  Objects.equals(runtimeDomain, other.runtimeDomain) &&  Objects.equals(messagingServiceInstanceSid, other.messagingServiceInstanceSid) &&  Objects.equals(chatServiceInstanceSid, other.chatServiceInstanceSid) &&  Objects.equals(flexServiceInstanceSid, other.flexServiceInstanceSid) &&  Objects.equals(uiLanguage, other.uiLanguage) &&  Objects.equals(uiAttributes, other.uiAttributes) &&  Objects.equals(uiDependencies, other.uiDependencies) &&  Objects.equals(uiVersion, other.uiVersion) &&  Objects.equals(serviceVersion, other.serviceVersion) &&  Objects.equals(callRecordingEnabled, other.callRecordingEnabled) &&  Objects.equals(callRecordingWebhookUrl, other.callRecordingWebhookUrl) &&  Objects.equals(crmEnabled, other.crmEnabled) &&  Objects.equals(crmType, other.crmType) &&  Objects.equals(crmCallbackUrl, other.crmCallbackUrl) &&  Objects.equals(crmFallbackUrl, other.crmFallbackUrl) &&  Objects.equals(crmAttributes, other.crmAttributes) &&  Objects.equals(publicAttributes, other.publicAttributes) &&  Objects.equals(pluginServiceEnabled, other.pluginServiceEnabled) &&  Objects.equals(pluginServiceAttributes, other.pluginServiceAttributes) &&  Objects.equals(integrations, other.integrations) &&  Objects.equals(outboundCallFlows, other.outboundCallFlows) &&  Objects.equals(serverlessServiceSids, other.serverlessServiceSids) &&  Objects.equals(queueStatsConfiguration, other.queueStatsConfiguration) &&  Objects.equals(notifications, other.notifications) &&  Objects.equals(markdown, other.markdown) &&  Objects.equals(url, other.url) &&  Objects.equals(flexInsightsHr, other.flexInsightsHr) &&  Objects.equals(flexInsightsDrilldown, other.flexInsightsDrilldown) &&  Objects.equals(flexUrl, other.flexUrl) &&  Objects.equals(channelConfigs, other.channelConfigs) &&  Objects.equals(debuggerIntegration, other.debuggerIntegration) &&  Objects.equals(flexUiStatusReport, other.flexUiStatusReport)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, dateCreated, dateUpdated, attributes, status, taskrouterWorkspaceSid, taskrouterTargetWorkflowSid, taskrouterTargetTaskqueueSid, taskrouterTaskqueues, taskrouterSkills, taskrouterWorkerChannels, taskrouterWorkerAttributes, taskrouterOfflineActivitySid, runtimeDomain, messagingServiceInstanceSid, chatServiceInstanceSid, flexServiceInstanceSid, uiLanguage, uiAttributes, uiDependencies, uiVersion, serviceVersion, callRecordingEnabled, callRecordingWebhookUrl, crmEnabled, crmType, crmCallbackUrl, crmFallbackUrl, crmAttributes, publicAttributes, pluginServiceEnabled, pluginServiceAttributes, integrations, outboundCallFlows, serverlessServiceSids, queueStatsConfiguration, notifications, markdown, url, flexInsightsHr, flexInsightsDrilldown, flexUrl, channelConfigs);
+        return Objects.hash(accountSid, dateCreated, dateUpdated, attributes, status, taskrouterWorkspaceSid, taskrouterTargetWorkflowSid, taskrouterTargetTaskqueueSid, taskrouterTaskqueues, taskrouterSkills, taskrouterWorkerChannels, taskrouterWorkerAttributes, taskrouterOfflineActivitySid, runtimeDomain, messagingServiceInstanceSid, chatServiceInstanceSid, flexServiceInstanceSid, uiLanguage, uiAttributes, uiDependencies, uiVersion, serviceVersion, callRecordingEnabled, callRecordingWebhookUrl, crmEnabled, crmType, crmCallbackUrl, crmFallbackUrl, crmAttributes, publicAttributes, pluginServiceEnabled, pluginServiceAttributes, integrations, outboundCallFlows, serverlessServiceSids, queueStatsConfiguration, notifications, markdown, url, flexInsightsHr, flexInsightsDrilldown, flexUrl, channelConfigs, debuggerIntegration, flexUiStatusReport);
     }
 
 }

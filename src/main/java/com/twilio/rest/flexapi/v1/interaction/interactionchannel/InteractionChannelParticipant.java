@@ -94,7 +94,6 @@ public class InteractionChannelParticipant extends Resource {
         }
     }
     public enum Status {
-        CLOSE("close"),
         CLOSED("closed"),
         WRAPUP("wrapup");
 

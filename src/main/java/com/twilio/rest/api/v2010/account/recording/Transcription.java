@@ -34,7 +34,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -45,7 +44,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcription extends Resource {
-    private static final long serialVersionUID = 21103216185922L;
+    private static final long serialVersionUID = 169453036448500L;
 
 
     public static TranscriptionFetcher fetcher(final String recordingSid, final String sid){
@@ -139,7 +138,7 @@ public class Transcription extends Resource {
     private final Transcription.Status status;
     private final String transcriptionText;
     private final String type;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Transcription(
@@ -181,7 +180,7 @@ public class Transcription extends Resource {
         final String type,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -234,7 +233,7 @@ public class Transcription extends Resource {
         public final String getType() {
             return this.type;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -40,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Address extends Resource {
-    private static final long serialVersionUID = 90203650500837L;
+    private static final long serialVersionUID = 222037103295905L;
 
     public static AddressCreator creator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry){
         return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
@@ -125,7 +124,7 @@ public class Address extends Resource {
     private final String region;
     private final String sid;
     private final String street;
-    private final URI uri;
+    private final String uri;
     private final Boolean emergencyEnabled;
     private final Boolean validated;
     private final Boolean verified;
@@ -166,7 +165,7 @@ public class Address extends Resource {
         final String street,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("emergency_enabled")
         final Boolean emergencyEnabled,
@@ -227,7 +226,7 @@ public class Address extends Resource {
         public final String getStreet() {
             return this.street;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Boolean getEmergencyEnabled() {

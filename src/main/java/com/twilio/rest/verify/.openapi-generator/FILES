@@ -1,6 +1,10 @@
 .openapi-generator-ignore
 v2/Form.java
 v2/FormFetcher.java
+v2/Safelist.java
+v2/SafelistCreator.java
+v2/SafelistDeleter.java
+v2/SafelistFetcher.java
 v2/Service.java
 v2/ServiceCreator.java
 v2/ServiceDeleter.java

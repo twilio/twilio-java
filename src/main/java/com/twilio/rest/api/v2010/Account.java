@@ -31,7 +31,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Map;
@@ -43,7 +42,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Account extends Resource {
-    private static final long serialVersionUID = 70830129234316L;
+    private static final long serialVersionUID = 224328589339754L;
 
     public static AccountCreator creator(){
         return new AccountCreator();
@@ -153,7 +152,7 @@ public class Account extends Resource {
     private final Account.Status status;
     private final Map<String, String> subresourceUris;
     private final Account.Type type;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Account(
@@ -185,7 +184,7 @@ public class Account extends Resource {
         final Account.Type type,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.authToken = authToken;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
@@ -226,7 +225,7 @@ public class Account extends Resource {
         public final Account.Type getType() {
             return this.type;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

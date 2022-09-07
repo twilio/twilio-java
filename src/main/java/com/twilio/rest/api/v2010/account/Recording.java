@@ -43,7 +43,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 208667834787479L;
+    private static final long serialVersionUID = 8927692317007L;
 
 
     public static RecordingFetcher fetcher(final String sid){
@@ -168,7 +168,7 @@ public class Recording extends Resource {
     private final Integer channels;
     private final Recording.Source source;
     private final Integer errorCode;
-    private final URI uri;
+    private final String uri;
     private final Map<String, Object> encryptionDetails;
     private final Map<String, String> subresourceUris;
     private final URI mediaUrl;
@@ -221,7 +221,7 @@ public class Recording extends Resource {
         final Integer errorCode,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("encryption_details")
         final Map<String, Object> encryptionDetails,
@@ -298,7 +298,7 @@ public class Recording extends Resource {
         public final Integer getErrorCode() {
             return this.errorCode;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Map<String, Object> getEncryptionDetails() {

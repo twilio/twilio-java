@@ -36,6 +36,8 @@ v1/room/RoomRecording.java
 v1/room/RoomRecordingDeleter.java
 v1/room/RoomRecordingFetcher.java
 v1/room/RoomRecordingReader.java
+v1/room/participant/Anonymize.java
+v1/room/participant/AnonymizeUpdater.java
 v1/room/participant/PublishedTrack.java
 v1/room/participant/PublishedTrackFetcher.java
 v1/room/participant/PublishedTrackReader.java

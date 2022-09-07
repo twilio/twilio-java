@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Stream extends Resource {
-    private static final long serialVersionUID = 270067915696739L;
+    private static final long serialVersionUID = 189203494840345L;
 
     public static StreamCreator creator(final String callSid, final URI url){
         return new StreamCreator(callSid, url);
@@ -160,7 +160,7 @@ public class Stream extends Resource {
     private final String name;
     private final Stream.Status status;
     private final ZonedDateTime dateUpdated;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Stream(
@@ -183,7 +183,7 @@ public class Stream extends Resource {
         final String dateUpdated,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -212,7 +212,7 @@ public class Stream extends Resource {
         public final ZonedDateTime getDateUpdated() {
             return this.dateUpdated;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

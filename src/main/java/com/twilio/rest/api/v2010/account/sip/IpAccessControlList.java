@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Map;
@@ -42,7 +41,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAccessControlList extends Resource {
-    private static final long serialVersionUID = 108181354354045L;
+    private static final long serialVersionUID = 178395545365846L;
 
     public static IpAccessControlListCreator creator(final String friendlyName){
         return new IpAccessControlListCreator(friendlyName);
@@ -122,7 +121,7 @@ public class IpAccessControlList extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final Map<String, String> subresourceUris;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private IpAccessControlList(
@@ -145,7 +144,7 @@ public class IpAccessControlList extends Resource {
         final Map<String, String> subresourceUris,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -174,7 +173,7 @@ public class IpAccessControlList extends Resource {
         public final Map<String, String> getSubresourceUris() {
             return this.subresourceUris;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

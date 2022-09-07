@@ -14,6 +14,10 @@ v1/ServiceDeleter.java
 v1/ServiceFetcher.java
 v1/ServiceReader.java
 v1/ServiceUpdater.java
+v1/TollfreeVerification.java
+v1/TollfreeVerificationCreator.java
+v1/TollfreeVerificationFetcher.java
+v1/TollfreeVerificationReader.java
 v1/Usecase.java
 v1/UsecaseFetcher.java
 v1/brandregistration/BrandVetting.java

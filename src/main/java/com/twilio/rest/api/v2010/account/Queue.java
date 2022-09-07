@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -40,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Queue extends Resource {
-    private static final long serialVersionUID = 157687756023295L;
+    private static final long serialVersionUID = 17909156629067L;
 
     public static QueueCreator creator(final String friendlyName){
         return new QueueCreator(friendlyName);
@@ -117,7 +116,7 @@ public class Queue extends Resource {
     private final ZonedDateTime dateUpdated;
     private final Integer currentSize;
     private final String friendlyName;
-    private final URI uri;
+    private final String uri;
     private final String accountSid;
     private final Integer averageWaitTime;
     private final String sid;
@@ -136,7 +135,7 @@ public class Queue extends Resource {
         final String friendlyName,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("account_sid")
         final String accountSid,
@@ -173,7 +172,7 @@ public class Queue extends Resource {
         public final String getFriendlyName() {
             return this.friendlyName;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final String getAccountSid() {

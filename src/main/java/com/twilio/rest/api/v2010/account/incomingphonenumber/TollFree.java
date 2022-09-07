@@ -43,7 +43,7 @@ import com.twilio.type.PhoneNumberCapabilities;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TollFree extends Resource {
-    private static final long serialVersionUID = 149695930355479L;
+    private static final long serialVersionUID = 90694713647603L;
 
     public static TollFreeCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new TollFreeCreator(phoneNumber);
@@ -202,7 +202,7 @@ public class TollFree extends Resource {
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
-    private final URI uri;
+    private final String uri;
     private final TollFree.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
@@ -282,7 +282,7 @@ public class TollFree extends Resource {
         final String trunkSid,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("voice_receive_mode")
         final TollFree.VoiceReceiveMode voiceReceiveMode,
@@ -419,7 +419,7 @@ public class TollFree extends Resource {
         public final String getTrunkSid() {
             return this.trunkSid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final TollFree.VoiceReceiveMode getVoiceReceiveMode() {

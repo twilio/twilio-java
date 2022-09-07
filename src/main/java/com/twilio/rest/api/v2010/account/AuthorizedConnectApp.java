@@ -42,7 +42,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthorizedConnectApp extends Resource {
-    private static final long serialVersionUID = 37760535466669L;
+    private static final long serialVersionUID = 15094155294983L;
 
 
     public static AuthorizedConnectAppFetcher fetcher(final String connectAppSid){
@@ -126,7 +126,7 @@ public class AuthorizedConnectApp extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final List<AuthorizedConnectApp.Permission> permissions;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private AuthorizedConnectApp(
@@ -158,7 +158,7 @@ public class AuthorizedConnectApp extends Resource {
         final List<AuthorizedConnectApp.Permission> permissions,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.connectAppCompanyName = connectAppCompanyName;
@@ -199,7 +199,7 @@ public class AuthorizedConnectApp extends Resource {
         public final List<AuthorizedConnectApp.Permission> getPermissions() {
             return this.permissions;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

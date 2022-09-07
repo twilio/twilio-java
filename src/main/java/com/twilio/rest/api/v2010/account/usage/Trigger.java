@@ -42,7 +42,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trigger extends Resource {
-    private static final long serialVersionUID = 258395065442366L;
+    private static final long serialVersionUID = 180476898929579L;
 
     public static TriggerCreator creator(final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory){
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
@@ -431,7 +431,7 @@ public class Trigger extends Resource {
     private final String sid;
     private final Trigger.TriggerField triggerBy;
     private final String triggerValue;
-    private final URI uri;
+    private final String uri;
     private final Trigger.UsageCategory usageCategory;
     private final String usageRecordUri;
 
@@ -477,7 +477,7 @@ public class Trigger extends Resource {
         final String triggerValue,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("usage_category")
         final Trigger.UsageCategory usageCategory,
@@ -542,7 +542,7 @@ public class Trigger extends Resource {
         public final String getTriggerValue() {
             return this.triggerValue;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Trigger.UsageCategory getUsageCategory() {

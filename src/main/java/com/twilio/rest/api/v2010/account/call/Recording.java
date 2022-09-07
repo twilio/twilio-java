@@ -34,7 +34,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Map;
@@ -47,7 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
-    private static final long serialVersionUID = 80119637363464L;
+    private static final long serialVersionUID = 269042081197241L;
 
     public static RecordingCreator creator(final String callSid){
         return new RecordingCreator(callSid);
@@ -178,7 +177,7 @@ public class Recording extends Resource {
     private final String duration;
     private final String sid;
     private final BigDecimal price;
-    private final URI uri;
+    private final String uri;
     private final Map<String, Object> encryptionDetails;
     private final Currency priceUnit;
     private final Recording.Status status;
@@ -220,7 +219,7 @@ public class Recording extends Resource {
         final BigDecimal price,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("encryption_details")
         final Map<String, Object> encryptionDetails,
@@ -294,7 +293,7 @@ public class Recording extends Resource {
         public final BigDecimal getPrice() {
             return this.price;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Map<String, Object> getEncryptionDetails() {

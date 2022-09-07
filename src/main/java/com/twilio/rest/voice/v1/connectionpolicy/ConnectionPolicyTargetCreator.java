@@ -36,7 +36,7 @@ import java.net.URI;
     *
     * This is the public Twilio REST API.
     *
-    * API version: 1.34.0
+    * API version: 1.35.0
     * Contact: support@twilio.com
 */
 

@@ -106,7 +106,7 @@ public class InteractionChannelTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.FLEXAPI.toString(),
                                           "/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addPostParam("Status", serialize(InteractionChannel.Status.CLOSE));
+            request.addPostParam("Status", serialize(InteractionChannel.Status.CLOSED));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -115,7 +115,7 @@ public class InteractionChannelTest {
         }};
 
         try {
-            InteractionChannel.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannel.Status.CLOSE).update();
+            InteractionChannel.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannel.Status.CLOSED).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -129,7 +129,7 @@ public class InteractionChannelTest {
             result = new ObjectMapper();
         }};
 
-        InteractionChannel.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannel.Status.CLOSE).update();
+        InteractionChannel.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannel.Status.CLOSED).update();
     }
 
     @Test
@@ -141,6 +141,6 @@ public class InteractionChannelTest {
             result = new ObjectMapper();
         }};
 
-        InteractionChannel.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannel.Status.CLOSE).update();
+        InteractionChannel.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannel.Status.CLOSED).update();
     }
 }

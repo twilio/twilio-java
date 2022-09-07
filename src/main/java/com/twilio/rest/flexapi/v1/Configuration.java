@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 174477349057134L;
+    private static final long serialVersionUID = 105396553690661L;
 
     public enum Status {
         OK("ok"),
@@ -174,6 +174,8 @@ public class Configuration extends Resource {
     private final Boolean flexInsightsDrilldown;
     private final URI flexUrl;
     private final List<Map<String, Object>> channelConfigs;
+    private final Map<String, Object> debuggerIntegration;
+    private final Map<String, Object> flexUiStatusReport;
 
     @JsonCreator
     private Configuration(@JsonProperty("account_sid")
@@ -261,7 +263,11 @@ public class Configuration extends Resource {
                           @JsonProperty("flex_url")
                           final URI flexUrl,
                           @JsonProperty("channel_configs")
-                          final List<Map<String, Object>> channelConfigs) {
+                          final List<Map<String, Object>> channelConfigs,
+                          @JsonProperty("debugger_integration")
+                          final Map<String, Object> debuggerIntegration,
+                          @JsonProperty("flex_ui_status_report")
+                          final Map<String, Object> flexUiStatusReport) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -305,6 +311,8 @@ public class Configuration extends Resource {
         this.flexInsightsDrilldown = flexInsightsDrilldown;
         this.flexUrl = flexUrl;
         this.channelConfigs = channelConfigs;
+        this.debuggerIntegration = debuggerIntegration;
+        this.flexUiStatusReport = flexUiStatusReport;
     }
 
     /**
@@ -704,6 +712,24 @@ public class Configuration extends Resource {
         return this.channelConfigs;
     }
 
+    /**
+     * Returns Configurable parameters for Debugger Integration.
+     *
+     * @return Configurable parameters for Debugger Integration
+     */
+    public final Map<String, Object> getDebuggerIntegration() {
+        return this.debuggerIntegration;
+    }
+
+    /**
+     * Returns Configurable parameters for Flex UI Status report.
+     *
+     * @return Configurable parameters for Flex UI Status report
+     */
+    public final Map<String, Object> getFlexUiStatusReport() {
+        return this.flexUiStatusReport;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -758,7 +784,9 @@ public class Configuration extends Resource {
                Objects.equals(flexInsightsHr, other.flexInsightsHr) &&
                Objects.equals(flexInsightsDrilldown, other.flexInsightsDrilldown) &&
                Objects.equals(flexUrl, other.flexUrl) &&
-               Objects.equals(channelConfigs, other.channelConfigs);
+               Objects.equals(channelConfigs, other.channelConfigs) &&
+               Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
+               Objects.equals(flexUiStatusReport, other.flexUiStatusReport);
     }
 
     @Override
@@ -805,6 +833,8 @@ public class Configuration extends Resource {
                             flexInsightsHr,
                             flexInsightsDrilldown,
                             flexUrl,
-                            channelConfigs);
+                            channelConfigs,
+                            debuggerIntegration,
+                            flexUiStatusReport);
     }
 }

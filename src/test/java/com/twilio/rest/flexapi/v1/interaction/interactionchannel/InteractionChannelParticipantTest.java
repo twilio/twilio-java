@@ -107,7 +107,7 @@ public class InteractionChannelParticipantTest {
             Request request = new Request(HttpMethod.POST,
                                           Domains.FLEXAPI.toString(),
                                           "/v1/Interactions/KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Channels/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX/Participants/UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
-            request.addPostParam("Status", serialize(InteractionChannelParticipant.Status.CLOSE));
+            request.addPostParam("Status", serialize(InteractionChannelParticipant.Status.CLOSED));
             twilioRestClient.request(request);
             times = 1;
             result = new Response("", 500);
@@ -116,7 +116,7 @@ public class InteractionChannelParticipantTest {
         }};
 
         try {
-            InteractionChannelParticipant.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannelParticipant.Status.CLOSE).update();
+            InteractionChannelParticipant.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannelParticipant.Status.CLOSED).update();
             fail("Expected TwilioException to be thrown for 500");
         } catch (TwilioException e) {}
     }
@@ -130,7 +130,7 @@ public class InteractionChannelParticipantTest {
             result = new ObjectMapper();
         }};
 
-        InteractionChannelParticipant.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannelParticipant.Status.CLOSE).update();
+        InteractionChannelParticipant.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannelParticipant.Status.CLOSED).update();
     }
 
     @Test
@@ -142,6 +142,6 @@ public class InteractionChannelParticipantTest {
             result = new ObjectMapper();
         }};
 
-        InteractionChannelParticipant.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannelParticipant.Status.CLOSE).update();
+        InteractionChannelParticipant.updater("KDXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", "UOXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX", InteractionChannelParticipant.Status.CLOSED).update();
     }
 }

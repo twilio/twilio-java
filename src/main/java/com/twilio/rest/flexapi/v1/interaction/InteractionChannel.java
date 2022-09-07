@@ -37,7 +37,6 @@ public class InteractionChannel extends Resource {
     private static final long serialVersionUID = 82635228380289L;
 
     public enum Status {
-        CLOSE("close"),
         CLOSED("closed"),
         WRAPUP("wrapup");
 

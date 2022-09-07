@@ -15,7 +15,6 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Converter;
-import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -36,32 +35,6 @@ import java.util.Objects;
 @ToString
 public class Interaction extends Resource {
     private static final long serialVersionUID = 106205438010553L;
-
-    public enum Status {
-        CLOSE("close"),
-        CLOSED("closed"),
-        WRAPUP("wrapup");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        /**
-         * Generate a Status from a string.
-         * @param value string value
-         * @return generated Status
-         */
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
 
     /**
      * Create a InteractionFetcher to execute fetch.

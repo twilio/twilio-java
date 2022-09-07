@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Payment extends Resource {
-    private static final long serialVersionUID = 159828087372868L;
+    private static final long serialVersionUID = 75287507384907L;
 
     public static PaymentCreator creator(final String callSid, final String idempotencyKey, final URI statusCallback){
         return new PaymentCreator(callSid, idempotencyKey, statusCallback);
@@ -202,7 +202,7 @@ public class Payment extends Resource {
     private final String sid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Payment(
@@ -222,7 +222,7 @@ public class Payment extends Resource {
         final String dateUpdated,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -247,7 +247,7 @@ public class Payment extends Resource {
         public final ZonedDateTime getDateUpdated() {
             return this.dateUpdated;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

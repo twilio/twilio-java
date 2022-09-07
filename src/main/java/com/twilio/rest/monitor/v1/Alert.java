@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Alert extends Resource {
-    private static final long serialVersionUID = 69018679271671L;
+    private static final long serialVersionUID = 14184743930644L;
 
 
     public static AlertFetcher fetcher(final String sid){
@@ -101,7 +101,7 @@ public class Alert extends Resource {
     private final String logLevel;
     private final String moreInfo;
     private final HttpMethod requestMethod;
-    private final URI requestUrl;
+    private final String requestUrl;
     private final String requestVariables;
     private final String resourceSid;
     private final String responseBody;
@@ -144,7 +144,7 @@ public class Alert extends Resource {
         final HttpMethod requestMethod,
 
         @JsonProperty("request_url")
-        final URI requestUrl,
+        final String requestUrl,
 
         @JsonProperty("request_variables")
         final String requestVariables,
@@ -221,7 +221,7 @@ public class Alert extends Resource {
         public final HttpMethod getRequestMethod() {
             return this.requestMethod;
         }
-        public final URI getRequestUrl() {
+        public final String getRequestUrl() {
             return this.requestUrl;
         }
         public final String getRequestVariables() {

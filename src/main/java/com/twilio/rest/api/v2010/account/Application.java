@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Application extends Resource {
-    private static final long serialVersionUID = 104323655498906L;
+    private static final long serialVersionUID = 64877918712545L;
 
     public static ApplicationCreator creator(){
         return new ApplicationCreator();
@@ -129,7 +129,7 @@ public class Application extends Resource {
     private final URI smsUrl;
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
-    private final URI uri;
+    private final String uri;
     private final Boolean voiceCallerIdLookup;
     private final HttpMethod voiceFallbackMethod;
     private final URI voiceFallbackUrl;
@@ -181,7 +181,7 @@ public class Application extends Resource {
         final HttpMethod statusCallbackMethod,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("voice_caller_id_lookup")
         final Boolean voiceCallerIdLookup,
@@ -262,7 +262,7 @@ public class Application extends Resource {
         public final HttpMethod getStatusCallbackMethod() {
             return this.statusCallbackMethod;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Boolean getVoiceCallerIdLookup() {

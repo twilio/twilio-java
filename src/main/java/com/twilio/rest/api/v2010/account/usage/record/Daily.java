@@ -34,7 +34,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 
 import java.util.Map;
 import java.util.Objects;
@@ -47,7 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Daily extends Resource {
-    private static final long serialVersionUID = 175712278386141L;
+    private static final long serialVersionUID = 165225378323705L;
 
 
 
@@ -370,7 +369,7 @@ public class Daily extends Resource {
     private final Currency priceUnit;
     private final LocalDate startDate;
     private final Map<String, String> subresourceUris;
-    private final URI uri;
+    private final String uri;
     private final String usage;
     private final String usageUnit;
 
@@ -414,7 +413,7 @@ public class Daily extends Resource {
         final Map<String, String> subresourceUris,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("usage")
         final String usage,
@@ -475,7 +474,7 @@ public class Daily extends Resource {
         public final Map<String, String> getSubresourceUris() {
             return this.subresourceUris;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final String getUsage() {

@@ -43,7 +43,7 @@ import com.twilio.type.PhoneNumberCapabilities;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IncomingPhoneNumber extends Resource {
-    private static final long serialVersionUID = 277144318642868L;
+    private static final long serialVersionUID = 82830627507260L;
 
     public static IncomingPhoneNumberCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new IncomingPhoneNumberCreator(phoneNumber);
@@ -226,7 +226,7 @@ public class IncomingPhoneNumber extends Resource {
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final String trunkSid;
-    private final URI uri;
+    private final String uri;
     private final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode;
     private final String voiceApplicationSid;
     private final Boolean voiceCallerIdLookup;
@@ -306,7 +306,7 @@ public class IncomingPhoneNumber extends Resource {
         final String trunkSid,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("voice_receive_mode")
         final IncomingPhoneNumber.VoiceReceiveMode voiceReceiveMode,
@@ -443,7 +443,7 @@ public class IncomingPhoneNumber extends Resource {
         public final String getTrunkSid() {
             return this.trunkSid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final IncomingPhoneNumber.VoiceReceiveMode getVoiceReceiveMode() {

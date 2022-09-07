@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -40,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Credential extends Resource {
-    private static final long serialVersionUID = 98769665939887L;
+    private static final long serialVersionUID = 238688210273177L;
 
     public static CredentialCreator creator(final String credentialListSid, final String username, final String password){
         return new CredentialCreator(credentialListSid, username, password);
@@ -120,7 +119,7 @@ public class Credential extends Resource {
     private final String username;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Credential(
@@ -143,7 +142,7 @@ public class Credential extends Resource {
         final String dateUpdated,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -172,7 +171,7 @@ public class Credential extends Resource {
         public final ZonedDateTime getDateUpdated() {
             return this.dateUpdated;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
-    private static final long serialVersionUID = 123169467352694L;
+    private static final long serialVersionUID = 196464556782918L;
 
 
     public static MemberFetcher fetcher(final String queueSid, final String callSid){
@@ -105,7 +105,7 @@ public class Member extends Resource {
     private final String callSid;
     private final ZonedDateTime dateEnqueued;
     private final Integer position;
-    private final URI uri;
+    private final String uri;
     private final Integer waitTime;
     private final String queueSid;
 
@@ -121,7 +121,7 @@ public class Member extends Resource {
         final Integer position,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("wait_time")
         final Integer waitTime,
@@ -146,7 +146,7 @@ public class Member extends Resource {
         public final Integer getPosition() {
             return this.position;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Integer getWaitTime() {

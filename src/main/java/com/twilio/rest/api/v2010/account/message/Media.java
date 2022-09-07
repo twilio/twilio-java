@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -40,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Media extends Resource {
-    private static final long serialVersionUID = 43380017988421L;
+    private static final long serialVersionUID = 86856561367712L;
 
 
     public static MediaFetcher fetcher(final String messageSid, final String sid){
@@ -108,7 +107,7 @@ public class Media extends Resource {
     private final ZonedDateTime dateUpdated;
     private final String parentSid;
     private final String sid;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Media(
@@ -131,7 +130,7 @@ public class Media extends Resource {
         final String sid,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.contentType = contentType;
@@ -160,7 +159,7 @@ public class Media extends Resource {
         public final String getSid() {
             return this.sid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

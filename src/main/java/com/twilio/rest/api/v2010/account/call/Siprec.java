@@ -31,7 +31,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -41,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Siprec extends Resource {
-    private static final long serialVersionUID = 253111316153632L;
+    private static final long serialVersionUID = 230113301753485L;
 
     public static SiprecCreator creator(final String callSid){
         return new SiprecCreator(callSid);
@@ -160,7 +159,7 @@ public class Siprec extends Resource {
     private final String name;
     private final Siprec.Status status;
     private final ZonedDateTime dateUpdated;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Siprec(
@@ -183,7 +182,7 @@ public class Siprec extends Resource {
         final String dateUpdated,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -212,7 +211,7 @@ public class Siprec extends Resource {
         public final ZonedDateTime getDateUpdated() {
             return this.dateUpdated;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

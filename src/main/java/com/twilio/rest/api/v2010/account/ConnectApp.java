@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectApp extends Resource {
-    private static final long serialVersionUID = 225834705961850L;
+    private static final long serialVersionUID = 203118827948403L;
 
 
     public static ConnectAppFetcher fetcher(final String sid){
@@ -138,7 +138,7 @@ public class ConnectApp extends Resource {
     private final URI homepageUrl;
     private final List<ConnectApp.Permission> permissions;
     private final String sid;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private ConnectApp(
@@ -173,7 +173,7 @@ public class ConnectApp extends Resource {
         final String sid,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.authorizeRedirectUrl = authorizeRedirectUrl;
@@ -218,7 +218,7 @@ public class ConnectApp extends Resource {
         public final String getSid() {
             return this.sid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

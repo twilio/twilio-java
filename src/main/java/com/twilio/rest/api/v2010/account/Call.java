@@ -46,7 +46,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Call extends Resource {
-    private static final long serialVersionUID = 86979476751104L;
+    private static final long serialVersionUID = 229062317637234L;
 
     public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url){
         return new CallCreator(to, from, url);
@@ -200,7 +200,7 @@ public class Call extends Resource {
     private final String callerName;
     private final String queueTime;
     private final String trunkSid;
-    private final URI uri;
+    private final String uri;
     private final Map<String, String> subresourceUris;
 
     @JsonCreator
@@ -279,7 +279,7 @@ public class Call extends Resource {
         final String trunkSid,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("subresource_uris")
         final Map<String, String> subresourceUris
@@ -384,7 +384,7 @@ public class Call extends Resource {
         public final String getTrunkSid() {
             return this.trunkSid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Map<String, String> getSubresourceUris() {

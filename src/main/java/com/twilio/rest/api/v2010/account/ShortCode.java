@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ShortCode extends Resource {
-    private static final long serialVersionUID = 22451310509137L;
+    private static final long serialVersionUID = 169753160210519L;
 
 
     public static ShortCodeFetcher fetcher(final String sid){
@@ -114,7 +114,7 @@ public class ShortCode extends Resource {
     private final URI smsFallbackUrl;
     private final HttpMethod smsMethod;
     private final URI smsUrl;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private ShortCode(
@@ -152,7 +152,7 @@ public class ShortCode extends Resource {
         final URI smsUrl,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -201,7 +201,7 @@ public class ShortCode extends Resource {
         public final URI getSmsUrl() {
             return this.smsUrl;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

@@ -29,7 +29,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 
 import java.util.Objects;
 
@@ -38,7 +37,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOnExtension extends Resource {
-    private static final long serialVersionUID = 214990454179280L;
+    private static final long serialVersionUID = 103705040276662L;
 
 
     public static AssignedAddOnExtensionFetcher fetcher(final String resourceSid, final String assignedAddOnSid, final String sid){
@@ -101,7 +100,7 @@ public class AssignedAddOnExtension extends Resource {
     private final String friendlyName;
     private final String productName;
     private final String uniqueName;
-    private final URI uri;
+    private final String uri;
     private final Boolean enabled;
 
     @JsonCreator
@@ -128,7 +127,7 @@ public class AssignedAddOnExtension extends Resource {
         final String uniqueName,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("enabled")
         final Boolean enabled
@@ -165,7 +164,7 @@ public class AssignedAddOnExtension extends Resource {
         public final String getUniqueName() {
             return this.uniqueName;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final Boolean getEnabled() {

@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DependentPhoneNumber extends Resource {
-    private static final long serialVersionUID = 92498181071332L;
+    private static final long serialVersionUID = 195983634033092L;
 
 
 
@@ -159,7 +159,7 @@ public class DependentPhoneNumber extends Resource {
     private final String trunkSid;
     private final DependentPhoneNumber.EmergencyStatus emergencyStatus;
     private final String emergencyAddressSid;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private DependentPhoneNumber(
@@ -239,7 +239,7 @@ public class DependentPhoneNumber extends Resource {
         final String emergencyAddressSid,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -344,7 +344,7 @@ public class DependentPhoneNumber extends Resource {
         public final String getEmergencyAddressSid() {
             return this.emergencyAddressSid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

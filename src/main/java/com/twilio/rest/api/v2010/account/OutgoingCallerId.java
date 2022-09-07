@@ -30,7 +30,6 @@ import lombok.ToString;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.time.ZonedDateTime;
 
 import java.util.Objects;
@@ -40,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OutgoingCallerId extends Resource {
-    private static final long serialVersionUID = 110955600525526L;
+    private static final long serialVersionUID = 75956517535233L;
 
 
     public static OutgoingCallerIdFetcher fetcher(final String sid){
@@ -114,7 +113,7 @@ public class OutgoingCallerId extends Resource {
     private final String friendlyName;
     private final String accountSid;
     private final com.twilio.type.PhoneNumber phoneNumber;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private OutgoingCallerId(
@@ -137,7 +136,7 @@ public class OutgoingCallerId extends Resource {
         final com.twilio.type.PhoneNumber phoneNumber,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.sid = sid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
@@ -166,7 +165,7 @@ public class OutgoingCallerId extends Resource {
         public final com.twilio.type.PhoneNumber getPhoneNumber() {
             return this.phoneNumber;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

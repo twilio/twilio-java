@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
-    private static final long serialVersionUID = 122594907167804L;
+    private static final long serialVersionUID = 162458167875227L;
 
 
     public static NotificationFetcher fetcher(final String callSid, final String sid){
@@ -113,7 +113,7 @@ public class Notification extends Resource {
     private final String responseBody;
     private final String responseHeaders;
     private final String sid;
-    private final URI uri;
+    private final String uri;
 
     @JsonCreator
     private Notification(
@@ -166,7 +166,7 @@ public class Notification extends Resource {
         final String sid,
 
         @JsonProperty("uri")
-        final URI uri
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -235,7 +235,7 @@ public class Notification extends Resource {
         public final String getSid() {
             return this.sid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
 

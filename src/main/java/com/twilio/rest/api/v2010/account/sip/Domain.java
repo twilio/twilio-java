@@ -43,7 +43,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Domain extends Resource {
-    private static final long serialVersionUID = 121255485620748L;
+    private static final long serialVersionUID = 8213004596487L;
 
     public static DomainCreator creator(final String domainName){
         return new DomainCreator(domainName);
@@ -125,7 +125,7 @@ public class Domain extends Resource {
     private final String domainName;
     private final String friendlyName;
     private final String sid;
-    private final URI uri;
+    private final String uri;
     private final HttpMethod voiceFallbackMethod;
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
@@ -166,7 +166,7 @@ public class Domain extends Resource {
         final String sid,
 
         @JsonProperty("uri")
-        final URI uri,
+        final String uri,
 
         @JsonProperty("voice_fallback_method")
         final HttpMethod voiceFallbackMethod,
@@ -251,7 +251,7 @@ public class Domain extends Resource {
         public final String getSid() {
             return this.sid;
         }
-        public final URI getUri() {
+        public final String getUri() {
             return this.uri;
         }
         public final HttpMethod getVoiceFallbackMethod() {

@@ -62,8 +62,7 @@ public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarge
     }
 
     public ConnectionPolicyTargetCreator setTarget(final String target){
-    this.target = Promoter.uriFromString(target);
-    return this;
+        return setTarget(Promoter.uriFromString(target));
     }
     public ConnectionPolicyTargetCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

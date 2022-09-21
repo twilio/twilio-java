@@ -71,8 +71,7 @@ public class TrunkUpdater extends Updater<Trunk>{
     }
 
     public TrunkUpdater setDisasterRecoveryUrl(final String disasterRecoveryUrl){
-    this.disasterRecoveryUrl = Promoter.uriFromString(disasterRecoveryUrl);
-    return this;
+        return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
     }
     public TrunkUpdater setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod){
         this.disasterRecoveryMethod = disasterRecoveryMethod;

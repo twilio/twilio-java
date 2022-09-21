@@ -276,8 +276,7 @@ public class SiprecCreator extends Creator<Siprec>{
     }
 
     public SiprecCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public SiprecCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

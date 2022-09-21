@@ -116,8 +116,7 @@ public class VoipReader extends Reader<Voip> {
     }
 
     public VoipReader setNearNumber(final String nearNumber){
-    this.nearNumber = Promoter.phoneNumberFromString(nearNumber);
-    return this;
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
     public VoipReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;

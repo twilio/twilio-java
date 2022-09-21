@@ -69,8 +69,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp>{
     }
 
     public ConnectAppUpdater setAuthorizeRedirectUrl(final String authorizeRedirectUrl){
-    this.authorizeRedirectUrl = Promoter.uriFromString(authorizeRedirectUrl);
-    return this;
+        return setAuthorizeRedirectUrl(Promoter.uriFromString(authorizeRedirectUrl));
     }
     public ConnectAppUpdater setCompanyName(final String companyName){
         this.companyName = companyName;
@@ -86,8 +85,7 @@ public class ConnectAppUpdater extends Updater<ConnectApp>{
     }
 
     public ConnectAppUpdater setDeauthorizeCallbackUrl(final String deauthorizeCallbackUrl){
-    this.deauthorizeCallbackUrl = Promoter.uriFromString(deauthorizeCallbackUrl);
-    return this;
+        return setDeauthorizeCallbackUrl(Promoter.uriFromString(deauthorizeCallbackUrl));
     }
     public ConnectAppUpdater setDescription(final String description){
         this.description = description;
@@ -103,12 +101,14 @@ public class ConnectAppUpdater extends Updater<ConnectApp>{
     }
 
     public ConnectAppUpdater setHomepageUrl(final String homepageUrl){
-    this.homepageUrl = Promoter.uriFromString(homepageUrl);
-    return this;
+        return setHomepageUrl(Promoter.uriFromString(homepageUrl));
     }
     public ConnectAppUpdater setPermissions(final List<ConnectApp.Permission> permissions){
         this.permissions = permissions;
         return this;
+    }
+    public ConnectAppUpdater setPermissions(final ConnectApp.Permission permissions){
+        return setPermissions(Promoter.listOfOne(permissions));
     }
 
     @Override

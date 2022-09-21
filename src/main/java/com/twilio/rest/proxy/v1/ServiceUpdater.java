@@ -71,8 +71,7 @@ public class ServiceUpdater extends Updater<Service>{
     }
 
     public ServiceUpdater setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public ServiceUpdater setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel){
         this.geoMatchLevel = geoMatchLevel;
@@ -88,8 +87,7 @@ public class ServiceUpdater extends Updater<Service>{
     }
 
     public ServiceUpdater setInterceptCallbackUrl(final String interceptCallbackUrl){
-    this.interceptCallbackUrl = Promoter.uriFromString(interceptCallbackUrl);
-    return this;
+        return setInterceptCallbackUrl(Promoter.uriFromString(interceptCallbackUrl));
     }
     public ServiceUpdater setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl){
         this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
@@ -97,8 +95,7 @@ public class ServiceUpdater extends Updater<Service>{
     }
 
     public ServiceUpdater setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl){
-    this.outOfSessionCallbackUrl = Promoter.uriFromString(outOfSessionCallbackUrl);
-    return this;
+        return setOutOfSessionCallbackUrl(Promoter.uriFromString(outOfSessionCallbackUrl));
     }
     public ServiceUpdater setChatInstanceSid(final String chatInstanceSid){
         this.chatInstanceSid = chatInstanceSid;

@@ -47,8 +47,8 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
     }
 
     public ConfigurationFetcher setUiVersion(final String uiVersion){
-    this.uiVersion = uiVersion;
-    return this;
+        this.uiVersion = uiVersion;
+        return this;
     }
 
     @Override

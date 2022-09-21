@@ -73,8 +73,7 @@ public class CustomerProfilesCreator extends Creator<CustomerProfiles>{
     }
 
     public CustomerProfilesCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
     @Override

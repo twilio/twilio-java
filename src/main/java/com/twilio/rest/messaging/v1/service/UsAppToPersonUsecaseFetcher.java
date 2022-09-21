@@ -49,8 +49,8 @@ public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
     }
 
     public UsAppToPersonUsecaseFetcher setBrandRegistrationSid(final String brandRegistrationSid){
-    this.brandRegistrationSid = brandRegistrationSid;
-    return this;
+        this.brandRegistrationSid = brandRegistrationSid;
+        return this;
     }
 
     @Override

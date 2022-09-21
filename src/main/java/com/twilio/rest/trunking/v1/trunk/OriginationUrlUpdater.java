@@ -78,8 +78,7 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl>{
     }
 
     public OriginationUrlUpdater setSipUrl(final String sipUrl){
-    this.sipUrl = Promoter.uriFromString(sipUrl);
-    return this;
+        return setSipUrl(Promoter.uriFromString(sipUrl));
     }
 
     @Override

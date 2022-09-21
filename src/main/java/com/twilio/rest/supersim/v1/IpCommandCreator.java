@@ -79,8 +79,7 @@ public class IpCommandCreator extends Creator<IpCommand>{
     }
 
     public IpCommandCreator setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public IpCommandCreator setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;

@@ -56,24 +56,24 @@ public class TaskQueueCumulativeStatisticsFetcher extends Fetcher<TaskQueueCumul
     }
 
     public TaskQueueCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
-    this.endDate = endDate;
-    return this;
+        this.endDate = endDate;
+        return this;
     }
     public TaskQueueCumulativeStatisticsFetcher setMinutes(final Integer minutes){
-    this.minutes = minutes;
-    return this;
+        this.minutes = minutes;
+        return this;
     }
     public TaskQueueCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate){
-    this.startDate = startDate;
-    return this;
+        this.startDate = startDate;
+        return this;
     }
     public TaskQueueCumulativeStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
     public TaskQueueCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime){
-    this.splitByWaitTime = splitByWaitTime;
-    return this;
+        this.splitByWaitTime = splitByWaitTime;
+        return this;
     }
 
     @Override

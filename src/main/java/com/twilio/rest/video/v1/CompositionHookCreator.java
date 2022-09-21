@@ -81,9 +81,15 @@ public class CompositionHookCreator extends Creator<CompositionHook>{
         this.audioSources = audioSources;
         return this;
     }
+    public CompositionHookCreator setAudioSources(final String audioSources){
+        return setAudioSources(Promoter.listOfOne(audioSources));
+    }
     public CompositionHookCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded){
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
+    }
+    public CompositionHookCreator setAudioSourcesExcluded(final String audioSourcesExcluded){
+        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
     }
     public CompositionHookCreator setResolution(final String resolution){
         this.resolution = resolution;
@@ -99,8 +105,7 @@ public class CompositionHookCreator extends Creator<CompositionHook>{
     }
 
     public CompositionHookCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public CompositionHookCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

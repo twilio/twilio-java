@@ -135,8 +135,7 @@ public class CallCreator extends Creator<Call>{
     }
 
     public CallCreator setFallbackUrl(final String fallbackUrl){
-    this.fallbackUrl = Promoter.uriFromString(fallbackUrl);
-    return this;
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
     }
     public CallCreator setFallbackMethod(final HttpMethod fallbackMethod){
         this.fallbackMethod = fallbackMethod;
@@ -148,12 +147,14 @@ public class CallCreator extends Creator<Call>{
     }
 
     public CallCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public CallCreator setStatusCallbackEvent(final List<String> statusCallbackEvent){
         this.statusCallbackEvent = statusCallbackEvent;
         return this;
+    }
+    public CallCreator setStatusCallbackEvent(final String statusCallbackEvent){
+        return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
     }
     public CallCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -203,6 +204,9 @@ public class CallCreator extends Creator<Call>{
         this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
         return this;
     }
+    public CallCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent){
+        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
+    }
     public CallCreator setTrim(final String trim){
         this.trim = trim;
         return this;
@@ -233,8 +237,7 @@ public class CallCreator extends Creator<Call>{
     }
 
     public CallCreator setAsyncAmdStatusCallback(final String asyncAmdStatusCallback){
-    this.asyncAmdStatusCallback = Promoter.uriFromString(asyncAmdStatusCallback);
-    return this;
+        return setAsyncAmdStatusCallback(Promoter.uriFromString(asyncAmdStatusCallback));
     }
     public CallCreator setAsyncAmdStatusCallbackMethod(final HttpMethod asyncAmdStatusCallbackMethod){
         this.asyncAmdStatusCallbackMethod = asyncAmdStatusCallbackMethod;
@@ -266,8 +269,7 @@ public class CallCreator extends Creator<Call>{
     }
 
     public CallCreator setUrl(final String url){
-    this.url = Promoter.uriFromString(url);
-    return this;
+        return setUrl(Promoter.uriFromString(url));
     }
     public CallCreator setTwiml(final com.twilio.type.Twiml twiml){
         this.twiml = twiml;
@@ -275,8 +277,7 @@ public class CallCreator extends Creator<Call>{
     }
 
     public CallCreator setTwiml(final String twiml){
-    this.twiml = Promoter.twimlFromString(twiml);
-    return this;
+        return setTwiml(Promoter.twimlFromString(twiml));
     }
     public CallCreator setApplicationSid(final String applicationSid){
         this.applicationSid = applicationSid;

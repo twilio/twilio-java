@@ -73,8 +73,7 @@ public class RecordingSettingsCreator extends Creator<RecordingSettings>{
     }
 
     public RecordingSettingsCreator setAwsS3Url(final String awsS3Url){
-    this.awsS3Url = Promoter.uriFromString(awsS3Url);
-    return this;
+        return setAwsS3Url(Promoter.uriFromString(awsS3Url));
     }
     public RecordingSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled){
         this.awsStorageEnabled = awsStorageEnabled;

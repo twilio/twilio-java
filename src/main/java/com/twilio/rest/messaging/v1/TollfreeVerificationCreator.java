@@ -96,6 +96,9 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification>{
         this.useCaseCategories = useCaseCategories;
         return this;
     }
+    public TollfreeVerificationCreator setUseCaseCategories(final String useCaseCategories){
+        return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
+    }
     public TollfreeVerificationCreator setUseCaseSummary(final String useCaseSummary){
         this.useCaseSummary = useCaseSummary;
         return this;
@@ -107,6 +110,9 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification>{
     public TollfreeVerificationCreator setOptInImageUrls(final List<String> optInImageUrls){
         this.optInImageUrls = optInImageUrls;
         return this;
+    }
+    public TollfreeVerificationCreator setOptInImageUrls(final String optInImageUrls){
+        return setOptInImageUrls(Promoter.listOfOne(optInImageUrls));
     }
     public TollfreeVerificationCreator setOptInType(final TollfreeVerification.OptInType optInType){
         this.optInType = optInType;
@@ -170,8 +176,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification>{
     }
 
     public TollfreeVerificationCreator setBusinessContactPhone(final String businessContactPhone){
-    this.businessContactPhone = Promoter.phoneNumberFromString(businessContactPhone);
-    return this;
+        return setBusinessContactPhone(Promoter.phoneNumberFromString(businessContactPhone));
     }
 
     @Override

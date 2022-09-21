@@ -75,8 +75,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder>{
     }
 
     public HostedNumberOrderCreator setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public HostedNumberOrderCreator setSmsCapability(final Boolean smsCapability){
         this.smsCapability = smsCapability;
@@ -98,14 +97,16 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder>{
         this.ccEmails = ccEmails;
         return this;
     }
+    public HostedNumberOrderCreator setCcEmails(final String ccEmails){
+        return setCcEmails(Promoter.listOfOne(ccEmails));
+    }
     public HostedNumberOrderCreator setSmsUrl(final URI smsUrl){
         this.smsUrl = smsUrl;
         return this;
     }
 
     public HostedNumberOrderCreator setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public HostedNumberOrderCreator setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -117,8 +118,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder>{
     }
 
     public HostedNumberOrderCreator setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public HostedNumberOrderCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
         this.smsFallbackMethod = smsFallbackMethod;
@@ -130,8 +130,7 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder>{
     }
 
     public HostedNumberOrderCreator setStatusCallbackUrl(final String statusCallbackUrl){
-    this.statusCallbackUrl = Promoter.uriFromString(statusCallbackUrl);
-    return this;
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
     public HostedNumberOrderCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

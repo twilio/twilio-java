@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -62,6 +63,9 @@ public class FeedbackUpdater extends Updater<Feedback>{
     public FeedbackUpdater setIssue(final List<Feedback.Issues> issue){
         this.issue = issue;
         return this;
+    }
+    public FeedbackUpdater setIssue(final Feedback.Issues issue){
+        return setIssue(Promoter.listOfOne(issue));
     }
 
     @Override

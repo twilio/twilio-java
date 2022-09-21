@@ -15,6 +15,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -84,6 +85,9 @@ public class SessionCreator extends Creator<Session>{
     public SessionCreator setParticipants(final List<Map<String, Object>> participants){
         this.participants = participants;
         return this;
+    }
+    public SessionCreator setParticipants(final Map<String, Object> participants){
+        return setParticipants(Promoter.listOfOne(participants));
     }
     public SessionCreator setFailOnParticipantConflict(final Boolean failOnParticipantConflict){
         this.failOnParticipantConflict = failOnParticipantConflict;

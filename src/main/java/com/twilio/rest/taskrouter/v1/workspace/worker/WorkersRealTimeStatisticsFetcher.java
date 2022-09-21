@@ -49,8 +49,8 @@ public class WorkersRealTimeStatisticsFetcher extends Fetcher<WorkersRealTimeSta
     }
 
     public WorkersRealTimeStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
 
     @Override

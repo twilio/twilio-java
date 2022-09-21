@@ -77,8 +77,7 @@ public class AssistantUpdater extends Updater<Assistant>{
     }
 
     public AssistantUpdater setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public AssistantUpdater setCallbackEvents(final String callbackEvents){
         this.callbackEvents = callbackEvents;

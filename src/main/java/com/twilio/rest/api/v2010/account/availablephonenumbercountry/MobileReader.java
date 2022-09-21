@@ -116,8 +116,7 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     public MobileReader setNearNumber(final String nearNumber){
-    this.nearNumber = Promoter.phoneNumberFromString(nearNumber);
-    return this;
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
     public MobileReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;

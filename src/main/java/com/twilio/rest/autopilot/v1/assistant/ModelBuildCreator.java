@@ -58,8 +58,7 @@ public class ModelBuildCreator extends Creator<ModelBuild>{
     }
 
     public ModelBuildCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public ModelBuildCreator setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;

@@ -63,8 +63,7 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles>{
     }
 
     public CustomerProfilesUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public CustomerProfilesUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

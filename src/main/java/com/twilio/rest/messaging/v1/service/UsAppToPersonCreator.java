@@ -15,6 +15,7 @@
 package com.twilio.rest.messaging.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -72,6 +73,9 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     public UsAppToPersonCreator setMessageSamples(final List<String> messageSamples){
         this.messageSamples = messageSamples;
         return this;
+    }
+    public UsAppToPersonCreator setMessageSamples(final String messageSamples){
+        return setMessageSamples(Promoter.listOfOne(messageSamples));
     }
     public UsAppToPersonCreator setUsAppToPersonUsecase(final String usAppToPersonUsecase){
         this.usAppToPersonUsecase = usAppToPersonUsecase;

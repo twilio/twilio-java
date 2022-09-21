@@ -62,8 +62,7 @@ public class ServiceUpdater extends Updater<Service>{
     }
 
     public ServiceUpdater setWebhookUrl(final String webhookUrl){
-    this.webhookUrl = Promoter.uriFromString(webhookUrl);
-    return this;
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
     public ServiceUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

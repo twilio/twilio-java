@@ -67,8 +67,7 @@ public class TriggerUpdater extends Updater<Trigger>{
     }
 
     public TriggerUpdater setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public TriggerUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

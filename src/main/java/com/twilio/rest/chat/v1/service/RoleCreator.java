@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -66,6 +67,9 @@ public class RoleCreator extends Creator<Role>{
     public RoleCreator setPermission(final List<String> permission){
         this.permission = permission;
         return this;
+    }
+    public RoleCreator setPermission(final String permission){
+        return setPermission(Promoter.listOfOne(permission));
     }
 
     @Override

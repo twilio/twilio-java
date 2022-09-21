@@ -71,8 +71,7 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
     }
 
     public IncomingPhoneNumberReader setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public IncomingPhoneNumberReader setOrigin(final String origin){
         this.origin = origin;

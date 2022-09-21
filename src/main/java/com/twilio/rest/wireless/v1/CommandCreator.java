@@ -74,8 +74,7 @@ public class CommandCreator extends Creator<Command>{
     }
 
     public CommandCreator setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public CommandCreator setCommandMode(final Command.CommandMode commandMode){
         this.commandMode = commandMode;

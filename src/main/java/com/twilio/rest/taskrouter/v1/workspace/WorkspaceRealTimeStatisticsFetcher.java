@@ -49,8 +49,8 @@ public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTim
     }
 
     public WorkspaceRealTimeStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
 
     @Override

@@ -82,8 +82,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl>{
     }
 
     public OriginationUrlCreator setSipUrl(final String sipUrl){
-    this.sipUrl = Promoter.uriFromString(sipUrl);
-    return this;
+        return setSipUrl(Promoter.uriFromString(sipUrl));
     }
 
     @Override

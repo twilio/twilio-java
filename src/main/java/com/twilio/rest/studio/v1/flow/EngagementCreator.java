@@ -63,8 +63,7 @@ public class EngagementCreator extends Creator<Engagement>{
     }
 
     public EngagementCreator setTo(final String to){
-    this.to = Promoter.phoneNumberFromString(to);
-    return this;
+        return setTo(Promoter.phoneNumberFromString(to));
     }
     public EngagementCreator setFrom(final com.twilio.type.PhoneNumber from){
         this.from = from;
@@ -72,8 +71,7 @@ public class EngagementCreator extends Creator<Engagement>{
     }
 
     public EngagementCreator setFrom(final String from){
-    this.from = Promoter.phoneNumberFromString(from);
-    return this;
+        return setFrom(Promoter.phoneNumberFromString(from));
     }
     public EngagementCreator setParameters(final Map<String, Object> parameters){
         this.parameters = parameters;

@@ -48,8 +48,8 @@ public class ConversationDeleter extends Deleter<Conversation> {
     }
 
     public ConversationDeleter setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled){
-    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-    return this;
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     @Override

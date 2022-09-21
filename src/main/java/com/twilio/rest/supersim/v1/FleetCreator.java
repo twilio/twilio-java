@@ -80,8 +80,7 @@ public class FleetCreator extends Creator<Fleet>{
     }
 
     public FleetCreator setIpCommandsUrl(final String ipCommandsUrl){
-    this.ipCommandsUrl = Promoter.uriFromString(ipCommandsUrl);
-    return this;
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
     }
     public FleetCreator setIpCommandsMethod(final HttpMethod ipCommandsMethod){
         this.ipCommandsMethod = ipCommandsMethod;
@@ -97,8 +96,7 @@ public class FleetCreator extends Creator<Fleet>{
     }
 
     public FleetCreator setSmsCommandsUrl(final String smsCommandsUrl){
-    this.smsCommandsUrl = Promoter.uriFromString(smsCommandsUrl);
-    return this;
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
     }
     public FleetCreator setSmsCommandsMethod(final HttpMethod smsCommandsMethod){
         this.smsCommandsMethod = smsCommandsMethod;

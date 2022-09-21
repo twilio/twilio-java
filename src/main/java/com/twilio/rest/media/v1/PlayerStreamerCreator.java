@@ -62,8 +62,7 @@ public class PlayerStreamerCreator extends Creator<PlayerStreamer>{
     }
 
     public PlayerStreamerCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public PlayerStreamerCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

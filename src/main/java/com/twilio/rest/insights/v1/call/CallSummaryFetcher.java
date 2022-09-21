@@ -49,8 +49,8 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
     }
 
     public CallSummaryFetcher setProcessingState(final CallSummary.ProcessingState processingState){
-    this.processingState = processingState;
-    return this;
+        this.processingState = processingState;
+        return this;
     }
 
     @Override

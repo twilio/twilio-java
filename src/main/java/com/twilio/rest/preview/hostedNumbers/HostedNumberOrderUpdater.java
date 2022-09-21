@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -73,6 +74,9 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder>{
     public HostedNumberOrderUpdater setCcEmails(final List<String> ccEmails){
         this.ccEmails = ccEmails;
         return this;
+    }
+    public HostedNumberOrderUpdater setCcEmails(final String ccEmails){
+        return setCcEmails(Promoter.listOfOne(ccEmails));
     }
     public HostedNumberOrderUpdater setStatus(final HostedNumberOrder.Status status){
         this.status = status;

@@ -51,8 +51,8 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
     }
 
     public TaskQueueRealTimeStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
 
     @Override

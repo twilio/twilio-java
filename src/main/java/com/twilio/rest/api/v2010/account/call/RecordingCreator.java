@@ -67,14 +67,16 @@ public class RecordingCreator extends Creator<Recording>{
         this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
         return this;
     }
+    public RecordingCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent){
+        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
+    }
     public RecordingCreator setRecordingStatusCallback(final URI recordingStatusCallback){
         this.recordingStatusCallback = recordingStatusCallback;
         return this;
     }
 
     public RecordingCreator setRecordingStatusCallback(final String recordingStatusCallback){
-    this.recordingStatusCallback = Promoter.uriFromString(recordingStatusCallback);
-    return this;
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
     }
     public RecordingCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod){
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;

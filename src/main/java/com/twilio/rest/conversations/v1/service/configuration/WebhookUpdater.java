@@ -60,8 +60,7 @@ public class WebhookUpdater extends Updater<Webhook>{
     }
 
     public WebhookUpdater setPreWebhookUrl(final String preWebhookUrl){
-    this.preWebhookUrl = Promoter.uriFromString(preWebhookUrl);
-    return this;
+        return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
     }
     public WebhookUpdater setPostWebhookUrl(final URI postWebhookUrl){
         this.postWebhookUrl = postWebhookUrl;
@@ -69,12 +68,14 @@ public class WebhookUpdater extends Updater<Webhook>{
     }
 
     public WebhookUpdater setPostWebhookUrl(final String postWebhookUrl){
-    this.postWebhookUrl = Promoter.uriFromString(postWebhookUrl);
-    return this;
+        return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
     }
     public WebhookUpdater setFilters(final List<String> filters){
         this.filters = filters;
         return this;
+    }
+    public WebhookUpdater setFilters(final String filters){
+        return setFilters(Promoter.listOfOne(filters));
     }
     public WebhookUpdater setMethod(final String method){
         this.method = method;

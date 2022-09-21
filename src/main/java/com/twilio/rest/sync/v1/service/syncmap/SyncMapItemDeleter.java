@@ -52,8 +52,8 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     }
 
     public SyncMapItemDeleter setIfMatch(final String ifMatch){
-    this.ifMatch = ifMatch;
-    return this;
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     @Override

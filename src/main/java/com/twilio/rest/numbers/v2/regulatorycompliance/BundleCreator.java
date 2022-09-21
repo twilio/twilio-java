@@ -71,8 +71,7 @@ public class BundleCreator extends Creator<Bundle>{
     }
 
     public BundleCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public BundleCreator setRegulationSid(final String regulationSid){
         this.regulationSid = regulationSid;

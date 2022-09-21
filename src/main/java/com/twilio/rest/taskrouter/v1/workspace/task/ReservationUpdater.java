@@ -150,8 +150,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setDequeueStatusCallbackUrl(final String dequeueStatusCallbackUrl){
-    this.dequeueStatusCallbackUrl = Promoter.uriFromString(dequeueStatusCallbackUrl);
-    return this;
+        return setDequeueStatusCallbackUrl(Promoter.uriFromString(dequeueStatusCallbackUrl));
     }
     public ReservationUpdater setCallFrom(final String callFrom){
         this.callFrom = callFrom;
@@ -175,8 +174,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setCallUrl(final String callUrl){
-    this.callUrl = Promoter.uriFromString(callUrl);
-    return this;
+        return setCallUrl(Promoter.uriFromString(callUrl));
     }
     public ReservationUpdater setCallStatusCallbackUrl(final URI callStatusCallbackUrl){
         this.callStatusCallbackUrl = callStatusCallbackUrl;
@@ -184,8 +182,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setCallStatusCallbackUrl(final String callStatusCallbackUrl){
-    this.callStatusCallbackUrl = Promoter.uriFromString(callStatusCallbackUrl);
-    return this;
+        return setCallStatusCallbackUrl(Promoter.uriFromString(callStatusCallbackUrl));
     }
     public ReservationUpdater setCallAccept(final Boolean callAccept){
         this.callAccept = callAccept;
@@ -205,8 +202,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setRedirectUrl(final String redirectUrl){
-    this.redirectUrl = Promoter.uriFromString(redirectUrl);
-    return this;
+        return setRedirectUrl(Promoter.uriFromString(redirectUrl));
     }
     public ReservationUpdater setTo(final String to){
         this.to = to;
@@ -222,8 +218,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public ReservationUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -232,6 +227,9 @@ public class ReservationUpdater extends Updater<Reservation>{
     public ReservationUpdater setStatusCallbackEvent(final List<Reservation.CallStatus> statusCallbackEvent){
         this.statusCallbackEvent = statusCallbackEvent;
         return this;
+    }
+    public ReservationUpdater setStatusCallbackEvent(final Reservation.CallStatus statusCallbackEvent){
+        return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
     }
     public ReservationUpdater setTimeout(final Integer timeout){
         this.timeout = timeout;
@@ -263,8 +261,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setWaitUrl(final String waitUrl){
-    this.waitUrl = Promoter.uriFromString(waitUrl);
-    return this;
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
     }
     public ReservationUpdater setWaitMethod(final HttpMethod waitMethod){
         this.waitMethod = waitMethod;
@@ -284,8 +281,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setConferenceStatusCallback(final String conferenceStatusCallback){
-    this.conferenceStatusCallback = Promoter.uriFromString(conferenceStatusCallback);
-    return this;
+        return setConferenceStatusCallback(Promoter.uriFromString(conferenceStatusCallback));
     }
     public ReservationUpdater setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod){
         this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
@@ -294,6 +290,9 @@ public class ReservationUpdater extends Updater<Reservation>{
     public ReservationUpdater setConferenceStatusCallbackEvent(final List<Reservation.ConferenceEvent> conferenceStatusCallbackEvent){
         this.conferenceStatusCallbackEvent = conferenceStatusCallbackEvent;
         return this;
+    }
+    public ReservationUpdater setConferenceStatusCallbackEvent(final Reservation.ConferenceEvent conferenceStatusCallbackEvent){
+        return setConferenceStatusCallbackEvent(Promoter.listOfOne(conferenceStatusCallbackEvent));
     }
     public ReservationUpdater setConferenceRecord(final String conferenceRecord){
         this.conferenceRecord = conferenceRecord;
@@ -313,8 +312,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setRecordingStatusCallback(final String recordingStatusCallback){
-    this.recordingStatusCallback = Promoter.uriFromString(recordingStatusCallback);
-    return this;
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
     }
     public ReservationUpdater setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod){
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
@@ -326,8 +324,7 @@ public class ReservationUpdater extends Updater<Reservation>{
     }
 
     public ReservationUpdater setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback){
-    this.conferenceRecordingStatusCallback = Promoter.uriFromString(conferenceRecordingStatusCallback);
-    return this;
+        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
     }
     public ReservationUpdater setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod){
         this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
@@ -348,6 +345,9 @@ public class ReservationUpdater extends Updater<Reservation>{
     public ReservationUpdater setDequeueStatusCallbackEvent(final List<String> dequeueStatusCallbackEvent){
         this.dequeueStatusCallbackEvent = dequeueStatusCallbackEvent;
         return this;
+    }
+    public ReservationUpdater setDequeueStatusCallbackEvent(final String dequeueStatusCallbackEvent){
+        return setDequeueStatusCallbackEvent(Promoter.listOfOne(dequeueStatusCallbackEvent));
     }
     public ReservationUpdater setPostWorkActivitySid(final String postWorkActivitySid){
         this.postWorkActivitySid = postWorkActivitySid;

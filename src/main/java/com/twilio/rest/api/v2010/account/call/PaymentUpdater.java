@@ -75,8 +75,7 @@ public class PaymentUpdater extends Updater<Payment>{
     }
 
     public PaymentUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public PaymentUpdater setCapture(final Payment.Capture capture){
         this.capture = capture;

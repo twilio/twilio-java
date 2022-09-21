@@ -73,13 +73,12 @@ public class MessageInteractionCreator extends Creator<MessageInteraction>{
         this.mediaUrl = mediaUrl;
         return this;
     }
+    public MessageInteractionCreator setMediaUrl(final URI mediaUrl){
+        return setMediaUrl(Promoter.listOfOne(mediaUrl));
+    }
 
     public MessageInteractionCreator setMediaUrl(final String mediaUrl){
         return setMediaUrl(Promoter.uriFromString(mediaUrl));
-    }
-
-    public MessageInteractionCreator setMediaUrl(final URI mediaUrl){
-        return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
     @Override

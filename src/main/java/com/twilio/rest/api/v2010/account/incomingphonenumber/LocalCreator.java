@@ -83,8 +83,7 @@ public class LocalCreator extends Creator<Local>{
     }
 
     public LocalCreator setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public LocalCreator setApiVersion(final String apiVersion){
         this.apiVersion = apiVersion;
@@ -108,8 +107,7 @@ public class LocalCreator extends Creator<Local>{
     }
 
     public LocalCreator setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public LocalCreator setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -121,8 +119,7 @@ public class LocalCreator extends Creator<Local>{
     }
 
     public LocalCreator setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public LocalCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
@@ -130,8 +127,7 @@ public class LocalCreator extends Creator<Local>{
     }
 
     public LocalCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public LocalCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -155,8 +151,7 @@ public class LocalCreator extends Creator<Local>{
     }
 
     public LocalCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public LocalCreator setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -168,8 +163,7 @@ public class LocalCreator extends Creator<Local>{
     }
 
     public LocalCreator setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public LocalCreator setIdentitySid(final String identitySid){
         this.identitySid = identitySid;

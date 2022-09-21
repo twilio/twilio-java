@@ -52,12 +52,12 @@ public class ConferenceParticipantFetcher extends Fetcher<ConferenceParticipant>
     }
 
     public ConferenceParticipantFetcher setEvents(final String events){
-    this.events = events;
-    return this;
+        this.events = events;
+        return this;
     }
     public ConferenceParticipantFetcher setMetrics(final String metrics){
-    this.metrics = metrics;
-    return this;
+        this.metrics = metrics;
+        return this;
     }
 
     @Override

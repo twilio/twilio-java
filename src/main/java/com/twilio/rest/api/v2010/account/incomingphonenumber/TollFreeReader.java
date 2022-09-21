@@ -71,8 +71,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     public TollFreeReader setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public TollFreeReader setOrigin(final String origin){
         this.origin = origin;

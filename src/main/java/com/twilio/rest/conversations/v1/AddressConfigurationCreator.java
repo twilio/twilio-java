@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -95,6 +96,9 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
     public AddressConfigurationCreator setAutoCreationWebhookFilters(final List<String> autoCreationWebhookFilters){
         this.autoCreationWebhookFilters = autoCreationWebhookFilters;
         return this;
+    }
+    public AddressConfigurationCreator setAutoCreationWebhookFilters(final String autoCreationWebhookFilters){
+        return setAutoCreationWebhookFilters(Promoter.listOfOne(autoCreationWebhookFilters));
     }
     public AddressConfigurationCreator setAutoCreationStudioFlowSid(final String autoCreationStudioFlowSid){
         this.autoCreationStudioFlowSid = autoCreationStudioFlowSid;

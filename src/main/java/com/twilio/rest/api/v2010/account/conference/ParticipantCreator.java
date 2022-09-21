@@ -114,8 +114,7 @@ public class ParticipantCreator extends Creator<Participant>{
     }
 
     public ParticipantCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public ParticipantCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -124,6 +123,9 @@ public class ParticipantCreator extends Creator<Participant>{
     public ParticipantCreator setStatusCallbackEvent(final List<String> statusCallbackEvent){
         this.statusCallbackEvent = statusCallbackEvent;
         return this;
+    }
+    public ParticipantCreator setStatusCallbackEvent(final String statusCallbackEvent){
+        return setStatusCallbackEvent(Promoter.listOfOne(statusCallbackEvent));
     }
     public ParticipantCreator setLabel(final String label){
         this.label = label;
@@ -159,8 +161,7 @@ public class ParticipantCreator extends Creator<Participant>{
     }
 
     public ParticipantCreator setWaitUrl(final String waitUrl){
-    this.waitUrl = Promoter.uriFromString(waitUrl);
-    return this;
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
     }
     public ParticipantCreator setWaitMethod(final HttpMethod waitMethod){
         this.waitMethod = waitMethod;
@@ -188,8 +189,7 @@ public class ParticipantCreator extends Creator<Participant>{
     }
 
     public ParticipantCreator setConferenceStatusCallback(final String conferenceStatusCallback){
-    this.conferenceStatusCallback = Promoter.uriFromString(conferenceStatusCallback);
-    return this;
+        return setConferenceStatusCallback(Promoter.uriFromString(conferenceStatusCallback));
     }
     public ParticipantCreator setConferenceStatusCallbackMethod(final HttpMethod conferenceStatusCallbackMethod){
         this.conferenceStatusCallbackMethod = conferenceStatusCallbackMethod;
@@ -198,6 +198,9 @@ public class ParticipantCreator extends Creator<Participant>{
     public ParticipantCreator setConferenceStatusCallbackEvent(final List<String> conferenceStatusCallbackEvent){
         this.conferenceStatusCallbackEvent = conferenceStatusCallbackEvent;
         return this;
+    }
+    public ParticipantCreator setConferenceStatusCallbackEvent(final String conferenceStatusCallbackEvent){
+        return setConferenceStatusCallbackEvent(Promoter.listOfOne(conferenceStatusCallbackEvent));
     }
     public ParticipantCreator setRecordingChannels(final String recordingChannels){
         this.recordingChannels = recordingChannels;
@@ -209,8 +212,7 @@ public class ParticipantCreator extends Creator<Participant>{
     }
 
     public ParticipantCreator setRecordingStatusCallback(final String recordingStatusCallback){
-    this.recordingStatusCallback = Promoter.uriFromString(recordingStatusCallback);
-    return this;
+        return setRecordingStatusCallback(Promoter.uriFromString(recordingStatusCallback));
     }
     public ParticipantCreator setRecordingStatusCallbackMethod(final HttpMethod recordingStatusCallbackMethod){
         this.recordingStatusCallbackMethod = recordingStatusCallbackMethod;
@@ -234,8 +236,7 @@ public class ParticipantCreator extends Creator<Participant>{
     }
 
     public ParticipantCreator setConferenceRecordingStatusCallback(final String conferenceRecordingStatusCallback){
-    this.conferenceRecordingStatusCallback = Promoter.uriFromString(conferenceRecordingStatusCallback);
-    return this;
+        return setConferenceRecordingStatusCallback(Promoter.uriFromString(conferenceRecordingStatusCallback));
     }
     public ParticipantCreator setConferenceRecordingStatusCallbackMethod(final HttpMethod conferenceRecordingStatusCallbackMethod){
         this.conferenceRecordingStatusCallbackMethod = conferenceRecordingStatusCallbackMethod;
@@ -245,9 +246,15 @@ public class ParticipantCreator extends Creator<Participant>{
         this.recordingStatusCallbackEvent = recordingStatusCallbackEvent;
         return this;
     }
+    public ParticipantCreator setRecordingStatusCallbackEvent(final String recordingStatusCallbackEvent){
+        return setRecordingStatusCallbackEvent(Promoter.listOfOne(recordingStatusCallbackEvent));
+    }
     public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final List<String> conferenceRecordingStatusCallbackEvent){
         this.conferenceRecordingStatusCallbackEvent = conferenceRecordingStatusCallbackEvent;
         return this;
+    }
+    public ParticipantCreator setConferenceRecordingStatusCallbackEvent(final String conferenceRecordingStatusCallbackEvent){
+        return setConferenceRecordingStatusCallbackEvent(Promoter.listOfOne(conferenceRecordingStatusCallbackEvent));
     }
     public ParticipantCreator setCoaching(final Boolean coaching){
         this.coaching = coaching;

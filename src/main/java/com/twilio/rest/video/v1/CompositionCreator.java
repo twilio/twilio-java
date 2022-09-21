@@ -76,9 +76,15 @@ public class CompositionCreator extends Creator<Composition>{
         this.audioSources = audioSources;
         return this;
     }
+    public CompositionCreator setAudioSources(final String audioSources){
+        return setAudioSources(Promoter.listOfOne(audioSources));
+    }
     public CompositionCreator setAudioSourcesExcluded(final List<String> audioSourcesExcluded){
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
+    }
+    public CompositionCreator setAudioSourcesExcluded(final String audioSourcesExcluded){
+        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
     }
     public CompositionCreator setResolution(final String resolution){
         this.resolution = resolution;
@@ -94,8 +100,7 @@ public class CompositionCreator extends Creator<Composition>{
     }
 
     public CompositionCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public CompositionCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

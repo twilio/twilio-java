@@ -74,8 +74,7 @@ public class ShortCodeUpdater extends Updater<ShortCode>{
     }
 
     public ShortCodeUpdater setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -87,8 +86,7 @@ public class ShortCodeUpdater extends Updater<ShortCode>{
     }
 
     public ShortCodeUpdater setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public ShortCodeUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
         this.smsFallbackMethod = smsFallbackMethod;

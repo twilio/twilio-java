@@ -75,8 +75,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setInboundRequestUrl(final String inboundRequestUrl){
-    this.inboundRequestUrl = Promoter.uriFromString(inboundRequestUrl);
-    return this;
+        return setInboundRequestUrl(Promoter.uriFromString(inboundRequestUrl));
     }
     public ServiceCreator setInboundMethod(final HttpMethod inboundMethod){
         this.inboundMethod = inboundMethod;
@@ -88,8 +87,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setFallbackUrl(final String fallbackUrl){
-    this.fallbackUrl = Promoter.uriFromString(fallbackUrl);
-    return this;
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
     }
     public ServiceCreator setFallbackMethod(final HttpMethod fallbackMethod){
         this.fallbackMethod = fallbackMethod;
@@ -101,8 +99,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public ServiceCreator setStickySender(final Boolean stickySender){
         this.stickySender = stickySender;

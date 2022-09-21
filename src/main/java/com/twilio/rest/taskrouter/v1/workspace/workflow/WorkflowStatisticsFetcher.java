@@ -56,24 +56,24 @@ public class WorkflowStatisticsFetcher extends Fetcher<WorkflowStatistics> {
     }
 
     public WorkflowStatisticsFetcher setMinutes(final Integer minutes){
-    this.minutes = minutes;
-    return this;
+        this.minutes = minutes;
+        return this;
     }
     public WorkflowStatisticsFetcher setStartDate(final ZonedDateTime startDate){
-    this.startDate = startDate;
-    return this;
+        this.startDate = startDate;
+        return this;
     }
     public WorkflowStatisticsFetcher setEndDate(final ZonedDateTime endDate){
-    this.endDate = endDate;
-    return this;
+        this.endDate = endDate;
+        return this;
     }
     public WorkflowStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
     public WorkflowStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime){
-    this.splitByWaitTime = splitByWaitTime;
-    return this;
+        this.splitByWaitTime = splitByWaitTime;
+        return this;
     }
 
     @Override

@@ -67,8 +67,7 @@ public class MemberUpdater extends Updater<Member>{
     }
 
     public MemberUpdater setUrl(final String url){
-    this.url = Promoter.uriFromString(url);
-    return this;
+        return setUrl(Promoter.uriFromString(url));
     }
     public MemberUpdater setMethod(final HttpMethod method){
         this.method = method;

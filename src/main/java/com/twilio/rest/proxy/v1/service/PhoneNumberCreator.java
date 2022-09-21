@@ -61,8 +61,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber>{
     }
 
     public PhoneNumberCreator setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public PhoneNumberCreator setIsReserved(final Boolean isReserved){
         this.isReserved = isReserved;

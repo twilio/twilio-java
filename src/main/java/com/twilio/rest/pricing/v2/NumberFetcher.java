@@ -50,13 +50,12 @@ public class NumberFetcher extends Fetcher<Number> {
     }
 
     public NumberFetcher setOriginationNumber(final com.twilio.type.PhoneNumber originationNumber){
-    this.originationNumber = originationNumber;
-    return this;
+        this.originationNumber = originationNumber;
+        return this;
     }
 
     public NumberFetcher setOriginationNumber(final String originationNumber){
-    this.originationNumber = Promoter.phoneNumberFromString(originationNumber);
-    return this;
+        return setOriginationNumber(Promoter.phoneNumberFromString(originationNumber));
     }
 
     @Override

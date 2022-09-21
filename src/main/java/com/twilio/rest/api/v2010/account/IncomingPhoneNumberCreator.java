@@ -107,8 +107,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberCreator setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public IncomingPhoneNumberCreator setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -120,8 +119,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberCreator setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public IncomingPhoneNumberCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
@@ -129,8 +127,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public IncomingPhoneNumberCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -154,8 +151,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public IncomingPhoneNumberCreator setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -167,8 +163,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberCreator setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public IncomingPhoneNumberCreator setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus){
         this.emergencyStatus = emergencyStatus;
@@ -204,8 +199,7 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberCreator setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public IncomingPhoneNumberCreator setAreaCode(final String areaCode){
         this.areaCode = areaCode;

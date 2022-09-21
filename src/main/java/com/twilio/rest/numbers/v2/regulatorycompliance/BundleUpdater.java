@@ -63,8 +63,7 @@ public class BundleUpdater extends Updater<Bundle>{
     }
 
     public BundleUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public BundleUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

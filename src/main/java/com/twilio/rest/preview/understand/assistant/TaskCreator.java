@@ -77,8 +77,7 @@ public class TaskCreator extends Creator<Task>{
     }
 
     public TaskCreator setActionsUrl(final String actionsUrl){
-    this.actionsUrl = Promoter.uriFromString(actionsUrl);
-    return this;
+        return setActionsUrl(Promoter.uriFromString(actionsUrl));
     }
 
     @Override

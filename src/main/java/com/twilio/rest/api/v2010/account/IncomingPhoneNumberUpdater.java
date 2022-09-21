@@ -103,8 +103,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberUpdater setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public IncomingPhoneNumberUpdater setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -116,8 +115,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberUpdater setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public IncomingPhoneNumberUpdater setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
@@ -125,8 +123,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public IncomingPhoneNumberUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -150,8 +147,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberUpdater setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public IncomingPhoneNumberUpdater setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -163,8 +159,7 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     }
 
     public IncomingPhoneNumberUpdater setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public IncomingPhoneNumberUpdater setEmergencyStatus(final IncomingPhoneNumber.EmergencyStatus emergencyStatus){
         this.emergencyStatus = emergencyStatus;

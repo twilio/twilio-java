@@ -50,8 +50,8 @@ public class WorkerDeleter extends Deleter<Worker> {
     }
 
     public WorkerDeleter setIfMatch(final String ifMatch){
-    this.ifMatch = ifMatch;
-    return this;
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     @Override

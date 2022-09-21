@@ -90,8 +90,7 @@ public class PaymentCreator extends Creator<Payment>{
     }
 
     public PaymentCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public PaymentCreator setBankAccountType(final Payment.BankAccountType bankAccountType){
         this.bankAccountType = bankAccountType;

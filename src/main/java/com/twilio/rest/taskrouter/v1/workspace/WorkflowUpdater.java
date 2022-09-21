@@ -67,8 +67,7 @@ public class WorkflowUpdater extends Updater<Workflow>{
     }
 
     public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl){
-    this.assignmentCallbackUrl = Promoter.uriFromString(assignmentCallbackUrl);
-    return this;
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
     }
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl){
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
@@ -76,8 +75,7 @@ public class WorkflowUpdater extends Updater<Workflow>{
     }
 
     public WorkflowUpdater setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl){
-    this.fallbackAssignmentCallbackUrl = Promoter.uriFromString(fallbackAssignmentCallbackUrl);
-    return this;
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
     }
     public WorkflowUpdater setConfiguration(final String configuration){
         this.configuration = configuration;

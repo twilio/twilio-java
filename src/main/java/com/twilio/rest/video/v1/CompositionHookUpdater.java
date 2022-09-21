@@ -79,9 +79,15 @@ public class CompositionHookUpdater extends Updater<CompositionHook>{
         this.audioSources = audioSources;
         return this;
     }
+    public CompositionHookUpdater setAudioSources(final String audioSources){
+        return setAudioSources(Promoter.listOfOne(audioSources));
+    }
     public CompositionHookUpdater setAudioSourcesExcluded(final List<String> audioSourcesExcluded){
         this.audioSourcesExcluded = audioSourcesExcluded;
         return this;
+    }
+    public CompositionHookUpdater setAudioSourcesExcluded(final String audioSourcesExcluded){
+        return setAudioSourcesExcluded(Promoter.listOfOne(audioSourcesExcluded));
     }
     public CompositionHookUpdater setTrim(final Boolean trim){
         this.trim = trim;
@@ -101,8 +107,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook>{
     }
 
     public CompositionHookUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public CompositionHookUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

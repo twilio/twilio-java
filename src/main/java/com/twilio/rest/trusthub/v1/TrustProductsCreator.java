@@ -73,8 +73,7 @@ public class TrustProductsCreator extends Creator<TrustProducts>{
     }
 
     public TrustProductsCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
 
     @Override

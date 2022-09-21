@@ -52,8 +52,8 @@ public class MessageDeleter extends Deleter<Message> {
     }
 
     public MessageDeleter setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
-    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-    return this;
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     @Override

@@ -53,20 +53,20 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     }
 
     public WorkersCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
-    this.endDate = endDate;
-    return this;
+        this.endDate = endDate;
+        return this;
     }
     public WorkersCumulativeStatisticsFetcher setMinutes(final Integer minutes){
-    this.minutes = minutes;
-    return this;
+        this.minutes = minutes;
+        return this;
     }
     public WorkersCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate){
-    this.startDate = startDate;
-    return this;
+        this.startDate = startDate;
+        return this;
     }
     public WorkersCumulativeStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
 
     @Override

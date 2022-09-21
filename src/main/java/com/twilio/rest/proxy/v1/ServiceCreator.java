@@ -71,8 +71,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public ServiceCreator setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel){
         this.geoMatchLevel = geoMatchLevel;
@@ -88,8 +87,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setInterceptCallbackUrl(final String interceptCallbackUrl){
-    this.interceptCallbackUrl = Promoter.uriFromString(interceptCallbackUrl);
-    return this;
+        return setInterceptCallbackUrl(Promoter.uriFromString(interceptCallbackUrl));
     }
     public ServiceCreator setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl){
         this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
@@ -97,8 +95,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl){
-    this.outOfSessionCallbackUrl = Promoter.uriFromString(outOfSessionCallbackUrl);
-    return this;
+        return setOutOfSessionCallbackUrl(Promoter.uriFromString(outOfSessionCallbackUrl));
     }
     public ServiceCreator setChatInstanceSid(final String chatInstanceSid){
         this.chatInstanceSid = chatInstanceSid;

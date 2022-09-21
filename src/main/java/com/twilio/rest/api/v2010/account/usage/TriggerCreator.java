@@ -71,8 +71,7 @@ public class TriggerCreator extends Creator<Trigger>{
     }
 
     public TriggerCreator setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public TriggerCreator setTriggerValue(final String triggerValue){
         this.triggerValue = triggerValue;

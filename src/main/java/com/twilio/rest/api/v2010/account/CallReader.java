@@ -71,8 +71,7 @@ public class CallReader extends Reader<Call> {
     }
 
     public CallReader setTo(final String to){
-    this.to = Promoter.phoneNumberFromString(to);
-    return this;
+        return setTo(Promoter.phoneNumberFromString(to));
     }
     public CallReader setFrom(final com.twilio.type.PhoneNumber from){
         this.from = from;
@@ -80,8 +79,7 @@ public class CallReader extends Reader<Call> {
     }
 
     public CallReader setFrom(final String from){
-    this.from = Promoter.phoneNumberFromString(from);
-    return this;
+        return setFrom(Promoter.phoneNumberFromString(from));
     }
     public CallReader setParentCallSid(final String parentCallSid){
         this.parentCallSid = parentCallSid;

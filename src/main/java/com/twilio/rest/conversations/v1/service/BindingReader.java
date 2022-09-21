@@ -16,6 +16,7 @@ package com.twilio.rest.conversations.v1.service;
 
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -57,9 +58,15 @@ public class BindingReader extends Reader<Binding> {
         this.bindingType = bindingType;
         return this;
     }
+    public BindingReader setBindingType(final Binding.BindingType bindingType){
+        return setBindingType(Promoter.listOfOne(bindingType));
+    }
     public BindingReader setIdentity(final List<String> identity){
         this.identity = identity;
         return this;
+    }
+    public BindingReader setIdentity(final String identity){
+        return setIdentity(Promoter.listOfOne(identity));
     }
     public BindingReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;

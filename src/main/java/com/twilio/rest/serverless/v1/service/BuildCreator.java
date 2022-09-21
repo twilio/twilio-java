@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -57,9 +58,15 @@ public class BuildCreator extends Creator<Build>{
         this.assetVersions = assetVersions;
         return this;
     }
+    public BuildCreator setAssetVersions(final String assetVersions){
+        return setAssetVersions(Promoter.listOfOne(assetVersions));
+    }
     public BuildCreator setFunctionVersions(final List<String> functionVersions){
         this.functionVersions = functionVersions;
         return this;
+    }
+    public BuildCreator setFunctionVersions(final String functionVersions){
+        return setFunctionVersions(Promoter.listOfOne(functionVersions));
     }
     public BuildCreator setDependencies(final String dependencies){
         this.dependencies = dependencies;

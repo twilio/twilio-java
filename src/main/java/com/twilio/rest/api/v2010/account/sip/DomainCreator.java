@@ -81,8 +81,7 @@ public class DomainCreator extends Creator<Domain>{
     }
 
     public DomainCreator setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public DomainCreator setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -94,8 +93,7 @@ public class DomainCreator extends Creator<Domain>{
     }
 
     public DomainCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public DomainCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -107,8 +105,7 @@ public class DomainCreator extends Creator<Domain>{
     }
 
     public DomainCreator setVoiceStatusCallbackUrl(final String voiceStatusCallbackUrl){
-    this.voiceStatusCallbackUrl = Promoter.uriFromString(voiceStatusCallbackUrl);
-    return this;
+        return setVoiceStatusCallbackUrl(Promoter.uriFromString(voiceStatusCallbackUrl));
     }
     public DomainCreator setVoiceStatusCallbackMethod(final HttpMethod voiceStatusCallbackMethod){
         this.voiceStatusCallbackMethod = voiceStatusCallbackMethod;

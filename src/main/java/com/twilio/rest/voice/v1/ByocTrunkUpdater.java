@@ -69,8 +69,7 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk>{
     }
 
     public ByocTrunkUpdater setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public ByocTrunkUpdater setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -82,8 +81,7 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk>{
     }
 
     public ByocTrunkUpdater setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public ByocTrunkUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -95,8 +93,7 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk>{
     }
 
     public ByocTrunkUpdater setStatusCallbackUrl(final String statusCallbackUrl){
-    this.statusCallbackUrl = Promoter.uriFromString(statusCallbackUrl);
-    return this;
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
     public ByocTrunkUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

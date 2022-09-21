@@ -71,8 +71,7 @@ public class MobileReader extends Reader<Mobile> {
     }
 
     public MobileReader setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public MobileReader setOrigin(final String origin){
         this.origin = origin;

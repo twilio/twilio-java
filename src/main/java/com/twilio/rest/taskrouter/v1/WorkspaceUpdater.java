@@ -66,8 +66,7 @@ public class WorkspaceUpdater extends Updater<Workspace>{
     }
 
     public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl){
-    this.eventCallbackUrl = Promoter.uriFromString(eventCallbackUrl);
-    return this;
+        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
     }
     public WorkspaceUpdater setEventsFilter(final String eventsFilter){
         this.eventsFilter = eventsFilter;

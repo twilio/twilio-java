@@ -48,12 +48,12 @@ public class CurrentCallFetcher extends Fetcher<CurrentCall> {
     }
 
     public CurrentCallFetcher setXXcnamSensitivePhoneNumberFrom(final String xXcnamSensitivePhoneNumberFrom){
-    this.xXcnamSensitivePhoneNumberFrom = xXcnamSensitivePhoneNumberFrom;
-    return this;
+        this.xXcnamSensitivePhoneNumberFrom = xXcnamSensitivePhoneNumberFrom;
+        return this;
     }
     public CurrentCallFetcher setXXcnamSensitivePhoneNumberTo(final String xXcnamSensitivePhoneNumberTo){
-    this.xXcnamSensitivePhoneNumberTo = xXcnamSensitivePhoneNumberTo;
-    return this;
+        this.xXcnamSensitivePhoneNumberTo = xXcnamSensitivePhoneNumberTo;
+        return this;
     }
 
     @Override

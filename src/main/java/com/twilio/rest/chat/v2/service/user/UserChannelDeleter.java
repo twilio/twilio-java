@@ -52,8 +52,8 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     }
 
     public UserChannelDeleter setXTwilioWebhookEnabled(final UserChannel.WebhookEnabledType xTwilioWebhookEnabled){
-    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-    return this;
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     @Override

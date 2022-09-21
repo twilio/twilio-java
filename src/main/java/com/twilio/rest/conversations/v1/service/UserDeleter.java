@@ -50,8 +50,8 @@ public class UserDeleter extends Deleter<User> {
     }
 
     public UserDeleter setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled){
-    this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
-    return this;
+        this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
+        return this;
     }
 
     @Override

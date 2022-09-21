@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.service.conversation;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -75,9 +76,15 @@ public class WebhookCreator extends Creator<Webhook>{
         this.configurationFilters = configurationFilters;
         return this;
     }
+    public WebhookCreator setConfigurationFilters(final String configurationFilters){
+        return setConfigurationFilters(Promoter.listOfOne(configurationFilters));
+    }
     public WebhookCreator setConfigurationTriggers(final List<String> configurationTriggers){
         this.configurationTriggers = configurationTriggers;
         return this;
+    }
+    public WebhookCreator setConfigurationTriggers(final String configurationTriggers){
+        return setConfigurationTriggers(Promoter.listOfOne(configurationTriggers));
     }
     public WebhookCreator setConfigurationFlowSid(final String configurationFlowSid){
         this.configurationFlowSid = configurationFlowSid;

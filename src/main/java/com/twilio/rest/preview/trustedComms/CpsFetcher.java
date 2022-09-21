@@ -47,8 +47,8 @@ public class CpsFetcher extends Fetcher<Cps> {
     }
 
     public CpsFetcher setXXcnamSensitivePhoneNumber(final String xXcnamSensitivePhoneNumber){
-    this.xXcnamSensitivePhoneNumber = xXcnamSensitivePhoneNumber;
-    return this;
+        this.xXcnamSensitivePhoneNumber = xXcnamSensitivePhoneNumber;
+        return this;
     }
 
     @Override

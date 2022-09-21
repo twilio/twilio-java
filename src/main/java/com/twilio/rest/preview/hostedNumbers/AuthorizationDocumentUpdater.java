@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -59,6 +60,9 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
         this.hostedNumberOrderSids = hostedNumberOrderSids;
         return this;
     }
+    public AuthorizationDocumentUpdater setHostedNumberOrderSids(final String hostedNumberOrderSids){
+        return setHostedNumberOrderSids(Promoter.listOfOne(hostedNumberOrderSids));
+    }
     public AuthorizationDocumentUpdater setAddressSid(final String addressSid){
         this.addressSid = addressSid;
         return this;
@@ -70,6 +74,9 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     public AuthorizationDocumentUpdater setCcEmails(final List<String> ccEmails){
         this.ccEmails = ccEmails;
         return this;
+    }
+    public AuthorizationDocumentUpdater setCcEmails(final String ccEmails){
+        return setCcEmails(Promoter.listOfOne(ccEmails));
     }
     public AuthorizationDocumentUpdater setStatus(final AuthorizationDocument.Status status){
         this.status = status;

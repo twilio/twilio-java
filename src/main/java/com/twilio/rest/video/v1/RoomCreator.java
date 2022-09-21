@@ -87,8 +87,7 @@ public class RoomCreator extends Creator<Room>{
     }
 
     public RoomCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public RoomCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -105,6 +104,9 @@ public class RoomCreator extends Creator<Room>{
     public RoomCreator setVideoCodecs(final List<Room.VideoCodec> videoCodecs){
         this.videoCodecs = videoCodecs;
         return this;
+    }
+    public RoomCreator setVideoCodecs(final Room.VideoCodec videoCodecs){
+        return setVideoCodecs(Promoter.listOfOne(videoCodecs));
     }
     public RoomCreator setMediaRegion(final String mediaRegion){
         this.mediaRegion = mediaRegion;

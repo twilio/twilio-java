@@ -16,6 +16,7 @@ package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -67,6 +68,9 @@ public class TaskReader extends Reader<Task> {
     public TaskReader setAssignmentStatus(final List<String> assignmentStatus){
         this.assignmentStatus = assignmentStatus;
         return this;
+    }
+    public TaskReader setAssignmentStatus(final String assignmentStatus){
+        return setAssignmentStatus(Promoter.listOfOne(assignmentStatus));
     }
     public TaskReader setWorkflowSid(final String workflowSid){
         this.workflowSid = workflowSid;

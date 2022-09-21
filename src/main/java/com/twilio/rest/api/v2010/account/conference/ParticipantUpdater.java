@@ -83,8 +83,7 @@ public class ParticipantUpdater extends Updater<Participant>{
     }
 
     public ParticipantUpdater setHoldUrl(final String holdUrl){
-    this.holdUrl = Promoter.uriFromString(holdUrl);
-    return this;
+        return setHoldUrl(Promoter.uriFromString(holdUrl));
     }
     public ParticipantUpdater setHoldMethod(final HttpMethod holdMethod){
         this.holdMethod = holdMethod;
@@ -96,8 +95,7 @@ public class ParticipantUpdater extends Updater<Participant>{
     }
 
     public ParticipantUpdater setAnnounceUrl(final String announceUrl){
-    this.announceUrl = Promoter.uriFromString(announceUrl);
-    return this;
+        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
     }
     public ParticipantUpdater setAnnounceMethod(final HttpMethod announceMethod){
         this.announceMethod = announceMethod;
@@ -109,8 +107,7 @@ public class ParticipantUpdater extends Updater<Participant>{
     }
 
     public ParticipantUpdater setWaitUrl(final String waitUrl){
-    this.waitUrl = Promoter.uriFromString(waitUrl);
-    return this;
+        return setWaitUrl(Promoter.uriFromString(waitUrl));
     }
     public ParticipantUpdater setWaitMethod(final HttpMethod waitMethod){
         this.waitMethod = waitMethod;

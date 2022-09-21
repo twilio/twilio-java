@@ -100,8 +100,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow>{
     }
 
     public FlexFlowUpdater setIntegrationUrl(final String integrationUrl){
-    this.integrationUrl = Promoter.uriFromString(integrationUrl);
-    return this;
+        return setIntegrationUrl(Promoter.uriFromString(integrationUrl));
     }
     public FlexFlowUpdater setIntegrationWorkspaceSid(final String integrationWorkspaceSid){
         this.integrationWorkspaceSid = integrationWorkspaceSid;

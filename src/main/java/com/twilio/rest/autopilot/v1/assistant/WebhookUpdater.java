@@ -69,8 +69,7 @@ public class WebhookUpdater extends Updater<Webhook>{
     }
 
     public WebhookUpdater setWebhookUrl(final String webhookUrl){
-    this.webhookUrl = Promoter.uriFromString(webhookUrl);
-    return this;
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
     public WebhookUpdater setWebhookMethod(final String webhookMethod){
         this.webhookMethod = webhookMethod;

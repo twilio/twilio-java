@@ -116,8 +116,7 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     }
 
     public MachineToMachineReader setNearNumber(final String nearNumber){
-    this.nearNumber = Promoter.phoneNumberFromString(nearNumber);
-    return this;
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
     public MachineToMachineReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;

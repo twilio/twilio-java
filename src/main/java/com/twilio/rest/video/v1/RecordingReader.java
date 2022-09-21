@@ -16,6 +16,7 @@ package com.twilio.rest.video.v1;
 
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -67,6 +68,9 @@ public class RecordingReader extends Reader<Recording> {
     public RecordingReader setGroupingSid(final List<String> groupingSid){
         this.groupingSid = groupingSid;
         return this;
+    }
+    public RecordingReader setGroupingSid(final String groupingSid){
+        return setGroupingSid(Promoter.listOfOne(groupingSid));
     }
     public RecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter){
         this.dateCreatedAfter = dateCreatedAfter;

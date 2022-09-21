@@ -1,6 +1,14 @@
 twilio-java changelog
 =====================
 
+[2022-09-21] Version 9.0.0
+--------------------------
+**Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-09-21-8xx-to-9xx) for detailed migration notes.
+
+**Library - Feature**
+- [PR #709](https://github.com/twilio/twilio-java/pull/709): merging 9.0.0-rc to main. Thanks to [@kridai](https://github.com/kridai)! **(breaking change)**
+
+
 [2022-09-07] Version 8.36.0
 ---------------------------
 **Library - Fix**

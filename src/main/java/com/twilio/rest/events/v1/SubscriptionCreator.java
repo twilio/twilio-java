@@ -15,6 +15,7 @@
 package com.twilio.rest.events.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -68,6 +69,9 @@ public class SubscriptionCreator extends Creator<Subscription>{
     public SubscriptionCreator setTypes(final List<Map<String, Object>> types){
         this.types = types;
         return this;
+    }
+    public SubscriptionCreator setTypes(final Map<String, Object> types){
+        return setTypes(Promoter.listOfOne(types));
     }
 
     @Override

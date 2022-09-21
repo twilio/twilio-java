@@ -71,8 +71,7 @@ public class WorkflowCreator extends Creator<Workflow>{
     }
 
     public WorkflowCreator setAssignmentCallbackUrl(final String assignmentCallbackUrl){
-    this.assignmentCallbackUrl = Promoter.uriFromString(assignmentCallbackUrl);
-    return this;
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
     }
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl){
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
@@ -80,8 +79,7 @@ public class WorkflowCreator extends Creator<Workflow>{
     }
 
     public WorkflowCreator setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl){
-    this.fallbackAssignmentCallbackUrl = Promoter.uriFromString(fallbackAssignmentCallbackUrl);
-    return this;
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
     }
     public WorkflowCreator setTaskReservationTimeout(final Integer taskReservationTimeout){
         this.taskReservationTimeout = taskReservationTimeout;

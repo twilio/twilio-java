@@ -62,8 +62,7 @@ public class ServiceCreator extends Creator<Service>{
     }
 
     public ServiceCreator setWebhookUrl(final String webhookUrl){
-    this.webhookUrl = Promoter.uriFromString(webhookUrl);
-    return this;
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
     public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled){
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;

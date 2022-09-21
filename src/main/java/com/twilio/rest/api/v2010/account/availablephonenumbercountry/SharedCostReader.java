@@ -116,8 +116,7 @@ public class SharedCostReader extends Reader<SharedCost> {
     }
 
     public SharedCostReader setNearNumber(final String nearNumber){
-    this.nearNumber = Promoter.phoneNumberFromString(nearNumber);
-    return this;
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
     public SharedCostReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;

@@ -70,8 +70,7 @@ public class TrunkCreator extends Creator<Trunk>{
     }
 
     public TrunkCreator setDisasterRecoveryUrl(final String disasterRecoveryUrl){
-    this.disasterRecoveryUrl = Promoter.uriFromString(disasterRecoveryUrl);
-    return this;
+        return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
     }
     public TrunkCreator setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod){
         this.disasterRecoveryMethod = disasterRecoveryMethod;

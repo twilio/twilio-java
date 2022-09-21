@@ -171,8 +171,7 @@ public class ServiceUpdater extends Updater<Service>{
     }
 
     public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl){
-    this.preWebhookUrl = Promoter.uriFromString(preWebhookUrl);
-    return this;
+        return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
     }
     public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl){
         this.postWebhookUrl = postWebhookUrl;
@@ -180,8 +179,7 @@ public class ServiceUpdater extends Updater<Service>{
     }
 
     public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl){
-    this.postWebhookUrl = Promoter.uriFromString(postWebhookUrl);
-    return this;
+        return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
     }
     public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod){
         this.webhookMethod = webhookMethod;
@@ -190,6 +188,9 @@ public class ServiceUpdater extends Updater<Service>{
     public ServiceUpdater setWebhookFilters(final List<String> webhookFilters){
         this.webhookFilters = webhookFilters;
         return this;
+    }
+    public ServiceUpdater setWebhookFilters(final String webhookFilters){
+        return setWebhookFilters(Promoter.listOfOne(webhookFilters));
     }
     public ServiceUpdater setLimitsChannelMembers(final Integer limitsChannelMembers){
         this.limitsChannelMembers = limitsChannelMembers;

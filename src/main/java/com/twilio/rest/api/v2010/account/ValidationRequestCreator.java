@@ -66,8 +66,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest>{
     }
 
     public ValidationRequestCreator setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public ValidationRequestCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
@@ -87,8 +86,7 @@ public class ValidationRequestCreator extends Creator<ValidationRequest>{
     }
 
     public ValidationRequestCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public ValidationRequestCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

@@ -67,8 +67,7 @@ public class ConferenceUpdater extends Updater<Conference>{
     }
 
     public ConferenceUpdater setAnnounceUrl(final String announceUrl){
-    this.announceUrl = Promoter.uriFromString(announceUrl);
-    return this;
+        return setAnnounceUrl(Promoter.uriFromString(announceUrl));
     }
     public ConferenceUpdater setAnnounceMethod(final HttpMethod announceMethod){
         this.announceMethod = announceMethod;

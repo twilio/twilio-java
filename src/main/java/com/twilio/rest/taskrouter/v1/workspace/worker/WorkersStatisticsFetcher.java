@@ -56,32 +56,32 @@ public class WorkersStatisticsFetcher extends Fetcher<WorkersStatistics> {
     }
 
     public WorkersStatisticsFetcher setMinutes(final Integer minutes){
-    this.minutes = minutes;
-    return this;
+        this.minutes = minutes;
+        return this;
     }
     public WorkersStatisticsFetcher setStartDate(final ZonedDateTime startDate){
-    this.startDate = startDate;
-    return this;
+        this.startDate = startDate;
+        return this;
     }
     public WorkersStatisticsFetcher setEndDate(final ZonedDateTime endDate){
-    this.endDate = endDate;
-    return this;
+        this.endDate = endDate;
+        return this;
     }
     public WorkersStatisticsFetcher setTaskQueueSid(final String taskQueueSid){
-    this.taskQueueSid = taskQueueSid;
-    return this;
+        this.taskQueueSid = taskQueueSid;
+        return this;
     }
     public WorkersStatisticsFetcher setTaskQueueName(final String taskQueueName){
-    this.taskQueueName = taskQueueName;
-    return this;
+        this.taskQueueName = taskQueueName;
+        return this;
     }
     public WorkersStatisticsFetcher setFriendlyName(final String friendlyName){
-    this.friendlyName = friendlyName;
-    return this;
+        this.friendlyName = friendlyName;
+        return this;
     }
     public WorkersStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
 
     @Override

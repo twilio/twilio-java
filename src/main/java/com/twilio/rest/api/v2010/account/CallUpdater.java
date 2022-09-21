@@ -69,8 +69,7 @@ public class CallUpdater extends Updater<Call>{
     }
 
     public CallUpdater setUrl(final String url){
-    this.url = Promoter.uriFromString(url);
-    return this;
+        return setUrl(Promoter.uriFromString(url));
     }
     public CallUpdater setMethod(final HttpMethod method){
         this.method = method;
@@ -86,8 +85,7 @@ public class CallUpdater extends Updater<Call>{
     }
 
     public CallUpdater setFallbackUrl(final String fallbackUrl){
-    this.fallbackUrl = Promoter.uriFromString(fallbackUrl);
-    return this;
+        return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
     }
     public CallUpdater setFallbackMethod(final HttpMethod fallbackMethod){
         this.fallbackMethod = fallbackMethod;
@@ -99,8 +97,7 @@ public class CallUpdater extends Updater<Call>{
     }
 
     public CallUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public CallUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -112,8 +109,7 @@ public class CallUpdater extends Updater<Call>{
     }
 
     public CallUpdater setTwiml(final String twiml){
-    this.twiml = Promoter.twimlFromString(twiml);
-    return this;
+        return setTwiml(Promoter.twimlFromString(twiml));
     }
     public CallUpdater setTimeLimit(final Integer timeLimit){
         this.timeLimit = timeLimit;

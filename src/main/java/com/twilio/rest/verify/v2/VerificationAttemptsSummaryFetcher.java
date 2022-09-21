@@ -53,28 +53,28 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
     }
 
     public VerificationAttemptsSummaryFetcher setVerifyServiceSid(final String verifyServiceSid){
-    this.verifyServiceSid = verifyServiceSid;
-    return this;
+        this.verifyServiceSid = verifyServiceSid;
+        return this;
     }
     public VerificationAttemptsSummaryFetcher setDateCreatedAfter(final ZonedDateTime dateCreatedAfter){
-    this.dateCreatedAfter = dateCreatedAfter;
-    return this;
+        this.dateCreatedAfter = dateCreatedAfter;
+        return this;
     }
     public VerificationAttemptsSummaryFetcher setDateCreatedBefore(final ZonedDateTime dateCreatedBefore){
-    this.dateCreatedBefore = dateCreatedBefore;
-    return this;
+        this.dateCreatedBefore = dateCreatedBefore;
+        return this;
     }
     public VerificationAttemptsSummaryFetcher setCountry(final String country){
-    this.country = country;
-    return this;
+        this.country = country;
+        return this;
     }
     public VerificationAttemptsSummaryFetcher setChannel(final VerificationAttemptsSummary.Channels channel){
-    this.channel = channel;
-    return this;
+        this.channel = channel;
+        return this;
     }
     public VerificationAttemptsSummaryFetcher setDestinationPrefix(final String destinationPrefix){
-    this.destinationPrefix = destinationPrefix;
-    return this;
+        this.destinationPrefix = destinationPrefix;
+        return this;
     }
 
     @Override

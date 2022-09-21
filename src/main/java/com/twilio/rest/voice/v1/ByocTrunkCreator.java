@@ -68,8 +68,7 @@ public class ByocTrunkCreator extends Creator<ByocTrunk>{
     }
 
     public ByocTrunkCreator setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public ByocTrunkCreator setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -81,8 +80,7 @@ public class ByocTrunkCreator extends Creator<ByocTrunk>{
     }
 
     public ByocTrunkCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public ByocTrunkCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -94,8 +92,7 @@ public class ByocTrunkCreator extends Creator<ByocTrunk>{
     }
 
     public ByocTrunkCreator setStatusCallbackUrl(final String statusCallbackUrl){
-    this.statusCallbackUrl = Promoter.uriFromString(statusCallbackUrl);
-    return this;
+        return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
     public ByocTrunkCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

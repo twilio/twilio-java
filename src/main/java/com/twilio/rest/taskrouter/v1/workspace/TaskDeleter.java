@@ -50,8 +50,8 @@ public class TaskDeleter extends Deleter<Task> {
     }
 
     public TaskDeleter setIfMatch(final String ifMatch){
-    this.ifMatch = ifMatch;
-    return this;
+        this.ifMatch = ifMatch;
+        return this;
     }
 
     @Override

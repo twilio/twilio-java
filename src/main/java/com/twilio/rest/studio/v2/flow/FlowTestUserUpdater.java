@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v2.flow;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -53,6 +54,9 @@ public class FlowTestUserUpdater extends Updater<FlowTestUser>{
     public FlowTestUserUpdater setTestUsers(final List<String> testUsers){
         this.testUsers = testUsers;
         return this;
+    }
+    public FlowTestUserUpdater setTestUsers(final String testUsers){
+        return setTestUsers(Promoter.listOfOne(testUsers));
     }
 
     @Override

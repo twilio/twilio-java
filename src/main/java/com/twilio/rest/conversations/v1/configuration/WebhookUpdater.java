@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.configuration;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -58,6 +59,9 @@ public class WebhookUpdater extends Updater<Webhook>{
     public WebhookUpdater setFilters(final List<String> filters){
         this.filters = filters;
         return this;
+    }
+    public WebhookUpdater setFilters(final String filters){
+        return setFilters(Promoter.listOfOne(filters));
     }
     public WebhookUpdater setPreWebhookUrl(final String preWebhookUrl){
         this.preWebhookUrl = preWebhookUrl;

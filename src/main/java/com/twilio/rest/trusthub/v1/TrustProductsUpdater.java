@@ -63,8 +63,7 @@ public class TrustProductsUpdater extends Updater<TrustProducts>{
     }
 
     public TrustProductsUpdater setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public TrustProductsUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

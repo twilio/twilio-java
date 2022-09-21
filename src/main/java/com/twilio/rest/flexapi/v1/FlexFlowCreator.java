@@ -102,8 +102,7 @@ public class FlexFlowCreator extends Creator<FlexFlow>{
     }
 
     public FlexFlowCreator setIntegrationUrl(final String integrationUrl){
-    this.integrationUrl = Promoter.uriFromString(integrationUrl);
-    return this;
+        return setIntegrationUrl(Promoter.uriFromString(integrationUrl));
     }
     public FlexFlowCreator setIntegrationWorkspaceSid(final String integrationWorkspaceSid){
         this.integrationWorkspaceSid = integrationWorkspaceSid;

@@ -16,6 +16,7 @@ package com.twilio.rest.ipmessaging.v1.service.channel;
 
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -57,6 +58,9 @@ public class InviteReader extends Reader<Invite> {
     public InviteReader setIdentity(final List<String> identity){
         this.identity = identity;
         return this;
+    }
+    public InviteReader setIdentity(final String identity){
+        return setIdentity(Promoter.listOfOne(identity));
     }
     public InviteReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;

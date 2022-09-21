@@ -50,12 +50,12 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     public PhoneNumberFetcher setFields(final String fields){
-    this.fields = fields;
-    return this;
+        this.fields = fields;
+        return this;
     }
     public PhoneNumberFetcher setCountryCode(final String countryCode){
-    this.countryCode = countryCode;
-    return this;
+        this.countryCode = countryCode;
+        return this;
     }
 
     @Override

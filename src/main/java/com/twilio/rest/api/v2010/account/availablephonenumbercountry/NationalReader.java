@@ -116,8 +116,7 @@ public class NationalReader extends Reader<National> {
     }
 
     public NationalReader setNearNumber(final String nearNumber){
-    this.nearNumber = Promoter.phoneNumberFromString(nearNumber);
-    return this;
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
     public NationalReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;

@@ -54,8 +54,8 @@ public class RecordingFetcher extends Fetcher<Recording> {
     }
 
     public RecordingFetcher setIncludeSoftDeleted(final Boolean includeSoftDeleted){
-    this.includeSoftDeleted = includeSoftDeleted;
-    return this;
+        this.includeSoftDeleted = includeSoftDeleted;
+        return this;
     }
 
     @Override

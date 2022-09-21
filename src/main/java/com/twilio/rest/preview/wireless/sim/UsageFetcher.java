@@ -50,12 +50,12 @@ public class UsageFetcher extends Fetcher<Usage> {
     }
 
     public UsageFetcher setEnd(final String end){
-    this.end = end;
-    return this;
+        this.end = end;
+        return this;
     }
     public UsageFetcher setStart(final String start){
-    this.start = start;
-    return this;
+        this.start = start;
+        return this;
     }
 
     @Override

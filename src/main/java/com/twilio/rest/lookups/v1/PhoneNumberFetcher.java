@@ -15,6 +15,7 @@
 package com.twilio.rest.lookups.v1;
 
 import com.twilio.base.Fetcher;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.PrefixedCollapsibleMap;
 import com.twilio.exception.ApiException;
@@ -55,20 +56,26 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
 
     public PhoneNumberFetcher setCountryCode(final String countryCode){
-    this.countryCode = countryCode;
-    return this;
+        this.countryCode = countryCode;
+        return this;
     }
     public PhoneNumberFetcher setType(final List<String> type){
-    this.type = type;
-    return this;
+        this.type = type;
+        return this;
+    }
+    public PhoneNumberFetcher setType(final String type){
+        return setType(Promoter.listOfOne(type));
     }
     public PhoneNumberFetcher setAddOns(final List<String> addOns){
-    this.addOns = addOns;
-    return this;
+        this.addOns = addOns;
+        return this;
+    }
+    public PhoneNumberFetcher setAddOns(final String addOns){
+        return setAddOns(Promoter.listOfOne(addOns));
     }
     public PhoneNumberFetcher setAddOnsData(final Map<String, Object> addOnsData){
-    this.addOnsData = addOnsData;
-    return this;
+        this.addOnsData = addOnsData;
+        return this;
     }
 
     @Override

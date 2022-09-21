@@ -266,8 +266,7 @@ public class StreamCreator extends Creator<Stream>{
     }
 
     public StreamCreator setUrl(final String url){
-    this.url = Promoter.uriFromString(url);
-    return this;
+        return setUrl(Promoter.uriFromString(url));
     }
     public StreamCreator setName(final String name){
         this.name = name;
@@ -283,8 +282,7 @@ public class StreamCreator extends Creator<Stream>{
     }
 
     public StreamCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public StreamCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

@@ -16,6 +16,7 @@ package com.twilio.rest.ipmessaging.v2.service.user;
 
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -57,6 +58,9 @@ public class UserBindingReader extends Reader<UserBinding> {
     public UserBindingReader setBindingType(final List<UserBinding.BindingType> bindingType){
         this.bindingType = bindingType;
         return this;
+    }
+    public UserBindingReader setBindingType(final UserBinding.BindingType bindingType){
+        return setBindingType(Promoter.listOfOne(bindingType));
     }
     public UserBindingReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;

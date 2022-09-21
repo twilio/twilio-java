@@ -15,6 +15,7 @@
 package com.twilio.rest.notify.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -74,6 +75,9 @@ public class BindingCreator extends Creator<Binding>{
     public BindingCreator setTag(final List<String> tag){
         this.tag = tag;
         return this;
+    }
+    public BindingCreator setTag(final String tag){
+        return setTag(Promoter.listOfOne(tag));
     }
     public BindingCreator setNotificationProtocolVersion(final String notificationProtocolVersion){
         this.notificationProtocolVersion = notificationProtocolVersion;

@@ -49,8 +49,8 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
     }
 
     public DeactivationsFetcher setDate(final LocalDate date){
-    this.date = date;
-    return this;
+        this.date = date;
+        return this;
     }
 
     @Override

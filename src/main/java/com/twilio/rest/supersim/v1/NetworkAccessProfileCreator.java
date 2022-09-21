@@ -15,6 +15,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -56,6 +57,9 @@ public class NetworkAccessProfileCreator extends Creator<NetworkAccessProfile>{
     public NetworkAccessProfileCreator setNetworks(final List<String> networks){
         this.networks = networks;
         return this;
+    }
+    public NetworkAccessProfileCreator setNetworks(final String networks){
+        return setNetworks(Promoter.listOfOne(networks));
     }
 
     @Override

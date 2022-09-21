@@ -78,8 +78,7 @@ public class AssistantCreator extends Creator<Assistant>{
     }
 
     public AssistantCreator setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public AssistantCreator setCallbackEvents(final String callbackEvents){
         this.callbackEvents = callbackEvents;

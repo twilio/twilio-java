@@ -72,8 +72,7 @@ public class SmsCommandCreator extends Creator<SmsCommand>{
     }
 
     public SmsCommandCreator setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
 
     @Override

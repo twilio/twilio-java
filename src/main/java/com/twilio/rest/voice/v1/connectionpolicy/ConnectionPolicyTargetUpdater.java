@@ -66,8 +66,7 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
     }
 
     public ConnectionPolicyTargetUpdater setTarget(final String target){
-    this.target = Promoter.uriFromString(target);
-    return this;
+        return setTarget(Promoter.uriFromString(target));
     }
     public ConnectionPolicyTargetUpdater setPriority(final Integer priority){
         this.priority = priority;

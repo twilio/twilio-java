@@ -65,8 +65,7 @@ public class WorkspaceCreator extends Creator<Workspace>{
     }
 
     public WorkspaceCreator setEventCallbackUrl(final String eventCallbackUrl){
-    this.eventCallbackUrl = Promoter.uriFromString(eventCallbackUrl);
-    return this;
+        return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
     }
     public WorkspaceCreator setEventsFilter(final String eventsFilter){
         this.eventsFilter = eventsFilter;

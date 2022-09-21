@@ -70,8 +70,7 @@ public class FleetUpdater extends Updater<Fleet>{
     }
 
     public FleetUpdater setIpCommandsUrl(final String ipCommandsUrl){
-    this.ipCommandsUrl = Promoter.uriFromString(ipCommandsUrl);
-    return this;
+        return setIpCommandsUrl(Promoter.uriFromString(ipCommandsUrl));
     }
     public FleetUpdater setIpCommandsMethod(final HttpMethod ipCommandsMethod){
         this.ipCommandsMethod = ipCommandsMethod;
@@ -83,8 +82,7 @@ public class FleetUpdater extends Updater<Fleet>{
     }
 
     public FleetUpdater setSmsCommandsUrl(final String smsCommandsUrl){
-    this.smsCommandsUrl = Promoter.uriFromString(smsCommandsUrl);
-    return this;
+        return setSmsCommandsUrl(Promoter.uriFromString(smsCommandsUrl));
     }
     public FleetUpdater setSmsCommandsMethod(final HttpMethod smsCommandsMethod){
         this.smsCommandsMethod = smsCommandsMethod;

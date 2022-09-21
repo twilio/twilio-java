@@ -71,8 +71,7 @@ public class LocalReader extends Reader<Local> {
     }
 
     public LocalReader setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public LocalReader setOrigin(final String origin){
         this.origin = origin;

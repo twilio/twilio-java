@@ -15,6 +15,7 @@
 package com.twilio.rest.notify.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -123,6 +124,9 @@ public class NotificationCreator extends Creator<Notification>{
         this.segment = segment;
         return this;
     }
+    public NotificationCreator setSegment(final String segment){
+        return setSegment(Promoter.listOfOne(segment));
+    }
     public NotificationCreator setAlexa(final Map<String, Object> alexa){
         this.alexa = alexa;
         return this;
@@ -130,6 +134,9 @@ public class NotificationCreator extends Creator<Notification>{
     public NotificationCreator setToBinding(final List<String> toBinding){
         this.toBinding = toBinding;
         return this;
+    }
+    public NotificationCreator setToBinding(final String toBinding){
+        return setToBinding(Promoter.listOfOne(toBinding));
     }
     public NotificationCreator setDeliveryCallbackUrl(final String deliveryCallbackUrl){
         this.deliveryCallbackUrl = deliveryCallbackUrl;
@@ -139,9 +146,15 @@ public class NotificationCreator extends Creator<Notification>{
         this.identity = identity;
         return this;
     }
+    public NotificationCreator setIdentity(final String identity){
+        return setIdentity(Promoter.listOfOne(identity));
+    }
     public NotificationCreator setTag(final List<String> tag){
         this.tag = tag;
         return this;
+    }
+    public NotificationCreator setTag(final String tag){
+        return setTag(Promoter.listOfOne(tag));
     }
 
     @Override

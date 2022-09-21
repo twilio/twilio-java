@@ -54,24 +54,24 @@ public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumul
     }
 
     public WorkspaceCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
-    this.endDate = endDate;
-    return this;
+        this.endDate = endDate;
+        return this;
     }
     public WorkspaceCumulativeStatisticsFetcher setMinutes(final Integer minutes){
-    this.minutes = minutes;
-    return this;
+        this.minutes = minutes;
+        return this;
     }
     public WorkspaceCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate){
-    this.startDate = startDate;
-    return this;
+        this.startDate = startDate;
+        return this;
     }
     public WorkspaceCumulativeStatisticsFetcher setTaskChannel(final String taskChannel){
-    this.taskChannel = taskChannel;
-    return this;
+        this.taskChannel = taskChannel;
+        return this;
     }
     public WorkspaceCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime){
-    this.splitByWaitTime = splitByWaitTime;
-    return this;
+        this.splitByWaitTime = splitByWaitTime;
+        return this;
     }
 
     @Override

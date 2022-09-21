@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -55,6 +56,9 @@ public class RoleUpdater extends Updater<Role>{
     public RoleUpdater setPermission(final List<String> permission){
         this.permission = permission;
         return this;
+    }
+    public RoleUpdater setPermission(final String permission){
+        return setPermission(Promoter.listOfOne(permission));
     }
 
     @Override

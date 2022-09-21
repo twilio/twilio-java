@@ -81,8 +81,7 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
     }
 
     public FeedbackSummaryCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public FeedbackSummaryCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;

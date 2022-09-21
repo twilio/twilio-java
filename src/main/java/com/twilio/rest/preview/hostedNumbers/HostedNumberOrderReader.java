@@ -64,8 +64,7 @@ public class HostedNumberOrderReader extends Reader<HostedNumberOrder> {
     }
 
     public HostedNumberOrderReader setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public HostedNumberOrderReader setIncomingPhoneNumberSid(final String incomingPhoneNumberSid){
         this.incomingPhoneNumberSid = incomingPhoneNumberSid;

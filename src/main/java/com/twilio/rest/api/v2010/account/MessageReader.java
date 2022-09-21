@@ -66,8 +66,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     public MessageReader setTo(final String to){
-    this.to = Promoter.phoneNumberFromString(to);
-    return this;
+        return setTo(Promoter.phoneNumberFromString(to));
     }
     public MessageReader setFrom(final com.twilio.type.PhoneNumber from){
         this.from = from;
@@ -75,8 +74,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     public MessageReader setFrom(final String from){
-    this.from = Promoter.phoneNumberFromString(from);
-    return this;
+        return setFrom(Promoter.phoneNumberFromString(from));
     }
     public MessageReader setDateSent(final ZonedDateTime dateSent){
         this.dateSent = dateSent;

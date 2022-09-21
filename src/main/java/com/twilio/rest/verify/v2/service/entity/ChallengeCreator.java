@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -78,6 +79,9 @@ public class ChallengeCreator extends Creator<Challenge>{
     public ChallengeCreator setDetailsFields(final List<Map<String, Object>> detailsFields){
         this.detailsFields = detailsFields;
         return this;
+    }
+    public ChallengeCreator setDetailsFields(final Map<String, Object> detailsFields){
+        return setDetailsFields(Promoter.listOfOne(detailsFields));
     }
     public ChallengeCreator setHiddenDetails(final Map<String, Object> hiddenDetails){
         this.hiddenDetails = hiddenDetails;

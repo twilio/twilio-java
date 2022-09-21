@@ -47,8 +47,8 @@ public class SettingFetcher extends Fetcher<Setting> {
     }
 
     public SettingFetcher setSubaccountSid(final String subaccountSid){
-    this.subaccountSid = subaccountSid;
-    return this;
+        this.subaccountSid = subaccountSid;
+        return this;
     }
 
     @Override

@@ -71,8 +71,7 @@ public class WebhookCreator extends Creator<Webhook>{
     }
 
     public WebhookCreator setWebhookUrl(final String webhookUrl){
-    this.webhookUrl = Promoter.uriFromString(webhookUrl);
-    return this;
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
     public WebhookCreator setWebhookMethod(final String webhookMethod){
         this.webhookMethod = webhookMethod;

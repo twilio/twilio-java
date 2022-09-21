@@ -73,8 +73,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public SimUpdater setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;

@@ -116,8 +116,7 @@ public class TollFreeReader extends Reader<TollFree> {
     }
 
     public TollFreeReader setNearNumber(final String nearNumber){
-    this.nearNumber = Promoter.phoneNumberFromString(nearNumber);
-    return this;
+        return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
     public TollFreeReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;

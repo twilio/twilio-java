@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -62,6 +63,9 @@ public class WebhookUpdater extends Updater<Webhook>{
     public WebhookUpdater setEventTypes(final List<String> eventTypes){
         this.eventTypes = eventTypes;
         return this;
+    }
+    public WebhookUpdater setEventTypes(final String eventTypes){
+        return setEventTypes(Promoter.listOfOne(eventTypes));
     }
     public WebhookUpdater setWebhookUrl(final String webhookUrl){
         this.webhookUrl = webhookUrl;

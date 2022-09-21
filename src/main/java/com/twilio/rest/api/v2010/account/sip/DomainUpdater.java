@@ -81,8 +81,7 @@ public class DomainUpdater extends Updater<Domain>{
     }
 
     public DomainUpdater setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public DomainUpdater setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -98,8 +97,7 @@ public class DomainUpdater extends Updater<Domain>{
     }
 
     public DomainUpdater setVoiceStatusCallbackUrl(final String voiceStatusCallbackUrl){
-    this.voiceStatusCallbackUrl = Promoter.uriFromString(voiceStatusCallbackUrl);
-    return this;
+        return setVoiceStatusCallbackUrl(Promoter.uriFromString(voiceStatusCallbackUrl));
     }
     public DomainUpdater setVoiceUrl(final URI voiceUrl){
         this.voiceUrl = voiceUrl;
@@ -107,8 +105,7 @@ public class DomainUpdater extends Updater<Domain>{
     }
 
     public DomainUpdater setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public DomainUpdater setSipRegistration(final Boolean sipRegistration){
         this.sipRegistration = sipRegistration;

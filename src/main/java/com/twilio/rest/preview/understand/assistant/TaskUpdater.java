@@ -75,8 +75,7 @@ public class TaskUpdater extends Updater<Task>{
     }
 
     public TaskUpdater setActionsUrl(final String actionsUrl){
-    this.actionsUrl = Promoter.uriFromString(actionsUrl);
-    return this;
+        return setActionsUrl(Promoter.uriFromString(actionsUrl));
     }
 
     @Override

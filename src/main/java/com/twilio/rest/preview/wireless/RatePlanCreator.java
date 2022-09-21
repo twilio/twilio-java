@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.wireless;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -96,6 +97,9 @@ public class RatePlanCreator extends Creator<RatePlan>{
     public RatePlanCreator setInternationalRoaming(final List<String> internationalRoaming){
         this.internationalRoaming = internationalRoaming;
         return this;
+    }
+    public RatePlanCreator setInternationalRoaming(final String internationalRoaming){
+        return setInternationalRoaming(Promoter.listOfOne(internationalRoaming));
     }
 
     @Override

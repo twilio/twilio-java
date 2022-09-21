@@ -120,8 +120,7 @@ public class MessageCreator extends Creator<Message>{
     }
 
     public MessageCreator setTo(final String to){
-    this.to = Promoter.phoneNumberFromString(to);
-    return this;
+        return setTo(Promoter.phoneNumberFromString(to));
     }
     public MessageCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
@@ -129,8 +128,7 @@ public class MessageCreator extends Creator<Message>{
     }
 
     public MessageCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public MessageCreator setApplicationSid(final String applicationSid){
         this.applicationSid = applicationSid;
@@ -172,6 +170,9 @@ public class MessageCreator extends Creator<Message>{
         this.persistentAction = persistentAction;
         return this;
     }
+    public MessageCreator setPersistentAction(final String persistentAction){
+        return setPersistentAction(Promoter.listOfOne(persistentAction));
+    }
     public MessageCreator setScheduleType(final Message.ScheduleType scheduleType){
         this.scheduleType = scheduleType;
         return this;
@@ -190,8 +191,7 @@ public class MessageCreator extends Creator<Message>{
     }
 
     public MessageCreator setFrom(final String from){
-    this.from = Promoter.phoneNumberFromString(from);
-    return this;
+        return setFrom(Promoter.phoneNumberFromString(from));
     }
     public MessageCreator setMessagingServiceSid(final String messagingServiceSid){
         this.messagingServiceSid = messagingServiceSid;
@@ -205,13 +205,12 @@ public class MessageCreator extends Creator<Message>{
         this.mediaUrl = mediaUrl;
         return this;
     }
+    public MessageCreator setMediaUrl(final URI mediaUrl){
+        return setMediaUrl(Promoter.listOfOne(mediaUrl));
+    }
 
     public MessageCreator setMediaUrl(final String mediaUrl){
         return setMediaUrl(Promoter.uriFromString(mediaUrl));
-    }
-
-    public MessageCreator setMediaUrl(final URI mediaUrl){
-        return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
     @Override

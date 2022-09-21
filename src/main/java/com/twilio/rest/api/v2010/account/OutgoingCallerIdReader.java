@@ -61,8 +61,7 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
     }
 
     public OutgoingCallerIdReader setPhoneNumber(final String phoneNumber){
-    this.phoneNumber = Promoter.phoneNumberFromString(phoneNumber);
-    return this;
+        return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
     public OutgoingCallerIdReader setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

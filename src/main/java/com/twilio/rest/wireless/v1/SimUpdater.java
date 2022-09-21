@@ -81,8 +81,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setCallbackUrl(final String callbackUrl){
-    this.callbackUrl = Promoter.uriFromString(callbackUrl);
-    return this;
+        return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
     public SimUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
@@ -106,8 +105,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setCommandsCallbackUrl(final String commandsCallbackUrl){
-    this.commandsCallbackUrl = Promoter.uriFromString(commandsCallbackUrl);
-    return this;
+        return setCommandsCallbackUrl(Promoter.uriFromString(commandsCallbackUrl));
     }
     public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
         this.smsFallbackMethod = smsFallbackMethod;
@@ -119,8 +117,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public SimUpdater setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -132,8 +129,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -145,8 +141,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public SimUpdater setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -158,8 +153,7 @@ public class SimUpdater extends Updater<Sim>{
     }
 
     public SimUpdater setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public SimUpdater setResetStatus(final Sim.ResetStatus resetStatus){
         this.resetStatus = resetStatus;

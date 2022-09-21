@@ -62,8 +62,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration>{
     }
 
     public ExportConfigurationUpdater setWebhookUrl(final String webhookUrl){
-    this.webhookUrl = Promoter.uriFromString(webhookUrl);
-    return this;
+        return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
     public ExportConfigurationUpdater setWebhookMethod(final String webhookMethod){
         this.webhookMethod = webhookMethod;

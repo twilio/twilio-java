@@ -16,6 +16,7 @@ package com.twilio.rest.insights.v1;
 
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -59,9 +60,15 @@ public class RoomReader extends Reader<Room> {
         this.roomType = roomType;
         return this;
     }
+    public RoomReader setRoomType(final Room.RoomType roomType){
+        return setRoomType(Promoter.listOfOne(roomType));
+    }
     public RoomReader setCodec(final List<Room.Codec> codec){
         this.codec = codec;
         return this;
+    }
+    public RoomReader setCodec(final Room.Codec codec){
+        return setCodec(Promoter.listOfOne(codec));
     }
     public RoomReader setRoomName(final String roomName){
         this.roomName = roomName;

@@ -77,8 +77,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setVoiceUrl(final String voiceUrl){
-    this.voiceUrl = Promoter.uriFromString(voiceUrl);
-    return this;
+        return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
     public ApplicationCreator setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
@@ -90,8 +89,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
-    this.voiceFallbackUrl = Promoter.uriFromString(voiceFallbackUrl);
-    return this;
+        return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
     public ApplicationCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
         this.voiceFallbackMethod = voiceFallbackMethod;
@@ -103,8 +101,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setStatusCallback(final String statusCallback){
-    this.statusCallback = Promoter.uriFromString(statusCallback);
-    return this;
+        return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
     public ApplicationCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
@@ -120,8 +117,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setSmsUrl(final String smsUrl){
-    this.smsUrl = Promoter.uriFromString(smsUrl);
-    return this;
+        return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
     public ApplicationCreator setSmsMethod(final HttpMethod smsMethod){
         this.smsMethod = smsMethod;
@@ -133,8 +129,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setSmsFallbackUrl(final String smsFallbackUrl){
-    this.smsFallbackUrl = Promoter.uriFromString(smsFallbackUrl);
-    return this;
+        return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
     public ApplicationCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
         this.smsFallbackMethod = smsFallbackMethod;
@@ -146,8 +141,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setSmsStatusCallback(final String smsStatusCallback){
-    this.smsStatusCallback = Promoter.uriFromString(smsStatusCallback);
-    return this;
+        return setSmsStatusCallback(Promoter.uriFromString(smsStatusCallback));
     }
     public ApplicationCreator setMessageStatusCallback(final URI messageStatusCallback){
         this.messageStatusCallback = messageStatusCallback;
@@ -155,8 +149,7 @@ public class ApplicationCreator extends Creator<Application>{
     }
 
     public ApplicationCreator setMessageStatusCallback(final String messageStatusCallback){
-    this.messageStatusCallback = Promoter.uriFromString(messageStatusCallback);
-    return this;
+        return setMessageStatusCallback(Promoter.uriFromString(messageStatusCallback));
     }
     public ApplicationCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;

@@ -73,8 +73,7 @@ public class CompositionSettingsCreator extends Creator<CompositionSettings>{
     }
 
     public CompositionSettingsCreator setAwsS3Url(final String awsS3Url){
-    this.awsS3Url = Promoter.uriFromString(awsS3Url);
-    return this;
+        return setAwsS3Url(Promoter.uriFromString(awsS3Url));
     }
     public CompositionSettingsCreator setAwsStorageEnabled(final Boolean awsStorageEnabled){
         this.awsStorageEnabled = awsStorageEnabled;

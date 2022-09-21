@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -64,6 +65,9 @@ public class WebhookCreator extends Creator<Webhook>{
     public WebhookCreator setEventTypes(final List<String> eventTypes){
         this.eventTypes = eventTypes;
         return this;
+    }
+    public WebhookCreator setEventTypes(final String eventTypes){
+        return setEventTypes(Promoter.listOfOne(eventTypes));
     }
     public WebhookCreator setWebhookUrl(final String webhookUrl){
         this.webhookUrl = webhookUrl;

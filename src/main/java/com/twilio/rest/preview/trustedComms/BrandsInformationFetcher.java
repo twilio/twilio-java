@@ -47,8 +47,8 @@ public class BrandsInformationFetcher extends Fetcher<BrandsInformation> {
     }
 
     public BrandsInformationFetcher setIfNoneMatch(final String ifNoneMatch){
-    this.ifNoneMatch = ifNoneMatch;
-    return this;
+        this.ifNoneMatch = ifNoneMatch;
+        return this;
     }
 
     @Override

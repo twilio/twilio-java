@@ -2,6 +2,16 @@
 
 _`MAJOR` version bumps will have upgrade notes posted here._
 
+[2022-09-21] 8.x.x to 9.x.x
+-----------------------------
+### Overview
+
+##### Twilio Java Helper Library’s major version 9.0.0 is now available. We ensured that you can upgrade to Java helper Library 9.0.0 version without any breaking changes
+
+Behind the scenes Java Helper is now auto-generated via OpenAPI with this release. This  enables us to rapidly add new features and enhance consistency across versions and languages.
+
+To learn more about the Java Helper Library, check out [our docs](https://www.twilio.com/docs/libraries/java).
+
 [2020-09-28] 7.x.x to 8.x.x
 -----------------------------
 

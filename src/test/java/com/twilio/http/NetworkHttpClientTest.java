@@ -1,63 +1,56 @@
 package com.twilio.http;
 
 import com.twilio.exception.ApiConnectionException;
-import mockit.Mocked;
-import mockit.NonStrictExpectations;
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.*;
 
 public class NetworkHttpClientTest {
 
     private NetworkHttpClient client;
 
-    @Mocked
+    @Mock
+    private NetworkHttpClient mockedNetworkHttpClient;
+
+    @Mock
     private Request mockRequest;
 
-    @Mocked
-    private URL mockUrl;
-
-    @Mocked
+    @Spy
     private HttpClientBuilder mockBuilder;
 
-    @Mocked
+    @Mock
     private CloseableHttpClient mockClient;
 
-    @Mocked
+    @Mock
     private CloseableHttpResponse mockResponse;
 
-    @Mocked
+    @Mock
     private StatusLine mockStatusLine;
 
-    @Mocked
+    @Mock
     private HttpEntity mockEntity;
 
     @Before
     public void setUp() {
-        new NonStrictExpectations() {{
-            mockBuilder.setDefaultHeaders((Collection<Header>) any);
-            result = mockBuilder;
 
-            mockBuilder.build();
-            result = mockClient;
-        }};
-
+        MockitoAnnotations.initMocks(this);
+        doReturn(mockClient).when(mockBuilder).build();
         client = new NetworkHttpClient(mockBuilder);
     }
 
@@ -69,42 +62,18 @@ public class NetworkHttpClientTest {
     ) throws IOException {
         final InputStream stream = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
-        new NonStrictExpectations() {{
-            mockRequest.getMethod();
-            result = method;
+        when(mockRequest.getMethod()).thenReturn(method);
+        when(mockRequest.constructURL()).thenReturn(new URL("http://foo.com/hello"));
+        when(mockRequest.requiresAuthentication()).thenReturn(requiresAuthentication);
+        when(mockRequest.getAuthString()).thenReturn("foo:bar");
+        when(mockClient.execute(any())).thenReturn(mockResponse);
+        when(mockEntity.isRepeatable()).thenReturn(true);
+        when(mockEntity.getContentLength()).thenReturn(1L);
+        when(mockEntity.getContent()).thenReturn(stream);
+        when(mockResponse.getStatusLine()).thenReturn(mockStatusLine);
+        when(mockResponse.getEntity()).thenReturn(mockEntity);
+        when(mockStatusLine.getStatusCode()).thenReturn(statusCode);
 
-            mockRequest.constructURL();
-            result = mockUrl;
-
-            mockRequest.requiresAuthentication();
-            result = requiresAuthentication;
-
-            mockRequest.getAuthString();
-            result = "foo:bar";
-
-            mockRequest.getPostParams();
-
-            mockClient.execute((HttpUriRequest) any);
-            result = mockResponse;
-
-            mockResponse.getEntity();
-            result = mockEntity;
-
-            mockEntity.isRepeatable();
-            result = true;
-
-            mockEntity.getContentLength();
-            result = 1;
-
-            mockEntity.getContent();
-            result = stream;
-
-            mockResponse.getStatusLine();
-            result = mockStatusLine;
-
-            mockStatusLine.getStatusCode();
-            result = statusCode;
-        }};
     }
 
     @Test
@@ -119,29 +88,14 @@ public class NetworkHttpClientTest {
 
     @Test(expected = ApiConnectionException.class)
     public void testMakeRequestIOException() throws IOException {
-        new NonStrictExpectations() {{
-            mockBuilder.setDefaultHeaders((Collection<Header>) any);
-            result = mockBuilder;
 
-            mockBuilder.build();
-            result = mockClient;
-
-            mockRequest.getMethod();
-            result = HttpMethod.GET;
-
-            mockRequest.constructURL();
-            result = mockUrl;
-
-            mockRequest.requiresAuthentication();
-            result = true;
-
-            mockRequest.getAuthString();
-            result = "foo:bar";
-
-            mockClient.execute((HttpUriRequest) any);
-            result = new ApiConnectionException("foo");
-        }};
-
+        when(mockBuilder.build()).thenReturn(mockClient);
+        when(mockRequest.getMethod()).thenReturn(HttpMethod.GET);
+        when(mockRequest.constructURL()).thenReturn(new URL("http://foo.com/hello"));
+        when(mockRequest.requiresAuthentication()).thenReturn(true);
+        when(mockRequest.getAuthString()).thenReturn("foo:bar");
+        when(mockClient.execute(any())).thenThrow(new ApiConnectionException("foo"));
+        client = new NetworkHttpClient(mockBuilder);
         client.makeRequest(mockRequest);
         fail("ApiConnectionException was expected");
     }
@@ -158,41 +112,31 @@ public class NetworkHttpClientTest {
 
     @Test
     public void testReliableRequest() {
-        Request request = new Request(HttpMethod.GET, "/uri");
+        Request request = new Request(HttpMethod.GET, "http://foo.com/hello");
 
-        new NonStrictExpectations(client) {{
-            client.makeRequest((Request) any);
-            result = new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT);
-        }};
-
-        client.reliableRequest(request);
-        assertNotNull(client.getLastRequest());
-        assertNotNull(client.getLastResponse());
+        NetworkHttpClient clientSpy = spy(client);
+        doReturn(new Response("", TwilioRestClient.HTTP_STATUS_CODE_NO_CONTENT)).when(clientSpy).makeRequest(request);
+        clientSpy.reliableRequest(request);
+        assertNotNull(clientSpy.getLastRequest());
+        assertNotNull(clientSpy.getLastResponse());
     }
 
     @Test
     public void testReliableRequestWithRetries() {
-        Request request = new Request(HttpMethod.GET, "/uri");
-
-        new NonStrictExpectations(client) {{
-            client.makeRequest((Request) any);
-            result = null;
-            times = 3;
-        }};
-
-        client.reliableRequest(request);
+        Request request = new Request(HttpMethod.GET, "http://foo.com/hello");
+        NetworkHttpClient clientSpy = spy(client);
+        doReturn(null).when(clientSpy).makeRequest(request);
+        clientSpy.reliableRequest(request);
+        assertNull(clientSpy.getLastResponse());
     }
 
     @Test
     public void testReliableRequestWithRetries100() {
         Request request = new Request(HttpMethod.GET, "/uri");
 
-        new NonStrictExpectations(client) {{
-            client.makeRequest((Request) any);
-            result = new Response("", 500);
-        }};
+        when(mockedNetworkHttpClient.makeRequest(request)).thenReturn(new Response("", 500));
 
-        client.reliableRequest(request);
+        mockedNetworkHttpClient.reliableRequest(request);
     }
 
     @Test

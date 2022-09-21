@@ -39,14 +39,14 @@ Use the following dependency in your project to grab via Maven:
        <dependency>
           <groupId>com.twilio.sdk</groupId>
           <artifactId>twilio</artifactId>
-          <version>8.X.X</version>
+          <version>9.X.X</version>
           <scope>compile</scope>
        </dependency>
 ```
 
 or Gradle:
 ```groovy
-implementation "com.twilio.sdk:twilio:8.X.X"
+implementation "com.twilio.sdk:twilio:9.X.X"
 ```
 
 If you want to compile it yourself, here's how:
@@ -62,24 +62,6 @@ If you want to build your own .jar, execute the following from within the cloned
 If you run into trouble with local tests, use:
 
     $ mvn package -Dmaven.test.skip=true
-    
-## Installing release candidates
-
-To use twilio-java release candidates use the following dependency in your project to grab via Maven:
-
-```
-       <dependency>
-          <groupId>com.twilio.sdk</groupId>
-          <artifactId>twilio</artifactId>
-          <version>9.X.X-rc.x</version>
-          <scope>compile</scope>
-       </dependency>
-```
-
-or Gradle:
-```groovy
-implementation "com.twilio.sdk:twilio:9.X.X-rc.x"
-```
 
 ## Quickstart
 

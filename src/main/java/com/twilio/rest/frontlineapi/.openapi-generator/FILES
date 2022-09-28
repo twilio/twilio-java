@@ -1,4 +1,0 @@
-.openapi-generator-ignore
-v1/User.java
-v1/UserFetcher.java
-v1/UserUpdater.java

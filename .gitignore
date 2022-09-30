@@ -12,3 +12,4 @@ release.properties
 .project
 .settings/
 settings.json
+**/.openapi-generator*

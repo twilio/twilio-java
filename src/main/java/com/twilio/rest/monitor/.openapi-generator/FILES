@@ -1,7 +1,0 @@
-.openapi-generator-ignore
-v1/Alert.java
-v1/AlertFetcher.java
-v1/AlertReader.java
-v1/Event.java
-v1/EventFetcher.java
-v1/EventReader.java

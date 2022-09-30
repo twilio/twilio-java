@@ -1,9 +1,0 @@
-.openapi-generator-ignore
-v1/App.java
-v1/AppDeleter.java
-v1/AppFetcher.java
-v1/AppReader.java
-v1/Device.java
-v1/DeviceFetcher.java
-v1/DeviceReader.java
-v1/DeviceUpdater.java

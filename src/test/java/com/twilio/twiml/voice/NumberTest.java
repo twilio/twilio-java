@@ -29,11 +29,18 @@ public class NumberTest {
             .statusCallback(URI.create("https://example.com"))
             .statusCallbackMethod(HttpMethod.GET)
             .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .machineDetection("machine_detection")
+            .amdStatusCallbackMethod(HttpMethod.GET)
+            .amdStatusCallback("amd_status_callback")
+            .machineDetectionTimeout(1)
+            .machineDetectionSpeechThreshold(1)
+            .machineDetectionSpeechEndThreshold(1)
+            .machineDetectionSilenceTimeout(1)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>",
+            "<Number amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>",
             elem.toXml()
         );
     }
@@ -48,10 +55,17 @@ public class NumberTest {
             .statusCallback(URI.create("https://example.com"))
             .statusCallbackMethod(HttpMethod.GET)
             .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+            .machineDetection("machine_detection")
+            .amdStatusCallbackMethod(HttpMethod.GET)
+            .amdStatusCallback("amd_status_callback")
+            .machineDetectionTimeout(1)
+            .machineDetectionSpeechThreshold(1)
+            .machineDetectionSpeechEndThreshold(1)
+            .machineDetectionSilenceTimeout(1)
             .build();
 
         Assert.assertEquals(
-            Number.Builder.fromXml("<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>").build().toXml(),
+            Number.Builder.fromXml("<Number amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>").build().toXml(),
             elem.toXml()
         );
     }

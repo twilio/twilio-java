@@ -38,7 +38,7 @@ import java.net.URI;
     *
     * This is the public Twilio REST API.
     *
-    * API version: 1.35.0
+    * API version: 1.36.0
     * Contact: support@twilio.com
 */
 
@@ -87,6 +87,13 @@ public class ParticipantCreator extends Creator<Participant>{
     private String callReason;
     private String recordingTrack;
     private Integer timeLimit;
+    private String machineDetection;
+    private Integer machineDetectionTimeout;
+    private Integer machineDetectionSpeechThreshold;
+    private Integer machineDetectionSpeechEndThreshold;
+    private Integer machineDetectionSilenceTimeout;
+    private URI amdStatusCallback;
+    private HttpMethod amdStatusCallbackMethod;
 
     public ParticipantCreator(final String conferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
         this.conferenceSid = conferenceSid;
@@ -288,6 +295,38 @@ public class ParticipantCreator extends Creator<Participant>{
         this.timeLimit = timeLimit;
         return this;
     }
+    public ParticipantCreator setMachineDetection(final String machineDetection){
+        this.machineDetection = machineDetection;
+        return this;
+    }
+    public ParticipantCreator setMachineDetectionTimeout(final Integer machineDetectionTimeout){
+        this.machineDetectionTimeout = machineDetectionTimeout;
+        return this;
+    }
+    public ParticipantCreator setMachineDetectionSpeechThreshold(final Integer machineDetectionSpeechThreshold){
+        this.machineDetectionSpeechThreshold = machineDetectionSpeechThreshold;
+        return this;
+    }
+    public ParticipantCreator setMachineDetectionSpeechEndThreshold(final Integer machineDetectionSpeechEndThreshold){
+        this.machineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold;
+        return this;
+    }
+    public ParticipantCreator setMachineDetectionSilenceTimeout(final Integer machineDetectionSilenceTimeout){
+        this.machineDetectionSilenceTimeout = machineDetectionSilenceTimeout;
+        return this;
+    }
+    public ParticipantCreator setAmdStatusCallback(final URI amdStatusCallback){
+        this.amdStatusCallback = amdStatusCallback;
+        return this;
+    }
+
+    public ParticipantCreator setAmdStatusCallback(final String amdStatusCallback){
+        return setAmdStatusCallback(Promoter.uriFromString(amdStatusCallback));
+    }
+    public ParticipantCreator setAmdStatusCallbackMethod(final HttpMethod amdStatusCallbackMethod){
+        this.amdStatusCallbackMethod = amdStatusCallbackMethod;
+        return this;
+    }
 
     @Override
     public Participant create(final TwilioRestClient client){
@@ -481,6 +520,34 @@ public class ParticipantCreator extends Creator<Participant>{
         }
         if (timeLimit != null) {
             request.addPostParam("TimeLimit", timeLimit.toString());
+    
+        }
+        if (machineDetection != null) {
+            request.addPostParam("MachineDetection", machineDetection);
+    
+        }
+        if (machineDetectionTimeout != null) {
+            request.addPostParam("MachineDetectionTimeout", machineDetectionTimeout.toString());
+    
+        }
+        if (machineDetectionSpeechThreshold != null) {
+            request.addPostParam("MachineDetectionSpeechThreshold", machineDetectionSpeechThreshold.toString());
+    
+        }
+        if (machineDetectionSpeechEndThreshold != null) {
+            request.addPostParam("MachineDetectionSpeechEndThreshold", machineDetectionSpeechEndThreshold.toString());
+    
+        }
+        if (machineDetectionSilenceTimeout != null) {
+            request.addPostParam("MachineDetectionSilenceTimeout", machineDetectionSilenceTimeout.toString());
+    
+        }
+        if (amdStatusCallback != null) {
+            request.addPostParam("AmdStatusCallback", amdStatusCallback.toString());
+    
+        }
+        if (amdStatusCallbackMethod != null) {
+            request.addPostParam("AmdStatusCallbackMethod", amdStatusCallbackMethod.toString());
     
         }
     }

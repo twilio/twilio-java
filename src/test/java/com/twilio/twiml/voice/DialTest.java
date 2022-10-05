@@ -121,6 +121,13 @@ public class DialTest {
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(HttpMethod.GET)
                     .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    .machineDetection("machine_detection")
+                    .amdStatusCallbackMethod(HttpMethod.GET)
+                    .amdStatusCallback("amd_status_callback")
+                    .machineDetectionTimeout(1)
+                    .machineDetectionSpeechThreshold(1)
+                    .machineDetectionSpeechEndThreshold(1)
+                    .machineDetectionSilenceTimeout(1)
                     .build());
 
         builder.queue(new Queue.Builder("name")
@@ -140,6 +147,13 @@ public class DialTest {
                     .statusCallbackEvents(Promoter.listOfOne(Sip.Event.INITIATED))
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(HttpMethod.GET)
+                    .machineDetection("machine_detection")
+                    .amdStatusCallbackMethod(HttpMethod.GET)
+                    .amdStatusCallback("amd_status_callback")
+                    .machineDetectionTimeout(1)
+                    .machineDetectionSpeechThreshold(1)
+                    .machineDetectionSpeechEndThreshold(1)
+                    .machineDetectionSilenceTimeout(1)
                     .build());
 
         Dial elem = builder.build();
@@ -149,10 +163,10 @@ public class DialTest {
             "<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
                 "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
-                "<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
+                "<Number amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
-                "<Sip method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
+                "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
             "</Dial>",
             elem.toXml()
         );
@@ -307,6 +321,13 @@ public class DialTest {
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(HttpMethod.GET)
                     .byoc("BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+                    .machineDetection("machine_detection")
+                    .amdStatusCallbackMethod(HttpMethod.GET)
+                    .amdStatusCallback("amd_status_callback")
+                    .machineDetectionTimeout(1)
+                    .machineDetectionSpeechThreshold(1)
+                    .machineDetectionSpeechEndThreshold(1)
+                    .machineDetectionSilenceTimeout(1)
                     .build());
 
         builder.queue(new Queue.Builder("name")
@@ -326,6 +347,13 @@ public class DialTest {
                     .statusCallbackEvents(Promoter.listOfOne(Sip.Event.INITIATED))
                     .statusCallback(URI.create("https://example.com"))
                     .statusCallbackMethod(HttpMethod.GET)
+                    .machineDetection("machine_detection")
+                    .amdStatusCallbackMethod(HttpMethod.GET)
+                    .amdStatusCallback("amd_status_callback")
+                    .machineDetectionTimeout(1)
+                    .machineDetectionSpeechThreshold(1)
+                    .machineDetectionSpeechEndThreshold(1)
+                    .machineDetectionSilenceTimeout(1)
                     .build());
 
         final Dial elem = builder.build();
@@ -334,10 +362,10 @@ public class DialTest {
             Dial.Builder.fromXml("<Dial>" +
                 "<Client method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">identity</Client>" +
                 "<Conference beep=\"true\" coach=\"CAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" endConferenceOnExit=\"true\" eventCallbackUrl=\"https://example.com\" jitterBufferSize=\"large\" maxParticipants=\"1\" muted=\"true\" participantLabel=\"participant_label\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" region=\"us1\" startConferenceOnEnter=\"true\" statusCallback=\"https://example.com\" statusCallbackEvent=\"start\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" waitMethod=\"GET\" waitUrl=\"https://example.com\">name</Conference>" +
-                "<Number byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
+                "<Number amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" byoc=\"BYXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" sendDigits=\"send_digits\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">+15017122661</Number>" +
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
-                "<Sip method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
+                "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
             "</Dial>").build().toXml(),
             elem.toXml()
         );

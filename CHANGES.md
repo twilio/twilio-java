@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2022-10-05] Version 9.0.1
+--------------------------
+**Library - Miscellaneous**
+- [PR #712](https://github.com/twilio/twilio-java/pull/712): ignore openapi generation relics. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Docs**
+- [PR #710](https://github.com/twilio/twilio-java/pull/710): updating contribution docs. Thanks to [@kridai](https://github.com/kridai)!
+
+**Api**
+- Added `virtual-agent` to `usage_record` API.
+- Add AMD attributes to participant create request
+
+**Twiml**
+- Add AMD attributes to `Number` and `Sip`
+
+
 [2022-09-21] Version 9.0.0
 --------------------------
 **Note:** This release contains breaking changes, check our [upgrade guide](./UPGRADE.md#2022-09-21-8xx-to-9xx) for detailed migration notes.

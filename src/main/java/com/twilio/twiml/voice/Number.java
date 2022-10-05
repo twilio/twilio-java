@@ -50,6 +50,13 @@ public class Number extends TwiML {
     private final URI statusCallback;
     private final HttpMethod statusCallbackMethod;
     private final String byoc;
+    private final String machineDetection;
+    private final HttpMethod amdStatusCallbackMethod;
+    private final String amdStatusCallback;
+    private final Integer machineDetectionTimeout;
+    private final Integer machineDetectionSpeechThreshold;
+    private final Integer machineDetectionSpeechEndThreshold;
+    private final Integer machineDetectionSilenceTimeout;
     private final com.twilio.type.PhoneNumber phoneNumber;
 
     /**
@@ -71,6 +78,13 @@ public class Number extends TwiML {
         this.statusCallback = b.statusCallback;
         this.statusCallbackMethod = b.statusCallbackMethod;
         this.byoc = b.byoc;
+        this.machineDetection = b.machineDetection;
+        this.amdStatusCallbackMethod = b.amdStatusCallbackMethod;
+        this.amdStatusCallback = b.amdStatusCallback;
+        this.machineDetectionTimeout = b.machineDetectionTimeout;
+        this.machineDetectionSpeechThreshold = b.machineDetectionSpeechThreshold;
+        this.machineDetectionSpeechEndThreshold = b.machineDetectionSpeechEndThreshold;
+        this.machineDetectionSilenceTimeout = b.machineDetectionSilenceTimeout;
         this.phoneNumber = b.phoneNumber;
     }
 
@@ -112,6 +126,27 @@ public class Number extends TwiML {
         }
         if (this.getByoc() != null) {
             attrs.put("byoc", this.getByoc());
+        }
+        if (this.getMachineDetection() != null) {
+            attrs.put("machineDetection", this.getMachineDetection());
+        }
+        if (this.getAmdStatusCallbackMethod() != null) {
+            attrs.put("amdStatusCallbackMethod", this.getAmdStatusCallbackMethod().toString());
+        }
+        if (this.getAmdStatusCallback() != null) {
+            attrs.put("amdStatusCallback", this.getAmdStatusCallback());
+        }
+        if (this.getMachineDetectionTimeout() != null) {
+            attrs.put("machineDetectionTimeout", this.getMachineDetectionTimeout().toString());
+        }
+        if (this.getMachineDetectionSpeechThreshold() != null) {
+            attrs.put("machineDetectionSpeechThreshold", this.getMachineDetectionSpeechThreshold().toString());
+        }
+        if (this.getMachineDetectionSpeechEndThreshold() != null) {
+            attrs.put("machineDetectionSpeechEndThreshold", this.getMachineDetectionSpeechEndThreshold().toString());
+        }
+        if (this.getMachineDetectionSilenceTimeout() != null) {
+            attrs.put("machineDetectionSilenceTimeout", this.getMachineDetectionSilenceTimeout().toString());
         }
 
         return attrs;
@@ -193,6 +228,72 @@ public class Number extends TwiML {
     }
 
     /**
+     * Enable machine detection or end of greeting detection
+     *
+     * @return Enable machine detection or end of greeting detection
+     */
+    public String getMachineDetection() {
+        return machineDetection;
+    }
+
+    /**
+     * HTTP Method to use with amd_status_callback
+     *
+     * @return HTTP Method to use with amd_status_callback
+     */
+    public HttpMethod getAmdStatusCallbackMethod() {
+        return amdStatusCallbackMethod;
+    }
+
+    /**
+     * The URL we should call to send amd status information to your application
+     *
+     * @return The URL we should call to send amd status information to your
+     *         application
+     */
+    public String getAmdStatusCallback() {
+        return amdStatusCallback;
+    }
+
+    /**
+     * Number of seconds to wait for machine detection
+     *
+     * @return Number of seconds to wait for machine detection
+     */
+    public Integer getMachineDetectionTimeout() {
+        return machineDetectionTimeout;
+    }
+
+    /**
+     * Number of milliseconds for measuring stick for the length of the speech
+     * activity
+     *
+     * @return Number of milliseconds for measuring stick for the length of the
+     *         speech activity
+     */
+    public Integer getMachineDetectionSpeechThreshold() {
+        return machineDetectionSpeechThreshold;
+    }
+
+    /**
+     * Number of milliseconds of silence after speech activity
+     *
+     * @return Number of milliseconds of silence after speech activity
+     */
+    public Integer getMachineDetectionSpeechEndThreshold() {
+        return machineDetectionSpeechEndThreshold;
+    }
+
+    /**
+     * Number of milliseconds of initial silence
+     *
+     * @return Number of milliseconds of initial silence
+     */
+    public Integer getMachineDetectionSilenceTimeout() {
+        return machineDetectionSilenceTimeout;
+    }
+
+    /**
      * Phone Number to dial
      *
      * @return Phone Number to dial
@@ -226,6 +327,13 @@ public class Number extends TwiML {
         private URI statusCallback;
         private HttpMethod statusCallbackMethod;
         private String byoc;
+        private String machineDetection;
+        private HttpMethod amdStatusCallbackMethod;
+        private String amdStatusCallback;
+        private Integer machineDetectionTimeout;
+        private Integer machineDetectionSpeechThreshold;
+        private Integer machineDetectionSpeechEndThreshold;
+        private Integer machineDetectionSilenceTimeout;
         private com.twilio.type.PhoneNumber phoneNumber;
 
         /**
@@ -332,6 +440,70 @@ public class Number extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "byoc")
         public Builder byoc(String byoc) {
             this.byoc = byoc;
+            return this;
+        }
+
+        /**
+         * Enable machine detection or end of greeting detection
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "machineDetection")
+        public Builder machineDetection(String machineDetection) {
+            this.machineDetection = machineDetection;
+            return this;
+        }
+
+        /**
+         * HTTP Method to use with amd_status_callback
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "amdStatusCallbackMethod")
+        public Builder amdStatusCallbackMethod(HttpMethod amdStatusCallbackMethod) {
+            this.amdStatusCallbackMethod = amdStatusCallbackMethod;
+            return this;
+        }
+
+        /**
+         * The URL we should call to send amd status information to your application
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "amdStatusCallback")
+        public Builder amdStatusCallback(String amdStatusCallback) {
+            this.amdStatusCallback = amdStatusCallback;
+            return this;
+        }
+
+        /**
+         * Number of seconds to wait for machine detection
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "machineDetectionTimeout")
+        public Builder machineDetectionTimeout(Integer machineDetectionTimeout) {
+            this.machineDetectionTimeout = machineDetectionTimeout;
+            return this;
+        }
+
+        /**
+         * Number of milliseconds for measuring stick for the length of the speech
+         * activity
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "machineDetectionSpeechThreshold")
+        public Builder machineDetectionSpeechThreshold(Integer machineDetectionSpeechThreshold) {
+            this.machineDetectionSpeechThreshold = machineDetectionSpeechThreshold;
+            return this;
+        }
+
+        /**
+         * Number of milliseconds of silence after speech activity
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "machineDetectionSpeechEndThreshold")
+        public Builder machineDetectionSpeechEndThreshold(Integer machineDetectionSpeechEndThreshold) {
+            this.machineDetectionSpeechEndThreshold = machineDetectionSpeechEndThreshold;
+            return this;
+        }
+
+        /**
+         * Number of milliseconds of initial silence
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "machineDetectionSilenceTimeout")
+        public Builder machineDetectionSilenceTimeout(Integer machineDetectionSilenceTimeout) {
+            this.machineDetectionSilenceTimeout = machineDetectionSilenceTimeout;
             return this;
         }
 

@@ -8,7 +8,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDate;
 
-import javax.xml.bind.DatatypeConverter;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -121,7 +120,7 @@ public class Request {
      */
     public String getAuthString() {
         final String credentials = this.username + ":" + this.password;
-        final String encoded = DatatypeConverter.printBase64Binary(credentials.getBytes(StandardCharsets.US_ASCII));
+        final String encoded = Base64.getEncoder().encodeToString(credentials.getBytes(StandardCharsets.US_ASCII));
         return "Basic " + encoded;
     }
 

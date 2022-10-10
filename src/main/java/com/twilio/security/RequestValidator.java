@@ -1,16 +1,15 @@
 package com.twilio.security;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -38,7 +37,7 @@ public class RequestValidator {
 
     public boolean validate(String url, String body, String expectedSignature) throws URISyntaxException {
         Map<String, String> empty = new HashMap<>();
-        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), Charset.forName("UTF-8"));
+        List<NameValuePair> params = URLEncodedUtils.parse(new URI(url), StandardCharsets.UTF_8);
 
         NameValuePair bodySHA256 = null;
         for (NameValuePair param : params) {
@@ -64,7 +63,7 @@ public class RequestValidator {
         }
 
         byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
-        String hexString = DatatypeConverter.printHexBinary(hash).toLowerCase();
+        String hexString = Hex.encodeHexString(hash).toLowerCase();
 
         return secureCompare(expectedSHA, hexString);
     }
@@ -89,7 +88,7 @@ public class RequestValidator {
             mac.init(signingKey);
 
             byte[] rawHmac = mac.doFinal(builder.toString().getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printBase64Binary(rawHmac);
+            return Base64.getEncoder().encodeToString(rawHmac);
 
         } catch (Exception e) {
             return null;

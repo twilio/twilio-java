@@ -43,7 +43,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
-    private static final long serialVersionUID = 255428526997916L;
+    private static final long serialVersionUID = 201752828404640L;
 
     public static WebhookCreator creator(final String serviceSid, final String channelSid, final Webhook.Type type){
         return new WebhookCreator(serviceSid, channelSid, type);
@@ -147,7 +147,7 @@ public class Webhook extends Resource {
     private final String channelSid;
     private final String type;
     private final URI url;
-    private final Map<String, Object> _configuration;
+    private final Map<String, Object> configuration;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
 
@@ -172,7 +172,7 @@ public class Webhook extends Resource {
         final URI url,
 
         @JsonProperty("configuration")
-        final Map<String, Object> _configuration,
+        final Map<String, Object> configuration,
 
         @JsonProperty("date_created")
         final String dateCreated,
@@ -186,7 +186,7 @@ public class Webhook extends Resource {
         this.channelSid = channelSid;
         this.type = type;
         this.url = url;
-        this._configuration = _configuration;
+        this.configuration = configuration;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
@@ -209,8 +209,8 @@ public class Webhook extends Resource {
         public final URI getUrl() {
             return this.url;
         }
-        public final Map<String, Object> get_configuration() {
-            return this._configuration;
+        public final Map<String, Object> getConfiguration() {
+            return this.configuration;
         }
         public final ZonedDateTime getDateCreated() {
             return this.dateCreated;
@@ -231,12 +231,12 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(channelSid, other.channelSid) &&  Objects.equals(type, other.type) &&  Objects.equals(url, other.url) &&  Objects.equals(_configuration, other._configuration) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(channelSid, other.channelSid) &&  Objects.equals(type, other.type) &&  Objects.equals(url, other.url) &&  Objects.equals(configuration, other.configuration) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, channelSid, type, url, _configuration, dateCreated, dateUpdated);
+        return Objects.hash(sid, accountSid, serviceSid, channelSid, type, url, configuration, dateCreated, dateUpdated);
     }
 
 }

@@ -42,7 +42,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Workflow extends Resource {
-    private static final long serialVersionUID = 74532736863709L;
+    private static final long serialVersionUID = 204168447451968L;
 
     public static WorkflowCreator creator(final String workspaceSid, final String friendlyName, final String configuration){
         return new WorkflowCreator(workspaceSid, friendlyName, configuration);
@@ -103,7 +103,7 @@ public class Workflow extends Resource {
 
     private final String accountSid;
     private final URI assignmentCallbackUrl;
-    private final String _configuration;
+    private final String configuration;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final String documentContentType;
@@ -124,7 +124,7 @@ public class Workflow extends Resource {
         final URI assignmentCallbackUrl,
 
         @JsonProperty("configuration")
-        final String _configuration,
+        final String configuration,
 
         @JsonProperty("date_created")
         final String dateCreated,
@@ -158,7 +158,7 @@ public class Workflow extends Resource {
     ) {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
-        this._configuration = _configuration;
+        this.configuration = configuration;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.documentContentType = documentContentType;
@@ -177,8 +177,8 @@ public class Workflow extends Resource {
         public final URI getAssignmentCallbackUrl() {
             return this.assignmentCallbackUrl;
         }
-        public final String get_configuration() {
-            return this._configuration;
+        public final String getConfiguration() {
+            return this.configuration;
         }
         public final ZonedDateTime getDateCreated() {
             return this.dateCreated;
@@ -223,12 +223,12 @@ public class Workflow extends Resource {
 
         Workflow other = (Workflow) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assignmentCallbackUrl, other.assignmentCallbackUrl) &&  Objects.equals(_configuration, other._configuration) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(documentContentType, other.documentContentType) &&  Objects.equals(fallbackAssignmentCallbackUrl, other.fallbackAssignmentCallbackUrl) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskReservationTimeout, other.taskReservationTimeout) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assignmentCallbackUrl, other.assignmentCallbackUrl) &&  Objects.equals(configuration, other.configuration) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(documentContentType, other.documentContentType) &&  Objects.equals(fallbackAssignmentCallbackUrl, other.fallbackAssignmentCallbackUrl) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskReservationTimeout, other.taskReservationTimeout) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, assignmentCallbackUrl, _configuration, dateCreated, dateUpdated, documentContentType, fallbackAssignmentCallbackUrl, friendlyName, sid, taskReservationTimeout, workspaceSid, url, links);
+        return Objects.hash(accountSid, assignmentCallbackUrl, configuration, dateCreated, dateUpdated, documentContentType, fallbackAssignmentCallbackUrl, friendlyName, sid, taskReservationTimeout, workspaceSid, url, links);
     }
 
 }

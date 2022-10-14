@@ -42,7 +42,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InstalledAddOn extends Resource {
-    private static final long serialVersionUID = 273636414062023L;
+    private static final long serialVersionUID = 250400645130930L;
 
     public static InstalledAddOnCreator creator(final String availableAddOnSid, final Boolean acceptTermsOfService){
         return new InstalledAddOnCreator(availableAddOnSid, acceptTermsOfService);
@@ -105,7 +105,7 @@ public class InstalledAddOn extends Resource {
     private final String accountSid;
     private final String friendlyName;
     private final String description;
-    private final Map<String, Object> _configuration;
+    private final Map<String, Object> configuration;
     private final String uniqueName;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -127,7 +127,7 @@ public class InstalledAddOn extends Resource {
         final String description,
 
         @JsonProperty("configuration")
-        final Map<String, Object> _configuration,
+        final Map<String, Object> configuration,
 
         @JsonProperty("unique_name")
         final String uniqueName,
@@ -148,7 +148,7 @@ public class InstalledAddOn extends Resource {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
         this.description = description;
-        this._configuration = _configuration;
+        this.configuration = configuration;
         this.uniqueName = uniqueName;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -168,8 +168,8 @@ public class InstalledAddOn extends Resource {
         public final String getDescription() {
             return this.description;
         }
-        public final Map<String, Object> get_configuration() {
-            return this._configuration;
+        public final Map<String, Object> getConfiguration() {
+            return this.configuration;
         }
         public final String getUniqueName() {
             return this.uniqueName;
@@ -199,12 +199,12 @@ public class InstalledAddOn extends Resource {
 
         InstalledAddOn other = (InstalledAddOn) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(description, other.description) &&  Objects.equals(_configuration, other._configuration) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(description, other.description) &&  Objects.equals(configuration, other.configuration) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, friendlyName, description, _configuration, uniqueName, dateCreated, dateUpdated, url, links);
+        return Objects.hash(sid, accountSid, friendlyName, description, configuration, uniqueName, dateCreated, dateUpdated, url, links);
     }
 
 }

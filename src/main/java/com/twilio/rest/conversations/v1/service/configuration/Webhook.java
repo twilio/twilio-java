@@ -43,14 +43,14 @@ public class Webhook extends Resource {
     private static final long serialVersionUID = 148454673918473L;
 
 
-    public static WebhookFetcher fetcher(final String chatServiceSid){
-        return new WebhookFetcher(chatServiceSid);
+    public static WebhookFetcher fetcher(final String pathChatServiceSid){
+        return new WebhookFetcher(pathChatServiceSid);
     }
 
 
 
-    public static WebhookUpdater updater(final String chatServiceSid){
-        return new WebhookUpdater(chatServiceSid);
+    public static WebhookUpdater updater(final String pathChatServiceSid){
+        return new WebhookUpdater(pathChatServiceSid);
     }
 
     /**

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class SyncMapReader extends Reader<SyncMap> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public SyncMapReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public SyncMapReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SyncMapReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class SyncMapReader extends Reader<SyncMap> {
 
     public Page<SyncMap> firstPage(final TwilioRestClient client) {
         String path = "/Sync/Services/{ServiceSid}/Maps";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

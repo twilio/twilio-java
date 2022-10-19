@@ -47,8 +47,8 @@ public class DependentHostedNumberOrder extends Resource {
 
 
 
-    public static DependentHostedNumberOrderReader reader(final String signingDocumentSid){
-        return new DependentHostedNumberOrderReader(signingDocumentSid);
+    public static DependentHostedNumberOrderReader reader(final String pathSigningDocumentSid){
+        return new DependentHostedNumberOrderReader(pathSigningDocumentSid);
     }
 
 

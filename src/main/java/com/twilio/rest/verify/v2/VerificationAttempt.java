@@ -46,8 +46,8 @@ public class VerificationAttempt extends Resource {
     private static final long serialVersionUID = 105803800130690L;
 
 
-    public static VerificationAttemptFetcher fetcher(final String sid){
-        return new VerificationAttemptFetcher(sid);
+    public static VerificationAttemptFetcher fetcher(final String pathSid){
+        return new VerificationAttemptFetcher(pathSid);
     }
 
 

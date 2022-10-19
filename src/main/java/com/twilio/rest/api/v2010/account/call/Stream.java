@@ -43,21 +43,21 @@ import java.util.Objects;
 public class Stream extends Resource {
     private static final long serialVersionUID = 189203494840345L;
 
-    public static StreamCreator creator(final String callSid, final URI url){
-        return new StreamCreator(callSid, url);
+    public static StreamCreator creator(final String pathCallSid, final URI url){
+        return new StreamCreator(pathCallSid, url);
     }
-    public static StreamCreator creator(final String accountSid, final String callSid, final URI url){
-        return new StreamCreator(accountSid, callSid, url);
+    public static StreamCreator creator(final String pathAccountSid, final String pathCallSid, final URI url){
+        return new StreamCreator(pathAccountSid, pathCallSid, url);
     }
 
 
 
 
-    public static StreamUpdater updater(final String callSid, final String sid, final Stream.UpdateStatus status){
-        return new StreamUpdater(callSid, sid, status);
+    public static StreamUpdater updater(final String pathCallSid, final String pathSid, final Stream.UpdateStatus status){
+        return new StreamUpdater(pathCallSid, pathSid, status);
     }
-    public static StreamUpdater updater(final String accountSid, final String callSid, final String sid, final Stream.UpdateStatus status){
-        return new StreamUpdater(accountSid, callSid, sid, status);
+    public static StreamUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Stream.UpdateStatus status){
+        return new StreamUpdater(pathAccountSid, pathCallSid, pathSid, status);
     }
 
     /**

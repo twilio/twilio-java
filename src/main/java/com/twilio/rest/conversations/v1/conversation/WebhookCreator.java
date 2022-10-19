@@ -31,7 +31,7 @@ import java.util.List;
 
 
 public class WebhookCreator extends Creator<Webhook>{
-    private String conversationSid;
+    private String pathConversationSid;
     private Webhook.Target target;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
@@ -40,8 +40,8 @@ public class WebhookCreator extends Creator<Webhook>{
     private String configurationFlowSid;
     private Integer configurationReplayAfter;
 
-    public WebhookCreator(final String conversationSid, final Webhook.Target target) {
-        this.conversationSid = conversationSid;
+    public WebhookCreator(final String pathConversationSid, final Webhook.Target target) {
+        this.pathConversationSid = pathConversationSid;
         this.target = target;
     }
 
@@ -84,7 +84,7 @@ public class WebhookCreator extends Creator<Webhook>{
     public Webhook create(final TwilioRestClient client){
         String path = "/v1/Conversations/{ConversationSid}/Webhooks";
 
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
         path = path.replace("{"+"Target"+"}", this.target.toString());
 
         Request request = new Request(

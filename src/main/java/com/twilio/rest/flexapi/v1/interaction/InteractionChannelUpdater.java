@@ -30,14 +30,14 @@ import java.util.Map;
 
 
 public class InteractionChannelUpdater extends Updater<InteractionChannel>{
-    private String interactionSid;
-    private String sid;
+    private String pathInteractionSid;
+    private String pathSid;
     private InteractionChannel.Status status;
     private Map<String, Object> routing;
 
-    public InteractionChannelUpdater(final String interactionSid, final String sid, final InteractionChannel.Status status){
-        this.interactionSid = interactionSid;
-        this.sid = sid;
+    public InteractionChannelUpdater(final String pathInteractionSid, final String pathSid, final InteractionChannel.Status status){
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -54,8 +54,8 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel>{
     public InteractionChannel update(final TwilioRestClient client){
         String path = "/v1/Interactions/{InteractionSid}/Channels/{Sid}";
 
-        path = path.replace("{"+"InteractionSid"+"}", this.interactionSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"InteractionSid"+"}", this.pathInteractionSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

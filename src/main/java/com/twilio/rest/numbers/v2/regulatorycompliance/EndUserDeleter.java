@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class EndUserDeleter extends Deleter<EndUser> {
-    private String sid;
+    private String pathSid;
 
-    public EndUserDeleter(final String sid){
-        this.sid = sid;
+    public EndUserDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class EndUserDeleter extends Deleter<EndUser> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

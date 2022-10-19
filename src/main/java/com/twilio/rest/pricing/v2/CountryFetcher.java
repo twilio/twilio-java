@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class CountryFetcher extends Fetcher<Country> {
-    private String isoCountry;
+    private String pathIsoCountry;
 
-    public CountryFetcher(final String isoCountry){
-        this.isoCountry = isoCountry;
+    public CountryFetcher(final String pathIsoCountry){
+        this.pathIsoCountry = pathIsoCountry;
     }
 
 
@@ -39,7 +39,7 @@ public class CountryFetcher extends Fetcher<Country> {
     public Country fetch(final TwilioRestClient client) {
         String path = "/v2/Trunking/Countries/{IsoCountry}";
 
-        path = path.replace("{"+"IsoCountry"+"}", this.isoCountry.toString());
+        path = path.replace("{"+"IsoCountry"+"}", this.pathIsoCountry.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -54,8 +54,8 @@ public class Daily extends Resource {
     public static DailyReader reader(){
         return new DailyReader();
     }
-    public static DailyReader reader(final String accountSid){
-        return new DailyReader(accountSid);
+    public static DailyReader reader(final String pathAccountSid){
+        return new DailyReader(pathAccountSid);
     }
 
 

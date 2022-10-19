@@ -45,24 +45,24 @@ import java.util.Map;
 public class Conversation extends Resource {
     private static final long serialVersionUID = 208929192266810L;
 
-    public static ConversationCreator creator(final String chatServiceSid){
-        return new ConversationCreator(chatServiceSid);
+    public static ConversationCreator creator(final String pathChatServiceSid){
+        return new ConversationCreator(pathChatServiceSid);
     }
 
-    public static ConversationFetcher fetcher(final String chatServiceSid, final String sid){
-        return new ConversationFetcher(chatServiceSid, sid);
+    public static ConversationFetcher fetcher(final String pathChatServiceSid, final String pathSid){
+        return new ConversationFetcher(pathChatServiceSid, pathSid);
     }
 
-    public static ConversationDeleter deleter(final String chatServiceSid, final String sid){
-        return new ConversationDeleter(chatServiceSid, sid);
+    public static ConversationDeleter deleter(final String pathChatServiceSid, final String pathSid){
+        return new ConversationDeleter(pathChatServiceSid, pathSid);
     }
 
-    public static ConversationReader reader(final String chatServiceSid){
-        return new ConversationReader(chatServiceSid);
+    public static ConversationReader reader(final String pathChatServiceSid){
+        return new ConversationReader(pathChatServiceSid);
     }
 
-    public static ConversationUpdater updater(final String chatServiceSid, final String sid){
-        return new ConversationUpdater(chatServiceSid, sid);
+    public static ConversationUpdater updater(final String pathChatServiceSid, final String pathSid){
+        return new ConversationUpdater(pathChatServiceSid, pathSid);
     }
 
     /**

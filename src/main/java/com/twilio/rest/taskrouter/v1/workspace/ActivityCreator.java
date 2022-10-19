@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class ActivityCreator extends Creator<Activity>{
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private Boolean available;
 
-    public ActivityCreator(final String workspaceSid, final String friendlyName) {
-        this.workspaceSid = workspaceSid;
+    public ActivityCreator(final String pathWorkspaceSid, final String friendlyName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -50,7 +50,7 @@ public class ActivityCreator extends Creator<Activity>{
     public Activity create(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

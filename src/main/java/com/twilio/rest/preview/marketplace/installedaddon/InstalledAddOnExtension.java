@@ -41,17 +41,17 @@ public class InstalledAddOnExtension extends Resource {
     private static final long serialVersionUID = 244872409958696L;
 
 
-    public static InstalledAddOnExtensionFetcher fetcher(final String installedAddOnSid, final String sid){
-        return new InstalledAddOnExtensionFetcher(installedAddOnSid, sid);
+    public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid, final String pathSid){
+        return new InstalledAddOnExtensionFetcher(pathInstalledAddOnSid, pathSid);
     }
 
 
-    public static InstalledAddOnExtensionReader reader(final String installedAddOnSid){
-        return new InstalledAddOnExtensionReader(installedAddOnSid);
+    public static InstalledAddOnExtensionReader reader(final String pathInstalledAddOnSid){
+        return new InstalledAddOnExtensionReader(pathInstalledAddOnSid);
     }
 
-    public static InstalledAddOnExtensionUpdater updater(final String installedAddOnSid, final String sid, final Boolean enabled){
-        return new InstalledAddOnExtensionUpdater(installedAddOnSid, sid, enabled);
+    public static InstalledAddOnExtensionUpdater updater(final String pathInstalledAddOnSid, final String pathSid, final Boolean enabled){
+        return new InstalledAddOnExtensionUpdater(pathInstalledAddOnSid, pathSid, enabled);
     }
 
     /**

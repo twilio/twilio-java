@@ -33,7 +33,7 @@ import java.util.Map;
 
 
 public class CompositionHookUpdater extends Updater<CompositionHook>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private Boolean enabled;
     private Map<String, Object> videoLayout;
@@ -45,8 +45,8 @@ public class CompositionHookUpdater extends Updater<CompositionHook>{
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public CompositionHookUpdater(final String sid, final String friendlyName){
-        this.sid = sid;
+    public CompositionHookUpdater(final String pathSid, final String friendlyName){
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
@@ -105,7 +105,7 @@ public class CompositionHookUpdater extends Updater<CompositionHook>{
     public CompositionHook update(final TwilioRestClient client){
         String path = "/v1/CompositionHooks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

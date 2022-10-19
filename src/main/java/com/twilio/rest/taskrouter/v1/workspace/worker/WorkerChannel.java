@@ -43,17 +43,17 @@ public class WorkerChannel extends Resource {
     private static final long serialVersionUID = 38376318052081L;
 
 
-    public static WorkerChannelFetcher fetcher(final String workspaceSid, final String workerSid, final String sid){
-        return new WorkerChannelFetcher(workspaceSid, workerSid, sid);
+    public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid){
+        return new WorkerChannelFetcher(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
 
-    public static WorkerChannelReader reader(final String workspaceSid, final String workerSid){
-        return new WorkerChannelReader(workspaceSid, workerSid);
+    public static WorkerChannelReader reader(final String pathWorkspaceSid, final String pathWorkerSid){
+        return new WorkerChannelReader(pathWorkspaceSid, pathWorkerSid);
     }
 
-    public static WorkerChannelUpdater updater(final String workspaceSid, final String workerSid, final String sid){
-        return new WorkerChannelUpdater(workspaceSid, workerSid, sid);
+    public static WorkerChannelUpdater updater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid){
+        return new WorkerChannelUpdater(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
 
     /**

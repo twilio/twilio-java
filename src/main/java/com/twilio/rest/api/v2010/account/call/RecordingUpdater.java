@@ -28,21 +28,21 @@ import com.twilio.rest.Domains;
 
 
 public class RecordingUpdater extends Updater<Recording>{
-    private String callSid;
-    private String sid;
+    private String pathCallSid;
+    private String pathSid;
     private Recording.Status status;
-    private String accountSid;
+    private String pathAccountSid;
     private String pauseBehavior;
 
-    public RecordingUpdater(final String callSid, final String sid, final Recording.Status status){
-        this.callSid = callSid;
-        this.sid = sid;
+    public RecordingUpdater(final String pathCallSid, final String pathSid, final Recording.Status status){
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
         this.status = status;
     }
-    public RecordingUpdater(final String accountSid, final String callSid, final String sid, final Recording.Status status){
-        this.accountSid = accountSid;
-        this.callSid = callSid;
-        this.sid = sid;
+    public RecordingUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Recording.Status status){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -59,10 +59,10 @@ public class RecordingUpdater extends Updater<Recording>{
     public Recording update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

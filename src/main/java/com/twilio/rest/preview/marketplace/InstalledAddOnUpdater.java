@@ -30,12 +30,12 @@ import java.util.Map;
 
 
 public class InstalledAddOnUpdater extends Updater<InstalledAddOn>{
-    private String sid;
+    private String pathSid;
     private Map<String, Object> configuration;
     private String uniqueName;
 
-    public InstalledAddOnUpdater(final String sid){
-        this.sid = sid;
+    public InstalledAddOnUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public InstalledAddOnUpdater setConfiguration(final Map<String, Object> configuration){
@@ -51,7 +51,7 @@ public class InstalledAddOnUpdater extends Updater<InstalledAddOn>{
     public InstalledAddOn update(final TwilioRestClient client){
         String path = "/marketplace/InstalledAddOns/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

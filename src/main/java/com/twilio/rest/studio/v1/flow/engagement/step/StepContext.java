@@ -43,8 +43,8 @@ public class StepContext extends Resource {
     private static final long serialVersionUID = 81685274380880L;
 
 
-    public static StepContextFetcher fetcher(final String flowSid, final String engagementSid, final String stepSid){
-        return new StepContextFetcher(flowSid, engagementSid, stepSid);
+    public static StepContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathStepSid){
+        return new StepContextFetcher(pathFlowSid, pathEngagementSid, pathStepSid);
     }
 
 

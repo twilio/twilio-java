@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class SyncMapUpdater extends Updater<SyncMap>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private Integer ttl;
     private Integer collectionTtl;
 
-    public SyncMapUpdater(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public SyncMapUpdater(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     public SyncMapUpdater setTtl(final Integer ttl){
@@ -51,8 +51,8 @@ public class SyncMapUpdater extends Updater<SyncMap>{
     public SyncMap update(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Maps/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

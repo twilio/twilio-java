@@ -30,13 +30,13 @@ import java.util.Map;
 
 
 public class TaskActionsUpdater extends Updater<TaskActions>{
-    private String assistantSid;
-    private String taskSid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
     private Map<String, Object> actions;
 
-    public TaskActionsUpdater(final String assistantSid, final String taskSid){
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
+    public TaskActionsUpdater(final String pathAssistantSid, final String pathTaskSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
     }
 
     public TaskActionsUpdater setActions(final Map<String, Object> actions){
@@ -48,8 +48,8 @@ public class TaskActionsUpdater extends Updater<TaskActions>{
     public TaskActions update(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

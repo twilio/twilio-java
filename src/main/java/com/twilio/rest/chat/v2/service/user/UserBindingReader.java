@@ -31,14 +31,14 @@ import java.util.List;
 
 
 public class UserBindingReader extends Reader<UserBinding> {
-    private String serviceSid;
-    private String userSid;
+    private String pathServiceSid;
+    private String pathUserSid;
     private List<UserBinding.BindingType> bindingType;
     private Integer pageSize;
 
-    public UserBindingReader(final String serviceSid, final String userSid){
-        this.serviceSid = serviceSid;
-        this.userSid = userSid;
+    public UserBindingReader(final String pathServiceSid, final String pathUserSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
     }
 
     public UserBindingReader setBindingType(final List<UserBinding.BindingType> bindingType){
@@ -60,8 +60,8 @@ public class UserBindingReader extends Reader<UserBinding> {
 
     public Page<UserBinding> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

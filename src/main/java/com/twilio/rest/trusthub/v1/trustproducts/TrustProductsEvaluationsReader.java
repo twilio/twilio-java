@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class TrustProductsEvaluationsReader extends Reader<TrustProductsEvaluations> {
-    private String trustProductSid;
+    private String pathTrustProductSid;
     private Integer pageSize;
 
-    public TrustProductsEvaluationsReader(final String trustProductSid){
-        this.trustProductSid = trustProductSid;
+    public TrustProductsEvaluationsReader(final String pathTrustProductSid){
+        this.pathTrustProductSid = pathTrustProductSid;
     }
 
     public TrustProductsEvaluationsReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class TrustProductsEvaluationsReader extends Reader<TrustProductsEvaluati
 
     public Page<TrustProductsEvaluations> firstPage(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
-        path = path.replace("{"+"TrustProductSid"+"}", this.trustProductSid.toString());
+        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

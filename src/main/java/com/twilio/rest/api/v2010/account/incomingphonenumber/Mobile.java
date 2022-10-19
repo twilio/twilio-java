@@ -48,8 +48,8 @@ public class Mobile extends Resource {
     public static MobileCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new MobileCreator(phoneNumber);
     }
-    public static MobileCreator creator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber){
-        return new MobileCreator(accountSid, phoneNumber);
+    public static MobileCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber){
+        return new MobileCreator(pathAccountSid, phoneNumber);
     }
 
 
@@ -57,8 +57,8 @@ public class Mobile extends Resource {
     public static MobileReader reader(){
         return new MobileReader();
     }
-    public static MobileReader reader(final String accountSid){
-        return new MobileReader(accountSid);
+    public static MobileReader reader(final String pathAccountSid){
+        return new MobileReader(pathAccountSid);
     }
 
 

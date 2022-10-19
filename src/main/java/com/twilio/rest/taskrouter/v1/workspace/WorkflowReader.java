@@ -29,12 +29,12 @@ import com.twilio.base.Page;
 
 
 public class WorkflowReader extends Reader<Workflow> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private Integer pageSize;
 
-    public WorkflowReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public WorkflowReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public WorkflowReader setFriendlyName(final String friendlyName){
@@ -53,7 +53,7 @@ public class WorkflowReader extends Reader<Workflow> {
 
     public Page<Workflow> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

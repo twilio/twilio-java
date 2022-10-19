@@ -29,15 +29,15 @@ import com.twilio.base.Page;
 
 
 public class MessageInteractionReader extends Reader<MessageInteraction> {
-    private String serviceSid;
-    private String sessionSid;
-    private String participantSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathParticipantSid;
     private Integer pageSize;
 
-    public MessageInteractionReader(final String serviceSid, final String sessionSid, final String participantSid){
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
-        this.participantSid = participantSid;
+    public MessageInteractionReader(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
     public MessageInteractionReader setPageSize(final Integer pageSize){
@@ -52,9 +52,9 @@ public class MessageInteractionReader extends Reader<MessageInteraction> {
 
     public Page<MessageInteraction> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"SessionSid"+"}", this.sessionSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.participantSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
+        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

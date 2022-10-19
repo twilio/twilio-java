@@ -31,12 +31,12 @@ import java.util.List;
 
 
 public class ChannelReader extends Reader<Channel> {
-    private String serviceSid;
+    private String pathServiceSid;
     private List<Channel.ChannelType> type;
     private Integer pageSize;
 
-    public ChannelReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public ChannelReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public ChannelReader setType(final List<Channel.ChannelType> type){
@@ -58,7 +58,7 @@ public class ChannelReader extends Reader<Channel> {
 
     public Page<Channel> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

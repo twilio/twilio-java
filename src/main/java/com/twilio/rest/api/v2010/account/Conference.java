@@ -45,26 +45,26 @@ public class Conference extends Resource {
     private static final long serialVersionUID = 143481327355997L;
 
 
-    public static ConferenceFetcher fetcher(final String sid){
-        return new ConferenceFetcher(sid);
+    public static ConferenceFetcher fetcher(final String pathSid){
+        return new ConferenceFetcher(pathSid);
     }
-    public static ConferenceFetcher fetcher(final String accountSid, final String sid){
-        return new ConferenceFetcher(accountSid, sid);
+    public static ConferenceFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new ConferenceFetcher(pathAccountSid, pathSid);
     }
 
 
     public static ConferenceReader reader(){
         return new ConferenceReader();
     }
-    public static ConferenceReader reader(final String accountSid){
-        return new ConferenceReader(accountSid);
+    public static ConferenceReader reader(final String pathAccountSid){
+        return new ConferenceReader(pathAccountSid);
     }
 
-    public static ConferenceUpdater updater(final String sid){
-        return new ConferenceUpdater(sid);
+    public static ConferenceUpdater updater(final String pathSid){
+        return new ConferenceUpdater(pathSid);
     }
-    public static ConferenceUpdater updater(final String accountSid, final String sid){
-        return new ConferenceUpdater(accountSid, sid);
+    public static ConferenceUpdater updater(final String pathAccountSid, final String pathSid){
+        return new ConferenceUpdater(pathAccountSid, pathSid);
     }
 
     /**

@@ -27,14 +27,14 @@ import com.twilio.rest.Domains;
 
 
 public class FieldValueDeleter extends Deleter<FieldValue> {
-    private String assistantSid;
-    private String fieldTypeSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathFieldTypeSid;
+    private String pathSid;
 
-    public FieldValueDeleter(final String assistantSid, final String fieldTypeSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.fieldTypeSid = fieldTypeSid;
-        this.sid = sid;
+    public FieldValueDeleter(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathFieldTypeSid = pathFieldTypeSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class FieldValueDeleter extends Deleter<FieldValue> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"FieldTypeSid"+"}", this.fieldTypeSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"FieldTypeSid"+"}", this.pathFieldTypeSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Webhook extends Resource {
     private static final long serialVersionUID = 211848885870919L;
 
-    public static WebhookCreator creator(final String assistantSid, final String uniqueName, final String events, final URI webhookUrl){
-        return new WebhookCreator(assistantSid, uniqueName, events, webhookUrl);
+    public static WebhookCreator creator(final String pathAssistantSid, final String uniqueName, final String events, final URI webhookUrl){
+        return new WebhookCreator(pathAssistantSid, uniqueName, events, webhookUrl);
     }
 
-    public static WebhookFetcher fetcher(final String assistantSid, final String sid){
-        return new WebhookFetcher(assistantSid, sid);
+    public static WebhookFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new WebhookFetcher(pathAssistantSid, pathSid);
     }
 
-    public static WebhookDeleter deleter(final String assistantSid, final String sid){
-        return new WebhookDeleter(assistantSid, sid);
+    public static WebhookDeleter deleter(final String pathAssistantSid, final String pathSid){
+        return new WebhookDeleter(pathAssistantSid, pathSid);
     }
 
-    public static WebhookReader reader(final String assistantSid){
-        return new WebhookReader(assistantSid);
+    public static WebhookReader reader(final String pathAssistantSid){
+        return new WebhookReader(pathAssistantSid);
     }
 
-    public static WebhookUpdater updater(final String assistantSid, final String sid){
-        return new WebhookUpdater(assistantSid, sid);
+    public static WebhookUpdater updater(final String pathAssistantSid, final String pathSid){
+        return new WebhookUpdater(pathAssistantSid, pathSid);
     }
 
     /**

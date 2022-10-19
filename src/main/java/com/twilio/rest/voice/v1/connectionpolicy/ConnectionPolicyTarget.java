@@ -42,24 +42,24 @@ import java.util.Objects;
 public class ConnectionPolicyTarget extends Resource {
     private static final long serialVersionUID = 117046725474544L;
 
-    public static ConnectionPolicyTargetCreator creator(final String connectionPolicySid, final URI target){
-        return new ConnectionPolicyTargetCreator(connectionPolicySid, target);
+    public static ConnectionPolicyTargetCreator creator(final String pathConnectionPolicySid, final URI target){
+        return new ConnectionPolicyTargetCreator(pathConnectionPolicySid, target);
     }
 
-    public static ConnectionPolicyTargetFetcher fetcher(final String connectionPolicySid, final String sid){
-        return new ConnectionPolicyTargetFetcher(connectionPolicySid, sid);
+    public static ConnectionPolicyTargetFetcher fetcher(final String pathConnectionPolicySid, final String pathSid){
+        return new ConnectionPolicyTargetFetcher(pathConnectionPolicySid, pathSid);
     }
 
-    public static ConnectionPolicyTargetDeleter deleter(final String connectionPolicySid, final String sid){
-        return new ConnectionPolicyTargetDeleter(connectionPolicySid, sid);
+    public static ConnectionPolicyTargetDeleter deleter(final String pathConnectionPolicySid, final String pathSid){
+        return new ConnectionPolicyTargetDeleter(pathConnectionPolicySid, pathSid);
     }
 
-    public static ConnectionPolicyTargetReader reader(final String connectionPolicySid){
-        return new ConnectionPolicyTargetReader(connectionPolicySid);
+    public static ConnectionPolicyTargetReader reader(final String pathConnectionPolicySid){
+        return new ConnectionPolicyTargetReader(pathConnectionPolicySid);
     }
 
-    public static ConnectionPolicyTargetUpdater updater(final String connectionPolicySid, final String sid){
-        return new ConnectionPolicyTargetUpdater(connectionPolicySid, sid);
+    public static ConnectionPolicyTargetUpdater updater(final String pathConnectionPolicySid, final String pathSid){
+        return new ConnectionPolicyTargetUpdater(pathConnectionPolicySid, pathSid);
     }
 
     /**

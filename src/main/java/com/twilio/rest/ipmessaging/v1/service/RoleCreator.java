@@ -31,13 +31,13 @@ import java.util.List;
 
 
 public class RoleCreator extends Creator<Role>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String friendlyName;
     private Role.RoleType type;
     private List<String> permission;
 
-    public RoleCreator(final String serviceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
-        this.serviceSid = serviceSid;
+    public RoleCreator(final String pathServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.type = type;
         this.permission = permission;
@@ -63,7 +63,7 @@ public class RoleCreator extends Creator<Role>{
     public Role create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Roles";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
         path = path.replace("{"+"Type"+"}", this.type.toString());
         path = path.replace("{"+"Permission"+"}", this.permission.toString());

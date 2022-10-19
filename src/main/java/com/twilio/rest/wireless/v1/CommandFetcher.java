@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class CommandFetcher extends Fetcher<Command> {
-    private String sid;
+    private String pathSid;
 
-    public CommandFetcher(final String sid){
-        this.sid = sid;
+    public CommandFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class CommandFetcher extends Fetcher<Command> {
     public Command fetch(final TwilioRestClient client) {
         String path = "/v1/Commands/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

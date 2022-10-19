@@ -43,20 +43,20 @@ import java.util.Objects;
 public class AlphaSender extends Resource {
     private static final long serialVersionUID = 147044042659249L;
 
-    public static AlphaSenderCreator creator(final String serviceSid, final String alphaSender){
-        return new AlphaSenderCreator(serviceSid, alphaSender);
+    public static AlphaSenderCreator creator(final String pathServiceSid, final String alphaSender){
+        return new AlphaSenderCreator(pathServiceSid, alphaSender);
     }
 
-    public static AlphaSenderFetcher fetcher(final String serviceSid, final String sid){
-        return new AlphaSenderFetcher(serviceSid, sid);
+    public static AlphaSenderFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new AlphaSenderFetcher(pathServiceSid, pathSid);
     }
 
-    public static AlphaSenderDeleter deleter(final String serviceSid, final String sid){
-        return new AlphaSenderDeleter(serviceSid, sid);
+    public static AlphaSenderDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new AlphaSenderDeleter(pathServiceSid, pathSid);
     }
 
-    public static AlphaSenderReader reader(final String serviceSid){
-        return new AlphaSenderReader(serviceSid);
+    public static AlphaSenderReader reader(final String pathServiceSid){
+        return new AlphaSenderReader(pathServiceSid);
     }
 
 

@@ -29,14 +29,14 @@ import com.twilio.base.Page;
 
 
 public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
-    private String conferenceSid;
+    private String pathConferenceSid;
     private String participantSid;
     private String label;
     private String events;
     private Integer pageSize;
 
-    public ConferenceParticipantReader(final String conferenceSid){
-        this.conferenceSid = conferenceSid;
+    public ConferenceParticipantReader(final String pathConferenceSid){
+        this.pathConferenceSid = pathConferenceSid;
     }
 
     public ConferenceParticipantReader setParticipantSid(final String participantSid){
@@ -63,7 +63,7 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
 
     public Page<ConferenceParticipant> firstPage(final TwilioRestClient client) {
         String path = "/v1/Conferences/{ConferenceSid}/Participants";
-        path = path.replace("{"+"ConferenceSid"+"}", this.conferenceSid.toString());
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

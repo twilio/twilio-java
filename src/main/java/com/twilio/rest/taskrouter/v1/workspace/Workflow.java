@@ -44,24 +44,24 @@ import java.util.Map;
 public class Workflow extends Resource {
     private static final long serialVersionUID = 204168447451968L;
 
-    public static WorkflowCreator creator(final String workspaceSid, final String friendlyName, final String configuration){
-        return new WorkflowCreator(workspaceSid, friendlyName, configuration);
+    public static WorkflowCreator creator(final String pathWorkspaceSid, final String friendlyName, final String configuration){
+        return new WorkflowCreator(pathWorkspaceSid, friendlyName, configuration);
     }
 
-    public static WorkflowFetcher fetcher(final String workspaceSid, final String sid){
-        return new WorkflowFetcher(workspaceSid, sid);
+    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new WorkflowFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static WorkflowDeleter deleter(final String workspaceSid, final String sid){
-        return new WorkflowDeleter(workspaceSid, sid);
+    public static WorkflowDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+        return new WorkflowDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static WorkflowReader reader(final String workspaceSid){
-        return new WorkflowReader(workspaceSid);
+    public static WorkflowReader reader(final String pathWorkspaceSid){
+        return new WorkflowReader(pathWorkspaceSid);
     }
 
-    public static WorkflowUpdater updater(final String workspaceSid, final String sid){
-        return new WorkflowUpdater(workspaceSid, sid);
+    public static WorkflowUpdater updater(final String pathWorkspaceSid, final String pathSid){
+        return new WorkflowUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**

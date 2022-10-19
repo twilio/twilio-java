@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class SubscribedEventCreator extends Creator<SubscribedEvent>{
-    private String subscriptionSid;
+    private String pathSubscriptionSid;
     private String type;
     private Integer schemaVersion;
 
-    public SubscribedEventCreator(final String subscriptionSid, final String type) {
-        this.subscriptionSid = subscriptionSid;
+    public SubscribedEventCreator(final String pathSubscriptionSid, final String type) {
+        this.pathSubscriptionSid = pathSubscriptionSid;
         this.type = type;
     }
 
@@ -50,7 +50,7 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent>{
     public SubscribedEvent create(final TwilioRestClient client){
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path = path.replace("{"+"SubscriptionSid"+"}", this.subscriptionSid.toString());
+        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
         path = path.replace("{"+"Type"+"}", this.type.toString());
 
         Request request = new Request(

@@ -47,13 +47,13 @@ public class FlowRevision extends Resource {
     private static final long serialVersionUID = 84648223923809L;
 
 
-    public static FlowRevisionFetcher fetcher(final String sid, final String revision){
-        return new FlowRevisionFetcher(sid, revision);
+    public static FlowRevisionFetcher fetcher(final String pathSid, final String pathRevision){
+        return new FlowRevisionFetcher(pathSid, pathRevision);
     }
 
 
-    public static FlowRevisionReader reader(final String sid){
-        return new FlowRevisionReader(sid);
+    public static FlowRevisionReader reader(final String pathSid){
+        return new FlowRevisionReader(pathSid);
     }
 
 

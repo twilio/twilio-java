@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class AssignedAddOnCreator extends Creator<AssignedAddOn>{
-    private String resourceSid;
+    private String pathResourceSid;
     private String installedAddOnSid;
-    private String accountSid;
+    private String pathAccountSid;
 
-    public AssignedAddOnCreator(final String resourceSid, final String installedAddOnSid) {
-        this.resourceSid = resourceSid;
+    public AssignedAddOnCreator(final String pathResourceSid, final String installedAddOnSid) {
+        this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
     }
-    public AssignedAddOnCreator(final String accountSid, final String resourceSid, final String installedAddOnSid) {
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
+    public AssignedAddOnCreator(final String pathAccountSid, final String pathResourceSid, final String installedAddOnSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
         this.installedAddOnSid = installedAddOnSid;
     }
 
@@ -51,9 +51,9 @@ public class AssignedAddOnCreator extends Creator<AssignedAddOn>{
     public AssignedAddOn create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ResourceSid"+"}", this.resourceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ResourceSid"+"}", this.pathResourceSid.toString());
         path = path.replace("{"+"InstalledAddOnSid"+"}", this.installedAddOnSid.toString());
 
         Request request = new Request(

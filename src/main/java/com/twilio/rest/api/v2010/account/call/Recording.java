@@ -48,39 +48,39 @@ import java.math.BigDecimal;
 public class Recording extends Resource {
     private static final long serialVersionUID = 269042081197241L;
 
-    public static RecordingCreator creator(final String callSid){
-        return new RecordingCreator(callSid);
+    public static RecordingCreator creator(final String pathCallSid){
+        return new RecordingCreator(pathCallSid);
     }
-    public static RecordingCreator creator(final String accountSid, final String callSid){
-        return new RecordingCreator(accountSid, callSid);
-    }
-
-    public static RecordingFetcher fetcher(final String callSid, final String sid){
-        return new RecordingFetcher(callSid, sid);
-    }
-    public static RecordingFetcher fetcher(final String accountSid, final String callSid, final String sid){
-        return new RecordingFetcher(accountSid, callSid, sid);
+    public static RecordingCreator creator(final String pathAccountSid, final String pathCallSid){
+        return new RecordingCreator(pathAccountSid, pathCallSid);
     }
 
-    public static RecordingDeleter deleter(final String callSid, final String sid){
-        return new RecordingDeleter(callSid, sid);
+    public static RecordingFetcher fetcher(final String pathCallSid, final String pathSid){
+        return new RecordingFetcher(pathCallSid, pathSid);
     }
-    public static RecordingDeleter deleter(final String accountSid, final String callSid, final String sid){
-        return new RecordingDeleter(accountSid, callSid, sid);
-    }
-
-    public static RecordingReader reader(final String callSid){
-        return new RecordingReader(callSid);
-    }
-    public static RecordingReader reader(final String accountSid, final String callSid){
-        return new RecordingReader(accountSid, callSid);
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathCallSid, final String pathSid){
+        return new RecordingFetcher(pathAccountSid, pathCallSid, pathSid);
     }
 
-    public static RecordingUpdater updater(final String callSid, final String sid, final Recording.Status status){
-        return new RecordingUpdater(callSid, sid, status);
+    public static RecordingDeleter deleter(final String pathCallSid, final String pathSid){
+        return new RecordingDeleter(pathCallSid, pathSid);
     }
-    public static RecordingUpdater updater(final String accountSid, final String callSid, final String sid, final Recording.Status status){
-        return new RecordingUpdater(accountSid, callSid, sid, status);
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathCallSid, final String pathSid){
+        return new RecordingDeleter(pathAccountSid, pathCallSid, pathSid);
+    }
+
+    public static RecordingReader reader(final String pathCallSid){
+        return new RecordingReader(pathCallSid);
+    }
+    public static RecordingReader reader(final String pathAccountSid, final String pathCallSid){
+        return new RecordingReader(pathAccountSid, pathCallSid);
+    }
+
+    public static RecordingUpdater updater(final String pathCallSid, final String pathSid, final Recording.Status status){
+        return new RecordingUpdater(pathCallSid, pathSid, status);
+    }
+    public static RecordingUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Recording.Status status){
+        return new RecordingUpdater(pathAccountSid, pathCallSid, pathSid, status);
     }
 
     /**

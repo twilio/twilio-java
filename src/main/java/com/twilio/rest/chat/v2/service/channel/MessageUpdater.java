@@ -29,9 +29,9 @@ import java.time.ZonedDateTime;
 
 
 public class MessageUpdater extends Updater<Message>{
-    private String serviceSid;
-    private String channelSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathChannelSid;
+    private String pathSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String body;
     private String attributes;
@@ -40,10 +40,10 @@ public class MessageUpdater extends Updater<Message>{
     private String lastUpdatedBy;
     private String from;
 
-    public MessageUpdater(final String serviceSid, final String channelSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.sid = sid;
+    public MessageUpdater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
     public MessageUpdater setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
@@ -79,9 +79,9 @@ public class MessageUpdater extends Updater<Message>{
     public Message update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

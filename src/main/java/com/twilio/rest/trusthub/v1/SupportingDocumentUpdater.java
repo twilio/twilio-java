@@ -30,12 +30,12 @@ import java.util.Map;
 
 
 public class SupportingDocumentUpdater extends Updater<SupportingDocument>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private Map<String, Object> attributes;
 
-    public SupportingDocumentUpdater(final String sid){
-        this.sid = sid;
+    public SupportingDocumentUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public SupportingDocumentUpdater setFriendlyName(final String friendlyName){
@@ -51,7 +51,7 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument>{
     public SupportingDocument update(final TwilioRestClient client){
         String path = "/v1/SupportingDocuments/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

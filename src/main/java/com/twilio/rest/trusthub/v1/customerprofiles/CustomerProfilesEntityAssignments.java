@@ -42,20 +42,20 @@ import java.util.Objects;
 public class CustomerProfilesEntityAssignments extends Resource {
     private static final long serialVersionUID = 178139363614511L;
 
-    public static CustomerProfilesEntityAssignmentsCreator creator(final String customerProfileSid, final String objectSid){
-        return new CustomerProfilesEntityAssignmentsCreator(customerProfileSid, objectSid);
+    public static CustomerProfilesEntityAssignmentsCreator creator(final String pathCustomerProfileSid, final String objectSid){
+        return new CustomerProfilesEntityAssignmentsCreator(pathCustomerProfileSid, objectSid);
     }
 
-    public static CustomerProfilesEntityAssignmentsFetcher fetcher(final String customerProfileSid, final String sid){
-        return new CustomerProfilesEntityAssignmentsFetcher(customerProfileSid, sid);
+    public static CustomerProfilesEntityAssignmentsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesEntityAssignmentsFetcher(pathCustomerProfileSid, pathSid);
     }
 
-    public static CustomerProfilesEntityAssignmentsDeleter deleter(final String customerProfileSid, final String sid){
-        return new CustomerProfilesEntityAssignmentsDeleter(customerProfileSid, sid);
+    public static CustomerProfilesEntityAssignmentsDeleter deleter(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesEntityAssignmentsDeleter(pathCustomerProfileSid, pathSid);
     }
 
-    public static CustomerProfilesEntityAssignmentsReader reader(final String customerProfileSid){
-        return new CustomerProfilesEntityAssignmentsReader(customerProfileSid);
+    public static CustomerProfilesEntityAssignmentsReader reader(final String pathCustomerProfileSid){
+        return new CustomerProfilesEntityAssignmentsReader(pathCustomerProfileSid);
     }
 
 

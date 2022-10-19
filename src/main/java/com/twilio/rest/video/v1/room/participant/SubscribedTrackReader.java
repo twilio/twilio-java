@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class SubscribedTrackReader extends Reader<SubscribedTrack> {
-    private String roomSid;
-    private String participantSid;
+    private String pathRoomSid;
+    private String pathParticipantSid;
     private Integer pageSize;
 
-    public SubscribedTrackReader(final String roomSid, final String participantSid){
-        this.roomSid = roomSid;
-        this.participantSid = participantSid;
+    public SubscribedTrackReader(final String pathRoomSid, final String pathParticipantSid){
+        this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
     public SubscribedTrackReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class SubscribedTrackReader extends Reader<SubscribedTrack> {
 
     public Page<SubscribedTrack> firstPage(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribedTracks";
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.participantSid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

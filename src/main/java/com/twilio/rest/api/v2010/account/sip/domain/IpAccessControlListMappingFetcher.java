@@ -28,18 +28,18 @@ import com.twilio.rest.Domains;
 
 
 public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlListMapping> {
-    private String domainSid;
-    private String sid;
-    private String accountSid;
+    private String pathDomainSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public IpAccessControlListMappingFetcher(final String domainSid, final String sid){
-        this.domainSid = domainSid;
-        this.sid = sid;
+    public IpAccessControlListMappingFetcher(final String pathDomainSid, final String pathSid){
+        this.pathDomainSid = pathDomainSid;
+        this.pathSid = pathSid;
     }
-    public IpAccessControlListMappingFetcher(final String accountSid, final String domainSid, final String sid){
-        this.accountSid = accountSid;
-        this.domainSid = domainSid;
-        this.sid = sid;
+    public IpAccessControlListMappingFetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +47,10 @@ public class IpAccessControlListMappingFetcher extends Fetcher<IpAccessControlLi
     public IpAccessControlListMapping fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"DomainSid"+"}", this.domainSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

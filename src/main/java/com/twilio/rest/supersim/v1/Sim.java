@@ -49,8 +49,8 @@ public class Sim extends Resource {
         return new SimCreator(iccid, registrationCode);
     }
 
-    public static SimFetcher fetcher(final String sid){
-        return new SimFetcher(sid);
+    public static SimFetcher fetcher(final String pathSid){
+        return new SimFetcher(pathSid);
     }
 
 
@@ -58,8 +58,8 @@ public class Sim extends Resource {
         return new SimReader();
     }
 
-    public static SimUpdater updater(final String sid){
-        return new SimUpdater(sid);
+    public static SimUpdater updater(final String pathSid){
+        return new SimUpdater(pathSid);
     }
 
     /**

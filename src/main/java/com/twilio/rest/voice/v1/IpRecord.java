@@ -46,20 +46,20 @@ public class IpRecord extends Resource {
         return new IpRecordCreator(ipAddress);
     }
 
-    public static IpRecordFetcher fetcher(final String sid){
-        return new IpRecordFetcher(sid);
+    public static IpRecordFetcher fetcher(final String pathSid){
+        return new IpRecordFetcher(pathSid);
     }
 
-    public static IpRecordDeleter deleter(final String sid){
-        return new IpRecordDeleter(sid);
+    public static IpRecordDeleter deleter(final String pathSid){
+        return new IpRecordDeleter(pathSid);
     }
 
     public static IpRecordReader reader(){
         return new IpRecordReader();
     }
 
-    public static IpRecordUpdater updater(final String sid){
-        return new IpRecordUpdater(sid);
+    public static IpRecordUpdater updater(final String pathSid){
+        return new IpRecordUpdater(pathSid);
     }
 
     /**

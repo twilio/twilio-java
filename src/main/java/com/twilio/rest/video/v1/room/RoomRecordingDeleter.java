@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class RoomRecordingDeleter extends Deleter<RoomRecording> {
-    private String roomSid;
-    private String sid;
+    private String pathRoomSid;
+    private String pathSid;
 
-    public RoomRecordingDeleter(final String roomSid, final String sid){
-        this.roomSid = roomSid;
-        this.sid = sid;
+    public RoomRecordingDeleter(final String pathRoomSid, final String pathSid){
+        this.pathRoomSid = pathRoomSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class RoomRecordingDeleter extends Deleter<RoomRecording> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Recordings/{Sid}";
 
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class NotificationReader extends Reader<Notification> {
-    private String accountSid;
+    private String pathAccountSid;
     private Integer log;
     private LocalDate messageDate;
     private LocalDate messageDateBefore;
@@ -40,8 +40,8 @@ public class NotificationReader extends Reader<Notification> {
 
     public NotificationReader(){
     }
-    public NotificationReader(final String accountSid){
-        this.accountSid = accountSid;
+    public NotificationReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public NotificationReader setLog(final Integer log){
@@ -72,8 +72,8 @@ public class NotificationReader extends Reader<Notification> {
 
     public Page<Notification> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Notifications.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

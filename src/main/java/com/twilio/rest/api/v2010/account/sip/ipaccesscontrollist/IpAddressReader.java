@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class IpAddressReader extends Reader<IpAddress> {
-    private String ipAccessControlListSid;
-    private String accountSid;
+    private String pathIpAccessControlListSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public IpAddressReader(final String ipAccessControlListSid){
-        this.ipAccessControlListSid = ipAccessControlListSid;
+    public IpAddressReader(final String pathIpAccessControlListSid){
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
-    public IpAddressReader(final String accountSid, final String ipAccessControlListSid){
-        this.accountSid = accountSid;
-        this.ipAccessControlListSid = ipAccessControlListSid;
+    public IpAddressReader(final String pathAccountSid, final String pathIpAccessControlListSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
     }
 
     public IpAddressReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class IpAddressReader extends Reader<IpAddress> {
 
     public Page<IpAddress> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"IpAccessControlListSid"+"}", this.ipAccessControlListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"IpAccessControlListSid"+"}", this.pathIpAccessControlListSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class MetricReader extends Reader<Metric> {
-    private String callSid;
+    private String pathCallSid;
     private Metric.TwilioEdge edge;
     private Metric.StreamDirection direction;
     private Integer pageSize;
 
-    public MetricReader(final String callSid){
-        this.callSid = callSid;
+    public MetricReader(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
 
     public MetricReader setEdge(final Metric.TwilioEdge edge){
@@ -58,7 +58,7 @@ public class MetricReader extends Reader<Metric> {
 
     public Page<Metric> firstPage(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Metrics";
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

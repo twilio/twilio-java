@@ -44,11 +44,12 @@ public class PromptTest {
             .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
             .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
             .attempts(Promoter.listOfOne(1))
+            .requireMatchingInputs(true)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>",
+            "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>",
             elem.toXml()
         );
     }
@@ -172,10 +173,11 @@ public class PromptTest {
             .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
             .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
             .attempts(Promoter.listOfOne(1))
+            .requireMatchingInputs(true)
             .build();
 
         Assert.assertEquals(
-            Prompt.Builder.fromXml("<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>").build().toXml(),
+            Prompt.Builder.fromXml("<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>").build().toXml(),
             elem.toXml()
         );
     }

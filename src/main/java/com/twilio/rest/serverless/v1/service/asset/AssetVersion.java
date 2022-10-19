@@ -44,13 +44,13 @@ public class AssetVersion extends Resource {
     private static final long serialVersionUID = 215359401104297L;
 
 
-    public static AssetVersionFetcher fetcher(final String serviceSid, final String assetSid, final String sid){
-        return new AssetVersionFetcher(serviceSid, assetSid, sid);
+    public static AssetVersionFetcher fetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid){
+        return new AssetVersionFetcher(pathServiceSid, pathAssetSid, pathSid);
     }
 
 
-    public static AssetVersionReader reader(final String serviceSid, final String assetSid){
-        return new AssetVersionReader(serviceSid, assetSid);
+    public static AssetVersionReader reader(final String pathServiceSid, final String pathAssetSid){
+        return new AssetVersionReader(pathServiceSid, pathAssetSid);
     }
 
 

@@ -49,20 +49,20 @@ public class User extends Resource {
         return new UserCreator(identity);
     }
 
-    public static UserFetcher fetcher(final String sid){
-        return new UserFetcher(sid);
+    public static UserFetcher fetcher(final String pathSid){
+        return new UserFetcher(pathSid);
     }
 
-    public static UserDeleter deleter(final String sid){
-        return new UserDeleter(sid);
+    public static UserDeleter deleter(final String pathSid){
+        return new UserDeleter(pathSid);
     }
 
     public static UserReader reader(){
         return new UserReader();
     }
 
-    public static UserUpdater updater(final String sid){
-        return new UserUpdater(sid);
+    public static UserUpdater updater(final String pathSid){
+        return new UserUpdater(pathSid);
     }
 
     /**

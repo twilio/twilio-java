@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtension> {
-    private String availableAddOnSid;
+    private String pathAvailableAddOnSid;
     private Integer pageSize;
 
-    public AvailableAddOnExtensionReader(final String availableAddOnSid){
-        this.availableAddOnSid = availableAddOnSid;
+    public AvailableAddOnExtensionReader(final String pathAvailableAddOnSid){
+        this.pathAvailableAddOnSid = pathAvailableAddOnSid;
     }
 
     public AvailableAddOnExtensionReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class AvailableAddOnExtensionReader extends Reader<AvailableAddOnExtensio
 
     public Page<AvailableAddOnExtension> firstPage(final TwilioRestClient client) {
         String path = "/marketplace/AvailableAddOns/{AvailableAddOnSid}/Extensions";
-        path = path.replace("{"+"AvailableAddOnSid"+"}", this.availableAddOnSid.toString());
+        path = path.replace("{"+"AvailableAddOnSid"+"}", this.pathAvailableAddOnSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

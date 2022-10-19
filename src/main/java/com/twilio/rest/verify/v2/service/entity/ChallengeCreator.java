@@ -36,8 +36,8 @@ import java.util.Map;
 
 
 public class ChallengeCreator extends Creator<Challenge>{
-    private String serviceSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private String factorSid;
     private ZonedDateTime expirationDate;
     private String detailsMessage;
@@ -45,9 +45,9 @@ public class ChallengeCreator extends Creator<Challenge>{
     private Map<String, Object> hiddenDetails;
     private String authPayload;
 
-    public ChallengeCreator(final String serviceSid, final String identity, final String factorSid) {
-        this.serviceSid = serviceSid;
-        this.identity = identity;
+    public ChallengeCreator(final String pathServiceSid, final String pathIdentity, final String factorSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
         this.factorSid = factorSid;
     }
 
@@ -83,8 +83,8 @@ public class ChallengeCreator extends Creator<Challenge>{
     public Challenge create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
         path = path.replace("{"+"FactorSid"+"}", this.factorSid.toString());
 
         Request request = new Request(

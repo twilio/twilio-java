@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class FlexFlowUpdater extends Updater<FlexFlow>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private String chatServiceSid;
     private FlexFlow.ChannelType channelType;
@@ -49,8 +49,8 @@ public class FlexFlowUpdater extends Updater<FlexFlow>{
     private Boolean janitorEnabled;
     private Integer integrationRetryCount;
 
-    public FlexFlowUpdater(final String sid){
-        this.sid = sid;
+    public FlexFlowUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public FlexFlowUpdater setFriendlyName(final String friendlyName){
@@ -130,7 +130,7 @@ public class FlexFlowUpdater extends Updater<FlexFlow>{
     public FlexFlow update(final TwilioRestClient client){
         String path = "/v1/FlexFlows/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

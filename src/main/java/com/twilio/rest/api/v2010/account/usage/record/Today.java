@@ -54,8 +54,8 @@ public class Today extends Resource {
     public static TodayReader reader(){
         return new TodayReader();
     }
-    public static TodayReader reader(final String accountSid){
-        return new TodayReader(accountSid);
+    public static TodayReader reader(final String pathAccountSid){
+        return new TodayReader(pathAccountSid);
     }
 
 

@@ -45,21 +45,21 @@ import java.util.Map;
 public class Challenge extends Resource {
     private static final long serialVersionUID = 265978723470772L;
 
-    public static ChallengeCreator creator(final String serviceSid, final String identity, final String factorSid){
-        return new ChallengeCreator(serviceSid, identity, factorSid);
+    public static ChallengeCreator creator(final String pathServiceSid, final String pathIdentity, final String factorSid){
+        return new ChallengeCreator(pathServiceSid, pathIdentity, factorSid);
     }
 
-    public static ChallengeFetcher fetcher(final String serviceSid, final String identity, final String sid){
-        return new ChallengeFetcher(serviceSid, identity, sid);
+    public static ChallengeFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        return new ChallengeFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
 
-    public static ChallengeReader reader(final String serviceSid, final String identity){
-        return new ChallengeReader(serviceSid, identity);
+    public static ChallengeReader reader(final String pathServiceSid, final String pathIdentity){
+        return new ChallengeReader(pathServiceSid, pathIdentity);
     }
 
-    public static ChallengeUpdater updater(final String serviceSid, final String identity, final String sid){
-        return new ChallengeUpdater(serviceSid, identity, sid);
+    public static ChallengeUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        return new ChallengeUpdater(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**

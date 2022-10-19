@@ -43,8 +43,8 @@ public class ExecutionStepContext extends Resource {
     private static final long serialVersionUID = 28705359719021L;
 
 
-    public static ExecutionStepContextFetcher fetcher(final String flowSid, final String executionSid, final String stepSid){
-        return new ExecutionStepContextFetcher(flowSid, executionSid, stepSid);
+    public static ExecutionStepContextFetcher fetcher(final String pathFlowSid, final String pathExecutionSid, final String pathStepSid){
+        return new ExecutionStepContextFetcher(pathFlowSid, pathExecutionSid, pathStepSid);
     }
 
 

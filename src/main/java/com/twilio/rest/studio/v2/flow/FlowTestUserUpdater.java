@@ -30,11 +30,11 @@ import java.util.List;
 
 
 public class FlowTestUserUpdater extends Updater<FlowTestUser>{
-    private String sid;
+    private String pathSid;
     private List<String> testUsers;
 
-    public FlowTestUserUpdater(final String sid, final List<String> testUsers){
-        this.sid = sid;
+    public FlowTestUserUpdater(final String pathSid, final List<String> testUsers){
+        this.pathSid = pathSid;
         this.testUsers = testUsers;
     }
 
@@ -50,7 +50,7 @@ public class FlowTestUserUpdater extends Updater<FlowTestUser>{
     public FlowTestUser update(final TwilioRestClient client){
         String path = "/v2/Flows/{Sid}/TestUsers";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"TestUsers"+"}", this.testUsers.toString());
 
         Request request = new Request(

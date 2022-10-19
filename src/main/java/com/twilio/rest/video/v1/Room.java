@@ -51,8 +51,8 @@ public class Room extends Resource {
         return new RoomCreator();
     }
 
-    public static RoomFetcher fetcher(final String sid){
-        return new RoomFetcher(sid);
+    public static RoomFetcher fetcher(final String pathSid){
+        return new RoomFetcher(pathSid);
     }
 
 
@@ -60,8 +60,8 @@ public class Room extends Resource {
         return new RoomReader();
     }
 
-    public static RoomUpdater updater(final String sid, final Room.RoomStatus status){
-        return new RoomUpdater(sid, status);
+    public static RoomUpdater updater(final String pathSid, final Room.RoomStatus status){
+        return new RoomUpdater(pathSid, status);
     }
 
     /**

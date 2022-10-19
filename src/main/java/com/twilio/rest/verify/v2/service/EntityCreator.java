@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class EntityCreator extends Creator<Entity>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String identity;
 
-    public EntityCreator(final String serviceSid, final String identity) {
-        this.serviceSid = serviceSid;
+    public EntityCreator(final String pathServiceSid, final String identity) {
+        this.pathServiceSid = pathServiceSid;
         this.identity = identity;
     }
 
@@ -45,7 +45,7 @@ public class EntityCreator extends Creator<Entity>{
     public Entity create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Entities";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"Identity"+"}", this.identity.toString());
 
         Request request = new Request(

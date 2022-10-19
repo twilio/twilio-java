@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class CustomerProfilesEntityAssignmentsReader extends Reader<CustomerProfilesEntityAssignments> {
-    private String customerProfileSid;
+    private String pathCustomerProfileSid;
     private Integer pageSize;
 
-    public CustomerProfilesEntityAssignmentsReader(final String customerProfileSid){
-        this.customerProfileSid = customerProfileSid;
+    public CustomerProfilesEntityAssignmentsReader(final String pathCustomerProfileSid){
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
     public CustomerProfilesEntityAssignmentsReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class CustomerProfilesEntityAssignmentsReader extends Reader<CustomerProf
 
     public Page<CustomerProfilesEntityAssignments> firstPage(final TwilioRestClient client) {
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
-        path = path.replace("{"+"CustomerProfileSid"+"}", this.customerProfileSid.toString());
+        path = path.replace("{"+"CustomerProfileSid"+"}", this.pathCustomerProfileSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

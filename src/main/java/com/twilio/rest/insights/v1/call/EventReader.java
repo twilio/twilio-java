@@ -29,12 +29,12 @@ import com.twilio.base.Page;
 
 
 public class EventReader extends Reader<Event> {
-    private String callSid;
+    private String pathCallSid;
     private Event.TwilioEdge edge;
     private Integer pageSize;
 
-    public EventReader(final String callSid){
-        this.callSid = callSid;
+    public EventReader(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
 
     public EventReader setEdge(final Event.TwilioEdge edge){
@@ -53,7 +53,7 @@ public class EventReader extends Reader<Event> {
 
     public Page<Event> firstPage(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Events";
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class EsimProfileFetcher extends Fetcher<EsimProfile> {
-    private String sid;
+    private String pathSid;
 
-    public EsimProfileFetcher(final String sid){
-        this.sid = sid;
+    public EsimProfileFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class EsimProfileFetcher extends Fetcher<EsimProfile> {
     public EsimProfile fetch(final TwilioRestClient client) {
         String path = "/v1/ESimProfiles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

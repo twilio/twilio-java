@@ -49,20 +49,20 @@ public class TrustProducts extends Resource {
         return new TrustProductsCreator(friendlyName, email, policySid);
     }
 
-    public static TrustProductsFetcher fetcher(final String sid){
-        return new TrustProductsFetcher(sid);
+    public static TrustProductsFetcher fetcher(final String pathSid){
+        return new TrustProductsFetcher(pathSid);
     }
 
-    public static TrustProductsDeleter deleter(final String sid){
-        return new TrustProductsDeleter(sid);
+    public static TrustProductsDeleter deleter(final String pathSid){
+        return new TrustProductsDeleter(pathSid);
     }
 
     public static TrustProductsReader reader(){
         return new TrustProductsReader();
     }
 
-    public static TrustProductsUpdater updater(final String sid){
-        return new TrustProductsUpdater(sid);
+    public static TrustProductsUpdater updater(final String pathSid){
+        return new TrustProductsUpdater(pathSid);
     }
 
     /**

@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class AssistantInitiationActionsFetcher extends Fetcher<AssistantInitiationActions> {
-    private String assistantSid;
+    private String pathAssistantSid;
 
-    public AssistantInitiationActionsFetcher(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public AssistantInitiationActionsFetcher(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
 
@@ -39,7 +39,7 @@ public class AssistantInitiationActionsFetcher extends Fetcher<AssistantInitiati
     public AssistantInitiationActions fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/InitiationActions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

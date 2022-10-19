@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class FieldTypeReader extends Reader<FieldType> {
-    private String assistantSid;
+    private String pathAssistantSid;
     private Integer pageSize;
 
-    public FieldTypeReader(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public FieldTypeReader(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public FieldTypeReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class FieldTypeReader extends Reader<FieldType> {
 
     public Page<FieldType> firstPage(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/FieldTypes";
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -29,8 +29,8 @@ import java.time.ZonedDateTime;
 
 
 public class MessageUpdater extends Updater<Message>{
-    private String conversationSid;
-    private String sid;
+    private String pathConversationSid;
+    private String pathSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String author;
     private String body;
@@ -38,9 +38,9 @@ public class MessageUpdater extends Updater<Message>{
     private ZonedDateTime dateUpdated;
     private String attributes;
 
-    public MessageUpdater(final String conversationSid, final String sid){
-        this.conversationSid = conversationSid;
-        this.sid = sid;
+    public MessageUpdater(final String pathConversationSid, final String pathSid){
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
     public MessageUpdater setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
@@ -72,8 +72,8 @@ public class MessageUpdater extends Updater<Message>{
     public Message update(final TwilioRestClient client){
         String path = "/v1/Conversations/{ConversationSid}/Messages/{Sid}";
 
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

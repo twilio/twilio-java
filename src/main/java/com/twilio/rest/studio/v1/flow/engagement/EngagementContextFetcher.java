@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class EngagementContextFetcher extends Fetcher<EngagementContext> {
-    private String flowSid;
-    private String engagementSid;
+    private String pathFlowSid;
+    private String pathEngagementSid;
 
-    public EngagementContextFetcher(final String flowSid, final String engagementSid){
-        this.flowSid = flowSid;
-        this.engagementSid = engagementSid;
+    public EngagementContextFetcher(final String pathFlowSid, final String pathEngagementSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathEngagementSid = pathEngagementSid;
     }
 
 
@@ -41,8 +41,8 @@ public class EngagementContextFetcher extends Fetcher<EngagementContext> {
     public EngagementContext fetch(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Context";
 
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"EngagementSid"+"}", this.engagementSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"EngagementSid"+"}", this.pathEngagementSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

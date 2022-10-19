@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class ParticipantCreator extends Creator<Participant>{
-    private String serviceSid;
-    private String sessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private String identifier;
     private String friendlyName;
     private String proxyIdentifier;
     private String proxyIdentifierSid;
     private Boolean failOnParticipantConflict;
 
-    public ParticipantCreator(final String serviceSid, final String sessionSid, final String identifier) {
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
+    public ParticipantCreator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
         this.identifier = identifier;
     }
 
@@ -67,8 +67,8 @@ public class ParticipantCreator extends Creator<Participant>{
     public Participant create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"SessionSid"+"}", this.sessionSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
         path = path.replace("{"+"Identifier"+"}", this.identifier.toString());
 
         Request request = new Request(

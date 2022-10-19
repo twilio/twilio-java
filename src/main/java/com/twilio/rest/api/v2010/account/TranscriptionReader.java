@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class TranscriptionReader extends Reader<Transcription> {
-    private String accountSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
     public TranscriptionReader(){
     }
-    public TranscriptionReader(final String accountSid){
-        this.accountSid = accountSid;
+    public TranscriptionReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public TranscriptionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class TranscriptionReader extends Reader<Transcription> {
 
     public Page<Transcription> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Transcriptions.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

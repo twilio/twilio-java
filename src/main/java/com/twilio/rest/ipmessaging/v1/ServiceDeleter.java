@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class ServiceDeleter extends Deleter<Service> {
-    private String sid;
+    private String pathSid;
 
-    public ServiceDeleter(final String sid){
-        this.sid = sid;
+    public ServiceDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class ServiceDeleter extends Deleter<Service> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

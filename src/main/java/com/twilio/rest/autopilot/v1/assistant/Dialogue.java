@@ -43,8 +43,8 @@ public class Dialogue extends Resource {
     private static final long serialVersionUID = 270949613735802L;
 
 
-    public static DialogueFetcher fetcher(final String assistantSid, final String sid){
-        return new DialogueFetcher(assistantSid, sid);
+    public static DialogueFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new DialogueFetcher(pathAssistantSid, pathSid);
     }
 
 

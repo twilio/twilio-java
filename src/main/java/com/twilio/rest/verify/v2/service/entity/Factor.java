@@ -46,20 +46,20 @@ public class Factor extends Resource {
     private static final long serialVersionUID = 254306005270593L;
 
 
-    public static FactorFetcher fetcher(final String serviceSid, final String identity, final String sid){
-        return new FactorFetcher(serviceSid, identity, sid);
+    public static FactorFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        return new FactorFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
-    public static FactorDeleter deleter(final String serviceSid, final String identity, final String sid){
-        return new FactorDeleter(serviceSid, identity, sid);
+    public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
     }
 
-    public static FactorReader reader(final String serviceSid, final String identity){
-        return new FactorReader(serviceSid, identity);
+    public static FactorReader reader(final String pathServiceSid, final String pathIdentity){
+        return new FactorReader(pathServiceSid, pathIdentity);
     }
 
-    public static FactorUpdater updater(final String serviceSid, final String identity, final String sid){
-        return new FactorUpdater(serviceSid, identity, sid);
+    public static FactorUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        return new FactorUpdater(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**

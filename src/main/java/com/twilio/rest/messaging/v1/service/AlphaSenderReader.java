@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class AlphaSenderReader extends Reader<AlphaSender> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public AlphaSenderReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public AlphaSenderReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public AlphaSenderReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
 
     public Page<AlphaSender> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/AlphaSenders";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

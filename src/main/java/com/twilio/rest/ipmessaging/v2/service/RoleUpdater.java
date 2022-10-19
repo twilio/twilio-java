@@ -30,13 +30,13 @@ import java.util.List;
 
 
 public class RoleUpdater extends Updater<Role>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private List<String> permission;
 
-    public RoleUpdater(final String serviceSid, final String sid, final List<String> permission){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public RoleUpdater(final String pathServiceSid, final String pathSid, final List<String> permission){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
         this.permission = permission;
     }
 
@@ -52,8 +52,8 @@ public class RoleUpdater extends Updater<Role>{
     public Role update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Roles/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Permission"+"}", this.permission.toString());
 
         Request request = new Request(

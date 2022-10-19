@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class AddOnResultReader extends Reader<AddOnResult> {
-    private String referenceSid;
-    private String accountSid;
+    private String pathReferenceSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public AddOnResultReader(final String referenceSid){
-        this.referenceSid = referenceSid;
+    public AddOnResultReader(final String pathReferenceSid){
+        this.pathReferenceSid = pathReferenceSid;
     }
-    public AddOnResultReader(final String accountSid, final String referenceSid){
-        this.accountSid = accountSid;
-        this.referenceSid = referenceSid;
+    public AddOnResultReader(final String pathAccountSid, final String pathReferenceSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathReferenceSid = pathReferenceSid;
     }
 
     public AddOnResultReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class AddOnResultReader extends Reader<AddOnResult> {
 
     public Page<AddOnResult> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ReferenceSid"+"}", this.referenceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ReferenceSid"+"}", this.pathReferenceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

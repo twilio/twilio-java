@@ -31,14 +31,14 @@ import java.util.List;
 
 
 public class BuildCreator extends Creator<Build>{
-    private String serviceSid;
+    private String pathServiceSid;
     private List<String> assetVersions;
     private List<String> functionVersions;
     private String dependencies;
     private String runtime;
 
-    public BuildCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public BuildCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public BuildCreator setAssetVersions(final List<String> assetVersions){
@@ -68,7 +68,7 @@ public class BuildCreator extends Creator<Build>{
     public Build create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Builds";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

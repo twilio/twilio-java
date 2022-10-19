@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class UserBindingFetcher extends Fetcher<UserBinding> {
-    private String serviceSid;
-    private String userSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathUserSid;
+    private String pathSid;
 
-    public UserBindingFetcher(final String serviceSid, final String userSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.userSid = userSid;
-        this.sid = sid;
+    public UserBindingFetcher(final String pathServiceSid, final String pathUserSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class UserBindingFetcher extends Fetcher<UserBinding> {
     public UserBinding fetch(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Bindings/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

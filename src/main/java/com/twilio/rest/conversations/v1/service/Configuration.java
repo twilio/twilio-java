@@ -43,14 +43,14 @@ public class Configuration extends Resource {
     private static final long serialVersionUID = 35465460450497L;
 
 
-    public static ConfigurationFetcher fetcher(final String chatServiceSid){
-        return new ConfigurationFetcher(chatServiceSid);
+    public static ConfigurationFetcher fetcher(final String pathChatServiceSid){
+        return new ConfigurationFetcher(pathChatServiceSid);
     }
 
 
 
-    public static ConfigurationUpdater updater(final String chatServiceSid){
-        return new ConfigurationUpdater(chatServiceSid);
+    public static ConfigurationUpdater updater(final String pathChatServiceSid){
+        return new ConfigurationUpdater(pathChatServiceSid);
     }
 
     /**

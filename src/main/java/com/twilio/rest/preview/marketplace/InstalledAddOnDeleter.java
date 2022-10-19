@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
-    private String sid;
+    private String pathSid;
 
-    public InstalledAddOnDeleter(final String sid){
-        this.sid = sid;
+    public InstalledAddOnDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class InstalledAddOnDeleter extends Deleter<InstalledAddOn> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/marketplace/InstalledAddOns/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

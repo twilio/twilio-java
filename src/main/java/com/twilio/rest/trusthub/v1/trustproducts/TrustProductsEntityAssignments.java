@@ -42,20 +42,20 @@ import java.util.Objects;
 public class TrustProductsEntityAssignments extends Resource {
     private static final long serialVersionUID = 11655766001892L;
 
-    public static TrustProductsEntityAssignmentsCreator creator(final String trustProductSid, final String objectSid){
-        return new TrustProductsEntityAssignmentsCreator(trustProductSid, objectSid);
+    public static TrustProductsEntityAssignmentsCreator creator(final String pathTrustProductSid, final String objectSid){
+        return new TrustProductsEntityAssignmentsCreator(pathTrustProductSid, objectSid);
     }
 
-    public static TrustProductsEntityAssignmentsFetcher fetcher(final String trustProductSid, final String sid){
-        return new TrustProductsEntityAssignmentsFetcher(trustProductSid, sid);
+    public static TrustProductsEntityAssignmentsFetcher fetcher(final String pathTrustProductSid, final String pathSid){
+        return new TrustProductsEntityAssignmentsFetcher(pathTrustProductSid, pathSid);
     }
 
-    public static TrustProductsEntityAssignmentsDeleter deleter(final String trustProductSid, final String sid){
-        return new TrustProductsEntityAssignmentsDeleter(trustProductSid, sid);
+    public static TrustProductsEntityAssignmentsDeleter deleter(final String pathTrustProductSid, final String pathSid){
+        return new TrustProductsEntityAssignmentsDeleter(pathTrustProductSid, pathSid);
     }
 
-    public static TrustProductsEntityAssignmentsReader reader(final String trustProductSid){
-        return new TrustProductsEntityAssignmentsReader(trustProductSid);
+    public static TrustProductsEntityAssignmentsReader reader(final String pathTrustProductSid){
+        return new TrustProductsEntityAssignmentsReader(pathTrustProductSid);
     }
 
 

@@ -27,14 +27,14 @@ import com.twilio.rest.Domains;
 
 
 public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
-    private String serviceSid;
-    private String mapSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathMapSid;
+    private String pathIdentity;
 
-    public SyncMapPermissionDeleter(final String serviceSid, final String mapSid, final String identity){
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.identity = identity;
+    public SyncMapPermissionDeleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity){
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -42,9 +42,9 @@ public class SyncMapPermissionDeleter extends Deleter<SyncMapPermission> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions/{Identity}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"MapSid"+"}", this.mapSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -44,8 +44,8 @@ public class Country extends Resource {
     private static final long serialVersionUID = 221375218243466L;
 
 
-    public static CountryFetcher fetcher(final String isoCode){
-        return new CountryFetcher(isoCode);
+    public static CountryFetcher fetcher(final String pathIsoCode){
+        return new CountryFetcher(pathIsoCode);
     }
 
 

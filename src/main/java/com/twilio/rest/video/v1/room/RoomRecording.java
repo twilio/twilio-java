@@ -46,16 +46,16 @@ public class RoomRecording extends Resource {
     private static final long serialVersionUID = 14590901968979L;
 
 
-    public static RoomRecordingFetcher fetcher(final String roomSid, final String sid){
-        return new RoomRecordingFetcher(roomSid, sid);
+    public static RoomRecordingFetcher fetcher(final String pathRoomSid, final String pathSid){
+        return new RoomRecordingFetcher(pathRoomSid, pathSid);
     }
 
-    public static RoomRecordingDeleter deleter(final String roomSid, final String sid){
-        return new RoomRecordingDeleter(roomSid, sid);
+    public static RoomRecordingDeleter deleter(final String pathRoomSid, final String pathSid){
+        return new RoomRecordingDeleter(pathRoomSid, pathSid);
     }
 
-    public static RoomRecordingReader reader(final String roomSid){
-        return new RoomRecordingReader(roomSid);
+    public static RoomRecordingReader reader(final String pathRoomSid){
+        return new RoomRecordingReader(pathRoomSid);
     }
 
 

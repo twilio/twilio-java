@@ -31,9 +31,9 @@ import java.util.List;
 
 
 public class ReservationUpdater extends Updater<Reservation>{
-    private String workspaceSid;
-    private String workerSid;
-    private String sid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
+    private String pathSid;
     private String ifMatch;
     private Reservation.Status reservationStatus;
     private String workerActivitySid;
@@ -87,10 +87,10 @@ public class ReservationUpdater extends Updater<Reservation>{
     private Boolean endConferenceOnCustomerExit;
     private Boolean beepOnCustomerEntrance;
 
-    public ReservationUpdater(final String workspaceSid, final String workerSid, final String sid){
-        this.workspaceSid = workspaceSid;
-        this.workerSid = workerSid;
-        this.sid = sid;
+    public ReservationUpdater(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
+        this.pathSid = pathSid;
     }
 
     public ReservationUpdater setIfMatch(final String ifMatch){
@@ -351,9 +351,9 @@ public class ReservationUpdater extends Updater<Reservation>{
     public Reservation update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Reservations/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"WorkerSid"+"}", this.workerSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"WorkerSid"+"}", this.pathWorkerSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

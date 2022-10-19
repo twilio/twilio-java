@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class AccessTokenCreator extends Creator<AccessToken>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String identity;
     private AccessToken.FactorTypes factorType;
     private String factorFriendlyName;
     private Integer ttl;
 
-    public AccessTokenCreator(final String serviceSid, final String identity, final AccessToken.FactorTypes factorType) {
-        this.serviceSid = serviceSid;
+    public AccessTokenCreator(final String pathServiceSid, final String identity, final AccessToken.FactorTypes factorType) {
+        this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.factorType = factorType;
     }
@@ -61,7 +61,7 @@ public class AccessTokenCreator extends Creator<AccessToken>{
     public AccessToken create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/AccessTokens";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"Identity"+"}", this.identity.toString());
         path = path.replace("{"+"FactorType"+"}", this.factorType.toString());
 

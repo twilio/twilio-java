@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class SimIpAddressReader extends Reader<SimIpAddress> {
-    private String simSid;
+    private String pathSimSid;
     private Integer pageSize;
 
-    public SimIpAddressReader(final String simSid){
-        this.simSid = simSid;
+    public SimIpAddressReader(final String pathSimSid){
+        this.pathSimSid = pathSimSid;
     }
 
     public SimIpAddressReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
 
     public Page<SimIpAddress> firstPage(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/IpAddresses";
-        path = path.replace("{"+"SimSid"+"}", this.simSid.toString());
+        path = path.replace("{"+"SimSid"+"}", this.pathSimSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -31,15 +31,15 @@ import java.net.URI;
 import java.net.URI;
 
 public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarget>{
-    private String connectionPolicySid;
+    private String pathConnectionPolicySid;
     private URI target;
     private String friendlyName;
     private Integer priority;
     private Integer weight;
     private Boolean enabled;
 
-    public ConnectionPolicyTargetCreator(final String connectionPolicySid, final URI target) {
-        this.connectionPolicySid = connectionPolicySid;
+    public ConnectionPolicyTargetCreator(final String pathConnectionPolicySid, final URI target) {
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
         this.target = target;
     }
 
@@ -72,7 +72,7 @@ public class ConnectionPolicyTargetCreator extends Creator<ConnectionPolicyTarge
     public ConnectionPolicyTarget create(final TwilioRestClient client){
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets";
 
-        path = path.replace("{"+"ConnectionPolicySid"+"}", this.connectionPolicySid.toString());
+        path = path.replace("{"+"ConnectionPolicySid"+"}", this.pathConnectionPolicySid.toString());
         path = path.replace("{"+"Target"+"}", this.target.toString());
 
         Request request = new Request(

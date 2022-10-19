@@ -41,32 +41,32 @@ import java.util.Objects;
 public class AuthCallsCredentialListMapping extends Resource {
     private static final long serialVersionUID = 16012497789519L;
 
-    public static AuthCallsCredentialListMappingCreator creator(final String domainSid, final String credentialListSid){
-        return new AuthCallsCredentialListMappingCreator(domainSid, credentialListSid);
+    public static AuthCallsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid){
+        return new AuthCallsCredentialListMappingCreator(pathDomainSid, credentialListSid);
     }
-    public static AuthCallsCredentialListMappingCreator creator(final String accountSid, final String domainSid, final String credentialListSid){
-        return new AuthCallsCredentialListMappingCreator(accountSid, domainSid, credentialListSid);
-    }
-
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String domainSid, final String sid){
-        return new AuthCallsCredentialListMappingFetcher(domainSid, sid);
-    }
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String accountSid, final String domainSid, final String sid){
-        return new AuthCallsCredentialListMappingFetcher(accountSid, domainSid, sid);
+    public static AuthCallsCredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid){
+        return new AuthCallsCredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
-    public static AuthCallsCredentialListMappingDeleter deleter(final String domainSid, final String sid){
-        return new AuthCallsCredentialListMappingDeleter(domainSid, sid);
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new AuthCallsCredentialListMappingFetcher(pathDomainSid, pathSid);
     }
-    public static AuthCallsCredentialListMappingDeleter deleter(final String accountSid, final String domainSid, final String sid){
-        return new AuthCallsCredentialListMappingDeleter(accountSid, domainSid, sid);
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthCallsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
-    public static AuthCallsCredentialListMappingReader reader(final String domainSid){
-        return new AuthCallsCredentialListMappingReader(domainSid);
+    public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
+        return new AuthCallsCredentialListMappingDeleter(pathDomainSid, pathSid);
     }
-    public static AuthCallsCredentialListMappingReader reader(final String accountSid, final String domainSid){
-        return new AuthCallsCredentialListMappingReader(accountSid, domainSid);
+    public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthCallsCredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static AuthCallsCredentialListMappingReader reader(final String pathDomainSid){
+        return new AuthCallsCredentialListMappingReader(pathDomainSid);
+    }
+    public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
+        return new AuthCallsCredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
 
 

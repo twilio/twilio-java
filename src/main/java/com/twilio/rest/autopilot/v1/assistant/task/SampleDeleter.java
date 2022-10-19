@@ -27,14 +27,14 @@ import com.twilio.rest.Domains;
 
 
 public class SampleDeleter extends Deleter<Sample> {
-    private String assistantSid;
-    private String taskSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
+    private String pathSid;
 
-    public SampleDeleter(final String assistantSid, final String taskSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
-        this.sid = sid;
+    public SampleDeleter(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class SampleDeleter extends Deleter<Sample> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

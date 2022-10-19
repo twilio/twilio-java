@@ -44,24 +44,24 @@ import java.util.Map;
 public class Document extends Resource {
     private static final long serialVersionUID = 221157207950751L;
 
-    public static DocumentCreator creator(final String serviceSid){
-        return new DocumentCreator(serviceSid);
+    public static DocumentCreator creator(final String pathServiceSid){
+        return new DocumentCreator(pathServiceSid);
     }
 
-    public static DocumentFetcher fetcher(final String serviceSid, final String sid){
-        return new DocumentFetcher(serviceSid, sid);
+    public static DocumentFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new DocumentFetcher(pathServiceSid, pathSid);
     }
 
-    public static DocumentDeleter deleter(final String serviceSid, final String sid){
-        return new DocumentDeleter(serviceSid, sid);
+    public static DocumentDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new DocumentDeleter(pathServiceSid, pathSid);
     }
 
-    public static DocumentReader reader(final String serviceSid){
-        return new DocumentReader(serviceSid);
+    public static DocumentReader reader(final String pathServiceSid){
+        return new DocumentReader(pathServiceSid);
     }
 
-    public static DocumentUpdater updater(final String serviceSid, final String sid){
-        return new DocumentUpdater(serviceSid, sid);
+    public static DocumentUpdater updater(final String pathServiceSid, final String pathSid){
+        return new DocumentUpdater(pathServiceSid, pathSid);
     }
 
     /**

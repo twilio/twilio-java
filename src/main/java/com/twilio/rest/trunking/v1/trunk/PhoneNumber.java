@@ -46,20 +46,20 @@ import java.util.Map;
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 92972440584956L;
 
-    public static PhoneNumberCreator creator(final String trunkSid, final String phoneNumberSid){
-        return new PhoneNumberCreator(trunkSid, phoneNumberSid);
+    public static PhoneNumberCreator creator(final String pathTrunkSid, final String phoneNumberSid){
+        return new PhoneNumberCreator(pathTrunkSid, phoneNumberSid);
     }
 
-    public static PhoneNumberFetcher fetcher(final String trunkSid, final String sid){
-        return new PhoneNumberFetcher(trunkSid, sid);
+    public static PhoneNumberFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new PhoneNumberFetcher(pathTrunkSid, pathSid);
     }
 
-    public static PhoneNumberDeleter deleter(final String trunkSid, final String sid){
-        return new PhoneNumberDeleter(trunkSid, sid);
+    public static PhoneNumberDeleter deleter(final String pathTrunkSid, final String pathSid){
+        return new PhoneNumberDeleter(pathTrunkSid, pathSid);
     }
 
-    public static PhoneNumberReader reader(final String trunkSid){
-        return new PhoneNumberReader(trunkSid);
+    public static PhoneNumberReader reader(final String pathTrunkSid){
+        return new PhoneNumberReader(pathTrunkSid);
     }
 
 

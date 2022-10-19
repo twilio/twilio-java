@@ -46,20 +46,20 @@ public class UserConversation extends Resource {
     private static final long serialVersionUID = 269317644556189L;
 
 
-    public static UserConversationFetcher fetcher(final String userSid, final String conversationSid){
-        return new UserConversationFetcher(userSid, conversationSid);
+    public static UserConversationFetcher fetcher(final String pathUserSid, final String pathConversationSid){
+        return new UserConversationFetcher(pathUserSid, pathConversationSid);
     }
 
-    public static UserConversationDeleter deleter(final String userSid, final String conversationSid){
-        return new UserConversationDeleter(userSid, conversationSid);
+    public static UserConversationDeleter deleter(final String pathUserSid, final String pathConversationSid){
+        return new UserConversationDeleter(pathUserSid, pathConversationSid);
     }
 
-    public static UserConversationReader reader(final String userSid){
-        return new UserConversationReader(userSid);
+    public static UserConversationReader reader(final String pathUserSid){
+        return new UserConversationReader(pathUserSid);
     }
 
-    public static UserConversationUpdater updater(final String userSid, final String conversationSid){
-        return new UserConversationUpdater(userSid, conversationSid);
+    public static UserConversationUpdater updater(final String pathUserSid, final String pathConversationSid){
+        return new UserConversationUpdater(pathUserSid, pathConversationSid);
     }
 
     /**

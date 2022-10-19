@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class BillingPeriodReader extends Reader<BillingPeriod> {
-    private String simSid;
+    private String pathSimSid;
     private Integer pageSize;
 
-    public BillingPeriodReader(final String simSid){
-        this.simSid = simSid;
+    public BillingPeriodReader(final String pathSimSid){
+        this.pathSimSid = pathSimSid;
     }
 
     public BillingPeriodReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class BillingPeriodReader extends Reader<BillingPeriod> {
 
     public Page<BillingPeriod> firstPage(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/BillingPeriods";
-        path = path.replace("{"+"SimSid"+"}", this.simSid.toString());
+        path = path.replace("{"+"SimSid"+"}", this.pathSimSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

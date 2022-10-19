@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class CallSummaryFetcher extends Fetcher<CallSummary> {
-    private String callSid;
+    private String pathCallSid;
     private CallSummary.ProcessingState processingState;
 
-    public CallSummaryFetcher(final String callSid){
-        this.callSid = callSid;
+    public CallSummaryFetcher(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
 
     public CallSummaryFetcher setProcessingState(final CallSummary.ProcessingState processingState){
@@ -44,7 +44,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
     public CallSummary fetch(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Summary";
 
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

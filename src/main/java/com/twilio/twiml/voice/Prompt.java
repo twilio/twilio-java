@@ -50,7 +50,8 @@ public class Prompt extends TwiML {
         INVALID_CARD_TYPE("invalid-card-type"),
         INVALID_DATE("invalid-date"),
         INVALID_SECURITY_CODE("invalid-security-code"),
-        INTERNAL_ERROR("internal-error");
+        INTERNAL_ERROR("internal-error"),
+        INPUT_MATCHING_FAILED("input-matching-failed");
 
         private final String value;
 
@@ -89,6 +90,7 @@ public class Prompt extends TwiML {
     private final List<Prompt.ErrorType> errorType;
     private final List<Prompt.CardType> cardType;
     private final List<Integer> attempt;
+    private final Boolean requireMatchingInputs;
 
     /**
      * For XML Serialization/Deserialization
@@ -106,6 +108,7 @@ public class Prompt extends TwiML {
         this.errorType = b.errorType;
         this.cardType = b.cardType;
         this.attempt = b.attempt;
+        this.requireMatchingInputs = b.requireMatchingInputs;
     }
 
     /**
@@ -128,6 +131,9 @@ public class Prompt extends TwiML {
         }
         if (this.getAttempts() != null) {
             attrs.put("attempt", this.getAttemptsAsString());
+        }
+        if (this.isRequireMatchingInputs() != null) {
+            attrs.put("requireMatchingInputs", this.isRequireMatchingInputs().toString());
         }
 
         return attrs;
@@ -206,6 +212,16 @@ public class Prompt extends TwiML {
     }
 
     /**
+     * Require customer to input requested information twice and verify matching.
+     *
+     * @return Require customer to input requested information twice and verify
+     *         matching.
+     */
+    public Boolean isRequireMatchingInputs() {
+        return requireMatchingInputs;
+    }
+
+    /**
      * Create a new {@code <Prompt>} element
      */
     public static class Builder extends TwiML.Builder<Builder> {
@@ -227,6 +243,7 @@ public class Prompt extends TwiML {
         private List<Prompt.ErrorType> errorType;
         private List<Prompt.CardType> cardType;
         private List<Integer> attempt;
+        private Boolean requireMatchingInputs;
 
         /**
          * Name of the payment source data element
@@ -285,6 +302,15 @@ public class Prompt extends TwiML {
          */
         public Builder attempts(Integer attempt) {
             this.attempt = Promoter.listOfOne(attempt);
+            return this;
+        }
+
+        /**
+         * Require customer to input requested information twice and verify matching.
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "requireMatchingInputs")
+        public Builder requireMatchingInputs(Boolean requireMatchingInputs) {
+            this.requireMatchingInputs = requireMatchingInputs;
             return this;
         }
 

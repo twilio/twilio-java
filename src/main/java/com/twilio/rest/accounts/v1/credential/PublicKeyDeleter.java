@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class PublicKeyDeleter extends Deleter<PublicKey> {
-    private String sid;
+    private String pathSid;
 
-    public PublicKeyDeleter(final String sid){
-        this.sid = sid;
+    public PublicKeyDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class PublicKeyDeleter extends Deleter<PublicKey> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Credentials/PublicKeys/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

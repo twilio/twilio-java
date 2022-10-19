@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class BuildStatusFetcher extends Fetcher<BuildStatus> {
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
 
-    public BuildStatusFetcher(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public BuildStatusFetcher(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class BuildStatusFetcher extends Fetcher<BuildStatus> {
     public BuildStatus fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Builds/{Sid}/Status";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

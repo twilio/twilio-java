@@ -44,25 +44,25 @@ public class Payload extends Resource {
     private static final long serialVersionUID = 241774798598483L;
 
 
-    public static PayloadFetcher fetcher(final String referenceSid, final String addOnResultSid, final String sid){
-        return new PayloadFetcher(referenceSid, addOnResultSid, sid);
+    public static PayloadFetcher fetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
+        return new PayloadFetcher(pathReferenceSid, pathAddOnResultSid, pathSid);
     }
-    public static PayloadFetcher fetcher(final String accountSid, final String referenceSid, final String addOnResultSid, final String sid){
-        return new PayloadFetcher(accountSid, referenceSid, addOnResultSid, sid);
-    }
-
-    public static PayloadDeleter deleter(final String referenceSid, final String addOnResultSid, final String sid){
-        return new PayloadDeleter(referenceSid, addOnResultSid, sid);
-    }
-    public static PayloadDeleter deleter(final String accountSid, final String referenceSid, final String addOnResultSid, final String sid){
-        return new PayloadDeleter(accountSid, referenceSid, addOnResultSid, sid);
+    public static PayloadFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
+        return new PayloadFetcher(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
     }
 
-    public static PayloadReader reader(final String referenceSid, final String addOnResultSid){
-        return new PayloadReader(referenceSid, addOnResultSid);
+    public static PayloadDeleter deleter(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
+        return new PayloadDeleter(pathReferenceSid, pathAddOnResultSid, pathSid);
     }
-    public static PayloadReader reader(final String accountSid, final String referenceSid, final String addOnResultSid){
-        return new PayloadReader(accountSid, referenceSid, addOnResultSid);
+    public static PayloadDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
+        return new PayloadDeleter(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
+    }
+
+    public static PayloadReader reader(final String pathReferenceSid, final String pathAddOnResultSid){
+        return new PayloadReader(pathReferenceSid, pathAddOnResultSid);
+    }
+    public static PayloadReader reader(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid){
+        return new PayloadReader(pathAccountSid, pathReferenceSid, pathAddOnResultSid);
     }
 
 

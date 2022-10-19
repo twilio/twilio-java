@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class SubscriptionUpdater extends Updater<Subscription>{
-    private String sid;
+    private String pathSid;
     private String description;
     private String sinkSid;
 
-    public SubscriptionUpdater(final String sid){
-        this.sid = sid;
+    public SubscriptionUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public SubscriptionUpdater setDescription(final String description){
@@ -49,7 +49,7 @@ public class SubscriptionUpdater extends Updater<Subscription>{
     public Subscription update(final TwilioRestClient client){
         String path = "/v1/Subscriptions/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

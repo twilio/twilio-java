@@ -47,20 +47,20 @@ public class RatePlan extends Resource {
         return new RatePlanCreator();
     }
 
-    public static RatePlanFetcher fetcher(final String sid){
-        return new RatePlanFetcher(sid);
+    public static RatePlanFetcher fetcher(final String pathSid){
+        return new RatePlanFetcher(pathSid);
     }
 
-    public static RatePlanDeleter deleter(final String sid){
-        return new RatePlanDeleter(sid);
+    public static RatePlanDeleter deleter(final String pathSid){
+        return new RatePlanDeleter(pathSid);
     }
 
     public static RatePlanReader reader(){
         return new RatePlanReader();
     }
 
-    public static RatePlanUpdater updater(final String sid){
-        return new RatePlanUpdater(sid);
+    public static RatePlanUpdater updater(final String pathSid){
+        return new RatePlanUpdater(pathSid);
     }
 
     /**

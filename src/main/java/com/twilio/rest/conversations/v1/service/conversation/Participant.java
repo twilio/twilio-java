@@ -45,24 +45,24 @@ import java.util.Map;
 public class Participant extends Resource {
     private static final long serialVersionUID = 110295013528965L;
 
-    public static ParticipantCreator creator(final String chatServiceSid, final String conversationSid){
-        return new ParticipantCreator(chatServiceSid, conversationSid);
+    public static ParticipantCreator creator(final String pathChatServiceSid, final String pathConversationSid){
+        return new ParticipantCreator(pathChatServiceSid, pathConversationSid);
     }
 
-    public static ParticipantFetcher fetcher(final String chatServiceSid, final String conversationSid, final String sid){
-        return new ParticipantFetcher(chatServiceSid, conversationSid, sid);
+    public static ParticipantFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new ParticipantFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static ParticipantDeleter deleter(final String chatServiceSid, final String conversationSid, final String sid){
-        return new ParticipantDeleter(chatServiceSid, conversationSid, sid);
+    public static ParticipantDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new ParticipantDeleter(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static ParticipantReader reader(final String chatServiceSid, final String conversationSid){
-        return new ParticipantReader(chatServiceSid, conversationSid);
+    public static ParticipantReader reader(final String pathChatServiceSid, final String pathConversationSid){
+        return new ParticipantReader(pathChatServiceSid, pathConversationSid);
     }
 
-    public static ParticipantUpdater updater(final String chatServiceSid, final String conversationSid, final String sid){
-        return new ParticipantUpdater(chatServiceSid, conversationSid, sid);
+    public static ParticipantUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new ParticipantUpdater(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     /**

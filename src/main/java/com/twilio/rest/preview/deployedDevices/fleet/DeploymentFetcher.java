@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class DeploymentFetcher extends Fetcher<Deployment> {
-    private String fleetSid;
-    private String sid;
+    private String pathFleetSid;
+    private String pathSid;
 
-    public DeploymentFetcher(final String fleetSid, final String sid){
-        this.fleetSid = fleetSid;
-        this.sid = sid;
+    public DeploymentFetcher(final String pathFleetSid, final String pathSid){
+        this.pathFleetSid = pathFleetSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
     public Deployment fetch(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

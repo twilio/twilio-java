@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class SubscriptionDeleter extends Deleter<Subscription> {
-    private String sid;
+    private String pathSid;
 
-    public SubscriptionDeleter(final String sid){
-        this.sid = sid;
+    public SubscriptionDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class SubscriptionDeleter extends Deleter<Subscription> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

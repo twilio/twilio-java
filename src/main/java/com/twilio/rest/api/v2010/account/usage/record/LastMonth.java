@@ -54,8 +54,8 @@ public class LastMonth extends Resource {
     public static LastMonthReader reader(){
         return new LastMonthReader();
     }
-    public static LastMonthReader reader(final String accountSid){
-        return new LastMonthReader(accountSid);
+    public static LastMonthReader reader(final String pathAccountSid){
+        return new LastMonthReader(pathAccountSid);
     }
 
 

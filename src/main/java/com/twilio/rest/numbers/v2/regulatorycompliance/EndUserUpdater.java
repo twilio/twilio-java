@@ -30,12 +30,12 @@ import java.util.Map;
 
 
 public class EndUserUpdater extends Updater<EndUser>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private Map<String, Object> attributes;
 
-    public EndUserUpdater(final String sid){
-        this.sid = sid;
+    public EndUserUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public EndUserUpdater setFriendlyName(final String friendlyName){
@@ -51,7 +51,7 @@ public class EndUserUpdater extends Updater<EndUser>{
     public EndUser update(final TwilioRestClient client){
         String path = "/v2/RegulatoryCompliance/EndUsers/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

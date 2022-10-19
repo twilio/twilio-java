@@ -49,11 +49,11 @@ public class DependentPhoneNumber extends Resource {
 
 
 
-    public static DependentPhoneNumberReader reader(final String addressSid){
-        return new DependentPhoneNumberReader(addressSid);
+    public static DependentPhoneNumberReader reader(final String pathAddressSid){
+        return new DependentPhoneNumberReader(pathAddressSid);
     }
-    public static DependentPhoneNumberReader reader(final String accountSid, final String addressSid){
-        return new DependentPhoneNumberReader(accountSid, addressSid);
+    public static DependentPhoneNumberReader reader(final String pathAccountSid, final String pathAddressSid){
+        return new DependentPhoneNumberReader(pathAccountSid, pathAddressSid);
     }
 
 

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class NetworkAccessProfileNetworkReader extends Reader<NetworkAccessProfileNetwork> {
-    private String networkAccessProfileSid;
+    private String pathNetworkAccessProfileSid;
     private Integer pageSize;
 
-    public NetworkAccessProfileNetworkReader(final String networkAccessProfileSid){
-        this.networkAccessProfileSid = networkAccessProfileSid;
+    public NetworkAccessProfileNetworkReader(final String pathNetworkAccessProfileSid){
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
     }
 
     public NetworkAccessProfileNetworkReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class NetworkAccessProfileNetworkReader extends Reader<NetworkAccessProfi
 
     public Page<NetworkAccessProfileNetwork> firstPage(final TwilioRestClient client) {
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
-        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.networkAccessProfileSid.toString());
+        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.pathNetworkAccessProfileSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

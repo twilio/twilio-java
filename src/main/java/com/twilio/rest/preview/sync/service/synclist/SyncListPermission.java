@@ -41,20 +41,20 @@ public class SyncListPermission extends Resource {
     private static final long serialVersionUID = 225550881347017L;
 
 
-    public static SyncListPermissionFetcher fetcher(final String serviceSid, final String listSid, final String identity){
-        return new SyncListPermissionFetcher(serviceSid, listSid, identity);
+    public static SyncListPermissionFetcher fetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity){
+        return new SyncListPermissionFetcher(pathServiceSid, pathListSid, pathIdentity);
     }
 
-    public static SyncListPermissionDeleter deleter(final String serviceSid, final String listSid, final String identity){
-        return new SyncListPermissionDeleter(serviceSid, listSid, identity);
+    public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity){
+        return new SyncListPermissionDeleter(pathServiceSid, pathListSid, pathIdentity);
     }
 
-    public static SyncListPermissionReader reader(final String serviceSid, final String listSid){
-        return new SyncListPermissionReader(serviceSid, listSid);
+    public static SyncListPermissionReader reader(final String pathServiceSid, final String pathListSid){
+        return new SyncListPermissionReader(pathServiceSid, pathListSid);
     }
 
-    public static SyncListPermissionUpdater updater(final String serviceSid, final String listSid, final String identity, final Boolean read, final Boolean write, final Boolean manage){
-        return new SyncListPermissionUpdater(serviceSid, listSid, identity, read, write, manage);
+    public static SyncListPermissionUpdater updater(final String pathServiceSid, final String pathListSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage){
+        return new SyncListPermissionUpdater(pathServiceSid, pathListSid, pathIdentity, read, write, manage);
     }
 
     /**

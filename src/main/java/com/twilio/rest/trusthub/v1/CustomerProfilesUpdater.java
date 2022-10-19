@@ -30,14 +30,14 @@ import java.net.URI;
 
 
 public class CustomerProfilesUpdater extends Updater<CustomerProfiles>{
-    private String sid;
+    private String pathSid;
     private CustomerProfiles.Status status;
     private URI statusCallback;
     private String friendlyName;
     private String email;
 
-    public CustomerProfilesUpdater(final String sid){
-        this.sid = sid;
+    public CustomerProfilesUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public CustomerProfilesUpdater setStatus(final CustomerProfiles.Status status){
@@ -65,7 +65,7 @@ public class CustomerProfilesUpdater extends Updater<CustomerProfiles>{
     public CustomerProfiles update(final TwilioRestClient client){
         String path = "/v1/CustomerProfiles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

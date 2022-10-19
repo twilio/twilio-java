@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class TrunkUpdater extends Updater<Trunk>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private String domainName;
     private URI disasterRecoveryUrl;
@@ -40,8 +40,8 @@ public class TrunkUpdater extends Updater<Trunk>{
     private Boolean cnamLookupEnabled;
     private Trunk.TransferCallerId transferCallerId;
 
-    public TrunkUpdater(final String sid){
-        this.sid = sid;
+    public TrunkUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public TrunkUpdater setFriendlyName(final String friendlyName){
@@ -85,7 +85,7 @@ public class TrunkUpdater extends Updater<Trunk>{
     public Trunk update(final TwilioRestClient client){
         String path = "/v1/Trunks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class OriginationUrlReader extends Reader<OriginationUrl> {
-    private String trunkSid;
+    private String pathTrunkSid;
     private Integer pageSize;
 
-    public OriginationUrlReader(final String trunkSid){
-        this.trunkSid = trunkSid;
+    public OriginationUrlReader(final String pathTrunkSid){
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     public OriginationUrlReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class OriginationUrlReader extends Reader<OriginationUrl> {
 
     public Page<OriginationUrl> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

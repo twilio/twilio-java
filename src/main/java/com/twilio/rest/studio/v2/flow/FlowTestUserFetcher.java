@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
-    private String sid;
+    private String pathSid;
 
-    public FlowTestUserFetcher(final String sid){
-        this.sid = sid;
+    public FlowTestUserFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class FlowTestUserFetcher extends Fetcher<FlowTestUser> {
     public FlowTestUser fetch(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}/TestUsers";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

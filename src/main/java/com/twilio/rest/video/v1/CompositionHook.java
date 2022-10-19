@@ -51,20 +51,20 @@ public class CompositionHook extends Resource {
         return new CompositionHookCreator(friendlyName);
     }
 
-    public static CompositionHookFetcher fetcher(final String sid){
-        return new CompositionHookFetcher(sid);
+    public static CompositionHookFetcher fetcher(final String pathSid){
+        return new CompositionHookFetcher(pathSid);
     }
 
-    public static CompositionHookDeleter deleter(final String sid){
-        return new CompositionHookDeleter(sid);
+    public static CompositionHookDeleter deleter(final String pathSid){
+        return new CompositionHookDeleter(pathSid);
     }
 
     public static CompositionHookReader reader(){
         return new CompositionHookReader();
     }
 
-    public static CompositionHookUpdater updater(final String sid, final String friendlyName){
-        return new CompositionHookUpdater(sid, friendlyName);
+    public static CompositionHookUpdater updater(final String pathSid, final String friendlyName){
+        return new CompositionHookUpdater(pathSid, friendlyName);
     }
 
     /**

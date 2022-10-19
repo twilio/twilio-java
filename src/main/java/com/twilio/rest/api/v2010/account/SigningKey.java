@@ -42,32 +42,32 @@ public class SigningKey extends Resource {
     private static final long serialVersionUID = 35259719636912L;
 
 
-    public static SigningKeyFetcher fetcher(final String sid){
-        return new SigningKeyFetcher(sid);
+    public static SigningKeyFetcher fetcher(final String pathSid){
+        return new SigningKeyFetcher(pathSid);
     }
-    public static SigningKeyFetcher fetcher(final String accountSid, final String sid){
-        return new SigningKeyFetcher(accountSid, sid);
+    public static SigningKeyFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new SigningKeyFetcher(pathAccountSid, pathSid);
     }
 
-    public static SigningKeyDeleter deleter(final String sid){
-        return new SigningKeyDeleter(sid);
+    public static SigningKeyDeleter deleter(final String pathSid){
+        return new SigningKeyDeleter(pathSid);
     }
-    public static SigningKeyDeleter deleter(final String accountSid, final String sid){
-        return new SigningKeyDeleter(accountSid, sid);
+    public static SigningKeyDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new SigningKeyDeleter(pathAccountSid, pathSid);
     }
 
     public static SigningKeyReader reader(){
         return new SigningKeyReader();
     }
-    public static SigningKeyReader reader(final String accountSid){
-        return new SigningKeyReader(accountSid);
+    public static SigningKeyReader reader(final String pathAccountSid){
+        return new SigningKeyReader(pathAccountSid);
     }
 
-    public static SigningKeyUpdater updater(final String sid){
-        return new SigningKeyUpdater(sid);
+    public static SigningKeyUpdater updater(final String pathSid){
+        return new SigningKeyUpdater(pathSid);
     }
-    public static SigningKeyUpdater updater(final String accountSid, final String sid){
-        return new SigningKeyUpdater(accountSid, sid);
+    public static SigningKeyUpdater updater(final String pathAccountSid, final String pathSid){
+        return new SigningKeyUpdater(pathAccountSid, pathSid);
     }
 
     /**

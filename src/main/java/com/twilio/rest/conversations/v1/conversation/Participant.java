@@ -45,24 +45,24 @@ import java.util.Map;
 public class Participant extends Resource {
     private static final long serialVersionUID = 164096252184722L;
 
-    public static ParticipantCreator creator(final String conversationSid){
-        return new ParticipantCreator(conversationSid);
+    public static ParticipantCreator creator(final String pathConversationSid){
+        return new ParticipantCreator(pathConversationSid);
     }
 
-    public static ParticipantFetcher fetcher(final String conversationSid, final String sid){
-        return new ParticipantFetcher(conversationSid, sid);
+    public static ParticipantFetcher fetcher(final String pathConversationSid, final String pathSid){
+        return new ParticipantFetcher(pathConversationSid, pathSid);
     }
 
-    public static ParticipantDeleter deleter(final String conversationSid, final String sid){
-        return new ParticipantDeleter(conversationSid, sid);
+    public static ParticipantDeleter deleter(final String pathConversationSid, final String pathSid){
+        return new ParticipantDeleter(pathConversationSid, pathSid);
     }
 
-    public static ParticipantReader reader(final String conversationSid){
-        return new ParticipantReader(conversationSid);
+    public static ParticipantReader reader(final String pathConversationSid){
+        return new ParticipantReader(pathConversationSid);
     }
 
-    public static ParticipantUpdater updater(final String conversationSid, final String sid){
-        return new ParticipantUpdater(conversationSid, sid);
+    public static ParticipantUpdater updater(final String pathConversationSid, final String pathSid){
+        return new ParticipantUpdater(pathConversationSid, pathSid);
     }
 
     /**

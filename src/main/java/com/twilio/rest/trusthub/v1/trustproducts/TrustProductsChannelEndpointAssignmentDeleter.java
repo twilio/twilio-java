@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class TrustProductsChannelEndpointAssignmentDeleter extends Deleter<TrustProductsChannelEndpointAssignment> {
-    private String trustProductSid;
-    private String sid;
+    private String pathTrustProductSid;
+    private String pathSid;
 
-    public TrustProductsChannelEndpointAssignmentDeleter(final String trustProductSid, final String sid){
-        this.trustProductSid = trustProductSid;
-        this.sid = sid;
+    public TrustProductsChannelEndpointAssignmentDeleter(final String pathTrustProductSid, final String pathSid){
+        this.pathTrustProductSid = pathTrustProductSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class TrustProductsChannelEndpointAssignmentDeleter extends Deleter<Trust
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments/{Sid}";
 
-        path = path.replace("{"+"TrustProductSid"+"}", this.trustProductSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

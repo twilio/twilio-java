@@ -30,11 +30,11 @@ import java.util.Map;
 
 
 public class StyleSheetUpdater extends Updater<StyleSheet>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private Map<String, Object> styleSheet;
 
-    public StyleSheetUpdater(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public StyleSheetUpdater(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public StyleSheetUpdater setStyleSheet(final Map<String, Object> styleSheet){
@@ -46,7 +46,7 @@ public class StyleSheetUpdater extends Updater<StyleSheet>{
     public StyleSheet update(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/StyleSheet";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class RateLimitCreator extends Creator<RateLimit>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private String description;
 
-    public RateLimitCreator(final String serviceSid, final String uniqueName) {
-        this.serviceSid = serviceSid;
+    public RateLimitCreator(final String pathServiceSid, final String uniqueName) {
+        this.pathServiceSid = pathServiceSid;
         this.uniqueName = uniqueName;
     }
 
@@ -50,7 +50,7 @@ public class RateLimitCreator extends Creator<RateLimit>{
     public RateLimit create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/RateLimits";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 
         Request request = new Request(

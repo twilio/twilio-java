@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class ParticipantReader extends Reader<Participant> {
-    private String serviceSid;
-    private String sessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private Integer pageSize;
 
-    public ParticipantReader(final String serviceSid, final String sessionSid){
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
+    public ParticipantReader(final String pathServiceSid, final String pathSessionSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
     }
 
     public ParticipantReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class ParticipantReader extends Reader<Participant> {
 
     public Page<Participant> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"SessionSid"+"}", this.sessionSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class CustomerProfilesChannelEndpointAssignmentCreator extends Creator<CustomerProfilesChannelEndpointAssignment>{
-    private String customerProfileSid;
+    private String pathCustomerProfileSid;
     private String channelEndpointType;
     private String channelEndpointSid;
 
-    public CustomerProfilesChannelEndpointAssignmentCreator(final String customerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
-        this.customerProfileSid = customerProfileSid;
+    public CustomerProfilesChannelEndpointAssignmentCreator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.channelEndpointType = channelEndpointType;
         this.channelEndpointSid = channelEndpointSid;
     }
@@ -51,7 +51,7 @@ public class CustomerProfilesChannelEndpointAssignmentCreator extends Creator<Cu
     public CustomerProfilesChannelEndpointAssignment create(final TwilioRestClient client){
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments";
 
-        path = path.replace("{"+"CustomerProfileSid"+"}", this.customerProfileSid.toString());
+        path = path.replace("{"+"CustomerProfileSid"+"}", this.pathCustomerProfileSid.toString());
         path = path.replace("{"+"ChannelEndpointType"+"}", this.channelEndpointType.toString());
         path = path.replace("{"+"ChannelEndpointSid"+"}", this.channelEndpointSid.toString());
 

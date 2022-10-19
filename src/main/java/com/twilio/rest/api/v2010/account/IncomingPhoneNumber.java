@@ -48,42 +48,42 @@ public class IncomingPhoneNumber extends Resource {
     public static IncomingPhoneNumberCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new IncomingPhoneNumberCreator(phoneNumber);
     }
-    public static IncomingPhoneNumberCreator creator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber){
-        return new IncomingPhoneNumberCreator(accountSid, phoneNumber);
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber){
+        return new IncomingPhoneNumberCreator(pathAccountSid, phoneNumber);
     }
     public static IncomingPhoneNumberCreator creator(final String areaCode){
         return new IncomingPhoneNumberCreator(areaCode);
     }
-    public static IncomingPhoneNumberCreator creator(final String accountSid, final String areaCode){
-        return new IncomingPhoneNumberCreator(accountSid, areaCode);
+    public static IncomingPhoneNumberCreator creator(final String pathAccountSid, final String areaCode){
+        return new IncomingPhoneNumberCreator(pathAccountSid, areaCode);
     }
 
-    public static IncomingPhoneNumberFetcher fetcher(final String sid){
-        return new IncomingPhoneNumberFetcher(sid);
+    public static IncomingPhoneNumberFetcher fetcher(final String pathSid){
+        return new IncomingPhoneNumberFetcher(pathSid);
     }
-    public static IncomingPhoneNumberFetcher fetcher(final String accountSid, final String sid){
-        return new IncomingPhoneNumberFetcher(accountSid, sid);
+    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new IncomingPhoneNumberFetcher(pathAccountSid, pathSid);
     }
 
-    public static IncomingPhoneNumberDeleter deleter(final String sid){
-        return new IncomingPhoneNumberDeleter(sid);
+    public static IncomingPhoneNumberDeleter deleter(final String pathSid){
+        return new IncomingPhoneNumberDeleter(pathSid);
     }
-    public static IncomingPhoneNumberDeleter deleter(final String accountSid, final String sid){
-        return new IncomingPhoneNumberDeleter(accountSid, sid);
+    public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new IncomingPhoneNumberDeleter(pathAccountSid, pathSid);
     }
 
     public static IncomingPhoneNumberReader reader(){
         return new IncomingPhoneNumberReader();
     }
-    public static IncomingPhoneNumberReader reader(final String accountSid){
-        return new IncomingPhoneNumberReader(accountSid);
+    public static IncomingPhoneNumberReader reader(final String pathAccountSid){
+        return new IncomingPhoneNumberReader(pathAccountSid);
     }
 
-    public static IncomingPhoneNumberUpdater updater(final String sid){
-        return new IncomingPhoneNumberUpdater(sid);
+    public static IncomingPhoneNumberUpdater updater(final String pathSid){
+        return new IncomingPhoneNumberUpdater(pathSid);
     }
-    public static IncomingPhoneNumberUpdater updater(final String accountSid, final String sid){
-        return new IncomingPhoneNumberUpdater(accountSid, sid);
+    public static IncomingPhoneNumberUpdater updater(final String pathAccountSid, final String pathSid){
+        return new IncomingPhoneNumberUpdater(pathAccountSid, pathSid);
     }
 
     /**

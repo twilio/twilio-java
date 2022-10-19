@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class ConnectionPolicyTargetFetcher extends Fetcher<ConnectionPolicyTarget> {
-    private String connectionPolicySid;
-    private String sid;
+    private String pathConnectionPolicySid;
+    private String pathSid;
 
-    public ConnectionPolicyTargetFetcher(final String connectionPolicySid, final String sid){
-        this.connectionPolicySid = connectionPolicySid;
-        this.sid = sid;
+    public ConnectionPolicyTargetFetcher(final String pathConnectionPolicySid, final String pathSid){
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class ConnectionPolicyTargetFetcher extends Fetcher<ConnectionPolicyTarge
     public ConnectionPolicyTarget fetch(final TwilioRestClient client) {
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path = path.replace("{"+"ConnectionPolicySid"+"}", this.connectionPolicySid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ConnectionPolicySid"+"}", this.pathConnectionPolicySid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

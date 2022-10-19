@@ -44,13 +44,13 @@ public class DeliveryReceipt extends Resource {
     private static final long serialVersionUID = 201260516970011L;
 
 
-    public static DeliveryReceiptFetcher fetcher(final String chatServiceSid, final String conversationSid, final String messageSid, final String sid){
-        return new DeliveryReceiptFetcher(chatServiceSid, conversationSid, messageSid, sid);
+    public static DeliveryReceiptFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid, final String pathSid){
+        return new DeliveryReceiptFetcher(pathChatServiceSid, pathConversationSid, pathMessageSid, pathSid);
     }
 
 
-    public static DeliveryReceiptReader reader(final String chatServiceSid, final String conversationSid, final String messageSid){
-        return new DeliveryReceiptReader(chatServiceSid, conversationSid, messageSid);
+    public static DeliveryReceiptReader reader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid){
+        return new DeliveryReceiptReader(pathChatServiceSid, pathConversationSid, pathMessageSid);
     }
 
 

@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class CustomerProfilesChannelEndpointAssignmentReader extends Reader<CustomerProfilesChannelEndpointAssignment> {
-    private String customerProfileSid;
+    private String pathCustomerProfileSid;
     private String channelEndpointSid;
     private String channelEndpointSids;
     private Integer pageSize;
 
-    public CustomerProfilesChannelEndpointAssignmentReader(final String customerProfileSid){
-        this.customerProfileSid = customerProfileSid;
+    public CustomerProfilesChannelEndpointAssignmentReader(final String pathCustomerProfileSid){
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
     }
 
     public CustomerProfilesChannelEndpointAssignmentReader setChannelEndpointSid(final String channelEndpointSid){
@@ -58,7 +58,7 @@ public class CustomerProfilesChannelEndpointAssignmentReader extends Reader<Cust
 
     public Page<CustomerProfilesChannelEndpointAssignment> firstPage(final TwilioRestClient client) {
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/ChannelEndpointAssignments";
-        path = path.replace("{"+"CustomerProfileSid"+"}", this.customerProfileSid.toString());
+        path = path.replace("{"+"CustomerProfileSid"+"}", this.pathCustomerProfileSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

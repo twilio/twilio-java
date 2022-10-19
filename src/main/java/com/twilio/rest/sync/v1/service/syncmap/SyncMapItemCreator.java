@@ -32,17 +32,17 @@ import java.util.Map;
 
 
 public class SyncMapItemCreator extends Creator<SyncMapItem>{
-    private String serviceSid;
-    private String mapSid;
+    private String pathServiceSid;
+    private String pathMapSid;
     private String key;
     private Map<String, Object> data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
 
-    public SyncMapItemCreator(final String serviceSid, final String mapSid, final String key, final Map<String, Object> data) {
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
+    public SyncMapItemCreator(final String pathServiceSid, final String pathMapSid, final String key, final Map<String, Object> data) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
         this.key = key;
         this.data = data;
     }
@@ -72,8 +72,8 @@ public class SyncMapItemCreator extends Creator<SyncMapItem>{
     public SyncMapItem create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"MapSid"+"}", this.mapSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
         path = path.replace("{"+"Key"+"}", this.key.toString());
         path = path.replace("{"+"Data"+"}", this.data.toString());
 

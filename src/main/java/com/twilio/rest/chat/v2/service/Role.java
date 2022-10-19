@@ -44,24 +44,24 @@ import java.util.Objects;
 public class Role extends Resource {
     private static final long serialVersionUID = 252065084446046L;
 
-    public static RoleCreator creator(final String serviceSid, final String friendlyName, final Role.RoleType type, final List<String> permission){
-        return new RoleCreator(serviceSid, friendlyName, type, permission);
+    public static RoleCreator creator(final String pathServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission){
+        return new RoleCreator(pathServiceSid, friendlyName, type, permission);
     }
 
-    public static RoleFetcher fetcher(final String serviceSid, final String sid){
-        return new RoleFetcher(serviceSid, sid);
+    public static RoleFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new RoleFetcher(pathServiceSid, pathSid);
     }
 
-    public static RoleDeleter deleter(final String serviceSid, final String sid){
-        return new RoleDeleter(serviceSid, sid);
+    public static RoleDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new RoleDeleter(pathServiceSid, pathSid);
     }
 
-    public static RoleReader reader(final String serviceSid){
-        return new RoleReader(serviceSid);
+    public static RoleReader reader(final String pathServiceSid){
+        return new RoleReader(pathServiceSid);
     }
 
-    public static RoleUpdater updater(final String serviceSid, final String sid, final List<String> permission){
-        return new RoleUpdater(serviceSid, sid, permission);
+    public static RoleUpdater updater(final String pathServiceSid, final String pathSid, final List<String> permission){
+        return new RoleUpdater(pathServiceSid, pathSid, permission);
     }
 
     /**

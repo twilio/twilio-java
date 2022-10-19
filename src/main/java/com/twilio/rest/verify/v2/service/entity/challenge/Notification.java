@@ -41,8 +41,8 @@ import java.util.Objects;
 public class Notification extends Resource {
     private static final long serialVersionUID = 216794200802882L;
 
-    public static NotificationCreator creator(final String serviceSid, final String identity, final String challengeSid){
-        return new NotificationCreator(serviceSid, identity, challengeSid);
+    public static NotificationCreator creator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid){
+        return new NotificationCreator(pathServiceSid, pathIdentity, pathChallengeSid);
     }
 
 

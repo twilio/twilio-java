@@ -45,24 +45,24 @@ import java.util.Map;
 public class Channel extends Resource {
     private static final long serialVersionUID = 188288773259274L;
 
-    public static ChannelCreator creator(final String serviceSid){
-        return new ChannelCreator(serviceSid);
+    public static ChannelCreator creator(final String pathServiceSid){
+        return new ChannelCreator(pathServiceSid);
     }
 
-    public static ChannelFetcher fetcher(final String serviceSid, final String sid){
-        return new ChannelFetcher(serviceSid, sid);
+    public static ChannelFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new ChannelFetcher(pathServiceSid, pathSid);
     }
 
-    public static ChannelDeleter deleter(final String serviceSid, final String sid){
-        return new ChannelDeleter(serviceSid, sid);
+    public static ChannelDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new ChannelDeleter(pathServiceSid, pathSid);
     }
 
-    public static ChannelReader reader(final String serviceSid){
-        return new ChannelReader(serviceSid);
+    public static ChannelReader reader(final String pathServiceSid){
+        return new ChannelReader(pathServiceSid);
     }
 
-    public static ChannelUpdater updater(final String serviceSid, final String sid){
-        return new ChannelUpdater(serviceSid, sid);
+    public static ChannelUpdater updater(final String pathServiceSid, final String pathSid){
+        return new ChannelUpdater(pathServiceSid, pathSid);
     }
 
     /**

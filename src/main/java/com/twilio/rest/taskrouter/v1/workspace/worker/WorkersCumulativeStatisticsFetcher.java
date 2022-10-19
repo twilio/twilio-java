@@ -29,14 +29,14 @@ import java.time.ZonedDateTime;
 
 
 public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativeStatistics> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private Integer minutes;
     private ZonedDateTime startDate;
     private String taskChannel;
 
-    public WorkersCumulativeStatisticsFetcher(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public WorkersCumulativeStatisticsFetcher(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public WorkersCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
@@ -60,7 +60,7 @@ public class WorkersCumulativeStatisticsFetcher extends Fetcher<WorkersCumulativ
     public WorkersCumulativeStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/CumulativeStatistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

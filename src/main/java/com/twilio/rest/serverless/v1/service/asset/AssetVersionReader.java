@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class AssetVersionReader extends Reader<AssetVersion> {
-    private String serviceSid;
-    private String assetSid;
+    private String pathServiceSid;
+    private String pathAssetSid;
     private Integer pageSize;
 
-    public AssetVersionReader(final String serviceSid, final String assetSid){
-        this.serviceSid = serviceSid;
-        this.assetSid = assetSid;
+    public AssetVersionReader(final String pathServiceSid, final String pathAssetSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathAssetSid = pathAssetSid;
     }
 
     public AssetVersionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class AssetVersionReader extends Reader<AssetVersion> {
 
     public Page<AssetVersion> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"AssetSid"+"}", this.assetSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"AssetSid"+"}", this.pathAssetSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

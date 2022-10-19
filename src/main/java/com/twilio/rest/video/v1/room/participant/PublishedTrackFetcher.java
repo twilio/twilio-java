@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
-    private String roomSid;
-    private String participantSid;
-    private String sid;
+    private String pathRoomSid;
+    private String pathParticipantSid;
+    private String pathSid;
 
-    public PublishedTrackFetcher(final String roomSid, final String participantSid, final String sid){
-        this.roomSid = roomSid;
-        this.participantSid = participantSid;
-        this.sid = sid;
+    public PublishedTrackFetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid){
+        this.pathRoomSid = pathRoomSid;
+        this.pathParticipantSid = pathParticipantSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class PublishedTrackFetcher extends Fetcher<PublishedTrack> {
     public PublishedTrack fetch(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/PublishedTracks/{Sid}";
 
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.participantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

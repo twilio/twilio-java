@@ -44,8 +44,8 @@ public class EndUserType extends Resource {
     private static final long serialVersionUID = 67038001521206L;
 
 
-    public static EndUserTypeFetcher fetcher(final String sid){
-        return new EndUserTypeFetcher(sid);
+    public static EndUserTypeFetcher fetcher(final String pathSid){
+        return new EndUserTypeFetcher(pathSid);
     }
 
 

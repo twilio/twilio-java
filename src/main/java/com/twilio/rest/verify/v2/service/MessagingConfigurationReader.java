@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class MessagingConfigurationReader extends Reader<MessagingConfiguration> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public MessagingConfigurationReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public MessagingConfigurationReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public MessagingConfigurationReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
 
     public Page<MessagingConfiguration> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class ModelBuildReader extends Reader<ModelBuild> {
-    private String assistantSid;
+    private String pathAssistantSid;
     private Integer pageSize;
 
-    public ModelBuildReader(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public ModelBuildReader(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public ModelBuildReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class ModelBuildReader extends Reader<ModelBuild> {
 
     public Page<ModelBuild> firstPage(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/ModelBuilds";
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

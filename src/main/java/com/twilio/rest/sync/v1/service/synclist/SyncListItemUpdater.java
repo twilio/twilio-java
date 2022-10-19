@@ -30,19 +30,19 @@ import java.util.Map;
 
 
 public class SyncListItemUpdater extends Updater<SyncListItem>{
-    private String serviceSid;
-    private String listSid;
-    private Integer index;
+    private String pathServiceSid;
+    private String pathListSid;
+    private Integer pathIndex;
     private String ifMatch;
     private Map<String, Object> data;
     private Integer ttl;
     private Integer itemTtl;
     private Integer collectionTtl;
 
-    public SyncListItemUpdater(final String serviceSid, final String listSid, final Integer index){
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
-        this.index = index;
+    public SyncListItemUpdater(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIndex = pathIndex;
     }
 
     public SyncListItemUpdater setIfMatch(final String ifMatch){
@@ -70,9 +70,9 @@ public class SyncListItemUpdater extends Updater<SyncListItem>{
     public SyncListItem update(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
-        path = path.replace("{"+"Index"+"}", this.index.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
+        path = path.replace("{"+"Index"+"}", this.pathIndex.toString());
 
         Request request = new Request(
             HttpMethod.POST,

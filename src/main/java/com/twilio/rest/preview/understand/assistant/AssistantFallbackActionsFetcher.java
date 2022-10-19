@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackActions> {
-    private String assistantSid;
+    private String pathAssistantSid;
 
-    public AssistantFallbackActionsFetcher(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public AssistantFallbackActionsFetcher(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
 
@@ -39,7 +39,7 @@ public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackAc
     public AssistantFallbackActions fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/FallbackActions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class DeploymentCreator extends Creator<Deployment>{
-    private String fleetSid;
+    private String pathFleetSid;
     private String friendlyName;
     private String syncServiceSid;
 
-    public DeploymentCreator(final String fleetSid) {
-        this.fleetSid = fleetSid;
+    public DeploymentCreator(final String pathFleetSid) {
+        this.pathFleetSid = pathFleetSid;
     }
 
     public DeploymentCreator setFriendlyName(final String friendlyName){
@@ -49,7 +49,7 @@ public class DeploymentCreator extends Creator<Deployment>{
     public Deployment create(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Deployments";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

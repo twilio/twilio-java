@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class DomainReader extends Reader<Domain> {
-    private String accountSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
     public DomainReader(){
     }
-    public DomainReader(final String accountSid){
-        this.accountSid = accountSid;
+    public DomainReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public DomainReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class DomainReader extends Reader<Domain> {
 
     public Page<Domain> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

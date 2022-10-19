@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class EnvironmentReader extends Reader<Environment> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public EnvironmentReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public EnvironmentReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public EnvironmentReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class EnvironmentReader extends Reader<Environment> {
 
     public Page<Environment> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Environments";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

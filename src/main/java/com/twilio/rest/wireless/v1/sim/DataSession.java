@@ -46,8 +46,8 @@ public class DataSession extends Resource {
 
 
 
-    public static DataSessionReader reader(final String simSid){
-        return new DataSessionReader(simSid);
+    public static DataSessionReader reader(final String pathSimSid){
+        return new DataSessionReader(pathSimSid);
     }
 
 

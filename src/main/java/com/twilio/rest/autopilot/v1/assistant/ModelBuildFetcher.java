@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class ModelBuildFetcher extends Fetcher<ModelBuild> {
-    private String assistantSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathSid;
 
-    public ModelBuildFetcher(final String assistantSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.sid = sid;
+    public ModelBuildFetcher(final String pathAssistantSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class ModelBuildFetcher extends Fetcher<ModelBuild> {
     public ModelBuild fetch(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/ModelBuilds/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

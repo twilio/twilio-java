@@ -30,18 +30,18 @@ import java.net.URI;
 
 
 public class TriggerUpdater extends Updater<Trigger>{
-    private String sid;
-    private String accountSid;
+    private String pathSid;
+    private String pathAccountSid;
     private HttpMethod callbackMethod;
     private URI callbackUrl;
     private String friendlyName;
 
-    public TriggerUpdater(final String sid){
-        this.sid = sid;
+    public TriggerUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public TriggerUpdater(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public TriggerUpdater(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     public TriggerUpdater setCallbackMethod(final HttpMethod callbackMethod){
@@ -65,9 +65,9 @@ public class TriggerUpdater extends Updater<Trigger>{
     public Trigger update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

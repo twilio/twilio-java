@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerProfilesEntityAssignments>{
-    private String customerProfileSid;
+    private String pathCustomerProfileSid;
     private String objectSid;
 
-    public CustomerProfilesEntityAssignmentsCreator(final String customerProfileSid, final String objectSid) {
-        this.customerProfileSid = customerProfileSid;
+    public CustomerProfilesEntityAssignmentsCreator(final String pathCustomerProfileSid, final String objectSid) {
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
         this.objectSid = objectSid;
     }
 
@@ -45,7 +45,7 @@ public class CustomerProfilesEntityAssignmentsCreator extends Creator<CustomerPr
     public CustomerProfilesEntityAssignments create(final TwilioRestClient client){
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments";
 
-        path = path.replace("{"+"CustomerProfileSid"+"}", this.customerProfileSid.toString());
+        path = path.replace("{"+"CustomerProfileSid"+"}", this.pathCustomerProfileSid.toString());
         path = path.replace("{"+"ObjectSid"+"}", this.objectSid.toString());
 
         Request request = new Request(

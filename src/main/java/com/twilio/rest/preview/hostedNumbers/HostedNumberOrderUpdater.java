@@ -30,7 +30,7 @@ import java.util.List;
 
 
 public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private String uniqueName;
     private String email;
@@ -42,8 +42,8 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder>{
     private String extension;
     private Integer callDelay;
 
-    public HostedNumberOrderUpdater(final String sid){
-        this.sid = sid;
+    public HostedNumberOrderUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public HostedNumberOrderUpdater setFriendlyName(final String friendlyName){
@@ -94,7 +94,7 @@ public class HostedNumberOrderUpdater extends Updater<HostedNumberOrder>{
     public HostedNumberOrder update(final TwilioRestClient client){
         String path = "/HostedNumbers/HostedNumberOrders/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

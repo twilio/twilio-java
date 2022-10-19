@@ -31,7 +31,7 @@ import com.twilio.converter.DateConverter;
 
 
 public class YearlyReader extends Reader<Yearly> {
-    private String accountSid;
+    private String pathAccountSid;
     private Yearly.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -40,8 +40,8 @@ public class YearlyReader extends Reader<Yearly> {
 
     public YearlyReader(){
     }
-    public YearlyReader(final String accountSid){
-        this.accountSid = accountSid;
+    public YearlyReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public YearlyReader setCategory(final Yearly.Category category){
@@ -72,8 +72,8 @@ public class YearlyReader extends Reader<Yearly> {
 
     public Page<Yearly> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

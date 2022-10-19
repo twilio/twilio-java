@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class PhoneNumberCreator extends Creator<PhoneNumber>{
-    private String trunkSid;
+    private String pathTrunkSid;
     private String phoneNumberSid;
 
-    public PhoneNumberCreator(final String trunkSid, final String phoneNumberSid) {
-        this.trunkSid = trunkSid;
+    public PhoneNumberCreator(final String pathTrunkSid, final String phoneNumberSid) {
+        this.pathTrunkSid = pathTrunkSid;
         this.phoneNumberSid = phoneNumberSid;
     }
 
@@ -45,7 +45,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber>{
     public PhoneNumber create(final TwilioRestClient client){
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
         path = path.replace("{"+"PhoneNumberSid"+"}", this.phoneNumberSid.toString());
 
         Request request = new Request(

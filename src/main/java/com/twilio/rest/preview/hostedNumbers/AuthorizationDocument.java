@@ -50,8 +50,8 @@ public class AuthorizationDocument extends Resource {
         return new AuthorizationDocumentCreator(hostedNumberOrderSids, addressSid, email, contactTitle, contactPhoneNumber);
     }
 
-    public static AuthorizationDocumentFetcher fetcher(final String sid){
-        return new AuthorizationDocumentFetcher(sid);
+    public static AuthorizationDocumentFetcher fetcher(final String pathSid){
+        return new AuthorizationDocumentFetcher(pathSid);
     }
 
 
@@ -59,8 +59,8 @@ public class AuthorizationDocument extends Resource {
         return new AuthorizationDocumentReader();
     }
 
-    public static AuthorizationDocumentUpdater updater(final String sid){
-        return new AuthorizationDocumentUpdater(sid);
+    public static AuthorizationDocumentUpdater updater(final String pathSid){
+        return new AuthorizationDocumentUpdater(pathSid);
     }
 
     /**

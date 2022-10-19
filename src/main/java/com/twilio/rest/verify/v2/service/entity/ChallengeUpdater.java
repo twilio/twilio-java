@@ -30,16 +30,16 @@ import java.util.Map;
 
 
 public class ChallengeUpdater extends Updater<Challenge>{
-    private String serviceSid;
-    private String identity;
-    private String sid;
+    private String pathServiceSid;
+    private String pathIdentity;
+    private String pathSid;
     private String authPayload;
     private Map<String, Object> metadata;
 
-    public ChallengeUpdater(final String serviceSid, final String identity, final String sid){
-        this.serviceSid = serviceSid;
-        this.identity = identity;
-        this.sid = sid;
+    public ChallengeUpdater(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
+        this.pathSid = pathSid;
     }
 
     public ChallengeUpdater setAuthPayload(final String authPayload){
@@ -55,9 +55,9 @@ public class ChallengeUpdater extends Updater<Challenge>{
     public Challenge update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

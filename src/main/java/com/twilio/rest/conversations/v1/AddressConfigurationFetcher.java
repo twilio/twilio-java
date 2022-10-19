@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class AddressConfigurationFetcher extends Fetcher<AddressConfiguration> {
-    private String sid;
+    private String pathSid;
 
-    public AddressConfigurationFetcher(final String sid){
-        this.sid = sid;
+    public AddressConfigurationFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class AddressConfigurationFetcher extends Fetcher<AddressConfiguration> {
     public AddressConfiguration fetch(final TwilioRestClient client) {
         String path = "/v1/Configuration/Addresses/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

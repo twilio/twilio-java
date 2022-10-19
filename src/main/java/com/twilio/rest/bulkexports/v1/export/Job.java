@@ -43,12 +43,12 @@ public class Job extends Resource {
     private static final long serialVersionUID = 103628862500013L;
 
 
-    public static JobFetcher fetcher(final String jobSid){
-        return new JobFetcher(jobSid);
+    public static JobFetcher fetcher(final String pathJobSid){
+        return new JobFetcher(pathJobSid);
     }
 
-    public static JobDeleter deleter(final String jobSid){
-        return new JobDeleter(jobSid);
+    public static JobDeleter deleter(final String pathJobSid){
+        return new JobDeleter(pathJobSid);
     }
 
 

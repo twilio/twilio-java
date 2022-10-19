@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class FunctionUpdater extends Updater<Function>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private String friendlyName;
 
-    public FunctionUpdater(final String serviceSid, final String sid, final String friendlyName){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public FunctionUpdater(final String pathServiceSid, final String pathSid, final String friendlyName){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
@@ -47,8 +47,8 @@ public class FunctionUpdater extends Updater<Function>{
     public Function update(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Functions/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

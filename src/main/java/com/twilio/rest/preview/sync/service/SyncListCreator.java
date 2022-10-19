@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class SyncListCreator extends Creator<SyncList>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
 
-    public SyncListCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SyncListCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SyncListCreator setUniqueName(final String uniqueName){
@@ -44,7 +44,7 @@ public class SyncListCreator extends Creator<SyncList>{
     public SyncList create(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Lists";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

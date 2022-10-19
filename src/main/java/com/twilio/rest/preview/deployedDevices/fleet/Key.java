@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Key extends Resource {
     private static final long serialVersionUID = 158435998679490L;
 
-    public static KeyCreator creator(final String fleetSid){
-        return new KeyCreator(fleetSid);
+    public static KeyCreator creator(final String pathFleetSid){
+        return new KeyCreator(pathFleetSid);
     }
 
-    public static KeyFetcher fetcher(final String fleetSid, final String sid){
-        return new KeyFetcher(fleetSid, sid);
+    public static KeyFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new KeyFetcher(pathFleetSid, pathSid);
     }
 
-    public static KeyDeleter deleter(final String fleetSid, final String sid){
-        return new KeyDeleter(fleetSid, sid);
+    public static KeyDeleter deleter(final String pathFleetSid, final String pathSid){
+        return new KeyDeleter(pathFleetSid, pathSid);
     }
 
-    public static KeyReader reader(final String fleetSid){
-        return new KeyReader(fleetSid);
+    public static KeyReader reader(final String pathFleetSid){
+        return new KeyReader(pathFleetSid);
     }
 
-    public static KeyUpdater updater(final String fleetSid, final String sid){
-        return new KeyUpdater(fleetSid, sid);
+    public static KeyUpdater updater(final String pathFleetSid, final String pathSid){
+        return new KeyUpdater(pathFleetSid, pathSid);
     }
 
     /**

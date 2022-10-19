@@ -30,13 +30,13 @@ import java.net.URI;
 
 
 public class ExportConfigurationUpdater extends Updater<ExportConfiguration>{
-    private String resourceType;
+    private String pathResourceType;
     private Boolean enabled;
     private URI webhookUrl;
     private String webhookMethod;
 
-    public ExportConfigurationUpdater(final String resourceType){
-        this.resourceType = resourceType;
+    public ExportConfigurationUpdater(final String pathResourceType){
+        this.pathResourceType = pathResourceType;
     }
 
     public ExportConfigurationUpdater setEnabled(final Boolean enabled){
@@ -60,7 +60,7 @@ public class ExportConfigurationUpdater extends Updater<ExportConfiguration>{
     public ExportConfiguration update(final TwilioRestClient client){
         String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path = path.replace("{"+"ResourceType"+"}", this.resourceType.toString());
+        path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
 
         Request request = new Request(
             HttpMethod.POST,

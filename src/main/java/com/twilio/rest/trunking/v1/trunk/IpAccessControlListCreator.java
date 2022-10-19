@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
-    private String trunkSid;
+    private String pathTrunkSid;
     private String ipAccessControlListSid;
 
-    public IpAccessControlListCreator(final String trunkSid, final String ipAccessControlListSid) {
-        this.trunkSid = trunkSid;
+    public IpAccessControlListCreator(final String pathTrunkSid, final String ipAccessControlListSid) {
+        this.pathTrunkSid = pathTrunkSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
@@ -45,7 +45,7 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
     public IpAccessControlList create(final TwilioRestClient client){
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
         path = path.replace("{"+"IpAccessControlListSid"+"}", this.ipAccessControlListSid.toString());
 
         Request request = new Request(

@@ -44,8 +44,8 @@ public class Network extends Resource {
     private static final long serialVersionUID = 225839080791216L;
 
 
-    public static NetworkFetcher fetcher(final String sid){
-        return new NetworkFetcher(sid);
+    public static NetworkFetcher fetcher(final String pathSid){
+        return new NetworkFetcher(pathSid);
     }
 
 

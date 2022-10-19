@@ -44,24 +44,24 @@ import java.util.Objects;
 public class Role extends Resource {
     private static final long serialVersionUID = 223283830784079L;
 
-    public static RoleCreator creator(final String chatServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission){
-        return new RoleCreator(chatServiceSid, friendlyName, type, permission);
+    public static RoleCreator creator(final String pathChatServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission){
+        return new RoleCreator(pathChatServiceSid, friendlyName, type, permission);
     }
 
-    public static RoleFetcher fetcher(final String chatServiceSid, final String sid){
-        return new RoleFetcher(chatServiceSid, sid);
+    public static RoleFetcher fetcher(final String pathChatServiceSid, final String pathSid){
+        return new RoleFetcher(pathChatServiceSid, pathSid);
     }
 
-    public static RoleDeleter deleter(final String chatServiceSid, final String sid){
-        return new RoleDeleter(chatServiceSid, sid);
+    public static RoleDeleter deleter(final String pathChatServiceSid, final String pathSid){
+        return new RoleDeleter(pathChatServiceSid, pathSid);
     }
 
-    public static RoleReader reader(final String chatServiceSid){
-        return new RoleReader(chatServiceSid);
+    public static RoleReader reader(final String pathChatServiceSid){
+        return new RoleReader(pathChatServiceSid);
     }
 
-    public static RoleUpdater updater(final String chatServiceSid, final String sid, final List<String> permission){
-        return new RoleUpdater(chatServiceSid, sid, permission);
+    public static RoleUpdater updater(final String pathChatServiceSid, final String pathSid, final List<String> permission){
+        return new RoleUpdater(pathChatServiceSid, pathSid, permission);
     }
 
     /**

@@ -44,8 +44,8 @@ public class NewKey extends Resource {
     public static NewKeyCreator creator(){
         return new NewKeyCreator();
     }
-    public static NewKeyCreator creator(final String accountSid){
-        return new NewKeyCreator(accountSid);
+    public static NewKeyCreator creator(final String pathAccountSid){
+        return new NewKeyCreator(pathAccountSid);
     }
 
 

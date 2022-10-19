@@ -30,14 +30,14 @@ import java.util.Map;
 
 
 public class DocumentUpdater extends Updater<Document>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private Map<String, Object> data;
     private String ifMatch;
 
-    public DocumentUpdater(final String serviceSid, final String sid, final Map<String, Object> data){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public DocumentUpdater(final String pathServiceSid, final String pathSid, final Map<String, Object> data){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
         this.data = data;
     }
 
@@ -54,8 +54,8 @@ public class DocumentUpdater extends Updater<Document>{
     public Document update(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Documents/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Data"+"}", this.data.toString());
 
         Request request = new Request(

@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class ItemAssignmentDeleter extends Deleter<ItemAssignment> {
-    private String bundleSid;
-    private String sid;
+    private String pathBundleSid;
+    private String pathSid;
 
-    public ItemAssignmentDeleter(final String bundleSid, final String sid){
-        this.bundleSid = bundleSid;
-        this.sid = sid;
+    public ItemAssignmentDeleter(final String pathBundleSid, final String pathSid){
+        this.pathBundleSid = pathBundleSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class ItemAssignmentDeleter extends Deleter<ItemAssignment> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments/{Sid}";
 
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class TaskActionsFetcher extends Fetcher<TaskActions> {
-    private String assistantSid;
-    private String taskSid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
 
-    public TaskActionsFetcher(final String assistantSid, final String taskSid){
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
+    public TaskActionsFetcher(final String pathAssistantSid, final String pathTaskSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
     }
 
 
@@ -41,8 +41,8 @@ public class TaskActionsFetcher extends Fetcher<TaskActions> {
     public TaskActions fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

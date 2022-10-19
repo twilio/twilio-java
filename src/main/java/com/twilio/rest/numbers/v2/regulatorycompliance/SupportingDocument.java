@@ -49,20 +49,20 @@ public class SupportingDocument extends Resource {
         return new SupportingDocumentCreator(friendlyName, type);
     }
 
-    public static SupportingDocumentFetcher fetcher(final String sid){
-        return new SupportingDocumentFetcher(sid);
+    public static SupportingDocumentFetcher fetcher(final String pathSid){
+        return new SupportingDocumentFetcher(pathSid);
     }
 
-    public static SupportingDocumentDeleter deleter(final String sid){
-        return new SupportingDocumentDeleter(sid);
+    public static SupportingDocumentDeleter deleter(final String pathSid){
+        return new SupportingDocumentDeleter(pathSid);
     }
 
     public static SupportingDocumentReader reader(){
         return new SupportingDocumentReader();
     }
 
-    public static SupportingDocumentUpdater updater(final String sid){
-        return new SupportingDocumentUpdater(sid);
+    public static SupportingDocumentUpdater updater(final String pathSid){
+        return new SupportingDocumentUpdater(pathSid);
     }
 
     /**

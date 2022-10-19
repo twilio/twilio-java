@@ -49,20 +49,20 @@ public class Sink extends Resource {
         return new SinkCreator(description, sinkConfiguration, sinkType);
     }
 
-    public static SinkFetcher fetcher(final String sid){
-        return new SinkFetcher(sid);
+    public static SinkFetcher fetcher(final String pathSid){
+        return new SinkFetcher(pathSid);
     }
 
-    public static SinkDeleter deleter(final String sid){
-        return new SinkDeleter(sid);
+    public static SinkDeleter deleter(final String pathSid){
+        return new SinkDeleter(pathSid);
     }
 
     public static SinkReader reader(){
         return new SinkReader();
     }
 
-    public static SinkUpdater updater(final String sid, final String description){
-        return new SinkUpdater(sid, description);
+    public static SinkUpdater updater(final String pathSid, final String description){
+        return new SinkUpdater(pathSid, description);
     }
 
     /**

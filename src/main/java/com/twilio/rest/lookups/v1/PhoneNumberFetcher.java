@@ -32,14 +32,14 @@ import java.util.Map;
 
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
-    private com.twilio.type.PhoneNumber phoneNumber;
+    private com.twilio.type.PhoneNumber pathPhoneNumber;
     private String countryCode;
     private List<String> type;
     private List<String> addOns;
     private Map<String, Object> addOnsData;
 
-    public PhoneNumberFetcher(final com.twilio.type.PhoneNumber phoneNumber){
-        this.phoneNumber = phoneNumber;
+    public PhoneNumberFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber){
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
     public PhoneNumberFetcher setCountryCode(final String countryCode){
@@ -69,7 +69,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     public PhoneNumber fetch(final TwilioRestClient client) {
         String path = "/v1/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.encode("utf-8"));
+        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.encode("utf-8"));
 
         Request request = new Request(
             HttpMethod.GET,

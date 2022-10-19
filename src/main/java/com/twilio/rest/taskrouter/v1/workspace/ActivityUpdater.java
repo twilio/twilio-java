@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class ActivityUpdater extends Updater<Activity>{
-    private String workspaceSid;
-    private String sid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String friendlyName;
 
-    public ActivityUpdater(final String workspaceSid, final String sid){
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public ActivityUpdater(final String pathWorkspaceSid, final String pathSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     public ActivityUpdater setFriendlyName(final String friendlyName){
@@ -46,8 +46,8 @@ public class ActivityUpdater extends Updater<Activity>{
     public Activity update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

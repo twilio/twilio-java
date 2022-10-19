@@ -49,20 +49,20 @@ public class CustomerProfiles extends Resource {
         return new CustomerProfilesCreator(friendlyName, email, policySid);
     }
 
-    public static CustomerProfilesFetcher fetcher(final String sid){
-        return new CustomerProfilesFetcher(sid);
+    public static CustomerProfilesFetcher fetcher(final String pathSid){
+        return new CustomerProfilesFetcher(pathSid);
     }
 
-    public static CustomerProfilesDeleter deleter(final String sid){
-        return new CustomerProfilesDeleter(sid);
+    public static CustomerProfilesDeleter deleter(final String pathSid){
+        return new CustomerProfilesDeleter(pathSid);
     }
 
     public static CustomerProfilesReader reader(){
         return new CustomerProfilesReader();
     }
 
-    public static CustomerProfilesUpdater updater(final String sid){
-        return new CustomerProfilesUpdater(sid);
+    public static CustomerProfilesUpdater updater(final String pathSid){
+        return new CustomerProfilesUpdater(pathSid);
     }
 
     /**

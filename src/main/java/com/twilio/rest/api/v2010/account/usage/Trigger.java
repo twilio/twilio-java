@@ -47,36 +47,36 @@ public class Trigger extends Resource {
     public static TriggerCreator creator(final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory){
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
     }
-    public static TriggerCreator creator(final String accountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory){
-        return new TriggerCreator(accountSid, callbackUrl, triggerValue, usageCategory);
+    public static TriggerCreator creator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory){
+        return new TriggerCreator(pathAccountSid, callbackUrl, triggerValue, usageCategory);
     }
 
-    public static TriggerFetcher fetcher(final String sid){
-        return new TriggerFetcher(sid);
+    public static TriggerFetcher fetcher(final String pathSid){
+        return new TriggerFetcher(pathSid);
     }
-    public static TriggerFetcher fetcher(final String accountSid, final String sid){
-        return new TriggerFetcher(accountSid, sid);
+    public static TriggerFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new TriggerFetcher(pathAccountSid, pathSid);
     }
 
-    public static TriggerDeleter deleter(final String sid){
-        return new TriggerDeleter(sid);
+    public static TriggerDeleter deleter(final String pathSid){
+        return new TriggerDeleter(pathSid);
     }
-    public static TriggerDeleter deleter(final String accountSid, final String sid){
-        return new TriggerDeleter(accountSid, sid);
+    public static TriggerDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new TriggerDeleter(pathAccountSid, pathSid);
     }
 
     public static TriggerReader reader(){
         return new TriggerReader();
     }
-    public static TriggerReader reader(final String accountSid){
-        return new TriggerReader(accountSid);
+    public static TriggerReader reader(final String pathAccountSid){
+        return new TriggerReader(pathAccountSid);
     }
 
-    public static TriggerUpdater updater(final String sid){
-        return new TriggerUpdater(sid);
+    public static TriggerUpdater updater(final String pathSid){
+        return new TriggerUpdater(pathSid);
     }
-    public static TriggerUpdater updater(final String accountSid, final String sid){
-        return new TriggerUpdater(accountSid, sid);
+    public static TriggerUpdater updater(final String pathAccountSid, final String pathSid){
+        return new TriggerUpdater(pathAccountSid, pathSid);
     }
 
     /**

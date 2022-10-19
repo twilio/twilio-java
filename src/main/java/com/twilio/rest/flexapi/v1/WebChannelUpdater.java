@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class WebChannelUpdater extends Updater<WebChannel>{
-    private String sid;
+    private String pathSid;
     private WebChannel.ChatStatus chatStatus;
     private String postEngagementData;
 
-    public WebChannelUpdater(final String sid){
-        this.sid = sid;
+    public WebChannelUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public WebChannelUpdater setChatStatus(final WebChannel.ChatStatus chatStatus){
@@ -49,7 +49,7 @@ public class WebChannelUpdater extends Updater<WebChannel>{
     public WebChannel update(final TwilioRestClient client){
         String path = "/v1/WebChannels/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

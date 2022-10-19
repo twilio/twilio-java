@@ -40,24 +40,24 @@ import java.util.Objects;
 public class SubscribedEvent extends Resource {
     private static final long serialVersionUID = 216550539675838L;
 
-    public static SubscribedEventCreator creator(final String subscriptionSid, final String type){
-        return new SubscribedEventCreator(subscriptionSid, type);
+    public static SubscribedEventCreator creator(final String pathSubscriptionSid, final String type){
+        return new SubscribedEventCreator(pathSubscriptionSid, type);
     }
 
-    public static SubscribedEventFetcher fetcher(final String subscriptionSid, final String type){
-        return new SubscribedEventFetcher(subscriptionSid, type);
+    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid, final String pathType){
+        return new SubscribedEventFetcher(pathSubscriptionSid, pathType);
     }
 
-    public static SubscribedEventDeleter deleter(final String subscriptionSid, final String type){
-        return new SubscribedEventDeleter(subscriptionSid, type);
+    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid, final String pathType){
+        return new SubscribedEventDeleter(pathSubscriptionSid, pathType);
     }
 
-    public static SubscribedEventReader reader(final String subscriptionSid){
-        return new SubscribedEventReader(subscriptionSid);
+    public static SubscribedEventReader reader(final String pathSubscriptionSid){
+        return new SubscribedEventReader(pathSubscriptionSid);
     }
 
-    public static SubscribedEventUpdater updater(final String subscriptionSid, final String type){
-        return new SubscribedEventUpdater(subscriptionSid, type);
+    public static SubscribedEventUpdater updater(final String pathSubscriptionSid, final String pathType){
+        return new SubscribedEventUpdater(pathSubscriptionSid, pathType);
     }
 
     /**

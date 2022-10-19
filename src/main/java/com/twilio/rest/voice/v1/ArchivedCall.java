@@ -39,8 +39,8 @@ public class ArchivedCall extends Resource {
 
 
 
-    public static ArchivedCallDeleter deleter(final LocalDate date, final String sid){
-        return new ArchivedCallDeleter(date, sid);
+    public static ArchivedCallDeleter deleter(final LocalDate pathDate, final String pathSid){
+        return new ArchivedCallDeleter(pathDate, pathSid);
     }
 
 

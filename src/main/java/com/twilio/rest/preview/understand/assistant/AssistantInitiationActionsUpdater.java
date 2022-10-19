@@ -30,11 +30,11 @@ import java.util.Map;
 
 
 public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiationActions>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private Map<String, Object> initiationActions;
 
-    public AssistantInitiationActionsUpdater(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public AssistantInitiationActionsUpdater(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public AssistantInitiationActionsUpdater setInitiationActions(final Map<String, Object> initiationActions){
@@ -46,7 +46,7 @@ public class AssistantInitiationActionsUpdater extends Updater<AssistantInitiati
     public AssistantInitiationActions update(final TwilioRestClient client){
         String path = "/understand/Assistants/{AssistantSid}/InitiationActions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

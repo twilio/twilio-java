@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class FeedbackFetcher extends Fetcher<Feedback> {
-    private String callSid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathAccountSid;
 
-    public FeedbackFetcher(final String callSid){
-        this.callSid = callSid;
+    public FeedbackFetcher(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
-    public FeedbackFetcher(final String accountSid, final String callSid){
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public FeedbackFetcher(final String pathAccountSid, final String pathCallSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -44,9 +44,9 @@ public class FeedbackFetcher extends Fetcher<Feedback> {
     public Feedback fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

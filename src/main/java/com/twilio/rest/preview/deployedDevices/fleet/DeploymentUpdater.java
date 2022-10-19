@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class DeploymentUpdater extends Updater<Deployment>{
-    private String fleetSid;
-    private String sid;
+    private String pathFleetSid;
+    private String pathSid;
     private String friendlyName;
     private String syncServiceSid;
 
-    public DeploymentUpdater(final String fleetSid, final String sid){
-        this.fleetSid = fleetSid;
-        this.sid = sid;
+    public DeploymentUpdater(final String pathFleetSid, final String pathSid){
+        this.pathFleetSid = pathFleetSid;
+        this.pathSid = pathSid;
     }
 
     public DeploymentUpdater setFriendlyName(final String friendlyName){
@@ -51,8 +51,8 @@ public class DeploymentUpdater extends Updater<Deployment>{
     public Deployment update(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

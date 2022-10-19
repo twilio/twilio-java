@@ -45,8 +45,8 @@ public class TaskQueueCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 113454189238794L;
 
 
-    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String workspaceSid, final String taskQueueSid){
-        return new TaskQueueCumulativeStatisticsFetcher(workspaceSid, taskQueueSid);
+    public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
+        return new TaskQueueCumulativeStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
     }
 
 

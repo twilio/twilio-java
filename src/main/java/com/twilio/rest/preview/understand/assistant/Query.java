@@ -44,24 +44,24 @@ import java.util.Map;
 public class Query extends Resource {
     private static final long serialVersionUID = 180519234688811L;
 
-    public static QueryCreator creator(final String assistantSid, final String language, final String query){
-        return new QueryCreator(assistantSid, language, query);
+    public static QueryCreator creator(final String pathAssistantSid, final String language, final String query){
+        return new QueryCreator(pathAssistantSid, language, query);
     }
 
-    public static QueryFetcher fetcher(final String assistantSid, final String sid){
-        return new QueryFetcher(assistantSid, sid);
+    public static QueryFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new QueryFetcher(pathAssistantSid, pathSid);
     }
 
-    public static QueryDeleter deleter(final String assistantSid, final String sid){
-        return new QueryDeleter(assistantSid, sid);
+    public static QueryDeleter deleter(final String pathAssistantSid, final String pathSid){
+        return new QueryDeleter(pathAssistantSid, pathSid);
     }
 
-    public static QueryReader reader(final String assistantSid){
-        return new QueryReader(assistantSid);
+    public static QueryReader reader(final String pathAssistantSid){
+        return new QueryReader(pathAssistantSid);
     }
 
-    public static QueryUpdater updater(final String assistantSid, final String sid){
-        return new QueryUpdater(assistantSid, sid);
+    public static QueryUpdater updater(final String pathAssistantSid, final String pathSid){
+        return new QueryUpdater(pathAssistantSid, pathSid);
     }
 
     /**

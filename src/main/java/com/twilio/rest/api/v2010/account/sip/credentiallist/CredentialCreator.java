@@ -28,19 +28,19 @@ import com.twilio.rest.Domains;
 
 
 public class CredentialCreator extends Creator<Credential>{
-    private String credentialListSid;
+    private String pathCredentialListSid;
     private String username;
     private String password;
-    private String accountSid;
+    private String pathAccountSid;
 
-    public CredentialCreator(final String credentialListSid, final String username, final String password) {
-        this.credentialListSid = credentialListSid;
+    public CredentialCreator(final String pathCredentialListSid, final String username, final String password) {
+        this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
         this.password = password;
     }
-    public CredentialCreator(final String accountSid, final String credentialListSid, final String username, final String password) {
-        this.accountSid = accountSid;
-        this.credentialListSid = credentialListSid;
+    public CredentialCreator(final String pathAccountSid, final String pathCredentialListSid, final String username, final String password) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCredentialListSid = pathCredentialListSid;
         this.username = username;
         this.password = password;
     }
@@ -58,9 +58,9 @@ public class CredentialCreator extends Creator<Credential>{
     public Credential create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CredentialListSid"+"}", this.credentialListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CredentialListSid"+"}", this.pathCredentialListSid.toString());
         path = path.replace("{"+"Username"+"}", this.username.toString());
         path = path.replace("{"+"Password"+"}", this.password.toString());
 

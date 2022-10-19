@@ -48,8 +48,8 @@ public class Local extends Resource {
     public static LocalCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new LocalCreator(phoneNumber);
     }
-    public static LocalCreator creator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber){
-        return new LocalCreator(accountSid, phoneNumber);
+    public static LocalCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber){
+        return new LocalCreator(pathAccountSid, phoneNumber);
     }
 
 
@@ -57,8 +57,8 @@ public class Local extends Resource {
     public static LocalReader reader(){
         return new LocalReader();
     }
-    public static LocalReader reader(final String accountSid){
-        return new LocalReader(accountSid);
+    public static LocalReader reader(final String pathAccountSid){
+        return new LocalReader(pathAccountSid);
     }
 
 

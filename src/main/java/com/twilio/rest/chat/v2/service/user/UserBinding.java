@@ -45,16 +45,16 @@ public class UserBinding extends Resource {
     private static final long serialVersionUID = 252068300768529L;
 
 
-    public static UserBindingFetcher fetcher(final String serviceSid, final String userSid, final String sid){
-        return new UserBindingFetcher(serviceSid, userSid, sid);
+    public static UserBindingFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathSid){
+        return new UserBindingFetcher(pathServiceSid, pathUserSid, pathSid);
     }
 
-    public static UserBindingDeleter deleter(final String serviceSid, final String userSid, final String sid){
-        return new UserBindingDeleter(serviceSid, userSid, sid);
+    public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid){
+        return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
     }
 
-    public static UserBindingReader reader(final String serviceSid, final String userSid){
-        return new UserBindingReader(serviceSid, userSid);
+    public static UserBindingReader reader(final String pathServiceSid, final String pathUserSid){
+        return new UserBindingReader(pathServiceSid, pathUserSid);
     }
 
 

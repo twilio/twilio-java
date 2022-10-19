@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
-    private String serviceSid;
-    private String functionSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathFunctionSid;
+    private String pathSid;
 
-    public FunctionVersionFetcher(final String serviceSid, final String functionSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.functionSid = functionSid;
-        this.sid = sid;
+    public FunctionVersionFetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathFunctionSid = pathFunctionSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class FunctionVersionFetcher extends Fetcher<FunctionVersion> {
     public FunctionVersion fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"FunctionSid"+"}", this.functionSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"FunctionSid"+"}", this.pathFunctionSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

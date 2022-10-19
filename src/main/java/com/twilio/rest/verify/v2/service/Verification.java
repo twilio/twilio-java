@@ -46,18 +46,18 @@ import java.util.Map;
 public class Verification extends Resource {
     private static final long serialVersionUID = 3815558292528L;
 
-    public static VerificationCreator creator(final String serviceSid, final String to, final String channel){
-        return new VerificationCreator(serviceSid, to, channel);
+    public static VerificationCreator creator(final String pathServiceSid, final String to, final String channel){
+        return new VerificationCreator(pathServiceSid, to, channel);
     }
 
-    public static VerificationFetcher fetcher(final String serviceSid, final String sid){
-        return new VerificationFetcher(serviceSid, sid);
+    public static VerificationFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new VerificationFetcher(pathServiceSid, pathSid);
     }
 
 
 
-    public static VerificationUpdater updater(final String serviceSid, final String sid, final Verification.Status status){
-        return new VerificationUpdater(serviceSid, sid, status);
+    public static VerificationUpdater updater(final String pathServiceSid, final String pathSid, final Verification.Status status){
+        return new VerificationUpdater(pathServiceSid, pathSid, status);
     }
 
     /**

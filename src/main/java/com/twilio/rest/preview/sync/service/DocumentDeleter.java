@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class DocumentDeleter extends Deleter<Document> {
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
 
-    public DocumentDeleter(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public DocumentDeleter(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class DocumentDeleter extends Deleter<Document> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/Sync/Services/{ServiceSid}/Documents/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

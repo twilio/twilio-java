@@ -48,20 +48,20 @@ public class ConnectionPolicy extends Resource {
         return new ConnectionPolicyCreator();
     }
 
-    public static ConnectionPolicyFetcher fetcher(final String sid){
-        return new ConnectionPolicyFetcher(sid);
+    public static ConnectionPolicyFetcher fetcher(final String pathSid){
+        return new ConnectionPolicyFetcher(pathSid);
     }
 
-    public static ConnectionPolicyDeleter deleter(final String sid){
-        return new ConnectionPolicyDeleter(sid);
+    public static ConnectionPolicyDeleter deleter(final String pathSid){
+        return new ConnectionPolicyDeleter(pathSid);
     }
 
     public static ConnectionPolicyReader reader(){
         return new ConnectionPolicyReader();
     }
 
-    public static ConnectionPolicyUpdater updater(final String sid){
-        return new ConnectionPolicyUpdater(sid);
+    public static ConnectionPolicyUpdater updater(final String pathSid){
+        return new ConnectionPolicyUpdater(pathSid);
     }
 
     /**

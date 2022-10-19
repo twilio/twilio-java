@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class BucketCreator extends Creator<Bucket>{
-    private String serviceSid;
-    private String rateLimitSid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
     private Integer max;
     private Integer interval;
 
-    public BucketCreator(final String serviceSid, final String rateLimitSid, final Integer max, final Integer interval) {
-        this.serviceSid = serviceSid;
-        this.rateLimitSid = rateLimitSid;
+    public BucketCreator(final String pathServiceSid, final String pathRateLimitSid, final Integer max, final Integer interval) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
         this.max = max;
         this.interval = interval;
     }
@@ -53,8 +53,8 @@ public class BucketCreator extends Creator<Bucket>{
     public Bucket create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"RateLimitSid"+"}", this.rateLimitSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"RateLimitSid"+"}", this.pathRateLimitSid.toString());
         path = path.replace("{"+"Max"+"}", this.max.toString());
         path = path.replace("{"+"Interval"+"}", this.interval.toString());
 

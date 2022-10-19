@@ -33,10 +33,10 @@ import java.util.List;
 import java.net.URI;
 
 public class ParticipantCreator extends Creator<Participant>{
-    private String conferenceSid;
+    private String pathConferenceSid;
     private com.twilio.type.Endpoint from;
     private com.twilio.type.Endpoint to;
-    private String accountSid;
+    private String pathAccountSid;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private List<String> statusCallbackEvent;
@@ -82,14 +82,14 @@ public class ParticipantCreator extends Creator<Participant>{
     private URI amdStatusCallback;
     private HttpMethod amdStatusCallbackMethod;
 
-    public ParticipantCreator(final String conferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
-        this.conferenceSid = conferenceSid;
+    public ParticipantCreator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
+        this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
     }
-    public ParticipantCreator(final String accountSid, final String conferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
+    public ParticipantCreator(final String pathAccountSid, final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
         this.from = from;
         this.to = to;
     }
@@ -319,9 +319,9 @@ public class ParticipantCreator extends Creator<Participant>{
     public Participant create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ConferenceSid"+"}", this.conferenceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
         path = path.replace("{"+"From"+"}", this.from.toString());
         path = path.replace("{"+"To"+"}", this.to.toString());
 

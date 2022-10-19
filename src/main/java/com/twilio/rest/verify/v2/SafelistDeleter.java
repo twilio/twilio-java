@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class SafelistDeleter extends Deleter<Safelist> {
-    private String phoneNumber;
+    private String pathPhoneNumber;
 
-    public SafelistDeleter(final String phoneNumber){
-        this.phoneNumber = phoneNumber;
+    public SafelistDeleter(final String pathPhoneNumber){
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -38,7 +38,7 @@ public class SafelistDeleter extends Deleter<Safelist> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/SafeList/Numbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.toString());
+        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

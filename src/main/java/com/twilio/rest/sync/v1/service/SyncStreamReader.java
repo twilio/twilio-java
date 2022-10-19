@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class SyncStreamReader extends Reader<SyncStream> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public SyncStreamReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public SyncStreamReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SyncStreamReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class SyncStreamReader extends Reader<SyncStream> {
 
     public Page<SyncStream> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

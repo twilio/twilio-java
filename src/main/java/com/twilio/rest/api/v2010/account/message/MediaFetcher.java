@@ -28,18 +28,18 @@ import com.twilio.rest.Domains;
 
 
 public class MediaFetcher extends Fetcher<Media> {
-    private String messageSid;
-    private String sid;
-    private String accountSid;
+    private String pathMessageSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public MediaFetcher(final String messageSid, final String sid){
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public MediaFetcher(final String pathMessageSid, final String pathSid){
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
-    public MediaFetcher(final String accountSid, final String messageSid, final String sid){
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public MediaFetcher(final String pathAccountSid, final String pathMessageSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +47,10 @@ public class MediaFetcher extends Fetcher<Media> {
     public Media fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.messageSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

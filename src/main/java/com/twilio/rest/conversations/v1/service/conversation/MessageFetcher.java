@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class MessageFetcher extends Fetcher<Message> {
-    private String chatServiceSid;
-    private String conversationSid;
-    private String sid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathSid;
 
-    public MessageFetcher(final String chatServiceSid, final String conversationSid, final String sid){
-        this.chatServiceSid = chatServiceSid;
-        this.conversationSid = conversationSid;
-        this.sid = sid;
+    public MessageFetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class MessageFetcher extends Fetcher<Message> {
     public Message fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{Sid}";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

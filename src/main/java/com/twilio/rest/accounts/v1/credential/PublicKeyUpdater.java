@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class PublicKeyUpdater extends Updater<PublicKey>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
 
-    public PublicKeyUpdater(final String sid){
-        this.sid = sid;
+    public PublicKeyUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public PublicKeyUpdater setFriendlyName(final String friendlyName){
@@ -44,7 +44,7 @@ public class PublicKeyUpdater extends Updater<PublicKey>{
     public PublicKey update(final TwilioRestClient client){
         String path = "/v1/Credentials/PublicKeys/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

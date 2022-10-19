@@ -29,12 +29,12 @@ import com.twilio.base.Page;
 
 
 public class CertificateReader extends Reader<Certificate> {
-    private String fleetSid;
+    private String pathFleetSid;
     private String deviceSid;
     private Integer pageSize;
 
-    public CertificateReader(final String fleetSid){
-        this.fleetSid = fleetSid;
+    public CertificateReader(final String pathFleetSid){
+        this.pathFleetSid = pathFleetSid;
     }
 
     public CertificateReader setDeviceSid(final String deviceSid){
@@ -53,7 +53,7 @@ public class CertificateReader extends Reader<Certificate> {
 
     public Page<Certificate> firstPage(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Certificates";
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

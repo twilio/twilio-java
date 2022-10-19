@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class ItemAssignmentReader extends Reader<ItemAssignment> {
-    private String bundleSid;
+    private String pathBundleSid;
     private Integer pageSize;
 
-    public ItemAssignmentReader(final String bundleSid){
-        this.bundleSid = bundleSid;
+    public ItemAssignmentReader(final String pathBundleSid){
+        this.pathBundleSid = pathBundleSid;
     }
 
     public ItemAssignmentReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class ItemAssignmentReader extends Reader<ItemAssignment> {
 
     public Page<ItemAssignment> firstPage(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -47,8 +47,8 @@ public class CallSummary extends Resource {
     private static final long serialVersionUID = 140626209070735L;
 
 
-    public static CallSummaryFetcher fetcher(final String callSid){
-        return new CallSummaryFetcher(callSid);
+    public static CallSummaryFetcher fetcher(final String pathCallSid){
+        return new CallSummaryFetcher(pathCallSid);
     }
 
 

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class FlowRevisionReader extends Reader<FlowRevision> {
-    private String sid;
+    private String pathSid;
     private Integer pageSize;
 
-    public FlowRevisionReader(final String sid){
-        this.sid = sid;
+    public FlowRevisionReader(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public FlowRevisionReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class FlowRevisionReader extends Reader<FlowRevision> {
 
     public Page<FlowRevision> firstPage(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}/Revisions";
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

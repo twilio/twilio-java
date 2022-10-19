@@ -45,8 +45,8 @@ public class BillingPeriod extends Resource {
 
 
 
-    public static BillingPeriodReader reader(final String simSid){
-        return new BillingPeriodReader(simSid);
+    public static BillingPeriodReader reader(final String pathSimSid){
+        return new BillingPeriodReader(pathSimSid);
     }
 
 

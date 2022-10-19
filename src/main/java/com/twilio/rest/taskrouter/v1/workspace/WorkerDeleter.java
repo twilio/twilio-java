@@ -27,13 +27,13 @@ import com.twilio.rest.Domains;
 
 
 public class WorkerDeleter extends Deleter<Worker> {
-    private String workspaceSid;
-    private String sid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String ifMatch;
 
-    public WorkerDeleter(final String workspaceSid, final String sid){
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public WorkerDeleter(final String pathWorkspaceSid, final String pathSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     public WorkerDeleter setIfMatch(final String ifMatch){
@@ -45,8 +45,8 @@ public class WorkerDeleter extends Deleter<Worker> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

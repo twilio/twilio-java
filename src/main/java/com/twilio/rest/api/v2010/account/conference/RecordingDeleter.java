@@ -27,18 +27,18 @@ import com.twilio.rest.Domains;
 
 
 public class RecordingDeleter extends Deleter<Recording> {
-    private String conferenceSid;
-    private String sid;
-    private String accountSid;
+    private String pathConferenceSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public RecordingDeleter(final String conferenceSid, final String sid){
-        this.conferenceSid = conferenceSid;
-        this.sid = sid;
+    public RecordingDeleter(final String pathConferenceSid, final String pathSid){
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathSid = pathSid;
     }
-    public RecordingDeleter(final String accountSid, final String conferenceSid, final String sid){
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
-        this.sid = sid;
+    public RecordingDeleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -46,10 +46,10 @@ public class RecordingDeleter extends Deleter<Recording> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ConferenceSid"+"}", this.conferenceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

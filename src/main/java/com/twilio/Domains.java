@@ -29,6 +29,7 @@ public enum Domains {
     MONITOR("monitor"),
     NOTIFY("notify"),
     NUMBERS("numbers"),
+    OAUTH("oauth"),
     PREVIEW("preview"),
     PRICING("pricing"),
     PROXY("proxy"),

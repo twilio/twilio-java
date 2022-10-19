@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class EngagementFetcher extends Fetcher<Engagement> {
-    private String flowSid;
-    private String sid;
+    private String pathFlowSid;
+    private String pathSid;
 
-    public EngagementFetcher(final String flowSid, final String sid){
-        this.flowSid = flowSid;
-        this.sid = sid;
+    public EngagementFetcher(final String pathFlowSid, final String pathSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class EngagementFetcher extends Fetcher<Engagement> {
     public Engagement fetch(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements/{Sid}";
 
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

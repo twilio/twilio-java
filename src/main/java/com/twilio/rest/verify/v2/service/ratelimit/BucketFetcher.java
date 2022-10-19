@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class BucketFetcher extends Fetcher<Bucket> {
-    private String serviceSid;
-    private String rateLimitSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
+    private String pathSid;
 
-    public BucketFetcher(final String serviceSid, final String rateLimitSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.rateLimitSid = rateLimitSid;
-        this.sid = sid;
+    public BucketFetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class BucketFetcher extends Fetcher<Bucket> {
     public Bucket fetch(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"RateLimitSid"+"}", this.rateLimitSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"RateLimitSid"+"}", this.pathRateLimitSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

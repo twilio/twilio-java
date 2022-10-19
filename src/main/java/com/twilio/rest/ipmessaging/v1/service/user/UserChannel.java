@@ -45,8 +45,8 @@ public class UserChannel extends Resource {
 
 
 
-    public static UserChannelReader reader(final String serviceSid, final String userSid){
-        return new UserChannelReader(serviceSid, userSid);
+    public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid){
+        return new UserChannelReader(pathServiceSid, pathUserSid);
     }
 
 

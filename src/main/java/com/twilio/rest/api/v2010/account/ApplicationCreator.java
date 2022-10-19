@@ -31,7 +31,7 @@ import java.net.URI;
 import java.net.URI;
 
 public class ApplicationCreator extends Creator<Application>{
-    private String accountSid;
+    private String pathAccountSid;
     private String apiVersion;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -50,8 +50,8 @@ public class ApplicationCreator extends Creator<Application>{
 
     public ApplicationCreator() {
     }
-    public ApplicationCreator(final String accountSid) {
-        this.accountSid = accountSid;
+    public ApplicationCreator(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     public ApplicationCreator setApiVersion(final String apiVersion){
@@ -147,8 +147,8 @@ public class ApplicationCreator extends Creator<Application>{
     public Application create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Applications.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

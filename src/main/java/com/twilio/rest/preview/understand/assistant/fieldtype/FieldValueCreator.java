@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class FieldValueCreator extends Creator<FieldValue>{
-    private String assistantSid;
-    private String fieldTypeSid;
+    private String pathAssistantSid;
+    private String pathFieldTypeSid;
     private String language;
     private String value;
     private String synonymOf;
 
-    public FieldValueCreator(final String assistantSid, final String fieldTypeSid, final String language, final String value) {
-        this.assistantSid = assistantSid;
-        this.fieldTypeSid = fieldTypeSid;
+    public FieldValueCreator(final String pathAssistantSid, final String pathFieldTypeSid, final String language, final String value) {
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathFieldTypeSid = pathFieldTypeSid;
         this.language = language;
         this.value = value;
     }
@@ -58,8 +58,8 @@ public class FieldValueCreator extends Creator<FieldValue>{
     public FieldValue create(final TwilioRestClient client){
         String path = "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"FieldTypeSid"+"}", this.fieldTypeSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"FieldTypeSid"+"}", this.pathFieldTypeSid.toString());
         path = path.replace("{"+"Language"+"}", this.language.toString());
         path = path.replace("{"+"Value"+"}", this.value.toString());
 

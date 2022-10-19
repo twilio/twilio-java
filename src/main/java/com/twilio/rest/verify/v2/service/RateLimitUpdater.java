@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class RateLimitUpdater extends Updater<RateLimit>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private String description;
 
-    public RateLimitUpdater(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public RateLimitUpdater(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     public RateLimitUpdater setDescription(final String description){
@@ -46,8 +46,8 @@ public class RateLimitUpdater extends Updater<RateLimit>{
     public RateLimit update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/RateLimits/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

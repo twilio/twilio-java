@@ -42,39 +42,39 @@ import java.util.Objects;
 public class Participant extends Resource {
     private static final long serialVersionUID = 78654773226378L;
 
-    public static ParticipantCreator creator(final String conferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to){
-        return new ParticipantCreator(conferenceSid, from, to);
+    public static ParticipantCreator creator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to){
+        return new ParticipantCreator(pathConferenceSid, from, to);
     }
-    public static ParticipantCreator creator(final String accountSid, final String conferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to){
-        return new ParticipantCreator(accountSid, conferenceSid, from, to);
-    }
-
-    public static ParticipantFetcher fetcher(final String conferenceSid, final String callSid){
-        return new ParticipantFetcher(conferenceSid, callSid);
-    }
-    public static ParticipantFetcher fetcher(final String accountSid, final String conferenceSid, final String callSid){
-        return new ParticipantFetcher(accountSid, conferenceSid, callSid);
+    public static ParticipantCreator creator(final String pathAccountSid, final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to){
+        return new ParticipantCreator(pathAccountSid, pathConferenceSid, from, to);
     }
 
-    public static ParticipantDeleter deleter(final String conferenceSid, final String callSid){
-        return new ParticipantDeleter(conferenceSid, callSid);
+    public static ParticipantFetcher fetcher(final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantFetcher(pathConferenceSid, pathCallSid);
     }
-    public static ParticipantDeleter deleter(final String accountSid, final String conferenceSid, final String callSid){
-        return new ParticipantDeleter(accountSid, conferenceSid, callSid);
-    }
-
-    public static ParticipantReader reader(final String conferenceSid){
-        return new ParticipantReader(conferenceSid);
-    }
-    public static ParticipantReader reader(final String accountSid, final String conferenceSid){
-        return new ParticipantReader(accountSid, conferenceSid);
+    public static ParticipantFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantFetcher(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
-    public static ParticipantUpdater updater(final String conferenceSid, final String callSid){
-        return new ParticipantUpdater(conferenceSid, callSid);
+    public static ParticipantDeleter deleter(final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantDeleter(pathConferenceSid, pathCallSid);
     }
-    public static ParticipantUpdater updater(final String accountSid, final String conferenceSid, final String callSid){
-        return new ParticipantUpdater(accountSid, conferenceSid, callSid);
+    public static ParticipantDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantDeleter(pathAccountSid, pathConferenceSid, pathCallSid);
+    }
+
+    public static ParticipantReader reader(final String pathConferenceSid){
+        return new ParticipantReader(pathConferenceSid);
+    }
+    public static ParticipantReader reader(final String pathAccountSid, final String pathConferenceSid){
+        return new ParticipantReader(pathAccountSid, pathConferenceSid);
+    }
+
+    public static ParticipantUpdater updater(final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantUpdater(pathConferenceSid, pathCallSid);
+    }
+    public static ParticipantUpdater updater(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantUpdater(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     /**

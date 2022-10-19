@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class DocumentPermissionUpdater extends Updater<DocumentPermission>{
-    private String serviceSid;
-    private String documentSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathDocumentSid;
+    private String pathIdentity;
     private Boolean read;
     private Boolean write;
     private Boolean manage;
 
-    public DocumentPermissionUpdater(final String serviceSid, final String documentSid, final String identity, final Boolean read, final Boolean write, final Boolean manage){
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
-        this.identity = identity;
+    public DocumentPermissionUpdater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage){
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
         this.read = read;
         this.write = write;
         this.manage = manage;
@@ -61,9 +61,9 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission>{
     public DocumentPermission update(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"DocumentSid"+"}", this.documentSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
         path = path.replace("{"+"Read"+"}", this.read.toString());
         path = path.replace("{"+"Write"+"}", this.write.toString());
         path = path.replace("{"+"Manage"+"}", this.manage.toString());

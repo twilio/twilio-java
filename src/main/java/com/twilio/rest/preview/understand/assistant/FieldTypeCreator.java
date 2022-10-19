@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class FieldTypeCreator extends Creator<FieldType>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private String uniqueName;
     private String friendlyName;
 
-    public FieldTypeCreator(final String assistantSid, final String uniqueName) {
-        this.assistantSid = assistantSid;
+    public FieldTypeCreator(final String pathAssistantSid, final String uniqueName) {
+        this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
     }
 
@@ -50,7 +50,7 @@ public class FieldTypeCreator extends Creator<FieldType>{
     public FieldType create(final TwilioRestClient client){
         String path = "/understand/Assistants/{AssistantSid}/FieldTypes";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
         path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 
         Request request = new Request(

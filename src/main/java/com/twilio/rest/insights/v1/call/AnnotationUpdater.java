@@ -28,7 +28,7 @@ import com.twilio.rest.Domains;
 
 
 public class AnnotationUpdater extends Updater<Annotation>{
-    private String callSid;
+    private String pathCallSid;
     private Annotation.AnsweredBy answeredBy;
     private Annotation.ConnectivityIssue connectivityIssue;
     private String qualityIssues;
@@ -37,8 +37,8 @@ public class AnnotationUpdater extends Updater<Annotation>{
     private String comment;
     private String incident;
 
-    public AnnotationUpdater(final String callSid){
-        this.callSid = callSid;
+    public AnnotationUpdater(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
 
     public AnnotationUpdater setAnsweredBy(final Annotation.AnsweredBy answeredBy){
@@ -74,7 +74,7 @@ public class AnnotationUpdater extends Updater<Annotation>{
     public Annotation update(final TwilioRestClient client){
         String path = "/v1/Voice/{CallSid}/Annotation";
 
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

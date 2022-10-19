@@ -44,24 +44,24 @@ import java.util.Map;
 public class TaskChannel extends Resource {
     private static final long serialVersionUID = 156990545444191L;
 
-    public static TaskChannelCreator creator(final String workspaceSid, final String friendlyName, final String uniqueName){
-        return new TaskChannelCreator(workspaceSid, friendlyName, uniqueName);
+    public static TaskChannelCreator creator(final String pathWorkspaceSid, final String friendlyName, final String uniqueName){
+        return new TaskChannelCreator(pathWorkspaceSid, friendlyName, uniqueName);
     }
 
-    public static TaskChannelFetcher fetcher(final String workspaceSid, final String sid){
-        return new TaskChannelFetcher(workspaceSid, sid);
+    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new TaskChannelFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static TaskChannelDeleter deleter(final String workspaceSid, final String sid){
-        return new TaskChannelDeleter(workspaceSid, sid);
+    public static TaskChannelDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+        return new TaskChannelDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static TaskChannelReader reader(final String workspaceSid){
-        return new TaskChannelReader(workspaceSid);
+    public static TaskChannelReader reader(final String pathWorkspaceSid){
+        return new TaskChannelReader(pathWorkspaceSid);
     }
 
-    public static TaskChannelUpdater updater(final String workspaceSid, final String sid){
-        return new TaskChannelUpdater(workspaceSid, sid);
+    public static TaskChannelUpdater updater(final String pathWorkspaceSid, final String pathSid){
+        return new TaskChannelUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**

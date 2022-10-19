@@ -29,14 +29,14 @@ import com.twilio.rest.Domains;
 
 public class QueueCreator extends Creator<Queue>{
     private String friendlyName;
-    private String accountSid;
+    private String pathAccountSid;
     private Integer maxSize;
 
     public QueueCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
-    public QueueCreator(final String accountSid, final String friendlyName) {
-        this.accountSid = accountSid;
+    public QueueCreator(final String pathAccountSid, final String friendlyName) {
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -53,8 +53,8 @@ public class QueueCreator extends Creator<Queue>{
     public Queue create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

@@ -31,8 +31,8 @@ import java.net.URI;
 import java.net.URI;
 
 public class SiprecCreator extends Creator<Siprec>{
-    private String callSid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathAccountSid;
     private String name;
     private String connectorName;
     private Siprec.Track track;
@@ -237,12 +237,12 @@ public class SiprecCreator extends Creator<Siprec>{
     private String parameter99Name;
     private String parameter99Value;
 
-    public SiprecCreator(final String callSid) {
-        this.callSid = callSid;
+    public SiprecCreator(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
-    public SiprecCreator(final String accountSid, final String callSid) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public SiprecCreator(final String pathAccountSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     public SiprecCreator setName(final String name){
@@ -1066,9 +1066,9 @@ public class SiprecCreator extends Creator<Siprec>{
     public Siprec create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

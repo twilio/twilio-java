@@ -44,20 +44,20 @@ import java.util.Map;
 public class Environment extends Resource {
     private static final long serialVersionUID = 36784486672291L;
 
-    public static EnvironmentCreator creator(final String serviceSid, final String uniqueName){
-        return new EnvironmentCreator(serviceSid, uniqueName);
+    public static EnvironmentCreator creator(final String pathServiceSid, final String uniqueName){
+        return new EnvironmentCreator(pathServiceSid, uniqueName);
     }
 
-    public static EnvironmentFetcher fetcher(final String serviceSid, final String sid){
-        return new EnvironmentFetcher(serviceSid, sid);
+    public static EnvironmentFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new EnvironmentFetcher(pathServiceSid, pathSid);
     }
 
-    public static EnvironmentDeleter deleter(final String serviceSid, final String sid){
-        return new EnvironmentDeleter(serviceSid, sid);
+    public static EnvironmentDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new EnvironmentDeleter(pathServiceSid, pathSid);
     }
 
-    public static EnvironmentReader reader(final String serviceSid){
-        return new EnvironmentReader(serviceSid);
+    public static EnvironmentReader reader(final String pathServiceSid){
+        return new EnvironmentReader(pathServiceSid);
     }
 
 

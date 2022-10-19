@@ -44,32 +44,32 @@ public class ConnectApp extends Resource {
     private static final long serialVersionUID = 203118827948403L;
 
 
-    public static ConnectAppFetcher fetcher(final String sid){
-        return new ConnectAppFetcher(sid);
+    public static ConnectAppFetcher fetcher(final String pathSid){
+        return new ConnectAppFetcher(pathSid);
     }
-    public static ConnectAppFetcher fetcher(final String accountSid, final String sid){
-        return new ConnectAppFetcher(accountSid, sid);
+    public static ConnectAppFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new ConnectAppFetcher(pathAccountSid, pathSid);
     }
 
-    public static ConnectAppDeleter deleter(final String sid){
-        return new ConnectAppDeleter(sid);
+    public static ConnectAppDeleter deleter(final String pathSid){
+        return new ConnectAppDeleter(pathSid);
     }
-    public static ConnectAppDeleter deleter(final String accountSid, final String sid){
-        return new ConnectAppDeleter(accountSid, sid);
+    public static ConnectAppDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new ConnectAppDeleter(pathAccountSid, pathSid);
     }
 
     public static ConnectAppReader reader(){
         return new ConnectAppReader();
     }
-    public static ConnectAppReader reader(final String accountSid){
-        return new ConnectAppReader(accountSid);
+    public static ConnectAppReader reader(final String pathAccountSid){
+        return new ConnectAppReader(pathAccountSid);
     }
 
-    public static ConnectAppUpdater updater(final String sid){
-        return new ConnectAppUpdater(sid);
+    public static ConnectAppUpdater updater(final String pathSid){
+        return new ConnectAppUpdater(pathSid);
     }
-    public static ConnectAppUpdater updater(final String accountSid, final String sid){
-        return new ConnectAppUpdater(accountSid, sid);
+    public static ConnectAppUpdater updater(final String pathAccountSid, final String pathSid){
+        return new ConnectAppUpdater(pathAccountSid, pathSid);
     }
 
     /**

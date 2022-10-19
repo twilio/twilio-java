@@ -31,7 +31,7 @@ import java.net.URI;
 import java.net.URI;
 
 public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
-    private String accountSid;
+    private String pathAccountSid;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -60,15 +60,15 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     public IncomingPhoneNumberCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public IncomingPhoneNumberCreator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.accountSid = accountSid;
+    public IncomingPhoneNumberCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
     public IncomingPhoneNumberCreator(final String areaCode) {
         this.areaCode = areaCode;
     }
-    public IncomingPhoneNumberCreator(final String accountSid, final String areaCode) {
-        this.accountSid = accountSid;
+    public IncomingPhoneNumberCreator(final String pathAccountSid, final String areaCode) {
+        this.pathAccountSid = pathAccountSid;
         this.areaCode = areaCode;
     }
 
@@ -197,8 +197,8 @@ public class IncomingPhoneNumberCreator extends Creator<IncomingPhoneNumber>{
     public IncomingPhoneNumber create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

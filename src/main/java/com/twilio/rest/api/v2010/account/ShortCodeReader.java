@@ -29,15 +29,15 @@ import com.twilio.base.Page;
 
 
 public class ShortCodeReader extends Reader<ShortCode> {
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private String shortCode;
     private Integer pageSize;
 
     public ShortCodeReader(){
     }
-    public ShortCodeReader(final String accountSid){
-        this.accountSid = accountSid;
+    public ShortCodeReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public ShortCodeReader setFriendlyName(final String friendlyName){
@@ -60,8 +60,8 @@ public class ShortCodeReader extends Reader<ShortCode> {
 
     public Page<ShortCode> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

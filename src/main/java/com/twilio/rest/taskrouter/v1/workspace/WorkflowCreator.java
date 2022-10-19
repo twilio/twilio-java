@@ -31,15 +31,15 @@ import java.net.URI;
 import java.net.URI;
 
 public class WorkflowCreator extends Creator<Workflow>{
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String configuration;
     private URI assignmentCallbackUrl;
     private URI fallbackAssignmentCallbackUrl;
     private Integer taskReservationTimeout;
 
-    public WorkflowCreator(final String workspaceSid, final String friendlyName, final String configuration) {
-        this.workspaceSid = workspaceSid;
+    public WorkflowCreator(final String pathWorkspaceSid, final String friendlyName, final String configuration) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
         this.configuration = configuration;
     }
@@ -77,7 +77,7 @@ public class WorkflowCreator extends Creator<Workflow>{
     public Workflow create(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
         path = path.replace("{"+"Configuration"+"}", this.configuration.toString());
 

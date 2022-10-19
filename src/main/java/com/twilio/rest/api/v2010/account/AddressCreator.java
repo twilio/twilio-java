@@ -34,7 +34,7 @@ public class AddressCreator extends Creator<Address>{
     private String region;
     private String postalCode;
     private String isoCountry;
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private Boolean emergencyEnabled;
     private Boolean autoCorrectAddress;
@@ -47,8 +47,8 @@ public class AddressCreator extends Creator<Address>{
         this.postalCode = postalCode;
         this.isoCountry = isoCountry;
     }
-    public AddressCreator(final String accountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
-        this.accountSid = accountSid;
+    public AddressCreator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
+        this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
         this.street = street;
         this.city = city;
@@ -98,8 +98,8 @@ public class AddressCreator extends Creator<Address>{
     public Address create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"CustomerName"+"}", this.customerName.toString());
         path = path.replace("{"+"Street"+"}", this.street.toString());
         path = path.replace("{"+"City"+"}", this.city.toString());

@@ -31,15 +31,15 @@ import java.util.List;
 
 
 public class WebhookCreator extends Creator<Webhook>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String friendlyName;
     private List<String> eventTypes;
     private String webhookUrl;
     private Webhook.Status status;
     private Webhook.Version version;
 
-    public WebhookCreator(final String serviceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
-        this.serviceSid = serviceSid;
+    public WebhookCreator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.eventTypes = eventTypes;
         this.webhookUrl = webhookUrl;
@@ -73,7 +73,7 @@ public class WebhookCreator extends Creator<Webhook>{
     public Webhook create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Webhooks";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
         path = path.replace("{"+"EventTypes"+"}", this.eventTypes.toString());
         path = path.replace("{"+"WebhookUrl"+"}", this.webhookUrl.toString());

@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class MessagingConfigurationUpdater extends Updater<MessagingConfiguration>{
-    private String serviceSid;
-    private String country;
+    private String pathServiceSid;
+    private String pathCountry;
     private String messagingServiceSid;
 
-    public MessagingConfigurationUpdater(final String serviceSid, final String country, final String messagingServiceSid){
-        this.serviceSid = serviceSid;
-        this.country = country;
+    public MessagingConfigurationUpdater(final String pathServiceSid, final String pathCountry, final String messagingServiceSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathCountry = pathCountry;
         this.messagingServiceSid = messagingServiceSid;
     }
 
@@ -47,8 +47,8 @@ public class MessagingConfigurationUpdater extends Updater<MessagingConfiguratio
     public MessagingConfiguration update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Country"+"}", this.country.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Country"+"}", this.pathCountry.toString());
         path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
 
         Request request = new Request(

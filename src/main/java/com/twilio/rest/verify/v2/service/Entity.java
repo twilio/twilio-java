@@ -44,20 +44,20 @@ import java.util.Map;
 public class Entity extends Resource {
     private static final long serialVersionUID = 107301822451514L;
 
-    public static EntityCreator creator(final String serviceSid, final String identity){
-        return new EntityCreator(serviceSid, identity);
+    public static EntityCreator creator(final String pathServiceSid, final String identity){
+        return new EntityCreator(pathServiceSid, identity);
     }
 
-    public static EntityFetcher fetcher(final String serviceSid, final String identity){
-        return new EntityFetcher(serviceSid, identity);
+    public static EntityFetcher fetcher(final String pathServiceSid, final String pathIdentity){
+        return new EntityFetcher(pathServiceSid, pathIdentity);
     }
 
-    public static EntityDeleter deleter(final String serviceSid, final String identity){
-        return new EntityDeleter(serviceSid, identity);
+    public static EntityDeleter deleter(final String pathServiceSid, final String pathIdentity){
+        return new EntityDeleter(pathServiceSid, pathIdentity);
     }
 
-    public static EntityReader reader(final String serviceSid){
-        return new EntityReader(serviceSid);
+    public static EntityReader reader(final String pathServiceSid){
+        return new EntityReader(pathServiceSid);
     }
 
 

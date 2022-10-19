@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class BrandVettingFetcher extends Fetcher<BrandVetting> {
-    private String brandSid;
-    private String brandVettingSid;
+    private String pathBrandSid;
+    private String pathBrandVettingSid;
 
-    public BrandVettingFetcher(final String brandSid, final String brandVettingSid){
-        this.brandSid = brandSid;
-        this.brandVettingSid = brandVettingSid;
+    public BrandVettingFetcher(final String pathBrandSid, final String pathBrandVettingSid){
+        this.pathBrandSid = pathBrandSid;
+        this.pathBrandVettingSid = pathBrandVettingSid;
     }
 
 
@@ -41,8 +41,8 @@ public class BrandVettingFetcher extends Fetcher<BrandVetting> {
     public BrandVetting fetch(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings/{BrandVettingSid}";
 
-        path = path.replace("{"+"BrandSid"+"}", this.brandSid.toString());
-        path = path.replace("{"+"BrandVettingSid"+"}", this.brandVettingSid.toString());
+        path = path.replace("{"+"BrandSid"+"}", this.pathBrandSid.toString());
+        path = path.replace("{"+"BrandVettingSid"+"}", this.pathBrandVettingSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

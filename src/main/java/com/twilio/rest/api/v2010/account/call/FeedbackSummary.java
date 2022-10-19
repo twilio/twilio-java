@@ -50,22 +50,22 @@ public class FeedbackSummary extends Resource {
     public static FeedbackSummaryCreator creator(final LocalDate startDate, final LocalDate endDate){
         return new FeedbackSummaryCreator(startDate, endDate);
     }
-    public static FeedbackSummaryCreator creator(final String accountSid, final LocalDate startDate, final LocalDate endDate){
-        return new FeedbackSummaryCreator(accountSid, startDate, endDate);
+    public static FeedbackSummaryCreator creator(final String pathAccountSid, final LocalDate startDate, final LocalDate endDate){
+        return new FeedbackSummaryCreator(pathAccountSid, startDate, endDate);
     }
 
-    public static FeedbackSummaryFetcher fetcher(final String sid){
-        return new FeedbackSummaryFetcher(sid);
+    public static FeedbackSummaryFetcher fetcher(final String pathSid){
+        return new FeedbackSummaryFetcher(pathSid);
     }
-    public static FeedbackSummaryFetcher fetcher(final String accountSid, final String sid){
-        return new FeedbackSummaryFetcher(accountSid, sid);
+    public static FeedbackSummaryFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new FeedbackSummaryFetcher(pathAccountSid, pathSid);
     }
 
-    public static FeedbackSummaryDeleter deleter(final String sid){
-        return new FeedbackSummaryDeleter(sid);
+    public static FeedbackSummaryDeleter deleter(final String pathSid){
+        return new FeedbackSummaryDeleter(pathSid);
     }
-    public static FeedbackSummaryDeleter deleter(final String accountSid, final String sid){
-        return new FeedbackSummaryDeleter(accountSid, sid);
+    public static FeedbackSummaryDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new FeedbackSummaryDeleter(pathAccountSid, pathSid);
     }
 
 

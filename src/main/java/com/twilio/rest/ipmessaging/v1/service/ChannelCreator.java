@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class ChannelCreator extends Creator<Channel>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String friendlyName;
     private String uniqueName;
     private String attributes;
     private Channel.ChannelType type;
 
-    public ChannelCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public ChannelCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public ChannelCreator setFriendlyName(final String friendlyName){
@@ -59,7 +59,7 @@ public class ChannelCreator extends Creator<Channel>{
     public Channel create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

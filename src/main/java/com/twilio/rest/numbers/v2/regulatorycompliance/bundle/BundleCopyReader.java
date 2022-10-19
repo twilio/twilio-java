@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class BundleCopyReader extends Reader<BundleCopy> {
-    private String bundleSid;
+    private String pathBundleSid;
     private Integer pageSize;
 
-    public BundleCopyReader(final String bundleSid){
-        this.bundleSid = bundleSid;
+    public BundleCopyReader(final String pathBundleSid){
+        this.pathBundleSid = pathBundleSid;
     }
 
     public BundleCopyReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class BundleCopyReader extends Reader<BundleCopy> {
 
     public Page<BundleCopy> firstPage(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

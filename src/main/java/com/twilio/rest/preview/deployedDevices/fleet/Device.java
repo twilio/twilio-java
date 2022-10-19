@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Device extends Resource {
     private static final long serialVersionUID = 204948181343163L;
 
-    public static DeviceCreator creator(final String fleetSid){
-        return new DeviceCreator(fleetSid);
+    public static DeviceCreator creator(final String pathFleetSid){
+        return new DeviceCreator(pathFleetSid);
     }
 
-    public static DeviceFetcher fetcher(final String fleetSid, final String sid){
-        return new DeviceFetcher(fleetSid, sid);
+    public static DeviceFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new DeviceFetcher(pathFleetSid, pathSid);
     }
 
-    public static DeviceDeleter deleter(final String fleetSid, final String sid){
-        return new DeviceDeleter(fleetSid, sid);
+    public static DeviceDeleter deleter(final String pathFleetSid, final String pathSid){
+        return new DeviceDeleter(pathFleetSid, pathSid);
     }
 
-    public static DeviceReader reader(final String fleetSid){
-        return new DeviceReader(fleetSid);
+    public static DeviceReader reader(final String pathFleetSid){
+        return new DeviceReader(pathFleetSid);
     }
 
-    public static DeviceUpdater updater(final String fleetSid, final String sid){
-        return new DeviceUpdater(fleetSid, sid);
+    public static DeviceUpdater updater(final String pathFleetSid, final String pathSid){
+        return new DeviceUpdater(pathFleetSid, pathSid);
     }
 
     /**

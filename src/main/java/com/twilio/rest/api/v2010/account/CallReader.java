@@ -32,7 +32,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class CallReader extends Reader<Call> {
-    private String accountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private String parentCallSid;
@@ -47,8 +47,8 @@ public class CallReader extends Reader<Call> {
 
     public CallReader(){
     }
-    public CallReader(final String accountSid){
-        this.accountSid = accountSid;
+    public CallReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public CallReader setTo(final com.twilio.type.PhoneNumber to){
@@ -111,8 +111,8 @@ public class CallReader extends Reader<Call> {
 
     public Page<Call> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

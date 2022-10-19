@@ -44,17 +44,17 @@ public class InteractionChannel extends Resource {
     private static final long serialVersionUID = 96183028905472L;
 
 
-    public static InteractionChannelFetcher fetcher(final String interactionSid, final String sid){
-        return new InteractionChannelFetcher(interactionSid, sid);
+    public static InteractionChannelFetcher fetcher(final String pathInteractionSid, final String pathSid){
+        return new InteractionChannelFetcher(pathInteractionSid, pathSid);
     }
 
 
-    public static InteractionChannelReader reader(final String interactionSid){
-        return new InteractionChannelReader(interactionSid);
+    public static InteractionChannelReader reader(final String pathInteractionSid){
+        return new InteractionChannelReader(pathInteractionSid);
     }
 
-    public static InteractionChannelUpdater updater(final String interactionSid, final String sid, final InteractionChannel.Status status){
-        return new InteractionChannelUpdater(interactionSid, sid, status);
+    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.Status status){
+        return new InteractionChannelUpdater(pathInteractionSid, pathSid, status);
     }
 
     /**

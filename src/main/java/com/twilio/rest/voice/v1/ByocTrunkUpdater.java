@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class ByocTrunkUpdater extends Updater<ByocTrunk>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -42,8 +42,8 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk>{
     private String connectionPolicySid;
     private String fromDomainSid;
 
-    public ByocTrunkUpdater(final String sid){
-        this.sid = sid;
+    public ByocTrunkUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public ByocTrunkUpdater setFriendlyName(final String friendlyName){
@@ -103,7 +103,7 @@ public class ByocTrunkUpdater extends Updater<ByocTrunk>{
     public ByocTrunk update(final TwilioRestClient client){
         String path = "/v1/ByocTrunks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

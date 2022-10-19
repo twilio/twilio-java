@@ -42,8 +42,8 @@ public class ValidationRequest extends Resource {
     public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new ValidationRequestCreator(phoneNumber);
     }
-    public static ValidationRequestCreator creator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber){
-        return new ValidationRequestCreator(accountSid, phoneNumber);
+    public static ValidationRequestCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber){
+        return new ValidationRequestCreator(pathAccountSid, phoneNumber);
     }
 
 

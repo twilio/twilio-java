@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class ConferenceParticipantFetcher extends Fetcher<ConferenceParticipant> {
-    private String conferenceSid;
-    private String participantSid;
+    private String pathConferenceSid;
+    private String pathParticipantSid;
     private String events;
     private String metrics;
 
-    public ConferenceParticipantFetcher(final String conferenceSid, final String participantSid){
-        this.conferenceSid = conferenceSid;
-        this.participantSid = participantSid;
+    public ConferenceParticipantFetcher(final String pathConferenceSid, final String pathParticipantSid){
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathParticipantSid = pathParticipantSid;
     }
 
     public ConferenceParticipantFetcher setEvents(final String events){
@@ -51,8 +51,8 @@ public class ConferenceParticipantFetcher extends Fetcher<ConferenceParticipant>
     public ConferenceParticipant fetch(final TwilioRestClient client) {
         String path = "/v1/Conferences/{ConferenceSid}/Participants/{ParticipantSid}";
 
-        path = path.replace("{"+"ConferenceSid"+"}", this.conferenceSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.participantSid.toString());
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
+        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

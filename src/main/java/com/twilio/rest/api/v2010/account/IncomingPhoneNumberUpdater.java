@@ -30,9 +30,9 @@ import java.net.URI;
 
 
 public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
-    private String sid;
+    private String pathSid;
+    private String pathAccountSid;
     private String accountSid;
-    private String accountSid2;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -56,16 +56,16 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     private String addressSid;
     private String bundleSid;
 
-    public IncomingPhoneNumberUpdater(final String sid){
-        this.sid = sid;
+    public IncomingPhoneNumberUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public IncomingPhoneNumberUpdater(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public IncomingPhoneNumberUpdater(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
-    public IncomingPhoneNumberUpdater setAccountSid2(final String accountSid2){
-        this.accountSid2 = accountSid2;
+    public IncomingPhoneNumberUpdater setAccountSid(final String accountSid){
+        this.accountSid = accountSid;
         return this;
     }
     public IncomingPhoneNumberUpdater setApiVersion(final String apiVersion){
@@ -181,9 +181,9 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
     public IncomingPhoneNumber update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -205,8 +205,8 @@ public class IncomingPhoneNumberUpdater extends Updater<IncomingPhoneNumber>{
         return IncomingPhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addPostParams(final Request request) {
-        if (accountSid2 != null) {
-            request.addPostParam("AccountSid", accountSid2);
+        if (accountSid != null) {
+            request.addPostParam("AccountSid", accountSid);
     
         }
         if (apiVersion != null) {

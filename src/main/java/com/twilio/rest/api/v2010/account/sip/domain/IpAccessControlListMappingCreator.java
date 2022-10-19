@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class IpAccessControlListMappingCreator extends Creator<IpAccessControlListMapping>{
-    private String domainSid;
+    private String pathDomainSid;
     private String ipAccessControlListSid;
-    private String accountSid;
+    private String pathAccountSid;
 
-    public IpAccessControlListMappingCreator(final String domainSid, final String ipAccessControlListSid) {
-        this.domainSid = domainSid;
+    public IpAccessControlListMappingCreator(final String pathDomainSid, final String ipAccessControlListSid) {
+        this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
-    public IpAccessControlListMappingCreator(final String accountSid, final String domainSid, final String ipAccessControlListSid) {
-        this.accountSid = accountSid;
-        this.domainSid = domainSid;
+    public IpAccessControlListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String ipAccessControlListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
@@ -51,9 +51,9 @@ public class IpAccessControlListMappingCreator extends Creator<IpAccessControlLi
     public IpAccessControlListMapping create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/IpAccessControlListMappings.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"DomainSid"+"}", this.domainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
         path = path.replace("{"+"IpAccessControlListSid"+"}", this.ipAccessControlListSid.toString());
 
         Request request = new Request(

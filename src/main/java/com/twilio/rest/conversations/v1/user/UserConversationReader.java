@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class UserConversationReader extends Reader<UserConversation> {
-    private String userSid;
+    private String pathUserSid;
     private Integer pageSize;
 
-    public UserConversationReader(final String userSid){
-        this.userSid = userSid;
+    public UserConversationReader(final String pathUserSid){
+        this.pathUserSid = pathUserSid;
     }
 
     public UserConversationReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class UserConversationReader extends Reader<UserConversation> {
 
     public Page<UserConversation> firstPage(final TwilioRestClient client) {
         String path = "/v1/Users/{UserSid}/Conversations";
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

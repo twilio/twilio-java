@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class ActivityReader extends Reader<Activity> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String available;
     private Integer pageSize;
 
-    public ActivityReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public ActivityReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public ActivityReader setFriendlyName(final String friendlyName){
@@ -58,7 +58,7 @@ public class ActivityReader extends Reader<Activity> {
 
     public Page<Activity> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Activities";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

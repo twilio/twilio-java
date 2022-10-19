@@ -50,8 +50,8 @@ public class BrandRegistration extends Resource {
         return new BrandRegistrationCreator(customerProfileBundleSid, a2PProfileBundleSid);
     }
 
-    public static BrandRegistrationFetcher fetcher(final String sid){
-        return new BrandRegistrationFetcher(sid);
+    public static BrandRegistrationFetcher fetcher(final String pathSid){
+        return new BrandRegistrationFetcher(pathSid);
     }
 
 
@@ -59,8 +59,8 @@ public class BrandRegistration extends Resource {
         return new BrandRegistrationReader();
     }
 
-    public static BrandRegistrationUpdater updater(final String sid){
-        return new BrandRegistrationUpdater(sid);
+    public static BrandRegistrationUpdater updater(final String pathSid){
+        return new BrandRegistrationUpdater(pathSid);
     }
 
     /**

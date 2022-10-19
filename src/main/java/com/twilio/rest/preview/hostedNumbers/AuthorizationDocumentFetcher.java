@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument> {
-    private String sid;
+    private String pathSid;
 
-    public AuthorizationDocumentFetcher(final String sid){
-        this.sid = sid;
+    public AuthorizationDocumentFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class AuthorizationDocumentFetcher extends Fetcher<AuthorizationDocument>
     public AuthorizationDocument fetch(final TwilioRestClient client) {
         String path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

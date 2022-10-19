@@ -28,21 +28,21 @@ import com.twilio.rest.Domains;
 
 
 public class IpAddressUpdater extends Updater<IpAddress>{
-    private String ipAccessControlListSid;
-    private String sid;
-    private String accountSid;
+    private String pathIpAccessControlListSid;
+    private String pathSid;
+    private String pathAccountSid;
     private String ipAddress;
     private String friendlyName;
     private Integer cidrPrefixLength;
 
-    public IpAddressUpdater(final String ipAccessControlListSid, final String sid){
-        this.ipAccessControlListSid = ipAccessControlListSid;
-        this.sid = sid;
+    public IpAddressUpdater(final String pathIpAccessControlListSid, final String pathSid){
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
+        this.pathSid = pathSid;
     }
-    public IpAddressUpdater(final String accountSid, final String ipAccessControlListSid, final String sid){
-        this.accountSid = accountSid;
-        this.ipAccessControlListSid = ipAccessControlListSid;
-        this.sid = sid;
+    public IpAddressUpdater(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
+        this.pathSid = pathSid;
     }
 
     public IpAddressUpdater setIpAddress(final String ipAddress){
@@ -62,10 +62,10 @@ public class IpAddressUpdater extends Updater<IpAddress>{
     public IpAddress update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"IpAccessControlListSid"+"}", this.ipAccessControlListSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"IpAccessControlListSid"+"}", this.pathIpAccessControlListSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

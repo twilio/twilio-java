@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class SubscribedEventUpdater extends Updater<SubscribedEvent>{
-    private String subscriptionSid;
-    private String type;
+    private String pathSubscriptionSid;
+    private String pathType;
     private Integer schemaVersion;
 
-    public SubscribedEventUpdater(final String subscriptionSid, final String type){
-        this.subscriptionSid = subscriptionSid;
-        this.type = type;
+    public SubscribedEventUpdater(final String pathSubscriptionSid, final String pathType){
+        this.pathSubscriptionSid = pathSubscriptionSid;
+        this.pathType = pathType;
     }
 
     public SubscribedEventUpdater setSchemaVersion(final Integer schemaVersion){
@@ -46,8 +46,8 @@ public class SubscribedEventUpdater extends Updater<SubscribedEvent>{
     public SubscribedEvent update(final TwilioRestClient client){
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        path = path.replace("{"+"SubscriptionSid"+"}", this.subscriptionSid.toString());
-        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
+        path = path.replace("{"+"Type"+"}", this.pathType.toString());
 
         Request request = new Request(
             HttpMethod.POST,

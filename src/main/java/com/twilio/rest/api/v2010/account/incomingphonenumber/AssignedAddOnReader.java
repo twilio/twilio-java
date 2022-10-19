@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class AssignedAddOnReader extends Reader<AssignedAddOn> {
-    private String resourceSid;
-    private String accountSid;
+    private String pathResourceSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public AssignedAddOnReader(final String resourceSid){
-        this.resourceSid = resourceSid;
+    public AssignedAddOnReader(final String pathResourceSid){
+        this.pathResourceSid = pathResourceSid;
     }
-    public AssignedAddOnReader(final String accountSid, final String resourceSid){
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
+    public AssignedAddOnReader(final String pathAccountSid, final String pathResourceSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
     }
 
     public AssignedAddOnReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class AssignedAddOnReader extends Reader<AssignedAddOn> {
 
     public Page<AssignedAddOn> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ResourceSid"+"}", this.resourceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ResourceSid"+"}", this.pathResourceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

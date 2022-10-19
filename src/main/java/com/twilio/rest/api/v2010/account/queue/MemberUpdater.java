@@ -30,21 +30,21 @@ import java.net.URI;
 
 
 public class MemberUpdater extends Updater<Member>{
-    private String queueSid;
-    private String callSid;
+    private String pathQueueSid;
+    private String pathCallSid;
     private URI url;
-    private String accountSid;
+    private String pathAccountSid;
     private HttpMethod method;
 
-    public MemberUpdater(final String queueSid, final String callSid, final URI url){
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+    public MemberUpdater(final String pathQueueSid, final String pathCallSid, final URI url){
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
-    public MemberUpdater(final String accountSid, final String queueSid, final String callSid, final URI url){
-        this.accountSid = accountSid;
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+    public MemberUpdater(final String pathAccountSid, final String pathQueueSid, final String pathCallSid, final URI url){
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
 
@@ -65,10 +65,10 @@ public class MemberUpdater extends Updater<Member>{
     public Member update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"QueueSid"+"}", this.queueSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"QueueSid"+"}", this.pathQueueSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
         path = path.replace("{"+"Url"+"}", this.url.toString());
 
         Request request = new Request(

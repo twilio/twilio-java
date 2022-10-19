@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class CredentialReader extends Reader<Credential> {
-    private String credentialListSid;
-    private String accountSid;
+    private String pathCredentialListSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public CredentialReader(final String credentialListSid){
-        this.credentialListSid = credentialListSid;
+    public CredentialReader(final String pathCredentialListSid){
+        this.pathCredentialListSid = pathCredentialListSid;
     }
-    public CredentialReader(final String accountSid, final String credentialListSid){
-        this.accountSid = accountSid;
-        this.credentialListSid = credentialListSid;
+    public CredentialReader(final String pathAccountSid, final String pathCredentialListSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCredentialListSid = pathCredentialListSid;
     }
 
     public CredentialReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class CredentialReader extends Reader<Credential> {
 
     public Page<Credential> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{CredentialListSid}/Credentials.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CredentialListSid"+"}", this.credentialListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CredentialListSid"+"}", this.pathCredentialListSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class SinkValidateCreator extends Creator<SinkValidate>{
-    private String sid;
+    private String pathSid;
     private String testId;
 
-    public SinkValidateCreator(final String sid, final String testId) {
-        this.sid = sid;
+    public SinkValidateCreator(final String pathSid, final String testId) {
+        this.pathSid = pathSid;
         this.testId = testId;
     }
 
@@ -45,7 +45,7 @@ public class SinkValidateCreator extends Creator<SinkValidate>{
     public SinkValidate create(final TwilioRestClient client){
         String path = "/v1/Sinks/{Sid}/Validate";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"TestId"+"}", this.testId.toString());
 
         Request request = new Request(

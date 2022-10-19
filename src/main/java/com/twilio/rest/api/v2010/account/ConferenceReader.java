@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class ConferenceReader extends Reader<Conference> {
-    private String accountSid;
+    private String pathAccountSid;
     private LocalDate dateCreated;
     private LocalDate dateCreatedBefore;
     private LocalDate dateCreatedAfter;
@@ -44,8 +44,8 @@ public class ConferenceReader extends Reader<Conference> {
 
     public ConferenceReader(){
     }
-    public ConferenceReader(final String accountSid){
-        this.accountSid = accountSid;
+    public ConferenceReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public ConferenceReader setDateCreated(final LocalDate dateCreated){
@@ -92,8 +92,8 @@ public class ConferenceReader extends Reader<Conference> {
 
     public Page<Conference> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

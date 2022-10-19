@@ -29,7 +29,7 @@ import com.twilio.base.Page;
 
 
 public class AddressReader extends Reader<Address> {
-    private String accountSid;
+    private String pathAccountSid;
     private String customerName;
     private String friendlyName;
     private String isoCountry;
@@ -37,8 +37,8 @@ public class AddressReader extends Reader<Address> {
 
     public AddressReader(){
     }
-    public AddressReader(final String accountSid){
-        this.accountSid = accountSid;
+    public AddressReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public AddressReader setCustomerName(final String customerName){
@@ -65,8 +65,8 @@ public class AddressReader extends Reader<Address> {
 
     public Page<Address> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

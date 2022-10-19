@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class UserUpdater extends Updater<User>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private String roleSid;
     private String attributes;
     private String friendlyName;
 
-    public UserUpdater(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public UserUpdater(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     public UserUpdater setRoleSid(final String roleSid){
@@ -56,8 +56,8 @@ public class UserUpdater extends Updater<User>{
     public User update(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Users/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

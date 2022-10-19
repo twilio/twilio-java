@@ -35,7 +35,7 @@ import java.net.URI;
 public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
     private LocalDate startDate;
     private LocalDate endDate;
-    private String accountSid;
+    private String pathAccountSid;
     private Boolean includeSubaccounts;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
@@ -44,8 +44,8 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    public FeedbackSummaryCreator(final String accountSid, final LocalDate startDate, final LocalDate endDate) {
-        this.accountSid = accountSid;
+    public FeedbackSummaryCreator(final String pathAccountSid, final LocalDate startDate, final LocalDate endDate) {
+        this.pathAccountSid = pathAccountSid;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -79,8 +79,8 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
     public FeedbackSummary create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"StartDate"+"}", this.startDate.toString());
         path = path.replace("{"+"EndDate"+"}", this.endDate.toString());
 

@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class ServiceFetcher extends Fetcher<Service> {
-    private String sid;
+    private String pathSid;
 
-    public ServiceFetcher(final String sid){
-        this.sid = sid;
+    public ServiceFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class ServiceFetcher extends Fetcher<Service> {
     public Service fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

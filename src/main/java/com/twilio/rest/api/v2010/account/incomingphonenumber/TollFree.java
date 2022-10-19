@@ -48,8 +48,8 @@ public class TollFree extends Resource {
     public static TollFreeCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new TollFreeCreator(phoneNumber);
     }
-    public static TollFreeCreator creator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber){
-        return new TollFreeCreator(accountSid, phoneNumber);
+    public static TollFreeCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber){
+        return new TollFreeCreator(pathAccountSid, phoneNumber);
     }
 
 
@@ -57,8 +57,8 @@ public class TollFree extends Resource {
     public static TollFreeReader reader(){
         return new TollFreeReader();
     }
-    public static TollFreeReader reader(final String accountSid){
-        return new TollFreeReader(accountSid);
+    public static TollFreeReader reader(final String pathAccountSid){
+        return new TollFreeReader(pathAccountSid);
     }
 
 

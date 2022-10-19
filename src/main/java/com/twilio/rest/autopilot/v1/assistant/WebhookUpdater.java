@@ -30,16 +30,16 @@ import java.net.URI;
 
 
 public class WebhookUpdater extends Updater<Webhook>{
-    private String assistantSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathSid;
     private String uniqueName;
     private String events;
     private URI webhookUrl;
     private String webhookMethod;
 
-    public WebhookUpdater(final String assistantSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.sid = sid;
+    public WebhookUpdater(final String pathAssistantSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathSid = pathSid;
     }
 
     public WebhookUpdater setUniqueName(final String uniqueName){
@@ -67,8 +67,8 @@ public class WebhookUpdater extends Updater<Webhook>{
     public Webhook update(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

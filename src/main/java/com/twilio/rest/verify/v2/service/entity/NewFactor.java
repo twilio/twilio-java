@@ -45,8 +45,8 @@ import java.util.Map;
 public class NewFactor extends Resource {
     private static final long serialVersionUID = 7089644420013L;
 
-    public static NewFactorCreator creator(final String serviceSid, final String identity, final String friendlyName, final NewFactor.FactorTypes factorType){
-        return new NewFactorCreator(serviceSid, identity, friendlyName, factorType);
+    public static NewFactorCreator creator(final String pathServiceSid, final String pathIdentity, final String friendlyName, final NewFactor.FactorTypes factorType){
+        return new NewFactorCreator(pathServiceSid, pathIdentity, friendlyName, factorType);
     }
 
 

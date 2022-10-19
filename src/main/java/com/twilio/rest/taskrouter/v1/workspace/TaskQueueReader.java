@@ -29,14 +29,14 @@ import com.twilio.base.Page;
 
 
 public class TaskQueueReader extends Reader<TaskQueue> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String evaluateWorkerAttributes;
     private String workerSid;
     private Integer pageSize;
 
-    public TaskQueueReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public TaskQueueReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public TaskQueueReader setFriendlyName(final String friendlyName){
@@ -63,7 +63,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
 
     public Page<TaskQueue> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -31,9 +31,9 @@ import java.net.URI;
 import java.net.URI;
 
 public class StreamCreator extends Creator<Stream>{
-    private String callSid;
+    private String pathCallSid;
     private URI url;
-    private String accountSid;
+    private String pathAccountSid;
     private String name;
     private Stream.Track track;
     private URI statusCallback;
@@ -237,13 +237,13 @@ public class StreamCreator extends Creator<Stream>{
     private String parameter99Name;
     private String parameter99Value;
 
-    public StreamCreator(final String callSid, final URI url) {
-        this.callSid = callSid;
+    public StreamCreator(final String pathCallSid, final URI url) {
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
-    public StreamCreator(final String accountSid, final String callSid, final URI url) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public StreamCreator(final String pathAccountSid, final String pathCallSid, final URI url) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.url = url;
     }
 
@@ -1072,9 +1072,9 @@ public class StreamCreator extends Creator<Stream>{
     public Stream create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Streams.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
         path = path.replace("{"+"Url"+"}", this.url.toString());
 
         Request request = new Request(

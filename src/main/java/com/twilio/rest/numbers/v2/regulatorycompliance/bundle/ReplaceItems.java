@@ -43,8 +43,8 @@ import java.util.Objects;
 public class ReplaceItems extends Resource {
     private static final long serialVersionUID = 8605661935837L;
 
-    public static ReplaceItemsCreator creator(final String bundleSid, final String fromBundleSid){
-        return new ReplaceItemsCreator(bundleSid, fromBundleSid);
+    public static ReplaceItemsCreator creator(final String pathBundleSid, final String fromBundleSid){
+        return new ReplaceItemsCreator(pathBundleSid, fromBundleSid);
     }
 
 

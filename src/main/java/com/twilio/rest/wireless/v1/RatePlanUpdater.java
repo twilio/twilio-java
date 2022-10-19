@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class RatePlanUpdater extends Updater<RatePlan>{
-    private String sid;
+    private String pathSid;
     private String uniqueName;
     private String friendlyName;
 
-    public RatePlanUpdater(final String sid){
-        this.sid = sid;
+    public RatePlanUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public RatePlanUpdater setUniqueName(final String uniqueName){
@@ -49,7 +49,7 @@ public class RatePlanUpdater extends Updater<RatePlan>{
     public RatePlan update(final TwilioRestClient client){
         String path = "/v1/RatePlans/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

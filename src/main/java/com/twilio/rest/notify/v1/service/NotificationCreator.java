@@ -35,7 +35,7 @@ import java.util.Map;
 
 
 public class NotificationCreator extends Creator<Notification>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String body;
     private Notification.Priority priority;
     private Integer ttl;
@@ -55,8 +55,8 @@ public class NotificationCreator extends Creator<Notification>{
     private List<String> identity;
     private List<String> tag;
 
-    public NotificationCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public NotificationCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public NotificationCreator setBody(final String body){
@@ -148,7 +148,7 @@ public class NotificationCreator extends Creator<Notification>{
     public Notification create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Notifications";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

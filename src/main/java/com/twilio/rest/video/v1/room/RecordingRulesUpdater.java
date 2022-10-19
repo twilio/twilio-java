@@ -30,11 +30,11 @@ import java.util.Map;
 
 
 public class RecordingRulesUpdater extends Updater<RecordingRules>{
-    private String roomSid;
+    private String pathRoomSid;
     private Map<String, Object> rules;
 
-    public RecordingRulesUpdater(final String roomSid){
-        this.roomSid = roomSid;
+    public RecordingRulesUpdater(final String pathRoomSid){
+        this.pathRoomSid = pathRoomSid;
     }
 
     public RecordingRulesUpdater setRules(final Map<String, Object> rules){
@@ -46,7 +46,7 @@ public class RecordingRulesUpdater extends Updater<RecordingRules>{
     public RecordingRules update(final TwilioRestClient client){
         String path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

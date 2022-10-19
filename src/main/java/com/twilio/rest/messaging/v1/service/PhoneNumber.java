@@ -43,20 +43,20 @@ import java.util.Objects;
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 272509077394294L;
 
-    public static PhoneNumberCreator creator(final String serviceSid, final String phoneNumberSid){
-        return new PhoneNumberCreator(serviceSid, phoneNumberSid);
+    public static PhoneNumberCreator creator(final String pathServiceSid, final String phoneNumberSid){
+        return new PhoneNumberCreator(pathServiceSid, phoneNumberSid);
     }
 
-    public static PhoneNumberFetcher fetcher(final String serviceSid, final String sid){
-        return new PhoneNumberFetcher(serviceSid, sid);
+    public static PhoneNumberFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new PhoneNumberFetcher(pathServiceSid, pathSid);
     }
 
-    public static PhoneNumberDeleter deleter(final String serviceSid, final String sid){
-        return new PhoneNumberDeleter(serviceSid, sid);
+    public static PhoneNumberDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new PhoneNumberDeleter(pathServiceSid, pathSid);
     }
 
-    public static PhoneNumberReader reader(final String serviceSid){
-        return new PhoneNumberReader(serviceSid);
+    public static PhoneNumberReader reader(final String pathServiceSid){
+        return new PhoneNumberReader(pathServiceSid);
     }
 
 

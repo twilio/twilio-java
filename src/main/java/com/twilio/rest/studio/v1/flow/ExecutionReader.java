@@ -30,13 +30,13 @@ import java.time.ZonedDateTime;
 
 
 public class ExecutionReader extends Reader<Execution> {
-    private String flowSid;
+    private String pathFlowSid;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
     private Integer pageSize;
 
-    public ExecutionReader(final String flowSid){
-        this.flowSid = flowSid;
+    public ExecutionReader(final String pathFlowSid){
+        this.pathFlowSid = pathFlowSid;
     }
 
     public ExecutionReader setDateCreatedFrom(final ZonedDateTime dateCreatedFrom){
@@ -59,7 +59,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     public Page<Execution> firstPage(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Executions";
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

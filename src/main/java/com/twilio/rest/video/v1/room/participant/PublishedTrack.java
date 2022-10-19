@@ -44,13 +44,13 @@ public class PublishedTrack extends Resource {
     private static final long serialVersionUID = 141811235690070L;
 
 
-    public static PublishedTrackFetcher fetcher(final String roomSid, final String participantSid, final String sid){
-        return new PublishedTrackFetcher(roomSid, participantSid, sid);
+    public static PublishedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid){
+        return new PublishedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
     }
 
 
-    public static PublishedTrackReader reader(final String roomSid, final String participantSid){
-        return new PublishedTrackReader(roomSid, participantSid);
+    public static PublishedTrackReader reader(final String pathRoomSid, final String pathParticipantSid){
+        return new PublishedTrackReader(pathRoomSid, pathParticipantSid);
     }
 
 

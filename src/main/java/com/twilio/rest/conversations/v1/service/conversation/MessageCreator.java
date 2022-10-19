@@ -29,8 +29,8 @@ import java.time.ZonedDateTime;
 
 
 public class MessageCreator extends Creator<Message>{
-    private String chatServiceSid;
-    private String conversationSid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String author;
     private String body;
@@ -39,9 +39,9 @@ public class MessageCreator extends Creator<Message>{
     private String attributes;
     private String mediaSid;
 
-    public MessageCreator(final String chatServiceSid, final String conversationSid) {
-        this.chatServiceSid = chatServiceSid;
-        this.conversationSid = conversationSid;
+    public MessageCreator(final String pathChatServiceSid, final String pathConversationSid) {
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
     public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
@@ -77,8 +77,8 @@ public class MessageCreator extends Creator<Message>{
     public Message create(final TwilioRestClient client){
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

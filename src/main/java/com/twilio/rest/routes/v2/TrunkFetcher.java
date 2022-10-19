@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class TrunkFetcher extends Fetcher<Trunk> {
-    private String sipTrunkDomain;
+    private String pathSipTrunkDomain;
 
-    public TrunkFetcher(final String sipTrunkDomain){
-        this.sipTrunkDomain = sipTrunkDomain;
+    public TrunkFetcher(final String pathSipTrunkDomain){
+        this.pathSipTrunkDomain = pathSipTrunkDomain;
     }
 
 
@@ -39,7 +39,7 @@ public class TrunkFetcher extends Fetcher<Trunk> {
     public Trunk fetch(final TwilioRestClient client) {
         String path = "/v2/Trunks/{SipTrunkDomain}";
 
-        path = path.replace("{"+"SipTrunkDomain"+"}", this.sipTrunkDomain.toString());
+        path = path.replace("{"+"SipTrunkDomain"+"}", this.pathSipTrunkDomain.toString());
 
         Request request = new Request(
             HttpMethod.GET,

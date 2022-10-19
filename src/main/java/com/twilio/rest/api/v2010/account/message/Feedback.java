@@ -42,11 +42,11 @@ import java.util.Objects;
 public class Feedback extends Resource {
     private static final long serialVersionUID = 160663235282095L;
 
-    public static FeedbackCreator creator(final String messageSid){
-        return new FeedbackCreator(messageSid);
+    public static FeedbackCreator creator(final String pathMessageSid){
+        return new FeedbackCreator(pathMessageSid);
     }
-    public static FeedbackCreator creator(final String accountSid, final String messageSid){
-        return new FeedbackCreator(accountSid, messageSid);
+    public static FeedbackCreator creator(final String pathAccountSid, final String pathMessageSid){
+        return new FeedbackCreator(pathAccountSid, pathMessageSid);
     }
 
 

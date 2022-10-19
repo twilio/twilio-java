@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class UsAppToPersonReader extends Reader<UsAppToPerson> {
-    private String messagingServiceSid;
+    private String pathMessagingServiceSid;
     private Integer pageSize;
 
-    public UsAppToPersonReader(final String messagingServiceSid){
-        this.messagingServiceSid = messagingServiceSid;
+    public UsAppToPersonReader(final String pathMessagingServiceSid){
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
     public UsAppToPersonReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class UsAppToPersonReader extends Reader<UsAppToPerson> {
 
     public Page<UsAppToPerson> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
+        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

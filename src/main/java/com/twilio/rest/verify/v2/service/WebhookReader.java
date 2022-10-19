@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class WebhookReader extends Reader<Webhook> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public WebhookReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public WebhookReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public WebhookReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class WebhookReader extends Reader<Webhook> {
 
     public Page<Webhook> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Webhooks";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class ChallengeReader extends Reader<Challenge> {
-    private String serviceSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private String factorSid;
     private Challenge.ChallengeStatuses status;
     private Challenge.ListOrders order;
     private Integer pageSize;
 
-    public ChallengeReader(final String serviceSid, final String identity){
-        this.serviceSid = serviceSid;
-        this.identity = identity;
+    public ChallengeReader(final String pathServiceSid, final String pathIdentity){
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
     }
 
     public ChallengeReader setFactorSid(final String factorSid){
@@ -65,8 +65,8 @@ public class ChallengeReader extends Reader<Challenge> {
 
     public Page<Challenge> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,

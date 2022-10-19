@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class SipDomainUpdater extends Updater<SipDomain>{
-    private String sipDomain;
+    private String pathSipDomain;
     private String voiceRegion;
     private String friendlyName;
 
-    public SipDomainUpdater(final String sipDomain){
-        this.sipDomain = sipDomain;
+    public SipDomainUpdater(final String pathSipDomain){
+        this.pathSipDomain = pathSipDomain;
     }
 
     public SipDomainUpdater setVoiceRegion(final String voiceRegion){
@@ -49,7 +49,7 @@ public class SipDomainUpdater extends Updater<SipDomain>{
     public SipDomain update(final TwilioRestClient client){
         String path = "/v2/SipDomains/{SipDomain}";
 
-        path = path.replace("{"+"SipDomain"+"}", this.sipDomain.toString());
+        path = path.replace("{"+"SipDomain"+"}", this.pathSipDomain.toString());
 
         Request request = new Request(
             HttpMethod.POST,

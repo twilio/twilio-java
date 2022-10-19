@@ -48,8 +48,8 @@ public class Room extends Resource {
     private static final long serialVersionUID = 140614978057184L;
 
 
-    public static RoomFetcher fetcher(final String roomSid){
-        return new RoomFetcher(roomSid);
+    public static RoomFetcher fetcher(final String pathRoomSid){
+        return new RoomFetcher(pathRoomSid);
     }
 
 

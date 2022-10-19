@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class DefaultsFetcher extends Fetcher<Defaults> {
-    private String assistantSid;
+    private String pathAssistantSid;
 
-    public DefaultsFetcher(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public DefaultsFetcher(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
 
@@ -39,7 +39,7 @@ public class DefaultsFetcher extends Fetcher<Defaults> {
     public Defaults fetch(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Defaults";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

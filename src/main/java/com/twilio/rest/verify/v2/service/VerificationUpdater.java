@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class VerificationUpdater extends Updater<Verification>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private Verification.Status status;
 
-    public VerificationUpdater(final String serviceSid, final String sid, final Verification.Status status){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public VerificationUpdater(final String pathServiceSid, final String pathSid, final Verification.Status status){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -47,8 +47,8 @@ public class VerificationUpdater extends Updater<Verification>{
     public Verification update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Verifications/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

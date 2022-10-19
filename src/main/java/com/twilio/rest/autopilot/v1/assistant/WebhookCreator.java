@@ -31,14 +31,14 @@ import java.net.URI;
 import java.net.URI;
 
 public class WebhookCreator extends Creator<Webhook>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private String uniqueName;
     private String events;
     private URI webhookUrl;
     private String webhookMethod;
 
-    public WebhookCreator(final String assistantSid, final String uniqueName, final String events, final URI webhookUrl) {
-        this.assistantSid = assistantSid;
+    public WebhookCreator(final String pathAssistantSid, final String uniqueName, final String events, final URI webhookUrl) {
+        this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
         this.events = events;
         this.webhookUrl = webhookUrl;
@@ -69,7 +69,7 @@ public class WebhookCreator extends Creator<Webhook>{
     public Webhook create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Webhooks";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
         path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
         path = path.replace("{"+"Events"+"}", this.events.toString());
         path = path.replace("{"+"WebhookUrl"+"}", this.webhookUrl.toString());

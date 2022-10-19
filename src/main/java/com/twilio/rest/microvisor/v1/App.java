@@ -43,12 +43,12 @@ public class App extends Resource {
     private static final long serialVersionUID = 70106801258218L;
 
 
-    public static AppFetcher fetcher(final String sid){
-        return new AppFetcher(sid);
+    public static AppFetcher fetcher(final String pathSid){
+        return new AppFetcher(pathSid);
     }
 
-    public static AppDeleter deleter(final String sid){
-        return new AppDeleter(sid);
+    public static AppDeleter deleter(final String pathSid){
+        return new AppDeleter(pathSid);
     }
 
     public static AppReader reader(){

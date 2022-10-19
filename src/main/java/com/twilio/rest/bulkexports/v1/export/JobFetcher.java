@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class JobFetcher extends Fetcher<Job> {
-    private String jobSid;
+    private String pathJobSid;
 
-    public JobFetcher(final String jobSid){
-        this.jobSid = jobSid;
+    public JobFetcher(final String pathJobSid){
+        this.pathJobSid = pathJobSid;
     }
 
 
@@ -39,7 +39,7 @@ public class JobFetcher extends Fetcher<Job> {
     public Job fetch(final TwilioRestClient client) {
         String path = "/v1/Exports/Jobs/{JobSid}";
 
-        path = path.replace("{"+"JobSid"+"}", this.jobSid.toString());
+        path = path.replace("{"+"JobSid"+"}", this.pathJobSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

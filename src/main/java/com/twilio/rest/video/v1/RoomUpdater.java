@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class RoomUpdater extends Updater<Room>{
-    private String sid;
+    private String pathSid;
     private Room.RoomStatus status;
 
-    public RoomUpdater(final String sid, final Room.RoomStatus status){
-        this.sid = sid;
+    public RoomUpdater(final String pathSid, final Room.RoomStatus status){
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -45,7 +45,7 @@ public class RoomUpdater extends Updater<Room>{
     public Room update(final TwilioRestClient client){
         String path = "/v1/Rooms/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

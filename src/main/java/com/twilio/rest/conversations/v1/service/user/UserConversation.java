@@ -46,20 +46,20 @@ public class UserConversation extends Resource {
     private static final long serialVersionUID = 269317644556189L;
 
 
-    public static UserConversationFetcher fetcher(final String chatServiceSid, final String userSid, final String conversationSid){
-        return new UserConversationFetcher(chatServiceSid, userSid, conversationSid);
+    public static UserConversationFetcher fetcher(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
+        return new UserConversationFetcher(pathChatServiceSid, pathUserSid, pathConversationSid);
     }
 
-    public static UserConversationDeleter deleter(final String chatServiceSid, final String userSid, final String conversationSid){
-        return new UserConversationDeleter(chatServiceSid, userSid, conversationSid);
+    public static UserConversationDeleter deleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
+        return new UserConversationDeleter(pathChatServiceSid, pathUserSid, pathConversationSid);
     }
 
-    public static UserConversationReader reader(final String chatServiceSid, final String userSid){
-        return new UserConversationReader(chatServiceSid, userSid);
+    public static UserConversationReader reader(final String pathChatServiceSid, final String pathUserSid){
+        return new UserConversationReader(pathChatServiceSid, pathUserSid);
     }
 
-    public static UserConversationUpdater updater(final String chatServiceSid, final String userSid, final String conversationSid){
-        return new UserConversationUpdater(chatServiceSid, userSid, conversationSid);
+    public static UserConversationUpdater updater(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
+        return new UserConversationUpdater(pathChatServiceSid, pathUserSid, pathConversationSid);
     }
 
     /**

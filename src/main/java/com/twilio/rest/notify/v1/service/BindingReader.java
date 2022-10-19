@@ -33,15 +33,15 @@ import java.util.List;
 
 
 public class BindingReader extends Reader<Binding> {
-    private String serviceSid;
+    private String pathServiceSid;
     private LocalDate startDate;
     private LocalDate endDate;
     private List<String> identity;
     private List<String> tag;
     private Integer pageSize;
 
-    public BindingReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public BindingReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public BindingReader setStartDate(final LocalDate startDate){
@@ -78,7 +78,7 @@ public class BindingReader extends Reader<Binding> {
 
     public Page<Binding> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Bindings";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

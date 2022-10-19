@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class DeploymentReader extends Reader<Deployment> {
-    private String fleetSid;
+    private String pathFleetSid;
     private Integer pageSize;
 
-    public DeploymentReader(final String fleetSid){
-        this.fleetSid = fleetSid;
+    public DeploymentReader(final String pathFleetSid){
+        this.pathFleetSid = pathFleetSid;
     }
 
     public DeploymentReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class DeploymentReader extends Reader<Deployment> {
 
     public Page<Deployment> firstPage(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Deployments";
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

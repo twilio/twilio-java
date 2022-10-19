@@ -44,24 +44,24 @@ import java.util.Map;
 public class FieldType extends Resource {
     private static final long serialVersionUID = 124097769891823L;
 
-    public static FieldTypeCreator creator(final String assistantSid, final String uniqueName){
-        return new FieldTypeCreator(assistantSid, uniqueName);
+    public static FieldTypeCreator creator(final String pathAssistantSid, final String uniqueName){
+        return new FieldTypeCreator(pathAssistantSid, uniqueName);
     }
 
-    public static FieldTypeFetcher fetcher(final String assistantSid, final String sid){
-        return new FieldTypeFetcher(assistantSid, sid);
+    public static FieldTypeFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new FieldTypeFetcher(pathAssistantSid, pathSid);
     }
 
-    public static FieldTypeDeleter deleter(final String assistantSid, final String sid){
-        return new FieldTypeDeleter(assistantSid, sid);
+    public static FieldTypeDeleter deleter(final String pathAssistantSid, final String pathSid){
+        return new FieldTypeDeleter(pathAssistantSid, pathSid);
     }
 
-    public static FieldTypeReader reader(final String assistantSid){
-        return new FieldTypeReader(assistantSid);
+    public static FieldTypeReader reader(final String pathAssistantSid){
+        return new FieldTypeReader(pathAssistantSid);
     }
 
-    public static FieldTypeUpdater updater(final String assistantSid, final String sid){
-        return new FieldTypeUpdater(assistantSid, sid);
+    public static FieldTypeUpdater updater(final String pathAssistantSid, final String pathSid){
+        return new FieldTypeUpdater(pathAssistantSid, pathSid);
     }
 
     /**

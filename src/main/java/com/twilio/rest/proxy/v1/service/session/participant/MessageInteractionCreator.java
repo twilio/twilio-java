@@ -33,22 +33,22 @@ import java.util.List;
 import java.net.URI;
 
 public class MessageInteractionCreator extends Creator<MessageInteraction>{
-    private String serviceSid;
-    private String sessionSid;
-    private String participantSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
+    private String pathParticipantSid;
     private String body;
     private List<URI> mediaUrl;
 
-    public MessageInteractionCreator(final String serviceSid, final String sessionSid, final String participantSid, final String body) {
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
-        this.participantSid = participantSid;
+    public MessageInteractionCreator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String body) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
         this.body = body;
     }
-    public MessageInteractionCreator(final String serviceSid, final String sessionSid, final String participantSid, final List<URI> mediaUrl) {
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
-        this.participantSid = participantSid;
+    public MessageInteractionCreator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final List<URI> mediaUrl) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
+        this.pathParticipantSid = pathParticipantSid;
         this.mediaUrl = mediaUrl;
     }
 
@@ -72,9 +72,9 @@ public class MessageInteractionCreator extends Creator<MessageInteraction>{
     public MessageInteraction create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"SessionSid"+"}", this.sessionSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.participantSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
+        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

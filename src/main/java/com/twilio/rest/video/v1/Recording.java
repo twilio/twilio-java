@@ -47,12 +47,12 @@ public class Recording extends Resource {
     private static final long serialVersionUID = 34004868870464L;
 
 
-    public static RecordingFetcher fetcher(final String sid){
-        return new RecordingFetcher(sid);
+    public static RecordingFetcher fetcher(final String pathSid){
+        return new RecordingFetcher(pathSid);
     }
 
-    public static RecordingDeleter deleter(final String sid){
-        return new RecordingDeleter(sid);
+    public static RecordingDeleter deleter(final String pathSid){
+        return new RecordingDeleter(pathSid);
     }
 
     public static RecordingReader reader(){

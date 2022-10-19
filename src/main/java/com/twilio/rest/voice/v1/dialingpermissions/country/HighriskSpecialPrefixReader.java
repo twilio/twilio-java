@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
-    private String isoCode;
+    private String pathIsoCode;
     private Integer pageSize;
 
-    public HighriskSpecialPrefixReader(final String isoCode){
-        this.isoCode = isoCode;
+    public HighriskSpecialPrefixReader(final String pathIsoCode){
+        this.pathIsoCode = pathIsoCode;
     }
 
     public HighriskSpecialPrefixReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
 
     public Page<HighriskSpecialPrefix> firstPage(final TwilioRestClient client) {
         String path = "/v1/DialingPermissions/Countries/{IsoCode}/HighRiskSpecialPrefixes";
-        path = path.replace("{"+"IsoCode"+"}", this.isoCode.toString());
+        path = path.replace("{"+"IsoCode"+"}", this.pathIsoCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,

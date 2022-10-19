@@ -29,12 +29,12 @@ import com.twilio.base.Page;
 
 
 public class KeyReader extends Reader<Key> {
-    private String fleetSid;
+    private String pathFleetSid;
     private String deviceSid;
     private Integer pageSize;
 
-    public KeyReader(final String fleetSid){
-        this.fleetSid = fleetSid;
+    public KeyReader(final String pathFleetSid){
+        this.pathFleetSid = pathFleetSid;
     }
 
     public KeyReader setDeviceSid(final String deviceSid){
@@ -53,7 +53,7 @@ public class KeyReader extends Reader<Key> {
 
     public Page<Key> firstPage(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Keys";
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

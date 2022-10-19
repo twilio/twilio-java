@@ -47,12 +47,12 @@ public class MediaRecording extends Resource {
     private static final long serialVersionUID = 72032948872402L;
 
 
-    public static MediaRecordingFetcher fetcher(final String sid){
-        return new MediaRecordingFetcher(sid);
+    public static MediaRecordingFetcher fetcher(final String pathSid){
+        return new MediaRecordingFetcher(pathSid);
     }
 
-    public static MediaRecordingDeleter deleter(final String sid){
-        return new MediaRecordingDeleter(sid);
+    public static MediaRecordingDeleter deleter(final String pathSid){
+        return new MediaRecordingDeleter(pathSid);
     }
 
     public static MediaRecordingReader reader(){

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
-    private String phoneNumber;
+    private String pathPhoneNumber;
     private String fields;
     private String countryCode;
 
-    public PhoneNumberFetcher(final String phoneNumber){
-        this.phoneNumber = phoneNumber;
+    public PhoneNumberFetcher(final String pathPhoneNumber){
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
     public PhoneNumberFetcher setFields(final String fields){
@@ -49,7 +49,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     public PhoneNumber fetch(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.toString());
+        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.toString());
 
         Request request = new Request(
             HttpMethod.GET,

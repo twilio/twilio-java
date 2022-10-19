@@ -27,13 +27,13 @@ import com.twilio.rest.Domains;
 
 
 public class UserDeleter extends Deleter<User> {
-    private String chatServiceSid;
-    private String sid;
+    private String pathChatServiceSid;
+    private String pathSid;
     private User.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public UserDeleter(final String chatServiceSid, final String sid){
-        this.chatServiceSid = chatServiceSid;
-        this.sid = sid;
+    public UserDeleter(final String pathChatServiceSid, final String pathSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathSid = pathSid;
     }
 
     public UserDeleter setXTwilioWebhookEnabled(final User.WebhookEnabledType xTwilioWebhookEnabled){
@@ -45,8 +45,8 @@ public class UserDeleter extends Deleter<User> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Users/{Sid}";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

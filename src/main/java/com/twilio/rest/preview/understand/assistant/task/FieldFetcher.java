@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class FieldFetcher extends Fetcher<Field> {
-    private String assistantSid;
-    private String taskSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
+    private String pathSid;
 
-    public FieldFetcher(final String assistantSid, final String taskSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
-        this.sid = sid;
+    public FieldFetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class FieldFetcher extends Fetcher<Field> {
     public Field fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

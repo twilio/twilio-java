@@ -43,8 +43,8 @@ public class Usage extends Resource {
     private static final long serialVersionUID = 23834274390782L;
 
 
-    public static UsageFetcher fetcher(final String simSid){
-        return new UsageFetcher(simSid);
+    public static UsageFetcher fetcher(final String pathSimSid){
+        return new UsageFetcher(pathSimSid);
     }
 
 

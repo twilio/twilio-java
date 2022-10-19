@@ -42,32 +42,32 @@ public class OutgoingCallerId extends Resource {
     private static final long serialVersionUID = 75956517535233L;
 
 
-    public static OutgoingCallerIdFetcher fetcher(final String sid){
-        return new OutgoingCallerIdFetcher(sid);
+    public static OutgoingCallerIdFetcher fetcher(final String pathSid){
+        return new OutgoingCallerIdFetcher(pathSid);
     }
-    public static OutgoingCallerIdFetcher fetcher(final String accountSid, final String sid){
-        return new OutgoingCallerIdFetcher(accountSid, sid);
+    public static OutgoingCallerIdFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new OutgoingCallerIdFetcher(pathAccountSid, pathSid);
     }
 
-    public static OutgoingCallerIdDeleter deleter(final String sid){
-        return new OutgoingCallerIdDeleter(sid);
+    public static OutgoingCallerIdDeleter deleter(final String pathSid){
+        return new OutgoingCallerIdDeleter(pathSid);
     }
-    public static OutgoingCallerIdDeleter deleter(final String accountSid, final String sid){
-        return new OutgoingCallerIdDeleter(accountSid, sid);
+    public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new OutgoingCallerIdDeleter(pathAccountSid, pathSid);
     }
 
     public static OutgoingCallerIdReader reader(){
         return new OutgoingCallerIdReader();
     }
-    public static OutgoingCallerIdReader reader(final String accountSid){
-        return new OutgoingCallerIdReader(accountSid);
+    public static OutgoingCallerIdReader reader(final String pathAccountSid){
+        return new OutgoingCallerIdReader(pathAccountSid);
     }
 
-    public static OutgoingCallerIdUpdater updater(final String sid){
-        return new OutgoingCallerIdUpdater(sid);
+    public static OutgoingCallerIdUpdater updater(final String pathSid){
+        return new OutgoingCallerIdUpdater(pathSid);
     }
-    public static OutgoingCallerIdUpdater updater(final String accountSid, final String sid){
-        return new OutgoingCallerIdUpdater(accountSid, sid);
+    public static OutgoingCallerIdUpdater updater(final String pathAccountSid, final String pathSid){
+        return new OutgoingCallerIdUpdater(pathAccountSid, pathSid);
     }
 
     /**

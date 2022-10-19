@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class TaskChannelCreator extends Creator<TaskChannel>{
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String uniqueName;
     private Boolean channelOptimizedRouting;
 
-    public TaskChannelCreator(final String workspaceSid, final String friendlyName, final String uniqueName) {
-        this.workspaceSid = workspaceSid;
+    public TaskChannelCreator(final String pathWorkspaceSid, final String friendlyName, final String uniqueName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
         this.uniqueName = uniqueName;
     }
@@ -56,7 +56,7 @@ public class TaskChannelCreator extends Creator<TaskChannel>{
     public TaskChannel create(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
         path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 

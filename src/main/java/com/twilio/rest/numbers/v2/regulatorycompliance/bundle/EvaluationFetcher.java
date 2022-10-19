@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class EvaluationFetcher extends Fetcher<Evaluation> {
-    private String bundleSid;
-    private String sid;
+    private String pathBundleSid;
+    private String pathSid;
 
-    public EvaluationFetcher(final String bundleSid, final String sid){
-        this.bundleSid = bundleSid;
-        this.sid = sid;
+    public EvaluationFetcher(final String pathBundleSid, final String pathSid){
+        this.pathBundleSid = pathBundleSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class EvaluationFetcher extends Fetcher<Evaluation> {
     public Evaluation fetch(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations/{Sid}";
 
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

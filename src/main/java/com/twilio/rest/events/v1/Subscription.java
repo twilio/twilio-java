@@ -49,20 +49,20 @@ public class Subscription extends Resource {
         return new SubscriptionCreator(description, sinkSid, types);
     }
 
-    public static SubscriptionFetcher fetcher(final String sid){
-        return new SubscriptionFetcher(sid);
+    public static SubscriptionFetcher fetcher(final String pathSid){
+        return new SubscriptionFetcher(pathSid);
     }
 
-    public static SubscriptionDeleter deleter(final String sid){
-        return new SubscriptionDeleter(sid);
+    public static SubscriptionDeleter deleter(final String pathSid){
+        return new SubscriptionDeleter(pathSid);
     }
 
     public static SubscriptionReader reader(){
         return new SubscriptionReader();
     }
 
-    public static SubscriptionUpdater updater(final String sid){
-        return new SubscriptionUpdater(sid);
+    public static SubscriptionUpdater updater(final String pathSid){
+        return new SubscriptionUpdater(pathSid);
     }
 
     /**

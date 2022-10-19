@@ -42,20 +42,20 @@ import java.util.Objects;
 public class Field extends Resource {
     private static final long serialVersionUID = 118531839027400L;
 
-    public static FieldCreator creator(final String assistantSid, final String taskSid, final String fieldType, final String uniqueName){
-        return new FieldCreator(assistantSid, taskSid, fieldType, uniqueName);
+    public static FieldCreator creator(final String pathAssistantSid, final String pathTaskSid, final String fieldType, final String uniqueName){
+        return new FieldCreator(pathAssistantSid, pathTaskSid, fieldType, uniqueName);
     }
 
-    public static FieldFetcher fetcher(final String assistantSid, final String taskSid, final String sid){
-        return new FieldFetcher(assistantSid, taskSid, sid);
+    public static FieldFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new FieldFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
-    public static FieldDeleter deleter(final String assistantSid, final String taskSid, final String sid){
-        return new FieldDeleter(assistantSid, taskSid, sid);
+    public static FieldDeleter deleter(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new FieldDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
-    public static FieldReader reader(final String assistantSid, final String taskSid){
-        return new FieldReader(assistantSid, taskSid);
+    public static FieldReader reader(final String pathAssistantSid, final String pathTaskSid){
+        return new FieldReader(pathAssistantSid, pathTaskSid);
     }
 
 

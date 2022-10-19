@@ -54,8 +54,8 @@ public class Yesterday extends Resource {
     public static YesterdayReader reader(){
         return new YesterdayReader();
     }
-    public static YesterdayReader reader(final String accountSid){
-        return new YesterdayReader(accountSid);
+    public static YesterdayReader reader(final String pathAccountSid){
+        return new YesterdayReader(pathAccountSid);
     }
 
 

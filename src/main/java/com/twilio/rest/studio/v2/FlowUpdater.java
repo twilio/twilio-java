@@ -30,14 +30,14 @@ import java.util.Map;
 
 
 public class FlowUpdater extends Updater<Flow>{
-    private String sid;
+    private String pathSid;
     private Flow.Status status;
     private String friendlyName;
     private Map<String, Object> definition;
     private String commitMessage;
 
-    public FlowUpdater(final String sid, final Flow.Status status){
-        this.sid = sid;
+    public FlowUpdater(final String pathSid, final Flow.Status status){
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -62,7 +62,7 @@ public class FlowUpdater extends Updater<Flow>{
     public Flow update(final TwilioRestClient client){
         String path = "/v2/Flows/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

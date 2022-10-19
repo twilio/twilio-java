@@ -27,14 +27,14 @@ import com.twilio.rest.Domains;
 
 
 public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
-    private String serviceSid;
-    private String documentSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathDocumentSid;
+    private String pathIdentity;
 
-    public DocumentPermissionDeleter(final String serviceSid, final String documentSid, final String identity){
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
-        this.identity = identity;
+    public DocumentPermissionDeleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -42,9 +42,9 @@ public class DocumentPermissionDeleter extends Deleter<DocumentPermission> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"DocumentSid"+"}", this.documentSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

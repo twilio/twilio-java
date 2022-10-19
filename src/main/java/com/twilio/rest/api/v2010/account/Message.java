@@ -52,54 +52,54 @@ public class Message extends Resource {
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body){
         return new MessageCreator(to, from, body);
     }
-    public static MessageCreator creator(final String accountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body){
-        return new MessageCreator(accountSid, to, from, body);
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body){
+        return new MessageCreator(pathAccountSid, to, from, body);
     }
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl){
         return new MessageCreator(to, from, mediaUrl);
     }
-    public static MessageCreator creator(final String accountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl){
-        return new MessageCreator(accountSid, to, from, mediaUrl);
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl){
+        return new MessageCreator(pathAccountSid, to, from, mediaUrl);
     }
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body){
         return new MessageCreator(to, messagingServiceSid, body);
     }
-    public static MessageCreator creator(final String accountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body){
-        return new MessageCreator(accountSid, to, messagingServiceSid, body);
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body){
+        return new MessageCreator(pathAccountSid, to, messagingServiceSid, body);
     }
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl){
         return new MessageCreator(to, messagingServiceSid, mediaUrl);
     }
-    public static MessageCreator creator(final String accountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl){
-        return new MessageCreator(accountSid, to, messagingServiceSid, mediaUrl);
+    public static MessageCreator creator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl){
+        return new MessageCreator(pathAccountSid, to, messagingServiceSid, mediaUrl);
     }
 
-    public static MessageFetcher fetcher(final String sid){
-        return new MessageFetcher(sid);
+    public static MessageFetcher fetcher(final String pathSid){
+        return new MessageFetcher(pathSid);
     }
-    public static MessageFetcher fetcher(final String accountSid, final String sid){
-        return new MessageFetcher(accountSid, sid);
+    public static MessageFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new MessageFetcher(pathAccountSid, pathSid);
     }
 
-    public static MessageDeleter deleter(final String sid){
-        return new MessageDeleter(sid);
+    public static MessageDeleter deleter(final String pathSid){
+        return new MessageDeleter(pathSid);
     }
-    public static MessageDeleter deleter(final String accountSid, final String sid){
-        return new MessageDeleter(accountSid, sid);
+    public static MessageDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new MessageDeleter(pathAccountSid, pathSid);
     }
 
     public static MessageReader reader(){
         return new MessageReader();
     }
-    public static MessageReader reader(final String accountSid){
-        return new MessageReader(accountSid);
+    public static MessageReader reader(final String pathAccountSid){
+        return new MessageReader(pathAccountSid);
     }
 
-    public static MessageUpdater updater(final String sid){
-        return new MessageUpdater(sid);
+    public static MessageUpdater updater(final String pathSid){
+        return new MessageUpdater(pathSid);
     }
-    public static MessageUpdater updater(final String accountSid, final String sid){
-        return new MessageUpdater(accountSid, sid);
+    public static MessageUpdater updater(final String pathAccountSid, final String pathSid){
+        return new MessageUpdater(pathAccountSid, pathSid);
     }
 
     /**

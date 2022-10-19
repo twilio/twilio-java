@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class SimFetcher extends Fetcher<Sim> {
-    private String sid;
+    private String pathSid;
 
-    public SimFetcher(final String sid){
-        this.sid = sid;
+    public SimFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class SimFetcher extends Fetcher<Sim> {
     public Sim fetch(final TwilioRestClient client) {
         String path = "/wireless/Sims/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

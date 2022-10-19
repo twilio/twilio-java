@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class StepFetcher extends Fetcher<Step> {
-    private String flowSid;
-    private String engagementSid;
-    private String sid;
+    private String pathFlowSid;
+    private String pathEngagementSid;
+    private String pathSid;
 
-    public StepFetcher(final String flowSid, final String engagementSid, final String sid){
-        this.flowSid = flowSid;
-        this.engagementSid = engagementSid;
-        this.sid = sid;
+    public StepFetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathEngagementSid = pathEngagementSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class StepFetcher extends Fetcher<Step> {
     public Step fetch(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{Sid}";
 
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"EngagementSid"+"}", this.engagementSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"EngagementSid"+"}", this.pathEngagementSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

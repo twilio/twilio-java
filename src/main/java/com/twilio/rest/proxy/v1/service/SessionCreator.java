@@ -36,7 +36,7 @@ import java.util.Map;
 
 
 public class SessionCreator extends Creator<Session>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
@@ -45,8 +45,8 @@ public class SessionCreator extends Creator<Session>{
     private List<Map<String, Object>> participants;
     private Boolean failOnParticipantConflict;
 
-    public SessionCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SessionCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SessionCreator setUniqueName(final String uniqueName){
@@ -85,7 +85,7 @@ public class SessionCreator extends Creator<Session>{
     public Session create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Sessions";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

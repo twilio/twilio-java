@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class JobDeleter extends Deleter<Job> {
-    private String jobSid;
+    private String pathJobSid;
 
-    public JobDeleter(final String jobSid){
-        this.jobSid = jobSid;
+    public JobDeleter(final String pathJobSid){
+        this.pathJobSid = pathJobSid;
     }
 
 
@@ -38,7 +38,7 @@ public class JobDeleter extends Deleter<Job> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Exports/Jobs/{JobSid}";
 
-        path = path.replace("{"+"JobSid"+"}", this.jobSid.toString());
+        path = path.replace("{"+"JobSid"+"}", this.pathJobSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -30,17 +30,17 @@ import java.util.List;
 
 
 public class WebhookUpdater extends Updater<Webhook>{
-    private String conversationSid;
-    private String sid;
+    private String pathConversationSid;
+    private String pathSid;
     private String configurationUrl;
     private Webhook.Method configurationMethod;
     private List<String> configurationFilters;
     private List<String> configurationTriggers;
     private String configurationFlowSid;
 
-    public WebhookUpdater(final String conversationSid, final String sid){
-        this.conversationSid = conversationSid;
-        this.sid = sid;
+    public WebhookUpdater(final String pathConversationSid, final String pathSid){
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
     public WebhookUpdater setConfigurationUrl(final String configurationUrl){
@@ -74,8 +74,8 @@ public class WebhookUpdater extends Updater<Webhook>{
     public Webhook update(final TwilioRestClient client){
         String path = "/v1/Conversations/{ConversationSid}/Webhooks/{Sid}";
 
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

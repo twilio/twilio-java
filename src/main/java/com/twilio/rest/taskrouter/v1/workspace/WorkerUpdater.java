@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class WorkerUpdater extends Updater<Worker>{
-    private String workspaceSid;
-    private String sid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String ifMatch;
     private String activitySid;
     private String attributes;
     private String friendlyName;
     private Boolean rejectPendingReservations;
 
-    public WorkerUpdater(final String workspaceSid, final String sid){
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public WorkerUpdater(final String pathWorkspaceSid, final String pathSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     public WorkerUpdater setIfMatch(final String ifMatch){
@@ -66,8 +66,8 @@ public class WorkerUpdater extends Updater<Worker>{
     public Worker update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

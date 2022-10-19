@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
-    private String accountSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
     public IpAccessControlListReader(){
     }
-    public IpAccessControlListReader(final String accountSid){
-        this.accountSid = accountSid;
+    public IpAccessControlListReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public IpAccessControlListReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

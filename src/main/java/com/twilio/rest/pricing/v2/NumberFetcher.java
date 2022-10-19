@@ -29,11 +29,11 @@ import com.twilio.rest.Domains;
 
 
 public class NumberFetcher extends Fetcher<Number> {
-    private com.twilio.type.PhoneNumber destinationNumber;
+    private com.twilio.type.PhoneNumber pathDestinationNumber;
     private com.twilio.type.PhoneNumber originationNumber;
 
-    public NumberFetcher(final com.twilio.type.PhoneNumber destinationNumber){
-        this.destinationNumber = destinationNumber;
+    public NumberFetcher(final com.twilio.type.PhoneNumber pathDestinationNumber){
+        this.pathDestinationNumber = pathDestinationNumber;
     }
 
     public NumberFetcher setOriginationNumber(final com.twilio.type.PhoneNumber originationNumber){
@@ -49,7 +49,7 @@ public class NumberFetcher extends Fetcher<Number> {
     public Number fetch(final TwilioRestClient client) {
         String path = "/v2/Trunking/Numbers/{DestinationNumber}";
 
-        path = path.replace("{"+"DestinationNumber"+"}", this.destinationNumber.encode("utf-8"));
+        path = path.replace("{"+"DestinationNumber"+"}", this.pathDestinationNumber.encode("utf-8"));
 
         Request request = new Request(
             HttpMethod.GET,

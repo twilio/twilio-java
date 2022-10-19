@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class EntityReader extends Reader<Entity> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public EntityReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public EntityReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public EntityReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class EntityReader extends Reader<Entity> {
 
     public Page<Entity> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

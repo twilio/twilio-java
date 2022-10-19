@@ -29,14 +29,14 @@ import com.twilio.base.Page;
 
 
 public class MessageReader extends Reader<Message> {
-    private String serviceSid;
-    private String channelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private Message.OrderType order;
     private Integer pageSize;
 
-    public MessageReader(final String serviceSid, final String channelSid){
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+    public MessageReader(final String pathServiceSid, final String pathChannelSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     public MessageReader setOrder(final Message.OrderType order){
@@ -55,8 +55,8 @@ public class MessageReader extends Reader<Message> {
 
     public Page<Message> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

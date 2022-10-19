@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class FieldTypeUpdater extends Updater<FieldType>{
-    private String assistantSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathSid;
     private String friendlyName;
     private String uniqueName;
 
-    public FieldTypeUpdater(final String assistantSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.sid = sid;
+    public FieldTypeUpdater(final String pathAssistantSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathSid = pathSid;
     }
 
     public FieldTypeUpdater setFriendlyName(final String friendlyName){
@@ -51,8 +51,8 @@ public class FieldTypeUpdater extends Updater<FieldType>{
     public FieldType update(final TwilioRestClient client){
         String path = "/understand/Assistants/{AssistantSid}/FieldTypes/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

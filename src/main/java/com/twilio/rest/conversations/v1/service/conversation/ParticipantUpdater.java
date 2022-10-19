@@ -29,9 +29,9 @@ import java.time.ZonedDateTime;
 
 
 public class ParticipantUpdater extends Updater<Participant>{
-    private String chatServiceSid;
-    private String conversationSid;
-    private String sid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathSid;
     private Participant.WebhookEnabledType xTwilioWebhookEnabled;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
@@ -43,10 +43,10 @@ public class ParticipantUpdater extends Updater<Participant>{
     private Integer lastReadMessageIndex;
     private String lastReadTimestamp;
 
-    public ParticipantUpdater(final String chatServiceSid, final String conversationSid, final String sid){
-        this.chatServiceSid = chatServiceSid;
-        this.conversationSid = conversationSid;
-        this.sid = sid;
+    public ParticipantUpdater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathSid = pathSid;
     }
 
     public ParticipantUpdater setXTwilioWebhookEnabled(final Participant.WebhookEnabledType xTwilioWebhookEnabled){
@@ -94,9 +94,9 @@ public class ParticipantUpdater extends Updater<Participant>{
     public Participant update(final TwilioRestClient client){
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Participants/{Sid}";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

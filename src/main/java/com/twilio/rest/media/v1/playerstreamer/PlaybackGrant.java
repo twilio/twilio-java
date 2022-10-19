@@ -44,12 +44,12 @@ import java.util.Map;
 public class PlaybackGrant extends Resource {
     private static final long serialVersionUID = 188445421727262L;
 
-    public static PlaybackGrantCreator creator(final String sid){
-        return new PlaybackGrantCreator(sid);
+    public static PlaybackGrantCreator creator(final String pathSid){
+        return new PlaybackGrantCreator(pathSid);
     }
 
-    public static PlaybackGrantFetcher fetcher(final String sid){
-        return new PlaybackGrantFetcher(sid);
+    public static PlaybackGrantFetcher fetcher(final String pathSid){
+        return new PlaybackGrantFetcher(pathSid);
     }
 
 

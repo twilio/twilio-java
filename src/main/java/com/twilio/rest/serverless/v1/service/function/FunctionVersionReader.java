@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class FunctionVersionReader extends Reader<FunctionVersion> {
-    private String serviceSid;
-    private String functionSid;
+    private String pathServiceSid;
+    private String pathFunctionSid;
     private Integer pageSize;
 
-    public FunctionVersionReader(final String serviceSid, final String functionSid){
-        this.serviceSid = serviceSid;
-        this.functionSid = functionSid;
+    public FunctionVersionReader(final String pathServiceSid, final String pathFunctionSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathFunctionSid = pathFunctionSid;
     }
 
     public FunctionVersionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class FunctionVersionReader extends Reader<FunctionVersion> {
 
     public Page<FunctionVersion> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Functions/{FunctionSid}/Versions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"FunctionSid"+"}", this.functionSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"FunctionSid"+"}", this.pathFunctionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

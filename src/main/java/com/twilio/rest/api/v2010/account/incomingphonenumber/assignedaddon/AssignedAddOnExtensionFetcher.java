@@ -28,21 +28,21 @@ import com.twilio.rest.Domains;
 
 
 public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtension> {
-    private String resourceSid;
-    private String assignedAddOnSid;
-    private String sid;
-    private String accountSid;
+    private String pathResourceSid;
+    private String pathAssignedAddOnSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public AssignedAddOnExtensionFetcher(final String resourceSid, final String assignedAddOnSid, final String sid){
-        this.resourceSid = resourceSid;
-        this.assignedAddOnSid = assignedAddOnSid;
-        this.sid = sid;
+    public AssignedAddOnExtensionFetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid){
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
+        this.pathSid = pathSid;
     }
-    public AssignedAddOnExtensionFetcher(final String accountSid, final String resourceSid, final String assignedAddOnSid, final String sid){
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
-        this.assignedAddOnSid = assignedAddOnSid;
-        this.sid = sid;
+    public AssignedAddOnExtensionFetcher(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathAssignedAddOnSid = pathAssignedAddOnSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -50,11 +50,11 @@ public class AssignedAddOnExtensionFetcher extends Fetcher<AssignedAddOnExtensio
     public AssignedAddOnExtension fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ResourceSid"+"}", this.resourceSid.toString());
-        path = path.replace("{"+"AssignedAddOnSid"+"}", this.assignedAddOnSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ResourceSid"+"}", this.pathResourceSid.toString());
+        path = path.replace("{"+"AssignedAddOnSid"+"}", this.pathAssignedAddOnSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

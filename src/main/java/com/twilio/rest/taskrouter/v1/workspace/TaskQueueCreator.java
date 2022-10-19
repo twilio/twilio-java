@@ -28,7 +28,7 @@ import com.twilio.rest.Domains;
 
 
 public class TaskQueueCreator extends Creator<TaskQueue>{
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String friendlyName;
     private String targetWorkers;
     private Integer maxReservedWorkers;
@@ -36,8 +36,8 @@ public class TaskQueueCreator extends Creator<TaskQueue>{
     private String reservationActivitySid;
     private String assignmentActivitySid;
 
-    public TaskQueueCreator(final String workspaceSid, final String friendlyName) {
-        this.workspaceSid = workspaceSid;
+    public TaskQueueCreator(final String pathWorkspaceSid, final String friendlyName) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -70,7 +70,7 @@ public class TaskQueueCreator extends Creator<TaskQueue>{
     public TaskQueue create(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

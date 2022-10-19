@@ -46,8 +46,8 @@ public class Interaction extends Resource {
         return new InteractionCreator(channel, routing);
     }
 
-    public static InteractionFetcher fetcher(final String sid){
-        return new InteractionFetcher(sid);
+    public static InteractionFetcher fetcher(final String pathSid){
+        return new InteractionFetcher(pathSid);
     }
 
 

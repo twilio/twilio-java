@@ -41,39 +41,39 @@ import java.util.Objects;
 public class IpAddress extends Resource {
     private static final long serialVersionUID = 125766891149812L;
 
-    public static IpAddressCreator creator(final String ipAccessControlListSid, final String friendlyName, final String ipAddress){
-        return new IpAddressCreator(ipAccessControlListSid, friendlyName, ipAddress);
+    public static IpAddressCreator creator(final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress){
+        return new IpAddressCreator(pathIpAccessControlListSid, friendlyName, ipAddress);
     }
-    public static IpAddressCreator creator(final String accountSid, final String ipAccessControlListSid, final String friendlyName, final String ipAddress){
-        return new IpAddressCreator(accountSid, ipAccessControlListSid, friendlyName, ipAddress);
-    }
-
-    public static IpAddressFetcher fetcher(final String ipAccessControlListSid, final String sid){
-        return new IpAddressFetcher(ipAccessControlListSid, sid);
-    }
-    public static IpAddressFetcher fetcher(final String accountSid, final String ipAccessControlListSid, final String sid){
-        return new IpAddressFetcher(accountSid, ipAccessControlListSid, sid);
+    public static IpAddressCreator creator(final String pathAccountSid, final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress){
+        return new IpAddressCreator(pathAccountSid, pathIpAccessControlListSid, friendlyName, ipAddress);
     }
 
-    public static IpAddressDeleter deleter(final String ipAccessControlListSid, final String sid){
-        return new IpAddressDeleter(ipAccessControlListSid, sid);
+    public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressFetcher(pathIpAccessControlListSid, pathSid);
     }
-    public static IpAddressDeleter deleter(final String accountSid, final String ipAccessControlListSid, final String sid){
-        return new IpAddressDeleter(accountSid, ipAccessControlListSid, sid);
-    }
-
-    public static IpAddressReader reader(final String ipAccessControlListSid){
-        return new IpAddressReader(ipAccessControlListSid);
-    }
-    public static IpAddressReader reader(final String accountSid, final String ipAccessControlListSid){
-        return new IpAddressReader(accountSid, ipAccessControlListSid);
+    public static IpAddressFetcher fetcher(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressFetcher(pathAccountSid, pathIpAccessControlListSid, pathSid);
     }
 
-    public static IpAddressUpdater updater(final String ipAccessControlListSid, final String sid){
-        return new IpAddressUpdater(ipAccessControlListSid, sid);
+    public static IpAddressDeleter deleter(final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressDeleter(pathIpAccessControlListSid, pathSid);
     }
-    public static IpAddressUpdater updater(final String accountSid, final String ipAccessControlListSid, final String sid){
-        return new IpAddressUpdater(accountSid, ipAccessControlListSid, sid);
+    public static IpAddressDeleter deleter(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressDeleter(pathAccountSid, pathIpAccessControlListSid, pathSid);
+    }
+
+    public static IpAddressReader reader(final String pathIpAccessControlListSid){
+        return new IpAddressReader(pathIpAccessControlListSid);
+    }
+    public static IpAddressReader reader(final String pathAccountSid, final String pathIpAccessControlListSid){
+        return new IpAddressReader(pathAccountSid, pathIpAccessControlListSid);
+    }
+
+    public static IpAddressUpdater updater(final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressUpdater(pathIpAccessControlListSid, pathSid);
+    }
+    public static IpAddressUpdater updater(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressUpdater(pathAccountSid, pathIpAccessControlListSid, pathSid);
     }
 
     /**

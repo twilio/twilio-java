@@ -196,6 +196,7 @@ public class VoiceResponseTest {
                     .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
                     .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
                     .attempts(Promoter.listOfOne(1))
+                    .requireMatchingInputs(true)
                     .build());
 
         builder.start(new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
@@ -225,7 +226,7 @@ public class VoiceResponseTest {
                 "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
                 "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
-                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
                 "<Start action=\"https://example.com\" method=\"GET\"/>" +
                 "<Stop/>" +
                 "<Refer action=\"https://example.com\" method=\"GET\"/>" +
@@ -450,6 +451,7 @@ public class VoiceResponseTest {
                     .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
                     .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
                     .attempts(Promoter.listOfOne(1))
+                    .requireMatchingInputs(true)
                     .build());
 
         builder.start(new Start.Builder().action(URI.create("https://example.com")).method(HttpMethod.GET).build());
@@ -478,7 +480,7 @@ public class VoiceResponseTest {
                 "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
                 "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
-                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
                 "<Start action=\"https://example.com\" method=\"GET\"/>" +
                 "<Stop/>" +
                 "<Refer action=\"https://example.com\" method=\"GET\"/>" +

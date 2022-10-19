@@ -30,7 +30,7 @@ import com.twilio.base.Page;
 
 
 public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
-    private String accountSid;
+    private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -39,8 +39,8 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
     public IncomingPhoneNumberReader(){
     }
-    public IncomingPhoneNumberReader(final String accountSid){
-        this.accountSid = accountSid;
+    public IncomingPhoneNumberReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public IncomingPhoneNumberReader setBeta(final Boolean beta){
@@ -75,8 +75,8 @@ public class IncomingPhoneNumberReader extends Reader<IncomingPhoneNumber> {
 
     public Page<IncomingPhoneNumber> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -45,8 +45,8 @@ public class EventType extends Resource {
     private static final long serialVersionUID = 236822326358907L;
 
 
-    public static EventTypeFetcher fetcher(final String type){
-        return new EventTypeFetcher(type);
+    public static EventTypeFetcher fetcher(final String pathType){
+        return new EventTypeFetcher(pathType);
     }
 
 

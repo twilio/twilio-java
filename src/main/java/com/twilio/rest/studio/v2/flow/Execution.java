@@ -45,24 +45,24 @@ import java.util.Map;
 public class Execution extends Resource {
     private static final long serialVersionUID = 276284150060496L;
 
-    public static ExecutionCreator creator(final String flowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from){
-        return new ExecutionCreator(flowSid, to, from);
+    public static ExecutionCreator creator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from){
+        return new ExecutionCreator(pathFlowSid, to, from);
     }
 
-    public static ExecutionFetcher fetcher(final String flowSid, final String sid){
-        return new ExecutionFetcher(flowSid, sid);
+    public static ExecutionFetcher fetcher(final String pathFlowSid, final String pathSid){
+        return new ExecutionFetcher(pathFlowSid, pathSid);
     }
 
-    public static ExecutionDeleter deleter(final String flowSid, final String sid){
-        return new ExecutionDeleter(flowSid, sid);
+    public static ExecutionDeleter deleter(final String pathFlowSid, final String pathSid){
+        return new ExecutionDeleter(pathFlowSid, pathSid);
     }
 
-    public static ExecutionReader reader(final String flowSid){
-        return new ExecutionReader(flowSid);
+    public static ExecutionReader reader(final String pathFlowSid){
+        return new ExecutionReader(pathFlowSid);
     }
 
-    public static ExecutionUpdater updater(final String flowSid, final String sid, final Execution.Status status){
-        return new ExecutionUpdater(flowSid, sid, status);
+    public static ExecutionUpdater updater(final String pathFlowSid, final String pathSid, final Execution.Status status){
+        return new ExecutionUpdater(pathFlowSid, pathSid, status);
     }
 
     /**

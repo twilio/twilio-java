@@ -28,7 +28,7 @@ import com.twilio.rest.Domains;
 
 
 public class NotificationUpdater extends Updater<Notification>{
-    private String chatServiceSid;
+    private String pathChatServiceSid;
     private Boolean logEnabled;
     private Boolean newMessageEnabled;
     private String newMessageTemplate;
@@ -43,8 +43,8 @@ public class NotificationUpdater extends Updater<Notification>{
     private Boolean newMessageWithMediaEnabled;
     private String newMessageWithMediaTemplate;
 
-    public NotificationUpdater(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public NotificationUpdater(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
     public NotificationUpdater setLogEnabled(final Boolean logEnabled){
@@ -104,7 +104,7 @@ public class NotificationUpdater extends Updater<Notification>{
     public Notification update(final TwilioRestClient client){
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Notifications";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

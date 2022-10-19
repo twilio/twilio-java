@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class CustomerProfilesEntityAssignmentsDeleter extends Deleter<CustomerProfilesEntityAssignments> {
-    private String customerProfileSid;
-    private String sid;
+    private String pathCustomerProfileSid;
+    private String pathSid;
 
-    public CustomerProfilesEntityAssignmentsDeleter(final String customerProfileSid, final String sid){
-        this.customerProfileSid = customerProfileSid;
-        this.sid = sid;
+    public CustomerProfilesEntityAssignmentsDeleter(final String pathCustomerProfileSid, final String pathSid){
+        this.pathCustomerProfileSid = pathCustomerProfileSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class CustomerProfilesEntityAssignmentsDeleter extends Deleter<CustomerPr
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/CustomerProfiles/{CustomerProfileSid}/EntityAssignments/{Sid}";
 
-        path = path.replace("{"+"CustomerProfileSid"+"}", this.customerProfileSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"CustomerProfileSid"+"}", this.pathCustomerProfileSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class SyncMapCreator extends Creator<SyncMap>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
 
-    public SyncMapCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SyncMapCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SyncMapCreator setUniqueName(final String uniqueName){
@@ -44,7 +44,7 @@ public class SyncMapCreator extends Creator<SyncMap>{
     public SyncMap create(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Maps";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

@@ -30,15 +30,15 @@ import java.time.ZonedDateTime;
 
 
 public class ParticipantReader extends Reader<Participant> {
-    private String roomSid;
+    private String pathRoomSid;
     private Participant.Status status;
     private String identity;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
     private Integer pageSize;
 
-    public ParticipantReader(final String roomSid){
-        this.roomSid = roomSid;
+    public ParticipantReader(final String pathRoomSid){
+        this.pathRoomSid = pathRoomSid;
     }
 
     public ParticipantReader setStatus(final Participant.Status status){
@@ -69,7 +69,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     public Page<Participant> firstPage(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Participants";
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

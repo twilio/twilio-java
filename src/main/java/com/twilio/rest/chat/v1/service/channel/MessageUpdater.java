@@ -28,16 +28,16 @@ import com.twilio.rest.Domains;
 
 
 public class MessageUpdater extends Updater<Message>{
-    private String serviceSid;
-    private String channelSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathChannelSid;
+    private String pathSid;
     private String body;
     private String attributes;
 
-    public MessageUpdater(final String serviceSid, final String channelSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.sid = sid;
+    public MessageUpdater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
     public MessageUpdater setBody(final String body){
@@ -53,9 +53,9 @@ public class MessageUpdater extends Updater<Message>{
     public Message update(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Messages/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class BundleCopyCreator extends Creator<BundleCopy>{
-    private String bundleSid;
+    private String pathBundleSid;
     private String friendlyName;
 
-    public BundleCopyCreator(final String bundleSid) {
-        this.bundleSid = bundleSid;
+    public BundleCopyCreator(final String pathBundleSid) {
+        this.pathBundleSid = pathBundleSid;
     }
 
     public BundleCopyCreator setFriendlyName(final String friendlyName){
@@ -44,7 +44,7 @@ public class BundleCopyCreator extends Creator<BundleCopy>{
     public BundleCopy create(final TwilioRestClient client){
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
 
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

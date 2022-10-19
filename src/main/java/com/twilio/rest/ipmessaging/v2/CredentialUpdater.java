@@ -28,7 +28,7 @@ import com.twilio.rest.Domains;
 
 
 public class CredentialUpdater extends Updater<Credential>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private String certificate;
     private String privateKey;
@@ -36,8 +36,8 @@ public class CredentialUpdater extends Updater<Credential>{
     private String apiKey;
     private String secret;
 
-    public CredentialUpdater(final String sid){
-        this.sid = sid;
+    public CredentialUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public CredentialUpdater setFriendlyName(final String friendlyName){
@@ -69,7 +69,7 @@ public class CredentialUpdater extends Updater<Credential>{
     public Credential update(final TwilioRestClient client){
         String path = "/v2/Credentials/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

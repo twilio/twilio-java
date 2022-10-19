@@ -44,8 +44,8 @@ public class TaskQueuesStatistics extends Resource {
 
 
 
-    public static TaskQueuesStatisticsReader reader(final String workspaceSid){
-        return new TaskQueuesStatisticsReader(workspaceSid);
+    public static TaskQueuesStatisticsReader reader(final String pathWorkspaceSid){
+        return new TaskQueuesStatisticsReader(pathWorkspaceSid);
     }
 
 

@@ -43,8 +43,8 @@ public class Export extends Resource {
     private static final long serialVersionUID = 148899891151757L;
 
 
-    public static ExportFetcher fetcher(final String resourceType){
-        return new ExportFetcher(resourceType);
+    public static ExportFetcher fetcher(final String pathResourceType){
+        return new ExportFetcher(pathResourceType);
     }
 
 

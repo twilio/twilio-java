@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
-    private String subscriptionSid;
-    private String type;
+    private String pathSubscriptionSid;
+    private String pathType;
 
-    public SubscribedEventDeleter(final String subscriptionSid, final String type){
-        this.subscriptionSid = subscriptionSid;
-        this.type = type;
+    public SubscribedEventDeleter(final String pathSubscriptionSid, final String pathType){
+        this.pathSubscriptionSid = pathSubscriptionSid;
+        this.pathType = pathType;
     }
 
 
@@ -40,8 +40,8 @@ public class SubscribedEventDeleter extends Deleter<SubscribedEvent> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        path = path.replace("{"+"SubscriptionSid"+"}", this.subscriptionSid.toString());
-        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
+        path = path.replace("{"+"Type"+"}", this.pathType.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class InteractionChannelReader extends Reader<InteractionChannel> {
-    private String interactionSid;
+    private String pathInteractionSid;
     private Integer pageSize;
 
-    public InteractionChannelReader(final String interactionSid){
-        this.interactionSid = interactionSid;
+    public InteractionChannelReader(final String pathInteractionSid){
+        this.pathInteractionSid = pathInteractionSid;
     }
 
     public InteractionChannelReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class InteractionChannelReader extends Reader<InteractionChannel> {
 
     public Page<InteractionChannel> firstPage(final TwilioRestClient client) {
         String path = "/v1/Interactions/{InteractionSid}/Channels";
-        path = path.replace("{"+"InteractionSid"+"}", this.interactionSid.toString());
+        path = path.replace("{"+"InteractionSid"+"}", this.pathInteractionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

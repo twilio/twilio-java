@@ -45,8 +45,8 @@ public class Schema extends Resource {
     private static final long serialVersionUID = 100183907119303L;
 
 
-    public static SchemaFetcher fetcher(final String id){
-        return new SchemaFetcher(id);
+    public static SchemaFetcher fetcher(final String pathId){
+        return new SchemaFetcher(pathId);
     }
 
 

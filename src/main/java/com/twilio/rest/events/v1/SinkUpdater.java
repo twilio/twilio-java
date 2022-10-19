@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class SinkUpdater extends Updater<Sink>{
-    private String sid;
+    private String pathSid;
     private String description;
 
-    public SinkUpdater(final String sid, final String description){
-        this.sid = sid;
+    public SinkUpdater(final String pathSid, final String description){
+        this.pathSid = pathSid;
         this.description = description;
     }
 
@@ -45,7 +45,7 @@ public class SinkUpdater extends Updater<Sink>{
     public Sink update(final TwilioRestClient client){
         String path = "/v1/Sinks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Description"+"}", this.description.toString());
 
         Request request = new Request(

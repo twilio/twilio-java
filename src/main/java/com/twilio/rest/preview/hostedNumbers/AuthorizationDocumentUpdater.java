@@ -30,7 +30,7 @@ import java.util.List;
 
 
 public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>{
-    private String sid;
+    private String pathSid;
     private List<String> hostedNumberOrderSids;
     private String addressSid;
     private String email;
@@ -39,8 +39,8 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     private String contactTitle;
     private String contactPhoneNumber;
 
-    public AuthorizationDocumentUpdater(final String sid){
-        this.sid = sid;
+    public AuthorizationDocumentUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public AuthorizationDocumentUpdater setHostedNumberOrderSids(final List<String> hostedNumberOrderSids){
@@ -82,7 +82,7 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     public AuthorizationDocument update(final TwilioRestClient client){
         String path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

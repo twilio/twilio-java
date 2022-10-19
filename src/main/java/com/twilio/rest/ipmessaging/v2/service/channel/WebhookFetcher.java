@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class WebhookFetcher extends Fetcher<Webhook> {
-    private String serviceSid;
-    private String channelSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathChannelSid;
+    private String pathSid;
 
-    public WebhookFetcher(final String serviceSid, final String channelSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
-        this.sid = sid;
+    public WebhookFetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     public Webhook fetch(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

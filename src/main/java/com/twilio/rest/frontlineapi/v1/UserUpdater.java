@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class UserUpdater extends Updater<User>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private String avatar;
     private User.StateType state;
     private Boolean isAvailable;
 
-    public UserUpdater(final String sid){
-        this.sid = sid;
+    public UserUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public UserUpdater setFriendlyName(final String friendlyName){
@@ -59,7 +59,7 @@ public class UserUpdater extends Updater<User>{
     public User update(final TwilioRestClient client){
         String path = "/v1/Users/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

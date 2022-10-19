@@ -48,20 +48,20 @@ public class EndUser extends Resource {
         return new EndUserCreator(friendlyName, type);
     }
 
-    public static EndUserFetcher fetcher(final String sid){
-        return new EndUserFetcher(sid);
+    public static EndUserFetcher fetcher(final String pathSid){
+        return new EndUserFetcher(pathSid);
     }
 
-    public static EndUserDeleter deleter(final String sid){
-        return new EndUserDeleter(sid);
+    public static EndUserDeleter deleter(final String pathSid){
+        return new EndUserDeleter(pathSid);
     }
 
     public static EndUserReader reader(){
         return new EndUserReader();
     }
 
-    public static EndUserUpdater updater(final String sid){
-        return new EndUserUpdater(sid);
+    public static EndUserUpdater updater(final String pathSid){
+        return new EndUserUpdater(pathSid);
     }
 
     /**

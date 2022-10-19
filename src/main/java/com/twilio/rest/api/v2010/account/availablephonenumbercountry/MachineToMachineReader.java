@@ -30,8 +30,8 @@ import com.twilio.base.Page;
 
 
 public class MachineToMachineReader extends Reader<MachineToMachine> {
-    private String countryCode;
-    private String accountSid;
+    private String pathCountryCode;
+    private String pathAccountSid;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -52,12 +52,12 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     private Boolean faxEnabled;
     private Integer pageSize;
 
-    public MachineToMachineReader(final String countryCode){
-        this.countryCode = countryCode;
+    public MachineToMachineReader(final String pathCountryCode){
+        this.pathCountryCode = pathCountryCode;
     }
-    public MachineToMachineReader(final String accountSid, final String countryCode){
-        this.accountSid = accountSid;
-        this.countryCode = countryCode;
+    public MachineToMachineReader(final String pathAccountSid, final String pathCountryCode){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
     public MachineToMachineReader setAreaCode(final Integer areaCode){
@@ -148,9 +148,9 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
 
     public Page<MachineToMachine> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/MachineToMachine.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CountryCode"+"}", this.countryCode.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CountryCode"+"}", this.pathCountryCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,

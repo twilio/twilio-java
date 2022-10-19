@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class SyncListPermissionReader extends Reader<SyncListPermission> {
-    private String serviceSid;
-    private String listSid;
+    private String pathServiceSid;
+    private String pathListSid;
     private Integer pageSize;
 
-    public SyncListPermissionReader(final String serviceSid, final String listSid){
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
+    public SyncListPermissionReader(final String pathServiceSid, final String pathListSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
     }
 
     public SyncListPermissionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
 
     public Page<SyncListPermission> firstPage(final TwilioRestClient client) {
         String path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Permissions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

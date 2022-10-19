@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Bucket extends Resource {
     private static final long serialVersionUID = 268114856070086L;
 
-    public static BucketCreator creator(final String serviceSid, final String rateLimitSid, final Integer max, final Integer interval){
-        return new BucketCreator(serviceSid, rateLimitSid, max, interval);
+    public static BucketCreator creator(final String pathServiceSid, final String pathRateLimitSid, final Integer max, final Integer interval){
+        return new BucketCreator(pathServiceSid, pathRateLimitSid, max, interval);
     }
 
-    public static BucketFetcher fetcher(final String serviceSid, final String rateLimitSid, final String sid){
-        return new BucketFetcher(serviceSid, rateLimitSid, sid);
+    public static BucketFetcher fetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+        return new BucketFetcher(pathServiceSid, pathRateLimitSid, pathSid);
     }
 
-    public static BucketDeleter deleter(final String serviceSid, final String rateLimitSid, final String sid){
-        return new BucketDeleter(serviceSid, rateLimitSid, sid);
+    public static BucketDeleter deleter(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+        return new BucketDeleter(pathServiceSid, pathRateLimitSid, pathSid);
     }
 
-    public static BucketReader reader(final String serviceSid, final String rateLimitSid){
-        return new BucketReader(serviceSid, rateLimitSid);
+    public static BucketReader reader(final String pathServiceSid, final String pathRateLimitSid){
+        return new BucketReader(pathServiceSid, pathRateLimitSid);
     }
 
-    public static BucketUpdater updater(final String serviceSid, final String rateLimitSid, final String sid){
-        return new BucketUpdater(serviceSid, rateLimitSid, sid);
+    public static BucketUpdater updater(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+        return new BucketUpdater(pathServiceSid, pathRateLimitSid, pathSid);
     }
 
     /**

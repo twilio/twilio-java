@@ -45,24 +45,24 @@ import java.util.Map;
 public class Webhook extends Resource {
     private static final long serialVersionUID = 253771507397775L;
 
-    public static WebhookCreator creator(final String conversationSid, final Webhook.Target target){
-        return new WebhookCreator(conversationSid, target);
+    public static WebhookCreator creator(final String pathConversationSid, final Webhook.Target target){
+        return new WebhookCreator(pathConversationSid, target);
     }
 
-    public static WebhookFetcher fetcher(final String conversationSid, final String sid){
-        return new WebhookFetcher(conversationSid, sid);
+    public static WebhookFetcher fetcher(final String pathConversationSid, final String pathSid){
+        return new WebhookFetcher(pathConversationSid, pathSid);
     }
 
-    public static WebhookDeleter deleter(final String conversationSid, final String sid){
-        return new WebhookDeleter(conversationSid, sid);
+    public static WebhookDeleter deleter(final String pathConversationSid, final String pathSid){
+        return new WebhookDeleter(pathConversationSid, pathSid);
     }
 
-    public static WebhookReader reader(final String conversationSid){
-        return new WebhookReader(conversationSid);
+    public static WebhookReader reader(final String pathConversationSid){
+        return new WebhookReader(pathConversationSid);
     }
 
-    public static WebhookUpdater updater(final String conversationSid, final String sid){
-        return new WebhookUpdater(conversationSid, sid);
+    public static WebhookUpdater updater(final String pathConversationSid, final String pathSid){
+        return new WebhookUpdater(pathConversationSid, pathSid);
     }
 
     /**

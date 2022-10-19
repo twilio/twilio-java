@@ -49,20 +49,20 @@ public class AddressConfiguration extends Resource {
         return new AddressConfigurationCreator(type, address);
     }
 
-    public static AddressConfigurationFetcher fetcher(final String sid){
-        return new AddressConfigurationFetcher(sid);
+    public static AddressConfigurationFetcher fetcher(final String pathSid){
+        return new AddressConfigurationFetcher(pathSid);
     }
 
-    public static AddressConfigurationDeleter deleter(final String sid){
-        return new AddressConfigurationDeleter(sid);
+    public static AddressConfigurationDeleter deleter(final String pathSid){
+        return new AddressConfigurationDeleter(pathSid);
     }
 
     public static AddressConfigurationReader reader(){
         return new AddressConfigurationReader();
     }
 
-    public static AddressConfigurationUpdater updater(final String sid){
-        return new AddressConfigurationUpdater(sid);
+    public static AddressConfigurationUpdater updater(final String pathSid){
+        return new AddressConfigurationUpdater(pathSid);
     }
 
     /**

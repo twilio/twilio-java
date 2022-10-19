@@ -34,7 +34,7 @@ public class TriggerCreator extends Creator<Trigger>{
     private URI callbackUrl;
     private String triggerValue;
     private Trigger.UsageCategory usageCategory;
-    private String accountSid;
+    private String pathAccountSid;
     private HttpMethod callbackMethod;
     private String friendlyName;
     private Trigger.Recurring recurring;
@@ -45,8 +45,8 @@ public class TriggerCreator extends Creator<Trigger>{
         this.triggerValue = triggerValue;
         this.usageCategory = usageCategory;
     }
-    public TriggerCreator(final String accountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory) {
-        this.accountSid = accountSid;
+    public TriggerCreator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory) {
+        this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
         this.usageCategory = usageCategory;
@@ -89,8 +89,8 @@ public class TriggerCreator extends Creator<Trigger>{
     public Trigger create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"CallbackUrl"+"}", this.callbackUrl.toString());
         path = path.replace("{"+"TriggerValue"+"}", this.triggerValue.toString());
         path = path.replace("{"+"UsageCategory"+"}", this.usageCategory.toString());

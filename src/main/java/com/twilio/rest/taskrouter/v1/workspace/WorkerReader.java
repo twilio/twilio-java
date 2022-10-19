@@ -29,7 +29,7 @@ import com.twilio.base.Page;
 
 
 public class WorkerReader extends Reader<Worker> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private String activityName;
     private String activitySid;
     private String available;
@@ -39,8 +39,8 @@ public class WorkerReader extends Reader<Worker> {
     private String taskQueueSid;
     private Integer pageSize;
 
-    public WorkerReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public WorkerReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public WorkerReader setActivityName(final String activityName){
@@ -83,7 +83,7 @@ public class WorkerReader extends Reader<Worker> {
 
     public Page<Worker> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

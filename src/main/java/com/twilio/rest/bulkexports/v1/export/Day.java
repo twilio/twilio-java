@@ -41,13 +41,13 @@ public class Day extends Resource {
     private static final long serialVersionUID = 277630118297206L;
 
 
-    public static DayFetcher fetcher(final String resourceType, final String day){
-        return new DayFetcher(resourceType, day);
+    public static DayFetcher fetcher(final String pathResourceType, final String pathDay){
+        return new DayFetcher(pathResourceType, pathDay);
     }
 
 
-    public static DayReader reader(final String resourceType){
-        return new DayReader(resourceType);
+    public static DayReader reader(final String pathResourceType){
+        return new DayReader(pathResourceType);
     }
 
 

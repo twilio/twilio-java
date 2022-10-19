@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class QueryUpdater extends Updater<Query>{
-    private String assistantSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathSid;
     private String sampleSid;
     private String status;
 
-    public QueryUpdater(final String assistantSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.sid = sid;
+    public QueryUpdater(final String pathAssistantSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathSid = pathSid;
     }
 
     public QueryUpdater setSampleSid(final String sampleSid){
@@ -51,8 +51,8 @@ public class QueryUpdater extends Updater<Query>{
     public Query update(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Queries/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

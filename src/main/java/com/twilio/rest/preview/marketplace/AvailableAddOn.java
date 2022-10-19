@@ -43,8 +43,8 @@ public class AvailableAddOn extends Resource {
     private static final long serialVersionUID = 265387241353044L;
 
 
-    public static AvailableAddOnFetcher fetcher(final String sid){
-        return new AvailableAddOnFetcher(sid);
+    public static AvailableAddOnFetcher fetcher(final String pathSid){
+        return new AvailableAddOnFetcher(pathSid);
     }
 
 

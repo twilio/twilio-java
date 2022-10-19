@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessProfileNetwork> {
-    private String networkAccessProfileSid;
-    private String sid;
+    private String pathNetworkAccessProfileSid;
+    private String pathSid;
 
-    public NetworkAccessProfileNetworkDeleter(final String networkAccessProfileSid, final String sid){
-        this.networkAccessProfileSid = networkAccessProfileSid;
-        this.sid = sid;
+    public NetworkAccessProfileNetworkDeleter(final String pathNetworkAccessProfileSid, final String pathSid){
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class NetworkAccessProfileNetworkDeleter extends Deleter<NetworkAccessPro
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
-        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.networkAccessProfileSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.pathNetworkAccessProfileSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

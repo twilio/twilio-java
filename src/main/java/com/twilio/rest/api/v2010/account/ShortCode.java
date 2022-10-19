@@ -44,26 +44,26 @@ public class ShortCode extends Resource {
     private static final long serialVersionUID = 169753160210519L;
 
 
-    public static ShortCodeFetcher fetcher(final String sid){
-        return new ShortCodeFetcher(sid);
+    public static ShortCodeFetcher fetcher(final String pathSid){
+        return new ShortCodeFetcher(pathSid);
     }
-    public static ShortCodeFetcher fetcher(final String accountSid, final String sid){
-        return new ShortCodeFetcher(accountSid, sid);
+    public static ShortCodeFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new ShortCodeFetcher(pathAccountSid, pathSid);
     }
 
 
     public static ShortCodeReader reader(){
         return new ShortCodeReader();
     }
-    public static ShortCodeReader reader(final String accountSid){
-        return new ShortCodeReader(accountSid);
+    public static ShortCodeReader reader(final String pathAccountSid){
+        return new ShortCodeReader(pathAccountSid);
     }
 
-    public static ShortCodeUpdater updater(final String sid){
-        return new ShortCodeUpdater(sid);
+    public static ShortCodeUpdater updater(final String pathSid){
+        return new ShortCodeUpdater(pathSid);
     }
-    public static ShortCodeUpdater updater(final String accountSid, final String sid){
-        return new ShortCodeUpdater(accountSid, sid);
+    public static ShortCodeUpdater updater(final String pathAccountSid, final String pathSid){
+        return new ShortCodeUpdater(pathAccountSid, pathSid);
     }
 
     /**

@@ -47,8 +47,8 @@ public class Anonymize extends Resource {
 
 
 
-    public static AnonymizeUpdater updater(final String roomSid, final String sid){
-        return new AnonymizeUpdater(roomSid, sid);
+    public static AnonymizeUpdater updater(final String pathRoomSid, final String pathSid){
+        return new AnonymizeUpdater(pathRoomSid, pathSid);
     }
 
     /**

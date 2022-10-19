@@ -27,14 +27,14 @@ import com.twilio.rest.Domains;
 
 
 public class BucketDeleter extends Deleter<Bucket> {
-    private String serviceSid;
-    private String rateLimitSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
+    private String pathSid;
 
-    public BucketDeleter(final String serviceSid, final String rateLimitSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.rateLimitSid = rateLimitSid;
-        this.sid = sid;
+    public BucketDeleter(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -42,9 +42,9 @@ public class BucketDeleter extends Deleter<Bucket> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"RateLimitSid"+"}", this.rateLimitSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"RateLimitSid"+"}", this.pathRateLimitSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

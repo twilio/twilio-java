@@ -49,20 +49,20 @@ public class HostedNumberOrder extends Resource {
         return new HostedNumberOrderCreator(phoneNumber, smsCapability);
     }
 
-    public static HostedNumberOrderFetcher fetcher(final String sid){
-        return new HostedNumberOrderFetcher(sid);
+    public static HostedNumberOrderFetcher fetcher(final String pathSid){
+        return new HostedNumberOrderFetcher(pathSid);
     }
 
-    public static HostedNumberOrderDeleter deleter(final String sid){
-        return new HostedNumberOrderDeleter(sid);
+    public static HostedNumberOrderDeleter deleter(final String pathSid){
+        return new HostedNumberOrderDeleter(pathSid);
     }
 
     public static HostedNumberOrderReader reader(){
         return new HostedNumberOrderReader();
     }
 
-    public static HostedNumberOrderUpdater updater(final String sid){
-        return new HostedNumberOrderUpdater(sid);
+    public static HostedNumberOrderUpdater updater(final String pathSid){
+        return new HostedNumberOrderUpdater(pathSid);
     }
 
     /**

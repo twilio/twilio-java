@@ -27,11 +27,11 @@ import com.twilio.rest.Domains;
 
 
 public class ConversationDeleter extends Deleter<Conversation> {
-    private String sid;
+    private String pathSid;
     private Conversation.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public ConversationDeleter(final String sid){
-        this.sid = sid;
+    public ConversationDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public ConversationDeleter setXTwilioWebhookEnabled(final Conversation.WebhookEnabledType xTwilioWebhookEnabled){
@@ -43,7 +43,7 @@ public class ConversationDeleter extends Deleter<Conversation> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Conversations/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -46,24 +46,24 @@ import java.util.Map;
 public class Message extends Resource {
     private static final long serialVersionUID = 199930151485440L;
 
-    public static MessageCreator creator(final String conversationSid){
-        return new MessageCreator(conversationSid);
+    public static MessageCreator creator(final String pathConversationSid){
+        return new MessageCreator(pathConversationSid);
     }
 
-    public static MessageFetcher fetcher(final String conversationSid, final String sid){
-        return new MessageFetcher(conversationSid, sid);
+    public static MessageFetcher fetcher(final String pathConversationSid, final String pathSid){
+        return new MessageFetcher(pathConversationSid, pathSid);
     }
 
-    public static MessageDeleter deleter(final String conversationSid, final String sid){
-        return new MessageDeleter(conversationSid, sid);
+    public static MessageDeleter deleter(final String pathConversationSid, final String pathSid){
+        return new MessageDeleter(pathConversationSid, pathSid);
     }
 
-    public static MessageReader reader(final String conversationSid){
-        return new MessageReader(conversationSid);
+    public static MessageReader reader(final String pathConversationSid){
+        return new MessageReader(pathConversationSid);
     }
 
-    public static MessageUpdater updater(final String conversationSid, final String sid){
-        return new MessageUpdater(conversationSid, sid);
+    public static MessageUpdater updater(final String pathConversationSid, final String pathSid){
+        return new MessageUpdater(pathConversationSid, pathSid);
     }
 
     /**

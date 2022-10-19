@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class EvaluationCreator extends Creator<Evaluation>{
-    private String bundleSid;
+    private String pathBundleSid;
 
-    public EvaluationCreator(final String bundleSid) {
-        this.bundleSid = bundleSid;
+    public EvaluationCreator(final String pathBundleSid) {
+        this.pathBundleSid = pathBundleSid;
     }
 
 
@@ -39,7 +39,7 @@ public class EvaluationCreator extends Creator<Evaluation>{
     public Evaluation create(final TwilioRestClient client){
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
 
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

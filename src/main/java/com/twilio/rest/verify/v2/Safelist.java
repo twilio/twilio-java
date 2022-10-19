@@ -44,12 +44,12 @@ public class Safelist extends Resource {
         return new SafelistCreator(phoneNumber);
     }
 
-    public static SafelistFetcher fetcher(final String phoneNumber){
-        return new SafelistFetcher(phoneNumber);
+    public static SafelistFetcher fetcher(final String pathPhoneNumber){
+        return new SafelistFetcher(pathPhoneNumber);
     }
 
-    public static SafelistDeleter deleter(final String phoneNumber){
-        return new SafelistDeleter(phoneNumber);
+    public static SafelistDeleter deleter(final String pathPhoneNumber){
+        return new SafelistDeleter(pathPhoneNumber);
     }
 
 

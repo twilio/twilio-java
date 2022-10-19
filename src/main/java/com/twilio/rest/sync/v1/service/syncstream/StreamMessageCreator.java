@@ -32,13 +32,13 @@ import java.util.Map;
 
 
 public class StreamMessageCreator extends Creator<StreamMessage>{
-    private String serviceSid;
-    private String streamSid;
+    private String pathServiceSid;
+    private String pathStreamSid;
     private Map<String, Object> data;
 
-    public StreamMessageCreator(final String serviceSid, final String streamSid, final Map<String, Object> data) {
-        this.serviceSid = serviceSid;
-        this.streamSid = streamSid;
+    public StreamMessageCreator(final String pathServiceSid, final String pathStreamSid, final Map<String, Object> data) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathStreamSid = pathStreamSid;
         this.data = data;
     }
 
@@ -51,8 +51,8 @@ public class StreamMessageCreator extends Creator<StreamMessage>{
     public StreamMessage create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"StreamSid"+"}", this.streamSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"StreamSid"+"}", this.pathStreamSid.toString());
         path = path.replace("{"+"Data"+"}", this.data.toString());
 
         Request request = new Request(

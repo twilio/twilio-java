@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class SyncMapItemReader extends Reader<SyncMapItem> {
-    private String serviceSid;
-    private String mapSid;
+    private String pathServiceSid;
+    private String pathMapSid;
     private SyncMapItem.QueryResultOrder order;
     private String from;
     private SyncMapItem.QueryFromBoundType bounds;
     private Integer pageSize;
 
-    public SyncMapItemReader(final String serviceSid, final String mapSid){
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
+    public SyncMapItemReader(final String pathServiceSid, final String pathMapSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
     }
 
     public SyncMapItemReader setOrder(final SyncMapItem.QueryResultOrder order){
@@ -65,8 +65,8 @@ public class SyncMapItemReader extends Reader<SyncMapItem> {
 
     public Page<SyncMapItem> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Items";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"MapSid"+"}", this.mapSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

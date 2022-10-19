@@ -30,15 +30,15 @@ import com.twilio.base.Page;
 
 
 public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
-    private String accountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String friendlyName;
     private Integer pageSize;
 
     public OutgoingCallerIdReader(){
     }
-    public OutgoingCallerIdReader(final String accountSid){
-        this.accountSid = accountSid;
+    public OutgoingCallerIdReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public OutgoingCallerIdReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
@@ -65,8 +65,8 @@ public class OutgoingCallerIdReader extends Reader<OutgoingCallerId> {
 
     public Page<OutgoingCallerId> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

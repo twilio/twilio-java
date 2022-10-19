@@ -46,17 +46,17 @@ public class Participant extends Resource {
     private static final long serialVersionUID = 52808589721984L;
 
 
-    public static ParticipantFetcher fetcher(final String roomSid, final String sid){
-        return new ParticipantFetcher(roomSid, sid);
+    public static ParticipantFetcher fetcher(final String pathRoomSid, final String pathSid){
+        return new ParticipantFetcher(pathRoomSid, pathSid);
     }
 
 
-    public static ParticipantReader reader(final String roomSid){
-        return new ParticipantReader(roomSid);
+    public static ParticipantReader reader(final String pathRoomSid){
+        return new ParticipantReader(pathRoomSid);
     }
 
-    public static ParticipantUpdater updater(final String roomSid, final String sid){
-        return new ParticipantUpdater(roomSid, sid);
+    public static ParticipantUpdater updater(final String pathRoomSid, final String pathSid){
+        return new ParticipantUpdater(pathRoomSid, pathSid);
     }
 
     /**

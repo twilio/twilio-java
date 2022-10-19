@@ -54,8 +54,8 @@ public class ThisMonth extends Resource {
     public static ThisMonthReader reader(){
         return new ThisMonthReader();
     }
-    public static ThisMonthReader reader(final String accountSid){
-        return new ThisMonthReader(accountSid);
+    public static ThisMonthReader reader(final String pathAccountSid){
+        return new ThisMonthReader(pathAccountSid);
     }
 
 

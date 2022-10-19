@@ -43,24 +43,24 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class ShortCode extends Resource {
     private static final long serialVersionUID = 222849980654127L;
 
-    public static ShortCodeCreator creator(final String serviceSid, final String sid){
-        return new ShortCodeCreator(serviceSid, sid);
+    public static ShortCodeCreator creator(final String pathServiceSid, final String sid){
+        return new ShortCodeCreator(pathServiceSid, sid);
     }
 
-    public static ShortCodeFetcher fetcher(final String serviceSid, final String sid){
-        return new ShortCodeFetcher(serviceSid, sid);
+    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new ShortCodeFetcher(pathServiceSid, pathSid);
     }
 
-    public static ShortCodeDeleter deleter(final String serviceSid, final String sid){
-        return new ShortCodeDeleter(serviceSid, sid);
+    public static ShortCodeDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new ShortCodeDeleter(pathServiceSid, pathSid);
     }
 
-    public static ShortCodeReader reader(final String serviceSid){
-        return new ShortCodeReader(serviceSid);
+    public static ShortCodeReader reader(final String pathServiceSid){
+        return new ShortCodeReader(pathServiceSid);
     }
 
-    public static ShortCodeUpdater updater(final String serviceSid, final String sid){
-        return new ShortCodeUpdater(serviceSid, sid);
+    public static ShortCodeUpdater updater(final String pathServiceSid, final String pathSid){
+        return new ShortCodeUpdater(pathServiceSid, pathSid);
     }
 
     /**

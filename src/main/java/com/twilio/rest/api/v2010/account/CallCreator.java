@@ -35,7 +35,7 @@ import java.net.URI;
 public class CallCreator extends Creator<Call>{
     private com.twilio.type.Endpoint to;
     private com.twilio.type.Endpoint from;
-    private String accountSid;
+    private String pathAccountSid;
     private HttpMethod method;
     private URI fallbackUrl;
     private HttpMethod fallbackMethod;
@@ -75,8 +75,8 @@ public class CallCreator extends Creator<Call>{
         this.from = from;
         this.url = url;
     }
-    public CallCreator(final String accountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
-        this.accountSid = accountSid;
+    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.url = url;
@@ -86,8 +86,8 @@ public class CallCreator extends Creator<Call>{
         this.from = from;
         this.twiml = twiml;
     }
-    public CallCreator(final String accountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
-        this.accountSid = accountSid;
+    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.twiml = twiml;
@@ -97,8 +97,8 @@ public class CallCreator extends Creator<Call>{
         this.from = from;
         this.applicationSid = applicationSid;
     }
-    public CallCreator(final String accountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
-        this.accountSid = accountSid;
+    public CallCreator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.applicationSid = applicationSid;
@@ -275,8 +275,8 @@ public class CallCreator extends Creator<Call>{
     public Call create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"To"+"}", this.to.toString());
         path = path.replace("{"+"From"+"}", this.from.toString());
 

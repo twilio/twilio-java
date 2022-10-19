@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class TaskDeleter extends Deleter<Task> {
-    private String assistantSid;
-    private String sid;
+    private String pathAssistantSid;
+    private String pathSid;
 
-    public TaskDeleter(final String assistantSid, final String sid){
-        this.assistantSid = assistantSid;
-        this.sid = sid;
+    public TaskDeleter(final String pathAssistantSid, final String pathSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class TaskDeleter extends Deleter<Task> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/Tasks/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

@@ -47,20 +47,20 @@ public class WebChannel extends Resource {
         return new WebChannelCreator(flexFlowSid, identity, customerFriendlyName, chatFriendlyName);
     }
 
-    public static WebChannelFetcher fetcher(final String sid){
-        return new WebChannelFetcher(sid);
+    public static WebChannelFetcher fetcher(final String pathSid){
+        return new WebChannelFetcher(pathSid);
     }
 
-    public static WebChannelDeleter deleter(final String sid){
-        return new WebChannelDeleter(sid);
+    public static WebChannelDeleter deleter(final String pathSid){
+        return new WebChannelDeleter(pathSid);
     }
 
     public static WebChannelReader reader(){
         return new WebChannelReader();
     }
 
-    public static WebChannelUpdater updater(final String sid){
-        return new WebChannelUpdater(sid);
+    public static WebChannelUpdater updater(final String pathSid){
+        return new WebChannelUpdater(pathSid);
     }
 
     /**

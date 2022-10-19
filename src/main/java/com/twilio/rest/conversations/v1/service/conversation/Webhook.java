@@ -45,24 +45,24 @@ import java.util.Map;
 public class Webhook extends Resource {
     private static final long serialVersionUID = 228548505277204L;
 
-    public static WebhookCreator creator(final String chatServiceSid, final String conversationSid, final Webhook.Target target){
-        return new WebhookCreator(chatServiceSid, conversationSid, target);
+    public static WebhookCreator creator(final String pathChatServiceSid, final String pathConversationSid, final Webhook.Target target){
+        return new WebhookCreator(pathChatServiceSid, pathConversationSid, target);
     }
 
-    public static WebhookFetcher fetcher(final String chatServiceSid, final String conversationSid, final String sid){
-        return new WebhookFetcher(chatServiceSid, conversationSid, sid);
+    public static WebhookFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new WebhookFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static WebhookDeleter deleter(final String chatServiceSid, final String conversationSid, final String sid){
-        return new WebhookDeleter(chatServiceSid, conversationSid, sid);
+    public static WebhookDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new WebhookDeleter(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static WebhookReader reader(final String chatServiceSid, final String conversationSid){
-        return new WebhookReader(chatServiceSid, conversationSid);
+    public static WebhookReader reader(final String pathChatServiceSid, final String pathConversationSid){
+        return new WebhookReader(pathChatServiceSid, pathConversationSid);
     }
 
-    public static WebhookUpdater updater(final String chatServiceSid, final String conversationSid, final String sid){
-        return new WebhookUpdater(chatServiceSid, conversationSid, sid);
+    public static WebhookUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new WebhookUpdater(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     /**

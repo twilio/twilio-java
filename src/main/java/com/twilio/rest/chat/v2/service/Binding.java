@@ -47,16 +47,16 @@ public class Binding extends Resource {
     private static final long serialVersionUID = 223064407729885L;
 
 
-    public static BindingFetcher fetcher(final String serviceSid, final String sid){
-        return new BindingFetcher(serviceSid, sid);
+    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new BindingFetcher(pathServiceSid, pathSid);
     }
 
-    public static BindingDeleter deleter(final String serviceSid, final String sid){
-        return new BindingDeleter(serviceSid, sid);
+    public static BindingDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new BindingDeleter(pathServiceSid, pathSid);
     }
 
-    public static BindingReader reader(final String serviceSid){
-        return new BindingReader(serviceSid);
+    public static BindingReader reader(final String pathServiceSid){
+        return new BindingReader(pathServiceSid);
     }
 
 

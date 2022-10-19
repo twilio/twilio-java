@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
-    private String flowSid;
-    private String executionSid;
+    private String pathFlowSid;
+    private String pathExecutionSid;
 
-    public ExecutionContextFetcher(final String flowSid, final String executionSid){
-        this.flowSid = flowSid;
-        this.executionSid = executionSid;
+    public ExecutionContextFetcher(final String pathFlowSid, final String pathExecutionSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
     }
 
 
@@ -41,8 +41,8 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
     public ExecutionContext fetch(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Context";
 
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"ExecutionSid"+"}", this.executionSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"ExecutionSid"+"}", this.pathExecutionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

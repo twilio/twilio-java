@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class CredentialListReader extends Reader<CredentialList> {
-    private String trunkSid;
+    private String pathTrunkSid;
     private Integer pageSize;
 
-    public CredentialListReader(final String trunkSid){
-        this.trunkSid = trunkSid;
+    public CredentialListReader(final String pathTrunkSid){
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     public CredentialListReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class CredentialListReader extends Reader<CredentialList> {
 
     public Page<CredentialList> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

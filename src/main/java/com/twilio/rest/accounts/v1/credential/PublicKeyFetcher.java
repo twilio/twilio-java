@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class PublicKeyFetcher extends Fetcher<PublicKey> {
-    private String sid;
+    private String pathSid;
 
-    public PublicKeyFetcher(final String sid){
-        this.sid = sid;
+    public PublicKeyFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class PublicKeyFetcher extends Fetcher<PublicKey> {
     public PublicKey fetch(final TwilioRestClient client) {
         String path = "/v1/Credentials/PublicKeys/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

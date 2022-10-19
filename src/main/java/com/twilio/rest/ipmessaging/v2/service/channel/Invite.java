@@ -42,20 +42,20 @@ import java.util.Objects;
 public class Invite extends Resource {
     private static final long serialVersionUID = 148273166902210L;
 
-    public static InviteCreator creator(final String serviceSid, final String channelSid, final String identity){
-        return new InviteCreator(serviceSid, channelSid, identity);
+    public static InviteCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity){
+        return new InviteCreator(pathServiceSid, pathChannelSid, identity);
     }
 
-    public static InviteFetcher fetcher(final String serviceSid, final String channelSid, final String sid){
-        return new InviteFetcher(serviceSid, channelSid, sid);
+    public static InviteFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new InviteFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static InviteDeleter deleter(final String serviceSid, final String channelSid, final String sid){
-        return new InviteDeleter(serviceSid, channelSid, sid);
+    public static InviteDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new InviteDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static InviteReader reader(final String serviceSid, final String channelSid){
-        return new InviteReader(serviceSid, channelSid);
+    public static InviteReader reader(final String pathServiceSid, final String pathChannelSid){
+        return new InviteReader(pathServiceSid, pathChannelSid);
     }
 
 

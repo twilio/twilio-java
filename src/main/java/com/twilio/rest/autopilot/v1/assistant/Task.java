@@ -44,24 +44,24 @@ import java.util.Map;
 public class Task extends Resource {
     private static final long serialVersionUID = 59959992200143L;
 
-    public static TaskCreator creator(final String assistantSid, final String uniqueName){
-        return new TaskCreator(assistantSid, uniqueName);
+    public static TaskCreator creator(final String pathAssistantSid, final String uniqueName){
+        return new TaskCreator(pathAssistantSid, uniqueName);
     }
 
-    public static TaskFetcher fetcher(final String assistantSid, final String sid){
-        return new TaskFetcher(assistantSid, sid);
+    public static TaskFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new TaskFetcher(pathAssistantSid, pathSid);
     }
 
-    public static TaskDeleter deleter(final String assistantSid, final String sid){
-        return new TaskDeleter(assistantSid, sid);
+    public static TaskDeleter deleter(final String pathAssistantSid, final String pathSid){
+        return new TaskDeleter(pathAssistantSid, pathSid);
     }
 
-    public static TaskReader reader(final String assistantSid){
-        return new TaskReader(assistantSid);
+    public static TaskReader reader(final String pathAssistantSid){
+        return new TaskReader(pathAssistantSid);
     }
 
-    public static TaskUpdater updater(final String assistantSid, final String sid){
-        return new TaskUpdater(assistantSid, sid);
+    public static TaskUpdater updater(final String pathAssistantSid, final String pathSid){
+        return new TaskUpdater(pathAssistantSid, pathSid);
     }
 
     /**

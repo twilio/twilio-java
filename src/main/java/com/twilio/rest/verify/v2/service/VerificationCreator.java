@@ -32,7 +32,7 @@ import java.util.Map;
 
 
 public class VerificationCreator extends Creator<Verification>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String to;
     private String channel;
     private String customFriendlyName;
@@ -48,8 +48,8 @@ public class VerificationCreator extends Creator<Verification>{
     private String templateSid;
     private String templateCustomSubstitutions;
 
-    public VerificationCreator(final String serviceSid, final String to, final String channel) {
-        this.serviceSid = serviceSid;
+    public VerificationCreator(final String pathServiceSid, final String to, final String channel) {
+        this.pathServiceSid = pathServiceSid;
         this.to = to;
         this.channel = channel;
     }
@@ -115,7 +115,7 @@ public class VerificationCreator extends Creator<Verification>{
     public Verification create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Verifications";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"To"+"}", this.to.toString());
         path = path.replace("{"+"Channel"+"}", this.channel.toString());
 

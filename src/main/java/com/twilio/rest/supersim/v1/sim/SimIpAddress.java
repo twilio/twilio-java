@@ -43,8 +43,8 @@ public class SimIpAddress extends Resource {
 
 
 
-    public static SimIpAddressReader reader(final String simSid){
-        return new SimIpAddressReader(simSid);
+    public static SimIpAddressReader reader(final String pathSimSid){
+        return new SimIpAddressReader(pathSimSid);
     }
 
 

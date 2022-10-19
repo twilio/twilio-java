@@ -30,8 +30,8 @@ import com.twilio.base.Page;
 
 
 public class NationalReader extends Reader<National> {
-    private String countryCode;
-    private String accountSid;
+    private String pathCountryCode;
+    private String pathAccountSid;
     private Integer areaCode;
     private String contains;
     private Boolean smsEnabled;
@@ -52,12 +52,12 @@ public class NationalReader extends Reader<National> {
     private Boolean faxEnabled;
     private Integer pageSize;
 
-    public NationalReader(final String countryCode){
-        this.countryCode = countryCode;
+    public NationalReader(final String pathCountryCode){
+        this.pathCountryCode = pathCountryCode;
     }
-    public NationalReader(final String accountSid, final String countryCode){
-        this.accountSid = accountSid;
-        this.countryCode = countryCode;
+    public NationalReader(final String pathAccountSid, final String pathCountryCode){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
     public NationalReader setAreaCode(final Integer areaCode){
@@ -148,9 +148,9 @@ public class NationalReader extends Reader<National> {
 
     public Page<National> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/National.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CountryCode"+"}", this.countryCode.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CountryCode"+"}", this.pathCountryCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,

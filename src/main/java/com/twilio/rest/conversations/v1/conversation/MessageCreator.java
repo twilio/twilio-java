@@ -29,7 +29,7 @@ import java.time.ZonedDateTime;
 
 
 public class MessageCreator extends Creator<Message>{
-    private String conversationSid;
+    private String pathConversationSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
     private String author;
     private String body;
@@ -38,8 +38,8 @@ public class MessageCreator extends Creator<Message>{
     private String attributes;
     private String mediaSid;
 
-    public MessageCreator(final String conversationSid) {
-        this.conversationSid = conversationSid;
+    public MessageCreator(final String pathConversationSid) {
+        this.pathConversationSid = pathConversationSid;
     }
 
     public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
@@ -75,7 +75,7 @@ public class MessageCreator extends Creator<Message>{
     public Message create(final TwilioRestClient client){
         String path = "/v1/Conversations/{ConversationSid}/Messages";
 
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

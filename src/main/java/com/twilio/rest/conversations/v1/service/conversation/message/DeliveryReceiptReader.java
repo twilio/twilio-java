@@ -29,15 +29,15 @@ import com.twilio.base.Page;
 
 
 public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
-    private String chatServiceSid;
-    private String conversationSid;
-    private String messageSid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathMessageSid;
     private Integer pageSize;
 
-    public DeliveryReceiptReader(final String chatServiceSid, final String conversationSid, final String messageSid){
-        this.chatServiceSid = chatServiceSid;
-        this.conversationSid = conversationSid;
-        this.messageSid = messageSid;
+    public DeliveryReceiptReader(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
     public DeliveryReceiptReader setPageSize(final Integer pageSize){
@@ -52,9 +52,9 @@ public class DeliveryReceiptReader extends Reader<DeliveryReceipt> {
 
     public Page<DeliveryReceipt> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts";
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.messageSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

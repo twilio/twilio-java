@@ -30,8 +30,8 @@ import java.net.URI;
 
 
 public class ApplicationUpdater extends Updater<Application>{
-    private String sid;
-    private String accountSid;
+    private String pathSid;
+    private String pathAccountSid;
     private String friendlyName;
     private String apiVersion;
     private URI voiceUrl;
@@ -48,12 +48,12 @@ public class ApplicationUpdater extends Updater<Application>{
     private URI smsStatusCallback;
     private URI messageStatusCallback;
 
-    public ApplicationUpdater(final String sid){
-        this.sid = sid;
+    public ApplicationUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public ApplicationUpdater(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ApplicationUpdater(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     public ApplicationUpdater setFriendlyName(final String friendlyName){
@@ -149,9 +149,9 @@ public class ApplicationUpdater extends Updater<Application>{
     public Application update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

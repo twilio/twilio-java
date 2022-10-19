@@ -41,8 +41,8 @@ public class FunctionVersionContent extends Resource {
     private static final long serialVersionUID = 208000590885959L;
 
 
-    public static FunctionVersionContentFetcher fetcher(final String serviceSid, final String functionSid, final String sid){
-        return new FunctionVersionContentFetcher(serviceSid, functionSid, sid);
+    public static FunctionVersionContentFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
+        return new FunctionVersionContentFetcher(pathServiceSid, pathFunctionSid, pathSid);
     }
 
 

@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class RegulationFetcher extends Fetcher<Regulation> {
-    private String sid;
+    private String pathSid;
 
-    public RegulationFetcher(final String sid){
-        this.sid = sid;
+    public RegulationFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class RegulationFetcher extends Fetcher<Regulation> {
     public Regulation fetch(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Regulations/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

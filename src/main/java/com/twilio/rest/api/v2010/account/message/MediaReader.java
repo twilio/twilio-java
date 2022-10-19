@@ -31,19 +31,19 @@ import java.time.format.DateTimeFormatter;
 
 
 public class MediaReader extends Reader<Media> {
-    private String messageSid;
-    private String accountSid;
+    private String pathMessageSid;
+    private String pathAccountSid;
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateCreatedBefore;
     private ZonedDateTime dateCreatedAfter;
     private Integer pageSize;
 
-    public MediaReader(final String messageSid){
-        this.messageSid = messageSid;
+    public MediaReader(final String pathMessageSid){
+        this.pathMessageSid = pathMessageSid;
     }
-    public MediaReader(final String accountSid, final String messageSid){
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
+    public MediaReader(final String pathAccountSid, final String pathMessageSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
     public MediaReader setDateCreated(final ZonedDateTime dateCreated){
@@ -70,9 +70,9 @@ public class MediaReader extends Reader<Media> {
 
     public Page<Media> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.messageSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

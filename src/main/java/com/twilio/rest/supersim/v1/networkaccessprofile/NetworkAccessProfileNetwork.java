@@ -43,20 +43,20 @@ import java.util.Map;
 public class NetworkAccessProfileNetwork extends Resource {
     private static final long serialVersionUID = 187162547019967L;
 
-    public static NetworkAccessProfileNetworkCreator creator(final String networkAccessProfileSid, final String network){
-        return new NetworkAccessProfileNetworkCreator(networkAccessProfileSid, network);
+    public static NetworkAccessProfileNetworkCreator creator(final String pathNetworkAccessProfileSid, final String network){
+        return new NetworkAccessProfileNetworkCreator(pathNetworkAccessProfileSid, network);
     }
 
-    public static NetworkAccessProfileNetworkFetcher fetcher(final String networkAccessProfileSid, final String sid){
-        return new NetworkAccessProfileNetworkFetcher(networkAccessProfileSid, sid);
+    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathNetworkAccessProfileSid, final String pathSid){
+        return new NetworkAccessProfileNetworkFetcher(pathNetworkAccessProfileSid, pathSid);
     }
 
-    public static NetworkAccessProfileNetworkDeleter deleter(final String networkAccessProfileSid, final String sid){
-        return new NetworkAccessProfileNetworkDeleter(networkAccessProfileSid, sid);
+    public static NetworkAccessProfileNetworkDeleter deleter(final String pathNetworkAccessProfileSid, final String pathSid){
+        return new NetworkAccessProfileNetworkDeleter(pathNetworkAccessProfileSid, pathSid);
     }
 
-    public static NetworkAccessProfileNetworkReader reader(final String networkAccessProfileSid){
-        return new NetworkAccessProfileNetworkReader(networkAccessProfileSid);
+    public static NetworkAccessProfileNetworkReader reader(final String pathNetworkAccessProfileSid){
+        return new NetworkAccessProfileNetworkReader(pathNetworkAccessProfileSid);
     }
 
 

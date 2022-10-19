@@ -49,20 +49,20 @@ public class Bundle extends Resource {
         return new BundleCreator(friendlyName, email);
     }
 
-    public static BundleFetcher fetcher(final String sid){
-        return new BundleFetcher(sid);
+    public static BundleFetcher fetcher(final String pathSid){
+        return new BundleFetcher(pathSid);
     }
 
-    public static BundleDeleter deleter(final String sid){
-        return new BundleDeleter(sid);
+    public static BundleDeleter deleter(final String pathSid){
+        return new BundleDeleter(pathSid);
     }
 
     public static BundleReader reader(){
         return new BundleReader();
     }
 
-    public static BundleUpdater updater(final String sid){
-        return new BundleUpdater(sid);
+    public static BundleUpdater updater(final String pathSid){
+        return new BundleUpdater(pathSid);
     }
 
     /**

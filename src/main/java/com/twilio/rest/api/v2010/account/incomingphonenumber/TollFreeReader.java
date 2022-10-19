@@ -30,7 +30,7 @@ import com.twilio.base.Page;
 
 
 public class TollFreeReader extends Reader<TollFree> {
-    private String accountSid;
+    private String pathAccountSid;
     private Boolean beta;
     private String friendlyName;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -39,8 +39,8 @@ public class TollFreeReader extends Reader<TollFree> {
 
     public TollFreeReader(){
     }
-    public TollFreeReader(final String accountSid){
-        this.accountSid = accountSid;
+    public TollFreeReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public TollFreeReader setBeta(final Boolean beta){
@@ -75,8 +75,8 @@ public class TollFreeReader extends Reader<TollFree> {
 
     public Page<TollFree> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/TollFree.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

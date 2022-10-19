@@ -46,17 +46,17 @@ import java.util.Map;
 public class TrustProductsEvaluations extends Resource {
     private static final long serialVersionUID = 86634042597263L;
 
-    public static TrustProductsEvaluationsCreator creator(final String trustProductSid, final String policySid){
-        return new TrustProductsEvaluationsCreator(trustProductSid, policySid);
+    public static TrustProductsEvaluationsCreator creator(final String pathTrustProductSid, final String policySid){
+        return new TrustProductsEvaluationsCreator(pathTrustProductSid, policySid);
     }
 
-    public static TrustProductsEvaluationsFetcher fetcher(final String trustProductSid, final String sid){
-        return new TrustProductsEvaluationsFetcher(trustProductSid, sid);
+    public static TrustProductsEvaluationsFetcher fetcher(final String pathTrustProductSid, final String pathSid){
+        return new TrustProductsEvaluationsFetcher(pathTrustProductSid, pathSid);
     }
 
 
-    public static TrustProductsEvaluationsReader reader(final String trustProductSid){
-        return new TrustProductsEvaluationsReader(trustProductSid);
+    public static TrustProductsEvaluationsReader reader(final String pathTrustProductSid){
+        return new TrustProductsEvaluationsReader(pathTrustProductSid);
     }
 
 

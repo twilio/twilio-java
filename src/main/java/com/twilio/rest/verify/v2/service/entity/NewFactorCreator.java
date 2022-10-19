@@ -32,8 +32,8 @@ import java.util.Map;
 
 
 public class NewFactorCreator extends Creator<NewFactor>{
-    private String serviceSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private String friendlyName;
     private NewFactor.FactorTypes factorType;
     private String bindingAlg;
@@ -49,9 +49,9 @@ public class NewFactorCreator extends Creator<NewFactor>{
     private NewFactor.TotpAlgorithms configAlg;
     private Map<String, Object> metadata;
 
-    public NewFactorCreator(final String serviceSid, final String identity, final String friendlyName, final NewFactor.FactorTypes factorType) {
-        this.serviceSid = serviceSid;
-        this.identity = identity;
+    public NewFactorCreator(final String pathServiceSid, final String pathIdentity, final String friendlyName, final NewFactor.FactorTypes factorType) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
         this.friendlyName = friendlyName;
         this.factorType = factorType;
     }
@@ -117,8 +117,8 @@ public class NewFactorCreator extends Creator<NewFactor>{
     public NewFactor create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
         path = path.replace("{"+"FactorType"+"}", this.factorType.toString());
 

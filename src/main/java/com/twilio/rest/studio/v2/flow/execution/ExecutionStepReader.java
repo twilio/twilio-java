@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class ExecutionStepReader extends Reader<ExecutionStep> {
-    private String flowSid;
-    private String executionSid;
+    private String pathFlowSid;
+    private String pathExecutionSid;
     private Integer pageSize;
 
-    public ExecutionStepReader(final String flowSid, final String executionSid){
-        this.flowSid = flowSid;
-        this.executionSid = executionSid;
+    public ExecutionStepReader(final String pathFlowSid, final String pathExecutionSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathExecutionSid = pathExecutionSid;
     }
 
     public ExecutionStepReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     public Page<ExecutionStep> firstPage(final TwilioRestClient client) {
         String path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps";
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"ExecutionSid"+"}", this.executionSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"ExecutionSid"+"}", this.pathExecutionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

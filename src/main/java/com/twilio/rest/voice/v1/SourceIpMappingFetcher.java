@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class SourceIpMappingFetcher extends Fetcher<SourceIpMapping> {
-    private String sid;
+    private String pathSid;
 
-    public SourceIpMappingFetcher(final String sid){
-        this.sid = sid;
+    public SourceIpMappingFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class SourceIpMappingFetcher extends Fetcher<SourceIpMapping> {
     public SourceIpMapping fetch(final TwilioRestClient client) {
         String path = "/v1/SourceIpMappings/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

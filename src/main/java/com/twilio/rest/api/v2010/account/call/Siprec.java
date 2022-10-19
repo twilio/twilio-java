@@ -42,21 +42,21 @@ import java.util.Objects;
 public class Siprec extends Resource {
     private static final long serialVersionUID = 230113301753485L;
 
-    public static SiprecCreator creator(final String callSid){
-        return new SiprecCreator(callSid);
+    public static SiprecCreator creator(final String pathCallSid){
+        return new SiprecCreator(pathCallSid);
     }
-    public static SiprecCreator creator(final String accountSid, final String callSid){
-        return new SiprecCreator(accountSid, callSid);
+    public static SiprecCreator creator(final String pathAccountSid, final String pathCallSid){
+        return new SiprecCreator(pathAccountSid, pathCallSid);
     }
 
 
 
 
-    public static SiprecUpdater updater(final String callSid, final String sid, final Siprec.UpdateStatus status){
-        return new SiprecUpdater(callSid, sid, status);
+    public static SiprecUpdater updater(final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status){
+        return new SiprecUpdater(pathCallSid, pathSid, status);
     }
-    public static SiprecUpdater updater(final String accountSid, final String callSid, final String sid, final Siprec.UpdateStatus status){
-        return new SiprecUpdater(accountSid, callSid, sid, status);
+    public static SiprecUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status){
+        return new SiprecUpdater(pathAccountSid, pathCallSid, pathSid, status);
     }
 
     /**

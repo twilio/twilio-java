@@ -28,18 +28,18 @@ import com.twilio.rest.Domains;
 
 
 public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
-    private String resourceSid;
-    private String sid;
-    private String accountSid;
+    private String pathResourceSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public AssignedAddOnFetcher(final String resourceSid, final String sid){
-        this.resourceSid = resourceSid;
-        this.sid = sid;
+    public AssignedAddOnFetcher(final String pathResourceSid, final String pathSid){
+        this.pathResourceSid = pathResourceSid;
+        this.pathSid = pathSid;
     }
-    public AssignedAddOnFetcher(final String accountSid, final String resourceSid, final String sid){
-        this.accountSid = accountSid;
-        this.resourceSid = resourceSid;
-        this.sid = sid;
+    public AssignedAddOnFetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathResourceSid = pathResourceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +47,10 @@ public class AssignedAddOnFetcher extends Fetcher<AssignedAddOn> {
     public AssignedAddOn fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ResourceSid"+"}", this.resourceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ResourceSid"+"}", this.pathResourceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

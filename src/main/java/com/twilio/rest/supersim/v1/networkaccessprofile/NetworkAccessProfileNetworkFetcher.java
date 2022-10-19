@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class NetworkAccessProfileNetworkFetcher extends Fetcher<NetworkAccessProfileNetwork> {
-    private String networkAccessProfileSid;
-    private String sid;
+    private String pathNetworkAccessProfileSid;
+    private String pathSid;
 
-    public NetworkAccessProfileNetworkFetcher(final String networkAccessProfileSid, final String sid){
-        this.networkAccessProfileSid = networkAccessProfileSid;
-        this.sid = sid;
+    public NetworkAccessProfileNetworkFetcher(final String pathNetworkAccessProfileSid, final String pathSid){
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class NetworkAccessProfileNetworkFetcher extends Fetcher<NetworkAccessPro
     public NetworkAccessProfileNetwork fetch(final TwilioRestClient client) {
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks/{Sid}";
 
-        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.networkAccessProfileSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.pathNetworkAccessProfileSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

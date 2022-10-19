@@ -43,8 +43,8 @@ public class TaskQueueStatistics extends Resource {
     private static final long serialVersionUID = 273955433542749L;
 
 
-    public static TaskQueueStatisticsFetcher fetcher(final String workspaceSid, final String taskQueueSid){
-        return new TaskQueueStatisticsFetcher(workspaceSid, taskQueueSid);
+    public static TaskQueueStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
+        return new TaskQueueStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
     }
 
 

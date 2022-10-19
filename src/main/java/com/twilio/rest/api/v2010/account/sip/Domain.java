@@ -48,36 +48,36 @@ public class Domain extends Resource {
     public static DomainCreator creator(final String domainName){
         return new DomainCreator(domainName);
     }
-    public static DomainCreator creator(final String accountSid, final String domainName){
-        return new DomainCreator(accountSid, domainName);
+    public static DomainCreator creator(final String pathAccountSid, final String domainName){
+        return new DomainCreator(pathAccountSid, domainName);
     }
 
-    public static DomainFetcher fetcher(final String sid){
-        return new DomainFetcher(sid);
+    public static DomainFetcher fetcher(final String pathSid){
+        return new DomainFetcher(pathSid);
     }
-    public static DomainFetcher fetcher(final String accountSid, final String sid){
-        return new DomainFetcher(accountSid, sid);
+    public static DomainFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new DomainFetcher(pathAccountSid, pathSid);
     }
 
-    public static DomainDeleter deleter(final String sid){
-        return new DomainDeleter(sid);
+    public static DomainDeleter deleter(final String pathSid){
+        return new DomainDeleter(pathSid);
     }
-    public static DomainDeleter deleter(final String accountSid, final String sid){
-        return new DomainDeleter(accountSid, sid);
+    public static DomainDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new DomainDeleter(pathAccountSid, pathSid);
     }
 
     public static DomainReader reader(){
         return new DomainReader();
     }
-    public static DomainReader reader(final String accountSid){
-        return new DomainReader(accountSid);
+    public static DomainReader reader(final String pathAccountSid){
+        return new DomainReader(pathAccountSid);
     }
 
-    public static DomainUpdater updater(final String sid){
-        return new DomainUpdater(sid);
+    public static DomainUpdater updater(final String pathSid){
+        return new DomainUpdater(pathSid);
     }
-    public static DomainUpdater updater(final String accountSid, final String sid){
-        return new DomainUpdater(accountSid, sid);
+    public static DomainUpdater updater(final String pathAccountSid, final String pathSid){
+        return new DomainUpdater(pathAccountSid, pathSid);
     }
 
     /**

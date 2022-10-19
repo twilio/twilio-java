@@ -45,13 +45,13 @@ public class ExecutionStep extends Resource {
     private static final long serialVersionUID = 271983635262130L;
 
 
-    public static ExecutionStepFetcher fetcher(final String flowSid, final String executionSid, final String sid){
-        return new ExecutionStepFetcher(flowSid, executionSid, sid);
+    public static ExecutionStepFetcher fetcher(final String pathFlowSid, final String pathExecutionSid, final String pathSid){
+        return new ExecutionStepFetcher(pathFlowSid, pathExecutionSid, pathSid);
     }
 
 
-    public static ExecutionStepReader reader(final String flowSid, final String executionSid){
-        return new ExecutionStepReader(flowSid, executionSid);
+    public static ExecutionStepReader reader(final String pathFlowSid, final String pathExecutionSid){
+        return new ExecutionStepReader(pathFlowSid, pathExecutionSid);
     }
 
 

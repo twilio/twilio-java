@@ -48,20 +48,20 @@ public class Role extends Resource {
         return new RoleCreator(friendlyName, type, permission);
     }
 
-    public static RoleFetcher fetcher(final String sid){
-        return new RoleFetcher(sid);
+    public static RoleFetcher fetcher(final String pathSid){
+        return new RoleFetcher(pathSid);
     }
 
-    public static RoleDeleter deleter(final String sid){
-        return new RoleDeleter(sid);
+    public static RoleDeleter deleter(final String pathSid){
+        return new RoleDeleter(pathSid);
     }
 
     public static RoleReader reader(){
         return new RoleReader();
     }
 
-    public static RoleUpdater updater(final String sid, final List<String> permission){
-        return new RoleUpdater(sid, permission);
+    public static RoleUpdater updater(final String pathSid, final List<String> permission){
+        return new RoleUpdater(pathSid, permission);
     }
 
     /**

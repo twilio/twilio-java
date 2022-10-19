@@ -43,24 +43,24 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 71034679090032L;
 
-    public static PhoneNumberCreator creator(final String serviceSid){
-        return new PhoneNumberCreator(serviceSid);
+    public static PhoneNumberCreator creator(final String pathServiceSid){
+        return new PhoneNumberCreator(pathServiceSid);
     }
 
-    public static PhoneNumberFetcher fetcher(final String serviceSid, final String sid){
-        return new PhoneNumberFetcher(serviceSid, sid);
+    public static PhoneNumberFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new PhoneNumberFetcher(pathServiceSid, pathSid);
     }
 
-    public static PhoneNumberDeleter deleter(final String serviceSid, final String sid){
-        return new PhoneNumberDeleter(serviceSid, sid);
+    public static PhoneNumberDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new PhoneNumberDeleter(pathServiceSid, pathSid);
     }
 
-    public static PhoneNumberReader reader(final String serviceSid){
-        return new PhoneNumberReader(serviceSid);
+    public static PhoneNumberReader reader(final String pathServiceSid){
+        return new PhoneNumberReader(pathServiceSid);
     }
 
-    public static PhoneNumberUpdater updater(final String serviceSid, final String sid){
-        return new PhoneNumberUpdater(serviceSid, sid);
+    public static PhoneNumberUpdater updater(final String pathServiceSid, final String pathSid){
+        return new PhoneNumberUpdater(pathServiceSid, pathSid);
     }
 
     /**

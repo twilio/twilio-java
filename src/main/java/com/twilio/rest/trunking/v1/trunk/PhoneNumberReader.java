@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class PhoneNumberReader extends Reader<PhoneNumber> {
-    private String trunkSid;
+    private String pathTrunkSid;
     private Integer pageSize;
 
-    public PhoneNumberReader(final String trunkSid){
-        this.trunkSid = trunkSid;
+    public PhoneNumberReader(final String pathTrunkSid){
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     public PhoneNumberReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class PhoneNumberReader extends Reader<PhoneNumber> {
 
     public Page<PhoneNumber> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/PhoneNumbers";
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

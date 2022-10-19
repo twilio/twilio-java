@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class PlaybackGrantFetcher extends Fetcher<PlaybackGrant> {
-    private String sid;
+    private String pathSid;
 
-    public PlaybackGrantFetcher(final String sid){
-        this.sid = sid;
+    public PlaybackGrantFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class PlaybackGrantFetcher extends Fetcher<PlaybackGrant> {
     public PlaybackGrant fetch(final TwilioRestClient client) {
         String path = "/v1/PlayerStreamers/{Sid}/PlaybackGrant";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

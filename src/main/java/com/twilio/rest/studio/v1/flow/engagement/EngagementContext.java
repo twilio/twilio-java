@@ -43,8 +43,8 @@ public class EngagementContext extends Resource {
     private static final long serialVersionUID = 182363461244967L;
 
 
-    public static EngagementContextFetcher fetcher(final String flowSid, final String engagementSid){
-        return new EngagementContextFetcher(flowSid, engagementSid);
+    public static EngagementContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid){
+        return new EngagementContextFetcher(pathFlowSid, pathEngagementSid);
     }
 
 

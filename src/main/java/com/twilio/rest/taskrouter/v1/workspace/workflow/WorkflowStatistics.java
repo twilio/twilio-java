@@ -43,8 +43,8 @@ public class WorkflowStatistics extends Resource {
     private static final long serialVersionUID = 124113751515927L;
 
 
-    public static WorkflowStatisticsFetcher fetcher(final String workspaceSid, final String workflowSid){
-        return new WorkflowStatisticsFetcher(workspaceSid, workflowSid);
+    public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
+        return new WorkflowStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
     }
 
 

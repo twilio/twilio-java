@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class CredentialListCreator extends Creator<CredentialList>{
-    private String trunkSid;
+    private String pathTrunkSid;
     private String credentialListSid;
 
-    public CredentialListCreator(final String trunkSid, final String credentialListSid) {
-        this.trunkSid = trunkSid;
+    public CredentialListCreator(final String pathTrunkSid, final String credentialListSid) {
+        this.pathTrunkSid = pathTrunkSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -45,7 +45,7 @@ public class CredentialListCreator extends Creator<CredentialList>{
     public CredentialList create(final TwilioRestClient client){
         String path = "/v1/Trunks/{TrunkSid}/CredentialLists";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
         path = path.replace("{"+"CredentialListSid"+"}", this.credentialListSid.toString());
 
         Request request = new Request(

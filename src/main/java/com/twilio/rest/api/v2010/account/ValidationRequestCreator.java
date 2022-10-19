@@ -32,7 +32,7 @@ import java.net.URI;
 
 public class ValidationRequestCreator extends Creator<ValidationRequest>{
     private com.twilio.type.PhoneNumber phoneNumber;
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private Integer callDelay;
     private String extension;
@@ -42,8 +42,8 @@ public class ValidationRequestCreator extends Creator<ValidationRequest>{
     public ValidationRequestCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public ValidationRequestCreator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.accountSid = accountSid;
+    public ValidationRequestCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -84,8 +84,8 @@ public class ValidationRequestCreator extends Creator<ValidationRequest>{
     public ValidationRequest create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.encode("utf-8"));
 
         Request request = new Request(

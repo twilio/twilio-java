@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class EventTypeFetcher extends Fetcher<EventType> {
-    private String type;
+    private String pathType;
 
-    public EventTypeFetcher(final String type){
-        this.type = type;
+    public EventTypeFetcher(final String pathType){
+        this.pathType = pathType;
     }
 
 
@@ -39,7 +39,7 @@ public class EventTypeFetcher extends Fetcher<EventType> {
     public EventType fetch(final TwilioRestClient client) {
         String path = "/v1/Types/{Type}";
 
-        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path = path.replace("{"+"Type"+"}", this.pathType.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -48,8 +48,8 @@ public class MediaProcessor extends Resource {
         return new MediaProcessorCreator(extension, extensionContext);
     }
 
-    public static MediaProcessorFetcher fetcher(final String sid){
-        return new MediaProcessorFetcher(sid);
+    public static MediaProcessorFetcher fetcher(final String pathSid){
+        return new MediaProcessorFetcher(pathSid);
     }
 
 
@@ -57,8 +57,8 @@ public class MediaProcessor extends Resource {
         return new MediaProcessorReader();
     }
 
-    public static MediaProcessorUpdater updater(final String sid, final MediaProcessor.UpdateStatus status){
-        return new MediaProcessorUpdater(sid, status);
+    public static MediaProcessorUpdater updater(final String pathSid, final MediaProcessor.UpdateStatus status){
+        return new MediaProcessorUpdater(pathSid, status);
     }
 
     /**

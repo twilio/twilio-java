@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class MessagingConfigurationCreator extends Creator<MessagingConfiguration>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String country;
     private String messagingServiceSid;
 
-    public MessagingConfigurationCreator(final String serviceSid, final String country, final String messagingServiceSid) {
-        this.serviceSid = serviceSid;
+    public MessagingConfigurationCreator(final String pathServiceSid, final String country, final String messagingServiceSid) {
+        this.pathServiceSid = pathServiceSid;
         this.country = country;
         this.messagingServiceSid = messagingServiceSid;
     }
@@ -51,7 +51,7 @@ public class MessagingConfigurationCreator extends Creator<MessagingConfiguratio
     public MessagingConfiguration create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/MessagingConfigurations";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"Country"+"}", this.country.toString());
         path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
 

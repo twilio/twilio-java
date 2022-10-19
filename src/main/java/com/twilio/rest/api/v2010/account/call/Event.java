@@ -44,11 +44,11 @@ public class Event extends Resource {
 
 
 
-    public static EventReader reader(final String callSid){
-        return new EventReader(callSid);
+    public static EventReader reader(final String pathCallSid){
+        return new EventReader(pathCallSid);
     }
-    public static EventReader reader(final String accountSid, final String callSid){
-        return new EventReader(accountSid, callSid);
+    public static EventReader reader(final String pathAccountSid, final String pathCallSid){
+        return new EventReader(pathAccountSid, pathCallSid);
     }
 
 

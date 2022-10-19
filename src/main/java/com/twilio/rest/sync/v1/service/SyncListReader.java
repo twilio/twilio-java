@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class SyncListReader extends Reader<SyncList> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public SyncListReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public SyncListReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SyncListReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class SyncListReader extends Reader<SyncList> {
 
     public Page<SyncList> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

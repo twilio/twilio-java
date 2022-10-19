@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtension>{
-    private String installedAddOnSid;
-    private String sid;
+    private String pathInstalledAddOnSid;
+    private String pathSid;
     private Boolean enabled;
 
-    public InstalledAddOnExtensionUpdater(final String installedAddOnSid, final String sid, final Boolean enabled){
-        this.installedAddOnSid = installedAddOnSid;
-        this.sid = sid;
+    public InstalledAddOnExtensionUpdater(final String pathInstalledAddOnSid, final String pathSid, final Boolean enabled){
+        this.pathInstalledAddOnSid = pathInstalledAddOnSid;
+        this.pathSid = pathSid;
         this.enabled = enabled;
     }
 
@@ -47,8 +47,8 @@ public class InstalledAddOnExtensionUpdater extends Updater<InstalledAddOnExtens
     public InstalledAddOnExtension update(final TwilioRestClient client){
         String path = "/marketplace/InstalledAddOns/{InstalledAddOnSid}/Extensions/{Sid}";
 
-        path = path.replace("{"+"InstalledAddOnSid"+"}", this.installedAddOnSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"InstalledAddOnSid"+"}", this.pathInstalledAddOnSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Enabled"+"}", this.enabled.toString());
 
         Request request = new Request(

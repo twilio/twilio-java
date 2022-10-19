@@ -30,11 +30,11 @@ import java.util.Map;
 
 
 public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackActions>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private Map<String, Object> fallbackActions;
 
-    public AssistantFallbackActionsUpdater(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public AssistantFallbackActionsUpdater(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public AssistantFallbackActionsUpdater setFallbackActions(final Map<String, Object> fallbackActions){
@@ -46,7 +46,7 @@ public class AssistantFallbackActionsUpdater extends Updater<AssistantFallbackAc
     public AssistantFallbackActions update(final TwilioRestClient client){
         String path = "/understand/Assistants/{AssistantSid}/FallbackActions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

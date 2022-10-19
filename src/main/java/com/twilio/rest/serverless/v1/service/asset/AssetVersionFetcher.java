@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class AssetVersionFetcher extends Fetcher<AssetVersion> {
-    private String serviceSid;
-    private String assetSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathAssetSid;
+    private String pathSid;
 
-    public AssetVersionFetcher(final String serviceSid, final String assetSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.assetSid = assetSid;
-        this.sid = sid;
+    public AssetVersionFetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathAssetSid = pathAssetSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class AssetVersionFetcher extends Fetcher<AssetVersion> {
     public AssetVersion fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Assets/{AssetSid}/Versions/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"AssetSid"+"}", this.assetSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"AssetSid"+"}", this.pathAssetSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

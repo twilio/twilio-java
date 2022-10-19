@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class MemberReader extends Reader<Member> {
-    private String queueSid;
-    private String accountSid;
+    private String pathQueueSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public MemberReader(final String queueSid){
-        this.queueSid = queueSid;
+    public MemberReader(final String pathQueueSid){
+        this.pathQueueSid = pathQueueSid;
     }
-    public MemberReader(final String accountSid, final String queueSid){
-        this.accountSid = accountSid;
-        this.queueSid = queueSid;
+    public MemberReader(final String pathAccountSid, final String pathQueueSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
     }
 
     public MemberReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class MemberReader extends Reader<Member> {
 
     public Page<Member> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"QueueSid"+"}", this.queueSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"QueueSid"+"}", this.pathQueueSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

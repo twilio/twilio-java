@@ -46,12 +46,12 @@ public class Flow extends Resource {
     private static final long serialVersionUID = 8879052558661L;
 
 
-    public static FlowFetcher fetcher(final String sid){
-        return new FlowFetcher(sid);
+    public static FlowFetcher fetcher(final String pathSid){
+        return new FlowFetcher(pathSid);
     }
 
-    public static FlowDeleter deleter(final String sid){
-        return new FlowDeleter(sid);
+    public static FlowDeleter deleter(final String pathSid){
+        return new FlowDeleter(pathSid);
     }
 
     public static FlowReader reader(){

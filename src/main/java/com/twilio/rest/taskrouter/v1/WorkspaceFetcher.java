@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class WorkspaceFetcher extends Fetcher<Workspace> {
-    private String sid;
+    private String pathSid;
 
-    public WorkspaceFetcher(final String sid){
-        this.sid = sid;
+    public WorkspaceFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class WorkspaceFetcher extends Fetcher<Workspace> {
     public Workspace fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

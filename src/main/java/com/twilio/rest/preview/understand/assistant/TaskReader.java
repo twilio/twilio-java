@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class TaskReader extends Reader<Task> {
-    private String assistantSid;
+    private String pathAssistantSid;
     private Integer pageSize;
 
-    public TaskReader(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public TaskReader(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public TaskReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class TaskReader extends Reader<Task> {
 
     public Page<Task> firstPage(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/Tasks";
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

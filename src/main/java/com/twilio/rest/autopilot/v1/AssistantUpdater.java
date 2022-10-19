@@ -32,7 +32,7 @@ import java.util.Map;
 
 
 public class AssistantUpdater extends Updater<Assistant>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private Boolean logQueries;
     private String uniqueName;
@@ -42,8 +42,8 @@ public class AssistantUpdater extends Updater<Assistant>{
     private Map<String, Object> defaults;
     private String developmentStage;
 
-    public AssistantUpdater(final String sid){
-        this.sid = sid;
+    public AssistantUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public AssistantUpdater setFriendlyName(final String friendlyName){
@@ -87,7 +87,7 @@ public class AssistantUpdater extends Updater<Assistant>{
     public Assistant update(final TwilioRestClient client){
         String path = "/v1/Assistants/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

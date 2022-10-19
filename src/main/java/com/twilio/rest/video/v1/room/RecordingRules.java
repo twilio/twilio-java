@@ -44,14 +44,14 @@ public class RecordingRules extends Resource {
     private static final long serialVersionUID = 215198002775360L;
 
 
-    public static RecordingRulesFetcher fetcher(final String roomSid){
-        return new RecordingRulesFetcher(roomSid);
+    public static RecordingRulesFetcher fetcher(final String pathRoomSid){
+        return new RecordingRulesFetcher(pathRoomSid);
     }
 
 
 
-    public static RecordingRulesUpdater updater(final String roomSid){
-        return new RecordingRulesUpdater(roomSid);
+    public static RecordingRulesUpdater updater(final String pathRoomSid){
+        return new RecordingRulesUpdater(pathRoomSid);
     }
 
     /**

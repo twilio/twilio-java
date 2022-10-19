@@ -43,8 +43,8 @@ public class BrandedChannel extends Resource {
     private static final long serialVersionUID = 197274082532223L;
 
 
-    public static BrandedChannelFetcher fetcher(final String sid){
-        return new BrandedChannelFetcher(sid);
+    public static BrandedChannelFetcher fetcher(final String pathSid){
+        return new BrandedChannelFetcher(pathSid);
     }
 
 

@@ -46,24 +46,24 @@ import java.util.Map;
 public class Message extends Resource {
     private static final long serialVersionUID = 122316154402216L;
 
-    public static MessageCreator creator(final String chatServiceSid, final String conversationSid){
-        return new MessageCreator(chatServiceSid, conversationSid);
+    public static MessageCreator creator(final String pathChatServiceSid, final String pathConversationSid){
+        return new MessageCreator(pathChatServiceSid, pathConversationSid);
     }
 
-    public static MessageFetcher fetcher(final String chatServiceSid, final String conversationSid, final String sid){
-        return new MessageFetcher(chatServiceSid, conversationSid, sid);
+    public static MessageFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static MessageDeleter deleter(final String chatServiceSid, final String conversationSid, final String sid){
-        return new MessageDeleter(chatServiceSid, conversationSid, sid);
+    public static MessageDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageDeleter(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static MessageReader reader(final String chatServiceSid, final String conversationSid){
-        return new MessageReader(chatServiceSid, conversationSid);
+    public static MessageReader reader(final String pathChatServiceSid, final String pathConversationSid){
+        return new MessageReader(pathChatServiceSid, pathConversationSid);
     }
 
-    public static MessageUpdater updater(final String chatServiceSid, final String conversationSid, final String sid){
-        return new MessageUpdater(chatServiceSid, conversationSid, sid);
+    public static MessageUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageUpdater(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     /**

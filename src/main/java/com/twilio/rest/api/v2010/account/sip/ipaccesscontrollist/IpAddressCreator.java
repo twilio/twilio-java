@@ -28,20 +28,20 @@ import com.twilio.rest.Domains;
 
 
 public class IpAddressCreator extends Creator<IpAddress>{
-    private String ipAccessControlListSid;
+    private String pathIpAccessControlListSid;
     private String friendlyName;
     private String ipAddress;
-    private String accountSid;
+    private String pathAccountSid;
     private Integer cidrPrefixLength;
 
-    public IpAddressCreator(final String ipAccessControlListSid, final String friendlyName, final String ipAddress) {
-        this.ipAccessControlListSid = ipAccessControlListSid;
+    public IpAddressCreator(final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress) {
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
     }
-    public IpAddressCreator(final String accountSid, final String ipAccessControlListSid, final String friendlyName, final String ipAddress) {
-        this.accountSid = accountSid;
-        this.ipAccessControlListSid = ipAccessControlListSid;
+    public IpAddressCreator(final String pathAccountSid, final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.friendlyName = friendlyName;
         this.ipAddress = ipAddress;
     }
@@ -63,9 +63,9 @@ public class IpAddressCreator extends Creator<IpAddress>{
     public IpAddress create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"IpAccessControlListSid"+"}", this.ipAccessControlListSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"IpAccessControlListSid"+"}", this.pathIpAccessControlListSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
         path = path.replace("{"+"IpAddress"+"}", this.ipAddress.toString());
 

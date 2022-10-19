@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class CompositionHookFetcher extends Fetcher<CompositionHook> {
-    private String sid;
+    private String pathSid;
 
-    public CompositionHookFetcher(final String sid){
-        this.sid = sid;
+    public CompositionHookFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class CompositionHookFetcher extends Fetcher<CompositionHook> {
     public CompositionHook fetch(final TwilioRestClient client) {
         String path = "/v1/CompositionHooks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

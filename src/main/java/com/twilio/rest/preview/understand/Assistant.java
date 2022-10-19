@@ -48,20 +48,20 @@ public class Assistant extends Resource {
         return new AssistantCreator();
     }
 
-    public static AssistantFetcher fetcher(final String sid){
-        return new AssistantFetcher(sid);
+    public static AssistantFetcher fetcher(final String pathSid){
+        return new AssistantFetcher(pathSid);
     }
 
-    public static AssistantDeleter deleter(final String sid){
-        return new AssistantDeleter(sid);
+    public static AssistantDeleter deleter(final String pathSid){
+        return new AssistantDeleter(pathSid);
     }
 
     public static AssistantReader reader(){
         return new AssistantReader();
     }
 
-    public static AssistantUpdater updater(final String sid){
-        return new AssistantUpdater(sid);
+    public static AssistantUpdater updater(final String pathSid){
+        return new AssistantUpdater(pathSid);
     }
 
     /**

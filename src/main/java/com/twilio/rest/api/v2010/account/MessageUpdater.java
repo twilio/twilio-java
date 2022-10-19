@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class MessageUpdater extends Updater<Message>{
-    private String sid;
-    private String accountSid;
+    private String pathSid;
+    private String pathAccountSid;
     private String body;
     private Message.UpdateStatus status;
 
-    public MessageUpdater(final String sid){
-        this.sid = sid;
+    public MessageUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public MessageUpdater(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public MessageUpdater(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     public MessageUpdater setBody(final String body){
@@ -54,9 +54,9 @@ public class MessageUpdater extends Updater<Message>{
     public Message update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

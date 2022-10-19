@@ -54,8 +54,8 @@ public class Monthly extends Resource {
     public static MonthlyReader reader(){
         return new MonthlyReader();
     }
-    public static MonthlyReader reader(final String accountSid){
-        return new MonthlyReader(accountSid);
+    public static MonthlyReader reader(final String pathAccountSid){
+        return new MonthlyReader(pathAccountSid);
     }
 
 

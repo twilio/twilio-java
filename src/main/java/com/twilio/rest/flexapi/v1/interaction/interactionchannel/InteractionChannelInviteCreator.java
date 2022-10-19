@@ -32,13 +32,13 @@ import java.util.Map;
 
 
 public class InteractionChannelInviteCreator extends Creator<InteractionChannelInvite>{
-    private String interactionSid;
-    private String channelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private Map<String, Object> routing;
 
-    public InteractionChannelInviteCreator(final String interactionSid, final String channelSid, final Map<String, Object> routing) {
-        this.interactionSid = interactionSid;
-        this.channelSid = channelSid;
+    public InteractionChannelInviteCreator(final String pathInteractionSid, final String pathChannelSid, final Map<String, Object> routing) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
         this.routing = routing;
     }
 
@@ -51,8 +51,8 @@ public class InteractionChannelInviteCreator extends Creator<InteractionChannelI
     public InteractionChannelInvite create(final TwilioRestClient client){
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Invites";
 
-        path = path.replace("{"+"InteractionSid"+"}", this.interactionSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"InteractionSid"+"}", this.pathInteractionSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
         path = path.replace("{"+"Routing"+"}", this.routing.toString());
 
         Request request = new Request(

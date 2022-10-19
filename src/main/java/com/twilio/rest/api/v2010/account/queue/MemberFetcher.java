@@ -28,18 +28,18 @@ import com.twilio.rest.Domains;
 
 
 public class MemberFetcher extends Fetcher<Member> {
-    private String queueSid;
-    private String callSid;
-    private String accountSid;
+    private String pathQueueSid;
+    private String pathCallSid;
+    private String pathAccountSid;
 
-    public MemberFetcher(final String queueSid, final String callSid){
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+    public MemberFetcher(final String pathQueueSid, final String pathCallSid){
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
     }
-    public MemberFetcher(final String accountSid, final String queueSid, final String callSid){
-        this.accountSid = accountSid;
-        this.queueSid = queueSid;
-        this.callSid = callSid;
+    public MemberFetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathQueueSid = pathQueueSid;
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -47,10 +47,10 @@ public class MemberFetcher extends Fetcher<Member> {
     public Member fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"QueueSid"+"}", this.queueSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"QueueSid"+"}", this.pathQueueSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

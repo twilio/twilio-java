@@ -45,8 +45,8 @@ public class WorkflowCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 209789504024863L;
 
 
-    public static WorkflowCumulativeStatisticsFetcher fetcher(final String workspaceSid, final String workflowSid){
-        return new WorkflowCumulativeStatisticsFetcher(workspaceSid, workflowSid);
+    public static WorkflowCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
+        return new WorkflowCumulativeStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
     }
 
 

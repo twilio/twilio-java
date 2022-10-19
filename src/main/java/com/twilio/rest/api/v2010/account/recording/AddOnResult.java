@@ -45,25 +45,25 @@ public class AddOnResult extends Resource {
     private static final long serialVersionUID = 121199532836736L;
 
 
-    public static AddOnResultFetcher fetcher(final String referenceSid, final String sid){
-        return new AddOnResultFetcher(referenceSid, sid);
+    public static AddOnResultFetcher fetcher(final String pathReferenceSid, final String pathSid){
+        return new AddOnResultFetcher(pathReferenceSid, pathSid);
     }
-    public static AddOnResultFetcher fetcher(final String accountSid, final String referenceSid, final String sid){
-        return new AddOnResultFetcher(accountSid, referenceSid, sid);
-    }
-
-    public static AddOnResultDeleter deleter(final String referenceSid, final String sid){
-        return new AddOnResultDeleter(referenceSid, sid);
-    }
-    public static AddOnResultDeleter deleter(final String accountSid, final String referenceSid, final String sid){
-        return new AddOnResultDeleter(accountSid, referenceSid, sid);
+    public static AddOnResultFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
+        return new AddOnResultFetcher(pathAccountSid, pathReferenceSid, pathSid);
     }
 
-    public static AddOnResultReader reader(final String referenceSid){
-        return new AddOnResultReader(referenceSid);
+    public static AddOnResultDeleter deleter(final String pathReferenceSid, final String pathSid){
+        return new AddOnResultDeleter(pathReferenceSid, pathSid);
     }
-    public static AddOnResultReader reader(final String accountSid, final String referenceSid){
-        return new AddOnResultReader(accountSid, referenceSid);
+    public static AddOnResultDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
+        return new AddOnResultDeleter(pathAccountSid, pathReferenceSid, pathSid);
+    }
+
+    public static AddOnResultReader reader(final String pathReferenceSid){
+        return new AddOnResultReader(pathReferenceSid);
+    }
+    public static AddOnResultReader reader(final String pathAccountSid, final String pathReferenceSid){
+        return new AddOnResultReader(pathAccountSid, pathReferenceSid);
     }
 
 

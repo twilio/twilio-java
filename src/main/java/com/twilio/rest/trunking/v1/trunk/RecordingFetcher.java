@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class RecordingFetcher extends Fetcher<Recording> {
-    private String trunkSid;
+    private String pathTrunkSid;
 
-    public RecordingFetcher(final String trunkSid){
-        this.trunkSid = trunkSid;
+    public RecordingFetcher(final String pathTrunkSid){
+        this.pathTrunkSid = pathTrunkSid;
     }
 
 
@@ -39,7 +39,7 @@ public class RecordingFetcher extends Fetcher<Recording> {
     public Recording fetch(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/Recording";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

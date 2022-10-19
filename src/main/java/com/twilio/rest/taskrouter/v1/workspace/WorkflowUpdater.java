@@ -30,8 +30,8 @@ import java.net.URI;
 
 
 public class WorkflowUpdater extends Updater<Workflow>{
-    private String workspaceSid;
-    private String sid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String friendlyName;
     private URI assignmentCallbackUrl;
     private URI fallbackAssignmentCallbackUrl;
@@ -39,9 +39,9 @@ public class WorkflowUpdater extends Updater<Workflow>{
     private Integer taskReservationTimeout;
     private String reEvaluateTasks;
 
-    public WorkflowUpdater(final String workspaceSid, final String sid){
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public WorkflowUpdater(final String pathWorkspaceSid, final String pathSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     public WorkflowUpdater setFriendlyName(final String friendlyName){
@@ -81,8 +81,8 @@ public class WorkflowUpdater extends Updater<Workflow>{
     public Workflow update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

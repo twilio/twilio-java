@@ -47,8 +47,8 @@ public class ParticipantConversation extends Resource {
 
 
 
-    public static ParticipantConversationReader reader(final String chatServiceSid){
-        return new ParticipantConversationReader(chatServiceSid);
+    public static ParticipantConversationReader reader(final String pathChatServiceSid){
+        return new ParticipantConversationReader(pathChatServiceSid);
     }
 
 

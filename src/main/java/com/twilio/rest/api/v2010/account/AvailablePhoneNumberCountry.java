@@ -43,19 +43,19 @@ public class AvailablePhoneNumberCountry extends Resource {
     private static final long serialVersionUID = 173167903952303L;
 
 
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String countryCode){
-        return new AvailablePhoneNumberCountryFetcher(countryCode);
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode){
+        return new AvailablePhoneNumberCountryFetcher(pathCountryCode);
     }
-    public static AvailablePhoneNumberCountryFetcher fetcher(final String accountSid, final String countryCode){
-        return new AvailablePhoneNumberCountryFetcher(accountSid, countryCode);
+    public static AvailablePhoneNumberCountryFetcher fetcher(final String pathAccountSid, final String pathCountryCode){
+        return new AvailablePhoneNumberCountryFetcher(pathAccountSid, pathCountryCode);
     }
 
 
     public static AvailablePhoneNumberCountryReader reader(){
         return new AvailablePhoneNumberCountryReader();
     }
-    public static AvailablePhoneNumberCountryReader reader(final String accountSid){
-        return new AvailablePhoneNumberCountryReader(accountSid);
+    public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid){
+        return new AvailablePhoneNumberCountryReader(pathAccountSid);
     }
 
 

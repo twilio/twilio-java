@@ -44,24 +44,24 @@ import java.util.Map;
 public class User extends Resource {
     private static final long serialVersionUID = 136391609300437L;
 
-    public static UserCreator creator(final String serviceSid, final String identity){
-        return new UserCreator(serviceSid, identity);
+    public static UserCreator creator(final String pathServiceSid, final String identity){
+        return new UserCreator(pathServiceSid, identity);
     }
 
-    public static UserFetcher fetcher(final String serviceSid, final String sid){
-        return new UserFetcher(serviceSid, sid);
+    public static UserFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new UserFetcher(pathServiceSid, pathSid);
     }
 
-    public static UserDeleter deleter(final String serviceSid, final String sid){
-        return new UserDeleter(serviceSid, sid);
+    public static UserDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new UserDeleter(pathServiceSid, pathSid);
     }
 
-    public static UserReader reader(final String serviceSid){
-        return new UserReader(serviceSid);
+    public static UserReader reader(final String pathServiceSid){
+        return new UserReader(pathServiceSid);
     }
 
-    public static UserUpdater updater(final String serviceSid, final String sid){
-        return new UserUpdater(serviceSid, sid);
+    public static UserUpdater updater(final String pathServiceSid, final String pathSid){
+        return new UserUpdater(pathServiceSid, pathSid);
     }
 
     /**

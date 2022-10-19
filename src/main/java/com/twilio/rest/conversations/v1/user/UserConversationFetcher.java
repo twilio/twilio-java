@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class UserConversationFetcher extends Fetcher<UserConversation> {
-    private String userSid;
-    private String conversationSid;
+    private String pathUserSid;
+    private String pathConversationSid;
 
-    public UserConversationFetcher(final String userSid, final String conversationSid){
-        this.userSid = userSid;
-        this.conversationSid = conversationSid;
+    public UserConversationFetcher(final String pathUserSid, final String pathConversationSid){
+        this.pathUserSid = pathUserSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
 
@@ -41,8 +41,8 @@ public class UserConversationFetcher extends Fetcher<UserConversation> {
     public UserConversation fetch(final TwilioRestClient client) {
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

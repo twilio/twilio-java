@@ -42,20 +42,20 @@ import java.util.Objects;
 public class CustomerProfilesChannelEndpointAssignment extends Resource {
     private static final long serialVersionUID = 18267773562551L;
 
-    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String customerProfileSid, final String channelEndpointType, final String channelEndpointSid){
-        return new CustomerProfilesChannelEndpointAssignmentCreator(customerProfileSid, channelEndpointType, channelEndpointSid);
+    public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid){
+        return new CustomerProfilesChannelEndpointAssignmentCreator(pathCustomerProfileSid, channelEndpointType, channelEndpointSid);
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String customerProfileSid, final String sid){
-        return new CustomerProfilesChannelEndpointAssignmentFetcher(customerProfileSid, sid);
+    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesChannelEndpointAssignmentFetcher(pathCustomerProfileSid, pathSid);
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String customerProfileSid, final String sid){
-        return new CustomerProfilesChannelEndpointAssignmentDeleter(customerProfileSid, sid);
+    public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesChannelEndpointAssignmentDeleter(pathCustomerProfileSid, pathSid);
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String customerProfileSid){
-        return new CustomerProfilesChannelEndpointAssignmentReader(customerProfileSid);
+    public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathCustomerProfileSid){
+        return new CustomerProfilesChannelEndpointAssignmentReader(pathCustomerProfileSid);
     }
 
 

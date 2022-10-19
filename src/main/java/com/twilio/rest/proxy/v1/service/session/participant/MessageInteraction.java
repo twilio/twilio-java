@@ -44,20 +44,20 @@ import java.util.Objects;
 public class MessageInteraction extends Resource {
     private static final long serialVersionUID = 183572948894378L;
 
-    public static MessageInteractionCreator creator(final String serviceSid, final String sessionSid, final String participantSid, final String body){
-        return new MessageInteractionCreator(serviceSid, sessionSid, participantSid, body);
+    public static MessageInteractionCreator creator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String body){
+        return new MessageInteractionCreator(pathServiceSid, pathSessionSid, pathParticipantSid, body);
     }
-    public static MessageInteractionCreator creator(final String serviceSid, final String sessionSid, final String participantSid, final List<URI> mediaUrl){
-        return new MessageInteractionCreator(serviceSid, sessionSid, participantSid, mediaUrl);
-    }
-
-    public static MessageInteractionFetcher fetcher(final String serviceSid, final String sessionSid, final String participantSid, final String sid){
-        return new MessageInteractionFetcher(serviceSid, sessionSid, participantSid, sid);
+    public static MessageInteractionCreator creator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final List<URI> mediaUrl){
+        return new MessageInteractionCreator(pathServiceSid, pathSessionSid, pathParticipantSid, mediaUrl);
     }
 
+    public static MessageInteractionFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String pathSid){
+        return new MessageInteractionFetcher(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid);
+    }
 
-    public static MessageInteractionReader reader(final String serviceSid, final String sessionSid, final String participantSid){
-        return new MessageInteractionReader(serviceSid, sessionSid, participantSid);
+
+    public static MessageInteractionReader reader(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid){
+        return new MessageInteractionReader(pathServiceSid, pathSessionSid, pathParticipantSid);
     }
 
 

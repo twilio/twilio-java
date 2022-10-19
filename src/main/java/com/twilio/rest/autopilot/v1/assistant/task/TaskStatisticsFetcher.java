@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
-    private String assistantSid;
-    private String taskSid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
 
-    public TaskStatisticsFetcher(final String assistantSid, final String taskSid){
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
+    public TaskStatisticsFetcher(final String pathAssistantSid, final String pathTaskSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
     }
 
 
@@ -41,8 +41,8 @@ public class TaskStatisticsFetcher extends Fetcher<TaskStatistics> {
     public TaskStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Statistics";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

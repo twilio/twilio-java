@@ -46,36 +46,36 @@ public class IpAccessControlList extends Resource {
     public static IpAccessControlListCreator creator(final String friendlyName){
         return new IpAccessControlListCreator(friendlyName);
     }
-    public static IpAccessControlListCreator creator(final String accountSid, final String friendlyName){
-        return new IpAccessControlListCreator(accountSid, friendlyName);
+    public static IpAccessControlListCreator creator(final String pathAccountSid, final String friendlyName){
+        return new IpAccessControlListCreator(pathAccountSid, friendlyName);
     }
 
-    public static IpAccessControlListFetcher fetcher(final String sid){
-        return new IpAccessControlListFetcher(sid);
+    public static IpAccessControlListFetcher fetcher(final String pathSid){
+        return new IpAccessControlListFetcher(pathSid);
     }
-    public static IpAccessControlListFetcher fetcher(final String accountSid, final String sid){
-        return new IpAccessControlListFetcher(accountSid, sid);
+    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new IpAccessControlListFetcher(pathAccountSid, pathSid);
     }
 
-    public static IpAccessControlListDeleter deleter(final String sid){
-        return new IpAccessControlListDeleter(sid);
+    public static IpAccessControlListDeleter deleter(final String pathSid){
+        return new IpAccessControlListDeleter(pathSid);
     }
-    public static IpAccessControlListDeleter deleter(final String accountSid, final String sid){
-        return new IpAccessControlListDeleter(accountSid, sid);
+    public static IpAccessControlListDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new IpAccessControlListDeleter(pathAccountSid, pathSid);
     }
 
     public static IpAccessControlListReader reader(){
         return new IpAccessControlListReader();
     }
-    public static IpAccessControlListReader reader(final String accountSid){
-        return new IpAccessControlListReader(accountSid);
+    public static IpAccessControlListReader reader(final String pathAccountSid){
+        return new IpAccessControlListReader(pathAccountSid);
     }
 
-    public static IpAccessControlListUpdater updater(final String sid, final String friendlyName){
-        return new IpAccessControlListUpdater(sid, friendlyName);
+    public static IpAccessControlListUpdater updater(final String pathSid, final String friendlyName){
+        return new IpAccessControlListUpdater(pathSid, friendlyName);
     }
-    public static IpAccessControlListUpdater updater(final String accountSid, final String sid, final String friendlyName){
-        return new IpAccessControlListUpdater(accountSid, sid, friendlyName);
+    public static IpAccessControlListUpdater updater(final String pathAccountSid, final String pathSid, final String friendlyName){
+        return new IpAccessControlListUpdater(pathAccountSid, pathSid, friendlyName);
     }
 
     /**

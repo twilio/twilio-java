@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthRegistrationsCredentialListMapping>{
-    private String domainSid;
+    private String pathDomainSid;
     private String credentialListSid;
-    private String accountSid;
+    private String pathAccountSid;
 
-    public AuthRegistrationsCredentialListMappingCreator(final String domainSid, final String credentialListSid) {
-        this.domainSid = domainSid;
+    public AuthRegistrationsCredentialListMappingCreator(final String pathDomainSid, final String credentialListSid) {
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
-    public AuthRegistrationsCredentialListMappingCreator(final String accountSid, final String domainSid, final String credentialListSid) {
-        this.accountSid = accountSid;
-        this.domainSid = domainSid;
+    public AuthRegistrationsCredentialListMappingCreator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathDomainSid = pathDomainSid;
         this.credentialListSid = credentialListSid;
     }
 
@@ -51,9 +51,9 @@ public class AuthRegistrationsCredentialListMappingCreator extends Creator<AuthR
     public AuthRegistrationsCredentialListMapping create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"DomainSid"+"}", this.domainSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
         path = path.replace("{"+"CredentialListSid"+"}", this.credentialListSid.toString());
 
         Request request = new Request(

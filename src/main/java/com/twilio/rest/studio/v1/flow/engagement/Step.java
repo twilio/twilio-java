@@ -45,13 +45,13 @@ public class Step extends Resource {
     private static final long serialVersionUID = 7112234025465L;
 
 
-    public static StepFetcher fetcher(final String flowSid, final String engagementSid, final String sid){
-        return new StepFetcher(flowSid, engagementSid, sid);
+    public static StepFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid){
+        return new StepFetcher(pathFlowSid, pathEngagementSid, pathSid);
     }
 
 
-    public static StepReader reader(final String flowSid, final String engagementSid){
-        return new StepReader(flowSid, engagementSid);
+    public static StepReader reader(final String pathFlowSid, final String pathEngagementSid){
+        return new StepReader(pathFlowSid, pathEngagementSid);
     }
 
 

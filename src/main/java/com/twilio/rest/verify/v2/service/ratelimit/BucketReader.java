@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class BucketReader extends Reader<Bucket> {
-    private String serviceSid;
-    private String rateLimitSid;
+    private String pathServiceSid;
+    private String pathRateLimitSid;
     private Integer pageSize;
 
-    public BucketReader(final String serviceSid, final String rateLimitSid){
-        this.serviceSid = serviceSid;
-        this.rateLimitSid = rateLimitSid;
+    public BucketReader(final String pathServiceSid, final String pathRateLimitSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathRateLimitSid = pathRateLimitSid;
     }
 
     public BucketReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class BucketReader extends Reader<Bucket> {
 
     public Page<Bucket> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"RateLimitSid"+"}", this.rateLimitSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"RateLimitSid"+"}", this.pathRateLimitSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

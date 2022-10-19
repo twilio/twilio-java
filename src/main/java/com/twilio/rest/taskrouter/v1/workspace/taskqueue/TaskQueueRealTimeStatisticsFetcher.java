@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTimeStatistics> {
-    private String workspaceSid;
-    private String taskQueueSid;
+    private String pathWorkspaceSid;
+    private String pathTaskQueueSid;
     private String taskChannel;
 
-    public TaskQueueRealTimeStatisticsFetcher(final String workspaceSid, final String taskQueueSid){
-        this.workspaceSid = workspaceSid;
-        this.taskQueueSid = taskQueueSid;
+    public TaskQueueRealTimeStatisticsFetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskQueueSid = pathTaskQueueSid;
     }
 
     public TaskQueueRealTimeStatisticsFetcher setTaskChannel(final String taskChannel){
@@ -46,8 +46,8 @@ public class TaskQueueRealTimeStatisticsFetcher extends Fetcher<TaskQueueRealTim
     public TaskQueueRealTimeStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/RealTimeStatistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"TaskQueueSid"+"}", this.taskQueueSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"TaskQueueSid"+"}", this.pathTaskQueueSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

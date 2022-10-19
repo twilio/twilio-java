@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class AlertFetcher extends Fetcher<Alert> {
-    private String sid;
+    private String pathSid;
 
-    public AlertFetcher(final String sid){
-        this.sid = sid;
+    public AlertFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class AlertFetcher extends Fetcher<Alert> {
     public Alert fetch(final TwilioRestClient client) {
         String path = "/v1/Alerts/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

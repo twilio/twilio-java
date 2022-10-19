@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class DayReader extends Reader<Day> {
-    private String resourceType;
+    private String pathResourceType;
     private Integer pageSize;
 
-    public DayReader(final String resourceType){
-        this.resourceType = resourceType;
+    public DayReader(final String pathResourceType){
+        this.pathResourceType = pathResourceType;
     }
 
     public DayReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class DayReader extends Reader<Day> {
 
     public Page<Day> firstPage(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Days";
-        path = path.replace("{"+"ResourceType"+"}", this.resourceType.toString());
+        path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
 
         Request request = new Request(
             HttpMethod.GET,

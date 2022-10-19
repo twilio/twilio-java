@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
-    private String messagingServiceSid;
+    private String pathMessagingServiceSid;
     private String brandRegistrationSid;
 
-    public UsAppToPersonUsecaseFetcher(final String messagingServiceSid){
-        this.messagingServiceSid = messagingServiceSid;
+    public UsAppToPersonUsecaseFetcher(final String pathMessagingServiceSid){
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
     public UsAppToPersonUsecaseFetcher setBrandRegistrationSid(final String brandRegistrationSid){
@@ -44,7 +44,7 @@ public class UsAppToPersonUsecaseFetcher extends Fetcher<UsAppToPersonUsecase> {
     public UsAppToPersonUsecase fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/Usecases";
 
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
+        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

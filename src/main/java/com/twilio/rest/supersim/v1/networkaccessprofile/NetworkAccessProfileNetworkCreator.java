@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class NetworkAccessProfileNetworkCreator extends Creator<NetworkAccessProfileNetwork>{
-    private String networkAccessProfileSid;
+    private String pathNetworkAccessProfileSid;
     private String network;
 
-    public NetworkAccessProfileNetworkCreator(final String networkAccessProfileSid, final String network) {
-        this.networkAccessProfileSid = networkAccessProfileSid;
+    public NetworkAccessProfileNetworkCreator(final String pathNetworkAccessProfileSid, final String network) {
+        this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
         this.network = network;
     }
 
@@ -45,7 +45,7 @@ public class NetworkAccessProfileNetworkCreator extends Creator<NetworkAccessPro
     public NetworkAccessProfileNetwork create(final TwilioRestClient client){
         String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.networkAccessProfileSid.toString());
+        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.pathNetworkAccessProfileSid.toString());
         path = path.replace("{"+"Network"+"}", this.network.toString());
 
         Request request = new Request(

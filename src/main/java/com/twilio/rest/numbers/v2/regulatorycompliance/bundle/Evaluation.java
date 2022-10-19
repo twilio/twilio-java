@@ -46,17 +46,17 @@ import java.util.Map;
 public class Evaluation extends Resource {
     private static final long serialVersionUID = 28761307513576L;
 
-    public static EvaluationCreator creator(final String bundleSid){
-        return new EvaluationCreator(bundleSid);
+    public static EvaluationCreator creator(final String pathBundleSid){
+        return new EvaluationCreator(pathBundleSid);
     }
 
-    public static EvaluationFetcher fetcher(final String bundleSid, final String sid){
-        return new EvaluationFetcher(bundleSid, sid);
+    public static EvaluationFetcher fetcher(final String pathBundleSid, final String pathSid){
+        return new EvaluationFetcher(pathBundleSid, pathSid);
     }
 
 
-    public static EvaluationReader reader(final String bundleSid){
-        return new EvaluationReader(bundleSid);
+    public static EvaluationReader reader(final String pathBundleSid){
+        return new EvaluationReader(pathBundleSid);
     }
 
 

@@ -46,8 +46,8 @@ public class Token extends Resource {
     public static TokenCreator creator(){
         return new TokenCreator();
     }
-    public static TokenCreator creator(final String accountSid){
-        return new TokenCreator(accountSid);
+    public static TokenCreator creator(final String pathAccountSid){
+        return new TokenCreator(pathAccountSid);
     }
 
 

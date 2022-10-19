@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class RateLimitReader extends Reader<RateLimit> {
-    private String serviceSid;
+    private String pathServiceSid;
     private Integer pageSize;
 
-    public RateLimitReader(final String serviceSid){
-        this.serviceSid = serviceSid;
+    public RateLimitReader(final String pathServiceSid){
+        this.pathServiceSid = pathServiceSid;
     }
 
     public RateLimitReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class RateLimitReader extends Reader<RateLimit> {
 
     public Page<RateLimit> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/RateLimits";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

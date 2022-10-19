@@ -29,14 +29,14 @@ import com.twilio.base.Page;
 
 
 public class ReservationReader extends Reader<Reservation> {
-    private String workspaceSid;
-    private String taskSid;
+    private String pathWorkspaceSid;
+    private String pathTaskSid;
     private Reservation.Status reservationStatus;
     private Integer pageSize;
 
-    public ReservationReader(final String workspaceSid, final String taskSid){
-        this.workspaceSid = workspaceSid;
-        this.taskSid = taskSid;
+    public ReservationReader(final String pathWorkspaceSid, final String pathTaskSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskSid = pathTaskSid;
     }
 
     public ReservationReader setReservationStatus(final Reservation.Status reservationStatus){
@@ -55,8 +55,8 @@ public class ReservationReader extends Reader<Reservation> {
 
     public Page<Reservation> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

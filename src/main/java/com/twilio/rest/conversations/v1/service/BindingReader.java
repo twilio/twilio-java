@@ -31,13 +31,13 @@ import java.util.List;
 
 
 public class BindingReader extends Reader<Binding> {
-    private String chatServiceSid;
+    private String pathChatServiceSid;
     private List<Binding.BindingType> bindingType;
     private List<String> identity;
     private Integer pageSize;
 
-    public BindingReader(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public BindingReader(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
     public BindingReader setBindingType(final List<Binding.BindingType> bindingType){
@@ -66,7 +66,7 @@ public class BindingReader extends Reader<Binding> {
 
     public Page<Binding> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Bindings";
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

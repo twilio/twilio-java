@@ -50,8 +50,8 @@ public class TollfreeVerification extends Resource {
         return new TollfreeVerificationCreator(businessName, businessWebsite, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, tollfreePhoneNumberSid);
     }
 
-    public static TollfreeVerificationFetcher fetcher(final String sid){
-        return new TollfreeVerificationFetcher(sid);
+    public static TollfreeVerificationFetcher fetcher(final String pathSid){
+        return new TollfreeVerificationFetcher(pathSid);
     }
 
 

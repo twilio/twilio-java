@@ -45,8 +45,8 @@ import java.util.Map;
 public class Notification extends Resource {
     private static final long serialVersionUID = 32812550337735L;
 
-    public static NotificationCreator creator(final String serviceSid){
-        return new NotificationCreator(serviceSid);
+    public static NotificationCreator creator(final String pathServiceSid){
+        return new NotificationCreator(pathServiceSid);
     }
 
 

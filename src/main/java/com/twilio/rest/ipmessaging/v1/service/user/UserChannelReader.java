@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class UserChannelReader extends Reader<UserChannel> {
-    private String serviceSid;
-    private String userSid;
+    private String pathServiceSid;
+    private String pathUserSid;
     private Integer pageSize;
 
-    public UserChannelReader(final String serviceSid, final String userSid){
-        this.serviceSid = serviceSid;
-        this.userSid = userSid;
+    public UserChannelReader(final String pathServiceSid, final String pathUserSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
     }
 
     public UserChannelReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     public Page<UserChannel> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

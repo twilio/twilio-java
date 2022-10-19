@@ -42,8 +42,8 @@ public class BuildStatus extends Resource {
     private static final long serialVersionUID = 254362469094086L;
 
 
-    public static BuildStatusFetcher fetcher(final String serviceSid, final String sid){
-        return new BuildStatusFetcher(serviceSid, sid);
+    public static BuildStatusFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new BuildStatusFetcher(pathServiceSid, pathSid);
     }
 
 

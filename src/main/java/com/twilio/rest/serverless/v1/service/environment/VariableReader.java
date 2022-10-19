@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class VariableReader extends Reader<Variable> {
-    private String serviceSid;
-    private String environmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private Integer pageSize;
 
-    public VariableReader(final String serviceSid, final String environmentSid){
-        this.serviceSid = serviceSid;
-        this.environmentSid = environmentSid;
+    public VariableReader(final String pathServiceSid, final String pathEnvironmentSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
     public VariableReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class VariableReader extends Reader<Variable> {
 
     public Page<Variable> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"EnvironmentSid"+"}", this.environmentSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -45,8 +45,8 @@ public class Event extends Resource {
 
 
 
-    public static EventReader reader(final String callSid){
-        return new EventReader(callSid);
+    public static EventReader reader(final String pathCallSid){
+        return new EventReader(pathCallSid);
     }
 
 

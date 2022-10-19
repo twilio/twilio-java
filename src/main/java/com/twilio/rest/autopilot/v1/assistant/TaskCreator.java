@@ -35,14 +35,14 @@ import java.util.Map;
 import java.net.URI;
 
 public class TaskCreator extends Creator<Task>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private String uniqueName;
     private String friendlyName;
     private Map<String, Object> actions;
     private URI actionsUrl;
 
-    public TaskCreator(final String assistantSid, final String uniqueName) {
-        this.assistantSid = assistantSid;
+    public TaskCreator(final String pathAssistantSid, final String uniqueName) {
+        this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
     }
 
@@ -71,7 +71,7 @@ public class TaskCreator extends Creator<Task>{
     public Task create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Tasks";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
         path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 
         Request request = new Request(

@@ -31,7 +31,7 @@ import com.twilio.converter.DateConverter;
 
 
 public class RecordReader extends Reader<Record> {
-    private String accountSid;
+    private String pathAccountSid;
     private Record.Category category;
     private LocalDate startDate;
     private LocalDate endDate;
@@ -40,8 +40,8 @@ public class RecordReader extends Reader<Record> {
 
     public RecordReader(){
     }
-    public RecordReader(final String accountSid){
-        this.accountSid = accountSid;
+    public RecordReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public RecordReader setCategory(final Record.Category category){
@@ -72,8 +72,8 @@ public class RecordReader extends Reader<Record> {
 
     public Page<Record> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

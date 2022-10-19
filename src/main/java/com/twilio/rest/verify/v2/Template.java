@@ -30,6 +30,7 @@ import lombok.ToString;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,7 +40,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Template extends Resource {
-    private static final long serialVersionUID = 102585197145807L;
+    private static final long serialVersionUID = 229000530855919L;
 
 
 
@@ -89,6 +90,7 @@ public class Template extends Resource {
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
+    private final List<String> channels;
     private final Map<String, Object> translations;
 
     @JsonCreator
@@ -102,12 +104,16 @@ public class Template extends Resource {
         @JsonProperty("friendly_name")
         final String friendlyName,
 
+        @JsonProperty("channels")
+        final List<String> channels,
+
         @JsonProperty("translations")
         final Map<String, Object> translations
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
+        this.channels = channels;
         this.translations = translations;
     }
 
@@ -119,6 +125,9 @@ public class Template extends Resource {
         }
         public final String getFriendlyName() {
             return this.friendlyName;
+        }
+        public final List<String> getChannels() {
+            return this.channels;
         }
         public final Map<String, Object> getTranslations() {
             return this.translations;
@@ -136,12 +145,12 @@ public class Template extends Resource {
 
         Template other = (Template) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(translations, other.translations)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(channels, other.channels) &&  Objects.equals(translations, other.translations)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, friendlyName, translations);
+        return Objects.hash(sid, accountSid, friendlyName, channels, translations);
     }
 
 }

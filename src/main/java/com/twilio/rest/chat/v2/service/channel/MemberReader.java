@@ -31,14 +31,14 @@ import java.util.List;
 
 
 public class MemberReader extends Reader<Member> {
-    private String serviceSid;
-    private String channelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private List<String> identity;
     private Integer pageSize;
 
-    public MemberReader(final String serviceSid, final String channelSid){
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+    public MemberReader(final String pathServiceSid, final String pathChannelSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     public MemberReader setIdentity(final List<String> identity){
@@ -60,8 +60,8 @@ public class MemberReader extends Reader<Member> {
 
     public Page<Member> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

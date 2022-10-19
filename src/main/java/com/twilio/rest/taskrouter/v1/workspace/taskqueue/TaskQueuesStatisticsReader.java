@@ -30,7 +30,7 @@ import java.time.ZonedDateTime;
 
 
 public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private String friendlyName;
     private Integer minutes;
@@ -39,8 +39,8 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
     private String splitByWaitTime;
     private Integer pageSize;
 
-    public TaskQueuesStatisticsReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public TaskQueuesStatisticsReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public TaskQueuesStatisticsReader setEndDate(final ZonedDateTime endDate){
@@ -79,7 +79,7 @@ public class TaskQueuesStatisticsReader extends Reader<TaskQueuesStatistics> {
 
     public Page<TaskQueuesStatistics> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/Statistics";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

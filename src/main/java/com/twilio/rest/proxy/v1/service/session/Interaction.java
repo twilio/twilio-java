@@ -44,16 +44,16 @@ public class Interaction extends Resource {
     private static final long serialVersionUID = 104550389018086L;
 
 
-    public static InteractionFetcher fetcher(final String serviceSid, final String sessionSid, final String sid){
-        return new InteractionFetcher(serviceSid, sessionSid, sid);
+    public static InteractionFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid){
+        return new InteractionFetcher(pathServiceSid, pathSessionSid, pathSid);
     }
 
-    public static InteractionDeleter deleter(final String serviceSid, final String sessionSid, final String sid){
-        return new InteractionDeleter(serviceSid, sessionSid, sid);
+    public static InteractionDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid){
+        return new InteractionDeleter(pathServiceSid, pathSessionSid, pathSid);
     }
 
-    public static InteractionReader reader(final String serviceSid, final String sessionSid){
-        return new InteractionReader(serviceSid, sessionSid);
+    public static InteractionReader reader(final String pathServiceSid, final String pathSessionSid){
+        return new InteractionReader(pathServiceSid, pathSessionSid);
     }
 
 

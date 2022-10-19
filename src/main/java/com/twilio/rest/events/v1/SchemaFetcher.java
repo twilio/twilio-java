@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class SchemaFetcher extends Fetcher<Schema> {
-    private String id;
+    private String pathId;
 
-    public SchemaFetcher(final String id){
-        this.id = id;
+    public SchemaFetcher(final String pathId){
+        this.pathId = pathId;
     }
 
 
@@ -39,7 +39,7 @@ public class SchemaFetcher extends Fetcher<Schema> {
     public Schema fetch(final TwilioRestClient client) {
         String path = "/v1/Schemas/{Id}";
 
-        path = path.replace("{"+"Id"+"}", this.id.toString());
+        path = path.replace("{"+"Id"+"}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.GET,

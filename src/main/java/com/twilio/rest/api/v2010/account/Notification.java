@@ -44,19 +44,19 @@ public class Notification extends Resource {
     private static final long serialVersionUID = 162458167875227L;
 
 
-    public static NotificationFetcher fetcher(final String sid){
-        return new NotificationFetcher(sid);
+    public static NotificationFetcher fetcher(final String pathSid){
+        return new NotificationFetcher(pathSid);
     }
-    public static NotificationFetcher fetcher(final String accountSid, final String sid){
-        return new NotificationFetcher(accountSid, sid);
+    public static NotificationFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new NotificationFetcher(pathAccountSid, pathSid);
     }
 
 
     public static NotificationReader reader(){
         return new NotificationReader();
     }
-    public static NotificationReader reader(final String accountSid){
-        return new NotificationReader(accountSid);
+    public static NotificationReader reader(final String pathAccountSid){
+        return new NotificationReader(pathAccountSid);
     }
 
 

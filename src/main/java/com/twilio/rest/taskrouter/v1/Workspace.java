@@ -49,20 +49,20 @@ public class Workspace extends Resource {
         return new WorkspaceCreator(friendlyName);
     }
 
-    public static WorkspaceFetcher fetcher(final String sid){
-        return new WorkspaceFetcher(sid);
+    public static WorkspaceFetcher fetcher(final String pathSid){
+        return new WorkspaceFetcher(pathSid);
     }
 
-    public static WorkspaceDeleter deleter(final String sid){
-        return new WorkspaceDeleter(sid);
+    public static WorkspaceDeleter deleter(final String pathSid){
+        return new WorkspaceDeleter(pathSid);
     }
 
     public static WorkspaceReader reader(){
         return new WorkspaceReader();
     }
 
-    public static WorkspaceUpdater updater(final String sid){
-        return new WorkspaceUpdater(sid);
+    public static WorkspaceUpdater updater(final String pathSid){
+        return new WorkspaceUpdater(pathSid);
     }
 
     /**

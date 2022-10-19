@@ -28,7 +28,7 @@ import com.twilio.rest.Domains;
 
 
 public class ExportCustomJobCreator extends Creator<ExportCustomJob>{
-    private String resourceType;
+    private String pathResourceType;
     private String startDay;
     private String endDay;
     private String friendlyName;
@@ -36,8 +36,8 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob>{
     private String webhookMethod;
     private String email;
 
-    public ExportCustomJobCreator(final String resourceType, final String startDay, final String endDay, final String friendlyName) {
-        this.resourceType = resourceType;
+    public ExportCustomJobCreator(final String pathResourceType, final String startDay, final String endDay, final String friendlyName) {
+        this.pathResourceType = pathResourceType;
         this.startDay = startDay;
         this.endDay = endDay;
         this.friendlyName = friendlyName;
@@ -72,7 +72,7 @@ public class ExportCustomJobCreator extends Creator<ExportCustomJob>{
     public ExportCustomJob create(final TwilioRestClient client){
         String path = "/v1/Exports/{ResourceType}/Jobs";
 
-        path = path.replace("{"+"ResourceType"+"}", this.resourceType.toString());
+        path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
         path = path.replace("{"+"StartDay"+"}", this.startDay.toString());
         path = path.replace("{"+"EndDay"+"}", this.endDay.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());

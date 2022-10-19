@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class ExecutionUpdater extends Updater<Execution>{
-    private String flowSid;
-    private String sid;
+    private String pathFlowSid;
+    private String pathSid;
     private Execution.Status status;
 
-    public ExecutionUpdater(final String flowSid, final String sid, final Execution.Status status){
-        this.flowSid = flowSid;
-        this.sid = sid;
+    public ExecutionUpdater(final String pathFlowSid, final String pathSid, final Execution.Status status){
+        this.pathFlowSid = pathFlowSid;
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -47,8 +47,8 @@ public class ExecutionUpdater extends Updater<Execution>{
     public Execution update(final TwilioRestClient client){
         String path = "/v1/Flows/{FlowSid}/Executions/{Sid}";
 
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class SimUpdater extends Updater<Sim>{
-    private String sid;
+    private String pathSid;
     private String uniqueName;
     private Sim.StatusUpdate status;
     private String fleet;
@@ -38,8 +38,8 @@ public class SimUpdater extends Updater<Sim>{
     private HttpMethod callbackMethod;
     private String accountSid;
 
-    public SimUpdater(final String sid){
-        this.sid = sid;
+    public SimUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public SimUpdater setUniqueName(final String uniqueName){
@@ -75,7 +75,7 @@ public class SimUpdater extends Updater<Sim>{
     public Sim update(final TwilioRestClient client){
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

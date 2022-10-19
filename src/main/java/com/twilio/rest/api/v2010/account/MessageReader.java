@@ -32,7 +32,7 @@ import java.time.format.DateTimeFormatter;
 
 
 public class MessageReader extends Reader<Message> {
-    private String accountSid;
+    private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
     private ZonedDateTime dateSent;
@@ -42,8 +42,8 @@ public class MessageReader extends Reader<Message> {
 
     public MessageReader(){
     }
-    public MessageReader(final String accountSid){
-        this.accountSid = accountSid;
+    public MessageReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public MessageReader setTo(final com.twilio.type.PhoneNumber to){
@@ -86,8 +86,8 @@ public class MessageReader extends Reader<Message> {
 
     public Page<Message> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

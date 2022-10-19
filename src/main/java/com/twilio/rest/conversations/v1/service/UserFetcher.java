@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class UserFetcher extends Fetcher<User> {
-    private String chatServiceSid;
-    private String sid;
+    private String pathChatServiceSid;
+    private String pathSid;
 
-    public UserFetcher(final String chatServiceSid, final String sid){
-        this.chatServiceSid = chatServiceSid;
-        this.sid = sid;
+    public UserFetcher(final String pathChatServiceSid, final String pathSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class UserFetcher extends Fetcher<User> {
     public User fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Users/{Sid}";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

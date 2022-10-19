@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
-    private String id;
-    private Integer schemaVersion;
+    private String pathId;
+    private Integer pathSchemaVersion;
 
-    public SchemaVersionFetcher(final String id, final Integer schemaVersion){
-        this.id = id;
-        this.schemaVersion = schemaVersion;
+    public SchemaVersionFetcher(final String pathId, final Integer pathSchemaVersion){
+        this.pathId = pathId;
+        this.pathSchemaVersion = pathSchemaVersion;
     }
 
 
@@ -41,8 +41,8 @@ public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
     public SchemaVersion fetch(final TwilioRestClient client) {
         String path = "/v1/Schemas/{Id}/Versions/{SchemaVersion}";
 
-        path = path.replace("{"+"Id"+"}", this.id.toString());
-        path = path.replace("{"+"SchemaVersion"+"}", this.schemaVersion.toString());
+        path = path.replace("{"+"Id"+"}", this.pathId.toString());
+        path = path.replace("{"+"SchemaVersion"+"}", this.pathSchemaVersion.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class QueryCreator extends Creator<Query>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private String language;
     private String query;
     private String tasks;
     private String modelBuild;
 
-    public QueryCreator(final String assistantSid, final String language, final String query) {
-        this.assistantSid = assistantSid;
+    public QueryCreator(final String pathAssistantSid, final String language, final String query) {
+        this.pathAssistantSid = pathAssistantSid;
         this.language = language;
         this.query = query;
     }
@@ -61,7 +61,7 @@ public class QueryCreator extends Creator<Query>{
     public Query create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Queries";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
         path = path.replace("{"+"Language"+"}", this.language.toString());
         path = path.replace("{"+"Query"+"}", this.query.toString());
 

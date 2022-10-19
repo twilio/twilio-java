@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class WebChannelDeleter extends Deleter<WebChannel> {
-    private String sid;
+    private String pathSid;
 
-    public WebChannelDeleter(final String sid){
-        this.sid = sid;
+    public WebChannelDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class WebChannelDeleter extends Deleter<WebChannel> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/WebChannels/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

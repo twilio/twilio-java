@@ -31,19 +31,19 @@ import java.time.format.DateTimeFormatter;
 
 
 public class RecordingReader extends Reader<Recording> {
-    private String callSid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathAccountSid;
     private LocalDate dateCreated;
     private LocalDate dateCreatedBefore;
     private LocalDate dateCreatedAfter;
     private Integer pageSize;
 
-    public RecordingReader(final String callSid){
-        this.callSid = callSid;
+    public RecordingReader(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
-    public RecordingReader(final String accountSid, final String callSid){
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public RecordingReader(final String pathAccountSid, final String pathCallSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     public RecordingReader setDateCreated(final LocalDate dateCreated){
@@ -70,9 +70,9 @@ public class RecordingReader extends Reader<Recording> {
 
     public Page<Recording> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

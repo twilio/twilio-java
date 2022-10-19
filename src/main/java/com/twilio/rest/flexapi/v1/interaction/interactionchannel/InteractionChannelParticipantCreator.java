@@ -32,14 +32,14 @@ import java.util.Map;
 
 
 public class InteractionChannelParticipantCreator extends Creator<InteractionChannelParticipant>{
-    private String interactionSid;
-    private String channelSid;
+    private String pathInteractionSid;
+    private String pathChannelSid;
     private InteractionChannelParticipant.Type type;
     private Map<String, Object> mediaProperties;
 
-    public InteractionChannelParticipantCreator(final String interactionSid, final String channelSid, final InteractionChannelParticipant.Type type, final Map<String, Object> mediaProperties) {
-        this.interactionSid = interactionSid;
-        this.channelSid = channelSid;
+    public InteractionChannelParticipantCreator(final String pathInteractionSid, final String pathChannelSid, final InteractionChannelParticipant.Type type, final Map<String, Object> mediaProperties) {
+        this.pathInteractionSid = pathInteractionSid;
+        this.pathChannelSid = pathChannelSid;
         this.type = type;
         this.mediaProperties = mediaProperties;
     }
@@ -57,8 +57,8 @@ public class InteractionChannelParticipantCreator extends Creator<InteractionCha
     public InteractionChannelParticipant create(final TwilioRestClient client){
         String path = "/v1/Interactions/{InteractionSid}/Channels/{ChannelSid}/Participants";
 
-        path = path.replace("{"+"InteractionSid"+"}", this.interactionSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"InteractionSid"+"}", this.pathInteractionSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
         path = path.replace("{"+"Type"+"}", this.type.toString());
         path = path.replace("{"+"MediaProperties"+"}", this.mediaProperties.toString());
 

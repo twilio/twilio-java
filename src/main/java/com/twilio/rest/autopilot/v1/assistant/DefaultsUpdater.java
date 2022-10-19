@@ -30,11 +30,11 @@ import java.util.Map;
 
 
 public class DefaultsUpdater extends Updater<Defaults>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private Map<String, Object> defaults;
 
-    public DefaultsUpdater(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public DefaultsUpdater(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public DefaultsUpdater setDefaults(final Map<String, Object> defaults){
@@ -46,7 +46,7 @@ public class DefaultsUpdater extends Updater<Defaults>{
     public Defaults update(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Defaults";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

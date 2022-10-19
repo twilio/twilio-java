@@ -47,20 +47,20 @@ public class Sim extends Resource {
     private static final long serialVersionUID = 183328816720636L;
 
 
-    public static SimFetcher fetcher(final String sid){
-        return new SimFetcher(sid);
+    public static SimFetcher fetcher(final String pathSid){
+        return new SimFetcher(pathSid);
     }
 
-    public static SimDeleter deleter(final String sid){
-        return new SimDeleter(sid);
+    public static SimDeleter deleter(final String pathSid){
+        return new SimDeleter(pathSid);
     }
 
     public static SimReader reader(){
         return new SimReader();
     }
 
-    public static SimUpdater updater(final String sid){
-        return new SimUpdater(sid);
+    public static SimUpdater updater(final String pathSid){
+        return new SimUpdater(pathSid);
     }
 
     /**

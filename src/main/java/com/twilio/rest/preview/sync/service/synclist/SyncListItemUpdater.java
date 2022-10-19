@@ -30,16 +30,16 @@ import java.util.Map;
 
 
 public class SyncListItemUpdater extends Updater<SyncListItem>{
-    private String serviceSid;
-    private String listSid;
-    private Integer index;
+    private String pathServiceSid;
+    private String pathListSid;
+    private Integer pathIndex;
     private Map<String, Object> data;
     private String ifMatch;
 
-    public SyncListItemUpdater(final String serviceSid, final String listSid, final Integer index, final Map<String, Object> data){
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
-        this.index = index;
+    public SyncListItemUpdater(final String pathServiceSid, final String pathListSid, final Integer pathIndex, final Map<String, Object> data){
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIndex = pathIndex;
         this.data = data;
     }
 
@@ -56,9 +56,9 @@ public class SyncListItemUpdater extends Updater<SyncListItem>{
     public SyncListItem update(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
-        path = path.replace("{"+"Index"+"}", this.index.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
+        path = path.replace("{"+"Index"+"}", this.pathIndex.toString());
         path = path.replace("{"+"Data"+"}", this.data.toString());
 
         Request request = new Request(

@@ -29,15 +29,15 @@ import java.time.ZonedDateTime;
 
 
 public class UserConversationUpdater extends Updater<UserConversation>{
-    private String userSid;
-    private String conversationSid;
+    private String pathUserSid;
+    private String pathConversationSid;
     private UserConversation.NotificationLevel notificationLevel;
     private ZonedDateTime lastReadTimestamp;
     private Integer lastReadMessageIndex;
 
-    public UserConversationUpdater(final String userSid, final String conversationSid){
-        this.userSid = userSid;
-        this.conversationSid = conversationSid;
+    public UserConversationUpdater(final String pathUserSid, final String pathConversationSid){
+        this.pathUserSid = pathUserSid;
+        this.pathConversationSid = pathConversationSid;
     }
 
     public UserConversationUpdater setNotificationLevel(final UserConversation.NotificationLevel notificationLevel){
@@ -57,8 +57,8 @@ public class UserConversationUpdater extends Updater<UserConversation>{
     public UserConversation update(final TwilioRestClient client){
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

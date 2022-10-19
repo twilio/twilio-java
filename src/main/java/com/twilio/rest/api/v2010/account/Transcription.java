@@ -47,25 +47,25 @@ public class Transcription extends Resource {
     private static final long serialVersionUID = 169453036448500L;
 
 
-    public static TranscriptionFetcher fetcher(final String sid){
-        return new TranscriptionFetcher(sid);
+    public static TranscriptionFetcher fetcher(final String pathSid){
+        return new TranscriptionFetcher(pathSid);
     }
-    public static TranscriptionFetcher fetcher(final String accountSid, final String sid){
-        return new TranscriptionFetcher(accountSid, sid);
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new TranscriptionFetcher(pathAccountSid, pathSid);
     }
 
-    public static TranscriptionDeleter deleter(final String sid){
-        return new TranscriptionDeleter(sid);
+    public static TranscriptionDeleter deleter(final String pathSid){
+        return new TranscriptionDeleter(pathSid);
     }
-    public static TranscriptionDeleter deleter(final String accountSid, final String sid){
-        return new TranscriptionDeleter(accountSid, sid);
+    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new TranscriptionDeleter(pathAccountSid, pathSid);
     }
 
     public static TranscriptionReader reader(){
         return new TranscriptionReader();
     }
-    public static TranscriptionReader reader(final String accountSid){
-        return new TranscriptionReader(accountSid);
+    public static TranscriptionReader reader(final String pathAccountSid){
+        return new TranscriptionReader(pathAccountSid);
     }
 
 

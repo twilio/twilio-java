@@ -44,8 +44,8 @@ public class NewSigningKey extends Resource {
     public static NewSigningKeyCreator creator(){
         return new NewSigningKeyCreator();
     }
-    public static NewSigningKeyCreator creator(final String accountSid){
-        return new NewSigningKeyCreator(accountSid);
+    public static NewSigningKeyCreator creator(final String pathAccountSid){
+        return new NewSigningKeyCreator(pathAccountSid);
     }
 
 

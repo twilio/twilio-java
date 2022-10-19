@@ -42,20 +42,20 @@ import java.util.Objects;
 public class FieldValue extends Resource {
     private static final long serialVersionUID = 181490262234152L;
 
-    public static FieldValueCreator creator(final String assistantSid, final String fieldTypeSid, final String language, final String value){
-        return new FieldValueCreator(assistantSid, fieldTypeSid, language, value);
+    public static FieldValueCreator creator(final String pathAssistantSid, final String pathFieldTypeSid, final String language, final String value){
+        return new FieldValueCreator(pathAssistantSid, pathFieldTypeSid, language, value);
     }
 
-    public static FieldValueFetcher fetcher(final String assistantSid, final String fieldTypeSid, final String sid){
-        return new FieldValueFetcher(assistantSid, fieldTypeSid, sid);
+    public static FieldValueFetcher fetcher(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
+        return new FieldValueFetcher(pathAssistantSid, pathFieldTypeSid, pathSid);
     }
 
-    public static FieldValueDeleter deleter(final String assistantSid, final String fieldTypeSid, final String sid){
-        return new FieldValueDeleter(assistantSid, fieldTypeSid, sid);
+    public static FieldValueDeleter deleter(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
+        return new FieldValueDeleter(pathAssistantSid, pathFieldTypeSid, pathSid);
     }
 
-    public static FieldValueReader reader(final String assistantSid, final String fieldTypeSid){
-        return new FieldValueReader(assistantSid, fieldTypeSid);
+    public static FieldValueReader reader(final String pathAssistantSid, final String pathFieldTypeSid){
+        return new FieldValueReader(pathAssistantSid, pathFieldTypeSid);
     }
 
 

@@ -28,18 +28,18 @@ import com.twilio.rest.Domains;
 
 
 public class NotificationFetcher extends Fetcher<Notification> {
-    private String callSid;
-    private String sid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public NotificationFetcher(final String callSid, final String sid){
-        this.callSid = callSid;
-        this.sid = sid;
+    public NotificationFetcher(final String pathCallSid, final String pathSid){
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
     }
-    public NotificationFetcher(final String accountSid, final String callSid, final String sid){
-        this.accountSid = accountSid;
-        this.callSid = callSid;
-        this.sid = sid;
+    public NotificationFetcher(final String pathAccountSid, final String pathCallSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -47,10 +47,10 @@ public class NotificationFetcher extends Fetcher<Notification> {
     public Notification fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

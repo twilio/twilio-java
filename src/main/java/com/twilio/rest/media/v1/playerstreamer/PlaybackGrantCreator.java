@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class PlaybackGrantCreator extends Creator<PlaybackGrant>{
-    private String sid;
+    private String pathSid;
     private Integer ttl;
     private String accessControlAllowOrigin;
 
-    public PlaybackGrantCreator(final String sid) {
-        this.sid = sid;
+    public PlaybackGrantCreator(final String pathSid) {
+        this.pathSid = pathSid;
     }
 
     public PlaybackGrantCreator setTtl(final Integer ttl){
@@ -49,7 +49,7 @@ public class PlaybackGrantCreator extends Creator<PlaybackGrant>{
     public PlaybackGrant create(final TwilioRestClient client){
         String path = "/v1/PlayerStreamers/{Sid}/PlaybackGrant";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

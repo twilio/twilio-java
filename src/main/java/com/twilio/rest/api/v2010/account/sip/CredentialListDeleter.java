@@ -27,15 +27,15 @@ import com.twilio.rest.Domains;
 
 
 public class CredentialListDeleter extends Deleter<CredentialList> {
-    private String sid;
-    private String accountSid;
+    private String pathSid;
+    private String pathAccountSid;
 
-    public CredentialListDeleter(final String sid){
-        this.sid = sid;
+    public CredentialListDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public CredentialListDeleter(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public CredentialListDeleter(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -43,9 +43,9 @@ public class CredentialListDeleter extends Deleter<CredentialList> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/CredentialLists/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

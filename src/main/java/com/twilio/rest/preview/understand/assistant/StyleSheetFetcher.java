@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class StyleSheetFetcher extends Fetcher<StyleSheet> {
-    private String assistantSid;
+    private String pathAssistantSid;
 
-    public StyleSheetFetcher(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public StyleSheetFetcher(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
 
@@ -39,7 +39,7 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
     public StyleSheet fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/StyleSheet";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -44,13 +44,13 @@ public class Log extends Resource {
     private static final long serialVersionUID = 129897058125132L;
 
 
-    public static LogFetcher fetcher(final String serviceSid, final String environmentSid, final String sid){
-        return new LogFetcher(serviceSid, environmentSid, sid);
+    public static LogFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+        return new LogFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
 
-    public static LogReader reader(final String serviceSid, final String environmentSid){
-        return new LogReader(serviceSid, environmentSid);
+    public static LogReader reader(final String pathServiceSid, final String pathEnvironmentSid){
+        return new LogReader(pathServiceSid, pathEnvironmentSid);
     }
 
 

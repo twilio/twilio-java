@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class TrustProductsChannelEndpointAssignmentCreator extends Creator<TrustProductsChannelEndpointAssignment>{
-    private String trustProductSid;
+    private String pathTrustProductSid;
     private String channelEndpointType;
     private String channelEndpointSid;
 
-    public TrustProductsChannelEndpointAssignmentCreator(final String trustProductSid, final String channelEndpointType, final String channelEndpointSid) {
-        this.trustProductSid = trustProductSid;
+    public TrustProductsChannelEndpointAssignmentCreator(final String pathTrustProductSid, final String channelEndpointType, final String channelEndpointSid) {
+        this.pathTrustProductSid = pathTrustProductSid;
         this.channelEndpointType = channelEndpointType;
         this.channelEndpointSid = channelEndpointSid;
     }
@@ -51,7 +51,7 @@ public class TrustProductsChannelEndpointAssignmentCreator extends Creator<Trust
     public TrustProductsChannelEndpointAssignment create(final TwilioRestClient client){
         String path = "/v1/TrustProducts/{TrustProductSid}/ChannelEndpointAssignments";
 
-        path = path.replace("{"+"TrustProductSid"+"}", this.trustProductSid.toString());
+        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
         path = path.replace("{"+"ChannelEndpointType"+"}", this.channelEndpointType.toString());
         path = path.replace("{"+"ChannelEndpointSid"+"}", this.channelEndpointSid.toString());
 

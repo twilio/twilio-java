@@ -30,16 +30,16 @@ import java.time.ZonedDateTime;
 
 
 public class LogReader extends Reader<Log> {
-    private String serviceSid;
-    private String environmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private String functionSid;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private Integer pageSize;
 
-    public LogReader(final String serviceSid, final String environmentSid){
-        this.serviceSid = serviceSid;
-        this.environmentSid = environmentSid;
+    public LogReader(final String pathServiceSid, final String pathEnvironmentSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
     public LogReader setFunctionSid(final String functionSid){
@@ -66,8 +66,8 @@ public class LogReader extends Reader<Log> {
 
     public Page<Log> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"EnvironmentSid"+"}", this.environmentSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

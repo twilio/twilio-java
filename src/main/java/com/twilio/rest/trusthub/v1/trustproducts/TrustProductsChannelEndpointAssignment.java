@@ -42,20 +42,20 @@ import java.util.Objects;
 public class TrustProductsChannelEndpointAssignment extends Resource {
     private static final long serialVersionUID = 19553243454529L;
 
-    public static TrustProductsChannelEndpointAssignmentCreator creator(final String trustProductSid, final String channelEndpointType, final String channelEndpointSid){
-        return new TrustProductsChannelEndpointAssignmentCreator(trustProductSid, channelEndpointType, channelEndpointSid);
+    public static TrustProductsChannelEndpointAssignmentCreator creator(final String pathTrustProductSid, final String channelEndpointType, final String channelEndpointSid){
+        return new TrustProductsChannelEndpointAssignmentCreator(pathTrustProductSid, channelEndpointType, channelEndpointSid);
     }
 
-    public static TrustProductsChannelEndpointAssignmentFetcher fetcher(final String trustProductSid, final String sid){
-        return new TrustProductsChannelEndpointAssignmentFetcher(trustProductSid, sid);
+    public static TrustProductsChannelEndpointAssignmentFetcher fetcher(final String pathTrustProductSid, final String pathSid){
+        return new TrustProductsChannelEndpointAssignmentFetcher(pathTrustProductSid, pathSid);
     }
 
-    public static TrustProductsChannelEndpointAssignmentDeleter deleter(final String trustProductSid, final String sid){
-        return new TrustProductsChannelEndpointAssignmentDeleter(trustProductSid, sid);
+    public static TrustProductsChannelEndpointAssignmentDeleter deleter(final String pathTrustProductSid, final String pathSid){
+        return new TrustProductsChannelEndpointAssignmentDeleter(pathTrustProductSid, pathSid);
     }
 
-    public static TrustProductsChannelEndpointAssignmentReader reader(final String trustProductSid){
-        return new TrustProductsChannelEndpointAssignmentReader(trustProductSid);
+    public static TrustProductsChannelEndpointAssignmentReader reader(final String pathTrustProductSid){
+        return new TrustProductsChannelEndpointAssignmentReader(pathTrustProductSid);
     }
 
 

@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class SubscribedEventReader extends Reader<SubscribedEvent> {
-    private String subscriptionSid;
+    private String pathSubscriptionSid;
     private Integer pageSize;
 
-    public SubscribedEventReader(final String subscriptionSid){
-        this.subscriptionSid = subscriptionSid;
+    public SubscribedEventReader(final String pathSubscriptionSid){
+        this.pathSubscriptionSid = pathSubscriptionSid;
     }
 
     public SubscribedEventReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
 
     public Page<SubscribedEvent> firstPage(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
-        path = path.replace("{"+"SubscriptionSid"+"}", this.subscriptionSid.toString());
+        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

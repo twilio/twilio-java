@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class SchemaVersionReader extends Reader<SchemaVersion> {
-    private String id;
+    private String pathId;
     private Integer pageSize;
 
-    public SchemaVersionReader(final String id){
-        this.id = id;
+    public SchemaVersionReader(final String pathId){
+        this.pathId = pathId;
     }
 
     public SchemaVersionReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
 
     public Page<SchemaVersion> firstPage(final TwilioRestClient client) {
         String path = "/v1/Schemas/{Id}/Versions";
-        path = path.replace("{"+"Id"+"}", this.id.toString());
+        path = path.replace("{"+"Id"+"}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.GET,

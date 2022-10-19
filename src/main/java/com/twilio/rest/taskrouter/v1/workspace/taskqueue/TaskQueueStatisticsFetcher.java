@@ -29,17 +29,17 @@ import java.time.ZonedDateTime;
 
 
 public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
-    private String workspaceSid;
-    private String taskQueueSid;
+    private String pathWorkspaceSid;
+    private String pathTaskQueueSid;
     private ZonedDateTime endDate;
     private Integer minutes;
     private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public TaskQueueStatisticsFetcher(final String workspaceSid, final String taskQueueSid){
-        this.workspaceSid = workspaceSid;
-        this.taskQueueSid = taskQueueSid;
+    public TaskQueueStatisticsFetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathTaskQueueSid = pathTaskQueueSid;
     }
 
     public TaskQueueStatisticsFetcher setEndDate(final ZonedDateTime endDate){
@@ -67,8 +67,8 @@ public class TaskQueueStatisticsFetcher extends Fetcher<TaskQueueStatistics> {
     public TaskQueueStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{TaskQueueSid}/Statistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"TaskQueueSid"+"}", this.taskQueueSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"TaskQueueSid"+"}", this.pathTaskQueueSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

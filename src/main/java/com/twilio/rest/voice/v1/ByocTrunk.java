@@ -47,20 +47,20 @@ public class ByocTrunk extends Resource {
         return new ByocTrunkCreator();
     }
 
-    public static ByocTrunkFetcher fetcher(final String sid){
-        return new ByocTrunkFetcher(sid);
+    public static ByocTrunkFetcher fetcher(final String pathSid){
+        return new ByocTrunkFetcher(pathSid);
     }
 
-    public static ByocTrunkDeleter deleter(final String sid){
-        return new ByocTrunkDeleter(sid);
+    public static ByocTrunkDeleter deleter(final String pathSid){
+        return new ByocTrunkDeleter(pathSid);
     }
 
     public static ByocTrunkReader reader(){
         return new ByocTrunkReader();
     }
 
-    public static ByocTrunkUpdater updater(final String sid){
-        return new ByocTrunkUpdater(sid);
+    public static ByocTrunkUpdater updater(final String pathSid){
+        return new ByocTrunkUpdater(pathSid);
     }
 
     /**

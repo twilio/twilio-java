@@ -31,15 +31,15 @@ import java.net.URI;
 import java.net.URI;
 
 public class OriginationUrlCreator extends Creator<OriginationUrl>{
-    private String trunkSid;
+    private String pathTrunkSid;
     private Integer weight;
     private Integer priority;
     private Boolean enabled;
     private String friendlyName;
     private URI sipUrl;
 
-    public OriginationUrlCreator(final String trunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
-        this.trunkSid = trunkSid;
+    public OriginationUrlCreator(final String pathTrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl) {
+        this.pathTrunkSid = pathTrunkSid;
         this.weight = weight;
         this.priority = priority;
         this.enabled = enabled;
@@ -76,7 +76,7 @@ public class OriginationUrlCreator extends Creator<OriginationUrl>{
     public OriginationUrl create(final TwilioRestClient client){
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
         path = path.replace("{"+"Weight"+"}", this.weight.toString());
         path = path.replace("{"+"Priority"+"}", this.priority.toString());
         path = path.replace("{"+"Enabled"+"}", this.enabled.toString());

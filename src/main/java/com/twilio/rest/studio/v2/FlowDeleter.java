@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class FlowDeleter extends Deleter<Flow> {
-    private String sid;
+    private String pathSid;
 
-    public FlowDeleter(final String sid){
-        this.sid = sid;
+    public FlowDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class FlowDeleter extends Deleter<Flow> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

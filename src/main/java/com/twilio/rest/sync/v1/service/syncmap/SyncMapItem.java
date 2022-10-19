@@ -45,24 +45,24 @@ import java.util.Map;
 public class SyncMapItem extends Resource {
     private static final long serialVersionUID = 156890229646336L;
 
-    public static SyncMapItemCreator creator(final String serviceSid, final String mapSid, final String key, final Map<String, Object> data){
-        return new SyncMapItemCreator(serviceSid, mapSid, key, data);
+    public static SyncMapItemCreator creator(final String pathServiceSid, final String pathMapSid, final String key, final Map<String, Object> data){
+        return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
-    public static SyncMapItemFetcher fetcher(final String serviceSid, final String mapSid, final String key){
-        return new SyncMapItemFetcher(serviceSid, mapSid, key);
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathKey){
+        return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
-    public static SyncMapItemDeleter deleter(final String serviceSid, final String mapSid, final String key){
-        return new SyncMapItemDeleter(serviceSid, mapSid, key);
+    public static SyncMapItemDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathKey){
+        return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
     }
 
-    public static SyncMapItemReader reader(final String serviceSid, final String mapSid){
-        return new SyncMapItemReader(serviceSid, mapSid);
+    public static SyncMapItemReader reader(final String pathServiceSid, final String pathMapSid){
+        return new SyncMapItemReader(pathServiceSid, pathMapSid);
     }
 
-    public static SyncMapItemUpdater updater(final String serviceSid, final String mapSid, final String key){
-        return new SyncMapItemUpdater(serviceSid, mapSid, key);
+    public static SyncMapItemUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathKey){
+        return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**

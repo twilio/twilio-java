@@ -43,24 +43,24 @@ import java.util.Objects;
 public class Message extends Resource {
     private static final long serialVersionUID = 148235601690422L;
 
-    public static MessageCreator creator(final String serviceSid, final String channelSid, final String body){
-        return new MessageCreator(serviceSid, channelSid, body);
+    public static MessageCreator creator(final String pathServiceSid, final String pathChannelSid, final String body){
+        return new MessageCreator(pathServiceSid, pathChannelSid, body);
     }
 
-    public static MessageFetcher fetcher(final String serviceSid, final String channelSid, final String sid){
-        return new MessageFetcher(serviceSid, channelSid, sid);
+    public static MessageFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static MessageDeleter deleter(final String serviceSid, final String channelSid, final String sid){
-        return new MessageDeleter(serviceSid, channelSid, sid);
+    public static MessageDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static MessageReader reader(final String serviceSid, final String channelSid){
-        return new MessageReader(serviceSid, channelSid);
+    public static MessageReader reader(final String pathServiceSid, final String pathChannelSid){
+        return new MessageReader(pathServiceSid, pathChannelSid);
     }
 
-    public static MessageUpdater updater(final String serviceSid, final String channelSid, final String sid){
-        return new MessageUpdater(serviceSid, channelSid, sid);
+    public static MessageUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**

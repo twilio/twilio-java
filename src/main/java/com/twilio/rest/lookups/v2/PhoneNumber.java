@@ -45,8 +45,8 @@ public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 42741484554919L;
 
 
-    public static PhoneNumberFetcher fetcher(final String phoneNumber){
-        return new PhoneNumberFetcher(phoneNumber);
+    public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
+        return new PhoneNumberFetcher(pathPhoneNumber);
     }
 
 

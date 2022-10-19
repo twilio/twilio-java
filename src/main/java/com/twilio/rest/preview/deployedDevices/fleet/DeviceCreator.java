@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class DeviceCreator extends Creator<Device>{
-    private String fleetSid;
+    private String pathFleetSid;
     private String uniqueName;
     private String friendlyName;
     private String identity;
     private String deploymentSid;
     private Boolean enabled;
 
-    public DeviceCreator(final String fleetSid) {
-        this.fleetSid = fleetSid;
+    public DeviceCreator(final String pathFleetSid) {
+        this.pathFleetSid = pathFleetSid;
     }
 
     public DeviceCreator setUniqueName(final String uniqueName){
@@ -64,7 +64,7 @@ public class DeviceCreator extends Creator<Device>{
     public Device create(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Devices";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

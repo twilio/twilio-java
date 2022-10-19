@@ -42,32 +42,32 @@ public class Key extends Resource {
     private static final long serialVersionUID = 35259719636912L;
 
 
-    public static KeyFetcher fetcher(final String sid){
-        return new KeyFetcher(sid);
+    public static KeyFetcher fetcher(final String pathSid){
+        return new KeyFetcher(pathSid);
     }
-    public static KeyFetcher fetcher(final String accountSid, final String sid){
-        return new KeyFetcher(accountSid, sid);
+    public static KeyFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new KeyFetcher(pathAccountSid, pathSid);
     }
 
-    public static KeyDeleter deleter(final String sid){
-        return new KeyDeleter(sid);
+    public static KeyDeleter deleter(final String pathSid){
+        return new KeyDeleter(pathSid);
     }
-    public static KeyDeleter deleter(final String accountSid, final String sid){
-        return new KeyDeleter(accountSid, sid);
+    public static KeyDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new KeyDeleter(pathAccountSid, pathSid);
     }
 
     public static KeyReader reader(){
         return new KeyReader();
     }
-    public static KeyReader reader(final String accountSid){
-        return new KeyReader(accountSid);
+    public static KeyReader reader(final String pathAccountSid){
+        return new KeyReader(pathAccountSid);
     }
 
-    public static KeyUpdater updater(final String sid){
-        return new KeyUpdater(sid);
+    public static KeyUpdater updater(final String pathSid){
+        return new KeyUpdater(pathSid);
     }
-    public static KeyUpdater updater(final String accountSid, final String sid){
-        return new KeyUpdater(accountSid, sid);
+    public static KeyUpdater updater(final String pathAccountSid, final String pathSid){
+        return new KeyUpdater(pathAccountSid, pathSid);
     }
 
     /**

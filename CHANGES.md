@@ -1,6 +1,38 @@
 twilio-java changelog
 =====================
 
+[2022-10-19] Version 9.1.0
+--------------------------
+**Library - Fix**
+- [PR #717](https://github.com/twilio/twilio-java/pull/717): update reserved words. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Library - Chore**
+- [PR #715](https://github.com/twilio/twilio-java/pull/715): Fix for 1 vulnerabilities. Thanks to [@twilio-product-security](https://github.com/twilio-product-security)!
+
+**Library - Miscellaneous**
+- [PR #716](https://github.com/twilio/twilio-java/pull/716): remove the duplicate header comments. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+- [PR #714](https://github.com/twilio/twilio-java/pull/714): remove dependency on javax jaxb-api. Thanks to [@codylerum](https://github.com/codylerum)!
+
+**Api**
+- Make link shortening parameters public **(breaking change)**
+
+**Oauth**
+- added oauth JWKS endpoint
+- Get userinfo resource
+- OpenID discovery resource
+- Add new API for token endpoint
+
+**Supersim**
+- Add SettingsUpdates resource
+
+**Verify**
+- Update Verify Push endpoints to `ga` maturity
+- Verify BYOT add Channels property to the Get Templates response
+
+**Twiml**
+- Add `requireMatchingInputs` attribute and `input-matching-failed` errorType to `<Prompt>`
+
+
 [2022-10-05] Version 9.0.1
 --------------------------
 **Library - Miscellaneous**

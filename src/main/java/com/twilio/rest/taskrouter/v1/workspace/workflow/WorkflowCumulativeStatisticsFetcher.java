@@ -29,17 +29,17 @@ import java.time.ZonedDateTime;
 
 
 public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulativeStatistics> {
-    private String workspaceSid;
-    private String workflowSid;
+    private String pathWorkspaceSid;
+    private String pathWorkflowSid;
     private ZonedDateTime endDate;
     private Integer minutes;
     private ZonedDateTime startDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkflowCumulativeStatisticsFetcher(final String workspaceSid, final String workflowSid){
-        this.workspaceSid = workspaceSid;
-        this.workflowSid = workflowSid;
+    public WorkflowCumulativeStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkflowSid = pathWorkflowSid;
     }
 
     public WorkflowCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
@@ -67,8 +67,8 @@ public class WorkflowCumulativeStatisticsFetcher extends Fetcher<WorkflowCumulat
     public WorkflowCumulativeStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/CumulativeStatistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"WorkflowSid"+"}", this.workflowSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"WorkflowSid"+"}", this.pathWorkflowSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -45,8 +45,8 @@ public class Event extends Resource {
     private static final long serialVersionUID = 206221188315695L;
 
 
-    public static EventFetcher fetcher(final String sid){
-        return new EventFetcher(sid);
+    public static EventFetcher fetcher(final String pathSid){
+        return new EventFetcher(pathSid);
     }
 
 

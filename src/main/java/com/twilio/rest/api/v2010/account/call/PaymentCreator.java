@@ -36,10 +36,10 @@ import java.util.Map;
 import java.net.URI;
 
 public class PaymentCreator extends Creator<Payment>{
-    private String callSid;
+    private String pathCallSid;
     private String idempotencyKey;
     private URI statusCallback;
-    private String accountSid;
+    private String pathAccountSid;
     private Payment.BankAccountType bankAccountType;
     private BigDecimal chargeAmount;
     private String currency;
@@ -55,14 +55,14 @@ public class PaymentCreator extends Creator<Payment>{
     private Payment.TokenType tokenType;
     private String validCardTypes;
 
-    public PaymentCreator(final String callSid, final String idempotencyKey, final URI statusCallback) {
-        this.callSid = callSid;
+    public PaymentCreator(final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+        this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
-    public PaymentCreator(final String accountSid, final String callSid, final String idempotencyKey, final URI statusCallback) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public PaymentCreator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
@@ -140,9 +140,9 @@ public class PaymentCreator extends Creator<Payment>{
     public Payment create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
         path = path.replace("{"+"IdempotencyKey"+"}", this.idempotencyKey.toString());
         path = path.replace("{"+"StatusCallback"+"}", this.statusCallback.toString());
 

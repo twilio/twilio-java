@@ -45,8 +45,8 @@ public class UsageRecord extends Resource {
 
 
 
-    public static UsageRecordReader reader(final String simSid){
-        return new UsageRecordReader(simSid);
+    public static UsageRecordReader reader(final String pathSimSid){
+        return new UsageRecordReader(pathSimSid);
     }
 
 

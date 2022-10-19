@@ -46,20 +46,20 @@ import java.util.Map;
 public class Build extends Resource {
     private static final long serialVersionUID = 76818411121781L;
 
-    public static BuildCreator creator(final String serviceSid){
-        return new BuildCreator(serviceSid);
+    public static BuildCreator creator(final String pathServiceSid){
+        return new BuildCreator(pathServiceSid);
     }
 
-    public static BuildFetcher fetcher(final String serviceSid, final String sid){
-        return new BuildFetcher(serviceSid, sid);
+    public static BuildFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new BuildFetcher(pathServiceSid, pathSid);
     }
 
-    public static BuildDeleter deleter(final String serviceSid, final String sid){
-        return new BuildDeleter(serviceSid, sid);
+    public static BuildDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new BuildDeleter(pathServiceSid, pathSid);
     }
 
-    public static BuildReader reader(final String serviceSid){
-        return new BuildReader(serviceSid);
+    public static BuildReader reader(final String pathServiceSid){
+        return new BuildReader(pathServiceSid);
     }
 
 

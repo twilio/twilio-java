@@ -44,24 +44,24 @@ import java.util.Map;
 public class Activity extends Resource {
     private static final long serialVersionUID = 20275383236164L;
 
-    public static ActivityCreator creator(final String workspaceSid, final String friendlyName){
-        return new ActivityCreator(workspaceSid, friendlyName);
+    public static ActivityCreator creator(final String pathWorkspaceSid, final String friendlyName){
+        return new ActivityCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static ActivityFetcher fetcher(final String workspaceSid, final String sid){
-        return new ActivityFetcher(workspaceSid, sid);
+    public static ActivityFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new ActivityFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static ActivityDeleter deleter(final String workspaceSid, final String sid){
-        return new ActivityDeleter(workspaceSid, sid);
+    public static ActivityDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+        return new ActivityDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static ActivityReader reader(final String workspaceSid){
-        return new ActivityReader(workspaceSid);
+    public static ActivityReader reader(final String pathWorkspaceSid){
+        return new ActivityReader(pathWorkspaceSid);
     }
 
-    public static ActivityUpdater updater(final String workspaceSid, final String sid){
-        return new ActivityUpdater(workspaceSid, sid);
+    public static ActivityUpdater updater(final String pathWorkspaceSid, final String pathSid){
+        return new ActivityUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**

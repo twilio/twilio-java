@@ -30,17 +30,17 @@ import java.net.URI;
 
 
 public class OriginationUrlUpdater extends Updater<OriginationUrl>{
-    private String trunkSid;
-    private String sid;
+    private String pathTrunkSid;
+    private String pathSid;
     private Integer weight;
     private Integer priority;
     private Boolean enabled;
     private String friendlyName;
     private URI sipUrl;
 
-    public OriginationUrlUpdater(final String trunkSid, final String sid){
-        this.trunkSid = trunkSid;
-        this.sid = sid;
+    public OriginationUrlUpdater(final String pathTrunkSid, final String pathSid){
+        this.pathTrunkSid = pathTrunkSid;
+        this.pathSid = pathSid;
     }
 
     public OriginationUrlUpdater setWeight(final Integer weight){
@@ -72,8 +72,8 @@ public class OriginationUrlUpdater extends Updater<OriginationUrl>{
     public OriginationUrl update(final TwilioRestClient client){
         String path = "/v1/Trunks/{TrunkSid}/OriginationUrls/{Sid}";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

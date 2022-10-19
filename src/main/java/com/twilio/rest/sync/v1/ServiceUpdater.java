@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class ServiceUpdater extends Updater<Service>{
-    private String sid;
+    private String pathSid;
     private URI webhookUrl;
     private String friendlyName;
     private Boolean reachabilityWebhooksEnabled;
@@ -39,8 +39,8 @@ public class ServiceUpdater extends Updater<Service>{
     private Integer reachabilityDebouncingWindow;
     private Boolean webhooksFromRestEnabled;
 
-    public ServiceUpdater(final String sid){
-        this.sid = sid;
+    public ServiceUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public ServiceUpdater setWebhookUrl(final URI webhookUrl){
@@ -80,7 +80,7 @@ public class ServiceUpdater extends Updater<Service>{
     public Service update(final TwilioRestClient client){
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

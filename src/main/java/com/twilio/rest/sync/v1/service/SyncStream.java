@@ -44,24 +44,24 @@ import java.util.Map;
 public class SyncStream extends Resource {
     private static final long serialVersionUID = 122709874652370L;
 
-    public static SyncStreamCreator creator(final String serviceSid){
-        return new SyncStreamCreator(serviceSid);
+    public static SyncStreamCreator creator(final String pathServiceSid){
+        return new SyncStreamCreator(pathServiceSid);
     }
 
-    public static SyncStreamFetcher fetcher(final String serviceSid, final String sid){
-        return new SyncStreamFetcher(serviceSid, sid);
+    public static SyncStreamFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SyncStreamFetcher(pathServiceSid, pathSid);
     }
 
-    public static SyncStreamDeleter deleter(final String serviceSid, final String sid){
-        return new SyncStreamDeleter(serviceSid, sid);
+    public static SyncStreamDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new SyncStreamDeleter(pathServiceSid, pathSid);
     }
 
-    public static SyncStreamReader reader(final String serviceSid){
-        return new SyncStreamReader(serviceSid);
+    public static SyncStreamReader reader(final String pathServiceSid){
+        return new SyncStreamReader(pathServiceSid);
     }
 
-    public static SyncStreamUpdater updater(final String serviceSid, final String sid){
-        return new SyncStreamUpdater(serviceSid, sid);
+    public static SyncStreamUpdater updater(final String pathServiceSid, final String pathSid){
+        return new SyncStreamUpdater(pathServiceSid, pathSid);
     }
 
     /**

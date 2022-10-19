@@ -44,20 +44,20 @@ public class Feedback extends Resource {
     private static final long serialVersionUID = 111537913828934L;
 
 
-    public static FeedbackFetcher fetcher(final String callSid){
-        return new FeedbackFetcher(callSid);
+    public static FeedbackFetcher fetcher(final String pathCallSid){
+        return new FeedbackFetcher(pathCallSid);
     }
-    public static FeedbackFetcher fetcher(final String accountSid, final String callSid){
-        return new FeedbackFetcher(accountSid, callSid);
+    public static FeedbackFetcher fetcher(final String pathAccountSid, final String pathCallSid){
+        return new FeedbackFetcher(pathAccountSid, pathCallSid);
     }
 
 
 
-    public static FeedbackUpdater updater(final String callSid){
-        return new FeedbackUpdater(callSid);
+    public static FeedbackUpdater updater(final String pathCallSid){
+        return new FeedbackUpdater(pathCallSid);
     }
-    public static FeedbackUpdater updater(final String accountSid, final String callSid){
-        return new FeedbackUpdater(accountSid, callSid);
+    public static FeedbackUpdater updater(final String pathAccountSid, final String pathCallSid){
+        return new FeedbackUpdater(pathAccountSid, pathCallSid);
     }
 
     /**

@@ -51,20 +51,20 @@ public class Trunk extends Resource {
         return new TrunkCreator();
     }
 
-    public static TrunkFetcher fetcher(final String sid){
-        return new TrunkFetcher(sid);
+    public static TrunkFetcher fetcher(final String pathSid){
+        return new TrunkFetcher(pathSid);
     }
 
-    public static TrunkDeleter deleter(final String sid){
-        return new TrunkDeleter(sid);
+    public static TrunkDeleter deleter(final String pathSid){
+        return new TrunkDeleter(pathSid);
     }
 
     public static TrunkReader reader(){
         return new TrunkReader();
     }
 
-    public static TrunkUpdater updater(final String sid){
-        return new TrunkUpdater(sid);
+    public static TrunkUpdater updater(final String pathSid){
+        return new TrunkUpdater(pathSid);
     }
 
     /**

@@ -44,24 +44,24 @@ import java.util.Map;
 public class Asset extends Resource {
     private static final long serialVersionUID = 60673471687127L;
 
-    public static AssetCreator creator(final String serviceSid, final String friendlyName){
-        return new AssetCreator(serviceSid, friendlyName);
+    public static AssetCreator creator(final String pathServiceSid, final String friendlyName){
+        return new AssetCreator(pathServiceSid, friendlyName);
     }
 
-    public static AssetFetcher fetcher(final String serviceSid, final String sid){
-        return new AssetFetcher(serviceSid, sid);
+    public static AssetFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new AssetFetcher(pathServiceSid, pathSid);
     }
 
-    public static AssetDeleter deleter(final String serviceSid, final String sid){
-        return new AssetDeleter(serviceSid, sid);
+    public static AssetDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new AssetDeleter(pathServiceSid, pathSid);
     }
 
-    public static AssetReader reader(final String serviceSid){
-        return new AssetReader(serviceSid);
+    public static AssetReader reader(final String pathServiceSid){
+        return new AssetReader(pathServiceSid);
     }
 
-    public static AssetUpdater updater(final String serviceSid, final String sid, final String friendlyName){
-        return new AssetUpdater(serviceSid, sid, friendlyName);
+    public static AssetUpdater updater(final String pathServiceSid, final String pathSid, final String friendlyName){
+        return new AssetUpdater(pathServiceSid, pathSid, friendlyName);
     }
 
     /**

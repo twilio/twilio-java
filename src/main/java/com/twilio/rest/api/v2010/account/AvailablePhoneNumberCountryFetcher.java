@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNumberCountry> {
-    private String countryCode;
-    private String accountSid;
+    private String pathCountryCode;
+    private String pathAccountSid;
 
-    public AvailablePhoneNumberCountryFetcher(final String countryCode){
-        this.countryCode = countryCode;
+    public AvailablePhoneNumberCountryFetcher(final String pathCountryCode){
+        this.pathCountryCode = pathCountryCode;
     }
-    public AvailablePhoneNumberCountryFetcher(final String accountSid, final String countryCode){
-        this.accountSid = accountSid;
-        this.countryCode = countryCode;
+    public AvailablePhoneNumberCountryFetcher(final String pathAccountSid, final String pathCountryCode){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCountryCode = pathCountryCode;
     }
 
 
@@ -44,9 +44,9 @@ public class AvailablePhoneNumberCountryFetcher extends Fetcher<AvailablePhoneNu
     public AvailablePhoneNumberCountry fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CountryCode"+"}", this.countryCode.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CountryCode"+"}", this.pathCountryCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,

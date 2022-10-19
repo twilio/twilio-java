@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class EvaluationReader extends Reader<Evaluation> {
-    private String bundleSid;
+    private String pathBundleSid;
     private Integer pageSize;
 
-    public EvaluationReader(final String bundleSid){
-        this.bundleSid = bundleSid;
+    public EvaluationReader(final String pathBundleSid){
+        this.pathBundleSid = pathBundleSid;
     }
 
     public EvaluationReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class EvaluationReader extends Reader<Evaluation> {
 
     public Page<Evaluation> firstPage(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Evaluations";
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -30,18 +30,18 @@ import java.net.URI;
 
 
 public class ConferenceUpdater extends Updater<Conference>{
-    private String sid;
-    private String accountSid;
+    private String pathSid;
+    private String pathAccountSid;
     private Conference.UpdateStatus status;
     private URI announceUrl;
     private HttpMethod announceMethod;
 
-    public ConferenceUpdater(final String sid){
-        this.sid = sid;
+    public ConferenceUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public ConferenceUpdater(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public ConferenceUpdater(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     public ConferenceUpdater setStatus(final Conference.UpdateStatus status){
@@ -65,9 +65,9 @@ public class ConferenceUpdater extends Updater<Conference>{
     public Conference update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

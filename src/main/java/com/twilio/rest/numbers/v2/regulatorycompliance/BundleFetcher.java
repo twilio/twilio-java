@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class BundleFetcher extends Fetcher<Bundle> {
-    private String sid;
+    private String pathSid;
 
-    public BundleFetcher(final String sid){
-        this.sid = sid;
+    public BundleFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class BundleFetcher extends Fetcher<Bundle> {
     public Bundle fetch(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -44,24 +44,24 @@ import java.util.Map;
 public class Worker extends Resource {
     private static final long serialVersionUID = 110824061154379L;
 
-    public static WorkerCreator creator(final String workspaceSid, final String friendlyName){
-        return new WorkerCreator(workspaceSid, friendlyName);
+    public static WorkerCreator creator(final String pathWorkspaceSid, final String friendlyName){
+        return new WorkerCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static WorkerFetcher fetcher(final String workspaceSid, final String sid){
-        return new WorkerFetcher(workspaceSid, sid);
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new WorkerFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static WorkerDeleter deleter(final String workspaceSid, final String sid){
-        return new WorkerDeleter(workspaceSid, sid);
+    public static WorkerDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+        return new WorkerDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static WorkerReader reader(final String workspaceSid){
-        return new WorkerReader(workspaceSid);
+    public static WorkerReader reader(final String pathWorkspaceSid){
+        return new WorkerReader(pathWorkspaceSid);
     }
 
-    public static WorkerUpdater updater(final String workspaceSid, final String sid){
-        return new WorkerUpdater(workspaceSid, sid);
+    public static WorkerUpdater updater(final String pathWorkspaceSid, final String pathSid){
+        return new WorkerUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**

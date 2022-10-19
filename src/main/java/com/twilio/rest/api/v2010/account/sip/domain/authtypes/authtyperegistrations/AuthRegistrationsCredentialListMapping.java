@@ -41,32 +41,32 @@ import java.util.Objects;
 public class AuthRegistrationsCredentialListMapping extends Resource {
     private static final long serialVersionUID = 16012497789519L;
 
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String domainSid, final String credentialListSid){
-        return new AuthRegistrationsCredentialListMappingCreator(domainSid, credentialListSid);
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid){
+        return new AuthRegistrationsCredentialListMappingCreator(pathDomainSid, credentialListSid);
     }
-    public static AuthRegistrationsCredentialListMappingCreator creator(final String accountSid, final String domainSid, final String credentialListSid){
-        return new AuthRegistrationsCredentialListMappingCreator(accountSid, domainSid, credentialListSid);
-    }
-
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String domainSid, final String sid){
-        return new AuthRegistrationsCredentialListMappingFetcher(domainSid, sid);
-    }
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String accountSid, final String domainSid, final String sid){
-        return new AuthRegistrationsCredentialListMappingFetcher(accountSid, domainSid, sid);
+    public static AuthRegistrationsCredentialListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String credentialListSid){
+        return new AuthRegistrationsCredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String domainSid, final String sid){
-        return new AuthRegistrationsCredentialListMappingDeleter(domainSid, sid);
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new AuthRegistrationsCredentialListMappingFetcher(pathDomainSid, pathSid);
     }
-    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String accountSid, final String domainSid, final String sid){
-        return new AuthRegistrationsCredentialListMappingDeleter(accountSid, domainSid, sid);
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthRegistrationsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
-    public static AuthRegistrationsCredentialListMappingReader reader(final String domainSid){
-        return new AuthRegistrationsCredentialListMappingReader(domainSid);
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
+        return new AuthRegistrationsCredentialListMappingDeleter(pathDomainSid, pathSid);
     }
-    public static AuthRegistrationsCredentialListMappingReader reader(final String accountSid, final String domainSid){
-        return new AuthRegistrationsCredentialListMappingReader(accountSid, domainSid);
+    public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthRegistrationsCredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathDomainSid){
+        return new AuthRegistrationsCredentialListMappingReader(pathDomainSid);
+    }
+    public static AuthRegistrationsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
+        return new AuthRegistrationsCredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
 
 

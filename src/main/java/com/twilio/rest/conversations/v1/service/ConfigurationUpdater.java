@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class ConfigurationUpdater extends Updater<Configuration>{
-    private String chatServiceSid;
+    private String pathChatServiceSid;
     private String defaultConversationCreatorRoleSid;
     private String defaultConversationRoleSid;
     private String defaultChatServiceRoleSid;
     private Boolean reachabilityEnabled;
 
-    public ConfigurationUpdater(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public ConfigurationUpdater(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
     public ConfigurationUpdater setDefaultConversationCreatorRoleSid(final String defaultConversationCreatorRoleSid){
@@ -59,7 +59,7 @@ public class ConfigurationUpdater extends Updater<Configuration>{
     public Configuration update(final TwilioRestClient client){
         String path = "/v1/Services/{ChatServiceSid}/Configuration";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

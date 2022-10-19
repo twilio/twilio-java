@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class CertificateCreator extends Creator<Certificate>{
-    private String fleetSid;
+    private String pathFleetSid;
     private String certificateData;
     private String friendlyName;
     private String deviceSid;
 
-    public CertificateCreator(final String fleetSid, final String certificateData) {
-        this.fleetSid = fleetSid;
+    public CertificateCreator(final String pathFleetSid, final String certificateData) {
+        this.pathFleetSid = pathFleetSid;
         this.certificateData = certificateData;
     }
 
@@ -55,7 +55,7 @@ public class CertificateCreator extends Creator<Certificate>{
     public Certificate create(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Certificates";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
         path = path.replace("{"+"CertificateData"+"}", this.certificateData.toString());
 
         Request request = new Request(

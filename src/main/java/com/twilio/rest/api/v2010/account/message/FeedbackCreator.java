@@ -28,16 +28,16 @@ import com.twilio.rest.Domains;
 
 
 public class FeedbackCreator extends Creator<Feedback>{
-    private String messageSid;
-    private String accountSid;
+    private String pathMessageSid;
+    private String pathAccountSid;
     private Feedback.Outcome outcome;
 
-    public FeedbackCreator(final String messageSid) {
-        this.messageSid = messageSid;
+    public FeedbackCreator(final String pathMessageSid) {
+        this.pathMessageSid = pathMessageSid;
     }
-    public FeedbackCreator(final String accountSid, final String messageSid) {
-        this.accountSid = accountSid;
-        this.messageSid = messageSid;
+    public FeedbackCreator(final String pathAccountSid, final String pathMessageSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathMessageSid = pathMessageSid;
     }
 
     public FeedbackCreator setOutcome(final Feedback.Outcome outcome){
@@ -49,9 +49,9 @@ public class FeedbackCreator extends Creator<Feedback>{
     public Feedback create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.messageSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

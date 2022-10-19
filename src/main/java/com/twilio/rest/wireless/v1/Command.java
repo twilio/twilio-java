@@ -47,12 +47,12 @@ public class Command extends Resource {
         return new CommandCreator(command);
     }
 
-    public static CommandFetcher fetcher(final String sid){
-        return new CommandFetcher(sid);
+    public static CommandFetcher fetcher(final String pathSid){
+        return new CommandFetcher(pathSid);
     }
 
-    public static CommandDeleter deleter(final String sid){
-        return new CommandDeleter(sid);
+    public static CommandDeleter deleter(final String pathSid){
+        return new CommandDeleter(pathSid);
     }
 
     public static CommandReader reader(){

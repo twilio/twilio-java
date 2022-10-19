@@ -44,24 +44,24 @@ import java.util.Map;
 public class SyncMap extends Resource {
     private static final long serialVersionUID = 91785924752769L;
 
-    public static SyncMapCreator creator(final String serviceSid){
-        return new SyncMapCreator(serviceSid);
+    public static SyncMapCreator creator(final String pathServiceSid){
+        return new SyncMapCreator(pathServiceSid);
     }
 
-    public static SyncMapFetcher fetcher(final String serviceSid, final String sid){
-        return new SyncMapFetcher(serviceSid, sid);
+    public static SyncMapFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SyncMapFetcher(pathServiceSid, pathSid);
     }
 
-    public static SyncMapDeleter deleter(final String serviceSid, final String sid){
-        return new SyncMapDeleter(serviceSid, sid);
+    public static SyncMapDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new SyncMapDeleter(pathServiceSid, pathSid);
     }
 
-    public static SyncMapReader reader(final String serviceSid){
-        return new SyncMapReader(serviceSid);
+    public static SyncMapReader reader(final String pathServiceSid){
+        return new SyncMapReader(pathServiceSid);
     }
 
-    public static SyncMapUpdater updater(final String serviceSid, final String sid){
-        return new SyncMapUpdater(serviceSid, sid);
+    public static SyncMapUpdater updater(final String pathServiceSid, final String pathSid){
+        return new SyncMapUpdater(pathServiceSid, pathSid);
     }
 
     /**

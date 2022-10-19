@@ -43,24 +43,24 @@ import java.util.Objects;
 public class ModelBuild extends Resource {
     private static final long serialVersionUID = 226055418389205L;
 
-    public static ModelBuildCreator creator(final String assistantSid){
-        return new ModelBuildCreator(assistantSid);
+    public static ModelBuildCreator creator(final String pathAssistantSid){
+        return new ModelBuildCreator(pathAssistantSid);
     }
 
-    public static ModelBuildFetcher fetcher(final String assistantSid, final String sid){
-        return new ModelBuildFetcher(assistantSid, sid);
+    public static ModelBuildFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new ModelBuildFetcher(pathAssistantSid, pathSid);
     }
 
-    public static ModelBuildDeleter deleter(final String assistantSid, final String sid){
-        return new ModelBuildDeleter(assistantSid, sid);
+    public static ModelBuildDeleter deleter(final String pathAssistantSid, final String pathSid){
+        return new ModelBuildDeleter(pathAssistantSid, pathSid);
     }
 
-    public static ModelBuildReader reader(final String assistantSid){
-        return new ModelBuildReader(assistantSid);
+    public static ModelBuildReader reader(final String pathAssistantSid){
+        return new ModelBuildReader(pathAssistantSid);
     }
 
-    public static ModelBuildUpdater updater(final String assistantSid, final String sid){
-        return new ModelBuildUpdater(assistantSid, sid);
+    public static ModelBuildUpdater updater(final String pathAssistantSid, final String pathSid){
+        return new ModelBuildUpdater(pathAssistantSid, pathSid);
     }
 
     /**

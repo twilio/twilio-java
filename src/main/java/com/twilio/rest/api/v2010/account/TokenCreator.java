@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class TokenCreator extends Creator<Token>{
-    private String accountSid;
+    private String pathAccountSid;
     private Integer ttl;
 
     public TokenCreator() {
     }
-    public TokenCreator(final String accountSid) {
-        this.accountSid = accountSid;
+    public TokenCreator(final String pathAccountSid) {
+        this.pathAccountSid = pathAccountSid;
     }
 
     public TokenCreator setTtl(final Integer ttl){
@@ -46,8 +46,8 @@ public class TokenCreator extends Creator<Token>{
     public Token create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Tokens.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

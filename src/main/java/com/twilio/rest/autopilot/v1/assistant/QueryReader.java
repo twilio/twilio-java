@@ -29,15 +29,15 @@ import com.twilio.base.Page;
 
 
 public class QueryReader extends Reader<Query> {
-    private String assistantSid;
+    private String pathAssistantSid;
     private String language;
     private String modelBuild;
     private String status;
     private String dialogueSid;
     private Integer pageSize;
 
-    public QueryReader(final String assistantSid){
-        this.assistantSid = assistantSid;
+    public QueryReader(final String pathAssistantSid){
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public QueryReader setLanguage(final String language){
@@ -68,7 +68,7 @@ public class QueryReader extends Reader<Query> {
 
     public Page<Query> firstPage(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Queries";
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

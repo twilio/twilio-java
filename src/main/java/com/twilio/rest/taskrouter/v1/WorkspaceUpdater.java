@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class WorkspaceUpdater extends Updater<Workspace>{
-    private String sid;
+    private String pathSid;
     private String defaultActivitySid;
     private URI eventCallbackUrl;
     private String eventsFilter;
@@ -39,8 +39,8 @@ public class WorkspaceUpdater extends Updater<Workspace>{
     private String timeoutActivitySid;
     private Workspace.QueueOrder prioritizeQueueOrder;
 
-    public WorkspaceUpdater(final String sid){
-        this.sid = sid;
+    public WorkspaceUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public WorkspaceUpdater setDefaultActivitySid(final String defaultActivitySid){
@@ -80,7 +80,7 @@ public class WorkspaceUpdater extends Updater<Workspace>{
     public Workspace update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

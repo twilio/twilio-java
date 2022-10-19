@@ -28,12 +28,12 @@ import java.time.LocalDate;
 
 
 public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
-    private LocalDate date;
-    private String sid;
+    private LocalDate pathDate;
+    private String pathSid;
 
-    public ArchivedCallDeleter(final LocalDate date, final String sid){
-        this.date = date;
-        this.sid = sid;
+    public ArchivedCallDeleter(final LocalDate pathDate, final String pathSid){
+        this.pathDate = pathDate;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class ArchivedCallDeleter extends Deleter<ArchivedCall> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Archives/{Date}/Calls/{Sid}";
 
-        path = path.replace("{"+"Date"+"}", this.date.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Date"+"}", this.pathDate.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

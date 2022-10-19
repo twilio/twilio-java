@@ -45,8 +45,8 @@ import java.util.Map;
 public class VerificationCheck extends Resource {
     private static final long serialVersionUID = 225770578077362L;
 
-    public static VerificationCheckCreator creator(final String serviceSid){
-        return new VerificationCheckCreator(serviceSid);
+    public static VerificationCheckCreator creator(final String pathServiceSid){
+        return new VerificationCheckCreator(pathServiceSid);
     }
 
 

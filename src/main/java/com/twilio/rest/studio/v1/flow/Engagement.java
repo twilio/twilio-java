@@ -45,20 +45,20 @@ import java.util.Map;
 public class Engagement extends Resource {
     private static final long serialVersionUID = 71723617578664L;
 
-    public static EngagementCreator creator(final String flowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from){
-        return new EngagementCreator(flowSid, to, from);
+    public static EngagementCreator creator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from){
+        return new EngagementCreator(pathFlowSid, to, from);
     }
 
-    public static EngagementFetcher fetcher(final String flowSid, final String sid){
-        return new EngagementFetcher(flowSid, sid);
+    public static EngagementFetcher fetcher(final String pathFlowSid, final String pathSid){
+        return new EngagementFetcher(pathFlowSid, pathSid);
     }
 
-    public static EngagementDeleter deleter(final String flowSid, final String sid){
-        return new EngagementDeleter(flowSid, sid);
+    public static EngagementDeleter deleter(final String pathFlowSid, final String pathSid){
+        return new EngagementDeleter(pathFlowSid, pathSid);
     }
 
-    public static EngagementReader reader(final String flowSid){
-        return new EngagementReader(flowSid);
+    public static EngagementReader reader(final String pathFlowSid){
+        return new EngagementReader(pathFlowSid);
     }
 
 

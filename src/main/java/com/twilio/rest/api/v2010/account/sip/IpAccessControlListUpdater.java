@@ -28,17 +28,17 @@ import com.twilio.rest.Domains;
 
 
 public class IpAccessControlListUpdater extends Updater<IpAccessControlList>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
-    private String accountSid;
+    private String pathAccountSid;
 
-    public IpAccessControlListUpdater(final String sid, final String friendlyName){
-        this.sid = sid;
+    public IpAccessControlListUpdater(final String pathSid, final String friendlyName){
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
-    public IpAccessControlListUpdater(final String accountSid, final String sid, final String friendlyName){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public IpAccessControlListUpdater(final String pathAccountSid, final String pathSid, final String friendlyName){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
         this.friendlyName = friendlyName;
     }
 
@@ -51,9 +51,9 @@ public class IpAccessControlListUpdater extends Updater<IpAccessControlList>{
     public IpAccessControlList update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

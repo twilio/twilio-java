@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class NotificationCreator extends Creator<Notification>{
-    private String serviceSid;
-    private String identity;
-    private String challengeSid;
+    private String pathServiceSid;
+    private String pathIdentity;
+    private String pathChallengeSid;
     private Integer ttl;
 
-    public NotificationCreator(final String serviceSid, final String identity, final String challengeSid) {
-        this.serviceSid = serviceSid;
-        this.identity = identity;
-        this.challengeSid = challengeSid;
+    public NotificationCreator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
+        this.pathChallengeSid = pathChallengeSid;
     }
 
     public NotificationCreator setTtl(final Integer ttl){
@@ -48,9 +48,9 @@ public class NotificationCreator extends Creator<Notification>{
     public Notification create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
-        path = path.replace("{"+"ChallengeSid"+"}", this.challengeSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
+        path = path.replace("{"+"ChallengeSid"+"}", this.pathChallengeSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

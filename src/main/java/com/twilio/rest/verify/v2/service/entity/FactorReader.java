@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class FactorReader extends Reader<Factor> {
-    private String serviceSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathIdentity;
     private Integer pageSize;
 
-    public FactorReader(final String serviceSid, final String identity){
-        this.serviceSid = serviceSid;
-        this.identity = identity;
+    public FactorReader(final String pathServiceSid, final String pathIdentity){
+        this.pathServiceSid = pathServiceSid;
+        this.pathIdentity = pathIdentity;
     }
 
     public FactorReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class FactorReader extends Reader<Factor> {
 
     public Page<Factor> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,

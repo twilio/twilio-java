@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
-    private String resourceType;
+    private String pathResourceType;
 
-    public ExportConfigurationFetcher(final String resourceType){
-        this.resourceType = resourceType;
+    public ExportConfigurationFetcher(final String pathResourceType){
+        this.pathResourceType = pathResourceType;
     }
 
 
@@ -39,7 +39,7 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
     public ExportConfiguration fetch(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path = path.replace("{"+"ResourceType"+"}", this.resourceType.toString());
+        path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
 
         Request request = new Request(
             HttpMethod.GET,

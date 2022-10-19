@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class PhoneNumberUpdater extends Updater<PhoneNumber>{
-    private String phoneNumber;
+    private String pathPhoneNumber;
     private String voiceRegion;
     private String friendlyName;
 
-    public PhoneNumberUpdater(final String phoneNumber){
-        this.phoneNumber = phoneNumber;
+    public PhoneNumberUpdater(final String pathPhoneNumber){
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
     public PhoneNumberUpdater setVoiceRegion(final String voiceRegion){
@@ -49,7 +49,7 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber>{
     public PhoneNumber update(final TwilioRestClient client){
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.toString());
+        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.toString());
 
         Request request = new Request(
             HttpMethod.POST,

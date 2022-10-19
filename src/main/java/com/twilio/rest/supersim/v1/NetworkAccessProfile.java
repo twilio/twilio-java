@@ -48,8 +48,8 @@ public class NetworkAccessProfile extends Resource {
         return new NetworkAccessProfileCreator();
     }
 
-    public static NetworkAccessProfileFetcher fetcher(final String sid){
-        return new NetworkAccessProfileFetcher(sid);
+    public static NetworkAccessProfileFetcher fetcher(final String pathSid){
+        return new NetworkAccessProfileFetcher(pathSid);
     }
 
 
@@ -57,8 +57,8 @@ public class NetworkAccessProfile extends Resource {
         return new NetworkAccessProfileReader();
     }
 
-    public static NetworkAccessProfileUpdater updater(final String sid){
-        return new NetworkAccessProfileUpdater(sid);
+    public static NetworkAccessProfileUpdater updater(final String pathSid){
+        return new NetworkAccessProfileUpdater(pathSid);
     }
 
     /**

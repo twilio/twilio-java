@@ -33,8 +33,8 @@ import java.util.List;
 import java.net.URI;
 
 public class RecordingCreator extends Creator<Recording>{
-    private String callSid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathAccountSid;
     private List<String> recordingStatusCallbackEvent;
     private URI recordingStatusCallback;
     private HttpMethod recordingStatusCallbackMethod;
@@ -42,12 +42,12 @@ public class RecordingCreator extends Creator<Recording>{
     private String recordingChannels;
     private String recordingTrack;
 
-    public RecordingCreator(final String callSid) {
-        this.callSid = callSid;
+    public RecordingCreator(final String pathCallSid) {
+        this.pathCallSid = pathCallSid;
     }
-    public RecordingCreator(final String accountSid, final String callSid) {
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public RecordingCreator(final String pathAccountSid, final String pathCallSid) {
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     public RecordingCreator setRecordingStatusCallbackEvent(final List<String> recordingStatusCallbackEvent){
@@ -86,9 +86,9 @@ public class RecordingCreator extends Creator<Recording>{
     public Recording create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

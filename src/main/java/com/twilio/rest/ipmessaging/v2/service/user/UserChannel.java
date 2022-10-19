@@ -44,20 +44,20 @@ public class UserChannel extends Resource {
     private static final long serialVersionUID = 104594062960806L;
 
 
-    public static UserChannelFetcher fetcher(final String serviceSid, final String userSid, final String channelSid){
-        return new UserChannelFetcher(serviceSid, userSid, channelSid);
+    public static UserChannelFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        return new UserChannelFetcher(pathServiceSid, pathUserSid, pathChannelSid);
     }
 
-    public static UserChannelDeleter deleter(final String serviceSid, final String userSid, final String channelSid){
-        return new UserChannelDeleter(serviceSid, userSid, channelSid);
+    public static UserChannelDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
     }
 
-    public static UserChannelReader reader(final String serviceSid, final String userSid){
-        return new UserChannelReader(serviceSid, userSid);
+    public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid){
+        return new UserChannelReader(pathServiceSid, pathUserSid);
     }
 
-    public static UserChannelUpdater updater(final String serviceSid, final String userSid, final String channelSid){
-        return new UserChannelUpdater(serviceSid, userSid, channelSid);
+    public static UserChannelUpdater updater(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        return new UserChannelUpdater(pathServiceSid, pathUserSid, pathChannelSid);
     }
 
     /**

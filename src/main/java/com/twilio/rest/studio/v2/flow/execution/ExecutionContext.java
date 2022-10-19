@@ -43,8 +43,8 @@ public class ExecutionContext extends Resource {
     private static final long serialVersionUID = 48761390116247L;
 
 
-    public static ExecutionContextFetcher fetcher(final String flowSid, final String executionSid){
-        return new ExecutionContextFetcher(flowSid, executionSid);
+    public static ExecutionContextFetcher fetcher(final String pathFlowSid, final String pathExecutionSid){
+        return new ExecutionContextFetcher(pathFlowSid, pathExecutionSid);
     }
 
 

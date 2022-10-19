@@ -43,13 +43,13 @@ public class SchemaVersion extends Resource {
     private static final long serialVersionUID = 232564429627083L;
 
 
-    public static SchemaVersionFetcher fetcher(final String id, final Integer schemaVersion){
-        return new SchemaVersionFetcher(id, schemaVersion);
+    public static SchemaVersionFetcher fetcher(final String pathId, final Integer pathSchemaVersion){
+        return new SchemaVersionFetcher(pathId, pathSchemaVersion);
     }
 
 
-    public static SchemaVersionReader reader(final String id){
-        return new SchemaVersionReader(id);
+    public static SchemaVersionReader reader(final String pathId){
+        return new SchemaVersionReader(pathId);
     }
 
 

@@ -49,20 +49,20 @@ public class FlexFlow extends Resource {
         return new FlexFlowCreator(friendlyName, chatServiceSid, channelType);
     }
 
-    public static FlexFlowFetcher fetcher(final String sid){
-        return new FlexFlowFetcher(sid);
+    public static FlexFlowFetcher fetcher(final String pathSid){
+        return new FlexFlowFetcher(pathSid);
     }
 
-    public static FlexFlowDeleter deleter(final String sid){
-        return new FlexFlowDeleter(sid);
+    public static FlexFlowDeleter deleter(final String pathSid){
+        return new FlexFlowDeleter(pathSid);
     }
 
     public static FlexFlowReader reader(){
         return new FlexFlowReader();
     }
 
-    public static FlexFlowUpdater updater(final String sid){
-        return new FlexFlowUpdater(sid);
+    public static FlexFlowUpdater updater(final String pathSid){
+        return new FlexFlowUpdater(pathSid);
     }
 
     /**

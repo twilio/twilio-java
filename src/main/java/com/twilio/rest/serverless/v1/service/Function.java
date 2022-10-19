@@ -44,24 +44,24 @@ import java.util.Map;
 public class Function extends Resource {
     private static final long serialVersionUID = 60673471687127L;
 
-    public static FunctionCreator creator(final String serviceSid, final String friendlyName){
-        return new FunctionCreator(serviceSid, friendlyName);
+    public static FunctionCreator creator(final String pathServiceSid, final String friendlyName){
+        return new FunctionCreator(pathServiceSid, friendlyName);
     }
 
-    public static FunctionFetcher fetcher(final String serviceSid, final String sid){
-        return new FunctionFetcher(serviceSid, sid);
+    public static FunctionFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new FunctionFetcher(pathServiceSid, pathSid);
     }
 
-    public static FunctionDeleter deleter(final String serviceSid, final String sid){
-        return new FunctionDeleter(serviceSid, sid);
+    public static FunctionDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new FunctionDeleter(pathServiceSid, pathSid);
     }
 
-    public static FunctionReader reader(final String serviceSid){
-        return new FunctionReader(serviceSid);
+    public static FunctionReader reader(final String pathServiceSid){
+        return new FunctionReader(pathServiceSid);
     }
 
-    public static FunctionUpdater updater(final String serviceSid, final String sid, final String friendlyName){
-        return new FunctionUpdater(serviceSid, sid, friendlyName);
+    public static FunctionUpdater updater(final String pathServiceSid, final String pathSid, final String friendlyName){
+        return new FunctionUpdater(pathServiceSid, pathSid, friendlyName);
     }
 
     /**

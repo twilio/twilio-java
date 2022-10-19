@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class ServiceUpdater extends Updater<Service>{
-    private String sid;
+    private String pathSid;
     private String uniqueName;
     private Integer defaultTtl;
     private URI callbackUrl;
@@ -40,8 +40,8 @@ public class ServiceUpdater extends Updater<Service>{
     private URI outOfSessionCallbackUrl;
     private String chatInstanceSid;
 
-    public ServiceUpdater(final String sid){
-        this.sid = sid;
+    public ServiceUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public ServiceUpdater setUniqueName(final String uniqueName){
@@ -93,7 +93,7 @@ public class ServiceUpdater extends Updater<Service>{
     public Service update(final TwilioRestClient client){
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

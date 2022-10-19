@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class RoleReader extends Reader<Role> {
-    private String chatServiceSid;
+    private String pathChatServiceSid;
     private Integer pageSize;
 
-    public RoleReader(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public RoleReader(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
     public RoleReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class RoleReader extends Reader<Role> {
 
     public Page<Role> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Roles";
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

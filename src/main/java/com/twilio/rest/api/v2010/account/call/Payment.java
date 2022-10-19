@@ -43,21 +43,21 @@ import java.util.Objects;
 public class Payment extends Resource {
     private static final long serialVersionUID = 75287507384907L;
 
-    public static PaymentCreator creator(final String callSid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentCreator(callSid, idempotencyKey, statusCallback);
+    public static PaymentCreator creator(final String pathCallSid, final String idempotencyKey, final URI statusCallback){
+        return new PaymentCreator(pathCallSid, idempotencyKey, statusCallback);
     }
-    public static PaymentCreator creator(final String accountSid, final String callSid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentCreator(accountSid, callSid, idempotencyKey, statusCallback);
+    public static PaymentCreator creator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback){
+        return new PaymentCreator(pathAccountSid, pathCallSid, idempotencyKey, statusCallback);
     }
 
 
 
 
-    public static PaymentUpdater updater(final String callSid, final String sid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentUpdater(callSid, sid, idempotencyKey, statusCallback);
+    public static PaymentUpdater updater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
+        return new PaymentUpdater(pathCallSid, pathSid, idempotencyKey, statusCallback);
     }
-    public static PaymentUpdater updater(final String accountSid, final String callSid, final String sid, final String idempotencyKey, final URI statusCallback){
-        return new PaymentUpdater(accountSid, callSid, sid, idempotencyKey, statusCallback);
+    public static PaymentUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
+        return new PaymentUpdater(pathAccountSid, pathCallSid, pathSid, idempotencyKey, statusCallback);
     }
 
     /**

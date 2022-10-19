@@ -41,14 +41,14 @@ import java.util.Map;
 public class ExportCustomJob extends Resource {
     private static final long serialVersionUID = 125242558228L;
 
-    public static ExportCustomJobCreator creator(final String resourceType, final String startDay, final String endDay, final String friendlyName){
-        return new ExportCustomJobCreator(resourceType, startDay, endDay, friendlyName);
+    public static ExportCustomJobCreator creator(final String pathResourceType, final String startDay, final String endDay, final String friendlyName){
+        return new ExportCustomJobCreator(pathResourceType, startDay, endDay, friendlyName);
     }
 
 
 
-    public static ExportCustomJobReader reader(final String resourceType){
-        return new ExportCustomJobReader(resourceType);
+    public static ExportCustomJobReader reader(final String pathResourceType){
+        return new ExportCustomJobReader(pathResourceType);
     }
 
 

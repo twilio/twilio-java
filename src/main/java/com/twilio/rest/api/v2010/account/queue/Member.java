@@ -43,26 +43,26 @@ public class Member extends Resource {
     private static final long serialVersionUID = 196464556782918L;
 
 
-    public static MemberFetcher fetcher(final String queueSid, final String callSid){
-        return new MemberFetcher(queueSid, callSid);
+    public static MemberFetcher fetcher(final String pathQueueSid, final String pathCallSid){
+        return new MemberFetcher(pathQueueSid, pathCallSid);
     }
-    public static MemberFetcher fetcher(final String accountSid, final String queueSid, final String callSid){
-        return new MemberFetcher(accountSid, queueSid, callSid);
-    }
-
-
-    public static MemberReader reader(final String queueSid){
-        return new MemberReader(queueSid);
-    }
-    public static MemberReader reader(final String accountSid, final String queueSid){
-        return new MemberReader(accountSid, queueSid);
+    public static MemberFetcher fetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid){
+        return new MemberFetcher(pathAccountSid, pathQueueSid, pathCallSid);
     }
 
-    public static MemberUpdater updater(final String queueSid, final String callSid, final URI url){
-        return new MemberUpdater(queueSid, callSid, url);
+
+    public static MemberReader reader(final String pathQueueSid){
+        return new MemberReader(pathQueueSid);
     }
-    public static MemberUpdater updater(final String accountSid, final String queueSid, final String callSid, final URI url){
-        return new MemberUpdater(accountSid, queueSid, callSid, url);
+    public static MemberReader reader(final String pathAccountSid, final String pathQueueSid){
+        return new MemberReader(pathAccountSid, pathQueueSid);
+    }
+
+    public static MemberUpdater updater(final String pathQueueSid, final String pathCallSid, final URI url){
+        return new MemberUpdater(pathQueueSid, pathCallSid, url);
+    }
+    public static MemberUpdater updater(final String pathAccountSid, final String pathQueueSid, final String pathCallSid, final URI url){
+        return new MemberUpdater(pathAccountSid, pathQueueSid, pathCallSid, url);
     }
 
     /**

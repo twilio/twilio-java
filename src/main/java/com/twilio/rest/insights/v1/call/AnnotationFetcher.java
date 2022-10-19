@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class AnnotationFetcher extends Fetcher<Annotation> {
-    private String callSid;
+    private String pathCallSid;
 
-    public AnnotationFetcher(final String callSid){
-        this.callSid = callSid;
+    public AnnotationFetcher(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
 
 
@@ -39,7 +39,7 @@ public class AnnotationFetcher extends Fetcher<Annotation> {
     public Annotation fetch(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Annotation";
 
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

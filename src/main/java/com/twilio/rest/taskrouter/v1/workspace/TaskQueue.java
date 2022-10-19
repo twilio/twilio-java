@@ -45,24 +45,24 @@ import java.util.Map;
 public class TaskQueue extends Resource {
     private static final long serialVersionUID = 234230912116687L;
 
-    public static TaskQueueCreator creator(final String workspaceSid, final String friendlyName){
-        return new TaskQueueCreator(workspaceSid, friendlyName);
+    public static TaskQueueCreator creator(final String pathWorkspaceSid, final String friendlyName){
+        return new TaskQueueCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static TaskQueueFetcher fetcher(final String workspaceSid, final String sid){
-        return new TaskQueueFetcher(workspaceSid, sid);
+    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new TaskQueueFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static TaskQueueDeleter deleter(final String workspaceSid, final String sid){
-        return new TaskQueueDeleter(workspaceSid, sid);
+    public static TaskQueueDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+        return new TaskQueueDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static TaskQueueReader reader(final String workspaceSid){
-        return new TaskQueueReader(workspaceSid);
+    public static TaskQueueReader reader(final String pathWorkspaceSid){
+        return new TaskQueueReader(pathWorkspaceSid);
     }
 
-    public static TaskQueueUpdater updater(final String workspaceSid, final String sid){
-        return new TaskQueueUpdater(workspaceSid, sid);
+    public static TaskQueueUpdater updater(final String pathWorkspaceSid, final String pathSid){
+        return new TaskQueueUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**

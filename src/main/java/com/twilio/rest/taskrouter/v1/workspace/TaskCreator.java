@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class TaskCreator extends Creator<Task>{
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private Integer timeout;
     private Integer priority;
     private String taskChannel;
     private String workflowSid;
     private String attributes;
 
-    public TaskCreator(final String workspaceSid) {
-        this.workspaceSid = workspaceSid;
+    public TaskCreator(final String pathWorkspaceSid) {
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public TaskCreator setTimeout(final Integer timeout){
@@ -64,7 +64,7 @@ public class TaskCreator extends Creator<Task>{
     public Task create(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

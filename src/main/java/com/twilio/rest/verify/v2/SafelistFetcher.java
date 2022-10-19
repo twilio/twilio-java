@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class SafelistFetcher extends Fetcher<Safelist> {
-    private String phoneNumber;
+    private String pathPhoneNumber;
 
-    public SafelistFetcher(final String phoneNumber){
-        this.phoneNumber = phoneNumber;
+    public SafelistFetcher(final String pathPhoneNumber){
+        this.pathPhoneNumber = pathPhoneNumber;
     }
 
 
@@ -39,7 +39,7 @@ public class SafelistFetcher extends Fetcher<Safelist> {
     public Safelist fetch(final TwilioRestClient client) {
         String path = "/v2/SafeList/Numbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.toString());
+        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.toString());
 
         Request request = new Request(
             HttpMethod.GET,

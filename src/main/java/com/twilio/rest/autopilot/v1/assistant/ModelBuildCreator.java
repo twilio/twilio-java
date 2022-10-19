@@ -31,12 +31,12 @@ import java.net.URI;
 import java.net.URI;
 
 public class ModelBuildCreator extends Creator<ModelBuild>{
-    private String assistantSid;
+    private String pathAssistantSid;
     private URI statusCallback;
     private String uniqueName;
 
-    public ModelBuildCreator(final String assistantSid) {
-        this.assistantSid = assistantSid;
+    public ModelBuildCreator(final String pathAssistantSid) {
+        this.pathAssistantSid = pathAssistantSid;
     }
 
     public ModelBuildCreator setStatusCallback(final URI statusCallback){
@@ -56,7 +56,7 @@ public class ModelBuildCreator extends Creator<ModelBuild>{
     public ModelBuild create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/ModelBuilds";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

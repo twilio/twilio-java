@@ -31,14 +31,14 @@ import java.util.List;
 
 
 public class InviteReader extends Reader<Invite> {
-    private String serviceSid;
-    private String channelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private List<String> identity;
     private Integer pageSize;
 
-    public InviteReader(final String serviceSid, final String channelSid){
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+    public InviteReader(final String pathServiceSid, final String pathChannelSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     public InviteReader setIdentity(final List<String> identity){
@@ -60,8 +60,8 @@ public class InviteReader extends Reader<Invite> {
 
     public Page<Invite> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

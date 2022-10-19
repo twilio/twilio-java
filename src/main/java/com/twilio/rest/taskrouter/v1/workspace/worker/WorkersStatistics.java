@@ -43,8 +43,8 @@ public class WorkersStatistics extends Resource {
     private static final long serialVersionUID = 274987650256203L;
 
 
-    public static WorkersStatisticsFetcher fetcher(final String workspaceSid){
-        return new WorkersStatisticsFetcher(workspaceSid);
+    public static WorkersStatisticsFetcher fetcher(final String pathWorkspaceSid){
+        return new WorkersStatisticsFetcher(pathWorkspaceSid);
     }
 
 

@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class MediaProcessorUpdater extends Updater<MediaProcessor>{
-    private String sid;
+    private String pathSid;
     private MediaProcessor.UpdateStatus status;
 
-    public MediaProcessorUpdater(final String sid, final MediaProcessor.UpdateStatus status){
-        this.sid = sid;
+    public MediaProcessorUpdater(final String pathSid, final MediaProcessor.UpdateStatus status){
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -45,7 +45,7 @@ public class MediaProcessorUpdater extends Updater<MediaProcessor>{
     public MediaProcessor update(final TwilioRestClient client){
         String path = "/v1/MediaProcessors/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

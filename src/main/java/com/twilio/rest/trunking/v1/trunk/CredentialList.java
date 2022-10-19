@@ -42,20 +42,20 @@ import java.util.Objects;
 public class CredentialList extends Resource {
     private static final long serialVersionUID = 198091197266991L;
 
-    public static CredentialListCreator creator(final String trunkSid, final String credentialListSid){
-        return new CredentialListCreator(trunkSid, credentialListSid);
+    public static CredentialListCreator creator(final String pathTrunkSid, final String credentialListSid){
+        return new CredentialListCreator(pathTrunkSid, credentialListSid);
     }
 
-    public static CredentialListFetcher fetcher(final String trunkSid, final String sid){
-        return new CredentialListFetcher(trunkSid, sid);
+    public static CredentialListFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new CredentialListFetcher(pathTrunkSid, pathSid);
     }
 
-    public static CredentialListDeleter deleter(final String trunkSid, final String sid){
-        return new CredentialListDeleter(trunkSid, sid);
+    public static CredentialListDeleter deleter(final String pathTrunkSid, final String pathSid){
+        return new CredentialListDeleter(pathTrunkSid, pathSid);
     }
 
-    public static CredentialListReader reader(final String trunkSid){
-        return new CredentialListReader(trunkSid);
+    public static CredentialListReader reader(final String pathTrunkSid){
+        return new CredentialListReader(pathTrunkSid);
     }
 
 

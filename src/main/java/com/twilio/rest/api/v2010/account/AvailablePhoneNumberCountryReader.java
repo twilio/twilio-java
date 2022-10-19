@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumberCountry> {
-    private String accountSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
     public AvailablePhoneNumberCountryReader(){
     }
-    public AvailablePhoneNumberCountryReader(final String accountSid){
-        this.accountSid = accountSid;
+    public AvailablePhoneNumberCountryReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public AvailablePhoneNumberCountryReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class AvailablePhoneNumberCountryReader extends Reader<AvailablePhoneNumb
 
     public Page<AvailablePhoneNumberCountry> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

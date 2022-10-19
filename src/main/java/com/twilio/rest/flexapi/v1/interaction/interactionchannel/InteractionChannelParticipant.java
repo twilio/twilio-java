@@ -43,18 +43,18 @@ import java.util.Map;
 public class InteractionChannelParticipant extends Resource {
     private static final long serialVersionUID = 108435204885654L;
 
-    public static InteractionChannelParticipantCreator creator(final String interactionSid, final String channelSid, final InteractionChannelParticipant.Type type, final Map<String, Object> mediaProperties){
-        return new InteractionChannelParticipantCreator(interactionSid, channelSid, type, mediaProperties);
+    public static InteractionChannelParticipantCreator creator(final String pathInteractionSid, final String pathChannelSid, final InteractionChannelParticipant.Type type, final Map<String, Object> mediaProperties){
+        return new InteractionChannelParticipantCreator(pathInteractionSid, pathChannelSid, type, mediaProperties);
     }
 
 
 
-    public static InteractionChannelParticipantReader reader(final String interactionSid, final String channelSid){
-        return new InteractionChannelParticipantReader(interactionSid, channelSid);
+    public static InteractionChannelParticipantReader reader(final String pathInteractionSid, final String pathChannelSid){
+        return new InteractionChannelParticipantReader(pathInteractionSid, pathChannelSid);
     }
 
-    public static InteractionChannelParticipantUpdater updater(final String interactionSid, final String channelSid, final String sid, final InteractionChannelParticipant.Status status){
-        return new InteractionChannelParticipantUpdater(interactionSid, channelSid, sid, status);
+    public static InteractionChannelParticipantUpdater updater(final String pathInteractionSid, final String pathChannelSid, final String pathSid, final InteractionChannelParticipant.Status status){
+        return new InteractionChannelParticipantUpdater(pathInteractionSid, pathChannelSid, pathSid, status);
     }
 
     /**

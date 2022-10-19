@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Certificate extends Resource {
     private static final long serialVersionUID = 26542571339730L;
 
-    public static CertificateCreator creator(final String fleetSid, final String certificateData){
-        return new CertificateCreator(fleetSid, certificateData);
+    public static CertificateCreator creator(final String pathFleetSid, final String certificateData){
+        return new CertificateCreator(pathFleetSid, certificateData);
     }
 
-    public static CertificateFetcher fetcher(final String fleetSid, final String sid){
-        return new CertificateFetcher(fleetSid, sid);
+    public static CertificateFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new CertificateFetcher(pathFleetSid, pathSid);
     }
 
-    public static CertificateDeleter deleter(final String fleetSid, final String sid){
-        return new CertificateDeleter(fleetSid, sid);
+    public static CertificateDeleter deleter(final String pathFleetSid, final String pathSid){
+        return new CertificateDeleter(pathFleetSid, pathSid);
     }
 
-    public static CertificateReader reader(final String fleetSid){
-        return new CertificateReader(fleetSid);
+    public static CertificateReader reader(final String pathFleetSid){
+        return new CertificateReader(pathFleetSid);
     }
 
-    public static CertificateUpdater updater(final String fleetSid, final String sid){
-        return new CertificateUpdater(fleetSid, sid);
+    public static CertificateUpdater updater(final String pathFleetSid, final String pathSid){
+        return new CertificateUpdater(pathFleetSid, pathSid);
     }
 
     /**

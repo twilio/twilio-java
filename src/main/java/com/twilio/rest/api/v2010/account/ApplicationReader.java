@@ -29,14 +29,14 @@ import com.twilio.base.Page;
 
 
 public class ApplicationReader extends Reader<Application> {
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private Integer pageSize;
 
     public ApplicationReader(){
     }
-    public ApplicationReader(final String accountSid){
-        this.accountSid = accountSid;
+    public ApplicationReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public ApplicationReader setFriendlyName(final String friendlyName){
@@ -55,8 +55,8 @@ public class ApplicationReader extends Reader<Application> {
 
     public Page<Application> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Applications.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

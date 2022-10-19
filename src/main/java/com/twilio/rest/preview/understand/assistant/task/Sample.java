@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Sample extends Resource {
     private static final long serialVersionUID = 197447215274163L;
 
-    public static SampleCreator creator(final String assistantSid, final String taskSid, final String language, final String taggedText){
-        return new SampleCreator(assistantSid, taskSid, language, taggedText);
+    public static SampleCreator creator(final String pathAssistantSid, final String pathTaskSid, final String language, final String taggedText){
+        return new SampleCreator(pathAssistantSid, pathTaskSid, language, taggedText);
     }
 
-    public static SampleFetcher fetcher(final String assistantSid, final String taskSid, final String sid){
-        return new SampleFetcher(assistantSid, taskSid, sid);
+    public static SampleFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new SampleFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
-    public static SampleDeleter deleter(final String assistantSid, final String taskSid, final String sid){
-        return new SampleDeleter(assistantSid, taskSid, sid);
+    public static SampleDeleter deleter(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new SampleDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
-    public static SampleReader reader(final String assistantSid, final String taskSid){
-        return new SampleReader(assistantSid, taskSid);
+    public static SampleReader reader(final String pathAssistantSid, final String pathTaskSid){
+        return new SampleReader(pathAssistantSid, pathTaskSid);
     }
 
-    public static SampleUpdater updater(final String assistantSid, final String taskSid, final String sid){
-        return new SampleUpdater(assistantSid, taskSid, sid);
+    public static SampleUpdater updater(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new SampleUpdater(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**

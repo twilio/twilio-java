@@ -29,7 +29,7 @@ import com.twilio.base.Page;
 
 
 public class TriggerReader extends Reader<Trigger> {
-    private String accountSid;
+    private String pathAccountSid;
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
     private Trigger.UsageCategory usageCategory;
@@ -37,8 +37,8 @@ public class TriggerReader extends Reader<Trigger> {
 
     public TriggerReader(){
     }
-    public TriggerReader(final String accountSid){
-        this.accountSid = accountSid;
+    public TriggerReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public TriggerReader setRecurring(final Trigger.Recurring recurring){
@@ -65,8 +65,8 @@ public class TriggerReader extends Reader<Trigger> {
 
     public Page<Trigger> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

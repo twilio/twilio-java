@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class ParticipantReader extends Reader<Participant> {
-    private String roomSid;
+    private String pathRoomSid;
     private Integer pageSize;
 
-    public ParticipantReader(final String roomSid){
-        this.roomSid = roomSid;
+    public ParticipantReader(final String pathRoomSid){
+        this.pathRoomSid = pathRoomSid;
     }
 
     public ParticipantReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class ParticipantReader extends Reader<Participant> {
 
     public Page<Participant> firstPage(final TwilioRestClient client) {
         String path = "/v1/Video/Rooms/{RoomSid}/Participants";
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

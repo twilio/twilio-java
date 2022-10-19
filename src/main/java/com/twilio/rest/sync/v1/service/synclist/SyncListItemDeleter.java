@@ -27,15 +27,15 @@ import com.twilio.rest.Domains;
 
 
 public class SyncListItemDeleter extends Deleter<SyncListItem> {
-    private String serviceSid;
-    private String listSid;
-    private Integer index;
+    private String pathServiceSid;
+    private String pathListSid;
+    private Integer pathIndex;
     private String ifMatch;
 
-    public SyncListItemDeleter(final String serviceSid, final String listSid, final Integer index){
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
-        this.index = index;
+    public SyncListItemDeleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIndex = pathIndex;
     }
 
     public SyncListItemDeleter setIfMatch(final String ifMatch){
@@ -47,9 +47,9 @@ public class SyncListItemDeleter extends Deleter<SyncListItem> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
-        path = path.replace("{"+"Index"+"}", this.index.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
+        path = path.replace("{"+"Index"+"}", this.pathIndex.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

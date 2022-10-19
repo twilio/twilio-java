@@ -42,17 +42,17 @@ import java.util.Objects;
 public class Deployment extends Resource {
     private static final long serialVersionUID = 53350837896565L;
 
-    public static DeploymentCreator creator(final String serviceSid, final String environmentSid){
-        return new DeploymentCreator(serviceSid, environmentSid);
+    public static DeploymentCreator creator(final String pathServiceSid, final String pathEnvironmentSid){
+        return new DeploymentCreator(pathServiceSid, pathEnvironmentSid);
     }
 
-    public static DeploymentFetcher fetcher(final String serviceSid, final String environmentSid, final String sid){
-        return new DeploymentFetcher(serviceSid, environmentSid, sid);
+    public static DeploymentFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+        return new DeploymentFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
 
-    public static DeploymentReader reader(final String serviceSid, final String environmentSid){
-        return new DeploymentReader(serviceSid, environmentSid);
+    public static DeploymentReader reader(final String pathServiceSid, final String pathEnvironmentSid){
+        return new DeploymentReader(pathServiceSid, pathEnvironmentSid);
     }
 
 

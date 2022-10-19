@@ -45,24 +45,24 @@ import java.util.Map;
 public class Message extends Resource {
     private static final long serialVersionUID = 210901647084119L;
 
-    public static MessageCreator creator(final String serviceSid, final String channelSid){
-        return new MessageCreator(serviceSid, channelSid);
+    public static MessageCreator creator(final String pathServiceSid, final String pathChannelSid){
+        return new MessageCreator(pathServiceSid, pathChannelSid);
     }
 
-    public static MessageFetcher fetcher(final String serviceSid, final String channelSid, final String sid){
-        return new MessageFetcher(serviceSid, channelSid, sid);
+    public static MessageFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static MessageDeleter deleter(final String serviceSid, final String channelSid, final String sid){
-        return new MessageDeleter(serviceSid, channelSid, sid);
+    public static MessageDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static MessageReader reader(final String serviceSid, final String channelSid){
-        return new MessageReader(serviceSid, channelSid);
+    public static MessageReader reader(final String pathServiceSid, final String pathChannelSid){
+        return new MessageReader(pathServiceSid, pathChannelSid);
     }
 
-    public static MessageUpdater updater(final String serviceSid, final String channelSid, final String sid){
-        return new MessageUpdater(serviceSid, channelSid, sid);
+    public static MessageUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**

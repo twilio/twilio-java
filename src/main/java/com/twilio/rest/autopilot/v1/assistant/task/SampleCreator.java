@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class SampleCreator extends Creator<Sample>{
-    private String assistantSid;
-    private String taskSid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
     private String language;
     private String taggedText;
     private String sourceChannel;
 
-    public SampleCreator(final String assistantSid, final String taskSid, final String language, final String taggedText) {
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
+    public SampleCreator(final String pathAssistantSid, final String pathTaskSid, final String language, final String taggedText) {
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
         this.language = language;
         this.taggedText = taggedText;
     }
@@ -58,8 +58,8 @@ public class SampleCreator extends Creator<Sample>{
     public Sample create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
         path = path.replace("{"+"Language"+"}", this.language.toString());
         path = path.replace("{"+"TaggedText"+"}", this.taggedText.toString());
 

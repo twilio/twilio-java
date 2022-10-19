@@ -44,8 +44,8 @@ public class SupportingDocumentType extends Resource {
     private static final long serialVersionUID = 67038001521206L;
 
 
-    public static SupportingDocumentTypeFetcher fetcher(final String sid){
-        return new SupportingDocumentTypeFetcher(sid);
+    public static SupportingDocumentTypeFetcher fetcher(final String pathSid){
+        return new SupportingDocumentTypeFetcher(pathSid);
     }
 
 

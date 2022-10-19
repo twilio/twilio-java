@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
-    private String addressSid;
-    private String accountSid;
+    private String pathAddressSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public DependentPhoneNumberReader(final String addressSid){
-        this.addressSid = addressSid;
+    public DependentPhoneNumberReader(final String pathAddressSid){
+        this.pathAddressSid = pathAddressSid;
     }
-    public DependentPhoneNumberReader(final String accountSid, final String addressSid){
-        this.accountSid = accountSid;
-        this.addressSid = addressSid;
+    public DependentPhoneNumberReader(final String pathAccountSid, final String pathAddressSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathAddressSid = pathAddressSid;
     }
 
     public DependentPhoneNumberReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class DependentPhoneNumberReader extends Reader<DependentPhoneNumber> {
 
     public Page<DependentPhoneNumber> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses/{AddressSid}/DependentPhoneNumbers.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"AddressSid"+"}", this.addressSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"AddressSid"+"}", this.pathAddressSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

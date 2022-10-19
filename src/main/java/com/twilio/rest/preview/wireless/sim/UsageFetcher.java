@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class UsageFetcher extends Fetcher<Usage> {
-    private String simSid;
+    private String pathSimSid;
     private String end;
     private String start;
 
-    public UsageFetcher(final String simSid){
-        this.simSid = simSid;
+    public UsageFetcher(final String pathSimSid){
+        this.pathSimSid = pathSimSid;
     }
 
     public UsageFetcher setEnd(final String end){
@@ -49,7 +49,7 @@ public class UsageFetcher extends Fetcher<Usage> {
     public Usage fetch(final TwilioRestClient client) {
         String path = "/wireless/Sims/{SimSid}/Usage";
 
-        path = path.replace("{"+"SimSid"+"}", this.simSid.toString());
+        path = path.replace("{"+"SimSid"+"}", this.pathSimSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -41,32 +41,32 @@ import java.util.Objects;
 public class IpAccessControlListMapping extends Resource {
     private static final long serialVersionUID = 220550473371145L;
 
-    public static IpAccessControlListMappingCreator creator(final String domainSid, final String ipAccessControlListSid){
-        return new IpAccessControlListMappingCreator(domainSid, ipAccessControlListSid);
+    public static IpAccessControlListMappingCreator creator(final String pathDomainSid, final String ipAccessControlListSid){
+        return new IpAccessControlListMappingCreator(pathDomainSid, ipAccessControlListSid);
     }
-    public static IpAccessControlListMappingCreator creator(final String accountSid, final String domainSid, final String ipAccessControlListSid){
-        return new IpAccessControlListMappingCreator(accountSid, domainSid, ipAccessControlListSid);
-    }
-
-    public static IpAccessControlListMappingFetcher fetcher(final String domainSid, final String sid){
-        return new IpAccessControlListMappingFetcher(domainSid, sid);
-    }
-    public static IpAccessControlListMappingFetcher fetcher(final String accountSid, final String domainSid, final String sid){
-        return new IpAccessControlListMappingFetcher(accountSid, domainSid, sid);
+    public static IpAccessControlListMappingCreator creator(final String pathAccountSid, final String pathDomainSid, final String ipAccessControlListSid){
+        return new IpAccessControlListMappingCreator(pathAccountSid, pathDomainSid, ipAccessControlListSid);
     }
 
-    public static IpAccessControlListMappingDeleter deleter(final String domainSid, final String sid){
-        return new IpAccessControlListMappingDeleter(domainSid, sid);
+    public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new IpAccessControlListMappingFetcher(pathDomainSid, pathSid);
     }
-    public static IpAccessControlListMappingDeleter deleter(final String accountSid, final String domainSid, final String sid){
-        return new IpAccessControlListMappingDeleter(accountSid, domainSid, sid);
+    public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new IpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
-    public static IpAccessControlListMappingReader reader(final String domainSid){
-        return new IpAccessControlListMappingReader(domainSid);
+    public static IpAccessControlListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
+        return new IpAccessControlListMappingDeleter(pathDomainSid, pathSid);
     }
-    public static IpAccessControlListMappingReader reader(final String accountSid, final String domainSid){
-        return new IpAccessControlListMappingReader(accountSid, domainSid);
+    public static IpAccessControlListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new IpAccessControlListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static IpAccessControlListMappingReader reader(final String pathDomainSid){
+        return new IpAccessControlListMappingReader(pathDomainSid);
+    }
+    public static IpAccessControlListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
+        return new IpAccessControlListMappingReader(pathAccountSid, pathDomainSid);
     }
 
 

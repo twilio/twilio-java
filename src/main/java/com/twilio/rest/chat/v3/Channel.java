@@ -47,8 +47,8 @@ public class Channel extends Resource {
 
 
 
-    public static ChannelUpdater updater(final String serviceSid, final String sid){
-        return new ChannelUpdater(serviceSid, sid);
+    public static ChannelUpdater updater(final String pathServiceSid, final String pathSid){
+        return new ChannelUpdater(pathServiceSid, pathSid);
     }
 
     /**

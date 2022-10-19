@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class PlayerStreamerUpdater extends Updater<PlayerStreamer>{
-    private String sid;
+    private String pathSid;
     private PlayerStreamer.UpdateStatus status;
 
-    public PlayerStreamerUpdater(final String sid, final PlayerStreamer.UpdateStatus status){
-        this.sid = sid;
+    public PlayerStreamerUpdater(final String pathSid, final PlayerStreamer.UpdateStatus status){
+        this.pathSid = pathSid;
         this.status = status;
     }
 
@@ -45,7 +45,7 @@ public class PlayerStreamerUpdater extends Updater<PlayerStreamer>{
     public PlayerStreamer update(final TwilioRestClient client){
         String path = "/v1/PlayerStreamers/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
         path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(

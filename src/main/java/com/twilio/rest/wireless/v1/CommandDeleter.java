@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class CommandDeleter extends Deleter<Command> {
-    private String sid;
+    private String pathSid;
 
-    public CommandDeleter(final String sid){
-        this.sid = sid;
+    public CommandDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class CommandDeleter extends Deleter<Command> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Commands/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

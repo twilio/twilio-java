@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class ServiceUpdater extends Updater<Service>{
-    private String sid;
+    private String pathSid;
     private Boolean includeCredentials;
     private String friendlyName;
     private Boolean uiEditable;
 
-    public ServiceUpdater(final String sid){
-        this.sid = sid;
+    public ServiceUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public ServiceUpdater setIncludeCredentials(final Boolean includeCredentials){
@@ -54,7 +54,7 @@ public class ServiceUpdater extends Updater<Service>{
     public Service update(final TwilioRestClient client){
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

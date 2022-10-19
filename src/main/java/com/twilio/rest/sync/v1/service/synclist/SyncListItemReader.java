@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class SyncListItemReader extends Reader<SyncListItem> {
-    private String serviceSid;
-    private String listSid;
+    private String pathServiceSid;
+    private String pathListSid;
     private SyncListItem.QueryResultOrder order;
     private String from;
     private SyncListItem.QueryFromBoundType bounds;
     private Integer pageSize;
 
-    public SyncListItemReader(final String serviceSid, final String listSid){
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
+    public SyncListItemReader(final String pathServiceSid, final String pathListSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
     }
 
     public SyncListItemReader setOrder(final SyncListItem.QueryResultOrder order){
@@ -65,8 +65,8 @@ public class SyncListItemReader extends Reader<SyncListItem> {
 
     public Page<SyncListItem> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

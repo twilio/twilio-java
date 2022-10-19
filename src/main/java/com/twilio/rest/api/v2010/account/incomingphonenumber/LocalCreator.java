@@ -32,7 +32,7 @@ import java.net.URI;
 
 public class LocalCreator extends Creator<Local>{
     private com.twilio.type.PhoneNumber phoneNumber;
-    private String accountSid;
+    private String pathAccountSid;
     private String apiVersion;
     private String friendlyName;
     private String smsApplicationSid;
@@ -59,8 +59,8 @@ public class LocalCreator extends Creator<Local>{
     public LocalCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    public LocalCreator(final String accountSid, final com.twilio.type.PhoneNumber phoneNumber) {
-        this.accountSid = accountSid;
+    public LocalCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
+        this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
@@ -185,8 +185,8 @@ public class LocalCreator extends Creator<Local>{
     public Local create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/Local.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.encode("utf-8"));
 
         Request request = new Request(

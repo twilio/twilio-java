@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class MemberCreator extends Creator<Member>{
-    private String serviceSid;
-    private String channelSid;
+    private String pathServiceSid;
+    private String pathChannelSid;
     private String identity;
     private String roleSid;
 
-    public MemberCreator(final String serviceSid, final String channelSid, final String identity) {
-        this.serviceSid = serviceSid;
-        this.channelSid = channelSid;
+    public MemberCreator(final String pathServiceSid, final String pathChannelSid, final String identity) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathChannelSid = pathChannelSid;
         this.identity = identity;
     }
 
@@ -52,8 +52,8 @@ public class MemberCreator extends Creator<Member>{
     public Member create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
         path = path.replace("{"+"Identity"+"}", this.identity.toString());
 
         Request request = new Request(

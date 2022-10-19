@@ -42,20 +42,20 @@ import java.util.Objects;
 public class ItemAssignment extends Resource {
     private static final long serialVersionUID = 241370748977037L;
 
-    public static ItemAssignmentCreator creator(final String bundleSid, final String objectSid){
-        return new ItemAssignmentCreator(bundleSid, objectSid);
+    public static ItemAssignmentCreator creator(final String pathBundleSid, final String objectSid){
+        return new ItemAssignmentCreator(pathBundleSid, objectSid);
     }
 
-    public static ItemAssignmentFetcher fetcher(final String bundleSid, final String sid){
-        return new ItemAssignmentFetcher(bundleSid, sid);
+    public static ItemAssignmentFetcher fetcher(final String pathBundleSid, final String pathSid){
+        return new ItemAssignmentFetcher(pathBundleSid, pathSid);
     }
 
-    public static ItemAssignmentDeleter deleter(final String bundleSid, final String sid){
-        return new ItemAssignmentDeleter(bundleSid, sid);
+    public static ItemAssignmentDeleter deleter(final String pathBundleSid, final String pathSid){
+        return new ItemAssignmentDeleter(pathBundleSid, pathSid);
     }
 
-    public static ItemAssignmentReader reader(final String bundleSid){
-        return new ItemAssignmentReader(bundleSid);
+    public static ItemAssignmentReader reader(final String pathBundleSid){
+        return new ItemAssignmentReader(pathBundleSid);
     }
 
 

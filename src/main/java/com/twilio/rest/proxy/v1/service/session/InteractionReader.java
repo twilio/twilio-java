@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class InteractionReader extends Reader<Interaction> {
-    private String serviceSid;
-    private String sessionSid;
+    private String pathServiceSid;
+    private String pathSessionSid;
     private Integer pageSize;
 
-    public InteractionReader(final String serviceSid, final String sessionSid){
-        this.serviceSid = serviceSid;
-        this.sessionSid = sessionSid;
+    public InteractionReader(final String pathServiceSid, final String pathSessionSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSessionSid = pathSessionSid;
     }
 
     public InteractionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class InteractionReader extends Reader<Interaction> {
 
     public Page<Interaction> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Interactions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"SessionSid"+"}", this.sessionSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

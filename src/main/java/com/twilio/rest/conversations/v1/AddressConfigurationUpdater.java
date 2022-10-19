@@ -30,7 +30,7 @@ import java.util.List;
 
 
 public class AddressConfigurationUpdater extends Updater<AddressConfiguration>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
     private Boolean autoCreationEnabled;
     private AddressConfiguration.AutoCreationType autoCreationType;
@@ -41,8 +41,8 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration>{
     private String autoCreationStudioFlowSid;
     private Integer autoCreationStudioRetryCount;
 
-    public AddressConfigurationUpdater(final String sid){
-        this.sid = sid;
+    public AddressConfigurationUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public AddressConfigurationUpdater setFriendlyName(final String friendlyName){
@@ -89,7 +89,7 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration>{
     public AddressConfiguration update(final TwilioRestClient client){
         String path = "/v1/Configuration/Addresses/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

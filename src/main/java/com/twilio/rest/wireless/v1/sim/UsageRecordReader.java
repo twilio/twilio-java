@@ -30,14 +30,14 @@ import java.time.ZonedDateTime;
 
 
 public class UsageRecordReader extends Reader<UsageRecord> {
-    private String simSid;
+    private String pathSimSid;
     private ZonedDateTime end;
     private ZonedDateTime start;
     private UsageRecord.Granularity granularity;
     private Integer pageSize;
 
-    public UsageRecordReader(final String simSid){
-        this.simSid = simSid;
+    public UsageRecordReader(final String pathSimSid){
+        this.pathSimSid = pathSimSid;
     }
 
     public UsageRecordReader setEnd(final ZonedDateTime end){
@@ -64,7 +64,7 @@ public class UsageRecordReader extends Reader<UsageRecord> {
 
     public Page<UsageRecord> firstPage(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/UsageRecords";
-        path = path.replace("{"+"SimSid"+"}", this.simSid.toString());
+        path = path.replace("{"+"SimSid"+"}", this.pathSimSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class DocumentPermissionReader extends Reader<DocumentPermission> {
-    private String serviceSid;
-    private String documentSid;
+    private String pathServiceSid;
+    private String pathDocumentSid;
     private Integer pageSize;
 
-    public DocumentPermissionReader(final String serviceSid, final String documentSid){
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
+    public DocumentPermissionReader(final String pathServiceSid, final String pathDocumentSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
     }
 
     public DocumentPermissionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class DocumentPermissionReader extends Reader<DocumentPermission> {
 
     public Page<DocumentPermission> firstPage(final TwilioRestClient client) {
         String path = "/Sync/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"DocumentSid"+"}", this.documentSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

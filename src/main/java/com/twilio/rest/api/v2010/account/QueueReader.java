@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class QueueReader extends Reader<Queue> {
-    private String accountSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
     public QueueReader(){
     }
-    public QueueReader(final String accountSid){
-        this.accountSid = accountSid;
+    public QueueReader(final String pathAccountSid){
+        this.pathAccountSid = pathAccountSid;
     }
 
     public QueueReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class QueueReader extends Reader<Queue> {
 
     public Page<Queue> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Queues.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

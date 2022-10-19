@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class KeyDeleter extends Deleter<Key> {
-    private String fleetSid;
-    private String sid;
+    private String pathFleetSid;
+    private String pathSid;
 
-    public KeyDeleter(final String fleetSid, final String sid){
-        this.fleetSid = fleetSid;
-        this.sid = sid;
+    public KeyDeleter(final String pathFleetSid, final String pathSid){
+        this.pathFleetSid = pathFleetSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class KeyDeleter extends Deleter<Key> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Keys/{Sid}";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

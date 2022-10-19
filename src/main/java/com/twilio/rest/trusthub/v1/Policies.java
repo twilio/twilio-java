@@ -43,8 +43,8 @@ public class Policies extends Resource {
     private static final long serialVersionUID = 142613922631852L;
 
 
-    public static PoliciesFetcher fetcher(final String sid){
-        return new PoliciesFetcher(sid);
+    public static PoliciesFetcher fetcher(final String pathSid){
+        return new PoliciesFetcher(pathSid);
     }
 
 

@@ -41,13 +41,13 @@ public class AvailableAddOnExtension extends Resource {
     private static final long serialVersionUID = 15009232316880L;
 
 
-    public static AvailableAddOnExtensionFetcher fetcher(final String availableAddOnSid, final String sid){
-        return new AvailableAddOnExtensionFetcher(availableAddOnSid, sid);
+    public static AvailableAddOnExtensionFetcher fetcher(final String pathAvailableAddOnSid, final String pathSid){
+        return new AvailableAddOnExtensionFetcher(pathAvailableAddOnSid, pathSid);
     }
 
 
-    public static AvailableAddOnExtensionReader reader(final String availableAddOnSid){
-        return new AvailableAddOnExtensionReader(availableAddOnSid);
+    public static AvailableAddOnExtensionReader reader(final String pathAvailableAddOnSid){
+        return new AvailableAddOnExtensionReader(pathAvailableAddOnSid);
     }
 
 

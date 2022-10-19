@@ -33,21 +33,22 @@ import java.io.InputStream;
 import java.util.Objects;
 
 
+import java.math.BigDecimal;
 import com.twilio.type.PhoneNumberCapabilities;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Mobile extends Resource {
-    private static final long serialVersionUID = 265071420563046L;
+    private static final long serialVersionUID = 211749226408502L;
 
 
 
 
-    public static MobileReader reader(final String countryCode){
-        return new MobileReader(countryCode);
+    public static MobileReader reader(final String pathCountryCode){
+        return new MobileReader(pathCountryCode);
     }
-    public static MobileReader reader(final String accountSid, final String countryCode){
-        return new MobileReader(accountSid, countryCode);
+    public static MobileReader reader(final String pathAccountSid, final String pathCountryCode){
+        return new MobileReader(pathAccountSid, pathCountryCode);
     }
 
 
@@ -93,8 +94,8 @@ public class Mobile extends Resource {
     private final String lata;
     private final String locality;
     private final String rateCenter;
-    private final String latitude;
-    private final String longitude;
+    private final BigDecimal latitude;
+    private final BigDecimal longitude;
     private final String region;
     private final String postalCode;
     private final String isoCountry;
@@ -120,10 +121,10 @@ public class Mobile extends Resource {
         final String rateCenter,
 
         @JsonProperty("latitude")
-        final String latitude,
+        final BigDecimal latitude,
 
         @JsonProperty("longitude")
-        final String longitude,
+        final BigDecimal longitude,
 
         @JsonProperty("region")
         final String region,
@@ -173,10 +174,10 @@ public class Mobile extends Resource {
         public final String getRateCenter() {
             return this.rateCenter;
         }
-        public final String getLatitude() {
+        public final BigDecimal getLatitude() {
             return this.latitude;
         }
-        public final String getLongitude() {
+        public final BigDecimal getLongitude() {
             return this.longitude;
         }
         public final String getRegion() {

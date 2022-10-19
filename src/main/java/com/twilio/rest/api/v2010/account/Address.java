@@ -44,36 +44,36 @@ public class Address extends Resource {
     public static AddressCreator creator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry){
         return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
     }
-    public static AddressCreator creator(final String accountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry){
-        return new AddressCreator(accountSid, customerName, street, city, region, postalCode, isoCountry);
+    public static AddressCreator creator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry){
+        return new AddressCreator(pathAccountSid, customerName, street, city, region, postalCode, isoCountry);
     }
 
-    public static AddressFetcher fetcher(final String sid){
-        return new AddressFetcher(sid);
+    public static AddressFetcher fetcher(final String pathSid){
+        return new AddressFetcher(pathSid);
     }
-    public static AddressFetcher fetcher(final String accountSid, final String sid){
-        return new AddressFetcher(accountSid, sid);
+    public static AddressFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new AddressFetcher(pathAccountSid, pathSid);
     }
 
-    public static AddressDeleter deleter(final String sid){
-        return new AddressDeleter(sid);
+    public static AddressDeleter deleter(final String pathSid){
+        return new AddressDeleter(pathSid);
     }
-    public static AddressDeleter deleter(final String accountSid, final String sid){
-        return new AddressDeleter(accountSid, sid);
+    public static AddressDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new AddressDeleter(pathAccountSid, pathSid);
     }
 
     public static AddressReader reader(){
         return new AddressReader();
     }
-    public static AddressReader reader(final String accountSid){
-        return new AddressReader(accountSid);
+    public static AddressReader reader(final String pathAccountSid){
+        return new AddressReader(pathAccountSid);
     }
 
-    public static AddressUpdater updater(final String sid){
-        return new AddressUpdater(sid);
+    public static AddressUpdater updater(final String pathSid){
+        return new AddressUpdater(pathSid);
     }
-    public static AddressUpdater updater(final String accountSid, final String sid){
-        return new AddressUpdater(accountSid, sid);
+    public static AddressUpdater updater(final String pathAccountSid, final String pathSid){
+        return new AddressUpdater(pathAccountSid, pathSid);
     }
 
     /**

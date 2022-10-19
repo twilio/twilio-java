@@ -45,24 +45,24 @@ import java.util.Map;
 public class SyncListItem extends Resource {
     private static final long serialVersionUID = 92711713432732L;
 
-    public static SyncListItemCreator creator(final String serviceSid, final String listSid, final Map<String, Object> data){
-        return new SyncListItemCreator(serviceSid, listSid, data);
+    public static SyncListItemCreator creator(final String pathServiceSid, final String pathListSid, final Map<String, Object> data){
+        return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
 
-    public static SyncListItemFetcher fetcher(final String serviceSid, final String listSid, final Integer index){
-        return new SyncListItemFetcher(serviceSid, listSid, index);
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+        return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
     }
 
-    public static SyncListItemDeleter deleter(final String serviceSid, final String listSid, final Integer index){
-        return new SyncListItemDeleter(serviceSid, listSid, index);
+    public static SyncListItemDeleter deleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+        return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
     }
 
-    public static SyncListItemReader reader(final String serviceSid, final String listSid){
-        return new SyncListItemReader(serviceSid, listSid);
+    public static SyncListItemReader reader(final String pathServiceSid, final String pathListSid){
+        return new SyncListItemReader(pathServiceSid, pathListSid);
     }
 
-    public static SyncListItemUpdater updater(final String serviceSid, final String listSid, final Integer index){
-        return new SyncListItemUpdater(serviceSid, listSid, index);
+    public static SyncListItemUpdater updater(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+        return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex);
     }
 
     /**

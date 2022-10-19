@@ -29,12 +29,12 @@ import com.twilio.base.Page;
 
 
 public class BrandVettingReader extends Reader<BrandVetting> {
-    private String brandSid;
+    private String pathBrandSid;
     private BrandVetting.VettingProvider vettingProvider;
     private Integer pageSize;
 
-    public BrandVettingReader(final String brandSid){
-        this.brandSid = brandSid;
+    public BrandVettingReader(final String pathBrandSid){
+        this.pathBrandSid = pathBrandSid;
     }
 
     public BrandVettingReader setVettingProvider(final BrandVetting.VettingProvider vettingProvider){
@@ -53,7 +53,7 @@ public class BrandVettingReader extends Reader<BrandVetting> {
 
     public Page<BrandVetting> firstPage(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations/{BrandSid}/Vettings";
-        path = path.replace("{"+"BrandSid"+"}", this.brandSid.toString());
+        path = path.replace("{"+"BrandSid"+"}", this.pathBrandSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

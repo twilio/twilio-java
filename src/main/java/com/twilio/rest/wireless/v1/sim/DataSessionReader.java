@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class DataSessionReader extends Reader<DataSession> {
-    private String simSid;
+    private String pathSimSid;
     private Integer pageSize;
 
-    public DataSessionReader(final String simSid){
-        this.simSid = simSid;
+    public DataSessionReader(final String pathSimSid){
+        this.pathSimSid = pathSimSid;
     }
 
     public DataSessionReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class DataSessionReader extends Reader<DataSession> {
 
     public Page<DataSession> firstPage(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/DataSessions";
-        path = path.replace("{"+"SimSid"+"}", this.simSid.toString());
+        path = path.replace("{"+"SimSid"+"}", this.pathSimSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

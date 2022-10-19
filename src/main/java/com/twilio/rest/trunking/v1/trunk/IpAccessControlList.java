@@ -42,20 +42,20 @@ import java.util.Objects;
 public class IpAccessControlList extends Resource {
     private static final long serialVersionUID = 198091197266991L;
 
-    public static IpAccessControlListCreator creator(final String trunkSid, final String ipAccessControlListSid){
-        return new IpAccessControlListCreator(trunkSid, ipAccessControlListSid);
+    public static IpAccessControlListCreator creator(final String pathTrunkSid, final String ipAccessControlListSid){
+        return new IpAccessControlListCreator(pathTrunkSid, ipAccessControlListSid);
     }
 
-    public static IpAccessControlListFetcher fetcher(final String trunkSid, final String sid){
-        return new IpAccessControlListFetcher(trunkSid, sid);
+    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new IpAccessControlListFetcher(pathTrunkSid, pathSid);
     }
 
-    public static IpAccessControlListDeleter deleter(final String trunkSid, final String sid){
-        return new IpAccessControlListDeleter(trunkSid, sid);
+    public static IpAccessControlListDeleter deleter(final String pathTrunkSid, final String pathSid){
+        return new IpAccessControlListDeleter(pathTrunkSid, pathSid);
     }
 
-    public static IpAccessControlListReader reader(final String trunkSid){
-        return new IpAccessControlListReader(trunkSid);
+    public static IpAccessControlListReader reader(final String pathTrunkSid){
+        return new IpAccessControlListReader(pathTrunkSid);
     }
 
 

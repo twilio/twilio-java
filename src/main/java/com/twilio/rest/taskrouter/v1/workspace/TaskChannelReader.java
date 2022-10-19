@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class TaskChannelReader extends Reader<TaskChannel> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private Integer pageSize;
 
-    public TaskChannelReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public TaskChannelReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public TaskChannelReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class TaskChannelReader extends Reader<TaskChannel> {
 
     public Page<TaskChannel> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskChannels";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

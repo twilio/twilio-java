@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class TrustProductsEvaluationsFetcher extends Fetcher<TrustProductsEvaluations> {
-    private String trustProductSid;
-    private String sid;
+    private String pathTrustProductSid;
+    private String pathSid;
 
-    public TrustProductsEvaluationsFetcher(final String trustProductSid, final String sid){
-        this.trustProductSid = trustProductSid;
-        this.sid = sid;
+    public TrustProductsEvaluationsFetcher(final String pathTrustProductSid, final String pathSid){
+        this.pathTrustProductSid = pathTrustProductSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class TrustProductsEvaluationsFetcher extends Fetcher<TrustProductsEvalua
     public TrustProductsEvaluations fetch(final TwilioRestClient client) {
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations/{Sid}";
 
-        path = path.replace("{"+"TrustProductSid"+"}", this.trustProductSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

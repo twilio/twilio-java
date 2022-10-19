@@ -46,17 +46,17 @@ public class Reservation extends Resource {
     private static final long serialVersionUID = 88353198782173L;
 
 
-    public static ReservationFetcher fetcher(final String workspaceSid, final String taskSid, final String sid){
-        return new ReservationFetcher(workspaceSid, taskSid, sid);
+    public static ReservationFetcher fetcher(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid){
+        return new ReservationFetcher(pathWorkspaceSid, pathTaskSid, pathSid);
     }
 
 
-    public static ReservationReader reader(final String workspaceSid, final String taskSid){
-        return new ReservationReader(workspaceSid, taskSid);
+    public static ReservationReader reader(final String pathWorkspaceSid, final String pathTaskSid){
+        return new ReservationReader(pathWorkspaceSid, pathTaskSid);
     }
 
-    public static ReservationUpdater updater(final String workspaceSid, final String taskSid, final String sid){
-        return new ReservationUpdater(workspaceSid, taskSid, sid);
+    public static ReservationUpdater updater(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid){
+        return new ReservationUpdater(pathWorkspaceSid, pathTaskSid, pathSid);
     }
 
     /**

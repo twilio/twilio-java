@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class TrunkDeleter extends Deleter<Trunk> {
-    private String sid;
+    private String pathSid;
 
-    public TrunkDeleter(final String sid){
-        this.sid = sid;
+    public TrunkDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class TrunkDeleter extends Deleter<Trunk> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Trunks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

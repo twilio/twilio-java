@@ -46,20 +46,20 @@ public class SourceIpMapping extends Resource {
         return new SourceIpMappingCreator(ipRecordSid, sipDomainSid);
     }
 
-    public static SourceIpMappingFetcher fetcher(final String sid){
-        return new SourceIpMappingFetcher(sid);
+    public static SourceIpMappingFetcher fetcher(final String pathSid){
+        return new SourceIpMappingFetcher(pathSid);
     }
 
-    public static SourceIpMappingDeleter deleter(final String sid){
-        return new SourceIpMappingDeleter(sid);
+    public static SourceIpMappingDeleter deleter(final String pathSid){
+        return new SourceIpMappingDeleter(pathSid);
     }
 
     public static SourceIpMappingReader reader(){
         return new SourceIpMappingReader();
     }
 
-    public static SourceIpMappingUpdater updater(final String sid, final String sipDomainSid){
-        return new SourceIpMappingUpdater(sid, sipDomainSid);
+    public static SourceIpMappingUpdater updater(final String pathSid, final String sipDomainSid){
+        return new SourceIpMappingUpdater(pathSid, sipDomainSid);
     }
 
     /**

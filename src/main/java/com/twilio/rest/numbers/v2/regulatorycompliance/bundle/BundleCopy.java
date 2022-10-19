@@ -43,14 +43,14 @@ import java.util.Objects;
 public class BundleCopy extends Resource {
     private static final long serialVersionUID = 169816383944206L;
 
-    public static BundleCopyCreator creator(final String bundleSid){
-        return new BundleCopyCreator(bundleSid);
+    public static BundleCopyCreator creator(final String pathBundleSid){
+        return new BundleCopyCreator(pathBundleSid);
     }
 
 
 
-    public static BundleCopyReader reader(final String bundleSid){
-        return new BundleCopyReader(bundleSid);
+    public static BundleCopyReader reader(final String pathBundleSid){
+        return new BundleCopyReader(pathBundleSid);
     }
 
 

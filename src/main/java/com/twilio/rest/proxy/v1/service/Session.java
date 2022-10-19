@@ -45,24 +45,24 @@ import java.util.Map;
 public class Session extends Resource {
     private static final long serialVersionUID = 86537474068288L;
 
-    public static SessionCreator creator(final String serviceSid){
-        return new SessionCreator(serviceSid);
+    public static SessionCreator creator(final String pathServiceSid){
+        return new SessionCreator(pathServiceSid);
     }
 
-    public static SessionFetcher fetcher(final String serviceSid, final String sid){
-        return new SessionFetcher(serviceSid, sid);
+    public static SessionFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SessionFetcher(pathServiceSid, pathSid);
     }
 
-    public static SessionDeleter deleter(final String serviceSid, final String sid){
-        return new SessionDeleter(serviceSid, sid);
+    public static SessionDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new SessionDeleter(pathServiceSid, pathSid);
     }
 
-    public static SessionReader reader(final String serviceSid){
-        return new SessionReader(serviceSid);
+    public static SessionReader reader(final String pathServiceSid){
+        return new SessionReader(pathServiceSid);
     }
 
-    public static SessionUpdater updater(final String serviceSid, final String sid){
-        return new SessionUpdater(serviceSid, sid);
+    public static SessionUpdater updater(final String pathServiceSid, final String pathSid){
+        return new SessionUpdater(pathServiceSid, pathSid);
     }
 
     /**

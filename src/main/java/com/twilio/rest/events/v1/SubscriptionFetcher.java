@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class SubscriptionFetcher extends Fetcher<Subscription> {
-    private String sid;
+    private String pathSid;
 
-    public SubscriptionFetcher(final String sid){
-        this.sid = sid;
+    public SubscriptionFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class SubscriptionFetcher extends Fetcher<Subscription> {
     public Subscription fetch(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

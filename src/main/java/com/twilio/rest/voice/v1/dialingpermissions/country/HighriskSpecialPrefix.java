@@ -42,8 +42,8 @@ public class HighriskSpecialPrefix extends Resource {
 
 
 
-    public static HighriskSpecialPrefixReader reader(final String isoCode){
-        return new HighriskSpecialPrefixReader(isoCode);
+    public static HighriskSpecialPrefixReader reader(final String pathIsoCode){
+        return new HighriskSpecialPrefixReader(pathIsoCode);
     }
 
 

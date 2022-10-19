@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class EngagementReader extends Reader<Engagement> {
-    private String flowSid;
+    private String pathFlowSid;
     private Integer pageSize;
 
-    public EngagementReader(final String flowSid){
-        this.flowSid = flowSid;
+    public EngagementReader(final String pathFlowSid){
+        this.pathFlowSid = pathFlowSid;
     }
 
     public EngagementReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class EngagementReader extends Reader<Engagement> {
 
     public Page<Engagement> firstPage(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements";
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -42,25 +42,25 @@ public class Media extends Resource {
     private static final long serialVersionUID = 86856561367712L;
 
 
-    public static MediaFetcher fetcher(final String messageSid, final String sid){
-        return new MediaFetcher(messageSid, sid);
+    public static MediaFetcher fetcher(final String pathMessageSid, final String pathSid){
+        return new MediaFetcher(pathMessageSid, pathSid);
     }
-    public static MediaFetcher fetcher(final String accountSid, final String messageSid, final String sid){
-        return new MediaFetcher(accountSid, messageSid, sid);
-    }
-
-    public static MediaDeleter deleter(final String messageSid, final String sid){
-        return new MediaDeleter(messageSid, sid);
-    }
-    public static MediaDeleter deleter(final String accountSid, final String messageSid, final String sid){
-        return new MediaDeleter(accountSid, messageSid, sid);
+    public static MediaFetcher fetcher(final String pathAccountSid, final String pathMessageSid, final String pathSid){
+        return new MediaFetcher(pathAccountSid, pathMessageSid, pathSid);
     }
 
-    public static MediaReader reader(final String messageSid){
-        return new MediaReader(messageSid);
+    public static MediaDeleter deleter(final String pathMessageSid, final String pathSid){
+        return new MediaDeleter(pathMessageSid, pathSid);
     }
-    public static MediaReader reader(final String accountSid, final String messageSid){
-        return new MediaReader(accountSid, messageSid);
+    public static MediaDeleter deleter(final String pathAccountSid, final String pathMessageSid, final String pathSid){
+        return new MediaDeleter(pathAccountSid, pathMessageSid, pathSid);
+    }
+
+    public static MediaReader reader(final String pathMessageSid){
+        return new MediaReader(pathMessageSid);
+    }
+    public static MediaReader reader(final String pathAccountSid, final String pathMessageSid){
+        return new MediaReader(pathAccountSid, pathMessageSid);
     }
 
 

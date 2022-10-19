@@ -29,16 +29,16 @@ import com.twilio.base.Page;
 
 
 public class EventReader extends Reader<Event> {
-    private String callSid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathAccountSid;
     private Integer pageSize;
 
-    public EventReader(final String callSid){
-        this.callSid = callSid;
+    public EventReader(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
-    public EventReader(final String accountSid, final String callSid){
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public EventReader(final String pathAccountSid, final String pathCallSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     public EventReader setPageSize(final Integer pageSize){
@@ -53,9 +53,9 @@ public class EventReader extends Reader<Event> {
 
     public Page<Event> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Events.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

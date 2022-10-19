@@ -44,14 +44,14 @@ public class SubscribeRules extends Resource {
     private static final long serialVersionUID = 5507350376020L;
 
 
-    public static SubscribeRulesFetcher fetcher(final String roomSid, final String participantSid){
-        return new SubscribeRulesFetcher(roomSid, participantSid);
+    public static SubscribeRulesFetcher fetcher(final String pathRoomSid, final String pathParticipantSid){
+        return new SubscribeRulesFetcher(pathRoomSid, pathParticipantSid);
     }
 
 
 
-    public static SubscribeRulesUpdater updater(final String roomSid, final String participantSid){
-        return new SubscribeRulesUpdater(roomSid, participantSid);
+    public static SubscribeRulesUpdater updater(final String pathRoomSid, final String pathParticipantSid){
+        return new SubscribeRulesUpdater(pathRoomSid, pathParticipantSid);
     }
 
     /**

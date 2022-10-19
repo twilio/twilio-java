@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
-    private String messagingServiceSid;
-    private String sid;
+    private String pathMessagingServiceSid;
+    private String pathSid;
 
-    public UsAppToPersonDeleter(final String messagingServiceSid, final String sid){
-        this.messagingServiceSid = messagingServiceSid;
-        this.sid = sid;
+    public UsAppToPersonDeleter(final String pathMessagingServiceSid, final String pathSid){
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class UsAppToPersonDeleter extends Deleter<UsAppToPerson> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

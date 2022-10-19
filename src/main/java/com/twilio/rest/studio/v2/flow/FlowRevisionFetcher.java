@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
-    private String sid;
-    private String revision;
+    private String pathSid;
+    private String pathRevision;
 
-    public FlowRevisionFetcher(final String sid, final String revision){
-        this.sid = sid;
-        this.revision = revision;
+    public FlowRevisionFetcher(final String pathSid, final String pathRevision){
+        this.pathSid = pathSid;
+        this.pathRevision = pathRevision;
     }
 
 
@@ -41,8 +41,8 @@ public class FlowRevisionFetcher extends Fetcher<FlowRevision> {
     public FlowRevision fetch(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}/Revisions/{Revision}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
-        path = path.replace("{"+"Revision"+"}", this.revision.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{"+"Revision"+"}", this.pathRevision.toString());
 
         Request request = new Request(
             HttpMethod.GET,

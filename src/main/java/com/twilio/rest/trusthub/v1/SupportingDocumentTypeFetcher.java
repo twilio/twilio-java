@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class SupportingDocumentTypeFetcher extends Fetcher<SupportingDocumentType> {
-    private String sid;
+    private String pathSid;
 
-    public SupportingDocumentTypeFetcher(final String sid){
-        this.sid = sid;
+    public SupportingDocumentTypeFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class SupportingDocumentTypeFetcher extends Fetcher<SupportingDocumentTyp
     public SupportingDocumentType fetch(final TwilioRestClient client) {
         String path = "/v1/SupportingDocumentTypes/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

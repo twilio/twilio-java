@@ -46,20 +46,20 @@ import java.util.Map;
 public class Binding extends Resource {
     private static final long serialVersionUID = 204710880064403L;
 
-    public static BindingCreator creator(final String serviceSid, final String identity, final Binding.BindingType bindingType, final String address){
-        return new BindingCreator(serviceSid, identity, bindingType, address);
+    public static BindingCreator creator(final String pathServiceSid, final String identity, final Binding.BindingType bindingType, final String address){
+        return new BindingCreator(pathServiceSid, identity, bindingType, address);
     }
 
-    public static BindingFetcher fetcher(final String serviceSid, final String sid){
-        return new BindingFetcher(serviceSid, sid);
+    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new BindingFetcher(pathServiceSid, pathSid);
     }
 
-    public static BindingDeleter deleter(final String serviceSid, final String sid){
-        return new BindingDeleter(serviceSid, sid);
+    public static BindingDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new BindingDeleter(pathServiceSid, pathSid);
     }
 
-    public static BindingReader reader(final String serviceSid){
-        return new BindingReader(serviceSid);
+    public static BindingReader reader(final String pathServiceSid){
+        return new BindingReader(pathServiceSid);
     }
 
 

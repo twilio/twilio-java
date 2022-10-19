@@ -47,25 +47,25 @@ public class Transcription extends Resource {
     private static final long serialVersionUID = 169453036448500L;
 
 
-    public static TranscriptionFetcher fetcher(final String recordingSid, final String sid){
-        return new TranscriptionFetcher(recordingSid, sid);
+    public static TranscriptionFetcher fetcher(final String pathRecordingSid, final String pathSid){
+        return new TranscriptionFetcher(pathRecordingSid, pathSid);
     }
-    public static TranscriptionFetcher fetcher(final String accountSid, final String recordingSid, final String sid){
-        return new TranscriptionFetcher(accountSid, recordingSid, sid);
-    }
-
-    public static TranscriptionDeleter deleter(final String recordingSid, final String sid){
-        return new TranscriptionDeleter(recordingSid, sid);
-    }
-    public static TranscriptionDeleter deleter(final String accountSid, final String recordingSid, final String sid){
-        return new TranscriptionDeleter(accountSid, recordingSid, sid);
+    public static TranscriptionFetcher fetcher(final String pathAccountSid, final String pathRecordingSid, final String pathSid){
+        return new TranscriptionFetcher(pathAccountSid, pathRecordingSid, pathSid);
     }
 
-    public static TranscriptionReader reader(final String recordingSid){
-        return new TranscriptionReader(recordingSid);
+    public static TranscriptionDeleter deleter(final String pathRecordingSid, final String pathSid){
+        return new TranscriptionDeleter(pathRecordingSid, pathSid);
     }
-    public static TranscriptionReader reader(final String accountSid, final String recordingSid){
-        return new TranscriptionReader(accountSid, recordingSid);
+    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathRecordingSid, final String pathSid){
+        return new TranscriptionDeleter(pathAccountSid, pathRecordingSid, pathSid);
+    }
+
+    public static TranscriptionReader reader(final String pathRecordingSid){
+        return new TranscriptionReader(pathRecordingSid);
+    }
+    public static TranscriptionReader reader(final String pathAccountSid, final String pathRecordingSid){
+        return new TranscriptionReader(pathAccountSid, pathRecordingSid);
     }
 
 

@@ -47,13 +47,13 @@ public class ConferenceParticipant extends Resource {
     private static final long serialVersionUID = 67216866718855L;
 
 
-    public static ConferenceParticipantFetcher fetcher(final String conferenceSid, final String participantSid){
-        return new ConferenceParticipantFetcher(conferenceSid, participantSid);
+    public static ConferenceParticipantFetcher fetcher(final String pathConferenceSid, final String pathParticipantSid){
+        return new ConferenceParticipantFetcher(pathConferenceSid, pathParticipantSid);
     }
 
 
-    public static ConferenceParticipantReader reader(final String conferenceSid){
-        return new ConferenceParticipantReader(conferenceSid);
+    public static ConferenceParticipantReader reader(final String pathConferenceSid){
+        return new ConferenceParticipantReader(pathConferenceSid);
     }
 
 

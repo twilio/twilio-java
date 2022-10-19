@@ -46,17 +46,17 @@ import java.util.Map;
 public class CustomerProfilesEvaluations extends Resource {
     private static final long serialVersionUID = 45516903020077L;
 
-    public static CustomerProfilesEvaluationsCreator creator(final String customerProfileSid, final String policySid){
-        return new CustomerProfilesEvaluationsCreator(customerProfileSid, policySid);
+    public static CustomerProfilesEvaluationsCreator creator(final String pathCustomerProfileSid, final String policySid){
+        return new CustomerProfilesEvaluationsCreator(pathCustomerProfileSid, policySid);
     }
 
-    public static CustomerProfilesEvaluationsFetcher fetcher(final String customerProfileSid, final String sid){
-        return new CustomerProfilesEvaluationsFetcher(customerProfileSid, sid);
+    public static CustomerProfilesEvaluationsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesEvaluationsFetcher(pathCustomerProfileSid, pathSid);
     }
 
 
-    public static CustomerProfilesEvaluationsReader reader(final String customerProfileSid){
-        return new CustomerProfilesEvaluationsReader(customerProfileSid);
+    public static CustomerProfilesEvaluationsReader reader(final String pathCustomerProfileSid){
+        return new CustomerProfilesEvaluationsReader(pathCustomerProfileSid);
     }
 
 

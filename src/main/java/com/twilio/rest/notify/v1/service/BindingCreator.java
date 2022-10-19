@@ -31,7 +31,7 @@ import java.util.List;
 
 
 public class BindingCreator extends Creator<Binding>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String identity;
     private Binding.BindingType bindingType;
     private String address;
@@ -40,8 +40,8 @@ public class BindingCreator extends Creator<Binding>{
     private String credentialSid;
     private String endpoint;
 
-    public BindingCreator(final String serviceSid, final String identity, final Binding.BindingType bindingType, final String address) {
-        this.serviceSid = serviceSid;
+    public BindingCreator(final String pathServiceSid, final String identity, final Binding.BindingType bindingType, final String address) {
+        this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.bindingType = bindingType;
         this.address = address;
@@ -83,7 +83,7 @@ public class BindingCreator extends Creator<Binding>{
     public Binding create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"Identity"+"}", this.identity.toString());
         path = path.replace("{"+"BindingType"+"}", this.bindingType.toString());
         path = path.replace("{"+"Address"+"}", this.address.toString());

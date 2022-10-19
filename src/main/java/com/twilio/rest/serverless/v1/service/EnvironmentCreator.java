@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class EnvironmentCreator extends Creator<Environment>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private String domainSuffix;
 
-    public EnvironmentCreator(final String serviceSid, final String uniqueName) {
-        this.serviceSid = serviceSid;
+    public EnvironmentCreator(final String pathServiceSid, final String uniqueName) {
+        this.pathServiceSid = pathServiceSid;
         this.uniqueName = uniqueName;
     }
 
@@ -50,7 +50,7 @@ public class EnvironmentCreator extends Creator<Environment>{
     public Environment create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Environments";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 
         Request request = new Request(

@@ -43,32 +43,32 @@ import java.util.Map;
 public class AssignedAddOn extends Resource {
     private static final long serialVersionUID = 114193682949091L;
 
-    public static AssignedAddOnCreator creator(final String resourceSid, final String installedAddOnSid){
-        return new AssignedAddOnCreator(resourceSid, installedAddOnSid);
+    public static AssignedAddOnCreator creator(final String pathResourceSid, final String installedAddOnSid){
+        return new AssignedAddOnCreator(pathResourceSid, installedAddOnSid);
     }
-    public static AssignedAddOnCreator creator(final String accountSid, final String resourceSid, final String installedAddOnSid){
-        return new AssignedAddOnCreator(accountSid, resourceSid, installedAddOnSid);
-    }
-
-    public static AssignedAddOnFetcher fetcher(final String resourceSid, final String sid){
-        return new AssignedAddOnFetcher(resourceSid, sid);
-    }
-    public static AssignedAddOnFetcher fetcher(final String accountSid, final String resourceSid, final String sid){
-        return new AssignedAddOnFetcher(accountSid, resourceSid, sid);
+    public static AssignedAddOnCreator creator(final String pathAccountSid, final String pathResourceSid, final String installedAddOnSid){
+        return new AssignedAddOnCreator(pathAccountSid, pathResourceSid, installedAddOnSid);
     }
 
-    public static AssignedAddOnDeleter deleter(final String resourceSid, final String sid){
-        return new AssignedAddOnDeleter(resourceSid, sid);
+    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, final String pathSid){
+        return new AssignedAddOnFetcher(pathResourceSid, pathSid);
     }
-    public static AssignedAddOnDeleter deleter(final String accountSid, final String resourceSid, final String sid){
-        return new AssignedAddOnDeleter(accountSid, resourceSid, sid);
+    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid){
+        return new AssignedAddOnFetcher(pathAccountSid, pathResourceSid, pathSid);
     }
 
-    public static AssignedAddOnReader reader(final String resourceSid){
-        return new AssignedAddOnReader(resourceSid);
+    public static AssignedAddOnDeleter deleter(final String pathResourceSid, final String pathSid){
+        return new AssignedAddOnDeleter(pathResourceSid, pathSid);
     }
-    public static AssignedAddOnReader reader(final String accountSid, final String resourceSid){
-        return new AssignedAddOnReader(accountSid, resourceSid);
+    public static AssignedAddOnDeleter deleter(final String pathAccountSid, final String pathResourceSid, final String pathSid){
+        return new AssignedAddOnDeleter(pathAccountSid, pathResourceSid, pathSid);
+    }
+
+    public static AssignedAddOnReader reader(final String pathResourceSid){
+        return new AssignedAddOnReader(pathResourceSid);
+    }
+    public static AssignedAddOnReader reader(final String pathAccountSid, final String pathResourceSid){
+        return new AssignedAddOnReader(pathAccountSid, pathResourceSid);
     }
 
 

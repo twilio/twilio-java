@@ -45,8 +45,8 @@ public class Device extends Resource {
     private static final long serialVersionUID = 236681955569389L;
 
 
-    public static DeviceFetcher fetcher(final String sid){
-        return new DeviceFetcher(sid);
+    public static DeviceFetcher fetcher(final String pathSid){
+        return new DeviceFetcher(pathSid);
     }
 
 
@@ -54,8 +54,8 @@ public class Device extends Resource {
         return new DeviceReader();
     }
 
-    public static DeviceUpdater updater(final String sid){
-        return new DeviceUpdater(sid);
+    public static DeviceUpdater updater(final String pathSid){
+        return new DeviceUpdater(pathSid);
     }
 
     /**

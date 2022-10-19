@@ -39,8 +39,8 @@ import java.util.Objects;
 public class SinkValidate extends Resource {
     private static final long serialVersionUID = 233814002700195L;
 
-    public static SinkValidateCreator creator(final String sid, final String testId){
-        return new SinkValidateCreator(sid, testId);
+    public static SinkValidateCreator creator(final String pathSid, final String testId){
+        return new SinkValidateCreator(pathSid, testId);
     }
 
 

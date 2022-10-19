@@ -45,19 +45,19 @@ public class AuthorizedConnectApp extends Resource {
     private static final long serialVersionUID = 15094155294983L;
 
 
-    public static AuthorizedConnectAppFetcher fetcher(final String connectAppSid){
-        return new AuthorizedConnectAppFetcher(connectAppSid);
+    public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid){
+        return new AuthorizedConnectAppFetcher(pathConnectAppSid);
     }
-    public static AuthorizedConnectAppFetcher fetcher(final String accountSid, final String connectAppSid){
-        return new AuthorizedConnectAppFetcher(accountSid, connectAppSid);
+    public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid, final String pathConnectAppSid){
+        return new AuthorizedConnectAppFetcher(pathAccountSid, pathConnectAppSid);
     }
 
 
     public static AuthorizedConnectAppReader reader(){
         return new AuthorizedConnectAppReader();
     }
-    public static AuthorizedConnectAppReader reader(final String accountSid){
-        return new AuthorizedConnectAppReader(accountSid);
+    public static AuthorizedConnectAppReader reader(final String pathAccountSid){
+        return new AuthorizedConnectAppReader(pathAccountSid);
     }
 
 

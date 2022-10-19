@@ -41,8 +41,8 @@ import java.util.Map;
 public class StreamMessage extends Resource {
     private static final long serialVersionUID = 233477236246646L;
 
-    public static StreamMessageCreator creator(final String serviceSid, final String streamSid, final Map<String, Object> data){
-        return new StreamMessageCreator(serviceSid, streamSid, data);
+    public static StreamMessageCreator creator(final String pathServiceSid, final String pathStreamSid, final Map<String, Object> data){
+        return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
     }
 
 

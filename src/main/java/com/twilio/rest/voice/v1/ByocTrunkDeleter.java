@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class ByocTrunkDeleter extends Deleter<ByocTrunk> {
-    private String sid;
+    private String pathSid;
 
-    public ByocTrunkDeleter(final String sid){
-        this.sid = sid;
+    public ByocTrunkDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class ByocTrunkDeleter extends Deleter<ByocTrunk> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/ByocTrunks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

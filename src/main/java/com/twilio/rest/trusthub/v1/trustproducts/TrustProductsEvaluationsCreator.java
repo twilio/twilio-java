@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class TrustProductsEvaluationsCreator extends Creator<TrustProductsEvaluations>{
-    private String trustProductSid;
+    private String pathTrustProductSid;
     private String policySid;
 
-    public TrustProductsEvaluationsCreator(final String trustProductSid, final String policySid) {
-        this.trustProductSid = trustProductSid;
+    public TrustProductsEvaluationsCreator(final String pathTrustProductSid, final String policySid) {
+        this.pathTrustProductSid = pathTrustProductSid;
         this.policySid = policySid;
     }
 
@@ -45,7 +45,7 @@ public class TrustProductsEvaluationsCreator extends Creator<TrustProductsEvalua
     public TrustProductsEvaluations create(final TwilioRestClient client){
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
 
-        path = path.replace("{"+"TrustProductSid"+"}", this.trustProductSid.toString());
+        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
         path = path.replace("{"+"PolicySid"+"}", this.policySid.toString());
 
         Request request = new Request(

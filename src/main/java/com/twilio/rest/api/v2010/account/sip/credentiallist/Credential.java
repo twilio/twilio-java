@@ -41,39 +41,39 @@ import java.util.Objects;
 public class Credential extends Resource {
     private static final long serialVersionUID = 238688210273177L;
 
-    public static CredentialCreator creator(final String credentialListSid, final String username, final String password){
-        return new CredentialCreator(credentialListSid, username, password);
+    public static CredentialCreator creator(final String pathCredentialListSid, final String username, final String password){
+        return new CredentialCreator(pathCredentialListSid, username, password);
     }
-    public static CredentialCreator creator(final String accountSid, final String credentialListSid, final String username, final String password){
-        return new CredentialCreator(accountSid, credentialListSid, username, password);
-    }
-
-    public static CredentialFetcher fetcher(final String credentialListSid, final String sid){
-        return new CredentialFetcher(credentialListSid, sid);
-    }
-    public static CredentialFetcher fetcher(final String accountSid, final String credentialListSid, final String sid){
-        return new CredentialFetcher(accountSid, credentialListSid, sid);
+    public static CredentialCreator creator(final String pathAccountSid, final String pathCredentialListSid, final String username, final String password){
+        return new CredentialCreator(pathAccountSid, pathCredentialListSid, username, password);
     }
 
-    public static CredentialDeleter deleter(final String credentialListSid, final String sid){
-        return new CredentialDeleter(credentialListSid, sid);
+    public static CredentialFetcher fetcher(final String pathCredentialListSid, final String pathSid){
+        return new CredentialFetcher(pathCredentialListSid, pathSid);
     }
-    public static CredentialDeleter deleter(final String accountSid, final String credentialListSid, final String sid){
-        return new CredentialDeleter(accountSid, credentialListSid, sid);
-    }
-
-    public static CredentialReader reader(final String credentialListSid){
-        return new CredentialReader(credentialListSid);
-    }
-    public static CredentialReader reader(final String accountSid, final String credentialListSid){
-        return new CredentialReader(accountSid, credentialListSid);
+    public static CredentialFetcher fetcher(final String pathAccountSid, final String pathCredentialListSid, final String pathSid){
+        return new CredentialFetcher(pathAccountSid, pathCredentialListSid, pathSid);
     }
 
-    public static CredentialUpdater updater(final String credentialListSid, final String sid){
-        return new CredentialUpdater(credentialListSid, sid);
+    public static CredentialDeleter deleter(final String pathCredentialListSid, final String pathSid){
+        return new CredentialDeleter(pathCredentialListSid, pathSid);
     }
-    public static CredentialUpdater updater(final String accountSid, final String credentialListSid, final String sid){
-        return new CredentialUpdater(accountSid, credentialListSid, sid);
+    public static CredentialDeleter deleter(final String pathAccountSid, final String pathCredentialListSid, final String pathSid){
+        return new CredentialDeleter(pathAccountSid, pathCredentialListSid, pathSid);
+    }
+
+    public static CredentialReader reader(final String pathCredentialListSid){
+        return new CredentialReader(pathCredentialListSid);
+    }
+    public static CredentialReader reader(final String pathAccountSid, final String pathCredentialListSid){
+        return new CredentialReader(pathAccountSid, pathCredentialListSid);
+    }
+
+    public static CredentialUpdater updater(final String pathCredentialListSid, final String pathSid){
+        return new CredentialUpdater(pathCredentialListSid, pathSid);
+    }
+    public static CredentialUpdater updater(final String pathAccountSid, final String pathCredentialListSid, final String pathSid){
+        return new CredentialUpdater(pathAccountSid, pathCredentialListSid, pathSid);
     }
 
     /**

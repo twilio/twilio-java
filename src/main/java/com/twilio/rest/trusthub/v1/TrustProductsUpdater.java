@@ -30,14 +30,14 @@ import java.net.URI;
 
 
 public class TrustProductsUpdater extends Updater<TrustProducts>{
-    private String sid;
+    private String pathSid;
     private TrustProducts.Status status;
     private URI statusCallback;
     private String friendlyName;
     private String email;
 
-    public TrustProductsUpdater(final String sid){
-        this.sid = sid;
+    public TrustProductsUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public TrustProductsUpdater setStatus(final TrustProducts.Status status){
@@ -65,7 +65,7 @@ public class TrustProductsUpdater extends Updater<TrustProducts>{
     public TrustProducts update(final TwilioRestClient client){
         String path = "/v1/TrustProducts/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

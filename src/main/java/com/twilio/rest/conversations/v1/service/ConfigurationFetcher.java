@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class ConfigurationFetcher extends Fetcher<Configuration> {
-    private String chatServiceSid;
+    private String pathChatServiceSid;
 
-    public ConfigurationFetcher(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public ConfigurationFetcher(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -39,7 +39,7 @@ public class ConfigurationFetcher extends Fetcher<Configuration> {
     public Configuration fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Configuration";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class KeyCreator extends Creator<Key>{
-    private String fleetSid;
+    private String pathFleetSid;
     private String friendlyName;
     private String deviceSid;
 
-    public KeyCreator(final String fleetSid) {
-        this.fleetSid = fleetSid;
+    public KeyCreator(final String pathFleetSid) {
+        this.pathFleetSid = pathFleetSid;
     }
 
     public KeyCreator setFriendlyName(final String friendlyName){
@@ -49,7 +49,7 @@ public class KeyCreator extends Creator<Key>{
     public Key create(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Keys";
 
-        path = path.replace("{"+"FleetSid"+"}", this.fleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

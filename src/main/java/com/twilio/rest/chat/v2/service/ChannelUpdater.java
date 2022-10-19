@@ -29,8 +29,8 @@ import java.time.ZonedDateTime;
 
 
 public class ChannelUpdater extends Updater<Channel>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
     private String uniqueName;
@@ -39,9 +39,9 @@ public class ChannelUpdater extends Updater<Channel>{
     private ZonedDateTime dateUpdated;
     private String createdBy;
 
-    public ChannelUpdater(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public ChannelUpdater(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     public ChannelUpdater setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled){
@@ -77,8 +77,8 @@ public class ChannelUpdater extends Updater<Channel>{
     public Channel update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Channels/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

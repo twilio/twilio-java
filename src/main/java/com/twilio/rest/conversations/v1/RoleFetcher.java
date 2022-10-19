@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class RoleFetcher extends Fetcher<Role> {
-    private String sid;
+    private String pathSid;
 
-    public RoleFetcher(final String sid){
-        this.sid = sid;
+    public RoleFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class RoleFetcher extends Fetcher<Role> {
     public Role fetch(final TwilioRestClient client) {
         String path = "/v1/Roles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -30,8 +30,8 @@ import java.net.URI;
 
 
 public class DomainUpdater extends Updater<Domain>{
-    private String sid;
-    private String accountSid;
+    private String pathSid;
+    private String pathAccountSid;
     private String friendlyName;
     private HttpMethod voiceFallbackMethod;
     private URI voiceFallbackUrl;
@@ -46,12 +46,12 @@ public class DomainUpdater extends Updater<Domain>{
     private String byocTrunkSid;
     private String emergencyCallerSid;
 
-    public DomainUpdater(final String sid){
-        this.sid = sid;
+    public DomainUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
-    public DomainUpdater(final String accountSid, final String sid){
-        this.accountSid = accountSid;
-        this.sid = sid;
+    public DomainUpdater(final String pathAccountSid, final String pathSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathSid = pathSid;
     }
 
     public DomainUpdater setFriendlyName(final String friendlyName){
@@ -123,9 +123,9 @@ public class DomainUpdater extends Updater<Domain>{
     public Domain update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{Sid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

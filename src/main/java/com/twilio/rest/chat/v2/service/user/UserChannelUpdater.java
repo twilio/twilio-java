@@ -29,17 +29,17 @@ import java.time.ZonedDateTime;
 
 
 public class UserChannelUpdater extends Updater<UserChannel>{
-    private String serviceSid;
-    private String userSid;
-    private String channelSid;
+    private String pathServiceSid;
+    private String pathUserSid;
+    private String pathChannelSid;
     private UserChannel.NotificationLevel notificationLevel;
     private Integer lastConsumedMessageIndex;
     private ZonedDateTime lastConsumptionTimestamp;
 
-    public UserChannelUpdater(final String serviceSid, final String userSid, final String channelSid){
-        this.serviceSid = serviceSid;
-        this.userSid = userSid;
-        this.channelSid = channelSid;
+    public UserChannelUpdater(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     public UserChannelUpdater setNotificationLevel(final UserChannel.NotificationLevel notificationLevel){
@@ -59,9 +59,9 @@ public class UserChannelUpdater extends Updater<UserChannel>{
     public UserChannel update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

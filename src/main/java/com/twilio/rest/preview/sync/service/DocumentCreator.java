@@ -32,12 +32,12 @@ import java.util.Map;
 
 
 public class DocumentCreator extends Creator<Document>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private Map<String, Object> data;
 
-    public DocumentCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public DocumentCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public DocumentCreator setUniqueName(final String uniqueName){
@@ -53,7 +53,7 @@ public class DocumentCreator extends Creator<Document>{
     public Document create(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Documents";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

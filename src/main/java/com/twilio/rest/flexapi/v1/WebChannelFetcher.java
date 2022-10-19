@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class WebChannelFetcher extends Fetcher<WebChannel> {
-    private String sid;
+    private String pathSid;
 
-    public WebChannelFetcher(final String sid){
-        this.sid = sid;
+    public WebChannelFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class WebChannelFetcher extends Fetcher<WebChannel> {
     public WebChannel fetch(final TwilioRestClient client) {
         String path = "/v1/WebChannels/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

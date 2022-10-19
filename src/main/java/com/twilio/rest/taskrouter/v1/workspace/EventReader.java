@@ -30,7 +30,7 @@ import java.time.ZonedDateTime;
 
 
 public class EventReader extends Reader<Event> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private String eventType;
     private Integer minutes;
@@ -44,8 +44,8 @@ public class EventReader extends Reader<Event> {
     private String sid;
     private Integer pageSize;
 
-    public EventReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public EventReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public EventReader setEndDate(final ZonedDateTime endDate){
@@ -104,7 +104,7 @@ public class EventReader extends Reader<Event> {
 
     public Page<Event> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Events";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

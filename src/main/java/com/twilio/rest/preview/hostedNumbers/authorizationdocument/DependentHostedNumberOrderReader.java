@@ -30,7 +30,7 @@ import com.twilio.base.Page;
 
 
 public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumberOrder> {
-    private String signingDocumentSid;
+    private String pathSigningDocumentSid;
     private DependentHostedNumberOrder.Status status;
     private com.twilio.type.PhoneNumber phoneNumber;
     private String incomingPhoneNumberSid;
@@ -38,8 +38,8 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
     private String uniqueName;
     private Integer pageSize;
 
-    public DependentHostedNumberOrderReader(final String signingDocumentSid){
-        this.signingDocumentSid = signingDocumentSid;
+    public DependentHostedNumberOrderReader(final String pathSigningDocumentSid){
+        this.pathSigningDocumentSid = pathSigningDocumentSid;
     }
 
     public DependentHostedNumberOrderReader setStatus(final DependentHostedNumberOrder.Status status){
@@ -78,7 +78,7 @@ public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumb
 
     public Page<DependentHostedNumberOrder> firstPage(final TwilioRestClient client) {
         String path = "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
-        path = path.replace("{"+"SigningDocumentSid"+"}", this.signingDocumentSid.toString());
+        path = path.replace("{"+"SigningDocumentSid"+"}", this.pathSigningDocumentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

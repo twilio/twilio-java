@@ -47,8 +47,8 @@ public class SmsCommand extends Resource {
         return new SmsCommandCreator(sim, payload);
     }
 
-    public static SmsCommandFetcher fetcher(final String sid){
-        return new SmsCommandFetcher(sid);
+    public static SmsCommandFetcher fetcher(final String pathSid){
+        return new SmsCommandFetcher(pathSid);
     }
 
 

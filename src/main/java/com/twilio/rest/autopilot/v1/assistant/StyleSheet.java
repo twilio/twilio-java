@@ -43,14 +43,14 @@ public class StyleSheet extends Resource {
     private static final long serialVersionUID = 52727905251134L;
 
 
-    public static StyleSheetFetcher fetcher(final String assistantSid){
-        return new StyleSheetFetcher(assistantSid);
+    public static StyleSheetFetcher fetcher(final String pathAssistantSid){
+        return new StyleSheetFetcher(pathAssistantSid);
     }
 
 
 
-    public static StyleSheetUpdater updater(final String assistantSid){
-        return new StyleSheetUpdater(assistantSid);
+    public static StyleSheetUpdater updater(final String pathAssistantSid){
+        return new StyleSheetUpdater(pathAssistantSid);
     }
 
     /**

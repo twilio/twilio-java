@@ -27,15 +27,15 @@ import com.twilio.rest.Domains;
 
 
 public class UserChannelDeleter extends Deleter<UserChannel> {
-    private String serviceSid;
-    private String userSid;
-    private String channelSid;
+    private String pathServiceSid;
+    private String pathUserSid;
+    private String pathChannelSid;
     private UserChannel.WebhookEnabledType xTwilioWebhookEnabled;
 
-    public UserChannelDeleter(final String serviceSid, final String userSid, final String channelSid){
-        this.serviceSid = serviceSid;
-        this.userSid = userSid;
-        this.channelSid = channelSid;
+    public UserChannelDeleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathUserSid = pathUserSid;
+        this.pathChannelSid = pathChannelSid;
     }
 
     public UserChannelDeleter setXTwilioWebhookEnabled(final UserChannel.WebhookEnabledType xTwilioWebhookEnabled){
@@ -47,9 +47,9 @@ public class UserChannelDeleter extends Deleter<UserChannel> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Users/{UserSid}/Channels/{ChannelSid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.channelSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

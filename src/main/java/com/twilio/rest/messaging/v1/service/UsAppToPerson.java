@@ -45,20 +45,20 @@ import java.util.Map;
 public class UsAppToPerson extends Resource {
     private static final long serialVersionUID = 215629763717991L;
 
-    public static UsAppToPersonCreator creator(final String messagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone){
-        return new UsAppToPersonCreator(messagingServiceSid, brandRegistrationSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone);
+    public static UsAppToPersonCreator creator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone){
+        return new UsAppToPersonCreator(pathMessagingServiceSid, brandRegistrationSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone);
     }
 
-    public static UsAppToPersonFetcher fetcher(final String messagingServiceSid, final String sid){
-        return new UsAppToPersonFetcher(messagingServiceSid, sid);
+    public static UsAppToPersonFetcher fetcher(final String pathMessagingServiceSid, final String pathSid){
+        return new UsAppToPersonFetcher(pathMessagingServiceSid, pathSid);
     }
 
-    public static UsAppToPersonDeleter deleter(final String messagingServiceSid, final String sid){
-        return new UsAppToPersonDeleter(messagingServiceSid, sid);
+    public static UsAppToPersonDeleter deleter(final String pathMessagingServiceSid, final String pathSid){
+        return new UsAppToPersonDeleter(pathMessagingServiceSid, pathSid);
     }
 
-    public static UsAppToPersonReader reader(final String messagingServiceSid){
-        return new UsAppToPersonReader(messagingServiceSid);
+    public static UsAppToPersonReader reader(final String pathMessagingServiceSid){
+        return new UsAppToPersonReader(pathMessagingServiceSid);
     }
 
 

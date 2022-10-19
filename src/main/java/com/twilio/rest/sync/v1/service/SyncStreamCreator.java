@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class SyncStreamCreator extends Creator<SyncStream>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String uniqueName;
     private Integer ttl;
 
-    public SyncStreamCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public SyncStreamCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public SyncStreamCreator setUniqueName(final String uniqueName){
@@ -49,7 +49,7 @@ public class SyncStreamCreator extends Creator<SyncStream>{
     public SyncStream create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Streams";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

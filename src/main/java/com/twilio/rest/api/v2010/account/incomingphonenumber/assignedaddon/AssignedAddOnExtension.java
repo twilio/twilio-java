@@ -40,19 +40,19 @@ public class AssignedAddOnExtension extends Resource {
     private static final long serialVersionUID = 103705040276662L;
 
 
-    public static AssignedAddOnExtensionFetcher fetcher(final String resourceSid, final String assignedAddOnSid, final String sid){
-        return new AssignedAddOnExtensionFetcher(resourceSid, assignedAddOnSid, sid);
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid){
+        return new AssignedAddOnExtensionFetcher(pathResourceSid, pathAssignedAddOnSid, pathSid);
     }
-    public static AssignedAddOnExtensionFetcher fetcher(final String accountSid, final String resourceSid, final String assignedAddOnSid, final String sid){
-        return new AssignedAddOnExtensionFetcher(accountSid, resourceSid, assignedAddOnSid, sid);
+    public static AssignedAddOnExtensionFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid){
+        return new AssignedAddOnExtensionFetcher(pathAccountSid, pathResourceSid, pathAssignedAddOnSid, pathSid);
     }
 
 
-    public static AssignedAddOnExtensionReader reader(final String resourceSid, final String assignedAddOnSid){
-        return new AssignedAddOnExtensionReader(resourceSid, assignedAddOnSid);
+    public static AssignedAddOnExtensionReader reader(final String pathResourceSid, final String pathAssignedAddOnSid){
+        return new AssignedAddOnExtensionReader(pathResourceSid, pathAssignedAddOnSid);
     }
-    public static AssignedAddOnExtensionReader reader(final String accountSid, final String resourceSid, final String assignedAddOnSid){
-        return new AssignedAddOnExtensionReader(accountSid, resourceSid, assignedAddOnSid);
+    public static AssignedAddOnExtensionReader reader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid){
+        return new AssignedAddOnExtensionReader(pathAccountSid, pathResourceSid, pathAssignedAddOnSid);
     }
 
 

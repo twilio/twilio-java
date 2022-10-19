@@ -44,36 +44,36 @@ public class Queue extends Resource {
     public static QueueCreator creator(final String friendlyName){
         return new QueueCreator(friendlyName);
     }
-    public static QueueCreator creator(final String accountSid, final String friendlyName){
-        return new QueueCreator(accountSid, friendlyName);
+    public static QueueCreator creator(final String pathAccountSid, final String friendlyName){
+        return new QueueCreator(pathAccountSid, friendlyName);
     }
 
-    public static QueueFetcher fetcher(final String sid){
-        return new QueueFetcher(sid);
+    public static QueueFetcher fetcher(final String pathSid){
+        return new QueueFetcher(pathSid);
     }
-    public static QueueFetcher fetcher(final String accountSid, final String sid){
-        return new QueueFetcher(accountSid, sid);
+    public static QueueFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new QueueFetcher(pathAccountSid, pathSid);
     }
 
-    public static QueueDeleter deleter(final String sid){
-        return new QueueDeleter(sid);
+    public static QueueDeleter deleter(final String pathSid){
+        return new QueueDeleter(pathSid);
     }
-    public static QueueDeleter deleter(final String accountSid, final String sid){
-        return new QueueDeleter(accountSid, sid);
+    public static QueueDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new QueueDeleter(pathAccountSid, pathSid);
     }
 
     public static QueueReader reader(){
         return new QueueReader();
     }
-    public static QueueReader reader(final String accountSid){
-        return new QueueReader(accountSid);
+    public static QueueReader reader(final String pathAccountSid){
+        return new QueueReader(pathAccountSid);
     }
 
-    public static QueueUpdater updater(final String sid){
-        return new QueueUpdater(sid);
+    public static QueueUpdater updater(final String pathSid){
+        return new QueueUpdater(pathSid);
     }
-    public static QueueUpdater updater(final String accountSid, final String sid){
-        return new QueueUpdater(accountSid, sid);
+    public static QueueUpdater updater(final String pathAccountSid, final String pathSid){
+        return new QueueUpdater(pathAccountSid, pathSid);
     }
 
     /**

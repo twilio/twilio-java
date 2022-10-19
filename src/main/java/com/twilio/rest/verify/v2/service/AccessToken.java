@@ -43,12 +43,12 @@ import java.util.Objects;
 public class AccessToken extends Resource {
     private static final long serialVersionUID = 272179273532388L;
 
-    public static AccessTokenCreator creator(final String serviceSid, final String identity, final AccessToken.FactorTypes factorType){
-        return new AccessTokenCreator(serviceSid, identity, factorType);
+    public static AccessTokenCreator creator(final String pathServiceSid, final String identity, final AccessToken.FactorTypes factorType){
+        return new AccessTokenCreator(pathServiceSid, identity, factorType);
     }
 
-    public static AccessTokenFetcher fetcher(final String serviceSid, final String sid){
-        return new AccessTokenFetcher(serviceSid, sid);
+    public static AccessTokenFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new AccessTokenFetcher(pathServiceSid, pathSid);
     }
 
 

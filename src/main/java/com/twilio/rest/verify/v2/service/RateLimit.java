@@ -44,24 +44,24 @@ import java.util.Map;
 public class RateLimit extends Resource {
     private static final long serialVersionUID = 244381337050590L;
 
-    public static RateLimitCreator creator(final String serviceSid, final String uniqueName){
-        return new RateLimitCreator(serviceSid, uniqueName);
+    public static RateLimitCreator creator(final String pathServiceSid, final String uniqueName){
+        return new RateLimitCreator(pathServiceSid, uniqueName);
     }
 
-    public static RateLimitFetcher fetcher(final String serviceSid, final String sid){
-        return new RateLimitFetcher(serviceSid, sid);
+    public static RateLimitFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new RateLimitFetcher(pathServiceSid, pathSid);
     }
 
-    public static RateLimitDeleter deleter(final String serviceSid, final String sid){
-        return new RateLimitDeleter(serviceSid, sid);
+    public static RateLimitDeleter deleter(final String pathServiceSid, final String pathSid){
+        return new RateLimitDeleter(pathServiceSid, pathSid);
     }
 
-    public static RateLimitReader reader(final String serviceSid){
-        return new RateLimitReader(serviceSid);
+    public static RateLimitReader reader(final String pathServiceSid){
+        return new RateLimitReader(pathServiceSid);
     }
 
-    public static RateLimitUpdater updater(final String serviceSid, final String sid){
-        return new RateLimitUpdater(serviceSid, sid);
+    public static RateLimitUpdater updater(final String pathServiceSid, final String pathSid){
+        return new RateLimitUpdater(pathServiceSid, pathSid);
     }
 
     /**

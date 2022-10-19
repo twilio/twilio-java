@@ -27,10 +27,10 @@ import com.twilio.rest.Domains;
 
 
 public class BundleDeleter extends Deleter<Bundle> {
-    private String sid;
+    private String pathSid;
 
-    public BundleDeleter(final String sid){
-        this.sid = sid;
+    public BundleDeleter(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -38,7 +38,7 @@ public class BundleDeleter extends Deleter<Bundle> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

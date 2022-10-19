@@ -42,24 +42,24 @@ import java.util.Objects;
 public class MessagingConfiguration extends Resource {
     private static final long serialVersionUID = 141221540042494L;
 
-    public static MessagingConfigurationCreator creator(final String serviceSid, final String country, final String messagingServiceSid){
-        return new MessagingConfigurationCreator(serviceSid, country, messagingServiceSid);
+    public static MessagingConfigurationCreator creator(final String pathServiceSid, final String country, final String messagingServiceSid){
+        return new MessagingConfigurationCreator(pathServiceSid, country, messagingServiceSid);
     }
 
-    public static MessagingConfigurationFetcher fetcher(final String serviceSid, final String country){
-        return new MessagingConfigurationFetcher(serviceSid, country);
+    public static MessagingConfigurationFetcher fetcher(final String pathServiceSid, final String pathCountry){
+        return new MessagingConfigurationFetcher(pathServiceSid, pathCountry);
     }
 
-    public static MessagingConfigurationDeleter deleter(final String serviceSid, final String country){
-        return new MessagingConfigurationDeleter(serviceSid, country);
+    public static MessagingConfigurationDeleter deleter(final String pathServiceSid, final String pathCountry){
+        return new MessagingConfigurationDeleter(pathServiceSid, pathCountry);
     }
 
-    public static MessagingConfigurationReader reader(final String serviceSid){
-        return new MessagingConfigurationReader(serviceSid);
+    public static MessagingConfigurationReader reader(final String pathServiceSid){
+        return new MessagingConfigurationReader(pathServiceSid);
     }
 
-    public static MessagingConfigurationUpdater updater(final String serviceSid, final String country, final String messagingServiceSid){
-        return new MessagingConfigurationUpdater(serviceSid, country, messagingServiceSid);
+    public static MessagingConfigurationUpdater updater(final String pathServiceSid, final String pathCountry, final String messagingServiceSid){
+        return new MessagingConfigurationUpdater(pathServiceSid, pathCountry, messagingServiceSid);
     }
 
     /**

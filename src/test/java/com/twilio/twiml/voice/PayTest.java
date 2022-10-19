@@ -87,6 +87,7 @@ public class PayTest {
                     .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
                     .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
                     .attempts(Promoter.listOfOne(1))
+                    .requireMatchingInputs(true)
                     .build());
 
         builder.parameter(new Parameter.Builder().name("name").value("value").build());
@@ -96,7 +97,7 @@ public class PayTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Pay>" +
-                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</Pay>",
             elem.toXml()
@@ -219,6 +220,7 @@ public class PayTest {
                     .errorTypes(Promoter.listOfOne(Prompt.ErrorType.TIMEOUT))
                     .cardTypes(Promoter.listOfOne(Prompt.CardType.VISA))
                     .attempts(Promoter.listOfOne(1))
+                    .requireMatchingInputs(true)
                     .build());
 
         builder.parameter(new Parameter.Builder().name("name").value("value").build());
@@ -227,7 +229,7 @@ public class PayTest {
 
         Assert.assertEquals(
             Pay.Builder.fromXml("<Pay>" +
-                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\"/>" +
+                "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
                 "<Parameter name=\"name\" value=\"value\"/>" +
             "</Pay>").build().toXml(),
             elem.toXml()

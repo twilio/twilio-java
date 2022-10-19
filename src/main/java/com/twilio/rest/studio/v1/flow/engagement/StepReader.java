@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class StepReader extends Reader<Step> {
-    private String flowSid;
-    private String engagementSid;
+    private String pathFlowSid;
+    private String pathEngagementSid;
     private Integer pageSize;
 
-    public StepReader(final String flowSid, final String engagementSid){
-        this.flowSid = flowSid;
-        this.engagementSid = engagementSid;
+    public StepReader(final String pathFlowSid, final String pathEngagementSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathEngagementSid = pathEngagementSid;
     }
 
     public StepReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class StepReader extends Reader<Step> {
 
     public Page<Step> firstPage(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps";
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"EngagementSid"+"}", this.engagementSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"EngagementSid"+"}", this.pathEngagementSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

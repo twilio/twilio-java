@@ -40,8 +40,8 @@ import java.util.Objects;
 public class Channel extends Resource {
     private static final long serialVersionUID = 87358995298118L;
 
-    public static ChannelCreator creator(final String brandedChannelSid, final String phoneNumberSid){
-        return new ChannelCreator(brandedChannelSid, phoneNumberSid);
+    public static ChannelCreator creator(final String pathBrandedChannelSid, final String phoneNumberSid){
+        return new ChannelCreator(pathBrandedChannelSid, phoneNumberSid);
     }
 
 

@@ -29,16 +29,16 @@ import java.time.ZonedDateTime;
 
 
 public class SessionUpdater extends Updater<Session>{
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
     private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
     private Boolean failOnParticipantConflict;
 
-    public SessionUpdater(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public SessionUpdater(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
     public SessionUpdater setDateExpiry(final ZonedDateTime dateExpiry){
@@ -62,8 +62,8 @@ public class SessionUpdater extends Updater<Session>{
     public Session update(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Sessions/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

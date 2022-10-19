@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class WebhookFetcher extends Fetcher<Webhook> {
-    private String chatServiceSid;
+    private String pathChatServiceSid;
 
-    public WebhookFetcher(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public WebhookFetcher(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
 
@@ -39,7 +39,7 @@ public class WebhookFetcher extends Fetcher<Webhook> {
     public Webhook fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

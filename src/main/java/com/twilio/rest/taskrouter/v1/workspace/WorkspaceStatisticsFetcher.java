@@ -29,15 +29,15 @@ import java.time.ZonedDateTime;
 
 
 public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private Integer minutes;
     private ZonedDateTime startDate;
     private ZonedDateTime endDate;
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkspaceStatisticsFetcher(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public WorkspaceStatisticsFetcher(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public WorkspaceStatisticsFetcher setMinutes(final Integer minutes){
@@ -65,7 +65,7 @@ public class WorkspaceStatisticsFetcher extends Fetcher<WorkspaceStatistics> {
     public WorkspaceStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Statistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

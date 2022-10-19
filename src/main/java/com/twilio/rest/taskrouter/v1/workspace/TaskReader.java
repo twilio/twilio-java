@@ -31,7 +31,7 @@ import java.util.List;
 
 
 public class TaskReader extends Reader<Task> {
-    private String workspaceSid;
+    private String pathWorkspaceSid;
     private Integer priority;
     private List<String> assignmentStatus;
     private String workflowSid;
@@ -43,8 +43,8 @@ public class TaskReader extends Reader<Task> {
     private Boolean hasAddons;
     private Integer pageSize;
 
-    public TaskReader(final String workspaceSid){
-        this.workspaceSid = workspaceSid;
+    public TaskReader(final String pathWorkspaceSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
     public TaskReader setPriority(final Integer priority){
@@ -98,7 +98,7 @@ public class TaskReader extends Reader<Task> {
 
     public Page<Task> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

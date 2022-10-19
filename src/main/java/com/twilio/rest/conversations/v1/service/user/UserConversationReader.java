@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class UserConversationReader extends Reader<UserConversation> {
-    private String chatServiceSid;
-    private String userSid;
+    private String pathChatServiceSid;
+    private String pathUserSid;
     private Integer pageSize;
 
-    public UserConversationReader(final String chatServiceSid, final String userSid){
-        this.chatServiceSid = chatServiceSid;
-        this.userSid = userSid;
+    public UserConversationReader(final String pathChatServiceSid, final String pathUserSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathUserSid = pathUserSid;
     }
 
     public UserConversationReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class UserConversationReader extends Reader<UserConversation> {
 
     public Page<UserConversation> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Users/{UserSid}/Conversations";
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"UserSid"+"}", this.userSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

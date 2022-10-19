@@ -32,13 +32,13 @@ import java.util.Map;
 
 
 public class SyncListItemCreator extends Creator<SyncListItem>{
-    private String serviceSid;
-    private String listSid;
+    private String pathServiceSid;
+    private String pathListSid;
     private Map<String, Object> data;
 
-    public SyncListItemCreator(final String serviceSid, final String listSid, final Map<String, Object> data) {
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
+    public SyncListItemCreator(final String pathServiceSid, final String pathListSid, final Map<String, Object> data) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
         this.data = data;
     }
 
@@ -51,8 +51,8 @@ public class SyncListItemCreator extends Creator<SyncListItem>{
     public SyncListItem create(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Lists/{ListSid}/Items";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
         path = path.replace("{"+"Data"+"}", this.data.toString());
 
         Request request = new Request(

@@ -30,17 +30,17 @@ import java.net.URI;
 
 
 public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarget>{
-    private String connectionPolicySid;
-    private String sid;
+    private String pathConnectionPolicySid;
+    private String pathSid;
     private String friendlyName;
     private URI target;
     private Integer priority;
     private Integer weight;
     private Boolean enabled;
 
-    public ConnectionPolicyTargetUpdater(final String connectionPolicySid, final String sid){
-        this.connectionPolicySid = connectionPolicySid;
-        this.sid = sid;
+    public ConnectionPolicyTargetUpdater(final String pathConnectionPolicySid, final String pathSid){
+        this.pathConnectionPolicySid = pathConnectionPolicySid;
+        this.pathSid = pathSid;
     }
 
     public ConnectionPolicyTargetUpdater setFriendlyName(final String friendlyName){
@@ -72,8 +72,8 @@ public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarge
     public ConnectionPolicyTarget update(final TwilioRestClient client){
         String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path = path.replace("{"+"ConnectionPolicySid"+"}", this.connectionPolicySid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ConnectionPolicySid"+"}", this.pathConnectionPolicySid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

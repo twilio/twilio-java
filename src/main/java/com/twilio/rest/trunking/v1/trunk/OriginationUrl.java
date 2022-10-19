@@ -42,24 +42,24 @@ import java.util.Objects;
 public class OriginationUrl extends Resource {
     private static final long serialVersionUID = 133388691973992L;
 
-    public static OriginationUrlCreator creator(final String trunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl){
-        return new OriginationUrlCreator(trunkSid, weight, priority, enabled, friendlyName, sipUrl);
+    public static OriginationUrlCreator creator(final String pathTrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl){
+        return new OriginationUrlCreator(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl);
     }
 
-    public static OriginationUrlFetcher fetcher(final String trunkSid, final String sid){
-        return new OriginationUrlFetcher(trunkSid, sid);
+    public static OriginationUrlFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new OriginationUrlFetcher(pathTrunkSid, pathSid);
     }
 
-    public static OriginationUrlDeleter deleter(final String trunkSid, final String sid){
-        return new OriginationUrlDeleter(trunkSid, sid);
+    public static OriginationUrlDeleter deleter(final String pathTrunkSid, final String pathSid){
+        return new OriginationUrlDeleter(pathTrunkSid, pathSid);
     }
 
-    public static OriginationUrlReader reader(final String trunkSid){
-        return new OriginationUrlReader(trunkSid);
+    public static OriginationUrlReader reader(final String pathTrunkSid){
+        return new OriginationUrlReader(pathTrunkSid);
     }
 
-    public static OriginationUrlUpdater updater(final String trunkSid, final String sid){
-        return new OriginationUrlUpdater(trunkSid, sid);
+    public static OriginationUrlUpdater updater(final String pathTrunkSid, final String pathSid){
+        return new OriginationUrlUpdater(pathTrunkSid, pathSid);
     }
 
     /**

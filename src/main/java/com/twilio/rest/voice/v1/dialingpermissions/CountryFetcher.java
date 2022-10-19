@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class CountryFetcher extends Fetcher<Country> {
-    private String isoCode;
+    private String pathIsoCode;
 
-    public CountryFetcher(final String isoCode){
-        this.isoCode = isoCode;
+    public CountryFetcher(final String pathIsoCode){
+        this.pathIsoCode = pathIsoCode;
     }
 
 
@@ -39,7 +39,7 @@ public class CountryFetcher extends Fetcher<Country> {
     public Country fetch(final TwilioRestClient client) {
         String path = "/v1/DialingPermissions/Countries/{IsoCode}";
 
-        path = path.replace("{"+"IsoCode"+"}", this.isoCode.toString());
+        path = path.replace("{"+"IsoCode"+"}", this.pathIsoCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,

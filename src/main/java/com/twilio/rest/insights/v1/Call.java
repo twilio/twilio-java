@@ -43,8 +43,8 @@ public class Call extends Resource {
     private static final long serialVersionUID = 241148031780577L;
 
 
-    public static CallFetcher fetcher(final String sid){
-        return new CallFetcher(sid);
+    public static CallFetcher fetcher(final String pathSid){
+        return new CallFetcher(pathSid);
     }
 
 

@@ -31,20 +31,20 @@ import java.time.format.DateTimeFormatter;
 
 
 public class NotificationReader extends Reader<Notification> {
-    private String callSid;
-    private String accountSid;
+    private String pathCallSid;
+    private String pathAccountSid;
     private Integer log;
     private LocalDate messageDate;
     private LocalDate messageDateBefore;
     private LocalDate messageDateAfter;
     private Integer pageSize;
 
-    public NotificationReader(final String callSid){
-        this.callSid = callSid;
+    public NotificationReader(final String pathCallSid){
+        this.pathCallSid = pathCallSid;
     }
-    public NotificationReader(final String accountSid, final String callSid){
-        this.accountSid = accountSid;
-        this.callSid = callSid;
+    public NotificationReader(final String pathAccountSid, final String pathCallSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathCallSid = pathCallSid;
     }
 
     public NotificationReader setLog(final Integer log){
@@ -75,9 +75,9 @@ public class NotificationReader extends Reader<Notification> {
 
     public Page<Notification> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Notifications.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

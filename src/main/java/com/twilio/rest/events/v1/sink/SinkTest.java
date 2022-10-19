@@ -39,8 +39,8 @@ import java.util.Objects;
 public class SinkTest extends Resource {
     private static final long serialVersionUID = 233814002700195L;
 
-    public static SinkTestCreator creator(final String sid){
-        return new SinkTestCreator(sid);
+    public static SinkTestCreator creator(final String pathSid){
+        return new SinkTestCreator(pathSid);
     }
 
 

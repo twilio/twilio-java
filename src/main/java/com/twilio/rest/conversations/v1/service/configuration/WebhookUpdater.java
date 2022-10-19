@@ -31,14 +31,14 @@ import java.util.List;
 
 
 public class WebhookUpdater extends Updater<Webhook>{
-    private String chatServiceSid;
+    private String pathChatServiceSid;
     private URI preWebhookUrl;
     private URI postWebhookUrl;
     private List<String> filters;
     private String method;
 
-    public WebhookUpdater(final String chatServiceSid){
-        this.chatServiceSid = chatServiceSid;
+    public WebhookUpdater(final String pathChatServiceSid){
+        this.pathChatServiceSid = pathChatServiceSid;
     }
 
     public WebhookUpdater setPreWebhookUrl(final URI preWebhookUrl){
@@ -73,7 +73,7 @@ public class WebhookUpdater extends Updater<Webhook>{
     public Webhook update(final TwilioRestClient client){
         String path = "/v1/Services/{ChatServiceSid}/Configuration/Webhooks";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

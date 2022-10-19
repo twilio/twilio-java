@@ -42,14 +42,14 @@ public class User extends Resource {
     private static final long serialVersionUID = 253333531578389L;
 
 
-    public static UserFetcher fetcher(final String sid){
-        return new UserFetcher(sid);
+    public static UserFetcher fetcher(final String pathSid){
+        return new UserFetcher(pathSid);
     }
 
 
 
-    public static UserUpdater updater(final String sid){
-        return new UserUpdater(sid);
+    public static UserUpdater updater(final String pathSid){
+        return new UserUpdater(pathSid);
     }
 
     /**

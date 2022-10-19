@@ -45,13 +45,13 @@ public class Event extends Resource {
     private static final long serialVersionUID = 215026832174382L;
 
 
-    public static EventFetcher fetcher(final String workspaceSid, final String sid){
-        return new EventFetcher(workspaceSid, sid);
+    public static EventFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new EventFetcher(pathWorkspaceSid, pathSid);
     }
 
 
-    public static EventReader reader(final String workspaceSid){
-        return new EventReader(workspaceSid);
+    public static EventReader reader(final String pathWorkspaceSid){
+        return new EventReader(pathWorkspaceSid);
     }
 
 

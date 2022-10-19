@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class ChannelCreator extends Creator<Channel>{
-    private String brandedChannelSid;
+    private String pathBrandedChannelSid;
     private String phoneNumberSid;
 
-    public ChannelCreator(final String brandedChannelSid, final String phoneNumberSid) {
-        this.brandedChannelSid = brandedChannelSid;
+    public ChannelCreator(final String pathBrandedChannelSid, final String phoneNumberSid) {
+        this.pathBrandedChannelSid = pathBrandedChannelSid;
         this.phoneNumberSid = phoneNumberSid;
     }
 
@@ -45,7 +45,7 @@ public class ChannelCreator extends Creator<Channel>{
     public Channel create(final TwilioRestClient client){
         String path = "/TrustedComms/BrandedChannels/{BrandedChannelSid}/Channels";
 
-        path = path.replace("{"+"BrandedChannelSid"+"}", this.brandedChannelSid.toString());
+        path = path.replace("{"+"BrandedChannelSid"+"}", this.pathBrandedChannelSid.toString());
         path = path.replace("{"+"PhoneNumberSid"+"}", this.phoneNumberSid.toString());
 
         Request request = new Request(

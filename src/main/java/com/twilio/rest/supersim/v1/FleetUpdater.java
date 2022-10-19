@@ -30,7 +30,7 @@ import java.net.URI;
 
 
 public class FleetUpdater extends Updater<Fleet>{
-    private String sid;
+    private String pathSid;
     private String uniqueName;
     private String networkAccessProfile;
     private URI ipCommandsUrl;
@@ -39,8 +39,8 @@ public class FleetUpdater extends Updater<Fleet>{
     private HttpMethod smsCommandsMethod;
     private Integer dataLimit;
 
-    public FleetUpdater(final String sid){
-        this.sid = sid;
+    public FleetUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public FleetUpdater setUniqueName(final String uniqueName){
@@ -84,7 +84,7 @@ public class FleetUpdater extends Updater<Fleet>{
     public Fleet update(final TwilioRestClient client){
         String path = "/v1/Fleets/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

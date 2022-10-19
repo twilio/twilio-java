@@ -47,8 +47,8 @@ public class Conference extends Resource {
     private static final long serialVersionUID = 40059120188961L;
 
 
-    public static ConferenceFetcher fetcher(final String conferenceSid){
-        return new ConferenceFetcher(conferenceSid);
+    public static ConferenceFetcher fetcher(final String pathConferenceSid){
+        return new ConferenceFetcher(pathConferenceSid);
     }
 
 

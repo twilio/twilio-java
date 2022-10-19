@@ -41,20 +41,20 @@ public class DocumentPermission extends Resource {
     private static final long serialVersionUID = 90173038651529L;
 
 
-    public static DocumentPermissionFetcher fetcher(final String serviceSid, final String documentSid, final String identity){
-        return new DocumentPermissionFetcher(serviceSid, documentSid, identity);
+    public static DocumentPermissionFetcher fetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
+        return new DocumentPermissionFetcher(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
-    public static DocumentPermissionDeleter deleter(final String serviceSid, final String documentSid, final String identity){
-        return new DocumentPermissionDeleter(serviceSid, documentSid, identity);
+    public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
+        return new DocumentPermissionDeleter(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
-    public static DocumentPermissionReader reader(final String serviceSid, final String documentSid){
-        return new DocumentPermissionReader(serviceSid, documentSid);
+    public static DocumentPermissionReader reader(final String pathServiceSid, final String pathDocumentSid){
+        return new DocumentPermissionReader(pathServiceSid, pathDocumentSid);
     }
 
-    public static DocumentPermissionUpdater updater(final String serviceSid, final String documentSid, final String identity, final Boolean read, final Boolean write, final Boolean manage){
-        return new DocumentPermissionUpdater(serviceSid, documentSid, identity, read, write, manage);
+    public static DocumentPermissionUpdater updater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage){
+        return new DocumentPermissionUpdater(pathServiceSid, pathDocumentSid, pathIdentity, read, write, manage);
     }
 
     /**

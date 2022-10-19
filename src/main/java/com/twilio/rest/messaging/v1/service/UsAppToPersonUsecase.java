@@ -43,8 +43,8 @@ public class UsAppToPersonUsecase extends Resource {
     private static final long serialVersionUID = 181251380697241L;
 
 
-    public static UsAppToPersonUsecaseFetcher fetcher(final String messagingServiceSid){
-        return new UsAppToPersonUsecaseFetcher(messagingServiceSid);
+    public static UsAppToPersonUsecaseFetcher fetcher(final String pathMessagingServiceSid){
+        return new UsAppToPersonUsecaseFetcher(pathMessagingServiceSid);
     }
 
 

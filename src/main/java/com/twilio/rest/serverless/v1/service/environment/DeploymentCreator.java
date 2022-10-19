@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class DeploymentCreator extends Creator<Deployment>{
-    private String serviceSid;
-    private String environmentSid;
+    private String pathServiceSid;
+    private String pathEnvironmentSid;
     private String buildSid;
 
-    public DeploymentCreator(final String serviceSid, final String environmentSid) {
-        this.serviceSid = serviceSid;
-        this.environmentSid = environmentSid;
+    public DeploymentCreator(final String pathServiceSid, final String pathEnvironmentSid) {
+        this.pathServiceSid = pathServiceSid;
+        this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
     public DeploymentCreator setBuildSid(final String buildSid){
@@ -46,8 +46,8 @@ public class DeploymentCreator extends Creator<Deployment>{
     public Deployment create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"EnvironmentSid"+"}", this.environmentSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

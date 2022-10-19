@@ -30,14 +30,14 @@ import java.net.URI;
 
 
 public class BundleUpdater extends Updater<Bundle>{
-    private String sid;
+    private String pathSid;
     private Bundle.Status status;
     private URI statusCallback;
     private String friendlyName;
     private String email;
 
-    public BundleUpdater(final String sid){
-        this.sid = sid;
+    public BundleUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public BundleUpdater setStatus(final Bundle.Status status){
@@ -65,7 +65,7 @@ public class BundleUpdater extends Updater<Bundle>{
     public Bundle update(final TwilioRestClient client){
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

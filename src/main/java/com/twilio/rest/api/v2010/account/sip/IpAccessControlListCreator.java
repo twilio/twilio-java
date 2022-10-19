@@ -29,13 +29,13 @@ import com.twilio.rest.Domains;
 
 public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
     private String friendlyName;
-    private String accountSid;
+    private String pathAccountSid;
 
     public IpAccessControlListCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
-    public IpAccessControlListCreator(final String accountSid, final String friendlyName) {
-        this.accountSid = accountSid;
+    public IpAccessControlListCreator(final String pathAccountSid, final String friendlyName) {
+        this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
@@ -48,8 +48,8 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
     public IpAccessControlList create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

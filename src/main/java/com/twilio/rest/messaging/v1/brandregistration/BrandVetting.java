@@ -43,17 +43,17 @@ import java.util.Objects;
 public class BrandVetting extends Resource {
     private static final long serialVersionUID = 122020517475795L;
 
-    public static BrandVettingCreator creator(final String brandSid, final BrandVetting.VettingProvider vettingProvider){
-        return new BrandVettingCreator(brandSid, vettingProvider);
+    public static BrandVettingCreator creator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider){
+        return new BrandVettingCreator(pathBrandSid, vettingProvider);
     }
 
-    public static BrandVettingFetcher fetcher(final String brandSid, final String brandVettingSid){
-        return new BrandVettingFetcher(brandSid, brandVettingSid);
+    public static BrandVettingFetcher fetcher(final String pathBrandSid, final String pathBrandVettingSid){
+        return new BrandVettingFetcher(pathBrandSid, pathBrandVettingSid);
     }
 
 
-    public static BrandVettingReader reader(final String brandSid){
-        return new BrandVettingReader(brandSid);
+    public static BrandVettingReader reader(final String pathBrandSid){
+        return new BrandVettingReader(pathBrandSid);
     }
 
 

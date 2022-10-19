@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class RecordingUpdater extends Updater<Recording>{
-    private String trunkSid;
+    private String pathTrunkSid;
     private Recording.RecordingMode mode;
     private Recording.RecordingTrim trim;
 
-    public RecordingUpdater(final String trunkSid){
-        this.trunkSid = trunkSid;
+    public RecordingUpdater(final String pathTrunkSid){
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     public RecordingUpdater setMode(final Recording.RecordingMode mode){
@@ -49,7 +49,7 @@ public class RecordingUpdater extends Updater<Recording>{
     public Recording update(final TwilioRestClient client){
         String path = "/v1/Trunks/{TrunkSid}/Recording";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

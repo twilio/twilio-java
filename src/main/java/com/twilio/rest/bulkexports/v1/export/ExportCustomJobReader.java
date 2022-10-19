@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class ExportCustomJobReader extends Reader<ExportCustomJob> {
-    private String resourceType;
+    private String pathResourceType;
     private Integer pageSize;
 
-    public ExportCustomJobReader(final String resourceType){
-        this.resourceType = resourceType;
+    public ExportCustomJobReader(final String pathResourceType){
+        this.pathResourceType = pathResourceType;
     }
 
     public ExportCustomJobReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
 
     public Page<ExportCustomJob> firstPage(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Jobs";
-        path = path.replace("{"+"ResourceType"+"}", this.resourceType.toString());
+        path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
 
         Request request = new Request(
             HttpMethod.GET,

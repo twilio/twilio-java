@@ -27,15 +27,15 @@ import com.twilio.rest.Domains;
 
 
 public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
-    private String serviceSid;
-    private String mapSid;
-    private String key;
+    private String pathServiceSid;
+    private String pathMapSid;
+    private String pathKey;
     private String ifMatch;
 
-    public SyncMapItemDeleter(final String serviceSid, final String mapSid, final String key){
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.key = key;
+    public SyncMapItemDeleter(final String pathServiceSid, final String pathMapSid, final String pathKey){
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathKey = pathKey;
     }
 
     public SyncMapItemDeleter setIfMatch(final String ifMatch){
@@ -47,9 +47,9 @@ public class SyncMapItemDeleter extends Deleter<SyncMapItem> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"MapSid"+"}", this.mapSid.toString());
-        path = path.replace("{"+"Key"+"}", this.key.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
+        path = path.replace("{"+"Key"+"}", this.pathKey.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

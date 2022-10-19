@@ -31,7 +31,7 @@ import java.util.List;
 
 
 public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
-    private String messagingServiceSid;
+    private String pathMessagingServiceSid;
     private String brandRegistrationSid;
     private String description;
     private List<String> messageSamples;
@@ -39,8 +39,8 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     private Boolean hasEmbeddedLinks;
     private Boolean hasEmbeddedPhone;
 
-    public UsAppToPersonCreator(final String messagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
-        this.messagingServiceSid = messagingServiceSid;
+    public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
+        this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.brandRegistrationSid = brandRegistrationSid;
         this.description = description;
         this.messageSamples = messageSamples;
@@ -81,7 +81,7 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     public UsAppToPerson create(final TwilioRestClient client){
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
+        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
         path = path.replace("{"+"BrandRegistrationSid"+"}", this.brandRegistrationSid.toString());
         path = path.replace("{"+"Description"+"}", this.description.toString());
         path = path.replace("{"+"MessageSamples"+"}", this.messageSamples.toString());

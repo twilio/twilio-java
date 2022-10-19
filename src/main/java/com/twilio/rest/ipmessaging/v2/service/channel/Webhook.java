@@ -45,24 +45,24 @@ import java.util.Map;
 public class Webhook extends Resource {
     private static final long serialVersionUID = 201752828404640L;
 
-    public static WebhookCreator creator(final String serviceSid, final String channelSid, final Webhook.Type type){
-        return new WebhookCreator(serviceSid, channelSid, type);
+    public static WebhookCreator creator(final String pathServiceSid, final String pathChannelSid, final Webhook.Type type){
+        return new WebhookCreator(pathServiceSid, pathChannelSid, type);
     }
 
-    public static WebhookFetcher fetcher(final String serviceSid, final String channelSid, final String sid){
-        return new WebhookFetcher(serviceSid, channelSid, sid);
+    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new WebhookFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static WebhookDeleter deleter(final String serviceSid, final String channelSid, final String sid){
-        return new WebhookDeleter(serviceSid, channelSid, sid);
+    public static WebhookDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new WebhookDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static WebhookReader reader(final String serviceSid, final String channelSid){
-        return new WebhookReader(serviceSid, channelSid);
+    public static WebhookReader reader(final String pathServiceSid, final String pathChannelSid){
+        return new WebhookReader(pathServiceSid, pathChannelSid);
     }
 
-    public static WebhookUpdater updater(final String serviceSid, final String channelSid, final String sid){
-        return new WebhookUpdater(serviceSid, channelSid, sid);
+    public static WebhookUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new WebhookUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**

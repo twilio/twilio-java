@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
-    private String serviceSid;
-    private String listSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathListSid;
+    private String pathIdentity;
 
-    public SyncListPermissionFetcher(final String serviceSid, final String listSid, final String identity){
-        this.serviceSid = serviceSid;
-        this.listSid = listSid;
-        this.identity = identity;
+    public SyncListPermissionFetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity){
+        this.pathServiceSid = pathServiceSid;
+        this.pathListSid = pathListSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -43,9 +43,9 @@ public class SyncListPermissionFetcher extends Fetcher<SyncListPermission> {
     public SyncListPermission fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Permissions/{Identity}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.listSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -41,20 +41,20 @@ public class SyncMapPermission extends Resource {
     private static final long serialVersionUID = 55149075645678L;
 
 
-    public static SyncMapPermissionFetcher fetcher(final String serviceSid, final String mapSid, final String identity){
-        return new SyncMapPermissionFetcher(serviceSid, mapSid, identity);
+    public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathIdentity){
+        return new SyncMapPermissionFetcher(pathServiceSid, pathMapSid, pathIdentity);
     }
 
-    public static SyncMapPermissionDeleter deleter(final String serviceSid, final String mapSid, final String identity){
-        return new SyncMapPermissionDeleter(serviceSid, mapSid, identity);
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity){
+        return new SyncMapPermissionDeleter(pathServiceSid, pathMapSid, pathIdentity);
     }
 
-    public static SyncMapPermissionReader reader(final String serviceSid, final String mapSid){
-        return new SyncMapPermissionReader(serviceSid, mapSid);
+    public static SyncMapPermissionReader reader(final String pathServiceSid, final String pathMapSid){
+        return new SyncMapPermissionReader(pathServiceSid, pathMapSid);
     }
 
-    public static SyncMapPermissionUpdater updater(final String serviceSid, final String mapSid, final String identity, final Boolean read, final Boolean write, final Boolean manage){
-        return new SyncMapPermissionUpdater(serviceSid, mapSid, identity, read, write, manage);
+    public static SyncMapPermissionUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage){
+        return new SyncMapPermissionUpdater(pathServiceSid, pathMapSid, pathIdentity, read, write, manage);
     }
 
     /**

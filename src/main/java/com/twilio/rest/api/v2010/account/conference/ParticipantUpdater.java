@@ -30,9 +30,9 @@ import java.net.URI;
 
 
 public class ParticipantUpdater extends Updater<Participant>{
-    private String conferenceSid;
-    private String callSid;
-    private String accountSid;
+    private String pathConferenceSid;
+    private String pathCallSid;
+    private String pathAccountSid;
     private Boolean muted;
     private Boolean hold;
     private URI holdUrl;
@@ -46,14 +46,14 @@ public class ParticipantUpdater extends Updater<Participant>{
     private Boolean coaching;
     private String callSidToCoach;
 
-    public ParticipantUpdater(final String conferenceSid, final String callSid){
-        this.conferenceSid = conferenceSid;
-        this.callSid = callSid;
+    public ParticipantUpdater(final String pathConferenceSid, final String pathCallSid){
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathCallSid = pathCallSid;
     }
-    public ParticipantUpdater(final String accountSid, final String conferenceSid, final String callSid){
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
-        this.callSid = callSid;
+    public ParticipantUpdater(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
+        this.pathCallSid = pathCallSid;
     }
 
     public ParticipantUpdater setMuted(final Boolean muted){
@@ -121,10 +121,10 @@ public class ParticipantUpdater extends Updater<Participant>{
     public Participant update(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants/{CallSid}.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ConferenceSid"+"}", this.conferenceSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.callSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

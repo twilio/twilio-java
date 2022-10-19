@@ -50,8 +50,8 @@ public class PlayerStreamer extends Resource {
         return new PlayerStreamerCreator();
     }
 
-    public static PlayerStreamerFetcher fetcher(final String sid){
-        return new PlayerStreamerFetcher(sid);
+    public static PlayerStreamerFetcher fetcher(final String pathSid){
+        return new PlayerStreamerFetcher(pathSid);
     }
 
 
@@ -59,8 +59,8 @@ public class PlayerStreamer extends Resource {
         return new PlayerStreamerReader();
     }
 
-    public static PlayerStreamerUpdater updater(final String sid, final PlayerStreamer.UpdateStatus status){
-        return new PlayerStreamerUpdater(sid, status);
+    public static PlayerStreamerUpdater updater(final String pathSid, final PlayerStreamer.UpdateStatus status){
+        return new PlayerStreamerUpdater(pathSid, status);
     }
 
     /**

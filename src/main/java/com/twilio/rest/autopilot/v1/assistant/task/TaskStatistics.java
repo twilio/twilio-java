@@ -41,8 +41,8 @@ public class TaskStatistics extends Resource {
     private static final long serialVersionUID = 99044881135361L;
 
 
-    public static TaskStatisticsFetcher fetcher(final String assistantSid, final String taskSid){
-        return new TaskStatisticsFetcher(assistantSid, taskSid);
+    public static TaskStatisticsFetcher fetcher(final String pathAssistantSid, final String pathTaskSid){
+        return new TaskStatisticsFetcher(pathAssistantSid, pathTaskSid);
     }
 
 

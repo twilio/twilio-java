@@ -29,14 +29,14 @@ import com.twilio.base.Page;
 
 
 public class SampleReader extends Reader<Sample> {
-    private String assistantSid;
-    private String taskSid;
+    private String pathAssistantSid;
+    private String pathTaskSid;
     private String language;
     private Integer pageSize;
 
-    public SampleReader(final String assistantSid, final String taskSid){
-        this.assistantSid = assistantSid;
-        this.taskSid = taskSid;
+    public SampleReader(final String pathAssistantSid, final String pathTaskSid){
+        this.pathAssistantSid = pathAssistantSid;
+        this.pathTaskSid = pathTaskSid;
     }
 
     public SampleReader setLanguage(final String language){
@@ -55,8 +55,8 @@ public class SampleReader extends Reader<Sample> {
 
     public Page<Sample> firstPage(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples";
-        path = path.replace("{"+"AssistantSid"+"}", this.assistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.taskSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

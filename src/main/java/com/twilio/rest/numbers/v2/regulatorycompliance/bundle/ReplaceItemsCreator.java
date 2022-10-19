@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class ReplaceItemsCreator extends Creator<ReplaceItems>{
-    private String bundleSid;
+    private String pathBundleSid;
     private String fromBundleSid;
 
-    public ReplaceItemsCreator(final String bundleSid, final String fromBundleSid) {
-        this.bundleSid = bundleSid;
+    public ReplaceItemsCreator(final String pathBundleSid, final String fromBundleSid) {
+        this.pathBundleSid = pathBundleSid;
         this.fromBundleSid = fromBundleSid;
     }
 
@@ -45,7 +45,7 @@ public class ReplaceItemsCreator extends Creator<ReplaceItems>{
     public ReplaceItems create(final TwilioRestClient client){
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ReplaceItems";
 
-        path = path.replace("{"+"BundleSid"+"}", this.bundleSid.toString());
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
         path = path.replace("{"+"FromBundleSid"+"}", this.fromBundleSid.toString());
 
         Request request = new Request(

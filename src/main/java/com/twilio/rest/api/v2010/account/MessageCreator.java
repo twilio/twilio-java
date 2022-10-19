@@ -36,7 +36,7 @@ import java.net.URI;
 
 public class MessageCreator extends Creator<Message>{
     private com.twilio.type.PhoneNumber to;
-    private String accountSid;
+    private String pathAccountSid;
     private URI statusCallback;
     private String applicationSid;
     private BigDecimal maxPrice;
@@ -48,6 +48,7 @@ public class MessageCreator extends Creator<Message>{
     private Message.AddressRetention addressRetention;
     private Boolean smartEncoded;
     private List<String> persistentAction;
+    private Boolean shortenUrls;
     private Message.ScheduleType scheduleType;
     private ZonedDateTime sendAt;
     private Boolean sendAsMms;
@@ -61,8 +62,8 @@ public class MessageCreator extends Creator<Message>{
         this.from = from;
         this.body = body;
     }
-    public MessageCreator(final String accountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
-        this.accountSid = accountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.body = body;
@@ -72,8 +73,8 @@ public class MessageCreator extends Creator<Message>{
         this.from = from;
         this.mediaUrl = mediaUrl;
     }
-    public MessageCreator(final String accountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
-        this.accountSid = accountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final List<URI> mediaUrl) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.from = from;
         this.mediaUrl = mediaUrl;
@@ -83,8 +84,8 @@ public class MessageCreator extends Creator<Message>{
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
     }
-    public MessageCreator(final String accountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
-        this.accountSid = accountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final String body) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.body = body;
@@ -94,8 +95,8 @@ public class MessageCreator extends Creator<Message>{
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
     }
-    public MessageCreator(final String accountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
-        this.accountSid = accountSid;
+    public MessageCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber to, final String messagingServiceSid, final List<URI> mediaUrl) {
+        this.pathAccountSid = pathAccountSid;
         this.to = to;
         this.messagingServiceSid = messagingServiceSid;
         this.mediaUrl = mediaUrl;
@@ -160,6 +161,10 @@ public class MessageCreator extends Creator<Message>{
     public MessageCreator setPersistentAction(final String persistentAction){
         return setPersistentAction(Promoter.listOfOne(persistentAction));
     }
+    public MessageCreator setShortenUrls(final Boolean shortenUrls){
+        this.shortenUrls = shortenUrls;
+        return this;
+    }
     public MessageCreator setScheduleType(final Message.ScheduleType scheduleType){
         this.scheduleType = scheduleType;
         return this;
@@ -204,8 +209,8 @@ public class MessageCreator extends Creator<Message>{
     public Message create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"To"+"}", this.to.encode("utf-8"));
 
         Request request = new Request(
@@ -276,6 +281,10 @@ public class MessageCreator extends Creator<Message>{
             for (String prop : persistentAction) {
                 request.addPostParam("PersistentAction", prop);
             }
+    
+        }
+        if (shortenUrls != null) {
+            request.addPostParam("ShortenUrls", shortenUrls.toString());
     
         }
         if (scheduleType != null) {

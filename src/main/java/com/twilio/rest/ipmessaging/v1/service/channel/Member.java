@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Member extends Resource {
     private static final long serialVersionUID = 102757132179124L;
 
-    public static MemberCreator creator(final String serviceSid, final String channelSid, final String identity){
-        return new MemberCreator(serviceSid, channelSid, identity);
+    public static MemberCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity){
+        return new MemberCreator(pathServiceSid, pathChannelSid, identity);
     }
 
-    public static MemberFetcher fetcher(final String serviceSid, final String channelSid, final String sid){
-        return new MemberFetcher(serviceSid, channelSid, sid);
+    public static MemberFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MemberFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static MemberDeleter deleter(final String serviceSid, final String channelSid, final String sid){
-        return new MemberDeleter(serviceSid, channelSid, sid);
+    public static MemberDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MemberDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static MemberReader reader(final String serviceSid, final String channelSid){
-        return new MemberReader(serviceSid, channelSid);
+    public static MemberReader reader(final String pathServiceSid, final String pathChannelSid){
+        return new MemberReader(pathServiceSid, pathChannelSid);
     }
 
-    public static MemberUpdater updater(final String serviceSid, final String channelSid, final String sid){
-        return new MemberUpdater(serviceSid, channelSid, sid);
+    public static MemberUpdater updater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MemberUpdater(pathServiceSid, pathChannelSid, pathSid);
     }
 
     /**

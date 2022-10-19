@@ -28,10 +28,10 @@ import com.twilio.rest.Domains;
 
 
 public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
-    private String sid;
+    private String pathSid;
 
-    public InstalledAddOnFetcher(final String sid){
-        this.sid = sid;
+    public InstalledAddOnFetcher(final String pathSid){
+        this.pathSid = pathSid;
     }
 
 
@@ -39,7 +39,7 @@ public class InstalledAddOnFetcher extends Fetcher<InstalledAddOn> {
     public InstalledAddOn fetch(final TwilioRestClient client) {
         String path = "/marketplace/InstalledAddOns/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class VerificationFetcher extends Fetcher<Verification> {
-    private String serviceSid;
-    private String sid;
+    private String pathServiceSid;
+    private String pathSid;
 
-    public VerificationFetcher(final String serviceSid, final String sid){
-        this.serviceSid = serviceSid;
-        this.sid = sid;
+    public VerificationFetcher(final String pathServiceSid, final String pathSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class VerificationFetcher extends Fetcher<Verification> {
     public Verification fetch(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Verifications/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

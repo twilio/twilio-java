@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class AssetCreator extends Creator<Asset>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String friendlyName;
 
-    public AssetCreator(final String serviceSid, final String friendlyName) {
-        this.serviceSid = serviceSid;
+    public AssetCreator(final String pathServiceSid, final String friendlyName) {
+        this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
     }
 
@@ -45,7 +45,7 @@ public class AssetCreator extends Creator<Asset>{
     public Asset create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Assets";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
         path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(

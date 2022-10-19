@@ -28,15 +28,15 @@ import com.twilio.rest.Domains;
 
 
 public class VerificationCheckCreator extends Creator<VerificationCheck>{
-    private String serviceSid;
+    private String pathServiceSid;
     private String code;
     private String to;
     private String verificationSid;
     private String amount;
     private String payee;
 
-    public VerificationCheckCreator(final String serviceSid) {
-        this.serviceSid = serviceSid;
+    public VerificationCheckCreator(final String pathServiceSid) {
+        this.pathServiceSid = pathServiceSid;
     }
 
     public VerificationCheckCreator setCode(final String code){
@@ -64,7 +64,7 @@ public class VerificationCheckCreator extends Creator<VerificationCheck>{
     public VerificationCheck create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

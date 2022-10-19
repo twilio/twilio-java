@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class WorkerChannelReader extends Reader<WorkerChannel> {
-    private String workspaceSid;
-    private String workerSid;
+    private String pathWorkspaceSid;
+    private String pathWorkerSid;
     private Integer pageSize;
 
-    public WorkerChannelReader(final String workspaceSid, final String workerSid){
-        this.workspaceSid = workspaceSid;
-        this.workerSid = workerSid;
+    public WorkerChannelReader(final String pathWorkspaceSid, final String pathWorkerSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathWorkerSid = pathWorkerSid;
     }
 
     public WorkerChannelReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class WorkerChannelReader extends Reader<WorkerChannel> {
 
     public Page<WorkerChannel> firstPage(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Workers/{WorkerSid}/Channels";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"WorkerSid"+"}", this.workerSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"WorkerSid"+"}", this.pathWorkerSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -43,14 +43,14 @@ public class AssistantFallbackActions extends Resource {
     private static final long serialVersionUID = 52727905251134L;
 
 
-    public static AssistantFallbackActionsFetcher fetcher(final String assistantSid){
-        return new AssistantFallbackActionsFetcher(assistantSid);
+    public static AssistantFallbackActionsFetcher fetcher(final String pathAssistantSid){
+        return new AssistantFallbackActionsFetcher(pathAssistantSid);
     }
 
 
 
-    public static AssistantFallbackActionsUpdater updater(final String assistantSid){
-        return new AssistantFallbackActionsUpdater(assistantSid);
+    public static AssistantFallbackActionsUpdater updater(final String pathAssistantSid){
+        return new AssistantFallbackActionsUpdater(pathAssistantSid);
     }
 
     /**

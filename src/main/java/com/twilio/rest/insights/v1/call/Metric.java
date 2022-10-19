@@ -45,8 +45,8 @@ public class Metric extends Resource {
 
 
 
-    public static MetricReader reader(final String callSid){
-        return new MetricReader(callSid);
+    public static MetricReader reader(final String pathCallSid){
+        return new MetricReader(pathCallSid);
     }
 
 

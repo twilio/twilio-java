@@ -30,16 +30,16 @@ import java.util.Map;
 
 
 public class SyncMapItemUpdater extends Updater<SyncMapItem>{
-    private String serviceSid;
-    private String mapSid;
-    private String key;
+    private String pathServiceSid;
+    private String pathMapSid;
+    private String pathKey;
     private Map<String, Object> data;
     private String ifMatch;
 
-    public SyncMapItemUpdater(final String serviceSid, final String mapSid, final String key, final Map<String, Object> data){
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
-        this.key = key;
+    public SyncMapItemUpdater(final String pathServiceSid, final String pathMapSid, final String pathKey, final Map<String, Object> data){
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
+        this.pathKey = pathKey;
         this.data = data;
     }
 
@@ -56,9 +56,9 @@ public class SyncMapItemUpdater extends Updater<SyncMapItem>{
     public SyncMapItem update(final TwilioRestClient client){
         String path = "/Sync/Services/{ServiceSid}/Maps/{MapSid}/Items/{Key}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"MapSid"+"}", this.mapSid.toString());
-        path = path.replace("{"+"Key"+"}", this.key.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
+        path = path.replace("{"+"Key"+"}", this.pathKey.toString());
         path = path.replace("{"+"Data"+"}", this.data.toString());
 
         Request request = new Request(

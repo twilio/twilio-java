@@ -44,8 +44,8 @@ public class Alert extends Resource {
     private static final long serialVersionUID = 14184743930644L;
 
 
-    public static AlertFetcher fetcher(final String sid){
-        return new AlertFetcher(sid);
+    public static AlertFetcher fetcher(final String pathSid){
+        return new AlertFetcher(pathSid);
     }
 
 

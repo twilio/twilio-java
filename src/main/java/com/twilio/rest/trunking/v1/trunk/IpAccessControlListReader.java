@@ -29,11 +29,11 @@ import com.twilio.base.Page;
 
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
-    private String trunkSid;
+    private String pathTrunkSid;
     private Integer pageSize;
 
-    public IpAccessControlListReader(final String trunkSid){
-        this.trunkSid = trunkSid;
+    public IpAccessControlListReader(final String pathTrunkSid){
+        this.pathTrunkSid = pathTrunkSid;
     }
 
     public IpAccessControlListReader setPageSize(final Integer pageSize){
@@ -48,7 +48,7 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
 
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
-        path = path.replace("{"+"TrunkSid"+"}", this.trunkSid.toString());
+        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

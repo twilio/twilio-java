@@ -28,16 +28,16 @@ import com.twilio.rest.Domains;
 
 
 public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
-    private String chatServiceSid;
-    private String conversationSid;
-    private String messageSid;
-    private String sid;
+    private String pathChatServiceSid;
+    private String pathConversationSid;
+    private String pathMessageSid;
+    private String pathSid;
 
-    public DeliveryReceiptFetcher(final String chatServiceSid, final String conversationSid, final String messageSid, final String sid){
-        this.chatServiceSid = chatServiceSid;
-        this.conversationSid = conversationSid;
-        this.messageSid = messageSid;
-        this.sid = sid;
+    public DeliveryReceiptFetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathMessageSid, final String pathSid){
+        this.pathChatServiceSid = pathChatServiceSid;
+        this.pathConversationSid = pathConversationSid;
+        this.pathMessageSid = pathMessageSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -45,10 +45,10 @@ public class DeliveryReceiptFetcher extends Fetcher<DeliveryReceipt> {
     public DeliveryReceipt fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ChatServiceSid}/Conversations/{ConversationSid}/Messages/{MessageSid}/Receipts/{Sid}";
 
-        path = path.replace("{"+"ChatServiceSid"+"}", this.chatServiceSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.conversationSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.messageSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"ChatServiceSid"+"}", this.pathChatServiceSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

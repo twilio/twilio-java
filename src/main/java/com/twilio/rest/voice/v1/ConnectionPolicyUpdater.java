@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class ConnectionPolicyUpdater extends Updater<ConnectionPolicy>{
-    private String sid;
+    private String pathSid;
     private String friendlyName;
 
-    public ConnectionPolicyUpdater(final String sid){
-        this.sid = sid;
+    public ConnectionPolicyUpdater(final String pathSid){
+        this.pathSid = pathSid;
     }
 
     public ConnectionPolicyUpdater setFriendlyName(final String friendlyName){
@@ -44,7 +44,7 @@ public class ConnectionPolicyUpdater extends Updater<ConnectionPolicy>{
     public ConnectionPolicy update(final TwilioRestClient client){
         String path = "/v1/ConnectionPolicies/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

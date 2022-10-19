@@ -28,12 +28,12 @@ import com.twilio.rest.Domains;
 
 
 public class ParticipantFetcher extends Fetcher<Participant> {
-    private String roomSid;
-    private String sid;
+    private String pathRoomSid;
+    private String pathSid;
 
-    public ParticipantFetcher(final String roomSid, final String sid){
-        this.roomSid = roomSid;
-        this.sid = sid;
+    public ParticipantFetcher(final String pathRoomSid, final String pathSid){
+        this.pathRoomSid = pathRoomSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -41,8 +41,8 @@ public class ParticipantFetcher extends Fetcher<Participant> {
     public Participant fetch(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/Participants/{Sid}";
 
-        path = path.replace("{"+"RoomSid"+"}", this.roomSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

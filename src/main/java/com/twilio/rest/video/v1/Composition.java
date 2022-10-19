@@ -51,12 +51,12 @@ public class Composition extends Resource {
         return new CompositionCreator(roomSid);
     }
 
-    public static CompositionFetcher fetcher(final String sid){
-        return new CompositionFetcher(sid);
+    public static CompositionFetcher fetcher(final String pathSid){
+        return new CompositionFetcher(pathSid);
     }
 
-    public static CompositionDeleter deleter(final String sid){
-        return new CompositionDeleter(sid);
+    public static CompositionDeleter deleter(final String pathSid){
+        return new CompositionDeleter(pathSid);
     }
 
     public static CompositionReader reader(){

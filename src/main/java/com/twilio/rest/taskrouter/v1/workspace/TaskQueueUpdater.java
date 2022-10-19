@@ -28,8 +28,8 @@ import com.twilio.rest.Domains;
 
 
 public class TaskQueueUpdater extends Updater<TaskQueue>{
-    private String workspaceSid;
-    private String sid;
+    private String pathWorkspaceSid;
+    private String pathSid;
     private String friendlyName;
     private String targetWorkers;
     private String reservationActivitySid;
@@ -37,9 +37,9 @@ public class TaskQueueUpdater extends Updater<TaskQueue>{
     private Integer maxReservedWorkers;
     private TaskQueue.TaskOrder taskOrder;
 
-    public TaskQueueUpdater(final String workspaceSid, final String sid){
-        this.workspaceSid = workspaceSid;
-        this.sid = sid;
+    public TaskQueueUpdater(final String pathWorkspaceSid, final String pathSid){
+        this.pathWorkspaceSid = pathWorkspaceSid;
+        this.pathSid = pathSid;
     }
 
     public TaskQueueUpdater setFriendlyName(final String friendlyName){
@@ -71,8 +71,8 @@ public class TaskQueueUpdater extends Updater<TaskQueue>{
     public TaskQueue update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues/{Sid}";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.workspaceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,

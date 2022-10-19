@@ -32,7 +32,7 @@ import java.net.URI;
 
 public class DomainCreator extends Creator<Domain>{
     private String domainName;
-    private String accountSid;
+    private String pathAccountSid;
     private String friendlyName;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -49,8 +49,8 @@ public class DomainCreator extends Creator<Domain>{
     public DomainCreator(final String domainName) {
         this.domainName = domainName;
     }
-    public DomainCreator(final String accountSid, final String domainName) {
-        this.accountSid = accountSid;
+    public DomainCreator(final String pathAccountSid, final String domainName) {
+        this.pathAccountSid = pathAccountSid;
         this.domainName = domainName;
     }
 
@@ -123,8 +123,8 @@ public class DomainCreator extends Creator<Domain>{
     public Domain create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains.json";
 
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"DomainName"+"}", this.domainName.toString());
 
         Request request = new Request(

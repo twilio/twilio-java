@@ -51,48 +51,48 @@ public class Call extends Resource {
     public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url){
         return new CallCreator(to, from, url);
     }
-    public static CallCreator creator(final String accountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url){
-        return new CallCreator(accountSid, to, from, url);
+    public static CallCreator creator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url){
+        return new CallCreator(pathAccountSid, to, from, url);
     }
     public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml){
         return new CallCreator(to, from, twiml);
     }
-    public static CallCreator creator(final String accountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml){
-        return new CallCreator(accountSid, to, from, twiml);
+    public static CallCreator creator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final com.twilio.type.Twiml twiml){
+        return new CallCreator(pathAccountSid, to, from, twiml);
     }
     public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid){
         return new CallCreator(to, from, applicationSid);
     }
-    public static CallCreator creator(final String accountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid){
-        return new CallCreator(accountSid, to, from, applicationSid);
+    public static CallCreator creator(final String pathAccountSid, final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final String applicationSid){
+        return new CallCreator(pathAccountSid, to, from, applicationSid);
     }
 
-    public static CallFetcher fetcher(final String sid){
-        return new CallFetcher(sid);
+    public static CallFetcher fetcher(final String pathSid){
+        return new CallFetcher(pathSid);
     }
-    public static CallFetcher fetcher(final String accountSid, final String sid){
-        return new CallFetcher(accountSid, sid);
+    public static CallFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new CallFetcher(pathAccountSid, pathSid);
     }
 
-    public static CallDeleter deleter(final String sid){
-        return new CallDeleter(sid);
+    public static CallDeleter deleter(final String pathSid){
+        return new CallDeleter(pathSid);
     }
-    public static CallDeleter deleter(final String accountSid, final String sid){
-        return new CallDeleter(accountSid, sid);
+    public static CallDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new CallDeleter(pathAccountSid, pathSid);
     }
 
     public static CallReader reader(){
         return new CallReader();
     }
-    public static CallReader reader(final String accountSid){
-        return new CallReader(accountSid);
+    public static CallReader reader(final String pathAccountSid){
+        return new CallReader(pathAccountSid);
     }
 
-    public static CallUpdater updater(final String sid){
-        return new CallUpdater(sid);
+    public static CallUpdater updater(final String pathSid){
+        return new CallUpdater(pathSid);
     }
-    public static CallUpdater updater(final String accountSid, final String sid){
-        return new CallUpdater(accountSid, sid);
+    public static CallUpdater updater(final String pathAccountSid, final String pathSid){
+        return new CallUpdater(pathAccountSid, pathSid);
     }
 
     /**

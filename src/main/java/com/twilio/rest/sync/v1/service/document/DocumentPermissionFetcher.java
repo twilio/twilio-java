@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 
 public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
-    private String serviceSid;
-    private String documentSid;
-    private String identity;
+    private String pathServiceSid;
+    private String pathDocumentSid;
+    private String pathIdentity;
 
-    public DocumentPermissionFetcher(final String serviceSid, final String documentSid, final String identity){
-        this.serviceSid = serviceSid;
-        this.documentSid = documentSid;
-        this.identity = identity;
+    public DocumentPermissionFetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
+        this.pathServiceSid = pathServiceSid;
+        this.pathDocumentSid = pathDocumentSid;
+        this.pathIdentity = pathIdentity;
     }
 
 
@@ -43,9 +43,9 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
     public DocumentPermission fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"DocumentSid"+"}", this.documentSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,

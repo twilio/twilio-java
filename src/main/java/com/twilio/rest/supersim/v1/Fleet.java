@@ -48,8 +48,8 @@ public class Fleet extends Resource {
         return new FleetCreator(networkAccessProfile);
     }
 
-    public static FleetFetcher fetcher(final String sid){
-        return new FleetFetcher(sid);
+    public static FleetFetcher fetcher(final String pathSid){
+        return new FleetFetcher(pathSid);
     }
 
 
@@ -57,8 +57,8 @@ public class Fleet extends Resource {
         return new FleetReader();
     }
 
-    public static FleetUpdater updater(final String sid){
-        return new FleetUpdater(sid);
+    public static FleetUpdater updater(final String pathSid){
+        return new FleetUpdater(pathSid);
     }
 
     /**

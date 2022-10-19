@@ -42,14 +42,14 @@ import java.util.Map;
 public class InteractionChannelInvite extends Resource {
     private static final long serialVersionUID = 96456011706810L;
 
-    public static InteractionChannelInviteCreator creator(final String interactionSid, final String channelSid, final Map<String, Object> routing){
-        return new InteractionChannelInviteCreator(interactionSid, channelSid, routing);
+    public static InteractionChannelInviteCreator creator(final String pathInteractionSid, final String pathChannelSid, final Map<String, Object> routing){
+        return new InteractionChannelInviteCreator(pathInteractionSid, pathChannelSid, routing);
     }
 
 
 
-    public static InteractionChannelInviteReader reader(final String interactionSid, final String channelSid){
-        return new InteractionChannelInviteReader(interactionSid, channelSid);
+    public static InteractionChannelInviteReader reader(final String pathInteractionSid, final String pathChannelSid){
+        return new InteractionChannelInviteReader(pathInteractionSid, pathChannelSid);
     }
 
 

@@ -29,19 +29,19 @@ import com.twilio.base.Page;
 
 
 public class ParticipantReader extends Reader<Participant> {
-    private String conferenceSid;
-    private String accountSid;
+    private String pathConferenceSid;
+    private String pathAccountSid;
     private Boolean muted;
     private Boolean hold;
     private Boolean coaching;
     private Integer pageSize;
 
-    public ParticipantReader(final String conferenceSid){
-        this.conferenceSid = conferenceSid;
+    public ParticipantReader(final String pathConferenceSid){
+        this.pathConferenceSid = pathConferenceSid;
     }
-    public ParticipantReader(final String accountSid, final String conferenceSid){
-        this.accountSid = accountSid;
-        this.conferenceSid = conferenceSid;
+    public ParticipantReader(final String pathAccountSid, final String pathConferenceSid){
+        this.pathAccountSid = pathAccountSid;
+        this.pathConferenceSid = pathConferenceSid;
     }
 
     public ParticipantReader setMuted(final Boolean muted){
@@ -68,9 +68,9 @@ public class ParticipantReader extends Reader<Participant> {
 
     public Page<Participant> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Participants.json";
-        this.accountSid = this.accountSid == null ? client.getAccountSid() : this.accountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.accountSid.toString());
-        path = path.replace("{"+"ConferenceSid"+"}", this.conferenceSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -29,13 +29,13 @@ import com.twilio.base.Page;
 
 
 public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
-    private String serviceSid;
-    private String mapSid;
+    private String pathServiceSid;
+    private String pathMapSid;
     private Integer pageSize;
 
-    public SyncMapPermissionReader(final String serviceSid, final String mapSid){
-        this.serviceSid = serviceSid;
-        this.mapSid = mapSid;
+    public SyncMapPermissionReader(final String pathServiceSid, final String pathMapSid){
+        this.pathServiceSid = pathServiceSid;
+        this.pathMapSid = pathMapSid;
     }
 
     public SyncMapPermissionReader setPageSize(final Integer pageSize){
@@ -50,8 +50,8 @@ public class SyncMapPermissionReader extends Reader<SyncMapPermission> {
 
     public Page<SyncMapPermission> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Maps/{MapSid}/Permissions";
-        path = path.replace("{"+"ServiceSid"+"}", this.serviceSid.toString());
-        path = path.replace("{"+"MapSid"+"}", this.mapSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"MapSid"+"}", this.pathMapSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

@@ -46,36 +46,36 @@ public class CredentialList extends Resource {
     public static CredentialListCreator creator(final String friendlyName){
         return new CredentialListCreator(friendlyName);
     }
-    public static CredentialListCreator creator(final String accountSid, final String friendlyName){
-        return new CredentialListCreator(accountSid, friendlyName);
+    public static CredentialListCreator creator(final String pathAccountSid, final String friendlyName){
+        return new CredentialListCreator(pathAccountSid, friendlyName);
     }
 
-    public static CredentialListFetcher fetcher(final String sid){
-        return new CredentialListFetcher(sid);
+    public static CredentialListFetcher fetcher(final String pathSid){
+        return new CredentialListFetcher(pathSid);
     }
-    public static CredentialListFetcher fetcher(final String accountSid, final String sid){
-        return new CredentialListFetcher(accountSid, sid);
+    public static CredentialListFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new CredentialListFetcher(pathAccountSid, pathSid);
     }
 
-    public static CredentialListDeleter deleter(final String sid){
-        return new CredentialListDeleter(sid);
+    public static CredentialListDeleter deleter(final String pathSid){
+        return new CredentialListDeleter(pathSid);
     }
-    public static CredentialListDeleter deleter(final String accountSid, final String sid){
-        return new CredentialListDeleter(accountSid, sid);
+    public static CredentialListDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new CredentialListDeleter(pathAccountSid, pathSid);
     }
 
     public static CredentialListReader reader(){
         return new CredentialListReader();
     }
-    public static CredentialListReader reader(final String accountSid){
-        return new CredentialListReader(accountSid);
+    public static CredentialListReader reader(final String pathAccountSid){
+        return new CredentialListReader(pathAccountSid);
     }
 
-    public static CredentialListUpdater updater(final String sid, final String friendlyName){
-        return new CredentialListUpdater(sid, friendlyName);
+    public static CredentialListUpdater updater(final String pathSid, final String friendlyName){
+        return new CredentialListUpdater(pathSid, friendlyName);
     }
-    public static CredentialListUpdater updater(final String accountSid, final String sid, final String friendlyName){
-        return new CredentialListUpdater(accountSid, sid, friendlyName);
+    public static CredentialListUpdater updater(final String pathAccountSid, final String pathSid, final String friendlyName){
+        return new CredentialListUpdater(pathAccountSid, pathSid, friendlyName);
     }
 
     /**

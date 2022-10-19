@@ -27,12 +27,12 @@ import com.twilio.rest.Domains;
 
 
 public class EngagementDeleter extends Deleter<Engagement> {
-    private String flowSid;
-    private String sid;
+    private String pathFlowSid;
+    private String pathSid;
 
-    public EngagementDeleter(final String flowSid, final String sid){
-        this.flowSid = flowSid;
-        this.sid = sid;
+    public EngagementDeleter(final String pathFlowSid, final String pathSid){
+        this.pathFlowSid = pathFlowSid;
+        this.pathSid = pathSid;
     }
 
 
@@ -40,8 +40,8 @@ public class EngagementDeleter extends Deleter<Engagement> {
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Engagements/{Sid}";
 
-        path = path.replace("{"+"FlowSid"+"}", this.flowSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.sid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

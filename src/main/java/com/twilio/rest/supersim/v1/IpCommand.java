@@ -47,8 +47,8 @@ public class IpCommand extends Resource {
         return new IpCommandCreator(sim, payload, devicePort);
     }
 
-    public static IpCommandFetcher fetcher(final String sid){
-        return new IpCommandFetcher(sid);
+    public static IpCommandFetcher fetcher(final String pathSid){
+        return new IpCommandFetcher(pathSid);
     }
 
 

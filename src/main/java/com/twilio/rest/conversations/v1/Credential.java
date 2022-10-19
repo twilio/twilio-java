@@ -47,20 +47,20 @@ public class Credential extends Resource {
         return new CredentialCreator(type);
     }
 
-    public static CredentialFetcher fetcher(final String sid){
-        return new CredentialFetcher(sid);
+    public static CredentialFetcher fetcher(final String pathSid){
+        return new CredentialFetcher(pathSid);
     }
 
-    public static CredentialDeleter deleter(final String sid){
-        return new CredentialDeleter(sid);
+    public static CredentialDeleter deleter(final String pathSid){
+        return new CredentialDeleter(pathSid);
     }
 
     public static CredentialReader reader(){
         return new CredentialReader();
     }
 
-    public static CredentialUpdater updater(final String sid){
-        return new CredentialUpdater(sid);
+    public static CredentialUpdater updater(final String pathSid){
+        return new CredentialUpdater(pathSid);
     }
 
     /**

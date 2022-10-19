@@ -47,8 +47,8 @@ public class Number extends Resource {
     private static final long serialVersionUID = 12955680623193L;
 
 
-    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber destinationNumber){
-        return new NumberFetcher(destinationNumber);
+    public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathDestinationNumber){
+        return new NumberFetcher(pathDestinationNumber);
     }
 
 

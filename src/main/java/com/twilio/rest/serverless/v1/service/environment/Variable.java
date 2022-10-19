@@ -42,24 +42,24 @@ import java.util.Objects;
 public class Variable extends Resource {
     private static final long serialVersionUID = 240706939520174L;
 
-    public static VariableCreator creator(final String serviceSid, final String environmentSid, final String key, final String value){
-        return new VariableCreator(serviceSid, environmentSid, key, value);
+    public static VariableCreator creator(final String pathServiceSid, final String pathEnvironmentSid, final String key, final String value){
+        return new VariableCreator(pathServiceSid, pathEnvironmentSid, key, value);
     }
 
-    public static VariableFetcher fetcher(final String serviceSid, final String environmentSid, final String sid){
-        return new VariableFetcher(serviceSid, environmentSid, sid);
+    public static VariableFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+        return new VariableFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-    public static VariableDeleter deleter(final String serviceSid, final String environmentSid, final String sid){
-        return new VariableDeleter(serviceSid, environmentSid, sid);
+    public static VariableDeleter deleter(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+        return new VariableDeleter(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-    public static VariableReader reader(final String serviceSid, final String environmentSid){
-        return new VariableReader(serviceSid, environmentSid);
+    public static VariableReader reader(final String pathServiceSid, final String pathEnvironmentSid){
+        return new VariableReader(pathServiceSid, pathEnvironmentSid);
     }
 
-    public static VariableUpdater updater(final String serviceSid, final String environmentSid, final String sid){
-        return new VariableUpdater(serviceSid, environmentSid, sid);
+    public static VariableUpdater updater(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+        return new VariableUpdater(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
     /**

@@ -90,6 +90,8 @@ public class ConnectTest {
                     .inboundAutocreation(true)
                     .routingAssignmentTimeout(1)
                     .inboundTimeout(1)
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
                     .record(Conversation.Record.DO_NOT_RECORD)
                     .trim(Conversation.Trim.TRIM_SILENCE)
                     .recordingStatusCallback(URI.create("https://example.com"))
@@ -109,7 +111,7 @@ public class ConnectTest {
                 "<Autopilot>name</Autopilot>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
-                "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\"/>" +
+                "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>" +
             "</Connect>",
             elem.toXml()
         );
@@ -233,6 +235,8 @@ public class ConnectTest {
                     .inboundAutocreation(true)
                     .routingAssignmentTimeout(1)
                     .inboundTimeout(1)
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
                     .record(Conversation.Record.DO_NOT_RECORD)
                     .trim(Conversation.Trim.TRIM_SILENCE)
                     .recordingStatusCallback(URI.create("https://example.com"))
@@ -251,7 +255,7 @@ public class ConnectTest {
                 "<Autopilot>name</Autopilot>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
                 "<VirtualAgent connectorName=\"connector_name\" language=\"language\" sentimentAnalysis=\"true\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\"/>" +
-                "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\"/>" +
+                "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>" +
             "</Connect>").build().toXml(),
             elem.toXml()
         );

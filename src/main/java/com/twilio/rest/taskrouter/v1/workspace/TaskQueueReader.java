@@ -33,6 +33,7 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     private String friendlyName;
     private String evaluateWorkerAttributes;
     private String workerSid;
+    private String ordering;
     private Integer pageSize;
 
     public TaskQueueReader(final String pathWorkspaceSid){
@@ -49,6 +50,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     }
     public TaskQueueReader setWorkerSid(final String workerSid){
         this.workerSid = workerSid;
+        return this;
+    }
+    public TaskQueueReader setOrdering(final String ordering){
+        this.ordering = ordering;
         return this;
     }
     public TaskQueueReader setPageSize(final Integer pageSize){
@@ -136,6 +141,10 @@ public class TaskQueueReader extends Reader<TaskQueue> {
         if (workerSid != null) {
     
             request.addQueryParam("WorkerSid", workerSid);
+        }
+        if (ordering != null) {
+    
+            request.addQueryParam("Ordering", ordering);
         }
         if (pageSize != null) {
     

@@ -34,7 +34,6 @@ public class ParticipantCreator extends Creator<Participant>{
     private String friendlyName;
     private String proxyIdentifier;
     private String proxyIdentifierSid;
-    private Boolean failOnParticipantConflict;
 
     public ParticipantCreator(final String pathServiceSid, final String pathSessionSid, final String identifier) {
         this.pathServiceSid = pathServiceSid;
@@ -56,10 +55,6 @@ public class ParticipantCreator extends Creator<Participant>{
     }
     public ParticipantCreator setProxyIdentifierSid(final String proxyIdentifierSid){
         this.proxyIdentifierSid = proxyIdentifierSid;
-        return this;
-    }
-    public ParticipantCreator setFailOnParticipantConflict(final Boolean failOnParticipantConflict){
-        this.failOnParticipantConflict = failOnParticipantConflict;
         return this;
     }
 
@@ -105,10 +100,6 @@ public class ParticipantCreator extends Creator<Participant>{
         }
         if (proxyIdentifierSid != null) {
             request.addPostParam("ProxyIdentifierSid", proxyIdentifierSid);
-    
-        }
-        if (failOnParticipantConflict != null) {
-            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
     
         }
     }

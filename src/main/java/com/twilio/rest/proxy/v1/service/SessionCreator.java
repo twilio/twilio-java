@@ -43,7 +43,6 @@ public class SessionCreator extends Creator<Session>{
     private Session.Mode mode;
     private Session.Status status;
     private List<Map<String, Object>> participants;
-    private Boolean failOnParticipantConflict;
 
     public SessionCreator(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
@@ -75,10 +74,6 @@ public class SessionCreator extends Creator<Session>{
     }
     public SessionCreator setParticipants(final Map<String, Object> participants){
         return setParticipants(Promoter.listOfOne(participants));
-    }
-    public SessionCreator setFailOnParticipantConflict(final Boolean failOnParticipantConflict){
-        this.failOnParticipantConflict = failOnParticipantConflict;
-        return this;
     }
 
     @Override
@@ -131,10 +126,6 @@ public class SessionCreator extends Creator<Session>{
             for (Map<String, Object> prop : participants) {
                 request.addPostParam("Participants", Converter.mapToJson(prop));
             }
-    
-        }
-        if (failOnParticipantConflict != null) {
-            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
     
         }
     }

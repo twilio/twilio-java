@@ -37,28 +37,28 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class Userinfo extends Resource {
+public class UserInfo extends Resource {
     private static final long serialVersionUID = 74270157944596L;
 
 
-    public static UserinfoFetcher fetcher(){
-        return new UserinfoFetcher();
+    public static UserInfoFetcher fetcher(){
+        return new UserInfoFetcher();
     }
 
 
 
 
     /**
-    * Converts a JSON String into a Userinfo object using the provided ObjectMapper.
+    * Converts a JSON String into a UserInfo object using the provided ObjectMapper.
     *
     * @param json Raw JSON String
     * @param objectMapper Jackson ObjectMapper
-    * @return Userinfo object represented by the provided JSON
+    * @return UserInfo object represented by the provided JSON
     */
-    public static Userinfo fromJson(final String json, final ObjectMapper objectMapper) {
+    public static UserInfo fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Userinfo.class);
+            return objectMapper.readValue(json, UserInfo.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -67,17 +67,17 @@ public class Userinfo extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Userinfo object using the provided
+    * Converts a JSON InputStream into a UserInfo object using the provided
     * ObjectMapper.
     *
     * @param json Raw JSON InputStream
     * @param objectMapper Jackson ObjectMapper
-    * @return Userinfo object represented by the provided JSON
+    * @return UserInfo object represented by the provided JSON
     */
-    public static Userinfo fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static UserInfo fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, Userinfo.class);
+            return objectMapper.readValue(json, UserInfo.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -93,7 +93,7 @@ public class Userinfo extends Resource {
     private final URI url;
 
     @JsonCreator
-    private Userinfo(
+    private UserInfo(
         @JsonProperty("user_sid")
         final String userSid,
 
@@ -149,7 +149,7 @@ public class Userinfo extends Resource {
             return false;
         }
 
-        Userinfo other = (Userinfo) o;
+        UserInfo other = (UserInfo) o;
 
         return Objects.equals(userSid, other.userSid) &&  Objects.equals(firstName, other.firstName) &&  Objects.equals(lastName, other.lastName) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(email, other.email) &&  Objects.equals(url, other.url)  ;
     }

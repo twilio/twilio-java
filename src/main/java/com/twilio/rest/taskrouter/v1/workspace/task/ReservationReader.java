@@ -32,6 +32,7 @@ public class ReservationReader extends Reader<Reservation> {
     private String pathWorkspaceSid;
     private String pathTaskSid;
     private Reservation.Status reservationStatus;
+    private String workerSid;
     private Integer pageSize;
 
     public ReservationReader(final String pathWorkspaceSid, final String pathTaskSid){
@@ -41,6 +42,10 @@ public class ReservationReader extends Reader<Reservation> {
 
     public ReservationReader setReservationStatus(final Reservation.Status reservationStatus){
         this.reservationStatus = reservationStatus;
+        return this;
+    }
+    public ReservationReader setWorkerSid(final String workerSid){
+        this.workerSid = workerSid;
         return this;
     }
     public ReservationReader setPageSize(final Integer pageSize){
@@ -121,6 +126,10 @@ public class ReservationReader extends Reader<Reservation> {
         if (reservationStatus != null) {
     
             request.addQueryParam("ReservationStatus", reservationStatus.toString());
+        }
+        if (workerSid != null) {
+    
+            request.addQueryParam("WorkerSid", workerSid);
         }
         if (pageSize != null) {
     

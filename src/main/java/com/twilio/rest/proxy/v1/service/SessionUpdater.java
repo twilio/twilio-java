@@ -34,7 +34,6 @@ public class SessionUpdater extends Updater<Session>{
     private ZonedDateTime dateExpiry;
     private Integer ttl;
     private Session.Status status;
-    private Boolean failOnParticipantConflict;
 
     public SessionUpdater(final String pathServiceSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
@@ -51,10 +50,6 @@ public class SessionUpdater extends Updater<Session>{
     }
     public SessionUpdater setStatus(final Session.Status status){
         this.status = status;
-        return this;
-    }
-    public SessionUpdater setFailOnParticipantConflict(final Boolean failOnParticipantConflict){
-        this.failOnParticipantConflict = failOnParticipantConflict;
         return this;
     }
 
@@ -95,10 +90,6 @@ public class SessionUpdater extends Updater<Session>{
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
-        }
-        if (failOnParticipantConflict != null) {
-            request.addPostParam("FailOnParticipantConflict", failOnParticipantConflict.toString());
     
         }
     }

@@ -45,6 +45,8 @@ public class ConversationTest {
             .inboundAutocreation(true)
             .routingAssignmentTimeout(1)
             .inboundTimeout(1)
+            .url(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
             .record(Conversation.Record.DO_NOT_RECORD)
             .trim(Conversation.Trim.TRIM_SILENCE)
             .recordingStatusCallback(URI.create("https://example.com"))
@@ -57,7 +59,7 @@ public class ConversationTest {
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\"/>",
+            "<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>",
             elem.toXml()
         );
     }
@@ -139,6 +141,8 @@ public class ConversationTest {
             .inboundAutocreation(true)
             .routingAssignmentTimeout(1)
             .inboundTimeout(1)
+            .url(URI.create("https://example.com"))
+            .method(HttpMethod.GET)
             .record(Conversation.Record.DO_NOT_RECORD)
             .trim(Conversation.Trim.TRIM_SILENCE)
             .recordingStatusCallback(URI.create("https://example.com"))
@@ -150,7 +154,7 @@ public class ConversationTest {
             .build();
 
         Assert.assertEquals(
-            Conversation.Builder.fromXml("<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\"/>").build().toXml(),
+            Conversation.Builder.fromXml("<Conversation inboundAutocreation=\"true\" inboundTimeout=\"1\" method=\"GET\" record=\"do-not-record\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" routingAssignmentTimeout=\"1\" serviceInstanceSid=\"service_instance_sid\" statusCallback=\"https://example.com\" statusCallbackEvent=\"call-initiated\" statusCallbackMethod=\"GET\" trim=\"trim-silence\" url=\"https://example.com\"/>").build().toXml(),
             elem.toXml()
         );
     }

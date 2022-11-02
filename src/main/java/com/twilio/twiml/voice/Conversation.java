@@ -98,6 +98,8 @@ public class Conversation extends TwiML {
     private final Boolean inboundAutocreation;
     private final Integer routingAssignmentTimeout;
     private final Integer inboundTimeout;
+    private final URI url;
+    private final HttpMethod method;
     private final Conversation.Record record;
     private final Conversation.Trim trim;
     private final URI recordingStatusCallback;
@@ -123,6 +125,8 @@ public class Conversation extends TwiML {
         this.inboundAutocreation = b.inboundAutocreation;
         this.routingAssignmentTimeout = b.routingAssignmentTimeout;
         this.inboundTimeout = b.inboundTimeout;
+        this.url = b.url;
+        this.method = b.method;
         this.record = b.record;
         this.trim = b.trim;
         this.recordingStatusCallback = b.recordingStatusCallback;
@@ -153,6 +157,12 @@ public class Conversation extends TwiML {
         }
         if (this.getInboundTimeout() != null) {
             attrs.put("inboundTimeout", this.getInboundTimeout().toString());
+        }
+        if (this.getUrl() != null) {
+            attrs.put("url", this.getUrl().toString());
+        }
+        if (this.getMethod() != null) {
+            attrs.put("method", this.getMethod().toString());
         }
         if (this.getRecord() != null) {
             attrs.put("record", this.getRecord().toString());
@@ -216,6 +226,24 @@ public class Conversation extends TwiML {
      */
     public Integer getInboundTimeout() {
         return inboundTimeout;
+    }
+
+    /**
+     * TwiML URL
+     *
+     * @return TwiML URL
+     */
+    public URI getUrl() {
+        return url;
+    }
+
+    /**
+     * TwiML URL method
+     *
+     * @return TwiML URL method
+     */
+    public HttpMethod getMethod() {
+        return method;
     }
 
     /**
@@ -336,6 +364,8 @@ public class Conversation extends TwiML {
         private Boolean inboundAutocreation;
         private Integer routingAssignmentTimeout;
         private Integer inboundTimeout;
+        private URI url;
+        private HttpMethod method;
         private Conversation.Record record;
         private Conversation.Trim trim;
         private URI recordingStatusCallback;
@@ -378,6 +408,32 @@ public class Conversation extends TwiML {
         @JacksonXmlProperty(isAttribute = true, localName = "inboundTimeout")
         public Builder inboundTimeout(Integer inboundTimeout) {
             this.inboundTimeout = inboundTimeout;
+            return this;
+        }
+
+        /**
+         * TwiML URL
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "url")
+        public Builder url(URI url) {
+            this.url = url;
+            return this;
+        }
+
+        /**
+         * TwiML URL
+         */
+        public Builder url(String url) {
+            this.url = Promoter.uriFromString(url);
+            return this;
+        }
+
+        /**
+         * TwiML URL method
+         */
+        @JacksonXmlProperty(isAttribute = true, localName = "method")
+        public Builder method(HttpMethod method) {
+            this.method = method;
             return this;
         }
 

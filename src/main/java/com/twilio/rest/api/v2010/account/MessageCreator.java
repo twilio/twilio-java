@@ -27,6 +27,7 @@ import com.twilio.rest.Domains;
 import java.math.BigDecimal;
 import java.util.List;
 import java.time.ZonedDateTime;
+import java.math.BigDecimal;
 import java.net.URI;
 
 import java.util.List;
@@ -52,6 +53,8 @@ public class MessageCreator extends Creator<Message>{
     private Message.ScheduleType scheduleType;
     private ZonedDateTime sendAt;
     private Boolean sendAsMms;
+    private String contentSid;
+    private String contentVariables;
     private com.twilio.type.PhoneNumber from;
     private String messagingServiceSid;
     private String body;
@@ -177,6 +180,14 @@ public class MessageCreator extends Creator<Message>{
         this.sendAsMms = sendAsMms;
         return this;
     }
+    public MessageCreator setContentSid(final String contentSid){
+        this.contentSid = contentSid;
+        return this;
+    }
+    public MessageCreator setContentVariables(final String contentVariables){
+        this.contentVariables = contentVariables;
+        return this;
+    }
     public MessageCreator setFrom(final com.twilio.type.PhoneNumber from){
         this.from = from;
         return this;
@@ -297,6 +308,14 @@ public class MessageCreator extends Creator<Message>{
         }
         if (sendAsMms != null) {
             request.addPostParam("SendAsMms", sendAsMms.toString());
+    
+        }
+        if (contentSid != null) {
+            request.addPostParam("ContentSid", contentSid);
+    
+        }
+        if (contentVariables != null) {
+            request.addPostParam("ContentVariables", contentVariables);
     
         }
         if (from != null) {

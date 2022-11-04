@@ -168,6 +168,7 @@
   </profiles>
   <properties>
     <jackson.version>2.13.4</jackson.version>
+    <jackson-databind.version>2.13.4.2</jackson-databind.version>
     <javadoc.plugin.version>3.3.1</javadoc.plugin.version>
     <jjwt.version>0.11.2</jjwt.version>
     <skip.tests>false</skip.tests>
@@ -246,7 +247,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>${jackson.version}</version>
+      <version>${jackson-databind.version}</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>

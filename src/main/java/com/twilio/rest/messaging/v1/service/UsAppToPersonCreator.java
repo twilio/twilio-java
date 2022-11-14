@@ -38,6 +38,13 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     private String usAppToPersonUsecase;
     private Boolean hasEmbeddedLinks;
     private Boolean hasEmbeddedPhone;
+    private String messageFlow;
+    private String optInMessage;
+    private String optOutMessage;
+    private String helpMessage;
+    private List<String> optInKeywords;
+    private List<String> optOutKeywords;
+    private List<String> helpKeywords;
 
     public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
@@ -75,6 +82,43 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     public UsAppToPersonCreator setHasEmbeddedPhone(final Boolean hasEmbeddedPhone){
         this.hasEmbeddedPhone = hasEmbeddedPhone;
         return this;
+    }
+    public UsAppToPersonCreator setMessageFlow(final String messageFlow){
+        this.messageFlow = messageFlow;
+        return this;
+    }
+    public UsAppToPersonCreator setOptInMessage(final String optInMessage){
+        this.optInMessage = optInMessage;
+        return this;
+    }
+    public UsAppToPersonCreator setOptOutMessage(final String optOutMessage){
+        this.optOutMessage = optOutMessage;
+        return this;
+    }
+    public UsAppToPersonCreator setHelpMessage(final String helpMessage){
+        this.helpMessage = helpMessage;
+        return this;
+    }
+    public UsAppToPersonCreator setOptInKeywords(final List<String> optInKeywords){
+        this.optInKeywords = optInKeywords;
+        return this;
+    }
+    public UsAppToPersonCreator setOptInKeywords(final String optInKeywords){
+        return setOptInKeywords(Promoter.listOfOne(optInKeywords));
+    }
+    public UsAppToPersonCreator setOptOutKeywords(final List<String> optOutKeywords){
+        this.optOutKeywords = optOutKeywords;
+        return this;
+    }
+    public UsAppToPersonCreator setOptOutKeywords(final String optOutKeywords){
+        return setOptOutKeywords(Promoter.listOfOne(optOutKeywords));
+    }
+    public UsAppToPersonCreator setHelpKeywords(final List<String> helpKeywords){
+        this.helpKeywords = helpKeywords;
+        return this;
+    }
+    public UsAppToPersonCreator setHelpKeywords(final String helpKeywords){
+        return setHelpKeywords(Promoter.listOfOne(helpKeywords));
     }
 
     @Override
@@ -133,6 +177,40 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
         }
         if (hasEmbeddedPhone != null) {
             request.addPostParam("HasEmbeddedPhone", hasEmbeddedPhone.toString());
+    
+        }
+        if (messageFlow != null) {
+            request.addPostParam("MessageFlow", messageFlow);
+    
+        }
+        if (optInMessage != null) {
+            request.addPostParam("OptInMessage", optInMessage);
+    
+        }
+        if (optOutMessage != null) {
+            request.addPostParam("OptOutMessage", optOutMessage);
+    
+        }
+        if (helpMessage != null) {
+            request.addPostParam("HelpMessage", helpMessage);
+    
+        }
+        if (optInKeywords != null) {
+            for (String prop : optInKeywords) {
+                request.addPostParam("OptInKeywords", prop);
+            }
+    
+        }
+        if (optOutKeywords != null) {
+            for (String prop : optOutKeywords) {
+                request.addPostParam("OptOutKeywords", prop);
+            }
+    
+        }
+        if (helpKeywords != null) {
+            for (String prop : helpKeywords) {
+                request.addPostParam("HelpKeywords", prop);
+            }
     
         }
     }

@@ -187,7 +187,9 @@ public class Gather extends TwiML {
     public enum SpeechModel {
         DEFAULT("default"),
         NUMBERS_AND_COMMANDS("numbers_and_commands"),
-        PHONE_CALL("phone_call");
+        PHONE_CALL("phone_call"),
+        EXPERIMENTAL_CONVERSATIONS("experimental_conversations"),
+        EXPERIMENTAL_UTTERANCES("experimental_utterances");
 
         private final String value;
 

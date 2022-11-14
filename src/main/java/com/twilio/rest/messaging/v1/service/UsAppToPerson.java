@@ -43,7 +43,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
-    private static final long serialVersionUID = 215629763717991L;
+    private static final long serialVersionUID = 207409378631021L;
 
     public static UsAppToPersonCreator creator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone){
         return new UsAppToPersonCreator(pathMessagingServiceSid, brandRegistrationSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone);
@@ -112,6 +112,13 @@ public class UsAppToPerson extends Resource {
     private final String campaignId;
     private final Boolean isExternallyRegistered;
     private final Map<String, Object> rateLimits;
+    private final String messageFlow;
+    private final String optInMessage;
+    private final String optOutMessage;
+    private final String helpMessage;
+    private final List<String> optInKeywords;
+    private final List<String> optOutKeywords;
+    private final List<String> helpKeywords;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -158,6 +165,27 @@ public class UsAppToPerson extends Resource {
         @JsonProperty("rate_limits")
         final Map<String, Object> rateLimits,
 
+        @JsonProperty("message_flow")
+        final String messageFlow,
+
+        @JsonProperty("opt_in_message")
+        final String optInMessage,
+
+        @JsonProperty("opt_out_message")
+        final String optOutMessage,
+
+        @JsonProperty("help_message")
+        final String helpMessage,
+
+        @JsonProperty("opt_in_keywords")
+        final List<String> optInKeywords,
+
+        @JsonProperty("opt_out_keywords")
+        final List<String> optOutKeywords,
+
+        @JsonProperty("help_keywords")
+        final List<String> helpKeywords,
+
         @JsonProperty("date_created")
         final String dateCreated,
 
@@ -183,6 +211,13 @@ public class UsAppToPerson extends Resource {
         this.campaignId = campaignId;
         this.isExternallyRegistered = isExternallyRegistered;
         this.rateLimits = rateLimits;
+        this.messageFlow = messageFlow;
+        this.optInMessage = optInMessage;
+        this.optOutMessage = optOutMessage;
+        this.helpMessage = helpMessage;
+        this.optInKeywords = optInKeywords;
+        this.optOutKeywords = optOutKeywords;
+        this.helpKeywords = helpKeywords;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -228,6 +263,27 @@ public class UsAppToPerson extends Resource {
         public final Map<String, Object> getRateLimits() {
             return this.rateLimits;
         }
+        public final String getMessageFlow() {
+            return this.messageFlow;
+        }
+        public final String getOptInMessage() {
+            return this.optInMessage;
+        }
+        public final String getOptOutMessage() {
+            return this.optOutMessage;
+        }
+        public final String getHelpMessage() {
+            return this.helpMessage;
+        }
+        public final List<String> getOptInKeywords() {
+            return this.optInKeywords;
+        }
+        public final List<String> getOptOutKeywords() {
+            return this.optOutKeywords;
+        }
+        public final List<String> getHelpKeywords() {
+            return this.helpKeywords;
+        }
         public final ZonedDateTime getDateCreated() {
             return this.dateCreated;
         }
@@ -253,12 +309,12 @@ public class UsAppToPerson extends Resource {
 
         UsAppToPerson other = (UsAppToPerson) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(description, other.description) &&  Objects.equals(messageSamples, other.messageSamples) &&  Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&  Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&  Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&  Objects.equals(campaignStatus, other.campaignStatus) &&  Objects.equals(campaignId, other.campaignId) &&  Objects.equals(isExternallyRegistered, other.isExternallyRegistered) &&  Objects.equals(rateLimits, other.rateLimits) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(mock, other.mock)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(description, other.description) &&  Objects.equals(messageSamples, other.messageSamples) &&  Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&  Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&  Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&  Objects.equals(campaignStatus, other.campaignStatus) &&  Objects.equals(campaignId, other.campaignId) &&  Objects.equals(isExternallyRegistered, other.isExternallyRegistered) &&  Objects.equals(rateLimits, other.rateLimits) &&  Objects.equals(messageFlow, other.messageFlow) &&  Objects.equals(optInMessage, other.optInMessage) &&  Objects.equals(optOutMessage, other.optOutMessage) &&  Objects.equals(helpMessage, other.helpMessage) &&  Objects.equals(optInKeywords, other.optInKeywords) &&  Objects.equals(optOutKeywords, other.optOutKeywords) &&  Objects.equals(helpKeywords, other.helpKeywords) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(mock, other.mock)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, brandRegistrationSid, messagingServiceSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone, campaignStatus, campaignId, isExternallyRegistered, rateLimits, dateCreated, dateUpdated, url, mock);
+        return Objects.hash(sid, accountSid, brandRegistrationSid, messagingServiceSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone, campaignStatus, campaignId, isExternallyRegistered, rateLimits, messageFlow, optInMessage, optOutMessage, helpMessage, optInKeywords, optOutKeywords, helpKeywords, dateCreated, dateUpdated, url, mock);
     }
 
 }

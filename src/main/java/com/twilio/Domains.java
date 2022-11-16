@@ -16,6 +16,7 @@ public enum Domains {
     AUTOPILOT("autopilot"),
     BULKEXPORTS("bulkexports"),
     CHAT("chat"),
+    CONTENT("content"),
     CONVERSATIONS("conversations"),
     EVENTS("events"),
     FLEXAPI("flex-api"),

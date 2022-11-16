@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 140626209070735L;
+    private static final long serialVersionUID = 68390567203596L;
 
 
     public static CallSummaryFetcher fetcher(final String pathCallSid){
@@ -88,6 +88,30 @@ public class CallSummary extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+    public enum AnsweredBy {
+        UNKNOWN("unknown"),
+        MACHINE_START("machine_start"),
+        MACHINE_END_BEEP("machine_end_beep"),
+        MACHINE_END_SILENCE("machine_end_silence"),
+        MACHINE_END_OTHER("machine_end_other"),
+        HUMAN("human"),
+        FAX("fax");
+
+        private final String value;
+
+        private AnsweredBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AnsweredBy forValue(final String value) {
+            return Promoter.enumFromString(value, AnsweredBy.values());
         }
     }
     public enum CallState {
@@ -160,6 +184,7 @@ public class CallSummary extends Resource {
     private final String callSid;
     private final CallSummary.CallType callType;
     private final CallSummary.CallState callState;
+    private final CallSummary.AnsweredBy answeredBy;
     private final CallSummary.ProcessingState processingState;
     private final ZonedDateTime createdTime;
     private final ZonedDateTime startTime;
@@ -192,6 +217,9 @@ public class CallSummary extends Resource {
 
         @JsonProperty("call_state")
         final CallSummary.CallState callState,
+
+        @JsonProperty("answered_by")
+        final CallSummary.AnsweredBy answeredBy,
 
         @JsonProperty("processing_state")
         final CallSummary.ProcessingState processingState,
@@ -251,6 +279,7 @@ public class CallSummary extends Resource {
         this.callSid = callSid;
         this.callType = callType;
         this.callState = callState;
+        this.answeredBy = answeredBy;
         this.processingState = processingState;
         this.createdTime = DateConverter.iso8601DateTimeFromString(createdTime);
         this.startTime = DateConverter.iso8601DateTimeFromString(startTime);
@@ -282,6 +311,9 @@ public class CallSummary extends Resource {
         }
         public final CallSummary.CallState getCallState() {
             return this.callState;
+        }
+        public final CallSummary.AnsweredBy getAnsweredBy() {
+            return this.answeredBy;
         }
         public final CallSummary.ProcessingState getProcessingState() {
             return this.processingState;
@@ -350,12 +382,12 @@ public class CallSummary extends Resource {
 
         CallSummary other = (CallSummary) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(callType, other.callType) &&  Objects.equals(callState, other.callState) &&  Objects.equals(processingState, other.processingState) &&  Objects.equals(createdTime, other.createdTime) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(connectDuration, other.connectDuration) &&  Objects.equals(from, other.from) &&  Objects.equals(to, other.to) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(clientEdge, other.clientEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(tags, other.tags) &&  Objects.equals(url, other.url) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(properties, other.properties) &&  Objects.equals(trust, other.trust) &&  Objects.equals(annotation, other.annotation)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(callType, other.callType) &&  Objects.equals(callState, other.callState) &&  Objects.equals(answeredBy, other.answeredBy) &&  Objects.equals(processingState, other.processingState) &&  Objects.equals(createdTime, other.createdTime) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(connectDuration, other.connectDuration) &&  Objects.equals(from, other.from) &&  Objects.equals(to, other.to) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(clientEdge, other.clientEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(tags, other.tags) &&  Objects.equals(url, other.url) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(properties, other.properties) &&  Objects.equals(trust, other.trust) &&  Objects.equals(annotation, other.annotation)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, callSid, callType, callState, processingState, createdTime, startTime, endTime, duration, connectDuration, from, to, carrierEdge, clientEdge, sdkEdge, sipEdge, tags, url, attributes, properties, trust, annotation);
+        return Objects.hash(accountSid, callSid, callType, callState, answeredBy, processingState, createdTime, startTime, endTime, duration, connectDuration, from, to, carrierEdge, clientEdge, sdkEdge, sipEdge, tags, url, attributes, properties, trust, annotation);
     }
 
 }

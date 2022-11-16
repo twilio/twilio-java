@@ -1,6 +1,24 @@
 twilio-java changelog
 =====================
 
+[2022-11-16] Version 9.1.3
+--------------------------
+**Library - Chore**
+- [PR #721](https://github.com/twilio/twilio-java/pull/721): bump jackson to 2.14.0. Thanks to [@JenniferMah](https://github.com/JenniferMah)!
+- [PR #720](https://github.com/twilio/twilio-java/pull/720): bump jackson-databind to latest 2.13.4.2. Thanks to [@jacobdanner](https://github.com/jacobdanner)!
+- [PR #719](https://github.com/twilio/twilio-java/pull/719): upgrade GitHub Actions dependencies. Thanks to [@childish-sambino](https://github.com/childish-sambino)!
+
+**Api**
+- Set the Content resource to have public visibility as Preview
+
+**Flex**
+- Adding new parameter `base_url` to 'gooddata' response in version `v1`
+
+**Insights**
+- Added `answered_by` field in List Call Summary
+- Added `answered_by` field in call summary
+
+
 [2022-11-10] Version 9.1.2
 --------------------------
 **Flex**

@@ -37,11 +37,11 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class GoodDatum extends Resource {
-    private static final long serialVersionUID = 3143637009434L;
+public class GoodData extends Resource {
+    private static final long serialVersionUID = 89619452068958L;
 
-    public static GoodDatumCreator creator(){
-        return new GoodDatumCreator();
+    public static GoodDataCreator creator(){
+        return new GoodDataCreator();
     }
 
 
@@ -49,16 +49,16 @@ public class GoodDatum extends Resource {
 
 
     /**
-    * Converts a JSON String into a GoodDatum object using the provided ObjectMapper.
+    * Converts a JSON String into a GoodData object using the provided ObjectMapper.
     *
     * @param json Raw JSON String
     * @param objectMapper Jackson ObjectMapper
-    * @return GoodDatum object represented by the provided JSON
+    * @return GoodData object represented by the provided JSON
     */
-    public static GoodDatum fromJson(final String json, final ObjectMapper objectMapper) {
+    public static GoodData fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, GoodDatum.class);
+            return objectMapper.readValue(json, GoodData.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -67,17 +67,17 @@ public class GoodDatum extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a GoodDatum object using the provided
+    * Converts a JSON InputStream into a GoodData object using the provided
     * ObjectMapper.
     *
     * @param json Raw JSON InputStream
     * @param objectMapper Jackson ObjectMapper
-    * @return GoodDatum object represented by the provided JSON
+    * @return GoodData object represented by the provided JSON
     */
-    public static GoodDatum fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static GoodData fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, GoodDatum.class);
+            return objectMapper.readValue(json, GoodData.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -88,10 +88,11 @@ public class GoodDatum extends Resource {
     private final String workspaceId;
     private final String sessionExpiry;
     private final String sessionId;
+    private final String gdBaseUrl;
     private final URI url;
 
     @JsonCreator
-    private GoodDatum(
+    private GoodData(
         @JsonProperty("workspace_id")
         final String workspaceId,
 
@@ -101,12 +102,16 @@ public class GoodDatum extends Resource {
         @JsonProperty("session_id")
         final String sessionId,
 
+        @JsonProperty("gd_base_url")
+        final String gdBaseUrl,
+
         @JsonProperty("url")
         final URI url
     ) {
         this.workspaceId = workspaceId;
         this.sessionExpiry = sessionExpiry;
         this.sessionId = sessionId;
+        this.gdBaseUrl = gdBaseUrl;
         this.url = url;
     }
 
@@ -118,6 +123,9 @@ public class GoodDatum extends Resource {
         }
         public final String getSessionId() {
             return this.sessionId;
+        }
+        public final String getGdBaseUrl() {
+            return this.gdBaseUrl;
         }
         public final URI getUrl() {
             return this.url;
@@ -133,14 +141,14 @@ public class GoodDatum extends Resource {
             return false;
         }
 
-        GoodDatum other = (GoodDatum) o;
+        GoodData other = (GoodData) o;
 
-        return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(gdBaseUrl, other.gdBaseUrl) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workspaceId, sessionExpiry, sessionId, url);
+        return Objects.hash(workspaceId, sessionExpiry, sessionId, gdBaseUrl, url);
     }
 
 }

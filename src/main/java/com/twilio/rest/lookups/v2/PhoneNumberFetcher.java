@@ -31,6 +31,16 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private String pathPhoneNumber;
     private String fields;
     private String countryCode;
+    private String firstName;
+    private String lastName;
+    private String addressLine1;
+    private String addressLine2;
+    private String city;
+    private String state;
+    private String postalCode;
+    private String addressCountryCode;
+    private String nationalId;
+    private String dateOfBirth;
 
     public PhoneNumberFetcher(final String pathPhoneNumber){
         this.pathPhoneNumber = pathPhoneNumber;
@@ -42,6 +52,46 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
     public PhoneNumberFetcher setCountryCode(final String countryCode){
         this.countryCode = countryCode;
+        return this;
+    }
+    public PhoneNumberFetcher setFirstName(final String firstName){
+        this.firstName = firstName;
+        return this;
+    }
+    public PhoneNumberFetcher setLastName(final String lastName){
+        this.lastName = lastName;
+        return this;
+    }
+    public PhoneNumberFetcher setAddressLine1(final String addressLine1){
+        this.addressLine1 = addressLine1;
+        return this;
+    }
+    public PhoneNumberFetcher setAddressLine2(final String addressLine2){
+        this.addressLine2 = addressLine2;
+        return this;
+    }
+    public PhoneNumberFetcher setCity(final String city){
+        this.city = city;
+        return this;
+    }
+    public PhoneNumberFetcher setState(final String state){
+        this.state = state;
+        return this;
+    }
+    public PhoneNumberFetcher setPostalCode(final String postalCode){
+        this.postalCode = postalCode;
+        return this;
+    }
+    public PhoneNumberFetcher setAddressCountryCode(final String addressCountryCode){
+        this.addressCountryCode = addressCountryCode;
+        return this;
+    }
+    public PhoneNumberFetcher setNationalId(final String nationalId){
+        this.nationalId = nationalId;
+        return this;
+    }
+    public PhoneNumberFetcher setDateOfBirth(final String dateOfBirth){
+        this.dateOfBirth = dateOfBirth;
         return this;
     }
 
@@ -79,6 +129,46 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         if (countryCode != null) {
     
             request.addQueryParam("CountryCode", countryCode);
+        }
+        if (firstName != null) {
+    
+            request.addQueryParam("FirstName", firstName);
+        }
+        if (lastName != null) {
+    
+            request.addQueryParam("LastName", lastName);
+        }
+        if (addressLine1 != null) {
+    
+            request.addQueryParam("AddressLine1", addressLine1);
+        }
+        if (addressLine2 != null) {
+    
+            request.addQueryParam("AddressLine2", addressLine2);
+        }
+        if (city != null) {
+    
+            request.addQueryParam("City", city);
+        }
+        if (state != null) {
+    
+            request.addQueryParam("State", state);
+        }
+        if (postalCode != null) {
+    
+            request.addQueryParam("PostalCode", postalCode);
+        }
+        if (addressCountryCode != null) {
+    
+            request.addQueryParam("AddressCountryCode", addressCountryCode);
+        }
+        if (nationalId != null) {
+    
+            request.addQueryParam("NationalId", nationalId);
+        }
+        if (dateOfBirth != null) {
+    
+            request.addQueryParam("DateOfBirth", dateOfBirth);
         }
     }
 }

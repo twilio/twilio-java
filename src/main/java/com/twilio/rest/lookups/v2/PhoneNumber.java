@@ -42,7 +42,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 42741484554919L;
+    private static final long serialVersionUID = 248586837002659L;
 
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
@@ -123,6 +123,7 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> callForwarding;
     private final Map<String, Object> liveActivity;
     private final Map<String, Object> lineTypeIntelligence;
+    private final Map<String, Object> identityMatch;
     private final URI url;
 
     @JsonCreator
@@ -160,6 +161,9 @@ public class PhoneNumber extends Resource {
         @JsonProperty("line_type_intelligence")
         final Map<String, Object> lineTypeIntelligence,
 
+        @JsonProperty("identity_match")
+        final Map<String, Object> identityMatch,
+
         @JsonProperty("url")
         final URI url
     ) {
@@ -174,6 +178,7 @@ public class PhoneNumber extends Resource {
         this.callForwarding = callForwarding;
         this.liveActivity = liveActivity;
         this.lineTypeIntelligence = lineTypeIntelligence;
+        this.identityMatch = identityMatch;
         this.url = url;
     }
 
@@ -210,6 +215,9 @@ public class PhoneNumber extends Resource {
         public final Map<String, Object> getLineTypeIntelligence() {
             return this.lineTypeIntelligence;
         }
+        public final Map<String, Object> getIdentityMatch() {
+            return this.identityMatch;
+        }
         public final URI getUrl() {
             return this.url;
         }
@@ -226,12 +234,12 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
 
-        return Objects.equals(callingCountryCode, other.callingCountryCode) &&  Objects.equals(countryCode, other.countryCode) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(nationalFormat, other.nationalFormat) &&  Objects.equals(valid, other.valid) &&  Objects.equals(validationErrors, other.validationErrors) &&  Objects.equals(callerName, other.callerName) &&  Objects.equals(simSwap, other.simSwap) &&  Objects.equals(callForwarding, other.callForwarding) &&  Objects.equals(liveActivity, other.liveActivity) &&  Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(callingCountryCode, other.callingCountryCode) &&  Objects.equals(countryCode, other.countryCode) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(nationalFormat, other.nationalFormat) &&  Objects.equals(valid, other.valid) &&  Objects.equals(validationErrors, other.validationErrors) &&  Objects.equals(callerName, other.callerName) &&  Objects.equals(simSwap, other.simSwap) &&  Objects.equals(callForwarding, other.callForwarding) &&  Objects.equals(liveActivity, other.liveActivity) &&  Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&  Objects.equals(identityMatch, other.identityMatch) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(callingCountryCode, countryCode, phoneNumber, nationalFormat, valid, validationErrors, callerName, simSwap, callForwarding, liveActivity, lineTypeIntelligence, url);
+        return Objects.hash(callingCountryCode, countryCode, phoneNumber, nationalFormat, valid, validationErrors, callerName, simSwap, callForwarding, liveActivity, lineTypeIntelligence, identityMatch, url);
     }
 
 }

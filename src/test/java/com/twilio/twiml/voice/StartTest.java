@@ -206,4 +206,23 @@ public class StartTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Start.Builder builder = new Start.Builder();
+
+        builder.stream(new Stream.Builder().build());
+
+        builder.siprec(new Siprec.Builder().build());
+
+        final Start elem = builder.build();
+
+        Assert.assertEquals(
+            Start.Builder.fromXml("<Start>" +
+                "<Stream/>" +
+                "<Siprec/>" +
+            "</Start>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

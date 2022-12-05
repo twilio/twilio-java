@@ -183,4 +183,20 @@ public class SiprecTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Siprec.Builder builder = new Siprec.Builder();
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final Siprec elem = builder.build();
+
+        Assert.assertEquals(
+            Siprec.Builder.fromXml("<Siprec>" +
+                "<Parameter/>" +
+            "</Siprec>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

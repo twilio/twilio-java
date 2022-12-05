@@ -235,4 +235,38 @@ public class SsmlLangTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final SsmlLang.Builder builder = new SsmlLang.Builder();
+
+        builder.break_(new SsmlBreak.Builder().build());
+
+        builder.emphasis(new SsmlEmphasis.Builder().build());
+
+        builder.lang(new SsmlLang.Builder().build());
+
+        builder.p(new SsmlP.Builder().build());
+
+        builder.prosody(new SsmlProsody.Builder().build());
+
+        builder.s(new SsmlS.Builder().build());
+
+        builder.w(new SsmlW.Builder().build());
+
+        final SsmlLang elem = builder.build();
+
+        Assert.assertEquals(
+            SsmlLang.Builder.fromXml("<lang>" +
+                "<break/>" +
+                "<emphasis/>" +
+                "<lang/>" +
+                "<p/>" +
+                "<prosody/>" +
+                "<s/>" +
+                "<w/>" +
+            "</lang>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

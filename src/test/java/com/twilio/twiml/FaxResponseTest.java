@@ -179,4 +179,20 @@ public class FaxResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final FaxResponse.Builder builder = new FaxResponse.Builder();
+
+        builder.receive(new Receive.Builder().build());
+
+        final FaxResponse elem = builder.build();
+
+        Assert.assertEquals(
+            FaxResponse.Builder.fromXml("<Response>" +
+                "<Receive/>" +
+            "</Response>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

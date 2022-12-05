@@ -223,4 +223,32 @@ public class SsmlEmphasisTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final SsmlEmphasis.Builder builder = new SsmlEmphasis.Builder();
+
+        builder.break_(new SsmlBreak.Builder().build());
+
+        builder.emphasis(new SsmlEmphasis.Builder().build());
+
+        builder.lang(new SsmlLang.Builder().build());
+
+        builder.prosody(new SsmlProsody.Builder().build());
+
+        builder.w(new SsmlW.Builder().build());
+
+        final SsmlEmphasis elem = builder.build();
+
+        Assert.assertEquals(
+            SsmlEmphasis.Builder.fromXml("<emphasis>" +
+                "<break/>" +
+                "<emphasis/>" +
+                "<lang/>" +
+                "<prosody/>" +
+                "<w/>" +
+            "</emphasis>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

@@ -235,4 +235,23 @@ public class PayTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Pay.Builder builder = new Pay.Builder();
+
+        builder.prompt(new Prompt.Builder().build());
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final Pay elem = builder.build();
+
+        Assert.assertEquals(
+            Pay.Builder.fromXml("<Pay>" +
+                "<Prompt/>" +
+                "<Parameter/>" +
+            "</Pay>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

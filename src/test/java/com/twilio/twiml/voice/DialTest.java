@@ -370,4 +370,20 @@ public class DialTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Dial.Builder builder = new Dial.Builder();
+
+        builder.client(new Client.Builder().build());
+
+        final Dial elem = builder.build();
+
+        Assert.assertEquals(
+            Dial.Builder.fromXml("<Dial>" +
+                "<Client/>" +
+            "</Dial>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

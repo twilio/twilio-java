@@ -230,4 +230,23 @@ public class GatherTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Gather.Builder builder = new Gather.Builder();
+
+        builder.say(new Say.Builder().build());
+
+        builder.pause(new Pause.Builder().build());
+
+        final Gather elem = builder.build();
+
+        Assert.assertEquals(
+            Gather.Builder.fromXml("<Gather>" +
+                "<Say/>" +
+                "<Pause/>" +
+            "</Gather>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

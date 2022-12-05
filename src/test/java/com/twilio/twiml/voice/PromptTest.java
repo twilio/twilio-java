@@ -203,4 +203,23 @@ public class PromptTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Prompt.Builder builder = new Prompt.Builder();
+
+        builder.say(new Say.Builder().build());
+
+        builder.pause(new Pause.Builder().build());
+
+        final Prompt elem = builder.build();
+
+        Assert.assertEquals(
+            Prompt.Builder.fromXml("<Prompt>" +
+                "<Say/>" +
+                "<Pause/>" +
+            "</Prompt>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

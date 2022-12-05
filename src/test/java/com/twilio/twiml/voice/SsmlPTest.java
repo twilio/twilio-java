@@ -229,4 +229,35 @@ public class SsmlPTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final SsmlP.Builder builder = new SsmlP.Builder();
+
+        builder.break_(new SsmlBreak.Builder().build());
+
+        builder.emphasis(new SsmlEmphasis.Builder().build());
+
+        builder.lang(new SsmlLang.Builder().build());
+
+        builder.prosody(new SsmlProsody.Builder().build());
+
+        builder.s(new SsmlS.Builder().build());
+
+        builder.w(new SsmlW.Builder().build());
+
+        final SsmlP elem = builder.build();
+
+        Assert.assertEquals(
+            SsmlP.Builder.fromXml("<p>" +
+                "<break/>" +
+                "<emphasis/>" +
+                "<lang/>" +
+                "<prosody/>" +
+                "<s/>" +
+                "<w/>" +
+            "</p>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

@@ -9,6 +9,7 @@ package com.twilio.twiml.voice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.converter.Promoter;
 import com.twilio.http.HttpMethod;
@@ -159,6 +160,7 @@ public class Enqueue extends TwiML {
     /**
      * Create a new {@code <Enqueue>} element
      */
+    @JsonPOJOBuilder(withPrefix = "")
     public static class Builder extends TwiML.Builder<Builder> {
         /**
          * Create and return a {@code <Enqueue.Builder>} from an XML string

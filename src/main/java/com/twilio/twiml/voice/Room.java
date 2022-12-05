@@ -9,6 +9,7 @@ package com.twilio.twiml.voice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
@@ -86,6 +87,7 @@ public class Room extends TwiML {
     /**
      * Create a new {@code <Room>} element
      */
+    @JsonPOJOBuilder(withPrefix = "")
     public static class Builder extends TwiML.Builder<Builder> {
         /**
          * Create and return a {@code <Room.Builder>} from an XML string

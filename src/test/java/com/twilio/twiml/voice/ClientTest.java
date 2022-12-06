@@ -198,4 +198,20 @@ public class ClientTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Client.Builder builder = new Client.Builder();
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final Client elem = builder.build();
+
+        Assert.assertEquals(
+            Client.Builder.fromXml("<Client>" +
+                "<Parameter/>" +
+            "</Client>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

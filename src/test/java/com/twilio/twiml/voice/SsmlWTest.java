@@ -211,4 +211,26 @@ public class SsmlWTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final SsmlW.Builder builder = new SsmlW.Builder();
+
+        builder.break_(new SsmlBreak.Builder().build());
+
+        builder.emphasis(new SsmlEmphasis.Builder().build());
+
+        builder.prosody(new SsmlProsody.Builder().build());
+
+        final SsmlW elem = builder.build();
+
+        Assert.assertEquals(
+            SsmlW.Builder.fromXml("<w>" +
+                "<break/>" +
+                "<emphasis/>" +
+                "<prosody/>" +
+            "</w>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

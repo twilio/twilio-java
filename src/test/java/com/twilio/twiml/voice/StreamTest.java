@@ -189,4 +189,20 @@ public class StreamTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Stream.Builder builder = new Stream.Builder();
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final Stream elem = builder.build();
+
+        Assert.assertEquals(
+            Stream.Builder.fromXml("<Stream>" +
+                "<Parameter/>" +
+            "</Stream>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

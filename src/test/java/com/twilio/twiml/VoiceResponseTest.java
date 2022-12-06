@@ -488,4 +488,65 @@ public class VoiceResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final VoiceResponse.Builder builder = new VoiceResponse.Builder();
+
+        builder.connect(new Connect.Builder().build());
+
+        builder.dial(new Dial.Builder().build());
+
+        builder.echo(new Echo.Builder().build());
+
+        builder.enqueue(new Enqueue.Builder().build());
+
+        builder.gather(new Gather.Builder().build());
+
+        builder.hangup(new Hangup.Builder().build());
+
+        builder.leave(new Leave.Builder().build());
+
+        builder.pause(new Pause.Builder().build());
+
+        builder.record(new Record.Builder().build());
+
+        builder.reject(new Reject.Builder().build());
+
+        builder.say(new Say.Builder().build());
+
+        builder.pay(new Pay.Builder().build());
+
+        builder.prompt(new Prompt.Builder().build());
+
+        builder.start(new Start.Builder().build());
+
+        builder.stop(new Stop.Builder().build());
+
+        builder.refer(new Refer.Builder().build());
+
+        final VoiceResponse elem = builder.build();
+
+        Assert.assertEquals(
+            VoiceResponse.Builder.fromXml("<Response>" +
+                "<Connect/>" +
+                "<Dial/>" +
+                "<Echo/>" +
+                "<Enqueue/>" +
+                "<Gather/>" +
+                "<Hangup/>" +
+                "<Leave/>" +
+                "<Pause/>" +
+                "<Record/>" +
+                "<Reject/>" +
+                "<Say/>" +
+                "<Pay/>" +
+                "<Prompt/>" +
+                "<Start/>" +
+                "<Stop/>" +
+                "<Refer/>" +
+            "</Response>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

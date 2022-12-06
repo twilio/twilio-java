@@ -194,4 +194,23 @@ public class VirtualAgentTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final VirtualAgent.Builder builder = new VirtualAgent.Builder();
+
+        builder.config(new Config.Builder().build());
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final VirtualAgent elem = builder.build();
+
+        Assert.assertEquals(
+            VirtualAgent.Builder.fromXml("<VirtualAgent>" +
+                "<Config/>" +
+                "<Parameter/>" +
+            "</VirtualAgent>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

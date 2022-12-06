@@ -260,4 +260,26 @@ public class ConnectTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Connect.Builder builder = new Connect.Builder();
+
+        builder.stream(new Stream.Builder().build());
+
+        builder.virtualAgent(new VirtualAgent.Builder().build());
+
+        builder.conversation(new Conversation.Builder().build());
+
+        final Connect elem = builder.build();
+
+        Assert.assertEquals(
+            Connect.Builder.fromXml("<Connect>" +
+                "<Stream/>" +
+                "<VirtualAgent/>" +
+                "<Conversation/>" +
+            "</Connect>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

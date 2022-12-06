@@ -186,4 +186,20 @@ public class MessagingResponseTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final MessagingResponse.Builder builder = new MessagingResponse.Builder();
+
+        builder.message(new Message.Builder().build());
+
+        final MessagingResponse elem = builder.build();
+
+        Assert.assertEquals(
+            MessagingResponse.Builder.fromXml("<Response>" +
+                "<Message/>" +
+            "</Response>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

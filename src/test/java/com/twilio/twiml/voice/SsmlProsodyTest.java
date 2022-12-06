@@ -235,4 +235,38 @@ public class SsmlProsodyTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final SsmlProsody.Builder builder = new SsmlProsody.Builder();
+
+        builder.break_(new SsmlBreak.Builder().build());
+
+        builder.emphasis(new SsmlEmphasis.Builder().build());
+
+        builder.lang(new SsmlLang.Builder().build());
+
+        builder.p(new SsmlP.Builder().build());
+
+        builder.prosody(new SsmlProsody.Builder().build());
+
+        builder.s(new SsmlS.Builder().build());
+
+        builder.w(new SsmlW.Builder().build());
+
+        final SsmlProsody elem = builder.build();
+
+        Assert.assertEquals(
+            SsmlProsody.Builder.fromXml("<prosody>" +
+                "<break/>" +
+                "<emphasis/>" +
+                "<lang/>" +
+                "<p/>" +
+                "<prosody/>" +
+                "<s/>" +
+                "<w/>" +
+            "</prosody>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

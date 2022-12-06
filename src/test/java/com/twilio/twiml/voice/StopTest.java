@@ -192,4 +192,23 @@ public class StopTest {
             elem.toXml()
         );
     }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Stop.Builder builder = new Stop.Builder();
+
+        builder.stream(new Stream.Builder().build());
+
+        builder.siprec(new Siprec.Builder().build());
+
+        final Stop elem = builder.build();
+
+        Assert.assertEquals(
+            Stop.Builder.fromXml("<Stop>" +
+                "<Stream/>" +
+                "<Siprec/>" +
+            "</Stop>").build().toXml(),
+            elem.toXml()
+        );
+    }
 }

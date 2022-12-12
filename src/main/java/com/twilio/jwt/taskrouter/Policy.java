@@ -18,7 +18,7 @@ import lombok.ToString;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonPropertyOrder({"allowed","method","postFilter","queryFilter","url"})
+@JsonPropertyOrder(alphabetic = true)
 @ToString
 public class Policy {
 

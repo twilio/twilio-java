@@ -40,7 +40,7 @@ public class UserRolesFetcher extends Fetcher<UserRoles> {
 
     @Override
     public UserRoles fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/UserRoles";
+        String path = "/v1/Accounts/UserRoles";
 
 
         Request request = new Request(

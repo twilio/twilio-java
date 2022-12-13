@@ -33,18 +33,20 @@ import java.net.URI;
 public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMessageSubscription>{
     private String pathCallSid;
     private URI callback;
+    private HttpMethod method;
     private String pathAccountSid;
     private String idempotencyKey;
-    private HttpMethod method;
 
-    public UserDefinedMessageSubscriptionCreator(final String pathCallSid, final URI callback) {
+    public UserDefinedMessageSubscriptionCreator(final String pathCallSid, final URI callback, final HttpMethod method) {
         this.pathCallSid = pathCallSid;
         this.callback = callback;
+        this.method = method;
     }
-    public UserDefinedMessageSubscriptionCreator(final String pathAccountSid, final String pathCallSid, final URI callback) {
+    public UserDefinedMessageSubscriptionCreator(final String pathAccountSid, final String pathCallSid, final URI callback, final HttpMethod method) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.callback = callback;
+        this.method = method;
     }
 
     public UserDefinedMessageSubscriptionCreator setCallback(final URI callback){
@@ -55,12 +57,12 @@ public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMe
     public UserDefinedMessageSubscriptionCreator setCallback(final String callback){
         return setCallback(Promoter.uriFromString(callback));
     }
-    public UserDefinedMessageSubscriptionCreator setIdempotencyKey(final String idempotencyKey){
-        this.idempotencyKey = idempotencyKey;
-        return this;
-    }
     public UserDefinedMessageSubscriptionCreator setMethod(final HttpMethod method){
         this.method = method;
+        return this;
+    }
+    public UserDefinedMessageSubscriptionCreator setIdempotencyKey(final String idempotencyKey){
+        this.idempotencyKey = idempotencyKey;
         return this;
     }
 
@@ -72,6 +74,7 @@ public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMe
         path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
         path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
         path = path.replace("{"+"Callback"+"}", this.callback.toString());
+        path = path.replace("{"+"Method"+"}", this.method.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -97,12 +100,12 @@ public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMe
             request.addPostParam("Callback", callback.toString());
     
         }
-        if (idempotencyKey != null) {
-            request.addPostParam("IdempotencyKey", idempotencyKey);
-    
-        }
         if (method != null) {
             request.addPostParam("Method", method.toString());
+    
+        }
+        if (idempotencyKey != null) {
+            request.addPostParam("IdempotencyKey", idempotencyKey);
     
         }
     }

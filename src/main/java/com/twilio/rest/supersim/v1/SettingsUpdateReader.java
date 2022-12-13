@@ -30,7 +30,6 @@ import com.twilio.base.Page;
 
 public class SettingsUpdateReader extends Reader<SettingsUpdate> {
     private String sim;
-    private SettingsUpdate.Status status;
     private Integer pageSize;
 
     public SettingsUpdateReader(){
@@ -38,10 +37,6 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
 
     public SettingsUpdateReader setSim(final String sim){
         this.sim = sim;
-        return this;
-    }
-    public SettingsUpdateReader setStatus(final SettingsUpdate.Status status){
-        this.status = status;
         return this;
     }
     public SettingsUpdateReader setPageSize(final Integer pageSize){
@@ -120,10 +115,6 @@ public class SettingsUpdateReader extends Reader<SettingsUpdate> {
         if (sim != null) {
     
             request.addQueryParam("Sim", sim);
-        }
-        if (status != null) {
-    
-            request.addQueryParam("Status", status.toString());
         }
         if (pageSize != null) {
     

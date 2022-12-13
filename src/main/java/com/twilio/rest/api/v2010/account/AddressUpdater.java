@@ -38,7 +38,6 @@ public class AddressUpdater extends Updater<Address>{
     private String postalCode;
     private Boolean emergencyEnabled;
     private Boolean autoCorrectAddress;
-    private String streetSecondary;
 
     public AddressUpdater(final String pathSid){
         this.pathSid = pathSid;
@@ -78,10 +77,6 @@ public class AddressUpdater extends Updater<Address>{
     }
     public AddressUpdater setAutoCorrectAddress(final Boolean autoCorrectAddress){
         this.autoCorrectAddress = autoCorrectAddress;
-        return this;
-    }
-    public AddressUpdater setStreetSecondary(final String streetSecondary){
-        this.streetSecondary = streetSecondary;
         return this;
     }
 
@@ -143,10 +138,6 @@ public class AddressUpdater extends Updater<Address>{
         }
         if (autoCorrectAddress != null) {
             request.addPostParam("AutoCorrectAddress", autoCorrectAddress.toString());
-    
-        }
-        if (streetSecondary != null) {
-            request.addPostParam("StreetSecondary", streetSecondary);
     
         }
     }

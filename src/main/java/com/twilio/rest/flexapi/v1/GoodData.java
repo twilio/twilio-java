@@ -38,7 +38,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class GoodData extends Resource {
-    private static final long serialVersionUID = 184746612300929L;
+    private static final long serialVersionUID = 89619452068958L;
 
     public static GoodDataCreator creator(){
         return new GoodDataCreator();
@@ -84,7 +84,7 @@ public class GoodData extends Resource {
     private final String workspaceId;
     private final String sessionExpiry;
     private final String sessionId;
-    private final String baseUrl;
+    private final String gdBaseUrl;
     private final URI url;
 
     @JsonCreator
@@ -98,8 +98,8 @@ public class GoodData extends Resource {
         @JsonProperty("session_id")
         final String sessionId,
 
-        @JsonProperty("base_url")
-        final String baseUrl,
+        @JsonProperty("gd_base_url")
+        final String gdBaseUrl,
 
         @JsonProperty("url")
         final URI url
@@ -107,7 +107,7 @@ public class GoodData extends Resource {
         this.workspaceId = workspaceId;
         this.sessionExpiry = sessionExpiry;
         this.sessionId = sessionId;
-        this.baseUrl = baseUrl;
+        this.gdBaseUrl = gdBaseUrl;
         this.url = url;
     }
 
@@ -120,8 +120,8 @@ public class GoodData extends Resource {
         public final String getSessionId() {
             return this.sessionId;
         }
-        public final String getBaseUrl() {
-            return this.baseUrl;
+        public final String getGdBaseUrl() {
+            return this.gdBaseUrl;
         }
         public final URI getUrl() {
             return this.url;
@@ -139,12 +139,12 @@ public class GoodData extends Resource {
 
         GoodData other = (GoodData) o;
 
-        return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(baseUrl, other.baseUrl) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(gdBaseUrl, other.gdBaseUrl) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workspaceId, sessionExpiry, sessionId, baseUrl, url);
+        return Objects.hash(workspaceId, sessionExpiry, sessionId, gdBaseUrl, url);
     }
 
 }

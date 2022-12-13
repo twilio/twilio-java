@@ -53,7 +53,6 @@ public class Challenge extends Resource {
         return new ChallengeFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
-
     public static ChallengeReader reader(final String pathServiceSid, final String pathIdentity){
         return new ChallengeReader(pathServiceSid, pathIdentity);
     }

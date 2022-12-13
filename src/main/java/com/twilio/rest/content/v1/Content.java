@@ -44,19 +44,17 @@ import java.util.Map;
 public class Content extends Resource {
     private static final long serialVersionUID = 58899890984300L;
 
+    public static ContentDeleter deleter(final String pathSid){
+        return new ContentDeleter(pathSid);
+    }
 
     public static ContentFetcher fetcher(final String pathSid){
         return new ContentFetcher(pathSid);
     }
 
-    public static ContentDeleter deleter(final String pathSid){
-        return new ContentDeleter(pathSid);
-    }
-
     public static ContentReader reader(){
         return new ContentReader();
     }
-
 
     /**
     * Converts a JSON String into a Content object using the provided ObjectMapper.

@@ -42,12 +42,9 @@ import java.util.Objects;
 public class SipDomain extends Resource {
     private static final long serialVersionUID = 81903226613345L;
 
-
     public static SipDomainFetcher fetcher(final String pathSipDomain){
         return new SipDomainFetcher(pathSipDomain);
     }
-
-
 
     public static SipDomainUpdater updater(final String pathSipDomain){
         return new SipDomainUpdater(pathSipDomain);

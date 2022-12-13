@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ThisMonth extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 273687321693897L;
 
     public static ThisMonthReader reader(){
         return new ThisMonthReader();
@@ -57,7 +54,6 @@ public class ThisMonth extends Resource {
     public static ThisMonthReader reader(final String pathAccountSid){
         return new ThisMonthReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a ThisMonth object using the provided ObjectMapper.

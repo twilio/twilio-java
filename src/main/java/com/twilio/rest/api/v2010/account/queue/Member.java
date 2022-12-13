@@ -42,14 +42,12 @@ import java.util.Objects;
 public class Member extends Resource {
     private static final long serialVersionUID = 196464556782918L;
 
-
     public static MemberFetcher fetcher(final String pathQueueSid, final String pathCallSid){
         return new MemberFetcher(pathQueueSid, pathCallSid);
     }
     public static MemberFetcher fetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid){
         return new MemberFetcher(pathAccountSid, pathQueueSid, pathCallSid);
     }
-
 
     public static MemberReader reader(final String pathQueueSid){
         return new MemberReader(pathQueueSid);

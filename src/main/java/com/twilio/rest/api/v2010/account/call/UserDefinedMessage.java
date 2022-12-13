@@ -48,10 +48,6 @@ public class UserDefinedMessage extends Resource {
         return new UserDefinedMessageCreator(pathAccountSid, pathCallSid, content);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a UserDefinedMessage object using the provided ObjectMapper.
     *

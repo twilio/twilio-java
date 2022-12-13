@@ -35,15 +35,11 @@ import java.time.LocalDate;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ArchivedCall extends Resource {
-    private static final long serialVersionUID = 1L;
-
-
+    private static final long serialVersionUID = 0L;
 
     public static ArchivedCallDeleter deleter(final LocalDate pathDate, final String pathSid){
         return new ArchivedCallDeleter(pathDate, pathSid);
     }
-
-
 
     /**
     * Converts a JSON String into a ArchivedCall object using the provided ObjectMapper.

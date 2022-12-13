@@ -46,12 +46,12 @@ public class MessagingConfiguration extends Resource {
         return new MessagingConfigurationCreator(pathServiceSid, country, messagingServiceSid);
     }
 
-    public static MessagingConfigurationFetcher fetcher(final String pathServiceSid, final String pathCountry){
-        return new MessagingConfigurationFetcher(pathServiceSid, pathCountry);
-    }
-
     public static MessagingConfigurationDeleter deleter(final String pathServiceSid, final String pathCountry){
         return new MessagingConfigurationDeleter(pathServiceSid, pathCountry);
+    }
+
+    public static MessagingConfigurationFetcher fetcher(final String pathServiceSid, final String pathCountry){
+        return new MessagingConfigurationFetcher(pathServiceSid, pathCountry);
     }
 
     public static MessagingConfigurationReader reader(final String pathServiceSid){

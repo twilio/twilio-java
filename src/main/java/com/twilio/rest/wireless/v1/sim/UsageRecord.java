@@ -42,13 +42,9 @@ import java.util.Map;
 public class UsageRecord extends Resource {
     private static final long serialVersionUID = 100589345047771L;
 
-
-
-
     public static UsageRecordReader reader(final String pathSimSid){
         return new UsageRecordReader(pathSimSid);
     }
-
 
     /**
     * Converts a JSON String into a UsageRecord object using the provided ObjectMapper.

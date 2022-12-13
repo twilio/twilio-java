@@ -49,12 +49,12 @@ public class Workspace extends Resource {
         return new WorkspaceCreator(friendlyName);
     }
 
-    public static WorkspaceFetcher fetcher(final String pathSid){
-        return new WorkspaceFetcher(pathSid);
-    }
-
     public static WorkspaceDeleter deleter(final String pathSid){
         return new WorkspaceDeleter(pathSid);
+    }
+
+    public static WorkspaceFetcher fetcher(final String pathSid){
+        return new WorkspaceFetcher(pathSid);
     }
 
     public static WorkspaceReader reader(){

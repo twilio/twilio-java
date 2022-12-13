@@ -50,12 +50,12 @@ public class Service extends Resource {
         return new ServiceCreator(friendlyName);
     }
 
-    public static ServiceFetcher fetcher(final String pathSid){
-        return new ServiceFetcher(pathSid);
-    }
-
     public static ServiceDeleter deleter(final String pathSid){
         return new ServiceDeleter(pathSid);
+    }
+
+    public static ServiceFetcher fetcher(final String pathSid){
+        return new ServiceFetcher(pathSid);
     }
 
     public static ServiceReader reader(){

@@ -46,18 +46,17 @@ public class FieldValue extends Resource {
         return new FieldValueCreator(pathAssistantSid, pathFieldTypeSid, language, value);
     }
 
-    public static FieldValueFetcher fetcher(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
-        return new FieldValueFetcher(pathAssistantSid, pathFieldTypeSid, pathSid);
-    }
-
     public static FieldValueDeleter deleter(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
         return new FieldValueDeleter(pathAssistantSid, pathFieldTypeSid, pathSid);
+    }
+
+    public static FieldValueFetcher fetcher(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
+        return new FieldValueFetcher(pathAssistantSid, pathFieldTypeSid, pathSid);
     }
 
     public static FieldValueReader reader(final String pathAssistantSid, final String pathFieldTypeSid){
         return new FieldValueReader(pathAssistantSid, pathFieldTypeSid);
     }
-
 
     /**
     * Converts a JSON String into a FieldValue object using the provided ObjectMapper.

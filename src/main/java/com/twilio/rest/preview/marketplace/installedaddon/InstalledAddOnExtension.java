@@ -40,11 +40,9 @@ import java.util.Objects;
 public class InstalledAddOnExtension extends Resource {
     private static final long serialVersionUID = 244872409958696L;
 
-
     public static InstalledAddOnExtensionFetcher fetcher(final String pathInstalledAddOnSid, final String pathSid){
         return new InstalledAddOnExtensionFetcher(pathInstalledAddOnSid, pathSid);
     }
-
 
     public static InstalledAddOnExtensionReader reader(final String pathInstalledAddOnSid){
         return new InstalledAddOnExtensionReader(pathInstalledAddOnSid);

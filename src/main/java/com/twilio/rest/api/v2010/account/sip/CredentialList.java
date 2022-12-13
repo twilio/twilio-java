@@ -50,18 +50,18 @@ public class CredentialList extends Resource {
         return new CredentialListCreator(pathAccountSid, friendlyName);
     }
 
-    public static CredentialListFetcher fetcher(final String pathSid){
-        return new CredentialListFetcher(pathSid);
-    }
-    public static CredentialListFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new CredentialListFetcher(pathAccountSid, pathSid);
-    }
-
     public static CredentialListDeleter deleter(final String pathSid){
         return new CredentialListDeleter(pathSid);
     }
     public static CredentialListDeleter deleter(final String pathAccountSid, final String pathSid){
         return new CredentialListDeleter(pathAccountSid, pathSid);
+    }
+
+    public static CredentialListFetcher fetcher(final String pathSid){
+        return new CredentialListFetcher(pathSid);
+    }
+    public static CredentialListFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new CredentialListFetcher(pathAccountSid, pathSid);
     }
 
     public static CredentialListReader reader(){

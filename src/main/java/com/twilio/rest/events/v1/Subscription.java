@@ -49,12 +49,12 @@ public class Subscription extends Resource {
         return new SubscriptionCreator(description, sinkSid, types);
     }
 
-    public static SubscriptionFetcher fetcher(final String pathSid){
-        return new SubscriptionFetcher(pathSid);
-    }
-
     public static SubscriptionDeleter deleter(final String pathSid){
         return new SubscriptionDeleter(pathSid);
+    }
+
+    public static SubscriptionFetcher fetcher(final String pathSid){
+        return new SubscriptionFetcher(pathSid);
     }
 
     public static SubscriptionReader reader(){

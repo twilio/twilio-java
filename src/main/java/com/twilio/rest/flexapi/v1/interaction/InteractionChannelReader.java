@@ -114,5 +114,9 @@ public class InteractionChannelReader extends Reader<InteractionChannel> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

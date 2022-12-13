@@ -46,12 +46,12 @@ public class Key extends Resource {
         return new KeyCreator(pathFleetSid);
     }
 
-    public static KeyFetcher fetcher(final String pathFleetSid, final String pathSid){
-        return new KeyFetcher(pathFleetSid, pathSid);
-    }
-
     public static KeyDeleter deleter(final String pathFleetSid, final String pathSid){
         return new KeyDeleter(pathFleetSid, pathSid);
+    }
+
+    public static KeyFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new KeyFetcher(pathFleetSid, pathSid);
     }
 
     public static KeyReader reader(final String pathFleetSid){

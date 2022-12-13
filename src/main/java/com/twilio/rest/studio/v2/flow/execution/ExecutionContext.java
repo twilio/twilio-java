@@ -42,13 +42,9 @@ import java.util.Map;
 public class ExecutionContext extends Resource {
     private static final long serialVersionUID = 48761390116247L;
 
-
     public static ExecutionContextFetcher fetcher(final String pathFlowSid, final String pathExecutionSid){
         return new ExecutionContextFetcher(pathFlowSid, pathExecutionSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a ExecutionContext object using the provided ObjectMapper.

@@ -67,18 +67,18 @@ public class Call extends Resource {
         return new CallCreator(pathAccountSid, to, from, applicationSid);
     }
 
-    public static CallFetcher fetcher(final String pathSid){
-        return new CallFetcher(pathSid);
-    }
-    public static CallFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new CallFetcher(pathAccountSid, pathSid);
-    }
-
     public static CallDeleter deleter(final String pathSid){
         return new CallDeleter(pathSid);
     }
     public static CallDeleter deleter(final String pathAccountSid, final String pathSid){
         return new CallDeleter(pathAccountSid, pathSid);
+    }
+
+    public static CallFetcher fetcher(final String pathSid){
+        return new CallFetcher(pathSid);
+    }
+    public static CallFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new CallFetcher(pathAccountSid, pathSid);
     }
 
     public static CallReader reader(){

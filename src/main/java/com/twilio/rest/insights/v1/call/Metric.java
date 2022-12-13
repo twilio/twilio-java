@@ -40,15 +40,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Metric extends Resource {
-    private static final long serialVersionUID = 84169425261823L;
-
-
-
+    private static final long serialVersionUID = 250651350148240L;
 
     public static MetricReader reader(final String pathCallSid){
         return new MetricReader(pathCallSid);
     }
-
 
     /**
     * Converts a JSON String into a Metric object using the provided ObjectMapper.

@@ -49,12 +49,12 @@ public class CustomerProfiles extends Resource {
         return new CustomerProfilesCreator(friendlyName, email, policySid);
     }
 
-    public static CustomerProfilesFetcher fetcher(final String pathSid){
-        return new CustomerProfilesFetcher(pathSid);
-    }
-
     public static CustomerProfilesDeleter deleter(final String pathSid){
         return new CustomerProfilesDeleter(pathSid);
+    }
+
+    public static CustomerProfilesFetcher fetcher(final String pathSid){
+        return new CustomerProfilesFetcher(pathSid);
     }
 
     public static CustomerProfilesReader reader(){

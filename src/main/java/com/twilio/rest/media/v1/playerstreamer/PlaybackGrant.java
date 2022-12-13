@@ -52,9 +52,6 @@ public class PlaybackGrant extends Resource {
         return new PlaybackGrantFetcher(pathSid);
     }
 
-
-
-
     /**
     * Converts a JSON String into a PlaybackGrant object using the provided ObjectMapper.
     *

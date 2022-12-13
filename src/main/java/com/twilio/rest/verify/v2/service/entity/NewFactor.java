@@ -43,15 +43,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewFactor extends Resource {
-    private static final long serialVersionUID = 7089644420013L;
+    private static final long serialVersionUID = 115808224888150L;
 
     public static NewFactorCreator creator(final String pathServiceSid, final String pathIdentity, final String friendlyName, final NewFactor.FactorTypes factorType){
         return new NewFactorCreator(pathServiceSid, pathIdentity, friendlyName, factorType);
     }
-
-
-
-
 
     /**
     * Converts a JSON String into a NewFactor object using the provided ObjectMapper.

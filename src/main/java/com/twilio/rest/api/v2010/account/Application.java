@@ -50,18 +50,18 @@ public class Application extends Resource {
         return new ApplicationCreator(pathAccountSid);
     }
 
-    public static ApplicationFetcher fetcher(final String pathSid){
-        return new ApplicationFetcher(pathSid);
-    }
-    public static ApplicationFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new ApplicationFetcher(pathAccountSid, pathSid);
-    }
-
     public static ApplicationDeleter deleter(final String pathSid){
         return new ApplicationDeleter(pathSid);
     }
     public static ApplicationDeleter deleter(final String pathAccountSid, final String pathSid){
         return new ApplicationDeleter(pathAccountSid, pathSid);
+    }
+
+    public static ApplicationFetcher fetcher(final String pathSid){
+        return new ApplicationFetcher(pathSid);
+    }
+    public static ApplicationFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new ApplicationFetcher(pathAccountSid, pathSid);
     }
 
     public static ApplicationReader reader(){

@@ -42,15 +42,11 @@ import com.twilio.type.PhoneNumberCapabilities;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DependentHostedNumberOrder extends Resource {
-    private static final long serialVersionUID = 231234473647545L;
-
-
-
+    private static final long serialVersionUID = 65583991731077L;
 
     public static DependentHostedNumberOrderReader reader(final String pathSigningDocumentSid){
         return new DependentHostedNumberOrderReader(pathSigningDocumentSid);
     }
-
 
     /**
     * Converts a JSON String into a DependentHostedNumberOrder object using the provided ObjectMapper.

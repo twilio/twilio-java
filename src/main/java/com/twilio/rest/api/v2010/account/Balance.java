@@ -39,16 +39,12 @@ import java.util.Objects;
 public class Balance extends Resource {
     private static final long serialVersionUID = 101388429668677L;
 
-
     public static BalanceFetcher fetcher(){
         return new BalanceFetcher();
     }
     public static BalanceFetcher fetcher(final String pathAccountSid){
         return new BalanceFetcher(pathAccountSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Balance object using the provided ObjectMapper.

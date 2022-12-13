@@ -41,15 +41,11 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ReplaceItems extends Resource {
-    private static final long serialVersionUID = 8605661935837L;
+    private static final long serialVersionUID = 154268646541269L;
 
     public static ReplaceItemsCreator creator(final String pathBundleSid, final String fromBundleSid){
         return new ReplaceItemsCreator(pathBundleSid, fromBundleSid);
     }
-
-
-
-
 
     /**
     * Converts a JSON String into a ReplaceItems object using the provided ObjectMapper.

@@ -43,15 +43,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class VerificationCheck extends Resource {
-    private static final long serialVersionUID = 225770578077362L;
+    private static final long serialVersionUID = 194586011367791L;
 
     public static VerificationCheckCreator creator(final String pathServiceSid){
         return new VerificationCheckCreator(pathServiceSid);
     }
-
-
-
-
 
     /**
     * Converts a JSON String into a VerificationCheck object using the provided ObjectMapper.

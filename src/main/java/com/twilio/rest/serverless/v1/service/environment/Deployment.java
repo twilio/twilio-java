@@ -50,11 +50,9 @@ public class Deployment extends Resource {
         return new DeploymentFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-
     public static DeploymentReader reader(final String pathServiceSid, final String pathEnvironmentSid){
         return new DeploymentReader(pathServiceSid, pathEnvironmentSid);
     }
-
 
     /**
     * Converts a JSON String into a Deployment object using the provided ObjectMapper.

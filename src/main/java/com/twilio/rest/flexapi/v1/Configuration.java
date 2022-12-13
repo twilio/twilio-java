@@ -44,15 +44,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
-    private static final long serialVersionUID = 245464555538400L;
-
+    private static final long serialVersionUID = 184471195219828L;
 
     public static ConfigurationFetcher fetcher(){
         return new ConfigurationFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a Configuration object using the provided ObjectMapper.

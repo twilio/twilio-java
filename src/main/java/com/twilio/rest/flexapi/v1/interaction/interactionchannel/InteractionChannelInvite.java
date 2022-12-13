@@ -46,12 +46,9 @@ public class InteractionChannelInvite extends Resource {
         return new InteractionChannelInviteCreator(pathInteractionSid, pathChannelSid, routing);
     }
 
-
-
     public static InteractionChannelInviteReader reader(final String pathInteractionSid, final String pathChannelSid){
         return new InteractionChannelInviteReader(pathInteractionSid, pathChannelSid);
     }
-
 
     /**
     * Converts a JSON String into a InteractionChannelInvite object using the provided ObjectMapper.

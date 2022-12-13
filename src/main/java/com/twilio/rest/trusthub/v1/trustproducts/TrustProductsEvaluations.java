@@ -54,11 +54,9 @@ public class TrustProductsEvaluations extends Resource {
         return new TrustProductsEvaluationsFetcher(pathTrustProductSid, pathSid);
     }
 
-
     public static TrustProductsEvaluationsReader reader(final String pathTrustProductSid){
         return new TrustProductsEvaluationsReader(pathTrustProductSid);
     }
-
 
     /**
     * Converts a JSON String into a TrustProductsEvaluations object using the provided ObjectMapper.

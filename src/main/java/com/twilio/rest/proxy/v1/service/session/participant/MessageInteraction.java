@@ -55,11 +55,9 @@ public class MessageInteraction extends Resource {
         return new MessageInteractionFetcher(pathServiceSid, pathSessionSid, pathParticipantSid, pathSid);
     }
 
-
     public static MessageInteractionReader reader(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid){
         return new MessageInteractionReader(pathServiceSid, pathSessionSid, pathParticipantSid);
     }
-
 
     /**
     * Converts a JSON String into a MessageInteraction object using the provided ObjectMapper.

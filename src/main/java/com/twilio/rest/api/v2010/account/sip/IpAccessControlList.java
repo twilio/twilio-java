@@ -50,18 +50,18 @@ public class IpAccessControlList extends Resource {
         return new IpAccessControlListCreator(pathAccountSid, friendlyName);
     }
 
-    public static IpAccessControlListFetcher fetcher(final String pathSid){
-        return new IpAccessControlListFetcher(pathSid);
-    }
-    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new IpAccessControlListFetcher(pathAccountSid, pathSid);
-    }
-
     public static IpAccessControlListDeleter deleter(final String pathSid){
         return new IpAccessControlListDeleter(pathSid);
     }
     public static IpAccessControlListDeleter deleter(final String pathAccountSid, final String pathSid){
         return new IpAccessControlListDeleter(pathAccountSid, pathSid);
+    }
+
+    public static IpAccessControlListFetcher fetcher(final String pathSid){
+        return new IpAccessControlListFetcher(pathSid);
+    }
+    public static IpAccessControlListFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new IpAccessControlListFetcher(pathAccountSid, pathSid);
     }
 
     public static IpAccessControlListReader reader(){

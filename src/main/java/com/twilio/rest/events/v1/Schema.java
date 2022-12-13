@@ -44,13 +44,9 @@ import java.util.Map;
 public class Schema extends Resource {
     private static final long serialVersionUID = 100183907119303L;
 
-
     public static SchemaFetcher fetcher(final String pathId){
         return new SchemaFetcher(pathId);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Schema object using the provided ObjectMapper.

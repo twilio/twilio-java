@@ -42,10 +42,6 @@ import java.util.Objects;
 public class AuthTokenPromotion extends Resource {
     private static final long serialVersionUID = 77507843877589L;
 
-
-
-
-
     public static AuthTokenPromotionUpdater updater(){
         return new AuthTokenPromotionUpdater();
     }

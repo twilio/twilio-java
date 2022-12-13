@@ -54,7 +54,6 @@ public class AuthorizationDocument extends Resource {
         return new AuthorizationDocumentFetcher(pathSid);
     }
 
-
     public static AuthorizationDocumentReader reader(){
         return new AuthorizationDocumentReader();
     }

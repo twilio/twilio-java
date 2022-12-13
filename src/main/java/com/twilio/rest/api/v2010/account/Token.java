@@ -50,10 +50,6 @@ public class Token extends Resource {
         return new TokenCreator(pathAccountSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a Token object using the provided ObjectMapper.
     *

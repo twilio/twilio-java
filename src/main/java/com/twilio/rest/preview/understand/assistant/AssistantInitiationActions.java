@@ -42,12 +42,9 @@ import java.util.Map;
 public class AssistantInitiationActions extends Resource {
     private static final long serialVersionUID = 52727905251134L;
 
-
     public static AssistantInitiationActionsFetcher fetcher(final String pathAssistantSid){
         return new AssistantInitiationActionsFetcher(pathAssistantSid);
     }
-
-
 
     public static AssistantInitiationActionsUpdater updater(final String pathAssistantSid){
         return new AssistantInitiationActionsUpdater(pathAssistantSid);

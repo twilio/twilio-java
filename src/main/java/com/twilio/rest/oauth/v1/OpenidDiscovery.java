@@ -41,13 +41,9 @@ import java.util.Objects;
 public class OpenidDiscovery extends Resource {
     private static final long serialVersionUID = 213503115925852L;
 
-
     public static OpenidDiscoveryFetcher fetcher(){
         return new OpenidDiscoveryFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a OpenidDiscovery object using the provided ObjectMapper.

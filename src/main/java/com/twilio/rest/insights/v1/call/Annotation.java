@@ -42,12 +42,9 @@ import java.util.Objects;
 public class Annotation extends Resource {
     private static final long serialVersionUID = 9735005754677L;
 
-
     public static AnnotationFetcher fetcher(final String pathCallSid){
         return new AnnotationFetcher(pathCallSid);
     }
-
-
 
     public static AnnotationUpdater updater(final String pathCallSid){
         return new AnnotationUpdater(pathCallSid);

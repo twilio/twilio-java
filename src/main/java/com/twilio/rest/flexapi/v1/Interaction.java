@@ -50,9 +50,6 @@ public class Interaction extends Resource {
         return new InteractionFetcher(pathSid);
     }
 
-
-
-
     /**
     * Converts a JSON String into a Interaction object using the provided ObjectMapper.
     *

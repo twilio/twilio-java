@@ -46,18 +46,17 @@ public class TrustProductsChannelEndpointAssignment extends Resource {
         return new TrustProductsChannelEndpointAssignmentCreator(pathTrustProductSid, channelEndpointType, channelEndpointSid);
     }
 
-    public static TrustProductsChannelEndpointAssignmentFetcher fetcher(final String pathTrustProductSid, final String pathSid){
-        return new TrustProductsChannelEndpointAssignmentFetcher(pathTrustProductSid, pathSid);
-    }
-
     public static TrustProductsChannelEndpointAssignmentDeleter deleter(final String pathTrustProductSid, final String pathSid){
         return new TrustProductsChannelEndpointAssignmentDeleter(pathTrustProductSid, pathSid);
+    }
+
+    public static TrustProductsChannelEndpointAssignmentFetcher fetcher(final String pathTrustProductSid, final String pathSid){
+        return new TrustProductsChannelEndpointAssignmentFetcher(pathTrustProductSid, pathSid);
     }
 
     public static TrustProductsChannelEndpointAssignmentReader reader(final String pathTrustProductSid){
         return new TrustProductsChannelEndpointAssignmentReader(pathTrustProductSid);
     }
-
 
     /**
     * Converts a JSON String into a TrustProductsChannelEndpointAssignment object using the provided ObjectMapper.

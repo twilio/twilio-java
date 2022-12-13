@@ -55,7 +55,6 @@ public class Account extends Resource {
         return new AccountFetcher(pathSid);
     }
 
-
     public static AccountReader reader(){
         return new AccountReader();
     }

@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Today extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 120182361368915L;
 
     public static TodayReader reader(){
         return new TodayReader();
@@ -57,7 +54,6 @@ public class Today extends Resource {
     public static TodayReader reader(final String pathAccountSid){
         return new TodayReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Today object using the provided ObjectMapper.

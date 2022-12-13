@@ -46,18 +46,17 @@ public class IpAccessControlList extends Resource {
         return new IpAccessControlListCreator(pathTrunkSid, ipAccessControlListSid);
     }
 
-    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, final String pathSid){
-        return new IpAccessControlListFetcher(pathTrunkSid, pathSid);
-    }
-
     public static IpAccessControlListDeleter deleter(final String pathTrunkSid, final String pathSid){
         return new IpAccessControlListDeleter(pathTrunkSid, pathSid);
+    }
+
+    public static IpAccessControlListFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new IpAccessControlListFetcher(pathTrunkSid, pathSid);
     }
 
     public static IpAccessControlListReader reader(final String pathTrunkSid){
         return new IpAccessControlListReader(pathTrunkSid);
     }
-
 
     /**
     * Converts a JSON String into a IpAccessControlList object using the provided ObjectMapper.

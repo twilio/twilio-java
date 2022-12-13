@@ -121,5 +121,9 @@ public class CredentialListMappingReader extends Reader<CredentialListMapping> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

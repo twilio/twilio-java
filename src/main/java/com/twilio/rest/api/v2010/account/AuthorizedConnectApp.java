@@ -44,7 +44,6 @@ import java.util.Objects;
 public class AuthorizedConnectApp extends Resource {
     private static final long serialVersionUID = 15094155294983L;
 
-
     public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid){
         return new AuthorizedConnectAppFetcher(pathConnectAppSid);
     }
@@ -52,14 +51,12 @@ public class AuthorizedConnectApp extends Resource {
         return new AuthorizedConnectAppFetcher(pathAccountSid, pathConnectAppSid);
     }
 
-
     public static AuthorizedConnectAppReader reader(){
         return new AuthorizedConnectAppReader();
     }
     public static AuthorizedConnectAppReader reader(final String pathAccountSid){
         return new AuthorizedConnectAppReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a AuthorizedConnectApp object using the provided ObjectMapper.

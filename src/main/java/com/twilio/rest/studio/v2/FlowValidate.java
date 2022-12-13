@@ -42,10 +42,6 @@ import java.util.Map;
 public class FlowValidate extends Resource {
     private static final long serialVersionUID = 128242236604078L;
 
-
-
-
-
     public static FlowValidateUpdater updater(final String friendlyName, final FlowValidate.Status status, final Map<String, Object> definition){
         return new FlowValidateUpdater(friendlyName, status, definition);
     }

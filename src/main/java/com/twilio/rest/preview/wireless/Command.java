@@ -50,11 +50,9 @@ public class Command extends Resource {
         return new CommandFetcher(pathSid);
     }
 
-
     public static CommandReader reader(){
         return new CommandReader();
     }
-
 
     /**
     * Converts a JSON String into a Command object using the provided ObjectMapper.

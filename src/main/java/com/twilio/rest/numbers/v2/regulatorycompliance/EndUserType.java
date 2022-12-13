@@ -43,16 +43,13 @@ import java.util.Map;
 public class EndUserType extends Resource {
     private static final long serialVersionUID = 67038001521206L;
 
-
     public static EndUserTypeFetcher fetcher(final String pathSid){
         return new EndUserTypeFetcher(pathSid);
     }
 
-
     public static EndUserTypeReader reader(){
         return new EndUserTypeReader();
     }
-
 
     /**
     * Converts a JSON String into a EndUserType object using the provided ObjectMapper.

@@ -114,5 +114,9 @@ public class MessagingConfigurationReader extends Reader<MessagingConfiguration>
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

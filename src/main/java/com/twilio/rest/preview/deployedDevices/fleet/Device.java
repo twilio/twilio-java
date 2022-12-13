@@ -46,12 +46,12 @@ public class Device extends Resource {
         return new DeviceCreator(pathFleetSid);
     }
 
-    public static DeviceFetcher fetcher(final String pathFleetSid, final String pathSid){
-        return new DeviceFetcher(pathFleetSid, pathSid);
-    }
-
     public static DeviceDeleter deleter(final String pathFleetSid, final String pathSid){
         return new DeviceDeleter(pathFleetSid, pathSid);
+    }
+
+    public static DeviceFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new DeviceFetcher(pathFleetSid, pathSid);
     }
 
     public static DeviceReader reader(final String pathFleetSid){

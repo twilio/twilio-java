@@ -49,12 +49,12 @@ public class TaskQueue extends Resource {
         return new TaskQueueCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
-        return new TaskQueueFetcher(pathWorkspaceSid, pathSid);
-    }
-
     public static TaskQueueDeleter deleter(final String pathWorkspaceSid, final String pathSid){
         return new TaskQueueDeleter(pathWorkspaceSid, pathSid);
+    }
+
+    public static TaskQueueFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new TaskQueueFetcher(pathWorkspaceSid, pathSid);
     }
 
     public static TaskQueueReader reader(final String pathWorkspaceSid){

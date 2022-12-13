@@ -47,19 +47,18 @@ import java.util.Map;
 public class Recording extends Resource {
     private static final long serialVersionUID = 71375271651535L;
 
+    public static RecordingDeleter deleter(final String pathConferenceSid, final String pathSid){
+        return new RecordingDeleter(pathConferenceSid, pathSid);
+    }
+    public static RecordingDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid){
+        return new RecordingDeleter(pathAccountSid, pathConferenceSid, pathSid);
+    }
 
     public static RecordingFetcher fetcher(final String pathConferenceSid, final String pathSid){
         return new RecordingFetcher(pathConferenceSid, pathSid);
     }
     public static RecordingFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathSid){
         return new RecordingFetcher(pathAccountSid, pathConferenceSid, pathSid);
-    }
-
-    public static RecordingDeleter deleter(final String pathConferenceSid, final String pathSid){
-        return new RecordingDeleter(pathConferenceSid, pathSid);
-    }
-    public static RecordingDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid){
-        return new RecordingDeleter(pathAccountSid, pathConferenceSid, pathSid);
     }
 
     public static RecordingReader reader(final String pathConferenceSid){

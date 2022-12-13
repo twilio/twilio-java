@@ -40,13 +40,9 @@ import java.util.Objects;
 public class UserInfo extends Resource {
     private static final long serialVersionUID = 74270157944596L;
 
-
     public static UserInfoFetcher fetcher(){
         return new UserInfoFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a UserInfo object using the provided ObjectMapper.

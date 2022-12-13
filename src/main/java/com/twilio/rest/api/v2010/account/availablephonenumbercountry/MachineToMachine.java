@@ -41,16 +41,12 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class MachineToMachine extends Resource {
     private static final long serialVersionUID = 211749226408502L;
 
-
-
-
     public static MachineToMachineReader reader(final String pathCountryCode){
         return new MachineToMachineReader(pathCountryCode);
     }
     public static MachineToMachineReader reader(final String pathAccountSid, final String pathCountryCode){
         return new MachineToMachineReader(pathAccountSid, pathCountryCode);
     }
-
 
     /**
     * Converts a JSON String into a MachineToMachine object using the provided ObjectMapper.

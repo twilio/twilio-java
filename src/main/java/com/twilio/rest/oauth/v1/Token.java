@@ -45,10 +45,6 @@ public class Token extends Resource {
         return new TokenCreator(grantType, clientSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a Token object using the provided ObjectMapper.
     *

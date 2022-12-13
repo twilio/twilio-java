@@ -45,16 +45,13 @@ import java.util.Map;
 public class VerificationAttempt extends Resource {
     private static final long serialVersionUID = 105803800130690L;
 
-
     public static VerificationAttemptFetcher fetcher(final String pathSid){
         return new VerificationAttemptFetcher(pathSid);
     }
 
-
     public static VerificationAttemptReader reader(){
         return new VerificationAttemptReader();
     }
-
 
     /**
     * Converts a JSON String into a VerificationAttempt object using the provided ObjectMapper.

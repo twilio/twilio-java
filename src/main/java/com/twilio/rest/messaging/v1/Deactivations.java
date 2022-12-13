@@ -40,13 +40,9 @@ import java.util.Objects;
 public class Deactivations extends Resource {
     private static final long serialVersionUID = 245900587626041L;
 
-
     public static DeactivationsFetcher fetcher(){
         return new DeactivationsFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a Deactivations object using the provided ObjectMapper.

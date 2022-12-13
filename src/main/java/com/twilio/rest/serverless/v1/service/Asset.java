@@ -48,12 +48,12 @@ public class Asset extends Resource {
         return new AssetCreator(pathServiceSid, friendlyName);
     }
 
-    public static AssetFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new AssetFetcher(pathServiceSid, pathSid);
-    }
-
     public static AssetDeleter deleter(final String pathServiceSid, final String pathSid){
         return new AssetDeleter(pathServiceSid, pathSid);
+    }
+
+    public static AssetFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new AssetFetcher(pathServiceSid, pathSid);
     }
 
     public static AssetReader reader(final String pathServiceSid){

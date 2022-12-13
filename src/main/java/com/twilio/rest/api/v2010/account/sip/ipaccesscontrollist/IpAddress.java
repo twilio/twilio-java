@@ -48,18 +48,18 @@ public class IpAddress extends Resource {
         return new IpAddressCreator(pathAccountSid, pathIpAccessControlListSid, friendlyName, ipAddress);
     }
 
-    public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, final String pathSid){
-        return new IpAddressFetcher(pathIpAccessControlListSid, pathSid);
-    }
-    public static IpAddressFetcher fetcher(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
-        return new IpAddressFetcher(pathAccountSid, pathIpAccessControlListSid, pathSid);
-    }
-
     public static IpAddressDeleter deleter(final String pathIpAccessControlListSid, final String pathSid){
         return new IpAddressDeleter(pathIpAccessControlListSid, pathSid);
     }
     public static IpAddressDeleter deleter(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
         return new IpAddressDeleter(pathAccountSid, pathIpAccessControlListSid, pathSid);
+    }
+
+    public static IpAddressFetcher fetcher(final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressFetcher(pathIpAccessControlListSid, pathSid);
+    }
+    public static IpAddressFetcher fetcher(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
+        return new IpAddressFetcher(pathAccountSid, pathIpAccessControlListSid, pathSid);
     }
 
     public static IpAddressReader reader(final String pathIpAccessControlListSid){

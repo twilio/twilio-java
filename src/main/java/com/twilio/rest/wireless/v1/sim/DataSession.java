@@ -43,13 +43,9 @@ import java.util.Map;
 public class DataSession extends Resource {
     private static final long serialVersionUID = 124844690346008L;
 
-
-
-
     public static DataSessionReader reader(final String pathSimSid){
         return new DataSessionReader(pathSimSid);
     }
-
 
     /**
     * Converts a JSON String into a DataSession object using the provided ObjectMapper.

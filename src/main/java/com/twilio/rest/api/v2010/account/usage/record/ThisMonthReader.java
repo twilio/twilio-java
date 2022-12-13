@@ -155,5 +155,9 @@ public class ThisMonthReader extends Reader<ThisMonth> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

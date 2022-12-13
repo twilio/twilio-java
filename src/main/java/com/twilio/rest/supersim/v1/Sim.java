@@ -53,7 +53,6 @@ public class Sim extends Resource {
         return new SimFetcher(pathSid);
     }
 
-
     public static SimReader reader(){
         return new SimReader();
     }

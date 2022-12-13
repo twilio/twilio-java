@@ -42,13 +42,9 @@ import java.util.Map;
 public class StepContext extends Resource {
     private static final long serialVersionUID = 81685274380880L;
 
-
     public static StepContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathStepSid){
         return new StepContextFetcher(pathFlowSid, pathEngagementSid, pathStepSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a StepContext object using the provided ObjectMapper.

@@ -114,5 +114,9 @@ public class BundleCopyReader extends Reader<BundleCopy> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

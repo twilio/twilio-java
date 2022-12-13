@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Yearly extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 266687924235941L;
 
     public static YearlyReader reader(){
         return new YearlyReader();
@@ -57,7 +54,6 @@ public class Yearly extends Resource {
     public static YearlyReader reader(final String pathAccountSid){
         return new YearlyReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Yearly object using the provided ObjectMapper.

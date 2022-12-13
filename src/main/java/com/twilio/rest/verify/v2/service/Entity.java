@@ -48,18 +48,17 @@ public class Entity extends Resource {
         return new EntityCreator(pathServiceSid, identity);
     }
 
-    public static EntityFetcher fetcher(final String pathServiceSid, final String pathIdentity){
-        return new EntityFetcher(pathServiceSid, pathIdentity);
-    }
-
     public static EntityDeleter deleter(final String pathServiceSid, final String pathIdentity){
         return new EntityDeleter(pathServiceSid, pathIdentity);
+    }
+
+    public static EntityFetcher fetcher(final String pathServiceSid, final String pathIdentity){
+        return new EntityFetcher(pathServiceSid, pathIdentity);
     }
 
     public static EntityReader reader(final String pathServiceSid){
         return new EntityReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a Entity object using the provided ObjectMapper.

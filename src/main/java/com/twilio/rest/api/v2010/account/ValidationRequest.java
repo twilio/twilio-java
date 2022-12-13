@@ -46,10 +46,6 @@ public class ValidationRequest extends Resource {
         return new ValidationRequestCreator(pathAccountSid, phoneNumber);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a ValidationRequest object using the provided ObjectMapper.
     *

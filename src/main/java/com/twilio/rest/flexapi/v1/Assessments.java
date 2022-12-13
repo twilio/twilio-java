@@ -44,10 +44,6 @@ public class Assessments extends Resource {
         return new AssessmentsCreator();
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a Assessments object using the provided ObjectMapper.
     *

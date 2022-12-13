@@ -42,7 +42,6 @@ import java.util.Map;
 public class AvailablePhoneNumberCountry extends Resource {
     private static final long serialVersionUID = 173167903952303L;
 
-
     public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode){
         return new AvailablePhoneNumberCountryFetcher(pathCountryCode);
     }
@@ -50,14 +49,12 @@ public class AvailablePhoneNumberCountry extends Resource {
         return new AvailablePhoneNumberCountryFetcher(pathAccountSid, pathCountryCode);
     }
 
-
     public static AvailablePhoneNumberCountryReader reader(){
         return new AvailablePhoneNumberCountryReader();
     }
     public static AvailablePhoneNumberCountryReader reader(final String pathAccountSid){
         return new AvailablePhoneNumberCountryReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a AvailablePhoneNumberCountry object using the provided ObjectMapper.

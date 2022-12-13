@@ -42,13 +42,9 @@ import java.util.Map;
 public class Export extends Resource {
     private static final long serialVersionUID = 148899891151757L;
 
-
     public static ExportFetcher fetcher(final String pathResourceType){
         return new ExportFetcher(pathResourceType);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Export object using the provided ObjectMapper.

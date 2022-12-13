@@ -117,5 +117,9 @@ public class SyncListPermissionReader extends Reader<SyncListPermission> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

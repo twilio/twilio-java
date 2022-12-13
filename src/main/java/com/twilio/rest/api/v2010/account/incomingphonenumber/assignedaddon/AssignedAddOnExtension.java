@@ -39,7 +39,6 @@ import java.util.Objects;
 public class AssignedAddOnExtension extends Resource {
     private static final long serialVersionUID = 103705040276662L;
 
-
     public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid){
         return new AssignedAddOnExtensionFetcher(pathResourceSid, pathAssignedAddOnSid, pathSid);
     }
@@ -47,14 +46,12 @@ public class AssignedAddOnExtension extends Resource {
         return new AssignedAddOnExtensionFetcher(pathAccountSid, pathResourceSid, pathAssignedAddOnSid, pathSid);
     }
 
-
     public static AssignedAddOnExtensionReader reader(final String pathResourceSid, final String pathAssignedAddOnSid){
         return new AssignedAddOnExtensionReader(pathResourceSid, pathAssignedAddOnSid);
     }
     public static AssignedAddOnExtensionReader reader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid){
         return new AssignedAddOnExtensionReader(pathAccountSid, pathResourceSid, pathAssignedAddOnSid);
     }
-
 
     /**
     * Converts a JSON String into a AssignedAddOnExtension object using the provided ObjectMapper.

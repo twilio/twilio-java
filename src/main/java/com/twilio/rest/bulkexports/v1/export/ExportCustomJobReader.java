@@ -114,5 +114,9 @@ public class ExportCustomJobReader extends Reader<ExportCustomJob> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

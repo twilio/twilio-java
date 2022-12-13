@@ -45,19 +45,17 @@ import java.util.Map;
 public class Flow extends Resource {
     private static final long serialVersionUID = 8879052558661L;
 
+    public static FlowDeleter deleter(final String pathSid){
+        return new FlowDeleter(pathSid);
+    }
 
     public static FlowFetcher fetcher(final String pathSid){
         return new FlowFetcher(pathSid);
     }
 
-    public static FlowDeleter deleter(final String pathSid){
-        return new FlowDeleter(pathSid);
-    }
-
     public static FlowReader reader(){
         return new FlowReader();
     }
-
 
     /**
     * Converts a JSON String into a Flow object using the provided ObjectMapper.

@@ -52,7 +52,6 @@ public class Fleet extends Resource {
         return new FleetFetcher(pathSid);
     }
 
-
     public static FleetReader reader(){
         return new FleetReader();
     }

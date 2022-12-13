@@ -43,15 +43,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SettingsUpdate extends Resource {
-    private static final long serialVersionUID = 106229162655653L;
-
-
-
+    private static final long serialVersionUID = 126256874693410L;
 
     public static SettingsUpdateReader reader(){
         return new SettingsUpdateReader();
     }
-
 
     /**
     * Converts a JSON String into a SettingsUpdate object using the provided ObjectMapper.

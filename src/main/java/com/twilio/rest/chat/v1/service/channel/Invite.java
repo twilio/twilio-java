@@ -46,18 +46,17 @@ public class Invite extends Resource {
         return new InviteCreator(pathServiceSid, pathChannelSid, identity);
     }
 
-    public static InviteFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
-        return new InviteFetcher(pathServiceSid, pathChannelSid, pathSid);
-    }
-
     public static InviteDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
         return new InviteDeleter(pathServiceSid, pathChannelSid, pathSid);
+    }
+
+    public static InviteFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new InviteFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     public static InviteReader reader(final String pathServiceSid, final String pathChannelSid){
         return new InviteReader(pathServiceSid, pathChannelSid);
     }
-
 
     /**
     * Converts a JSON String into a Invite object using the provided ObjectMapper.

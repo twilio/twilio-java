@@ -41,16 +41,12 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class Voip extends Resource {
     private static final long serialVersionUID = 211749226408502L;
 
-
-
-
     public static VoipReader reader(final String pathCountryCode){
         return new VoipReader(pathCountryCode);
     }
     public static VoipReader reader(final String pathAccountSid, final String pathCountryCode){
         return new VoipReader(pathAccountSid, pathCountryCode);
     }
-
 
     /**
     * Converts a JSON String into a Voip object using the provided ObjectMapper.

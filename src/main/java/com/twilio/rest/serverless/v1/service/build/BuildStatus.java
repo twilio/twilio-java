@@ -39,15 +39,11 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BuildStatus extends Resource {
-    private static final long serialVersionUID = 254362469094086L;
-
+    private static final long serialVersionUID = 256582650740181L;
 
     public static BuildStatusFetcher fetcher(final String pathServiceSid, final String pathSid){
         return new BuildStatusFetcher(pathServiceSid, pathSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a BuildStatus object using the provided ObjectMapper.

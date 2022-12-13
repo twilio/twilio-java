@@ -46,13 +46,9 @@ import java.math.BigDecimal;
 public class UsageRecord extends Resource {
     private static final long serialVersionUID = 269766941607639L;
 
-
-
-
     public static UsageRecordReader reader(){
         return new UsageRecordReader();
     }
-
 
     /**
     * Converts a JSON String into a UsageRecord object using the provided ObjectMapper.

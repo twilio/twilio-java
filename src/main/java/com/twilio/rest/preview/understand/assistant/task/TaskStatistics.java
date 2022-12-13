@@ -40,13 +40,9 @@ import java.util.Objects;
 public class TaskStatistics extends Resource {
     private static final long serialVersionUID = 99044881135361L;
 
-
     public static TaskStatisticsFetcher fetcher(final String pathAssistantSid, final String pathTaskSid){
         return new TaskStatisticsFetcher(pathAssistantSid, pathTaskSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a TaskStatistics object using the provided ObjectMapper.

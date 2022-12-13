@@ -46,12 +46,12 @@ public class PublicKey extends Resource {
         return new PublicKeyCreator(publicKey);
     }
 
-    public static PublicKeyFetcher fetcher(final String pathSid){
-        return new PublicKeyFetcher(pathSid);
-    }
-
     public static PublicKeyDeleter deleter(final String pathSid){
         return new PublicKeyDeleter(pathSid);
+    }
+
+    public static PublicKeyFetcher fetcher(final String pathSid){
+        return new PublicKeyFetcher(pathSid);
     }
 
     public static PublicKeyReader reader(){

@@ -46,18 +46,17 @@ public class CustomerProfilesEntityAssignments extends Resource {
         return new CustomerProfilesEntityAssignmentsCreator(pathCustomerProfileSid, objectSid);
     }
 
-    public static CustomerProfilesEntityAssignmentsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
-        return new CustomerProfilesEntityAssignmentsFetcher(pathCustomerProfileSid, pathSid);
-    }
-
     public static CustomerProfilesEntityAssignmentsDeleter deleter(final String pathCustomerProfileSid, final String pathSid){
         return new CustomerProfilesEntityAssignmentsDeleter(pathCustomerProfileSid, pathSid);
+    }
+
+    public static CustomerProfilesEntityAssignmentsFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesEntityAssignmentsFetcher(pathCustomerProfileSid, pathSid);
     }
 
     public static CustomerProfilesEntityAssignmentsReader reader(final String pathCustomerProfileSid){
         return new CustomerProfilesEntityAssignmentsReader(pathCustomerProfileSid);
     }
-
 
     /**
     * Converts a JSON String into a CustomerProfilesEntityAssignments object using the provided ObjectMapper.

@@ -45,16 +45,13 @@ import java.util.Map;
 public class FunctionVersion extends Resource {
     private static final long serialVersionUID = 85534066966494L;
 
-
     public static FunctionVersionFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
         return new FunctionVersionFetcher(pathServiceSid, pathFunctionSid, pathSid);
     }
 
-
     public static FunctionVersionReader reader(final String pathServiceSid, final String pathFunctionSid){
         return new FunctionVersionReader(pathServiceSid, pathFunctionSid);
     }
-
 
     /**
     * Converts a JSON String into a FunctionVersion object using the provided ObjectMapper.

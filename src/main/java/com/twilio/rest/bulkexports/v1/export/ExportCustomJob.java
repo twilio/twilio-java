@@ -45,12 +45,9 @@ public class ExportCustomJob extends Resource {
         return new ExportCustomJobCreator(pathResourceType, startDay, endDay, friendlyName);
     }
 
-
-
     public static ExportCustomJobReader reader(final String pathResourceType){
         return new ExportCustomJobReader(pathResourceType);
     }
-
 
     /**
     * Converts a JSON String into a ExportCustomJob object using the provided ObjectMapper.

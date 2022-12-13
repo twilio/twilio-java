@@ -54,7 +54,6 @@ public class PlayerStreamer extends Resource {
         return new PlayerStreamerFetcher(pathSid);
     }
 
-
     public static PlayerStreamerReader reader(){
         return new PlayerStreamerReader();
     }

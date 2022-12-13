@@ -54,11 +54,9 @@ public class Evaluation extends Resource {
         return new EvaluationFetcher(pathBundleSid, pathSid);
     }
 
-
     public static EvaluationReader reader(final String pathBundleSid){
         return new EvaluationReader(pathBundleSid);
     }
-
 
     /**
     * Converts a JSON String into a Evaluation object using the provided ObjectMapper.

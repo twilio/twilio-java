@@ -44,11 +44,9 @@ import java.util.Map;
 public class Device extends Resource {
     private static final long serialVersionUID = 266652017538801L;
 
-
     public static DeviceFetcher fetcher(final String pathSid){
         return new DeviceFetcher(pathSid);
     }
-
 
     public static DeviceReader reader(){
         return new DeviceReader();

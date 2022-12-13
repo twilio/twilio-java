@@ -46,12 +46,12 @@ public class Bucket extends Resource {
         return new BucketCreator(pathServiceSid, pathRateLimitSid, max, interval);
     }
 
-    public static BucketFetcher fetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
-        return new BucketFetcher(pathServiceSid, pathRateLimitSid, pathSid);
-    }
-
     public static BucketDeleter deleter(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
         return new BucketDeleter(pathServiceSid, pathRateLimitSid, pathSid);
+    }
+
+    public static BucketFetcher fetcher(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+        return new BucketFetcher(pathServiceSid, pathRateLimitSid, pathSid);
     }
 
     public static BucketReader reader(final String pathServiceSid, final String pathRateLimitSid){

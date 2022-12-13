@@ -48,9 +48,6 @@ public class RecordingSettings extends Resource {
         return new RecordingSettingsFetcher();
     }
 
-
-
-
     /**
     * Converts a JSON String into a RecordingSettings object using the provided ObjectMapper.
     *

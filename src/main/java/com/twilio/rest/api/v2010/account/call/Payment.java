@@ -50,9 +50,6 @@ public class Payment extends Resource {
         return new PaymentCreator(pathAccountSid, pathCallSid, idempotencyKey, statusCallback);
     }
 
-
-
-
     public static PaymentUpdater updater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
         return new PaymentUpdater(pathCallSid, pathSid, idempotencyKey, statusCallback);
     }

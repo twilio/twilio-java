@@ -48,12 +48,12 @@ public class Worker extends Resource {
         return new WorkerCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static WorkerFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
-        return new WorkerFetcher(pathWorkspaceSid, pathSid);
-    }
-
     public static WorkerDeleter deleter(final String pathWorkspaceSid, final String pathSid){
         return new WorkerDeleter(pathWorkspaceSid, pathSid);
+    }
+
+    public static WorkerFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new WorkerFetcher(pathWorkspaceSid, pathSid);
     }
 
     public static WorkerReader reader(final String pathWorkspaceSid){

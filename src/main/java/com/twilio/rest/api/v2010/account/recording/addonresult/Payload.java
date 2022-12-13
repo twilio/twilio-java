@@ -43,6 +43,12 @@ import java.util.Map;
 public class Payload extends Resource {
     private static final long serialVersionUID = 241774798598483L;
 
+    public static PayloadDeleter deleter(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
+        return new PayloadDeleter(pathReferenceSid, pathAddOnResultSid, pathSid);
+    }
+    public static PayloadDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
+        return new PayloadDeleter(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
+    }
 
     public static PayloadFetcher fetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
         return new PayloadFetcher(pathReferenceSid, pathAddOnResultSid, pathSid);
@@ -51,20 +57,12 @@ public class Payload extends Resource {
         return new PayloadFetcher(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
     }
 
-    public static PayloadDeleter deleter(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
-        return new PayloadDeleter(pathReferenceSid, pathAddOnResultSid, pathSid);
-    }
-    public static PayloadDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
-        return new PayloadDeleter(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
-    }
-
     public static PayloadReader reader(final String pathReferenceSid, final String pathAddOnResultSid){
         return new PayloadReader(pathReferenceSid, pathAddOnResultSid);
     }
     public static PayloadReader reader(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid){
         return new PayloadReader(pathAccountSid, pathReferenceSid, pathAddOnResultSid);
     }
-
 
     /**
     * Converts a JSON String into a Payload object using the provided ObjectMapper.

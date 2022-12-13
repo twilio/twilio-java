@@ -48,18 +48,17 @@ public class SyncMap extends Resource {
         return new SyncMapCreator(pathServiceSid);
     }
 
-    public static SyncMapFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new SyncMapFetcher(pathServiceSid, pathSid);
-    }
-
     public static SyncMapDeleter deleter(final String pathServiceSid, final String pathSid){
         return new SyncMapDeleter(pathServiceSid, pathSid);
+    }
+
+    public static SyncMapFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SyncMapFetcher(pathServiceSid, pathSid);
     }
 
     public static SyncMapReader reader(final String pathServiceSid){
         return new SyncMapReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a SyncMap object using the provided ObjectMapper.

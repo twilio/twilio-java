@@ -48,18 +48,18 @@ public class IpAccessControlListMapping extends Resource {
         return new IpAccessControlListMappingCreator(pathAccountSid, pathDomainSid, ipAccessControlListSid);
     }
 
-    public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
-        return new IpAccessControlListMappingFetcher(pathDomainSid, pathSid);
-    }
-    public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
-        return new IpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
-    }
-
     public static IpAccessControlListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
         return new IpAccessControlListMappingDeleter(pathDomainSid, pathSid);
     }
     public static IpAccessControlListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
         return new IpAccessControlListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static IpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new IpAccessControlListMappingFetcher(pathDomainSid, pathSid);
+    }
+    public static IpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new IpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     public static IpAccessControlListMappingReader reader(final String pathDomainSid){
@@ -68,7 +68,6 @@ public class IpAccessControlListMapping extends Resource {
     public static IpAccessControlListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
         return new IpAccessControlListMappingReader(pathAccountSid, pathDomainSid);
     }
-
 
     /**
     * Converts a JSON String into a IpAccessControlListMapping object using the provided ObjectMapper.

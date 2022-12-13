@@ -50,9 +50,6 @@ public class Stream extends Resource {
         return new StreamCreator(pathAccountSid, pathCallSid, url);
     }
 
-
-
-
     public static StreamUpdater updater(final String pathCallSid, final String pathSid, final Stream.UpdateStatus status){
         return new StreamUpdater(pathCallSid, pathSid, status);
     }

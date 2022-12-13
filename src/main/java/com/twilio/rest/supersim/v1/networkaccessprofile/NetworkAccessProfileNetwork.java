@@ -47,18 +47,17 @@ public class NetworkAccessProfileNetwork extends Resource {
         return new NetworkAccessProfileNetworkCreator(pathNetworkAccessProfileSid, network);
     }
 
-    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathNetworkAccessProfileSid, final String pathSid){
-        return new NetworkAccessProfileNetworkFetcher(pathNetworkAccessProfileSid, pathSid);
-    }
-
     public static NetworkAccessProfileNetworkDeleter deleter(final String pathNetworkAccessProfileSid, final String pathSid){
         return new NetworkAccessProfileNetworkDeleter(pathNetworkAccessProfileSid, pathSid);
+    }
+
+    public static NetworkAccessProfileNetworkFetcher fetcher(final String pathNetworkAccessProfileSid, final String pathSid){
+        return new NetworkAccessProfileNetworkFetcher(pathNetworkAccessProfileSid, pathSid);
     }
 
     public static NetworkAccessProfileNetworkReader reader(final String pathNetworkAccessProfileSid){
         return new NetworkAccessProfileNetworkReader(pathNetworkAccessProfileSid);
     }
-
 
     /**
     * Converts a JSON String into a NetworkAccessProfileNetwork object using the provided ObjectMapper.

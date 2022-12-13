@@ -27,7 +27,7 @@ public class PolicyTest {
             .build();
 
         Assert.assertEquals(
-                "{\"url\":\"http://localhost\",\"method\":\"GET\",\"query_filter\":{\"foo\":{\"required\":true}},\"post_filter\":{},\"allow\":true}",
+                "{\"allow\":true,\"method\":\"GET\",\"post_filter\":{},\"query_filter\":{\"foo\":{\"required\":true}},\"url\":\"http://localhost\"}",
                 p.toJson());
     }
 

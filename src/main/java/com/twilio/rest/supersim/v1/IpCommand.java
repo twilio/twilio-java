@@ -51,11 +51,9 @@ public class IpCommand extends Resource {
         return new IpCommandFetcher(pathSid);
     }
 
-
     public static IpCommandReader reader(){
         return new IpCommandReader();
     }
-
 
     /**
     * Converts a JSON String into a IpCommand object using the provided ObjectMapper.

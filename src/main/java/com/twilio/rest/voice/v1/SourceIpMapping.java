@@ -46,12 +46,12 @@ public class SourceIpMapping extends Resource {
         return new SourceIpMappingCreator(ipRecordSid, sipDomainSid);
     }
 
-    public static SourceIpMappingFetcher fetcher(final String pathSid){
-        return new SourceIpMappingFetcher(pathSid);
-    }
-
     public static SourceIpMappingDeleter deleter(final String pathSid){
         return new SourceIpMappingDeleter(pathSid);
+    }
+
+    public static SourceIpMappingFetcher fetcher(final String pathSid){
+        return new SourceIpMappingFetcher(pathSid);
     }
 
     public static SourceIpMappingReader reader(){

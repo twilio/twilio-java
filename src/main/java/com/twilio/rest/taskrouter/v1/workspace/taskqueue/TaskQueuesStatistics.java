@@ -41,13 +41,9 @@ import java.util.Map;
 public class TaskQueuesStatistics extends Resource {
     private static final long serialVersionUID = 167349245476595L;
 
-
-
-
     public static TaskQueuesStatisticsReader reader(final String pathWorkspaceSid){
         return new TaskQueuesStatisticsReader(pathWorkspaceSid);
     }
-
 
     /**
     * Converts a JSON String into a TaskQueuesStatistics object using the provided ObjectMapper.

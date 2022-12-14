@@ -48,12 +48,12 @@ public class Fleet extends Resource {
         return new FleetCreator();
     }
 
-    public static FleetFetcher fetcher(final String pathSid){
-        return new FleetFetcher(pathSid);
-    }
-
     public static FleetDeleter deleter(final String pathSid){
         return new FleetDeleter(pathSid);
+    }
+
+    public static FleetFetcher fetcher(final String pathSid){
+        return new FleetFetcher(pathSid);
     }
 
     public static FleetReader reader(){

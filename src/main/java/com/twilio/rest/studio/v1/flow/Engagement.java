@@ -49,18 +49,17 @@ public class Engagement extends Resource {
         return new EngagementCreator(pathFlowSid, to, from);
     }
 
-    public static EngagementFetcher fetcher(final String pathFlowSid, final String pathSid){
-        return new EngagementFetcher(pathFlowSid, pathSid);
-    }
-
     public static EngagementDeleter deleter(final String pathFlowSid, final String pathSid){
         return new EngagementDeleter(pathFlowSid, pathSid);
+    }
+
+    public static EngagementFetcher fetcher(final String pathFlowSid, final String pathSid){
+        return new EngagementFetcher(pathFlowSid, pathSid);
     }
 
     public static EngagementReader reader(final String pathFlowSid){
         return new EngagementReader(pathFlowSid);
     }
-
 
     /**
     * Converts a JSON String into a Engagement object using the provided ObjectMapper.

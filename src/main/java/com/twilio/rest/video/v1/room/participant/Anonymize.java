@@ -41,11 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Anonymize extends Resource {
-    private static final long serialVersionUID = 29401425322598L;
-
-
-
-
+    private static final long serialVersionUID = 134789378539185L;
 
     public static AnonymizeUpdater updater(final String pathRoomSid, final String pathSid){
         return new AnonymizeUpdater(pathRoomSid, pathSid);

@@ -54,7 +54,6 @@ public class BrandRegistration extends Resource {
         return new BrandRegistrationFetcher(pathSid);
     }
 
-
     public static BrandRegistrationReader reader(){
         return new BrandRegistrationReader();
     }

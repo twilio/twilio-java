@@ -23,7 +23,7 @@ import java.util.Map;
 @JsonDeserialize(builder = SsmlSayAs.Builder.class)
 public class SsmlSayAs extends TwiML {
     public enum InterpretAs {
-        CHARACTER("character"),
+        CHARACTERS("characters"),
         SPELL_OUT("spell-out"),
         CARDINAL("cardinal"),
         NUMBER("number"),
@@ -48,7 +48,7 @@ public class SsmlSayAs extends TwiML {
         }
     }
 
-    public enum Role {
+    public enum Format {
         MDY("mdy"),
         DMY("dmy"),
         YMD("ymd"),
@@ -63,7 +63,7 @@ public class SsmlSayAs extends TwiML {
 
         private final String value;
 
-        private Role(final String value) {
+        private Format(final String value) {
             this.value = value;
         }
 
@@ -73,7 +73,7 @@ public class SsmlSayAs extends TwiML {
     }
 
     private final SsmlSayAs.InterpretAs interpretAs;
-    private final SsmlSayAs.Role role;
+    private final SsmlSayAs.Format format;
     private final String words;
 
     /**
@@ -89,7 +89,7 @@ public class SsmlSayAs extends TwiML {
     private SsmlSayAs(Builder b) {
         super("say-as", b);
         this.interpretAs = b.interpretAs;
-        this.role = b.role;
+        this.format = b.format;
         this.words = b.words;
     }
 
@@ -114,8 +114,8 @@ public class SsmlSayAs extends TwiML {
         if (this.getInterpretAs() != null) {
             attrs.put("interpret-as", this.getInterpretAs().toString());
         }
-        if (this.getRole() != null) {
-            attrs.put("role", this.getRole().toString());
+        if (this.getFormat() != null) {
+            attrs.put("format", this.getFormat().toString());
         }
 
         return attrs;
@@ -135,8 +135,8 @@ public class SsmlSayAs extends TwiML {
      *
      * @return Specify the format of the date when interpret-as is set to date
      */
-    public SsmlSayAs.Role getRole() {
-        return role;
+    public SsmlSayAs.Format getFormat() {
+        return format;
     }
 
     /**
@@ -168,7 +168,7 @@ public class SsmlSayAs extends TwiML {
         }
 
         private SsmlSayAs.InterpretAs interpretAs;
-        private SsmlSayAs.Role role;
+        private SsmlSayAs.Format format;
         private String words;
 
         /**
@@ -196,9 +196,9 @@ public class SsmlSayAs extends TwiML {
         /**
          * Specify the format of the date when interpret-as is set to date
          */
-        @JacksonXmlProperty(isAttribute = true, localName = "role")
-        public Builder role(SsmlSayAs.Role role) {
-            this.role = role;
+        @JacksonXmlProperty(isAttribute = true, localName = "format")
+        public Builder format(SsmlSayAs.Format format) {
+            this.format = format;
             return this;
         }
 

@@ -42,19 +42,17 @@ import java.util.Objects;
 public class App extends Resource {
     private static final long serialVersionUID = 70106801258218L;
 
+    public static AppDeleter deleter(final String pathSid){
+        return new AppDeleter(pathSid);
+    }
 
     public static AppFetcher fetcher(final String pathSid){
         return new AppFetcher(pathSid);
     }
 
-    public static AppDeleter deleter(final String pathSid){
-        return new AppDeleter(pathSid);
-    }
-
     public static AppReader reader(){
         return new AppReader();
     }
-
 
     /**
     * Converts a JSON String into a App object using the provided ObjectMapper.

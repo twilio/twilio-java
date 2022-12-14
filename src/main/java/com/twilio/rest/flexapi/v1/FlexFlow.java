@@ -49,12 +49,12 @@ public class FlexFlow extends Resource {
         return new FlexFlowCreator(friendlyName, chatServiceSid, channelType);
     }
 
-    public static FlexFlowFetcher fetcher(final String pathSid){
-        return new FlexFlowFetcher(pathSid);
-    }
-
     public static FlexFlowDeleter deleter(final String pathSid){
         return new FlexFlowDeleter(pathSid);
+    }
+
+    public static FlexFlowFetcher fetcher(final String pathSid){
+        return new FlexFlowFetcher(pathSid);
     }
 
     public static FlexFlowReader reader(){

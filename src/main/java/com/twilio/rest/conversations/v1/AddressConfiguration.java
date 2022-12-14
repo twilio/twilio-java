@@ -49,12 +49,12 @@ public class AddressConfiguration extends Resource {
         return new AddressConfigurationCreator(type, address);
     }
 
-    public static AddressConfigurationFetcher fetcher(final String pathSid){
-        return new AddressConfigurationFetcher(pathSid);
-    }
-
     public static AddressConfigurationDeleter deleter(final String pathSid){
         return new AddressConfigurationDeleter(pathSid);
+    }
+
+    public static AddressConfigurationFetcher fetcher(final String pathSid){
+        return new AddressConfigurationFetcher(pathSid);
     }
 
     public static AddressConfigurationReader reader(){

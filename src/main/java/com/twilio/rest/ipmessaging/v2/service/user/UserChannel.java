@@ -43,13 +43,12 @@ import java.util.Map;
 public class UserChannel extends Resource {
     private static final long serialVersionUID = 104594062960806L;
 
+    public static UserChannelDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
+    }
 
     public static UserChannelFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
         return new UserChannelFetcher(pathServiceSid, pathUserSid, pathChannelSid);
-    }
-
-    public static UserChannelDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
-        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
     }
 
     public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid){

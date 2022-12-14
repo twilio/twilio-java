@@ -38,15 +38,11 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SimIpAddress extends Resource {
-    private static final long serialVersionUID = 38184968632200L;
-
-
-
+    private static final long serialVersionUID = 180616107351268L;
 
     public static SimIpAddressReader reader(final String pathSimSid){
         return new SimIpAddressReader(pathSimSid);
     }
-
 
     /**
     * Converts a JSON String into a SimIpAddress object using the provided ObjectMapper.

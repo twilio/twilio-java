@@ -47,18 +47,17 @@ public class PhoneNumber extends Resource {
         return new PhoneNumberCreator(pathServiceSid, phoneNumberSid);
     }
 
-    public static PhoneNumberFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new PhoneNumberFetcher(pathServiceSid, pathSid);
-    }
-
     public static PhoneNumberDeleter deleter(final String pathServiceSid, final String pathSid){
         return new PhoneNumberDeleter(pathServiceSid, pathSid);
+    }
+
+    public static PhoneNumberFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new PhoneNumberFetcher(pathServiceSid, pathSid);
     }
 
     public static PhoneNumberReader reader(final String pathServiceSid){
         return new PhoneNumberReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.

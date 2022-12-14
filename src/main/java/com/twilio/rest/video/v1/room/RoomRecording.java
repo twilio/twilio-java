@@ -45,19 +45,17 @@ import java.util.Map;
 public class RoomRecording extends Resource {
     private static final long serialVersionUID = 14590901968979L;
 
+    public static RoomRecordingDeleter deleter(final String pathRoomSid, final String pathSid){
+        return new RoomRecordingDeleter(pathRoomSid, pathSid);
+    }
 
     public static RoomRecordingFetcher fetcher(final String pathRoomSid, final String pathSid){
         return new RoomRecordingFetcher(pathRoomSid, pathSid);
     }
 
-    public static RoomRecordingDeleter deleter(final String pathRoomSid, final String pathSid){
-        return new RoomRecordingDeleter(pathRoomSid, pathSid);
-    }
-
     public static RoomRecordingReader reader(final String pathRoomSid){
         return new RoomRecordingReader(pathRoomSid);
     }
-
 
     /**
     * Converts a JSON String into a RoomRecording object using the provided ObjectMapper.

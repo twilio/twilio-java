@@ -48,18 +48,17 @@ public class Environment extends Resource {
         return new EnvironmentCreator(pathServiceSid, uniqueName);
     }
 
-    public static EnvironmentFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new EnvironmentFetcher(pathServiceSid, pathSid);
-    }
-
     public static EnvironmentDeleter deleter(final String pathServiceSid, final String pathSid){
         return new EnvironmentDeleter(pathServiceSid, pathSid);
+    }
+
+    public static EnvironmentFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new EnvironmentFetcher(pathServiceSid, pathSid);
     }
 
     public static EnvironmentReader reader(final String pathServiceSid){
         return new EnvironmentReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a Environment object using the provided ObjectMapper.

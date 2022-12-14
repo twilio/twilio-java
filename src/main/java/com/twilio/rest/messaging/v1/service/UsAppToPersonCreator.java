@@ -34,11 +34,11 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     private String pathMessagingServiceSid;
     private String brandRegistrationSid;
     private String description;
+    private String messageFlow;
     private List<String> messageSamples;
     private String usAppToPersonUsecase;
     private Boolean hasEmbeddedLinks;
     private Boolean hasEmbeddedPhone;
-    private String messageFlow;
     private String optInMessage;
     private String optOutMessage;
     private String helpMessage;
@@ -46,10 +46,11 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     private List<String> optOutKeywords;
     private List<String> helpKeywords;
 
-    public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
+    public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.brandRegistrationSid = brandRegistrationSid;
         this.description = description;
+        this.messageFlow = messageFlow;
         this.messageSamples = messageSamples;
         this.usAppToPersonUsecase = usAppToPersonUsecase;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
@@ -62,6 +63,10 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     }
     public UsAppToPersonCreator setDescription(final String description){
         this.description = description;
+        return this;
+    }
+    public UsAppToPersonCreator setMessageFlow(final String messageFlow){
+        this.messageFlow = messageFlow;
         return this;
     }
     public UsAppToPersonCreator setMessageSamples(final List<String> messageSamples){
@@ -81,10 +86,6 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     }
     public UsAppToPersonCreator setHasEmbeddedPhone(final Boolean hasEmbeddedPhone){
         this.hasEmbeddedPhone = hasEmbeddedPhone;
-        return this;
-    }
-    public UsAppToPersonCreator setMessageFlow(final String messageFlow){
-        this.messageFlow = messageFlow;
         return this;
     }
     public UsAppToPersonCreator setOptInMessage(final String optInMessage){
@@ -128,6 +129,7 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
         path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
         path = path.replace("{"+"BrandRegistrationSid"+"}", this.brandRegistrationSid.toString());
         path = path.replace("{"+"Description"+"}", this.description.toString());
+        path = path.replace("{"+"MessageFlow"+"}", this.messageFlow.toString());
         path = path.replace("{"+"MessageSamples"+"}", this.messageSamples.toString());
         path = path.replace("{"+"UsAppToPersonUsecase"+"}", this.usAppToPersonUsecase.toString());
         path = path.replace("{"+"HasEmbeddedLinks"+"}", this.hasEmbeddedLinks.toString());
@@ -161,6 +163,10 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
             request.addPostParam("Description", description);
     
         }
+        if (messageFlow != null) {
+            request.addPostParam("MessageFlow", messageFlow);
+    
+        }
         if (messageSamples != null) {
             for (String prop : messageSamples) {
                 request.addPostParam("MessageSamples", prop);
@@ -177,10 +183,6 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
         }
         if (hasEmbeddedPhone != null) {
             request.addPostParam("HasEmbeddedPhone", hasEmbeddedPhone.toString());
-    
-        }
-        if (messageFlow != null) {
-            request.addPostParam("MessageFlow", messageFlow);
     
         }
         if (optInMessage != null) {

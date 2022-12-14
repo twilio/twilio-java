@@ -44,13 +44,9 @@ import java.util.Map;
 public class TaskQueueCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 113454189238794L;
 
-
     public static TaskQueueCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
         return new TaskQueueCumulativeStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a TaskQueueCumulativeStatistics object using the provided ObjectMapper.

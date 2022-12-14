@@ -50,18 +50,18 @@ public class AssignedAddOn extends Resource {
         return new AssignedAddOnCreator(pathAccountSid, pathResourceSid, installedAddOnSid);
     }
 
-    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, final String pathSid){
-        return new AssignedAddOnFetcher(pathResourceSid, pathSid);
-    }
-    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid){
-        return new AssignedAddOnFetcher(pathAccountSid, pathResourceSid, pathSid);
-    }
-
     public static AssignedAddOnDeleter deleter(final String pathResourceSid, final String pathSid){
         return new AssignedAddOnDeleter(pathResourceSid, pathSid);
     }
     public static AssignedAddOnDeleter deleter(final String pathAccountSid, final String pathResourceSid, final String pathSid){
         return new AssignedAddOnDeleter(pathAccountSid, pathResourceSid, pathSid);
+    }
+
+    public static AssignedAddOnFetcher fetcher(final String pathResourceSid, final String pathSid){
+        return new AssignedAddOnFetcher(pathResourceSid, pathSid);
+    }
+    public static AssignedAddOnFetcher fetcher(final String pathAccountSid, final String pathResourceSid, final String pathSid){
+        return new AssignedAddOnFetcher(pathAccountSid, pathResourceSid, pathSid);
     }
 
     public static AssignedAddOnReader reader(final String pathResourceSid){
@@ -70,7 +70,6 @@ public class AssignedAddOn extends Resource {
     public static AssignedAddOnReader reader(final String pathAccountSid, final String pathResourceSid){
         return new AssignedAddOnReader(pathAccountSid, pathResourceSid);
     }
-
 
     /**
     * Converts a JSON String into a AssignedAddOn object using the provided ObjectMapper.

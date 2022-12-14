@@ -17,13 +17,13 @@ public class SsmlSayAsTest {
     @Test
     public void testElementWithParams() {
         SsmlSayAs elem = new SsmlSayAs.Builder("words")
-            .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
-            .role(SsmlSayAs.Role.MDY)
+            .interpretAs(SsmlSayAs.InterpretAs.CHARACTERS)
+            .format(SsmlSayAs.Format.MDY)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>",
+            "<say-as format=\"mdy\" interpret-as=\"characters\">words</say-as>",
             elem.toXml()
         );
     }
@@ -31,12 +31,12 @@ public class SsmlSayAsTest {
     @Test
     public void testXmlAttributesDeserialization() {
         final SsmlSayAs elem = new SsmlSayAs.Builder("words")
-            .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
-            .role(SsmlSayAs.Role.MDY)
+            .interpretAs(SsmlSayAs.InterpretAs.CHARACTERS)
+            .format(SsmlSayAs.Format.MDY)
             .build();
 
         Assert.assertEquals(
-            SsmlSayAs.Builder.fromXml("<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>").build().toXml(),
+            SsmlSayAs.Builder.fromXml("<say-as format=\"mdy\" interpret-as=\"characters\">words</say-as>").build().toXml(),
             elem.toXml()
         );
     }

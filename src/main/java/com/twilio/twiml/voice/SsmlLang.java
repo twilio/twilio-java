@@ -24,6 +24,7 @@ import java.util.Map;
 public class SsmlLang extends TwiML {
     public enum XmlLang {
         ARB("arb"),
+        AR_AE("ar-AE"),
         CA_ES("ca-ES"),
         CMN_CN("cmn-CN"),
         CY_GB("cy-GB"),
@@ -40,6 +41,7 @@ public class SsmlLang extends TwiML {
         ES_ES("es-ES"),
         ES_MX("es-MX"),
         ES_US("es-US"),
+        FI_FI("fi-FI"),
         FR_CA("fr-CA"),
         FR_FR("fr-FR"),
         HI_IN("hi-IN"),
@@ -55,7 +57,8 @@ public class SsmlLang extends TwiML {
         RO_RO("ro-RO"),
         RU_RU("ru-RU"),
         SV_SE("sv-SE"),
-        TR_TR("tr-TR");
+        TR_TR("tr-TR"),
+        YUE_CN("yue-CN");
 
         private final String value;
 

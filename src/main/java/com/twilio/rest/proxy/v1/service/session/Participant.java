@@ -48,18 +48,17 @@ public class Participant extends Resource {
         return new ParticipantCreator(pathServiceSid, pathSessionSid, identifier);
     }
 
-    public static ParticipantFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid){
-        return new ParticipantFetcher(pathServiceSid, pathSessionSid, pathSid);
-    }
-
     public static ParticipantDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid){
         return new ParticipantDeleter(pathServiceSid, pathSessionSid, pathSid);
+    }
+
+    public static ParticipantFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid){
+        return new ParticipantFetcher(pathServiceSid, pathSessionSid, pathSid);
     }
 
     public static ParticipantReader reader(final String pathServiceSid, final String pathSessionSid){
         return new ParticipantReader(pathServiceSid, pathSessionSid);
     }
-
 
     /**
     * Converts a JSON String into a Participant object using the provided ObjectMapper.

@@ -42,13 +42,9 @@ import java.util.Map;
 public class Usecase extends Resource {
     private static final long serialVersionUID = 232787447190817L;
 
-
     public static UsecaseFetcher fetcher(){
         return new UsecaseFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a Usecase object using the provided ObjectMapper.

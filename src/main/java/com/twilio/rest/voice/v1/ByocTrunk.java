@@ -47,12 +47,12 @@ public class ByocTrunk extends Resource {
         return new ByocTrunkCreator();
     }
 
-    public static ByocTrunkFetcher fetcher(final String pathSid){
-        return new ByocTrunkFetcher(pathSid);
-    }
-
     public static ByocTrunkDeleter deleter(final String pathSid){
         return new ByocTrunkDeleter(pathSid);
+    }
+
+    public static ByocTrunkFetcher fetcher(final String pathSid){
+        return new ByocTrunkFetcher(pathSid);
     }
 
     public static ByocTrunkReader reader(){

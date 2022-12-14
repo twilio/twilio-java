@@ -54,13 +54,6 @@ public class FeedbackSummary extends Resource {
         return new FeedbackSummaryCreator(pathAccountSid, startDate, endDate);
     }
 
-    public static FeedbackSummaryFetcher fetcher(final String pathSid){
-        return new FeedbackSummaryFetcher(pathSid);
-    }
-    public static FeedbackSummaryFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new FeedbackSummaryFetcher(pathAccountSid, pathSid);
-    }
-
     public static FeedbackSummaryDeleter deleter(final String pathSid){
         return new FeedbackSummaryDeleter(pathSid);
     }
@@ -68,7 +61,12 @@ public class FeedbackSummary extends Resource {
         return new FeedbackSummaryDeleter(pathAccountSid, pathSid);
     }
 
-
+    public static FeedbackSummaryFetcher fetcher(final String pathSid){
+        return new FeedbackSummaryFetcher(pathSid);
+    }
+    public static FeedbackSummaryFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new FeedbackSummaryFetcher(pathAccountSid, pathSid);
+    }
 
     /**
     * Converts a JSON String into a FeedbackSummary object using the provided ObjectMapper.

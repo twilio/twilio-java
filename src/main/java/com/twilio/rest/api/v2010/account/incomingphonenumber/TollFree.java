@@ -52,15 +52,12 @@ public class TollFree extends Resource {
         return new TollFreeCreator(pathAccountSid, phoneNumber);
     }
 
-
-
     public static TollFreeReader reader(){
         return new TollFreeReader();
     }
     public static TollFreeReader reader(final String pathAccountSid){
         return new TollFreeReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a TollFree object using the provided ObjectMapper.

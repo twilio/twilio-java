@@ -46,12 +46,12 @@ public class Member extends Resource {
         return new MemberCreator(pathServiceSid, pathChannelSid, identity);
     }
 
-    public static MemberFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
-        return new MemberFetcher(pathServiceSid, pathChannelSid, pathSid);
-    }
-
     public static MemberDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
         return new MemberDeleter(pathServiceSid, pathChannelSid, pathSid);
+    }
+
+    public static MemberFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MemberFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     public static MemberReader reader(final String pathServiceSid, final String pathChannelSid){

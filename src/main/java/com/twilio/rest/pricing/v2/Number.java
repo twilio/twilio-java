@@ -46,13 +46,9 @@ import com.twilio.type.OutboundPrefixPriceWithOrigin;
 public class Number extends Resource {
     private static final long serialVersionUID = 12955680623193L;
 
-
     public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathDestinationNumber){
         return new NumberFetcher(pathDestinationNumber);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Number object using the provided ObjectMapper.

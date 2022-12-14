@@ -40,15 +40,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserChannel extends Resource {
-    private static final long serialVersionUID = 242953407497938L;
-
-
-
+    private static final long serialVersionUID = 5311313114138L;
 
     public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid){
         return new UserChannelReader(pathServiceSid, pathUserSid);
     }
-
 
     /**
     * Converts a JSON String into a UserChannel object using the provided ObjectMapper.

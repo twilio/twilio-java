@@ -39,7 +39,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Address extends Resource {
-    private static final long serialVersionUID = 222037103295905L;
+    private static final long serialVersionUID = 73808189531379L;
 
     public static AddressCreator creator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry){
         return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
@@ -48,18 +48,18 @@ public class Address extends Resource {
         return new AddressCreator(pathAccountSid, customerName, street, city, region, postalCode, isoCountry);
     }
 
-    public static AddressFetcher fetcher(final String pathSid){
-        return new AddressFetcher(pathSid);
-    }
-    public static AddressFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new AddressFetcher(pathAccountSid, pathSid);
-    }
-
     public static AddressDeleter deleter(final String pathSid){
         return new AddressDeleter(pathSid);
     }
     public static AddressDeleter deleter(final String pathAccountSid, final String pathSid){
         return new AddressDeleter(pathAccountSid, pathSid);
+    }
+
+    public static AddressFetcher fetcher(final String pathSid){
+        return new AddressFetcher(pathSid);
+    }
+    public static AddressFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new AddressFetcher(pathAccountSid, pathSid);
     }
 
     public static AddressReader reader(){
@@ -128,6 +128,7 @@ public class Address extends Resource {
     private final Boolean emergencyEnabled;
     private final Boolean validated;
     private final Boolean verified;
+    private final String streetSecondary;
 
     @JsonCreator
     private Address(
@@ -174,7 +175,10 @@ public class Address extends Resource {
         final Boolean validated,
 
         @JsonProperty("verified")
-        final Boolean verified
+        final Boolean verified,
+
+        @JsonProperty("street_secondary")
+        final String streetSecondary
     ) {
         this.accountSid = accountSid;
         this.city = city;
@@ -191,6 +195,7 @@ public class Address extends Resource {
         this.emergencyEnabled = emergencyEnabled;
         this.validated = validated;
         this.verified = verified;
+        this.streetSecondary = streetSecondary;
     }
 
         public final String getAccountSid() {
@@ -238,6 +243,9 @@ public class Address extends Resource {
         public final Boolean getVerified() {
             return this.verified;
         }
+        public final String getStreetSecondary() {
+            return this.streetSecondary;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -251,12 +259,12 @@ public class Address extends Resource {
 
         Address other = (Address) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(city, other.city) &&  Objects.equals(customerName, other.customerName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(isoCountry, other.isoCountry) &&  Objects.equals(postalCode, other.postalCode) &&  Objects.equals(region, other.region) &&  Objects.equals(sid, other.sid) &&  Objects.equals(street, other.street) &&  Objects.equals(uri, other.uri) &&  Objects.equals(emergencyEnabled, other.emergencyEnabled) &&  Objects.equals(validated, other.validated) &&  Objects.equals(verified, other.verified)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(city, other.city) &&  Objects.equals(customerName, other.customerName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(isoCountry, other.isoCountry) &&  Objects.equals(postalCode, other.postalCode) &&  Objects.equals(region, other.region) &&  Objects.equals(sid, other.sid) &&  Objects.equals(street, other.street) &&  Objects.equals(uri, other.uri) &&  Objects.equals(emergencyEnabled, other.emergencyEnabled) &&  Objects.equals(validated, other.validated) &&  Objects.equals(verified, other.verified) &&  Objects.equals(streetSecondary, other.streetSecondary)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, city, customerName, dateCreated, dateUpdated, friendlyName, isoCountry, postalCode, region, sid, street, uri, emergencyEnabled, validated, verified);
+        return Objects.hash(accountSid, city, customerName, dateCreated, dateUpdated, friendlyName, isoCountry, postalCode, region, sid, street, uri, emergencyEnabled, validated, verified, streetSecondary);
     }
 
 }

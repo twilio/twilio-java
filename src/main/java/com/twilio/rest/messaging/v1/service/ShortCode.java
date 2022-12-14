@@ -47,18 +47,17 @@ public class ShortCode extends Resource {
         return new ShortCodeCreator(pathServiceSid, shortCodeSid);
     }
 
-    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new ShortCodeFetcher(pathServiceSid, pathSid);
-    }
-
     public static ShortCodeDeleter deleter(final String pathServiceSid, final String pathSid){
         return new ShortCodeDeleter(pathServiceSid, pathSid);
+    }
+
+    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new ShortCodeFetcher(pathServiceSid, pathSid);
     }
 
     public static ShortCodeReader reader(final String pathServiceSid){
         return new ShortCodeReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a ShortCode object using the provided ObjectMapper.

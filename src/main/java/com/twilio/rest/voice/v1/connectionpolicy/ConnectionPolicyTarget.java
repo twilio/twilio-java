@@ -46,12 +46,12 @@ public class ConnectionPolicyTarget extends Resource {
         return new ConnectionPolicyTargetCreator(pathConnectionPolicySid, target);
     }
 
-    public static ConnectionPolicyTargetFetcher fetcher(final String pathConnectionPolicySid, final String pathSid){
-        return new ConnectionPolicyTargetFetcher(pathConnectionPolicySid, pathSid);
-    }
-
     public static ConnectionPolicyTargetDeleter deleter(final String pathConnectionPolicySid, final String pathSid){
         return new ConnectionPolicyTargetDeleter(pathConnectionPolicySid, pathSid);
+    }
+
+    public static ConnectionPolicyTargetFetcher fetcher(final String pathConnectionPolicySid, final String pathSid){
+        return new ConnectionPolicyTargetFetcher(pathConnectionPolicySid, pathSid);
     }
 
     public static ConnectionPolicyTargetReader reader(final String pathConnectionPolicySid){

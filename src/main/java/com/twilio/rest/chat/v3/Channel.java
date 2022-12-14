@@ -41,11 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
-    private static final long serialVersionUID = 161718497163548L;
-
-
-
-
+    private static final long serialVersionUID = 62753936180140L;
 
     public static ChannelUpdater updater(final String pathServiceSid, final String pathSid){
         return new ChannelUpdater(pathServiceSid, pathSid);

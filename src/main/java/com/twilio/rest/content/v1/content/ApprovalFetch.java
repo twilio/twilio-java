@@ -42,13 +42,9 @@ import java.util.Map;
 public class ApprovalFetch extends Resource {
     private static final long serialVersionUID = 266557741388539L;
 
-
     public static ApprovalFetchFetcher fetcher(final String pathSid){
         return new ApprovalFetchFetcher(pathSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a ApprovalFetch object using the provided ObjectMapper.

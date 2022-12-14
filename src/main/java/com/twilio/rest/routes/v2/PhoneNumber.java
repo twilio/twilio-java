@@ -42,12 +42,9 @@ import java.util.Objects;
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 213320512216415L;
 
-
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
         return new PhoneNumberFetcher(pathPhoneNumber);
     }
-
-
 
     public static PhoneNumberUpdater updater(final String pathPhoneNumber){
         return new PhoneNumberUpdater(pathPhoneNumber);

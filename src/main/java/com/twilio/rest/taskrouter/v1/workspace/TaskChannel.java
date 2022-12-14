@@ -48,12 +48,12 @@ public class TaskChannel extends Resource {
         return new TaskChannelCreator(pathWorkspaceSid, friendlyName, uniqueName);
     }
 
-    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
-        return new TaskChannelFetcher(pathWorkspaceSid, pathSid);
-    }
-
     public static TaskChannelDeleter deleter(final String pathWorkspaceSid, final String pathSid){
         return new TaskChannelDeleter(pathWorkspaceSid, pathSid);
+    }
+
+    public static TaskChannelFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new TaskChannelFetcher(pathWorkspaceSid, pathSid);
     }
 
     public static TaskChannelReader reader(final String pathWorkspaceSid){

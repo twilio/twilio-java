@@ -48,12 +48,12 @@ public class Webhook extends Resource {
         return new WebhookCreator(pathServiceSid, friendlyName, eventTypes, webhookUrl);
     }
 
-    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new WebhookFetcher(pathServiceSid, pathSid);
-    }
-
     public static WebhookDeleter deleter(final String pathServiceSid, final String pathSid){
         return new WebhookDeleter(pathServiceSid, pathSid);
+    }
+
+    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new WebhookFetcher(pathServiceSid, pathSid);
     }
 
     public static WebhookReader reader(final String pathServiceSid){

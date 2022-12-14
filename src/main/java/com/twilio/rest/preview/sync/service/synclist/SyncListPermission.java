@@ -40,13 +40,12 @@ import java.util.Objects;
 public class SyncListPermission extends Resource {
     private static final long serialVersionUID = 225550881347017L;
 
+    public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity){
+        return new SyncListPermissionDeleter(pathServiceSid, pathListSid, pathIdentity);
+    }
 
     public static SyncListPermissionFetcher fetcher(final String pathServiceSid, final String pathListSid, final String pathIdentity){
         return new SyncListPermissionFetcher(pathServiceSid, pathListSid, pathIdentity);
-    }
-
-    public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity){
-        return new SyncListPermissionDeleter(pathServiceSid, pathListSid, pathIdentity);
     }
 
     public static SyncListPermissionReader reader(final String pathServiceSid, final String pathListSid){

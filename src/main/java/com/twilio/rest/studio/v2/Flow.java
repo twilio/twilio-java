@@ -50,12 +50,12 @@ public class Flow extends Resource {
         return new FlowCreator(friendlyName, status, definition);
     }
 
-    public static FlowFetcher fetcher(final String pathSid){
-        return new FlowFetcher(pathSid);
-    }
-
     public static FlowDeleter deleter(final String pathSid){
         return new FlowDeleter(pathSid);
+    }
+
+    public static FlowFetcher fetcher(final String pathSid){
+        return new FlowFetcher(pathSid);
     }
 
     public static FlowReader reader(){

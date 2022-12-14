@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Feedback extends Resource {
-    private static final long serialVersionUID = 160663235282095L;
+    private static final long serialVersionUID = 229414222116486L;
 
     public static FeedbackCreator creator(final String pathMessageSid){
         return new FeedbackCreator(pathMessageSid);
@@ -48,10 +48,6 @@ public class Feedback extends Resource {
     public static FeedbackCreator creator(final String pathAccountSid, final String pathMessageSid){
         return new FeedbackCreator(pathAccountSid, pathMessageSid);
     }
-
-
-
-
 
     /**
     * Converts a JSON String into a Feedback object using the provided ObjectMapper.

@@ -50,12 +50,12 @@ public class Message extends Resource {
         return new MessageCreator(pathChatServiceSid, pathConversationSid);
     }
 
-    public static MessageFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
-        return new MessageFetcher(pathChatServiceSid, pathConversationSid, pathSid);
-    }
-
     public static MessageDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
         return new MessageDeleter(pathChatServiceSid, pathConversationSid, pathSid);
+    }
+
+    public static MessageFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     public static MessageReader reader(final String pathChatServiceSid, final String pathConversationSid){

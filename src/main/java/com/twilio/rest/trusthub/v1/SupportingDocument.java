@@ -49,12 +49,12 @@ public class SupportingDocument extends Resource {
         return new SupportingDocumentCreator(friendlyName, type);
     }
 
-    public static SupportingDocumentFetcher fetcher(final String pathSid){
-        return new SupportingDocumentFetcher(pathSid);
-    }
-
     public static SupportingDocumentDeleter deleter(final String pathSid){
         return new SupportingDocumentDeleter(pathSid);
+    }
+
+    public static SupportingDocumentFetcher fetcher(final String pathSid){
+        return new SupportingDocumentFetcher(pathSid);
     }
 
     public static SupportingDocumentReader reader(){

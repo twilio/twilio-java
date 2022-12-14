@@ -138,5 +138,9 @@ public class RegulationReader extends Reader<Regulation> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -46,12 +46,12 @@ public class Sample extends Resource {
         return new SampleCreator(pathAssistantSid, pathTaskSid, language, taggedText);
     }
 
-    public static SampleFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
-        return new SampleFetcher(pathAssistantSid, pathTaskSid, pathSid);
-    }
-
     public static SampleDeleter deleter(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
         return new SampleDeleter(pathAssistantSid, pathTaskSid, pathSid);
+    }
+
+    public static SampleFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new SampleFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     public static SampleReader reader(final String pathAssistantSid, final String pathTaskSid){

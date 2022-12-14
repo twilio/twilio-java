@@ -132,5 +132,9 @@ public class TrustProductsChannelEndpointAssignmentReader extends Reader<TrustPr
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -43,13 +43,9 @@ import java.util.Map;
 public class WorkspaceRealTimeStatistics extends Resource {
     private static final long serialVersionUID = 188768803928766L;
 
-
     public static WorkspaceRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid){
         return new WorkspaceRealTimeStatisticsFetcher(pathWorkspaceSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a WorkspaceRealTimeStatistics object using the provided ObjectMapper.

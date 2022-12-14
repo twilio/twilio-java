@@ -42,12 +42,9 @@ import java.util.Objects;
 public class Trunk extends Resource {
     private static final long serialVersionUID = 71100118275281L;
 
-
     public static TrunkFetcher fetcher(final String pathSipTrunkDomain){
         return new TrunkFetcher(pathSipTrunkDomain);
     }
-
-
 
     public static TrunkUpdater updater(final String pathSipTrunkDomain){
         return new TrunkUpdater(pathSipTrunkDomain);

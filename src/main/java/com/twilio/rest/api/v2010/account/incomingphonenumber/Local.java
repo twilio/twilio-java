@@ -52,15 +52,12 @@ public class Local extends Resource {
         return new LocalCreator(pathAccountSid, phoneNumber);
     }
 
-
-
     public static LocalReader reader(){
         return new LocalReader();
     }
     public static LocalReader reader(final String pathAccountSid){
         return new LocalReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Local object using the provided ObjectMapper.

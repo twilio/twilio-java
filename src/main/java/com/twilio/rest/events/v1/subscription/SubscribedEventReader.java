@@ -114,5 +114,9 @@ public class SubscribedEventReader extends Reader<SubscribedEvent> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

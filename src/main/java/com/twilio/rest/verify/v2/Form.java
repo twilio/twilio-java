@@ -41,15 +41,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Form extends Resource {
-    private static final long serialVersionUID = 122721634802936L;
-
+    private static final long serialVersionUID = 202517967097226L;
 
     public static FormFetcher fetcher(final Form.FormTypes formType){
         return new FormFetcher(formType);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Form object using the provided ObjectMapper.

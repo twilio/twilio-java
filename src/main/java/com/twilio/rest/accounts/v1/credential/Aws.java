@@ -46,12 +46,12 @@ public class Aws extends Resource {
         return new AwsCreator(credentials);
     }
 
-    public static AwsFetcher fetcher(final String pathSid){
-        return new AwsFetcher(pathSid);
-    }
-
     public static AwsDeleter deleter(final String pathSid){
         return new AwsDeleter(pathSid);
+    }
+
+    public static AwsFetcher fetcher(final String pathSid){
+        return new AwsFetcher(pathSid);
     }
 
     public static AwsReader reader(){

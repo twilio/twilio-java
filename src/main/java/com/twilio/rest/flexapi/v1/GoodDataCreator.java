@@ -40,7 +40,7 @@ public class GoodDataCreator extends Creator<GoodData>{
 
     @Override
     public GoodData create(final TwilioRestClient client){
-        String path = "/v1/Accounts/GoodData";
+        String path = "/v1/Insights/Session";
 
 
         Request request = new Request(

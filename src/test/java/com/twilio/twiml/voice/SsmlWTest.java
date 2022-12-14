@@ -68,8 +68,8 @@ public class SsmlWTest {
         builder.prosody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
 
         builder.sayAs(new SsmlSayAs.Builder("words")
-                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
-                    .role(SsmlSayAs.Role.MDY)
+                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTERS)
+                    .format(SsmlSayAs.Format.MDY)
                     .build());
 
         builder.sub(new SsmlSub.Builder("words").alias("alias").build());
@@ -83,7 +83,7 @@ public class SsmlWTest {
                 "<emphasis level=\"strong\">words</emphasis>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
-                "<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>" +
+                "<say-as format=\"mdy\" interpret-as=\"characters\">words</say-as>" +
                 "<sub alias=\"alias\">words</sub>" +
             "</w>",
             elem.toXml()
@@ -191,8 +191,8 @@ public class SsmlWTest {
         builder.prosody(new SsmlProsody.Builder("words").volume("volume").rate("rate").pitch("pitch").build());
 
         builder.sayAs(new SsmlSayAs.Builder("words")
-                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTER)
-                    .role(SsmlSayAs.Role.MDY)
+                    .interpretAs(SsmlSayAs.InterpretAs.CHARACTERS)
+                    .format(SsmlSayAs.Format.MDY)
                     .build());
 
         builder.sub(new SsmlSub.Builder("words").alias("alias").build());
@@ -205,7 +205,7 @@ public class SsmlWTest {
                 "<emphasis level=\"strong\">words</emphasis>" +
                 "<phoneme alphabet=\"ipa\" ph=\"ph\">words</phoneme>" +
                 "<prosody pitch=\"pitch\" rate=\"rate\" volume=\"volume\">words</prosody>" +
-                "<say-as interpret-as=\"character\" role=\"mdy\">words</say-as>" +
+                "<say-as format=\"mdy\" interpret-as=\"characters\">words</say-as>" +
                 "<sub alias=\"alias\">words</sub>" +
             "</w>").build().toXml(),
             elem.toXml()

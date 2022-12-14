@@ -42,12 +42,9 @@ import java.util.Map;
 public class Defaults extends Resource {
     private static final long serialVersionUID = 52727905251134L;
 
-
     public static DefaultsFetcher fetcher(final String pathAssistantSid){
         return new DefaultsFetcher(pathAssistantSid);
     }
-
-
 
     public static DefaultsUpdater updater(final String pathAssistantSid){
         return new DefaultsUpdater(pathAssistantSid);

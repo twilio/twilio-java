@@ -44,16 +44,13 @@ import java.util.Map;
 public class ExecutionStep extends Resource {
     private static final long serialVersionUID = 271983635262130L;
 
-
     public static ExecutionStepFetcher fetcher(final String pathFlowSid, final String pathExecutionSid, final String pathSid){
         return new ExecutionStepFetcher(pathFlowSid, pathExecutionSid, pathSid);
     }
 
-
     public static ExecutionStepReader reader(final String pathFlowSid, final String pathExecutionSid){
         return new ExecutionStepReader(pathFlowSid, pathExecutionSid);
     }
-
 
     /**
     * Converts a JSON String into a ExecutionStep object using the provided ObjectMapper.

@@ -43,16 +43,13 @@ import java.util.Objects;
 public class Alert extends Resource {
     private static final long serialVersionUID = 14184743930644L;
 
-
     public static AlertFetcher fetcher(final String pathSid){
         return new AlertFetcher(pathSid);
     }
 
-
     public static AlertReader reader(){
         return new AlertReader();
     }
-
 
     /**
     * Converts a JSON String into a Alert object using the provided ObjectMapper.

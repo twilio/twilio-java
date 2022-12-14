@@ -49,12 +49,12 @@ public class TrustProducts extends Resource {
         return new TrustProductsCreator(friendlyName, email, policySid);
     }
 
-    public static TrustProductsFetcher fetcher(final String pathSid){
-        return new TrustProductsFetcher(pathSid);
-    }
-
     public static TrustProductsDeleter deleter(final String pathSid){
         return new TrustProductsDeleter(pathSid);
+    }
+
+    public static TrustProductsFetcher fetcher(final String pathSid){
+        return new TrustProductsFetcher(pathSid);
     }
 
     public static TrustProductsReader reader(){

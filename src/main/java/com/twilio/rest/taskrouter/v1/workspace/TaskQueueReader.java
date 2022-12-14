@@ -150,5 +150,9 @@ public class TaskQueueReader extends Reader<TaskQueue> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -48,18 +48,18 @@ public class AuthCallsCredentialListMapping extends Resource {
         return new AuthCallsCredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
-        return new AuthCallsCredentialListMappingFetcher(pathDomainSid, pathSid);
-    }
-    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
-        return new AuthCallsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
-    }
-
     public static AuthCallsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
         return new AuthCallsCredentialListMappingDeleter(pathDomainSid, pathSid);
     }
     public static AuthCallsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
         return new AuthCallsCredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new AuthCallsCredentialListMappingFetcher(pathDomainSid, pathSid);
+    }
+    public static AuthCallsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthCallsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     public static AuthCallsCredentialListMappingReader reader(final String pathDomainSid){
@@ -68,7 +68,6 @@ public class AuthCallsCredentialListMapping extends Resource {
     public static AuthCallsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
         return new AuthCallsCredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
-
 
     /**
     * Converts a JSON String into a AuthCallsCredentialListMapping object using the provided ObjectMapper.

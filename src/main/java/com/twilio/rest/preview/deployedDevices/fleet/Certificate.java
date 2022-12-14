@@ -46,12 +46,12 @@ public class Certificate extends Resource {
         return new CertificateCreator(pathFleetSid, certificateData);
     }
 
-    public static CertificateFetcher fetcher(final String pathFleetSid, final String pathSid){
-        return new CertificateFetcher(pathFleetSid, pathSid);
-    }
-
     public static CertificateDeleter deleter(final String pathFleetSid, final String pathSid){
         return new CertificateDeleter(pathFleetSid, pathSid);
+    }
+
+    public static CertificateFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new CertificateFetcher(pathFleetSid, pathSid);
     }
 
     public static CertificateReader reader(final String pathFleetSid){

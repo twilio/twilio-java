@@ -50,18 +50,17 @@ public class Build extends Resource {
         return new BuildCreator(pathServiceSid);
     }
 
-    public static BuildFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new BuildFetcher(pathServiceSid, pathSid);
-    }
-
     public static BuildDeleter deleter(final String pathServiceSid, final String pathSid){
         return new BuildDeleter(pathServiceSid, pathSid);
+    }
+
+    public static BuildFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new BuildFetcher(pathServiceSid, pathSid);
     }
 
     public static BuildReader reader(final String pathServiceSid){
         return new BuildReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a Build object using the provided ObjectMapper.

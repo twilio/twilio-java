@@ -49,12 +49,12 @@ public class Message extends Resource {
         return new MessageCreator(pathServiceSid, pathChannelSid);
     }
 
-    public static MessageFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
-        return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
-    }
-
     public static MessageDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
         return new MessageDeleter(pathServiceSid, pathChannelSid, pathSid);
+    }
+
+    public static MessageFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+        return new MessageFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
     public static MessageReader reader(final String pathServiceSid, final String pathChannelSid){

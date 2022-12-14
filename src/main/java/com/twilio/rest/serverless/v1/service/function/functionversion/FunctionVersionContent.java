@@ -40,13 +40,9 @@ import java.util.Objects;
 public class FunctionVersionContent extends Resource {
     private static final long serialVersionUID = 208000590885959L;
 
-
     public static FunctionVersionContentFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
         return new FunctionVersionContentFetcher(pathServiceSid, pathFunctionSid, pathSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a FunctionVersionContent object using the provided ObjectMapper.

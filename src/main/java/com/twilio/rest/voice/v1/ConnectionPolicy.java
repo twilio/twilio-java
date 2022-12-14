@@ -48,12 +48,12 @@ public class ConnectionPolicy extends Resource {
         return new ConnectionPolicyCreator();
     }
 
-    public static ConnectionPolicyFetcher fetcher(final String pathSid){
-        return new ConnectionPolicyFetcher(pathSid);
-    }
-
     public static ConnectionPolicyDeleter deleter(final String pathSid){
         return new ConnectionPolicyDeleter(pathSid);
+    }
+
+    public static ConnectionPolicyFetcher fetcher(final String pathSid){
+        return new ConnectionPolicyFetcher(pathSid);
     }
 
     public static ConnectionPolicyReader reader(){

@@ -43,16 +43,13 @@ import java.util.Objects;
 public class DeliveryReceipt extends Resource {
     private static final long serialVersionUID = 126608153820635L;
 
-
     public static DeliveryReceiptFetcher fetcher(final String pathConversationSid, final String pathMessageSid, final String pathSid){
         return new DeliveryReceiptFetcher(pathConversationSid, pathMessageSid, pathSid);
     }
 
-
     public static DeliveryReceiptReader reader(final String pathConversationSid, final String pathMessageSid){
         return new DeliveryReceiptReader(pathConversationSid, pathMessageSid);
     }
-
 
     /**
     * Converts a JSON String into a DeliveryReceipt object using the provided ObjectMapper.

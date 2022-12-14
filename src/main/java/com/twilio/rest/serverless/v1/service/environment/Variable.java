@@ -46,12 +46,12 @@ public class Variable extends Resource {
         return new VariableCreator(pathServiceSid, pathEnvironmentSid, key, value);
     }
 
-    public static VariableFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
-        return new VariableFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
-    }
-
     public static VariableDeleter deleter(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
         return new VariableDeleter(pathServiceSid, pathEnvironmentSid, pathSid);
+    }
+
+    public static VariableFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+        return new VariableFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
     public static VariableReader reader(final String pathServiceSid, final String pathEnvironmentSid){

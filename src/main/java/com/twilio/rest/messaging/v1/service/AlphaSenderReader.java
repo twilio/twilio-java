@@ -114,5 +114,9 @@ public class AlphaSenderReader extends Reader<AlphaSender> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

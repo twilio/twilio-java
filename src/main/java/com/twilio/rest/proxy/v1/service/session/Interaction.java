@@ -43,19 +43,17 @@ import java.util.Objects;
 public class Interaction extends Resource {
     private static final long serialVersionUID = 104550389018086L;
 
+    public static InteractionDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid){
+        return new InteractionDeleter(pathServiceSid, pathSessionSid, pathSid);
+    }
 
     public static InteractionFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid){
         return new InteractionFetcher(pathServiceSid, pathSessionSid, pathSid);
     }
 
-    public static InteractionDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid){
-        return new InteractionDeleter(pathServiceSid, pathSessionSid, pathSid);
-    }
-
     public static InteractionReader reader(final String pathServiceSid, final String pathSessionSid){
         return new InteractionReader(pathServiceSid, pathSessionSid);
     }
-
 
     /**
     * Converts a JSON String into a Interaction object using the provided ObjectMapper.

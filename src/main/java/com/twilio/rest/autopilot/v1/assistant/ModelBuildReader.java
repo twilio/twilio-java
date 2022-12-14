@@ -114,5 +114,9 @@ public class ModelBuildReader extends Reader<ModelBuild> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

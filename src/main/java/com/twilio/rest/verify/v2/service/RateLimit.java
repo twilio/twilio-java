@@ -48,12 +48,12 @@ public class RateLimit extends Resource {
         return new RateLimitCreator(pathServiceSid, uniqueName);
     }
 
-    public static RateLimitFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new RateLimitFetcher(pathServiceSid, pathSid);
-    }
-
     public static RateLimitDeleter deleter(final String pathServiceSid, final String pathSid){
         return new RateLimitDeleter(pathServiceSid, pathSid);
+    }
+
+    public static RateLimitFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new RateLimitFetcher(pathServiceSid, pathSid);
     }
 
     public static RateLimitReader reader(final String pathServiceSid){

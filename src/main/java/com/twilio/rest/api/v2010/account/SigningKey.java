@@ -41,19 +41,18 @@ import java.util.Objects;
 public class SigningKey extends Resource {
     private static final long serialVersionUID = 35259719636912L;
 
+    public static SigningKeyDeleter deleter(final String pathSid){
+        return new SigningKeyDeleter(pathSid);
+    }
+    public static SigningKeyDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new SigningKeyDeleter(pathAccountSid, pathSid);
+    }
 
     public static SigningKeyFetcher fetcher(final String pathSid){
         return new SigningKeyFetcher(pathSid);
     }
     public static SigningKeyFetcher fetcher(final String pathAccountSid, final String pathSid){
         return new SigningKeyFetcher(pathAccountSid, pathSid);
-    }
-
-    public static SigningKeyDeleter deleter(final String pathSid){
-        return new SigningKeyDeleter(pathSid);
-    }
-    public static SigningKeyDeleter deleter(final String pathAccountSid, final String pathSid){
-        return new SigningKeyDeleter(pathAccountSid, pathSid);
     }
 
     public static SigningKeyReader reader(){

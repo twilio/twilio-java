@@ -58,18 +58,18 @@ public class IncomingPhoneNumber extends Resource {
         return new IncomingPhoneNumberCreator(pathAccountSid, areaCode);
     }
 
-    public static IncomingPhoneNumberFetcher fetcher(final String pathSid){
-        return new IncomingPhoneNumberFetcher(pathSid);
-    }
-    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new IncomingPhoneNumberFetcher(pathAccountSid, pathSid);
-    }
-
     public static IncomingPhoneNumberDeleter deleter(final String pathSid){
         return new IncomingPhoneNumberDeleter(pathSid);
     }
     public static IncomingPhoneNumberDeleter deleter(final String pathAccountSid, final String pathSid){
         return new IncomingPhoneNumberDeleter(pathAccountSid, pathSid);
+    }
+
+    public static IncomingPhoneNumberFetcher fetcher(final String pathSid){
+        return new IncomingPhoneNumberFetcher(pathSid);
+    }
+    public static IncomingPhoneNumberFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new IncomingPhoneNumberFetcher(pathAccountSid, pathSid);
     }
 
     public static IncomingPhoneNumberReader reader(){

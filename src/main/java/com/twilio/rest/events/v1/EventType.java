@@ -44,16 +44,13 @@ import java.util.Map;
 public class EventType extends Resource {
     private static final long serialVersionUID = 236822326358907L;
 
-
     public static EventTypeFetcher fetcher(final String pathType){
         return new EventTypeFetcher(pathType);
     }
 
-
     public static EventTypeReader reader(){
         return new EventTypeReader();
     }
-
 
     /**
     * Converts a JSON String into a EventType object using the provided ObjectMapper.

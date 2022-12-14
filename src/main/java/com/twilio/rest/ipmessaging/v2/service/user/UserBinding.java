@@ -44,19 +44,17 @@ import java.util.Objects;
 public class UserBinding extends Resource {
     private static final long serialVersionUID = 252068300768529L;
 
+    public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid){
+        return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
+    }
 
     public static UserBindingFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathSid){
         return new UserBindingFetcher(pathServiceSid, pathUserSid, pathSid);
     }
 
-    public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid){
-        return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
-    }
-
     public static UserBindingReader reader(final String pathServiceSid, final String pathUserSid){
         return new UserBindingReader(pathServiceSid, pathUserSid);
     }
-
 
     /**
     * Converts a JSON String into a UserBinding object using the provided ObjectMapper.

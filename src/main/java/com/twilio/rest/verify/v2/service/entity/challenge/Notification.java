@@ -45,10 +45,6 @@ public class Notification extends Resource {
         return new NotificationCreator(pathServiceSid, pathIdentity, pathChallengeSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a Notification object using the provided ObjectMapper.
     *

@@ -42,13 +42,9 @@ import java.util.Map;
 public class UsAppToPersonUsecase extends Resource {
     private static final long serialVersionUID = 181251380697241L;
 
-
     public static UsAppToPersonUsecaseFetcher fetcher(final String pathMessagingServiceSid){
         return new UsAppToPersonUsecaseFetcher(pathMessagingServiceSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a UsAppToPersonUsecase object using the provided ObjectMapper.

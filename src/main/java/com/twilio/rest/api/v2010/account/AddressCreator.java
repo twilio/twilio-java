@@ -38,6 +38,7 @@ public class AddressCreator extends Creator<Address>{
     private String friendlyName;
     private Boolean emergencyEnabled;
     private Boolean autoCorrectAddress;
+    private String streetSecondary;
 
     public AddressCreator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         this.customerName = customerName;
@@ -91,6 +92,10 @@ public class AddressCreator extends Creator<Address>{
     }
     public AddressCreator setAutoCorrectAddress(final Boolean autoCorrectAddress){
         this.autoCorrectAddress = autoCorrectAddress;
+        return this;
+    }
+    public AddressCreator setStreetSecondary(final String streetSecondary){
+        this.streetSecondary = streetSecondary;
         return this;
     }
 
@@ -161,6 +166,10 @@ public class AddressCreator extends Creator<Address>{
         }
         if (autoCorrectAddress != null) {
             request.addPostParam("AutoCorrectAddress", autoCorrectAddress.toString());
+    
+        }
+        if (streetSecondary != null) {
+            request.addPostParam("StreetSecondary", streetSecondary);
     
         }
     }

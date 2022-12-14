@@ -288,5 +288,9 @@ public class MachineToMachineReader extends Reader<MachineToMachine> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

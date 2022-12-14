@@ -42,16 +42,13 @@ import java.util.Map;
 public class AvailableAddOn extends Resource {
     private static final long serialVersionUID = 265387241353044L;
 
-
     public static AvailableAddOnFetcher fetcher(final String pathSid){
         return new AvailableAddOnFetcher(pathSid);
     }
 
-
     public static AvailableAddOnReader reader(){
         return new AvailableAddOnReader();
     }
-
 
     /**
     * Converts a JSON String into a AvailableAddOn object using the provided ObjectMapper.

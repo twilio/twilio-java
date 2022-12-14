@@ -48,12 +48,12 @@ public class Document extends Resource {
         return new DocumentCreator(pathServiceSid);
     }
 
-    public static DocumentFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new DocumentFetcher(pathServiceSid, pathSid);
-    }
-
     public static DocumentDeleter deleter(final String pathServiceSid, final String pathSid){
         return new DocumentDeleter(pathServiceSid, pathSid);
+    }
+
+    public static DocumentFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new DocumentFetcher(pathServiceSid, pathSid);
     }
 
     public static DocumentReader reader(final String pathServiceSid){

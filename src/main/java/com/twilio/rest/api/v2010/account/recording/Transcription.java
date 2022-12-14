@@ -46,6 +46,12 @@ import java.math.BigDecimal;
 public class Transcription extends Resource {
     private static final long serialVersionUID = 169453036448500L;
 
+    public static TranscriptionDeleter deleter(final String pathRecordingSid, final String pathSid){
+        return new TranscriptionDeleter(pathRecordingSid, pathSid);
+    }
+    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathRecordingSid, final String pathSid){
+        return new TranscriptionDeleter(pathAccountSid, pathRecordingSid, pathSid);
+    }
 
     public static TranscriptionFetcher fetcher(final String pathRecordingSid, final String pathSid){
         return new TranscriptionFetcher(pathRecordingSid, pathSid);
@@ -54,20 +60,12 @@ public class Transcription extends Resource {
         return new TranscriptionFetcher(pathAccountSid, pathRecordingSid, pathSid);
     }
 
-    public static TranscriptionDeleter deleter(final String pathRecordingSid, final String pathSid){
-        return new TranscriptionDeleter(pathRecordingSid, pathSid);
-    }
-    public static TranscriptionDeleter deleter(final String pathAccountSid, final String pathRecordingSid, final String pathSid){
-        return new TranscriptionDeleter(pathAccountSid, pathRecordingSid, pathSid);
-    }
-
     public static TranscriptionReader reader(final String pathRecordingSid){
         return new TranscriptionReader(pathRecordingSid);
     }
     public static TranscriptionReader reader(final String pathAccountSid, final String pathRecordingSid){
         return new TranscriptionReader(pathAccountSid, pathRecordingSid);
     }
-
 
     /**
     * Converts a JSON String into a Transcription object using the provided ObjectMapper.

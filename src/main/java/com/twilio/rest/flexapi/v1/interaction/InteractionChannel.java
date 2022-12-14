@@ -43,11 +43,9 @@ import java.util.Map;
 public class InteractionChannel extends Resource {
     private static final long serialVersionUID = 96183028905472L;
 
-
     public static InteractionChannelFetcher fetcher(final String pathInteractionSid, final String pathSid){
         return new InteractionChannelFetcher(pathInteractionSid, pathSid);
     }
-
 
     public static InteractionChannelReader reader(final String pathInteractionSid){
         return new InteractionChannelReader(pathInteractionSid);

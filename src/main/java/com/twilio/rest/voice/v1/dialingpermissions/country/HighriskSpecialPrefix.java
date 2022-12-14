@@ -39,13 +39,9 @@ import java.util.Objects;
 public class HighriskSpecialPrefix extends Resource {
     private static final long serialVersionUID = 211324910415647L;
 
-
-
-
     public static HighriskSpecialPrefixReader reader(final String pathIsoCode){
         return new HighriskSpecialPrefixReader(pathIsoCode);
     }
-
 
     /**
     * Converts a JSON String into a HighriskSpecialPrefix object using the provided ObjectMapper.

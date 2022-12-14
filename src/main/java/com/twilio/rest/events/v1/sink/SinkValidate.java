@@ -43,10 +43,6 @@ public class SinkValidate extends Resource {
         return new SinkValidateCreator(pathSid, testId);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a SinkValidate object using the provided ObjectMapper.
     *

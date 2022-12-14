@@ -49,12 +49,12 @@ public class User extends Resource {
         return new UserCreator(pathServiceSid, identity);
     }
 
-    public static UserFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new UserFetcher(pathServiceSid, pathSid);
-    }
-
     public static UserDeleter deleter(final String pathServiceSid, final String pathSid){
         return new UserDeleter(pathServiceSid, pathSid);
+    }
+
+    public static UserFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new UserFetcher(pathServiceSid, pathSid);
     }
 
     public static UserReader reader(final String pathServiceSid){

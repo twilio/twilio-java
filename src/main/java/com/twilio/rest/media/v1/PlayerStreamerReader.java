@@ -129,5 +129,9 @@ public class PlayerStreamerReader extends Reader<PlayerStreamer> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

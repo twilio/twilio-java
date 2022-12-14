@@ -51,11 +51,9 @@ public class SmsCommand extends Resource {
         return new SmsCommandFetcher(pathSid);
     }
 
-
     public static SmsCommandReader reader(){
         return new SmsCommandReader();
     }
-
 
     /**
     * Converts a JSON String into a SmsCommand object using the provided ObjectMapper.

@@ -42,13 +42,9 @@ import java.util.Map;
 public class Template extends Resource {
     private static final long serialVersionUID = 229000530855919L;
 
-
-
-
     public static TemplateReader reader(){
         return new TemplateReader();
     }
-
 
     /**
     * Converts a JSON String into a Template object using the provided ObjectMapper.

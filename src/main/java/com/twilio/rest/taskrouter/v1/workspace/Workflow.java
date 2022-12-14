@@ -48,12 +48,12 @@ public class Workflow extends Resource {
         return new WorkflowCreator(pathWorkspaceSid, friendlyName, configuration);
     }
 
-    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
-        return new WorkflowFetcher(pathWorkspaceSid, pathSid);
-    }
-
     public static WorkflowDeleter deleter(final String pathWorkspaceSid, final String pathSid){
         return new WorkflowDeleter(pathWorkspaceSid, pathSid);
+    }
+
+    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new WorkflowFetcher(pathWorkspaceSid, pathSid);
     }
 
     public static WorkflowReader reader(final String pathWorkspaceSid){

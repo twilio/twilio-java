@@ -111,5 +111,9 @@ public class SourceIpMappingReader extends Reader<SourceIpMapping> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -48,18 +48,17 @@ public class SyncList extends Resource {
         return new SyncListCreator(pathServiceSid);
     }
 
-    public static SyncListFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new SyncListFetcher(pathServiceSid, pathSid);
-    }
-
     public static SyncListDeleter deleter(final String pathServiceSid, final String pathSid){
         return new SyncListDeleter(pathServiceSid, pathSid);
+    }
+
+    public static SyncListFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SyncListFetcher(pathServiceSid, pathSid);
     }
 
     public static SyncListReader reader(final String pathServiceSid){
         return new SyncListReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a SyncList object using the provided ObjectMapper.

@@ -49,9 +49,6 @@ public class Siprec extends Resource {
         return new SiprecCreator(pathAccountSid, pathCallSid);
     }
 
-
-
-
     public static SiprecUpdater updater(final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status){
         return new SiprecUpdater(pathCallSid, pathSid, status);
     }

@@ -43,16 +43,13 @@ import java.util.Objects;
 public class Log extends Resource {
     private static final long serialVersionUID = 129897058125132L;
 
-
     public static LogFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
         return new LogFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-
     public static LogReader reader(final String pathServiceSid, final String pathEnvironmentSid){
         return new LogReader(pathServiceSid, pathEnvironmentSid);
     }
-
 
     /**
     * Converts a JSON String into a Log object using the provided ObjectMapper.

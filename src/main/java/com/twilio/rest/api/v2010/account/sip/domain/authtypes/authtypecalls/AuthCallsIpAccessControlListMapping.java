@@ -48,18 +48,18 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
         return new AuthCallsIpAccessControlListMappingCreator(pathAccountSid, pathDomainSid, ipAccessControlListSid);
     }
 
-    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
-        return new AuthCallsIpAccessControlListMappingFetcher(pathDomainSid, pathSid);
-    }
-    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
-        return new AuthCallsIpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
-    }
-
     public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
         return new AuthCallsIpAccessControlListMappingDeleter(pathDomainSid, pathSid);
     }
     public static AuthCallsIpAccessControlListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
         return new AuthCallsIpAccessControlListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new AuthCallsIpAccessControlListMappingFetcher(pathDomainSid, pathSid);
+    }
+    public static AuthCallsIpAccessControlListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthCallsIpAccessControlListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     public static AuthCallsIpAccessControlListMappingReader reader(final String pathDomainSid){
@@ -68,7 +68,6 @@ public class AuthCallsIpAccessControlListMapping extends Resource {
     public static AuthCallsIpAccessControlListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
         return new AuthCallsIpAccessControlListMappingReader(pathAccountSid, pathDomainSid);
     }
-
 
     /**
     * Converts a JSON String into a AuthCallsIpAccessControlListMapping object using the provided ObjectMapper.

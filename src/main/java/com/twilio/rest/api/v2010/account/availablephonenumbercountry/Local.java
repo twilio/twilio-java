@@ -41,16 +41,12 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class Local extends Resource {
     private static final long serialVersionUID = 211749226408502L;
 
-
-
-
     public static LocalReader reader(final String pathCountryCode){
         return new LocalReader(pathCountryCode);
     }
     public static LocalReader reader(final String pathAccountSid, final String pathCountryCode){
         return new LocalReader(pathAccountSid, pathCountryCode);
     }
-
 
     /**
     * Converts a JSON String into a Local object using the provided ObjectMapper.

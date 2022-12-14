@@ -52,7 +52,6 @@ public class MediaProcessor extends Resource {
         return new MediaProcessorFetcher(pathSid);
     }
 
-
     public static MediaProcessorReader reader(){
         return new MediaProcessorReader();
     }

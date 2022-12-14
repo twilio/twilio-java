@@ -95,9 +95,13 @@ public class Say extends TwiML {
         POLLY_BRIAN_NEURAL("Polly.Brian-Neural"),
         POLLY_CAMILA_NEURAL("Polly.Camila-Neural"),
         POLLY_DANIEL_NEURAL("Polly.Daniel-Neural"),
+        POLLY_ELIN_NEURAL("Polly.Elin-Neural"),
         POLLY_EMMA_NEURAL("Polly.Emma-Neural"),
         POLLY_GABRIELLE_NEURAL("Polly.Gabrielle-Neural"),
+        POLLY_HALA_NEURAL("Polly.Hala-Neural"),
         POLLY_HANNAH_NEURAL("Polly.Hannah-Neural"),
+        POLLY_HIUJIN_NEURAL("Polly.Hiujin-Neural"),
+        POLLY_IDA_NEURAL("Polly.Ida-Neural"),
         POLLY_INES_NEURAL("Polly.Ines-Neural"),
         POLLY_IVY_NEURAL("Polly.Ivy-Neural"),
         POLLY_JOANNA_NEURAL("Polly.Joanna-Neural"),
@@ -107,19 +111,23 @@ public class Say extends TwiML {
         POLLY_KENDRA_NEURAL("Polly.Kendra-Neural"),
         POLLY_KEVIN_NEURAL("Polly.Kevin-Neural"),
         POLLY_KIMBERLY_NEURAL("Polly.Kimberly-Neural"),
+        POLLY_LAURA_NEURAL("Polly.Laura-Neural"),
         POLLY_LEA_NEURAL("Polly.Lea-Neural"),
         POLLY_LIAM_NEURAL("Polly.Liam-Neural"),
         POLLY_LUCIA_NEURAL("Polly.Lucia-Neural"),
         POLLY_LUPE_NEURAL("Polly.Lupe-Neural"),
         POLLY_MATTHEW_NEURAL("Polly.Matthew-Neural"),
         POLLY_MIA_NEURAL("Polly.Mia-Neural"),
+        POLLY_OLA_NEURAL("Polly.Ola-Neural"),
         POLLY_OLIVIA_NEURAL("Polly.Olivia-Neural"),
         POLLY_PEDRO_NEURAL("Polly.Pedro-Neural"),
         POLLY_SALLI_NEURAL("Polly.Salli-Neural"),
         POLLY_SEOYEON_NEURAL("Polly.Seoyeon-Neural"),
+        POLLY_SUVI_NEURAL("Polly.Suvi-Neural"),
         POLLY_TAKUMI_NEURAL("Polly.Takumi-Neural"),
         POLLY_VICKI_NEURAL("Polly.Vicki-Neural"),
-        POLLY_VITORIA_NEURAL("Polly.Vitoria-Neural");
+        POLLY_VITORIA_NEURAL("Polly.Vitoria-Neural"),
+        POLLY_ZHIYU_NEURAL("Polly.Zhiyu-Neural");
 
         private final String value;
 

@@ -48,12 +48,12 @@ public class Function extends Resource {
         return new FunctionCreator(pathServiceSid, friendlyName);
     }
 
-    public static FunctionFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new FunctionFetcher(pathServiceSid, pathSid);
-    }
-
     public static FunctionDeleter deleter(final String pathServiceSid, final String pathSid){
         return new FunctionDeleter(pathServiceSid, pathSid);
+    }
+
+    public static FunctionFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new FunctionFetcher(pathServiceSid, pathSid);
     }
 
     public static FunctionReader reader(final String pathServiceSid){

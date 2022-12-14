@@ -48,18 +48,18 @@ public class Credential extends Resource {
         return new CredentialCreator(pathAccountSid, pathCredentialListSid, username, password);
     }
 
-    public static CredentialFetcher fetcher(final String pathCredentialListSid, final String pathSid){
-        return new CredentialFetcher(pathCredentialListSid, pathSid);
-    }
-    public static CredentialFetcher fetcher(final String pathAccountSid, final String pathCredentialListSid, final String pathSid){
-        return new CredentialFetcher(pathAccountSid, pathCredentialListSid, pathSid);
-    }
-
     public static CredentialDeleter deleter(final String pathCredentialListSid, final String pathSid){
         return new CredentialDeleter(pathCredentialListSid, pathSid);
     }
     public static CredentialDeleter deleter(final String pathAccountSid, final String pathCredentialListSid, final String pathSid){
         return new CredentialDeleter(pathAccountSid, pathCredentialListSid, pathSid);
+    }
+
+    public static CredentialFetcher fetcher(final String pathCredentialListSid, final String pathSid){
+        return new CredentialFetcher(pathCredentialListSid, pathSid);
+    }
+    public static CredentialFetcher fetcher(final String pathAccountSid, final String pathCredentialListSid, final String pathSid){
+        return new CredentialFetcher(pathAccountSid, pathCredentialListSid, pathSid);
     }
 
     public static CredentialReader reader(final String pathCredentialListSid){

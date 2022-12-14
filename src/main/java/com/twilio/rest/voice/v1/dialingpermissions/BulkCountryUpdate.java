@@ -43,10 +43,6 @@ public class BulkCountryUpdate extends Resource {
         return new BulkCountryUpdateCreator(updateRequest);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a BulkCountryUpdate object using the provided ObjectMapper.
     *

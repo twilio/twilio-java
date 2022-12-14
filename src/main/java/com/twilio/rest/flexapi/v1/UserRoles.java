@@ -41,13 +41,9 @@ import java.util.Objects;
 public class UserRoles extends Resource {
     private static final long serialVersionUID = 154216272914379L;
 
-
     public static UserRolesFetcher fetcher(){
         return new UserRolesFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a UserRoles object using the provided ObjectMapper.

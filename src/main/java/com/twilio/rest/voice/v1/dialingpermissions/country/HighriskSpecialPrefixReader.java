@@ -114,5 +114,9 @@ public class HighriskSpecialPrefixReader extends Reader<HighriskSpecialPrefix> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

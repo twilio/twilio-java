@@ -42,12 +42,9 @@ import java.util.Objects;
 public class Webhook extends Resource {
     private static final long serialVersionUID = 64791700237770L;
 
-
     public static WebhookFetcher fetcher(){
         return new WebhookFetcher();
     }
-
-
 
     public static WebhookUpdater updater(){
         return new WebhookUpdater();

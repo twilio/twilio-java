@@ -47,8 +47,6 @@ public class InteractionChannelParticipant extends Resource {
         return new InteractionChannelParticipantCreator(pathInteractionSid, pathChannelSid, type, mediaProperties);
     }
 
-
-
     public static InteractionChannelParticipantReader reader(final String pathInteractionSid, final String pathChannelSid){
         return new InteractionChannelParticipantReader(pathInteractionSid, pathChannelSid);
     }

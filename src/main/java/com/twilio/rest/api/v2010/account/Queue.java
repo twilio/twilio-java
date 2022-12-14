@@ -48,18 +48,18 @@ public class Queue extends Resource {
         return new QueueCreator(pathAccountSid, friendlyName);
     }
 
-    public static QueueFetcher fetcher(final String pathSid){
-        return new QueueFetcher(pathSid);
-    }
-    public static QueueFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new QueueFetcher(pathAccountSid, pathSid);
-    }
-
     public static QueueDeleter deleter(final String pathSid){
         return new QueueDeleter(pathSid);
     }
     public static QueueDeleter deleter(final String pathAccountSid, final String pathSid){
         return new QueueDeleter(pathAccountSid, pathSid);
+    }
+
+    public static QueueFetcher fetcher(final String pathSid){
+        return new QueueFetcher(pathSid);
+    }
+    public static QueueFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new QueueFetcher(pathAccountSid, pathSid);
     }
 
     public static QueueReader reader(){

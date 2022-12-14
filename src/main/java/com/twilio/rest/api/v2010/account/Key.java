@@ -41,19 +41,18 @@ import java.util.Objects;
 public class Key extends Resource {
     private static final long serialVersionUID = 35259719636912L;
 
+    public static KeyDeleter deleter(final String pathSid){
+        return new KeyDeleter(pathSid);
+    }
+    public static KeyDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new KeyDeleter(pathAccountSid, pathSid);
+    }
 
     public static KeyFetcher fetcher(final String pathSid){
         return new KeyFetcher(pathSid);
     }
     public static KeyFetcher fetcher(final String pathAccountSid, final String pathSid){
         return new KeyFetcher(pathAccountSid, pathSid);
-    }
-
-    public static KeyDeleter deleter(final String pathSid){
-        return new KeyDeleter(pathSid);
-    }
-    public static KeyDeleter deleter(final String pathAccountSid, final String pathSid){
-        return new KeyDeleter(pathAccountSid, pathSid);
     }
 
     public static KeyReader reader(){

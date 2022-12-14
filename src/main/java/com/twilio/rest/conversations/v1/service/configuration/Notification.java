@@ -42,12 +42,9 @@ import java.util.Map;
 public class Notification extends Resource {
     private static final long serialVersionUID = 46010876689651L;
 
-
     public static NotificationFetcher fetcher(final String pathChatServiceSid){
         return new NotificationFetcher(pathChatServiceSid);
     }
-
-
 
     public static NotificationUpdater updater(final String pathChatServiceSid){
         return new NotificationUpdater(pathChatServiceSid);

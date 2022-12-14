@@ -49,12 +49,12 @@ public class SyncMapItem extends Resource {
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
-    public static SyncMapItemFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathKey){
-        return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
-    }
-
     public static SyncMapItemDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathKey){
         return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
+    }
+
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathKey){
+        return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
     public static SyncMapItemReader reader(final String pathServiceSid, final String pathMapSid){

@@ -40,12 +40,9 @@ import java.util.Objects;
 public class ExportConfiguration extends Resource {
     private static final long serialVersionUID = 268277535772365L;
 
-
     public static ExportConfigurationFetcher fetcher(final String pathResourceType){
         return new ExportConfigurationFetcher(pathResourceType);
     }
-
-
 
     public static ExportConfigurationUpdater updater(final String pathResourceType){
         return new ExportConfigurationUpdater(pathResourceType);

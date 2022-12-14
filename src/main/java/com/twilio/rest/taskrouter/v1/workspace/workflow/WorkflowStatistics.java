@@ -42,13 +42,9 @@ import java.util.Map;
 public class WorkflowStatistics extends Resource {
     private static final long serialVersionUID = 124113751515927L;
 
-
     public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
         return new WorkflowStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a WorkflowStatistics object using the provided ObjectMapper.

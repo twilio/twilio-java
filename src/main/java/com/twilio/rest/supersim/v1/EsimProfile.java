@@ -51,11 +51,9 @@ public class EsimProfile extends Resource {
         return new EsimProfileFetcher(pathSid);
     }
 
-
     public static EsimProfileReader reader(){
         return new EsimProfileReader();
     }
-
 
     /**
     * Converts a JSON String into a EsimProfile object using the provided ObjectMapper.

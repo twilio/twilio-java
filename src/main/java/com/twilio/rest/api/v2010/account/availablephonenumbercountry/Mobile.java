@@ -41,16 +41,12 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class Mobile extends Resource {
     private static final long serialVersionUID = 211749226408502L;
 
-
-
-
     public static MobileReader reader(final String pathCountryCode){
         return new MobileReader(pathCountryCode);
     }
     public static MobileReader reader(final String pathAccountSid, final String pathCountryCode){
         return new MobileReader(pathAccountSid, pathCountryCode);
     }
-
 
     /**
     * Converts a JSON String into a Mobile object using the provided ObjectMapper.

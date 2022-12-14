@@ -48,9 +48,6 @@ public class CompositionSettings extends Resource {
         return new CompositionSettingsFetcher();
     }
 
-
-
-
     /**
     * Converts a JSON String into a CompositionSettings object using the provided ObjectMapper.
     *

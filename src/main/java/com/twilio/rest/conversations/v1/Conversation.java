@@ -49,12 +49,12 @@ public class Conversation extends Resource {
         return new ConversationCreator();
     }
 
-    public static ConversationFetcher fetcher(final String pathSid){
-        return new ConversationFetcher(pathSid);
-    }
-
     public static ConversationDeleter deleter(final String pathSid){
         return new ConversationDeleter(pathSid);
+    }
+
+    public static ConversationFetcher fetcher(final String pathSid){
+        return new ConversationFetcher(pathSid);
     }
 
     public static ConversationReader reader(){

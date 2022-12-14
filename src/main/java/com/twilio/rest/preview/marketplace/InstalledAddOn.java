@@ -48,12 +48,12 @@ public class InstalledAddOn extends Resource {
         return new InstalledAddOnCreator(availableAddOnSid, acceptTermsOfService);
     }
 
-    public static InstalledAddOnFetcher fetcher(final String pathSid){
-        return new InstalledAddOnFetcher(pathSid);
-    }
-
     public static InstalledAddOnDeleter deleter(final String pathSid){
         return new InstalledAddOnDeleter(pathSid);
+    }
+
+    public static InstalledAddOnFetcher fetcher(final String pathSid){
+        return new InstalledAddOnFetcher(pathSid);
     }
 
     public static InstalledAddOnReader reader(){

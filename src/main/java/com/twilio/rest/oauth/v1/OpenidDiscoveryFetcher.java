@@ -35,7 +35,7 @@ public class OpenidDiscoveryFetcher extends Fetcher<OpenidDiscovery> {
 
     @Override
     public OpenidDiscovery fetch(final TwilioRestClient client) {
-        String path = "/v1/well-known/openid-configuration";
+        String path = "/v1/.well-known/openid-configuration";
 
 
         Request request = new Request(

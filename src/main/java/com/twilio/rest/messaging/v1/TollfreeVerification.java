@@ -58,6 +58,10 @@ public class TollfreeVerification extends Resource {
         return new TollfreeVerificationReader();
     }
 
+    public static TollfreeVerificationUpdater updater(final String pathSid){
+        return new TollfreeVerificationUpdater(pathSid);
+    }
+
     /**
     * Converts a JSON String into a TollfreeVerification object using the provided ObjectMapper.
     *

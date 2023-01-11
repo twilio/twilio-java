@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
-    private static final long serialVersionUID = 199930151485440L;
+    private static final long serialVersionUID = 43250311135417L;
 
     public static MessageCreator creator(final String pathConversationSid){
         return new MessageCreator(pathConversationSid);
@@ -155,6 +155,7 @@ public class Message extends Resource {
     private final URI url;
     private final Map<String, Object> delivery;
     private final Map<String, String> links;
+    private final String contentSid;
 
     @JsonCreator
     private Message(
@@ -198,7 +199,10 @@ public class Message extends Resource {
         final Map<String, Object> delivery,
 
         @JsonProperty("links")
-        final Map<String, String> links
+        final Map<String, String> links,
+
+        @JsonProperty("content_sid")
+        final String contentSid
     ) {
         this.accountSid = accountSid;
         this.conversationSid = conversationSid;
@@ -214,6 +218,7 @@ public class Message extends Resource {
         this.url = url;
         this.delivery = delivery;
         this.links = links;
+        this.contentSid = contentSid;
     }
 
         public final String getAccountSid() {
@@ -258,6 +263,9 @@ public class Message extends Resource {
         public final Map<String, String> getLinks() {
             return this.links;
         }
+        public final String getContentSid() {
+            return this.contentSid;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -271,12 +279,12 @@ public class Message extends Resource {
 
         Message other = (Message) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(conversationSid, other.conversationSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(index, other.index) &&  Objects.equals(author, other.author) &&  Objects.equals(body, other.body) &&  Objects.equals(media, other.media) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(participantSid, other.participantSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(delivery, other.delivery) &&  Objects.equals(links, other.links)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(conversationSid, other.conversationSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(index, other.index) &&  Objects.equals(author, other.author) &&  Objects.equals(body, other.body) &&  Objects.equals(media, other.media) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(participantSid, other.participantSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(delivery, other.delivery) &&  Objects.equals(links, other.links) &&  Objects.equals(contentSid, other.contentSid)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, conversationSid, sid, index, author, body, media, attributes, participantSid, dateCreated, dateUpdated, url, delivery, links);
+        return Objects.hash(accountSid, conversationSid, sid, index, author, body, media, attributes, participantSid, dateCreated, dateUpdated, url, delivery, links, contentSid);
     }
 
 }

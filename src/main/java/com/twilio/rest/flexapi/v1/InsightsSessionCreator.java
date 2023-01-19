@@ -14,7 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Creator;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -27,32 +27,31 @@ import com.twilio.rest.Domains;
 
 
 
-public class UserRolesFetcher extends Fetcher<UserRoles> {
+public class InsightsSessionCreator extends Creator<InsightsSession>{
     private String token;
 
-    public UserRolesFetcher(){
+    public InsightsSessionCreator() {
     }
 
-    public UserRolesFetcher setToken(final String token){
+    public InsightsSessionCreator setToken(final String token){
         this.token = token;
         return this;
     }
 
     @Override
-    public UserRoles fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/UserRoles";
+    public InsightsSession create(final TwilioRestClient client){
+        String path = "/v1/Insights/Session";
 
 
         Request request = new Request(
-            HttpMethod.GET,
+            HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
         Response response = client.request(request);
-
         if (response == null) {
-        throw new ApiConnectionException("UserRoles fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("InsightsSession creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -61,7 +60,7 @@ public class UserRolesFetcher extends Fetcher<UserRoles> {
             throw new ApiException(restException);
         }
 
-        return UserRoles.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsSession.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addHeaderParams(final Request request) {
         if (token != null) {

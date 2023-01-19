@@ -38,24 +38,24 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class UserRoles extends Resource {
+public class InsightsUserRoles extends Resource {
     private static final long serialVersionUID = 154216272914379L;
 
-    public static UserRolesFetcher fetcher(){
-        return new UserRolesFetcher();
+    public static InsightsUserRolesFetcher fetcher(){
+        return new InsightsUserRolesFetcher();
     }
 
     /**
-    * Converts a JSON String into a UserRoles object using the provided ObjectMapper.
+    * Converts a JSON String into a InsightsUserRoles object using the provided ObjectMapper.
     *
     * @param json Raw JSON String
     * @param objectMapper Jackson ObjectMapper
-    * @return UserRoles object represented by the provided JSON
+    * @return InsightsUserRoles object represented by the provided JSON
     */
-    public static UserRoles fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsUserRoles fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, UserRoles.class);
+            return objectMapper.readValue(json, InsightsUserRoles.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -64,17 +64,17 @@ public class UserRoles extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a UserRoles object using the provided
+    * Converts a JSON InputStream into a InsightsUserRoles object using the provided
     * ObjectMapper.
     *
     * @param json Raw JSON InputStream
     * @param objectMapper Jackson ObjectMapper
-    * @return UserRoles object represented by the provided JSON
+    * @return InsightsUserRoles object represented by the provided JSON
     */
-    public static UserRoles fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsUserRoles fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, UserRoles.class);
+            return objectMapper.readValue(json, InsightsUserRoles.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -86,7 +86,7 @@ public class UserRoles extends Resource {
     private final URI url;
 
     @JsonCreator
-    private UserRoles(
+    private InsightsUserRoles(
         @JsonProperty("roles")
         final List<String> roles,
 
@@ -114,7 +114,7 @@ public class UserRoles extends Resource {
             return false;
         }
 
-        UserRoles other = (UserRoles) o;
+        InsightsUserRoles other = (InsightsUserRoles) o;
 
         return Objects.equals(roles, other.roles) &&  Objects.equals(url, other.url)  ;
     }

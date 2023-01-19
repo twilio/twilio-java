@@ -37,24 +37,24 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class GoodData extends Resource {
+public class InsightsSession extends Resource {
     private static final long serialVersionUID = 184746612300929L;
 
-    public static GoodDataCreator creator(){
-        return new GoodDataCreator();
+    public static InsightsSessionCreator creator(){
+        return new InsightsSessionCreator();
     }
 
     /**
-    * Converts a JSON String into a GoodData object using the provided ObjectMapper.
+    * Converts a JSON String into a InsightsSession object using the provided ObjectMapper.
     *
     * @param json Raw JSON String
     * @param objectMapper Jackson ObjectMapper
-    * @return GoodData object represented by the provided JSON
+    * @return InsightsSession object represented by the provided JSON
     */
-    public static GoodData fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsSession fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, GoodData.class);
+            return objectMapper.readValue(json, InsightsSession.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -63,17 +63,17 @@ public class GoodData extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a GoodData object using the provided
+    * Converts a JSON InputStream into a InsightsSession object using the provided
     * ObjectMapper.
     *
     * @param json Raw JSON InputStream
     * @param objectMapper Jackson ObjectMapper
-    * @return GoodData object represented by the provided JSON
+    * @return InsightsSession object represented by the provided JSON
     */
-    public static GoodData fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsSession fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, GoodData.class);
+            return objectMapper.readValue(json, InsightsSession.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -88,7 +88,7 @@ public class GoodData extends Resource {
     private final URI url;
 
     @JsonCreator
-    private GoodData(
+    private InsightsSession(
         @JsonProperty("workspace_id")
         final String workspaceId,
 
@@ -137,7 +137,7 @@ public class GoodData extends Resource {
             return false;
         }
 
-        GoodData other = (GoodData) o;
+        InsightsSession other = (InsightsSession) o;
 
         return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(baseUrl, other.baseUrl) &&  Objects.equals(url, other.url)  ;
     }

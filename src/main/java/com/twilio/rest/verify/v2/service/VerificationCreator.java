@@ -47,6 +47,7 @@ public class VerificationCreator extends Creator<Verification>{
     private String appHash;
     private String templateSid;
     private String templateCustomSubstitutions;
+    private String deviceIp;
 
     public VerificationCreator(final String pathServiceSid, final String to, final String channel) {
         this.pathServiceSid = pathServiceSid;
@@ -108,6 +109,10 @@ public class VerificationCreator extends Creator<Verification>{
     }
     public VerificationCreator setTemplateCustomSubstitutions(final String templateCustomSubstitutions){
         this.templateCustomSubstitutions = templateCustomSubstitutions;
+        return this;
+    }
+    public VerificationCreator setDeviceIp(final String deviceIp){
+        this.deviceIp = deviceIp;
         return this;
     }
 
@@ -193,6 +198,10 @@ public class VerificationCreator extends Creator<Verification>{
         }
         if (templateCustomSubstitutions != null) {
             request.addPostParam("TemplateCustomSubstitutions", templateCustomSubstitutions);
+    
+        }
+        if (deviceIp != null) {
+            request.addPostParam("DeviceIp", deviceIp);
     
         }
     }

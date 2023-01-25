@@ -31,30 +31,31 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
+import java.util.List;
 import java.util.Objects;
 
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class GoodData extends Resource {
-    private static final long serialVersionUID = 184746612300929L;
+public class InsightsUserRoles extends Resource {
+    private static final long serialVersionUID = 154216272914379L;
 
-    public static GoodDataCreator creator(){
-        return new GoodDataCreator();
+    public static InsightsUserRolesFetcher fetcher(){
+        return new InsightsUserRolesFetcher();
     }
 
     /**
-    * Converts a JSON String into a GoodData object using the provided ObjectMapper.
+    * Converts a JSON String into a InsightsUserRoles object using the provided ObjectMapper.
     *
     * @param json Raw JSON String
     * @param objectMapper Jackson ObjectMapper
-    * @return GoodData object represented by the provided JSON
+    * @return InsightsUserRoles object represented by the provided JSON
     */
-    public static GoodData fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsUserRoles fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, GoodData.class);
+            return objectMapper.readValue(json, InsightsUserRoles.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -63,17 +64,17 @@ public class GoodData extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a GoodData object using the provided
+    * Converts a JSON InputStream into a InsightsUserRoles object using the provided
     * ObjectMapper.
     *
     * @param json Raw JSON InputStream
     * @param objectMapper Jackson ObjectMapper
-    * @return GoodData object represented by the provided JSON
+    * @return InsightsUserRoles object represented by the provided JSON
     */
-    public static GoodData fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsUserRoles fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, GoodData.class);
+            return objectMapper.readValue(json, InsightsUserRoles.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -81,47 +82,23 @@ public class GoodData extends Resource {
         }
     }
 
-    private final String workspaceId;
-    private final String sessionExpiry;
-    private final String sessionId;
-    private final String baseUrl;
+    private final List<String> roles;
     private final URI url;
 
     @JsonCreator
-    private GoodData(
-        @JsonProperty("workspace_id")
-        final String workspaceId,
-
-        @JsonProperty("session_expiry")
-        final String sessionExpiry,
-
-        @JsonProperty("session_id")
-        final String sessionId,
-
-        @JsonProperty("base_url")
-        final String baseUrl,
+    private InsightsUserRoles(
+        @JsonProperty("roles")
+        final List<String> roles,
 
         @JsonProperty("url")
         final URI url
     ) {
-        this.workspaceId = workspaceId;
-        this.sessionExpiry = sessionExpiry;
-        this.sessionId = sessionId;
-        this.baseUrl = baseUrl;
+        this.roles = roles;
         this.url = url;
     }
 
-        public final String getWorkspaceId() {
-            return this.workspaceId;
-        }
-        public final String getSessionExpiry() {
-            return this.sessionExpiry;
-        }
-        public final String getSessionId() {
-            return this.sessionId;
-        }
-        public final String getBaseUrl() {
-            return this.baseUrl;
+        public final List<String> getRoles() {
+            return this.roles;
         }
         public final URI getUrl() {
             return this.url;
@@ -137,14 +114,14 @@ public class GoodData extends Resource {
             return false;
         }
 
-        GoodData other = (GoodData) o;
+        InsightsUserRoles other = (InsightsUserRoles) o;
 
-        return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(baseUrl, other.baseUrl) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(roles, other.roles) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workspaceId, sessionExpiry, sessionId, baseUrl, url);
+        return Objects.hash(roles, url);
     }
 
 }

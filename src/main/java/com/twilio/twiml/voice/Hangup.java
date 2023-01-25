@@ -8,13 +8,16 @@
 package com.twilio.twiml.voice;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.twilio.twiml.TwiML;
 import com.twilio.twiml.TwiMLException;
 
 /**
  * TwiML wrapper for {@code <Hangup>}
  */
+@JsonDeserialize(builder = Hangup.Builder.class)
 public class Hangup extends TwiML {
     /**
      * For XML Serialization/Deserialization
@@ -47,6 +50,15 @@ public class Hangup extends TwiML {
             } catch (final Exception e) {
                 throw new TwiMLException("Unhandled exception: " + e.getMessage());
             }
+        }
+
+        /**
+         * Add a child {@code <Parameter>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
+        public Builder parameter(Parameter parameter) {
+            this.children.add(parameter);
+            return this;
         }
 
         /**

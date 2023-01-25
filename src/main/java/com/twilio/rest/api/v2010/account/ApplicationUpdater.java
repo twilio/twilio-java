@@ -47,6 +47,7 @@ public class ApplicationUpdater extends Updater<Application>{
     private HttpMethod smsFallbackMethod;
     private URI smsStatusCallback;
     private URI messageStatusCallback;
+    private Boolean publicApplicationConnectEnabled;
 
     public ApplicationUpdater(final String pathSid){
         this.pathSid = pathSid;
@@ -144,6 +145,10 @@ public class ApplicationUpdater extends Updater<Application>{
     public ApplicationUpdater setMessageStatusCallback(final String messageStatusCallback){
         return setMessageStatusCallback(Promoter.uriFromString(messageStatusCallback));
     }
+    public ApplicationUpdater setPublicApplicationConnectEnabled(final Boolean publicApplicationConnectEnabled){
+        this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
+        return this;
+    }
 
     @Override
     public Application update(final TwilioRestClient client){
@@ -231,6 +236,10 @@ public class ApplicationUpdater extends Updater<Application>{
         }
         if (messageStatusCallback != null) {
             request.addPostParam("MessageStatusCallback", messageStatusCallback.toString());
+    
+        }
+        if (publicApplicationConnectEnabled != null) {
+            request.addPostParam("PublicApplicationConnectEnabled", publicApplicationConnectEnabled.toString());
     
         }
     }

@@ -14,7 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
-import com.twilio.base.Creator;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,32 +26,35 @@ import com.twilio.rest.Domains;
 
 
 
-
-public class GoodDataCreator extends Creator<GoodData>{
+public class InsightsQuestionnairesCategoryDeleter extends Deleter<InsightsQuestionnairesCategory> {
+    private String pathCategoryId;
     private String token;
 
-    public GoodDataCreator() {
+    public InsightsQuestionnairesCategoryDeleter(final String pathCategoryId){
+        this.pathCategoryId = pathCategoryId;
     }
 
-    public GoodDataCreator setToken(final String token){
+    public InsightsQuestionnairesCategoryDeleter setToken(final String token){
         this.token = token;
         return this;
     }
 
     @Override
-    public GoodData create(final TwilioRestClient client){
-        String path = "/v1/Accounts/GoodData";
+    public boolean delete(final TwilioRestClient client) {
+        String path = "/v1/Insights/QM/Categories/{CategoryId}";
 
+        path = path.replace("{"+"CategoryId"+"}", this.pathCategoryId.toString());
 
         Request request = new Request(
-            HttpMethod.POST,
+            HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
             path
         );
         addHeaderParams(request);
         Response response = client.request(request);
+
         if (response == null) {
-            throw new ApiConnectionException("GoodData creation failed: Unable to connect to server");
+            throw new ApiConnectionException("InsightsQuestionnairesCategory delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -59,8 +62,7 @@ public class GoodDataCreator extends Creator<GoodData>{
             }
             throw new ApiException(restException);
         }
-
-        return GoodData.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
     private void addHeaderParams(final Request request) {
         if (token != null) {

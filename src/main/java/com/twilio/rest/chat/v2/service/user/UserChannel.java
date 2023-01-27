@@ -43,13 +43,12 @@ import java.util.Map;
 public class UserChannel extends Resource {
     private static final long serialVersionUID = 104594062960806L;
 
+    public static UserChannelDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
+        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
+    }
 
     public static UserChannelFetcher fetcher(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
         return new UserChannelFetcher(pathServiceSid, pathUserSid, pathChannelSid);
-    }
-
-    public static UserChannelDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathChannelSid){
-        return new UserChannelDeleter(pathServiceSid, pathUserSid, pathChannelSid);
     }
 
     public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid){
@@ -96,25 +95,6 @@ public class UserChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-    public enum WebhookEnabledType {
-        TRUE("true"),
-        FALSE("false");
-
-        private final String value;
-
-        private WebhookEnabledType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static WebhookEnabledType forValue(final String value) {
-            return Promoter.enumFromString(value, WebhookEnabledType.values());
-        }
-    }
     public enum ChannelStatus {
         JOINED("joined"),
         INVITED("invited"),
@@ -152,6 +132,25 @@ public class UserChannel extends Resource {
         @JsonCreator
         public static NotificationLevel forValue(final String value) {
             return Promoter.enumFromString(value, NotificationLevel.values());
+        }
+    }
+    public enum WebhookEnabledType {
+        TRUE("true"),
+        FALSE("false");
+
+        private final String value;
+
+        private WebhookEnabledType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static WebhookEnabledType forValue(final String value) {
+            return Promoter.enumFromString(value, WebhookEnabledType.values());
         }
     }
 

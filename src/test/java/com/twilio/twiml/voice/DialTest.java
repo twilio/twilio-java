@@ -156,6 +156,16 @@ public class DialTest {
                     .machineDetectionSilenceTimeout(1)
                     .build());
 
+        builder.application(new Application.Builder("application_sid")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Application.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .customerId("customer_id")
+                    .copyParentTo(true)
+                    .build());
+
         Dial elem = builder.build();
 
         Assert.assertEquals(
@@ -167,6 +177,7 @@ public class DialTest {
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
+                "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>" +
             "</Dial>",
             elem.toXml()
         );
@@ -356,6 +367,16 @@ public class DialTest {
                     .machineDetectionSilenceTimeout(1)
                     .build());
 
+        builder.application(new Application.Builder("application_sid")
+                    .url(URI.create("https://example.com"))
+                    .method(HttpMethod.GET)
+                    .statusCallbackEvents(Promoter.listOfOne(Application.Event.INITIATED))
+                    .statusCallback(URI.create("https://example.com"))
+                    .statusCallbackMethod(HttpMethod.GET)
+                    .customerId("customer_id")
+                    .copyParentTo(true)
+                    .build());
+
         final Dial elem = builder.build();
 
         Assert.assertEquals(
@@ -366,6 +387,7 @@ public class DialTest {
                 "<Queue method=\"GET\" postWorkActivitySid=\"post_work_activity_sid\" reservationSid=\"reservation_sid\" url=\"https://example.com\">name</Queue>" +
                 "<Sim>DEXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</Sim>" +
                 "<Sip amdStatusCallback=\"amd_status_callback\" amdStatusCallbackMethod=\"GET\" machineDetection=\"machine_detection\" machineDetectionSilenceTimeout=\"1\" machineDetectionSpeechEndThreshold=\"1\" machineDetectionSpeechThreshold=\"1\" machineDetectionTimeout=\"1\" method=\"GET\" password=\"password\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\" username=\"username\">https://example.com</Sip>" +
+                "<Application copyParentTo=\"true\" customerId=\"customer_id\" method=\"GET\" statusCallback=\"https://example.com\" statusCallbackEvent=\"initiated\" statusCallbackMethod=\"GET\" url=\"https://example.com\">application_sid</Application>" +
             "</Dial>").build().toXml(),
             elem.toXml()
         );
@@ -377,11 +399,14 @@ public class DialTest {
 
         builder.client(new Client.Builder().build());
 
+        builder.application(new Application.Builder().build());
+
         final Dial elem = builder.build();
 
         Assert.assertEquals(
             Dial.Builder.fromXml("<Dial>" +
                 "<Client/>" +
+                "<Application/>" +
             "</Dial>").build().toXml(),
             elem.toXml()
         );

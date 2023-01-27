@@ -43,16 +43,13 @@ import java.util.Map;
 public class SupportingDocumentType extends Resource {
     private static final long serialVersionUID = 67038001521206L;
 
-
     public static SupportingDocumentTypeFetcher fetcher(final String pathSid){
         return new SupportingDocumentTypeFetcher(pathSid);
     }
 
-
     public static SupportingDocumentTypeReader reader(){
         return new SupportingDocumentTypeReader();
     }
-
 
     /**
     * Converts a JSON String into a SupportingDocumentType object using the provided ObjectMapper.

@@ -53,6 +53,7 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification>{
     private String businessContactLastName;
     private String businessContactEmail;
     private com.twilio.type.PhoneNumber businessContactPhone;
+    private String externalReferenceId;
 
     public TollfreeVerificationCreator(final String businessName, final String businessWebsite, final String notificationEmail, final List<String> useCaseCategories, final String useCaseSummary, final String productionMessageSample, final List<String> optInImageUrls, final TollfreeVerification.OptInType optInType, final String messageVolume, final String tollfreePhoneNumberSid) {
         this.businessName = businessName;
@@ -164,6 +165,10 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification>{
 
     public TollfreeVerificationCreator setBusinessContactPhone(final String businessContactPhone){
         return setBusinessContactPhone(Promoter.phoneNumberFromString(businessContactPhone));
+    }
+    public TollfreeVerificationCreator setExternalReferenceId(final String externalReferenceId){
+        this.externalReferenceId = externalReferenceId;
+        return this;
     }
 
     @Override
@@ -291,6 +296,10 @@ public class TollfreeVerificationCreator extends Creator<TollfreeVerification>{
         }
         if (businessContactPhone != null) {
             request.addPostParam("BusinessContactPhone", businessContactPhone.toString());
+    
+        }
+        if (externalReferenceId != null) {
+            request.addPostParam("ExternalReferenceId", externalReferenceId);
     
         }
     }

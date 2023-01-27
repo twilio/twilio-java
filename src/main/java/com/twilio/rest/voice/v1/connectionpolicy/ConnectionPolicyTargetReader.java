@@ -114,5 +114,9 @@ public class ConnectionPolicyTargetReader extends Reader<ConnectionPolicyTarget>
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

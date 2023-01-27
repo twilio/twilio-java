@@ -43,12 +43,9 @@ import java.util.Objects;
 public class DomainConfig extends Resource {
     private static final long serialVersionUID = 156569611990403L;
 
-
     public static DomainConfigFetcher fetcher(final String pathDomainSid){
         return new DomainConfigFetcher(pathDomainSid);
     }
-
-
 
     public static DomainConfigUpdater updater(final String pathDomainSid, final List<String> messagingServiceSids){
         return new DomainConfigUpdater(pathDomainSid, messagingServiceSids);

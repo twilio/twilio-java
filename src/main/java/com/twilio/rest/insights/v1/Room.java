@@ -47,16 +47,13 @@ import java.util.Map;
 public class Room extends Resource {
     private static final long serialVersionUID = 140614978057184L;
 
-
     public static RoomFetcher fetcher(final String pathRoomSid){
         return new RoomFetcher(pathRoomSid);
     }
 
-
     public static RoomReader reader(){
         return new RoomReader();
     }
-
 
     /**
     * Converts a JSON String into a Room object using the provided ObjectMapper.

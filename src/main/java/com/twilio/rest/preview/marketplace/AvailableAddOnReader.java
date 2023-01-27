@@ -111,5 +111,9 @@ public class AvailableAddOnReader extends Reader<AvailableAddOn> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

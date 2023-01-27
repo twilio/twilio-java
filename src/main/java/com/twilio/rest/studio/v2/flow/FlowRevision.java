@@ -46,16 +46,13 @@ import java.util.Map;
 public class FlowRevision extends Resource {
     private static final long serialVersionUID = 84648223923809L;
 
-
     public static FlowRevisionFetcher fetcher(final String pathSid, final String pathRevision){
         return new FlowRevisionFetcher(pathSid, pathRevision);
     }
 
-
     public static FlowRevisionReader reader(final String pathSid){
         return new FlowRevisionReader(pathSid);
     }
-
 
     /**
     * Converts a JSON String into a FlowRevision object using the provided ObjectMapper.

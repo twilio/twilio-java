@@ -52,18 +52,18 @@ public class Domain extends Resource {
         return new DomainCreator(pathAccountSid, domainName);
     }
 
-    public static DomainFetcher fetcher(final String pathSid){
-        return new DomainFetcher(pathSid);
-    }
-    public static DomainFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new DomainFetcher(pathAccountSid, pathSid);
-    }
-
     public static DomainDeleter deleter(final String pathSid){
         return new DomainDeleter(pathSid);
     }
     public static DomainDeleter deleter(final String pathAccountSid, final String pathSid){
         return new DomainDeleter(pathAccountSid, pathSid);
+    }
+
+    public static DomainFetcher fetcher(final String pathSid){
+        return new DomainFetcher(pathSid);
+    }
+    public static DomainFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new DomainFetcher(pathAccountSid, pathSid);
     }
 
     public static DomainReader reader(){

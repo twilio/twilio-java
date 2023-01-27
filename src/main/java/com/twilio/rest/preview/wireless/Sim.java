@@ -45,11 +45,9 @@ import java.util.Map;
 public class Sim extends Resource {
     private static final long serialVersionUID = 220976187959759L;
 
-
     public static SimFetcher fetcher(final String pathSid){
         return new SimFetcher(pathSid);
     }
-
 
     public static SimReader reader(){
         return new SimReader();

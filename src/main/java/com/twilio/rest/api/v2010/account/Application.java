@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Application extends Resource {
-    private static final long serialVersionUID = 64877918712545L;
+    private static final long serialVersionUID = 38146741905668L;
 
     public static ApplicationCreator creator(){
         return new ApplicationCreator();
@@ -50,18 +50,18 @@ public class Application extends Resource {
         return new ApplicationCreator(pathAccountSid);
     }
 
-    public static ApplicationFetcher fetcher(final String pathSid){
-        return new ApplicationFetcher(pathSid);
-    }
-    public static ApplicationFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new ApplicationFetcher(pathAccountSid, pathSid);
-    }
-
     public static ApplicationDeleter deleter(final String pathSid){
         return new ApplicationDeleter(pathSid);
     }
     public static ApplicationDeleter deleter(final String pathAccountSid, final String pathSid){
         return new ApplicationDeleter(pathAccountSid, pathSid);
+    }
+
+    public static ApplicationFetcher fetcher(final String pathSid){
+        return new ApplicationFetcher(pathSid);
+    }
+    public static ApplicationFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new ApplicationFetcher(pathAccountSid, pathSid);
     }
 
     public static ApplicationReader reader(){
@@ -135,6 +135,7 @@ public class Application extends Resource {
     private final URI voiceFallbackUrl;
     private final HttpMethod voiceMethod;
     private final URI voiceUrl;
+    private final Boolean publicApplicationConnectEnabled;
 
     @JsonCreator
     private Application(
@@ -196,7 +197,10 @@ public class Application extends Resource {
         final HttpMethod voiceMethod,
 
         @JsonProperty("voice_url")
-        final URI voiceUrl
+        final URI voiceUrl,
+
+        @JsonProperty("public_application_connect_enabled")
+        final Boolean publicApplicationConnectEnabled
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -218,6 +222,7 @@ public class Application extends Resource {
         this.voiceFallbackUrl = voiceFallbackUrl;
         this.voiceMethod = voiceMethod;
         this.voiceUrl = voiceUrl;
+        this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
     }
 
         public final String getAccountSid() {
@@ -280,6 +285,9 @@ public class Application extends Resource {
         public final URI getVoiceUrl() {
             return this.voiceUrl;
         }
+        public final Boolean getPublicApplicationConnectEnabled() {
+            return this.publicApplicationConnectEnabled;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -293,12 +301,12 @@ public class Application extends Resource {
 
         Application other = (Application) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(apiVersion, other.apiVersion) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(messageStatusCallback, other.messageStatusCallback) &&  Objects.equals(sid, other.sid) &&  Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&  Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&  Objects.equals(smsMethod, other.smsMethod) &&  Objects.equals(smsStatusCallback, other.smsStatusCallback) &&  Objects.equals(smsUrl, other.smsUrl) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(uri, other.uri) &&  Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&  Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&  Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&  Objects.equals(voiceMethod, other.voiceMethod) &&  Objects.equals(voiceUrl, other.voiceUrl)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(apiVersion, other.apiVersion) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(messageStatusCallback, other.messageStatusCallback) &&  Objects.equals(sid, other.sid) &&  Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&  Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&  Objects.equals(smsMethod, other.smsMethod) &&  Objects.equals(smsStatusCallback, other.smsStatusCallback) &&  Objects.equals(smsUrl, other.smsUrl) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(uri, other.uri) &&  Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&  Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&  Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&  Objects.equals(voiceMethod, other.voiceMethod) &&  Objects.equals(voiceUrl, other.voiceUrl) &&  Objects.equals(publicApplicationConnectEnabled, other.publicApplicationConnectEnabled)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, apiVersion, dateCreated, dateUpdated, friendlyName, messageStatusCallback, sid, smsFallbackMethod, smsFallbackUrl, smsMethod, smsStatusCallback, smsUrl, statusCallback, statusCallbackMethod, uri, voiceCallerIdLookup, voiceFallbackMethod, voiceFallbackUrl, voiceMethod, voiceUrl);
+        return Objects.hash(accountSid, apiVersion, dateCreated, dateUpdated, friendlyName, messageStatusCallback, sid, smsFallbackMethod, smsFallbackUrl, smsMethod, smsStatusCallback, smsUrl, statusCallback, statusCallbackMethod, uri, voiceCallerIdLookup, voiceFallbackMethod, voiceFallbackUrl, voiceMethod, voiceUrl, publicApplicationConnectEnabled);
     }
 
 }

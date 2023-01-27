@@ -43,7 +43,6 @@ import java.util.Objects;
 public class Notification extends Resource {
     private static final long serialVersionUID = 162458167875227L;
 
-
     public static NotificationFetcher fetcher(final String pathCallSid, final String pathSid){
         return new NotificationFetcher(pathCallSid, pathSid);
     }
@@ -51,14 +50,12 @@ public class Notification extends Resource {
         return new NotificationFetcher(pathAccountSid, pathCallSid, pathSid);
     }
 
-
     public static NotificationReader reader(final String pathCallSid){
         return new NotificationReader(pathCallSid);
     }
     public static NotificationReader reader(final String pathAccountSid, final String pathCallSid){
         return new NotificationReader(pathAccountSid, pathCallSid);
     }
-
 
     /**
     * Converts a JSON String into a Notification object using the provided ObjectMapper.

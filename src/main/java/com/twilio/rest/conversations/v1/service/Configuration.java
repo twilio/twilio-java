@@ -42,12 +42,9 @@ import java.util.Map;
 public class Configuration extends Resource {
     private static final long serialVersionUID = 35465460450497L;
 
-
     public static ConfigurationFetcher fetcher(final String pathChatServiceSid){
         return new ConfigurationFetcher(pathChatServiceSid);
     }
-
-
 
     public static ConfigurationUpdater updater(final String pathChatServiceSid){
         return new ConfigurationUpdater(pathChatServiceSid);

@@ -45,11 +45,9 @@ import java.util.Map;
 public class Participant extends Resource {
     private static final long serialVersionUID = 52808589721984L;
 
-
     public static ParticipantFetcher fetcher(final String pathRoomSid, final String pathSid){
         return new ParticipantFetcher(pathRoomSid, pathSid);
     }
-
 
     public static ParticipantReader reader(final String pathRoomSid){
         return new ParticipantReader(pathRoomSid);

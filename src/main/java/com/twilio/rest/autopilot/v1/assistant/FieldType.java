@@ -48,12 +48,12 @@ public class FieldType extends Resource {
         return new FieldTypeCreator(pathAssistantSid, uniqueName);
     }
 
-    public static FieldTypeFetcher fetcher(final String pathAssistantSid, final String pathSid){
-        return new FieldTypeFetcher(pathAssistantSid, pathSid);
-    }
-
     public static FieldTypeDeleter deleter(final String pathAssistantSid, final String pathSid){
         return new FieldTypeDeleter(pathAssistantSid, pathSid);
+    }
+
+    public static FieldTypeFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new FieldTypeFetcher(pathAssistantSid, pathSid);
     }
 
     public static FieldTypeReader reader(final String pathAssistantSid){

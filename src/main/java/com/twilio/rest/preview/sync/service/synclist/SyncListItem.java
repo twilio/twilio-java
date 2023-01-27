@@ -49,12 +49,12 @@ public class SyncListItem extends Resource {
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
 
-    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
-        return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
-    }
-
     public static SyncListItemDeleter deleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
         return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
+    }
+
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+        return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
     }
 
     public static SyncListItemReader reader(final String pathServiceSid, final String pathListSid){

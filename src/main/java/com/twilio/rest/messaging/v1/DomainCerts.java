@@ -42,15 +42,13 @@ import java.util.Objects;
 public class DomainCerts extends Resource {
     private static final long serialVersionUID = 66875153519190L;
 
-
-    public static DomainCertsFetcher fetcher(final String pathDomainSid){
-        return new DomainCertsFetcher(pathDomainSid);
-    }
-
     public static DomainCertsDeleter deleter(final String pathDomainSid){
         return new DomainCertsDeleter(pathDomainSid);
     }
 
+    public static DomainCertsFetcher fetcher(final String pathDomainSid){
+        return new DomainCertsFetcher(pathDomainSid);
+    }
 
     public static DomainCertsUpdater updater(final String pathDomainSid, final String tlsCert){
         return new DomainCertsUpdater(pathDomainSid, tlsCert);

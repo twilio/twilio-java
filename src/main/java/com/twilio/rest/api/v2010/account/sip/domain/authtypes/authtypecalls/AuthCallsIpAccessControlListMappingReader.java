@@ -121,5 +121,9 @@ public class AuthCallsIpAccessControlListMappingReader extends Reader<AuthCallsI
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

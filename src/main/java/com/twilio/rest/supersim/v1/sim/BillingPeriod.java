@@ -40,15 +40,11 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BillingPeriod extends Resource {
-    private static final long serialVersionUID = 89598304820205L;
-
-
-
+    private static final long serialVersionUID = 154829037650501L;
 
     public static BillingPeriodReader reader(final String pathSimSid){
         return new BillingPeriodReader(pathSimSid);
     }
-
 
     /**
     * Converts a JSON String into a BillingPeriod object using the provided ObjectMapper.

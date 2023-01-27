@@ -42,16 +42,13 @@ import java.util.Objects;
 public class SchemaVersion extends Resource {
     private static final long serialVersionUID = 232564429627083L;
 
-
     public static SchemaVersionFetcher fetcher(final String pathId, final Integer pathSchemaVersion){
         return new SchemaVersionFetcher(pathId, pathSchemaVersion);
     }
 
-
     public static SchemaVersionReader reader(final String pathId){
         return new SchemaVersionReader(pathId);
     }
-
 
     /**
     * Converts a JSON String into a SchemaVersion object using the provided ObjectMapper.

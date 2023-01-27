@@ -49,12 +49,12 @@ public class EndUser extends Resource {
         return new EndUserCreator(friendlyName, type);
     }
 
-    public static EndUserFetcher fetcher(final String pathSid){
-        return new EndUserFetcher(pathSid);
-    }
-
     public static EndUserDeleter deleter(final String pathSid){
         return new EndUserDeleter(pathSid);
+    }
+
+    public static EndUserFetcher fetcher(final String pathSid){
+        return new EndUserFetcher(pathSid);
     }
 
     public static EndUserReader reader(){

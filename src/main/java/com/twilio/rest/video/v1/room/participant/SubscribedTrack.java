@@ -43,16 +43,13 @@ import java.util.Objects;
 public class SubscribedTrack extends Resource {
     private static final long serialVersionUID = 247433416593630L;
 
-
     public static SubscribedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid){
         return new SubscribedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
     }
 
-
     public static SubscribedTrackReader reader(final String pathRoomSid, final String pathParticipantSid){
         return new SubscribedTrackReader(pathRoomSid, pathParticipantSid);
     }
-
 
     /**
     * Converts a JSON String into a SubscribedTrack object using the provided ObjectMapper.

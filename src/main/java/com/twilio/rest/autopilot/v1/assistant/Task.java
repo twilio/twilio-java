@@ -48,12 +48,12 @@ public class Task extends Resource {
         return new TaskCreator(pathAssistantSid, uniqueName);
     }
 
-    public static TaskFetcher fetcher(final String pathAssistantSid, final String pathSid){
-        return new TaskFetcher(pathAssistantSid, pathSid);
-    }
-
     public static TaskDeleter deleter(final String pathAssistantSid, final String pathSid){
         return new TaskDeleter(pathAssistantSid, pathSid);
+    }
+
+    public static TaskFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new TaskFetcher(pathAssistantSid, pathSid);
     }
 
     public static TaskReader reader(final String pathAssistantSid){

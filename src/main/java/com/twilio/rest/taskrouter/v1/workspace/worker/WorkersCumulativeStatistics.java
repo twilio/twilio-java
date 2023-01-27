@@ -45,13 +45,9 @@ import java.util.Map;
 public class WorkersCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 68159864681377L;
 
-
     public static WorkersCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid){
         return new WorkersCumulativeStatisticsFetcher(pathWorkspaceSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a WorkersCumulativeStatistics object using the provided ObjectMapper.

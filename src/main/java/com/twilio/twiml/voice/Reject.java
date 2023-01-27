@@ -110,6 +110,15 @@ public class Reject extends TwiML {
         }
 
         /**
+         * Add a child {@code <Parameter>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Parameter")
+        public Builder parameter(Parameter parameter) {
+            this.children.add(parameter);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Reject>} element
          */
         public Reject build() {

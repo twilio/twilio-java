@@ -47,12 +47,12 @@ public class ShortCode extends Resource {
         return new ShortCodeCreator(pathServiceSid, sid);
     }
 
-    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new ShortCodeFetcher(pathServiceSid, pathSid);
-    }
-
     public static ShortCodeDeleter deleter(final String pathServiceSid, final String pathSid){
         return new ShortCodeDeleter(pathServiceSid, pathSid);
+    }
+
+    public static ShortCodeFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new ShortCodeFetcher(pathServiceSid, pathSid);
     }
 
     public static ShortCodeReader reader(final String pathServiceSid){

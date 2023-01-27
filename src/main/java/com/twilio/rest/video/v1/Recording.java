@@ -46,19 +46,17 @@ import java.util.Map;
 public class Recording extends Resource {
     private static final long serialVersionUID = 34004868870464L;
 
+    public static RecordingDeleter deleter(final String pathSid){
+        return new RecordingDeleter(pathSid);
+    }
 
     public static RecordingFetcher fetcher(final String pathSid){
         return new RecordingFetcher(pathSid);
     }
 
-    public static RecordingDeleter deleter(final String pathSid){
-        return new RecordingDeleter(pathSid);
-    }
-
     public static RecordingReader reader(){
         return new RecordingReader();
     }
-
 
     /**
     * Converts a JSON String into a Recording object using the provided ObjectMapper.

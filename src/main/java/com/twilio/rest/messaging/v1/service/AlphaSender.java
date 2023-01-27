@@ -47,18 +47,17 @@ public class AlphaSender extends Resource {
         return new AlphaSenderCreator(pathServiceSid, alphaSender);
     }
 
-    public static AlphaSenderFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new AlphaSenderFetcher(pathServiceSid, pathSid);
-    }
-
     public static AlphaSenderDeleter deleter(final String pathServiceSid, final String pathSid){
         return new AlphaSenderDeleter(pathServiceSid, pathSid);
+    }
+
+    public static AlphaSenderFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new AlphaSenderFetcher(pathServiceSid, pathSid);
     }
 
     public static AlphaSenderReader reader(final String pathServiceSid){
         return new AlphaSenderReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a AlphaSender object using the provided ObjectMapper.

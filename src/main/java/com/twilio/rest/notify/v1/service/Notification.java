@@ -43,15 +43,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
-    private static final long serialVersionUID = 32812550337735L;
+    private static final long serialVersionUID = 129411229878484L;
 
     public static NotificationCreator creator(final String pathServiceSid){
         return new NotificationCreator(pathServiceSid);
     }
-
-
-
-
 
     /**
     * Converts a JSON String into a Notification object using the provided ObjectMapper.

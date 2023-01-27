@@ -40,16 +40,13 @@ import java.util.Objects;
 public class Day extends Resource {
     private static final long serialVersionUID = 277630118297206L;
 
-
     public static DayFetcher fetcher(final String pathResourceType, final String pathDay){
         return new DayFetcher(pathResourceType, pathDay);
     }
 
-
     public static DayReader reader(final String pathResourceType){
         return new DayReader(pathResourceType);
     }
-
 
     /**
     * Converts a JSON String into a Day object using the provided ObjectMapper.

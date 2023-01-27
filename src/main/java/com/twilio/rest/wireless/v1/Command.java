@@ -47,18 +47,17 @@ public class Command extends Resource {
         return new CommandCreator(command);
     }
 
-    public static CommandFetcher fetcher(final String pathSid){
-        return new CommandFetcher(pathSid);
-    }
-
     public static CommandDeleter deleter(final String pathSid){
         return new CommandDeleter(pathSid);
+    }
+
+    public static CommandFetcher fetcher(final String pathSid){
+        return new CommandFetcher(pathSid);
     }
 
     public static CommandReader reader(){
         return new CommandReader();
     }
-
 
     /**
     * Converts a JSON String into a Command object using the provided ObjectMapper.

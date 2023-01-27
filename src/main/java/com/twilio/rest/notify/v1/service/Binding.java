@@ -50,18 +50,17 @@ public class Binding extends Resource {
         return new BindingCreator(pathServiceSid, identity, bindingType, address);
     }
 
-    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new BindingFetcher(pathServiceSid, pathSid);
-    }
-
     public static BindingDeleter deleter(final String pathServiceSid, final String pathSid){
         return new BindingDeleter(pathServiceSid, pathSid);
+    }
+
+    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new BindingFetcher(pathServiceSid, pathSid);
     }
 
     public static BindingReader reader(final String pathServiceSid){
         return new BindingReader(pathServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a Binding object using the provided ObjectMapper.

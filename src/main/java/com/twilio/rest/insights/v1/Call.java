@@ -42,13 +42,9 @@ import java.util.Map;
 public class Call extends Resource {
     private static final long serialVersionUID = 241148031780577L;
 
-
     public static CallFetcher fetcher(final String pathSid){
         return new CallFetcher(pathSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Call object using the provided ObjectMapper.

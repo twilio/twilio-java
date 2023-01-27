@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AllTime extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 119534363835835L;
 
     public static AllTimeReader reader(){
         return new AllTimeReader();
@@ -57,7 +54,6 @@ public class AllTime extends Resource {
     public static AllTimeReader reader(final String pathAccountSid){
         return new AllTimeReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a AllTime object using the provided ObjectMapper.

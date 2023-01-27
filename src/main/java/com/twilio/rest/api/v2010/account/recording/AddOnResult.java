@@ -44,6 +44,12 @@ import java.util.Map;
 public class AddOnResult extends Resource {
     private static final long serialVersionUID = 121199532836736L;
 
+    public static AddOnResultDeleter deleter(final String pathReferenceSid, final String pathSid){
+        return new AddOnResultDeleter(pathReferenceSid, pathSid);
+    }
+    public static AddOnResultDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
+        return new AddOnResultDeleter(pathAccountSid, pathReferenceSid, pathSid);
+    }
 
     public static AddOnResultFetcher fetcher(final String pathReferenceSid, final String pathSid){
         return new AddOnResultFetcher(pathReferenceSid, pathSid);
@@ -52,20 +58,12 @@ public class AddOnResult extends Resource {
         return new AddOnResultFetcher(pathAccountSid, pathReferenceSid, pathSid);
     }
 
-    public static AddOnResultDeleter deleter(final String pathReferenceSid, final String pathSid){
-        return new AddOnResultDeleter(pathReferenceSid, pathSid);
-    }
-    public static AddOnResultDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
-        return new AddOnResultDeleter(pathAccountSid, pathReferenceSid, pathSid);
-    }
-
     public static AddOnResultReader reader(final String pathReferenceSid){
         return new AddOnResultReader(pathReferenceSid);
     }
     public static AddOnResultReader reader(final String pathAccountSid, final String pathReferenceSid){
         return new AddOnResultReader(pathAccountSid, pathReferenceSid);
     }
-
 
     /**
     * Converts a JSON String into a AddOnResult object using the provided ObjectMapper.

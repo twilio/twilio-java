@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Yesterday extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 252061486411277L;
 
     public static YesterdayReader reader(){
         return new YesterdayReader();
@@ -57,7 +54,6 @@ public class Yesterday extends Resource {
     public static YesterdayReader reader(final String pathAccountSid){
         return new YesterdayReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Yesterday object using the provided ObjectMapper.

@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Record extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 267972709897131L;
 
     public static RecordReader reader(){
         return new RecordReader();
@@ -57,7 +54,6 @@ public class Record extends Resource {
     public static RecordReader reader(final String pathAccountSid){
         return new RecordReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Record object using the provided ObjectMapper.

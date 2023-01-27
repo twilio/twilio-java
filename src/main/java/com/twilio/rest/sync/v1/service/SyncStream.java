@@ -48,12 +48,12 @@ public class SyncStream extends Resource {
         return new SyncStreamCreator(pathServiceSid);
     }
 
-    public static SyncStreamFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new SyncStreamFetcher(pathServiceSid, pathSid);
-    }
-
     public static SyncStreamDeleter deleter(final String pathServiceSid, final String pathSid){
         return new SyncStreamDeleter(pathServiceSid, pathSid);
+    }
+
+    public static SyncStreamFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SyncStreamFetcher(pathServiceSid, pathSid);
     }
 
     public static SyncStreamReader reader(final String pathServiceSid){

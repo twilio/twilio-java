@@ -42,13 +42,9 @@ import java.util.Map;
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 141589309941045L;
 
-
     public static PhoneNumberFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber){
         return new PhoneNumberFetcher(pathPhoneNumber);
     }
-
-
-
 
     /**
     * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.

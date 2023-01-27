@@ -43,14 +43,12 @@ import java.util.Objects;
 public class ShortCode extends Resource {
     private static final long serialVersionUID = 169753160210519L;
 
-
     public static ShortCodeFetcher fetcher(final String pathSid){
         return new ShortCodeFetcher(pathSid);
     }
     public static ShortCodeFetcher fetcher(final String pathAccountSid, final String pathSid){
         return new ShortCodeFetcher(pathAccountSid, pathSid);
     }
-
 
     public static ShortCodeReader reader(){
         return new ShortCodeReader();

@@ -49,12 +49,12 @@ public class Webhook extends Resource {
         return new WebhookCreator(pathChatServiceSid, pathConversationSid, target);
     }
 
-    public static WebhookFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
-        return new WebhookFetcher(pathChatServiceSid, pathConversationSid, pathSid);
-    }
-
     public static WebhookDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
         return new WebhookDeleter(pathChatServiceSid, pathConversationSid, pathSid);
+    }
+
+    public static WebhookFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new WebhookFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     public static WebhookReader reader(final String pathChatServiceSid, final String pathConversationSid){

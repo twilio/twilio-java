@@ -47,12 +47,9 @@ public class BundleCopy extends Resource {
         return new BundleCopyCreator(pathBundleSid);
     }
 
-
-
     public static BundleCopyReader reader(final String pathBundleSid){
         return new BundleCopyReader(pathBundleSid);
     }
-
 
     /**
     * Converts a JSON String into a BundleCopy object using the provided ObjectMapper.

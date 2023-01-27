@@ -47,6 +47,7 @@ public class ApplicationCreator extends Creator<Application>{
     private URI smsStatusCallback;
     private URI messageStatusCallback;
     private String friendlyName;
+    private Boolean publicApplicationConnectEnabled;
 
     public ApplicationCreator() {
     }
@@ -142,6 +143,10 @@ public class ApplicationCreator extends Creator<Application>{
         this.friendlyName = friendlyName;
         return this;
     }
+    public ApplicationCreator setPublicApplicationConnectEnabled(final Boolean publicApplicationConnectEnabled){
+        this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
+        return this;
+    }
 
     @Override
     public Application create(final TwilioRestClient client){
@@ -228,6 +233,10 @@ public class ApplicationCreator extends Creator<Application>{
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
+        }
+        if (publicApplicationConnectEnabled != null) {
+            request.addPostParam("PublicApplicationConnectEnabled", publicApplicationConnectEnabled.toString());
     
         }
     }

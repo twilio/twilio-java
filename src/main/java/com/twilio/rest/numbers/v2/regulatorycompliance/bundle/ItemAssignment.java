@@ -46,18 +46,17 @@ public class ItemAssignment extends Resource {
         return new ItemAssignmentCreator(pathBundleSid, objectSid);
     }
 
-    public static ItemAssignmentFetcher fetcher(final String pathBundleSid, final String pathSid){
-        return new ItemAssignmentFetcher(pathBundleSid, pathSid);
-    }
-
     public static ItemAssignmentDeleter deleter(final String pathBundleSid, final String pathSid){
         return new ItemAssignmentDeleter(pathBundleSid, pathSid);
+    }
+
+    public static ItemAssignmentFetcher fetcher(final String pathBundleSid, final String pathSid){
+        return new ItemAssignmentFetcher(pathBundleSid, pathSid);
     }
 
     public static ItemAssignmentReader reader(final String pathBundleSid){
         return new ItemAssignmentReader(pathBundleSid);
     }
-
 
     /**
     * Converts a JSON String into a ItemAssignment object using the provided ObjectMapper.

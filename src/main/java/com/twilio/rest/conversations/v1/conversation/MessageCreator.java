@@ -37,6 +37,8 @@ public class MessageCreator extends Creator<Message>{
     private ZonedDateTime dateUpdated;
     private String attributes;
     private String mediaSid;
+    private String contentSid;
+    private String contentVariables;
 
     public MessageCreator(final String pathConversationSid) {
         this.pathConversationSid = pathConversationSid;
@@ -68,6 +70,14 @@ public class MessageCreator extends Creator<Message>{
     }
     public MessageCreator setMediaSid(final String mediaSid){
         this.mediaSid = mediaSid;
+        return this;
+    }
+    public MessageCreator setContentSid(final String contentSid){
+        this.contentSid = contentSid;
+        return this;
+    }
+    public MessageCreator setContentVariables(final String contentVariables){
+        this.contentVariables = contentVariables;
         return this;
     }
 
@@ -120,6 +130,14 @@ public class MessageCreator extends Creator<Message>{
         }
         if (mediaSid != null) {
             request.addPostParam("MediaSid", mediaSid);
+    
+        }
+        if (contentSid != null) {
+            request.addPostParam("ContentSid", contentSid);
+    
+        }
+        if (contentVariables != null) {
+            request.addPostParam("ContentVariables", contentVariables);
     
         }
     }

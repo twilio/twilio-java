@@ -42,11 +42,9 @@ import java.util.Objects;
 public class WorkerChannel extends Resource {
     private static final long serialVersionUID = 38376318052081L;
 
-
     public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid){
         return new WorkerChannelFetcher(pathWorkspaceSid, pathWorkerSid, pathSid);
     }
-
 
     public static WorkerChannelReader reader(final String pathWorkspaceSid, final String pathWorkerSid){
         return new WorkerChannelReader(pathWorkspaceSid, pathWorkerSid);

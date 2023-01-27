@@ -42,13 +42,9 @@ import java.util.Map;
 public class TaskQueueStatistics extends Resource {
     private static final long serialVersionUID = 273955433542749L;
 
-
     public static TaskQueueStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
         return new TaskQueueStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a TaskQueueStatistics object using the provided ObjectMapper.

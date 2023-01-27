@@ -41,16 +41,12 @@ import com.twilio.type.PhoneNumberCapabilities;
 public class SharedCost extends Resource {
     private static final long serialVersionUID = 211749226408502L;
 
-
-
-
     public static SharedCostReader reader(final String pathCountryCode){
         return new SharedCostReader(pathCountryCode);
     }
     public static SharedCostReader reader(final String pathAccountSid, final String pathCountryCode){
         return new SharedCostReader(pathAccountSid, pathCountryCode);
     }
-
 
     /**
     * Converts a JSON String into a SharedCost object using the provided ObjectMapper.

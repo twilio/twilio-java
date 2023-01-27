@@ -46,18 +46,17 @@ public class Field extends Resource {
         return new FieldCreator(pathAssistantSid, pathTaskSid, fieldType, uniqueName);
     }
 
-    public static FieldFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
-        return new FieldFetcher(pathAssistantSid, pathTaskSid, pathSid);
-    }
-
     public static FieldDeleter deleter(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
         return new FieldDeleter(pathAssistantSid, pathTaskSid, pathSid);
+    }
+
+    public static FieldFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
+        return new FieldFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     public static FieldReader reader(final String pathAssistantSid, final String pathTaskSid){
         return new FieldReader(pathAssistantSid, pathTaskSid);
     }
-
 
     /**
     * Converts a JSON String into a Field object using the provided ObjectMapper.

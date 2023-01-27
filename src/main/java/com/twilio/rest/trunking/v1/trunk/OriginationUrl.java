@@ -46,12 +46,12 @@ public class OriginationUrl extends Resource {
         return new OriginationUrlCreator(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl);
     }
 
-    public static OriginationUrlFetcher fetcher(final String pathTrunkSid, final String pathSid){
-        return new OriginationUrlFetcher(pathTrunkSid, pathSid);
-    }
-
     public static OriginationUrlDeleter deleter(final String pathTrunkSid, final String pathSid){
         return new OriginationUrlDeleter(pathTrunkSid, pathSid);
+    }
+
+    public static OriginationUrlFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new OriginationUrlFetcher(pathTrunkSid, pathSid);
     }
 
     public static OriginationUrlReader reader(final String pathTrunkSid){

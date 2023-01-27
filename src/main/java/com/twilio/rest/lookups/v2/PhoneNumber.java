@@ -42,15 +42,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 248586837002659L;
-
+    private static final long serialVersionUID = 185016962299766L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
         return new PhoneNumberFetcher(pathPhoneNumber);
     }
-
-
-
 
     /**
     * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.

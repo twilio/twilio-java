@@ -43,16 +43,13 @@ import java.util.Map;
 public class Network extends Resource {
     private static final long serialVersionUID = 225839080791216L;
 
-
     public static NetworkFetcher fetcher(final String pathSid){
         return new NetworkFetcher(pathSid);
     }
 
-
     public static NetworkReader reader(){
         return new NetworkReader();
     }
-
 
     /**
     * Converts a JSON String into a Network object using the provided ObjectMapper.

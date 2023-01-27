@@ -43,16 +43,13 @@ import java.util.Objects;
 public class AssetVersion extends Resource {
     private static final long serialVersionUID = 215359401104297L;
 
-
     public static AssetVersionFetcher fetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid){
         return new AssetVersionFetcher(pathServiceSid, pathAssetSid, pathSid);
     }
 
-
     public static AssetVersionReader reader(final String pathServiceSid, final String pathAssetSid){
         return new AssetVersionReader(pathServiceSid, pathAssetSid);
     }
-
 
     /**
     * Converts a JSON String into a AssetVersion object using the provided ObjectMapper.

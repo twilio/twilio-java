@@ -43,19 +43,18 @@ import java.util.Objects;
 public class ConnectApp extends Resource {
     private static final long serialVersionUID = 203118827948403L;
 
+    public static ConnectAppDeleter deleter(final String pathSid){
+        return new ConnectAppDeleter(pathSid);
+    }
+    public static ConnectAppDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new ConnectAppDeleter(pathAccountSid, pathSid);
+    }
 
     public static ConnectAppFetcher fetcher(final String pathSid){
         return new ConnectAppFetcher(pathSid);
     }
     public static ConnectAppFetcher fetcher(final String pathAccountSid, final String pathSid){
         return new ConnectAppFetcher(pathAccountSid, pathSid);
-    }
-
-    public static ConnectAppDeleter deleter(final String pathSid){
-        return new ConnectAppDeleter(pathSid);
-    }
-    public static ConnectAppDeleter deleter(final String pathAccountSid, final String pathSid){
-        return new ConnectAppDeleter(pathAccountSid, pathSid);
     }
 
     public static ConnectAppReader reader(){

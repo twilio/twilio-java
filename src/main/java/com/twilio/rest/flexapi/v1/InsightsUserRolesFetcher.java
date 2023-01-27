@@ -27,20 +27,20 @@ import com.twilio.rest.Domains;
 
 
 
-public class UserRolesFetcher extends Fetcher<UserRoles> {
+public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
     private String token;
 
-    public UserRolesFetcher(){
+    public InsightsUserRolesFetcher(){
     }
 
-    public UserRolesFetcher setToken(final String token){
+    public InsightsUserRolesFetcher setToken(final String token){
         this.token = token;
         return this;
     }
 
     @Override
-    public UserRoles fetch(final TwilioRestClient client) {
-        String path = "/v1/Accounts/UserRoles";
+    public InsightsUserRoles fetch(final TwilioRestClient client) {
+        String path = "/v1/Insights/UserRoles";
 
 
         Request request = new Request(
@@ -52,7 +52,7 @@ public class UserRolesFetcher extends Fetcher<UserRoles> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("UserRoles fetch failed: Unable to connect to server");
+        throw new ApiConnectionException("InsightsUserRoles fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -61,7 +61,7 @@ public class UserRolesFetcher extends Fetcher<UserRoles> {
             throw new ApiException(restException);
         }
 
-        return UserRoles.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsUserRoles.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addHeaderParams(final Request request) {
         if (token != null) {

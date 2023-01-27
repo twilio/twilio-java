@@ -41,16 +41,12 @@ import java.util.Map;
 public class Event extends Resource {
     private static final long serialVersionUID = 87960678380335L;
 
-
-
-
     public static EventReader reader(final String pathCallSid){
         return new EventReader(pathCallSid);
     }
     public static EventReader reader(final String pathAccountSid, final String pathCallSid){
         return new EventReader(pathAccountSid, pathCallSid);
     }
-
 
     /**
     * Converts a JSON String into a Event object using the provided ObjectMapper.

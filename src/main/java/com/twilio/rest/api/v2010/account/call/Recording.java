@@ -55,18 +55,18 @@ public class Recording extends Resource {
         return new RecordingCreator(pathAccountSid, pathCallSid);
     }
 
-    public static RecordingFetcher fetcher(final String pathCallSid, final String pathSid){
-        return new RecordingFetcher(pathCallSid, pathSid);
-    }
-    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathCallSid, final String pathSid){
-        return new RecordingFetcher(pathAccountSid, pathCallSid, pathSid);
-    }
-
     public static RecordingDeleter deleter(final String pathCallSid, final String pathSid){
         return new RecordingDeleter(pathCallSid, pathSid);
     }
     public static RecordingDeleter deleter(final String pathAccountSid, final String pathCallSid, final String pathSid){
         return new RecordingDeleter(pathAccountSid, pathCallSid, pathSid);
+    }
+
+    public static RecordingFetcher fetcher(final String pathCallSid, final String pathSid){
+        return new RecordingFetcher(pathCallSid, pathSid);
+    }
+    public static RecordingFetcher fetcher(final String pathAccountSid, final String pathCallSid, final String pathSid){
+        return new RecordingFetcher(pathAccountSid, pathCallSid, pathSid);
     }
 
     public static RecordingReader reader(final String pathCallSid){

@@ -42,12 +42,9 @@ import java.util.Map;
 public class Configuration extends Resource {
     private static final long serialVersionUID = 31286932068884L;
 
-
     public static ConfigurationFetcher fetcher(){
         return new ConfigurationFetcher();
     }
-
-
 
     public static ConfigurationUpdater updater(){
         return new ConfigurationUpdater();

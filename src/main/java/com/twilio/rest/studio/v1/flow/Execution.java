@@ -49,12 +49,12 @@ public class Execution extends Resource {
         return new ExecutionCreator(pathFlowSid, to, from);
     }
 
-    public static ExecutionFetcher fetcher(final String pathFlowSid, final String pathSid){
-        return new ExecutionFetcher(pathFlowSid, pathSid);
-    }
-
     public static ExecutionDeleter deleter(final String pathFlowSid, final String pathSid){
         return new ExecutionDeleter(pathFlowSid, pathSid);
+    }
+
+    public static ExecutionFetcher fetcher(final String pathFlowSid, final String pathSid){
+        return new ExecutionFetcher(pathFlowSid, pathSid);
     }
 
     public static ExecutionReader reader(final String pathFlowSid){

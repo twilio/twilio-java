@@ -114,5 +114,9 @@ public class CustomerProfilesEvaluationsReader extends Reader<CustomerProfilesEv
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

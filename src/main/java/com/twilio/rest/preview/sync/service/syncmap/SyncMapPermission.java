@@ -40,13 +40,12 @@ import java.util.Objects;
 public class SyncMapPermission extends Resource {
     private static final long serialVersionUID = 55149075645678L;
 
+    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity){
+        return new SyncMapPermissionDeleter(pathServiceSid, pathMapSid, pathIdentity);
+    }
 
     public static SyncMapPermissionFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathIdentity){
         return new SyncMapPermissionFetcher(pathServiceSid, pathMapSid, pathIdentity);
-    }
-
-    public static SyncMapPermissionDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathIdentity){
-        return new SyncMapPermissionDeleter(pathServiceSid, pathMapSid, pathIdentity);
     }
 
     public static SyncMapPermissionReader reader(final String pathServiceSid, final String pathMapSid){

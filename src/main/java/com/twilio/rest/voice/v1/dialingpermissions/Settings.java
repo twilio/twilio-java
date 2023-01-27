@@ -40,12 +40,9 @@ import java.util.Objects;
 public class Settings extends Resource {
     private static final long serialVersionUID = 200946859336446L;
 
-
     public static SettingsFetcher fetcher(){
         return new SettingsFetcher();
     }
-
-
 
     public static SettingsUpdater updater(){
         return new SettingsUpdater();

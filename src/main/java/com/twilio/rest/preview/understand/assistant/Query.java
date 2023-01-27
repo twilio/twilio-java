@@ -48,12 +48,12 @@ public class Query extends Resource {
         return new QueryCreator(pathAssistantSid, language, query);
     }
 
-    public static QueryFetcher fetcher(final String pathAssistantSid, final String pathSid){
-        return new QueryFetcher(pathAssistantSid, pathSid);
-    }
-
     public static QueryDeleter deleter(final String pathAssistantSid, final String pathSid){
         return new QueryDeleter(pathAssistantSid, pathSid);
+    }
+
+    public static QueryFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new QueryFetcher(pathAssistantSid, pathSid);
     }
 
     public static QueryReader reader(final String pathAssistantSid){

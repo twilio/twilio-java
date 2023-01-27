@@ -44,15 +44,13 @@ public class Safelist extends Resource {
         return new SafelistCreator(phoneNumber);
     }
 
-    public static SafelistFetcher fetcher(final String pathPhoneNumber){
-        return new SafelistFetcher(pathPhoneNumber);
-    }
-
     public static SafelistDeleter deleter(final String pathPhoneNumber){
         return new SafelistDeleter(pathPhoneNumber);
     }
 
-
+    public static SafelistFetcher fetcher(final String pathPhoneNumber){
+        return new SafelistFetcher(pathPhoneNumber);
+    }
 
     /**
     * Converts a JSON String into a Safelist object using the provided ObjectMapper.

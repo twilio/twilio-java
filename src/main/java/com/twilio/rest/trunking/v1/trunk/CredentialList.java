@@ -46,18 +46,17 @@ public class CredentialList extends Resource {
         return new CredentialListCreator(pathTrunkSid, credentialListSid);
     }
 
-    public static CredentialListFetcher fetcher(final String pathTrunkSid, final String pathSid){
-        return new CredentialListFetcher(pathTrunkSid, pathSid);
-    }
-
     public static CredentialListDeleter deleter(final String pathTrunkSid, final String pathSid){
         return new CredentialListDeleter(pathTrunkSid, pathSid);
+    }
+
+    public static CredentialListFetcher fetcher(final String pathTrunkSid, final String pathSid){
+        return new CredentialListFetcher(pathTrunkSid, pathSid);
     }
 
     public static CredentialListReader reader(final String pathTrunkSid){
         return new CredentialListReader(pathTrunkSid);
     }
-
 
     /**
     * Converts a JSON String into a CredentialList object using the provided ObjectMapper.

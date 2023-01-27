@@ -51,18 +51,18 @@ public class Trigger extends Resource {
         return new TriggerCreator(pathAccountSid, callbackUrl, triggerValue, usageCategory);
     }
 
-    public static TriggerFetcher fetcher(final String pathSid){
-        return new TriggerFetcher(pathSid);
-    }
-    public static TriggerFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new TriggerFetcher(pathAccountSid, pathSid);
-    }
-
     public static TriggerDeleter deleter(final String pathSid){
         return new TriggerDeleter(pathSid);
     }
     public static TriggerDeleter deleter(final String pathAccountSid, final String pathSid){
         return new TriggerDeleter(pathAccountSid, pathSid);
+    }
+
+    public static TriggerFetcher fetcher(final String pathSid){
+        return new TriggerFetcher(pathSid);
+    }
+    public static TriggerFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new TriggerFetcher(pathAccountSid, pathSid);
     }
 
     public static TriggerReader reader(){

@@ -45,10 +45,6 @@ public class StreamMessage extends Resource {
         return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a StreamMessage object using the provided ObjectMapper.
     *

@@ -44,15 +44,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummary extends Resource {
-    private static final long serialVersionUID = 68390567203596L;
-
+    private static final long serialVersionUID = 200007638188409L;
 
     public static CallSummaryFetcher fetcher(final String pathCallSid){
         return new CallSummaryFetcher(pathCallSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a CallSummary object using the provided ObjectMapper.

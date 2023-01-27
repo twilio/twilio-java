@@ -55,7 +55,6 @@ public class Room extends Resource {
         return new RoomFetcher(pathSid);
     }
 
-
     public static RoomReader reader(){
         return new RoomReader();
     }

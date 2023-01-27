@@ -48,12 +48,12 @@ public class Role extends Resource {
         return new RoleCreator(pathChatServiceSid, friendlyName, type, permission);
     }
 
-    public static RoleFetcher fetcher(final String pathChatServiceSid, final String pathSid){
-        return new RoleFetcher(pathChatServiceSid, pathSid);
-    }
-
     public static RoleDeleter deleter(final String pathChatServiceSid, final String pathSid){
         return new RoleDeleter(pathChatServiceSid, pathSid);
+    }
+
+    public static RoleFetcher fetcher(final String pathChatServiceSid, final String pathSid){
+        return new RoleFetcher(pathChatServiceSid, pathSid);
     }
 
     public static RoleReader reader(final String pathChatServiceSid){

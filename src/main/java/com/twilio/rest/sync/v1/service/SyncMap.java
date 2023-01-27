@@ -48,12 +48,12 @@ public class SyncMap extends Resource {
         return new SyncMapCreator(pathServiceSid);
     }
 
-    public static SyncMapFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new SyncMapFetcher(pathServiceSid, pathSid);
-    }
-
     public static SyncMapDeleter deleter(final String pathServiceSid, final String pathSid){
         return new SyncMapDeleter(pathServiceSid, pathSid);
+    }
+
+    public static SyncMapFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SyncMapFetcher(pathServiceSid, pathSid);
     }
 
     public static SyncMapReader reader(final String pathServiceSid){

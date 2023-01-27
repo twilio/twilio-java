@@ -40,13 +40,12 @@ import java.util.Objects;
 public class DocumentPermission extends Resource {
     private static final long serialVersionUID = 90173038651529L;
 
+    public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
+        return new DocumentPermissionDeleter(pathServiceSid, pathDocumentSid, pathIdentity);
+    }
 
     public static DocumentPermissionFetcher fetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
         return new DocumentPermissionFetcher(pathServiceSid, pathDocumentSid, pathIdentity);
-    }
-
-    public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
-        return new DocumentPermissionDeleter(pathServiceSid, pathDocumentSid, pathIdentity);
     }
 
     public static DocumentPermissionReader reader(final String pathServiceSid, final String pathDocumentSid){

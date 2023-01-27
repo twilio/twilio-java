@@ -51,11 +51,9 @@ public class BrandVetting extends Resource {
         return new BrandVettingFetcher(pathBrandSid, pathBrandVettingSid);
     }
 
-
     public static BrandVettingReader reader(final String pathBrandSid){
         return new BrandVettingReader(pathBrandSid);
     }
-
 
     /**
     * Converts a JSON String into a BrandVetting object using the provided ObjectMapper.

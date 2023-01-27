@@ -40,12 +40,9 @@ import java.util.Objects;
 public class Recording extends Resource {
     private static final long serialVersionUID = 230784342010429L;
 
-
     public static RecordingFetcher fetcher(final String pathTrunkSid){
         return new RecordingFetcher(pathTrunkSid);
     }
-
-
 
     public static RecordingUpdater updater(final String pathTrunkSid){
         return new RecordingUpdater(pathTrunkSid);

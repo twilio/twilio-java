@@ -56,6 +56,23 @@ public class RejectTest {
     }
 
     @Test
+    public void testElementWithChildren() {
+        Reject.Builder builder = new Reject.Builder();
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        Reject elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Reject>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Reject>",
+            elem.toXml()
+        );
+    }
+
+    @Test
     public void testElementWithTextNode() {
         Reject.Builder builder = new Reject.Builder();
 
@@ -115,11 +132,62 @@ public class RejectTest {
     }
 
     @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Reject.Builder builder = new Reject.Builder();
+        Reject elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Reject>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</Reject>",
+            elem.toXml()
+        );
+    }
+
+    @Test
     public void testXmlAttributesDeserialization() {
         final Reject elem = new Reject.Builder().reason(Reject.Reason.REJECTED).build();
 
         Assert.assertEquals(
             Reject.Builder.fromXml("<Reject reason=\"rejected\"/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Reject.Builder builder = new Reject.Builder();
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final Reject elem = builder.build();
+
+        Assert.assertEquals(
+            Reject.Builder.fromXml("<Reject>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Reject>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Reject.Builder builder = new Reject.Builder();
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final Reject elem = builder.build();
+
+        Assert.assertEquals(
+            Reject.Builder.fromXml("<Reject>" +
+                "<Parameter/>" +
+            "</Reject>").build().toXml(),
             elem.toXml()
         );
     }

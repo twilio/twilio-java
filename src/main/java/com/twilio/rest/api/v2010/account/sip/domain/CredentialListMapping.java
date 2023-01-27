@@ -48,18 +48,18 @@ public class CredentialListMapping extends Resource {
         return new CredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
-    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
-        return new CredentialListMappingFetcher(pathDomainSid, pathSid);
-    }
-    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
-        return new CredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
-    }
-
     public static CredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
         return new CredentialListMappingDeleter(pathDomainSid, pathSid);
     }
     public static CredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
         return new CredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static CredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new CredentialListMappingFetcher(pathDomainSid, pathSid);
+    }
+    public static CredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new CredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     public static CredentialListMappingReader reader(final String pathDomainSid){
@@ -68,7 +68,6 @@ public class CredentialListMapping extends Resource {
     public static CredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
         return new CredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
-
 
     /**
     * Converts a JSON String into a CredentialListMapping object using the provided ObjectMapper.

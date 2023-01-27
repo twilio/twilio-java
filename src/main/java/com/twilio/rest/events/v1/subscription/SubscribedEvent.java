@@ -44,12 +44,12 @@ public class SubscribedEvent extends Resource {
         return new SubscribedEventCreator(pathSubscriptionSid, type);
     }
 
-    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid, final String pathType){
-        return new SubscribedEventFetcher(pathSubscriptionSid, pathType);
-    }
-
     public static SubscribedEventDeleter deleter(final String pathSubscriptionSid, final String pathType){
         return new SubscribedEventDeleter(pathSubscriptionSid, pathType);
+    }
+
+    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid, final String pathType){
+        return new SubscribedEventFetcher(pathSubscriptionSid, pathType);
     }
 
     public static SubscribedEventReader reader(final String pathSubscriptionSid){

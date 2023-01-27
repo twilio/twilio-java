@@ -25,7 +25,6 @@ import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 
 import com.twilio.exception.ApiException;
-import com.twilio.http.HttpMethod;
 
 import lombok.ToString;
 
@@ -41,15 +40,14 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserDefinedMessageSubscription extends Resource {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 182880491726748L;
 
-    public static UserDefinedMessageSubscriptionCreator creator(final String pathCallSid, final URI callback, final HttpMethod method){
-        return new UserDefinedMessageSubscriptionCreator(pathCallSid, callback, method);
+    public static UserDefinedMessageSubscriptionCreator creator(final String pathCallSid, final URI callback){
+        return new UserDefinedMessageSubscriptionCreator(pathCallSid, callback);
     }
-    public static UserDefinedMessageSubscriptionCreator creator(final String pathAccountSid, final String pathCallSid, final URI callback, final HttpMethod method){
-        return new UserDefinedMessageSubscriptionCreator(pathAccountSid, pathCallSid, callback, method);
+    public static UserDefinedMessageSubscriptionCreator creator(final String pathAccountSid, final String pathCallSid, final URI callback){
+        return new UserDefinedMessageSubscriptionCreator(pathAccountSid, pathCallSid, callback);
     }
-
 
     public static UserDefinedMessageSubscriptionDeleter deleter(final String pathCallSid, final String pathSid){
         return new UserDefinedMessageSubscriptionDeleter(pathCallSid, pathSid);
@@ -57,8 +55,6 @@ public class UserDefinedMessageSubscription extends Resource {
     public static UserDefinedMessageSubscriptionDeleter deleter(final String pathAccountSid, final String pathCallSid, final String pathSid){
         return new UserDefinedMessageSubscriptionDeleter(pathAccountSid, pathCallSid, pathSid);
     }
-
-
 
     /**
     * Converts a JSON String into a UserDefinedMessageSubscription object using the provided ObjectMapper.

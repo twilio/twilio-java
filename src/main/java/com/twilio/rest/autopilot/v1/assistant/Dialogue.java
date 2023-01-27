@@ -42,13 +42,9 @@ import java.util.Map;
 public class Dialogue extends Resource {
     private static final long serialVersionUID = 270949613735802L;
 
-
     public static DialogueFetcher fetcher(final String pathAssistantSid, final String pathSid){
         return new DialogueFetcher(pathAssistantSid, pathSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Dialogue object using the provided ObjectMapper.

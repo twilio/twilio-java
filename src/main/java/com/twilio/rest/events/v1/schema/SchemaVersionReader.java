@@ -114,5 +114,9 @@ public class SchemaVersionReader extends Reader<SchemaVersion> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

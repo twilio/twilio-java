@@ -45,13 +45,12 @@ import java.util.Map;
 public class Factor extends Resource {
     private static final long serialVersionUID = 254306005270593L;
 
+    public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid){
+        return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
+    }
 
     public static FactorFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new FactorFetcher(pathServiceSid, pathIdentity, pathSid);
-    }
-
-    public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid){
-        return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
     }
 
     public static FactorReader reader(final String pathServiceSid, final String pathIdentity){

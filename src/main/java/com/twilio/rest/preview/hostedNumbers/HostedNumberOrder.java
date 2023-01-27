@@ -49,12 +49,12 @@ public class HostedNumberOrder extends Resource {
         return new HostedNumberOrderCreator(phoneNumber, smsCapability);
     }
 
-    public static HostedNumberOrderFetcher fetcher(final String pathSid){
-        return new HostedNumberOrderFetcher(pathSid);
-    }
-
     public static HostedNumberOrderDeleter deleter(final String pathSid){
         return new HostedNumberOrderDeleter(pathSid);
+    }
+
+    public static HostedNumberOrderFetcher fetcher(final String pathSid){
+        return new HostedNumberOrderFetcher(pathSid);
     }
 
     public static HostedNumberOrderReader reader(){

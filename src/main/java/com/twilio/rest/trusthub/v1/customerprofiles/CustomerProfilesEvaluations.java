@@ -54,11 +54,9 @@ public class CustomerProfilesEvaluations extends Resource {
         return new CustomerProfilesEvaluationsFetcher(pathCustomerProfileSid, pathSid);
     }
 
-
     public static CustomerProfilesEvaluationsReader reader(final String pathCustomerProfileSid){
         return new CustomerProfilesEvaluationsReader(pathCustomerProfileSid);
     }
-
 
     /**
     * Converts a JSON String into a CustomerProfilesEvaluations object using the provided ObjectMapper.

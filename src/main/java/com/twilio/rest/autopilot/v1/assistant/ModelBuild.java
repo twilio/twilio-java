@@ -47,12 +47,12 @@ public class ModelBuild extends Resource {
         return new ModelBuildCreator(pathAssistantSid);
     }
 
-    public static ModelBuildFetcher fetcher(final String pathAssistantSid, final String pathSid){
-        return new ModelBuildFetcher(pathAssistantSid, pathSid);
-    }
-
     public static ModelBuildDeleter deleter(final String pathAssistantSid, final String pathSid){
         return new ModelBuildDeleter(pathAssistantSid, pathSid);
+    }
+
+    public static ModelBuildFetcher fetcher(final String pathAssistantSid, final String pathSid){
+        return new ModelBuildFetcher(pathAssistantSid, pathSid);
     }
 
     public static ModelBuildReader reader(final String pathAssistantSid){

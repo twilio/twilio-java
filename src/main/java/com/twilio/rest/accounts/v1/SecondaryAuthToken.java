@@ -40,18 +40,15 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SecondaryAuthToken extends Resource {
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 191219471550314L;
 
     public static SecondaryAuthTokenCreator creator(){
         return new SecondaryAuthTokenCreator();
     }
 
-
     public static SecondaryAuthTokenDeleter deleter(){
         return new SecondaryAuthTokenDeleter();
     }
-
-
 
     /**
     * Converts a JSON String into a SecondaryAuthToken object using the provided ObjectMapper.

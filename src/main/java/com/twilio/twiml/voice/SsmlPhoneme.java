@@ -24,7 +24,11 @@ import java.util.Map;
 public class SsmlPhoneme extends TwiML {
     public enum Alphabet {
         IPA("ipa"),
-        X_SAMPA("x-sampa");
+        X_SAMPA("x-sampa"),
+        X_AMAZON_JYUTPING("x-amazon-jyutping"),
+        X_AMAZON_PINYIN("x-amazon-pinyin"),
+        X_AMAZON_PRON_KANA("x-amazon-pron-kana"),
+        X_AMAZON_YOMIGANA("x-amazon-yomigana");
 
         private final String value;
 

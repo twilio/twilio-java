@@ -42,13 +42,9 @@ import java.util.Map;
 public class Usage extends Resource {
     private static final long serialVersionUID = 23834274390782L;
 
-
     public static UsageFetcher fetcher(final String pathSimSid){
         return new UsageFetcher(pathSimSid);
     }
-
-
-
 
     /**
     * Converts a JSON String into a Usage object using the provided ObjectMapper.

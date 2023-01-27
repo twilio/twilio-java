@@ -42,10 +42,6 @@ import java.util.Objects;
 public class RestoreAssistant extends Resource {
     private static final long serialVersionUID = 63917994227032L;
 
-
-
-
-
     public static RestoreAssistantUpdater updater(final String assistant){
         return new RestoreAssistantUpdater(assistant);
     }

@@ -273,5 +273,9 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

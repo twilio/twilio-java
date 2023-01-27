@@ -42,16 +42,13 @@ import java.util.Map;
 public class Job extends Resource {
     private static final long serialVersionUID = 103628862500013L;
 
-
-    public static JobFetcher fetcher(final String pathJobSid){
-        return new JobFetcher(pathJobSid);
-    }
-
     public static JobDeleter deleter(final String pathJobSid){
         return new JobDeleter(pathJobSid);
     }
 
-
+    public static JobFetcher fetcher(final String pathJobSid){
+        return new JobFetcher(pathJobSid);
+    }
 
     /**
     * Converts a JSON String into a Job object using the provided ObjectMapper.

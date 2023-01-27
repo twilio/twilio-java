@@ -54,8 +54,6 @@ public class Verification extends Resource {
         return new VerificationFetcher(pathServiceSid, pathSid);
     }
 
-
-
     public static VerificationUpdater updater(final String pathServiceSid, final String pathSid, final Verification.Status status){
         return new VerificationUpdater(pathServiceSid, pathSid, status);
     }

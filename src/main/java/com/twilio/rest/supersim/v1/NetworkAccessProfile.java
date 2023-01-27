@@ -52,7 +52,6 @@ public class NetworkAccessProfile extends Resource {
         return new NetworkAccessProfileFetcher(pathSid);
     }
 
-
     public static NetworkAccessProfileReader reader(){
         return new NetworkAccessProfileReader();
     }

@@ -45,6 +45,23 @@ public class HangupTest {
     }
 
     @Test
+    public void testElementWithChildren() {
+        Hangup.Builder builder = new Hangup.Builder();
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        Hangup elem = builder.build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Hangup>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Hangup>",
+            elem.toXml()
+        );
+    }
+
+    @Test
     public void testElementWithTextNode() {
         Hangup.Builder builder = new Hangup.Builder();
 
@@ -104,11 +121,62 @@ public class HangupTest {
     }
 
     @Test
+    public void testElementWithGenericNodeAttributes() {
+        GenericNode.Builder genericBuilder = new GenericNode.Builder("genericTag");
+        GenericNode node = genericBuilder.option("key", "value").addText("someText").build();
+
+        Hangup.Builder builder = new Hangup.Builder();
+        Hangup elem = builder.addChild(node).build();
+
+        Assert.assertEquals(
+            "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
+            "<Hangup>" +
+            "<genericTag key=\"value\">" +
+            "someText" +
+            "</genericTag>" +
+            "</Hangup>",
+            elem.toXml()
+        );
+    }
+
+    @Test
     public void testXmlAttributesDeserialization() {
         final Hangup elem = new Hangup.Builder().build();
 
         Assert.assertEquals(
             Hangup.Builder.fromXml("<Hangup/>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlChildrenDeserialization() {
+        final Hangup.Builder builder = new Hangup.Builder();
+
+        builder.parameter(new Parameter.Builder().name("name").value("value").build());
+
+        final Hangup elem = builder.build();
+
+        Assert.assertEquals(
+            Hangup.Builder.fromXml("<Hangup>" +
+                "<Parameter name=\"name\" value=\"value\"/>" +
+            "</Hangup>").build().toXml(),
+            elem.toXml()
+        );
+    }
+
+    @Test
+    public void testXmlEmptyChildrenDeserialization() {
+        final Hangup.Builder builder = new Hangup.Builder();
+
+        builder.parameter(new Parameter.Builder().build());
+
+        final Hangup elem = builder.build();
+
+        Assert.assertEquals(
+            Hangup.Builder.fromXml("<Hangup>" +
+                "<Parameter/>" +
+            "</Hangup>").build().toXml(),
             elem.toXml()
         );
     }

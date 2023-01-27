@@ -48,10 +48,6 @@ public class NewKey extends Resource {
         return new NewKeyCreator(pathAccountSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a NewKey object using the provided ObjectMapper.
     *

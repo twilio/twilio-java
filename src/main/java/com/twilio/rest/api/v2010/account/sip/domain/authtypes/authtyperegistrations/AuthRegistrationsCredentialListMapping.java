@@ -48,18 +48,18 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
         return new AuthRegistrationsCredentialListMappingCreator(pathAccountSid, pathDomainSid, credentialListSid);
     }
 
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
-        return new AuthRegistrationsCredentialListMappingFetcher(pathDomainSid, pathSid);
-    }
-    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
-        return new AuthRegistrationsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
-    }
-
     public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathDomainSid, final String pathSid){
         return new AuthRegistrationsCredentialListMappingDeleter(pathDomainSid, pathSid);
     }
     public static AuthRegistrationsCredentialListMappingDeleter deleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
         return new AuthRegistrationsCredentialListMappingDeleter(pathAccountSid, pathDomainSid, pathSid);
+    }
+
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathDomainSid, final String pathSid){
+        return new AuthRegistrationsCredentialListMappingFetcher(pathDomainSid, pathSid);
+    }
+    public static AuthRegistrationsCredentialListMappingFetcher fetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+        return new AuthRegistrationsCredentialListMappingFetcher(pathAccountSid, pathDomainSid, pathSid);
     }
 
     public static AuthRegistrationsCredentialListMappingReader reader(final String pathDomainSid){
@@ -68,7 +68,6 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
     public static AuthRegistrationsCredentialListMappingReader reader(final String pathAccountSid, final String pathDomainSid){
         return new AuthRegistrationsCredentialListMappingReader(pathAccountSid, pathDomainSid);
     }
-
 
     /**
     * Converts a JSON String into a AuthRegistrationsCredentialListMapping object using the provided ObjectMapper.

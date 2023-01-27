@@ -121,5 +121,9 @@ public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCreden
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

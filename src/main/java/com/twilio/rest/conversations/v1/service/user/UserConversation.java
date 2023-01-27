@@ -45,13 +45,12 @@ import java.util.Map;
 public class UserConversation extends Resource {
     private static final long serialVersionUID = 269317644556189L;
 
+    public static UserConversationDeleter deleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
+        return new UserConversationDeleter(pathChatServiceSid, pathUserSid, pathConversationSid);
+    }
 
     public static UserConversationFetcher fetcher(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
         return new UserConversationFetcher(pathChatServiceSid, pathUserSid, pathConversationSid);
-    }
-
-    public static UserConversationDeleter deleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
-        return new UserConversationDeleter(pathChatServiceSid, pathUserSid, pathConversationSid);
     }
 
     public static UserConversationReader reader(final String pathChatServiceSid, final String pathUserSid){

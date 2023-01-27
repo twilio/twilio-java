@@ -48,12 +48,12 @@ public class Activity extends Resource {
         return new ActivityCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static ActivityFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
-        return new ActivityFetcher(pathWorkspaceSid, pathSid);
-    }
-
     public static ActivityDeleter deleter(final String pathWorkspaceSid, final String pathSid){
         return new ActivityDeleter(pathWorkspaceSid, pathSid);
+    }
+
+    public static ActivityFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+        return new ActivityFetcher(pathWorkspaceSid, pathSid);
     }
 
     public static ActivityReader reader(final String pathWorkspaceSid){

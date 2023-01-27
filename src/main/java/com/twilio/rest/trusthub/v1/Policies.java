@@ -42,16 +42,13 @@ import java.util.Map;
 public class Policies extends Resource {
     private static final long serialVersionUID = 142613922631852L;
 
-
     public static PoliciesFetcher fetcher(final String pathSid){
         return new PoliciesFetcher(pathSid);
     }
 
-
     public static PoliciesReader reader(){
         return new PoliciesReader();
     }
-
 
     /**
     * Converts a JSON String into a Policies object using the provided ObjectMapper.

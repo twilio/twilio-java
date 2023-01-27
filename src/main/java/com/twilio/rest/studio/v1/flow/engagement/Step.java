@@ -44,16 +44,13 @@ import java.util.Map;
 public class Step extends Resource {
     private static final long serialVersionUID = 7112234025465L;
 
-
     public static StepFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid){
         return new StepFetcher(pathFlowSid, pathEngagementSid, pathSid);
     }
 
-
     public static StepReader reader(final String pathFlowSid, final String pathEngagementSid){
         return new StepReader(pathFlowSid, pathEngagementSid);
     }
-
 
     /**
     * Converts a JSON String into a Step object using the provided ObjectMapper.

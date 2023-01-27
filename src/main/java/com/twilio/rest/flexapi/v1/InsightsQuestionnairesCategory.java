@@ -31,35 +31,38 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
-import java.util.List;
 import java.util.Objects;
 
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class UserRoles extends Resource {
-    private static final long serialVersionUID = 154216272914379L;
+public class InsightsQuestionnairesCategory extends Resource {
+    private static final long serialVersionUID = 172423270393381L;
 
-
-    public static UserRolesFetcher fetcher(){
-        return new UserRolesFetcher();
+    public static InsightsQuestionnairesCategoryCreator creator(final String name){
+        return new InsightsQuestionnairesCategoryCreator(name);
     }
 
+    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathCategoryId){
+        return new InsightsQuestionnairesCategoryDeleter(pathCategoryId);
+    }
 
-
+    public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategoryId, final String name){
+        return new InsightsQuestionnairesCategoryUpdater(pathCategoryId, name);
+    }
 
     /**
-    * Converts a JSON String into a UserRoles object using the provided ObjectMapper.
+    * Converts a JSON String into a InsightsQuestionnairesCategory object using the provided ObjectMapper.
     *
     * @param json Raw JSON String
     * @param objectMapper Jackson ObjectMapper
-    * @return UserRoles object represented by the provided JSON
+    * @return InsightsQuestionnairesCategory object represented by the provided JSON
     */
-    public static UserRoles fromJson(final String json, final ObjectMapper objectMapper) {
+    public static InsightsQuestionnairesCategory fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, UserRoles.class);
+            return objectMapper.readValue(json, InsightsQuestionnairesCategory.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -68,17 +71,17 @@ public class UserRoles extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a UserRoles object using the provided
+    * Converts a JSON InputStream into a InsightsQuestionnairesCategory object using the provided
     * ObjectMapper.
     *
     * @param json Raw JSON InputStream
     * @param objectMapper Jackson ObjectMapper
-    * @return UserRoles object represented by the provided JSON
+    * @return InsightsQuestionnairesCategory object represented by the provided JSON
     */
-    public static UserRoles fromJson(final InputStream json, final ObjectMapper objectMapper) {
+    public static InsightsQuestionnairesCategory fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, UserRoles.class);
+            return objectMapper.readValue(json, InsightsQuestionnairesCategory.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -86,23 +89,39 @@ public class UserRoles extends Resource {
         }
     }
 
-    private final List<String> roles;
+    private final String accountSid;
+    private final String categoryId;
+    private final String name;
     private final URI url;
 
     @JsonCreator
-    private UserRoles(
-        @JsonProperty("roles")
-        final List<String> roles,
+    private InsightsQuestionnairesCategory(
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("category_id")
+        final String categoryId,
+
+        @JsonProperty("name")
+        final String name,
 
         @JsonProperty("url")
         final URI url
     ) {
-        this.roles = roles;
+        this.accountSid = accountSid;
+        this.categoryId = categoryId;
+        this.name = name;
         this.url = url;
     }
 
-        public final List<String> getRoles() {
-            return this.roles;
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getCategoryId() {
+            return this.categoryId;
+        }
+        public final String getName() {
+            return this.name;
         }
         public final URI getUrl() {
             return this.url;
@@ -118,14 +137,14 @@ public class UserRoles extends Resource {
             return false;
         }
 
-        UserRoles other = (UserRoles) o;
+        InsightsQuestionnairesCategory other = (InsightsQuestionnairesCategory) o;
 
-        return Objects.equals(roles, other.roles) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(categoryId, other.categoryId) &&  Objects.equals(name, other.name) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roles, url);
+        return Objects.hash(accountSid, categoryId, name, url);
     }
 
 }

@@ -49,12 +49,12 @@ public class Participant extends Resource {
         return new ParticipantCreator(pathConversationSid);
     }
 
-    public static ParticipantFetcher fetcher(final String pathConversationSid, final String pathSid){
-        return new ParticipantFetcher(pathConversationSid, pathSid);
-    }
-
     public static ParticipantDeleter deleter(final String pathConversationSid, final String pathSid){
         return new ParticipantDeleter(pathConversationSid, pathSid);
+    }
+
+    public static ParticipantFetcher fetcher(final String pathConversationSid, final String pathSid){
+        return new ParticipantFetcher(pathConversationSid, pathSid);
     }
 
     public static ParticipantReader reader(final String pathConversationSid){

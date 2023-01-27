@@ -42,13 +42,9 @@ import java.math.BigDecimal;
 public class VerificationAttemptsSummary extends Resource {
     private static final long serialVersionUID = 224637081616234L;
 
-
     public static VerificationAttemptsSummaryFetcher fetcher(){
         return new VerificationAttemptsSummaryFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a VerificationAttemptsSummary object using the provided ObjectMapper.

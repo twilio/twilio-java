@@ -74,18 +74,18 @@ public class Message extends Resource {
         return new MessageCreator(pathAccountSid, to, messagingServiceSid, mediaUrl);
     }
 
-    public static MessageFetcher fetcher(final String pathSid){
-        return new MessageFetcher(pathSid);
-    }
-    public static MessageFetcher fetcher(final String pathAccountSid, final String pathSid){
-        return new MessageFetcher(pathAccountSid, pathSid);
-    }
-
     public static MessageDeleter deleter(final String pathSid){
         return new MessageDeleter(pathSid);
     }
     public static MessageDeleter deleter(final String pathAccountSid, final String pathSid){
         return new MessageDeleter(pathAccountSid, pathSid);
+    }
+
+    public static MessageFetcher fetcher(final String pathSid){
+        return new MessageFetcher(pathSid);
+    }
+    public static MessageFetcher fetcher(final String pathAccountSid, final String pathSid){
+        return new MessageFetcher(pathAccountSid, pathSid);
     }
 
     public static MessageReader reader(){

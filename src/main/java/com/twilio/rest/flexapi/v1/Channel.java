@@ -46,18 +46,17 @@ public class Channel extends Resource {
         return new ChannelCreator(flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName);
     }
 
-    public static ChannelFetcher fetcher(final String pathSid){
-        return new ChannelFetcher(pathSid);
-    }
-
     public static ChannelDeleter deleter(final String pathSid){
         return new ChannelDeleter(pathSid);
+    }
+
+    public static ChannelFetcher fetcher(final String pathSid){
+        return new ChannelFetcher(pathSid);
     }
 
     public static ChannelReader reader(){
         return new ChannelReader();
     }
-
 
     /**
     * Converts a JSON String into a Channel object using the provided ObjectMapper.

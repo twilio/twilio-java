@@ -45,11 +45,9 @@ import java.util.Map;
 public class Reservation extends Resource {
     private static final long serialVersionUID = 88353198782173L;
 
-
     public static ReservationFetcher fetcher(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid){
         return new ReservationFetcher(pathWorkspaceSid, pathTaskSid, pathSid);
     }
-
 
     public static ReservationReader reader(final String pathWorkspaceSid, final String pathTaskSid){
         return new ReservationReader(pathWorkspaceSid, pathTaskSid);

@@ -43,10 +43,6 @@ public class SinkTest extends Resource {
         return new SinkTestCreator(pathSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a SinkTest object using the provided ObjectMapper.
     *

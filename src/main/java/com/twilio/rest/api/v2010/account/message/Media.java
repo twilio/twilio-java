@@ -41,6 +41,12 @@ import java.util.Objects;
 public class Media extends Resource {
     private static final long serialVersionUID = 86856561367712L;
 
+    public static MediaDeleter deleter(final String pathMessageSid, final String pathSid){
+        return new MediaDeleter(pathMessageSid, pathSid);
+    }
+    public static MediaDeleter deleter(final String pathAccountSid, final String pathMessageSid, final String pathSid){
+        return new MediaDeleter(pathAccountSid, pathMessageSid, pathSid);
+    }
 
     public static MediaFetcher fetcher(final String pathMessageSid, final String pathSid){
         return new MediaFetcher(pathMessageSid, pathSid);
@@ -49,20 +55,12 @@ public class Media extends Resource {
         return new MediaFetcher(pathAccountSid, pathMessageSid, pathSid);
     }
 
-    public static MediaDeleter deleter(final String pathMessageSid, final String pathSid){
-        return new MediaDeleter(pathMessageSid, pathSid);
-    }
-    public static MediaDeleter deleter(final String pathAccountSid, final String pathMessageSid, final String pathSid){
-        return new MediaDeleter(pathAccountSid, pathMessageSid, pathSid);
-    }
-
     public static MediaReader reader(final String pathMessageSid){
         return new MediaReader(pathMessageSid);
     }
     public static MediaReader reader(final String pathAccountSid, final String pathMessageSid){
         return new MediaReader(pathAccountSid, pathMessageSid);
     }
-
 
     /**
     * Converts a JSON String into a Media object using the provided ObjectMapper.

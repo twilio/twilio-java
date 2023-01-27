@@ -46,12 +46,12 @@ public class Deployment extends Resource {
         return new DeploymentCreator(pathFleetSid);
     }
 
-    public static DeploymentFetcher fetcher(final String pathFleetSid, final String pathSid){
-        return new DeploymentFetcher(pathFleetSid, pathSid);
-    }
-
     public static DeploymentDeleter deleter(final String pathFleetSid, final String pathSid){
         return new DeploymentDeleter(pathFleetSid, pathSid);
+    }
+
+    public static DeploymentFetcher fetcher(final String pathFleetSid, final String pathSid){
+        return new DeploymentFetcher(pathFleetSid, pathSid);
     }
 
     public static DeploymentReader reader(final String pathFleetSid){

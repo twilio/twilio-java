@@ -46,16 +46,13 @@ import java.util.Map;
 public class ConferenceParticipant extends Resource {
     private static final long serialVersionUID = 67216866718855L;
 
-
     public static ConferenceParticipantFetcher fetcher(final String pathConferenceSid, final String pathParticipantSid){
         return new ConferenceParticipantFetcher(pathConferenceSid, pathParticipantSid);
     }
 
-
     public static ConferenceParticipantReader reader(final String pathConferenceSid){
         return new ConferenceParticipantReader(pathConferenceSid);
     }
-
 
     /**
     * Converts a JSON String into a ConferenceParticipant object using the provided ObjectMapper.

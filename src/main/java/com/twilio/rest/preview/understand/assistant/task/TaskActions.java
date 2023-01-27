@@ -42,12 +42,9 @@ import java.util.Map;
 public class TaskActions extends Resource {
     private static final long serialVersionUID = 36530790788418L;
 
-
     public static TaskActionsFetcher fetcher(final String pathAssistantSid, final String pathTaskSid){
         return new TaskActionsFetcher(pathAssistantSid, pathTaskSid);
     }
-
-
 
     public static TaskActionsUpdater updater(final String pathAssistantSid, final String pathTaskSid){
         return new TaskActionsUpdater(pathAssistantSid, pathTaskSid);

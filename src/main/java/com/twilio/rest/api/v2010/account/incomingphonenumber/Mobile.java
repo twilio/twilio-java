@@ -52,15 +52,12 @@ public class Mobile extends Resource {
         return new MobileCreator(pathAccountSid, phoneNumber);
     }
 
-
-
     public static MobileReader reader(){
         return new MobileReader();
     }
     public static MobileReader reader(final String pathAccountSid){
         return new MobileReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Mobile object using the provided ObjectMapper.

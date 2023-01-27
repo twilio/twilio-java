@@ -41,19 +41,18 @@ import java.util.Objects;
 public class OutgoingCallerId extends Resource {
     private static final long serialVersionUID = 75956517535233L;
 
+    public static OutgoingCallerIdDeleter deleter(final String pathSid){
+        return new OutgoingCallerIdDeleter(pathSid);
+    }
+    public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, final String pathSid){
+        return new OutgoingCallerIdDeleter(pathAccountSid, pathSid);
+    }
 
     public static OutgoingCallerIdFetcher fetcher(final String pathSid){
         return new OutgoingCallerIdFetcher(pathSid);
     }
     public static OutgoingCallerIdFetcher fetcher(final String pathAccountSid, final String pathSid){
         return new OutgoingCallerIdFetcher(pathAccountSid, pathSid);
-    }
-
-    public static OutgoingCallerIdDeleter deleter(final String pathSid){
-        return new OutgoingCallerIdDeleter(pathSid);
-    }
-    public static OutgoingCallerIdDeleter deleter(final String pathAccountSid, final String pathSid){
-        return new OutgoingCallerIdDeleter(pathAccountSid, pathSid);
     }
 
     public static OutgoingCallerIdReader reader(){

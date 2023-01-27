@@ -46,10 +46,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Daily extends Resource {
-    private static final long serialVersionUID = 165225378323705L;
-
-
-
+    private static final long serialVersionUID = 73710721233963L;
 
     public static DailyReader reader(){
         return new DailyReader();
@@ -57,7 +54,6 @@ public class Daily extends Resource {
     public static DailyReader reader(final String pathAccountSid){
         return new DailyReader(pathAccountSid);
     }
-
 
     /**
     * Converts a JSON String into a Daily object using the provided ObjectMapper.

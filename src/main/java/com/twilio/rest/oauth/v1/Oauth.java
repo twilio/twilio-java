@@ -42,13 +42,9 @@ import java.util.Map;
 public class Oauth extends Resource {
     private static final long serialVersionUID = 95485483905123L;
 
-
     public static OauthFetcher fetcher(){
         return new OauthFetcher();
     }
-
-
-
 
     /**
     * Converts a JSON String into a Oauth object using the provided ObjectMapper.

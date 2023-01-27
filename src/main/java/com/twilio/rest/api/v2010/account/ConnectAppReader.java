@@ -117,5 +117,9 @@ public class ConnectAppReader extends Reader<ConnectApp> {
     
             request.addQueryParam("PageSize", pageSize.toString());
         }
+
+        if(getPageSize() != null) {
+            request.addQueryParam("PageSize", Integer.toString(getPageSize()));
+        }
     }
 }

@@ -51,9 +51,6 @@ public class AccessToken extends Resource {
         return new AccessTokenFetcher(pathServiceSid, pathSid);
     }
 
-
-
-
     /**
     * Converts a JSON String into a AccessToken object using the provided ObjectMapper.
     *

@@ -755,6 +755,15 @@ public class Dial extends TwiML {
         }
 
         /**
+         * Add a child {@code <Application>} element
+         */
+        @JacksonXmlProperty(isAttribute = false, localName = "Application")
+        public Builder application(Application application) {
+            this.children.add(application);
+            return this;
+        }
+
+        /**
          * Create and return resulting {@code <Dial>} element
          */
         public Dial build() {

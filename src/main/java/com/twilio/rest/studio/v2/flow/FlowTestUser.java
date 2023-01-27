@@ -41,12 +41,9 @@ import java.util.Objects;
 public class FlowTestUser extends Resource {
     private static final long serialVersionUID = 221844198208701L;
 
-
     public static FlowTestUserFetcher fetcher(final String pathSid){
         return new FlowTestUserFetcher(pathSid);
     }
-
-
 
     public static FlowTestUserUpdater updater(final String pathSid, final List<String> testUsers){
         return new FlowTestUserUpdater(pathSid, testUsers);

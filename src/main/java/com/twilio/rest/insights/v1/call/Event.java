@@ -40,15 +40,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
-    private static final long serialVersionUID = 150917124535875L;
-
-
-
+    private static final long serialVersionUID = 246803433322501L;
 
     public static EventReader reader(final String pathCallSid){
         return new EventReader(pathCallSid);
     }
-
 
     /**
     * Converts a JSON String into a Event object using the provided ObjectMapper.

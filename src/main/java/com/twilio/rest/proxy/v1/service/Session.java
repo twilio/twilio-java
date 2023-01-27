@@ -49,12 +49,12 @@ public class Session extends Resource {
         return new SessionCreator(pathServiceSid);
     }
 
-    public static SessionFetcher fetcher(final String pathServiceSid, final String pathSid){
-        return new SessionFetcher(pathServiceSid, pathSid);
-    }
-
     public static SessionDeleter deleter(final String pathServiceSid, final String pathSid){
         return new SessionDeleter(pathServiceSid, pathSid);
+    }
+
+    public static SessionFetcher fetcher(final String pathServiceSid, final String pathSid){
+        return new SessionFetcher(pathServiceSid, pathSid);
     }
 
     public static SessionReader reader(final String pathServiceSid){

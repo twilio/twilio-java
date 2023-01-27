@@ -42,15 +42,11 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ParticipantConversation extends Resource {
-    private static final long serialVersionUID = 4377795532296L;
-
-
-
+    private static final long serialVersionUID = 210706261724884L;
 
     public static ParticipantConversationReader reader(final String pathChatServiceSid){
         return new ParticipantConversationReader(pathChatServiceSid);
     }
-
 
     /**
     * Converts a JSON String into a ParticipantConversation object using the provided ObjectMapper.

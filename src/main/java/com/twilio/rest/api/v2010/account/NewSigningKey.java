@@ -48,10 +48,6 @@ public class NewSigningKey extends Resource {
         return new NewSigningKeyCreator(pathAccountSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a NewSigningKey object using the provided ObjectMapper.
     *

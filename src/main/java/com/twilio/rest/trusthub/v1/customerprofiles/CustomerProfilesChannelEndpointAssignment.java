@@ -46,18 +46,17 @@ public class CustomerProfilesChannelEndpointAssignment extends Resource {
         return new CustomerProfilesChannelEndpointAssignmentCreator(pathCustomerProfileSid, channelEndpointType, channelEndpointSid);
     }
 
-    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
-        return new CustomerProfilesChannelEndpointAssignmentFetcher(pathCustomerProfileSid, pathSid);
-    }
-
     public static CustomerProfilesChannelEndpointAssignmentDeleter deleter(final String pathCustomerProfileSid, final String pathSid){
         return new CustomerProfilesChannelEndpointAssignmentDeleter(pathCustomerProfileSid, pathSid);
+    }
+
+    public static CustomerProfilesChannelEndpointAssignmentFetcher fetcher(final String pathCustomerProfileSid, final String pathSid){
+        return new CustomerProfilesChannelEndpointAssignmentFetcher(pathCustomerProfileSid, pathSid);
     }
 
     public static CustomerProfilesChannelEndpointAssignmentReader reader(final String pathCustomerProfileSid){
         return new CustomerProfilesChannelEndpointAssignmentReader(pathCustomerProfileSid);
     }
-
 
     /**
     * Converts a JSON String into a CustomerProfilesChannelEndpointAssignment object using the provided ObjectMapper.

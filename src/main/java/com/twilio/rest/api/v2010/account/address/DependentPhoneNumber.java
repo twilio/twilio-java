@@ -44,10 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DependentPhoneNumber extends Resource {
-    private static final long serialVersionUID = 195983634033092L;
-
-
-
+    private static final long serialVersionUID = 170982689441309L;
 
     public static DependentPhoneNumberReader reader(final String pathAddressSid){
         return new DependentPhoneNumberReader(pathAddressSid);
@@ -55,7 +52,6 @@ public class DependentPhoneNumber extends Resource {
     public static DependentPhoneNumberReader reader(final String pathAccountSid, final String pathAddressSid){
         return new DependentPhoneNumberReader(pathAccountSid, pathAddressSid);
     }
-
 
     /**
     * Converts a JSON String into a DependentPhoneNumber object using the provided ObjectMapper.

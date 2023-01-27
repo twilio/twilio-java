@@ -44,14 +44,12 @@ import java.util.Map;
 public class Conference extends Resource {
     private static final long serialVersionUID = 143481327355997L;
 
-
     public static ConferenceFetcher fetcher(final String pathSid){
         return new ConferenceFetcher(pathSid);
     }
     public static ConferenceFetcher fetcher(final String pathAccountSid, final String pathSid){
         return new ConferenceFetcher(pathAccountSid, pathSid);
     }
-
 
     public static ConferenceReader reader(){
         return new ConferenceReader();

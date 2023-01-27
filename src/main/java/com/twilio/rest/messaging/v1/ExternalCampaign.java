@@ -45,10 +45,6 @@ public class ExternalCampaign extends Resource {
         return new ExternalCampaignCreator(campaignId, messagingServiceSid);
     }
 
-
-
-
-
     /**
     * Converts a JSON String into a ExternalCampaign object using the provided ObjectMapper.
     *

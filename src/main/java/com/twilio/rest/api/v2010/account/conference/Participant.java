@@ -49,18 +49,18 @@ public class Participant extends Resource {
         return new ParticipantCreator(pathAccountSid, pathConferenceSid, from, to);
     }
 
-    public static ParticipantFetcher fetcher(final String pathConferenceSid, final String pathCallSid){
-        return new ParticipantFetcher(pathConferenceSid, pathCallSid);
-    }
-    public static ParticipantFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
-        return new ParticipantFetcher(pathAccountSid, pathConferenceSid, pathCallSid);
-    }
-
     public static ParticipantDeleter deleter(final String pathConferenceSid, final String pathCallSid){
         return new ParticipantDeleter(pathConferenceSid, pathCallSid);
     }
     public static ParticipantDeleter deleter(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
         return new ParticipantDeleter(pathAccountSid, pathConferenceSid, pathCallSid);
+    }
+
+    public static ParticipantFetcher fetcher(final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantFetcher(pathConferenceSid, pathCallSid);
+    }
+    public static ParticipantFetcher fetcher(final String pathAccountSid, final String pathConferenceSid, final String pathCallSid){
+        return new ParticipantFetcher(pathAccountSid, pathConferenceSid, pathCallSid);
     }
 
     public static ParticipantReader reader(final String pathConferenceSid){

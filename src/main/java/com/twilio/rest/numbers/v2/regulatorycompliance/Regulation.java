@@ -43,16 +43,13 @@ import java.util.Map;
 public class Regulation extends Resource {
     private static final long serialVersionUID = 10727481359923L;
 
-
     public static RegulationFetcher fetcher(final String pathSid){
         return new RegulationFetcher(pathSid);
     }
 
-
     public static RegulationReader reader(){
         return new RegulationReader();
     }
-
 
     /**
     * Converts a JSON String into a Regulation object using the provided ObjectMapper.

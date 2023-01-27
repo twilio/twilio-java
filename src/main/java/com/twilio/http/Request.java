@@ -246,8 +246,6 @@ public class Request {
      * @param value value of parameter
      */
     public void addQueryParam(final String name, final String value) {
-        if (value == null)
-            return;
         addParam(queryParams, name, value);
     }
 
@@ -258,8 +256,6 @@ public class Request {
      * @param value value of parameter
      */
     public void addPostParam(final String name, final String value) {
-        if (value == null)
-            return;
         addParam(postParams, name, value);
     }
 
@@ -270,12 +266,13 @@ public class Request {
      * @param value value of parameter
      */
     public void addHeaderParam(final String name, final String value) {
-        if (value == null)
-            return;
         addParam(headerParams, name, value);
     }
 
     private void addParam(final Map<String, List<String>> params, final String name, final String value) {
+        if (value == null)
+            return;
+
         if (!params.containsKey(name)) {
             params.put(name, new ArrayList<String>());
         }

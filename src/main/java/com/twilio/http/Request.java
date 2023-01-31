@@ -270,6 +270,9 @@ public class Request {
     }
 
     private void addParam(final Map<String, List<String>> params, final String name, final String value) {
+        if (value == null)
+            return;
+
         if (!params.containsKey(name)) {
             params.put(name, new ArrayList<String>());
         }

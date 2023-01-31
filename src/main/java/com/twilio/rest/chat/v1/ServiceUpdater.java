@@ -442,7 +442,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsNewMessageEnabled != null) {
-            request.addPostParam("NotificationsNewMessageEnabled", notificationsNewMessageEnabled.toString());
+            request.addPostParam("Notifications.NewMessage.Enabled", notificationsNewMessageEnabled.toString());
     
         }
         if (notificationsNewMessageTemplate != null) {
@@ -450,7 +450,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsAddedToChannelEnabled != null) {
-            request.addPostParam("NotificationsAddedToChannelEnabled", notificationsAddedToChannelEnabled.toString());
+            request.addPostParam("Notifications.AddedToChannel.Enabled", notificationsAddedToChannelEnabled.toString());
     
         }
         if (notificationsAddedToChannelTemplate != null) {
@@ -458,7 +458,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsRemovedFromChannelEnabled != null) {
-            request.addPostParam("NotificationsRemovedFromChannelEnabled", notificationsRemovedFromChannelEnabled.toString());
+            request.addPostParam("Notifications.RemovedFromChannel.Enabled", notificationsRemovedFromChannelEnabled.toString());
     
         }
         if (notificationsRemovedFromChannelTemplate != null) {
@@ -466,7 +466,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsInvitedToChannelEnabled != null) {
-            request.addPostParam("NotificationsInvitedToChannelEnabled", notificationsInvitedToChannelEnabled.toString());
+            request.addPostParam("Notifications.InvitedToChannel.Enabled", notificationsInvitedToChannelEnabled.toString());
     
         }
         if (notificationsInvitedToChannelTemplate != null) {
@@ -492,139 +492,139 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (webhooksOnMessageSendUrl != null) {
-            request.addPostParam("WebhooksOnMessageSendUrl", webhooksOnMessageSendUrl.toString());
+            request.addPostParam("Webhooks.OnMessageSend.Url", webhooksOnMessageSendUrl.toString());
     
         }
         if (webhooksOnMessageSendMethod != null) {
-            request.addPostParam("WebhooksOnMessageSendMethod", webhooksOnMessageSendMethod.toString());
+            request.addPostParam("Webhooks.OnMessageSend.Method", webhooksOnMessageSendMethod.toString());
     
         }
         if (webhooksOnMessageUpdateUrl != null) {
-            request.addPostParam("WebhooksOnMessageUpdateUrl", webhooksOnMessageUpdateUrl.toString());
+            request.addPostParam("Webhooks.OnMessageUpdate.Url", webhooksOnMessageUpdateUrl.toString());
     
         }
         if (webhooksOnMessageUpdateMethod != null) {
-            request.addPostParam("WebhooksOnMessageUpdateMethod", webhooksOnMessageUpdateMethod.toString());
+            request.addPostParam("Webhooks.OnMessageUpdate.Method", webhooksOnMessageUpdateMethod.toString());
     
         }
         if (webhooksOnMessageRemoveUrl != null) {
-            request.addPostParam("WebhooksOnMessageRemoveUrl", webhooksOnMessageRemoveUrl.toString());
+            request.addPostParam("Webhooks.OnMessageRemove.Url", webhooksOnMessageRemoveUrl.toString());
     
         }
         if (webhooksOnMessageRemoveMethod != null) {
-            request.addPostParam("WebhooksOnMessageRemoveMethod", webhooksOnMessageRemoveMethod.toString());
+            request.addPostParam("Webhooks.OnMessageRemove.Method", webhooksOnMessageRemoveMethod.toString());
     
         }
         if (webhooksOnChannelAddUrl != null) {
-            request.addPostParam("WebhooksOnChannelAddUrl", webhooksOnChannelAddUrl.toString());
+            request.addPostParam("Webhooks.OnChannelAdd.Url", webhooksOnChannelAddUrl.toString());
     
         }
         if (webhooksOnChannelAddMethod != null) {
-            request.addPostParam("WebhooksOnChannelAddMethod", webhooksOnChannelAddMethod.toString());
+            request.addPostParam("Webhooks.OnChannelAdd.Method", webhooksOnChannelAddMethod.toString());
     
         }
         if (webhooksOnChannelDestroyUrl != null) {
-            request.addPostParam("WebhooksOnChannelDestroyUrl", webhooksOnChannelDestroyUrl.toString());
+            request.addPostParam("Webhooks.OnChannelDestroy.Url", webhooksOnChannelDestroyUrl.toString());
     
         }
         if (webhooksOnChannelDestroyMethod != null) {
-            request.addPostParam("WebhooksOnChannelDestroyMethod", webhooksOnChannelDestroyMethod.toString());
+            request.addPostParam("Webhooks.OnChannelDestroy.Method", webhooksOnChannelDestroyMethod.toString());
     
         }
         if (webhooksOnChannelUpdateUrl != null) {
-            request.addPostParam("WebhooksOnChannelUpdateUrl", webhooksOnChannelUpdateUrl.toString());
+            request.addPostParam("Webhooks.OnChannelUpdate.Url", webhooksOnChannelUpdateUrl.toString());
     
         }
         if (webhooksOnChannelUpdateMethod != null) {
-            request.addPostParam("WebhooksOnChannelUpdateMethod", webhooksOnChannelUpdateMethod.toString());
+            request.addPostParam("Webhooks.OnChannelUpdate.Method", webhooksOnChannelUpdateMethod.toString());
     
         }
         if (webhooksOnMemberAddUrl != null) {
-            request.addPostParam("WebhooksOnMemberAddUrl", webhooksOnMemberAddUrl.toString());
+            request.addPostParam("Webhooks.OnMemberAdd.Url", webhooksOnMemberAddUrl.toString());
     
         }
         if (webhooksOnMemberAddMethod != null) {
-            request.addPostParam("WebhooksOnMemberAddMethod", webhooksOnMemberAddMethod.toString());
+            request.addPostParam("Webhooks.OnMemberAdd.Method", webhooksOnMemberAddMethod.toString());
     
         }
         if (webhooksOnMemberRemoveUrl != null) {
-            request.addPostParam("WebhooksOnMemberRemoveUrl", webhooksOnMemberRemoveUrl.toString());
+            request.addPostParam("Webhooks.OnMemberRemove.Url", webhooksOnMemberRemoveUrl.toString());
     
         }
         if (webhooksOnMemberRemoveMethod != null) {
-            request.addPostParam("WebhooksOnMemberRemoveMethod", webhooksOnMemberRemoveMethod.toString());
+            request.addPostParam("Webhooks.OnMemberRemove.Method", webhooksOnMemberRemoveMethod.toString());
     
         }
         if (webhooksOnMessageSentUrl != null) {
-            request.addPostParam("WebhooksOnMessageSentUrl", webhooksOnMessageSentUrl.toString());
+            request.addPostParam("Webhooks.OnMessageSent.Url", webhooksOnMessageSentUrl.toString());
     
         }
         if (webhooksOnMessageSentMethod != null) {
-            request.addPostParam("WebhooksOnMessageSentMethod", webhooksOnMessageSentMethod.toString());
+            request.addPostParam("Webhooks.OnMessageSent.Method", webhooksOnMessageSentMethod.toString());
     
         }
         if (webhooksOnMessageUpdatedUrl != null) {
-            request.addPostParam("WebhooksOnMessageUpdatedUrl", webhooksOnMessageUpdatedUrl.toString());
+            request.addPostParam("Webhooks.OnMessageUpdated.Url", webhooksOnMessageUpdatedUrl.toString());
     
         }
         if (webhooksOnMessageUpdatedMethod != null) {
-            request.addPostParam("WebhooksOnMessageUpdatedMethod", webhooksOnMessageUpdatedMethod.toString());
+            request.addPostParam("Webhooks.OnMessageUpdated.Method", webhooksOnMessageUpdatedMethod.toString());
     
         }
         if (webhooksOnMessageRemovedUrl != null) {
-            request.addPostParam("WebhooksOnMessageRemovedUrl", webhooksOnMessageRemovedUrl.toString());
+            request.addPostParam("Webhooks.OnMessageRemoved.Url", webhooksOnMessageRemovedUrl.toString());
     
         }
         if (webhooksOnMessageRemovedMethod != null) {
-            request.addPostParam("WebhooksOnMessageRemovedMethod", webhooksOnMessageRemovedMethod.toString());
+            request.addPostParam("Webhooks.OnMessageRemoved.Method", webhooksOnMessageRemovedMethod.toString());
     
         }
         if (webhooksOnChannelAddedUrl != null) {
-            request.addPostParam("WebhooksOnChannelAddedUrl", webhooksOnChannelAddedUrl.toString());
+            request.addPostParam("Webhooks.OnChannelAdded.Url", webhooksOnChannelAddedUrl.toString());
     
         }
         if (webhooksOnChannelAddedMethod != null) {
-            request.addPostParam("WebhooksOnChannelAddedMethod", webhooksOnChannelAddedMethod.toString());
+            request.addPostParam("Webhooks.OnChannelAdded.Method", webhooksOnChannelAddedMethod.toString());
     
         }
         if (webhooksOnChannelDestroyedUrl != null) {
-            request.addPostParam("WebhooksOnChannelDestroyedUrl", webhooksOnChannelDestroyedUrl.toString());
+            request.addPostParam("Webhooks.OnChannelDestroyed.Url", webhooksOnChannelDestroyedUrl.toString());
     
         }
         if (webhooksOnChannelDestroyedMethod != null) {
-            request.addPostParam("WebhooksOnChannelDestroyedMethod", webhooksOnChannelDestroyedMethod.toString());
+            request.addPostParam("Webhooks.OnChannelDestroyed.Method", webhooksOnChannelDestroyedMethod.toString());
     
         }
         if (webhooksOnChannelUpdatedUrl != null) {
-            request.addPostParam("WebhooksOnChannelUpdatedUrl", webhooksOnChannelUpdatedUrl.toString());
+            request.addPostParam("Webhooks.OnChannelUpdated.Url", webhooksOnChannelUpdatedUrl.toString());
     
         }
         if (webhooksOnChannelUpdatedMethod != null) {
-            request.addPostParam("WebhooksOnChannelUpdatedMethod", webhooksOnChannelUpdatedMethod.toString());
+            request.addPostParam("Webhooks.OnChannelUpdated.Method", webhooksOnChannelUpdatedMethod.toString());
     
         }
         if (webhooksOnMemberAddedUrl != null) {
-            request.addPostParam("WebhooksOnMemberAddedUrl", webhooksOnMemberAddedUrl.toString());
+            request.addPostParam("Webhooks.OnMemberAdded.Url", webhooksOnMemberAddedUrl.toString());
     
         }
         if (webhooksOnMemberAddedMethod != null) {
-            request.addPostParam("WebhooksOnMemberAddedMethod", webhooksOnMemberAddedMethod.toString());
+            request.addPostParam("Webhooks.OnMemberAdded.Method", webhooksOnMemberAddedMethod.toString());
     
         }
         if (webhooksOnMemberRemovedUrl != null) {
-            request.addPostParam("WebhooksOnMemberRemovedUrl", webhooksOnMemberRemovedUrl.toString());
+            request.addPostParam("Webhooks.OnMemberRemoved.Url", webhooksOnMemberRemovedUrl.toString());
     
         }
         if (webhooksOnMemberRemovedMethod != null) {
-            request.addPostParam("WebhooksOnMemberRemovedMethod", webhooksOnMemberRemovedMethod.toString());
+            request.addPostParam("Webhooks.OnMemberRemoved.Method", webhooksOnMemberRemovedMethod.toString());
     
         }
         if (limitsChannelMembers != null) {
-            request.addPostParam("LimitsChannelMembers", limitsChannelMembers.toString());
+            request.addPostParam("Limits.ChannelMembers", limitsChannelMembers.toString());
     
         }
         if (limitsUserChannels != null) {
-            request.addPostParam("LimitsUserChannels", limitsUserChannels.toString());
+            request.addPostParam("Limits.UserChannels", limitsUserChannels.toString());
     
         }
     }

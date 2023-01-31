@@ -129,19 +129,19 @@ public class FactorUpdater extends Updater<Factor>{
     
         }
         if (configTimeStep != null) {
-            request.addPostParam("ConfigTimeStep", configTimeStep.toString());
+            request.addPostParam("Config.TimeStep", configTimeStep.toString());
     
         }
         if (configSkew != null) {
-            request.addPostParam("ConfigSkew", configSkew.toString());
+            request.addPostParam("Config.Skew", configSkew.toString());
     
         }
         if (configCodeLength != null) {
-            request.addPostParam("ConfigCodeLength", configCodeLength.toString());
+            request.addPostParam("Config.CodeLength", configCodeLength.toString());
     
         }
         if (configAlg != null) {
-            request.addPostParam("ConfigAlg", configAlg.toString());
+            request.addPostParam("Config.Alg", configAlg.toString());
     
         }
         if (configNotificationPlatform != null) {

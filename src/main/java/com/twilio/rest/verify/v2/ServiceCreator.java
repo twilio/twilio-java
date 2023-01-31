@@ -182,7 +182,7 @@ public class ServiceCreator extends Creator<Service>{
     
         }
         if (pushIncludeDate != null) {
-            request.addPostParam("PushIncludeDate", pushIncludeDate.toString());
+            request.addPostParam("Push.IncludeDate", pushIncludeDate.toString());
     
         }
         if (pushApnCredentialSid != null) {
@@ -198,15 +198,15 @@ public class ServiceCreator extends Creator<Service>{
     
         }
         if (totpTimeStep != null) {
-            request.addPostParam("TotpTimeStep", totpTimeStep.toString());
+            request.addPostParam("Totp.TimeStep", totpTimeStep.toString());
     
         }
         if (totpCodeLength != null) {
-            request.addPostParam("TotpCodeLength", totpCodeLength.toString());
+            request.addPostParam("Totp.CodeLength", totpCodeLength.toString());
     
         }
         if (totpSkew != null) {
-            request.addPostParam("TotpSkew", totpSkew.toString());
+            request.addPostParam("Totp.Skew", totpSkew.toString());
     
         }
         if (defaultTemplateSid != null) {

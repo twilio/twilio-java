@@ -102,7 +102,7 @@ public class WebhookUpdater extends Updater<Webhook>{
     
         }
         if (configurationMethod != null) {
-            request.addPostParam("ConfigurationMethod", configurationMethod.toString());
+            request.addPostParam("Configuration.Method", configurationMethod.toString());
     
         }
         if (configurationFilters != null) {

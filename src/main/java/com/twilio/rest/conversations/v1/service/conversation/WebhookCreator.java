@@ -119,7 +119,7 @@ public class WebhookCreator extends Creator<Webhook>{
     
         }
         if (configurationMethod != null) {
-            request.addPostParam("ConfigurationMethod", configurationMethod.toString());
+            request.addPostParam("Configuration.Method", configurationMethod.toString());
     
         }
         if (configurationFilters != null) {
@@ -139,7 +139,7 @@ public class WebhookCreator extends Creator<Webhook>{
     
         }
         if (configurationReplayAfter != null) {
-            request.addPostParam("ConfigurationReplayAfter", configurationReplayAfter.toString());
+            request.addPostParam("Configuration.ReplayAfter", configurationReplayAfter.toString());
     
         }
     }

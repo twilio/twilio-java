@@ -136,11 +136,11 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
     
         }
         if (autoCreationEnabled != null) {
-            request.addPostParam("AutoCreationEnabled", autoCreationEnabled.toString());
+            request.addPostParam("AutoCreation.Enabled", autoCreationEnabled.toString());
     
         }
         if (autoCreationType != null) {
-            request.addPostParam("AutoCreationType", autoCreationType.toString());
+            request.addPostParam("AutoCreation.Type", autoCreationType.toString());
     
         }
         if (autoCreationConversationServiceSid != null) {
@@ -152,7 +152,7 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
     
         }
         if (autoCreationWebhookMethod != null) {
-            request.addPostParam("AutoCreationWebhookMethod", autoCreationWebhookMethod.toString());
+            request.addPostParam("AutoCreation.WebhookMethod", autoCreationWebhookMethod.toString());
     
         }
         if (autoCreationWebhookFilters != null) {
@@ -166,7 +166,7 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
     
         }
         if (autoCreationStudioRetryCount != null) {
-            request.addPostParam("AutoCreationStudioRetryCount", autoCreationStudioRetryCount.toString());
+            request.addPostParam("AutoCreation.StudioRetryCount", autoCreationStudioRetryCount.toString());
     
         }
     }

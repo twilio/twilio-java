@@ -131,7 +131,7 @@ public class NotificationUpdater extends Updater<Notification>{
     
         }
         if (newMessageEnabled != null) {
-            request.addPostParam("NewMessageEnabled", newMessageEnabled.toString());
+            request.addPostParam("NewMessage.Enabled", newMessageEnabled.toString());
     
         }
         if (newMessageTemplate != null) {
@@ -143,11 +143,11 @@ public class NotificationUpdater extends Updater<Notification>{
     
         }
         if (newMessageBadgeCountEnabled != null) {
-            request.addPostParam("NewMessageBadgeCountEnabled", newMessageBadgeCountEnabled.toString());
+            request.addPostParam("NewMessage.BadgeCountEnabled", newMessageBadgeCountEnabled.toString());
     
         }
         if (addedToConversationEnabled != null) {
-            request.addPostParam("AddedToConversationEnabled", addedToConversationEnabled.toString());
+            request.addPostParam("AddedToConversation.Enabled", addedToConversationEnabled.toString());
     
         }
         if (addedToConversationTemplate != null) {
@@ -159,7 +159,7 @@ public class NotificationUpdater extends Updater<Notification>{
     
         }
         if (removedFromConversationEnabled != null) {
-            request.addPostParam("RemovedFromConversationEnabled", removedFromConversationEnabled.toString());
+            request.addPostParam("RemovedFromConversation.Enabled", removedFromConversationEnabled.toString());
     
         }
         if (removedFromConversationTemplate != null) {
@@ -171,7 +171,7 @@ public class NotificationUpdater extends Updater<Notification>{
     
         }
         if (newMessageWithMediaEnabled != null) {
-            request.addPostParam("NewMessageWithMediaEnabled", newMessageWithMediaEnabled.toString());
+            request.addPostParam("NewMessage.WithMedia.Enabled", newMessageWithMediaEnabled.toString());
     
         }
         if (newMessageWithMediaTemplate != null) {

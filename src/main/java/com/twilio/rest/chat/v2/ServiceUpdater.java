@@ -263,7 +263,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsNewMessageEnabled != null) {
-            request.addPostParam("NotificationsNewMessageEnabled", notificationsNewMessageEnabled.toString());
+            request.addPostParam("Notifications.NewMessage.Enabled", notificationsNewMessageEnabled.toString());
     
         }
         if (notificationsNewMessageTemplate != null) {
@@ -275,11 +275,11 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsNewMessageBadgeCountEnabled != null) {
-            request.addPostParam("NotificationsNewMessageBadgeCountEnabled", notificationsNewMessageBadgeCountEnabled.toString());
+            request.addPostParam("Notifications.NewMessage.BadgeCountEnabled", notificationsNewMessageBadgeCountEnabled.toString());
     
         }
         if (notificationsAddedToChannelEnabled != null) {
-            request.addPostParam("NotificationsAddedToChannelEnabled", notificationsAddedToChannelEnabled.toString());
+            request.addPostParam("Notifications.AddedToChannel.Enabled", notificationsAddedToChannelEnabled.toString());
     
         }
         if (notificationsAddedToChannelTemplate != null) {
@@ -291,7 +291,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsRemovedFromChannelEnabled != null) {
-            request.addPostParam("NotificationsRemovedFromChannelEnabled", notificationsRemovedFromChannelEnabled.toString());
+            request.addPostParam("Notifications.RemovedFromChannel.Enabled", notificationsRemovedFromChannelEnabled.toString());
     
         }
         if (notificationsRemovedFromChannelTemplate != null) {
@@ -303,7 +303,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsInvitedToChannelEnabled != null) {
-            request.addPostParam("NotificationsInvitedToChannelEnabled", notificationsInvitedToChannelEnabled.toString());
+            request.addPostParam("Notifications.InvitedToChannel.Enabled", notificationsInvitedToChannelEnabled.toString());
     
         }
         if (notificationsInvitedToChannelTemplate != null) {
@@ -333,11 +333,11 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (limitsChannelMembers != null) {
-            request.addPostParam("LimitsChannelMembers", limitsChannelMembers.toString());
+            request.addPostParam("Limits.ChannelMembers", limitsChannelMembers.toString());
     
         }
         if (limitsUserChannels != null) {
-            request.addPostParam("LimitsUserChannels", limitsUserChannels.toString());
+            request.addPostParam("Limits.UserChannels", limitsUserChannels.toString());
     
         }
         if (mediaCompatibilityMessage != null) {
@@ -353,7 +353,7 @@ public class ServiceUpdater extends Updater<Service>{
     
         }
         if (notificationsLogEnabled != null) {
-            request.addPostParam("NotificationsLogEnabled", notificationsLogEnabled.toString());
+            request.addPostParam("Notifications.LogEnabled", notificationsLogEnabled.toString());
     
         }
     }

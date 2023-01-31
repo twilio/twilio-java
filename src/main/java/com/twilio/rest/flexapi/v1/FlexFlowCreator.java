@@ -185,7 +185,7 @@ public class FlexFlowCreator extends Creator<FlexFlow>{
     
         }
         if (integrationUrl != null) {
-            request.addPostParam("IntegrationUrl", integrationUrl.toString());
+            request.addPostParam("Integration.Url", integrationUrl.toString());
     
         }
         if (integrationWorkspaceSid != null) {
@@ -201,15 +201,15 @@ public class FlexFlowCreator extends Creator<FlexFlow>{
     
         }
         if (integrationTimeout != null) {
-            request.addPostParam("IntegrationTimeout", integrationTimeout.toString());
+            request.addPostParam("Integration.Timeout", integrationTimeout.toString());
     
         }
         if (integrationPriority != null) {
-            request.addPostParam("IntegrationPriority", integrationPriority.toString());
+            request.addPostParam("Integration.Priority", integrationPriority.toString());
     
         }
         if (integrationCreationOnMessage != null) {
-            request.addPostParam("IntegrationCreationOnMessage", integrationCreationOnMessage.toString());
+            request.addPostParam("Integration.CreationOnMessage", integrationCreationOnMessage.toString());
     
         }
         if (longLived != null) {
@@ -221,7 +221,7 @@ public class FlexFlowCreator extends Creator<FlexFlow>{
     
         }
         if (integrationRetryCount != null) {
-            request.addPostParam("IntegrationRetryCount", integrationRetryCount.toString());
+            request.addPostParam("Integration.RetryCount", integrationRetryCount.toString());
     
         }
     }

@@ -270,7 +270,7 @@ public class Request {
     }
 
     private void addParam(final Map<String, List<String>> params, final String name, final String value) {
-        if (value == null || value == "null")
+        if (value == null || value.equals("null"))
             return;
 
         if (!params.containsKey(name)) {

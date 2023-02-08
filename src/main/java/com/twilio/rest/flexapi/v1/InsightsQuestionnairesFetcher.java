@@ -27,21 +27,24 @@ import com.twilio.rest.Domains;
 
 
 
-public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
-    private String authorization;
+public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaires> {
+    private String pathId;
+    private String token;
 
-    public InsightsUserRolesFetcher(){
+    public InsightsQuestionnairesFetcher(final String pathId){
+        this.pathId = pathId;
     }
 
-    public InsightsUserRolesFetcher setAuthorization(final String authorization){
-        this.authorization = authorization;
+    public InsightsQuestionnairesFetcher setToken(final String token){
+        this.token = token;
         return this;
     }
 
     @Override
-    public InsightsUserRoles fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/UserRoles";
+    public InsightsQuestionnaires fetch(final TwilioRestClient client) {
+        String path = "/v1/Insights/QM/Questionnaires/{Id}";
 
+        path = path.replace("{"+"Id"+"}", this.pathId.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -52,7 +55,7 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("InsightsUserRoles fetch failed: Unable to connect to server");
+        throw new ApiConnectionException("InsightsQuestionnaires fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -61,11 +64,11 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
             throw new ApiException(restException);
         }
 
-        return InsightsUserRoles.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+        if (token != null) {
+            request.addHeaderParam("Token", token);
 
         }
     }

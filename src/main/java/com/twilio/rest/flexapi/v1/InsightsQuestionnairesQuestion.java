@@ -40,7 +40,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesQuestion extends Resource {
-    private static final long serialVersionUID = 101186858023015L;
+    private static final long serialVersionUID = 194301623610369L;
 
     public static InsightsQuestionnairesQuestionCreator creator(final String categoryId, final String question, final String description, final String answerSetId, final Boolean allowNa){
         return new InsightsQuestionnairesQuestionCreator(categoryId, question, description, answerSetId, allowNa);
@@ -50,8 +50,12 @@ public class InsightsQuestionnairesQuestion extends Resource {
         return new InsightsQuestionnairesQuestionDeleter(pathQuestionId);
     }
 
-    public static InsightsQuestionnairesQuestionUpdater updater(final String pathQuestionId, final String question, final String description, final String answerSetId, final Boolean allowNa){
-        return new InsightsQuestionnairesQuestionUpdater(pathQuestionId, question, description, answerSetId, allowNa);
+    public static InsightsQuestionnairesQuestionReader reader(){
+        return new InsightsQuestionnairesQuestionReader();
+    }
+
+    public static InsightsQuestionnairesQuestionUpdater updater(final String pathQuestionId, final Boolean allowNa){
+        return new InsightsQuestionnairesQuestionUpdater(pathQuestionId, allowNa);
     }
 
     /**
@@ -98,6 +102,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
     private final Map<String, Object> category;
     private final String answerSetId;
     private final Boolean allowNa;
+    private final Integer usage;
     private final URI url;
 
     @JsonCreator
@@ -123,6 +128,9 @@ public class InsightsQuestionnairesQuestion extends Resource {
         @JsonProperty("allow_na")
         final Boolean allowNa,
 
+        @JsonProperty("usage")
+        final Integer usage,
+
         @JsonProperty("url")
         final URI url
     ) {
@@ -133,6 +141,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
         this.category = category;
         this.answerSetId = answerSetId;
         this.allowNa = allowNa;
+        this.usage = usage;
         this.url = url;
     }
 
@@ -157,6 +166,9 @@ public class InsightsQuestionnairesQuestion extends Resource {
         public final Boolean getAllowNa() {
             return this.allowNa;
         }
+        public final Integer getUsage() {
+            return this.usage;
+        }
         public final URI getUrl() {
             return this.url;
         }
@@ -173,12 +185,12 @@ public class InsightsQuestionnairesQuestion extends Resource {
 
         InsightsQuestionnairesQuestion other = (InsightsQuestionnairesQuestion) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionId, other.questionId) &&  Objects.equals(question, other.question) &&  Objects.equals(description, other.description) &&  Objects.equals(category, other.category) &&  Objects.equals(answerSetId, other.answerSetId) &&  Objects.equals(allowNa, other.allowNa) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionId, other.questionId) &&  Objects.equals(question, other.question) &&  Objects.equals(description, other.description) &&  Objects.equals(category, other.category) &&  Objects.equals(answerSetId, other.answerSetId) &&  Objects.equals(allowNa, other.allowNa) &&  Objects.equals(usage, other.usage) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, questionId, question, description, category, answerSetId, allowNa, url);
+        return Objects.hash(accountSid, questionId, question, description, category, answerSetId, allowNa, usage, url);
     }
 
 }

@@ -48,6 +48,10 @@ public class InsightsQuestionnairesCategory extends Resource {
         return new InsightsQuestionnairesCategoryDeleter(pathCategoryId);
     }
 
+    public static InsightsQuestionnairesCategoryReader reader(){
+        return new InsightsQuestionnairesCategoryReader();
+    }
+
     public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategoryId, final String name){
         return new InsightsQuestionnairesCategoryUpdater(pathCategoryId, name);
     }

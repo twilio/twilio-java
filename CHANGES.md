@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2023-02-08] Version 9.2.3
+--------------------------
+**Library - Fix**
+- [PR #731](https://github.com/twilio/twilio-java/pull/731): add request null check. Thanks to [@charan678](https://github.com/charan678)!
+- [PR #730](https://github.com/twilio/twilio-java/pull/730): add null string check. Thanks to [@charan678](https://github.com/charan678)!
+- [PR #729](https://github.com/twilio/twilio-java/pull/729): set correct Parameter name. Thanks to [@isha689](https://github.com/isha689)!
+- [PR #727](https://github.com/twilio/twilio-java/pull/727): add non null values to param list. Thanks to [@charan678](https://github.com/charan678)!
+
+**Lookups**
+- Add `disposable_phone_number_risk` package to the lookup response
+- Add `sms_pumping_risk` package to the lookup response
+
+
 [2023-01-25] Version 9.2.2
 --------------------------
 **Api**

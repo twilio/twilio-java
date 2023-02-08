@@ -14,7 +14,7 @@
 
 package com.twilio.rest.flexapi.v1;
 
-import com.twilio.base.Fetcher;
+import com.twilio.base.Deleter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,25 +26,27 @@ import com.twilio.rest.Domains;
 
 
 
+public class InsightsQuestionnairesDeleter extends Deleter<InsightsQuestionnaires> {
+    private String pathId;
+    private String token;
 
-public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
-    private String authorization;
-
-    public InsightsUserRolesFetcher(){
+    public InsightsQuestionnairesDeleter(final String pathId){
+        this.pathId = pathId;
     }
 
-    public InsightsUserRolesFetcher setAuthorization(final String authorization){
-        this.authorization = authorization;
+    public InsightsQuestionnairesDeleter setToken(final String token){
+        this.token = token;
         return this;
     }
 
     @Override
-    public InsightsUserRoles fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/UserRoles";
+    public boolean delete(final TwilioRestClient client) {
+        String path = "/v1/Insights/QM/Questionnaires/{Id}";
 
+        path = path.replace("{"+"Id"+"}", this.pathId.toString());
 
         Request request = new Request(
-            HttpMethod.GET,
+            HttpMethod.DELETE,
             Domains.FLEXAPI.toString(),
             path
         );
@@ -52,7 +54,7 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("InsightsUserRoles fetch failed: Unable to connect to server");
+            throw new ApiConnectionException("InsightsQuestionnaires delete failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -60,12 +62,11 @@ public class InsightsUserRolesFetcher extends Fetcher<InsightsUserRoles> {
             }
             throw new ApiException(restException);
         }
-
-        return InsightsUserRoles.fromJson(response.getStream(), client.getObjectMapper());
+        return response.getStatusCode() == 204;
     }
     private void addHeaderParams(final Request request) {
-        if (authorization != null) {
-            request.addHeaderParam("Authorization", authorization);
+        if (token != null) {
+            request.addHeaderParam("Token", token);
 
         }
     }

@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,53 +26,52 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
 
+import java.util.List;
 
 
-public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuestionnairesQuestion>{
-    private String pathQuestionId;
-    private Boolean allowNa;
+public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaires>{
+    private String pathId;
+    private Boolean active;
     private String token;
-    private String categoryId;
-    private String question;
+    private String name;
     private String description;
-    private String answerSetId;
+    private List<String> questionIds;
 
-    public InsightsQuestionnairesQuestionUpdater(final String pathQuestionId, final Boolean allowNa){
-        this.pathQuestionId = pathQuestionId;
-        this.allowNa = allowNa;
+    public InsightsQuestionnairesUpdater(final String pathId, final Boolean active){
+        this.pathId = pathId;
+        this.active = active;
     }
 
-    public InsightsQuestionnairesQuestionUpdater setAllowNa(final Boolean allowNa){
-        this.allowNa = allowNa;
+    public InsightsQuestionnairesUpdater setActive(final Boolean active){
+        this.active = active;
         return this;
     }
-    public InsightsQuestionnairesQuestionUpdater setToken(final String token){
+    public InsightsQuestionnairesUpdater setToken(final String token){
         this.token = token;
         return this;
     }
-    public InsightsQuestionnairesQuestionUpdater setCategoryId(final String categoryId){
-        this.categoryId = categoryId;
+    public InsightsQuestionnairesUpdater setName(final String name){
+        this.name = name;
         return this;
     }
-    public InsightsQuestionnairesQuestionUpdater setQuestion(final String question){
-        this.question = question;
-        return this;
-    }
-    public InsightsQuestionnairesQuestionUpdater setDescription(final String description){
+    public InsightsQuestionnairesUpdater setDescription(final String description){
         this.description = description;
         return this;
     }
-    public InsightsQuestionnairesQuestionUpdater setAnswerSetId(final String answerSetId){
-        this.answerSetId = answerSetId;
+    public InsightsQuestionnairesUpdater setQuestionIds(final List<String> questionIds){
+        this.questionIds = questionIds;
         return this;
+    }
+    public InsightsQuestionnairesUpdater setQuestionIds(final String questionIds){
+        return setQuestionIds(Promoter.listOfOne(questionIds));
     }
 
     @Override
-    public InsightsQuestionnairesQuestion update(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Questions/{QuestionId}";
+    public InsightsQuestionnaires update(final TwilioRestClient client){
+        String path = "/v1/Insights/QM/Questionnaires/{Id}";
 
-        path = path.replace("{"+"QuestionId"+"}", this.pathQuestionId.toString());
-        path = path.replace("{"+"AllowNa"+"}", this.allowNa.toString());
+        path = path.replace("{"+"Id"+"}", this.pathId.toString());
+        path = path.replace("{"+"Active"+"}", this.active.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -82,7 +82,7 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnairesQuestion update failed: Unable to connect to server");
+            throw new ApiConnectionException("InsightsQuestionnaires update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
             RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
@@ -91,27 +91,25 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnairesQuestion.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addPostParams(final Request request) {
-        if (allowNa != null) {
-            request.addPostParam("AllowNa", allowNa.toString());
+        if (active != null) {
+            request.addPostParam("Active", active.toString());
     
         }
-        if (categoryId != null) {
-            request.addPostParam("CategoryId", categoryId);
-    
-        }
-        if (question != null) {
-            request.addPostParam("Question", question);
+        if (name != null) {
+            request.addPostParam("Name", name);
     
         }
         if (description != null) {
             request.addPostParam("Description", description);
     
         }
-        if (answerSetId != null) {
-            request.addPostParam("AnswerSetId", answerSetId);
+        if (questionIds != null) {
+            for (String prop : questionIds) {
+                request.addPostParam("QuestionIds", prop);
+            }
     
         }
     }

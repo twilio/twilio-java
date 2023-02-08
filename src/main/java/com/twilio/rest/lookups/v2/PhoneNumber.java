@@ -42,7 +42,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
-    private static final long serialVersionUID = 185016962299766L;
+    private static final long serialVersionUID = 147923961175491L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -120,6 +120,8 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> liveActivity;
     private final Map<String, Object> lineTypeIntelligence;
     private final Map<String, Object> identityMatch;
+    private final Map<String, Object> smsPumpingRisk;
+    private final Map<String, Object> disposablePhoneNumberRisk;
     private final URI url;
 
     @JsonCreator
@@ -160,6 +162,12 @@ public class PhoneNumber extends Resource {
         @JsonProperty("identity_match")
         final Map<String, Object> identityMatch,
 
+        @JsonProperty("sms_pumping_risk")
+        final Map<String, Object> smsPumpingRisk,
+
+        @JsonProperty("disposable_phone_number_risk")
+        final Map<String, Object> disposablePhoneNumberRisk,
+
         @JsonProperty("url")
         final URI url
     ) {
@@ -175,6 +183,8 @@ public class PhoneNumber extends Resource {
         this.liveActivity = liveActivity;
         this.lineTypeIntelligence = lineTypeIntelligence;
         this.identityMatch = identityMatch;
+        this.smsPumpingRisk = smsPumpingRisk;
+        this.disposablePhoneNumberRisk = disposablePhoneNumberRisk;
         this.url = url;
     }
 
@@ -214,6 +224,12 @@ public class PhoneNumber extends Resource {
         public final Map<String, Object> getIdentityMatch() {
             return this.identityMatch;
         }
+        public final Map<String, Object> getSmsPumpingRisk() {
+            return this.smsPumpingRisk;
+        }
+        public final Map<String, Object> getDisposablePhoneNumberRisk() {
+            return this.disposablePhoneNumberRisk;
+        }
         public final URI getUrl() {
             return this.url;
         }
@@ -230,12 +246,12 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
 
-        return Objects.equals(callingCountryCode, other.callingCountryCode) &&  Objects.equals(countryCode, other.countryCode) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(nationalFormat, other.nationalFormat) &&  Objects.equals(valid, other.valid) &&  Objects.equals(validationErrors, other.validationErrors) &&  Objects.equals(callerName, other.callerName) &&  Objects.equals(simSwap, other.simSwap) &&  Objects.equals(callForwarding, other.callForwarding) &&  Objects.equals(liveActivity, other.liveActivity) &&  Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&  Objects.equals(identityMatch, other.identityMatch) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(callingCountryCode, other.callingCountryCode) &&  Objects.equals(countryCode, other.countryCode) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(nationalFormat, other.nationalFormat) &&  Objects.equals(valid, other.valid) &&  Objects.equals(validationErrors, other.validationErrors) &&  Objects.equals(callerName, other.callerName) &&  Objects.equals(simSwap, other.simSwap) &&  Objects.equals(callForwarding, other.callForwarding) &&  Objects.equals(liveActivity, other.liveActivity) &&  Objects.equals(lineTypeIntelligence, other.lineTypeIntelligence) &&  Objects.equals(identityMatch, other.identityMatch) &&  Objects.equals(smsPumpingRisk, other.smsPumpingRisk) &&  Objects.equals(disposablePhoneNumberRisk, other.disposablePhoneNumberRisk) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(callingCountryCode, countryCode, phoneNumber, nationalFormat, valid, validationErrors, callerName, simSwap, callForwarding, liveActivity, lineTypeIntelligence, identityMatch, url);
+        return Objects.hash(callingCountryCode, countryCode, phoneNumber, nationalFormat, valid, validationErrors, callerName, simSwap, callForwarding, liveActivity, lineTypeIntelligence, identityMatch, smsPumpingRisk, disposablePhoneNumberRisk, url);
     }
 
 }

@@ -1,6 +1,13 @@
 twilio-java changelog
 =====================
 
+[2023-02-22] Version 9.2.4
+--------------------------
+**Api**
+- Remove `scheduled_for` property from message resource
+- Add `scheduled_for` property to message resource
+
+
 [2023-02-08] Version 9.2.3
 --------------------------
 **Library - Fix**

@@ -58,6 +58,10 @@ public class DeviceConfig extends Resource {
         return new DeviceConfigReader(pathDeviceSid);
     }
 
+    public static DeviceConfigUpdater updater(final String pathDeviceSid, final String pathKey, final String value){
+        return new DeviceConfigUpdater(pathDeviceSid, pathKey, value);
+    }
+
     /**
     * Converts a JSON String into a DeviceConfig object using the provided ObjectMapper.
     *

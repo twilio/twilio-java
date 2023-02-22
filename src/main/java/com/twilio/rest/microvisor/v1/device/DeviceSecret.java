@@ -58,6 +58,10 @@ public class DeviceSecret extends Resource {
         return new DeviceSecretReader(pathDeviceSid);
     }
 
+    public static DeviceSecretUpdater updater(final String pathDeviceSid, final String pathKey, final String value){
+        return new DeviceSecretUpdater(pathDeviceSid, pathKey, value);
+    }
+
     /**
     * Converts a JSON String into a DeviceSecret object using the provided ObjectMapper.
     *

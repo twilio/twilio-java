@@ -40,7 +40,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesQuestion extends Resource {
-    private static final long serialVersionUID = 194301623610369L;
+    private static final long serialVersionUID = 165646658833185L;
 
     public static InsightsQuestionnairesQuestionCreator creator(final String categoryId, final String question, final String description, final String answerSetId, final Boolean allowNa){
         return new InsightsQuestionnairesQuestionCreator(categoryId, question, description, answerSetId, allowNa);
@@ -103,6 +103,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
     private final String answerSetId;
     private final Boolean allowNa;
     private final Integer usage;
+    private final Map<String, Object> answerSet;
     private final URI url;
 
     @JsonCreator
@@ -131,6 +132,9 @@ public class InsightsQuestionnairesQuestion extends Resource {
         @JsonProperty("usage")
         final Integer usage,
 
+        @JsonProperty("answer_set")
+        final Map<String, Object> answerSet,
+
         @JsonProperty("url")
         final URI url
     ) {
@@ -142,6 +146,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
         this.answerSetId = answerSetId;
         this.allowNa = allowNa;
         this.usage = usage;
+        this.answerSet = answerSet;
         this.url = url;
     }
 
@@ -169,6 +174,9 @@ public class InsightsQuestionnairesQuestion extends Resource {
         public final Integer getUsage() {
             return this.usage;
         }
+        public final Map<String, Object> getAnswerSet() {
+            return this.answerSet;
+        }
         public final URI getUrl() {
             return this.url;
         }
@@ -185,12 +193,12 @@ public class InsightsQuestionnairesQuestion extends Resource {
 
         InsightsQuestionnairesQuestion other = (InsightsQuestionnairesQuestion) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionId, other.questionId) &&  Objects.equals(question, other.question) &&  Objects.equals(description, other.description) &&  Objects.equals(category, other.category) &&  Objects.equals(answerSetId, other.answerSetId) &&  Objects.equals(allowNa, other.allowNa) &&  Objects.equals(usage, other.usage) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionId, other.questionId) &&  Objects.equals(question, other.question) &&  Objects.equals(description, other.description) &&  Objects.equals(category, other.category) &&  Objects.equals(answerSetId, other.answerSetId) &&  Objects.equals(allowNa, other.allowNa) &&  Objects.equals(usage, other.usage) &&  Objects.equals(answerSet, other.answerSet) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, questionId, question, description, category, answerSetId, allowNa, usage, url);
+        return Objects.hash(accountSid, questionId, question, description, category, answerSetId, allowNa, usage, answerSet, url);
     }
 
 }

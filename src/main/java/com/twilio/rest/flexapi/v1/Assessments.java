@@ -31,17 +31,24 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
+import java.util.Map;
 import java.util.Objects;
 
 
+import java.util.Map;
+import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Assessments extends Resource {
-    private static final long serialVersionUID = 48998358743670L;
+    private static final long serialVersionUID = 181353161091545L;
 
-    public static AssessmentsCreator creator(){
-        return new AssessmentsCreator();
+    public static AssessmentsCreator creator(final String categoryId, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireId){
+        return new AssessmentsCreator(categoryId, categoryName, segmentId, userName, userEmail, agentId, offset, metricId, metricName, answerText, answerId, questionnaireId);
+    }
+
+    public static AssessmentsUpdater updater(final String pathAssessmentId, final BigDecimal offset, final String answerText, final String answerId){
+        return new AssessmentsUpdater(pathAssessmentId, offset, answerText, answerId);
     }
 
     /**
@@ -81,16 +88,120 @@ public class Assessments extends Resource {
         }
     }
 
+    private final String accountSid;
+    private final String assessmentId;
+    private final BigDecimal offset;
+    private final Boolean report;
+    private final BigDecimal weight;
+    private final String agentId;
+    private final String segmentId;
+    private final String userName;
+    private final String userEmail;
+    private final String answerText;
+    private final String answerId;
+    private final Map<String, Object> assessment;
+    private final BigDecimal timestamp;
     private final URI url;
 
     @JsonCreator
     private Assessments(
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("assessment_id")
+        final String assessmentId,
+
+        @JsonProperty("offset")
+        final BigDecimal offset,
+
+        @JsonProperty("report")
+        final Boolean report,
+
+        @JsonProperty("weight")
+        final BigDecimal weight,
+
+        @JsonProperty("agent_id")
+        final String agentId,
+
+        @JsonProperty("segment_id")
+        final String segmentId,
+
+        @JsonProperty("user_name")
+        final String userName,
+
+        @JsonProperty("user_email")
+        final String userEmail,
+
+        @JsonProperty("answer_text")
+        final String answerText,
+
+        @JsonProperty("answer_id")
+        final String answerId,
+
+        @JsonProperty("assessment")
+        final Map<String, Object> assessment,
+
+        @JsonProperty("timestamp")
+        final BigDecimal timestamp,
+
         @JsonProperty("url")
         final URI url
     ) {
+        this.accountSid = accountSid;
+        this.assessmentId = assessmentId;
+        this.offset = offset;
+        this.report = report;
+        this.weight = weight;
+        this.agentId = agentId;
+        this.segmentId = segmentId;
+        this.userName = userName;
+        this.userEmail = userEmail;
+        this.answerText = answerText;
+        this.answerId = answerId;
+        this.assessment = assessment;
+        this.timestamp = timestamp;
         this.url = url;
     }
 
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getAssessmentId() {
+            return this.assessmentId;
+        }
+        public final BigDecimal getOffset() {
+            return this.offset;
+        }
+        public final Boolean getReport() {
+            return this.report;
+        }
+        public final BigDecimal getWeight() {
+            return this.weight;
+        }
+        public final String getAgentId() {
+            return this.agentId;
+        }
+        public final String getSegmentId() {
+            return this.segmentId;
+        }
+        public final String getUserName() {
+            return this.userName;
+        }
+        public final String getUserEmail() {
+            return this.userEmail;
+        }
+        public final String getAnswerText() {
+            return this.answerText;
+        }
+        public final String getAnswerId() {
+            return this.answerId;
+        }
+        public final Map<String, Object> getAssessment() {
+            return this.assessment;
+        }
+        public final BigDecimal getTimestamp() {
+            return this.timestamp;
+        }
         public final URI getUrl() {
             return this.url;
         }
@@ -107,12 +218,12 @@ public class Assessments extends Resource {
 
         Assessments other = (Assessments) o;
 
-        return Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assessmentId, other.assessmentId) &&  Objects.equals(offset, other.offset) &&  Objects.equals(report, other.report) &&  Objects.equals(weight, other.weight) &&  Objects.equals(agentId, other.agentId) &&  Objects.equals(segmentId, other.segmentId) &&  Objects.equals(userName, other.userName) &&  Objects.equals(userEmail, other.userEmail) &&  Objects.equals(answerText, other.answerText) &&  Objects.equals(answerId, other.answerId) &&  Objects.equals(assessment, other.assessment) &&  Objects.equals(timestamp, other.timestamp) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url);
+        return Objects.hash(accountSid, assessmentId, offset, report, weight, agentId, segmentId, userName, userEmail, answerText, answerId, assessment, timestamp, url);
     }
 
 }

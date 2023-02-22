@@ -58,6 +58,10 @@ public class AccountConfig extends Resource {
         return new AccountConfigReader();
     }
 
+    public static AccountConfigUpdater updater(final String pathKey, final String value){
+        return new AccountConfigUpdater(pathKey, value);
+    }
+
     /**
     * Converts a JSON String into a AccountConfig object using the provided ObjectMapper.
     *

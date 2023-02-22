@@ -58,6 +58,10 @@ public class AccountSecret extends Resource {
         return new AccountSecretReader();
     }
 
+    public static AccountSecretUpdater updater(final String pathKey, final String value){
+        return new AccountSecretUpdater(pathKey, value);
+    }
+
     /**
     * Converts a JSON String into a AccountSecret object using the provided ObjectMapper.
     *

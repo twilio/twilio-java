@@ -40,10 +40,14 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSegments extends Resource {
-    private static final long serialVersionUID = 26674883722279L;
+    private static final long serialVersionUID = 85034429282364L;
 
     public static InsightsSegmentsFetcher fetcher(final String pathSegmentId){
         return new InsightsSegmentsFetcher(pathSegmentId);
+    }
+
+    public static InsightsSegmentsReader reader(){
+        return new InsightsSegmentsReader();
     }
 
     /**
@@ -101,7 +105,7 @@ public class InsightsSegments extends Resource {
     private final String customerName;
     private final String customerLink;
     private final String segmentRecordingOffset;
-    private final String media;
+    private final Map<String, Object> media;
     private final Map<String, Object> assessmentType;
     private final Map<String, Object> assessmentPercentage;
     private final URI url;
@@ -163,7 +167,7 @@ public class InsightsSegments extends Resource {
         final String segmentRecordingOffset,
 
         @JsonProperty("media")
-        final String media,
+        final Map<String, Object> media,
 
         @JsonProperty("assessment_type")
         final Map<String, Object> assessmentType,
@@ -252,7 +256,7 @@ public class InsightsSegments extends Resource {
         public final String getSegmentRecordingOffset() {
             return this.segmentRecordingOffset;
         }
-        public final String getMedia() {
+        public final Map<String, Object> getMedia() {
             return this.media;
         }
         public final Map<String, Object> getAssessmentType() {

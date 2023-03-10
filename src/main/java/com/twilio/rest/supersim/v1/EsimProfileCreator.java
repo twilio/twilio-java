@@ -30,6 +30,7 @@ import com.twilio.rest.Domains;
 public class EsimProfileCreator extends Creator<EsimProfile>{
     private String callbackUrl;
     private HttpMethod callbackMethod;
+    private Boolean generateMatchingId;
     private String eid;
 
     public EsimProfileCreator() {
@@ -41,6 +42,10 @@ public class EsimProfileCreator extends Creator<EsimProfile>{
     }
     public EsimProfileCreator setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;
+        return this;
+    }
+    public EsimProfileCreator setGenerateMatchingId(final Boolean generateMatchingId){
+        this.generateMatchingId = generateMatchingId;
         return this;
     }
     public EsimProfileCreator setEid(final String eid){
@@ -79,6 +84,10 @@ public class EsimProfileCreator extends Creator<EsimProfile>{
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+    
+        }
+        if (generateMatchingId != null) {
+            request.addPostParam("GenerateMatchingId", generateMatchingId.toString());
     
         }
         if (eid != null) {

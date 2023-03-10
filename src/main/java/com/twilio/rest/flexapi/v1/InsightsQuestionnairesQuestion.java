@@ -42,8 +42,8 @@ import java.util.Map;
 public class InsightsQuestionnairesQuestion extends Resource {
     private static final long serialVersionUID = 165646658833185L;
 
-    public static InsightsQuestionnairesQuestionCreator creator(final String categoryId, final String question, final String description, final String answerSetId, final Boolean allowNa){
-        return new InsightsQuestionnairesQuestionCreator(categoryId, question, description, answerSetId, allowNa);
+    public static InsightsQuestionnairesQuestionCreator creator(final String categoryId, final String question, final String answerSetId, final Boolean allowNa){
+        return new InsightsQuestionnairesQuestionCreator(categoryId, question, answerSetId, allowNa);
     }
 
     public static InsightsQuestionnairesQuestionDeleter deleter(final String pathQuestionId){

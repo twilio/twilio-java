@@ -33,14 +33,16 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 
+import java.util.Map;
 import java.util.Objects;
 
 
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class App extends Resource {
-    private static final long serialVersionUID = 70106801258218L;
+    private static final long serialVersionUID = 223120562272974L;
 
     public static AppDeleter deleter(final String pathSid){
         return new AppDeleter(pathSid);
@@ -98,6 +100,7 @@ public class App extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Map<String, String> links;
 
     @JsonCreator
     private App(
@@ -120,7 +123,10 @@ public class App extends Resource {
         final String dateUpdated,
 
         @JsonProperty("url")
-        final URI url
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -129,6 +135,7 @@ public class App extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.links = links;
     }
 
         public final String getSid() {
@@ -152,6 +159,9 @@ public class App extends Resource {
         public final URI getUrl() {
             return this.url;
         }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -165,12 +175,12 @@ public class App extends Resource {
 
         App other = (App) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(hash, other.hash) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(hash, other.hash) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, hash, uniqueName, dateCreated, dateUpdated, url);
+        return Objects.hash(sid, accountSid, hash, uniqueName, dateCreated, dateUpdated, url, links);
     }
 
 }

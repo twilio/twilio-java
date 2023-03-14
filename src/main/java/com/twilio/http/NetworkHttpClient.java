@@ -25,7 +25,7 @@ import org.apache.http.message.BasicHeader;
 
 public class NetworkHttpClient extends HttpClient {
 
-    private final org.apache.http.client.HttpClient client;
+    protected final org.apache.http.client.HttpClient client;
 
     private boolean isCustomClient;
 

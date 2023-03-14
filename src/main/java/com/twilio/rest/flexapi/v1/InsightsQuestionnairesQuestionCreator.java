@@ -30,15 +30,14 @@ import com.twilio.rest.Domains;
 public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuestionnairesQuestion>{
     private String categoryId;
     private String question;
-    private String description;
     private String answerSetId;
     private Boolean allowNa;
     private String token;
+    private String description;
 
-    public InsightsQuestionnairesQuestionCreator(final String categoryId, final String question, final String description, final String answerSetId, final Boolean allowNa) {
+    public InsightsQuestionnairesQuestionCreator(final String categoryId, final String question, final String answerSetId, final Boolean allowNa) {
         this.categoryId = categoryId;
         this.question = question;
-        this.description = description;
         this.answerSetId = answerSetId;
         this.allowNa = allowNa;
     }
@@ -49,10 +48,6 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
     }
     public InsightsQuestionnairesQuestionCreator setQuestion(final String question){
         this.question = question;
-        return this;
-    }
-    public InsightsQuestionnairesQuestionCreator setDescription(final String description){
-        this.description = description;
         return this;
     }
     public InsightsQuestionnairesQuestionCreator setAnswerSetId(final String answerSetId){
@@ -67,6 +62,10 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
         this.token = token;
         return this;
     }
+    public InsightsQuestionnairesQuestionCreator setDescription(final String description){
+        this.description = description;
+        return this;
+    }
 
     @Override
     public InsightsQuestionnairesQuestion create(final TwilioRestClient client){
@@ -74,7 +73,6 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
 
         path = path.replace("{"+"CategoryId"+"}", this.categoryId.toString());
         path = path.replace("{"+"Question"+"}", this.question.toString());
-        path = path.replace("{"+"Description"+"}", this.description.toString());
         path = path.replace("{"+"AnswerSetId"+"}", this.answerSetId.toString());
         path = path.replace("{"+"AllowNa"+"}", this.allowNa.toString());
 
@@ -107,16 +105,16 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
             request.addPostParam("Question", question);
     
         }
-        if (description != null) {
-            request.addPostParam("Description", description);
-    
-        }
         if (answerSetId != null) {
             request.addPostParam("AnswerSetId", answerSetId);
     
         }
         if (allowNa != null) {
             request.addPostParam("AllowNa", allowNa.toString());
+    
+        }
+        if (description != null) {
+            request.addPostParam("Description", description);
     
         }
     }

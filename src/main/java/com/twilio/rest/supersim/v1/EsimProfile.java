@@ -41,7 +41,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EsimProfile extends Resource {
-    private static final long serialVersionUID = 275498076359262L;
+    private static final long serialVersionUID = 165735118410901L;
 
     public static EsimProfileCreator creator(){
         return new EsimProfileCreator();
@@ -122,6 +122,8 @@ public class EsimProfile extends Resource {
     private final EsimProfile.Status status;
     private final String eid;
     private final URI smdpPlusAddress;
+    private final String matchingId;
+    private final String activationCode;
     private final String errorCode;
     private final String errorMessage;
     private final ZonedDateTime dateCreated;
@@ -151,6 +153,12 @@ public class EsimProfile extends Resource {
         @JsonProperty("smdp_plus_address")
         final URI smdpPlusAddress,
 
+        @JsonProperty("matching_id")
+        final String matchingId,
+
+        @JsonProperty("activation_code")
+        final String activationCode,
+
         @JsonProperty("error_code")
         final String errorCode,
 
@@ -173,6 +181,8 @@ public class EsimProfile extends Resource {
         this.status = status;
         this.eid = eid;
         this.smdpPlusAddress = smdpPlusAddress;
+        this.matchingId = matchingId;
+        this.activationCode = activationCode;
         this.errorCode = errorCode;
         this.errorMessage = errorMessage;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -200,6 +210,12 @@ public class EsimProfile extends Resource {
         }
         public final URI getSmdpPlusAddress() {
             return this.smdpPlusAddress;
+        }
+        public final String getMatchingId() {
+            return this.matchingId;
+        }
+        public final String getActivationCode() {
+            return this.activationCode;
         }
         public final String getErrorCode() {
             return this.errorCode;
@@ -229,12 +245,12 @@ public class EsimProfile extends Resource {
 
         EsimProfile other = (EsimProfile) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(iccid, other.iccid) &&  Objects.equals(simSid, other.simSid) &&  Objects.equals(status, other.status) &&  Objects.equals(eid, other.eid) &&  Objects.equals(smdpPlusAddress, other.smdpPlusAddress) &&  Objects.equals(errorCode, other.errorCode) &&  Objects.equals(errorMessage, other.errorMessage) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(iccid, other.iccid) &&  Objects.equals(simSid, other.simSid) &&  Objects.equals(status, other.status) &&  Objects.equals(eid, other.eid) &&  Objects.equals(smdpPlusAddress, other.smdpPlusAddress) &&  Objects.equals(matchingId, other.matchingId) &&  Objects.equals(activationCode, other.activationCode) &&  Objects.equals(errorCode, other.errorCode) &&  Objects.equals(errorMessage, other.errorMessage) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, iccid, simSid, status, eid, smdpPlusAddress, errorCode, errorMessage, dateCreated, dateUpdated, url);
+        return Objects.hash(sid, accountSid, iccid, simSid, status, eid, smdpPlusAddress, matchingId, activationCode, errorCode, errorMessage, dateCreated, dateUpdated, url);
     }
 
 }

@@ -47,6 +47,10 @@ public class Assessments extends Resource {
         return new AssessmentsCreator(categoryId, categoryName, segmentId, userName, userEmail, agentId, offset, metricId, metricName, answerText, answerId, questionnaireId);
     }
 
+    public static AssessmentsReader reader(){
+        return new AssessmentsReader();
+    }
+
     public static AssessmentsUpdater updater(final String pathAssessmentId, final BigDecimal offset, final String answerText, final String answerId){
         return new AssessmentsUpdater(pathAssessmentId, offset, answerText, answerId);
     }

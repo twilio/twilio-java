@@ -1,6 +1,21 @@
 twilio-java changelog
 =====================
 
+[2023-03-22] Version 9.3.0
+--------------------------
+**Library - Chore**
+- [PR #735](https://github.com/twilio/twilio-java/pull/735): protected NetworkHttpClient field. Thanks to [@bcanseco](https://github.com/bcanseco)!
+
+**Api**
+- Revert Corrected the data type for `friendly_name` in Available Phone Number Local, Mobile and TollFree resources
+- Corrected the data type for `friendly_name` in Available Phone Number Local, Mobile and TollFree resources **(breaking change)**
+
+**Messaging**
+- Add `linkshortening_messaging_service` resource
+- Add new endpoint for GetDomainConfigByMessagingServiceSid
+- Remove `validated` parameter and add `cert_in_validation` parameter to Link Shortening API **(breaking change)**
+
+
 [2023-03-09] Version 9.2.5
 --------------------------
 **Api**

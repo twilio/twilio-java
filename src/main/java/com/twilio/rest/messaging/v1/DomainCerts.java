@@ -33,14 +33,16 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 
+import java.util.Map;
 import java.util.Objects;
 
 
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainCerts extends Resource {
-    private static final long serialVersionUID = 66875153519190L;
+    private static final long serialVersionUID = 200335100401859L;
 
     public static DomainCertsDeleter deleter(final String pathDomainSid){
         return new DomainCertsDeleter(pathDomainSid);
@@ -98,7 +100,7 @@ public class DomainCerts extends Resource {
     private final URI domainName;
     private final String certificateSid;
     private final URI url;
-    private final Boolean validated;
+    private final Map<String, Object> certInValidation;
 
     @JsonCreator
     private DomainCerts(
@@ -123,8 +125,8 @@ public class DomainCerts extends Resource {
         @JsonProperty("url")
         final URI url,
 
-        @JsonProperty("validated")
-        final Boolean validated
+        @JsonProperty("cert_in_validation")
+        final Map<String, Object> certInValidation
     ) {
         this.domainSid = domainSid;
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -133,7 +135,7 @@ public class DomainCerts extends Resource {
         this.domainName = domainName;
         this.certificateSid = certificateSid;
         this.url = url;
-        this.validated = validated;
+        this.certInValidation = certInValidation;
     }
 
         public final String getDomainSid() {
@@ -157,8 +159,8 @@ public class DomainCerts extends Resource {
         public final URI getUrl() {
             return this.url;
         }
-        public final Boolean getValidated() {
-            return this.validated;
+        public final Map<String, Object> getCertInValidation() {
+            return this.certInValidation;
         }
 
     @Override
@@ -173,12 +175,12 @@ public class DomainCerts extends Resource {
 
         DomainCerts other = (DomainCerts) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(dateExpires, other.dateExpires) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(domainName, other.domainName) &&  Objects.equals(certificateSid, other.certificateSid) &&  Objects.equals(url, other.url) &&  Objects.equals(validated, other.validated)  ;
+        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(dateExpires, other.dateExpires) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(domainName, other.domainName) &&  Objects.equals(certificateSid, other.certificateSid) &&  Objects.equals(url, other.url) &&  Objects.equals(certInValidation, other.certInValidation)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domainSid, dateUpdated, dateExpires, dateCreated, domainName, certificateSid, url, validated);
+        return Objects.hash(domainSid, dateUpdated, dateExpires, dateCreated, domainName, certificateSid, url, certInValidation);
     }
 
 }

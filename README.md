@@ -92,12 +92,32 @@ This will result in the `hostname` transforming from `api.twilio.com` to `api.sy
 
 ### Enable Debug Logging
 
-This library uses SLF4J for logging. Consult the SFL4J documentation
-for information about logging configuration:
+This library uses SLF4J for logging. Consult the [SFL4J documentation](http://slf4j.org/docs.html) for information about logging configuration.
 
-  http://slf4j.org/docs.html
+For example, if you are using `log4j`:
 
-For example, if you are using `log4j`, make sure you have `slf4j-log4j12-1.X.XX.jar`, `log4j-1.X.XX.jar` and `slf4j-api-1.X.XX.jar` in your classpath and a `log4j.properties` file in the root of your project.
+* Make sure you have `log4j-slf4j-impl`, `log4j-core` and `log4j-api` in your `pom.xml` file
+* Define the logging level for the Twilio HTTP client in your configuration. For example, in `src/main/resources/log4j2.xml`:
+  
+  ```xml
+  <?xml version="1.0" encoding="UTF-8"?>
+  <Configuration status="WARN">
+      <Appenders>
+          <Console name="Console" target="SYSTEM_OUT">
+              <PatternLayout pattern="%d{HH:mm:ss.SSS} %-5level - %msg%n"/>
+          </Console>
+      </Appenders>
+      <Loggers>
+          <!--Your Twilio logging configuration goes here-->
+          <Logger name="com.twilio.http" level="debug" additivity="false">
+              <AppenderRef ref="Console"/>
+          </Logger>
+          <Root level="info">
+              <AppenderRef ref="Console"/>
+          </Root>
+      </Loggers>
+  </Configuration>
+  ```
 
 ### Environment Variables
 

@@ -1,6 +1,27 @@
 twilio-java changelog
 =====================
 
+[2023-04-05] Version 9.4.0
+--------------------------
+**Library - Docs**
+- [PR #738](https://github.com/twilio/twilio-java/pull/738): provide more detailed debug logging example. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+
+**Conversations**
+- Expose query parameters `start_date`, `end_date` and `state` in list operation on Conversations resource for sorting and filtering
+
+**Insights**
+- Added answered by filter in Call Summaries
+
+**Lookups**
+- Remove `disposable_phone_number_risk` package **(breaking change)**
+
+**Messaging**
+- Add support for `SOLE_PROPRIETOR` brand type and `SOLE_PROPRIETOR` campaign use case.
+- New Sole Proprietor Brands should be created with `SOLE_PROPRIETOR` brand type. Brand registration requests with `STARTER` brand type will be rejected.
+- New Sole Proprietor Campaigns should be created with `SOLE_PROPRIETOR` campaign use case. Campaign registration requests with `STARTER` campaign use case will be rejected.
+- Add Brand Registrations OTP API
+
+
 [2023-03-22] Version 9.3.0
 --------------------------
 **Library - Chore**

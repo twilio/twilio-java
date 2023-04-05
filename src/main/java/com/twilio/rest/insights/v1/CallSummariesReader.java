@@ -47,6 +47,7 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private CallSummaries.SortBy sortBy;
     private String subaccount;
     private Boolean abnormalSession;
+    private CallSummaries.AnsweredBy answeredBy;
     private Integer pageSize;
 
     public CallSummariesReader(){
@@ -122,6 +123,10 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     }
     public CallSummariesReader setAbnormalSession(final Boolean abnormalSession){
         this.abnormalSession = abnormalSession;
+        return this;
+    }
+    public CallSummariesReader setAnsweredBy(final CallSummaries.AnsweredBy answeredBy){
+        this.answeredBy = answeredBy;
         return this;
     }
     public CallSummariesReader setPageSize(final Integer pageSize){
@@ -268,6 +273,10 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         if (abnormalSession != null) {
     
             request.addQueryParam("AbnormalSession", abnormalSession.toString());
+        }
+        if (answeredBy != null) {
+    
+            request.addQueryParam("AnsweredBy", answeredBy.toString());
         }
         if (pageSize != null) {
     

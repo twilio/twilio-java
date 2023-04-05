@@ -22,60 +22,200 @@ New accounts and subaccounts are now required to use TLS 1.2 when accessing the 
 
 This library supports the following Java implementations:
 
-* OpenJDK 8
-* OpenJDK 11
-* OpenJDK 17
-* OracleJDK 8
-* OracleJDK 11
-* OracleJDK 17
+- OpenJDK 8
+- OpenJDK 11
+- OpenJDK 17
+- OracleJDK 8
+- OracleJDK 11
+- OracleJDK 17
 
 For Java 7 support, use `twilio-java` major version `7.X.X`.
 
 ## Installation
 
-twilio-java uses Maven. At present the jars *are* available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
+`twilio-java` uses Maven. At present the jars _are_ available from a public [maven](https://mvnrepository.com/artifact/com.twilio.sdk/twilio) repository.
 
 Use the following dependency in your project to grab via Maven:
 
-```
-       <dependency>
-          <groupId>com.twilio.sdk</groupId>
-          <artifactId>twilio</artifactId>
-          <version>9.X.X</version>
-          <scope>compile</scope>
-       </dependency>
+```xml
+<dependency>
+  <groupId>com.twilio.sdk</groupId>
+  <artifactId>twilio</artifactId>
+  <version>9.X.X</version>
+  <scope>compile</scope>
+</dependency>
 ```
 
 or Gradle:
+
 ```groovy
 implementation "com.twilio.sdk:twilio:9.X.X"
 ```
 
 If you want to compile it yourself, here's how:
 
-    $ git clone git@github.com:twilio/twilio-java
-    $ cd twilio-java
-    $ mvn install       # Requires maven, download from https://maven.apache.org/download.html
+```shell
+git clone git@github.com:twilio/twilio-java
+cd twilio-java
+mvn install       # Requires maven, download from https://maven.apache.org/download.html
+```
 
 If you want to build your own .jar, execute the following from within the cloned directory:
 
-    $ mvn package
+```shell
+mvn package
+```
 
 If you run into trouble with local tests, use:
 
-    $ mvn package -Dmaven.test.skip=true
+```shell
+mvn package -Dmaven.test.skip=true
+```
 
-## Quickstart
+### Test your installation
+
+Try sending yourself an SMS message, like this:
+
+```java
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
+public class Example {
+
+  // Find your Account Sid and Token at console.twilio.com
+  public static final String ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  public static final String AUTH_TOKEN = "your_auth_token";
+
+  public static void main(String[] args) {
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    Message message = Message
+      .creator(
+        new PhoneNumber("+15558675309"),
+        new PhoneNumber("+15017250604"),
+        "This is the ship that made the Kessel Run in fourteen parsecs?"
+      )
+      .create();
+
+    System.out.println(message.getSid());
+  }
+}
+```
+
+> **Warning**
+> It's okay to hardcode your credentials when testing locally, but you should use environment variables to keep them secret before committing any code or deploying to production. Check out [How to Set Environment Variables](https://www.twilio.com/blog/2017/01/how-to-set-environment-variables.html) for more information.
+
+## Usage
 
 ### Initialize the Client
 
 ```java
-// Find your Account SID and Auth Token at twilio.com/console
-// DANGER! This is insecure. See http://twil.io/secure
-String accountSid = "ACXXXXXX";
-String authToken = "XXXXXXXX";
+import com.twilio.Twilio;
+import com.twilio.exception.AuthenticationException;
 
-Twilio.init(accountSid, authToken);
+public class Example {
+
+  private static final String ACCOUNT_SID =
+    "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  private static final String AUTH_TOKEN = "your_auth_token";
+
+  public static void main(String[] args) throws AuthenticationException {
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+  }
+}
+```
+
+### Environment Variables
+
+`twilio-java` supports the credentials, region, and edge values stored in the following environment variables:
+
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_REGION`
+- `TWILIO_EDGE`
+
+If using these variables, the above client initialization can be skipped.
+
+### Make a Call
+
+```java
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Call;
+import com.twilio.type.PhoneNumber;
+import java.net.URI;
+import java.net.URISyntaxException;
+
+public class Example {
+
+  public static final String ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  public static final String AUTH_TOKEN = "your_auth_token";
+
+  public static void main(String[] args) throws URISyntaxException {
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    Call call = Call
+      .creator(
+        new PhoneNumber("+14155551212"),
+        new PhoneNumber("+15017250604"),
+        new URI("http://demo.twilio.com/docs/voice.xml")
+      )
+      .create();
+
+    System.out.println(call.getSid());
+  }
+}
+```
+
+### Get an existing Call
+
+```java
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Call;
+
+public class Example {
+
+  public static final String ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  public static final String AUTH_TOKEN = "your_auth_token";
+
+  public static void main(String[] args) {
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    Call call = Call.fetcher("CA42ed11f93dc08b952027ffbc406d0868").fetch();
+
+    System.out.println(call.getTo());
+  }
+}
+```
+
+### Iterate through records
+
+The library automatically handles paging for you. With the `read` method, you can specify the number of records you want to receive (`limit`) and the maximum size you want each page fetch to be (`pageSize`). The library will then handle the task for you, fetching new pages under the hood as you iterate over the records.
+
+For more information, view the [auto-generated library docs](https://www.twilio.com/docs/libraries/reference/twilio-java/).
+
+#### Use the `read` method
+
+```java
+import com.twilio.Twilio;
+import com.twilio.base.ResourceSet;
+import com.twilio.rest.api.v2010.account.Call;
+
+public class Example {
+
+  public static final String ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  public static final String AUTH_TOKEN = "your_auth_token";
+
+  public static void main(String[] args) {
+    Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+
+    ResourceSet<Call> calls = Call.reader().read();
+
+    for (Call call : calls) {
+      System.out.println(call.getDirection());
+    }
+  }
+}
 ```
 
 ### Specify Region and/or Edge
@@ -96,9 +236,9 @@ This library uses SLF4J for logging. Consult the [SFL4J documentation](http://sl
 
 For example, if you are using `log4j`:
 
-* Make sure you have `log4j-slf4j-impl`, `log4j-core` and `log4j-api` in your `pom.xml` file
-* Define the logging level for the Twilio HTTP client in your configuration. For example, in `src/main/resources/log4j2.xml`:
-  
+- Make sure you have `log4j-slf4j-impl`, `log4j-core` and `log4j-api` in your `pom.xml` file
+- Define the logging level for the Twilio HTTP client in your configuration. For example, in `src/main/resources/log4j2.xml`:
+
   ```xml
   <?xml version="1.0" encoding="UTF-8"?>
   <Configuration status="WARN">
@@ -119,43 +259,7 @@ For example, if you are using `log4j`:
   </Configuration>
   ```
 
-### Environment Variables
-
-`twilio-java` supports the credentials, region, and edge values stored in the following environment variables:
-* `TWILIO_ACCOUNT_SID`
-* `TWILIO_AUTH_TOKEN`
-* `TWILIO_REGION`
-* `TWILIO_EDGE`
-
-If using these variables, the above client initialization can be skipped.
-
-### Send an SMS
-
-```java
-Message message = Message.creator(
-    new PhoneNumber("+15558881234"),  // To number
-    new PhoneNumber("+15559994321"),  // From number
-    "Hello world!"                    // SMS body
-).create();
-
-System.out.println(message.getSid());
-```
-
-### Make a Call
-
-```java
-Call call = Call.creator(
-    new PhoneNumber("+15558881234"),  // To number
-    new PhoneNumber("+15559994321"),  // From number
-
-    // Read TwiML at this URL when a call connects (hold music)
-    new URI("http://twimlets.com/holdmusic?Bucket=com.twilio.music.ambient")
-).create();
-
-System.out.println(call.getSid());
-```
-
-### Handling Exceptions
+### Handle Exceptions
 
 ```java
 import com.twilio.exception.ApiException;
@@ -173,23 +277,7 @@ try {
 }
 ```
 
-For more descriptive exception types, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/java/usage-guide#exceptions).
-
-### Using a Different Client
-
-```java
-TwilioRestClient client = new TwilioRestClient.Builder(accountSid, authToken).build();
-
-Message message = Message.creator(
-    new PhoneNumber("+15558881234"),  // To number
-    new PhoneNumber("+15559994321"),  // From number
-    "Hello world!"                    // SMS body
-).create(client);  // Pass the client here
-
-System.out.println(message.getSid());
-```
-
-### Using a Client With PKCV Authentication
+### Use a Client With PKCV Authentication
 
 Additional documentation here: https://twilio.com/docs/iam/pkcv/quickstart
 
@@ -201,7 +289,7 @@ TwilioRestClient client = new TwilioRestClient.Builder(signingKey.getSid(), sign
     .build();
 ```
 
-### Generating TwiML
+### Generate TwiML
 
 To control phone calls, your application needs to output [TwiML][twiml].
 
@@ -215,18 +303,19 @@ TwiML twiml = new VoiceResponse.Builder()
 ```
 
 That will output XML that looks like this:
-```
+
+```xml
 <Response>
     <Say>Hello World!</Say>
     <Play loop="5">https://api.twilio.com/cowbell.mp3</Play>
 </Response>
 ```
 
-## Using a Custom HTTP Client
+### Use a custom HTTP Client
 
-To use a custom HTTP client with this helper library, please see the [Twilio documentation](https://www.twilio.com/docs/libraries/java/custom-http-clients-java).
+To use a custom HTTP client with this helper library, please see the [advanced example of how to do so](./advanced-examples/custom-http-client.md).
 
-## Docker Image
+## Docker image
 
 The `Dockerfile` present in this repository and its respective `twilio/twilio-java` Docker image are currently used by Twilio for testing purposes only.
 

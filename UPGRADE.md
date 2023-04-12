@@ -10,8 +10,6 @@ _`MAJOR` version bumps will have upgrade notes posted here._
 
 Behind the scenes Java Helper is now auto-generated via OpenAPI with this release. This  enables us to rapidly add new features and enhance consistency across versions and languages.
 
-To learn more about the Java Helper Library, check out [our docs](https://www.twilio.com/docs/libraries/java).
-
 [2020-09-28] 7.x.x to 8.x.x
 -----------------------------
 

@@ -33,7 +33,6 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 
-import java.util.List;
 import java.util.Objects;
 
 
@@ -41,14 +40,14 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfig extends Resource {
-    private static final long serialVersionUID = 156569611990403L;
+    private static final long serialVersionUID = 240510898596642L;
 
     public static DomainConfigFetcher fetcher(final String pathDomainSid){
         return new DomainConfigFetcher(pathDomainSid);
     }
 
-    public static DomainConfigUpdater updater(final String pathDomainSid, final List<String> messagingServiceSids){
-        return new DomainConfigUpdater(pathDomainSid, messagingServiceSids);
+    public static DomainConfigUpdater updater(final String pathDomainSid){
+        return new DomainConfigUpdater(pathDomainSid);
     }
 
     /**
@@ -90,7 +89,6 @@ public class DomainConfig extends Resource {
 
     private final String domainSid;
     private final String configSid;
-    private final List<String> messagingServiceSids;
     private final URI fallbackUrl;
     private final URI callbackUrl;
     private final ZonedDateTime dateCreated;
@@ -104,9 +102,6 @@ public class DomainConfig extends Resource {
 
         @JsonProperty("config_sid")
         final String configSid,
-
-        @JsonProperty("messaging_service_sids")
-        final List<String> messagingServiceSids,
 
         @JsonProperty("fallback_url")
         final URI fallbackUrl,
@@ -125,7 +120,6 @@ public class DomainConfig extends Resource {
     ) {
         this.domainSid = domainSid;
         this.configSid = configSid;
-        this.messagingServiceSids = messagingServiceSids;
         this.fallbackUrl = fallbackUrl;
         this.callbackUrl = callbackUrl;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -138,9 +132,6 @@ public class DomainConfig extends Resource {
         }
         public final String getConfigSid() {
             return this.configSid;
-        }
-        public final List<String> getMessagingServiceSids() {
-            return this.messagingServiceSids;
         }
         public final URI getFallbackUrl() {
             return this.fallbackUrl;
@@ -170,12 +161,12 @@ public class DomainConfig extends Resource {
 
         DomainConfig other = (DomainConfig) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(messagingServiceSids, other.messagingServiceSids) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domainSid, configSid, messagingServiceSids, fallbackUrl, callbackUrl, dateCreated, dateUpdated, url);
+        return Objects.hash(domainSid, configSid, fallbackUrl, callbackUrl, dateCreated, dateUpdated, url);
     }
 
 }

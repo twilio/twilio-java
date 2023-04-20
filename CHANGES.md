@@ -1,6 +1,19 @@
 twilio-java changelog
 =====================
 
+[2023-04-19] Version 9.5.0
+--------------------------
+**Library - Docs**
+- [PR #739](https://github.com/twilio/twilio-java/pull/739): consolidate. Thanks to [@stern-shawn](https://github.com/stern-shawn)!
+
+**Messaging**
+- Remove `messaging_service_sids` and `messaging_service_sid_action` from domain config endpoint **(breaking change)**
+- Add error_code and rejection_reason properties to tollfree verification API response
+
+**Numbers**
+- Added the new Eligibility API under version `/v1`.
+
+
 [2023-04-05] Version 9.4.0
 --------------------------
 **Library - Docs**

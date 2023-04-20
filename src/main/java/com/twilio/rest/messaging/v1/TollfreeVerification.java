@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TollfreeVerification extends Resource {
-    private static final long serialVersionUID = 214063870442761L;
+    private static final long serialVersionUID = 117330660521006L;
 
     public static TollfreeVerificationCreator creator(final String businessName, final String businessWebsite, final String notificationEmail, final List<String> useCaseCategories, final String useCaseSummary, final String productionMessageSample, final List<String> optInImageUrls, final TollfreeVerification.OptInType optInType, final String messageVolume, final String tollfreePhoneNumberSid){
         return new TollfreeVerificationCreator(businessName, businessWebsite, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, tollfreePhoneNumberSid);
@@ -172,6 +172,8 @@ public class TollfreeVerification extends Resource {
     private final String tollfreePhoneNumberSid;
     private final TollfreeVerification.Status status;
     private final URI url;
+    private final String rejectionReason;
+    private final Integer errorCode;
     private final Map<String, Object> resourceLinks;
     private final String externalReferenceId;
 
@@ -267,6 +269,12 @@ public class TollfreeVerification extends Resource {
         @JsonProperty("url")
         final URI url,
 
+        @JsonProperty("rejection_reason")
+        final String rejectionReason,
+
+        @JsonProperty("error_code")
+        final Integer errorCode,
+
         @JsonProperty("resource_links")
         final Map<String, Object> resourceLinks,
 
@@ -303,6 +311,8 @@ public class TollfreeVerification extends Resource {
         this.tollfreePhoneNumberSid = tollfreePhoneNumberSid;
         this.status = status;
         this.url = url;
+        this.rejectionReason = rejectionReason;
+        this.errorCode = errorCode;
         this.resourceLinks = resourceLinks;
         this.externalReferenceId = externalReferenceId;
     }
@@ -397,6 +407,12 @@ public class TollfreeVerification extends Resource {
         public final URI getUrl() {
             return this.url;
         }
+        public final String getRejectionReason() {
+            return this.rejectionReason;
+        }
+        public final Integer getErrorCode() {
+            return this.errorCode;
+        }
         public final Map<String, Object> getResourceLinks() {
             return this.resourceLinks;
         }
@@ -416,12 +432,12 @@ public class TollfreeVerification extends Resource {
 
         TollfreeVerification other = (TollfreeVerification) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(customerProfileSid, other.customerProfileSid) &&  Objects.equals(trustProductSid, other.trustProductSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(regulatedItemSid, other.regulatedItemSid) &&  Objects.equals(businessName, other.businessName) &&  Objects.equals(businessStreetAddress, other.businessStreetAddress) &&  Objects.equals(businessStreetAddress2, other.businessStreetAddress2) &&  Objects.equals(businessCity, other.businessCity) &&  Objects.equals(businessStateProvinceRegion, other.businessStateProvinceRegion) &&  Objects.equals(businessPostalCode, other.businessPostalCode) &&  Objects.equals(businessCountry, other.businessCountry) &&  Objects.equals(businessWebsite, other.businessWebsite) &&  Objects.equals(businessContactFirstName, other.businessContactFirstName) &&  Objects.equals(businessContactLastName, other.businessContactLastName) &&  Objects.equals(businessContactEmail, other.businessContactEmail) &&  Objects.equals(businessContactPhone, other.businessContactPhone) &&  Objects.equals(notificationEmail, other.notificationEmail) &&  Objects.equals(useCaseCategories, other.useCaseCategories) &&  Objects.equals(useCaseSummary, other.useCaseSummary) &&  Objects.equals(productionMessageSample, other.productionMessageSample) &&  Objects.equals(optInImageUrls, other.optInImageUrls) &&  Objects.equals(optInType, other.optInType) &&  Objects.equals(messageVolume, other.messageVolume) &&  Objects.equals(additionalInformation, other.additionalInformation) &&  Objects.equals(tollfreePhoneNumberSid, other.tollfreePhoneNumberSid) &&  Objects.equals(status, other.status) &&  Objects.equals(url, other.url) &&  Objects.equals(resourceLinks, other.resourceLinks) &&  Objects.equals(externalReferenceId, other.externalReferenceId)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(customerProfileSid, other.customerProfileSid) &&  Objects.equals(trustProductSid, other.trustProductSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(regulatedItemSid, other.regulatedItemSid) &&  Objects.equals(businessName, other.businessName) &&  Objects.equals(businessStreetAddress, other.businessStreetAddress) &&  Objects.equals(businessStreetAddress2, other.businessStreetAddress2) &&  Objects.equals(businessCity, other.businessCity) &&  Objects.equals(businessStateProvinceRegion, other.businessStateProvinceRegion) &&  Objects.equals(businessPostalCode, other.businessPostalCode) &&  Objects.equals(businessCountry, other.businessCountry) &&  Objects.equals(businessWebsite, other.businessWebsite) &&  Objects.equals(businessContactFirstName, other.businessContactFirstName) &&  Objects.equals(businessContactLastName, other.businessContactLastName) &&  Objects.equals(businessContactEmail, other.businessContactEmail) &&  Objects.equals(businessContactPhone, other.businessContactPhone) &&  Objects.equals(notificationEmail, other.notificationEmail) &&  Objects.equals(useCaseCategories, other.useCaseCategories) &&  Objects.equals(useCaseSummary, other.useCaseSummary) &&  Objects.equals(productionMessageSample, other.productionMessageSample) &&  Objects.equals(optInImageUrls, other.optInImageUrls) &&  Objects.equals(optInType, other.optInType) &&  Objects.equals(messageVolume, other.messageVolume) &&  Objects.equals(additionalInformation, other.additionalInformation) &&  Objects.equals(tollfreePhoneNumberSid, other.tollfreePhoneNumberSid) &&  Objects.equals(status, other.status) &&  Objects.equals(url, other.url) &&  Objects.equals(rejectionReason, other.rejectionReason) &&  Objects.equals(errorCode, other.errorCode) &&  Objects.equals(resourceLinks, other.resourceLinks) &&  Objects.equals(externalReferenceId, other.externalReferenceId)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, customerProfileSid, trustProductSid, dateCreated, dateUpdated, regulatedItemSid, businessName, businessStreetAddress, businessStreetAddress2, businessCity, businessStateProvinceRegion, businessPostalCode, businessCountry, businessWebsite, businessContactFirstName, businessContactLastName, businessContactEmail, businessContactPhone, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, additionalInformation, tollfreePhoneNumberSid, status, url, resourceLinks, externalReferenceId);
+        return Objects.hash(sid, accountSid, customerProfileSid, trustProductSid, dateCreated, dateUpdated, regulatedItemSid, businessName, businessStreetAddress, businessStreetAddress2, businessCity, businessStateProvinceRegion, businessPostalCode, businessCountry, businessWebsite, businessContactFirstName, businessContactLastName, businessContactEmail, businessContactPhone, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, additionalInformation, tollfreePhoneNumberSid, status, url, rejectionReason, errorCode, resourceLinks, externalReferenceId);
     }
 
 }

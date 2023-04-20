@@ -27,28 +27,17 @@ import com.twilio.rest.Domains;
 
 import java.net.URI;
 
-import java.util.List;
 
 
 public class DomainConfigUpdater extends Updater<DomainConfig>{
     private String pathDomainSid;
-    private List<String> messagingServiceSids;
     private URI fallbackUrl;
     private URI callbackUrl;
-    private String messagingServiceSidsAction;
 
-    public DomainConfigUpdater(final String pathDomainSid, final List<String> messagingServiceSids){
+    public DomainConfigUpdater(final String pathDomainSid){
         this.pathDomainSid = pathDomainSid;
-        this.messagingServiceSids = messagingServiceSids;
     }
 
-    public DomainConfigUpdater setMessagingServiceSids(final List<String> messagingServiceSids){
-        this.messagingServiceSids = messagingServiceSids;
-        return this;
-    }
-    public DomainConfigUpdater setMessagingServiceSids(final String messagingServiceSids){
-        return setMessagingServiceSids(Promoter.listOfOne(messagingServiceSids));
-    }
     public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl){
         this.fallbackUrl = fallbackUrl;
         return this;
@@ -65,17 +54,12 @@ public class DomainConfigUpdater extends Updater<DomainConfig>{
     public DomainConfigUpdater setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-    public DomainConfigUpdater setMessagingServiceSidsAction(final String messagingServiceSidsAction){
-        this.messagingServiceSidsAction = messagingServiceSidsAction;
-        return this;
-    }
 
     @Override
     public DomainConfig update(final TwilioRestClient client){
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
         path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
-        path = path.replace("{"+"MessagingServiceSids"+"}", this.messagingServiceSids.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -97,22 +81,12 @@ public class DomainConfigUpdater extends Updater<DomainConfig>{
         return DomainConfig.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addPostParams(final Request request) {
-        if (messagingServiceSids != null) {
-            for (String prop : messagingServiceSids) {
-                request.addPostParam("MessagingServiceSids", prop);
-            }
-    
-        }
         if (fallbackUrl != null) {
             request.addPostParam("FallbackUrl", fallbackUrl.toString());
     
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
-    
-        }
-        if (messagingServiceSidsAction != null) {
-            request.addPostParam("MessagingServiceSidsAction", messagingServiceSidsAction);
     
         }
     }

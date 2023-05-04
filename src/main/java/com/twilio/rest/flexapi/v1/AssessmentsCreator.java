@@ -30,7 +30,7 @@ import java.math.BigDecimal;
 
 
 public class AssessmentsCreator extends Creator<Assessments>{
-    private String categoryId;
+    private String categorySid;
     private String categoryName;
     private String segmentId;
     private String userName;
@@ -41,11 +41,11 @@ public class AssessmentsCreator extends Creator<Assessments>{
     private String metricName;
     private String answerText;
     private String answerId;
-    private String questionnaireId;
+    private String questionnaireSid;
     private String token;
 
-    public AssessmentsCreator(final String categoryId, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireId) {
-        this.categoryId = categoryId;
+    public AssessmentsCreator(final String categorySid, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireSid) {
+        this.categorySid = categorySid;
         this.categoryName = categoryName;
         this.segmentId = segmentId;
         this.userName = userName;
@@ -56,11 +56,11 @@ public class AssessmentsCreator extends Creator<Assessments>{
         this.metricName = metricName;
         this.answerText = answerText;
         this.answerId = answerId;
-        this.questionnaireId = questionnaireId;
+        this.questionnaireSid = questionnaireSid;
     }
 
-    public AssessmentsCreator setCategoryId(final String categoryId){
-        this.categoryId = categoryId;
+    public AssessmentsCreator setCategorySid(final String categorySid){
+        this.categorySid = categorySid;
         return this;
     }
     public AssessmentsCreator setCategoryName(final String categoryName){
@@ -103,8 +103,8 @@ public class AssessmentsCreator extends Creator<Assessments>{
         this.answerId = answerId;
         return this;
     }
-    public AssessmentsCreator setQuestionnaireId(final String questionnaireId){
-        this.questionnaireId = questionnaireId;
+    public AssessmentsCreator setQuestionnaireSid(final String questionnaireSid){
+        this.questionnaireSid = questionnaireSid;
         return this;
     }
     public AssessmentsCreator setToken(final String token){
@@ -114,9 +114,9 @@ public class AssessmentsCreator extends Creator<Assessments>{
 
     @Override
     public Assessments create(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Assessments";
+        String path = "/v1/Insights/QualityManagement/Assessments";
 
-        path = path.replace("{"+"CategoryId"+"}", this.categoryId.toString());
+        path = path.replace("{"+"CategorySid"+"}", this.categorySid.toString());
         path = path.replace("{"+"CategoryName"+"}", this.categoryName.toString());
         path = path.replace("{"+"SegmentId"+"}", this.segmentId.toString());
         path = path.replace("{"+"UserName"+"}", this.userName.toString());
@@ -127,7 +127,7 @@ public class AssessmentsCreator extends Creator<Assessments>{
         path = path.replace("{"+"MetricName"+"}", this.metricName.toString());
         path = path.replace("{"+"AnswerText"+"}", this.answerText.toString());
         path = path.replace("{"+"AnswerId"+"}", this.answerId.toString());
-        path = path.replace("{"+"QuestionnaireId"+"}", this.questionnaireId.toString());
+        path = path.replace("{"+"QuestionnaireSid"+"}", this.questionnaireSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -150,8 +150,8 @@ public class AssessmentsCreator extends Creator<Assessments>{
         return Assessments.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addPostParams(final Request request) {
-        if (categoryId != null) {
-            request.addPostParam("CategoryId", categoryId);
+        if (categorySid != null) {
+            request.addPostParam("CategorySid", categorySid);
     
         }
         if (categoryName != null) {
@@ -194,8 +194,8 @@ public class AssessmentsCreator extends Creator<Assessments>{
             request.addPostParam("AnswerId", answerId);
     
         }
-        if (questionnaireId != null) {
-            request.addPostParam("QuestionnaireId", questionnaireId);
+        if (questionnaireSid != null) {
+            request.addPostParam("QuestionnaireSid", questionnaireSid);
     
         }
     }

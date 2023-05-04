@@ -27,11 +27,11 @@ import com.twilio.rest.Domains;
 
 
 public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuestionnairesQuestion> {
-    private String pathQuestionId;
+    private String pathQuestionSid;
     private String token;
 
-    public InsightsQuestionnairesQuestionDeleter(final String pathQuestionId){
-        this.pathQuestionId = pathQuestionId;
+    public InsightsQuestionnairesQuestionDeleter(final String pathQuestionSid){
+        this.pathQuestionSid = pathQuestionSid;
     }
 
     public InsightsQuestionnairesQuestionDeleter setToken(final String token){
@@ -41,9 +41,9 @@ public class InsightsQuestionnairesQuestionDeleter extends Deleter<InsightsQuest
 
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Questions/{QuestionId}";
+        String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path = path.replace("{"+"QuestionId"+"}", this.pathQuestionId.toString());
+        path = path.replace("{"+"QuestionSid"+"}", this.pathQuestionSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,

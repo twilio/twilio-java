@@ -50,7 +50,7 @@ public class InsightsQuestionnairesCategoryReader extends Reader<InsightsQuestio
     }
 
     public Page<InsightsQuestionnairesCategory> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Categories";
+        String path = "/v1/Insights/QualityManagement/Categories";
 
         Request request = new Request(
             HttpMethod.GET,

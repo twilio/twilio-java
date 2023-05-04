@@ -60,7 +60,7 @@ public class InsightsAssessmentsCommentReader extends Reader<InsightsAssessments
     }
 
     public Page<InsightsAssessmentsComment> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Assessments/Comments";
+        String path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
         Request request = new Request(
             HttpMethod.GET,

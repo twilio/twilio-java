@@ -40,7 +40,7 @@ public class InsightsSettingsAnswerSetsFetcher extends Fetcher<InsightsSettingsA
 
     @Override
     public InsightsSettingsAnswerSets fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Settings/AnswerSets";
+        String path = "/v1/Insights/QualityManagement/Settings/AnswerSets";
 
 
         Request request = new Request(

@@ -28,16 +28,16 @@ import com.twilio.rest.Domains;
 
 
 public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuestionnairesQuestion>{
-    private String pathQuestionId;
+    private String pathQuestionSid;
     private Boolean allowNa;
     private String token;
-    private String categoryId;
+    private String categorySid;
     private String question;
     private String description;
     private String answerSetId;
 
-    public InsightsQuestionnairesQuestionUpdater(final String pathQuestionId, final Boolean allowNa){
-        this.pathQuestionId = pathQuestionId;
+    public InsightsQuestionnairesQuestionUpdater(final String pathQuestionSid, final Boolean allowNa){
+        this.pathQuestionSid = pathQuestionSid;
         this.allowNa = allowNa;
     }
 
@@ -49,8 +49,8 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
         this.token = token;
         return this;
     }
-    public InsightsQuestionnairesQuestionUpdater setCategoryId(final String categoryId){
-        this.categoryId = categoryId;
+    public InsightsQuestionnairesQuestionUpdater setCategorySid(final String categorySid){
+        this.categorySid = categorySid;
         return this;
     }
     public InsightsQuestionnairesQuestionUpdater setQuestion(final String question){
@@ -68,9 +68,9 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
 
     @Override
     public InsightsQuestionnairesQuestion update(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Questions/{QuestionId}";
+        String path = "/v1/Insights/QualityManagement/Questions/{QuestionSid}";
 
-        path = path.replace("{"+"QuestionId"+"}", this.pathQuestionId.toString());
+        path = path.replace("{"+"QuestionSid"+"}", this.pathQuestionSid.toString());
         path = path.replace("{"+"AllowNa"+"}", this.allowNa.toString());
 
         Request request = new Request(
@@ -98,8 +98,8 @@ public class InsightsQuestionnairesQuestionUpdater extends Updater<InsightsQuest
             request.addPostParam("AllowNa", allowNa.toString());
     
         }
-        if (categoryId != null) {
-            request.addPostParam("CategoryId", categoryId);
+        if (categorySid != null) {
+            request.addPostParam("CategorySid", categorySid);
     
         }
         if (question != null) {

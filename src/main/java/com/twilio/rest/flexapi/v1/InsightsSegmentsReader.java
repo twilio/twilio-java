@@ -32,6 +32,7 @@ import java.util.List;
 
 public class InsightsSegmentsReader extends Reader<InsightsSegments> {
     private String token;
+    private String segmentId;
     private List<String> reservationId;
     private Integer pageSize;
 
@@ -40,6 +41,10 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
 
     public InsightsSegmentsReader setToken(final String token){
         this.token = token;
+        return this;
+    }
+    public InsightsSegmentsReader setSegmentId(final String segmentId){
+        this.segmentId = segmentId;
         return this;
     }
     public InsightsSegmentsReader setReservationId(final List<String> reservationId){
@@ -129,6 +134,10 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
         }
     }
     private void addQueryParams(final Request request) {
+        if (segmentId != null) {
+    
+            request.addQueryParam("SegmentId", segmentId);
+        }
         if (reservationId != null) {
             for (String prop : reservationId) {
                 request.addQueryParam("ReservationId", prop);

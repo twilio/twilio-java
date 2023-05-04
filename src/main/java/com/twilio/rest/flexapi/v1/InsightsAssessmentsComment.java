@@ -41,7 +41,7 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsAssessmentsComment extends Resource {
-    private static final long serialVersionUID = 216895608887048L;
+    private static final long serialVersionUID = 175598645429423L;
 
     public static InsightsAssessmentsCommentCreator creator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset){
         return new InsightsAssessmentsCommentCreator(categoryId, categoryName, comment, segmentId, userName, userEmail, agentId, offset);
@@ -89,7 +89,7 @@ public class InsightsAssessmentsComment extends Resource {
     }
 
     private final String accountSid;
-    private final String assessmentId;
+    private final String assessmentSid;
     private final Map<String, Object> comment;
     private final BigDecimal offset;
     private final Boolean report;
@@ -106,8 +106,8 @@ public class InsightsAssessmentsComment extends Resource {
         @JsonProperty("account_sid")
         final String accountSid,
 
-        @JsonProperty("assessment_id")
-        final String assessmentId,
+        @JsonProperty("assessment_sid")
+        final String assessmentSid,
 
         @JsonProperty("comment")
         final Map<String, Object> comment,
@@ -140,7 +140,7 @@ public class InsightsAssessmentsComment extends Resource {
         final URI url
     ) {
         this.accountSid = accountSid;
-        this.assessmentId = assessmentId;
+        this.assessmentSid = assessmentSid;
         this.comment = comment;
         this.offset = offset;
         this.report = report;
@@ -156,8 +156,8 @@ public class InsightsAssessmentsComment extends Resource {
         public final String getAccountSid() {
             return this.accountSid;
         }
-        public final String getAssessmentId() {
-            return this.assessmentId;
+        public final String getAssessmentSid() {
+            return this.assessmentSid;
         }
         public final Map<String, Object> getComment() {
             return this.comment;
@@ -202,12 +202,12 @@ public class InsightsAssessmentsComment extends Resource {
 
         InsightsAssessmentsComment other = (InsightsAssessmentsComment) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assessmentId, other.assessmentId) &&  Objects.equals(comment, other.comment) &&  Objects.equals(offset, other.offset) &&  Objects.equals(report, other.report) &&  Objects.equals(weight, other.weight) &&  Objects.equals(agentId, other.agentId) &&  Objects.equals(segmentId, other.segmentId) &&  Objects.equals(userName, other.userName) &&  Objects.equals(userEmail, other.userEmail) &&  Objects.equals(timestamp, other.timestamp) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assessmentSid, other.assessmentSid) &&  Objects.equals(comment, other.comment) &&  Objects.equals(offset, other.offset) &&  Objects.equals(report, other.report) &&  Objects.equals(weight, other.weight) &&  Objects.equals(agentId, other.agentId) &&  Objects.equals(segmentId, other.segmentId) &&  Objects.equals(userName, other.userName) &&  Objects.equals(userEmail, other.userEmail) &&  Objects.equals(timestamp, other.timestamp) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, assessmentId, comment, offset, report, weight, agentId, segmentId, userName, userEmail, timestamp, url);
+        return Objects.hash(accountSid, assessmentSid, comment, offset, report, weight, agentId, segmentId, userName, userEmail, timestamp, url);
     }
 
 }

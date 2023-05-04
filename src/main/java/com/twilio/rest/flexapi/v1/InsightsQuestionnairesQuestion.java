@@ -40,22 +40,22 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesQuestion extends Resource {
-    private static final long serialVersionUID = 165646658833185L;
+    private static final long serialVersionUID = 10229949486791L;
 
-    public static InsightsQuestionnairesQuestionCreator creator(final String categoryId, final String question, final String answerSetId, final Boolean allowNa){
-        return new InsightsQuestionnairesQuestionCreator(categoryId, question, answerSetId, allowNa);
+    public static InsightsQuestionnairesQuestionCreator creator(final String categorySid, final String question, final String answerSetId, final Boolean allowNa){
+        return new InsightsQuestionnairesQuestionCreator(categorySid, question, answerSetId, allowNa);
     }
 
-    public static InsightsQuestionnairesQuestionDeleter deleter(final String pathQuestionId){
-        return new InsightsQuestionnairesQuestionDeleter(pathQuestionId);
+    public static InsightsQuestionnairesQuestionDeleter deleter(final String pathQuestionSid){
+        return new InsightsQuestionnairesQuestionDeleter(pathQuestionSid);
     }
 
     public static InsightsQuestionnairesQuestionReader reader(){
         return new InsightsQuestionnairesQuestionReader();
     }
 
-    public static InsightsQuestionnairesQuestionUpdater updater(final String pathQuestionId, final Boolean allowNa){
-        return new InsightsQuestionnairesQuestionUpdater(pathQuestionId, allowNa);
+    public static InsightsQuestionnairesQuestionUpdater updater(final String pathQuestionSid, final Boolean allowNa){
+        return new InsightsQuestionnairesQuestionUpdater(pathQuestionSid, allowNa);
     }
 
     /**
@@ -96,7 +96,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
     }
 
     private final String accountSid;
-    private final String questionId;
+    private final String questionSid;
     private final String question;
     private final String description;
     private final Map<String, Object> category;
@@ -111,8 +111,8 @@ public class InsightsQuestionnairesQuestion extends Resource {
         @JsonProperty("account_sid")
         final String accountSid,
 
-        @JsonProperty("question_id")
-        final String questionId,
+        @JsonProperty("question_sid")
+        final String questionSid,
 
         @JsonProperty("question")
         final String question,
@@ -139,7 +139,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
         final URI url
     ) {
         this.accountSid = accountSid;
-        this.questionId = questionId;
+        this.questionSid = questionSid;
         this.question = question;
         this.description = description;
         this.category = category;
@@ -153,8 +153,8 @@ public class InsightsQuestionnairesQuestion extends Resource {
         public final String getAccountSid() {
             return this.accountSid;
         }
-        public final String getQuestionId() {
-            return this.questionId;
+        public final String getQuestionSid() {
+            return this.questionSid;
         }
         public final String getQuestion() {
             return this.question;
@@ -193,12 +193,12 @@ public class InsightsQuestionnairesQuestion extends Resource {
 
         InsightsQuestionnairesQuestion other = (InsightsQuestionnairesQuestion) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionId, other.questionId) &&  Objects.equals(question, other.question) &&  Objects.equals(description, other.description) &&  Objects.equals(category, other.category) &&  Objects.equals(answerSetId, other.answerSetId) &&  Objects.equals(allowNa, other.allowNa) &&  Objects.equals(usage, other.usage) &&  Objects.equals(answerSet, other.answerSet) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionSid, other.questionSid) &&  Objects.equals(question, other.question) &&  Objects.equals(description, other.description) &&  Objects.equals(category, other.category) &&  Objects.equals(answerSetId, other.answerSetId) &&  Objects.equals(allowNa, other.allowNa) &&  Objects.equals(usage, other.usage) &&  Objects.equals(answerSet, other.answerSet) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, questionId, question, description, category, answerSetId, allowNa, usage, answerSet, url);
+        return Objects.hash(accountSid, questionSid, question, description, category, answerSetId, allowNa, usage, answerSet, url);
     }
 
 }

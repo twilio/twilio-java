@@ -41,18 +41,18 @@ import java.math.BigDecimal;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Assessments extends Resource {
-    private static final long serialVersionUID = 181353161091545L;
+    private static final long serialVersionUID = 249351913918322L;
 
-    public static AssessmentsCreator creator(final String categoryId, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireId){
-        return new AssessmentsCreator(categoryId, categoryName, segmentId, userName, userEmail, agentId, offset, metricId, metricName, answerText, answerId, questionnaireId);
+    public static AssessmentsCreator creator(final String categorySid, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireSid){
+        return new AssessmentsCreator(categorySid, categoryName, segmentId, userName, userEmail, agentId, offset, metricId, metricName, answerText, answerId, questionnaireSid);
     }
 
     public static AssessmentsReader reader(){
         return new AssessmentsReader();
     }
 
-    public static AssessmentsUpdater updater(final String pathAssessmentId, final BigDecimal offset, final String answerText, final String answerId){
-        return new AssessmentsUpdater(pathAssessmentId, offset, answerText, answerId);
+    public static AssessmentsUpdater updater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId){
+        return new AssessmentsUpdater(pathAssessmentSid, offset, answerText, answerId);
     }
 
     /**
@@ -93,7 +93,7 @@ public class Assessments extends Resource {
     }
 
     private final String accountSid;
-    private final String assessmentId;
+    private final String assessmentSid;
     private final BigDecimal offset;
     private final Boolean report;
     private final BigDecimal weight;
@@ -112,8 +112,8 @@ public class Assessments extends Resource {
         @JsonProperty("account_sid")
         final String accountSid,
 
-        @JsonProperty("assessment_id")
-        final String assessmentId,
+        @JsonProperty("assessment_sid")
+        final String assessmentSid,
 
         @JsonProperty("offset")
         final BigDecimal offset,
@@ -152,7 +152,7 @@ public class Assessments extends Resource {
         final URI url
     ) {
         this.accountSid = accountSid;
-        this.assessmentId = assessmentId;
+        this.assessmentSid = assessmentSid;
         this.offset = offset;
         this.report = report;
         this.weight = weight;
@@ -170,8 +170,8 @@ public class Assessments extends Resource {
         public final String getAccountSid() {
             return this.accountSid;
         }
-        public final String getAssessmentId() {
-            return this.assessmentId;
+        public final String getAssessmentSid() {
+            return this.assessmentSid;
         }
         public final BigDecimal getOffset() {
             return this.offset;
@@ -222,12 +222,12 @@ public class Assessments extends Resource {
 
         Assessments other = (Assessments) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assessmentId, other.assessmentId) &&  Objects.equals(offset, other.offset) &&  Objects.equals(report, other.report) &&  Objects.equals(weight, other.weight) &&  Objects.equals(agentId, other.agentId) &&  Objects.equals(segmentId, other.segmentId) &&  Objects.equals(userName, other.userName) &&  Objects.equals(userEmail, other.userEmail) &&  Objects.equals(answerText, other.answerText) &&  Objects.equals(answerId, other.answerId) &&  Objects.equals(assessment, other.assessment) &&  Objects.equals(timestamp, other.timestamp) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assessmentSid, other.assessmentSid) &&  Objects.equals(offset, other.offset) &&  Objects.equals(report, other.report) &&  Objects.equals(weight, other.weight) &&  Objects.equals(agentId, other.agentId) &&  Objects.equals(segmentId, other.segmentId) &&  Objects.equals(userName, other.userName) &&  Objects.equals(userEmail, other.userEmail) &&  Objects.equals(answerText, other.answerText) &&  Objects.equals(answerId, other.answerId) &&  Objects.equals(assessment, other.assessment) &&  Objects.equals(timestamp, other.timestamp) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, assessmentId, offset, report, weight, agentId, segmentId, userName, userEmail, answerText, answerId, assessment, timestamp, url);
+        return Objects.hash(accountSid, assessmentSid, offset, report, weight, agentId, segmentId, userName, userEmail, answerText, answerId, assessment, timestamp, url);
     }
 
 }

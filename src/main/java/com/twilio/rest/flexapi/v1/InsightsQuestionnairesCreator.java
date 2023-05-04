@@ -35,7 +35,7 @@ public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaire
     private String token;
     private String description;
     private Boolean active;
-    private List<String> questionIds;
+    private List<String> questionSids;
 
     public InsightsQuestionnairesCreator(final String name) {
         this.name = name;
@@ -57,17 +57,17 @@ public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaire
         this.active = active;
         return this;
     }
-    public InsightsQuestionnairesCreator setQuestionIds(final List<String> questionIds){
-        this.questionIds = questionIds;
+    public InsightsQuestionnairesCreator setQuestionSids(final List<String> questionSids){
+        this.questionSids = questionSids;
         return this;
     }
-    public InsightsQuestionnairesCreator setQuestionIds(final String questionIds){
-        return setQuestionIds(Promoter.listOfOne(questionIds));
+    public InsightsQuestionnairesCreator setQuestionSids(final String questionSids){
+        return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
     @Override
     public InsightsQuestionnaires create(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Questionnaires";
+        String path = "/v1/Insights/QualityManagement/Questionnaires";
 
         path = path.replace("{"+"Name"+"}", this.name.toString());
 
@@ -104,9 +104,9 @@ public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaire
             request.addPostParam("Active", active.toString());
     
         }
-        if (questionIds != null) {
-            for (String prop : questionIds) {
-                request.addPostParam("QuestionIds", prop);
+        if (questionSids != null) {
+            for (String prop : questionSids) {
+                request.addPostParam("QuestionSids", prop);
             }
     
         }

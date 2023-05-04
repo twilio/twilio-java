@@ -40,7 +40,7 @@ public class InsightsSettingsCommentFetcher extends Fetcher<InsightsSettingsComm
 
     @Override
     public InsightsSettingsComment fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Settings/CommentTags";
+        String path = "/v1/Insights/QualityManagement/Settings/CommentTags";
 
 
         Request request = new Request(

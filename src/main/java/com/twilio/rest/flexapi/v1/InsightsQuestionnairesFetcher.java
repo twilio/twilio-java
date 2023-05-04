@@ -28,11 +28,11 @@ import com.twilio.rest.Domains;
 
 
 public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaires> {
-    private String pathId;
+    private String pathQuestionnaireSid;
     private String token;
 
-    public InsightsQuestionnairesFetcher(final String pathId){
-        this.pathId = pathId;
+    public InsightsQuestionnairesFetcher(final String pathQuestionnaireSid){
+        this.pathQuestionnaireSid = pathQuestionnaireSid;
     }
 
     public InsightsQuestionnairesFetcher setToken(final String token){
@@ -42,9 +42,9 @@ public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaire
 
     @Override
     public InsightsQuestionnaires fetch(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Questionnaires/{Id}";
+        String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path = path.replace("{"+"Id"+"}", this.pathId.toString());
+        path = path.replace("{"+"QuestionnaireSid"+"}", this.pathQuestionnaireSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,

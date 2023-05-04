@@ -38,22 +38,22 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesCategory extends Resource {
-    private static final long serialVersionUID = 172423270393381L;
+    private static final long serialVersionUID = 80122837059940L;
 
     public static InsightsQuestionnairesCategoryCreator creator(final String name){
         return new InsightsQuestionnairesCategoryCreator(name);
     }
 
-    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathCategoryId){
-        return new InsightsQuestionnairesCategoryDeleter(pathCategoryId);
+    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathCategorySid){
+        return new InsightsQuestionnairesCategoryDeleter(pathCategorySid);
     }
 
     public static InsightsQuestionnairesCategoryReader reader(){
         return new InsightsQuestionnairesCategoryReader();
     }
 
-    public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategoryId, final String name){
-        return new InsightsQuestionnairesCategoryUpdater(pathCategoryId, name);
+    public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategorySid, final String name){
+        return new InsightsQuestionnairesCategoryUpdater(pathCategorySid, name);
     }
 
     /**
@@ -94,7 +94,7 @@ public class InsightsQuestionnairesCategory extends Resource {
     }
 
     private final String accountSid;
-    private final String categoryId;
+    private final String categorySid;
     private final String name;
     private final URI url;
 
@@ -103,8 +103,8 @@ public class InsightsQuestionnairesCategory extends Resource {
         @JsonProperty("account_sid")
         final String accountSid,
 
-        @JsonProperty("category_id")
-        final String categoryId,
+        @JsonProperty("category_sid")
+        final String categorySid,
 
         @JsonProperty("name")
         final String name,
@@ -113,7 +113,7 @@ public class InsightsQuestionnairesCategory extends Resource {
         final URI url
     ) {
         this.accountSid = accountSid;
-        this.categoryId = categoryId;
+        this.categorySid = categorySid;
         this.name = name;
         this.url = url;
     }
@@ -121,8 +121,8 @@ public class InsightsQuestionnairesCategory extends Resource {
         public final String getAccountSid() {
             return this.accountSid;
         }
-        public final String getCategoryId() {
-            return this.categoryId;
+        public final String getCategorySid() {
+            return this.categorySid;
         }
         public final String getName() {
             return this.name;
@@ -143,12 +143,12 @@ public class InsightsQuestionnairesCategory extends Resource {
 
         InsightsQuestionnairesCategory other = (InsightsQuestionnairesCategory) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(categoryId, other.categoryId) &&  Objects.equals(name, other.name) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(categorySid, other.categorySid) &&  Objects.equals(name, other.name) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, categoryId, name, url);
+        return Objects.hash(accountSid, categorySid, name, url);
     }
 
 }

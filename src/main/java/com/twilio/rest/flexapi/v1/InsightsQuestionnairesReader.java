@@ -55,7 +55,7 @@ public class InsightsQuestionnairesReader extends Reader<InsightsQuestionnaires>
     }
 
     public Page<InsightsQuestionnaires> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Questionnaires";
+        String path = "/v1/Insights/QualityManagement/Questionnaires";
 
         Request request = new Request(
             HttpMethod.GET,

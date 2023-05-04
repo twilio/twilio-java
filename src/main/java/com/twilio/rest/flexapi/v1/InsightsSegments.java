@@ -42,10 +42,6 @@ import java.util.Map;
 public class InsightsSegments extends Resource {
     private static final long serialVersionUID = 85034429282364L;
 
-    public static InsightsSegmentsFetcher fetcher(final String pathSegmentId){
-        return new InsightsSegmentsFetcher(pathSegmentId);
-    }
-
     public static InsightsSegmentsReader reader(){
         return new InsightsSegmentsReader();
     }

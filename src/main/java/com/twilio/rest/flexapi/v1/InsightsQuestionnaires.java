@@ -41,26 +41,26 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnaires extends Resource {
-    private static final long serialVersionUID = 270957569677981L;
+    private static final long serialVersionUID = 101221063563372L;
 
     public static InsightsQuestionnairesCreator creator(final String name){
         return new InsightsQuestionnairesCreator(name);
     }
 
-    public static InsightsQuestionnairesDeleter deleter(final String pathId){
-        return new InsightsQuestionnairesDeleter(pathId);
+    public static InsightsQuestionnairesDeleter deleter(final String pathQuestionnaireSid){
+        return new InsightsQuestionnairesDeleter(pathQuestionnaireSid);
     }
 
-    public static InsightsQuestionnairesFetcher fetcher(final String pathId){
-        return new InsightsQuestionnairesFetcher(pathId);
+    public static InsightsQuestionnairesFetcher fetcher(final String pathQuestionnaireSid){
+        return new InsightsQuestionnairesFetcher(pathQuestionnaireSid);
     }
 
     public static InsightsQuestionnairesReader reader(){
         return new InsightsQuestionnairesReader();
     }
 
-    public static InsightsQuestionnairesUpdater updater(final String pathId, final Boolean active){
-        return new InsightsQuestionnairesUpdater(pathId, active);
+    public static InsightsQuestionnairesUpdater updater(final String pathQuestionnaireSid, final Boolean active){
+        return new InsightsQuestionnairesUpdater(pathQuestionnaireSid, active);
     }
 
     /**
@@ -101,7 +101,7 @@ public class InsightsQuestionnaires extends Resource {
     }
 
     private final String accountSid;
-    private final String id;
+    private final String questionnaireSid;
     private final String name;
     private final String description;
     private final Boolean active;
@@ -113,8 +113,8 @@ public class InsightsQuestionnaires extends Resource {
         @JsonProperty("account_sid")
         final String accountSid,
 
-        @JsonProperty("id")
-        final String id,
+        @JsonProperty("questionnaire_sid")
+        final String questionnaireSid,
 
         @JsonProperty("name")
         final String name,
@@ -132,7 +132,7 @@ public class InsightsQuestionnaires extends Resource {
         final URI url
     ) {
         this.accountSid = accountSid;
-        this.id = id;
+        this.questionnaireSid = questionnaireSid;
         this.name = name;
         this.description = description;
         this.active = active;
@@ -143,8 +143,8 @@ public class InsightsQuestionnaires extends Resource {
         public final String getAccountSid() {
             return this.accountSid;
         }
-        public final String getId() {
-            return this.id;
+        public final String getQuestionnaireSid() {
+            return this.questionnaireSid;
         }
         public final String getName() {
             return this.name;
@@ -174,12 +174,12 @@ public class InsightsQuestionnaires extends Resource {
 
         InsightsQuestionnaires other = (InsightsQuestionnaires) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(id, other.id) &&  Objects.equals(name, other.name) &&  Objects.equals(description, other.description) &&  Objects.equals(active, other.active) &&  Objects.equals(questions, other.questions) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(questionnaireSid, other.questionnaireSid) &&  Objects.equals(name, other.name) &&  Objects.equals(description, other.description) &&  Objects.equals(active, other.active) &&  Objects.equals(questions, other.questions) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, id, name, description, active, questions, url);
+        return Objects.hash(accountSid, questionnaireSid, name, description, active, questions, url);
     }
 
 }

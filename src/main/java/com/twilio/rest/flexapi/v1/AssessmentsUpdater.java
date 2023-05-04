@@ -29,14 +29,14 @@ import java.math.BigDecimal;
 
 
 public class AssessmentsUpdater extends Updater<Assessments>{
-    private String pathAssessmentId;
+    private String pathAssessmentSid;
     private BigDecimal offset;
     private String answerText;
     private String answerId;
     private String token;
 
-    public AssessmentsUpdater(final String pathAssessmentId, final BigDecimal offset, final String answerText, final String answerId){
-        this.pathAssessmentId = pathAssessmentId;
+    public AssessmentsUpdater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId){
+        this.pathAssessmentSid = pathAssessmentSid;
         this.offset = offset;
         this.answerText = answerText;
         this.answerId = answerId;
@@ -61,9 +61,9 @@ public class AssessmentsUpdater extends Updater<Assessments>{
 
     @Override
     public Assessments update(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Assessments/{AssessmentId}";
+        String path = "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
-        path = path.replace("{"+"AssessmentId"+"}", this.pathAssessmentId.toString());
+        path = path.replace("{"+"AssessmentSid"+"}", this.pathAssessmentSid.toString());
         path = path.replace("{"+"Offset"+"}", this.offset.toString());
         path = path.replace("{"+"AnswerText"+"}", this.answerText.toString());
         path = path.replace("{"+"AnswerId"+"}", this.answerId.toString());

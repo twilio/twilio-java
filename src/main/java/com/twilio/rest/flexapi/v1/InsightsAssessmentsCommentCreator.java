@@ -90,7 +90,7 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
 
     @Override
     public InsightsAssessmentsComment create(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Assessments/Comments";
+        String path = "/v1/Insights/QualityManagement/Assessments/Comments";
 
         path = path.replace("{"+"CategoryId"+"}", this.categoryId.toString());
         path = path.replace("{"+"CategoryName"+"}", this.categoryName.toString());

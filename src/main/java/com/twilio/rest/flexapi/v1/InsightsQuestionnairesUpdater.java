@@ -30,15 +30,15 @@ import java.util.List;
 
 
 public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaires>{
-    private String pathId;
+    private String pathQuestionnaireSid;
     private Boolean active;
     private String token;
     private String name;
     private String description;
-    private List<String> questionIds;
+    private List<String> questionSids;
 
-    public InsightsQuestionnairesUpdater(final String pathId, final Boolean active){
-        this.pathId = pathId;
+    public InsightsQuestionnairesUpdater(final String pathQuestionnaireSid, final Boolean active){
+        this.pathQuestionnaireSid = pathQuestionnaireSid;
         this.active = active;
     }
 
@@ -58,19 +58,19 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
         this.description = description;
         return this;
     }
-    public InsightsQuestionnairesUpdater setQuestionIds(final List<String> questionIds){
-        this.questionIds = questionIds;
+    public InsightsQuestionnairesUpdater setQuestionSids(final List<String> questionSids){
+        this.questionSids = questionSids;
         return this;
     }
-    public InsightsQuestionnairesUpdater setQuestionIds(final String questionIds){
-        return setQuestionIds(Promoter.listOfOne(questionIds));
+    public InsightsQuestionnairesUpdater setQuestionSids(final String questionSids){
+        return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
     @Override
     public InsightsQuestionnaires update(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Questionnaires/{Id}";
+        String path = "/v1/Insights/QualityManagement/Questionnaires/{QuestionnaireSid}";
 
-        path = path.replace("{"+"Id"+"}", this.pathId.toString());
+        path = path.replace("{"+"QuestionnaireSid"+"}", this.pathQuestionnaireSid.toString());
         path = path.replace("{"+"Active"+"}", this.active.toString());
 
         Request request = new Request(
@@ -106,9 +106,9 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
             request.addPostParam("Description", description);
     
         }
-        if (questionIds != null) {
-            for (String prop : questionIds) {
-                request.addPostParam("QuestionIds", prop);
+        if (questionSids != null) {
+            for (String prop : questionSids) {
+                request.addPostParam("QuestionSids", prop);
             }
     
         }

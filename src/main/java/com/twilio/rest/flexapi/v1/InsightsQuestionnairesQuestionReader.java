@@ -32,7 +32,7 @@ import java.util.List;
 
 public class InsightsQuestionnairesQuestionReader extends Reader<InsightsQuestionnairesQuestion> {
     private String token;
-    private List<String> categoryId;
+    private List<String> categorySid;
     private Integer pageSize;
 
     public InsightsQuestionnairesQuestionReader(){
@@ -42,12 +42,12 @@ public class InsightsQuestionnairesQuestionReader extends Reader<InsightsQuestio
         this.token = token;
         return this;
     }
-    public InsightsQuestionnairesQuestionReader setCategoryId(final List<String> categoryId){
-        this.categoryId = categoryId;
+    public InsightsQuestionnairesQuestionReader setCategorySid(final List<String> categorySid){
+        this.categorySid = categorySid;
         return this;
     }
-    public InsightsQuestionnairesQuestionReader setCategoryId(final String categoryId){
-        return setCategoryId(Promoter.listOfOne(categoryId));
+    public InsightsQuestionnairesQuestionReader setCategorySid(final String categorySid){
+        return setCategorySid(Promoter.listOfOne(categorySid));
     }
     public InsightsQuestionnairesQuestionReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
@@ -60,7 +60,7 @@ public class InsightsQuestionnairesQuestionReader extends Reader<InsightsQuestio
     }
 
     public Page<InsightsQuestionnairesQuestion> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Insights/QM/Questions";
+        String path = "/v1/Insights/QualityManagement/Questions";
 
         Request request = new Request(
             HttpMethod.GET,
@@ -129,9 +129,9 @@ public class InsightsQuestionnairesQuestionReader extends Reader<InsightsQuestio
         }
     }
     private void addQueryParams(final Request request) {
-        if (categoryId != null) {
-            for (String prop : categoryId) {
-                request.addQueryParam("CategoryId", prop);
+        if (categorySid != null) {
+            for (String prop : categorySid) {
+                request.addQueryParam("CategorySid", prop);
             }
         }
         if (pageSize != null) {

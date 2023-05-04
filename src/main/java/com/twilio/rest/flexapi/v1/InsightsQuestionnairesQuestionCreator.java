@@ -28,22 +28,22 @@ import com.twilio.rest.Domains;
 
 
 public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuestionnairesQuestion>{
-    private String categoryId;
+    private String categorySid;
     private String question;
     private String answerSetId;
     private Boolean allowNa;
     private String token;
     private String description;
 
-    public InsightsQuestionnairesQuestionCreator(final String categoryId, final String question, final String answerSetId, final Boolean allowNa) {
-        this.categoryId = categoryId;
+    public InsightsQuestionnairesQuestionCreator(final String categorySid, final String question, final String answerSetId, final Boolean allowNa) {
+        this.categorySid = categorySid;
         this.question = question;
         this.answerSetId = answerSetId;
         this.allowNa = allowNa;
     }
 
-    public InsightsQuestionnairesQuestionCreator setCategoryId(final String categoryId){
-        this.categoryId = categoryId;
+    public InsightsQuestionnairesQuestionCreator setCategorySid(final String categorySid){
+        this.categorySid = categorySid;
         return this;
     }
     public InsightsQuestionnairesQuestionCreator setQuestion(final String question){
@@ -69,9 +69,9 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
 
     @Override
     public InsightsQuestionnairesQuestion create(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Questions";
+        String path = "/v1/Insights/QualityManagement/Questions";
 
-        path = path.replace("{"+"CategoryId"+"}", this.categoryId.toString());
+        path = path.replace("{"+"CategorySid"+"}", this.categorySid.toString());
         path = path.replace("{"+"Question"+"}", this.question.toString());
         path = path.replace("{"+"AnswerSetId"+"}", this.answerSetId.toString());
         path = path.replace("{"+"AllowNa"+"}", this.allowNa.toString());
@@ -97,8 +97,8 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
         return InsightsQuestionnairesQuestion.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addPostParams(final Request request) {
-        if (categoryId != null) {
-            request.addPostParam("CategoryId", categoryId);
+        if (categorySid != null) {
+            request.addPostParam("CategorySid", categorySid);
     
         }
         if (question != null) {

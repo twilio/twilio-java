@@ -46,7 +46,7 @@ public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuest
 
     @Override
     public InsightsQuestionnairesCategory create(final TwilioRestClient client){
-        String path = "/v1/Insights/QM/Categories";
+        String path = "/v1/Insights/QualityManagement/Categories";
 
         path = path.replace("{"+"Name"+"}", this.name.toString());
 

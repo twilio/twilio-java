@@ -319,6 +319,7 @@
       <groupId>org.json</groupId>
       <artifactId>json</artifactId>
       <version>20220320</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
   <build>

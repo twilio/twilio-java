@@ -315,6 +315,12 @@
       <version>1.10.19</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20230227</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
   <build>
     <plugins>

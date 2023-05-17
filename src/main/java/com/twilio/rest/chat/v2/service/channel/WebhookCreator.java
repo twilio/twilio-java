@@ -17,8 +17,6 @@ package com.twilio.rest.chat.v2.service.channel;
 import com.twilio.base.Creator;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-import com.twilio.converter.PrefixedCollapsibleMap;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -26,28 +24,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.math.BigDecimal;
+
 import java.util.List;
-import java.util.Map;
-import java.time.LocalDate;
-import com.twilio.converter.Converter;
-import java.time.ZonedDateTime;
-import java.io.IOException;
-import java.io.InputStream;
-import java.math.BigDecimal;
-import java.net.URI;
-import java.time.format.DateTimeFormatter;
-import com.twilio.converter.DateConverter;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
-import lombok.ToString;
-
-import java.net.URI;
 
 public class WebhookCreator extends Creator<Webhook>{
     private String pathServiceSid;

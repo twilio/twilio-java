@@ -33,8 +33,6 @@ public class AssessmentsCreator extends Creator<Assessments>{
     private String categorySid;
     private String categoryName;
     private String segmentId;
-    private String userName;
-    private String userEmail;
     private String agentId;
     private BigDecimal offset;
     private String metricId;
@@ -42,14 +40,12 @@ public class AssessmentsCreator extends Creator<Assessments>{
     private String answerText;
     private String answerId;
     private String questionnaireSid;
-    private String token;
+    private String authorization;
 
-    public AssessmentsCreator(final String categorySid, final String categoryName, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireSid) {
+    public AssessmentsCreator(final String categorySid, final String categoryName, final String segmentId, final String agentId, final BigDecimal offset, final String metricId, final String metricName, final String answerText, final String answerId, final String questionnaireSid) {
         this.categorySid = categorySid;
         this.categoryName = categoryName;
         this.segmentId = segmentId;
-        this.userName = userName;
-        this.userEmail = userEmail;
         this.agentId = agentId;
         this.offset = offset;
         this.metricId = metricId;
@@ -69,14 +65,6 @@ public class AssessmentsCreator extends Creator<Assessments>{
     }
     public AssessmentsCreator setSegmentId(final String segmentId){
         this.segmentId = segmentId;
-        return this;
-    }
-    public AssessmentsCreator setUserName(final String userName){
-        this.userName = userName;
-        return this;
-    }
-    public AssessmentsCreator setUserEmail(final String userEmail){
-        this.userEmail = userEmail;
         return this;
     }
     public AssessmentsCreator setAgentId(final String agentId){
@@ -107,8 +95,8 @@ public class AssessmentsCreator extends Creator<Assessments>{
         this.questionnaireSid = questionnaireSid;
         return this;
     }
-    public AssessmentsCreator setToken(final String token){
-        this.token = token;
+    public AssessmentsCreator setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -119,8 +107,6 @@ public class AssessmentsCreator extends Creator<Assessments>{
         path = path.replace("{"+"CategorySid"+"}", this.categorySid.toString());
         path = path.replace("{"+"CategoryName"+"}", this.categoryName.toString());
         path = path.replace("{"+"SegmentId"+"}", this.segmentId.toString());
-        path = path.replace("{"+"UserName"+"}", this.userName.toString());
-        path = path.replace("{"+"UserEmail"+"}", this.userEmail.toString());
         path = path.replace("{"+"AgentId"+"}", this.agentId.toString());
         path = path.replace("{"+"Offset"+"}", this.offset.toString());
         path = path.replace("{"+"MetricId"+"}", this.metricId.toString());
@@ -162,14 +148,6 @@ public class AssessmentsCreator extends Creator<Assessments>{
             request.addPostParam("SegmentId", segmentId);
     
         }
-        if (userName != null) {
-            request.addPostParam("UserName", userName);
-    
-        }
-        if (userEmail != null) {
-            request.addPostParam("UserEmail", userEmail);
-    
-        }
         if (agentId != null) {
             request.addPostParam("AgentId", agentId);
     
@@ -200,8 +178,8 @@ public class AssessmentsCreator extends Creator<Assessments>{
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

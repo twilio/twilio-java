@@ -29,15 +29,15 @@ import com.twilio.base.Page;
 
 
 public class AssessmentsReader extends Reader<Assessments> {
-    private String token;
+    private String authorization;
     private String segmentId;
     private Integer pageSize;
 
     public AssessmentsReader(){
     }
 
-    public AssessmentsReader setToken(final String token){
-        this.token = token;
+    public AssessmentsReader setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public AssessmentsReader setSegmentId(final String segmentId){
@@ -118,8 +118,8 @@ public class AssessmentsReader extends Reader<Assessments> {
         return pageForRequest(client, request);
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

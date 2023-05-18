@@ -29,7 +29,7 @@ import com.twilio.base.Page;
 
 
 public class InsightsAssessmentsCommentReader extends Reader<InsightsAssessmentsComment> {
-    private String token;
+    private String authorization;
     private String segmentId;
     private String agentId;
     private Integer pageSize;
@@ -37,8 +37,8 @@ public class InsightsAssessmentsCommentReader extends Reader<InsightsAssessments
     public InsightsAssessmentsCommentReader(){
     }
 
-    public InsightsAssessmentsCommentReader setToken(final String token){
-        this.token = token;
+    public InsightsAssessmentsCommentReader setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsAssessmentsCommentReader setSegmentId(final String segmentId){
@@ -123,8 +123,8 @@ public class InsightsAssessmentsCommentReader extends Reader<InsightsAssessments
         return pageForRequest(client, request);
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

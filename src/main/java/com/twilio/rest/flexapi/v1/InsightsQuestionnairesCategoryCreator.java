@@ -29,7 +29,7 @@ import com.twilio.rest.Domains;
 
 public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuestionnairesCategory>{
     private String name;
-    private String token;
+    private String authorization;
 
     public InsightsQuestionnairesCategoryCreator(final String name) {
         this.name = name;
@@ -39,8 +39,8 @@ public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuest
         this.name = name;
         return this;
     }
-    public InsightsQuestionnairesCategoryCreator setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesCategoryCreator setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -77,8 +77,8 @@ public class InsightsQuestionnairesCategoryCreator extends Creator<InsightsQuest
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

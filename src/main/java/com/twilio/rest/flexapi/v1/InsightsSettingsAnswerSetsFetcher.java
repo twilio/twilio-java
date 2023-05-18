@@ -28,13 +28,13 @@ import com.twilio.rest.Domains;
 
 
 public class InsightsSettingsAnswerSetsFetcher extends Fetcher<InsightsSettingsAnswerSets> {
-    private String token;
+    private String authorization;
 
     public InsightsSettingsAnswerSetsFetcher(){
     }
 
-    public InsightsSettingsAnswerSetsFetcher setToken(final String token){
-        this.token = token;
+    public InsightsSettingsAnswerSetsFetcher setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -64,8 +64,8 @@ public class InsightsSettingsAnswerSetsFetcher extends Fetcher<InsightsSettingsA
         return InsightsSettingsAnswerSets.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

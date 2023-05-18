@@ -42,6 +42,7 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
     private List<String> autoCreationWebhookFilters;
     private String autoCreationStudioFlowSid;
     private Integer autoCreationStudioRetryCount;
+    private String addressCountry;
 
     public AddressConfigurationCreator(final AddressConfiguration.Type type, final String address) {
         this.type = type;
@@ -93,6 +94,10 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
     }
     public AddressConfigurationCreator setAutoCreationStudioRetryCount(final Integer autoCreationStudioRetryCount){
         this.autoCreationStudioRetryCount = autoCreationStudioRetryCount;
+        return this;
+    }
+    public AddressConfigurationCreator setAddressCountry(final String addressCountry){
+        this.addressCountry = addressCountry;
         return this;
     }
 
@@ -167,6 +172,10 @@ public class AddressConfigurationCreator extends Creator<AddressConfiguration>{
         }
         if (autoCreationStudioRetryCount != null) {
             request.addPostParam("AutoCreation.StudioRetryCount", autoCreationStudioRetryCount.toString());
+    
+        }
+        if (addressCountry != null) {
+            request.addPostParam("AddressCountry", addressCountry);
     
         }
     }

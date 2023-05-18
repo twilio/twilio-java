@@ -43,8 +43,8 @@ import java.math.BigDecimal;
 public class InsightsAssessmentsComment extends Resource {
     private static final long serialVersionUID = 175598645429423L;
 
-    public static InsightsAssessmentsCommentCreator creator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset){
-        return new InsightsAssessmentsCommentCreator(categoryId, categoryName, comment, segmentId, userName, userEmail, agentId, offset);
+    public static InsightsAssessmentsCommentCreator creator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String agentId, final BigDecimal offset){
+        return new InsightsAssessmentsCommentCreator(categoryId, categoryName, comment, segmentId, agentId, offset);
     }
 
     public static InsightsAssessmentsCommentReader reader(){

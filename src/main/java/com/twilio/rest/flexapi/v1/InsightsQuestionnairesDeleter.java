@@ -28,14 +28,14 @@ import com.twilio.rest.Domains;
 
 public class InsightsQuestionnairesDeleter extends Deleter<InsightsQuestionnaires> {
     private String pathQuestionnaireSid;
-    private String token;
+    private String authorization;
 
     public InsightsQuestionnairesDeleter(final String pathQuestionnaireSid){
         this.pathQuestionnaireSid = pathQuestionnaireSid;
     }
 
-    public InsightsQuestionnairesDeleter setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesDeleter setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -65,8 +65,8 @@ public class InsightsQuestionnairesDeleter extends Deleter<InsightsQuestionnaire
         return response.getStatusCode() == 204;
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

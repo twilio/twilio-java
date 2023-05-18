@@ -48,6 +48,10 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String subaccount;
     private Boolean abnormalSession;
     private CallSummaries.AnsweredBy answeredBy;
+    private String connectivityIssues;
+    private String qualityIssues;
+    private Boolean spam;
+    private String callScores;
     private Integer pageSize;
 
     public CallSummariesReader(){
@@ -127,6 +131,22 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     }
     public CallSummariesReader setAnsweredBy(final CallSummaries.AnsweredBy answeredBy){
         this.answeredBy = answeredBy;
+        return this;
+    }
+    public CallSummariesReader setConnectivityIssues(final String connectivityIssues){
+        this.connectivityIssues = connectivityIssues;
+        return this;
+    }
+    public CallSummariesReader setQualityIssues(final String qualityIssues){
+        this.qualityIssues = qualityIssues;
+        return this;
+    }
+    public CallSummariesReader setSpam(final Boolean spam){
+        this.spam = spam;
+        return this;
+    }
+    public CallSummariesReader setCallScores(final String callScores){
+        this.callScores = callScores;
         return this;
     }
     public CallSummariesReader setPageSize(final Integer pageSize){
@@ -277,6 +297,22 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         if (answeredBy != null) {
     
             request.addQueryParam("AnsweredBy", answeredBy.toString());
+        }
+        if (connectivityIssues != null) {
+    
+            request.addQueryParam("ConnectivityIssues", connectivityIssues);
+        }
+        if (qualityIssues != null) {
+    
+            request.addQueryParam("QualityIssues", qualityIssues);
+        }
+        if (spam != null) {
+    
+            request.addQueryParam("Spam", spam.toString());
+        }
+        if (callScores != null) {
+    
+            request.addQueryParam("CallScores", callScores);
         }
         if (pageSize != null) {
     

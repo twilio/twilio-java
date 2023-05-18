@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfig extends Resource {
-    private static final long serialVersionUID = 240510898596642L;
+    private static final long serialVersionUID = 278004827100918L;
 
     public static DomainConfigFetcher fetcher(final String pathDomainSid){
         return new DomainConfigFetcher(pathDomainSid);
@@ -91,9 +91,11 @@ public class DomainConfig extends Resource {
     private final String configSid;
     private final URI fallbackUrl;
     private final URI callbackUrl;
+    private final Boolean continueOnFailure;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final Boolean disableHttps;
 
     @JsonCreator
     private DomainConfig(
@@ -109,6 +111,9 @@ public class DomainConfig extends Resource {
         @JsonProperty("callback_url")
         final URI callbackUrl,
 
+        @JsonProperty("continue_on_failure")
+        final Boolean continueOnFailure,
+
         @JsonProperty("date_created")
         final String dateCreated,
 
@@ -116,15 +121,20 @@ public class DomainConfig extends Resource {
         final String dateUpdated,
 
         @JsonProperty("url")
-        final URI url
+        final URI url,
+
+        @JsonProperty("disable_https")
+        final Boolean disableHttps
     ) {
         this.domainSid = domainSid;
         this.configSid = configSid;
         this.fallbackUrl = fallbackUrl;
         this.callbackUrl = callbackUrl;
+        this.continueOnFailure = continueOnFailure;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.disableHttps = disableHttps;
     }
 
         public final String getDomainSid() {
@@ -139,6 +149,9 @@ public class DomainConfig extends Resource {
         public final URI getCallbackUrl() {
             return this.callbackUrl;
         }
+        public final Boolean getContinueOnFailure() {
+            return this.continueOnFailure;
+        }
         public final ZonedDateTime getDateCreated() {
             return this.dateCreated;
         }
@@ -147,6 +160,9 @@ public class DomainConfig extends Resource {
         }
         public final URI getUrl() {
             return this.url;
+        }
+        public final Boolean getDisableHttps() {
+            return this.disableHttps;
         }
 
     @Override
@@ -161,12 +177,12 @@ public class DomainConfig extends Resource {
 
         DomainConfig other = (DomainConfig) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(continueOnFailure, other.continueOnFailure) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(disableHttps, other.disableHttps)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domainSid, configSid, fallbackUrl, callbackUrl, dateCreated, dateUpdated, url);
+        return Objects.hash(domainSid, configSid, fallbackUrl, callbackUrl, continueOnFailure, dateCreated, dateUpdated, url, disableHttps);
     }
 
 }

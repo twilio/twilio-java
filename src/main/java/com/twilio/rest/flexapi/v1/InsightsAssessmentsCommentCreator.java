@@ -34,19 +34,15 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
     private String categoryName;
     private String comment;
     private String segmentId;
-    private String userName;
-    private String userEmail;
     private String agentId;
     private BigDecimal offset;
-    private String token;
+    private String authorization;
 
-    public InsightsAssessmentsCommentCreator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String userName, final String userEmail, final String agentId, final BigDecimal offset) {
+    public InsightsAssessmentsCommentCreator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String agentId, final BigDecimal offset) {
         this.categoryId = categoryId;
         this.categoryName = categoryName;
         this.comment = comment;
         this.segmentId = segmentId;
-        this.userName = userName;
-        this.userEmail = userEmail;
         this.agentId = agentId;
         this.offset = offset;
     }
@@ -67,14 +63,6 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
         this.segmentId = segmentId;
         return this;
     }
-    public InsightsAssessmentsCommentCreator setUserName(final String userName){
-        this.userName = userName;
-        return this;
-    }
-    public InsightsAssessmentsCommentCreator setUserEmail(final String userEmail){
-        this.userEmail = userEmail;
-        return this;
-    }
     public InsightsAssessmentsCommentCreator setAgentId(final String agentId){
         this.agentId = agentId;
         return this;
@@ -83,8 +71,8 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
         this.offset = offset;
         return this;
     }
-    public InsightsAssessmentsCommentCreator setToken(final String token){
-        this.token = token;
+    public InsightsAssessmentsCommentCreator setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -96,8 +84,6 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
         path = path.replace("{"+"CategoryName"+"}", this.categoryName.toString());
         path = path.replace("{"+"Comment"+"}", this.comment.toString());
         path = path.replace("{"+"SegmentId"+"}", this.segmentId.toString());
-        path = path.replace("{"+"UserName"+"}", this.userName.toString());
-        path = path.replace("{"+"UserEmail"+"}", this.userEmail.toString());
         path = path.replace("{"+"AgentId"+"}", this.agentId.toString());
         path = path.replace("{"+"Offset"+"}", this.offset.toString());
 
@@ -138,14 +124,6 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
             request.addPostParam("SegmentId", segmentId);
     
         }
-        if (userName != null) {
-            request.addPostParam("UserName", userName);
-    
-        }
-        if (userEmail != null) {
-            request.addPostParam("UserEmail", userEmail);
-    
-        }
         if (agentId != null) {
             request.addPostParam("AgentId", agentId);
     
@@ -156,8 +134,8 @@ public class InsightsAssessmentsCommentCreator extends Creator<InsightsAssessmen
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

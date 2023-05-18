@@ -33,7 +33,7 @@ public class AssessmentsUpdater extends Updater<Assessments>{
     private BigDecimal offset;
     private String answerText;
     private String answerId;
-    private String token;
+    private String authorization;
 
     public AssessmentsUpdater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId){
         this.pathAssessmentSid = pathAssessmentSid;
@@ -54,8 +54,8 @@ public class AssessmentsUpdater extends Updater<Assessments>{
         this.answerId = answerId;
         return this;
     }
-    public AssessmentsUpdater setToken(final String token){
-        this.token = token;
+    public AssessmentsUpdater setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -103,8 +103,8 @@ public class AssessmentsUpdater extends Updater<Assessments>{
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

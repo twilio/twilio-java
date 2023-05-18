@@ -31,15 +31,15 @@ import java.util.List;
 
 
 public class InsightsQuestionnairesQuestionReader extends Reader<InsightsQuestionnairesQuestion> {
-    private String token;
+    private String authorization;
     private List<String> categorySid;
     private Integer pageSize;
 
     public InsightsQuestionnairesQuestionReader(){
     }
 
-    public InsightsQuestionnairesQuestionReader setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesQuestionReader setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsQuestionnairesQuestionReader setCategorySid(final List<String> categorySid){
@@ -123,8 +123,8 @@ public class InsightsQuestionnairesQuestionReader extends Reader<InsightsQuestio
         return pageForRequest(client, request);
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

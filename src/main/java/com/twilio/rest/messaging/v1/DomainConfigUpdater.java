@@ -33,6 +33,8 @@ public class DomainConfigUpdater extends Updater<DomainConfig>{
     private String pathDomainSid;
     private URI fallbackUrl;
     private URI callbackUrl;
+    private Boolean continueOnFailure;
+    private Boolean disableHttps;
 
     public DomainConfigUpdater(final String pathDomainSid){
         this.pathDomainSid = pathDomainSid;
@@ -53,6 +55,14 @@ public class DomainConfigUpdater extends Updater<DomainConfig>{
 
     public DomainConfigUpdater setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
+    }
+    public DomainConfigUpdater setContinueOnFailure(final Boolean continueOnFailure){
+        this.continueOnFailure = continueOnFailure;
+        return this;
+    }
+    public DomainConfigUpdater setDisableHttps(final Boolean disableHttps){
+        this.disableHttps = disableHttps;
+        return this;
     }
 
     @Override
@@ -87,6 +97,14 @@ public class DomainConfigUpdater extends Updater<DomainConfig>{
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
+        }
+        if (continueOnFailure != null) {
+            request.addPostParam("ContinueOnFailure", continueOnFailure.toString());
+    
+        }
+        if (disableHttps != null) {
+            request.addPostParam("DisableHttps", disableHttps.toString());
     
         }
     }

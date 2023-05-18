@@ -30,7 +30,7 @@ import com.twilio.rest.Domains;
 public class InsightsQuestionnairesCategoryUpdater extends Updater<InsightsQuestionnairesCategory>{
     private String pathCategorySid;
     private String name;
-    private String token;
+    private String authorization;
 
     public InsightsQuestionnairesCategoryUpdater(final String pathCategorySid, final String name){
         this.pathCategorySid = pathCategorySid;
@@ -41,8 +41,8 @@ public class InsightsQuestionnairesCategoryUpdater extends Updater<InsightsQuest
         this.name = name;
         return this;
     }
-    public InsightsQuestionnairesCategoryUpdater setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesCategoryUpdater setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -80,8 +80,8 @@ public class InsightsQuestionnairesCategoryUpdater extends Updater<InsightsQuest
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

@@ -32,7 +32,7 @@ import java.util.List;
 
 public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaires>{
     private String name;
-    private String token;
+    private String authorization;
     private String description;
     private Boolean active;
     private List<String> questionSids;
@@ -45,8 +45,8 @@ public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaire
         this.name = name;
         return this;
     }
-    public InsightsQuestionnairesCreator setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesCreator setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsQuestionnairesCreator setDescription(final String description){
@@ -112,8 +112,8 @@ public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaire
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

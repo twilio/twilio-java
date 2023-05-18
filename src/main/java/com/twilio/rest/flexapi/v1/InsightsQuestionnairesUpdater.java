@@ -32,7 +32,7 @@ import java.util.List;
 public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaires>{
     private String pathQuestionnaireSid;
     private Boolean active;
-    private String token;
+    private String authorization;
     private String name;
     private String description;
     private List<String> questionSids;
@@ -46,8 +46,8 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
         this.active = active;
         return this;
     }
-    public InsightsQuestionnairesUpdater setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesUpdater setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsQuestionnairesUpdater setName(final String name){
@@ -114,8 +114,8 @@ public class InsightsQuestionnairesUpdater extends Updater<InsightsQuestionnaire
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

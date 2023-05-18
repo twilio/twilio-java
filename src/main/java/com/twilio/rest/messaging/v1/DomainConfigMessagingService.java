@@ -40,7 +40,7 @@ import java.util.Objects;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfigMessagingService extends Resource {
-    private static final long serialVersionUID = 271442141622202L;
+    private static final long serialVersionUID = 37164874125386L;
 
     public static DomainConfigMessagingServiceFetcher fetcher(final String pathMessagingServiceSid){
         return new DomainConfigMessagingServiceFetcher(pathMessagingServiceSid);
@@ -88,6 +88,7 @@ public class DomainConfigMessagingService extends Resource {
     private final String messagingServiceSid;
     private final URI fallbackUrl;
     private final URI callbackUrl;
+    private final Boolean continueOnFailure;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
@@ -109,6 +110,9 @@ public class DomainConfigMessagingService extends Resource {
         @JsonProperty("callback_url")
         final URI callbackUrl,
 
+        @JsonProperty("continue_on_failure")
+        final Boolean continueOnFailure,
+
         @JsonProperty("date_created")
         final String dateCreated,
 
@@ -123,6 +127,7 @@ public class DomainConfigMessagingService extends Resource {
         this.messagingServiceSid = messagingServiceSid;
         this.fallbackUrl = fallbackUrl;
         this.callbackUrl = callbackUrl;
+        this.continueOnFailure = continueOnFailure;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
@@ -142,6 +147,9 @@ public class DomainConfigMessagingService extends Resource {
         }
         public final URI getCallbackUrl() {
             return this.callbackUrl;
+        }
+        public final Boolean getContinueOnFailure() {
+            return this.continueOnFailure;
         }
         public final ZonedDateTime getDateCreated() {
             return this.dateCreated;
@@ -165,12 +173,12 @@ public class DomainConfigMessagingService extends Resource {
 
         DomainConfigMessagingService other = (DomainConfigMessagingService) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(continueOnFailure, other.continueOnFailure) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domainSid, configSid, messagingServiceSid, fallbackUrl, callbackUrl, dateCreated, dateUpdated, url);
+        return Objects.hash(domainSid, configSid, messagingServiceSid, fallbackUrl, callbackUrl, continueOnFailure, dateCreated, dateUpdated, url);
     }
 
 }

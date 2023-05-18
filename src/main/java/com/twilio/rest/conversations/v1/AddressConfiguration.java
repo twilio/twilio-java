@@ -43,7 +43,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AddressConfiguration extends Resource {
-    private static final long serialVersionUID = 160450785190727L;
+    private static final long serialVersionUID = 162346024858734L;
 
     public static AddressConfigurationCreator creator(final AddressConfiguration.Type type, final String address){
         return new AddressConfigurationCreator(type, address);
@@ -171,6 +171,7 @@ public class AddressConfiguration extends Resource {
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
     private final URI url;
+    private final String addressCountry;
 
     @JsonCreator
     private AddressConfiguration(
@@ -199,7 +200,10 @@ public class AddressConfiguration extends Resource {
         final String dateUpdated,
 
         @JsonProperty("url")
-        final URI url
+        final URI url,
+
+        @JsonProperty("address_country")
+        final String addressCountry
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -210,6 +214,7 @@ public class AddressConfiguration extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
+        this.addressCountry = addressCountry;
     }
 
         public final String getSid() {
@@ -239,6 +244,9 @@ public class AddressConfiguration extends Resource {
         public final URI getUrl() {
             return this.url;
         }
+        public final String getAddressCountry() {
+            return this.addressCountry;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -252,12 +260,12 @@ public class AddressConfiguration extends Resource {
 
         AddressConfiguration other = (AddressConfiguration) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(type, other.type) &&  Objects.equals(address, other.address) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(autoCreation, other.autoCreation) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(type, other.type) &&  Objects.equals(address, other.address) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(autoCreation, other.autoCreation) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(addressCountry, other.addressCountry)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, type, address, friendlyName, autoCreation, dateCreated, dateUpdated, url);
+        return Objects.hash(sid, accountSid, type, address, friendlyName, autoCreation, dateCreated, dateUpdated, url, addressCountry);
     }
 
 }

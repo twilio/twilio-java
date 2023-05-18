@@ -29,11 +29,26 @@ import com.twilio.base.Page;
 
 
 public class ConversationReader extends Reader<Conversation> {
+    private String startDate;
+    private String endDate;
+    private Conversation.State state;
     private Integer pageSize;
 
     public ConversationReader(){
     }
 
+    public ConversationReader setStartDate(final String startDate){
+        this.startDate = startDate;
+        return this;
+    }
+    public ConversationReader setEndDate(final String endDate){
+        this.endDate = endDate;
+        return this;
+    }
+    public ConversationReader setState(final Conversation.State state){
+        this.state = state;
+        return this;
+    }
     public ConversationReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
@@ -107,6 +122,18 @@ public class ConversationReader extends Reader<Conversation> {
         return pageForRequest(client, request);
     }
     private void addQueryParams(final Request request) {
+        if (startDate != null) {
+    
+            request.addQueryParam("StartDate", startDate);
+        }
+        if (endDate != null) {
+    
+            request.addQueryParam("EndDate", endDate);
+        }
+        if (state != null) {
+    
+            request.addQueryParam("State", state.toString());
+        }
         if (pageSize != null) {
     
             request.addQueryParam("PageSize", pageSize.toString());

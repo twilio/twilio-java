@@ -29,15 +29,15 @@ import com.twilio.base.Page;
 
 
 public class InsightsQuestionnairesReader extends Reader<InsightsQuestionnaires> {
-    private String token;
+    private String authorization;
     private Boolean includeInactive;
     private Integer pageSize;
 
     public InsightsQuestionnairesReader(){
     }
 
-    public InsightsQuestionnairesReader setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesReader setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsQuestionnairesReader setIncludeInactive(final Boolean includeInactive){
@@ -118,8 +118,8 @@ public class InsightsQuestionnairesReader extends Reader<InsightsQuestionnaires>
         return pageForRequest(client, request);
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

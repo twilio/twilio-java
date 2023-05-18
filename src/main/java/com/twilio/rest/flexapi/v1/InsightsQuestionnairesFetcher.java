@@ -29,14 +29,14 @@ import com.twilio.rest.Domains;
 
 public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaires> {
     private String pathQuestionnaireSid;
-    private String token;
+    private String authorization;
 
     public InsightsQuestionnairesFetcher(final String pathQuestionnaireSid){
         this.pathQuestionnaireSid = pathQuestionnaireSid;
     }
 
-    public InsightsQuestionnairesFetcher setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesFetcher setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
 
@@ -67,8 +67,8 @@ public class InsightsQuestionnairesFetcher extends Fetcher<InsightsQuestionnaire
         return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

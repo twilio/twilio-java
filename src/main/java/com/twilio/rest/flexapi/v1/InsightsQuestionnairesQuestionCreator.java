@@ -32,7 +32,7 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
     private String question;
     private String answerSetId;
     private Boolean allowNa;
-    private String token;
+    private String authorization;
     private String description;
 
     public InsightsQuestionnairesQuestionCreator(final String categorySid, final String question, final String answerSetId, final Boolean allowNa) {
@@ -58,8 +58,8 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
         this.allowNa = allowNa;
         return this;
     }
-    public InsightsQuestionnairesQuestionCreator setToken(final String token){
-        this.token = token;
+    public InsightsQuestionnairesQuestionCreator setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsQuestionnairesQuestionCreator setDescription(final String description){
@@ -119,8 +119,8 @@ public class InsightsQuestionnairesQuestionCreator extends Creator<InsightsQuest
         }
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

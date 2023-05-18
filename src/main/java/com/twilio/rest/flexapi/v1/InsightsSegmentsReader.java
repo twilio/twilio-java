@@ -31,7 +31,7 @@ import java.util.List;
 
 
 public class InsightsSegmentsReader extends Reader<InsightsSegments> {
-    private String token;
+    private String authorization;
     private String segmentId;
     private List<String> reservationId;
     private Integer pageSize;
@@ -39,8 +39,8 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
     public InsightsSegmentsReader(){
     }
 
-    public InsightsSegmentsReader setToken(final String token){
-        this.token = token;
+    public InsightsSegmentsReader setAuthorization(final String authorization){
+        this.authorization = authorization;
         return this;
     }
     public InsightsSegmentsReader setSegmentId(final String segmentId){
@@ -128,8 +128,8 @@ public class InsightsSegmentsReader extends Reader<InsightsSegments> {
         return pageForRequest(client, request);
     }
     private void addHeaderParams(final Request request) {
-        if (token != null) {
-            request.addHeaderParam("Token", token);
+        if (authorization != null) {
+            request.addHeaderParam("Authorization", authorization);
 
         }
     }

@@ -43,7 +43,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPerson extends Resource {
-    private static final long serialVersionUID = 207409378631021L;
+    private static final long serialVersionUID = 67793860949596L;
 
     public static UsAppToPersonCreator creator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone){
         return new UsAppToPersonCreator(pathMessagingServiceSid, brandRegistrationSid, description, messageFlow, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone);
@@ -122,6 +122,7 @@ public class UsAppToPerson extends Resource {
     private final ZonedDateTime dateUpdated;
     private final URI url;
     private final Boolean mock;
+    private final List<Map<String, Object>> errors;
 
     @JsonCreator
     private UsAppToPerson(
@@ -195,7 +196,10 @@ public class UsAppToPerson extends Resource {
         final URI url,
 
         @JsonProperty("mock")
-        final Boolean mock
+        final Boolean mock,
+
+        @JsonProperty("errors")
+        final List<Map<String, Object>> errors
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -221,6 +225,7 @@ public class UsAppToPerson extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
         this.url = url;
         this.mock = mock;
+        this.errors = errors;
     }
 
         public final String getSid() {
@@ -295,6 +300,9 @@ public class UsAppToPerson extends Resource {
         public final Boolean getMock() {
             return this.mock;
         }
+        public final List<Map<String, Object>> getErrors() {
+            return this.errors;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -308,12 +316,12 @@ public class UsAppToPerson extends Resource {
 
         UsAppToPerson other = (UsAppToPerson) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(description, other.description) &&  Objects.equals(messageSamples, other.messageSamples) &&  Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&  Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&  Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&  Objects.equals(campaignStatus, other.campaignStatus) &&  Objects.equals(campaignId, other.campaignId) &&  Objects.equals(isExternallyRegistered, other.isExternallyRegistered) &&  Objects.equals(rateLimits, other.rateLimits) &&  Objects.equals(messageFlow, other.messageFlow) &&  Objects.equals(optInMessage, other.optInMessage) &&  Objects.equals(optOutMessage, other.optOutMessage) &&  Objects.equals(helpMessage, other.helpMessage) &&  Objects.equals(optInKeywords, other.optInKeywords) &&  Objects.equals(optOutKeywords, other.optOutKeywords) &&  Objects.equals(helpKeywords, other.helpKeywords) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(mock, other.mock)  ;
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(brandRegistrationSid, other.brandRegistrationSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(description, other.description) &&  Objects.equals(messageSamples, other.messageSamples) &&  Objects.equals(usAppToPersonUsecase, other.usAppToPersonUsecase) &&  Objects.equals(hasEmbeddedLinks, other.hasEmbeddedLinks) &&  Objects.equals(hasEmbeddedPhone, other.hasEmbeddedPhone) &&  Objects.equals(campaignStatus, other.campaignStatus) &&  Objects.equals(campaignId, other.campaignId) &&  Objects.equals(isExternallyRegistered, other.isExternallyRegistered) &&  Objects.equals(rateLimits, other.rateLimits) &&  Objects.equals(messageFlow, other.messageFlow) &&  Objects.equals(optInMessage, other.optInMessage) &&  Objects.equals(optOutMessage, other.optOutMessage) &&  Objects.equals(helpMessage, other.helpMessage) &&  Objects.equals(optInKeywords, other.optInKeywords) &&  Objects.equals(optOutKeywords, other.optOutKeywords) &&  Objects.equals(helpKeywords, other.helpKeywords) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(mock, other.mock) &&  Objects.equals(errors, other.errors)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, brandRegistrationSid, messagingServiceSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone, campaignStatus, campaignId, isExternallyRegistered, rateLimits, messageFlow, optInMessage, optOutMessage, helpMessage, optInKeywords, optOutKeywords, helpKeywords, dateCreated, dateUpdated, url, mock);
+        return Objects.hash(sid, accountSid, brandRegistrationSid, messagingServiceSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone, campaignStatus, campaignId, isExternallyRegistered, rateLimits, messageFlow, optInMessage, optOutMessage, helpMessage, optInKeywords, optOutKeywords, helpKeywords, dateCreated, dateUpdated, url, mock, errors);
     }
 
 }

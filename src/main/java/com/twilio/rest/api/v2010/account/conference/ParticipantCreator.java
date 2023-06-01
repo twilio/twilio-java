@@ -81,6 +81,7 @@ public class ParticipantCreator extends Creator<Participant>{
     private Integer machineDetectionSilenceTimeout;
     private URI amdStatusCallback;
     private HttpMethod amdStatusCallbackMethod;
+    private String trim;
 
     public ParticipantCreator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
         this.pathConferenceSid = pathConferenceSid;
@@ -314,6 +315,10 @@ public class ParticipantCreator extends Creator<Participant>{
         this.amdStatusCallbackMethod = amdStatusCallbackMethod;
         return this;
     }
+    public ParticipantCreator setTrim(final String trim){
+        this.trim = trim;
+        return this;
+    }
 
     @Override
     public Participant create(final TwilioRestClient client){
@@ -535,6 +540,10 @@ public class ParticipantCreator extends Creator<Participant>{
         }
         if (amdStatusCallbackMethod != null) {
             request.addPostParam("AmdStatusCallbackMethod", amdStatusCallbackMethod.toString());
+    
+        }
+        if (trim != null) {
+            request.addPostParam("Trim", trim);
     
         }
     }

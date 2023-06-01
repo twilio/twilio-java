@@ -22,6 +22,7 @@ public enum Domains {
     FLEXAPI("flex-api"),
     FRONTLINEAPI("frontline-api"),
     INSIGHTS("insights"),
+    INTELLIGENCE("intelligence"),
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
     MEDIA("media"),

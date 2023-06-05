@@ -2,12 +2,15 @@ package com.twilio.http;
 
 import com.twilio.Twilio;
 import com.twilio.exception.ApiException;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.config.SocketConfig;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -104,7 +107,14 @@ public class ValidationClient extends HttpClient {
 
         HttpMethod method = request.getMethod();
         if (method == HttpMethod.POST) {
-            builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
+            if(request.getContentType() != null && request.getContentType().equals("APPLICATION_JSON")){
+                HttpEntity entity = new StringEntity(request.encodeFormBody(), ContentType.APPLICATION_JSON);
+                builder.setEntity(entity);
+                builder.addHeader(HttpHeaders.CONTENT_TYPE, request.getContentType());
+            }
+            else{
+               builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
+            }
 
             for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                 for (String value : entry.getValue()) {

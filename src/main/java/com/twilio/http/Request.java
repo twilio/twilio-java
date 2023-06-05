@@ -37,6 +37,7 @@ public class Request {
 
     private List<String> userAgentExtensions;
 
+    private String contentType;
     /**
      * Create a new API request.
      *
@@ -111,6 +112,14 @@ public class Request {
 
     public List<String> getUserAgentExtensions() {
         return this.userAgentExtensions;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
     /**

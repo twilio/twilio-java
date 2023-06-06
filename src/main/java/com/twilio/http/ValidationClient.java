@@ -107,7 +107,7 @@ public class ValidationClient extends HttpClient {
 
         HttpMethod method = request.getMethod();
         if (method == HttpMethod.POST) {
-            if(request.getContentType() != null && request.getContentType().equals("APPLICATION_JSON")){
+            if(request.getContentType() != null && request.getContentType().equals("application/json")){
                 HttpEntity entity = new StringEntity(request.encodeFormBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);
                 builder.addHeader(HttpHeaders.CONTENT_TYPE, request.getContentType());

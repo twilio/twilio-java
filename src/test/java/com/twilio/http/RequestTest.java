@@ -317,4 +317,10 @@ public class RequestTest {
         assertNotEquals(request, new Object());
         assertNotEquals(null, request);
     }
+    @Test
+    public void testContentType() {
+        Request r = new Request(HttpMethod.POST, "http://example.com/foobar");
+        r.setContentType("application/json");
+        assertEquals("application/json", r.getContentType());
+    }
 }

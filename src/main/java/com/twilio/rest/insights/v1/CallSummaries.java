@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummaries extends Resource {
-    private static final long serialVersionUID = 172892476359030L;
+    private static final long serialVersionUID = 2737605187627L;
 
     public static CallSummariesReader reader(){
         return new CallSummariesReader();
@@ -238,6 +238,7 @@ public class CallSummaries extends Resource {
     private final Map<String, Object> attributes;
     private final Map<String, Object> properties;
     private final Map<String, Object> trust;
+    private final Map<String, Object> annotation;
 
     @JsonCreator
     private CallSummaries(
@@ -305,7 +306,10 @@ public class CallSummaries extends Resource {
         final Map<String, Object> properties,
 
         @JsonProperty("trust")
-        final Map<String, Object> trust
+        final Map<String, Object> trust,
+
+        @JsonProperty("annotation")
+        final Map<String, Object> annotation
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -329,6 +333,7 @@ public class CallSummaries extends Resource {
         this.attributes = attributes;
         this.properties = properties;
         this.trust = trust;
+        this.annotation = annotation;
     }
 
         public final String getAccountSid() {
@@ -397,6 +402,9 @@ public class CallSummaries extends Resource {
         public final Map<String, Object> getTrust() {
             return this.trust;
         }
+        public final Map<String, Object> getAnnotation() {
+            return this.annotation;
+        }
 
     @Override
     public boolean equals(final Object o) {
@@ -410,12 +418,12 @@ public class CallSummaries extends Resource {
 
         CallSummaries other = (CallSummaries) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(answeredBy, other.answeredBy) &&  Objects.equals(callType, other.callType) &&  Objects.equals(callState, other.callState) &&  Objects.equals(processingState, other.processingState) &&  Objects.equals(createdTime, other.createdTime) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(connectDuration, other.connectDuration) &&  Objects.equals(from, other.from) &&  Objects.equals(to, other.to) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(clientEdge, other.clientEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(tags, other.tags) &&  Objects.equals(url, other.url) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(properties, other.properties) &&  Objects.equals(trust, other.trust)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(answeredBy, other.answeredBy) &&  Objects.equals(callType, other.callType) &&  Objects.equals(callState, other.callState) &&  Objects.equals(processingState, other.processingState) &&  Objects.equals(createdTime, other.createdTime) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(connectDuration, other.connectDuration) &&  Objects.equals(from, other.from) &&  Objects.equals(to, other.to) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(clientEdge, other.clientEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(tags, other.tags) &&  Objects.equals(url, other.url) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(properties, other.properties) &&  Objects.equals(trust, other.trust) &&  Objects.equals(annotation, other.annotation)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, callSid, answeredBy, callType, callState, processingState, createdTime, startTime, endTime, duration, connectDuration, from, to, carrierEdge, clientEdge, sdkEdge, sipEdge, tags, url, attributes, properties, trust);
+        return Objects.hash(accountSid, callSid, answeredBy, callType, callState, processingState, createdTime, startTime, endTime, duration, connectDuration, from, to, carrierEdge, clientEdge, sdkEdge, sipEdge, tags, url, attributes, properties, trust, annotation);
     }
 
 }

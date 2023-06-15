@@ -48,10 +48,10 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String subaccount;
     private Boolean abnormalSession;
     private CallSummaries.AnsweredBy answeredBy;
-    private String connectivityIssues;
-    private String qualityIssues;
+    private String connectivityIssue;
+    private String qualityIssue;
     private Boolean spam;
-    private String callScores;
+    private String callScore;
     private Integer pageSize;
 
     public CallSummariesReader(){
@@ -133,20 +133,20 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         this.answeredBy = answeredBy;
         return this;
     }
-    public CallSummariesReader setConnectivityIssues(final String connectivityIssues){
-        this.connectivityIssues = connectivityIssues;
+    public CallSummariesReader setConnectivityIssue(final String connectivityIssue){
+        this.connectivityIssue = connectivityIssue;
         return this;
     }
-    public CallSummariesReader setQualityIssues(final String qualityIssues){
-        this.qualityIssues = qualityIssues;
+    public CallSummariesReader setQualityIssue(final String qualityIssue){
+        this.qualityIssue = qualityIssue;
         return this;
     }
     public CallSummariesReader setSpam(final Boolean spam){
         this.spam = spam;
         return this;
     }
-    public CallSummariesReader setCallScores(final String callScores){
-        this.callScores = callScores;
+    public CallSummariesReader setCallScore(final String callScore){
+        this.callScore = callScore;
         return this;
     }
     public CallSummariesReader setPageSize(final Integer pageSize){
@@ -298,21 +298,21 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     
             request.addQueryParam("AnsweredBy", answeredBy.toString());
         }
-        if (connectivityIssues != null) {
+        if (connectivityIssue != null) {
     
-            request.addQueryParam("ConnectivityIssues", connectivityIssues);
+            request.addQueryParam("ConnectivityIssue", connectivityIssue);
         }
-        if (qualityIssues != null) {
+        if (qualityIssue != null) {
     
-            request.addQueryParam("QualityIssues", qualityIssues);
+            request.addQueryParam("QualityIssue", qualityIssue);
         }
         if (spam != null) {
     
             request.addQueryParam("Spam", spam.toString());
         }
-        if (callScores != null) {
+        if (callScore != null) {
     
-            request.addQueryParam("CallScores", callScores);
+            request.addQueryParam("CallScore", callScore);
         }
         if (pageSize != null) {
     

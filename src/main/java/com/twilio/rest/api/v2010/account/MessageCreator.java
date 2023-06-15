@@ -53,12 +53,12 @@ public class MessageCreator extends Creator<Message>{
     private Message.ScheduleType scheduleType;
     private ZonedDateTime sendAt;
     private Boolean sendAsMms;
-    private String contentSid;
     private String contentVariables;
     private com.twilio.type.PhoneNumber from;
     private String messagingServiceSid;
     private String body;
     private List<URI> mediaUrl;
+    private String contentSid;
 
     public MessageCreator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body) {
         this.to = to;
@@ -180,10 +180,6 @@ public class MessageCreator extends Creator<Message>{
         this.sendAsMms = sendAsMms;
         return this;
     }
-    public MessageCreator setContentSid(final String contentSid){
-        this.contentSid = contentSid;
-        return this;
-    }
     public MessageCreator setContentVariables(final String contentVariables){
         this.contentVariables = contentVariables;
         return this;
@@ -214,6 +210,10 @@ public class MessageCreator extends Creator<Message>{
 
     public MessageCreator setMediaUrl(final String mediaUrl){
         return setMediaUrl(Promoter.uriFromString(mediaUrl));
+    }
+    public MessageCreator setContentSid(final String contentSid){
+        this.contentSid = contentSid;
+        return this;
     }
 
     @Override
@@ -310,10 +310,6 @@ public class MessageCreator extends Creator<Message>{
             request.addPostParam("SendAsMms", sendAsMms.toString());
     
         }
-        if (contentSid != null) {
-            request.addPostParam("ContentSid", contentSid);
-    
-        }
         if (contentVariables != null) {
             request.addPostParam("ContentVariables", contentVariables);
     
@@ -334,6 +330,10 @@ public class MessageCreator extends Creator<Message>{
             for (URI prop : mediaUrl) {
                 request.addPostParam("MediaUrl", prop.toString());
             }
+    
+        }
+        if (contentSid != null) {
+            request.addPostParam("ContentSid", contentSid);
     
         }
     }

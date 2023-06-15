@@ -1,6 +1,16 @@
 twilio-java changelog
 =====================
 
+[2023-06-15] Version 9.7.0
+--------------------------
+**Api**
+- Added `content_sid` as conditional parameter
+- Removed `content_sid` as optional field **(breaking change)**
+
+**Insights**
+- Added `annotation` to list summary output
+
+
 [2023-06-01] Version 9.6.2
 --------------------------
 **Api**

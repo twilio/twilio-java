@@ -1,6 +1,6 @@
 package com.twilio.http;
 
-import com.twilio.constant.Enum;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 
@@ -37,7 +37,7 @@ public class Request {
 
     private List<String> userAgentExtensions;
 
-    private Enum.ContentType contentType;
+    private EnumConstants.ContentType contentType;
 
     private String body;
 
@@ -117,11 +117,11 @@ public class Request {
         return this.userAgentExtensions;
     }
 
-    public Enum.ContentType getContentType() {
+    public EnumConstants.ContentType getContentType() {
         return contentType;
     }
 
-    public void setContentType(Enum.ContentType contentType) {
+    public void setContentType(EnumConstants.ContentType contentType) {
         this.contentType = contentType;
     }
 

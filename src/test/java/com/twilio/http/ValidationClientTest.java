@@ -23,6 +23,7 @@ public class ValidationClientTest {
     @Test
     public void testHttpPost() throws Exception {
         exerciseHttpMethod(HttpMethod.POST);
+        testContentType(HttpMethod.POST);
     }
 
     @Test
@@ -42,6 +43,27 @@ public class ValidationClientTest {
         assertEquals(200, response.getStatusCode());
         final RecordedRequest recordedRequest = server.takeRequest();
         assertEquals(httpMethod.name(), recordedRequest.getMethod());
+        final String validationHeaderValue = recordedRequest.getHeader("Twilio-Client-Validation");
+        assertNotNull(validationHeaderValue);
+        assertTrue(validationHeaderValue.length() > 0);
+    }
+    private void testContentType(final HttpMethod httpMethod) throws Exception {
+        final KeyPair keyPair = generateKeyPair();
+        final MockWebServer server = new MockWebServer();
+        server.enqueue(new MockResponse().setBody("{\n" +
+                "    \"key1\": \"value1\",\n" +
+                "    \"key2\": \"value2\"\n" +
+                "}"));
+        final String path = "/example123";
+        final HttpUrl url = server.url(path);
+        final ValidationClient client = new ValidationClient("dummy-sid1", "dummy-sid2", "dummy-signing-key", keyPair.getPrivate());
+        final Request request = new Request(httpMethod, url.url().toString());
+        request.setContentType("application/json");
+        final Response response = client.makeRequest(request);
+        assertEquals(200, response.getStatusCode());
+        final RecordedRequest recordedRequest = server.takeRequest();
+        assertEquals(httpMethod.name(), recordedRequest.getMethod());
+        assertEquals("application/json", recordedRequest.getHeader("Content-Type"));
         final String validationHeaderValue = recordedRequest.getHeader("Twilio-Client-Validation");
         assertNotNull(validationHeaderValue);
         assertTrue(validationHeaderValue.length() > 0);

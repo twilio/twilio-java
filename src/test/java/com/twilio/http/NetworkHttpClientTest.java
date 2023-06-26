@@ -113,6 +113,18 @@ public class NetworkHttpClientTest {
     }
 
     @Test
+    public void testJsonPost() throws IOException {
+        setup(201, "frobozz", HttpMethod.POST, false);
+        when(mockRequest.getContentType()).thenReturn(Enum.ContentType.JSON);
+        String body = "{\"from\":\"+12345\",\"body\":\"message body\",\"messages\":[{\"to\":\"+12345\"}]}";
+        when(mockRequest.getBody()).thenReturn(body);
+        Response resp = client.makeRequest(mockRequest);
+
+        assertEquals(resp.getStatusCode(), 201);
+        assertEquals(resp.getContent(), "frobozz");
+    }
+
+    @Test
     public void testReliableRequest() {
         Request request = new Request(HttpMethod.GET, "http://foo.com/hello");
 

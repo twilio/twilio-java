@@ -8,7 +8,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-package com.twilio.rest;
+package com.twilio;
 
 public enum Domains {
     ACCOUNTS("accounts"),
@@ -33,6 +33,7 @@ public enum Domains {
     NUMBERS("numbers"),
     OAUTH("oauth"),
     PREVIEW("preview"),
+    PREVIEWMESSAGING("preview.messaging"),
     PRICING("pricing"),
     PROXY("proxy"),
     ROUTES("routes"),

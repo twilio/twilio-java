@@ -1,12 +1,8 @@
 package com.twilio.http;
 
+import com.twilio.constant.Enum;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
-
-import java.time.ZonedDateTime;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDate;
 
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
@@ -15,6 +11,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class Request {
@@ -37,7 +37,10 @@ public class Request {
 
     private List<String> userAgentExtensions;
 
-    private String contentType;
+    private Enum.ContentType contentType;
+
+    private String body;
+
     /**
      * Create a new API request.
      *
@@ -114,12 +117,20 @@ public class Request {
         return this.userAgentExtensions;
     }
 
-    public String getContentType() {
+    public Enum.ContentType getContentType() {
         return contentType;
     }
 
-    public void setContentType(String contentType) {
+    public void setContentType(Enum.ContentType contentType) {
         this.contentType = contentType;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     /**

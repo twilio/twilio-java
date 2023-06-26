@@ -1,5 +1,6 @@
 package com.twilio.http;
 
+import com.twilio.constant.Enum;
 import com.twilio.exception.ApiConnectionException;
 import org.apache.http.HttpEntity;
 import org.apache.http.StatusLine;
@@ -66,6 +67,7 @@ public class NetworkHttpClientTest {
         when(mockRequest.constructURL()).thenReturn(new URL("http://foo.com/hello"));
         when(mockRequest.requiresAuthentication()).thenReturn(requiresAuthentication);
         when(mockRequest.getAuthString()).thenReturn("foo:bar");
+        when(mockRequest.getContentType()).thenReturn(Enum.ContentType.FORM_URLENCODED);
         when(mockClient.execute(any())).thenReturn(mockResponse);
         when(mockEntity.isRepeatable()).thenReturn(true);
         when(mockEntity.getContentLength()).thenReturn(1L);
@@ -104,6 +106,18 @@ public class NetworkHttpClientTest {
     public void testPost() throws IOException {
         setup(201, "frobozz", HttpMethod.POST, false);
 
+        Response resp = client.makeRequest(mockRequest);
+
+        assertEquals(resp.getStatusCode(), 201);
+        assertEquals(resp.getContent(), "frobozz");
+    }
+
+    @Test
+    public void testJsonPost() throws IOException {
+        setup(201, "frobozz", HttpMethod.POST, false);
+        when(mockRequest.getContentType()).thenReturn(Enum.ContentType.JSON);
+        String body = "{\"from\":\"+12345\",\"body\":\"message body\",\"messages\":[{\"to\":\"+12345\"}]}";
+        when(mockRequest.getBody()).thenReturn(body);
         Response resp = client.makeRequest(mockRequest);
 
         assertEquals(resp.getStatusCode(), 201);

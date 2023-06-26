@@ -1,6 +1,7 @@
 package com.twilio.http;
 
 import com.twilio.Twilio;
+import com.twilio.constant.Enum;
 import com.twilio.exception.ApiException;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -107,18 +108,20 @@ public class ValidationClient extends HttpClient {
 
         HttpMethod method = request.getMethod();
         if (method == HttpMethod.POST) {
-            if(request.getContentType() != null && request.getContentType().equals("application/json")){
-                HttpEntity entity = new StringEntity(request.encodeFormBody(), ContentType.APPLICATION_JSON);
+            // TODO: It will be removed after one RC Release.
+            if (request.getContentType() == null) request.setContentType(Enum.ContentType.FORM_URLENCODED);
+            if (Enum.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
+                HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);
-                builder.addHeader(HttpHeaders.CONTENT_TYPE, request.getContentType());
-            }
-            else{
-               builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-            }
-
-            for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
-                for (String value : entry.getValue()) {
-                    builder.addParameter(entry.getKey(), value);
+                builder.addHeader(
+                        HttpHeaders.CONTENT_TYPE, Enum.ContentType.JSON.getValue());
+            } else {
+                builder.addHeader(
+                        HttpHeaders.CONTENT_TYPE, Enum.ContentType.FORM_URLENCODED.getValue());
+                for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                    for (String value : entry.getValue()) {
+                        builder.addParameter(entry.getKey(), value);
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.twilio.http;
 
 import com.twilio.Twilio;
+import com.twilio.constant.Enum;
 import com.twilio.exception.ApiException;
 
 import java.io.IOException;
@@ -19,6 +20,8 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.config.SocketConfig;
 import org.apache.http.entity.BufferedHttpEntity;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -123,13 +126,21 @@ public class NetworkHttpClient extends HttpClient {
         }
 
         if (method == HttpMethod.POST) {
-            builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-
-            for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
-                for (String value : entry.getValue()) {
-                    builder.addParameter(entry.getKey(), value);
+            if (Enum.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
+                HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
+                builder.setEntity(entity);
+                builder.addHeader(
+                        HttpHeaders.CONTENT_TYPE, Enum.ContentType.JSON.getValue());
+            } else {
+                builder.addHeader(
+                        HttpHeaders.CONTENT_TYPE, Enum.ContentType.FORM_URLENCODED.getValue());
+                for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                    for (String value : entry.getValue()) {
+                        builder.addParameter(entry.getKey(), value);
+                    }
                 }
             }
+
         }
         builder.addHeader(HttpHeaders.USER_AGENT, HttpUtility.getUserAgentString(request.getUserAgentExtensions(), isCustomClient));
 

@@ -1,5 +1,7 @@
 package com.twilio.http;
 
+
+import com.twilio.constant.EnumConstants.ContentType;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.InvalidRequestException;
 
@@ -36,6 +38,8 @@ public class Request {
     private String password;
 
     private List<String> userAgentExtensions;
+
+    private ContentType contentType;
 
     /**
      * Create a new API request.
@@ -111,6 +115,14 @@ public class Request {
 
     public List<String> getUserAgentExtensions() {
         return this.userAgentExtensions;
+    }
+
+    public ContentType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(ContentType contentType) {
+        this.contentType = contentType;
     }
 
     /**

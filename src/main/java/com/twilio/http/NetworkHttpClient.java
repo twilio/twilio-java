@@ -1,7 +1,7 @@
 package com.twilio.http;
 
 import com.twilio.Twilio;
-import com.twilio.constant.Enum;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 
 import java.io.IOException;
@@ -127,15 +127,15 @@ public class NetworkHttpClient extends HttpClient {
 
         if (method == HttpMethod.POST) {
             // TODO: It will be removed after one RC Release.
-            if (request.getContentType() == null) request.setContentType(Enum.ContentType.FORM_URLENCODED);
-            if (Enum.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
+            if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+            if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
                 HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
                 builder.setEntity(entity);
                 builder.addHeader(
-                        HttpHeaders.CONTENT_TYPE, Enum.ContentType.JSON.getValue());
+                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
             } else {
                 builder.addHeader(
-                        HttpHeaders.CONTENT_TYPE, Enum.ContentType.FORM_URLENCODED.getValue());
+                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
                 for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
                     for (String value : entry.getValue()) {
                         builder.addParameter(entry.getKey(), value);

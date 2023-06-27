@@ -1,6 +1,6 @@
 package com.twilio.http;
 
-import com.twilio.constant.Enum;
+import com.twilio.constant.EnumConstants;
 import org.junit.Test;
 
 import java.security.KeyPair;
@@ -59,14 +59,14 @@ public class ValidationClientTest {
         final HttpUrl url = server.url(path);
         final ValidationClient client = new ValidationClient("dummy-sid1", "dummy-sid2", "dummy-signing-key", keyPair.getPrivate());
         final Request request = new Request(httpMethod, url.url().toString());
-        request.setContentType(Enum.ContentType.JSON);
+        request.setContentType(EnumConstants.ContentType.JSON);
         String body = "{\"from\":\"+12345\",\"body\":\"message body\",\"messages\":[{\"to\":\"+12345\"}]}";
         request.setBody(body);
         final Response response = client.makeRequest(request);
         assertEquals(200, response.getStatusCode());
         final RecordedRequest recordedRequest = server.takeRequest();
         assertEquals(httpMethod.name(), recordedRequest.getMethod());
-        assertEquals(Enum.ContentType.JSON.getValue(), recordedRequest.getHeader("Content-Type"));
+        assertEquals(EnumConstants.ContentType.JSON.getValue(), recordedRequest.getHeader("Content-Type"));
         final String validationHeaderValue = recordedRequest.getHeader("Twilio-Client-Validation");
         assertNotNull(validationHeaderValue);
         assertTrue(validationHeaderValue.length() > 0);

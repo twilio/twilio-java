@@ -33,6 +33,7 @@ public enum Domains {
     NUMBERS("numbers"),
     OAUTH("oauth"),
     PREVIEW("preview"),
+    PREVIEWMESSAGING("preview.messaging"),
     PRICING("pricing"),
     PROXY("proxy"),
     ROUTES("routes"),

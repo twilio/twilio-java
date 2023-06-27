@@ -3,7 +3,7 @@ package com.twilio.constant;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-public class Enum {
+public class EnumConstants {
 
     @Getter
     @RequiredArgsConstructor

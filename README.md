@@ -41,7 +41,7 @@ Use the following dependency in your project to grab via Maven:
 <dependency>
   <groupId>com.twilio.sdk</groupId>
   <artifactId>twilio</artifactId>
-  <version>9.X.X</version>
+  <version>10.X.X-rc.x</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -49,7 +49,7 @@ Use the following dependency in your project to grab via Maven:
 or Gradle:
 
 ```groovy
-implementation "com.twilio.sdk:twilio:9.X.X"
+implementation "com.twilio.sdk:twilio:10.X.X-rc.x"
 ```
 
 If you want to compile it yourself, here's how:

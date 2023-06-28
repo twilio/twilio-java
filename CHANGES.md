@@ -1,6 +1,22 @@
 twilio-java changelog
 =====================
 
+[2023-06-28] Version 9.8.0
+--------------------------
+**Library - Chore**
+- [PR #754](https://github.com/twilio/twilio-java/pull/754): Add content type enum to request. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #753](https://github.com/twilio/twilio-java/pull/753): added content type enum. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Lookups**
+- Add `reassigned_number` package to the lookup response
+
+**Numbers**
+- Add hosted_number_order under version `/v2`.
+- Update properties in Porting and Bulk Porting APIs. **(breaking change)**
+- Added bulk Portability API under version `/v1`.
+- Added Portability API under version `/v1`.
+
+
 [2023-06-15] Version 9.7.0
 --------------------------
 **Api**

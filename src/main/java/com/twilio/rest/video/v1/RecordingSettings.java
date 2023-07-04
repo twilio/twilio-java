@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RecordingSettings extends Resource {
     private static final long serialVersionUID = 265748091067113L;
+
+    
 
     public static RecordingSettingsCreator creator(final String friendlyName){
         return new RecordingSettingsCreator(friendlyName);
@@ -84,6 +87,7 @@ public class RecordingSettings extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String friendlyName;
@@ -174,6 +178,7 @@ public class RecordingSettings extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, friendlyName, awsCredentialsSid, awsS3Url, awsStorageEnabled, encryptionKeySid, encryptionEnabled, url);
     }
+
 
 }
 

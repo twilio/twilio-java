@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.service.conversation;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -95,6 +96,7 @@ public class ParticipantCreator extends Creator<Participant>{
             Domains.CONVERSATIONS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

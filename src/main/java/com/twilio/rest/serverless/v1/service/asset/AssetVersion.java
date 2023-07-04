@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssetVersion extends Resource {
     private static final long serialVersionUID = 215359401104297L;
+
+    
 
     public static AssetVersionFetcher fetcher(final String pathServiceSid, final String pathAssetSid, final String pathSid){
         return new AssetVersionFetcher(pathServiceSid, pathAssetSid, pathSid);
@@ -87,6 +90,7 @@ public class AssetVersion extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Visibility {
         PUBLIC("public"),
         PRIVATE("private"),
@@ -197,6 +201,7 @@ public class AssetVersion extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, assetSid, path, visibility, dateCreated, url);
     }
+
 
 }
 

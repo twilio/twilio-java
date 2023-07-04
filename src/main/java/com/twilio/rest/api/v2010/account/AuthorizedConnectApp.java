@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthorizedConnectApp extends Resource {
     private static final long serialVersionUID = 15094155294983L;
+
+    
 
     public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid){
         return new AuthorizedConnectAppFetcher(pathConnectAppSid);
@@ -94,6 +97,7 @@ public class AuthorizedConnectApp extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Permission {
         GET_ALL("get-all"),
         POST_ALL("post-all");
@@ -219,6 +223,7 @@ public class AuthorizedConnectApp extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, connectAppCompanyName, connectAppDescription, connectAppFriendlyName, connectAppHomepageUrl, connectAppSid, dateCreated, dateUpdated, permissions, uri);
     }
+
 
 }
 

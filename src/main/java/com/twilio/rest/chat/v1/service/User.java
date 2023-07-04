@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class User extends Resource {
     private static final long serialVersionUID = 136391609300437L;
+
+    
 
     public static UserCreator creator(final String pathServiceSid, final String identity){
         return new UserCreator(pathServiceSid, identity);
@@ -100,6 +103,7 @@ public class User extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -238,6 +242,7 @@ public class User extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, attributes, friendlyName, roleSid, identity, isOnline, isNotifiable, dateCreated, dateUpdated, joinedChannelsCount, links, url);
     }
+
 
 }
 

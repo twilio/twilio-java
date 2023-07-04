@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 52808589721984L;
+
+    
 
     public static ParticipantFetcher fetcher(final String pathRoomSid, final String pathSid){
         return new ParticipantFetcher(pathRoomSid, pathSid);
@@ -93,6 +96,7 @@ public class Participant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         CONNECTED("connected"),
         DISCONNECTED("disconnected");
@@ -234,6 +238,7 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(sid, roomSid, accountSid, status, identity, dateCreated, dateUpdated, startTime, endTime, duration, url, links);
     }
+
 
 }
 

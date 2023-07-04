@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 @ToString
 public class Room extends Resource {
     private static final long serialVersionUID = 125815238148049L;
+
+    
 
     public static RoomCreator creator(){
         return new RoomCreator();
@@ -99,6 +102,7 @@ public class Room extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum RoomStatus {
         IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
@@ -377,6 +381,7 @@ public class Room extends Resource {
     public int hashCode() {
         return Objects.hash(sid, status, dateCreated, dateUpdated, accountSid, enableTurn, uniqueName, statusCallback, statusCallbackMethod, endTime, duration, type, maxParticipants, maxParticipantDuration, maxConcurrentPublishedTracks, recordParticipantsOnConnect, videoCodecs, mediaRegion, audioOnly, emptyRoomTimeout, unusedRoomTimeout, largeRoom, url, links);
     }
+
 
 }
 

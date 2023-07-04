@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.PhoneNumberCapabilities;
 
@@ -42,6 +43,8 @@ import com.twilio.type.PhoneNumberCapabilities;
 @ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 71034679090032L;
+
+    
 
     public static PhoneNumberCreator creator(final String pathServiceSid){
         return new PhoneNumberCreator(pathServiceSid);
@@ -99,6 +102,7 @@ public class PhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -221,6 +225,7 @@ public class PhoneNumber extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, phoneNumber, friendlyName, isoCountry, capabilities, url, isReserved, inUse);
     }
+
 
 }
 

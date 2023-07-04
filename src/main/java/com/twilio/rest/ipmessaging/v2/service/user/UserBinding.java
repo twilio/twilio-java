@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserBinding extends Resource {
     private static final long serialVersionUID = 252068300768529L;
+
+    
 
     public static UserBindingDeleter deleter(final String pathServiceSid, final String pathUserSid, final String pathSid){
         return new UserBindingDeleter(pathServiceSid, pathUserSid, pathSid);
@@ -92,6 +95,7 @@ public class UserBinding extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum BindingType {
         GCM("gcm"),
         APN("apn"),
@@ -234,6 +238,7 @@ public class UserBinding extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, endpoint, identity, userSid, credentialSid, bindingType, messageTypes, url);
     }
+
 
 }
 

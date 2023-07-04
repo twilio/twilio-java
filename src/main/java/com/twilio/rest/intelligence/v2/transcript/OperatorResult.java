@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 import java.math.BigDecimal;
@@ -44,6 +45,8 @@ import java.math.BigDecimal;
 @ToString
 public class OperatorResult extends Resource {
     private static final long serialVersionUID = 126254553573605L;
+
+    
 
     public static OperatorResultFetcher fetcher(final String pathTranscriptSid, final String pathOperatorSid){
         return new OperatorResultFetcher(pathTranscriptSid, pathOperatorSid);
@@ -89,6 +92,7 @@ public class OperatorResult extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum OperatorType {
         CONVERSATION_CLASSIFY("conversation_classify"),
         UTTERANCE_CLASSIFY("utterance_classify"),
@@ -249,6 +253,7 @@ public class OperatorResult extends Resource {
     public int hashCode() {
         return Objects.hash(operatorType, name, operatorSid, extractMatch, matchProbability, normalizedResult, utteranceResults, utteranceMatch, predictedLabel, predictedProbability, labelProbabilities, extractResults, transcriptSid, url);
     }
+
 
 }
 

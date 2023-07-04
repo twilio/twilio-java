@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Usage extends Resource {
     private static final long serialVersionUID = 23834274390782L;
+
+    
 
     public static UsageFetcher fetcher(final String pathSimSid){
         return new UsageFetcher(pathSimSid);
@@ -82,6 +85,7 @@ public class Usage extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String simSid;
     private final String simUniqueName;
@@ -180,6 +184,7 @@ public class Usage extends Resource {
     public int hashCode() {
         return Objects.hash(simSid, simUniqueName, accountSid, period, commandsUsage, commandsCosts, dataUsage, dataCosts, url);
     }
+
 
 }
 

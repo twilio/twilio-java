@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
     private static final long serialVersionUID = 62753936180140L;
+
+    
 
     public static ChannelUpdater updater(final String pathServiceSid, final String pathSid){
         return new ChannelUpdater(pathServiceSid, pathSid);
@@ -83,6 +86,7 @@ public class Channel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ChannelType {
         PUBLIC("public"),
         PRIVATE("private");
@@ -259,6 +263,7 @@ public class Channel extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, friendlyName, uniqueName, attributes, type, dateCreated, dateUpdated, createdBy, membersCount, messagesCount, messagingServiceSid, url);
     }
+
 
 }
 

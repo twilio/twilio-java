@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -215,6 +216,7 @@ public class ServiceUpdater extends Updater<Service>{
             Domains.CHAT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

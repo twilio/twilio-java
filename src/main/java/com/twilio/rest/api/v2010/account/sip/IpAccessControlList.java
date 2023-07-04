@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class IpAccessControlList extends Resource {
     private static final long serialVersionUID = 178395545365846L;
+
+    
 
     public static IpAccessControlListCreator creator(final String friendlyName){
         return new IpAccessControlListCreator(friendlyName);
@@ -114,6 +117,7 @@ public class IpAccessControlList extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -196,6 +200,7 @@ public class IpAccessControlList extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, dateCreated, dateUpdated, subresourceUris, uri);
     }
+
 
 }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -74,6 +75,7 @@ public class WorkerUpdater extends Updater<Worker>{
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

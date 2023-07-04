@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TrustProductsEntityAssignments extends Resource {
     private static final long serialVersionUID = 11655766001892L;
+
+    
 
     public static TrustProductsEntityAssignmentsCreator creator(final String pathTrustProductSid, final String objectSid){
         return new TrustProductsEntityAssignmentsCreator(pathTrustProductSid, objectSid);
@@ -94,6 +97,7 @@ public class TrustProductsEntityAssignments extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String trustProductSid;
@@ -168,6 +172,7 @@ public class TrustProductsEntityAssignments extends Resource {
     public int hashCode() {
         return Objects.hash(sid, trustProductSid, accountSid, objectSid, dateCreated, url);
     }
+
 
 }
 

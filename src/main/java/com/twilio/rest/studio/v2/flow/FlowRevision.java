@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class FlowRevision extends Resource {
     private static final long serialVersionUID = 84648223923809L;
+
+    
 
     public static FlowRevisionFetcher fetcher(final String pathSid, final String pathRevision){
         return new FlowRevisionFetcher(pathSid, pathRevision);
@@ -90,6 +93,7 @@ public class FlowRevision extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PUBLISHED("published");
@@ -231,6 +235,7 @@ public class FlowRevision extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, definition, status, revision, commitMessage, valid, errors, dateCreated, dateUpdated, url);
     }
+
 
 }
 

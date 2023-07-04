@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Invite extends Resource {
     private static final long serialVersionUID = 148273166902210L;
+
+    
 
     public static InviteCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity){
         return new InviteCreator(pathServiceSid, pathChannelSid, identity);
@@ -94,6 +97,7 @@ public class Invite extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -200,6 +204,7 @@ public class Invite extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, channelSid, serviceSid, identity, dateCreated, dateUpdated, roleSid, createdBy, url);
     }
+
 
 }
 

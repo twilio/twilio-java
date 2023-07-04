@@ -39,6 +39,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 import java.math.BigDecimal;
@@ -47,6 +48,8 @@ import java.math.BigDecimal;
 @ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 269042081197241L;
+
+    
 
     public static RecordingCreator creator(final String pathCallSid){
         return new RecordingCreator(pathCallSid);
@@ -119,6 +122,7 @@ public class Recording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Source {
         DIALVERB("DialVerb"),
         CONFERENCE("Conference"),
@@ -337,6 +341,7 @@ public class Recording extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, callSid, conferenceSid, dateCreated, dateUpdated, startTime, duration, sid, price, uri, encryptionDetails, priceUnit, status, channels, source, errorCode, track);
     }
+
 
 }
 

@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class DependentPhoneNumber extends Resource {
     private static final long serialVersionUID = 170982689441309L;
+
+    
 
     public static DependentPhoneNumberReader reader(final String pathAddressSid){
         return new DependentPhoneNumberReader(pathAddressSid);
@@ -89,6 +92,7 @@ public class DependentPhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
@@ -363,6 +367,7 @@ public class DependentPhoneNumber extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, phoneNumber, voiceUrl, voiceMethod, voiceFallbackMethod, voiceFallbackUrl, voiceCallerIdLookup, dateCreated, dateUpdated, smsFallbackMethod, smsFallbackUrl, smsMethod, smsUrl, addressRequirements, capabilities, statusCallback, statusCallbackMethod, apiVersion, smsApplicationSid, voiceApplicationSid, trunkSid, emergencyStatus, emergencyAddressSid, uri);
     }
+
 
 }
 

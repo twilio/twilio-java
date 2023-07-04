@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AccountConfig extends Resource {
     private static final long serialVersionUID = 212393375904180L;
+
+    
 
     public static AccountConfigCreator creator(final String key, final String value){
         return new AccountConfigCreator(key, value);
@@ -99,6 +102,7 @@ public class AccountConfig extends Resource {
         }
     }
 
+
     private final String key;
     private final ZonedDateTime dateUpdated;
     private final String value;
@@ -156,6 +160,7 @@ public class AccountConfig extends Resource {
     public int hashCode() {
         return Objects.hash(key, dateUpdated, value, url);
     }
+
 
 }
 

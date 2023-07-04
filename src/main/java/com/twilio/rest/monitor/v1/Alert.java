@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Alert extends Resource {
     private static final long serialVersionUID = 14184743930644L;
+
+    
 
     public static AlertFetcher fetcher(final String pathSid){
         return new AlertFetcher(pathSid);
@@ -87,6 +90,7 @@ public class Alert extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String alertText;
@@ -265,6 +269,7 @@ public class Alert extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, alertText, apiVersion, dateCreated, dateGenerated, dateUpdated, errorCode, logLevel, moreInfo, requestMethod, requestUrl, requestVariables, resourceSid, responseBody, responseHeaders, sid, url, requestHeaders, serviceSid);
     }
+
 
 }
 

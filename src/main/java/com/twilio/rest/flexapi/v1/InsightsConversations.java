@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class InsightsConversations extends Resource {
     private static final long serialVersionUID = 172863414006149L;
+
+    
 
     public static InsightsConversationsReader reader(){
         return new InsightsConversationsReader();
@@ -82,6 +85,7 @@ public class InsightsConversations extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountId;
     private final String conversationId;
@@ -140,6 +144,7 @@ public class InsightsConversations extends Resource {
     public int hashCode() {
         return Objects.hash(accountId, conversationId, segmentCount, segments);
     }
+
 
 }
 

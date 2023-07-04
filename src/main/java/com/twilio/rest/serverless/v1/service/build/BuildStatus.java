@@ -34,12 +34,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BuildStatus extends Resource {
     private static final long serialVersionUID = 256582650740181L;
+
+    
 
     public static BuildStatusFetcher fetcher(final String pathServiceSid, final String pathSid){
         return new BuildStatusFetcher(pathServiceSid, pathSid);
@@ -81,6 +84,7 @@ public class BuildStatus extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         BUILDING("building"),
         COMPLETED("completed"),
@@ -167,6 +171,7 @@ public class BuildStatus extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, status, url);
     }
+
 
 }
 

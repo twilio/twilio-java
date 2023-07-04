@@ -34,12 +34,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
     private static final long serialVersionUID = 253333531578389L;
+
+    
 
     public static UserFetcher fetcher(final String pathSid){
         return new UserFetcher(pathSid);
@@ -85,6 +88,7 @@ public class User extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum StateType {
         ACTIVE("active"),
         DEACTIVATED("deactivated");
@@ -186,6 +190,7 @@ public class User extends Resource {
     public int hashCode() {
         return Objects.hash(sid, identity, friendlyName, avatar, state, isAvailable, url);
     }
+
 
 }
 

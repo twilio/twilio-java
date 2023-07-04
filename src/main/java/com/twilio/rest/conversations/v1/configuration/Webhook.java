@@ -35,12 +35,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 64791700237770L;
+
+    
 
     public static WebhookFetcher fetcher(){
         return new WebhookFetcher();
@@ -86,6 +89,7 @@ public class Webhook extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Method {
         GET("GET"),
         POST("POST");
@@ -206,6 +210,7 @@ public class Webhook extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, method, filters, preWebhookUrl, postWebhookUrl, target, url);
     }
+
 
 }
 

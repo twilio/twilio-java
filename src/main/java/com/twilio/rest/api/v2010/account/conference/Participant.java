@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 78654773226378L;
+
+    
 
     public static ParticipantCreator creator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to){
         return new ParticipantCreator(pathConferenceSid, from, to);
@@ -113,6 +116,7 @@ public class Participant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         QUEUED("queued"),
         CONNECTING("connecting"),
@@ -274,6 +278,7 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, callSid, label, callSidToCoach, coaching, conferenceSid, dateCreated, dateUpdated, endConferenceOnExit, muted, hold, startConferenceOnEnter, status, uri);
     }
+
 
 }
 

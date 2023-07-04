@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DocumentPermission extends Resource {
     private static final long serialVersionUID = 90173038651529L;
+
+    
 
     public static DocumentPermissionDeleter deleter(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
         return new DocumentPermissionDeleter(pathServiceSid, pathDocumentSid, pathIdentity);
@@ -92,6 +95,7 @@ public class DocumentPermission extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String serviceSid;
@@ -182,6 +186,7 @@ public class DocumentPermission extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, serviceSid, documentSid, identity, read, write, manage, url);
     }
+
 
 }
 

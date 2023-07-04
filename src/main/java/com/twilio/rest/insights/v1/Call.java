@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Call extends Resource {
     private static final long serialVersionUID = 241148031780577L;
+
+    
 
     public static CallFetcher fetcher(final String pathSid){
         return new CallFetcher(pathSid);
@@ -82,6 +85,7 @@ public class Call extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final URI url;
@@ -132,6 +136,7 @@ public class Call extends Resource {
     public int hashCode() {
         return Objects.hash(sid, url, links);
     }
+
 
 }
 

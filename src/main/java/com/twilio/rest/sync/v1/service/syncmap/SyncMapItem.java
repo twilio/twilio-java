@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class SyncMapItem extends Resource {
     private static final long serialVersionUID = 156890229646336L;
+
+    
 
     public static SyncMapItemCreator creator(final String pathServiceSid, final String pathMapSid, final String key, final Map<String, Object> data){
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
@@ -101,6 +104,7 @@ public class SyncMapItem extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum QueryFromBoundType {
         INCLUSIVE("inclusive"),
         EXCLUSIVE("exclusive");
@@ -253,6 +257,7 @@ public class SyncMapItem extends Resource {
     public int hashCode() {
         return Objects.hash(key, accountSid, serviceSid, mapSid, url, revision, data, dateExpires, dateCreated, dateUpdated, createdBy);
     }
+
 
 }
 

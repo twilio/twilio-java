@@ -34,12 +34,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsUserRoles extends Resource {
     private static final long serialVersionUID = 154216272914379L;
+
+    
 
     public static InsightsUserRolesFetcher fetcher(){
         return new InsightsUserRolesFetcher();
@@ -82,6 +85,7 @@ public class InsightsUserRoles extends Resource {
         }
     }
 
+
     private final List<String> roles;
     private final URI url;
 
@@ -123,6 +127,7 @@ public class InsightsUserRoles extends Resource {
     public int hashCode() {
         return Objects.hash(roles, url);
     }
+
 
 }
 

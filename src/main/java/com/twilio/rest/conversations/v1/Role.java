@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Role extends Resource {
     private static final long serialVersionUID = 223283830784079L;
+
+    
 
     public static RoleCreator creator(final String friendlyName, final Role.RoleType type, final List<String> permission){
         return new RoleCreator(friendlyName, type, permission);
@@ -100,6 +103,7 @@ public class Role extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum RoleType {
         CONVERSATION("conversation"),
         SERVICE("service");
@@ -217,6 +221,7 @@ public class Role extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, chatServiceSid, friendlyName, type, permissions, dateCreated, dateUpdated, url);
     }
+
 
 }
 

@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WebChannels extends Resource {
     private static final long serialVersionUID = 110421660015552L;
+
+    
 
     public static WebChannelsCreator creator(final String addressSid){
         return new WebChannelsCreator(addressSid);
@@ -80,6 +83,7 @@ public class WebChannels extends Resource {
         }
     }
 
+
     private final String conversationSid;
     private final String identity;
 
@@ -121,6 +125,7 @@ public class WebChannels extends Resource {
     public int hashCode() {
         return Objects.hash(conversationSid, identity);
     }
+
 
 }
 

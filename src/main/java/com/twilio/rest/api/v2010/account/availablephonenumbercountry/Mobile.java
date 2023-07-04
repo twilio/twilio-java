@@ -32,6 +32,7 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import com.twilio.type.PhoneNumberCapabilities;
@@ -40,6 +41,8 @@ import com.twilio.type.PhoneNumberCapabilities;
 @ToString
 public class Mobile extends Resource {
     private static final long serialVersionUID = 211749226408502L;
+
+    
 
     public static MobileReader reader(final String pathCountryCode){
         return new MobileReader(pathCountryCode);
@@ -84,6 +87,7 @@ public class Mobile extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final com.twilio.type.PhoneNumber friendlyName;
     private final com.twilio.type.PhoneNumber phoneNumber;
@@ -214,6 +218,7 @@ public class Mobile extends Resource {
     public int hashCode() {
         return Objects.hash(friendlyName, phoneNumber, lata, locality, rateCenter, latitude, longitude, region, postalCode, isoCountry, addressRequirements, beta, capabilities);
     }
+
 
 }
 

@@ -37,6 +37,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.PhoneNumberPrice;
 
@@ -44,6 +45,8 @@ import com.twilio.type.PhoneNumberPrice;
 @ToString
 public class Country extends Resource {
     private static final long serialVersionUID = 141644803807942L;
+
+    
 
     public static CountryFetcher fetcher(final String pathIsoCountry){
         return new CountryFetcher(pathIsoCountry);
@@ -89,6 +92,7 @@ public class Country extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String country;
     private final String isoCountry;
@@ -156,6 +160,7 @@ public class Country extends Resource {
     public int hashCode() {
         return Objects.hash(country, isoCountry, phoneNumberPrices, priceUnit, url);
     }
+
 
 }
 

@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 import java.math.BigDecimal;
@@ -42,6 +43,8 @@ import java.math.BigDecimal;
 @ToString
 public class InsightsAssessmentsComment extends Resource {
     private static final long serialVersionUID = 175598645429423L;
+
+    
 
     public static InsightsAssessmentsCommentCreator creator(final String categoryId, final String categoryName, final String comment, final String segmentId, final String agentId, final BigDecimal offset){
         return new InsightsAssessmentsCommentCreator(categoryId, categoryName, comment, segmentId, agentId, offset);
@@ -87,6 +90,7 @@ public class InsightsAssessmentsComment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String assessmentSid;
@@ -209,6 +213,7 @@ public class InsightsAssessmentsComment extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assessmentSid, comment, offset, report, weight, agentId, segmentId, userName, userEmail, timestamp, url);
     }
+
 
 }
 

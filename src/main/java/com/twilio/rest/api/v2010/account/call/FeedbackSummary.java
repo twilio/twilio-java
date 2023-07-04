@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 import java.time.LocalDate;
@@ -46,6 +47,8 @@ import java.math.BigDecimal;
 @ToString
 public class FeedbackSummary extends Resource {
     private static final long serialVersionUID = 230453795109955L;
+
+    
 
     public static FeedbackSummaryCreator creator(final LocalDate startDate, final LocalDate endDate){
         return new FeedbackSummaryCreator(startDate, endDate);
@@ -104,6 +107,7 @@ public class FeedbackSummary extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         QUEUED("queued"),
         IN_PROGRESS("in-progress"),
@@ -263,6 +267,7 @@ public class FeedbackSummary extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, callCount, callFeedbackCount, dateCreated, dateUpdated, endDate, includeSubaccounts, issues, qualityScoreAverage, qualityScoreMedian, qualityScoreStandardDeviation, sid, startDate, status);
     }
+
 
 }
 

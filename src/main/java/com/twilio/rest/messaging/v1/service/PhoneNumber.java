@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 272509077394294L;
+
+    
 
     public static PhoneNumberCreator creator(final String pathServiceSid, final String phoneNumberSid){
         return new PhoneNumberCreator(pathServiceSid, phoneNumberSid);
@@ -95,6 +98,7 @@ public class PhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -193,6 +197,7 @@ public class PhoneNumber extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, phoneNumber, countryCode, capabilities, url);
     }
+
 
 }
 

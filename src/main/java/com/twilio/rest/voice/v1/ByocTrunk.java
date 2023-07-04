@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ByocTrunk extends Resource {
     private static final long serialVersionUID = 49034684015367L;
+
+    
 
     public static ByocTrunkCreator creator(){
         return new ByocTrunkCreator();
@@ -99,6 +102,7 @@ public class ByocTrunk extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String sid;
@@ -245,6 +249,7 @@ public class ByocTrunk extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, friendlyName, voiceUrl, voiceMethod, voiceFallbackUrl, voiceFallbackMethod, statusCallbackUrl, statusCallbackMethod, cnamLookupEnabled, connectionPolicySid, fromDomainSid, dateCreated, dateUpdated, url);
     }
+
 
 }
 

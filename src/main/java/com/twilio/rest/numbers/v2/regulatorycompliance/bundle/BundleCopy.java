@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BundleCopy extends Resource {
     private static final long serialVersionUID = 169816383944206L;
+
+    
 
     public static BundleCopyCreator creator(final String pathBundleSid){
         return new BundleCopyCreator(pathBundleSid);
@@ -87,6 +90,7 @@ public class BundleCopy extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
@@ -216,6 +220,7 @@ public class BundleCopy extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, regulationSid, friendlyName, status, validUntil, email, statusCallback, dateCreated, dateUpdated);
     }
+
 
 }
 

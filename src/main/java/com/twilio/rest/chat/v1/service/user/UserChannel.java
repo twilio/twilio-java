@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class UserChannel extends Resource {
     private static final long serialVersionUID = 5311313114138L;
+
+    
 
     public static UserChannelReader reader(final String pathServiceSid, final String pathUserSid){
         return new UserChannelReader(pathServiceSid, pathUserSid);
@@ -82,6 +85,7 @@ public class UserChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ChannelStatus {
         JOINED("joined"),
         INVITED("invited"),
@@ -192,6 +196,7 @@ public class UserChannel extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, serviceSid, channelSid, memberSid, status, lastConsumedMessageIndex, unreadMessagesCount, links);
     }
+
 
 }
 

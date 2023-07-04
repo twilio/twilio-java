@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class StepContext extends Resource {
     private static final long serialVersionUID = 81685274380880L;
+
+    
 
     public static StepContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathStepSid){
         return new StepContextFetcher(pathFlowSid, pathEngagementSid, pathStepSid);
@@ -82,6 +85,7 @@ public class StepContext extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Map<String, Object> context;
@@ -156,6 +160,7 @@ public class StepContext extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, context, engagementSid, flowSid, stepSid, url);
     }
+
 
 }
 

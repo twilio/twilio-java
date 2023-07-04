@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RestoreAssistant extends Resource {
     private static final long serialVersionUID = 63917994227032L;
+
+    
 
     public static RestoreAssistantUpdater updater(final String assistant){
         return new RestoreAssistantUpdater(assistant);
@@ -82,6 +85,7 @@ public class RestoreAssistant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String sid;
@@ -204,6 +208,7 @@ public class RestoreAssistant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, dateCreated, dateUpdated, uniqueName, friendlyName, needsModelBuild, latestModelBuildSid, logQueries, developmentStage, callbackUrl, callbackEvents);
     }
+
 
 }
 

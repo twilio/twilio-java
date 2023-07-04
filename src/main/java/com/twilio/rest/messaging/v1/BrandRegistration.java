@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class BrandRegistration extends Resource {
     private static final long serialVersionUID = 243231933683239L;
+
+    
 
     public static BrandRegistrationCreator creator(final String customerProfileBundleSid, final String a2PProfileBundleSid){
         return new BrandRegistrationCreator(customerProfileBundleSid, a2PProfileBundleSid);
@@ -98,6 +101,7 @@ public class BrandRegistration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum BrandFeedback {
         TAX_ID("TAX_ID"),
         STOCK_SYMBOL("STOCK_SYMBOL"),
@@ -349,6 +353,7 @@ public class BrandRegistration extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, customerProfileBundleSid, a2pProfileBundleSid, dateCreated, dateUpdated, brandType, status, tcrId, failureReason, url, brandScore, brandFeedback, identityStatus, russell3000, governmentEntity, taxExemptStatus, skipAutomaticSecVet, mock, links);
     }
+
 
 }
 

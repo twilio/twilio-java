@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class TaskQueue extends Resource {
     private static final long serialVersionUID = 234230912116687L;
+
+    
 
     public static TaskQueueCreator creator(final String pathWorkspaceSid, final String friendlyName){
         return new TaskQueueCreator(pathWorkspaceSid, friendlyName);
@@ -101,6 +104,7 @@ public class TaskQueue extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum TaskOrder {
         FIFO("FIFO"),
         LIFO("LIFO");
@@ -266,6 +270,7 @@ public class TaskQueue extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assignmentActivitySid, assignmentActivityName, dateCreated, dateUpdated, friendlyName, maxReservedWorkers, reservationActivitySid, reservationActivityName, sid, targetWorkers, taskOrder, url, workspaceSid, links);
     }
+
 
 }
 

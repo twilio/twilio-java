@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CustomerProfilesChannelEndpointAssignment extends Resource {
     private static final long serialVersionUID = 18267773562551L;
+
+    
 
     public static CustomerProfilesChannelEndpointAssignmentCreator creator(final String pathCustomerProfileSid, final String channelEndpointType, final String channelEndpointSid){
         return new CustomerProfilesChannelEndpointAssignmentCreator(pathCustomerProfileSid, channelEndpointType, channelEndpointSid);
@@ -94,6 +97,7 @@ public class CustomerProfilesChannelEndpointAssignment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String customerProfileSid;
@@ -176,6 +180,7 @@ public class CustomerProfilesChannelEndpointAssignment extends Resource {
     public int hashCode() {
         return Objects.hash(sid, customerProfileSid, accountSid, channelEndpointType, channelEndpointSid, dateCreated, url);
     }
+
 
 }
 

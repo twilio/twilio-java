@@ -15,6 +15,7 @@
 package com.twilio.rest.autopilot.v1.assistant.task;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -67,6 +68,7 @@ public class SampleUpdater extends Updater<Sample>{
             Domains.AUTOPILOT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

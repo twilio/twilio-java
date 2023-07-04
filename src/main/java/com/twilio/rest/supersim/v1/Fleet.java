@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Fleet extends Resource {
     private static final long serialVersionUID = 74063802547191L;
+
+    
 
     public static FleetCreator creator(final String networkAccessProfile){
         return new FleetCreator(networkAccessProfile);
@@ -96,6 +99,7 @@ public class Fleet extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum DataMetering {
         PAYG("payg");
 
@@ -260,6 +264,7 @@ public class Fleet extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, uniqueName, dateCreated, dateUpdated, url, dataEnabled, dataLimit, dataMetering, smsCommandsEnabled, smsCommandsUrl, smsCommandsMethod, networkAccessProfileSid, ipCommandsUrl, ipCommandsMethod);
     }
+
 
 }
 

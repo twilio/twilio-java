@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class DomainCerts extends Resource {
     private static final long serialVersionUID = 200335100401859L;
+
+    
 
     public static DomainCertsDeleter deleter(final String pathDomainSid){
         return new DomainCertsDeleter(pathDomainSid);
@@ -92,6 +95,7 @@ public class DomainCerts extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String domainSid;
     private final ZonedDateTime dateUpdated;
@@ -182,6 +186,7 @@ public class DomainCerts extends Resource {
     public int hashCode() {
         return Objects.hash(domainSid, dateUpdated, dateExpires, dateCreated, domainName, certificateSid, url, certInValidation);
     }
+
 
 }
 

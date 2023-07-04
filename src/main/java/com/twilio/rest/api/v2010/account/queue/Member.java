@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
     private static final long serialVersionUID = 196464556782918L;
+
+    
 
     public static MemberFetcher fetcher(final String pathQueueSid, final String pathCallSid){
         return new MemberFetcher(pathQueueSid, pathCallSid);
@@ -99,6 +102,7 @@ public class Member extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String callSid;
     private final ZonedDateTime dateEnqueued;
@@ -173,6 +177,7 @@ public class Member extends Resource {
     public int hashCode() {
         return Objects.hash(callSid, dateEnqueued, position, uri, waitTime, queueSid);
     }
+
 
 }
 

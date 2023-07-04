@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class PlayerStreamer extends Resource {
     private static final long serialVersionUID = 145873037286640L;
+
+    
 
     public static PlayerStreamerCreator creator(){
         return new PlayerStreamerCreator();
@@ -98,6 +101,7 @@ public class PlayerStreamer extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum EndedReason {
         ENDED_VIA_API("ended-via-api"),
         MAX_DURATION_EXCEEDED("max-duration-exceeded"),
@@ -299,6 +303,7 @@ public class PlayerStreamer extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, video, links, sid, status, url, statusCallback, statusCallbackMethod, endedReason, maxDuration);
     }
+
 
 }
 

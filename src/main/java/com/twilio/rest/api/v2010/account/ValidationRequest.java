@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ValidationRequest extends Resource {
     private static final long serialVersionUID = 159203610764140L;
+
+    
 
     public static ValidationRequestCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new ValidationRequestCreator(phoneNumber);
@@ -82,6 +85,7 @@ public class ValidationRequest extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String callSid;
@@ -148,6 +152,7 @@ public class ValidationRequest extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, callSid, friendlyName, phoneNumber, validationCode);
     }
+
 
 }
 

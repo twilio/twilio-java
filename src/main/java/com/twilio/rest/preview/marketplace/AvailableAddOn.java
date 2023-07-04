@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class AvailableAddOn extends Resource {
     private static final long serialVersionUID = 265387241353044L;
+
+    
 
     public static AvailableAddOnFetcher fetcher(final String pathSid){
         return new AvailableAddOnFetcher(pathSid);
@@ -86,6 +89,7 @@ public class AvailableAddOn extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String friendlyName;
@@ -168,6 +172,7 @@ public class AvailableAddOn extends Resource {
     public int hashCode() {
         return Objects.hash(sid, friendlyName, description, pricingType, configurationSchema, url, links);
     }
+
 
 }
 

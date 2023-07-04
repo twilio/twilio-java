@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfig extends Resource {
     private static final long serialVersionUID = 278004827100918L;
+
+    
 
     public static DomainConfigFetcher fetcher(final String pathDomainSid){
         return new DomainConfigFetcher(pathDomainSid);
@@ -86,6 +89,7 @@ public class DomainConfig extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String domainSid;
     private final String configSid;
@@ -184,6 +188,7 @@ public class DomainConfig extends Resource {
     public int hashCode() {
         return Objects.hash(domainSid, configSid, fallbackUrl, callbackUrl, continueOnFailure, dateCreated, dateUpdated, url, disableHttps);
     }
+
 
 }
 

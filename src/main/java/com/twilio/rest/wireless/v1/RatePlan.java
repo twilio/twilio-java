@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RatePlan extends Resource {
     private static final long serialVersionUID = 28369111129985L;
+
+    
 
     public static RatePlanCreator creator(){
         return new RatePlanCreator();
@@ -99,6 +102,7 @@ public class RatePlan extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String uniqueName;
@@ -253,6 +257,7 @@ public class RatePlan extends Resource {
     public int hashCode() {
         return Objects.hash(sid, uniqueName, accountSid, friendlyName, dataEnabled, dataMetering, dataLimit, messagingEnabled, voiceEnabled, nationalRoamingEnabled, nationalRoamingDataLimit, internationalRoaming, internationalRoamingDataLimit, dateCreated, dateUpdated, url);
     }
+
 
 }
 

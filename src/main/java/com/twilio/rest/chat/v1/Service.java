@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 258386577185944L;
+
+    
 
     public static ServiceCreator creator(final String friendlyName){
         return new ServiceCreator(friendlyName);
@@ -101,6 +104,7 @@ public class Service extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -295,6 +299,7 @@ public class Service extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, dateCreated, dateUpdated, defaultServiceRoleSid, defaultChannelRoleSid, defaultChannelCreatorRoleSid, readStatusEnabled, reachabilityEnabled, typingIndicatorTimeout, consumptionReportInterval, limits, webhooks, preWebhookUrl, postWebhookUrl, webhookMethod, webhookFilters, notifications, url, links);
     }
+
 
 }
 

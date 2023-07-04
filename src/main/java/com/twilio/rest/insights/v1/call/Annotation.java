@@ -35,12 +35,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Annotation extends Resource {
     private static final long serialVersionUID = 9735005754677L;
+
+    
 
     public static AnnotationFetcher fetcher(final String pathCallSid){
         return new AnnotationFetcher(pathCallSid);
@@ -86,6 +89,7 @@ public class Annotation extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum AnsweredBy {
         UNKNOWN_ANSWERED_BY("unknown_answered_by"),
         HUMAN("human"),
@@ -235,6 +239,7 @@ public class Annotation extends Resource {
     public int hashCode() {
         return Objects.hash(callSid, accountSid, answeredBy, connectivityIssue, qualityIssues, spam, callScore, comment, incident, url);
     }
+
 
 }
 

@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class ApprovalFetch extends Resource {
     private static final long serialVersionUID = 266557741388539L;
+
+    
 
     public static ApprovalFetchFetcher fetcher(final String pathSid){
         return new ApprovalFetchFetcher(pathSid);
@@ -82,6 +85,7 @@ public class ApprovalFetch extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -140,6 +144,7 @@ public class ApprovalFetch extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, whatsapp, url);
     }
+
 
 }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -56,6 +57,7 @@ public class SyncStreamCreator extends Creator<SyncStream>{
             Domains.SYNC.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

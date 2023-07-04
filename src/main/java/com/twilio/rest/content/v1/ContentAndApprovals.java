@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class ContentAndApprovals extends Resource {
     private static final long serialVersionUID = 67575038421166L;
+
+    
 
     public static ContentAndApprovalsReader reader(){
         return new ContentAndApprovalsReader();
@@ -83,6 +86,7 @@ public class ContentAndApprovals extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -181,6 +185,7 @@ public class ContentAndApprovals extends Resource {
     public int hashCode() {
         return Objects.hash(dateCreated, dateUpdated, sid, accountSid, friendlyName, language, variables, types, approvalRequests);
     }
+
 
 }
 

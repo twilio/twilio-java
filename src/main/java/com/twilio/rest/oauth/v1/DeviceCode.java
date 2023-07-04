@@ -33,12 +33,15 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeviceCode extends Resource {
     private static final long serialVersionUID = 153107871213953L;
+
+    
 
     public static DeviceCodeCreator creator(final String clientSid, final List<String> scopes){
         return new DeviceCodeCreator(clientSid, scopes);
@@ -80,6 +83,7 @@ public class DeviceCode extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String deviceCode;
     private final String userCode;
@@ -154,6 +158,7 @@ public class DeviceCode extends Resource {
     public int hashCode() {
         return Objects.hash(deviceCode, userCode, verificationUri, verificationUriComplete, expiresIn, interval);
     }
+
 
 }
 

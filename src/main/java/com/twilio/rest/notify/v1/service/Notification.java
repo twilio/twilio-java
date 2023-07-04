@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Notification extends Resource {
     private static final long serialVersionUID = 129411229878484L;
+
+    
 
     public static NotificationCreator creator(final String pathServiceSid){
         return new NotificationCreator(pathServiceSid);
@@ -85,6 +88,7 @@ public class Notification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Priority {
         HIGH("high"),
         LOW("low");
@@ -290,6 +294,7 @@ public class Notification extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, identities, tags, segments, priority, ttl, title, body, sound, action, data, apn, gcm, fcm, sms, facebookMessenger, alexa);
     }
+
 
 }
 

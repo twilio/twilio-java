@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SipDomain extends Resource {
     private static final long serialVersionUID = 81903226613345L;
+
+    
 
     public static SipDomainFetcher fetcher(final String pathSipDomain){
         return new SipDomainFetcher(pathSipDomain);
@@ -86,6 +89,7 @@ public class SipDomain extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sipDomain;
     private final URI url;
@@ -176,6 +180,7 @@ public class SipDomain extends Resource {
     public int hashCode() {
         return Objects.hash(sipDomain, url, sid, accountSid, friendlyName, voiceRegion, dateCreated, dateUpdated);
     }
+
 
 }
 

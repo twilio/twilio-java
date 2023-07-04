@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Domain extends Resource {
     private static final long serialVersionUID = 8213004596487L;
+
+    
 
     public static DomainCreator creator(final String domainName){
         return new DomainCreator(domainName);
@@ -116,6 +119,7 @@ public class Domain extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String apiVersion;
@@ -310,6 +314,7 @@ public class Domain extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, authType, dateCreated, dateUpdated, domainName, friendlyName, sid, uri, voiceFallbackMethod, voiceFallbackUrl, voiceMethod, voiceStatusCallbackMethod, voiceStatusCallbackUrl, voiceUrl, subresourceUris, sipRegistration, emergencyCallingEnabled, secure, byocTrunkSid, emergencyCallerSid);
     }
+
 
 }
 

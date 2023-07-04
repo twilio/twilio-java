@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class TaskQueueRealTimeStatistics extends Resource {
     private static final long serialVersionUID = 59495775727482L;
+
+    
 
     public static TaskQueueRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathTaskQueueSid){
         return new TaskQueueRealTimeStatisticsFetcher(pathWorkspaceSid, pathTaskQueueSid);
@@ -83,6 +86,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final List<Map<String, Object>> activityStatistics;
@@ -221,6 +225,7 @@ public class TaskQueueRealTimeStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, activityStatistics, longestTaskWaitingAge, longestTaskWaitingSid, longestRelativeTaskAgeInQueue, longestRelativeTaskSidInQueue, taskQueueSid, tasksByPriority, tasksByStatus, totalAvailableWorkers, totalEligibleWorkers, totalTasks, workspaceSid, url);
     }
+
 
 }
 

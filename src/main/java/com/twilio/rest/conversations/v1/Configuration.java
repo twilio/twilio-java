@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Configuration extends Resource {
     private static final long serialVersionUID = 31286932068884L;
+
+    
 
     public static ConfigurationFetcher fetcher(){
         return new ConfigurationFetcher();
@@ -86,6 +89,7 @@ public class Configuration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String defaultChatServiceSid;
@@ -168,6 +172,7 @@ public class Configuration extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, defaultChatServiceSid, defaultMessagingServiceSid, defaultInactiveTimer, defaultClosedTimer, url, links);
     }
+
 
 }
 

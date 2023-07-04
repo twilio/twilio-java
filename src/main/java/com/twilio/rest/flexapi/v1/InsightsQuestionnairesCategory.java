@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesCategory extends Resource {
     private static final long serialVersionUID = 80122837059940L;
+
+    
 
     public static InsightsQuestionnairesCategoryCreator creator(final String name){
         return new InsightsQuestionnairesCategoryCreator(name);
@@ -92,6 +95,7 @@ public class InsightsQuestionnairesCategory extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String categorySid;
@@ -150,6 +154,7 @@ public class InsightsQuestionnairesCategory extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, categorySid, name, url);
     }
+
 
 }
 

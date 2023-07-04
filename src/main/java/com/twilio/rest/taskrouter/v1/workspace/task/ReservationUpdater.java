@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace.task;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -370,6 +371,7 @@ public class ReservationUpdater extends Updater<Reservation>{
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

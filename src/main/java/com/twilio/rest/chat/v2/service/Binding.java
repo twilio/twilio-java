@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Binding extends Resource {
     private static final long serialVersionUID = 223064407729885L;
+
+    
 
     public static BindingDeleter deleter(final String pathServiceSid, final String pathSid){
         return new BindingDeleter(pathServiceSid, pathSid);
@@ -94,6 +97,7 @@ public class Binding extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum BindingType {
         GCM("gcm"),
         APN("apn"),
@@ -236,6 +240,7 @@ public class Binding extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, endpoint, identity, credentialSid, bindingType, messageTypes, url, links);
     }
+
 
 }
 

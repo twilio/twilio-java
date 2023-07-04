@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Siprec extends Resource {
     private static final long serialVersionUID = 230113301753485L;
+
+    
 
     public static SiprecCreator creator(final String pathCallSid){
         return new SiprecCreator(pathCallSid);
@@ -92,6 +95,7 @@ public class Siprec extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         IN_PROGRESS("in-progress"),
         STOPPED("stopped");
@@ -231,6 +235,7 @@ public class Siprec extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, callSid, name, status, dateUpdated, uri);
     }
+
 
 }
 

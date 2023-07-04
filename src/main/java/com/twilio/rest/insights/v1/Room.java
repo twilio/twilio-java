@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 @ToString
 public class Room extends Resource {
     private static final long serialVersionUID = 140614978057184L;
+
+    
 
     public static RoomFetcher fetcher(final String pathRoomSid){
         return new RoomFetcher(pathRoomSid);
@@ -91,6 +94,7 @@ public class Room extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Codec {
         VP8("VP8"),
         H264("H264"),
@@ -496,6 +500,7 @@ public class Room extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, roomSid, roomName, createTime, endTime, roomType, roomStatus, statusCallback, statusCallbackMethod, createdMethod, endReason, maxParticipants, uniqueParticipants, uniqueParticipantIdentities, concurrentParticipants, maxConcurrentParticipants, codecs, mediaRegion, durationSec, totalParticipantDurationSec, totalRecordingDurationSec, processingState, recordingEnabled, edgeLocation, url, links);
     }
+
 
 }
 

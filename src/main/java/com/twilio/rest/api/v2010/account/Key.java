@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Key extends Resource {
     private static final long serialVersionUID = 35259719636912L;
+
+    
 
     public static KeyDeleter deleter(final String pathSid){
         return new KeyDeleter(pathSid);
@@ -106,6 +109,7 @@ public class Key extends Resource {
         }
     }
 
+
     private final String sid;
     private final String friendlyName;
     private final ZonedDateTime dateCreated;
@@ -163,6 +167,7 @@ public class Key extends Resource {
     public int hashCode() {
         return Objects.hash(sid, friendlyName, dateCreated, dateUpdated);
     }
+
 
 }
 

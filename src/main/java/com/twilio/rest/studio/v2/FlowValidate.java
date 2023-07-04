@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class FlowValidate extends Resource {
     private static final long serialVersionUID = 128242236604078L;
+
+    
 
     public static FlowValidateUpdater updater(final String friendlyName, final FlowValidate.Status status, final Map<String, Object> definition){
         return new FlowValidateUpdater(friendlyName, status, definition);
@@ -82,6 +85,7 @@ public class FlowValidate extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PUBLISHED("published");
@@ -135,6 +139,7 @@ public class FlowValidate extends Resource {
     public int hashCode() {
         return Objects.hash(valid);
     }
+
 
 }
 

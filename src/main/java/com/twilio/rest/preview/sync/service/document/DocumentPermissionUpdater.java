@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.sync.service.document;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -73,6 +74,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission>{
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

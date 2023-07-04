@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfigMessagingService extends Resource {
     private static final long serialVersionUID = 37164874125386L;
+
+    
 
     public static DomainConfigMessagingServiceFetcher fetcher(final String pathMessagingServiceSid){
         return new DomainConfigMessagingServiceFetcher(pathMessagingServiceSid);
@@ -82,6 +85,7 @@ public class DomainConfigMessagingService extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String domainSid;
     private final String configSid;
@@ -180,6 +184,7 @@ public class DomainConfigMessagingService extends Resource {
     public int hashCode() {
         return Objects.hash(domainSid, configSid, messagingServiceSid, fallbackUrl, callbackUrl, continueOnFailure, dateCreated, dateUpdated, url);
     }
+
 
 }
 

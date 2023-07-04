@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class SyncStream extends Resource {
     private static final long serialVersionUID = 122709874652370L;
+
+    
 
     public static SyncStreamCreator creator(final String pathServiceSid){
         return new SyncStreamCreator(pathServiceSid);
@@ -100,6 +103,7 @@ public class SyncStream extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String uniqueName;
@@ -206,6 +210,7 @@ public class SyncStream extends Resource {
     public int hashCode() {
         return Objects.hash(sid, uniqueName, accountSid, serviceSid, url, links, dateExpires, dateCreated, dateUpdated, createdBy);
     }
+
 
 }
 

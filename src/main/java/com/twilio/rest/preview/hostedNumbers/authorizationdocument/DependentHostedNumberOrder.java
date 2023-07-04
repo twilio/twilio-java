@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.PhoneNumberCapabilities;
 
@@ -43,6 +44,8 @@ import com.twilio.type.PhoneNumberCapabilities;
 @ToString
 public class DependentHostedNumberOrder extends Resource {
     private static final long serialVersionUID = 65583991731077L;
+
+    
 
     public static DependentHostedNumberOrderReader reader(final String pathSigningDocumentSid){
         return new DependentHostedNumberOrderReader(pathSigningDocumentSid);
@@ -84,6 +87,7 @@ public class DependentHostedNumberOrder extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         RECEIVED("received"),
         PENDING_VERIFICATION("pending-verification"),
@@ -331,6 +335,7 @@ public class DependentHostedNumberOrder extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, incomingPhoneNumberSid, addressSid, signingDocumentSid, phoneNumber, capabilities, friendlyName, uniqueName, status, failureReason, dateCreated, dateUpdated, verificationAttempts, email, ccEmails, verificationType, verificationDocumentSid, extension, callDelay, verificationCode, verificationCallSids);
     }
+
 
 }
 

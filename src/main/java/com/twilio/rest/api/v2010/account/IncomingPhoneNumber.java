@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.PhoneNumberCapabilities;
 
@@ -44,6 +45,8 @@ import com.twilio.type.PhoneNumberCapabilities;
 @ToString
 public class IncomingPhoneNumber extends Resource {
     private static final long serialVersionUID = 82830627507260L;
+
+    
 
     public static IncomingPhoneNumberCreator creator(final com.twilio.type.PhoneNumber phoneNumber){
         return new IncomingPhoneNumberCreator(phoneNumber);
@@ -122,6 +125,7 @@ public class IncomingPhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum AddressRequirement {
         NONE("none"),
         ANY("any"),
@@ -502,6 +506,7 @@ public class IncomingPhoneNumber extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, addressSid, addressRequirements, apiVersion, beta, capabilities, dateCreated, dateUpdated, friendlyName, identitySid, phoneNumber, origin, sid, smsApplicationSid, smsFallbackMethod, smsFallbackUrl, smsMethod, smsUrl, statusCallback, statusCallbackMethod, trunkSid, uri, voiceReceiveMode, voiceApplicationSid, voiceCallerIdLookup, voiceFallbackMethod, voiceFallbackUrl, voiceMethod, voiceUrl, emergencyStatus, emergencyAddressSid, emergencyAddressStatus, bundleSid, status);
     }
+
 
 }
 

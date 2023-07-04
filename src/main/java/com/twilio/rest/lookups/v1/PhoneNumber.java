@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 141589309941045L;
+
+    
 
     public static PhoneNumberFetcher fetcher(final com.twilio.type.PhoneNumber pathPhoneNumber){
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -82,6 +85,7 @@ public class PhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final Map<String, Object> callerName;
     private final String countryCode;
@@ -164,6 +168,7 @@ public class PhoneNumber extends Resource {
     public int hashCode() {
         return Objects.hash(callerName, countryCode, phoneNumber, nationalFormat, carrier, addOns, url);
     }
+
 
 }
 

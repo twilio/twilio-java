@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class TaskChannel extends Resource {
     private static final long serialVersionUID = 156990545444191L;
+
+    
 
     public static TaskChannelCreator creator(final String pathWorkspaceSid, final String friendlyName, final String uniqueName){
         return new TaskChannelCreator(pathWorkspaceSid, friendlyName, uniqueName);
@@ -100,6 +103,7 @@ public class TaskChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -206,6 +210,7 @@ public class TaskChannel extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, friendlyName, sid, uniqueName, workspaceSid, channelOptimizedRouting, url, links);
     }
+
 
 }
 

@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Settings extends Resource {
     private static final long serialVersionUID = 200946859336446L;
+
+    
 
     public static SettingsFetcher fetcher(){
         return new SettingsFetcher();
@@ -85,6 +88,7 @@ public class Settings extends Resource {
         }
     }
 
+
     private final Boolean dialingPermissionsInheritance;
     private final URI url;
 
@@ -126,6 +130,7 @@ public class Settings extends Resource {
     public int hashCode() {
         return Objects.hash(dialingPermissionsInheritance, url);
     }
+
 
 }
 

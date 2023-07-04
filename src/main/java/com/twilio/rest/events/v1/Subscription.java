@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Subscription extends Resource {
     private static final long serialVersionUID = 198248500185102L;
+
+    
 
     public static SubscriptionCreator creator(final String description, final String sinkSid, final List<Map<String, Object>> types){
         return new SubscriptionCreator(description, sinkSid, types);
@@ -101,6 +104,7 @@ public class Subscription extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String sid;
@@ -191,6 +195,7 @@ public class Subscription extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, dateCreated, dateUpdated, description, sinkSid, url, links);
     }
+
 
 }
 

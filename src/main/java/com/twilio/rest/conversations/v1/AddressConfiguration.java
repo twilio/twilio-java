@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class AddressConfiguration extends Resource {
     private static final long serialVersionUID = 162346024858734L;
+
+    
 
     public static AddressConfigurationCreator creator(final AddressConfiguration.Type type, final String address){
         return new AddressConfigurationCreator(type, address);
@@ -101,6 +104,7 @@ public class AddressConfiguration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum AutoCreationType {
         WEBHOOK("webhook"),
         STUDIO("studio"),
@@ -267,6 +271,7 @@ public class AddressConfiguration extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, type, address, friendlyName, autoCreation, dateCreated, dateUpdated, url, addressCountry);
     }
+
 
 }
 

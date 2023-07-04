@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.PhoneNumberCapabilities;
 
@@ -42,6 +43,8 @@ import com.twilio.type.PhoneNumberCapabilities;
 @ToString
 public class ShortCode extends Resource {
     private static final long serialVersionUID = 222849980654127L;
+
+    
 
     public static ShortCodeCreator creator(final String pathServiceSid, final String sid){
         return new ShortCodeCreator(pathServiceSid, sid);
@@ -99,6 +102,7 @@ public class ShortCode extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -205,6 +209,7 @@ public class ShortCode extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, shortCode, isoCountry, capabilities, url, isReserved);
     }
+
 
 }
 

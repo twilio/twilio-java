@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAddress extends Resource {
     private static final long serialVersionUID = 125766891149812L;
+
+    
 
     public static IpAddressCreator creator(final String pathIpAccessControlListSid, final String friendlyName, final String ipAddress){
         return new IpAddressCreator(pathIpAccessControlListSid, friendlyName, ipAddress);
@@ -112,6 +115,7 @@ public class IpAddress extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -210,6 +214,7 @@ public class IpAddress extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, ipAddress, cidrPrefixLength, ipAccessControlListSid, dateCreated, dateUpdated, uri);
     }
+
 
 }
 

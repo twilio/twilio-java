@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Safelist extends Resource {
     private static final long serialVersionUID = 83566412587236L;
+
+    
 
     public static SafelistCreator creator(final String phoneNumber){
         return new SafelistCreator(phoneNumber);
@@ -89,6 +92,7 @@ public class Safelist extends Resource {
         }
     }
 
+
     private final String sid;
     private final String phoneNumber;
     private final URI url;
@@ -138,6 +142,7 @@ public class Safelist extends Resource {
     public int hashCode() {
         return Objects.hash(sid, phoneNumber, url);
     }
+
 
 }
 

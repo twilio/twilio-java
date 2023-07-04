@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 @ToString
 public class Composition extends Resource {
     private static final long serialVersionUID = 27450434271262L;
+
+    
 
     public static CompositionCreator creator(final String roomSid){
         return new CompositionCreator(roomSid);
@@ -99,6 +102,7 @@ public class Composition extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Format {
         MP4("mp4"),
         WEBM("webm");
@@ -334,6 +338,7 @@ public class Composition extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, status, dateCreated, dateCompleted, dateDeleted, sid, roomSid, audioSources, audioSourcesExcluded, videoLayout, resolution, trim, format, bitrate, size, duration, mediaExternalLocation, statusCallback, statusCallbackMethod, url, links);
     }
+
 
 }
 

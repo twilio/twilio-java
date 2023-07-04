@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeviceSecret extends Resource {
     private static final long serialVersionUID = 4318157927104L;
+
+    
 
     public static DeviceSecretCreator creator(final String pathDeviceSid, final String key, final String value){
         return new DeviceSecretCreator(pathDeviceSid, key, value);
@@ -99,6 +102,7 @@ public class DeviceSecret extends Resource {
         }
     }
 
+
     private final String deviceSid;
     private final String key;
     private final ZonedDateTime dateRotated;
@@ -156,6 +160,7 @@ public class DeviceSecret extends Resource {
     public int hashCode() {
         return Objects.hash(deviceSid, key, dateRotated, url);
     }
+
 
 }
 

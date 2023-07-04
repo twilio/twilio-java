@@ -39,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 @ToString
 public class Trunk extends Resource {
     private static final long serialVersionUID = 225938897286327L;
+
+    
 
     public static TrunkCreator creator(){
         return new TrunkCreator();
@@ -103,6 +106,7 @@ public class Trunk extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum TransferCallerId {
         FROM_TRANSFEREE("from-transferee"),
         FROM_TRANSFEROR("from-transferor");
@@ -304,6 +308,7 @@ public class Trunk extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, domainName, disasterRecoveryMethod, disasterRecoveryUrl, friendlyName, secure, recording, transferMode, transferCallerId, cnamLookupEnabled, authType, authTypeSet, dateCreated, dateUpdated, sid, url, links);
     }
+
 
 }
 

@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FunctionVersionContent extends Resource {
     private static final long serialVersionUID = 208000590885959L;
+
+    
 
     public static FunctionVersionContentFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
         return new FunctionVersionContentFetcher(pathServiceSid, pathFunctionSid, pathSid);
@@ -80,6 +83,7 @@ public class FunctionVersionContent extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -154,6 +158,7 @@ public class FunctionVersionContent extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, functionSid, content, url);
     }
+
 
 }
 

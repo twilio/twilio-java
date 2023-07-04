@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AccessToken extends Resource {
     private static final long serialVersionUID = 272179273532388L;
+
+    
 
     public static AccessTokenCreator creator(final String pathServiceSid, final String identity, final AccessToken.FactorTypes factorType){
         return new AccessTokenCreator(pathServiceSid, identity, factorType);
@@ -87,6 +90,7 @@ public class AccessToken extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum FactorTypes {
         PUSH("push");
 
@@ -211,6 +215,7 @@ public class AccessToken extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, entityIdentity, factorType, factorFriendlyName, token, url, ttl, dateCreated);
     }
+
 
 }
 

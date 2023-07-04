@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
     private static final long serialVersionUID = 213320512216415L;
+
+    
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber){
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -86,6 +89,7 @@ public class PhoneNumber extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String phoneNumber;
     private final URI url;
@@ -176,6 +180,7 @@ public class PhoneNumber extends Resource {
     public int hashCode() {
         return Objects.hash(phoneNumber, url, sid, accountSid, friendlyName, voiceRegion, dateCreated, dateUpdated);
     }
+
 
 }
 

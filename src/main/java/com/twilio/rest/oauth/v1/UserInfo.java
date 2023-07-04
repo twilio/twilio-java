@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserInfo extends Resource {
     private static final long serialVersionUID = 74270157944596L;
+
+    
 
     public static UserInfoFetcher fetcher(){
         return new UserInfoFetcher();
@@ -80,6 +83,7 @@ public class UserInfo extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String userSid;
     private final String firstName;
@@ -154,6 +158,7 @@ public class UserInfo extends Resource {
     public int hashCode() {
         return Objects.hash(userSid, firstName, lastName, friendlyName, email, url);
     }
+
 
 }
 

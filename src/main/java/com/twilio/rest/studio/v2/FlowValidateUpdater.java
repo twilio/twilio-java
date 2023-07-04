@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -71,6 +72,7 @@ public class FlowValidateUpdater extends Updater<FlowValidate>{
             Domains.STUDIO.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

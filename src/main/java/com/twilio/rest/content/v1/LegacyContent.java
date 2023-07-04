@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class LegacyContent extends Resource {
     private static final long serialVersionUID = 57833124155343L;
+
+    
 
     public static LegacyContentReader reader(){
         return new LegacyContentReader();
@@ -84,6 +87,7 @@ public class LegacyContent extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -198,6 +202,7 @@ public class LegacyContent extends Resource {
     public int hashCode() {
         return Objects.hash(dateCreated, dateUpdated, sid, accountSid, friendlyName, language, variables, types, legacyTemplateName, legacyBody, url);
     }
+
 
 }
 

@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class WorkerStatistics extends Resource {
     private static final long serialVersionUID = 54379371741662L;
+
+    
 
     public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid){
         return new WorkerStatisticsFetcher(pathWorkspaceSid, pathWorkerSid);
@@ -82,6 +85,7 @@ public class WorkerStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Map<String, Object> cumulative;
@@ -148,6 +152,7 @@ public class WorkerStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, cumulative, workerSid, workspaceSid, url);
     }
+
 
 }
 

@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Export extends Resource {
     private static final long serialVersionUID = 148899891151757L;
+
+    
 
     public static ExportFetcher fetcher(final String pathResourceType){
         return new ExportFetcher(pathResourceType);
@@ -82,6 +85,7 @@ public class Export extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String resourceType;
     private final URI url;
@@ -132,6 +136,7 @@ public class Export extends Resource {
     public int hashCode() {
         return Objects.hash(resourceType, url, links);
     }
+
 
 }
 

@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpCommand extends Resource {
     private static final long serialVersionUID = 232445526954174L;
+
+    
 
     public static IpCommandCreator creator(final String sim, final String payload, final Integer devicePort){
         return new IpCommandCreator(sim, payload, devicePort);
@@ -91,6 +94,7 @@ public class IpCommand extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Direction {
         TO_SIM("to_sim"),
         FROM_SIM("from_sim");
@@ -280,6 +284,7 @@ public class IpCommand extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, simSid, simIccid, status, direction, deviceIp, devicePort, payloadType, payload, dateCreated, dateUpdated, url);
     }
+
 
 }
 

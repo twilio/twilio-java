@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.SubscribeRule;
 
@@ -42,6 +43,8 @@ import com.twilio.type.SubscribeRule;
 @ToString
 public class SubscribeRules extends Resource {
     private static final long serialVersionUID = 5507350376020L;
+
+    
 
     public static SubscribeRulesFetcher fetcher(final String pathRoomSid, final String pathParticipantSid){
         return new SubscribeRulesFetcher(pathRoomSid, pathParticipantSid);
@@ -87,6 +90,7 @@ public class SubscribeRules extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String participantSid;
     private final String roomSid;
@@ -153,6 +157,7 @@ public class SubscribeRules extends Resource {
     public int hashCode() {
         return Objects.hash(participantSid, roomSid, rules, dateCreated, dateUpdated);
     }
+
 
 }
 

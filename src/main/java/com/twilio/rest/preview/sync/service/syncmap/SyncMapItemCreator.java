@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.sync.service.syncmap;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -67,6 +68,7 @@ public class SyncMapItemCreator extends Creator<SyncMapItem>{
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

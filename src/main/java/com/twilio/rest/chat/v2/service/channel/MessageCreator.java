@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service.channel;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -90,6 +91,7 @@ public class MessageCreator extends Creator<Message>{
             Domains.CHAT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

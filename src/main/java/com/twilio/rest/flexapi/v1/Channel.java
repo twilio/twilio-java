@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Channel extends Resource {
     private static final long serialVersionUID = 86822994047371L;
+
+    
 
     public static ChannelCreator creator(final String flexFlowSid, final String identity, final String chatUserFriendlyName, final String chatFriendlyName){
         return new ChannelCreator(flexFlowSid, identity, chatUserFriendlyName, chatFriendlyName);
@@ -94,6 +97,7 @@ public class Channel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String flexFlowSid;
@@ -184,6 +188,7 @@ public class Channel extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, flexFlowSid, sid, userSid, taskSid, url, dateCreated, dateUpdated);
     }
+
 
 }
 

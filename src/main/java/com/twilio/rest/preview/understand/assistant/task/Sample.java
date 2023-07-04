@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sample extends Resource {
     private static final long serialVersionUID = 197447215274163L;
+
+    
 
     public static SampleCreator creator(final String pathAssistantSid, final String pathTaskSid, final String language, final String taggedText){
         return new SampleCreator(pathAssistantSid, pathTaskSid, language, taggedText);
@@ -98,6 +101,7 @@ public class Sample extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -204,6 +208,7 @@ public class Sample extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, taskSid, language, assistantSid, sid, taggedText, url, sourceChannel);
     }
+
 
 }
 

@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssignedAddOnExtension extends Resource {
     private static final long serialVersionUID = 103705040276662L;
+
+    
 
     public static AssignedAddOnExtensionFetcher fetcher(final String pathResourceSid, final String pathAssignedAddOnSid, final String pathSid){
         return new AssignedAddOnExtensionFetcher(pathResourceSid, pathAssignedAddOnSid, pathSid);
@@ -89,6 +92,7 @@ public class AssignedAddOnExtension extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -187,6 +191,7 @@ public class AssignedAddOnExtension extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, resourceSid, assignedAddOnSid, friendlyName, productName, uniqueName, uri, enabled);
     }
+
 
 }
 

@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Assistant extends Resource {
     private static final long serialVersionUID = 164340193709329L;
+
+    
 
     public static AssistantCreator creator(){
         return new AssistantCreator();
@@ -100,6 +103,7 @@ public class Assistant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -222,6 +226,7 @@ public class Assistant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, friendlyName, latestModelBuildSid, links, logQueries, sid, uniqueName, url, callbackUrl, callbackEvents);
     }
+
 
 }
 

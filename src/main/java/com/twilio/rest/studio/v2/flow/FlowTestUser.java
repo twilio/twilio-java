@@ -34,12 +34,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowTestUser extends Resource {
     private static final long serialVersionUID = 221844198208701L;
+
+    
 
     public static FlowTestUserFetcher fetcher(final String pathSid){
         return new FlowTestUserFetcher(pathSid);
@@ -85,6 +88,7 @@ public class FlowTestUser extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final List<String> testUsers;
@@ -135,6 +139,7 @@ public class FlowTestUser extends Resource {
     public int hashCode() {
         return Objects.hash(sid, testUsers, url);
     }
+
 
 }
 

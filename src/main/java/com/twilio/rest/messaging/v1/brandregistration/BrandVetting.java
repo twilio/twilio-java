@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandVetting extends Resource {
     private static final long serialVersionUID = 122020517475795L;
+
+    
 
     public static BrandVettingCreator creator(final String pathBrandSid, final BrandVetting.VettingProvider vettingProvider){
         return new BrandVettingCreator(pathBrandSid, vettingProvider);
@@ -91,6 +94,7 @@ public class BrandVetting extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum VettingProvider {
         CAMPAIGN_VERIFY("campaign-verify");
 
@@ -215,6 +219,7 @@ public class BrandVetting extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, brandSid, brandVettingSid, dateUpdated, dateCreated, vettingId, vettingClass, vettingStatus, vettingProvider, url);
     }
+
 
 }
 

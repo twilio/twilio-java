@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 228548505277204L;
+
+    
 
     public static WebhookCreator creator(final String pathChatServiceSid, final String pathConversationSid, final Webhook.Target target){
         return new WebhookCreator(pathChatServiceSid, pathConversationSid, target);
@@ -101,6 +104,7 @@ public class Webhook extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Method {
         GET("GET"),
         POST("POST");
@@ -238,6 +242,7 @@ public class Webhook extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, chatServiceSid, conversationSid, target, url, configuration, dateCreated, dateUpdated);
     }
+
 
 }
 

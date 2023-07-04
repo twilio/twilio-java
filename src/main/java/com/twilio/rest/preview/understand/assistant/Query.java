@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Query extends Resource {
     private static final long serialVersionUID = 180519234688811L;
+
+    
 
     public static QueryCreator creator(final String pathAssistantSid, final String language, final String query){
         return new QueryCreator(pathAssistantSid, language, query);
@@ -100,6 +103,7 @@ public class Query extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -230,6 +234,7 @@ public class Query extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, results, language, modelBuildSid, query, sampleSid, assistantSid, sid, status, url, sourceChannel);
     }
+
 
 }
 

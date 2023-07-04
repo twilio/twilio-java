@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MessagingConfiguration extends Resource {
     private static final long serialVersionUID = 141221540042494L;
+
+    
 
     public static MessagingConfigurationCreator creator(final String pathServiceSid, final String country, final String messagingServiceSid){
         return new MessagingConfigurationCreator(pathServiceSid, country, messagingServiceSid);
@@ -98,6 +101,7 @@ public class MessagingConfiguration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String serviceSid;
@@ -180,6 +184,7 @@ public class MessagingConfiguration extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, serviceSid, country, messagingServiceSid, dateCreated, dateUpdated, url);
     }
+
 
 }
 

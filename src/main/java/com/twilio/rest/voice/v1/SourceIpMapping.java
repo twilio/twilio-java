@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SourceIpMapping extends Resource {
     private static final long serialVersionUID = 45000058150157L;
+
+    
 
     public static SourceIpMappingCreator creator(final String ipRecordSid, final String sipDomainSid){
         return new SourceIpMappingCreator(ipRecordSid, sipDomainSid);
@@ -98,6 +101,7 @@ public class SourceIpMapping extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String ipRecordSid;
@@ -172,6 +176,7 @@ public class SourceIpMapping extends Resource {
     public int hashCode() {
         return Objects.hash(sid, ipRecordSid, sipDomainSid, dateCreated, dateUpdated, url);
     }
+
 
 }
 

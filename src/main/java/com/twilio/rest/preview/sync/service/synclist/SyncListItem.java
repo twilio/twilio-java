@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class SyncListItem extends Resource {
     private static final long serialVersionUID = 44561675896318L;
+
+    
 
     public static SyncListItemCreator creator(final String pathServiceSid, final String pathListSid, final Map<String, Object> data){
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
@@ -101,6 +104,7 @@ public class SyncListItem extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum QueryFromBoundType {
         INCLUSIVE("inclusive"),
         EXCLUSIVE("exclusive");
@@ -245,6 +249,7 @@ public class SyncListItem extends Resource {
     public int hashCode() {
         return Objects.hash(index, accountSid, serviceSid, listSid, url, revision, data, dateCreated, dateUpdated, createdBy);
     }
+
 
 }
 

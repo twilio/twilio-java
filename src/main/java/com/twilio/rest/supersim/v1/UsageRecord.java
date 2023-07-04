@@ -37,6 +37,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 import java.math.BigDecimal;
@@ -45,6 +46,8 @@ import java.math.BigDecimal;
 @ToString
 public class UsageRecord extends Resource {
     private static final long serialVersionUID = 269766941607639L;
+
+    
 
     public static UsageRecordReader reader(){
         return new UsageRecordReader();
@@ -86,6 +89,7 @@ public class UsageRecord extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Granularity {
         HOUR("hour"),
         DAY("day"),
@@ -242,6 +246,7 @@ public class UsageRecord extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, simSid, networkSid, fleetSid, isoCountry, period, dataUpload, dataDownload, dataTotal, dataTotalBilled, billedUnit);
     }
+
 
 }
 

@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class AvailablePhoneNumberCountry extends Resource {
     private static final long serialVersionUID = 173167903952303L;
+
+    
 
     public static AvailablePhoneNumberCountryFetcher fetcher(final String pathCountryCode){
         return new AvailablePhoneNumberCountryFetcher(pathCountryCode);
@@ -92,6 +95,7 @@ public class AvailablePhoneNumberCountry extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String countryCode;
     private final String country;
@@ -158,6 +162,7 @@ public class AvailablePhoneNumberCountry extends Resource {
     public int hashCode() {
         return Objects.hash(countryCode, country, uri, beta, subresourceUris);
     }
+
 
 }
 

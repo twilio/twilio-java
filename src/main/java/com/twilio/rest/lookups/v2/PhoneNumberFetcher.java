@@ -41,6 +41,7 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     private String addressCountryCode;
     private String nationalId;
     private String dateOfBirth;
+    private String lastVerifiedDate;
 
     public PhoneNumberFetcher(final String pathPhoneNumber){
         this.pathPhoneNumber = pathPhoneNumber;
@@ -92,6 +93,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
     }
     public PhoneNumberFetcher setDateOfBirth(final String dateOfBirth){
         this.dateOfBirth = dateOfBirth;
+        return this;
+    }
+    public PhoneNumberFetcher setLastVerifiedDate(final String lastVerifiedDate){
+        this.lastVerifiedDate = lastVerifiedDate;
         return this;
     }
 
@@ -169,6 +174,10 @@ public class PhoneNumberFetcher extends Fetcher<PhoneNumber> {
         if (dateOfBirth != null) {
     
             request.addQueryParam("DateOfBirth", dateOfBirth);
+        }
+        if (lastVerifiedDate != null) {
+    
+            request.addQueryParam("LastVerifiedDate", lastVerifiedDate);
         }
     }
 }

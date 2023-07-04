@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Metric extends Resource {
     private static final long serialVersionUID = 250651350148240L;
+
+    
 
     public static MetricReader reader(final String pathCallSid){
         return new MetricReader(pathCallSid);
@@ -82,6 +85,7 @@ public class Metric extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum StreamDirection {
         UNKNOWN("unknown"),
         INBOUND("inbound"),
@@ -223,6 +227,7 @@ public class Metric extends Resource {
     public int hashCode() {
         return Objects.hash(timestamp, callSid, accountSid, edge, direction, carrierEdge, sipEdge, sdkEdge, clientEdge);
     }
+
 
 }
 

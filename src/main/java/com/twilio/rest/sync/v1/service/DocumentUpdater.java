@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -66,6 +67,7 @@ public class DocumentUpdater extends Updater<Document>{
             Domains.SYNC.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -48,6 +49,8 @@ import java.util.Map;
 @ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 20600562506098L;
+
+    
 
     public static MessageCreator creator(final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from, final String body){
         return new MessageCreator(to, from, body);
@@ -138,6 +141,7 @@ public class Message extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum AddressRetention {
         RETAIN("retain");
 
@@ -448,6 +452,7 @@ public class Message extends Resource {
     public int hashCode() {
         return Objects.hash(body, numSegments, direction, from, to, dateUpdated, price, errorMessage, uri, accountSid, numMedia, status, messagingServiceSid, sid, dateSent, dateCreated, errorCode, priceUnit, apiVersion, subresourceUris);
     }
+
 
 }
 

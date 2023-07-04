@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class WorkspaceCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 84911824165722L;
+
+    
 
     public static WorkspaceCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid){
         return new WorkspaceCumulativeStatisticsFetcher(pathWorkspaceSid);
@@ -84,6 +87,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Integer avgTaskAcceptanceTime;
@@ -278,6 +282,7 @@ public class WorkspaceCumulativeStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, avgTaskAcceptanceTime, startTime, endTime, reservationsCreated, reservationsAccepted, reservationsRejected, reservationsTimedOut, reservationsCanceled, reservationsRescinded, splitByWaitTime, waitDurationUntilAccepted, waitDurationUntilCanceled, tasksCanceled, tasksCompleted, tasksCreated, tasksDeleted, tasksMoved, tasksTimedOutInWorkflow, workspaceSid, url);
     }
+
 
 }
 

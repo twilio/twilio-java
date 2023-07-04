@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Dialogue extends Resource {
     private static final long serialVersionUID = 270949613735802L;
+
+    
 
     public static DialogueFetcher fetcher(final String pathAssistantSid, final String pathSid){
         return new DialogueFetcher(pathAssistantSid, pathSid);
@@ -82,6 +85,7 @@ public class Dialogue extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String assistantSid;
@@ -148,6 +152,7 @@ public class Dialogue extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assistantSid, sid, data, url);
     }
+
 
 }
 

@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Key extends Resource {
     private static final long serialVersionUID = 158435998679490L;
+
+    
 
     public static KeyCreator creator(final String pathFleetSid){
         return new KeyCreator(pathFleetSid);
@@ -98,6 +101,7 @@ public class Key extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final URI url;
@@ -196,6 +200,7 @@ public class Key extends Resource {
     public int hashCode() {
         return Objects.hash(sid, url, friendlyName, fleetSid, accountSid, deviceSid, secret, dateCreated, dateUpdated);
     }
+
 
 }
 

@@ -35,6 +35,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class Form extends Resource {
     private static final long serialVersionUID = 202517967097226L;
+
+    
 
     public static FormFetcher fetcher(final Form.FormTypes formType){
         return new FormFetcher(formType);
@@ -83,6 +86,7 @@ public class Form extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum FormTypes {
         FORM_PUSH("form-push");
 
@@ -159,6 +163,7 @@ public class Form extends Resource {
     public int hashCode() {
         return Objects.hash(formType, forms, formMeta, url);
     }
+
 
 }
 

@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Queue extends Resource {
     private static final long serialVersionUID = 17909156629067L;
+
+    
 
     public static QueueCreator creator(final String friendlyName){
         return new QueueCreator(friendlyName);
@@ -112,6 +115,7 @@ public class Queue extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final ZonedDateTime dateUpdated;
     private final Integer currentSize;
@@ -210,6 +214,7 @@ public class Queue extends Resource {
     public int hashCode() {
         return Objects.hash(dateUpdated, currentSize, friendlyName, uri, accountSid, averageWaitTime, sid, dateCreated, maxSize);
     }
+
 
 }
 

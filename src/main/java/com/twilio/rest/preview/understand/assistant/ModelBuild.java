@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ModelBuild extends Resource {
     private static final long serialVersionUID = 226055418389205L;
+
+    
 
     public static ModelBuildCreator creator(final String pathAssistantSid){
         return new ModelBuildCreator(pathAssistantSid);
@@ -99,6 +102,7 @@ public class ModelBuild extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         ENQUEUED("enqueued"),
         BUILDING("building"),
@@ -227,6 +231,7 @@ public class ModelBuild extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, assistantSid, sid, status, uniqueName, url, buildDuration, errorCode);
     }
+
 
 }
 

@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Command extends Resource {
     private static final long serialVersionUID = 179149511827589L;
+
+    
 
     public static CommandCreator creator(final String command){
         return new CommandCreator(command);
@@ -95,6 +98,7 @@ public class Command extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum CommandMode {
         TEXT("text"),
         BINARY("binary");
@@ -296,6 +300,7 @@ public class Command extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, simSid, command, commandMode, transport, deliveryReceiptRequested, status, direction, dateCreated, dateUpdated, url);
     }
+
 
 }
 

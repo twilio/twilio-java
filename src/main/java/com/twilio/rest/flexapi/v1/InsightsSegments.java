@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class InsightsSegments extends Resource {
     private static final long serialVersionUID = 85034429282364L;
+
+    
 
     public static InsightsSegmentsReader reader(){
         return new InsightsSegmentsReader();
@@ -82,6 +85,7 @@ public class InsightsSegments extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String segmentId;
     private final String externalId;
@@ -284,6 +288,7 @@ public class InsightsSegments extends Resource {
     public int hashCode() {
         return Objects.hash(segmentId, externalId, queue, externalContact, externalSegmentLinkId, date, accountId, externalSegmentLink, agentId, agentPhone, agentName, agentTeamName, agentTeamNameInHierarchy, agentLink, customerPhone, customerName, customerLink, segmentRecordingOffset, media, assessmentType, assessmentPercentage, url);
     }
+
 
 }
 

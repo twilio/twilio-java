@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class ParticipantConversation extends Resource {
     private static final long serialVersionUID = 210706261724884L;
+
+    
 
     public static ParticipantConversationReader reader(){
         return new ParticipantConversationReader();
@@ -84,6 +87,7 @@ public class ParticipantConversation extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum State {
         INACTIVE("inactive"),
         ACTIVE("active"),
@@ -258,6 +262,7 @@ public class ParticipantConversation extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, chatServiceSid, participantSid, participantUserSid, participantIdentity, participantMessagingBinding, conversationSid, conversationUniqueName, conversationFriendlyName, conversationAttributes, conversationDateCreated, conversationDateUpdated, conversationCreatedBy, conversationState, conversationTimers, links);
     }
+
 
 }
 

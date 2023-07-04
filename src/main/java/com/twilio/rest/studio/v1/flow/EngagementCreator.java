@@ -15,6 +15,7 @@
 package com.twilio.rest.studio.v1.flow;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
@@ -78,6 +79,7 @@ public class EngagementCreator extends Creator<Engagement>{
             Domains.STUDIO.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

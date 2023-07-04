@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BillingPeriod extends Resource {
     private static final long serialVersionUID = 154829037650501L;
+
+    
 
     public static BillingPeriodReader reader(final String pathSimSid){
         return new BillingPeriodReader(pathSimSid);
@@ -82,6 +85,7 @@ public class BillingPeriod extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum BpType {
         READY("ready"),
         ACTIVE("active");
@@ -191,6 +195,7 @@ public class BillingPeriod extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, simSid, startTime, endTime, periodType, dateCreated, dateUpdated);
     }
+
 
 }
 

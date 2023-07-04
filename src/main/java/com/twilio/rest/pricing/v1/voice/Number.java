@@ -36,6 +36,7 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.InboundCallPrice;
 import com.twilio.type.OutboundCallPrice;
@@ -44,6 +45,8 @@ import com.twilio.type.OutboundCallPrice;
 @ToString
 public class Number extends Resource {
     private static final long serialVersionUID = 23882142179085L;
+
+    
 
     public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathNumber){
         return new NumberFetcher(pathNumber);
@@ -85,6 +88,7 @@ public class Number extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final com.twilio.type.PhoneNumber number;
     private final String country;
@@ -168,6 +172,7 @@ public class Number extends Resource {
     public int hashCode() {
         return Objects.hash(number, country, isoCountry, outboundCallPrice, inboundCallPrice, priceUnit, url);
     }
+
 
 }
 

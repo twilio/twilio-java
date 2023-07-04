@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class Country extends Resource {
     private static final long serialVersionUID = 221375218243466L;
+
+    
 
     public static CountryFetcher fetcher(final String pathIsoCode){
         return new CountryFetcher(pathIsoCode);
@@ -87,6 +90,7 @@ public class Country extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String isoCode;
     private final String name;
@@ -185,6 +189,7 @@ public class Country extends Resource {
     public int hashCode() {
         return Objects.hash(isoCode, name, continent, countryCodes, lowRiskNumbersEnabled, highRiskSpecialNumbersEnabled, highRiskTollfraudNumbersEnabled, url, links);
     }
+
 
 }
 

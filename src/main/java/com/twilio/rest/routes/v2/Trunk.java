@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trunk extends Resource {
     private static final long serialVersionUID = 71100118275281L;
+
+    
 
     public static TrunkFetcher fetcher(final String pathSipTrunkDomain){
         return new TrunkFetcher(pathSipTrunkDomain);
@@ -86,6 +89,7 @@ public class Trunk extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sipTrunkDomain;
     private final URI url;
@@ -176,6 +180,7 @@ public class Trunk extends Resource {
     public int hashCode() {
         return Objects.hash(sipTrunkDomain, url, sid, accountSid, friendlyName, voiceRegion, dateCreated, dateUpdated);
     }
+
 
 }
 

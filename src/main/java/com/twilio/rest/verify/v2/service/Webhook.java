@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 178052740611913L;
+
+    
 
     public static WebhookCreator creator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl){
         return new WebhookCreator(pathServiceSid, friendlyName, eventTypes, webhookUrl);
@@ -100,6 +103,7 @@ public class Webhook extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Methods {
         GET("GET"),
         POST("POST");
@@ -279,6 +283,7 @@ public class Webhook extends Resource {
     public int hashCode() {
         return Objects.hash(sid, serviceSid, accountSid, friendlyName, eventTypes, status, version, webhookUrl, webhookMethod, dateCreated, dateUpdated, url);
     }
+
 
 }
 

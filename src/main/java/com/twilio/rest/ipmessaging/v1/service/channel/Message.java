@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 148235601690422L;
+
+    
 
     public static MessageCreator creator(final String pathServiceSid, final String pathChannelSid, final String body){
         return new MessageCreator(pathServiceSid, pathChannelSid, body);
@@ -99,6 +102,7 @@ public class Message extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum OrderType {
         ASC("asc"),
         DESC("desc");
@@ -248,6 +252,7 @@ public class Message extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, attributes, serviceSid, to, channelSid, dateCreated, dateUpdated, wasEdited, from, body, index, url);
     }
+
 
 }
 

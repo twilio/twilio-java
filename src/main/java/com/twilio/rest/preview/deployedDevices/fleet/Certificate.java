@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Certificate extends Resource {
     private static final long serialVersionUID = 26542571339730L;
+
+    
 
     public static CertificateCreator creator(final String pathFleetSid, final String certificateData){
         return new CertificateCreator(pathFleetSid, certificateData);
@@ -98,6 +101,7 @@ public class Certificate extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final URI url;
@@ -196,6 +200,7 @@ public class Certificate extends Resource {
     public int hashCode() {
         return Objects.hash(sid, url, friendlyName, fleetSid, accountSid, deviceSid, thumbprint, dateCreated, dateUpdated);
     }
+
 
 }
 

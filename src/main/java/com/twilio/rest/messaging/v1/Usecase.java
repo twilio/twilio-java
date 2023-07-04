@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Usecase extends Resource {
     private static final long serialVersionUID = 232787447190817L;
+
+    
 
     public static UsecaseFetcher fetcher(){
         return new UsecaseFetcher();
@@ -83,6 +86,7 @@ public class Usecase extends Resource {
         }
     }
 
+
     private final List<Map<String, Object>> usecases;
 
     @JsonCreator
@@ -116,6 +120,7 @@ public class Usecase extends Resource {
     public int hashCode() {
         return Objects.hash(usecases);
     }
+
 
 }
 

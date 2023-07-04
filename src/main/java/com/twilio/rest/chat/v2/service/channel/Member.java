@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
     private static final long serialVersionUID = 220317594144302L;
+
+    
 
     public static MemberCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity){
         return new MemberCreator(pathServiceSid, pathChannelSid, identity);
@@ -99,6 +102,7 @@ public class Member extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
@@ -240,6 +244,7 @@ public class Member extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, channelSid, serviceSid, identity, dateCreated, dateUpdated, roleSid, lastConsumedMessageIndex, lastConsumptionTimestamp, url, attributes);
     }
+
 
 }
 

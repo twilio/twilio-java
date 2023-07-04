@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class StyleSheet extends Resource {
     private static final long serialVersionUID = 52727905251134L;
+
+    
 
     public static StyleSheetFetcher fetcher(final String pathAssistantSid){
         return new StyleSheetFetcher(pathAssistantSid);
@@ -86,6 +89,7 @@ public class StyleSheet extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String assistantSid;
@@ -144,6 +148,7 @@ public class StyleSheet extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assistantSid, url, data);
     }
+
 
 }
 

@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 import java.time.LocalDate;
@@ -47,6 +48,8 @@ import java.math.BigDecimal;
 @ToString
 public class Monthly extends Resource {
     private static final long serialVersionUID = 22373500842023L;
+
+    
 
     public static MonthlyReader reader(){
         return new MonthlyReader();
@@ -91,6 +94,7 @@ public class Monthly extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Category {
         A2P_REGISTRATION_FEES("a2p-registration-fees"),
         AGENT_CONFERENCE("agent-conference"),
@@ -500,6 +504,7 @@ public class Monthly extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, asOf, category, count, countUnit, description, endDate, price, priceUnit, startDate, subresourceUris, uri, usage, usageUnit);
     }
+
 
 }
 

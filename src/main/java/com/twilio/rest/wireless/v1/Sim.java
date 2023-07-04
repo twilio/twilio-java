@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Sim extends Resource {
     private static final long serialVersionUID = 183328816720636L;
+
+    
 
     public static SimDeleter deleter(final String pathSid){
         return new SimDeleter(pathSid);
@@ -98,6 +101,7 @@ public class Sim extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ResetStatus {
         RESETTING("resetting");
 
@@ -359,6 +363,7 @@ public class Sim extends Resource {
     public int hashCode() {
         return Objects.hash(sid, uniqueName, accountSid, ratePlanSid, friendlyName, iccid, eId, status, resetStatus, commandsCallbackUrl, commandsCallbackMethod, smsFallbackMethod, smsFallbackUrl, smsMethod, smsUrl, voiceFallbackMethod, voiceFallbackUrl, voiceMethod, voiceUrl, dateCreated, dateUpdated, url, links, ipAddress);
     }
+
 
 }
 

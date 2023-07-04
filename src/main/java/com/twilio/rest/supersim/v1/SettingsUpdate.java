@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class SettingsUpdate extends Resource {
     private static final long serialVersionUID = 126256874693410L;
+
+    
 
     public static SettingsUpdateReader reader(){
         return new SettingsUpdateReader();
@@ -85,6 +88,7 @@ public class SettingsUpdate extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         SCHEDULED("scheduled"),
         IN_PROGRESS("in-progress"),
@@ -196,6 +200,7 @@ public class SettingsUpdate extends Resource {
     public int hashCode() {
         return Objects.hash(sid, iccid, simSid, status, packages, dateCompleted, dateCreated, dateUpdated);
     }
+
 
 }
 

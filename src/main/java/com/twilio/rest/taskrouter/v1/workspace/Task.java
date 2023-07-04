@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Task extends Resource {
     private static final long serialVersionUID = 66438798069009L;
+
+    
 
     public static TaskCreator creator(final String pathWorkspaceSid){
         return new TaskCreator(pathWorkspaceSid);
@@ -101,6 +104,7 @@ public class Task extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         PENDING("pending"),
         RESERVED("reserved"),
@@ -318,6 +322,7 @@ public class Task extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, age, assignmentStatus, attributes, addons, dateCreated, dateUpdated, taskQueueEnteredDate, priority, reason, sid, taskQueueSid, taskQueueFriendlyName, taskChannelSid, taskChannelUniqueName, timeout, workflowSid, workflowFriendlyName, workspaceSid, url, links);
     }
+
 
 }
 

@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthRegistrationsCredentialListMapping extends Resource {
     private static final long serialVersionUID = 16012497789519L;
+
+    
 
     public static AuthRegistrationsCredentialListMappingCreator creator(final String pathDomainSid, final String credentialListSid){
         return new AuthRegistrationsCredentialListMappingCreator(pathDomainSid, credentialListSid);
@@ -106,6 +109,7 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
         }
     }
 
+
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -171,6 +175,7 @@ public class AuthRegistrationsCredentialListMapping extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, friendlyName, sid);
     }
+
 
 }
 

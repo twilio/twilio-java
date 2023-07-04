@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ItemAssignment extends Resource {
     private static final long serialVersionUID = 241370748977037L;
+
+    
 
     public static ItemAssignmentCreator creator(final String pathBundleSid, final String objectSid){
         return new ItemAssignmentCreator(pathBundleSid, objectSid);
@@ -94,6 +97,7 @@ public class ItemAssignment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String bundleSid;
@@ -168,6 +172,7 @@ public class ItemAssignment extends Resource {
     public int hashCode() {
         return Objects.hash(sid, bundleSid, accountSid, objectSid, dateCreated, url);
     }
+
 
 }
 

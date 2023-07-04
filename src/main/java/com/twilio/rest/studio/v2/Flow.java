@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Flow extends Resource {
     private static final long serialVersionUID = 951890745581L;
+
+    
 
     public static FlowCreator creator(final String friendlyName, final Flow.Status status, final Map<String, Object> definition){
         return new FlowCreator(friendlyName, status, definition);
@@ -102,6 +105,7 @@ public class Flow extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PUBLISHED("published");
@@ -267,6 +271,7 @@ public class Flow extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, definition, status, revision, commitMessage, valid, errors, warnings, dateCreated, dateUpdated, webhookUrl, url, links);
     }
+
 
 }
 

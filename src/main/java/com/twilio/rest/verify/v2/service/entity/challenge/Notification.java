@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
     private static final long serialVersionUID = 216794200802882L;
+
+    
 
     public static NotificationCreator creator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid){
         return new NotificationCreator(pathServiceSid, pathIdentity, pathChallengeSid);
@@ -81,6 +84,7 @@ public class Notification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -179,6 +183,7 @@ public class Notification extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, entitySid, identity, challengeSid, priority, ttl, dateCreated);
     }
+
 
 }
 

@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Workspace extends Resource {
     private static final long serialVersionUID = 259156582462753L;
+
+    
 
     public static WorkspaceCreator creator(final String friendlyName){
         return new WorkspaceCreator(friendlyName);
@@ -101,6 +104,7 @@ public class Workspace extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum QueueOrder {
         FIFO("FIFO"),
         LIFO("LIFO");
@@ -266,6 +270,7 @@ public class Workspace extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, defaultActivityName, defaultActivitySid, eventCallbackUrl, eventsFilter, friendlyName, multiTaskEnabled, sid, timeoutActivityName, timeoutActivitySid, prioritizeQueueOrder, url, links);
     }
+
 
 }
 

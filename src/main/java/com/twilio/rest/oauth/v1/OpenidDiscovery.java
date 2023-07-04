@@ -34,12 +34,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OpenidDiscovery extends Resource {
     private static final long serialVersionUID = 213503115925852L;
+
+    
 
     public static OpenidDiscoveryFetcher fetcher(){
         return new OpenidDiscoveryFetcher();
@@ -81,6 +84,7 @@ public class OpenidDiscovery extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final URI issuer;
     private final URI authorizationEndpoint;
@@ -211,6 +215,7 @@ public class OpenidDiscovery extends Resource {
     public int hashCode() {
         return Objects.hash(issuer, authorizationEndpoint, deviceAuthorizationEndpoint, tokenEndpoint, userinfoEndpoint, revocationEndpoint, jwkUri, responseTypeSupported, subjectTypeSupported, idTokenSigningAlgValuesSupported, scopesSupported, claimsSupported, url);
     }
+
 
 }
 

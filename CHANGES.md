@@ -1,6 +1,33 @@
 twilio-java changelog
 =====================
 
+[2023-07-04] Version 10.0.0-rc.1
+--------------------------------
+**Library - Chore**
+- [PR #751](https://github.com/twilio/twilio-java/pull/751): enabling branch for 10.0.0-rc.1 release. Thanks to [@sbansla](https://github.com/sbansla)!
+- [PR #752](https://github.com/twilio/twilio-java/pull/752): added preview messaging domain url. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Feature**
+- [PR #749](https://github.com/twilio/twilio-java/pull/749): Enable json request body. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Lookups**
+- Add `reassigned_number` package to the lookup response
+
+**Numbers**
+- Remove Sms capability property from HNO creation under version `/v2` of HNO API. **(breaking change)**
+- Update required properties in LOA creation under version `/v2` of Authorization document API. **(breaking change)**
+- Add hosted_number_order under version `/v2`.
+- Update properties in Porting and Bulk Porting APIs. **(breaking change)**
+- Added bulk Portability API under version `/v1`.
+- Added Portability API under version `/v1`.
+
+**Taskrouter**
+- Add api to fetch task queue statistics for multiple TaskQueues
+
+**Twiml**
+- Add Google Voices and languages
+
+
 [2023-06-28] Version 10.0.0-rc.0
 --------------------------------
 - Release Candidate prep

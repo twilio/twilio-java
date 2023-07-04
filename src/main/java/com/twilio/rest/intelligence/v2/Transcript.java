@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Transcript extends Resource {
     private static final long serialVersionUID = 35462753187463L;
+
+    
 
     public static TranscriptCreator creator(final String serviceSid, final Map<String, Object> channel){
         return new TranscriptCreator(serviceSid, channel);
@@ -97,6 +100,7 @@ public class Transcript extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         QUEUED("queued"),
         IN_PROGRESS("in-progress"),
@@ -265,6 +269,7 @@ public class Transcript extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, serviceSid, sid, dateCreated, dateUpdated, status, channel, dataLogging, languageCode, customerKey, mediaStartTime, duration, url, redaction, links);
     }
+
 
 }
 

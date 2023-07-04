@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class UserConversation extends Resource {
     private static final long serialVersionUID = 269317644556189L;
+
+    
 
     public static UserConversationDeleter deleter(final String pathChatServiceSid, final String pathUserSid, final String pathConversationSid){
         return new UserConversationDeleter(pathChatServiceSid, pathUserSid, pathConversationSid);
@@ -97,6 +100,7 @@ public class UserConversation extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum NotificationLevel {
         DEFAULT("default"),
         MUTED("muted");
@@ -306,6 +310,7 @@ public class UserConversation extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, chatServiceSid, conversationSid, unreadMessagesCount, lastReadMessageIndex, participantSid, userSid, friendlyName, conversationState, timers, attributes, dateCreated, dateUpdated, createdBy, notificationLevel, uniqueName, url, links);
     }
+
 
 }
 

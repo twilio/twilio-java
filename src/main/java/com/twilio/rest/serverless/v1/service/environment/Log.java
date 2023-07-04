@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Log extends Resource {
     private static final long serialVersionUID = 129897058125132L;
+
+    
 
     public static LogFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
         return new LogFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
@@ -87,6 +90,7 @@ public class Log extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Level {
         INFO("info"),
         WARN("warn"),
@@ -229,6 +233,7 @@ public class Log extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, environmentSid, buildSid, deploymentSid, functionSid, requestSid, level, message, dateCreated, url);
     }
+
 
 }
 

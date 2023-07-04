@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.RecordingRule;
 
@@ -42,6 +43,8 @@ import com.twilio.type.RecordingRule;
 @ToString
 public class RecordingRules extends Resource {
     private static final long serialVersionUID = 215198002775360L;
+
+    
 
     public static RecordingRulesFetcher fetcher(final String pathRoomSid){
         return new RecordingRulesFetcher(pathRoomSid);
@@ -87,6 +90,7 @@ public class RecordingRules extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String roomSid;
     private final List<RecordingRule> rules;
@@ -145,6 +149,7 @@ public class RecordingRules extends Resource {
     public int hashCode() {
         return Objects.hash(roomSid, rules, dateCreated, dateUpdated);
     }
+
 
 }
 

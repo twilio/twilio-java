@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LinkshorteningMessagingService extends Resource {
     private static final long serialVersionUID = 242981332247911L;
+
+    
 
     public static LinkshorteningMessagingServiceCreator creator(final String pathDomainSid, final String pathMessagingServiceSid){
         return new LinkshorteningMessagingServiceCreator(pathDomainSid, pathMessagingServiceSid);
@@ -84,6 +87,7 @@ public class LinkshorteningMessagingService extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String domainSid;
     private final String messagingServiceSid;
@@ -134,6 +138,7 @@ public class LinkshorteningMessagingService extends Resource {
     public int hashCode() {
         return Objects.hash(domainSid, messagingServiceSid, url);
     }
+
 
 }
 

@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class IpAccessControlList extends Resource {
     private static final long serialVersionUID = 198091197266991L;
+
+    
 
     public static IpAccessControlListCreator creator(final String pathTrunkSid, final String ipAccessControlListSid){
         return new IpAccessControlListCreator(pathTrunkSid, ipAccessControlListSid);
@@ -94,6 +97,7 @@ public class IpAccessControlList extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String sid;
@@ -176,6 +180,7 @@ public class IpAccessControlList extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, trunkSid, friendlyName, dateCreated, dateUpdated, url);
     }
+
 
 }
 

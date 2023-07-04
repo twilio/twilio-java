@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 59018314319448L;
+
+    
 
     public static ServiceCreator creator(final String friendlyName){
         return new ServiceCreator(friendlyName);
@@ -102,6 +105,7 @@ public class Service extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ScanMessageContent {
         INHERIT("inherit"),
         ENABLE("enable"),
@@ -332,6 +336,7 @@ public class Service extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, dateCreated, dateUpdated, inboundRequestUrl, inboundMethod, fallbackUrl, fallbackMethod, statusCallback, stickySender, mmsConverter, smartEncoding, scanMessageContent, fallbackToLongCode, areaCodeGeomatch, synchronousValidation, validityPeriod, url, links, usecase, usAppToPersonRegistered, useInboundWebhookOnNumber);
     }
+
 
 }
 

@@ -15,6 +15,7 @@
 package com.twilio.rest.proxy.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -66,6 +67,7 @@ public class PhoneNumberCreator extends Creator<PhoneNumber>{
             Domains.PROXY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

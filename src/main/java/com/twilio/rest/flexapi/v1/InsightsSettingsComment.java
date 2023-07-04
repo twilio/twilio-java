@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class InsightsSettingsComment extends Resource {
     private static final long serialVersionUID = 241533672645071L;
+
+    
 
     public static InsightsSettingsCommentFetcher fetcher(){
         return new InsightsSettingsCommentFetcher();
@@ -82,6 +85,7 @@ public class InsightsSettingsComment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Map<String, Object> comments;
@@ -132,6 +136,7 @@ public class InsightsSettingsComment extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, comments, url);
     }
+
 
 }
 

@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectionPolicyTarget extends Resource {
     private static final long serialVersionUID = 117046725474544L;
+
+    
 
     public static ConnectionPolicyTargetCreator creator(final String pathConnectionPolicySid, final URI target){
         return new ConnectionPolicyTargetCreator(pathConnectionPolicySid, target);
@@ -98,6 +101,7 @@ public class ConnectionPolicyTarget extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String connectionPolicySid;
@@ -212,6 +216,7 @@ public class ConnectionPolicyTarget extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, connectionPolicySid, sid, friendlyName, target, priority, weight, enabled, dateCreated, dateUpdated, url);
     }
+
 
 }
 

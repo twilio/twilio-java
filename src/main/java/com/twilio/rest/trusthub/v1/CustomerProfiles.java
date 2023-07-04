@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class CustomerProfiles extends Resource {
     private static final long serialVersionUID = 110971930651423L;
+
+    
 
     public static CustomerProfilesCreator creator(final String friendlyName, final String email, final String policySid){
         return new CustomerProfilesCreator(friendlyName, email, policySid);
@@ -101,6 +104,7 @@ public class CustomerProfiles extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
@@ -245,6 +249,7 @@ public class CustomerProfiles extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, policySid, friendlyName, status, validUntil, email, statusCallback, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

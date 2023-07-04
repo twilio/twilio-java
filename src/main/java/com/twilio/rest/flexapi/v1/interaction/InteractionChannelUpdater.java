@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1.interaction;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -63,6 +64,7 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel>{
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

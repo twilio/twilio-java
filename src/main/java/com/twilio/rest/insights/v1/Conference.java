@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Conference extends Resource {
     private static final long serialVersionUID = 40059120188961L;
+
+    
 
     public static ConferenceFetcher fetcher(final String pathConferenceSid){
         return new ConferenceFetcher(pathConferenceSid);
@@ -90,6 +93,7 @@ public class Conference extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ConferenceEndReason {
         LAST_PARTICIPANT_LEFT("last_participant_left"),
         CONFERENCE_ENDED_VIA_API("conference_ended_via_api"),
@@ -415,6 +419,7 @@ public class Conference extends Resource {
     public int hashCode() {
         return Objects.hash(conferenceSid, accountSid, friendlyName, createTime, startTime, endTime, durationSeconds, connectDurationSeconds, status, maxParticipants, maxConcurrentParticipants, uniqueParticipants, endReason, endedBy, mixerRegion, mixerRegionRequested, recordingEnabled, detectedIssues, tags, tagInfo, processingState, url, links);
     }
+
 
 }
 

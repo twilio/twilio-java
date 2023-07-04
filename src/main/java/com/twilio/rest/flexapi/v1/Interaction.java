@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Interaction extends Resource {
     private static final long serialVersionUID = 122002847153214L;
+
+    
 
     public static InteractionCreator creator(final Map<String, Object> channel, final Map<String, Object> routing){
         return new InteractionCreator(channel, routing);
@@ -86,6 +89,7 @@ public class Interaction extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final Map<String, Object> channel;
@@ -152,6 +156,7 @@ public class Interaction extends Resource {
     public int hashCode() {
         return Objects.hash(sid, channel, routing, url, links);
     }
+
 
 }
 

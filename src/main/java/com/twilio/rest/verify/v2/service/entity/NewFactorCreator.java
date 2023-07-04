@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -127,6 +128,7 @@ public class NewFactorCreator extends Creator<NewFactor>{
             Domains.VERIFY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Participant extends Resource {
     private static final long serialVersionUID = 110295013528965L;
+
+    
 
     public static ParticipantCreator creator(final String pathChatServiceSid, final String pathConversationSid){
         return new ParticipantCreator(pathChatServiceSid, pathConversationSid);
@@ -101,6 +104,7 @@ public class Participant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
@@ -250,6 +254,7 @@ public class Participant extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, chatServiceSid, conversationSid, sid, identity, attributes, messagingBinding, roleSid, dateCreated, dateUpdated, url, lastReadMessageIndex, lastReadTimestamp);
     }
+
 
 }
 

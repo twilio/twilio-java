@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 
+import lombok.ToString;
 
 import java.time.LocalDate;
 
@@ -36,6 +37,8 @@ import java.time.LocalDate;
 @ToString
 public class ArchivedCall extends Resource {
     private static final long serialVersionUID = 0L;
+
+    
 
     public static ArchivedCallDeleter deleter(final LocalDate pathDate, final String pathSid){
         return new ArchivedCallDeleter(pathDate, pathSid);
@@ -77,6 +80,8 @@ public class ArchivedCall extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
+
 
 }
 

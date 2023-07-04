@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class VerificationAttempt extends Resource {
     private static final long serialVersionUID = 105803800130690L;
+
+    
 
     public static VerificationAttemptFetcher fetcher(final String pathSid){
         return new VerificationAttemptFetcher(pathSid);
@@ -89,6 +92,7 @@ public class VerificationAttempt extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Channels {
         SMS("sms"),
         CALL("call"),
@@ -243,6 +247,7 @@ public class VerificationAttempt extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, verificationSid, dateCreated, dateUpdated, conversionStatus, channel, price, channelData, url);
     }
+
 
 }
 

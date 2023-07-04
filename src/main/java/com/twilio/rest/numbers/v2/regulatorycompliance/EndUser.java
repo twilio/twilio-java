@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class EndUser extends Resource {
     private static final long serialVersionUID = 94888387451102L;
+
+    
 
     public static EndUserCreator creator(final String friendlyName, final EndUser.Type type){
         return new EndUserCreator(friendlyName, type);
@@ -101,6 +104,7 @@ public class EndUser extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Type {
         INDIVIDUAL("individual"),
         BUSINESS("business");
@@ -210,6 +214,7 @@ public class EndUser extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, type, attributes, dateCreated, dateUpdated, url);
     }
+
 
 }
 

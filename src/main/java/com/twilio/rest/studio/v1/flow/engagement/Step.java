@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Step extends Resource {
     private static final long serialVersionUID = 7112234025465L;
+
+    
 
     public static StepFetcher fetcher(final String pathFlowSid, final String pathEngagementSid, final String pathSid){
         return new StepFetcher(pathFlowSid, pathEngagementSid, pathSid);
@@ -88,6 +91,7 @@ public class Step extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -210,6 +214,7 @@ public class Step extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, flowSid, engagementSid, name, context, transitionedFrom, transitionedTo, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

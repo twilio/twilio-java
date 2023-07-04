@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class FlexFlow extends Resource {
     private static final long serialVersionUID = 232454907869065L;
+
+    
 
     public static FlexFlowCreator creator(final String friendlyName, final String chatServiceSid, final FlexFlow.ChannelType channelType){
         return new FlexFlowCreator(friendlyName, chatServiceSid, channelType);
@@ -101,6 +104,7 @@ public class FlexFlow extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ChannelType {
         WEB("web"),
         SMS("sms"),
@@ -282,6 +286,7 @@ public class FlexFlow extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, sid, friendlyName, chatServiceSid, channelType, contactIdentity, enabled, integrationType, integration, longLived, janitorEnabled, url);
     }
+
 
 }
 

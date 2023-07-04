@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncListPermission extends Resource {
     private static final long serialVersionUID = 225550881347017L;
+
+    
 
     public static SyncListPermissionDeleter deleter(final String pathServiceSid, final String pathListSid, final String pathIdentity){
         return new SyncListPermissionDeleter(pathServiceSid, pathListSid, pathIdentity);
@@ -92,6 +95,7 @@ public class SyncListPermission extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String serviceSid;
@@ -182,6 +186,7 @@ public class SyncListPermission extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, serviceSid, listSid, identity, read, write, manage, url);
     }
+
 
 }
 

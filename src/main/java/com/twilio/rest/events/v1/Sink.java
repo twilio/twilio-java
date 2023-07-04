@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Sink extends Resource {
     private static final long serialVersionUID = 81524362005938L;
+
+    
 
     public static SinkCreator creator(final String description, final Map<String, Object> sinkConfiguration, final Sink.SinkType sinkType){
         return new SinkCreator(description, sinkConfiguration, sinkType);
@@ -101,6 +104,7 @@ public class Sink extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum SinkType {
         KINESIS("kinesis"),
         WEBHOOK("webhook"),
@@ -240,6 +244,7 @@ public class Sink extends Resource {
     public int hashCode() {
         return Objects.hash(dateCreated, dateUpdated, description, sid, sinkConfiguration, sinkType, status, url, links);
     }
+
 
 }
 

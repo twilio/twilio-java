@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Setting extends Resource {
     private static final long serialVersionUID = 24698393526973L;
+
+    
 
     public static SettingFetcher fetcher(){
         return new SettingFetcher();
@@ -84,6 +87,7 @@ public class Setting extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Boolean advancedFeatures;
@@ -142,6 +146,7 @@ public class Setting extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, advancedFeatures, voiceTrace, url);
     }
+
 
 }
 

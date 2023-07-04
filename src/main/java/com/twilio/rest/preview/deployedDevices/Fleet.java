@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Fleet extends Resource {
     private static final long serialVersionUID = 162068485825595L;
+
+    
 
     public static FleetCreator creator(){
         return new FleetCreator();
@@ -100,6 +103,7 @@ public class Fleet extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final URI url;
@@ -198,6 +202,7 @@ public class Fleet extends Resource {
     public int hashCode() {
         return Objects.hash(sid, url, uniqueName, friendlyName, accountSid, defaultDeploymentSid, dateCreated, dateUpdated, links);
     }
+
 
 }
 

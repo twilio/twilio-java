@@ -33,12 +33,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SimIpAddress extends Resource {
     private static final long serialVersionUID = 180616107351268L;
+
+    
 
     public static SimIpAddressReader reader(final String pathSimSid){
         return new SimIpAddressReader(pathSimSid);
@@ -80,6 +83,7 @@ public class SimIpAddress extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum IpAddressVersion {
         IPV4("IPv4"),
         IPV6("IPv6");
@@ -141,6 +145,7 @@ public class SimIpAddress extends Resource {
     public int hashCode() {
         return Objects.hash(ipAddress, ipAddressVersion);
     }
+
 
 }
 

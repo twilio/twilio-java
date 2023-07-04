@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Conference extends Resource {
     private static final long serialVersionUID = 143481327355997L;
+
+    
 
     public static ConferenceFetcher fetcher(final String pathSid){
         return new ConferenceFetcher(pathSid);
@@ -101,6 +104,7 @@ public class Conference extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ReasonConferenceEnded {
         CONFERENCE_ENDED_VIA_API("conference-ended-via-api"),
         PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT("participant-with-end-conference-on-exit-left"),
@@ -283,6 +287,7 @@ public class Conference extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, apiVersion, friendlyName, region, sid, status, uri, subresourceUris, reasonConferenceEnded, callSidEndingConference);
     }
+
 
 }
 

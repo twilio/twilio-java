@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskStatistics extends Resource {
     private static final long serialVersionUID = 99044881135361L;
+
+    
 
     public static TaskStatisticsFetcher fetcher(final String pathAssistantSid, final String pathTaskSid){
         return new TaskStatisticsFetcher(pathAssistantSid, pathTaskSid);
@@ -80,6 +83,7 @@ public class TaskStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String assistantSid;
@@ -154,6 +158,7 @@ public class TaskStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assistantSid, taskSid, samplesCount, fieldsCount, url);
     }
+
 
 }
 

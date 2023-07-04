@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Session extends Resource {
     private static final long serialVersionUID = 86537474068288L;
+
+    
 
     public static SessionCreator creator(final String pathServiceSid){
         return new SessionCreator(pathServiceSid);
@@ -101,6 +104,7 @@ public class Session extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Mode {
         MESSAGE_ONLY("message-only"),
         VOICE_ONLY("voice-only"),
@@ -297,6 +301,7 @@ public class Session extends Resource {
     public int hashCode() {
         return Objects.hash(sid, serviceSid, accountSid, dateStarted, dateEnded, dateLastInteraction, dateExpiry, uniqueName, status, closedReason, ttl, mode, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

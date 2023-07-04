@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Flow extends Resource {
     private static final long serialVersionUID = 8879052558661L;
+
+    
 
     public static FlowDeleter deleter(final String pathSid){
         return new FlowDeleter(pathSid);
@@ -93,6 +96,7 @@ public class Flow extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PUBLISHED("published");
@@ -210,6 +214,7 @@ public class Flow extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, status, version, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

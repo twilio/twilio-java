@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class MediaRecording extends Resource {
     private static final long serialVersionUID = 72032948872402L;
+
+    
 
     public static MediaRecordingDeleter deleter(final String pathSid){
         return new MediaRecordingDeleter(pathSid);
@@ -94,6 +97,7 @@ public class MediaRecording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Format {
         MP4("mp4"),
         WEBM("webm");
@@ -299,6 +303,7 @@ public class MediaRecording extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, duration, format, links, processorSid, resolution, sourceSid, sid, mediaSize, status, statusCallback, statusCallbackMethod, url);
     }
+
 
 }
 

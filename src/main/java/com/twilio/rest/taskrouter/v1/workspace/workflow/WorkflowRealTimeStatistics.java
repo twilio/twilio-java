@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class WorkflowRealTimeStatistics extends Resource {
     private static final long serialVersionUID = 5030697729646L;
+
+    
 
     public static WorkflowRealTimeStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
         return new WorkflowRealTimeStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
@@ -82,6 +85,7 @@ public class WorkflowRealTimeStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Integer longestTaskWaitingAge;
@@ -180,6 +184,7 @@ public class WorkflowRealTimeStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, longestTaskWaitingAge, longestTaskWaitingSid, tasksByPriority, tasksByStatus, totalTasks, workflowSid, workspaceSid, url);
     }
+
 
 }
 

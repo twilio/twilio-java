@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Workflow extends Resource {
     private static final long serialVersionUID = 204168447451968L;
+
+    
 
     public static WorkflowCreator creator(final String pathWorkspaceSid, final String friendlyName, final String configuration){
         return new WorkflowCreator(pathWorkspaceSid, friendlyName, configuration);
@@ -100,6 +103,7 @@ public class Workflow extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final URI assignmentCallbackUrl;
@@ -230,6 +234,7 @@ public class Workflow extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assignmentCallbackUrl, configuration, dateCreated, dateUpdated, documentContentType, fallbackAssignmentCallbackUrl, friendlyName, sid, taskReservationTimeout, workspaceSid, url, links);
     }
+
 
 }
 

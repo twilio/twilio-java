@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SecondaryAuthToken extends Resource {
     private static final long serialVersionUID = 191219471550314L;
+
+    
 
     public static SecondaryAuthTokenCreator creator(){
         return new SecondaryAuthTokenCreator();
@@ -86,6 +89,7 @@ public class SecondaryAuthToken extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -152,6 +156,7 @@ public class SecondaryAuthToken extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, secondaryAuthToken, url);
     }
+
 
 }
 

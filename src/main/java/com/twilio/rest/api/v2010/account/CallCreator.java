@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -285,6 +286,7 @@ public class CallCreator extends Creator<Call>{
             Domains.API.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

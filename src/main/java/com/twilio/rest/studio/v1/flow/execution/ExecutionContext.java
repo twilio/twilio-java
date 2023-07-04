@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class ExecutionContext extends Resource {
     private static final long serialVersionUID = 48761390116247L;
+
+    
 
     public static ExecutionContextFetcher fetcher(final String pathFlowSid, final String pathExecutionSid){
         return new ExecutionContextFetcher(pathFlowSid, pathExecutionSid);
@@ -82,6 +85,7 @@ public class ExecutionContext extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Map<String, Object> context;
@@ -148,6 +152,7 @@ public class ExecutionContext extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, context, flowSid, executionSid, url);
     }
+
 
 }
 

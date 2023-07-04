@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Interaction extends Resource {
     private static final long serialVersionUID = 104550389018086L;
+
+    
 
     public static InteractionDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid){
         return new InteractionDeleter(pathServiceSid, pathSessionSid, pathSid);
@@ -91,6 +94,7 @@ public class Interaction extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ResourceStatus {
         ACCEPTED("accepted"),
         ANSWERED("answered"),
@@ -327,6 +331,7 @@ public class Interaction extends Resource {
     public int hashCode() {
         return Objects.hash(sid, sessionSid, serviceSid, accountSid, data, type, inboundParticipantSid, inboundResourceSid, inboundResourceStatus, inboundResourceType, inboundResourceUrl, outboundParticipantSid, outboundResourceSid, outboundResourceStatus, outboundResourceType, outboundResourceUrl, dateCreated, dateUpdated, url);
     }
+
 
 }
 

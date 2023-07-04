@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class CallSummary extends Resource {
     private static final long serialVersionUID = 200007638188409L;
+
+    
 
     public static CallSummaryFetcher fetcher(final String pathCallSid){
         return new CallSummaryFetcher(pathCallSid);
@@ -86,6 +89,7 @@ public class CallSummary extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum AnsweredBy {
         UNKNOWN("unknown"),
         MACHINE_START("machine_start"),
@@ -385,6 +389,7 @@ public class CallSummary extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, callSid, callType, callState, answeredBy, processingState, createdTime, startTime, endTime, duration, connectDuration, from, to, carrierEdge, clientEdge, sdkEdge, sipEdge, tags, url, attributes, properties, trust, annotation);
     }
+
 
 }
 

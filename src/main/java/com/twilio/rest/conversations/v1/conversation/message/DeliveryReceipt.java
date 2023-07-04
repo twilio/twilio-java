@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeliveryReceipt extends Resource {
     private static final long serialVersionUID = 126608153820635L;
+
+    
 
     public static DeliveryReceiptFetcher fetcher(final String pathConversationSid, final String pathMessageSid, final String pathSid){
         return new DeliveryReceiptFetcher(pathConversationSid, pathMessageSid, pathSid);
@@ -87,6 +90,7 @@ public class DeliveryReceipt extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum DeliveryStatus {
         READ("read"),
         FAILED("failed"),
@@ -223,6 +227,7 @@ public class DeliveryReceipt extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, conversationSid, sid, messageSid, channelMessageSid, participantSid, status, errorCode, dateCreated, dateUpdated, url);
     }
+
 
 }
 

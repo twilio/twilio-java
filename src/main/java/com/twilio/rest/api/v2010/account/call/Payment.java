@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Payment extends Resource {
     private static final long serialVersionUID = 75287507384907L;
+
+    
 
     public static PaymentCreator creator(final String pathCallSid, final String idempotencyKey, final URI statusCallback){
         return new PaymentCreator(pathCallSid, idempotencyKey, statusCallback);
@@ -93,6 +96,7 @@ public class Payment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum BankAccountType {
         CONSUMER_CHECKING("consumer-checking"),
         CONSUMER_SAVINGS("consumer-savings"),
@@ -267,6 +271,7 @@ public class Payment extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, callSid, sid, dateCreated, dateUpdated, uri);
     }
+
 
 }
 

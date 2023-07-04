@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -45,6 +46,8 @@ import java.math.BigDecimal;
 @ToString
 public class Transcription extends Resource {
     private static final long serialVersionUID = 169453036448500L;
+
+    
 
     public static TranscriptionDeleter deleter(final String pathSid){
         return new TranscriptionDeleter(pathSid);
@@ -103,6 +106,7 @@ public class Transcription extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         IN_PROGRESS("in-progress"),
         COMPLETED("completed"),
@@ -254,6 +258,7 @@ public class Transcription extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, dateCreated, dateUpdated, duration, price, priceUnit, recordingSid, sid, status, transcriptionText, type, uri);
     }
+
 
 }
 

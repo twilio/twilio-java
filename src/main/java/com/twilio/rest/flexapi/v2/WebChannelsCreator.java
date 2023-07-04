@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -65,6 +66,7 @@ public class WebChannelsCreator extends Creator<WebChannels>{
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

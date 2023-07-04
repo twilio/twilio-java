@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WebChannel extends Resource {
     private static final long serialVersionUID = 55535071818984L;
+
+    
 
     public static WebChannelCreator creator(final String flexFlowSid, final String identity, final String customerFriendlyName, final String chatFriendlyName){
         return new WebChannelCreator(flexFlowSid, identity, customerFriendlyName, chatFriendlyName);
@@ -99,6 +102,7 @@ public class WebChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ChatStatus {
         INACTIVE("inactive");
 
@@ -191,6 +195,7 @@ public class WebChannel extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, flexFlowSid, sid, url, dateCreated, dateUpdated);
     }
+
 
 }
 

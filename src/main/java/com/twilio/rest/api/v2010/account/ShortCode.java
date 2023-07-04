@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ShortCode extends Resource {
     private static final long serialVersionUID = 169753160210519L;
+
+    
 
     public static ShortCodeFetcher fetcher(final String pathSid){
         return new ShortCodeFetcher(pathSid);
@@ -100,6 +103,7 @@ public class ShortCode extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String apiVersion;
@@ -222,6 +226,7 @@ public class ShortCode extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, dateCreated, dateUpdated, friendlyName, shortCode, sid, smsFallbackMethod, smsFallbackUrl, smsMethod, smsUrl, uri);
     }
+
 
 }
 

@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -46,8 +47,14 @@ import java.util.Map;
 public class Configuration extends Resource {
     private static final long serialVersionUID = 184471195219828L;
 
+    
+
     public static ConfigurationFetcher fetcher(){
         return new ConfigurationFetcher();
+    }
+
+    public static ConfigurationUpdater updater(){
+        return new ConfigurationUpdater();
     }
 
     /**
@@ -86,6 +93,7 @@ public class Configuration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         OK("ok"),
         INPROGRESS("inprogress"),
@@ -492,6 +500,7 @@ public class Configuration extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, attributes, status, taskrouterWorkspaceSid, taskrouterTargetWorkflowSid, taskrouterTargetTaskqueueSid, taskrouterTaskqueues, taskrouterSkills, taskrouterWorkerChannels, taskrouterWorkerAttributes, taskrouterOfflineActivitySid, runtimeDomain, messagingServiceInstanceSid, chatServiceInstanceSid, flexServiceInstanceSid, uiLanguage, uiAttributes, uiDependencies, uiVersion, serviceVersion, callRecordingEnabled, callRecordingWebhookUrl, crmEnabled, crmType, crmCallbackUrl, crmFallbackUrl, crmAttributes, publicAttributes, pluginServiceEnabled, pluginServiceAttributes, integrations, outboundCallFlows, serverlessServiceSids, queueStatsConfiguration, notifications, markdown, url, flexInsightsHr, flexInsightsDrilldown, flexUrl, channelConfigs, debuggerIntegration, flexUiStatusReport);
     }
+
 
 }
 

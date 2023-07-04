@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribedEvent extends Resource {
     private static final long serialVersionUID = 216550539675838L;
+
+    
 
     public static SubscribedEventCreator creator(final String pathSubscriptionSid, final String type){
         return new SubscribedEventCreator(pathSubscriptionSid, type);
@@ -96,6 +99,7 @@ public class SubscribedEvent extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String type;
@@ -162,6 +166,7 @@ public class SubscribedEvent extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, type, schemaVersion, subscriptionSid, url);
     }
+
 
 }
 

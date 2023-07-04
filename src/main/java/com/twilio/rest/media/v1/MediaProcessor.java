@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MediaProcessor extends Resource {
     private static final long serialVersionUID = 112801700822600L;
+
+    
 
     public static MediaProcessorCreator creator(final String extension, final String extensionContext){
         return new MediaProcessorCreator(extension, extensionContext);
@@ -96,6 +99,7 @@ public class MediaProcessor extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Order {
         ASC("asc"),
         DESC("desc");
@@ -275,6 +279,7 @@ public class MediaProcessor extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, dateCreated, dateUpdated, extension, extensionContext, status, url, endedReason, statusCallback, statusCallbackMethod, maxDuration);
     }
+
 
 }
 

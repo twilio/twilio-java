@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class SupportingDocument extends Resource {
     private static final long serialVersionUID = 13014832865593L;
+
+    
 
     public static SupportingDocumentCreator creator(final String friendlyName, final String type){
         return new SupportingDocumentCreator(friendlyName, type);
@@ -101,6 +104,7 @@ public class SupportingDocument extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
@@ -230,6 +234,7 @@ public class SupportingDocument extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, mimeType, status, type, attributes, dateCreated, dateUpdated, url);
     }
+
 
 }
 

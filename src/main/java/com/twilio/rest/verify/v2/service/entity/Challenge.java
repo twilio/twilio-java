@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Challenge extends Resource {
     private static final long serialVersionUID = 265978723470772L;
+
+    
 
     public static ChallengeCreator creator(final String pathServiceSid, final String pathIdentity, final String factorSid){
         return new ChallengeCreator(pathServiceSid, pathIdentity, factorSid);
@@ -97,6 +100,7 @@ public class Challenge extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ChallengeReasons {
         NONE("none"),
         NOT_NEEDED("not_needed"),
@@ -346,6 +350,7 @@ public class Challenge extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, entitySid, identity, factorSid, dateCreated, dateUpdated, dateResponded, expirationDate, status, respondedReason, details, hiddenDetails, metadata, factorType, url, links);
     }
+
 
 }
 

@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class FunctionVersion extends Resource {
     private static final long serialVersionUID = 85534066966494L;
+
+    
 
     public static FunctionVersionFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
         return new FunctionVersionFetcher(pathServiceSid, pathFunctionSid, pathSid);
@@ -89,6 +92,7 @@ public class FunctionVersion extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Visibility {
         PUBLIC("public"),
         PRIVATE("private"),
@@ -207,6 +211,7 @@ public class FunctionVersion extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, functionSid, path, visibility, dateCreated, url, links);
     }
+
 
 }
 

@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SmsCommand extends Resource {
     private static final long serialVersionUID = 38007963555299L;
+
+    
 
     public static SmsCommandCreator creator(final String sim, final String payload){
         return new SmsCommandCreator(sim, payload);
@@ -91,6 +94,7 @@ public class SmsCommand extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Direction {
         TO_SIM("to_sim"),
         FROM_SIM("from_sim");
@@ -230,6 +234,7 @@ public class SmsCommand extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, simSid, payload, status, direction, dateCreated, dateUpdated, url);
     }
+
 
 }
 

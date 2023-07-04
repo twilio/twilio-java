@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.IceServer;
 
@@ -42,6 +43,8 @@ import com.twilio.type.IceServer;
 @ToString
 public class Token extends Resource {
     private static final long serialVersionUID = 218446728059095L;
+
+    
 
     public static TokenCreator creator(){
         return new TokenCreator();
@@ -86,6 +89,7 @@ public class Token extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -168,6 +172,7 @@ public class Token extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, iceServers, password, ttl, username);
     }
+
 
 }
 

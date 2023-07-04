@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class DataSession extends Resource {
     private static final long serialVersionUID = 124844690346008L;
+
+    
 
     public static DataSessionReader reader(final String pathSimSid){
         return new DataSessionReader(pathSimSid);
@@ -83,6 +86,7 @@ public class DataSession extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String simSid;
@@ -237,6 +241,7 @@ public class DataSession extends Resource {
     public int hashCode() {
         return Objects.hash(sid, simSid, accountSid, radioLink, operatorMcc, operatorMnc, operatorCountry, operatorName, cellId, cellLocationEstimate, packetsUploaded, packetsDownloaded, lastUpdated, start, end, imei);
     }
+
 
 }
 

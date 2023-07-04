@@ -34,6 +34,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Event extends Resource {
     private static final long serialVersionUID = 246803433322501L;
+
+    
 
     public static EventReader reader(final String pathCallSid){
         return new EventReader(pathCallSid);
@@ -82,6 +85,7 @@ public class Event extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Level {
         UNKNOWN("UNKNOWN"),
         DEBUG("DEBUG"),
@@ -240,6 +244,7 @@ public class Event extends Resource {
     public int hashCode() {
         return Objects.hash(timestamp, callSid, accountSid, edge, group, level, name, carrierEdge, sipEdge, sdkEdge, clientEdge);
     }
+
 
 }
 

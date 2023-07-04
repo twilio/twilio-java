@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 160239821590245L;
+
+    
 
     public static ServiceCreator creator(final String uniqueName){
         return new ServiceCreator(uniqueName);
@@ -100,6 +103,7 @@ public class Service extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum HttpMethod {
         GET("GET"),
         POST("POST"),
@@ -266,6 +270,7 @@ public class Service extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, autoRedaction, mediaRedaction, autoTranscribe, dataLogging, dateCreated, dateUpdated, friendlyName, languageCode, sid, uniqueName, url, webhookUrl, webhookHttpMethod, version);
     }
+
 
 }
 

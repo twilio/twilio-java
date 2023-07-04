@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Environment extends Resource {
     private static final long serialVersionUID = 36784486672291L;
+
+    
 
     public static EnvironmentCreator creator(final String pathServiceSid, final String uniqueName){
         return new EnvironmentCreator(pathServiceSid, uniqueName);
@@ -96,6 +99,7 @@ public class Environment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -210,6 +214,7 @@ public class Environment extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, buildSid, uniqueName, domainSuffix, domainName, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

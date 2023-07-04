@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Factor extends Resource {
     private static final long serialVersionUID = 254306005270593L;
+
+    
 
     public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
@@ -97,6 +100,7 @@ public class Factor extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum FactorStatuses {
         UNVERIFIED("unverified"),
         VERIFIED("verified");
@@ -285,6 +289,7 @@ public class Factor extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, entitySid, identity, dateCreated, dateUpdated, friendlyName, status, factorType, config, metadata, url);
     }
+
 
 }
 

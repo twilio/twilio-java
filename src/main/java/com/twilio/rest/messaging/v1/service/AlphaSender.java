@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AlphaSender extends Resource {
     private static final long serialVersionUID = 147044042659249L;
+
+    
 
     public static AlphaSenderCreator creator(final String pathServiceSid, final String alphaSender){
         return new AlphaSenderCreator(pathServiceSid, alphaSender);
@@ -95,6 +98,7 @@ public class AlphaSender extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -185,6 +189,7 @@ public class AlphaSender extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, alphaSender, capabilities, url);
     }
+
 
 }
 

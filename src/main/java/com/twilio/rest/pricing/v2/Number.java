@@ -37,6 +37,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import com.twilio.type.InboundCallPrice;
 import com.twilio.type.OutboundPrefixPriceWithOrigin;
@@ -45,6 +46,8 @@ import com.twilio.type.OutboundPrefixPriceWithOrigin;
 @ToString
 public class Number extends Resource {
     private static final long serialVersionUID = 12955680623193L;
+
+    
 
     public static NumberFetcher fetcher(final com.twilio.type.PhoneNumber pathDestinationNumber){
         return new NumberFetcher(pathDestinationNumber);
@@ -86,6 +89,7 @@ public class Number extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final com.twilio.type.PhoneNumber destinationNumber;
     private final com.twilio.type.PhoneNumber originationNumber;
@@ -177,6 +181,7 @@ public class Number extends Resource {
     public int hashCode() {
         return Objects.hash(destinationNumber, originationNumber, country, isoCountry, terminatingPrefixPrices, originatingCallPrice, priceUnit, url);
     }
+
 
 }
 

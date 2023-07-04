@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExportConfiguration extends Resource {
     private static final long serialVersionUID = 268277535772365L;
+
+    
 
     public static ExportConfigurationFetcher fetcher(final String pathResourceType){
         return new ExportConfigurationFetcher(pathResourceType);
@@ -84,6 +87,7 @@ public class ExportConfiguration extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final Boolean enabled;
     private final URI webhookUrl;
@@ -150,6 +154,7 @@ public class ExportConfiguration extends Resource {
     public int hashCode() {
         return Objects.hash(enabled, webhookUrl, webhookMethod, resourceType, url);
     }
+
 
 }
 

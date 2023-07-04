@@ -34,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Template extends Resource {
     private static final long serialVersionUID = 229000530855919L;
+
+    
 
     public static TemplateReader reader(){
         return new TemplateReader();
@@ -82,6 +85,7 @@ public class Template extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -148,6 +152,7 @@ public class Template extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, channels, translations);
     }
+
 
 }
 

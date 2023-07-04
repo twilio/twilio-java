@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SinkValidate extends Resource {
     private static final long serialVersionUID = 233814002700195L;
+
+    
 
     public static SinkValidateCreator creator(final String pathSid, final String testId){
         return new SinkValidateCreator(pathSid, testId);
@@ -80,6 +83,7 @@ public class SinkValidate extends Resource {
         }
     }
 
+
     private final String result;
 
     @JsonCreator
@@ -113,6 +117,7 @@ public class SinkValidate extends Resource {
     public int hashCode() {
         return Objects.hash(result);
     }
+
 
 }
 

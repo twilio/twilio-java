@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Anonymize extends Resource {
     private static final long serialVersionUID = 134789378539185L;
+
+    
 
     public static AnonymizeUpdater updater(final String pathRoomSid, final String pathSid){
         return new AnonymizeUpdater(pathRoomSid, pathSid);
@@ -83,6 +86,7 @@ public class Anonymize extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         CONNECTED("connected"),
         DISCONNECTED("disconnected");
@@ -216,6 +220,7 @@ public class Anonymize extends Resource {
     public int hashCode() {
         return Objects.hash(sid, roomSid, accountSid, status, identity, dateCreated, dateUpdated, startTime, endTime, duration, url);
     }
+
 
 }
 

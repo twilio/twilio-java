@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -72,6 +73,7 @@ public class TranscriptCreator extends Creator<Transcript>{
             Domains.INTELLIGENCE.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Token extends Resource {
     private static final long serialVersionUID = 233151022011558L;
+
+    
 
     public static TokenCreator creator(final String grantType, final String clientSid){
         return new TokenCreator(grantType, clientSid);
@@ -81,6 +84,7 @@ public class Token extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accessToken;
     private final String refreshToken;
@@ -147,6 +151,7 @@ public class Token extends Resource {
     public int hashCode() {
         return Objects.hash(accessToken, refreshToken, idToken, refreshTokenExpiresAt, accessTokenExpiresAt);
     }
+
 
 }
 

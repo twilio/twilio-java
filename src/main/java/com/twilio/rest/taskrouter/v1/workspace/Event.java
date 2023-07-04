@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Event extends Resource {
     private static final long serialVersionUID = 215026832174382L;
+
+    
 
     public static EventFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
         return new EventFetcher(pathWorkspaceSid, pathSid);
@@ -88,6 +91,7 @@ public class Event extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String actorSid;
@@ -250,6 +254,7 @@ public class Event extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, actorSid, actorType, actorUrl, description, eventData, eventDate, eventDateMs, eventType, resourceSid, resourceType, resourceUrl, sid, source, sourceIpAddress, url, workspaceSid);
     }
+
 
 }
 

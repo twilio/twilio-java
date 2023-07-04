@@ -15,6 +15,7 @@
 package com.twilio.rest.ipmessaging.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -87,6 +88,7 @@ public class ChannelCreator extends Creator<Channel>{
             Domains.IPMESSAGING.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

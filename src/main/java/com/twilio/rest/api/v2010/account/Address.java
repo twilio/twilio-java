@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Address extends Resource {
     private static final long serialVersionUID = 73808189531379L;
+
+    
 
     public static AddressCreator creator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry){
         return new AddressCreator(customerName, street, city, region, postalCode, isoCountry);
@@ -112,6 +115,7 @@ public class Address extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String city;
@@ -266,6 +270,7 @@ public class Address extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, city, customerName, dateCreated, dateUpdated, friendlyName, isoCountry, postalCode, region, sid, street, uri, emergencyEnabled, validated, verified, streetSecondary);
     }
+
 
 }
 

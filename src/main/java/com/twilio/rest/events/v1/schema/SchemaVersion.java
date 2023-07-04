@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SchemaVersion extends Resource {
     private static final long serialVersionUID = 232564429627083L;
+
+    
 
     public static SchemaVersionFetcher fetcher(final String pathId, final Integer pathSchemaVersion){
         return new SchemaVersionFetcher(pathId, pathSchemaVersion);
@@ -86,6 +89,7 @@ public class SchemaVersion extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String id;
     private final Integer schemaVersion;
@@ -152,6 +156,7 @@ public class SchemaVersion extends Resource {
     public int hashCode() {
         return Objects.hash(id, schemaVersion, dateCreated, url, raw);
     }
+
 
 }
 

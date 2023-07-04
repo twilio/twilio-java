@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ReplaceItems extends Resource {
     private static final long serialVersionUID = 154268646541269L;
+
+    
 
     public static ReplaceItemsCreator creator(final String pathBundleSid, final String fromBundleSid){
         return new ReplaceItemsCreator(pathBundleSid, fromBundleSid);
@@ -83,6 +86,7 @@ public class ReplaceItems extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
@@ -212,6 +216,7 @@ public class ReplaceItems extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, regulationSid, friendlyName, status, validUntil, email, statusCallback, dateCreated, dateUpdated);
     }
+
 
 }
 

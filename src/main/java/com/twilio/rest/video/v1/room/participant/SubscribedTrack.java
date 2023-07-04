@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribedTrack extends Resource {
     private static final long serialVersionUID = 247433416593630L;
+
+    
 
     public static SubscribedTrackFetcher fetcher(final String pathRoomSid, final String pathParticipantSid, final String pathSid){
         return new SubscribedTrackFetcher(pathRoomSid, pathParticipantSid, pathSid);
@@ -87,6 +90,7 @@ public class SubscribedTrack extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Kind {
         AUDIO("audio"),
         VIDEO("video"),
@@ -213,6 +217,7 @@ public class SubscribedTrack extends Resource {
     public int hashCode() {
         return Objects.hash(sid, participantSid, publisherSid, roomSid, name, dateCreated, dateUpdated, enabled, kind, url);
     }
+
 
 }
 

@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EsimProfile extends Resource {
     private static final long serialVersionUID = 165735118410901L;
+
+    
 
     public static EsimProfileCreator creator(){
         return new EsimProfileCreator();
@@ -91,6 +94,7 @@ public class EsimProfile extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         NEW("new"),
         RESERVING("reserving"),
@@ -252,6 +256,7 @@ public class EsimProfile extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, iccid, simSid, status, eid, smdpPlusAddress, matchingId, activationCode, errorCode, errorMessage, dateCreated, dateUpdated, url);
     }
+
 
 }
 

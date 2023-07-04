@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Deployment extends Resource {
     private static final long serialVersionUID = 53350837896565L;
+
+    
 
     public static DeploymentCreator creator(final String pathServiceSid, final String pathEnvironmentSid){
         return new DeploymentCreator(pathServiceSid, pathEnvironmentSid);
@@ -90,6 +93,7 @@ public class Deployment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -180,6 +184,7 @@ public class Deployment extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, serviceSid, environmentSid, buildSid, dateCreated, dateUpdated, url);
     }
+
 
 }
 

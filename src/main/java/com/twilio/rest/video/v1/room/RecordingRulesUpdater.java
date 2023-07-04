@@ -15,6 +15,7 @@
 package com.twilio.rest.video.v1.room;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -53,6 +54,7 @@ public class RecordingRulesUpdater extends Updater<RecordingRules>{
             Domains.VIDEO.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

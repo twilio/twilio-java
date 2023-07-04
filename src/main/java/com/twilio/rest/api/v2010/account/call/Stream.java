@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Stream extends Resource {
     private static final long serialVersionUID = 189203494840345L;
+
+    
 
     public static StreamCreator creator(final String pathCallSid, final URI url){
         return new StreamCreator(pathCallSid, url);
@@ -93,6 +96,7 @@ public class Stream extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         IN_PROGRESS("in-progress"),
         STOPPED("stopped");
@@ -232,6 +236,7 @@ public class Stream extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, callSid, name, status, dateUpdated, uri);
     }
+
 
 }
 

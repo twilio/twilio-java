@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Engagement extends Resource {
     private static final long serialVersionUID = 71723617578664L;
+
+    
 
     public static EngagementCreator creator(final String pathFlowSid, final com.twilio.type.PhoneNumber to, final com.twilio.type.PhoneNumber from){
         return new EngagementCreator(pathFlowSid, to, from);
@@ -97,6 +100,7 @@ public class Engagement extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         ACTIVE("active"),
         ENDED("ended");
@@ -230,6 +234,7 @@ public class Engagement extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, flowSid, contactSid, contactChannelAddress, context, status, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

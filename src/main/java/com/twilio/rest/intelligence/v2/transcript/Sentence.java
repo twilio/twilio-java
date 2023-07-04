@@ -32,6 +32,7 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -39,6 +40,8 @@ import java.math.BigDecimal;
 @ToString
 public class Sentence extends Resource {
     private static final long serialVersionUID = 210633055908555L;
+
+    
 
     public static SentenceReader reader(final String pathTranscriptSid){
         return new SentenceReader(pathTranscriptSid);
@@ -80,6 +83,7 @@ public class Sentence extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final Integer mediaChannel;
     private final Integer sentenceIndex;
@@ -162,6 +166,7 @@ public class Sentence extends Resource {
     public int hashCode() {
         return Objects.hash(mediaChannel, sentenceIndex, startTime, endTime, transcript, sid, confidence);
     }
+
 
 }
 

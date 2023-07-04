@@ -36,12 +36,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Credential extends Resource {
     private static final long serialVersionUID = 161183169234848L;
+
+    
 
     public static CredentialCreator creator(final Credential.PushService type){
         return new CredentialCreator(type);
@@ -99,6 +102,7 @@ public class Credential extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum PushService {
         GCM("gcm"),
         APN("apn"),
@@ -209,6 +213,7 @@ public class Credential extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, friendlyName, type, sandbox, dateCreated, dateUpdated, url);
     }
+
 
 }
 

@@ -37,12 +37,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trigger extends Resource {
     private static final long serialVersionUID = 180476898929579L;
+
+    
 
     public static TriggerCreator creator(final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory){
         return new TriggerCreator(callbackUrl, triggerValue, usageCategory);
@@ -115,6 +118,7 @@ public class Trigger extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Recurring {
         DAILY("daily"),
         MONTHLY("monthly"),
@@ -572,6 +576,7 @@ public class Trigger extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, callbackMethod, callbackUrl, currentValue, dateCreated, dateFired, dateUpdated, friendlyName, recurring, sid, triggerBy, triggerValue, uri, usageCategory, usageRecordUri);
     }
+
 
 }
 

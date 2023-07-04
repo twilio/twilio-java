@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Media extends Resource {
     private static final long serialVersionUID = 86856561367712L;
+
+    
 
     public static MediaDeleter deleter(final String pathMessageSid, final String pathSid){
         return new MediaDeleter(pathMessageSid, pathSid);
@@ -98,6 +101,7 @@ public class Media extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String contentType;
@@ -180,6 +184,7 @@ public class Media extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, contentType, dateCreated, dateUpdated, parentSid, sid, uri);
     }
+
 
 }
 

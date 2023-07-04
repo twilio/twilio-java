@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkCountryUpdate extends Resource {
     private static final long serialVersionUID = 163351854930638L;
+
+    
 
     public static BulkCountryUpdateCreator creator(final String updateRequest){
         return new BulkCountryUpdateCreator(updateRequest);
@@ -80,6 +83,7 @@ public class BulkCountryUpdate extends Resource {
         }
     }
 
+
     private final Integer updateCount;
     private final String updateRequest;
 
@@ -121,6 +125,7 @@ public class BulkCountryUpdate extends Resource {
     public int hashCode() {
         return Objects.hash(updateCount, updateRequest);
     }
+
 
 }
 

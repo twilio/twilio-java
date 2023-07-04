@@ -36,12 +36,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectApp extends Resource {
     private static final long serialVersionUID = 203118827948403L;
+
+    
 
     public static ConnectAppDeleter deleter(final String pathSid){
         return new ConnectAppDeleter(pathSid);
@@ -107,6 +110,7 @@ public class ConnectApp extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Permission {
         GET_ALL("get-all"),
         POST_ALL("post-all");
@@ -240,6 +244,7 @@ public class ConnectApp extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, authorizeRedirectUrl, companyName, deauthorizeCallbackMethod, deauthorizeCallbackUrl, description, friendlyName, homepageUrl, permissions, sid, uri);
     }
+
 
 }
 

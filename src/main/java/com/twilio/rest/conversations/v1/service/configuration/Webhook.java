@@ -35,12 +35,15 @@ import java.net.URI;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
     private static final long serialVersionUID = 148454673918473L;
+
+    
 
     public static WebhookFetcher fetcher(final String pathChatServiceSid){
         return new WebhookFetcher(pathChatServiceSid);
@@ -86,6 +89,7 @@ public class Webhook extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Method {
         GET("GET"),
         POST("POST");
@@ -187,6 +191,7 @@ public class Webhook extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, chatServiceSid, preWebhookUrl, postWebhookUrl, filters, method, url);
     }
+
 
 }
 

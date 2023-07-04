@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Oauth extends Resource {
     private static final long serialVersionUID = 95485483905123L;
+
+    
 
     public static OauthFetcher fetcher(){
         return new OauthFetcher();
@@ -83,6 +86,7 @@ public class Oauth extends Resource {
         }
     }
 
+
     private final Map<String, Object> keys;
     private final URI url;
 
@@ -124,6 +128,7 @@ public class Oauth extends Resource {
     public int hashCode() {
         return Objects.hash(keys, url);
     }
+
 
 }
 

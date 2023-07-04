@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Day extends Resource {
     private static final long serialVersionUID = 277630118297206L;
+
+    
 
     public static DayFetcher fetcher(final String pathResourceType, final String pathDay){
         return new DayFetcher(pathResourceType, pathDay);
@@ -84,6 +87,7 @@ public class Day extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final URI redirectTo;
     private final String day;
@@ -158,6 +162,7 @@ public class Day extends Resource {
     public int hashCode() {
         return Objects.hash(redirectTo, day, size, createDate, friendlyName, resourceType);
     }
+
 
 }
 

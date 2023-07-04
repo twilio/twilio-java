@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -40,6 +41,8 @@ import java.util.Map;
 @ToString
 public class ExportCustomJob extends Resource {
     private static final long serialVersionUID = 125242558228L;
+
+    
 
     public static ExportCustomJobCreator creator(final String pathResourceType, final String startDay, final String endDay, final String friendlyName){
         return new ExportCustomJobCreator(pathResourceType, startDay, endDay, friendlyName);
@@ -85,6 +88,7 @@ public class ExportCustomJob extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String friendlyName;
     private final String resourceType;
@@ -199,6 +203,7 @@ public class ExportCustomJob extends Resource {
     public int hashCode() {
         return Objects.hash(friendlyName, resourceType, startDay, endDay, webhookUrl, webhookMethod, email, jobSid, details, jobQueuePosition, estimatedCompletionTime);
     }
+
 
 }
 

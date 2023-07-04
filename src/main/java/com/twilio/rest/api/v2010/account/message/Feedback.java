@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Feedback extends Resource {
     private static final long serialVersionUID = 229414222116486L;
+
+    
 
     public static FeedbackCreator creator(final String pathMessageSid){
         return new FeedbackCreator(pathMessageSid);
@@ -85,6 +88,7 @@ public class Feedback extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Outcome {
         CONFIRMED("confirmed"),
         UNCONFIRMED("unconfirmed");
@@ -178,6 +182,7 @@ public class Feedback extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, messageSid, outcome, dateCreated, dateUpdated, uri);
     }
+
 
 }
 

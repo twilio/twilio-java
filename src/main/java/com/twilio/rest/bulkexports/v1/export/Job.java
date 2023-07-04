@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class Job extends Resource {
     private static final long serialVersionUID = 103628862500013L;
+
+    
 
     public static JobDeleter deleter(final String pathJobSid){
         return new JobDeleter(pathJobSid);
@@ -86,6 +89,7 @@ public class Job extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String resourceType;
     private final String friendlyName;
@@ -208,6 +212,7 @@ public class Job extends Resource {
     public int hashCode() {
         return Objects.hash(resourceType, friendlyName, details, startDay, endDay, jobSid, webhookUrl, webhookMethod, email, url, jobQueuePosition, estimatedCompletionTime);
     }
+
 
 }
 

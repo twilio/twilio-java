@@ -15,6 +15,7 @@
 package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
@@ -65,6 +66,7 @@ public class DocumentCreator extends Creator<Document>{
             Domains.SYNC.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {

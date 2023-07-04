@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OriginationUrl extends Resource {
     private static final long serialVersionUID = 133388691973992L;
+
+    
 
     public static OriginationUrlCreator creator(final String pathTrunkSid, final Integer weight, final Integer priority, final Boolean enabled, final String friendlyName, final URI sipUrl){
         return new OriginationUrlCreator(pathTrunkSid, weight, priority, enabled, friendlyName, sipUrl);
@@ -98,6 +101,7 @@ public class OriginationUrl extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String sid;
@@ -212,6 +216,7 @@ public class OriginationUrl extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, sid, trunkSid, weight, enabled, sipUrl, friendlyName, priority, dateCreated, dateUpdated, url);
     }
+
 
 }
 

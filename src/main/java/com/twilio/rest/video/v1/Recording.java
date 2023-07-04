@@ -38,6 +38,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 34004868870464L;
+
+    
 
     public static RecordingDeleter deleter(final String pathSid){
         return new RecordingDeleter(pathSid);
@@ -94,6 +97,7 @@ public class Recording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Codec {
         VP8("VP8"),
         H264("H264"),
@@ -345,6 +349,7 @@ public class Recording extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, status, dateCreated, sid, sourceSid, size, url, type, duration, containerFormat, codec, groupingSids, trackName, offset, mediaExternalLocation, statusCallback, statusCallbackMethod, links);
     }
+
 
 }
 

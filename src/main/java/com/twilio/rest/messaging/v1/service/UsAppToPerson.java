@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class UsAppToPerson extends Resource {
     private static final long serialVersionUID = 67793860949596L;
+
+    
 
     public static UsAppToPersonCreator creator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone){
         return new UsAppToPersonCreator(pathMessagingServiceSid, brandRegistrationSid, description, messageFlow, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone);
@@ -97,6 +100,7 @@ public class UsAppToPerson extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -323,6 +327,7 @@ public class UsAppToPerson extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, brandRegistrationSid, messagingServiceSid, description, messageSamples, usAppToPersonUsecase, hasEmbeddedLinks, hasEmbeddedPhone, campaignStatus, campaignId, isExternallyRegistered, rateLimits, messageFlow, optInMessage, optOutMessage, helpMessage, optInKeywords, optOutKeywords, helpKeywords, dateCreated, dateUpdated, url, mock, errors);
     }
+
 
 }
 

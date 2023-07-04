@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class NetworkAccessProfile extends Resource {
     private static final long serialVersionUID = 19374980019913L;
+
+    
 
     public static NetworkAccessProfileCreator creator(){
         return new NetworkAccessProfileCreator();
@@ -96,6 +99,7 @@ public class NetworkAccessProfile extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String uniqueName;
@@ -178,6 +182,7 @@ public class NetworkAccessProfile extends Resource {
     public int hashCode() {
         return Objects.hash(sid, uniqueName, accountSid, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

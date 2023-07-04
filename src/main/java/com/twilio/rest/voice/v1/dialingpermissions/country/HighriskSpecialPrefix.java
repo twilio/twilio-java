@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class HighriskSpecialPrefix extends Resource {
     private static final long serialVersionUID = 211324910415647L;
+
+    
 
     public static HighriskSpecialPrefixReader reader(final String pathIsoCode){
         return new HighriskSpecialPrefixReader(pathIsoCode);
@@ -80,6 +83,7 @@ public class HighriskSpecialPrefix extends Resource {
         }
     }
 
+
     private final String prefix;
 
     @JsonCreator
@@ -113,6 +117,7 @@ public class HighriskSpecialPrefix extends Resource {
     public int hashCode() {
         return Objects.hash(prefix);
     }
+
 
 }
 

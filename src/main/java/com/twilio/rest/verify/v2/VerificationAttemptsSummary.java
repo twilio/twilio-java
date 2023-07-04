@@ -34,6 +34,7 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
@@ -41,6 +42,8 @@ import java.math.BigDecimal;
 @ToString
 public class VerificationAttemptsSummary extends Resource {
     private static final long serialVersionUID = 224637081616234L;
+
+    
 
     public static VerificationAttemptsSummaryFetcher fetcher(){
         return new VerificationAttemptsSummaryFetcher();
@@ -82,6 +85,7 @@ public class VerificationAttemptsSummary extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Channels {
         SMS("sms"),
         CALL("call"),
@@ -169,6 +173,7 @@ public class VerificationAttemptsSummary extends Resource {
     public int hashCode() {
         return Objects.hash(totalAttempts, totalConverted, totalUnconverted, conversionRatePercentage, url);
     }
+
 
 }
 

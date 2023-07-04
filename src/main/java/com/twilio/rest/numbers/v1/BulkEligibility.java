@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,12 @@ import java.util.Map;
 @ToString
 public class BulkEligibility extends Resource {
     private static final long serialVersionUID = 38354491175250L;
+
+    
+
+    public static BulkEligibilityCreator creator(){
+        return new BulkEligibilityCreator();
+    }
 
     public static BulkEligibilityFetcher fetcher(final String pathRequestId){
         return new BulkEligibilityFetcher(pathRequestId);
@@ -85,6 +92,7 @@ public class BulkEligibility extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String requestId;
     private final URI url;
@@ -167,6 +175,7 @@ public class BulkEligibility extends Resource {
     public int hashCode() {
         return Objects.hash(requestId, url, results, friendlyName, status, dateCreated, dateCompleted);
     }
+
 
 }
 

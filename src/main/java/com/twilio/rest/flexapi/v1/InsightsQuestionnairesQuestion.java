@@ -34,6 +34,7 @@ import java.net.URI;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -41,6 +42,8 @@ import java.util.Map;
 @ToString
 public class InsightsQuestionnairesQuestion extends Resource {
     private static final long serialVersionUID = 10229949486791L;
+
+    
 
     public static InsightsQuestionnairesQuestionCreator creator(final String categorySid, final String question, final String answerSetId, final Boolean allowNa){
         return new InsightsQuestionnairesQuestionCreator(categorySid, question, answerSetId, allowNa);
@@ -94,6 +97,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String questionSid;
@@ -200,6 +204,7 @@ public class InsightsQuestionnairesQuestion extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, questionSid, question, description, category, answerSetId, allowNa, usage, answerSet, url);
     }
+
 
 }
 

@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class ConferenceParticipant extends Resource {
     private static final long serialVersionUID = 67216866718855L;
+
+    
 
     public static ConferenceParticipantFetcher fetcher(final String pathConferenceSid, final String pathParticipantSid){
         return new ConferenceParticipantFetcher(pathConferenceSid, pathParticipantSid);
@@ -90,6 +93,7 @@ public class ConferenceParticipant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum CallDirection {
         INBOUND("inbound"),
         OUTBOUND("outbound");
@@ -461,6 +465,7 @@ public class ConferenceParticipant extends Resource {
     public int hashCode() {
         return Objects.hash(participantSid, label, conferenceSid, callSid, accountSid, callDirection, from, to, callStatus, countryCode, isModerator, joinTime, leaveTime, durationSeconds, outboundQueueLength, outboundTimeInQueue, jitterBufferSize, isCoach, coachedParticipants, participantRegion, conferenceRegion, callType, processingState, properties, events, metrics, url);
     }
+
 
 }
 

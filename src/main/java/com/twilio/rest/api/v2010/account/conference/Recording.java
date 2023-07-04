@@ -39,6 +39,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -46,6 +47,8 @@ import java.util.Map;
 @ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 71375271651535L;
+
+    
 
     public static RecordingDeleter deleter(final String pathConferenceSid, final String pathSid){
         return new RecordingDeleter(pathConferenceSid, pathSid);
@@ -111,6 +114,7 @@ public class Recording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Source {
         DIALVERB("DialVerb"),
         CONFERENCE("Conference"),
@@ -321,6 +325,7 @@ public class Recording extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, apiVersion, callSid, conferenceSid, dateCreated, dateUpdated, startTime, duration, sid, price, priceUnit, status, channels, source, errorCode, encryptionDetails, uri);
     }
+
 
 }
 

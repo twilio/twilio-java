@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class Device extends Resource {
     private static final long serialVersionUID = 266652017538801L;
+
+    
 
     public static DeviceFetcher fetcher(final String pathSid){
         return new DeviceFetcher(pathSid);
@@ -92,6 +95,7 @@ public class Device extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String uniqueName;
@@ -190,6 +194,7 @@ public class Device extends Resource {
     public int hashCode() {
         return Objects.hash(sid, uniqueName, accountSid, app, logging, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

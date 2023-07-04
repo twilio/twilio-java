@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class RateLimit extends Resource {
     private static final long serialVersionUID = 244381337050590L;
+
+    
 
     public static RateLimitCreator creator(final String pathServiceSid, final String uniqueName){
         return new RateLimitCreator(pathServiceSid, uniqueName);
@@ -100,6 +103,7 @@ public class RateLimit extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String serviceSid;
@@ -198,6 +202,7 @@ public class RateLimit extends Resource {
     public int hashCode() {
         return Objects.hash(sid, serviceSid, accountSid, uniqueName, description, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

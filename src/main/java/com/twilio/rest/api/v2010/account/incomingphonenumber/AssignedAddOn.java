@@ -35,6 +35,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -42,6 +43,8 @@ import java.util.Map;
 @ToString
 public class AssignedAddOn extends Resource {
     private static final long serialVersionUID = 114193682949091L;
+
+    
 
     public static AssignedAddOnCreator creator(final String pathResourceSid, final String installedAddOnSid){
         return new AssignedAddOnCreator(pathResourceSid, installedAddOnSid);
@@ -107,6 +110,7 @@ public class AssignedAddOn extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -221,6 +225,7 @@ public class AssignedAddOn extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, resourceSid, friendlyName, description, configuration, uniqueName, dateCreated, dateUpdated, uri, subresourceUris);
     }
+
 
 }
 

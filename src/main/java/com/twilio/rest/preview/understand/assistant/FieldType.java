@@ -36,6 +36,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -43,6 +44,8 @@ import java.util.Map;
 @ToString
 public class FieldType extends Resource {
     private static final long serialVersionUID = 124097769891823L;
+
+    
 
     public static FieldTypeCreator creator(final String pathAssistantSid, final String uniqueName){
         return new FieldTypeCreator(pathAssistantSid, uniqueName);
@@ -100,6 +103,7 @@ public class FieldType extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -198,6 +202,7 @@ public class FieldType extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, dateCreated, dateUpdated, friendlyName, links, assistantSid, sid, uniqueName, url);
     }
+
 
 }
 

@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkerChannel extends Resource {
     private static final long serialVersionUID = 38376318052081L;
+
+    
 
     public static WorkerChannelFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid, final String pathSid){
         return new WorkerChannelFetcher(pathWorkspaceSid, pathWorkerSid, pathSid);
@@ -90,6 +93,7 @@ public class WorkerChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Integer assignedTasks;
@@ -220,6 +224,7 @@ public class WorkerChannel extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, assignedTasks, available, availableCapacityPercentage, configuredCapacity, dateCreated, dateUpdated, sid, taskChannelSid, taskChannelUniqueName, workerSid, workspaceSid, url);
     }
+
 
 }
 

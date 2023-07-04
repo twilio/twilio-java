@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Balance extends Resource {
     private static final long serialVersionUID = 101388429668677L;
+
+    
 
     public static BalanceFetcher fetcher(){
         return new BalanceFetcher();
@@ -82,6 +85,7 @@ public class Balance extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String balance;
@@ -132,6 +136,7 @@ public class Balance extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, balance, currency);
     }
+
 
 }
 

@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AppManifest extends Resource {
     private static final long serialVersionUID = 249809073531699L;
+
+    
 
     public static AppManifestFetcher fetcher(final String pathAppSid){
         return new AppManifestFetcher(pathAppSid);
@@ -80,6 +83,7 @@ public class AppManifest extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String appSid;
     private final String hash;
@@ -138,6 +142,7 @@ public class AppManifest extends Resource {
     public int hashCode() {
         return Objects.hash(appSid, hash, encodedBytes, url);
     }
+
 
 }
 

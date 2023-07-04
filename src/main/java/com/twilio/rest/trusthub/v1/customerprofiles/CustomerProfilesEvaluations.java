@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class CustomerProfilesEvaluations extends Resource {
     private static final long serialVersionUID = 45516903020077L;
+
+    
 
     public static CustomerProfilesEvaluationsCreator creator(final String pathCustomerProfileSid, final String policySid){
         return new CustomerProfilesEvaluationsCreator(pathCustomerProfileSid, policySid);
@@ -94,6 +97,7 @@ public class CustomerProfilesEvaluations extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         COMPLIANT("compliant"),
         NONCOMPLIANT("noncompliant");
@@ -203,6 +207,7 @@ public class CustomerProfilesEvaluations extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, policySid, customerProfileSid, status, results, dateCreated, url);
     }
+
 
 }
 

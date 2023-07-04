@@ -37,6 +37,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class Service extends Resource {
     private static final long serialVersionUID = 120259795390146L;
+
+    
 
     public static ServiceCreator creator(final String uniqueName){
         return new ServiceCreator(uniqueName);
@@ -101,6 +104,7 @@ public class Service extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum GeoMatchLevel {
         AREA_CODE("area-code"),
         OVERLAY("overlay"),
@@ -279,6 +283,7 @@ public class Service extends Resource {
     public int hashCode() {
         return Objects.hash(sid, uniqueName, accountSid, chatInstanceSid, callbackUrl, defaultTtl, numberSelectionBehavior, geoMatchLevel, interceptCallbackUrl, outOfSessionCallbackUrl, dateCreated, dateUpdated, url, links);
     }
+
 
 }
 

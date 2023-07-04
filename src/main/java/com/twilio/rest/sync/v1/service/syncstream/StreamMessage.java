@@ -33,6 +33,7 @@ import java.io.InputStream;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -40,6 +41,8 @@ import java.util.Map;
 @ToString
 public class StreamMessage extends Resource {
     private static final long serialVersionUID = 233477236246646L;
+
+    
 
     public static StreamMessageCreator creator(final String pathServiceSid, final String pathStreamSid, final Map<String, Object> data){
         return new StreamMessageCreator(pathServiceSid, pathStreamSid, data);
@@ -82,6 +85,7 @@ public class StreamMessage extends Resource {
         }
     }
 
+
     private final String sid;
     private final Map<String, Object> data;
 
@@ -123,6 +127,7 @@ public class StreamMessage extends Resource {
     public int hashCode() {
         return Objects.hash(sid, data);
     }
+
 
 }
 

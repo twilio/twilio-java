@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bucket extends Resource {
     private static final long serialVersionUID = 268114856070086L;
+
+    
 
     public static BucketCreator creator(final String pathServiceSid, final String pathRateLimitSid, final Integer max, final Integer interval){
         return new BucketCreator(pathServiceSid, pathRateLimitSid, max, interval);
@@ -98,6 +101,7 @@ public class Bucket extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String rateLimitSid;
@@ -196,6 +200,7 @@ public class Bucket extends Resource {
     public int hashCode() {
         return Objects.hash(sid, rateLimitSid, serviceSid, accountSid, max, interval, dateCreated, dateUpdated, url);
     }
+
 
 }
 

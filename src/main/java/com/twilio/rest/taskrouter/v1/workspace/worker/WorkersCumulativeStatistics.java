@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -44,6 +45,8 @@ import java.util.Map;
 @ToString
 public class WorkersCumulativeStatistics extends Resource {
     private static final long serialVersionUID = 68159864681377L;
+
+    
 
     public static WorkersCumulativeStatisticsFetcher fetcher(final String pathWorkspaceSid){
         return new WorkersCumulativeStatisticsFetcher(pathWorkspaceSid);
@@ -85,6 +88,7 @@ public class WorkersCumulativeStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime startTime;
@@ -207,6 +211,7 @@ public class WorkersCumulativeStatistics extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, startTime, endTime, activityDurations, reservationsCreated, reservationsAccepted, reservationsRejected, reservationsTimedOut, reservationsCanceled, reservationsRescinded, workspaceSid, url);
     }
+
 
 }
 

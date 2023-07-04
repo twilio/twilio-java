@@ -33,12 +33,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Recording extends Resource {
     private static final long serialVersionUID = 230784342010429L;
+
+    
 
     public static RecordingFetcher fetcher(final String pathTrunkSid){
         return new RecordingFetcher(pathTrunkSid);
@@ -84,6 +87,7 @@ public class Recording extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum RecordingMode {
         DO_NOT_RECORD("do-not-record"),
         RECORD_FROM_RINGING("record-from-ringing"),
@@ -167,6 +171,7 @@ public class Recording extends Resource {
     public int hashCode() {
         return Objects.hash(mode, trim);
     }
+
 
 }
 

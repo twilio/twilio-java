@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Message extends Resource {
     private static final long serialVersionUID = 43250311135417L;
+
+    
 
     public static MessageCreator creator(final String pathConversationSid){
         return new MessageCreator(pathConversationSid);
@@ -102,6 +105,7 @@ public class Message extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum OrderType {
         ASC("asc"),
         DESC("desc");
@@ -286,6 +290,7 @@ public class Message extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, conversationSid, sid, index, author, body, media, attributes, participantSid, dateCreated, dateUpdated, url, delivery, links, contentSid);
     }
+
 
 }
 

@@ -35,12 +35,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AccountSecret extends Resource {
     private static final long serialVersionUID = 245444757442788L;
+
+    
 
     public static AccountSecretCreator creator(final String key, final String value){
         return new AccountSecretCreator(key, value);
@@ -99,6 +102,7 @@ public class AccountSecret extends Resource {
         }
     }
 
+
     private final String key;
     private final ZonedDateTime dateRotated;
     private final URI url;
@@ -148,6 +152,7 @@ public class AccountSecret extends Resource {
     public int hashCode() {
         return Objects.hash(key, dateRotated, url);
     }
+
 
 }
 

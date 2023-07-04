@@ -15,6 +15,7 @@
 package com.twilio.rest.intelligence.v2;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -96,6 +97,7 @@ public class ServiceUpdater extends Updater<Service>{
             Domains.INTELLIGENCE.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);

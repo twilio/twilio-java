@@ -40,6 +40,7 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -47,6 +48,8 @@ import java.util.Map;
 @ToString
 public class Call extends Resource {
     private static final long serialVersionUID = 229062317637234L;
+
+    
 
     public static CallCreator creator(final com.twilio.type.Endpoint to, final com.twilio.type.Endpoint from, final URI url){
         return new CallCreator(to, from, url);
@@ -131,6 +134,7 @@ public class Call extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         QUEUED("queued"),
         RINGING("ringing"),
@@ -410,6 +414,7 @@ public class Call extends Resource {
     public int hashCode() {
         return Objects.hash(sid, dateCreated, dateUpdated, parentCallSid, accountSid, to, toFormatted, from, fromFormatted, phoneNumberSid, status, startTime, endTime, duration, price, priceUnit, direction, answeredBy, apiVersion, forwardedFrom, groupSid, callerName, queueTime, trunkSid, uri, subresourceUris);
     }
+
 
 }
 

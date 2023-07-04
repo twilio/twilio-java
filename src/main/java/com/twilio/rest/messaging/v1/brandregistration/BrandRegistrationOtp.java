@@ -32,12 +32,15 @@ import java.io.InputStream;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BrandRegistrationOtp extends Resource {
     private static final long serialVersionUID = 131615733171627L;
+
+    
 
     public static BrandRegistrationOtpCreator creator(final String pathBrandRegistrationSid){
         return new BrandRegistrationOtpCreator(pathBrandRegistrationSid);
@@ -80,6 +83,7 @@ public class BrandRegistrationOtp extends Resource {
         }
     }
 
+
     private final String accountSid;
     private final String brandRegistrationSid;
 
@@ -121,6 +125,7 @@ public class BrandRegistrationOtp extends Resource {
     public int hashCode() {
         return Objects.hash(accountSid, brandRegistrationSid);
     }
+
 
 }
 

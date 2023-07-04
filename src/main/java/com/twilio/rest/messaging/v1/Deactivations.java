@@ -33,12 +33,15 @@ import java.net.URI;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Deactivations extends Resource {
     private static final long serialVersionUID = 245900587626041L;
+
+    
 
     public static DeactivationsFetcher fetcher(){
         return new DeactivationsFetcher();
@@ -81,6 +84,7 @@ public class Deactivations extends Resource {
         }
     }
 
+
     private final URI redirectTo;
 
     @JsonCreator
@@ -114,6 +118,7 @@ public class Deactivations extends Resource {
     public int hashCode() {
         return Objects.hash(redirectTo);
     }
+
 
 }
 

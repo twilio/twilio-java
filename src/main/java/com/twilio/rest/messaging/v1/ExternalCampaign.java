@@ -34,12 +34,15 @@ import java.time.ZonedDateTime;
 
 import java.util.Objects;
 
+import lombok.ToString;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ExternalCampaign extends Resource {
     private static final long serialVersionUID = 211920409391157L;
+
+    
 
     public static ExternalCampaignCreator creator(final String campaignId, final String messagingServiceSid){
         return new ExternalCampaignCreator(campaignId, messagingServiceSid);
@@ -81,6 +84,7 @@ public class ExternalCampaign extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -147,6 +151,7 @@ public class ExternalCampaign extends Resource {
     public int hashCode() {
         return Objects.hash(sid, accountSid, campaignId, messagingServiceSid, dateCreated);
     }
+
 
 }
 

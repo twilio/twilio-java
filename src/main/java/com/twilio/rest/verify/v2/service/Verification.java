@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.ToString;
 
 import java.util.Map;
 
@@ -45,6 +46,8 @@ import java.util.Map;
 @ToString
 public class Verification extends Resource {
     private static final long serialVersionUID = 3815558292528L;
+
+    
 
     public static VerificationCreator creator(final String pathServiceSid, final String to, final String channel){
         return new VerificationCreator(pathServiceSid, to, channel);
@@ -94,6 +97,7 @@ public class Verification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Channel {
         SMS("sms"),
         CALL("call"),
@@ -281,6 +285,7 @@ public class Verification extends Resource {
     public int hashCode() {
         return Objects.hash(sid, serviceSid, accountSid, to, channel, status, valid, lookup, amount, payee, sendCodeAttempts, dateCreated, dateUpdated, sna, url);
     }
+
 
 }
 

@@ -24,19 +24,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class UserInfoFetcher extends Fetcher<UserInfo> {
 
-    public UserInfoFetcher(){
-    }
-
+    public UserInfoFetcher() {}
 
     @Override
     public UserInfo fetch(final TwilioRestClient client) {
         String path = "/v1/userinfo";
-
 
         Request request = new Request(
             HttpMethod.GET,
@@ -46,15 +40,23 @@ public class UserInfoFetcher extends Fetcher<UserInfo> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("UserInfo fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserInfo fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return UserInfo.fromJson(response.getStream(), client.getObjectMapper());
+        return UserInfo.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

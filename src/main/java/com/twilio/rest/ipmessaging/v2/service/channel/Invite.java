@@ -23,49 +23,63 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Invite extends Resource {
+
     private static final long serialVersionUID = 148273166902210L;
 
-    public static InviteCreator creator(final String pathServiceSid, final String pathChannelSid, final String identity){
+    public static InviteCreator creator(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String identity
+    ) {
         return new InviteCreator(pathServiceSid, pathChannelSid, identity);
     }
 
-    public static InviteDeleter deleter(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+    public static InviteDeleter deleter(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String pathSid
+    ) {
         return new InviteDeleter(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static InviteFetcher fetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+    public static InviteFetcher fetcher(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String pathSid
+    ) {
         return new InviteFetcher(pathServiceSid, pathChannelSid, pathSid);
     }
 
-    public static InviteReader reader(final String pathServiceSid, final String pathChannelSid){
+    public static InviteReader reader(
+        final String pathServiceSid,
+        final String pathChannelSid
+    ) {
         return new InviteReader(pathServiceSid, pathChannelSid);
     }
 
     /**
-    * Converts a JSON String into a Invite object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Invite object represented by the provided JSON
-    */
-    public static Invite fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Invite object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Invite object represented by the provided JSON
+     */
+    public static Invite fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Invite.class);
@@ -77,14 +91,17 @@ public class Invite extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Invite object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Invite object represented by the provided JSON
-    */
-    public static Invite fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Invite object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Invite object represented by the provided JSON
+     */
+    public static Invite fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Invite.class);
@@ -108,35 +125,16 @@ public class Invite extends Resource {
 
     @JsonCreator
     private Invite(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("channel_sid")
-        final String channelSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("role_sid")
-        final String roleSid,
-
-        @JsonProperty("created_by")
-        final String createdBy,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("channel_sid") final String channelSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("role_sid") final String roleSid,
+        @JsonProperty("created_by") final String createdBy,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -150,40 +148,49 @@ public class Invite extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getChannelSid() {
-            return this.channelSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getRoleSid() {
-            return this.roleSid;
-        }
-        public final String getCreatedBy() {
-            return this.createdBy;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getChannelSid() {
+        return this.channelSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getRoleSid() {
+        return this.roleSid;
+    }
+
+    public final String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -193,13 +200,33 @@ public class Invite extends Resource {
 
         Invite other = (Invite) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(channelSid, other.channelSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(roleSid, other.roleSid) &&  Objects.equals(createdBy, other.createdBy) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(channelSid, other.channelSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(createdBy, other.createdBy) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, channelSid, serviceSid, identity, dateCreated, dateUpdated, roleSid, createdBy, url);
+        return Objects.hash(
+            sid,
+            accountSid,
+            channelSid,
+            serviceSid,
+            identity,
+            dateCreated,
+            dateUpdated,
+            roleSid,
+            createdBy,
+            url
+        );
     }
-
 }
-

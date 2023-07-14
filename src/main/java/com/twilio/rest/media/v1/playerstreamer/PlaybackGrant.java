@@ -23,43 +23,42 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PlaybackGrant extends Resource {
+
     private static final long serialVersionUID = 188445421727262L;
 
-    public static PlaybackGrantCreator creator(final String pathSid){
+    public static PlaybackGrantCreator creator(final String pathSid) {
         return new PlaybackGrantCreator(pathSid);
     }
 
-    public static PlaybackGrantFetcher fetcher(final String pathSid){
+    public static PlaybackGrantFetcher fetcher(final String pathSid) {
         return new PlaybackGrantFetcher(pathSid);
     }
 
     /**
-    * Converts a JSON String into a PlaybackGrant object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return PlaybackGrant object represented by the provided JSON
-    */
-    public static PlaybackGrant fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a PlaybackGrant object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return PlaybackGrant object represented by the provided JSON
+     */
+    public static PlaybackGrant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PlaybackGrant.class);
@@ -71,14 +70,17 @@ public class PlaybackGrant extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a PlaybackGrant object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return PlaybackGrant object represented by the provided JSON
-    */
-    public static PlaybackGrant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a PlaybackGrant object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return PlaybackGrant object represented by the provided JSON
+     */
+    public static PlaybackGrant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PlaybackGrant.class);
@@ -97,20 +99,11 @@ public class PlaybackGrant extends Resource {
 
     @JsonCreator
     private PlaybackGrant(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("grant")
-        final Map<String, Object> grant
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("grant") final Map<String, Object> grant
     ) {
         this.sid = sid;
         this.url = url;
@@ -119,25 +112,29 @@ public class PlaybackGrant extends Resource {
         this.grant = grant;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final Map<String, Object> getGrant() {
-            return this.grant;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final Map<String, Object> getGrant() {
+        return this.grant;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -147,13 +144,17 @@ public class PlaybackGrant extends Resource {
 
         PlaybackGrant other = (PlaybackGrant) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(url, other.url) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(grant, other.grant)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(grant, other.grant)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid, url, accountSid, dateCreated, grant);
     }
-
 }
-

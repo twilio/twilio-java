@@ -23,55 +23,71 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Workflow extends Resource {
+
     private static final long serialVersionUID = 204168447451968L;
 
-    public static WorkflowCreator creator(final String pathWorkspaceSid, final String friendlyName, final String configuration){
-        return new WorkflowCreator(pathWorkspaceSid, friendlyName, configuration);
+    public static WorkflowCreator creator(
+        final String pathWorkspaceSid,
+        final String friendlyName,
+        final String configuration
+    ) {
+        return new WorkflowCreator(
+            pathWorkspaceSid,
+            friendlyName,
+            configuration
+        );
     }
 
-    public static WorkflowDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+    public static WorkflowDeleter deleter(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
         return new WorkflowDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static WorkflowFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+    public static WorkflowFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
         return new WorkflowFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static WorkflowReader reader(final String pathWorkspaceSid){
+    public static WorkflowReader reader(final String pathWorkspaceSid) {
         return new WorkflowReader(pathWorkspaceSid);
     }
 
-    public static WorkflowUpdater updater(final String pathWorkspaceSid, final String pathSid){
+    public static WorkflowUpdater updater(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
         return new WorkflowUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Workflow object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Workflow object represented by the provided JSON
-    */
-    public static Workflow fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Workflow object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Workflow object represented by the provided JSON
+     */
+    public static Workflow fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Workflow.class);
@@ -83,14 +99,17 @@ public class Workflow extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Workflow object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Workflow object represented by the provided JSON
-    */
-    public static Workflow fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Workflow object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Workflow object represented by the provided JSON
+     */
+    public static Workflow fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Workflow.class);
@@ -117,44 +136,25 @@ public class Workflow extends Resource {
 
     @JsonCreator
     private Workflow(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("assignment_callback_url")
-        final URI assignmentCallbackUrl,
-
-        @JsonProperty("configuration")
-        final String configuration,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("document_content_type")
-        final String documentContentType,
-
-        @JsonProperty("fallback_assignment_callback_url")
-        final URI fallbackAssignmentCallbackUrl,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("task_reservation_timeout")
-        final Integer taskReservationTimeout,
-
-        @JsonProperty("workspace_sid")
-        final String workspaceSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "assignment_callback_url"
+        ) final URI assignmentCallbackUrl,
+        @JsonProperty("configuration") final String configuration,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("document_content_type") final String documentContentType,
+        @JsonProperty(
+            "fallback_assignment_callback_url"
+        ) final URI fallbackAssignmentCallbackUrl,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty(
+            "task_reservation_timeout"
+        ) final Integer taskReservationTimeout,
+        @JsonProperty("workspace_sid") final String workspaceSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.assignmentCallbackUrl = assignmentCallbackUrl;
@@ -171,49 +171,61 @@ public class Workflow extends Resource {
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final URI getAssignmentCallbackUrl() {
-            return this.assignmentCallbackUrl;
-        }
-        public final String getConfiguration() {
-            return this.configuration;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getDocumentContentType() {
-            return this.documentContentType;
-        }
-        public final URI getFallbackAssignmentCallbackUrl() {
-            return this.fallbackAssignmentCallbackUrl;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final Integer getTaskReservationTimeout() {
-            return this.taskReservationTimeout;
-        }
-        public final String getWorkspaceSid() {
-            return this.workspaceSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final URI getAssignmentCallbackUrl() {
+        return this.assignmentCallbackUrl;
+    }
+
+    public final String getConfiguration() {
+        return this.configuration;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getDocumentContentType() {
+        return this.documentContentType;
+    }
+
+    public final URI getFallbackAssignmentCallbackUrl() {
+        return this.fallbackAssignmentCallbackUrl;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final Integer getTaskReservationTimeout() {
+        return this.taskReservationTimeout;
+    }
+
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -223,13 +235,48 @@ public class Workflow extends Resource {
 
         Workflow other = (Workflow) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assignmentCallbackUrl, other.assignmentCallbackUrl) &&  Objects.equals(configuration, other.configuration) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(documentContentType, other.documentContentType) &&  Objects.equals(fallbackAssignmentCallbackUrl, other.fallbackAssignmentCallbackUrl) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskReservationTimeout, other.taskReservationTimeout) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                assignmentCallbackUrl,
+                other.assignmentCallbackUrl
+            ) &&
+            Objects.equals(configuration, other.configuration) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(documentContentType, other.documentContentType) &&
+            Objects.equals(
+                fallbackAssignmentCallbackUrl,
+                other.fallbackAssignmentCallbackUrl
+            ) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(
+                taskReservationTimeout,
+                other.taskReservationTimeout
+            ) &&
+            Objects.equals(workspaceSid, other.workspaceSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, assignmentCallbackUrl, configuration, dateCreated, dateUpdated, documentContentType, fallbackAssignmentCallbackUrl, friendlyName, sid, taskReservationTimeout, workspaceSid, url, links);
+        return Objects.hash(
+            accountSid,
+            assignmentCallbackUrl,
+            configuration,
+            dateCreated,
+            dateUpdated,
+            documentContentType,
+            fallbackAssignmentCallbackUrl,
+            friendlyName,
+            sid,
+            taskReservationTimeout,
+            workspaceSid,
+            url,
+            links
+        );
     }
-
 }
-

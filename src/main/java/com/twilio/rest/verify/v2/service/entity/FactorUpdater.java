@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service.entity;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class FactorUpdater extends Updater<Factor> {
 
-
-
-public class FactorUpdater extends Updater<Factor>{
     private String pathServiceSid;
     private String pathIdentity;
     private String pathSid;
@@ -41,68 +40,96 @@ public class FactorUpdater extends Updater<Factor>{
     private Factor.TotpAlgorithms configAlg;
     private String configNotificationPlatform;
 
-    public FactorUpdater(final String pathServiceSid, final String pathIdentity, final String pathSid){
+    public FactorUpdater(
+        final String pathServiceSid,
+        final String pathIdentity,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
         this.pathSid = pathSid;
     }
 
-    public FactorUpdater setAuthPayload(final String authPayload){
+    public FactorUpdater setAuthPayload(final String authPayload) {
         this.authPayload = authPayload;
         return this;
     }
-    public FactorUpdater setFriendlyName(final String friendlyName){
+
+    public FactorUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public FactorUpdater setConfigNotificationToken(final String configNotificationToken){
+
+    public FactorUpdater setConfigNotificationToken(
+        final String configNotificationToken
+    ) {
         this.configNotificationToken = configNotificationToken;
         return this;
     }
-    public FactorUpdater setConfigSdkVersion(final String configSdkVersion){
+
+    public FactorUpdater setConfigSdkVersion(final String configSdkVersion) {
         this.configSdkVersion = configSdkVersion;
         return this;
     }
-    public FactorUpdater setConfigTimeStep(final Integer configTimeStep){
+
+    public FactorUpdater setConfigTimeStep(final Integer configTimeStep) {
         this.configTimeStep = configTimeStep;
         return this;
     }
-    public FactorUpdater setConfigSkew(final Integer configSkew){
+
+    public FactorUpdater setConfigSkew(final Integer configSkew) {
         this.configSkew = configSkew;
         return this;
     }
-    public FactorUpdater setConfigCodeLength(final Integer configCodeLength){
+
+    public FactorUpdater setConfigCodeLength(final Integer configCodeLength) {
         this.configCodeLength = configCodeLength;
         return this;
     }
-    public FactorUpdater setConfigAlg(final Factor.TotpAlgorithms configAlg){
+
+    public FactorUpdater setConfigAlg(final Factor.TotpAlgorithms configAlg) {
         this.configAlg = configAlg;
         return this;
     }
-    public FactorUpdater setConfigNotificationPlatform(final String configNotificationPlatform){
+
+    public FactorUpdater setConfigNotificationPlatform(
+        final String configNotificationPlatform
+    ) {
         this.configNotificationPlatform = configNotificationPlatform;
         return this;
     }
 
     @Override
-    public Factor update(final TwilioRestClient client){
-        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
+    public Factor update(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Factor update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Factor update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -111,42 +138,43 @@ public class FactorUpdater extends Updater<Factor>{
 
         return Factor.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (authPayload != null) {
             request.addPostParam("AuthPayload", authPayload);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (configNotificationToken != null) {
-            request.addPostParam("Config.NotificationToken", configNotificationToken);
-    
+            request.addPostParam(
+                "Config.NotificationToken",
+                configNotificationToken
+            );
         }
         if (configSdkVersion != null) {
             request.addPostParam("Config.SdkVersion", configSdkVersion);
-    
         }
         if (configTimeStep != null) {
             request.addPostParam("Config.TimeStep", configTimeStep.toString());
-    
         }
         if (configSkew != null) {
             request.addPostParam("Config.Skew", configSkew.toString());
-    
         }
         if (configCodeLength != null) {
-            request.addPostParam("Config.CodeLength", configCodeLength.toString());
-    
+            request.addPostParam(
+                "Config.CodeLength",
+                configCodeLength.toString()
+            );
         }
         if (configAlg != null) {
             request.addPostParam("Config.Alg", configAlg.toString());
-    
         }
         if (configNotificationPlatform != null) {
-            request.addPostParam("Config.NotificationPlatform", configNotificationPlatform);
-    
+            request.addPostParam(
+                "Config.NotificationPlatform",
+                configNotificationPlatform
+            );
         }
     }
 }

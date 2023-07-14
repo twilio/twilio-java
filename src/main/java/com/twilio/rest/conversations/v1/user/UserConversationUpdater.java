@@ -15,6 +15,7 @@
 package com.twilio.rest.conversations.v1.user;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,74 +24,103 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.time.ZonedDateTime;
 
+public class UserConversationUpdater extends Updater<UserConversation> {
 
-
-public class UserConversationUpdater extends Updater<UserConversation>{
     private String pathUserSid;
     private String pathConversationSid;
     private UserConversation.NotificationLevel notificationLevel;
     private ZonedDateTime lastReadTimestamp;
     private Integer lastReadMessageIndex;
 
-    public UserConversationUpdater(final String pathUserSid, final String pathConversationSid){
+    public UserConversationUpdater(
+        final String pathUserSid,
+        final String pathConversationSid
+    ) {
         this.pathUserSid = pathUserSid;
         this.pathConversationSid = pathConversationSid;
     }
 
-    public UserConversationUpdater setNotificationLevel(final UserConversation.NotificationLevel notificationLevel){
+    public UserConversationUpdater setNotificationLevel(
+        final UserConversation.NotificationLevel notificationLevel
+    ) {
         this.notificationLevel = notificationLevel;
         return this;
     }
-    public UserConversationUpdater setLastReadTimestamp(final ZonedDateTime lastReadTimestamp){
+
+    public UserConversationUpdater setLastReadTimestamp(
+        final ZonedDateTime lastReadTimestamp
+    ) {
         this.lastReadTimestamp = lastReadTimestamp;
         return this;
     }
-    public UserConversationUpdater setLastReadMessageIndex(final Integer lastReadMessageIndex){
+
+    public UserConversationUpdater setLastReadMessageIndex(
+        final Integer lastReadMessageIndex
+    ) {
         this.lastReadMessageIndex = lastReadMessageIndex;
         return this;
     }
 
     @Override
-    public UserConversation update(final TwilioRestClient client){
+    public UserConversation update(final TwilioRestClient client) {
         String path = "/v1/Users/{UserSid}/Conversations/{ConversationSid}";
 
-        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
-        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path =
+            path.replace(
+                "{" + "ConversationSid" + "}",
+                this.pathConversationSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.CONVERSATIONS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("UserConversation update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UserConversation update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return UserConversation.fromJson(response.getStream(), client.getObjectMapper());
+        return UserConversation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (notificationLevel != null) {
-            request.addPostParam("NotificationLevel", notificationLevel.toString());
-    
+            request.addPostParam(
+                "NotificationLevel",
+                notificationLevel.toString()
+            );
         }
         if (lastReadTimestamp != null) {
-            request.addPostParam("LastReadTimestamp", lastReadTimestamp.toInstant().toString());
-
+            request.addPostParam(
+                "LastReadTimestamp",
+                lastReadTimestamp.toInstant().toString()
+            );
         }
         if (lastReadMessageIndex != null) {
-            request.addPostParam("LastReadMessageIndex", lastReadMessageIndex.toString());
-    
+            request.addPostParam(
+                "LastReadMessageIndex",
+                lastReadMessageIndex.toString()
+            );
         }
     }
 }

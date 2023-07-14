@@ -24,22 +24,23 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class StyleSheetFetcher extends Fetcher<StyleSheet> {
+
     private String pathAssistantSid;
 
-    public StyleSheetFetcher(final String pathAssistantSid){
+    public StyleSheetFetcher(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
-
 
     @Override
     public StyleSheet fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/StyleSheet";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -49,15 +50,23 @@ public class StyleSheetFetcher extends Fetcher<StyleSheet> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("StyleSheet fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "StyleSheet fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return StyleSheet.fromJson(response.getStream(), client.getObjectMapper());
+        return StyleSheet.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

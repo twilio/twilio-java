@@ -22,42 +22,44 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Interaction extends Resource {
-    private static final long serialVersionUID = 122002847153214L;
 
-    public static InteractionCreator creator(final Map<String, Object> channel, final Map<String, Object> routing){
+    private static final long serialVersionUID = 1684368631913L;
+
+    public static InteractionCreator creator(
+        final Map<String, Object> channel,
+        final Map<String, Object> routing
+    ) {
         return new InteractionCreator(channel, routing);
     }
 
-    public static InteractionFetcher fetcher(final String pathSid){
+    public static InteractionFetcher fetcher(final String pathSid) {
         return new InteractionFetcher(pathSid);
     }
 
     /**
-    * Converts a JSON String into a Interaction object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Interaction object represented by the provided JSON
-    */
-    public static Interaction fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Interaction object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Interaction object represented by the provided JSON
+     */
+    public static Interaction fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Interaction.class);
@@ -69,14 +71,17 @@ public class Interaction extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Interaction object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Interaction object represented by the provided JSON
-    */
-    public static Interaction fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Interaction object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Interaction object represented by the provided JSON
+     */
+    public static Interaction fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Interaction.class);
@@ -92,50 +97,54 @@ public class Interaction extends Resource {
     private final Map<String, Object> routing;
     private final URI url;
     private final Map<String, String> links;
+    private final String interactionContextSid;
 
     @JsonCreator
     private Interaction(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("channel")
-        final Map<String, Object> channel,
-
-        @JsonProperty("routing")
-        final Map<String, Object> routing,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("channel") final Map<String, Object> channel,
+        @JsonProperty("routing") final Map<String, Object> routing,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "interaction_context_sid"
+        ) final String interactionContextSid
     ) {
         this.sid = sid;
         this.channel = channel;
         this.routing = routing;
         this.url = url;
         this.links = links;
+        this.interactionContextSid = interactionContextSid;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final Map<String, Object> getChannel() {
-            return this.channel;
-        }
-        public final Map<String, Object> getRouting() {
-            return this.routing;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final Map<String, Object> getChannel() {
+        return this.channel;
+    }
+
+    public final Map<String, Object> getRouting() {
+        return this.routing;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    public final String getInteractionContextSid() {
+        return this.interactionContextSid;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -145,13 +154,25 @@ public class Interaction extends Resource {
 
         Interaction other = (Interaction) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(channel, other.channel) &&  Objects.equals(routing, other.routing) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(routing, other.routing) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(interactionContextSid, other.interactionContextSid)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, channel, routing, url, links);
+        return Objects.hash(
+            sid,
+            channel,
+            routing,
+            url,
+            links,
+            interactionContextSid
+        );
     }
-
 }
-

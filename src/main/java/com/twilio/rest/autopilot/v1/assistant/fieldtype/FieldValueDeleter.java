@@ -24,27 +24,38 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
 public class FieldValueDeleter extends Deleter<FieldValue> {
+
     private String pathAssistantSid;
     private String pathFieldTypeSid;
     private String pathSid;
 
-    public FieldValueDeleter(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
+    public FieldValueDeleter(
+        final String pathAssistantSid,
+        final String pathFieldTypeSid,
+        final String pathSid
+    ) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}";
+        String path =
+            "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"FieldTypeSid"+"}", this.pathFieldTypeSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FieldTypeSid" + "}",
+                this.pathFieldTypeSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -54,9 +65,14 @@ public class FieldValueDeleter extends Deleter<FieldValue> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("FieldValue delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FieldValue delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }

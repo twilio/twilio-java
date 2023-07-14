@@ -24,50 +24,55 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class MediaProcessor extends Resource {
+
     private static final long serialVersionUID = 112801700822600L;
 
-    public static MediaProcessorCreator creator(final String extension, final String extensionContext){
+    public static MediaProcessorCreator creator(
+        final String extension,
+        final String extensionContext
+    ) {
         return new MediaProcessorCreator(extension, extensionContext);
     }
 
-    public static MediaProcessorFetcher fetcher(final String pathSid){
+    public static MediaProcessorFetcher fetcher(final String pathSid) {
         return new MediaProcessorFetcher(pathSid);
     }
 
-    public static MediaProcessorReader reader(){
+    public static MediaProcessorReader reader() {
         return new MediaProcessorReader();
     }
 
-    public static MediaProcessorUpdater updater(final String pathSid, final MediaProcessor.UpdateStatus status){
+    public static MediaProcessorUpdater updater(
+        final String pathSid,
+        final MediaProcessor.UpdateStatus status
+    ) {
         return new MediaProcessorUpdater(pathSid, status);
     }
 
     /**
-    * Converts a JSON String into a MediaProcessor object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return MediaProcessor object represented by the provided JSON
-    */
-    public static MediaProcessor fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a MediaProcessor object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return MediaProcessor object represented by the provided JSON
+     */
+    public static MediaProcessor fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, MediaProcessor.class);
@@ -79,14 +84,17 @@ public class MediaProcessor extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a MediaProcessor object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return MediaProcessor object represented by the provided JSON
-    */
-    public static MediaProcessor fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a MediaProcessor object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return MediaProcessor object represented by the provided JSON
+     */
+    public static MediaProcessor fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, MediaProcessor.class);
@@ -96,6 +104,7 @@ public class MediaProcessor extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Order {
         ASC("asc"),
         DESC("desc");
@@ -115,6 +124,7 @@ public class MediaProcessor extends Resource {
             return Promoter.enumFromString(value, Order.values());
         }
     }
+
     public enum Status {
         FAILED("failed"),
         STARTED("started"),
@@ -135,6 +145,7 @@ public class MediaProcessor extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
     public enum UpdateStatus {
         ENDED("ended");
 
@@ -169,41 +180,20 @@ public class MediaProcessor extends Resource {
 
     @JsonCreator
     private MediaProcessor(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("extension")
-        final String extension,
-
-        @JsonProperty("extension_context")
-        final String extensionContext,
-
-        @JsonProperty("status")
-        final MediaProcessor.Status status,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("ended_reason")
-        final String endedReason,
-
-        @JsonProperty("status_callback")
-        final URI statusCallback,
-
-        @JsonProperty("status_callback_method")
-        final HttpMethod statusCallbackMethod,
-
-        @JsonProperty("max_duration")
-        final Integer maxDuration
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("extension") final String extension,
+        @JsonProperty("extension_context") final String extensionContext,
+        @JsonProperty("status") final MediaProcessor.Status status,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("ended_reason") final String endedReason,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("max_duration") final Integer maxDuration
     ) {
         this.accountSid = accountSid;
         this.sid = sid;
@@ -219,46 +209,57 @@ public class MediaProcessor extends Resource {
         this.maxDuration = maxDuration;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getExtension() {
-            return this.extension;
-        }
-        public final String getExtensionContext() {
-            return this.extensionContext;
-        }
-        public final MediaProcessor.Status getStatus() {
-            return this.status;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getEndedReason() {
-            return this.endedReason;
-        }
-        public final URI getStatusCallback() {
-            return this.statusCallback;
-        }
-        public final HttpMethod getStatusCallbackMethod() {
-            return this.statusCallbackMethod;
-        }
-        public final Integer getMaxDuration() {
-            return this.maxDuration;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getExtension() {
+        return this.extension;
+    }
+
+    public final String getExtensionContext() {
+        return this.extensionContext;
+    }
+
+    public final MediaProcessor.Status getStatus() {
+        return this.status;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getEndedReason() {
+        return this.endedReason;
+    }
+
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    public final Integer getMaxDuration() {
+        return this.maxDuration;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -268,13 +269,37 @@ public class MediaProcessor extends Resource {
 
         MediaProcessor other = (MediaProcessor) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(extension, other.extension) &&  Objects.equals(extensionContext, other.extensionContext) &&  Objects.equals(status, other.status) &&  Objects.equals(url, other.url) &&  Objects.equals(endedReason, other.endedReason) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(maxDuration, other.maxDuration)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(extension, other.extension) &&
+            Objects.equals(extensionContext, other.extensionContext) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(endedReason, other.endedReason) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(maxDuration, other.maxDuration)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, sid, dateCreated, dateUpdated, extension, extensionContext, status, url, endedReason, statusCallback, statusCallbackMethod, maxDuration);
+        return Objects.hash(
+            accountSid,
+            sid,
+            dateCreated,
+            dateUpdated,
+            extension,
+            extensionContext,
+            status,
+            url,
+            endedReason,
+            statusCallback,
+            statusCallbackMethod,
+            maxDuration
+        );
     }
-
 }
-

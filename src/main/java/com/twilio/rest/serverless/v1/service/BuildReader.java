@@ -14,6 +14,7 @@
 
 package com.twilio.rest.serverless.v1.service;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,19 +25,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class BuildReader extends Reader<Build> {
+
     private String pathServiceSid;
     private Integer pageSize;
 
-    public BuildReader(final String pathServiceSid){
+    public BuildReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public BuildReader setPageSize(final Integer pageSize){
+    public BuildReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -48,7 +47,11 @@ public class BuildReader extends Reader<Build> {
 
     public Page<Build> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Builds";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,13 +63,21 @@ public class BuildReader extends Reader<Build> {
         return pageForRequest(client, request);
     }
 
-    private Page<Build> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Build> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Build read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Build read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -82,7 +93,10 @@ public class BuildReader extends Reader<Build> {
     }
 
     @Override
-    public Page<Build> previousPage(final Page<Build> page, final TwilioRestClient client) {
+    public Page<Build> previousPage(
+        final Page<Build> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.SERVERLESS.toString())
@@ -90,9 +104,11 @@ public class BuildReader extends Reader<Build> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Build> nextPage(final Page<Build> page, final TwilioRestClient client) {
+    public Page<Build> nextPage(
+        final Page<Build> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.SERVERLESS.toString())
@@ -101,21 +117,21 @@ public class BuildReader extends Reader<Build> {
     }
 
     @Override
-    public Page<Build> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Build> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

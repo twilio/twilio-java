@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class WorkspaceUpdater extends Updater<Workspace> {
 
-
-public class WorkspaceUpdater extends Updater<Workspace>{
     private String pathSid;
     private String defaultActivitySid;
     private URI eventCallbackUrl;
@@ -39,96 +38,122 @@ public class WorkspaceUpdater extends Updater<Workspace>{
     private String timeoutActivitySid;
     private Workspace.QueueOrder prioritizeQueueOrder;
 
-    public WorkspaceUpdater(final String pathSid){
+    public WorkspaceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public WorkspaceUpdater setDefaultActivitySid(final String defaultActivitySid){
+    public WorkspaceUpdater setDefaultActivitySid(
+        final String defaultActivitySid
+    ) {
         this.defaultActivitySid = defaultActivitySid;
         return this;
     }
-    public WorkspaceUpdater setEventCallbackUrl(final URI eventCallbackUrl){
+
+    public WorkspaceUpdater setEventCallbackUrl(final URI eventCallbackUrl) {
         this.eventCallbackUrl = eventCallbackUrl;
         return this;
     }
 
-    public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl){
+    public WorkspaceUpdater setEventCallbackUrl(final String eventCallbackUrl) {
         return setEventCallbackUrl(Promoter.uriFromString(eventCallbackUrl));
     }
-    public WorkspaceUpdater setEventsFilter(final String eventsFilter){
+
+    public WorkspaceUpdater setEventsFilter(final String eventsFilter) {
         this.eventsFilter = eventsFilter;
         return this;
     }
-    public WorkspaceUpdater setFriendlyName(final String friendlyName){
+
+    public WorkspaceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public WorkspaceUpdater setMultiTaskEnabled(final Boolean multiTaskEnabled){
+
+    public WorkspaceUpdater setMultiTaskEnabled(
+        final Boolean multiTaskEnabled
+    ) {
         this.multiTaskEnabled = multiTaskEnabled;
         return this;
     }
-    public WorkspaceUpdater setTimeoutActivitySid(final String timeoutActivitySid){
+
+    public WorkspaceUpdater setTimeoutActivitySid(
+        final String timeoutActivitySid
+    ) {
         this.timeoutActivitySid = timeoutActivitySid;
         return this;
     }
-    public WorkspaceUpdater setPrioritizeQueueOrder(final Workspace.QueueOrder prioritizeQueueOrder){
+
+    public WorkspaceUpdater setPrioritizeQueueOrder(
+        final Workspace.QueueOrder prioritizeQueueOrder
+    ) {
         this.prioritizeQueueOrder = prioritizeQueueOrder;
         return this;
     }
 
     @Override
-    public Workspace update(final TwilioRestClient client){
+    public Workspace update(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Workspace update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Workspace update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Workspace.fromJson(response.getStream(), client.getObjectMapper());
+        return Workspace.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (defaultActivitySid != null) {
             request.addPostParam("DefaultActivitySid", defaultActivitySid);
-    
         }
         if (eventCallbackUrl != null) {
-            request.addPostParam("EventCallbackUrl", eventCallbackUrl.toString());
-    
+            request.addPostParam(
+                "EventCallbackUrl",
+                eventCallbackUrl.toString()
+            );
         }
         if (eventsFilter != null) {
             request.addPostParam("EventsFilter", eventsFilter);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (multiTaskEnabled != null) {
-            request.addPostParam("MultiTaskEnabled", multiTaskEnabled.toString());
-    
+            request.addPostParam(
+                "MultiTaskEnabled",
+                multiTaskEnabled.toString()
+            );
         }
         if (timeoutActivitySid != null) {
             request.addPostParam("TimeoutActivitySid", timeoutActivitySid);
-    
         }
         if (prioritizeQueueOrder != null) {
-            request.addPostParam("PrioritizeQueueOrder", prioritizeQueueOrder.toString());
-    
+            request.addPostParam(
+                "PrioritizeQueueOrder",
+                prioritizeQueueOrder.toString()
+            );
         }
     }
 }

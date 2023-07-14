@@ -15,8 +15,9 @@
 package com.twilio.rest.preview.understand.assistant.task;
 
 import com.twilio.base.Updater;
-import com.twilio.exception.ApiConnectionException;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -24,56 +25,71 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class TaskActionsUpdater extends Updater<TaskActions> {
 
-public class TaskActionsUpdater extends Updater<TaskActions>{
     private String pathAssistantSid;
     private String pathTaskSid;
     private Map<String, Object> actions;
 
-    public TaskActionsUpdater(final String pathAssistantSid, final String pathTaskSid){
+    public TaskActionsUpdater(
+        final String pathAssistantSid,
+        final String pathTaskSid
+    ) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
     }
 
-    public TaskActionsUpdater setActions(final Map<String, Object> actions){
+    public TaskActionsUpdater setActions(final Map<String, Object> actions) {
         this.actions = actions;
         return this;
     }
 
     @Override
-    public TaskActions update(final TwilioRestClient client){
-        String path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions";
+    public TaskActions update(final TwilioRestClient client) {
+        String path =
+            "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Actions";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("TaskActions update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TaskActions update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return TaskActions.fromJson(response.getStream(), client.getObjectMapper());
+        return TaskActions.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (actions != null) {
-            request.addPostParam("Actions",  Converter.mapToJson(actions));
-    
+            request.addPostParam("Actions", Converter.mapToJson(actions));
         }
     }
 }

@@ -22,38 +22,37 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ApprovalFetch extends Resource {
+
     private static final long serialVersionUID = 266557741388539L;
 
-    public static ApprovalFetchFetcher fetcher(final String pathSid){
+    public static ApprovalFetchFetcher fetcher(final String pathSid) {
         return new ApprovalFetchFetcher(pathSid);
     }
 
     /**
-    * Converts a JSON String into a ApprovalFetch object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return ApprovalFetch object represented by the provided JSON
-    */
-    public static ApprovalFetch fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a ApprovalFetch object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return ApprovalFetch object represented by the provided JSON
+     */
+    public static ApprovalFetch fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalFetch.class);
@@ -65,14 +64,17 @@ public class ApprovalFetch extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a ApprovalFetch object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return ApprovalFetch object represented by the provided JSON
-    */
-    public static ApprovalFetch fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a ApprovalFetch object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return ApprovalFetch object represented by the provided JSON
+     */
+    public static ApprovalFetch fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ApprovalFetch.class);
@@ -90,17 +92,10 @@ public class ApprovalFetch extends Resource {
 
     @JsonCreator
     private ApprovalFetch(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("whatsapp")
-        final Map<String, Object> whatsapp,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("whatsapp") final Map<String, Object> whatsapp,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -108,22 +103,25 @@ public class ApprovalFetch extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Map<String, Object> getWhatsapp() {
-            return this.whatsapp;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Map<String, Object> getWhatsapp() {
+        return this.whatsapp;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -133,13 +131,16 @@ public class ApprovalFetch extends Resource {
 
         ApprovalFetch other = (ApprovalFetch) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(whatsapp, other.whatsapp) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(whatsapp, other.whatsapp) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid, accountSid, whatsapp, url);
     }
-
 }
-

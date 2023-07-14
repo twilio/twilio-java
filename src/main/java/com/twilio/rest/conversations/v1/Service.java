@@ -23,51 +23,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
+
     private static final long serialVersionUID = 264513185242441L;
 
-    public static ServiceCreator creator(final String friendlyName){
+    public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
     }
 
-    public static ServiceDeleter deleter(final String pathSid){
+    public static ServiceDeleter deleter(final String pathSid) {
         return new ServiceDeleter(pathSid);
     }
 
-    public static ServiceFetcher fetcher(final String pathSid){
+    public static ServiceFetcher fetcher(final String pathSid) {
         return new ServiceFetcher(pathSid);
     }
 
-    public static ServiceReader reader(){
+    public static ServiceReader reader() {
         return new ServiceReader();
     }
 
     /**
-    * Converts a JSON String into a Service object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Service object represented by the provided JSON
-    */
-    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Service object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -79,14 +78,17 @@ public class Service extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Service object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Service object represented by the provided JSON
-    */
-    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Service object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -107,26 +109,13 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.sid = sid;
@@ -137,31 +126,37 @@ public class Service extends Resource {
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -171,13 +166,27 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, sid, friendlyName, dateCreated, dateUpdated, url, links);
+        return Objects.hash(
+            accountSid,
+            sid,
+            friendlyName,
+            dateCreated,
+            dateUpdated,
+            url,
+            links
+        );
     }
-
 }
-

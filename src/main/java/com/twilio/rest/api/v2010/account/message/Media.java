@@ -23,53 +23,72 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Media extends Resource {
+
     private static final long serialVersionUID = 86856561367712L;
 
-    public static MediaDeleter deleter(final String pathMessageSid, final String pathSid){
+    public static MediaDeleter deleter(
+        final String pathMessageSid,
+        final String pathSid
+    ) {
         return new MediaDeleter(pathMessageSid, pathSid);
     }
-    public static MediaDeleter deleter(final String pathAccountSid, final String pathMessageSid, final String pathSid){
+
+    public static MediaDeleter deleter(
+        final String pathAccountSid,
+        final String pathMessageSid,
+        final String pathSid
+    ) {
         return new MediaDeleter(pathAccountSid, pathMessageSid, pathSid);
     }
 
-    public static MediaFetcher fetcher(final String pathMessageSid, final String pathSid){
+    public static MediaFetcher fetcher(
+        final String pathMessageSid,
+        final String pathSid
+    ) {
         return new MediaFetcher(pathMessageSid, pathSid);
     }
-    public static MediaFetcher fetcher(final String pathAccountSid, final String pathMessageSid, final String pathSid){
+
+    public static MediaFetcher fetcher(
+        final String pathAccountSid,
+        final String pathMessageSid,
+        final String pathSid
+    ) {
         return new MediaFetcher(pathAccountSid, pathMessageSid, pathSid);
     }
 
-    public static MediaReader reader(final String pathMessageSid){
+    public static MediaReader reader(final String pathMessageSid) {
         return new MediaReader(pathMessageSid);
     }
-    public static MediaReader reader(final String pathAccountSid, final String pathMessageSid){
+
+    public static MediaReader reader(
+        final String pathAccountSid,
+        final String pathMessageSid
+    ) {
         return new MediaReader(pathAccountSid, pathMessageSid);
     }
 
     /**
-    * Converts a JSON String into a Media object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Media object represented by the provided JSON
-    */
-    public static Media fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Media object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Media object represented by the provided JSON
+     */
+    public static Media fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Media.class);
@@ -81,14 +100,17 @@ public class Media extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Media object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Media object represented by the provided JSON
-    */
-    public static Media fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Media object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Media object represented by the provided JSON
+     */
+    public static Media fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Media.class);
@@ -109,26 +131,13 @@ public class Media extends Resource {
 
     @JsonCreator
     private Media(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("content_type")
-        final String contentType,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("parent_sid")
-        final String parentSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("uri")
-        final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("content_type") final String contentType,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("parent_sid") final String parentSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.contentType = contentType;
@@ -139,31 +148,37 @@ public class Media extends Resource {
         this.uri = uri;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getContentType() {
-            return this.contentType;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getParentSid() {
-            return this.parentSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getContentType() {
+        return this.contentType;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getParentSid() {
+        return this.parentSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -173,13 +188,27 @@ public class Media extends Resource {
 
         Media other = (Media) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(contentType, other.contentType) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(parentSid, other.parentSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(uri, other.uri)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(contentType, other.contentType) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(parentSid, other.parentSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, contentType, dateCreated, dateUpdated, parentSid, sid, uri);
+        return Objects.hash(
+            accountSid,
+            contentType,
+            dateCreated,
+            dateUpdated,
+            parentSid,
+            sid,
+            uri
+        );
     }
-
 }
-

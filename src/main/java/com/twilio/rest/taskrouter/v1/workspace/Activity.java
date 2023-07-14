@@ -23,55 +23,66 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Activity extends Resource {
+
     private static final long serialVersionUID = 20275383236164L;
 
-    public static ActivityCreator creator(final String pathWorkspaceSid, final String friendlyName){
+    public static ActivityCreator creator(
+        final String pathWorkspaceSid,
+        final String friendlyName
+    ) {
         return new ActivityCreator(pathWorkspaceSid, friendlyName);
     }
 
-    public static ActivityDeleter deleter(final String pathWorkspaceSid, final String pathSid){
+    public static ActivityDeleter deleter(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
         return new ActivityDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static ActivityFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
+    public static ActivityFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
         return new ActivityFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static ActivityReader reader(final String pathWorkspaceSid){
+    public static ActivityReader reader(final String pathWorkspaceSid) {
         return new ActivityReader(pathWorkspaceSid);
     }
 
-    public static ActivityUpdater updater(final String pathWorkspaceSid, final String pathSid){
+    public static ActivityUpdater updater(
+        final String pathWorkspaceSid,
+        final String pathSid
+    ) {
         return new ActivityUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Activity object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Activity object represented by the provided JSON
-    */
-    public static Activity fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Activity object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Activity object represented by the provided JSON
+     */
+    public static Activity fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Activity.class);
@@ -83,14 +94,17 @@ public class Activity extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Activity object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Activity object represented by the provided JSON
-    */
-    public static Activity fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Activity object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Activity object represented by the provided JSON
+     */
+    public static Activity fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Activity.class);
@@ -113,32 +127,15 @@ public class Activity extends Resource {
 
     @JsonCreator
     private Activity(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("available")
-        final Boolean available,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("workspace_sid")
-        final String workspaceSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("available") final Boolean available,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("workspace_sid") final String workspaceSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.available = available;
@@ -151,37 +148,45 @@ public class Activity extends Resource {
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Boolean getAvailable() {
-            return this.available;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getWorkspaceSid() {
-            return this.workspaceSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Boolean getAvailable() {
+        return this.available;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -191,13 +196,31 @@ public class Activity extends Resource {
 
         Activity other = (Activity) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(available, other.available) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(sid, other.sid) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(available, other.available) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(workspaceSid, other.workspaceSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, available, dateCreated, dateUpdated, friendlyName, sid, workspaceSid, url, links);
+        return Objects.hash(
+            accountSid,
+            available,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            sid,
+            workspaceSid,
+            url,
+            links
+        );
     }
-
 }
-

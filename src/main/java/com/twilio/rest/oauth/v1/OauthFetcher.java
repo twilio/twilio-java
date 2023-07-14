@@ -24,19 +24,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class OauthFetcher extends Fetcher<Oauth> {
 
-    public OauthFetcher(){
-    }
-
+    public OauthFetcher() {}
 
     @Override
     public Oauth fetch(final TwilioRestClient client) {
         String path = "/v1/certs";
-
 
         Request request = new Request(
             HttpMethod.GET,
@@ -46,9 +40,14 @@ public class OauthFetcher extends Fetcher<Oauth> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("Oauth fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Oauth fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }

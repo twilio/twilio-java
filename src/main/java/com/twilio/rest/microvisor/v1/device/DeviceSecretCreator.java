@@ -15,6 +15,7 @@
 package com.twilio.rest.microvisor.v1.device;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,64 +25,79 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class DeviceSecretCreator extends Creator<DeviceSecret> {
 
-
-
-public class DeviceSecretCreator extends Creator<DeviceSecret>{
     private String pathDeviceSid;
     private String key;
     private String value;
 
-    public DeviceSecretCreator(final String pathDeviceSid, final String key, final String value) {
+    public DeviceSecretCreator(
+        final String pathDeviceSid,
+        final String key,
+        final String value
+    ) {
         this.pathDeviceSid = pathDeviceSid;
         this.key = key;
         this.value = value;
     }
 
-    public DeviceSecretCreator setKey(final String key){
+    public DeviceSecretCreator setKey(final String key) {
         this.key = key;
         return this;
     }
-    public DeviceSecretCreator setValue(final String value){
+
+    public DeviceSecretCreator setValue(final String value) {
         this.value = value;
         return this;
     }
 
     @Override
-    public DeviceSecret create(final TwilioRestClient client){
+    public DeviceSecret create(final TwilioRestClient client) {
         String path = "/v1/Devices/{DeviceSid}/Secrets";
 
-        path = path.replace("{"+"DeviceSid"+"}", this.pathDeviceSid.toString());
-        path = path.replace("{"+"Key"+"}", this.key.toString());
-        path = path.replace("{"+"Value"+"}", this.value.toString());
+        path =
+            path.replace(
+                "{" + "DeviceSid" + "}",
+                this.pathDeviceSid.toString()
+            );
+        path = path.replace("{" + "Key" + "}", this.key.toString());
+        path = path.replace("{" + "Value" + "}", this.value.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.MICROVISOR.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("DeviceSecret creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "DeviceSecret creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return DeviceSecret.fromJson(response.getStream(), client.getObjectMapper());
+        return DeviceSecret.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (key != null) {
             request.addPostParam("Key", key);
-    
         }
         if (value != null) {
             request.addPostParam("Value", value);
-    
         }
     }
 }

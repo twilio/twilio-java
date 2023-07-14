@@ -22,38 +22,40 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkflowStatistics extends Resource {
+
     private static final long serialVersionUID = 124113751515927L;
 
-    public static WorkflowStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
+    public static WorkflowStatisticsFetcher fetcher(
+        final String pathWorkspaceSid,
+        final String pathWorkflowSid
+    ) {
         return new WorkflowStatisticsFetcher(pathWorkspaceSid, pathWorkflowSid);
     }
 
     /**
-    * Converts a JSON String into a WorkflowStatistics object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return WorkflowStatistics object represented by the provided JSON
-    */
-    public static WorkflowStatistics fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a WorkflowStatistics object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return WorkflowStatistics object represented by the provided JSON
+     */
+    public static WorkflowStatistics fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WorkflowStatistics.class);
@@ -65,14 +67,17 @@ public class WorkflowStatistics extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a WorkflowStatistics object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return WorkflowStatistics object represented by the provided JSON
-    */
-    public static WorkflowStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a WorkflowStatistics object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return WorkflowStatistics object represented by the provided JSON
+     */
+    public static WorkflowStatistics fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WorkflowStatistics.class);
@@ -92,23 +97,12 @@ public class WorkflowStatistics extends Resource {
 
     @JsonCreator
     private WorkflowStatistics(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("cumulative")
-        final Map<String, Object> cumulative,
-
-        @JsonProperty("realtime")
-        final Map<String, Object> realtime,
-
-        @JsonProperty("workflow_sid")
-        final String workflowSid,
-
-        @JsonProperty("workspace_sid")
-        final String workspaceSid,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("cumulative") final Map<String, Object> cumulative,
+        @JsonProperty("realtime") final Map<String, Object> realtime,
+        @JsonProperty("workflow_sid") final String workflowSid,
+        @JsonProperty("workspace_sid") final String workspaceSid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
@@ -118,28 +112,33 @@ public class WorkflowStatistics extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Map<String, Object> getCumulative() {
-            return this.cumulative;
-        }
-        public final Map<String, Object> getRealtime() {
-            return this.realtime;
-        }
-        public final String getWorkflowSid() {
-            return this.workflowSid;
-        }
-        public final String getWorkspaceSid() {
-            return this.workspaceSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Map<String, Object> getCumulative() {
+        return this.cumulative;
+    }
+
+    public final Map<String, Object> getRealtime() {
+        return this.realtime;
+    }
+
+    public final String getWorkflowSid() {
+        return this.workflowSid;
+    }
+
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -149,13 +148,25 @@ public class WorkflowStatistics extends Resource {
 
         WorkflowStatistics other = (WorkflowStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(cumulative, other.cumulative) &&  Objects.equals(realtime, other.realtime) &&  Objects.equals(workflowSid, other.workflowSid) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(cumulative, other.cumulative) &&
+            Objects.equals(realtime, other.realtime) &&
+            Objects.equals(workflowSid, other.workflowSid) &&
+            Objects.equals(workspaceSid, other.workspaceSid) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, cumulative, realtime, workflowSid, workspaceSid, url);
+        return Objects.hash(
+            accountSid,
+            cumulative,
+            realtime,
+            workflowSid,
+            workspaceSid,
+            url
+        );
     }
-
 }
-

@@ -15,8 +15,9 @@
 package com.twilio.rest.video.v1.room;
 
 import com.twilio.base.Updater;
-import com.twilio.exception.ApiConnectionException;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -24,53 +25,60 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class RecordingRulesUpdater extends Updater<RecordingRules> {
 
-public class RecordingRulesUpdater extends Updater<RecordingRules>{
     private String pathRoomSid;
     private Map<String, Object> rules;
 
-    public RecordingRulesUpdater(final String pathRoomSid){
+    public RecordingRulesUpdater(final String pathRoomSid) {
         this.pathRoomSid = pathRoomSid;
     }
 
-    public RecordingRulesUpdater setRules(final Map<String, Object> rules){
+    public RecordingRulesUpdater setRules(final Map<String, Object> rules) {
         this.rules = rules;
         return this;
     }
 
     @Override
-    public RecordingRules update(final TwilioRestClient client){
+    public RecordingRules update(final TwilioRestClient client) {
         String path = "/v1/Rooms/{RoomSid}/RecordingRules";
 
-        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.VIDEO.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("RecordingRules update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "RecordingRules update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return RecordingRules.fromJson(response.getStream(), client.getObjectMapper());
+        return RecordingRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (rules != null) {
-            request.addPostParam("Rules",  Converter.mapToJson(rules));
-    
+            request.addPostParam("Rules", Converter.mapToJson(rules));
         }
     }
 }

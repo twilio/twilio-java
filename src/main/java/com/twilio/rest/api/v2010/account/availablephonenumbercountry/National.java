@@ -22,40 +22,43 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
+import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
-
-import java.util.Objects;
-
-
 import java.math.BigDecimal;
-import com.twilio.type.PhoneNumberCapabilities;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class National extends Resource {
+
     private static final long serialVersionUID = 211749226408502L;
 
-    public static NationalReader reader(final String pathCountryCode){
+    public static NationalReader reader(final String pathCountryCode) {
         return new NationalReader(pathCountryCode);
     }
-    public static NationalReader reader(final String pathAccountSid, final String pathCountryCode){
+
+    public static NationalReader reader(
+        final String pathAccountSid,
+        final String pathCountryCode
+    ) {
         return new NationalReader(pathAccountSid, pathCountryCode);
     }
 
     /**
-    * Converts a JSON String into a National object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return National object represented by the provided JSON
-    */
-    public static National fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a National object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return National object represented by the provided JSON
+     */
+    public static National fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, National.class);
@@ -67,14 +70,17 @@ public class National extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a National object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return National object represented by the provided JSON
-    */
-    public static National fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a National object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return National object represented by the provided JSON
+     */
+    public static National fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, National.class);
@@ -101,44 +107,23 @@ public class National extends Resource {
 
     @JsonCreator
     private National(
-        @JsonProperty("friendly_name")
-        final com.twilio.type.PhoneNumber friendlyName,
-
-        @JsonProperty("phone_number")
-        final com.twilio.type.PhoneNumber phoneNumber,
-
-        @JsonProperty("lata")
-        final String lata,
-
-        @JsonProperty("locality")
-        final String locality,
-
-        @JsonProperty("rate_center")
-        final String rateCenter,
-
-        @JsonProperty("latitude")
-        final BigDecimal latitude,
-
-        @JsonProperty("longitude")
-        final BigDecimal longitude,
-
-        @JsonProperty("region")
-        final String region,
-
-        @JsonProperty("postal_code")
-        final String postalCode,
-
-        @JsonProperty("iso_country")
-        final String isoCountry,
-
-        @JsonProperty("address_requirements")
-        final String addressRequirements,
-
-        @JsonProperty("beta")
-        final Boolean beta,
-
-        @JsonProperty("capabilities")
-        final PhoneNumberCapabilities capabilities
+        @JsonProperty(
+            "friendly_name"
+        ) final com.twilio.type.PhoneNumber friendlyName,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("lata") final String lata,
+        @JsonProperty("locality") final String locality,
+        @JsonProperty("rate_center") final String rateCenter,
+        @JsonProperty("latitude") final BigDecimal latitude,
+        @JsonProperty("longitude") final BigDecimal longitude,
+        @JsonProperty("region") final String region,
+        @JsonProperty("postal_code") final String postalCode,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("address_requirements") final String addressRequirements,
+        @JsonProperty("beta") final Boolean beta,
+        @JsonProperty("capabilities") final PhoneNumberCapabilities capabilities
     ) {
         this.friendlyName = friendlyName;
         this.phoneNumber = phoneNumber;
@@ -155,49 +140,61 @@ public class National extends Resource {
         this.capabilities = capabilities;
     }
 
-        public final com.twilio.type.PhoneNumber getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final com.twilio.type.PhoneNumber getPhoneNumber() {
-            return this.phoneNumber;
-        }
-        public final String getLata() {
-            return this.lata;
-        }
-        public final String getLocality() {
-            return this.locality;
-        }
-        public final String getRateCenter() {
-            return this.rateCenter;
-        }
-        public final BigDecimal getLatitude() {
-            return this.latitude;
-        }
-        public final BigDecimal getLongitude() {
-            return this.longitude;
-        }
-        public final String getRegion() {
-            return this.region;
-        }
-        public final String getPostalCode() {
-            return this.postalCode;
-        }
-        public final String getIsoCountry() {
-            return this.isoCountry;
-        }
-        public final String getAddressRequirements() {
-            return this.addressRequirements;
-        }
-        public final Boolean getBeta() {
-            return this.beta;
-        }
-        public final PhoneNumberCapabilities getCapabilities() {
-            return this.capabilities;
-        }
+    public final com.twilio.type.PhoneNumber getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public final String getLata() {
+        return this.lata;
+    }
+
+    public final String getLocality() {
+        return this.locality;
+    }
+
+    public final String getRateCenter() {
+        return this.rateCenter;
+    }
+
+    public final BigDecimal getLatitude() {
+        return this.latitude;
+    }
+
+    public final BigDecimal getLongitude() {
+        return this.longitude;
+    }
+
+    public final String getRegion() {
+        return this.region;
+    }
+
+    public final String getPostalCode() {
+        return this.postalCode;
+    }
+
+    public final String getIsoCountry() {
+        return this.isoCountry;
+    }
+
+    public final String getAddressRequirements() {
+        return this.addressRequirements;
+    }
+
+    public final Boolean getBeta() {
+        return this.beta;
+    }
+
+    public final PhoneNumberCapabilities getCapabilities() {
+        return this.capabilities;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -207,13 +204,39 @@ public class National extends Resource {
 
         National other = (National) o;
 
-        return Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(lata, other.lata) &&  Objects.equals(locality, other.locality) &&  Objects.equals(rateCenter, other.rateCenter) &&  Objects.equals(latitude, other.latitude) &&  Objects.equals(longitude, other.longitude) &&  Objects.equals(region, other.region) &&  Objects.equals(postalCode, other.postalCode) &&  Objects.equals(isoCountry, other.isoCountry) &&  Objects.equals(addressRequirements, other.addressRequirements) &&  Objects.equals(beta, other.beta) &&  Objects.equals(capabilities, other.capabilities)  ;
+        return (
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(lata, other.lata) &&
+            Objects.equals(locality, other.locality) &&
+            Objects.equals(rateCenter, other.rateCenter) &&
+            Objects.equals(latitude, other.latitude) &&
+            Objects.equals(longitude, other.longitude) &&
+            Objects.equals(region, other.region) &&
+            Objects.equals(postalCode, other.postalCode) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(addressRequirements, other.addressRequirements) &&
+            Objects.equals(beta, other.beta) &&
+            Objects.equals(capabilities, other.capabilities)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(friendlyName, phoneNumber, lata, locality, rateCenter, latitude, longitude, region, postalCode, isoCountry, addressRequirements, beta, capabilities);
+        return Objects.hash(
+            friendlyName,
+            phoneNumber,
+            lata,
+            locality,
+            rateCenter,
+            latitude,
+            longitude,
+            region,
+            postalCode,
+            isoCountry,
+            addressRequirements,
+            beta,
+            capabilities
+        );
     }
-
 }
-

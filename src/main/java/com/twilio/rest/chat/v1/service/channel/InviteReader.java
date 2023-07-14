@@ -14,6 +14,7 @@
 
 package com.twilio.rest.chat.v1.service.channel;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -25,30 +26,33 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
 import java.util.List;
 
-
 public class InviteReader extends Reader<Invite> {
+
     private String pathServiceSid;
     private String pathChannelSid;
     private List<String> identity;
     private Integer pageSize;
 
-    public InviteReader(final String pathServiceSid, final String pathChannelSid){
+    public InviteReader(
+        final String pathServiceSid,
+        final String pathChannelSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
     }
 
-    public InviteReader setIdentity(final List<String> identity){
+    public InviteReader setIdentity(final List<String> identity) {
         this.identity = identity;
         return this;
     }
-    public InviteReader setIdentity(final String identity){
+
+    public InviteReader setIdentity(final String identity) {
         return setIdentity(Promoter.listOfOne(identity));
     }
-    public InviteReader setPageSize(final Integer pageSize){
+
+    public InviteReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -60,8 +64,16 @@ public class InviteReader extends Reader<Invite> {
 
     public Page<Invite> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Invites";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -73,13 +85,21 @@ public class InviteReader extends Reader<Invite> {
         return pageForRequest(client, request);
     }
 
-    private Page<Invite> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Invite> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Invite read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Invite read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -95,7 +115,10 @@ public class InviteReader extends Reader<Invite> {
     }
 
     @Override
-    public Page<Invite> previousPage(final Page<Invite> page, final TwilioRestClient client) {
+    public Page<Invite> previousPage(
+        final Page<Invite> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.CHAT.toString())
@@ -103,9 +126,11 @@ public class InviteReader extends Reader<Invite> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Invite> nextPage(final Page<Invite> page, final TwilioRestClient client) {
+    public Page<Invite> nextPage(
+        final Page<Invite> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.CHAT.toString())
@@ -114,14 +139,15 @@ public class InviteReader extends Reader<Invite> {
     }
 
     @Override
-    public Page<Invite> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Invite> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (identity != null) {
             for (String prop : identity) {
@@ -129,11 +155,10 @@ public class InviteReader extends Reader<Invite> {
             }
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

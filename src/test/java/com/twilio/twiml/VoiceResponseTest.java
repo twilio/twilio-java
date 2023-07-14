@@ -160,7 +160,7 @@ public class VoiceResponseTest {
 
         builder.reject(new Reject.Builder().reason(Reject.Reason.REJECTED).build());
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build());
 
         builder.sms(new Sms.Builder("message")
                     .to(new com.twilio.type.PhoneNumber("+15558675310"))
@@ -223,7 +223,7 @@ public class VoiceResponseTest {
                 "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
                 "<Reject reason=\"rejected\"/>" +
-                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
                 "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +
@@ -415,7 +415,7 @@ public class VoiceResponseTest {
 
         builder.reject(new Reject.Builder().reason(Reject.Reason.REJECTED).build());
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build());
 
         builder.sms(new Sms.Builder("message")
                     .to(new com.twilio.type.PhoneNumber("+15558675310"))
@@ -477,7 +477,7 @@ public class VoiceResponseTest {
                 "<Record action=\"https://example.com\" finishOnKey=\"finish_on_key\" maxLength=\"1\" method=\"GET\" playBeep=\"true\" recordingStatusCallback=\"https://example.com\" recordingStatusCallbackEvent=\"in-progress\" recordingStatusCallbackMethod=\"GET\" timeout=\"1\" transcribe=\"true\" transcribeCallback=\"https://example.com\" trim=\"trim-silence\"/>" +
                 "<Redirect method=\"GET\">https://example.com</Redirect>" +
                 "<Reject reason=\"rejected\"/>" +
-                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Sms action=\"https://example.com\" from=\"+15017122661\" method=\"GET\" statusCallback=\"https://example.com\" to=\"+15558675310\">message</Sms>" +
                 "<Pay action=\"https://example.com\" bankAccountType=\"consumer-checking\" chargeAmount=\"charge_amount\" currency=\"currency\" description=\"description\" input=\"dtmf\" language=\"de-DE\" maxAttempts=\"1\" minPostalCodeLength=\"1\" paymentConnector=\"payment_connector\" paymentMethod=\"ach-debit\" postalCode=\"postal_code\" securityCode=\"true\" statusCallback=\"https://example.com\" statusCallbackMethod=\"GET\" timeout=\"1\" tokenType=\"one-time\" validCardTypes=\"visa\"/>" +
                 "<Prompt attempt=\"1\" cardType=\"visa\" errorType=\"timeout\" for=\"payment-card-number\" requireMatchingInputs=\"true\"/>" +

@@ -23,40 +23,39 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
+
     private static final long serialVersionUID = 253333531578389L;
 
-    public static UserFetcher fetcher(final String pathSid){
+    public static UserFetcher fetcher(final String pathSid) {
         return new UserFetcher(pathSid);
     }
 
-    public static UserUpdater updater(final String pathSid){
+    public static UserUpdater updater(final String pathSid) {
         return new UserUpdater(pathSid);
     }
 
     /**
-    * Converts a JSON String into a User object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return User object represented by the provided JSON
-    */
-    public static User fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a User object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return User object represented by the provided JSON
+     */
+    public static User fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -68,14 +67,17 @@ public class User extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a User object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return User object represented by the provided JSON
-    */
-    public static User fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a User object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return User object represented by the provided JSON
+     */
+    public static User fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -85,6 +87,7 @@ public class User extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum StateType {
         ACTIVE("active"),
         DEACTIVATED("deactivated");
@@ -115,26 +118,13 @@ public class User extends Resource {
 
     @JsonCreator
     private User(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("avatar")
-        final String avatar,
-
-        @JsonProperty("state")
-        final User.StateType state,
-
-        @JsonProperty("is_available")
-        final Boolean isAvailable,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("avatar") final String avatar,
+        @JsonProperty("state") final User.StateType state,
+        @JsonProperty("is_available") final Boolean isAvailable,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.identity = identity;
@@ -145,31 +135,37 @@ public class User extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getAvatar() {
-            return this.avatar;
-        }
-        public final User.StateType getState() {
-            return this.state;
-        }
-        public final Boolean getIsAvailable() {
-            return this.isAvailable;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getAvatar() {
+        return this.avatar;
+    }
+
+    public final User.StateType getState() {
+        return this.state;
+    }
+
+    public final Boolean getIsAvailable() {
+        return this.isAvailable;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -179,13 +175,27 @@ public class User extends Resource {
 
         User other = (User) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(avatar, other.avatar) &&  Objects.equals(state, other.state) &&  Objects.equals(isAvailable, other.isAvailable) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(avatar, other.avatar) &&
+            Objects.equals(state, other.state) &&
+            Objects.equals(isAvailable, other.isAvailable) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, identity, friendlyName, avatar, state, isAvailable, url);
+        return Objects.hash(
+            sid,
+            identity,
+            friendlyName,
+            avatar,
+            state,
+            isAvailable,
+            url
+        );
     }
-
 }
-

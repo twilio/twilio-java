@@ -15,6 +15,7 @@
 package com.twilio.rest.taskrouter.v1.workspace;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class TaskQueueCreator extends Creator<TaskQueue> {
 
-
-
-public class TaskQueueCreator extends Creator<TaskQueue>{
     private String pathWorkspaceSid;
     private String friendlyName;
     private String targetWorkers;
@@ -36,86 +35,121 @@ public class TaskQueueCreator extends Creator<TaskQueue>{
     private String reservationActivitySid;
     private String assignmentActivitySid;
 
-    public TaskQueueCreator(final String pathWorkspaceSid, final String friendlyName) {
+    public TaskQueueCreator(
+        final String pathWorkspaceSid,
+        final String friendlyName
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.friendlyName = friendlyName;
     }
 
-    public TaskQueueCreator setFriendlyName(final String friendlyName){
+    public TaskQueueCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public TaskQueueCreator setTargetWorkers(final String targetWorkers){
+
+    public TaskQueueCreator setTargetWorkers(final String targetWorkers) {
         this.targetWorkers = targetWorkers;
         return this;
     }
-    public TaskQueueCreator setMaxReservedWorkers(final Integer maxReservedWorkers){
+
+    public TaskQueueCreator setMaxReservedWorkers(
+        final Integer maxReservedWorkers
+    ) {
         this.maxReservedWorkers = maxReservedWorkers;
         return this;
     }
-    public TaskQueueCreator setTaskOrder(final TaskQueue.TaskOrder taskOrder){
+
+    public TaskQueueCreator setTaskOrder(final TaskQueue.TaskOrder taskOrder) {
         this.taskOrder = taskOrder;
         return this;
     }
-    public TaskQueueCreator setReservationActivitySid(final String reservationActivitySid){
+
+    public TaskQueueCreator setReservationActivitySid(
+        final String reservationActivitySid
+    ) {
         this.reservationActivitySid = reservationActivitySid;
         return this;
     }
-    public TaskQueueCreator setAssignmentActivitySid(final String assignmentActivitySid){
+
+    public TaskQueueCreator setAssignmentActivitySid(
+        final String assignmentActivitySid
+    ) {
         this.assignmentActivitySid = assignmentActivitySid;
         return this;
     }
 
     @Override
-    public TaskQueue create(final TwilioRestClient client){
+    public TaskQueue create(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/TaskQueues";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
-        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FriendlyName" + "}",
+                this.friendlyName.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.TASKROUTER.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("TaskQueue creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TaskQueue creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return TaskQueue.fromJson(response.getStream(), client.getObjectMapper());
+        return TaskQueue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (targetWorkers != null) {
             request.addPostParam("TargetWorkers", targetWorkers);
-    
         }
         if (maxReservedWorkers != null) {
-            request.addPostParam("MaxReservedWorkers", maxReservedWorkers.toString());
-    
+            request.addPostParam(
+                "MaxReservedWorkers",
+                maxReservedWorkers.toString()
+            );
         }
         if (taskOrder != null) {
             request.addPostParam("TaskOrder", taskOrder.toString());
-    
         }
         if (reservationActivitySid != null) {
-            request.addPostParam("ReservationActivitySid", reservationActivitySid);
-    
+            request.addPostParam(
+                "ReservationActivitySid",
+                reservationActivitySid
+            );
         }
         if (assignmentActivitySid != null) {
-            request.addPostParam("AssignmentActivitySid", assignmentActivitySid);
-    
+            request.addPostParam(
+                "AssignmentActivitySid",
+                assignmentActivitySid
+            );
         }
     }
 }

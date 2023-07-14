@@ -24,29 +24,42 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
+
     private String pathConnectAppSid;
     private String pathAccountSid;
 
-    public AuthorizedConnectAppFetcher(final String pathConnectAppSid){
+    public AuthorizedConnectAppFetcher(final String pathConnectAppSid) {
         this.pathConnectAppSid = pathConnectAppSid;
     }
-    public AuthorizedConnectAppFetcher(final String pathAccountSid, final String pathConnectAppSid){
+
+    public AuthorizedConnectAppFetcher(
+        final String pathAccountSid,
+        final String pathConnectAppSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathConnectAppSid = pathConnectAppSid;
     }
 
-
     @Override
     public AuthorizedConnectApp fetch(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json";
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/AuthorizedConnectApps/{ConnectAppSid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"ConnectAppSid"+"}", this.pathConnectAppSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConnectAppSid" + "}",
+                this.pathConnectAppSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -56,15 +69,23 @@ public class AuthorizedConnectAppFetcher extends Fetcher<AuthorizedConnectApp> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("AuthorizedConnectApp fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthorizedConnectApp fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return AuthorizedConnectApp.fromJson(response.getStream(), client.getObjectMapper());
+        return AuthorizedConnectApp.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

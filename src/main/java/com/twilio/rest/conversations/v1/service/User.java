@@ -24,55 +24,66 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class User extends Resource {
+
     private static final long serialVersionUID = 270629422616663L;
 
-    public static UserCreator creator(final String pathChatServiceSid, final String identity){
+    public static UserCreator creator(
+        final String pathChatServiceSid,
+        final String identity
+    ) {
         return new UserCreator(pathChatServiceSid, identity);
     }
 
-    public static UserDeleter deleter(final String pathChatServiceSid, final String pathSid){
+    public static UserDeleter deleter(
+        final String pathChatServiceSid,
+        final String pathSid
+    ) {
         return new UserDeleter(pathChatServiceSid, pathSid);
     }
 
-    public static UserFetcher fetcher(final String pathChatServiceSid, final String pathSid){
+    public static UserFetcher fetcher(
+        final String pathChatServiceSid,
+        final String pathSid
+    ) {
         return new UserFetcher(pathChatServiceSid, pathSid);
     }
 
-    public static UserReader reader(final String pathChatServiceSid){
+    public static UserReader reader(final String pathChatServiceSid) {
         return new UserReader(pathChatServiceSid);
     }
 
-    public static UserUpdater updater(final String pathChatServiceSid, final String pathSid){
+    public static UserUpdater updater(
+        final String pathChatServiceSid,
+        final String pathSid
+    ) {
         return new UserUpdater(pathChatServiceSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a User object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return User object represented by the provided JSON
-    */
-    public static User fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a User object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return User object represented by the provided JSON
+     */
+    public static User fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -84,14 +95,17 @@ public class User extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a User object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return User object represented by the provided JSON
-    */
-    public static User fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a User object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return User object represented by the provided JSON
+     */
+    public static User fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, User.class);
@@ -101,6 +115,7 @@ public class User extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
@@ -137,44 +152,19 @@ public class User extends Resource {
 
     @JsonCreator
     private User(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("chat_service_sid")
-        final String chatServiceSid,
-
-        @JsonProperty("role_sid")
-        final String roleSid,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("attributes")
-        final String attributes,
-
-        @JsonProperty("is_online")
-        final Boolean isOnline,
-
-        @JsonProperty("is_notifiable")
-        final Boolean isNotifiable,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("role_sid") final String roleSid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("attributes") final String attributes,
+        @JsonProperty("is_online") final Boolean isOnline,
+        @JsonProperty("is_notifiable") final Boolean isNotifiable,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -191,49 +181,61 @@ public class User extends Resource {
         this.links = links;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getChatServiceSid() {
-            return this.chatServiceSid;
-        }
-        public final String getRoleSid() {
-            return this.roleSid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getAttributes() {
-            return this.attributes;
-        }
-        public final Boolean getIsOnline() {
-            return this.isOnline;
-        }
-        public final Boolean getIsNotifiable() {
-            return this.isNotifiable;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getChatServiceSid() {
+        return this.chatServiceSid;
+    }
+
+    public final String getRoleSid() {
+        return this.roleSid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getAttributes() {
+        return this.attributes;
+    }
+
+    public final Boolean getIsOnline() {
+        return this.isOnline;
+    }
+
+    public final Boolean getIsNotifiable() {
+        return this.isNotifiable;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -243,13 +245,39 @@ public class User extends Resource {
 
         User other = (User) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(roleSid, other.roleSid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(isOnline, other.isOnline) &&  Objects.equals(isNotifiable, other.isNotifiable) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(roleSid, other.roleSid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(isOnline, other.isOnline) &&
+            Objects.equals(isNotifiable, other.isNotifiable) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, chatServiceSid, roleSid, identity, friendlyName, attributes, isOnline, isNotifiable, dateCreated, dateUpdated, url, links);
+        return Objects.hash(
+            sid,
+            accountSid,
+            chatServiceSid,
+            roleSid,
+            identity,
+            friendlyName,
+            attributes,
+            isOnline,
+            isNotifiable,
+            dateCreated,
+            dateUpdated,
+            url,
+            links
+        );
     }
-
 }
-

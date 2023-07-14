@@ -14,6 +14,7 @@
 
 package com.twilio.rest.intelligence.v2;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +25,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class TranscriptReader extends Reader<Transcript> {
+
     private String serviceSid;
     private String beforeStartTime;
     private String afterStartTime;
@@ -39,42 +38,51 @@ public class TranscriptReader extends Reader<Transcript> {
     private String sourceSid;
     private Integer pageSize;
 
-    public TranscriptReader(){
-    }
+    public TranscriptReader() {}
 
-    public TranscriptReader setServiceSid(final String serviceSid){
+    public TranscriptReader setServiceSid(final String serviceSid) {
         this.serviceSid = serviceSid;
         return this;
     }
-    public TranscriptReader setBeforeStartTime(final String beforeStartTime){
+
+    public TranscriptReader setBeforeStartTime(final String beforeStartTime) {
         this.beforeStartTime = beforeStartTime;
         return this;
     }
-    public TranscriptReader setAfterStartTime(final String afterStartTime){
+
+    public TranscriptReader setAfterStartTime(final String afterStartTime) {
         this.afterStartTime = afterStartTime;
         return this;
     }
-    public TranscriptReader setBeforeDateCreated(final String beforeDateCreated){
+
+    public TranscriptReader setBeforeDateCreated(
+        final String beforeDateCreated
+    ) {
         this.beforeDateCreated = beforeDateCreated;
         return this;
     }
-    public TranscriptReader setAfterDateCreated(final String afterDateCreated){
+
+    public TranscriptReader setAfterDateCreated(final String afterDateCreated) {
         this.afterDateCreated = afterDateCreated;
         return this;
     }
-    public TranscriptReader setStatus(final String status){
+
+    public TranscriptReader setStatus(final String status) {
         this.status = status;
         return this;
     }
-    public TranscriptReader setLanguageCode(final String languageCode){
+
+    public TranscriptReader setLanguageCode(final String languageCode) {
         this.languageCode = languageCode;
         return this;
     }
-    public TranscriptReader setSourceSid(final String sourceSid){
+
+    public TranscriptReader setSourceSid(final String sourceSid) {
         this.sourceSid = sourceSid;
         return this;
     }
-    public TranscriptReader setPageSize(final Integer pageSize){
+
+    public TranscriptReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -97,13 +105,21 @@ public class TranscriptReader extends Reader<Transcript> {
         return pageForRequest(client, request);
     }
 
-    private Page<Transcript> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Transcript> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Transcript read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Transcript read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -119,7 +135,10 @@ public class TranscriptReader extends Reader<Transcript> {
     }
 
     @Override
-    public Page<Transcript> previousPage(final Page<Transcript> page, final TwilioRestClient client) {
+    public Page<Transcript> previousPage(
+        final Page<Transcript> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INTELLIGENCE.toString())
@@ -127,9 +146,11 @@ public class TranscriptReader extends Reader<Transcript> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Transcript> nextPage(final Page<Transcript> page, final TwilioRestClient client) {
+    public Page<Transcript> nextPage(
+        final Page<Transcript> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INTELLIGENCE.toString())
@@ -138,53 +159,45 @@ public class TranscriptReader extends Reader<Transcript> {
     }
 
     @Override
-    public Page<Transcript> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Transcript> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (serviceSid != null) {
-    
             request.addQueryParam("ServiceSid", serviceSid);
         }
         if (beforeStartTime != null) {
-    
             request.addQueryParam("BeforeStartTime", beforeStartTime);
         }
         if (afterStartTime != null) {
-    
             request.addQueryParam("AfterStartTime", afterStartTime);
         }
         if (beforeDateCreated != null) {
-    
             request.addQueryParam("BeforeDateCreated", beforeDateCreated);
         }
         if (afterDateCreated != null) {
-    
             request.addQueryParam("AfterDateCreated", afterDateCreated);
         }
         if (status != null) {
-    
             request.addQueryParam("Status", status);
         }
         if (languageCode != null) {
-    
             request.addQueryParam("LanguageCode", languageCode);
         }
         if (sourceSid != null) {
-    
             request.addQueryParam("SourceSid", sourceSid);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

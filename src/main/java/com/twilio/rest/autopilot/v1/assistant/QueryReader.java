@@ -14,6 +14,7 @@
 
 package com.twilio.rest.autopilot.v1.assistant;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +25,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class QueryReader extends Reader<Query> {
+
     private String pathAssistantSid;
     private String language;
     private String modelBuild;
@@ -36,27 +35,31 @@ public class QueryReader extends Reader<Query> {
     private String dialogueSid;
     private Integer pageSize;
 
-    public QueryReader(final String pathAssistantSid){
+    public QueryReader(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
-    public QueryReader setLanguage(final String language){
+    public QueryReader setLanguage(final String language) {
         this.language = language;
         return this;
     }
-    public QueryReader setModelBuild(final String modelBuild){
+
+    public QueryReader setModelBuild(final String modelBuild) {
         this.modelBuild = modelBuild;
         return this;
     }
-    public QueryReader setStatus(final String status){
+
+    public QueryReader setStatus(final String status) {
         this.status = status;
         return this;
     }
-    public QueryReader setDialogueSid(final String dialogueSid){
+
+    public QueryReader setDialogueSid(final String dialogueSid) {
         this.dialogueSid = dialogueSid;
         return this;
     }
-    public QueryReader setPageSize(final Integer pageSize){
+
+    public QueryReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -68,7 +71,11 @@ public class QueryReader extends Reader<Query> {
 
     public Page<Query> firstPage(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Queries";
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -80,13 +87,21 @@ public class QueryReader extends Reader<Query> {
         return pageForRequest(client, request);
     }
 
-    private Page<Query> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Query> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Query read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Query read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -102,7 +117,10 @@ public class QueryReader extends Reader<Query> {
     }
 
     @Override
-    public Page<Query> previousPage(final Page<Query> page, final TwilioRestClient client) {
+    public Page<Query> previousPage(
+        final Page<Query> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.AUTOPILOT.toString())
@@ -110,9 +128,11 @@ public class QueryReader extends Reader<Query> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Query> nextPage(final Page<Query> page, final TwilioRestClient client) {
+    public Page<Query> nextPage(
+        final Page<Query> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.AUTOPILOT.toString())
@@ -121,37 +141,33 @@ public class QueryReader extends Reader<Query> {
     }
 
     @Override
-    public Page<Query> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Query> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (language != null) {
-    
             request.addQueryParam("Language", language);
         }
         if (modelBuild != null) {
-    
             request.addQueryParam("ModelBuild", modelBuild);
         }
         if (status != null) {
-    
             request.addQueryParam("Status", status);
         }
         if (dialogueSid != null) {
-    
             request.addQueryParam("DialogueSid", dialogueSid);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

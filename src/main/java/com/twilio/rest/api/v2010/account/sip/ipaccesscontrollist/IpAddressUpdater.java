@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.sip.ipaccesscontrollist;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class IpAddressUpdater extends Updater<IpAddress> {
 
-
-
-public class IpAddressUpdater extends Updater<IpAddress>{
     private String pathIpAccessControlListSid;
     private String pathSid;
     private String pathAccountSid;
@@ -35,69 +34,103 @@ public class IpAddressUpdater extends Updater<IpAddress>{
     private String friendlyName;
     private Integer cidrPrefixLength;
 
-    public IpAddressUpdater(final String pathIpAccessControlListSid, final String pathSid){
+    public IpAddressUpdater(
+        final String pathIpAccessControlListSid,
+        final String pathSid
+    ) {
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
     }
-    public IpAddressUpdater(final String pathAccountSid, final String pathIpAccessControlListSid, final String pathSid){
+
+    public IpAddressUpdater(
+        final String pathAccountSid,
+        final String pathIpAccessControlListSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathIpAccessControlListSid = pathIpAccessControlListSid;
         this.pathSid = pathSid;
     }
 
-    public IpAddressUpdater setIpAddress(final String ipAddress){
+    public IpAddressUpdater setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
         return this;
     }
-    public IpAddressUpdater setFriendlyName(final String friendlyName){
+
+    public IpAddressUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public IpAddressUpdater setCidrPrefixLength(final Integer cidrPrefixLength){
+
+    public IpAddressUpdater setCidrPrefixLength(
+        final Integer cidrPrefixLength
+    ) {
         this.cidrPrefixLength = cidrPrefixLength;
         return this;
     }
 
     @Override
-    public IpAddress update(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
+    public IpAddress update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists/{IpAccessControlListSid}/IpAddresses/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"IpAccessControlListSid"+"}", this.pathIpAccessControlListSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "IpAccessControlListSid" + "}",
+                this.pathIpAccessControlListSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("IpAddress update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpAddress update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return IpAddress.fromJson(response.getStream(), client.getObjectMapper());
+        return IpAddress.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (ipAddress != null) {
             request.addPostParam("IpAddress", ipAddress);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (cidrPrefixLength != null) {
-            request.addPostParam("CidrPrefixLength", cidrPrefixLength.toString());
-    
+            request.addPostParam(
+                "CidrPrefixLength",
+                cidrPrefixLength.toString()
+            );
         }
     }
 }

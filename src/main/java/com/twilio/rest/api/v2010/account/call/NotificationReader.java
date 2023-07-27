@@ -180,7 +180,7 @@ public class NotificationReader extends Reader<Notification> {
                 "MessageDate",
                 messageDate.format(
                     DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                        Request.QUERY_STRING_DATE_FORMAT
                     )
                 )
             );

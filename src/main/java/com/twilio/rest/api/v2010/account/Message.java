@@ -208,7 +208,8 @@ public class Message extends Resource {
     }
 
     public enum AddressRetention {
-        RETAIN("retain");
+        RETAIN("retain"),
+        OBFUSCATE("obfuscate");
 
         private final String value;
 
@@ -227,7 +228,8 @@ public class Message extends Resource {
     }
 
     public enum ContentRetention {
-        RETAIN("retain");
+        RETAIN("retain"),
+        DISCARD("discard");
 
         private final String value;
 

@@ -196,7 +196,7 @@ public class ConferenceReader extends Reader<Conference> {
                 "DateCreated",
                 dateCreated.format(
                     DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                        Request.QUERY_STRING_DATE_FORMAT
                     )
                 )
             );
@@ -212,7 +212,7 @@ public class ConferenceReader extends Reader<Conference> {
                 "DateUpdated",
                 dateUpdated.format(
                     DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
+                        Request.QUERY_STRING_DATE_FORMAT
                     )
                 )
             );

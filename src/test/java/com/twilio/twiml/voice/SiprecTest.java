@@ -39,11 +39,13 @@ public class SiprecTest {
             .name("name")
             .connectorName("connector_name")
             .track(Siprec.Track.INBOUND_TRACK)
+            .statusCallback("status_callback")
+            .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
             .build();
 
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-            "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>",
+            "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>",
             elem.toXml()
         );
     }
@@ -160,10 +162,12 @@ public class SiprecTest {
             .name("name")
             .connectorName("connector_name")
             .track(Siprec.Track.INBOUND_TRACK)
+            .statusCallback("status_callback")
+            .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
             .build();
 
         Assert.assertEquals(
-            Siprec.Builder.fromXml("<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>").build().toXml(),
+            Siprec.Builder.fromXml("<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>").build().toXml(),
             elem.toXml()
         );
     }

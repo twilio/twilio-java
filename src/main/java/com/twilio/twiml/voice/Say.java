@@ -562,6 +562,7 @@ public class Say extends TwiML {
         FR_CA("fr-CA"),
         FR_FR("fr-FR"),
         GU_IN("gu-IN"),
+        HE_IL("he-IL"),
         HI_IN("hi-IN"),
         HU_HU("hu-HU"),
         ID_ID("id-ID"),

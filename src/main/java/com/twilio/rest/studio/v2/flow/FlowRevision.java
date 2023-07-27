@@ -24,47 +24,46 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FlowRevision extends Resource {
+
     private static final long serialVersionUID = 84648223923809L;
 
-    
-
-    public static FlowRevisionFetcher fetcher(final String pathSid, final String pathRevision){
+    public static FlowRevisionFetcher fetcher(
+        final String pathSid,
+        final String pathRevision
+    ) {
         return new FlowRevisionFetcher(pathSid, pathRevision);
     }
 
-    public static FlowRevisionReader reader(final String pathSid){
+    public static FlowRevisionReader reader(final String pathSid) {
         return new FlowRevisionReader(pathSid);
     }
 
     /**
-    * Converts a JSON String into a FlowRevision object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return FlowRevision object represented by the provided JSON
-    */
-    public static FlowRevision fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a FlowRevision object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return FlowRevision object represented by the provided JSON
+     */
+    public static FlowRevision fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlowRevision.class);
@@ -76,14 +75,17 @@ public class FlowRevision extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a FlowRevision object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return FlowRevision object represented by the provided JSON
-    */
-    public static FlowRevision fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a FlowRevision object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return FlowRevision object represented by the provided JSON
+     */
+    public static FlowRevision fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FlowRevision.class);
@@ -129,41 +131,18 @@ public class FlowRevision extends Resource {
 
     @JsonCreator
     private FlowRevision(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("definition")
-        final Map<String, Object> definition,
-
-        @JsonProperty("status")
-        final FlowRevision.Status status,
-
-        @JsonProperty("revision")
-        final Integer revision,
-
-        @JsonProperty("commit_message")
-        final String commitMessage,
-
-        @JsonProperty("valid")
-        final Boolean valid,
-
-        @JsonProperty("errors")
-        final List<Map<String, Object>> errors,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("definition") final Map<String, Object> definition,
+        @JsonProperty("status") final FlowRevision.Status status,
+        @JsonProperty("revision") final Integer revision,
+        @JsonProperty("commit_message") final String commitMessage,
+        @JsonProperty("valid") final Boolean valid,
+        @JsonProperty("errors") final List<Map<String, Object>> errors,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -179,46 +158,57 @@ public class FlowRevision extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final Map<String, Object> getDefinition() {
-            return this.definition;
-        }
-        public final FlowRevision.Status getStatus() {
-            return this.status;
-        }
-        public final Integer getRevision() {
-            return this.revision;
-        }
-        public final String getCommitMessage() {
-            return this.commitMessage;
-        }
-        public final Boolean getValid() {
-            return this.valid;
-        }
-        public final List<Map<String, Object>> getErrors() {
-            return this.errors;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final Map<String, Object> getDefinition() {
+        return this.definition;
+    }
+
+    public final FlowRevision.Status getStatus() {
+        return this.status;
+    }
+
+    public final Integer getRevision() {
+        return this.revision;
+    }
+
+    public final String getCommitMessage() {
+        return this.commitMessage;
+    }
+
+    public final Boolean getValid() {
+        return this.valid;
+    }
+
+    public final List<Map<String, Object>> getErrors() {
+        return this.errors;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -228,14 +218,37 @@ public class FlowRevision extends Resource {
 
         FlowRevision other = (FlowRevision) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(definition, other.definition) &&  Objects.equals(status, other.status) &&  Objects.equals(revision, other.revision) &&  Objects.equals(commitMessage, other.commitMessage) &&  Objects.equals(valid, other.valid) &&  Objects.equals(errors, other.errors) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(definition, other.definition) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(revision, other.revision) &&
+            Objects.equals(commitMessage, other.commitMessage) &&
+            Objects.equals(valid, other.valid) &&
+            Objects.equals(errors, other.errors) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, friendlyName, definition, status, revision, commitMessage, valid, errors, dateCreated, dateUpdated, url);
+        return Objects.hash(
+            sid,
+            accountSid,
+            friendlyName,
+            definition,
+            status,
+            revision,
+            commitMessage,
+            valid,
+            errors,
+            dateCreated,
+            dateUpdated,
+            url
+        );
     }
-
-
 }
-

@@ -24,28 +24,33 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class SyncListItemFetcher extends Fetcher<SyncListItem> {
+
     private String pathServiceSid;
     private String pathListSid;
     private Integer pathIndex;
 
-    public SyncListItemFetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
+    public SyncListItemFetcher(
+        final String pathServiceSid,
+        final String pathListSid,
+        final Integer pathIndex
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathListSid = pathListSid;
         this.pathIndex = pathIndex;
     }
 
-
     @Override
     public SyncListItem fetch(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Lists/{ListSid}/Items/{Index}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"ListSid"+"}", this.pathListSid.toString());
-        path = path.replace("{"+"Index"+"}", this.pathIndex.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "ListSid" + "}", this.pathListSid.toString());
+        path = path.replace("{" + "Index" + "}", this.pathIndex.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -55,15 +60,23 @@ public class SyncListItemFetcher extends Fetcher<SyncListItem> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("SyncListItem fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncListItem fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return SyncListItem.fromJson(response.getStream(), client.getObjectMapper());
+        return SyncListItem.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

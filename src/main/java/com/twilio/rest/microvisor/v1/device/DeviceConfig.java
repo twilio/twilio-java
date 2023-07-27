@@ -23,56 +23,66 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeviceConfig extends Resource {
+
     private static final long serialVersionUID = 4121523224128L;
 
-    
-
-    public static DeviceConfigCreator creator(final String pathDeviceSid, final String key, final String value){
+    public static DeviceConfigCreator creator(
+        final String pathDeviceSid,
+        final String key,
+        final String value
+    ) {
         return new DeviceConfigCreator(pathDeviceSid, key, value);
     }
 
-    public static DeviceConfigDeleter deleter(final String pathDeviceSid, final String pathKey){
+    public static DeviceConfigDeleter deleter(
+        final String pathDeviceSid,
+        final String pathKey
+    ) {
         return new DeviceConfigDeleter(pathDeviceSid, pathKey);
     }
 
-    public static DeviceConfigFetcher fetcher(final String pathDeviceSid, final String pathKey){
+    public static DeviceConfigFetcher fetcher(
+        final String pathDeviceSid,
+        final String pathKey
+    ) {
         return new DeviceConfigFetcher(pathDeviceSid, pathKey);
     }
 
-    public static DeviceConfigReader reader(final String pathDeviceSid){
+    public static DeviceConfigReader reader(final String pathDeviceSid) {
         return new DeviceConfigReader(pathDeviceSid);
     }
 
-    public static DeviceConfigUpdater updater(final String pathDeviceSid, final String pathKey, final String value){
+    public static DeviceConfigUpdater updater(
+        final String pathDeviceSid,
+        final String pathKey,
+        final String value
+    ) {
         return new DeviceConfigUpdater(pathDeviceSid, pathKey, value);
     }
 
     /**
-    * Converts a JSON String into a DeviceConfig object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return DeviceConfig object represented by the provided JSON
-    */
-    public static DeviceConfig fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a DeviceConfig object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DeviceConfig object represented by the provided JSON
+     */
+    public static DeviceConfig fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeviceConfig.class);
@@ -84,14 +94,17 @@ public class DeviceConfig extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a DeviceConfig object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return DeviceConfig object represented by the provided JSON
-    */
-    public static DeviceConfig fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a DeviceConfig object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DeviceConfig object represented by the provided JSON
+     */
+    public static DeviceConfig fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeviceConfig.class);
@@ -101,7 +114,6 @@ public class DeviceConfig extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String deviceSid;
     private final String key;
@@ -111,20 +123,11 @@ public class DeviceConfig extends Resource {
 
     @JsonCreator
     private DeviceConfig(
-        @JsonProperty("device_sid")
-        final String deviceSid,
-
-        @JsonProperty("key")
-        final String key,
-
-        @JsonProperty("value")
-        final String value,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("device_sid") final String deviceSid,
+        @JsonProperty("key") final String key,
+        @JsonProperty("value") final String value,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url
     ) {
         this.deviceSid = deviceSid;
         this.key = key;
@@ -133,25 +136,29 @@ public class DeviceConfig extends Resource {
         this.url = url;
     }
 
-        public final String getDeviceSid() {
-            return this.deviceSid;
-        }
-        public final String getKey() {
-            return this.key;
-        }
-        public final String getValue() {
-            return this.value;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getDeviceSid() {
+        return this.deviceSid;
+    }
+
+    public final String getKey() {
+        return this.key;
+    }
+
+    public final String getValue() {
+        return this.value;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -161,14 +168,17 @@ public class DeviceConfig extends Resource {
 
         DeviceConfig other = (DeviceConfig) o;
 
-        return Objects.equals(deviceSid, other.deviceSid) &&  Objects.equals(key, other.key) &&  Objects.equals(value, other.value) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(deviceSid, other.deviceSid) &&
+            Objects.equals(key, other.key) &&
+            Objects.equals(value, other.value) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(deviceSid, key, value, dateUpdated, url);
     }
-
-
 }
-

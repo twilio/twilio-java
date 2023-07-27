@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class ChannelCreator extends Creator<Channel> {
 
-
-
-public class ChannelCreator extends Creator<Channel>{
     private String flexFlowSid;
     private String identity;
     private String chatUserFriendlyName;
@@ -40,62 +38,90 @@ public class ChannelCreator extends Creator<Channel>{
     private String taskAttributes;
     private Boolean longLived;
 
-    public ChannelCreator(final String flexFlowSid, final String identity, final String chatUserFriendlyName, final String chatFriendlyName) {
+    public ChannelCreator(
+        final String flexFlowSid,
+        final String identity,
+        final String chatUserFriendlyName,
+        final String chatFriendlyName
+    ) {
         this.flexFlowSid = flexFlowSid;
         this.identity = identity;
         this.chatUserFriendlyName = chatUserFriendlyName;
         this.chatFriendlyName = chatFriendlyName;
     }
 
-    public ChannelCreator setFlexFlowSid(final String flexFlowSid){
+    public ChannelCreator setFlexFlowSid(final String flexFlowSid) {
         this.flexFlowSid = flexFlowSid;
         return this;
     }
-    public ChannelCreator setIdentity(final String identity){
+
+    public ChannelCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
-    public ChannelCreator setChatUserFriendlyName(final String chatUserFriendlyName){
+
+    public ChannelCreator setChatUserFriendlyName(
+        final String chatUserFriendlyName
+    ) {
         this.chatUserFriendlyName = chatUserFriendlyName;
         return this;
     }
-    public ChannelCreator setChatFriendlyName(final String chatFriendlyName){
+
+    public ChannelCreator setChatFriendlyName(final String chatFriendlyName) {
         this.chatFriendlyName = chatFriendlyName;
         return this;
     }
-    public ChannelCreator setTarget(final String target){
+
+    public ChannelCreator setTarget(final String target) {
         this.target = target;
         return this;
     }
-    public ChannelCreator setChatUniqueName(final String chatUniqueName){
+
+    public ChannelCreator setChatUniqueName(final String chatUniqueName) {
         this.chatUniqueName = chatUniqueName;
         return this;
     }
-    public ChannelCreator setPreEngagementData(final String preEngagementData){
+
+    public ChannelCreator setPreEngagementData(final String preEngagementData) {
         this.preEngagementData = preEngagementData;
         return this;
     }
-    public ChannelCreator setTaskSid(final String taskSid){
+
+    public ChannelCreator setTaskSid(final String taskSid) {
         this.taskSid = taskSid;
         return this;
     }
-    public ChannelCreator setTaskAttributes(final String taskAttributes){
+
+    public ChannelCreator setTaskAttributes(final String taskAttributes) {
         this.taskAttributes = taskAttributes;
         return this;
     }
-    public ChannelCreator setLongLived(final Boolean longLived){
+
+    public ChannelCreator setLongLived(final Boolean longLived) {
         this.longLived = longLived;
         return this;
     }
 
     @Override
-    public Channel create(final TwilioRestClient client){
+    public Channel create(final TwilioRestClient client) {
         String path = "/v1/Channels";
 
-        path = path.replace("{"+"FlexFlowSid"+"}", this.flexFlowSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
-        path = path.replace("{"+"ChatUserFriendlyName"+"}", this.chatUserFriendlyName.toString());
-        path = path.replace("{"+"ChatFriendlyName"+"}", this.chatFriendlyName.toString());
+        path =
+            path.replace(
+                "{" + "FlexFlowSid" + "}",
+                this.flexFlowSid.toString()
+            );
+        path = path.replace("{" + "Identity" + "}", this.identity.toString());
+        path =
+            path.replace(
+                "{" + "ChatUserFriendlyName" + "}",
+                this.chatUserFriendlyName.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChatFriendlyName" + "}",
+                this.chatFriendlyName.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -106,9 +132,14 @@ public class ChannelCreator extends Creator<Channel>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Channel creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -117,46 +148,37 @@ public class ChannelCreator extends Creator<Channel>{
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (flexFlowSid != null) {
             request.addPostParam("FlexFlowSid", flexFlowSid);
-    
         }
         if (identity != null) {
             request.addPostParam("Identity", identity);
-    
         }
         if (chatUserFriendlyName != null) {
             request.addPostParam("ChatUserFriendlyName", chatUserFriendlyName);
-    
         }
         if (chatFriendlyName != null) {
             request.addPostParam("ChatFriendlyName", chatFriendlyName);
-    
         }
         if (target != null) {
             request.addPostParam("Target", target);
-    
         }
         if (chatUniqueName != null) {
             request.addPostParam("ChatUniqueName", chatUniqueName);
-    
         }
         if (preEngagementData != null) {
             request.addPostParam("PreEngagementData", preEngagementData);
-    
         }
         if (taskSid != null) {
             request.addPostParam("TaskSid", taskSid);
-    
         }
         if (taskAttributes != null) {
             request.addPostParam("TaskAttributes", taskAttributes);
-    
         }
         if (longLived != null) {
             request.addPostParam("LongLived", longLived.toString());
-    
         }
     }
 }

@@ -25,42 +25,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class UserUpdater extends Updater<User> {
 
-
-
-public class UserUpdater extends Updater<User>{
     private String pathSid;
     private String friendlyName;
     private String avatar;
     private User.StateType state;
     private Boolean isAvailable;
 
-    public UserUpdater(final String pathSid){
+    public UserUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public UserUpdater setFriendlyName(final String friendlyName){
+    public UserUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public UserUpdater setAvatar(final String avatar){
+
+    public UserUpdater setAvatar(final String avatar) {
         this.avatar = avatar;
         return this;
     }
-    public UserUpdater setState(final User.StateType state){
+
+    public UserUpdater setState(final User.StateType state) {
         this.state = state;
         return this;
     }
-    public UserUpdater setIsAvailable(final Boolean isAvailable){
+
+    public UserUpdater setIsAvailable(final Boolean isAvailable) {
         this.isAvailable = isAvailable;
         return this;
     }
 
     @Override
-    public User update(final TwilioRestClient client){
+    public User update(final TwilioRestClient client) {
         String path = "/v1/Users/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -71,9 +72,14 @@ public class UserUpdater extends Updater<User>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("User update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "User update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -82,22 +88,19 @@ public class UserUpdater extends Updater<User>{
 
         return User.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (avatar != null) {
             request.addPostParam("Avatar", avatar);
-    
         }
         if (state != null) {
             request.addPostParam("State", state.toString());
-    
         }
         if (isAvailable != null) {
             request.addPostParam("IsAvailable", isAvailable.toString());
-    
         }
     }
 }

@@ -23,41 +23,37 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DataSession extends Resource {
+
     private static final long serialVersionUID = 124844690346008L;
 
-    
-
-    public static DataSessionReader reader(final String pathSimSid){
+    public static DataSessionReader reader(final String pathSimSid) {
         return new DataSessionReader(pathSimSid);
     }
 
     /**
-    * Converts a JSON String into a DataSession object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return DataSession object represented by the provided JSON
-    */
-    public static DataSession fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a DataSession object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DataSession object represented by the provided JSON
+     */
+    public static DataSession fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DataSession.class);
@@ -69,14 +65,17 @@ public class DataSession extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a DataSession object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return DataSession object represented by the provided JSON
-    */
-    public static DataSession fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a DataSession object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DataSession object represented by the provided JSON
+     */
+    public static DataSession fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DataSession.class);
@@ -86,7 +85,6 @@ public class DataSession extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String simSid;
@@ -107,53 +105,24 @@ public class DataSession extends Resource {
 
     @JsonCreator
     private DataSession(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("sim_sid")
-        final String simSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("radio_link")
-        final String radioLink,
-
-        @JsonProperty("operator_mcc")
-        final String operatorMcc,
-
-        @JsonProperty("operator_mnc")
-        final String operatorMnc,
-
-        @JsonProperty("operator_country")
-        final String operatorCountry,
-
-        @JsonProperty("operator_name")
-        final String operatorName,
-
-        @JsonProperty("cell_id")
-        final String cellId,
-
-        @JsonProperty("cell_location_estimate")
-        final Map<String, Object> cellLocationEstimate,
-
-        @JsonProperty("packets_uploaded")
-        final Integer packetsUploaded,
-
-        @JsonProperty("packets_downloaded")
-        final Integer packetsDownloaded,
-
-        @JsonProperty("last_updated")
-        final String lastUpdated,
-
-        @JsonProperty("start")
-        final String start,
-
-        @JsonProperty("end")
-        final String end,
-
-        @JsonProperty("imei")
-        final String imei
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("radio_link") final String radioLink,
+        @JsonProperty("operator_mcc") final String operatorMcc,
+        @JsonProperty("operator_mnc") final String operatorMnc,
+        @JsonProperty("operator_country") final String operatorCountry,
+        @JsonProperty("operator_name") final String operatorName,
+        @JsonProperty("cell_id") final String cellId,
+        @JsonProperty(
+            "cell_location_estimate"
+        ) final Map<String, Object> cellLocationEstimate,
+        @JsonProperty("packets_uploaded") final Integer packetsUploaded,
+        @JsonProperty("packets_downloaded") final Integer packetsDownloaded,
+        @JsonProperty("last_updated") final String lastUpdated,
+        @JsonProperty("start") final String start,
+        @JsonProperty("end") final String end,
+        @JsonProperty("imei") final String imei
     ) {
         this.sid = sid;
         this.simSid = simSid;
@@ -173,58 +142,73 @@ public class DataSession extends Resource {
         this.imei = imei;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getSimSid() {
-            return this.simSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getRadioLink() {
-            return this.radioLink;
-        }
-        public final String getOperatorMcc() {
-            return this.operatorMcc;
-        }
-        public final String getOperatorMnc() {
-            return this.operatorMnc;
-        }
-        public final String getOperatorCountry() {
-            return this.operatorCountry;
-        }
-        public final String getOperatorName() {
-            return this.operatorName;
-        }
-        public final String getCellId() {
-            return this.cellId;
-        }
-        public final Map<String, Object> getCellLocationEstimate() {
-            return this.cellLocationEstimate;
-        }
-        public final Integer getPacketsUploaded() {
-            return this.packetsUploaded;
-        }
-        public final Integer getPacketsDownloaded() {
-            return this.packetsDownloaded;
-        }
-        public final ZonedDateTime getLastUpdated() {
-            return this.lastUpdated;
-        }
-        public final ZonedDateTime getStart() {
-            return this.start;
-        }
-        public final ZonedDateTime getEnd() {
-            return this.end;
-        }
-        public final String getImei() {
-            return this.imei;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getSimSid() {
+        return this.simSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getRadioLink() {
+        return this.radioLink;
+    }
+
+    public final String getOperatorMcc() {
+        return this.operatorMcc;
+    }
+
+    public final String getOperatorMnc() {
+        return this.operatorMnc;
+    }
+
+    public final String getOperatorCountry() {
+        return this.operatorCountry;
+    }
+
+    public final String getOperatorName() {
+        return this.operatorName;
+    }
+
+    public final String getCellId() {
+        return this.cellId;
+    }
+
+    public final Map<String, Object> getCellLocationEstimate() {
+        return this.cellLocationEstimate;
+    }
+
+    public final Integer getPacketsUploaded() {
+        return this.packetsUploaded;
+    }
+
+    public final Integer getPacketsDownloaded() {
+        return this.packetsDownloaded;
+    }
+
+    public final ZonedDateTime getLastUpdated() {
+        return this.lastUpdated;
+    }
+
+    public final ZonedDateTime getStart() {
+        return this.start;
+    }
+
+    public final ZonedDateTime getEnd() {
+        return this.end;
+    }
+
+    public final String getImei() {
+        return this.imei;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -234,14 +218,45 @@ public class DataSession extends Resource {
 
         DataSession other = (DataSession) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(simSid, other.simSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(radioLink, other.radioLink) &&  Objects.equals(operatorMcc, other.operatorMcc) &&  Objects.equals(operatorMnc, other.operatorMnc) &&  Objects.equals(operatorCountry, other.operatorCountry) &&  Objects.equals(operatorName, other.operatorName) &&  Objects.equals(cellId, other.cellId) &&  Objects.equals(cellLocationEstimate, other.cellLocationEstimate) &&  Objects.equals(packetsUploaded, other.packetsUploaded) &&  Objects.equals(packetsDownloaded, other.packetsDownloaded) &&  Objects.equals(lastUpdated, other.lastUpdated) &&  Objects.equals(start, other.start) &&  Objects.equals(end, other.end) &&  Objects.equals(imei, other.imei)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(radioLink, other.radioLink) &&
+            Objects.equals(operatorMcc, other.operatorMcc) &&
+            Objects.equals(operatorMnc, other.operatorMnc) &&
+            Objects.equals(operatorCountry, other.operatorCountry) &&
+            Objects.equals(operatorName, other.operatorName) &&
+            Objects.equals(cellId, other.cellId) &&
+            Objects.equals(cellLocationEstimate, other.cellLocationEstimate) &&
+            Objects.equals(packetsUploaded, other.packetsUploaded) &&
+            Objects.equals(packetsDownloaded, other.packetsDownloaded) &&
+            Objects.equals(lastUpdated, other.lastUpdated) &&
+            Objects.equals(start, other.start) &&
+            Objects.equals(end, other.end) &&
+            Objects.equals(imei, other.imei)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, simSid, accountSid, radioLink, operatorMcc, operatorMnc, operatorCountry, operatorName, cellId, cellLocationEstimate, packetsUploaded, packetsDownloaded, lastUpdated, start, end, imei);
+        return Objects.hash(
+            sid,
+            simSid,
+            accountSid,
+            radioLink,
+            operatorMcc,
+            operatorMnc,
+            operatorCountry,
+            operatorName,
+            cellId,
+            cellLocationEstimate,
+            packetsUploaded,
+            packetsDownloaded,
+            lastUpdated,
+            start,
+            end,
+            imei
+        );
     }
-
-
 }
-

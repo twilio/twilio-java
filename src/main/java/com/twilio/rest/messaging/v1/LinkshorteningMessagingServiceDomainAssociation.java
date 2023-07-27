@@ -22,42 +22,45 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class LinkshorteningMessagingServiceDomainAssociation extends Resource {
+
     private static final long serialVersionUID = 242981332247911L;
 
-    
-
-    public static LinkshorteningMessagingServiceDomainAssociationFetcher fetcher(final String pathMessagingServiceSid){
-        return new LinkshorteningMessagingServiceDomainAssociationFetcher(pathMessagingServiceSid);
+    public static LinkshorteningMessagingServiceDomainAssociationFetcher fetcher(
+        final String pathMessagingServiceSid
+    ) {
+        return new LinkshorteningMessagingServiceDomainAssociationFetcher(
+            pathMessagingServiceSid
+        );
     }
 
     /**
-    * Converts a JSON String into a LinkshorteningMessagingServiceDomainAssociation object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return LinkshorteningMessagingServiceDomainAssociation object represented by the provided JSON
-    */
-    public static LinkshorteningMessagingServiceDomainAssociation fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a LinkshorteningMessagingServiceDomainAssociation object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return LinkshorteningMessagingServiceDomainAssociation object represented by the provided JSON
+     */
+    public static LinkshorteningMessagingServiceDomainAssociation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, LinkshorteningMessagingServiceDomainAssociation.class);
+            return objectMapper.readValue(
+                json,
+                LinkshorteningMessagingServiceDomainAssociation.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -66,24 +69,29 @@ public class LinkshorteningMessagingServiceDomainAssociation extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a LinkshorteningMessagingServiceDomainAssociation object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return LinkshorteningMessagingServiceDomainAssociation object represented by the provided JSON
-    */
-    public static LinkshorteningMessagingServiceDomainAssociation fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a LinkshorteningMessagingServiceDomainAssociation object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return LinkshorteningMessagingServiceDomainAssociation object represented by the provided JSON
+     */
+    public static LinkshorteningMessagingServiceDomainAssociation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, LinkshorteningMessagingServiceDomainAssociation.class);
+            return objectMapper.readValue(
+                json,
+                LinkshorteningMessagingServiceDomainAssociation.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String domainSid;
     private final String messagingServiceSid;
@@ -91,33 +99,30 @@ public class LinkshorteningMessagingServiceDomainAssociation extends Resource {
 
     @JsonCreator
     private LinkshorteningMessagingServiceDomainAssociation(
-        @JsonProperty("domain_sid")
-        final String domainSid,
-
-        @JsonProperty("messaging_service_sid")
-        final String messagingServiceSid,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("messaging_service_sid") final String messagingServiceSid,
+        @JsonProperty("url") final URI url
     ) {
         this.domainSid = domainSid;
         this.messagingServiceSid = messagingServiceSid;
         this.url = url;
     }
 
-        public final String getDomainSid() {
-            return this.domainSid;
-        }
-        public final String getMessagingServiceSid() {
-            return this.messagingServiceSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getDomainSid() {
+        return this.domainSid;
+    }
+
+    public final String getMessagingServiceSid() {
+        return this.messagingServiceSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -125,16 +130,18 @@ public class LinkshorteningMessagingServiceDomainAssociation extends Resource {
             return false;
         }
 
-        LinkshorteningMessagingServiceDomainAssociation other = (LinkshorteningMessagingServiceDomainAssociation) o;
+        LinkshorteningMessagingServiceDomainAssociation other =
+            (LinkshorteningMessagingServiceDomainAssociation) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(messagingServiceSid, other.messagingServiceSid) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(messagingServiceSid, other.messagingServiceSid) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(domainSid, messagingServiceSid, url);
     }
-
-
 }
-

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2.service.entity;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,21 +25,22 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class FactorReader extends Reader<Factor> {
+
     private String pathServiceSid;
     private String pathIdentity;
     private Integer pageSize;
 
-    public FactorReader(final String pathServiceSid, final String pathIdentity){
+    public FactorReader(
+        final String pathServiceSid,
+        final String pathIdentity
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
     }
 
-    public FactorReader setPageSize(final Integer pageSize){
+    public FactorReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -50,8 +52,13 @@ public class FactorReader extends Reader<Factor> {
 
     public Page<Factor> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Factors";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -63,13 +70,21 @@ public class FactorReader extends Reader<Factor> {
         return pageForRequest(client, request);
     }
 
-    private Page<Factor> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Factor> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Factor read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Factor read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -85,7 +100,10 @@ public class FactorReader extends Reader<Factor> {
     }
 
     @Override
-    public Page<Factor> previousPage(final Page<Factor> page, final TwilioRestClient client) {
+    public Page<Factor> previousPage(
+        final Page<Factor> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VERIFY.toString())
@@ -93,9 +111,11 @@ public class FactorReader extends Reader<Factor> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Factor> nextPage(final Page<Factor> page, final TwilioRestClient client) {
+    public Page<Factor> nextPage(
+        final Page<Factor> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VERIFY.toString())
@@ -104,21 +124,21 @@ public class FactorReader extends Reader<Factor> {
     }
 
     @Override
-    public Page<Factor> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Factor> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

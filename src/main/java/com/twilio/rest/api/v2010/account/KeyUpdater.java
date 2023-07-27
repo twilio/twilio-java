@@ -25,34 +25,40 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class KeyUpdater extends Updater<Key> {
 
-
-
-public class KeyUpdater extends Updater<Key>{
     private String pathSid;
     private String pathAccountSid;
     private String friendlyName;
 
-    public KeyUpdater(final String pathSid){
+    public KeyUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-    public KeyUpdater(final String pathAccountSid, final String pathSid){
+
+    public KeyUpdater(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public KeyUpdater setFriendlyName(final String friendlyName){
+    public KeyUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
     @Override
-    public Key update(final TwilioRestClient client){
+    public Key update(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Keys/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -63,9 +69,14 @@ public class KeyUpdater extends Updater<Key>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Key update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Key update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -74,10 +85,10 @@ public class KeyUpdater extends Updater<Key>{
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
     }
 }

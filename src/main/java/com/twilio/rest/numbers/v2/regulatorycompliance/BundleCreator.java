@@ -26,12 +26,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
-
-
-
 import java.net.URI;
 
-public class BundleCreator extends Creator<Bundle>{
+public class BundleCreator extends Creator<Bundle> {
+
     private String friendlyName;
     private String email;
     private URI statusCallback;
@@ -45,45 +43,55 @@ public class BundleCreator extends Creator<Bundle>{
         this.email = email;
     }
 
-    public BundleCreator setFriendlyName(final String friendlyName){
+    public BundleCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public BundleCreator setEmail(final String email){
+
+    public BundleCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
-    public BundleCreator setStatusCallback(final URI statusCallback){
+
+    public BundleCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public BundleCreator setStatusCallback(final String statusCallback){
+    public BundleCreator setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public BundleCreator setRegulationSid(final String regulationSid){
+
+    public BundleCreator setRegulationSid(final String regulationSid) {
         this.regulationSid = regulationSid;
         return this;
     }
-    public BundleCreator setIsoCountry(final String isoCountry){
+
+    public BundleCreator setIsoCountry(final String isoCountry) {
         this.isoCountry = isoCountry;
         return this;
     }
-    public BundleCreator setEndUserType(final Bundle.EndUserType endUserType){
+
+    public BundleCreator setEndUserType(final Bundle.EndUserType endUserType) {
         this.endUserType = endUserType;
         return this;
     }
-    public BundleCreator setNumberType(final String numberType){
+
+    public BundleCreator setNumberType(final String numberType) {
         this.numberType = numberType;
         return this;
     }
 
     @Override
-    public Bundle create(final TwilioRestClient client){
+    public Bundle create(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles";
 
-        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
-        path = path.replace("{"+"Email"+"}", this.email.toString());
+        path =
+            path.replace(
+                "{" + "FriendlyName" + "}",
+                this.friendlyName.toString()
+            );
+        path = path.replace("{" + "Email" + "}", this.email.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -94,9 +102,14 @@ public class BundleCreator extends Creator<Bundle>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Bundle creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Bundle creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -105,34 +118,28 @@ public class BundleCreator extends Creator<Bundle>{
 
         return Bundle.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (email != null) {
             request.addPostParam("Email", email);
-    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (regulationSid != null) {
             request.addPostParam("RegulationSid", regulationSid);
-    
         }
         if (isoCountry != null) {
             request.addPostParam("IsoCountry", isoCountry);
-    
         }
         if (endUserType != null) {
             request.addPostParam("EndUserType", endUserType.toString());
-    
         }
         if (numberType != null) {
             request.addPostParam("NumberType", numberType);
-    
         }
     }
 }

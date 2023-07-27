@@ -14,6 +14,7 @@
 
 package com.twilio.rest.insights.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +25,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class CallSummariesReader extends Reader<CallSummaries> {
+
     private String from;
     private String to;
     private String fromCarrier;
@@ -54,102 +53,134 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String callScore;
     private Integer pageSize;
 
-    public CallSummariesReader(){
-    }
+    public CallSummariesReader() {}
 
-    public CallSummariesReader setFrom(final String from){
+    public CallSummariesReader setFrom(final String from) {
         this.from = from;
         return this;
     }
-    public CallSummariesReader setTo(final String to){
+
+    public CallSummariesReader setTo(final String to) {
         this.to = to;
         return this;
     }
-    public CallSummariesReader setFromCarrier(final String fromCarrier){
+
+    public CallSummariesReader setFromCarrier(final String fromCarrier) {
         this.fromCarrier = fromCarrier;
         return this;
     }
-    public CallSummariesReader setToCarrier(final String toCarrier){
+
+    public CallSummariesReader setToCarrier(final String toCarrier) {
         this.toCarrier = toCarrier;
         return this;
     }
-    public CallSummariesReader setFromCountryCode(final String fromCountryCode){
+
+    public CallSummariesReader setFromCountryCode(
+        final String fromCountryCode
+    ) {
         this.fromCountryCode = fromCountryCode;
         return this;
     }
-    public CallSummariesReader setToCountryCode(final String toCountryCode){
+
+    public CallSummariesReader setToCountryCode(final String toCountryCode) {
         this.toCountryCode = toCountryCode;
         return this;
     }
-    public CallSummariesReader setBranded(final Boolean branded){
+
+    public CallSummariesReader setBranded(final Boolean branded) {
         this.branded = branded;
         return this;
     }
-    public CallSummariesReader setVerifiedCaller(final Boolean verifiedCaller){
+
+    public CallSummariesReader setVerifiedCaller(final Boolean verifiedCaller) {
         this.verifiedCaller = verifiedCaller;
         return this;
     }
-    public CallSummariesReader setHasTag(final Boolean hasTag){
+
+    public CallSummariesReader setHasTag(final Boolean hasTag) {
         this.hasTag = hasTag;
         return this;
     }
-    public CallSummariesReader setStartTime(final String startTime){
+
+    public CallSummariesReader setStartTime(final String startTime) {
         this.startTime = startTime;
         return this;
     }
-    public CallSummariesReader setEndTime(final String endTime){
+
+    public CallSummariesReader setEndTime(final String endTime) {
         this.endTime = endTime;
         return this;
     }
-    public CallSummariesReader setCallType(final String callType){
+
+    public CallSummariesReader setCallType(final String callType) {
         this.callType = callType;
         return this;
     }
-    public CallSummariesReader setCallState(final String callState){
+
+    public CallSummariesReader setCallState(final String callState) {
         this.callState = callState;
         return this;
     }
-    public CallSummariesReader setDirection(final String direction){
+
+    public CallSummariesReader setDirection(final String direction) {
         this.direction = direction;
         return this;
     }
-    public CallSummariesReader setProcessingState(final CallSummaries.ProcessingStateRequest processingState){
+
+    public CallSummariesReader setProcessingState(
+        final CallSummaries.ProcessingStateRequest processingState
+    ) {
         this.processingState = processingState;
         return this;
     }
-    public CallSummariesReader setSortBy(final CallSummaries.SortBy sortBy){
+
+    public CallSummariesReader setSortBy(final CallSummaries.SortBy sortBy) {
         this.sortBy = sortBy;
         return this;
     }
-    public CallSummariesReader setSubaccount(final String subaccount){
+
+    public CallSummariesReader setSubaccount(final String subaccount) {
         this.subaccount = subaccount;
         return this;
     }
-    public CallSummariesReader setAbnormalSession(final Boolean abnormalSession){
+
+    public CallSummariesReader setAbnormalSession(
+        final Boolean abnormalSession
+    ) {
         this.abnormalSession = abnormalSession;
         return this;
     }
-    public CallSummariesReader setAnsweredBy(final CallSummaries.AnsweredBy answeredBy){
+
+    public CallSummariesReader setAnsweredBy(
+        final CallSummaries.AnsweredBy answeredBy
+    ) {
         this.answeredBy = answeredBy;
         return this;
     }
-    public CallSummariesReader setConnectivityIssue(final String connectivityIssue){
+
+    public CallSummariesReader setConnectivityIssue(
+        final String connectivityIssue
+    ) {
         this.connectivityIssue = connectivityIssue;
         return this;
     }
-    public CallSummariesReader setQualityIssue(final String qualityIssue){
+
+    public CallSummariesReader setQualityIssue(final String qualityIssue) {
         this.qualityIssue = qualityIssue;
         return this;
     }
-    public CallSummariesReader setSpam(final Boolean spam){
+
+    public CallSummariesReader setSpam(final Boolean spam) {
         this.spam = spam;
         return this;
     }
-    public CallSummariesReader setCallScore(final String callScore){
+
+    public CallSummariesReader setCallScore(final String callScore) {
         this.callScore = callScore;
         return this;
     }
-    public CallSummariesReader setPageSize(final Integer pageSize){
+
+    public CallSummariesReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -172,13 +203,21 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         return pageForRequest(client, request);
     }
 
-    private Page<CallSummaries> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<CallSummaries> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("CallSummaries read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CallSummaries read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -194,7 +233,10 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     }
 
     @Override
-    public Page<CallSummaries> previousPage(final Page<CallSummaries> page, final TwilioRestClient client) {
+    public Page<CallSummaries> previousPage(
+        final Page<CallSummaries> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INSIGHTS.toString())
@@ -202,9 +244,11 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<CallSummaries> nextPage(final Page<CallSummaries> page, final TwilioRestClient client) {
+    public Page<CallSummaries> nextPage(
+        final Page<CallSummaries> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INSIGHTS.toString())
@@ -213,113 +257,96 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     }
 
     @Override
-    public Page<CallSummaries> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<CallSummaries> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (from != null) {
-    
             request.addQueryParam("From", from);
         }
         if (to != null) {
-    
             request.addQueryParam("To", to);
         }
         if (fromCarrier != null) {
-    
             request.addQueryParam("FromCarrier", fromCarrier);
         }
         if (toCarrier != null) {
-    
             request.addQueryParam("ToCarrier", toCarrier);
         }
         if (fromCountryCode != null) {
-    
             request.addQueryParam("FromCountryCode", fromCountryCode);
         }
         if (toCountryCode != null) {
-    
             request.addQueryParam("ToCountryCode", toCountryCode);
         }
         if (branded != null) {
-    
             request.addQueryParam("Branded", branded.toString());
         }
         if (verifiedCaller != null) {
-    
             request.addQueryParam("VerifiedCaller", verifiedCaller.toString());
         }
         if (hasTag != null) {
-    
             request.addQueryParam("HasTag", hasTag.toString());
         }
         if (startTime != null) {
-    
             request.addQueryParam("StartTime", startTime);
         }
         if (endTime != null) {
-    
             request.addQueryParam("EndTime", endTime);
         }
         if (callType != null) {
-    
             request.addQueryParam("CallType", callType);
         }
         if (callState != null) {
-    
             request.addQueryParam("CallState", callState);
         }
         if (direction != null) {
-    
             request.addQueryParam("Direction", direction);
         }
         if (processingState != null) {
-    
-            request.addQueryParam("ProcessingState", processingState.toString());
+            request.addQueryParam(
+                "ProcessingState",
+                processingState.toString()
+            );
         }
         if (sortBy != null) {
-    
             request.addQueryParam("SortBy", sortBy.toString());
         }
         if (subaccount != null) {
-    
             request.addQueryParam("Subaccount", subaccount);
         }
         if (abnormalSession != null) {
-    
-            request.addQueryParam("AbnormalSession", abnormalSession.toString());
+            request.addQueryParam(
+                "AbnormalSession",
+                abnormalSession.toString()
+            );
         }
         if (answeredBy != null) {
-    
             request.addQueryParam("AnsweredBy", answeredBy.toString());
         }
         if (connectivityIssue != null) {
-    
             request.addQueryParam("ConnectivityIssue", connectivityIssue);
         }
         if (qualityIssue != null) {
-    
             request.addQueryParam("QualityIssue", qualityIssue);
         }
         if (spam != null) {
-    
             request.addQueryParam("Spam", spam.toString());
         }
         if (callScore != null) {
-    
             request.addQueryParam("CallScore", callScore);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

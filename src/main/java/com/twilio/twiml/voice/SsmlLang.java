@@ -44,6 +44,7 @@ public class SsmlLang extends TwiML {
         FI_FI("fi-FI"),
         FR_CA("fr-CA"),
         FR_FR("fr-FR"),
+        HE_IL("he-IL"),
         HI_IN("hi-IN"),
         IS_IS("is-IS"),
         IT_IT("it-IT"),

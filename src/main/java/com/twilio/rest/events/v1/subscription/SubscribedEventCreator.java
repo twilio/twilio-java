@@ -25,34 +25,42 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SubscribedEventCreator extends Creator<SubscribedEvent> {
 
-
-
-public class SubscribedEventCreator extends Creator<SubscribedEvent>{
     private String pathSubscriptionSid;
     private String type;
     private Integer schemaVersion;
 
-    public SubscribedEventCreator(final String pathSubscriptionSid, final String type) {
+    public SubscribedEventCreator(
+        final String pathSubscriptionSid,
+        final String type
+    ) {
         this.pathSubscriptionSid = pathSubscriptionSid;
         this.type = type;
     }
 
-    public SubscribedEventCreator setType(final String type){
+    public SubscribedEventCreator setType(final String type) {
         this.type = type;
         return this;
     }
-    public SubscribedEventCreator setSchemaVersion(final Integer schemaVersion){
+
+    public SubscribedEventCreator setSchemaVersion(
+        final Integer schemaVersion
+    ) {
         this.schemaVersion = schemaVersion;
         return this;
     }
 
     @Override
-    public SubscribedEvent create(final TwilioRestClient client){
+    public SubscribedEvent create(final TwilioRestClient client) {
         String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents";
 
-        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
-        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path =
+            path.replace(
+                "{" + "SubscriptionSid" + "}",
+                this.pathSubscriptionSid.toString()
+            );
+        path = path.replace("{" + "Type" + "}", this.type.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -63,25 +71,32 @@ public class SubscribedEventCreator extends Creator<SubscribedEvent>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SubscribedEvent creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SubscribedEvent creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return SubscribedEvent.fromJson(response.getStream(), client.getObjectMapper());
+        return SubscribedEvent.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (type != null) {
             request.addPostParam("Type", type);
-    
         }
         if (schemaVersion != null) {
             request.addPostParam("SchemaVersion", schemaVersion.toString());
-    
         }
     }
 }

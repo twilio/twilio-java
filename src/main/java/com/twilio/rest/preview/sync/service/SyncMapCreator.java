@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SyncMapCreator extends Creator<SyncMap> {
 
-
-
-public class SyncMapCreator extends Creator<SyncMap>{
     private String pathServiceSid;
     private String uniqueName;
 
@@ -36,16 +34,20 @@ public class SyncMapCreator extends Creator<SyncMap>{
         this.pathServiceSid = pathServiceSid;
     }
 
-    public SyncMapCreator setUniqueName(final String uniqueName){
+    public SyncMapCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
     @Override
-    public SyncMap create(final TwilioRestClient client){
+    public SyncMap create(final TwilioRestClient client) {
         String path = "/Sync/Services/{ServiceSid}/Maps";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -56,9 +58,14 @@ public class SyncMapCreator extends Creator<SyncMap>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SyncMap creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SyncMap creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -67,10 +74,10 @@ public class SyncMapCreator extends Creator<SyncMap>{
 
         return SyncMap.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
     }
 }

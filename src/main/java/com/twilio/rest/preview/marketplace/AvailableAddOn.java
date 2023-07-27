@@ -22,45 +22,41 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AvailableAddOn extends Resource {
+
     private static final long serialVersionUID = 265387241353044L;
 
-    
-
-    public static AvailableAddOnFetcher fetcher(final String pathSid){
+    public static AvailableAddOnFetcher fetcher(final String pathSid) {
         return new AvailableAddOnFetcher(pathSid);
     }
 
-    public static AvailableAddOnReader reader(){
+    public static AvailableAddOnReader reader() {
         return new AvailableAddOnReader();
     }
 
     /**
-    * Converts a JSON String into a AvailableAddOn object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return AvailableAddOn object represented by the provided JSON
-    */
-    public static AvailableAddOn fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a AvailableAddOn object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return AvailableAddOn object represented by the provided JSON
+     */
+    public static AvailableAddOn fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AvailableAddOn.class);
@@ -72,14 +68,17 @@ public class AvailableAddOn extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a AvailableAddOn object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return AvailableAddOn object represented by the provided JSON
-    */
-    public static AvailableAddOn fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a AvailableAddOn object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return AvailableAddOn object represented by the provided JSON
+     */
+    public static AvailableAddOn fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AvailableAddOn.class);
@@ -89,7 +88,6 @@ public class AvailableAddOn extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String friendlyName;
@@ -101,26 +99,15 @@ public class AvailableAddOn extends Resource {
 
     @JsonCreator
     private AvailableAddOn(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("description")
-        final String description,
-
-        @JsonProperty("pricing_type")
-        final String pricingType,
-
-        @JsonProperty("configuration_schema")
-        final Map<String, Object> configurationSchema,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("description") final String description,
+        @JsonProperty("pricing_type") final String pricingType,
+        @JsonProperty(
+            "configuration_schema"
+        ) final Map<String, Object> configurationSchema,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -131,31 +118,37 @@ public class AvailableAddOn extends Resource {
         this.links = links;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getDescription() {
-            return this.description;
-        }
-        public final String getPricingType() {
-            return this.pricingType;
-        }
-        public final Map<String, Object> getConfigurationSchema() {
-            return this.configurationSchema;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getDescription() {
+        return this.description;
+    }
+
+    public final String getPricingType() {
+        return this.pricingType;
+    }
+
+    public final Map<String, Object> getConfigurationSchema() {
+        return this.configurationSchema;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -165,14 +158,27 @@ public class AvailableAddOn extends Resource {
 
         AvailableAddOn other = (AvailableAddOn) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(description, other.description) &&  Objects.equals(pricingType, other.pricingType) &&  Objects.equals(configurationSchema, other.configurationSchema) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(pricingType, other.pricingType) &&
+            Objects.equals(configurationSchema, other.configurationSchema) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, description, pricingType, configurationSchema, url, links);
+        return Objects.hash(
+            sid,
+            friendlyName,
+            description,
+            pricingType,
+            configurationSchema,
+            url,
+            links
+        );
     }
-
-
 }
-

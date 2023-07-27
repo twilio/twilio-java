@@ -24,43 +24,39 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class CallSummaries extends Resource {
+
     private static final long serialVersionUID = 2737605187627L;
 
-    
-
-    public static CallSummariesReader reader(){
+    public static CallSummariesReader reader() {
         return new CallSummariesReader();
     }
 
     /**
-    * Converts a JSON String into a CallSummaries object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return CallSummaries object represented by the provided JSON
-    */
-    public static CallSummaries fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a CallSummaries object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return CallSummaries object represented by the provided JSON
+     */
+    public static CallSummaries fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CallSummaries.class);
@@ -72,14 +68,17 @@ public class CallSummaries extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a CallSummaries object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return CallSummaries object represented by the provided JSON
-    */
-    public static CallSummaries fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a CallSummaries object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return CallSummaries object represented by the provided JSON
+     */
+    public static CallSummaries fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, CallSummaries.class);
@@ -114,6 +113,7 @@ public class CallSummaries extends Resource {
             return Promoter.enumFromString(value, AnsweredBy.values());
         }
     }
+
     public enum CallState {
         RINGING("ringing"),
         COMPLETED("completed"),
@@ -139,6 +139,7 @@ public class CallSummaries extends Resource {
             return Promoter.enumFromString(value, CallState.values());
         }
     }
+
     public enum CallType {
         CARRIER("carrier"),
         SIP("sip"),
@@ -160,6 +161,7 @@ public class CallSummaries extends Resource {
             return Promoter.enumFromString(value, CallType.values());
         }
     }
+
     public enum ProcessingState {
         COMPLETE("complete"),
         PARTIAL("partial");
@@ -179,6 +181,7 @@ public class CallSummaries extends Resource {
             return Promoter.enumFromString(value, ProcessingState.values());
         }
     }
+
     public enum ProcessingStateRequest {
         COMPLETED("completed"),
         STARTED("started"),
@@ -197,9 +200,13 @@ public class CallSummaries extends Resource {
 
         @JsonCreator
         public static ProcessingStateRequest forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingStateRequest.values());
+            return Promoter.enumFromString(
+                value,
+                ProcessingStateRequest.values()
+            );
         }
     }
+
     public enum SortBy {
         START_TIME("start_time"),
         END_TIME("end_time");
@@ -246,74 +253,31 @@ public class CallSummaries extends Resource {
 
     @JsonCreator
     private CallSummaries(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("call_sid")
-        final String callSid,
-
-        @JsonProperty("answered_by")
-        final CallSummaries.AnsweredBy answeredBy,
-
-        @JsonProperty("call_type")
-        final CallSummaries.CallType callType,
-
-        @JsonProperty("call_state")
-        final CallSummaries.CallState callState,
-
-        @JsonProperty("processing_state")
-        final CallSummaries.ProcessingState processingState,
-
-        @JsonProperty("created_time")
-        final String createdTime,
-
-        @JsonProperty("start_time")
-        final String startTime,
-
-        @JsonProperty("end_time")
-        final String endTime,
-
-        @JsonProperty("duration")
-        final Integer duration,
-
-        @JsonProperty("connect_duration")
-        final Integer connectDuration,
-
-        @JsonProperty("from")
-        final Map<String, Object> from,
-
-        @JsonProperty("to")
-        final Map<String, Object> to,
-
-        @JsonProperty("carrier_edge")
-        final Map<String, Object> carrierEdge,
-
-        @JsonProperty("client_edge")
-        final Map<String, Object> clientEdge,
-
-        @JsonProperty("sdk_edge")
-        final Map<String, Object> sdkEdge,
-
-        @JsonProperty("sip_edge")
-        final Map<String, Object> sipEdge,
-
-        @JsonProperty("tags")
-        final List<String> tags,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("attributes")
-        final Map<String, Object> attributes,
-
-        @JsonProperty("properties")
-        final Map<String, Object> properties,
-
-        @JsonProperty("trust")
-        final Map<String, Object> trust,
-
-        @JsonProperty("annotation")
-        final Map<String, Object> annotation
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("answered_by") final CallSummaries.AnsweredBy answeredBy,
+        @JsonProperty("call_type") final CallSummaries.CallType callType,
+        @JsonProperty("call_state") final CallSummaries.CallState callState,
+        @JsonProperty(
+            "processing_state"
+        ) final CallSummaries.ProcessingState processingState,
+        @JsonProperty("created_time") final String createdTime,
+        @JsonProperty("start_time") final String startTime,
+        @JsonProperty("end_time") final String endTime,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("connect_duration") final Integer connectDuration,
+        @JsonProperty("from") final Map<String, Object> from,
+        @JsonProperty("to") final Map<String, Object> to,
+        @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
+        @JsonProperty("client_edge") final Map<String, Object> clientEdge,
+        @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
+        @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
+        @JsonProperty("tags") final List<String> tags,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("attributes") final Map<String, Object> attributes,
+        @JsonProperty("properties") final Map<String, Object> properties,
+        @JsonProperty("trust") final Map<String, Object> trust,
+        @JsonProperty("annotation") final Map<String, Object> annotation
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -340,79 +304,101 @@ public class CallSummaries extends Resource {
         this.annotation = annotation;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getCallSid() {
-            return this.callSid;
-        }
-        public final CallSummaries.AnsweredBy getAnsweredBy() {
-            return this.answeredBy;
-        }
-        public final CallSummaries.CallType getCallType() {
-            return this.callType;
-        }
-        public final CallSummaries.CallState getCallState() {
-            return this.callState;
-        }
-        public final CallSummaries.ProcessingState getProcessingState() {
-            return this.processingState;
-        }
-        public final ZonedDateTime getCreatedTime() {
-            return this.createdTime;
-        }
-        public final ZonedDateTime getStartTime() {
-            return this.startTime;
-        }
-        public final ZonedDateTime getEndTime() {
-            return this.endTime;
-        }
-        public final Integer getDuration() {
-            return this.duration;
-        }
-        public final Integer getConnectDuration() {
-            return this.connectDuration;
-        }
-        public final Map<String, Object> getFrom() {
-            return this.from;
-        }
-        public final Map<String, Object> getTo() {
-            return this.to;
-        }
-        public final Map<String, Object> getCarrierEdge() {
-            return this.carrierEdge;
-        }
-        public final Map<String, Object> getClientEdge() {
-            return this.clientEdge;
-        }
-        public final Map<String, Object> getSdkEdge() {
-            return this.sdkEdge;
-        }
-        public final Map<String, Object> getSipEdge() {
-            return this.sipEdge;
-        }
-        public final List<String> getTags() {
-            return this.tags;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, Object> getAttributes() {
-            return this.attributes;
-        }
-        public final Map<String, Object> getProperties() {
-            return this.properties;
-        }
-        public final Map<String, Object> getTrust() {
-            return this.trust;
-        }
-        public final Map<String, Object> getAnnotation() {
-            return this.annotation;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getCallSid() {
+        return this.callSid;
+    }
+
+    public final CallSummaries.AnsweredBy getAnsweredBy() {
+        return this.answeredBy;
+    }
+
+    public final CallSummaries.CallType getCallType() {
+        return this.callType;
+    }
+
+    public final CallSummaries.CallState getCallState() {
+        return this.callState;
+    }
+
+    public final CallSummaries.ProcessingState getProcessingState() {
+        return this.processingState;
+    }
+
+    public final ZonedDateTime getCreatedTime() {
+        return this.createdTime;
+    }
+
+    public final ZonedDateTime getStartTime() {
+        return this.startTime;
+    }
+
+    public final ZonedDateTime getEndTime() {
+        return this.endTime;
+    }
+
+    public final Integer getDuration() {
+        return this.duration;
+    }
+
+    public final Integer getConnectDuration() {
+        return this.connectDuration;
+    }
+
+    public final Map<String, Object> getFrom() {
+        return this.from;
+    }
+
+    public final Map<String, Object> getTo() {
+        return this.to;
+    }
+
+    public final Map<String, Object> getCarrierEdge() {
+        return this.carrierEdge;
+    }
+
+    public final Map<String, Object> getClientEdge() {
+        return this.clientEdge;
+    }
+
+    public final Map<String, Object> getSdkEdge() {
+        return this.sdkEdge;
+    }
+
+    public final Map<String, Object> getSipEdge() {
+        return this.sipEdge;
+    }
+
+    public final List<String> getTags() {
+        return this.tags;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, Object> getAttributes() {
+        return this.attributes;
+    }
+
+    public final Map<String, Object> getProperties() {
+        return this.properties;
+    }
+
+    public final Map<String, Object> getTrust() {
+        return this.trust;
+    }
+
+    public final Map<String, Object> getAnnotation() {
+        return this.annotation;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -422,14 +408,59 @@ public class CallSummaries extends Resource {
 
         CallSummaries other = (CallSummaries) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(answeredBy, other.answeredBy) &&  Objects.equals(callType, other.callType) &&  Objects.equals(callState, other.callState) &&  Objects.equals(processingState, other.processingState) &&  Objects.equals(createdTime, other.createdTime) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(connectDuration, other.connectDuration) &&  Objects.equals(from, other.from) &&  Objects.equals(to, other.to) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(clientEdge, other.clientEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(tags, other.tags) &&  Objects.equals(url, other.url) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(properties, other.properties) &&  Objects.equals(trust, other.trust) &&  Objects.equals(annotation, other.annotation)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(answeredBy, other.answeredBy) &&
+            Objects.equals(callType, other.callType) &&
+            Objects.equals(callState, other.callState) &&
+            Objects.equals(processingState, other.processingState) &&
+            Objects.equals(createdTime, other.createdTime) &&
+            Objects.equals(startTime, other.startTime) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(connectDuration, other.connectDuration) &&
+            Objects.equals(from, other.from) &&
+            Objects.equals(to, other.to) &&
+            Objects.equals(carrierEdge, other.carrierEdge) &&
+            Objects.equals(clientEdge, other.clientEdge) &&
+            Objects.equals(sdkEdge, other.sdkEdge) &&
+            Objects.equals(sipEdge, other.sipEdge) &&
+            Objects.equals(tags, other.tags) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(attributes, other.attributes) &&
+            Objects.equals(properties, other.properties) &&
+            Objects.equals(trust, other.trust) &&
+            Objects.equals(annotation, other.annotation)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, callSid, answeredBy, callType, callState, processingState, createdTime, startTime, endTime, duration, connectDuration, from, to, carrierEdge, clientEdge, sdkEdge, sipEdge, tags, url, attributes, properties, trust, annotation);
+        return Objects.hash(
+            accountSid,
+            callSid,
+            answeredBy,
+            callType,
+            callState,
+            processingState,
+            createdTime,
+            startTime,
+            endTime,
+            duration,
+            connectDuration,
+            from,
+            to,
+            carrierEdge,
+            clientEdge,
+            sdkEdge,
+            sipEdge,
+            tags,
+            url,
+            attributes,
+            properties,
+            trust,
+            annotation
+        );
     }
-
-
 }
-

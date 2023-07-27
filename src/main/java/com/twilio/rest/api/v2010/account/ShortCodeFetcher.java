@@ -24,29 +24,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class ShortCodeFetcher extends Fetcher<ShortCode> {
+
     private String pathSid;
     private String pathAccountSid;
 
-    public ShortCodeFetcher(final String pathSid){
+    public ShortCodeFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
-    public ShortCodeFetcher(final String pathAccountSid, final String pathSid){
+
+    public ShortCodeFetcher(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public ShortCode fetch(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -56,15 +62,23 @@ public class ShortCodeFetcher extends Fetcher<ShortCode> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("ShortCode fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ShortCode fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return ShortCode.fromJson(response.getStream(), client.getObjectMapper());
+        return ShortCode.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

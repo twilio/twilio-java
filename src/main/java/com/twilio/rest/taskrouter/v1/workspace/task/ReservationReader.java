@@ -14,6 +14,7 @@
 
 package com.twilio.rest.taskrouter.v1.workspace.task;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,31 +25,36 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class ReservationReader extends Reader<Reservation> {
+
     private String pathWorkspaceSid;
     private String pathTaskSid;
     private Reservation.Status reservationStatus;
     private String workerSid;
     private Integer pageSize;
 
-    public ReservationReader(final String pathWorkspaceSid, final String pathTaskSid){
+    public ReservationReader(
+        final String pathWorkspaceSid,
+        final String pathTaskSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathTaskSid = pathTaskSid;
     }
 
-    public ReservationReader setReservationStatus(final Reservation.Status reservationStatus){
+    public ReservationReader setReservationStatus(
+        final Reservation.Status reservationStatus
+    ) {
         this.reservationStatus = reservationStatus;
         return this;
     }
-    public ReservationReader setWorkerSid(final String workerSid){
+
+    public ReservationReader setWorkerSid(final String workerSid) {
         this.workerSid = workerSid;
         return this;
     }
-    public ReservationReader setPageSize(final Integer pageSize){
+
+    public ReservationReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -59,9 +65,14 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     public Page<Reservation> firstPage(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Tasks/{TaskSid}/Reservations";
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -73,13 +84,21 @@ public class ReservationReader extends Reader<Reservation> {
         return pageForRequest(client, request);
     }
 
-    private Page<Reservation> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Reservation> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Reservation read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Reservation read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -95,7 +114,10 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     @Override
-    public Page<Reservation> previousPage(final Page<Reservation> page, final TwilioRestClient client) {
+    public Page<Reservation> previousPage(
+        final Page<Reservation> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TASKROUTER.toString())
@@ -103,9 +125,11 @@ public class ReservationReader extends Reader<Reservation> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Reservation> nextPage(final Page<Reservation> page, final TwilioRestClient client) {
+    public Page<Reservation> nextPage(
+        final Page<Reservation> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TASKROUTER.toString())
@@ -114,29 +138,30 @@ public class ReservationReader extends Reader<Reservation> {
     }
 
     @Override
-    public Page<Reservation> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Reservation> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (reservationStatus != null) {
-    
-            request.addQueryParam("ReservationStatus", reservationStatus.toString());
+            request.addQueryParam(
+                "ReservationStatus",
+                reservationStatus.toString()
+            );
         }
         if (workerSid != null) {
-    
             request.addQueryParam("WorkerSid", workerSid);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

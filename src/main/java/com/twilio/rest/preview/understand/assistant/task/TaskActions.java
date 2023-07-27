@@ -22,45 +22,47 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskActions extends Resource {
+
     private static final long serialVersionUID = 36530790788418L;
 
-    
-
-    public static TaskActionsFetcher fetcher(final String pathAssistantSid, final String pathTaskSid){
+    public static TaskActionsFetcher fetcher(
+        final String pathAssistantSid,
+        final String pathTaskSid
+    ) {
         return new TaskActionsFetcher(pathAssistantSid, pathTaskSid);
     }
 
-    public static TaskActionsUpdater updater(final String pathAssistantSid, final String pathTaskSid){
+    public static TaskActionsUpdater updater(
+        final String pathAssistantSid,
+        final String pathTaskSid
+    ) {
         return new TaskActionsUpdater(pathAssistantSid, pathTaskSid);
     }
 
     /**
-    * Converts a JSON String into a TaskActions object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return TaskActions object represented by the provided JSON
-    */
-    public static TaskActions fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a TaskActions object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return TaskActions object represented by the provided JSON
+     */
+    public static TaskActions fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskActions.class);
@@ -72,14 +74,17 @@ public class TaskActions extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a TaskActions object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return TaskActions object represented by the provided JSON
-    */
-    public static TaskActions fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a TaskActions object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return TaskActions object represented by the provided JSON
+     */
+    public static TaskActions fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TaskActions.class);
@@ -89,7 +94,6 @@ public class TaskActions extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String accountSid;
     private final String assistantSid;
@@ -99,20 +103,11 @@ public class TaskActions extends Resource {
 
     @JsonCreator
     private TaskActions(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("assistant_sid")
-        final String assistantSid,
-
-        @JsonProperty("task_sid")
-        final String taskSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("data")
-        final Map<String, Object> data
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("assistant_sid") final String assistantSid,
+        @JsonProperty("task_sid") final String taskSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("data") final Map<String, Object> data
     ) {
         this.accountSid = accountSid;
         this.assistantSid = assistantSid;
@@ -121,25 +116,29 @@ public class TaskActions extends Resource {
         this.data = data;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getAssistantSid() {
-            return this.assistantSid;
-        }
-        public final String getTaskSid() {
-            return this.taskSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, Object> getData() {
-            return this.data;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getAssistantSid() {
+        return this.assistantSid;
+    }
+
+    public final String getTaskSid() {
+        return this.taskSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, Object> getData() {
+        return this.data;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -149,14 +148,17 @@ public class TaskActions extends Resource {
 
         TaskActions other = (TaskActions) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(taskSid, other.taskSid) &&  Objects.equals(url, other.url) &&  Objects.equals(data, other.data)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assistantSid, other.assistantSid) &&
+            Objects.equals(taskSid, other.taskSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(data, other.data)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, assistantSid, taskSid, url, data);
     }
-
-
 }
-

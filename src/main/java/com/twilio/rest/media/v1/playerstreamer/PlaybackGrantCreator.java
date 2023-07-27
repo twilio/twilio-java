@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class PlaybackGrantCreator extends Creator<PlaybackGrant> {
 
-
-
-public class PlaybackGrantCreator extends Creator<PlaybackGrant>{
     private String pathSid;
     private Integer ttl;
     private String accessControlAllowOrigin;
@@ -37,20 +35,23 @@ public class PlaybackGrantCreator extends Creator<PlaybackGrant>{
         this.pathSid = pathSid;
     }
 
-    public PlaybackGrantCreator setTtl(final Integer ttl){
+    public PlaybackGrantCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
-    public PlaybackGrantCreator setAccessControlAllowOrigin(final String accessControlAllowOrigin){
+
+    public PlaybackGrantCreator setAccessControlAllowOrigin(
+        final String accessControlAllowOrigin
+    ) {
         this.accessControlAllowOrigin = accessControlAllowOrigin;
         return this;
     }
 
     @Override
-    public PlaybackGrant create(final TwilioRestClient client){
+    public PlaybackGrant create(final TwilioRestClient client) {
         String path = "/v1/PlayerStreamers/{Sid}/PlaybackGrant";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,25 +62,35 @@ public class PlaybackGrantCreator extends Creator<PlaybackGrant>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PlaybackGrant creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PlaybackGrant creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return PlaybackGrant.fromJson(response.getStream(), client.getObjectMapper());
+        return PlaybackGrant.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
-    
         }
         if (accessControlAllowOrigin != null) {
-            request.addPostParam("AccessControlAllowOrigin", accessControlAllowOrigin);
-    
+            request.addPostParam(
+                "AccessControlAllowOrigin",
+                accessControlAllowOrigin
+            );
         }
     }
 }

@@ -25,32 +25,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
-
-
-public class PhoneNumberUpdater extends Updater<PhoneNumber>{
     private String pathPhoneNumber;
     private String voiceRegion;
     private String friendlyName;
 
-    public PhoneNumberUpdater(final String pathPhoneNumber){
+    public PhoneNumberUpdater(final String pathPhoneNumber) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
-    public PhoneNumberUpdater setVoiceRegion(final String voiceRegion){
+    public PhoneNumberUpdater setVoiceRegion(final String voiceRegion) {
         this.voiceRegion = voiceRegion;
         return this;
     }
-    public PhoneNumberUpdater setFriendlyName(final String friendlyName){
+
+    public PhoneNumberUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
     @Override
-    public PhoneNumber update(final TwilioRestClient client){
+    public PhoneNumber update(final TwilioRestClient client) {
         String path = "/v2/PhoneNumbers/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.toString());
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,25 +64,32 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PhoneNumber update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PhoneNumber update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (voiceRegion != null) {
             request.addPostParam("VoiceRegion", voiceRegion);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
     }
 }

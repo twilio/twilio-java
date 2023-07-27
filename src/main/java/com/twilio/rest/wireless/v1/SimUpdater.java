@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class SimUpdater extends Updater<Sim> {
 
-
-public class SimUpdater extends Updater<Sim>{
     private String pathSid;
     private String uniqueName;
     private HttpMethod callbackMethod;
@@ -51,112 +49,135 @@ public class SimUpdater extends Updater<Sim>{
     private Sim.ResetStatus resetStatus;
     private String accountSid;
 
-    public SimUpdater(final String pathSid){
+    public SimUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public SimUpdater setUniqueName(final String uniqueName){
+    public SimUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public SimUpdater setCallbackMethod(final HttpMethod callbackMethod){
+
+    public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
         return this;
     }
-    public SimUpdater setCallbackUrl(final URI callbackUrl){
+
+    public SimUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public SimUpdater setCallbackUrl(final String callbackUrl){
+    public SimUpdater setCallbackUrl(final String callbackUrl) {
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-    public SimUpdater setFriendlyName(final String friendlyName){
+
+    public SimUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public SimUpdater setRatePlan(final String ratePlan){
+
+    public SimUpdater setRatePlan(final String ratePlan) {
         this.ratePlan = ratePlan;
         return this;
     }
-    public SimUpdater setStatus(final Sim.Status status){
+
+    public SimUpdater setStatus(final Sim.Status status) {
         this.status = status;
         return this;
     }
-    public SimUpdater setCommandsCallbackMethod(final HttpMethod commandsCallbackMethod){
+
+    public SimUpdater setCommandsCallbackMethod(
+        final HttpMethod commandsCallbackMethod
+    ) {
         this.commandsCallbackMethod = commandsCallbackMethod;
         return this;
     }
-    public SimUpdater setCommandsCallbackUrl(final URI commandsCallbackUrl){
+
+    public SimUpdater setCommandsCallbackUrl(final URI commandsCallbackUrl) {
         this.commandsCallbackUrl = commandsCallbackUrl;
         return this;
     }
 
-    public SimUpdater setCommandsCallbackUrl(final String commandsCallbackUrl){
-        return setCommandsCallbackUrl(Promoter.uriFromString(commandsCallbackUrl));
+    public SimUpdater setCommandsCallbackUrl(final String commandsCallbackUrl) {
+        return setCommandsCallbackUrl(
+            Promoter.uriFromString(commandsCallbackUrl)
+        );
     }
-    public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+
+    public SimUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
-    public SimUpdater setSmsFallbackUrl(final URI smsFallbackUrl){
+
+    public SimUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public SimUpdater setSmsFallbackUrl(final String smsFallbackUrl){
+    public SimUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
-    public SimUpdater setSmsMethod(final HttpMethod smsMethod){
+
+    public SimUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
-    public SimUpdater setSmsUrl(final URI smsUrl){
+
+    public SimUpdater setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
     }
 
-    public SimUpdater setSmsUrl(final String smsUrl){
+    public SimUpdater setSmsUrl(final String smsUrl) {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
-    public SimUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
+
+    public SimUpdater setVoiceFallbackMethod(
+        final HttpMethod voiceFallbackMethod
+    ) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
-    public SimUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl){
+
+    public SimUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public SimUpdater setVoiceFallbackUrl(final String voiceFallbackUrl){
+    public SimUpdater setVoiceFallbackUrl(final String voiceFallbackUrl) {
         return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
-    public SimUpdater setVoiceMethod(final HttpMethod voiceMethod){
+
+    public SimUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
-    public SimUpdater setVoiceUrl(final URI voiceUrl){
+
+    public SimUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public SimUpdater setVoiceUrl(final String voiceUrl){
+    public SimUpdater setVoiceUrl(final String voiceUrl) {
         return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
-    public SimUpdater setResetStatus(final Sim.ResetStatus resetStatus){
+
+    public SimUpdater setResetStatus(final Sim.ResetStatus resetStatus) {
         this.resetStatus = resetStatus;
         return this;
     }
-    public SimUpdater setAccountSid(final String accountSid){
+
+    public SimUpdater setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
     @Override
-    public Sim update(final TwilioRestClient client){
+    public Sim update(final TwilioRestClient client) {
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -167,9 +188,14 @@ public class SimUpdater extends Updater<Sim>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Sim update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sim update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -178,78 +204,76 @@ public class SimUpdater extends Updater<Sim>{
 
         return Sim.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
-    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (ratePlan != null) {
             request.addPostParam("RatePlan", ratePlan);
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (commandsCallbackMethod != null) {
-            request.addPostParam("CommandsCallbackMethod", commandsCallbackMethod.toString());
-    
+            request.addPostParam(
+                "CommandsCallbackMethod",
+                commandsCallbackMethod.toString()
+            );
         }
         if (commandsCallbackUrl != null) {
-            request.addPostParam("CommandsCallbackUrl", commandsCallbackUrl.toString());
-    
+            request.addPostParam(
+                "CommandsCallbackUrl",
+                commandsCallbackUrl.toString()
+            );
         }
         if (smsFallbackMethod != null) {
-            request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
-    
+            request.addPostParam(
+                "SmsFallbackMethod",
+                smsFallbackMethod.toString()
+            );
         }
         if (smsFallbackUrl != null) {
             request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
-    
         }
         if (smsMethod != null) {
             request.addPostParam("SmsMethod", smsMethod.toString());
-    
         }
         if (smsUrl != null) {
             request.addPostParam("SmsUrl", smsUrl.toString());
-    
         }
         if (voiceFallbackMethod != null) {
-            request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
-    
+            request.addPostParam(
+                "VoiceFallbackMethod",
+                voiceFallbackMethod.toString()
+            );
         }
         if (voiceFallbackUrl != null) {
-            request.addPostParam("VoiceFallbackUrl", voiceFallbackUrl.toString());
-    
+            request.addPostParam(
+                "VoiceFallbackUrl",
+                voiceFallbackUrl.toString()
+            );
         }
         if (voiceMethod != null) {
             request.addPostParam("VoiceMethod", voiceMethod.toString());
-    
         }
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
-    
         }
         if (resetStatus != null) {
             request.addPostParam("ResetStatus", resetStatus.toString());
-    
         }
         if (accountSid != null) {
             request.addPostParam("AccountSid", accountSid);
-    
         }
     }
 }

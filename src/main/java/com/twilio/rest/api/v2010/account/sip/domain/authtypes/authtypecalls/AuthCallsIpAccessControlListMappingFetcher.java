@@ -24,33 +24,53 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class AuthCallsIpAccessControlListMappingFetcher
+    extends Fetcher<AuthCallsIpAccessControlListMapping> {
 
-
-
-public class AuthCallsIpAccessControlListMappingFetcher extends Fetcher<AuthCallsIpAccessControlListMapping> {
     private String pathDomainSid;
     private String pathSid;
     private String pathAccountSid;
 
-    public AuthCallsIpAccessControlListMappingFetcher(final String pathDomainSid, final String pathSid){
+    public AuthCallsIpAccessControlListMappingFetcher(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
-    public AuthCallsIpAccessControlListMappingFetcher(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+
+    public AuthCallsIpAccessControlListMappingFetcher(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
-    public AuthCallsIpAccessControlListMapping fetch(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json";
+    public AuthCallsIpAccessControlListMapping fetch(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/IpAccessControlListMappings/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,15 +80,23 @@ public class AuthCallsIpAccessControlListMappingFetcher extends Fetcher<AuthCall
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("AuthCallsIpAccessControlListMapping fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthCallsIpAccessControlListMapping fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return AuthCallsIpAccessControlListMapping.fromJson(response.getStream(), client.getObjectMapper());
+        return AuthCallsIpAccessControlListMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

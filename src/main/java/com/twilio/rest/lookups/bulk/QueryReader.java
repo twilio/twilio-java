@@ -14,6 +14,7 @@
 
 package com.twilio.rest.lookups.bulk;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,17 +25,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class QueryReader extends Reader<Query> {
+
     private Query.LookupRequest1 lookupRequest1;
 
-    public QueryReader(){
-    }
+    public QueryReader() {}
 
-    public QueryReader setLookupRequest1(final Query.LookupRequest1 lookupRequest1){
+    public QueryReader setLookupRequest1(
+        final Query.LookupRequest1 lookupRequest1
+    ) {
         this.lookupRequest1 = lookupRequest1;
         return this;
     }
@@ -56,13 +56,21 @@ public class QueryReader extends Reader<Query> {
         return pageForRequest(client, request);
     }
 
-    private Page<Query> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Query> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Query read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Query read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -78,7 +86,10 @@ public class QueryReader extends Reader<Query> {
     }
 
     @Override
-    public Page<Query> previousPage(final Page<Query> page, final TwilioRestClient client) {
+    public Page<Query> previousPage(
+        final Page<Query> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.LOOKUPS.toString())
@@ -86,9 +97,11 @@ public class QueryReader extends Reader<Query> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Query> nextPage(final Page<Query> page, final TwilioRestClient client) {
+    public Page<Query> nextPage(
+        final Page<Query> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.LOOKUPS.toString())
@@ -97,11 +110,11 @@ public class QueryReader extends Reader<Query> {
     }
 
     @Override
-    public Page<Query> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Query> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }

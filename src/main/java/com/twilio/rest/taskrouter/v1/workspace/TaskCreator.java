@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class TaskCreator extends Creator<Task> {
 
-
-
-public class TaskCreator extends Creator<Task>{
     private String pathWorkspaceSid;
     private Integer timeout;
     private Integer priority;
@@ -40,32 +38,40 @@ public class TaskCreator extends Creator<Task>{
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public TaskCreator setTimeout(final Integer timeout){
+    public TaskCreator setTimeout(final Integer timeout) {
         this.timeout = timeout;
         return this;
     }
-    public TaskCreator setPriority(final Integer priority){
+
+    public TaskCreator setPriority(final Integer priority) {
         this.priority = priority;
         return this;
     }
-    public TaskCreator setTaskChannel(final String taskChannel){
+
+    public TaskCreator setTaskChannel(final String taskChannel) {
         this.taskChannel = taskChannel;
         return this;
     }
-    public TaskCreator setWorkflowSid(final String workflowSid){
+
+    public TaskCreator setWorkflowSid(final String workflowSid) {
         this.workflowSid = workflowSid;
         return this;
     }
-    public TaskCreator setAttributes(final String attributes){
+
+    public TaskCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
 
     @Override
-    public Task create(final TwilioRestClient client){
+    public Task create(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -76,9 +82,14 @@ public class TaskCreator extends Creator<Task>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Task creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Task creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -87,26 +98,22 @@ public class TaskCreator extends Creator<Task>{
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (timeout != null) {
             request.addPostParam("Timeout", timeout.toString());
-    
         }
         if (priority != null) {
             request.addPostParam("Priority", priority.toString());
-    
         }
         if (taskChannel != null) {
             request.addPostParam("TaskChannel", taskChannel);
-    
         }
         if (workflowSid != null) {
             request.addPostParam("WorkflowSid", workflowSid);
-    
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
-    
         }
     }
 }

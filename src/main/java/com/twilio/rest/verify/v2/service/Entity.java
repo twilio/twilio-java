@@ -23,54 +23,59 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Entity extends Resource {
+
     private static final long serialVersionUID = 107301822451514L;
 
-    
-
-    public static EntityCreator creator(final String pathServiceSid, final String identity){
+    public static EntityCreator creator(
+        final String pathServiceSid,
+        final String identity
+    ) {
         return new EntityCreator(pathServiceSid, identity);
     }
 
-    public static EntityDeleter deleter(final String pathServiceSid, final String pathIdentity){
+    public static EntityDeleter deleter(
+        final String pathServiceSid,
+        final String pathIdentity
+    ) {
         return new EntityDeleter(pathServiceSid, pathIdentity);
     }
 
-    public static EntityFetcher fetcher(final String pathServiceSid, final String pathIdentity){
+    public static EntityFetcher fetcher(
+        final String pathServiceSid,
+        final String pathIdentity
+    ) {
         return new EntityFetcher(pathServiceSid, pathIdentity);
     }
 
-    public static EntityReader reader(final String pathServiceSid){
+    public static EntityReader reader(final String pathServiceSid) {
         return new EntityReader(pathServiceSid);
     }
 
     /**
-    * Converts a JSON String into a Entity object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Entity object represented by the provided JSON
-    */
-    public static Entity fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Entity object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Entity object represented by the provided JSON
+     */
+    public static Entity fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Entity.class);
@@ -82,14 +87,17 @@ public class Entity extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Entity object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Entity object represented by the provided JSON
-    */
-    public static Entity fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Entity object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Entity object represented by the provided JSON
+     */
+    public static Entity fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Entity.class);
@@ -99,7 +107,6 @@ public class Entity extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String identity;
@@ -112,29 +119,14 @@ public class Entity extends Resource {
 
     @JsonCreator
     private Entity(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.sid = sid;
         this.identity = identity;
@@ -146,34 +138,41 @@ public class Entity extends Resource {
         this.links = links;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -183,14 +182,29 @@ public class Entity extends Resource {
 
         Entity other = (Entity) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, identity, accountSid, serviceSid, dateCreated, dateUpdated, url, links);
+        return Objects.hash(
+            sid,
+            identity,
+            accountSid,
+            serviceSid,
+            dateCreated,
+            dateUpdated,
+            url,
+            links
+        );
     }
-
-
 }
-

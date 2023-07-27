@@ -23,45 +23,41 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
+import com.twilio.type.RecordingRule;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import com.twilio.type.RecordingRule;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RecordingRules extends Resource {
+
     private static final long serialVersionUID = 215198002775360L;
 
-    
-
-    public static RecordingRulesFetcher fetcher(final String pathRoomSid){
+    public static RecordingRulesFetcher fetcher(final String pathRoomSid) {
         return new RecordingRulesFetcher(pathRoomSid);
     }
 
-    public static RecordingRulesUpdater updater(final String pathRoomSid){
+    public static RecordingRulesUpdater updater(final String pathRoomSid) {
         return new RecordingRulesUpdater(pathRoomSid);
     }
 
     /**
-    * Converts a JSON String into a RecordingRules object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return RecordingRules object represented by the provided JSON
-    */
-    public static RecordingRules fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a RecordingRules object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return RecordingRules object represented by the provided JSON
+     */
+    public static RecordingRules fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RecordingRules.class);
@@ -73,14 +69,17 @@ public class RecordingRules extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a RecordingRules object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return RecordingRules object represented by the provided JSON
-    */
-    public static RecordingRules fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a RecordingRules object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return RecordingRules object represented by the provided JSON
+     */
+    public static RecordingRules fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RecordingRules.class);
@@ -90,7 +89,6 @@ public class RecordingRules extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String roomSid;
     private final List<RecordingRule> rules;
@@ -99,17 +97,10 @@ public class RecordingRules extends Resource {
 
     @JsonCreator
     private RecordingRules(
-        @JsonProperty("room_sid")
-        final String roomSid,
-
-        @JsonProperty("rules")
-        final List<RecordingRule> rules,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("rules") final List<RecordingRule> rules,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.roomSid = roomSid;
         this.rules = rules;
@@ -117,22 +108,25 @@ public class RecordingRules extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getRoomSid() {
-            return this.roomSid;
-        }
-        public final List<RecordingRule> getRules() {
-            return this.rules;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getRoomSid() {
+        return this.roomSid;
+    }
+
+    public final List<RecordingRule> getRules() {
+        return this.rules;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -142,14 +136,16 @@ public class RecordingRules extends Resource {
 
         RecordingRules other = (RecordingRules) o;
 
-        return Objects.equals(roomSid, other.roomSid) &&  Objects.equals(rules, other.rules) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(rules, other.rules) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(roomSid, rules, dateCreated, dateUpdated);
     }
-
-
 }
-

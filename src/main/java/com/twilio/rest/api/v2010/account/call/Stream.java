@@ -24,50 +24,64 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Stream extends Resource {
+
     private static final long serialVersionUID = 189203494840345L;
 
-    
-
-    public static StreamCreator creator(final String pathCallSid, final URI url){
+    public static StreamCreator creator(
+        final String pathCallSid,
+        final URI url
+    ) {
         return new StreamCreator(pathCallSid, url);
     }
-    public static StreamCreator creator(final String pathAccountSid, final String pathCallSid, final URI url){
+
+    public static StreamCreator creator(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final URI url
+    ) {
         return new StreamCreator(pathAccountSid, pathCallSid, url);
     }
 
-    public static StreamUpdater updater(final String pathCallSid, final String pathSid, final Stream.UpdateStatus status){
+    public static StreamUpdater updater(
+        final String pathCallSid,
+        final String pathSid,
+        final Stream.UpdateStatus status
+    ) {
         return new StreamUpdater(pathCallSid, pathSid, status);
     }
-    public static StreamUpdater updater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Stream.UpdateStatus status){
+
+    public static StreamUpdater updater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final Stream.UpdateStatus status
+    ) {
         return new StreamUpdater(pathAccountSid, pathCallSid, pathSid, status);
     }
 
     /**
-    * Converts a JSON String into a Stream object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Stream object represented by the provided JSON
-    */
-    public static Stream fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Stream object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Stream object represented by the provided JSON
+     */
+    public static Stream fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Stream.class);
@@ -79,14 +93,17 @@ public class Stream extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Stream object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Stream object represented by the provided JSON
-    */
-    public static Stream fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Stream object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Stream object represented by the provided JSON
+     */
+    public static Stream fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Stream.class);
@@ -116,6 +133,7 @@ public class Stream extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
     public enum Track {
         INBOUND_TRACK("inbound_track"),
         OUTBOUND_TRACK("outbound_track"),
@@ -136,6 +154,7 @@ public class Stream extends Resource {
             return Promoter.enumFromString(value, Track.values());
         }
     }
+
     public enum UpdateStatus {
         STOPPED("stopped");
 
@@ -165,26 +184,13 @@ public class Stream extends Resource {
 
     @JsonCreator
     private Stream(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("call_sid")
-        final String callSid,
-
-        @JsonProperty("name")
-        final String name,
-
-        @JsonProperty("status")
-        final Stream.Status status,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("uri")
-        final String uri
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("name") final String name,
+        @JsonProperty("status") final Stream.Status status,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("uri") final String uri
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -195,31 +201,37 @@ public class Stream extends Resource {
         this.uri = uri;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getCallSid() {
-            return this.callSid;
-        }
-        public final String getName() {
-            return this.name;
-        }
-        public final Stream.Status getStatus() {
-            return this.status;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getCallSid() {
+        return this.callSid;
+    }
+
+    public final String getName() {
+        return this.name;
+    }
+
+    public final Stream.Status getStatus() {
+        return this.status;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -229,14 +241,27 @@ public class Stream extends Resource {
 
         Stream other = (Stream) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(name, other.name) &&  Objects.equals(status, other.status) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(uri, other.uri)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(uri, other.uri)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, callSid, name, status, dateUpdated, uri);
+        return Objects.hash(
+            sid,
+            accountSid,
+            callSid,
+            name,
+            status,
+            dateUpdated,
+            uri
+        );
     }
-
-
 }
-

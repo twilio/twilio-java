@@ -1,6 +1,33 @@
 twilio-java changelog
 =====================
 
+[2023-07-27] Version 10.0.0-rc.2
+--------------------------------
+**Api**
+- Added `voice-intelligence`, `voice-intelligence-transcription` and `voice-intelligence-operators` to `usage_record` API.
+- Added `tts-google` to `usage_record` API.
+
+**Flex**
+- Adding `interaction_context_sid` as optional parameter in Interactions API
+
+**Lookups**
+- Add new `disposable_phone_number_risk` package to the lookup response
+
+**Messaging**
+- Making visiblity public for tollfree_verification API
+
+**Verify**
+- Documentation of list attempts API was improved by correcting `date_created_after` and `date_created_before` expected date format.
+- Documentation was improved by correcting `date_created_after` and `date_created_before` expected date format parameter on attempts summary API.
+- Documentation was improved by adding `WHATSAPP` as optional valid parameter on attempts summary API.
+- Add `RiskCheck` optional parameter on Verification creation.
+
+**Twiml**
+- Added support for he-il inside of ssm_lang.json that was missing
+- Added support for he-il language in say.json that was missing
+- Add `statusCallback` and `statusCallbackMethod` attributes to `<Siprec>`.
+
+
 [2023-07-04] Version 10.0.0-rc.1
 --------------------------------
 **Library - Chore**

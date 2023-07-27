@@ -23,47 +23,46 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
-import java.math.BigDecimal;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class OperatorResult extends Resource {
+
     private static final long serialVersionUID = 126254553573605L;
 
-    
-
-    public static OperatorResultFetcher fetcher(final String pathTranscriptSid, final String pathOperatorSid){
+    public static OperatorResultFetcher fetcher(
+        final String pathTranscriptSid,
+        final String pathOperatorSid
+    ) {
         return new OperatorResultFetcher(pathTranscriptSid, pathOperatorSid);
     }
 
-    public static OperatorResultReader reader(final String pathTranscriptSid){
+    public static OperatorResultReader reader(final String pathTranscriptSid) {
         return new OperatorResultReader(pathTranscriptSid);
     }
 
     /**
-    * Converts a JSON String into a OperatorResult object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return OperatorResult object represented by the provided JSON
-    */
-    public static OperatorResult fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a OperatorResult object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return OperatorResult object represented by the provided JSON
+     */
+    public static OperatorResult fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorResult.class);
@@ -75,14 +74,17 @@ public class OperatorResult extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a OperatorResult object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return OperatorResult object represented by the provided JSON
-    */
-    public static OperatorResult fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a OperatorResult object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return OperatorResult object represented by the provided JSON
+     */
+    public static OperatorResult fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, OperatorResult.class);
@@ -133,47 +135,30 @@ public class OperatorResult extends Resource {
 
     @JsonCreator
     private OperatorResult(
-        @JsonProperty("operator_type")
-        final OperatorResult.OperatorType operatorType,
-
-        @JsonProperty("name")
-        final String name,
-
-        @JsonProperty("operator_sid")
-        final String operatorSid,
-
-        @JsonProperty("extract_match")
-        final Boolean extractMatch,
-
-        @JsonProperty("match_probability")
-        final BigDecimal matchProbability,
-
-        @JsonProperty("normalized_result")
-        final String normalizedResult,
-
-        @JsonProperty("utterance_results")
-        final List<Map<String, Object>> utteranceResults,
-
-        @JsonProperty("utterance_match")
-        final Boolean utteranceMatch,
-
-        @JsonProperty("predicted_label")
-        final String predictedLabel,
-
-        @JsonProperty("predicted_probability")
-        final BigDecimal predictedProbability,
-
-        @JsonProperty("label_probabilities")
-        final Map<String, Object> labelProbabilities,
-
-        @JsonProperty("extract_results")
-        final Map<String, Object> extractResults,
-
-        @JsonProperty("transcript_sid")
-        final String transcriptSid,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty(
+            "operator_type"
+        ) final OperatorResult.OperatorType operatorType,
+        @JsonProperty("name") final String name,
+        @JsonProperty("operator_sid") final String operatorSid,
+        @JsonProperty("extract_match") final Boolean extractMatch,
+        @JsonProperty("match_probability") final BigDecimal matchProbability,
+        @JsonProperty("normalized_result") final String normalizedResult,
+        @JsonProperty(
+            "utterance_results"
+        ) final List<Map<String, Object>> utteranceResults,
+        @JsonProperty("utterance_match") final Boolean utteranceMatch,
+        @JsonProperty("predicted_label") final String predictedLabel,
+        @JsonProperty(
+            "predicted_probability"
+        ) final BigDecimal predictedProbability,
+        @JsonProperty(
+            "label_probabilities"
+        ) final Map<String, Object> labelProbabilities,
+        @JsonProperty(
+            "extract_results"
+        ) final Map<String, Object> extractResults,
+        @JsonProperty("transcript_sid") final String transcriptSid,
+        @JsonProperty("url") final URI url
     ) {
         this.operatorType = operatorType;
         this.name = name;
@@ -191,52 +176,65 @@ public class OperatorResult extends Resource {
         this.url = url;
     }
 
-        public final OperatorResult.OperatorType getOperatorType() {
-            return this.operatorType;
-        }
-        public final String getName() {
-            return this.name;
-        }
-        public final String getOperatorSid() {
-            return this.operatorSid;
-        }
-        public final Boolean getExtractMatch() {
-            return this.extractMatch;
-        }
-        public final BigDecimal getMatchProbability() {
-            return this.matchProbability;
-        }
-        public final String getNormalizedResult() {
-            return this.normalizedResult;
-        }
-        public final List<Map<String, Object>> getUtteranceResults() {
-            return this.utteranceResults;
-        }
-        public final Boolean getUtteranceMatch() {
-            return this.utteranceMatch;
-        }
-        public final String getPredictedLabel() {
-            return this.predictedLabel;
-        }
-        public final BigDecimal getPredictedProbability() {
-            return this.predictedProbability;
-        }
-        public final Map<String, Object> getLabelProbabilities() {
-            return this.labelProbabilities;
-        }
-        public final Map<String, Object> getExtractResults() {
-            return this.extractResults;
-        }
-        public final String getTranscriptSid() {
-            return this.transcriptSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final OperatorResult.OperatorType getOperatorType() {
+        return this.operatorType;
+    }
+
+    public final String getName() {
+        return this.name;
+    }
+
+    public final String getOperatorSid() {
+        return this.operatorSid;
+    }
+
+    public final Boolean getExtractMatch() {
+        return this.extractMatch;
+    }
+
+    public final BigDecimal getMatchProbability() {
+        return this.matchProbability;
+    }
+
+    public final String getNormalizedResult() {
+        return this.normalizedResult;
+    }
+
+    public final List<Map<String, Object>> getUtteranceResults() {
+        return this.utteranceResults;
+    }
+
+    public final Boolean getUtteranceMatch() {
+        return this.utteranceMatch;
+    }
+
+    public final String getPredictedLabel() {
+        return this.predictedLabel;
+    }
+
+    public final BigDecimal getPredictedProbability() {
+        return this.predictedProbability;
+    }
+
+    public final Map<String, Object> getLabelProbabilities() {
+        return this.labelProbabilities;
+    }
+
+    public final Map<String, Object> getExtractResults() {
+        return this.extractResults;
+    }
+
+    public final String getTranscriptSid() {
+        return this.transcriptSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -246,14 +244,41 @@ public class OperatorResult extends Resource {
 
         OperatorResult other = (OperatorResult) o;
 
-        return Objects.equals(operatorType, other.operatorType) &&  Objects.equals(name, other.name) &&  Objects.equals(operatorSid, other.operatorSid) &&  Objects.equals(extractMatch, other.extractMatch) &&  Objects.equals(matchProbability, other.matchProbability) &&  Objects.equals(normalizedResult, other.normalizedResult) &&  Objects.equals(utteranceResults, other.utteranceResults) &&  Objects.equals(utteranceMatch, other.utteranceMatch) &&  Objects.equals(predictedLabel, other.predictedLabel) &&  Objects.equals(predictedProbability, other.predictedProbability) &&  Objects.equals(labelProbabilities, other.labelProbabilities) &&  Objects.equals(extractResults, other.extractResults) &&  Objects.equals(transcriptSid, other.transcriptSid) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(operatorType, other.operatorType) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(operatorSid, other.operatorSid) &&
+            Objects.equals(extractMatch, other.extractMatch) &&
+            Objects.equals(matchProbability, other.matchProbability) &&
+            Objects.equals(normalizedResult, other.normalizedResult) &&
+            Objects.equals(utteranceResults, other.utteranceResults) &&
+            Objects.equals(utteranceMatch, other.utteranceMatch) &&
+            Objects.equals(predictedLabel, other.predictedLabel) &&
+            Objects.equals(predictedProbability, other.predictedProbability) &&
+            Objects.equals(labelProbabilities, other.labelProbabilities) &&
+            Objects.equals(extractResults, other.extractResults) &&
+            Objects.equals(transcriptSid, other.transcriptSid) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(operatorType, name, operatorSid, extractMatch, matchProbability, normalizedResult, utteranceResults, utteranceMatch, predictedLabel, predictedProbability, labelProbabilities, extractResults, transcriptSid, url);
+        return Objects.hash(
+            operatorType,
+            name,
+            operatorSid,
+            extractMatch,
+            matchProbability,
+            normalizedResult,
+            utteranceResults,
+            utteranceMatch,
+            predictedLabel,
+            predictedProbability,
+            labelProbabilities,
+            extractResults,
+            transcriptSid,
+            url
+        );
     }
-
-
 }
-

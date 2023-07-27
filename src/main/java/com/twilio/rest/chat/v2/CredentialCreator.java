@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class CredentialCreator extends Creator<Credential> {
 
-
-
-public class CredentialCreator extends Creator<Credential>{
     private Credential.PushService type;
     private String friendlyName;
     private String certificate;
@@ -41,40 +39,46 @@ public class CredentialCreator extends Creator<Credential>{
         this.type = type;
     }
 
-    public CredentialCreator setType(final Credential.PushService type){
+    public CredentialCreator setType(final Credential.PushService type) {
         this.type = type;
         return this;
     }
-    public CredentialCreator setFriendlyName(final String friendlyName){
+
+    public CredentialCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public CredentialCreator setCertificate(final String certificate){
+
+    public CredentialCreator setCertificate(final String certificate) {
         this.certificate = certificate;
         return this;
     }
-    public CredentialCreator setPrivateKey(final String privateKey){
+
+    public CredentialCreator setPrivateKey(final String privateKey) {
         this.privateKey = privateKey;
         return this;
     }
-    public CredentialCreator setSandbox(final Boolean sandbox){
+
+    public CredentialCreator setSandbox(final Boolean sandbox) {
         this.sandbox = sandbox;
         return this;
     }
-    public CredentialCreator setApiKey(final String apiKey){
+
+    public CredentialCreator setApiKey(final String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
-    public CredentialCreator setSecret(final String secret){
+
+    public CredentialCreator setSecret(final String secret) {
         this.secret = secret;
         return this;
     }
 
     @Override
-    public Credential create(final TwilioRestClient client){
+    public Credential create(final TwilioRestClient client) {
         String path = "/v2/Credentials";
 
-        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path = path.replace("{" + "Type" + "}", this.type.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -85,45 +89,47 @@ public class CredentialCreator extends Creator<Credential>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Credential creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Credential creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Credential.fromJson(response.getStream(), client.getObjectMapper());
+        return Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (type != null) {
             request.addPostParam("Type", type.toString());
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (certificate != null) {
             request.addPostParam("Certificate", certificate);
-    
         }
         if (privateKey != null) {
             request.addPostParam("PrivateKey", privateKey);
-    
         }
         if (sandbox != null) {
             request.addPostParam("Sandbox", sandbox.toString());
-    
         }
         if (apiKey != null) {
             request.addPostParam("ApiKey", apiKey);
-    
         }
         if (secret != null) {
             request.addPostParam("Secret", secret);
-    
         }
     }
 }

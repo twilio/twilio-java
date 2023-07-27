@@ -23,42 +23,39 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class NewKey extends Resource {
+
     private static final long serialVersionUID = 142441509867514L;
 
-    
-
-    public static NewKeyCreator creator(){
+    public static NewKeyCreator creator() {
         return new NewKeyCreator();
     }
-    public static NewKeyCreator creator(final String pathAccountSid){
+
+    public static NewKeyCreator creator(final String pathAccountSid) {
         return new NewKeyCreator(pathAccountSid);
     }
 
     /**
-    * Converts a JSON String into a NewKey object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return NewKey object represented by the provided JSON
-    */
-    public static NewKey fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a NewKey object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return NewKey object represented by the provided JSON
+     */
+    public static NewKey fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewKey.class);
@@ -70,14 +67,17 @@ public class NewKey extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a NewKey object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return NewKey object represented by the provided JSON
-    */
-    public static NewKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a NewKey object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return NewKey object represented by the provided JSON
+     */
+    public static NewKey fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, NewKey.class);
@@ -87,7 +87,6 @@ public class NewKey extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String friendlyName;
@@ -97,20 +96,11 @@ public class NewKey extends Resource {
 
     @JsonCreator
     private NewKey(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("secret")
-        final String secret
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("secret") final String secret
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -119,25 +109,29 @@ public class NewKey extends Resource {
         this.secret = secret;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getSecret() {
-            return this.secret;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getSecret() {
+        return this.secret;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -147,14 +141,23 @@ public class NewKey extends Resource {
 
         NewKey other = (NewKey) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(secret, other.secret)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(secret, other.secret)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, friendlyName, dateCreated, dateUpdated, secret);
+        return Objects.hash(
+            sid,
+            friendlyName,
+            dateCreated,
+            dateUpdated,
+            secret
+        );
     }
-
-
 }
-

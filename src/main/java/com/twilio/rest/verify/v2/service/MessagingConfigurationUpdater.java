@@ -25,32 +25,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class MessagingConfigurationUpdater
+    extends Updater<MessagingConfiguration> {
 
-
-
-public class MessagingConfigurationUpdater extends Updater<MessagingConfiguration>{
     private String pathServiceSid;
     private String pathCountry;
     private String messagingServiceSid;
 
-    public MessagingConfigurationUpdater(final String pathServiceSid, final String pathCountry, final String messagingServiceSid){
+    public MessagingConfigurationUpdater(
+        final String pathServiceSid,
+        final String pathCountry,
+        final String messagingServiceSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathCountry = pathCountry;
         this.messagingServiceSid = messagingServiceSid;
     }
 
-    public MessagingConfigurationUpdater setMessagingServiceSid(final String messagingServiceSid){
+    public MessagingConfigurationUpdater setMessagingServiceSid(
+        final String messagingServiceSid
+    ) {
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
 
     @Override
-    public MessagingConfiguration update(final TwilioRestClient client){
-        String path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
+    public MessagingConfiguration update(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Country"+"}", this.pathCountry.toString());
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.messagingServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,21 +75,29 @@ public class MessagingConfigurationUpdater extends Updater<MessagingConfiguratio
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("MessagingConfiguration update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "MessagingConfiguration update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return MessagingConfiguration.fromJson(response.getStream(), client.getObjectMapper());
+        return MessagingConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (messagingServiceSid != null) {
             request.addPostParam("MessagingServiceSid", messagingServiceSid);
-    
         }
     }
 }

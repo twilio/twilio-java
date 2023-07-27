@@ -14,6 +14,7 @@
 
 package com.twilio.rest.api.v2010.account.recording;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,24 +25,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class AddOnResultReader extends Reader<AddOnResult> {
+
     private String pathReferenceSid;
     private String pathAccountSid;
     private Integer pageSize;
 
-    public AddOnResultReader(final String pathReferenceSid){
+    public AddOnResultReader(final String pathReferenceSid) {
         this.pathReferenceSid = pathReferenceSid;
     }
-    public AddOnResultReader(final String pathAccountSid, final String pathReferenceSid){
+
+    public AddOnResultReader(
+        final String pathAccountSid,
+        final String pathReferenceSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
     }
 
-    public AddOnResultReader setPageSize(final Integer pageSize){
+    public AddOnResultReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -52,10 +55,22 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     }
 
     public Page<AddOnResult> firstPage(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json";
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"ReferenceSid"+"}", this.pathReferenceSid.toString());
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults.json";
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ReferenceSid" + "}",
+                this.pathReferenceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -67,13 +82,21 @@ public class AddOnResultReader extends Reader<AddOnResult> {
         return pageForRequest(client, request);
     }
 
-    private Page<AddOnResult> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<AddOnResult> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AddOnResult read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AddOnResult read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -89,7 +112,10 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     }
 
     @Override
-    public Page<AddOnResult> previousPage(final Page<AddOnResult> page, final TwilioRestClient client) {
+    public Page<AddOnResult> previousPage(
+        final Page<AddOnResult> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -97,9 +123,11 @@ public class AddOnResultReader extends Reader<AddOnResult> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<AddOnResult> nextPage(final Page<AddOnResult> page, final TwilioRestClient client) {
+    public Page<AddOnResult> nextPage(
+        final Page<AddOnResult> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -108,21 +136,21 @@ public class AddOnResultReader extends Reader<AddOnResult> {
     }
 
     @Override
-    public Page<AddOnResult> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<AddOnResult> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

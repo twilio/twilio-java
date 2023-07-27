@@ -25,48 +25,51 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class ServiceUpdater extends Updater<Service> {
 
-
-public class ServiceUpdater extends Updater<Service>{
     private String pathSid;
     private URI webhookUrl;
     private String friendlyName;
     private Boolean reachabilityWebhooksEnabled;
     private Boolean aclEnabled;
 
-    public ServiceUpdater(final String pathSid){
+    public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public ServiceUpdater setWebhookUrl(final URI webhookUrl){
+    public ServiceUpdater setWebhookUrl(final URI webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-    public ServiceUpdater setWebhookUrl(final String webhookUrl){
+    public ServiceUpdater setWebhookUrl(final String webhookUrl) {
         return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
-    public ServiceUpdater setFriendlyName(final String friendlyName){
+
+    public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ServiceUpdater setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled){
+
+    public ServiceUpdater setReachabilityWebhooksEnabled(
+        final Boolean reachabilityWebhooksEnabled
+    ) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         return this;
     }
-    public ServiceUpdater setAclEnabled(final Boolean aclEnabled){
+
+    public ServiceUpdater setAclEnabled(final Boolean aclEnabled) {
         this.aclEnabled = aclEnabled;
         return this;
     }
 
     @Override
-    public Service update(final TwilioRestClient client){
+    public Service update(final TwilioRestClient client) {
         String path = "/Sync/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,9 +80,14 @@ public class ServiceUpdater extends Updater<Service>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Service update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -88,22 +96,22 @@ public class ServiceUpdater extends Updater<Service>{
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl.toString());
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (reachabilityWebhooksEnabled != null) {
-            request.addPostParam("ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled.toString());
-    
+            request.addPostParam(
+                "ReachabilityWebhooksEnabled",
+                reachabilityWebhooksEnabled.toString()
+            );
         }
         if (aclEnabled != null) {
             request.addPostParam("AclEnabled", aclEnabled.toString());
-    
         }
     }
 }

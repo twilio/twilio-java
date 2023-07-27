@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class ShortCodeUpdater extends Updater<ShortCode> {
 
-
-public class ShortCodeUpdater extends Updater<ShortCode>{
     private String pathSid;
     private String pathAccountSid;
     private String friendlyName;
@@ -40,54 +38,70 @@ public class ShortCodeUpdater extends Updater<ShortCode>{
     private URI smsFallbackUrl;
     private HttpMethod smsFallbackMethod;
 
-    public ShortCodeUpdater(final String pathSid){
+    public ShortCodeUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-    public ShortCodeUpdater(final String pathAccountSid, final String pathSid){
+
+    public ShortCodeUpdater(final String pathAccountSid, final String pathSid) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public ShortCodeUpdater setFriendlyName(final String friendlyName){
+    public ShortCodeUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ShortCodeUpdater setApiVersion(final String apiVersion){
+
+    public ShortCodeUpdater setApiVersion(final String apiVersion) {
         this.apiVersion = apiVersion;
         return this;
     }
-    public ShortCodeUpdater setSmsUrl(final URI smsUrl){
+
+    public ShortCodeUpdater setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
     }
 
-    public ShortCodeUpdater setSmsUrl(final String smsUrl){
+    public ShortCodeUpdater setSmsUrl(final String smsUrl) {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
-    public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod){
+
+    public ShortCodeUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
-    public ShortCodeUpdater setSmsFallbackUrl(final URI smsFallbackUrl){
+
+    public ShortCodeUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public ShortCodeUpdater setSmsFallbackUrl(final String smsFallbackUrl){
+    public ShortCodeUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
-    public ShortCodeUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+
+    public ShortCodeUpdater setSmsFallbackMethod(
+        final HttpMethod smsFallbackMethod
+    ) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
 
     @Override
-    public ShortCode update(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
+    public ShortCode update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SMS/ShortCodes/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -98,41 +112,47 @@ public class ShortCodeUpdater extends Updater<ShortCode>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("ShortCode update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ShortCode update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return ShortCode.fromJson(response.getStream(), client.getObjectMapper());
+        return ShortCode.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
-    
         }
         if (smsUrl != null) {
             request.addPostParam("SmsUrl", smsUrl.toString());
-    
         }
         if (smsMethod != null) {
             request.addPostParam("SmsMethod", smsMethod.toString());
-    
         }
         if (smsFallbackUrl != null) {
             request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
-    
         }
         if (smsFallbackMethod != null) {
-            request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
-    
+            request.addPostParam(
+                "SmsFallbackMethod",
+                smsFallbackMethod.toString()
+            );
         }
     }
 }

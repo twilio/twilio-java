@@ -23,65 +23,74 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ConnectApp extends Resource {
+
     private static final long serialVersionUID = 203118827948403L;
 
-    
-
-    public static ConnectAppDeleter deleter(final String pathSid){
+    public static ConnectAppDeleter deleter(final String pathSid) {
         return new ConnectAppDeleter(pathSid);
     }
-    public static ConnectAppDeleter deleter(final String pathAccountSid, final String pathSid){
+
+    public static ConnectAppDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new ConnectAppDeleter(pathAccountSid, pathSid);
     }
 
-    public static ConnectAppFetcher fetcher(final String pathSid){
+    public static ConnectAppFetcher fetcher(final String pathSid) {
         return new ConnectAppFetcher(pathSid);
     }
-    public static ConnectAppFetcher fetcher(final String pathAccountSid, final String pathSid){
+
+    public static ConnectAppFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new ConnectAppFetcher(pathAccountSid, pathSid);
     }
 
-    public static ConnectAppReader reader(){
+    public static ConnectAppReader reader() {
         return new ConnectAppReader();
     }
-    public static ConnectAppReader reader(final String pathAccountSid){
+
+    public static ConnectAppReader reader(final String pathAccountSid) {
         return new ConnectAppReader(pathAccountSid);
     }
 
-    public static ConnectAppUpdater updater(final String pathSid){
+    public static ConnectAppUpdater updater(final String pathSid) {
         return new ConnectAppUpdater(pathSid);
     }
-    public static ConnectAppUpdater updater(final String pathAccountSid, final String pathSid){
+
+    public static ConnectAppUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new ConnectAppUpdater(pathAccountSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a ConnectApp object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return ConnectApp object represented by the provided JSON
-    */
-    public static ConnectApp fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a ConnectApp object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return ConnectApp object represented by the provided JSON
+     */
+    public static ConnectApp fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConnectApp.class);
@@ -93,14 +102,17 @@ public class ConnectApp extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a ConnectApp object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return ConnectApp object represented by the provided JSON
-    */
-    public static ConnectApp fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a ConnectApp object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return ConnectApp object represented by the provided JSON
+     */
+    public static ConnectApp fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ConnectApp.class);
@@ -145,38 +157,23 @@ public class ConnectApp extends Resource {
 
     @JsonCreator
     private ConnectApp(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("authorize_redirect_url")
-        final URI authorizeRedirectUrl,
-
-        @JsonProperty("company_name")
-        final String companyName,
-
-        @JsonProperty("deauthorize_callback_method")
-        final HttpMethod deauthorizeCallbackMethod,
-
-        @JsonProperty("deauthorize_callback_url")
-        final URI deauthorizeCallbackUrl,
-
-        @JsonProperty("description")
-        final String description,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("homepage_url")
-        final URI homepageUrl,
-
-        @JsonProperty("permissions")
-        final List<ConnectApp.Permission> permissions,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("uri")
-        final String uri
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("authorize_redirect_url") final URI authorizeRedirectUrl,
+        @JsonProperty("company_name") final String companyName,
+        @JsonProperty(
+            "deauthorize_callback_method"
+        ) final HttpMethod deauthorizeCallbackMethod,
+        @JsonProperty(
+            "deauthorize_callback_url"
+        ) final URI deauthorizeCallbackUrl,
+        @JsonProperty("description") final String description,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("homepage_url") final URI homepageUrl,
+        @JsonProperty(
+            "permissions"
+        ) final List<ConnectApp.Permission> permissions,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;
         this.authorizeRedirectUrl = authorizeRedirectUrl;
@@ -191,43 +188,53 @@ public class ConnectApp extends Resource {
         this.uri = uri;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final URI getAuthorizeRedirectUrl() {
-            return this.authorizeRedirectUrl;
-        }
-        public final String getCompanyName() {
-            return this.companyName;
-        }
-        public final HttpMethod getDeauthorizeCallbackMethod() {
-            return this.deauthorizeCallbackMethod;
-        }
-        public final URI getDeauthorizeCallbackUrl() {
-            return this.deauthorizeCallbackUrl;
-        }
-        public final String getDescription() {
-            return this.description;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final URI getHomepageUrl() {
-            return this.homepageUrl;
-        }
-        public final List<ConnectApp.Permission> getPermissions() {
-            return this.permissions;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final URI getAuthorizeRedirectUrl() {
+        return this.authorizeRedirectUrl;
+    }
+
+    public final String getCompanyName() {
+        return this.companyName;
+    }
+
+    public final HttpMethod getDeauthorizeCallbackMethod() {
+        return this.deauthorizeCallbackMethod;
+    }
+
+    public final URI getDeauthorizeCallbackUrl() {
+        return this.deauthorizeCallbackUrl;
+    }
+
+    public final String getDescription() {
+        return this.description;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final URI getHomepageUrl() {
+        return this.homepageUrl;
+    }
+
+    public final List<ConnectApp.Permission> getPermissions() {
+        return this.permissions;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -237,14 +244,41 @@ public class ConnectApp extends Resource {
 
         ConnectApp other = (ConnectApp) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(authorizeRedirectUrl, other.authorizeRedirectUrl) &&  Objects.equals(companyName, other.companyName) &&  Objects.equals(deauthorizeCallbackMethod, other.deauthorizeCallbackMethod) &&  Objects.equals(deauthorizeCallbackUrl, other.deauthorizeCallbackUrl) &&  Objects.equals(description, other.description) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(homepageUrl, other.homepageUrl) &&  Objects.equals(permissions, other.permissions) &&  Objects.equals(sid, other.sid) &&  Objects.equals(uri, other.uri)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(authorizeRedirectUrl, other.authorizeRedirectUrl) &&
+            Objects.equals(companyName, other.companyName) &&
+            Objects.equals(
+                deauthorizeCallbackMethod,
+                other.deauthorizeCallbackMethod
+            ) &&
+            Objects.equals(
+                deauthorizeCallbackUrl,
+                other.deauthorizeCallbackUrl
+            ) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(homepageUrl, other.homepageUrl) &&
+            Objects.equals(permissions, other.permissions) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uri, other.uri)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, authorizeRedirectUrl, companyName, deauthorizeCallbackMethod, deauthorizeCallbackUrl, description, friendlyName, homepageUrl, permissions, sid, uri);
+        return Objects.hash(
+            accountSid,
+            authorizeRedirectUrl,
+            companyName,
+            deauthorizeCallbackMethod,
+            deauthorizeCallbackUrl,
+            description,
+            friendlyName,
+            homepageUrl,
+            permissions,
+            sid,
+            uri
+        );
     }
-
-
 }
-

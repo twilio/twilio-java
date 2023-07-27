@@ -25,39 +25,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class ConfigurationUpdater extends Updater<Configuration> {
 
-
-
-public class ConfigurationUpdater extends Updater<Configuration>{
     private String defaultChatServiceSid;
     private String defaultMessagingServiceSid;
     private String defaultInactiveTimer;
     private String defaultClosedTimer;
 
-    public ConfigurationUpdater(){
-    }
+    public ConfigurationUpdater() {}
 
-    public ConfigurationUpdater setDefaultChatServiceSid(final String defaultChatServiceSid){
+    public ConfigurationUpdater setDefaultChatServiceSid(
+        final String defaultChatServiceSid
+    ) {
         this.defaultChatServiceSid = defaultChatServiceSid;
         return this;
     }
-    public ConfigurationUpdater setDefaultMessagingServiceSid(final String defaultMessagingServiceSid){
+
+    public ConfigurationUpdater setDefaultMessagingServiceSid(
+        final String defaultMessagingServiceSid
+    ) {
         this.defaultMessagingServiceSid = defaultMessagingServiceSid;
         return this;
     }
-    public ConfigurationUpdater setDefaultInactiveTimer(final String defaultInactiveTimer){
+
+    public ConfigurationUpdater setDefaultInactiveTimer(
+        final String defaultInactiveTimer
+    ) {
         this.defaultInactiveTimer = defaultInactiveTimer;
         return this;
     }
-    public ConfigurationUpdater setDefaultClosedTimer(final String defaultClosedTimer){
+
+    public ConfigurationUpdater setDefaultClosedTimer(
+        final String defaultClosedTimer
+    ) {
         this.defaultClosedTimer = defaultClosedTimer;
         return this;
     }
 
     @Override
-    public Configuration update(final TwilioRestClient client){
+    public Configuration update(final TwilioRestClient client) {
         String path = "/v1/Configuration";
-
 
         Request request = new Request(
             HttpMethod.POST,
@@ -68,33 +75,44 @@ public class ConfigurationUpdater extends Updater<Configuration>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Configuration update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Configuration update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Configuration.fromJson(response.getStream(), client.getObjectMapper());
+        return Configuration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (defaultChatServiceSid != null) {
-            request.addPostParam("DefaultChatServiceSid", defaultChatServiceSid);
-    
+            request.addPostParam(
+                "DefaultChatServiceSid",
+                defaultChatServiceSid
+            );
         }
         if (defaultMessagingServiceSid != null) {
-            request.addPostParam("DefaultMessagingServiceSid", defaultMessagingServiceSid);
-    
+            request.addPostParam(
+                "DefaultMessagingServiceSid",
+                defaultMessagingServiceSid
+            );
         }
         if (defaultInactiveTimer != null) {
             request.addPostParam("DefaultInactiveTimer", defaultInactiveTimer);
-    
         }
         if (defaultClosedTimer != null) {
             request.addPostParam("DefaultClosedTimer", defaultClosedTimer);
-    
         }
     }
 }

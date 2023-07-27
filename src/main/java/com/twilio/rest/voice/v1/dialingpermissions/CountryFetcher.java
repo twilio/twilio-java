@@ -24,22 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class CountryFetcher extends Fetcher<Country> {
+
     private String pathIsoCode;
 
-    public CountryFetcher(final String pathIsoCode){
+    public CountryFetcher(final String pathIsoCode) {
         this.pathIsoCode = pathIsoCode;
     }
-
 
     @Override
     public Country fetch(final TwilioRestClient client) {
         String path = "/v1/DialingPermissions/Countries/{IsoCode}";
 
-        path = path.replace("{"+"IsoCode"+"}", this.pathIsoCode.toString());
+        path = path.replace("{" + "IsoCode" + "}", this.pathIsoCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -49,9 +46,14 @@ public class CountryFetcher extends Fetcher<Country> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("Country fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Country fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }

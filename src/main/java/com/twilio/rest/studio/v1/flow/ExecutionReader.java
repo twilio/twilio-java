@@ -14,6 +14,7 @@
 
 package com.twilio.rest.studio.v1.flow;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,30 +25,32 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 
-
-
 public class ExecutionReader extends Reader<Execution> {
+
     private String pathFlowSid;
     private ZonedDateTime dateCreatedFrom;
     private ZonedDateTime dateCreatedTo;
     private Integer pageSize;
 
-    public ExecutionReader(final String pathFlowSid){
+    public ExecutionReader(final String pathFlowSid) {
         this.pathFlowSid = pathFlowSid;
     }
 
-    public ExecutionReader setDateCreatedFrom(final ZonedDateTime dateCreatedFrom){
+    public ExecutionReader setDateCreatedFrom(
+        final ZonedDateTime dateCreatedFrom
+    ) {
         this.dateCreatedFrom = dateCreatedFrom;
         return this;
     }
-    public ExecutionReader setDateCreatedTo(final ZonedDateTime dateCreatedTo){
+
+    public ExecutionReader setDateCreatedTo(final ZonedDateTime dateCreatedTo) {
         this.dateCreatedTo = dateCreatedTo;
         return this;
     }
-    public ExecutionReader setPageSize(final Integer pageSize){
+
+    public ExecutionReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -59,7 +62,7 @@ public class ExecutionReader extends Reader<Execution> {
 
     public Page<Execution> firstPage(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Executions";
-        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -71,13 +74,21 @@ public class ExecutionReader extends Reader<Execution> {
         return pageForRequest(client, request);
     }
 
-    private Page<Execution> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Execution> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Execution read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Execution read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -93,7 +104,10 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     @Override
-    public Page<Execution> previousPage(final Page<Execution> page, final TwilioRestClient client) {
+    public Page<Execution> previousPage(
+        final Page<Execution> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.STUDIO.toString())
@@ -101,9 +115,11 @@ public class ExecutionReader extends Reader<Execution> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Execution> nextPage(final Page<Execution> page, final TwilioRestClient client) {
+    public Page<Execution> nextPage(
+        final Page<Execution> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.STUDIO.toString())
@@ -112,29 +128,35 @@ public class ExecutionReader extends Reader<Execution> {
     }
 
     @Override
-    public Page<Execution> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Execution> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (dateCreatedFrom != null) {
-            request.addQueryParam("DateCreatedFrom", dateCreatedFrom.toInstant().toString());
+            request.addQueryParam(
+                "DateCreatedFrom",
+                dateCreatedFrom.toInstant().toString()
+            );
         }
 
         if (dateCreatedTo != null) {
-            request.addQueryParam("DateCreatedTo", dateCreatedTo.toInstant().toString());
+            request.addQueryParam(
+                "DateCreatedTo",
+                dateCreatedTo.toInstant().toString()
+            );
         }
 
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

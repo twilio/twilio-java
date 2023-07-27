@@ -25,30 +25,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class PhoneNumberUpdater extends Updater<PhoneNumber> {
 
-
-
-public class PhoneNumberUpdater extends Updater<PhoneNumber>{
     private String pathServiceSid;
     private String pathSid;
     private Boolean isReserved;
 
-    public PhoneNumberUpdater(final String pathServiceSid, final String pathSid){
+    public PhoneNumberUpdater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public PhoneNumberUpdater setIsReserved(final Boolean isReserved){
+    public PhoneNumberUpdater setIsReserved(final Boolean isReserved) {
         this.isReserved = isReserved;
         return this;
     }
 
     @Override
-    public PhoneNumber update(final TwilioRestClient client){
+    public PhoneNumber update(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/PhoneNumbers/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -59,21 +64,29 @@ public class PhoneNumberUpdater extends Updater<PhoneNumber>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PhoneNumber update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PhoneNumber update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (isReserved != null) {
             request.addPostParam("IsReserved", isReserved.toString());
-    
         }
     }
 }

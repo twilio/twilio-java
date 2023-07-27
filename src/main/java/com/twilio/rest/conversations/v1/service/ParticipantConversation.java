@@ -24,41 +24,39 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ParticipantConversation extends Resource {
+
     private static final long serialVersionUID = 210706261724884L;
 
-    
-
-    public static ParticipantConversationReader reader(final String pathChatServiceSid){
+    public static ParticipantConversationReader reader(
+        final String pathChatServiceSid
+    ) {
         return new ParticipantConversationReader(pathChatServiceSid);
     }
 
     /**
-    * Converts a JSON String into a ParticipantConversation object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return ParticipantConversation object represented by the provided JSON
-    */
-    public static ParticipantConversation fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a ParticipantConversation object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return ParticipantConversation object represented by the provided JSON
+     */
+    public static ParticipantConversation fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ParticipantConversation.class);
@@ -70,14 +68,17 @@ public class ParticipantConversation extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a ParticipantConversation object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return ParticipantConversation object represented by the provided JSON
-    */
-    public static ParticipantConversation fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a ParticipantConversation object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return ParticipantConversation object represented by the provided JSON
+     */
+    public static ParticipantConversation fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ParticipantConversation.class);
@@ -128,53 +129,40 @@ public class ParticipantConversation extends Resource {
 
     @JsonCreator
     private ParticipantConversation(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("chat_service_sid")
-        final String chatServiceSid,
-
-        @JsonProperty("participant_sid")
-        final String participantSid,
-
-        @JsonProperty("participant_user_sid")
-        final String participantUserSid,
-
-        @JsonProperty("participant_identity")
-        final String participantIdentity,
-
-        @JsonProperty("participant_messaging_binding")
-        final Map<String, Object> participantMessagingBinding,
-
-        @JsonProperty("conversation_sid")
-        final String conversationSid,
-
-        @JsonProperty("conversation_unique_name")
-        final String conversationUniqueName,
-
-        @JsonProperty("conversation_friendly_name")
-        final String conversationFriendlyName,
-
-        @JsonProperty("conversation_attributes")
-        final String conversationAttributes,
-
-        @JsonProperty("conversation_date_created")
-        final String conversationDateCreated,
-
-        @JsonProperty("conversation_date_updated")
-        final String conversationDateUpdated,
-
-        @JsonProperty("conversation_created_by")
-        final String conversationCreatedBy,
-
-        @JsonProperty("conversation_state")
-        final ParticipantConversation.State conversationState,
-
-        @JsonProperty("conversation_timers")
-        final Map<String, Object> conversationTimers,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("participant_user_sid") final String participantUserSid,
+        @JsonProperty("participant_identity") final String participantIdentity,
+        @JsonProperty(
+            "participant_messaging_binding"
+        ) final Map<String, Object> participantMessagingBinding,
+        @JsonProperty("conversation_sid") final String conversationSid,
+        @JsonProperty(
+            "conversation_unique_name"
+        ) final String conversationUniqueName,
+        @JsonProperty(
+            "conversation_friendly_name"
+        ) final String conversationFriendlyName,
+        @JsonProperty(
+            "conversation_attributes"
+        ) final String conversationAttributes,
+        @JsonProperty(
+            "conversation_date_created"
+        ) final String conversationDateCreated,
+        @JsonProperty(
+            "conversation_date_updated"
+        ) final String conversationDateUpdated,
+        @JsonProperty(
+            "conversation_created_by"
+        ) final String conversationCreatedBy,
+        @JsonProperty(
+            "conversation_state"
+        ) final ParticipantConversation.State conversationState,
+        @JsonProperty(
+            "conversation_timers"
+        ) final Map<String, Object> conversationTimers,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -186,66 +174,83 @@ public class ParticipantConversation extends Resource {
         this.conversationUniqueName = conversationUniqueName;
         this.conversationFriendlyName = conversationFriendlyName;
         this.conversationAttributes = conversationAttributes;
-        this.conversationDateCreated = DateConverter.iso8601DateTimeFromString(conversationDateCreated);
-        this.conversationDateUpdated = DateConverter.iso8601DateTimeFromString(conversationDateUpdated);
+        this.conversationDateCreated =
+            DateConverter.iso8601DateTimeFromString(conversationDateCreated);
+        this.conversationDateUpdated =
+            DateConverter.iso8601DateTimeFromString(conversationDateUpdated);
         this.conversationCreatedBy = conversationCreatedBy;
         this.conversationState = conversationState;
         this.conversationTimers = conversationTimers;
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getChatServiceSid() {
-            return this.chatServiceSid;
-        }
-        public final String getParticipantSid() {
-            return this.participantSid;
-        }
-        public final String getParticipantUserSid() {
-            return this.participantUserSid;
-        }
-        public final String getParticipantIdentity() {
-            return this.participantIdentity;
-        }
-        public final Map<String, Object> getParticipantMessagingBinding() {
-            return this.participantMessagingBinding;
-        }
-        public final String getConversationSid() {
-            return this.conversationSid;
-        }
-        public final String getConversationUniqueName() {
-            return this.conversationUniqueName;
-        }
-        public final String getConversationFriendlyName() {
-            return this.conversationFriendlyName;
-        }
-        public final String getConversationAttributes() {
-            return this.conversationAttributes;
-        }
-        public final ZonedDateTime getConversationDateCreated() {
-            return this.conversationDateCreated;
-        }
-        public final ZonedDateTime getConversationDateUpdated() {
-            return this.conversationDateUpdated;
-        }
-        public final String getConversationCreatedBy() {
-            return this.conversationCreatedBy;
-        }
-        public final ParticipantConversation.State getConversationState() {
-            return this.conversationState;
-        }
-        public final Map<String, Object> getConversationTimers() {
-            return this.conversationTimers;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getChatServiceSid() {
+        return this.chatServiceSid;
+    }
+
+    public final String getParticipantSid() {
+        return this.participantSid;
+    }
+
+    public final String getParticipantUserSid() {
+        return this.participantUserSid;
+    }
+
+    public final String getParticipantIdentity() {
+        return this.participantIdentity;
+    }
+
+    public final Map<String, Object> getParticipantMessagingBinding() {
+        return this.participantMessagingBinding;
+    }
+
+    public final String getConversationSid() {
+        return this.conversationSid;
+    }
+
+    public final String getConversationUniqueName() {
+        return this.conversationUniqueName;
+    }
+
+    public final String getConversationFriendlyName() {
+        return this.conversationFriendlyName;
+    }
+
+    public final String getConversationAttributes() {
+        return this.conversationAttributes;
+    }
+
+    public final ZonedDateTime getConversationDateCreated() {
+        return this.conversationDateCreated;
+    }
+
+    public final ZonedDateTime getConversationDateUpdated() {
+        return this.conversationDateUpdated;
+    }
+
+    public final String getConversationCreatedBy() {
+        return this.conversationCreatedBy;
+    }
+
+    public final ParticipantConversation.State getConversationState() {
+        return this.conversationState;
+    }
+
+    public final Map<String, Object> getConversationTimers() {
+        return this.conversationTimers;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -255,14 +260,66 @@ public class ParticipantConversation extends Resource {
 
         ParticipantConversation other = (ParticipantConversation) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(participantSid, other.participantSid) &&  Objects.equals(participantUserSid, other.participantUserSid) &&  Objects.equals(participantIdentity, other.participantIdentity) &&  Objects.equals(participantMessagingBinding, other.participantMessagingBinding) &&  Objects.equals(conversationSid, other.conversationSid) &&  Objects.equals(conversationUniqueName, other.conversationUniqueName) &&  Objects.equals(conversationFriendlyName, other.conversationFriendlyName) &&  Objects.equals(conversationAttributes, other.conversationAttributes) &&  Objects.equals(conversationDateCreated, other.conversationDateCreated) &&  Objects.equals(conversationDateUpdated, other.conversationDateUpdated) &&  Objects.equals(conversationCreatedBy, other.conversationCreatedBy) &&  Objects.equals(conversationState, other.conversationState) &&  Objects.equals(conversationTimers, other.conversationTimers) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(participantUserSid, other.participantUserSid) &&
+            Objects.equals(participantIdentity, other.participantIdentity) &&
+            Objects.equals(
+                participantMessagingBinding,
+                other.participantMessagingBinding
+            ) &&
+            Objects.equals(conversationSid, other.conversationSid) &&
+            Objects.equals(
+                conversationUniqueName,
+                other.conversationUniqueName
+            ) &&
+            Objects.equals(
+                conversationFriendlyName,
+                other.conversationFriendlyName
+            ) &&
+            Objects.equals(
+                conversationAttributes,
+                other.conversationAttributes
+            ) &&
+            Objects.equals(
+                conversationDateCreated,
+                other.conversationDateCreated
+            ) &&
+            Objects.equals(
+                conversationDateUpdated,
+                other.conversationDateUpdated
+            ) &&
+            Objects.equals(
+                conversationCreatedBy,
+                other.conversationCreatedBy
+            ) &&
+            Objects.equals(conversationState, other.conversationState) &&
+            Objects.equals(conversationTimers, other.conversationTimers) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, chatServiceSid, participantSid, participantUserSid, participantIdentity, participantMessagingBinding, conversationSid, conversationUniqueName, conversationFriendlyName, conversationAttributes, conversationDateCreated, conversationDateUpdated, conversationCreatedBy, conversationState, conversationTimers, links);
+        return Objects.hash(
+            accountSid,
+            chatServiceSid,
+            participantSid,
+            participantUserSid,
+            participantIdentity,
+            participantMessagingBinding,
+            conversationSid,
+            conversationUniqueName,
+            conversationFriendlyName,
+            conversationAttributes,
+            conversationDateCreated,
+            conversationDateUpdated,
+            conversationCreatedBy,
+            conversationState,
+            conversationTimers,
+            links
+        );
     }
-
-
 }
-

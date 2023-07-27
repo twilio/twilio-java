@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class ServiceUpdater extends Updater<Service> {
 
-
-public class ServiceUpdater extends Updater<Service>{
     private String pathSid;
     private String friendlyName;
     private URI inboundRequestUrl;
@@ -49,92 +47,115 @@ public class ServiceUpdater extends Updater<Service>{
     private String usecase;
     private Boolean useInboundWebhookOnNumber;
 
-    public ServiceUpdater(final String pathSid){
+    public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public ServiceUpdater setFriendlyName(final String friendlyName){
+    public ServiceUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ServiceUpdater setInboundRequestUrl(final URI inboundRequestUrl){
+
+    public ServiceUpdater setInboundRequestUrl(final URI inboundRequestUrl) {
         this.inboundRequestUrl = inboundRequestUrl;
         return this;
     }
 
-    public ServiceUpdater setInboundRequestUrl(final String inboundRequestUrl){
+    public ServiceUpdater setInboundRequestUrl(final String inboundRequestUrl) {
         return setInboundRequestUrl(Promoter.uriFromString(inboundRequestUrl));
     }
-    public ServiceUpdater setInboundMethod(final HttpMethod inboundMethod){
+
+    public ServiceUpdater setInboundMethod(final HttpMethod inboundMethod) {
         this.inboundMethod = inboundMethod;
         return this;
     }
-    public ServiceUpdater setFallbackUrl(final URI fallbackUrl){
+
+    public ServiceUpdater setFallbackUrl(final URI fallbackUrl) {
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public ServiceUpdater setFallbackUrl(final String fallbackUrl){
+    public ServiceUpdater setFallbackUrl(final String fallbackUrl) {
         return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
     }
-    public ServiceUpdater setFallbackMethod(final HttpMethod fallbackMethod){
+
+    public ServiceUpdater setFallbackMethod(final HttpMethod fallbackMethod) {
         this.fallbackMethod = fallbackMethod;
         return this;
     }
-    public ServiceUpdater setStatusCallback(final URI statusCallback){
+
+    public ServiceUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ServiceUpdater setStatusCallback(final String statusCallback){
+    public ServiceUpdater setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public ServiceUpdater setStickySender(final Boolean stickySender){
+
+    public ServiceUpdater setStickySender(final Boolean stickySender) {
         this.stickySender = stickySender;
         return this;
     }
-    public ServiceUpdater setMmsConverter(final Boolean mmsConverter){
+
+    public ServiceUpdater setMmsConverter(final Boolean mmsConverter) {
         this.mmsConverter = mmsConverter;
         return this;
     }
-    public ServiceUpdater setSmartEncoding(final Boolean smartEncoding){
+
+    public ServiceUpdater setSmartEncoding(final Boolean smartEncoding) {
         this.smartEncoding = smartEncoding;
         return this;
     }
-    public ServiceUpdater setScanMessageContent(final Service.ScanMessageContent scanMessageContent){
+
+    public ServiceUpdater setScanMessageContent(
+        final Service.ScanMessageContent scanMessageContent
+    ) {
         this.scanMessageContent = scanMessageContent;
         return this;
     }
-    public ServiceUpdater setFallbackToLongCode(final Boolean fallbackToLongCode){
+
+    public ServiceUpdater setFallbackToLongCode(
+        final Boolean fallbackToLongCode
+    ) {
         this.fallbackToLongCode = fallbackToLongCode;
         return this;
     }
-    public ServiceUpdater setAreaCodeGeomatch(final Boolean areaCodeGeomatch){
+
+    public ServiceUpdater setAreaCodeGeomatch(final Boolean areaCodeGeomatch) {
         this.areaCodeGeomatch = areaCodeGeomatch;
         return this;
     }
-    public ServiceUpdater setValidityPeriod(final Integer validityPeriod){
+
+    public ServiceUpdater setValidityPeriod(final Integer validityPeriod) {
         this.validityPeriod = validityPeriod;
         return this;
     }
-    public ServiceUpdater setSynchronousValidation(final Boolean synchronousValidation){
+
+    public ServiceUpdater setSynchronousValidation(
+        final Boolean synchronousValidation
+    ) {
         this.synchronousValidation = synchronousValidation;
         return this;
     }
-    public ServiceUpdater setUsecase(final String usecase){
+
+    public ServiceUpdater setUsecase(final String usecase) {
         this.usecase = usecase;
         return this;
     }
-    public ServiceUpdater setUseInboundWebhookOnNumber(final Boolean useInboundWebhookOnNumber){
+
+    public ServiceUpdater setUseInboundWebhookOnNumber(
+        final Boolean useInboundWebhookOnNumber
+    ) {
         this.useInboundWebhookOnNumber = useInboundWebhookOnNumber;
         return this;
     }
 
     @Override
-    public Service update(final TwilioRestClient client){
+    public Service update(final TwilioRestClient client) {
         String path = "/v1/Services/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -145,9 +166,14 @@ public class ServiceUpdater extends Updater<Service>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Service update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -156,70 +182,73 @@ public class ServiceUpdater extends Updater<Service>{
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (inboundRequestUrl != null) {
-            request.addPostParam("InboundRequestUrl", inboundRequestUrl.toString());
-    
+            request.addPostParam(
+                "InboundRequestUrl",
+                inboundRequestUrl.toString()
+            );
         }
         if (inboundMethod != null) {
             request.addPostParam("InboundMethod", inboundMethod.toString());
-    
         }
         if (fallbackUrl != null) {
             request.addPostParam("FallbackUrl", fallbackUrl.toString());
-    
         }
         if (fallbackMethod != null) {
             request.addPostParam("FallbackMethod", fallbackMethod.toString());
-    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (stickySender != null) {
             request.addPostParam("StickySender", stickySender.toString());
-    
         }
         if (mmsConverter != null) {
             request.addPostParam("MmsConverter", mmsConverter.toString());
-    
         }
         if (smartEncoding != null) {
             request.addPostParam("SmartEncoding", smartEncoding.toString());
-    
         }
         if (scanMessageContent != null) {
-            request.addPostParam("ScanMessageContent", scanMessageContent.toString());
-    
+            request.addPostParam(
+                "ScanMessageContent",
+                scanMessageContent.toString()
+            );
         }
         if (fallbackToLongCode != null) {
-            request.addPostParam("FallbackToLongCode", fallbackToLongCode.toString());
-    
+            request.addPostParam(
+                "FallbackToLongCode",
+                fallbackToLongCode.toString()
+            );
         }
         if (areaCodeGeomatch != null) {
-            request.addPostParam("AreaCodeGeomatch", areaCodeGeomatch.toString());
-    
+            request.addPostParam(
+                "AreaCodeGeomatch",
+                areaCodeGeomatch.toString()
+            );
         }
         if (validityPeriod != null) {
             request.addPostParam("ValidityPeriod", validityPeriod.toString());
-    
         }
         if (synchronousValidation != null) {
-            request.addPostParam("SynchronousValidation", synchronousValidation.toString());
-    
+            request.addPostParam(
+                "SynchronousValidation",
+                synchronousValidation.toString()
+            );
         }
         if (usecase != null) {
             request.addPostParam("Usecase", usecase);
-    
         }
         if (useInboundWebhookOnNumber != null) {
-            request.addPostParam("UseInboundWebhookOnNumber", useInboundWebhookOnNumber.toString());
-    
+            request.addPostParam(
+                "UseInboundWebhookOnNumber",
+                useInboundWebhookOnNumber.toString()
+            );
         }
     }
 }

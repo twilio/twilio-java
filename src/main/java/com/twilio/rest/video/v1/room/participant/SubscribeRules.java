@@ -23,45 +23,47 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
+import com.twilio.type.SubscribeRule;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import com.twilio.type.SubscribeRule;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribeRules extends Resource {
+
     private static final long serialVersionUID = 5507350376020L;
 
-    
-
-    public static SubscribeRulesFetcher fetcher(final String pathRoomSid, final String pathParticipantSid){
+    public static SubscribeRulesFetcher fetcher(
+        final String pathRoomSid,
+        final String pathParticipantSid
+    ) {
         return new SubscribeRulesFetcher(pathRoomSid, pathParticipantSid);
     }
 
-    public static SubscribeRulesUpdater updater(final String pathRoomSid, final String pathParticipantSid){
+    public static SubscribeRulesUpdater updater(
+        final String pathRoomSid,
+        final String pathParticipantSid
+    ) {
         return new SubscribeRulesUpdater(pathRoomSid, pathParticipantSid);
     }
 
     /**
-    * Converts a JSON String into a SubscribeRules object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return SubscribeRules object represented by the provided JSON
-    */
-    public static SubscribeRules fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a SubscribeRules object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return SubscribeRules object represented by the provided JSON
+     */
+    public static SubscribeRules fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SubscribeRules.class);
@@ -73,14 +75,17 @@ public class SubscribeRules extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a SubscribeRules object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return SubscribeRules object represented by the provided JSON
-    */
-    public static SubscribeRules fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a SubscribeRules object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return SubscribeRules object represented by the provided JSON
+     */
+    public static SubscribeRules fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SubscribeRules.class);
@@ -90,7 +95,6 @@ public class SubscribeRules extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String participantSid;
     private final String roomSid;
@@ -100,20 +104,11 @@ public class SubscribeRules extends Resource {
 
     @JsonCreator
     private SubscribeRules(
-        @JsonProperty("participant_sid")
-        final String participantSid,
-
-        @JsonProperty("room_sid")
-        final String roomSid,
-
-        @JsonProperty("rules")
-        final List<SubscribeRule> rules,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("participant_sid") final String participantSid,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("rules") final List<SubscribeRule> rules,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.participantSid = participantSid;
         this.roomSid = roomSid;
@@ -122,25 +117,29 @@ public class SubscribeRules extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getParticipantSid() {
-            return this.participantSid;
-        }
-        public final String getRoomSid() {
-            return this.roomSid;
-        }
-        public final List<SubscribeRule> getRules() {
-            return this.rules;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getParticipantSid() {
+        return this.participantSid;
+    }
+
+    public final String getRoomSid() {
+        return this.roomSid;
+    }
+
+    public final List<SubscribeRule> getRules() {
+        return this.rules;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -150,14 +149,23 @@ public class SubscribeRules extends Resource {
 
         SubscribeRules other = (SubscribeRules) o;
 
-        return Objects.equals(participantSid, other.participantSid) &&  Objects.equals(roomSid, other.roomSid) &&  Objects.equals(rules, other.rules) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(participantSid, other.participantSid) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(rules, other.rules) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(participantSid, roomSid, rules, dateCreated, dateUpdated);
+        return Objects.hash(
+            participantSid,
+            roomSid,
+            rules,
+            dateCreated,
+            dateUpdated
+        );
     }
-
-
 }
-

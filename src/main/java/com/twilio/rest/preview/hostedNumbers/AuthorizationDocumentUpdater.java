@@ -25,12 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.List;
 
+public class AuthorizationDocumentUpdater
+    extends Updater<AuthorizationDocument> {
 
-public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>{
     private String pathSid;
     private List<String> hostedNumberOrderSids;
     private String addressSid;
@@ -40,50 +39,72 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
     private String contactTitle;
     private String contactPhoneNumber;
 
-    public AuthorizationDocumentUpdater(final String pathSid){
+    public AuthorizationDocumentUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public AuthorizationDocumentUpdater setHostedNumberOrderSids(final List<String> hostedNumberOrderSids){
+    public AuthorizationDocumentUpdater setHostedNumberOrderSids(
+        final List<String> hostedNumberOrderSids
+    ) {
         this.hostedNumberOrderSids = hostedNumberOrderSids;
         return this;
     }
-    public AuthorizationDocumentUpdater setHostedNumberOrderSids(final String hostedNumberOrderSids){
-        return setHostedNumberOrderSids(Promoter.listOfOne(hostedNumberOrderSids));
+
+    public AuthorizationDocumentUpdater setHostedNumberOrderSids(
+        final String hostedNumberOrderSids
+    ) {
+        return setHostedNumberOrderSids(
+            Promoter.listOfOne(hostedNumberOrderSids)
+        );
     }
-    public AuthorizationDocumentUpdater setAddressSid(final String addressSid){
+
+    public AuthorizationDocumentUpdater setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
-    public AuthorizationDocumentUpdater setEmail(final String email){
+
+    public AuthorizationDocumentUpdater setEmail(final String email) {
         this.email = email;
         return this;
     }
-    public AuthorizationDocumentUpdater setCcEmails(final List<String> ccEmails){
+
+    public AuthorizationDocumentUpdater setCcEmails(
+        final List<String> ccEmails
+    ) {
         this.ccEmails = ccEmails;
         return this;
     }
-    public AuthorizationDocumentUpdater setCcEmails(final String ccEmails){
+
+    public AuthorizationDocumentUpdater setCcEmails(final String ccEmails) {
         return setCcEmails(Promoter.listOfOne(ccEmails));
     }
-    public AuthorizationDocumentUpdater setStatus(final AuthorizationDocument.Status status){
+
+    public AuthorizationDocumentUpdater setStatus(
+        final AuthorizationDocument.Status status
+    ) {
         this.status = status;
         return this;
     }
-    public AuthorizationDocumentUpdater setContactTitle(final String contactTitle){
+
+    public AuthorizationDocumentUpdater setContactTitle(
+        final String contactTitle
+    ) {
         this.contactTitle = contactTitle;
         return this;
     }
-    public AuthorizationDocumentUpdater setContactPhoneNumber(final String contactPhoneNumber){
+
+    public AuthorizationDocumentUpdater setContactPhoneNumber(
+        final String contactPhoneNumber
+    ) {
         this.contactPhoneNumber = contactPhoneNumber;
         return this;
     }
 
     @Override
-    public AuthorizationDocument update(final TwilioRestClient client){
+    public AuthorizationDocument update(final TwilioRestClient client) {
         String path = "/HostedNumbers/AuthorizationDocuments/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -94,49 +115,51 @@ public class AuthorizationDocumentUpdater extends Updater<AuthorizationDocument>
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AuthorizationDocument update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthorizationDocument update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return AuthorizationDocument.fromJson(response.getStream(), client.getObjectMapper());
+        return AuthorizationDocument.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (hostedNumberOrderSids != null) {
             for (String prop : hostedNumberOrderSids) {
                 request.addPostParam("HostedNumberOrderSids", prop);
             }
-    
         }
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
-    
         }
         if (email != null) {
             request.addPostParam("Email", email);
-    
         }
         if (ccEmails != null) {
             for (String prop : ccEmails) {
                 request.addPostParam("CcEmails", prop);
             }
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (contactTitle != null) {
             request.addPostParam("ContactTitle", contactTitle);
-    
         }
         if (contactPhoneNumber != null) {
             request.addPostParam("ContactPhoneNumber", contactPhoneNumber);
-    
         }
     }
 }

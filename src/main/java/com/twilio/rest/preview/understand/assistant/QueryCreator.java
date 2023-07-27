@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class QueryCreator extends Creator<Query> {
 
-
-
-public class QueryCreator extends Creator<Query>{
     private String pathAssistantSid;
     private String language;
     private String query;
@@ -36,40 +34,52 @@ public class QueryCreator extends Creator<Query>{
     private String modelBuild;
     private String field;
 
-    public QueryCreator(final String pathAssistantSid, final String language, final String query) {
+    public QueryCreator(
+        final String pathAssistantSid,
+        final String language,
+        final String query
+    ) {
         this.pathAssistantSid = pathAssistantSid;
         this.language = language;
         this.query = query;
     }
 
-    public QueryCreator setLanguage(final String language){
+    public QueryCreator setLanguage(final String language) {
         this.language = language;
         return this;
     }
-    public QueryCreator setQuery(final String query){
+
+    public QueryCreator setQuery(final String query) {
         this.query = query;
         return this;
     }
-    public QueryCreator setTasks(final String tasks){
+
+    public QueryCreator setTasks(final String tasks) {
         this.tasks = tasks;
         return this;
     }
-    public QueryCreator setModelBuild(final String modelBuild){
+
+    public QueryCreator setModelBuild(final String modelBuild) {
         this.modelBuild = modelBuild;
         return this;
     }
-    public QueryCreator setField(final String field){
+
+    public QueryCreator setField(final String field) {
         this.field = field;
         return this;
     }
 
     @Override
-    public Query create(final TwilioRestClient client){
+    public Query create(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/Queries";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"Language"+"}", this.language.toString());
-        path = path.replace("{"+"Query"+"}", this.query.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path = path.replace("{" + "Language" + "}", this.language.toString());
+        path = path.replace("{" + "Query" + "}", this.query.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -80,9 +90,14 @@ public class QueryCreator extends Creator<Query>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Query creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Query creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -91,26 +106,22 @@ public class QueryCreator extends Creator<Query>{
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (language != null) {
             request.addPostParam("Language", language);
-    
         }
         if (query != null) {
             request.addPostParam("Query", query);
-    
         }
         if (tasks != null) {
             request.addPostParam("Tasks", tasks);
-    
         }
         if (modelBuild != null) {
             request.addPostParam("ModelBuild", modelBuild);
-    
         }
         if (field != null) {
             request.addPostParam("Field", field);
-    
         }
     }
 }

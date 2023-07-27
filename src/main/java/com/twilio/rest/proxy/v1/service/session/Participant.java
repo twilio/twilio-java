@@ -23,54 +23,69 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
+
     private static final long serialVersionUID = 85413043665121L;
 
-    
-
-    public static ParticipantCreator creator(final String pathServiceSid, final String pathSessionSid, final String identifier){
-        return new ParticipantCreator(pathServiceSid, pathSessionSid, identifier);
+    public static ParticipantCreator creator(
+        final String pathServiceSid,
+        final String pathSessionSid,
+        final String identifier
+    ) {
+        return new ParticipantCreator(
+            pathServiceSid,
+            pathSessionSid,
+            identifier
+        );
     }
 
-    public static ParticipantDeleter deleter(final String pathServiceSid, final String pathSessionSid, final String pathSid){
+    public static ParticipantDeleter deleter(
+        final String pathServiceSid,
+        final String pathSessionSid,
+        final String pathSid
+    ) {
         return new ParticipantDeleter(pathServiceSid, pathSessionSid, pathSid);
     }
 
-    public static ParticipantFetcher fetcher(final String pathServiceSid, final String pathSessionSid, final String pathSid){
+    public static ParticipantFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSessionSid,
+        final String pathSid
+    ) {
         return new ParticipantFetcher(pathServiceSid, pathSessionSid, pathSid);
     }
 
-    public static ParticipantReader reader(final String pathServiceSid, final String pathSessionSid){
+    public static ParticipantReader reader(
+        final String pathServiceSid,
+        final String pathSessionSid
+    ) {
         return new ParticipantReader(pathServiceSid, pathSessionSid);
     }
 
     /**
-    * Converts a JSON String into a Participant object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Participant object represented by the provided JSON
-    */
-    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Participant object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Participant object represented by the provided JSON
+     */
+    public static Participant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -82,14 +97,17 @@ public class Participant extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Participant object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Participant object represented by the provided JSON
-    */
-    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Participant object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Participant object represented by the provided JSON
+     */
+    public static Participant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -99,7 +117,6 @@ public class Participant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String sessionSid;
@@ -117,44 +134,19 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("session_sid")
-        final String sessionSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("identifier")
-        final String identifier,
-
-        @JsonProperty("proxy_identifier")
-        final String proxyIdentifier,
-
-        @JsonProperty("proxy_identifier_sid")
-        final String proxyIdentifierSid,
-
-        @JsonProperty("date_deleted")
-        final String dateDeleted,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("session_sid") final String sessionSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("identifier") final String identifier,
+        @JsonProperty("proxy_identifier") final String proxyIdentifier,
+        @JsonProperty("proxy_identifier_sid") final String proxyIdentifierSid,
+        @JsonProperty("date_deleted") final String dateDeleted,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.sid = sid;
         this.sessionSid = sessionSid;
@@ -171,49 +163,61 @@ public class Participant extends Resource {
         this.links = links;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getSessionSid() {
-            return this.sessionSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getIdentifier() {
-            return this.identifier;
-        }
-        public final String getProxyIdentifier() {
-            return this.proxyIdentifier;
-        }
-        public final String getProxyIdentifierSid() {
-            return this.proxyIdentifierSid;
-        }
-        public final ZonedDateTime getDateDeleted() {
-            return this.dateDeleted;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getSessionSid() {
+        return this.sessionSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getIdentifier() {
+        return this.identifier;
+    }
+
+    public final String getProxyIdentifier() {
+        return this.proxyIdentifier;
+    }
+
+    public final String getProxyIdentifierSid() {
+        return this.proxyIdentifierSid;
+    }
+
+    public final ZonedDateTime getDateDeleted() {
+        return this.dateDeleted;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -223,14 +227,39 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(sessionSid, other.sessionSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(identifier, other.identifier) &&  Objects.equals(proxyIdentifier, other.proxyIdentifier) &&  Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) &&  Objects.equals(dateDeleted, other.dateDeleted) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(sessionSid, other.sessionSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(identifier, other.identifier) &&
+            Objects.equals(proxyIdentifier, other.proxyIdentifier) &&
+            Objects.equals(proxyIdentifierSid, other.proxyIdentifierSid) &&
+            Objects.equals(dateDeleted, other.dateDeleted) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, sessionSid, serviceSid, accountSid, friendlyName, identifier, proxyIdentifier, proxyIdentifierSid, dateDeleted, dateCreated, dateUpdated, url, links);
+        return Objects.hash(
+            sid,
+            sessionSid,
+            serviceSid,
+            accountSid,
+            friendlyName,
+            identifier,
+            proxyIdentifier,
+            proxyIdentifierSid,
+            dateDeleted,
+            dateCreated,
+            dateUpdated,
+            url,
+            links
+        );
     }
-
-
 }
-

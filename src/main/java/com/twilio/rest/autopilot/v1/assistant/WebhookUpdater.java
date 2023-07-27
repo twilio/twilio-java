@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class WebhookUpdater extends Updater<Webhook> {
 
-
-public class WebhookUpdater extends Updater<Webhook>{
     private String pathAssistantSid;
     private String pathSid;
     private String uniqueName;
@@ -38,38 +36,45 @@ public class WebhookUpdater extends Updater<Webhook>{
     private URI webhookUrl;
     private String webhookMethod;
 
-    public WebhookUpdater(final String pathAssistantSid, final String pathSid){
+    public WebhookUpdater(final String pathAssistantSid, final String pathSid) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
     }
 
-    public WebhookUpdater setUniqueName(final String uniqueName){
+    public WebhookUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public WebhookUpdater setEvents(final String events){
+
+    public WebhookUpdater setEvents(final String events) {
         this.events = events;
         return this;
     }
-    public WebhookUpdater setWebhookUrl(final URI webhookUrl){
+
+    public WebhookUpdater setWebhookUrl(final URI webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-    public WebhookUpdater setWebhookUrl(final String webhookUrl){
+    public WebhookUpdater setWebhookUrl(final String webhookUrl) {
         return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
-    public WebhookUpdater setWebhookMethod(final String webhookMethod){
+
+    public WebhookUpdater setWebhookMethod(final String webhookMethod) {
         this.webhookMethod = webhookMethod;
         return this;
     }
 
     @Override
-    public Webhook update(final TwilioRestClient client){
+    public Webhook update(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/Webhooks/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -80,9 +85,14 @@ public class WebhookUpdater extends Updater<Webhook>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Webhook update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -91,22 +101,19 @@ public class WebhookUpdater extends Updater<Webhook>{
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (events != null) {
             request.addPostParam("Events", events);
-    
         }
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl.toString());
-    
         }
         if (webhookMethod != null) {
             request.addPostParam("WebhookMethod", webhookMethod);
-    
         }
     }
 }

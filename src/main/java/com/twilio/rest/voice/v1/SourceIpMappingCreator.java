@@ -25,33 +25,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SourceIpMappingCreator extends Creator<SourceIpMapping> {
 
-
-
-public class SourceIpMappingCreator extends Creator<SourceIpMapping>{
     private String ipRecordSid;
     private String sipDomainSid;
 
-    public SourceIpMappingCreator(final String ipRecordSid, final String sipDomainSid) {
+    public SourceIpMappingCreator(
+        final String ipRecordSid,
+        final String sipDomainSid
+    ) {
         this.ipRecordSid = ipRecordSid;
         this.sipDomainSid = sipDomainSid;
     }
 
-    public SourceIpMappingCreator setIpRecordSid(final String ipRecordSid){
+    public SourceIpMappingCreator setIpRecordSid(final String ipRecordSid) {
         this.ipRecordSid = ipRecordSid;
         return this;
     }
-    public SourceIpMappingCreator setSipDomainSid(final String sipDomainSid){
+
+    public SourceIpMappingCreator setSipDomainSid(final String sipDomainSid) {
         this.sipDomainSid = sipDomainSid;
         return this;
     }
 
     @Override
-    public SourceIpMapping create(final TwilioRestClient client){
+    public SourceIpMapping create(final TwilioRestClient client) {
         String path = "/v1/SourceIpMappings";
 
-        path = path.replace("{"+"IpRecordSid"+"}", this.ipRecordSid.toString());
-        path = path.replace("{"+"SipDomainSid"+"}", this.sipDomainSid.toString());
+        path =
+            path.replace(
+                "{" + "IpRecordSid" + "}",
+                this.ipRecordSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "SipDomainSid" + "}",
+                this.sipDomainSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -62,25 +72,32 @@ public class SourceIpMappingCreator extends Creator<SourceIpMapping>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SourceIpMapping creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SourceIpMapping creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return SourceIpMapping.fromJson(response.getStream(), client.getObjectMapper());
+        return SourceIpMapping.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (ipRecordSid != null) {
             request.addPostParam("IpRecordSid", ipRecordSid);
-    
         }
         if (sipDomainSid != null) {
             request.addPostParam("SipDomainSid", sipDomainSid);
-    
         }
     }
 }

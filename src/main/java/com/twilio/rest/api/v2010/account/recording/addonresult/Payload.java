@@ -23,58 +23,104 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Payload extends Resource {
+
     private static final long serialVersionUID = 241774798598483L;
 
-    
-
-    public static PayloadDeleter deleter(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
-        return new PayloadDeleter(pathReferenceSid, pathAddOnResultSid, pathSid);
-    }
-    public static PayloadDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
-        return new PayloadDeleter(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
-    }
-
-    public static PayloadFetcher fetcher(final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
-        return new PayloadFetcher(pathReferenceSid, pathAddOnResultSid, pathSid);
-    }
-    public static PayloadFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid, final String pathSid){
-        return new PayloadFetcher(pathAccountSid, pathReferenceSid, pathAddOnResultSid, pathSid);
+    public static PayloadDeleter deleter(
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathSid
+    ) {
+        return new PayloadDeleter(
+            pathReferenceSid,
+            pathAddOnResultSid,
+            pathSid
+        );
     }
 
-    public static PayloadReader reader(final String pathReferenceSid, final String pathAddOnResultSid){
+    public static PayloadDeleter deleter(
+        final String pathAccountSid,
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathSid
+    ) {
+        return new PayloadDeleter(
+            pathAccountSid,
+            pathReferenceSid,
+            pathAddOnResultSid,
+            pathSid
+        );
+    }
+
+    public static PayloadFetcher fetcher(
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathSid
+    ) {
+        return new PayloadFetcher(
+            pathReferenceSid,
+            pathAddOnResultSid,
+            pathSid
+        );
+    }
+
+    public static PayloadFetcher fetcher(
+        final String pathAccountSid,
+        final String pathReferenceSid,
+        final String pathAddOnResultSid,
+        final String pathSid
+    ) {
+        return new PayloadFetcher(
+            pathAccountSid,
+            pathReferenceSid,
+            pathAddOnResultSid,
+            pathSid
+        );
+    }
+
+    public static PayloadReader reader(
+        final String pathReferenceSid,
+        final String pathAddOnResultSid
+    ) {
         return new PayloadReader(pathReferenceSid, pathAddOnResultSid);
     }
-    public static PayloadReader reader(final String pathAccountSid, final String pathReferenceSid, final String pathAddOnResultSid){
-        return new PayloadReader(pathAccountSid, pathReferenceSid, pathAddOnResultSid);
+
+    public static PayloadReader reader(
+        final String pathAccountSid,
+        final String pathReferenceSid,
+        final String pathAddOnResultSid
+    ) {
+        return new PayloadReader(
+            pathAccountSid,
+            pathReferenceSid,
+            pathAddOnResultSid
+        );
     }
 
     /**
-    * Converts a JSON String into a Payload object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Payload object represented by the provided JSON
-    */
-    public static Payload fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Payload object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Payload object represented by the provided JSON
+     */
+    public static Payload fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Payload.class);
@@ -86,14 +132,17 @@ public class Payload extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Payload object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Payload object represented by the provided JSON
-    */
-    public static Payload fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Payload object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Payload object represented by the provided JSON
+     */
+    public static Payload fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Payload.class);
@@ -103,7 +152,6 @@ public class Payload extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String addOnResultSid;
@@ -119,38 +167,21 @@ public class Payload extends Resource {
 
     @JsonCreator
     private Payload(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("add_on_result_sid")
-        final String addOnResultSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("label")
-        final String label,
-
-        @JsonProperty("add_on_sid")
-        final String addOnSid,
-
-        @JsonProperty("add_on_configuration_sid")
-        final String addOnConfigurationSid,
-
-        @JsonProperty("content_type")
-        final String contentType,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("reference_sid")
-        final String referenceSid,
-
-        @JsonProperty("subresource_uris")
-        final Map<String, String> subresourceUris
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("add_on_result_sid") final String addOnResultSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("label") final String label,
+        @JsonProperty("add_on_sid") final String addOnSid,
+        @JsonProperty(
+            "add_on_configuration_sid"
+        ) final String addOnConfigurationSid,
+        @JsonProperty("content_type") final String contentType,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("reference_sid") final String referenceSid,
+        @JsonProperty(
+            "subresource_uris"
+        ) final Map<String, String> subresourceUris
     ) {
         this.sid = sid;
         this.addOnResultSid = addOnResultSid;
@@ -165,43 +196,53 @@ public class Payload extends Resource {
         this.subresourceUris = subresourceUris;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAddOnResultSid() {
-            return this.addOnResultSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getLabel() {
-            return this.label;
-        }
-        public final String getAddOnSid() {
-            return this.addOnSid;
-        }
-        public final String getAddOnConfigurationSid() {
-            return this.addOnConfigurationSid;
-        }
-        public final String getContentType() {
-            return this.contentType;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getReferenceSid() {
-            return this.referenceSid;
-        }
-        public final Map<String, String> getSubresourceUris() {
-            return this.subresourceUris;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAddOnResultSid() {
+        return this.addOnResultSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getLabel() {
+        return this.label;
+    }
+
+    public final String getAddOnSid() {
+        return this.addOnSid;
+    }
+
+    public final String getAddOnConfigurationSid() {
+        return this.addOnConfigurationSid;
+    }
+
+    public final String getContentType() {
+        return this.contentType;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getReferenceSid() {
+        return this.referenceSid;
+    }
+
+    public final Map<String, String> getSubresourceUris() {
+        return this.subresourceUris;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -211,14 +252,38 @@ public class Payload extends Resource {
 
         Payload other = (Payload) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(addOnResultSid, other.addOnResultSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(label, other.label) &&  Objects.equals(addOnSid, other.addOnSid) &&  Objects.equals(addOnConfigurationSid, other.addOnConfigurationSid) &&  Objects.equals(contentType, other.contentType) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(referenceSid, other.referenceSid) &&  Objects.equals(subresourceUris, other.subresourceUris)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(addOnResultSid, other.addOnResultSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(label, other.label) &&
+            Objects.equals(addOnSid, other.addOnSid) &&
+            Objects.equals(
+                addOnConfigurationSid,
+                other.addOnConfigurationSid
+            ) &&
+            Objects.equals(contentType, other.contentType) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(referenceSid, other.referenceSid) &&
+            Objects.equals(subresourceUris, other.subresourceUris)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, addOnResultSid, accountSid, label, addOnSid, addOnConfigurationSid, contentType, dateCreated, dateUpdated, referenceSid, subresourceUris);
+        return Objects.hash(
+            sid,
+            addOnResultSid,
+            accountSid,
+            label,
+            addOnSid,
+            addOnConfigurationSid,
+            contentType,
+            dateCreated,
+            dateUpdated,
+            referenceSid,
+            subresourceUris
+        );
     }
-
-
 }
-

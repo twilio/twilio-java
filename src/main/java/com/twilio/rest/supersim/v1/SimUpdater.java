@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class SimUpdater extends Updater<Sim> {
 
-
-public class SimUpdater extends Updater<Sim>{
     private String pathSid;
     private String uniqueName;
     private Sim.StatusUpdate status;
@@ -39,44 +37,49 @@ public class SimUpdater extends Updater<Sim>{
     private HttpMethod callbackMethod;
     private String accountSid;
 
-    public SimUpdater(final String pathSid){
+    public SimUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public SimUpdater setUniqueName(final String uniqueName){
+    public SimUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public SimUpdater setStatus(final Sim.StatusUpdate status){
+
+    public SimUpdater setStatus(final Sim.StatusUpdate status) {
         this.status = status;
         return this;
     }
-    public SimUpdater setFleet(final String fleet){
+
+    public SimUpdater setFleet(final String fleet) {
         this.fleet = fleet;
         return this;
     }
-    public SimUpdater setCallbackUrl(final URI callbackUrl){
+
+    public SimUpdater setCallbackUrl(final URI callbackUrl) {
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public SimUpdater setCallbackUrl(final String callbackUrl){
+    public SimUpdater setCallbackUrl(final String callbackUrl) {
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-    public SimUpdater setCallbackMethod(final HttpMethod callbackMethod){
+
+    public SimUpdater setCallbackMethod(final HttpMethod callbackMethod) {
         this.callbackMethod = callbackMethod;
         return this;
     }
-    public SimUpdater setAccountSid(final String accountSid){
+
+    public SimUpdater setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
     @Override
-    public Sim update(final TwilioRestClient client){
+    public Sim update(final TwilioRestClient client) {
         String path = "/v1/Sims/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -87,9 +90,14 @@ public class SimUpdater extends Updater<Sim>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Sim update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sim update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -98,30 +106,25 @@ public class SimUpdater extends Updater<Sim>{
 
         return Sim.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (fleet != null) {
             request.addPostParam("Fleet", fleet);
-    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
-    
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
-    
         }
         if (accountSid != null) {
             request.addPostParam("AccountSid", accountSid);
-    
         }
     }
 }

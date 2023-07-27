@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class CredentialUpdater extends Updater<Credential> {
 
-
-
-public class CredentialUpdater extends Updater<Credential>{
     private String pathSid;
     private Credential.PushType type;
     private String friendlyName;
@@ -38,44 +36,50 @@ public class CredentialUpdater extends Updater<Credential>{
     private String apiKey;
     private String secret;
 
-    public CredentialUpdater(final String pathSid){
+    public CredentialUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public CredentialUpdater setType(final Credential.PushType type){
+    public CredentialUpdater setType(final Credential.PushType type) {
         this.type = type;
         return this;
     }
-    public CredentialUpdater setFriendlyName(final String friendlyName){
+
+    public CredentialUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public CredentialUpdater setCertificate(final String certificate){
+
+    public CredentialUpdater setCertificate(final String certificate) {
         this.certificate = certificate;
         return this;
     }
-    public CredentialUpdater setPrivateKey(final String privateKey){
+
+    public CredentialUpdater setPrivateKey(final String privateKey) {
         this.privateKey = privateKey;
         return this;
     }
-    public CredentialUpdater setSandbox(final Boolean sandbox){
+
+    public CredentialUpdater setSandbox(final Boolean sandbox) {
         this.sandbox = sandbox;
         return this;
     }
-    public CredentialUpdater setApiKey(final String apiKey){
+
+    public CredentialUpdater setApiKey(final String apiKey) {
         this.apiKey = apiKey;
         return this;
     }
-    public CredentialUpdater setSecret(final String secret){
+
+    public CredentialUpdater setSecret(final String secret) {
         this.secret = secret;
         return this;
     }
 
     @Override
-    public Credential update(final TwilioRestClient client){
+    public Credential update(final TwilioRestClient client) {
         String path = "/v1/Credentials/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -86,45 +90,47 @@ public class CredentialUpdater extends Updater<Credential>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Credential update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Credential update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Credential.fromJson(response.getStream(), client.getObjectMapper());
+        return Credential.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (type != null) {
             request.addPostParam("Type", type.toString());
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (certificate != null) {
             request.addPostParam("Certificate", certificate);
-    
         }
         if (privateKey != null) {
             request.addPostParam("PrivateKey", privateKey);
-    
         }
         if (sandbox != null) {
             request.addPostParam("Sandbox", sandbox.toString());
-    
         }
         if (apiKey != null) {
             request.addPostParam("ApiKey", apiKey);
-    
         }
         if (secret != null) {
             request.addPostParam("Secret", secret);
-    
         }
     }
 }

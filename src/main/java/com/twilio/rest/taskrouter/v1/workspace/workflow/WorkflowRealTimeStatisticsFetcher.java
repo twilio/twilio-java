@@ -24,30 +24,43 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class WorkflowRealTimeStatisticsFetcher
+    extends Fetcher<WorkflowRealTimeStatistics> {
 
-
-
-public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeStatistics> {
     private String pathWorkspaceSid;
     private String pathWorkflowSid;
     private String taskChannel;
 
-    public WorkflowRealTimeStatisticsFetcher(final String pathWorkspaceSid, final String pathWorkflowSid){
+    public WorkflowRealTimeStatisticsFetcher(
+        final String pathWorkspaceSid,
+        final String pathWorkflowSid
+    ) {
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathWorkflowSid = pathWorkflowSid;
     }
 
-    public WorkflowRealTimeStatisticsFetcher setTaskChannel(final String taskChannel){
+    public WorkflowRealTimeStatisticsFetcher setTaskChannel(
+        final String taskChannel
+    ) {
         this.taskChannel = taskChannel;
         return this;
     }
 
     @Override
     public WorkflowRealTimeStatistics fetch(final TwilioRestClient client) {
-        String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics";
+        String path =
+            "/v1/Workspaces/{WorkspaceSid}/Workflows/{WorkflowSid}/RealTimeStatistics";
 
-        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
-        path = path.replace("{"+"WorkflowSid"+"}", this.pathWorkflowSid.toString());
+        path =
+            path.replace(
+                "{" + "WorkspaceSid" + "}",
+                this.pathWorkspaceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "WorkflowSid" + "}",
+                this.pathWorkflowSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -58,20 +71,28 @@ public class WorkflowRealTimeStatisticsFetcher extends Fetcher<WorkflowRealTimeS
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("WorkflowRealTimeStatistics fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "WorkflowRealTimeStatistics fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return WorkflowRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
+        return WorkflowRealTimeStatistics.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addQueryParams(final Request request) {
         if (taskChannel != null) {
-    
             request.addQueryParam("TaskChannel", taskChannel);
         }
     }

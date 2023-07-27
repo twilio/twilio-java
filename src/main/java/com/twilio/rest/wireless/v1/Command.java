@@ -24,52 +24,48 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Command extends Resource {
+
     private static final long serialVersionUID = 179149511827589L;
 
-    
-
-    public static CommandCreator creator(final String command){
+    public static CommandCreator creator(final String command) {
         return new CommandCreator(command);
     }
 
-    public static CommandDeleter deleter(final String pathSid){
+    public static CommandDeleter deleter(final String pathSid) {
         return new CommandDeleter(pathSid);
     }
 
-    public static CommandFetcher fetcher(final String pathSid){
+    public static CommandFetcher fetcher(final String pathSid) {
         return new CommandFetcher(pathSid);
     }
 
-    public static CommandReader reader(){
+    public static CommandReader reader() {
         return new CommandReader();
     }
 
     /**
-    * Converts a JSON String into a Command object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Command object represented by the provided JSON
-    */
-    public static Command fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Command object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Command object represented by the provided JSON
+     */
+    public static Command fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Command.class);
@@ -81,14 +77,17 @@ public class Command extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Command object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Command object represented by the provided JSON
-    */
-    public static Command fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Command object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Command object represented by the provided JSON
+     */
+    public static Command fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Command.class);
@@ -118,6 +117,7 @@ public class Command extends Resource {
             return Promoter.enumFromString(value, CommandMode.values());
         }
     }
+
     public enum Direction {
         FROM_SIM("from_sim"),
         TO_SIM("to_sim");
@@ -137,6 +137,7 @@ public class Command extends Resource {
             return Promoter.enumFromString(value, Direction.values());
         }
     }
+
     public enum Status {
         QUEUED("queued"),
         SENT("sent"),
@@ -159,6 +160,7 @@ public class Command extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
     public enum Transport {
         SMS("sms"),
         IP("ip");
@@ -194,41 +196,20 @@ public class Command extends Resource {
 
     @JsonCreator
     private Command(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("sim_sid")
-        final String simSid,
-
-        @JsonProperty("command")
-        final String command,
-
-        @JsonProperty("command_mode")
-        final Command.CommandMode commandMode,
-
-        @JsonProperty("transport")
-        final Command.Transport transport,
-
-        @JsonProperty("delivery_receipt_requested")
-        final Boolean deliveryReceiptRequested,
-
-        @JsonProperty("status")
-        final Command.Status status,
-
-        @JsonProperty("direction")
-        final Command.Direction direction,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("sim_sid") final String simSid,
+        @JsonProperty("command") final String command,
+        @JsonProperty("command_mode") final Command.CommandMode commandMode,
+        @JsonProperty("transport") final Command.Transport transport,
+        @JsonProperty(
+            "delivery_receipt_requested"
+        ) final Boolean deliveryReceiptRequested,
+        @JsonProperty("status") final Command.Status status,
+        @JsonProperty("direction") final Command.Direction direction,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -244,46 +225,57 @@ public class Command extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getSimSid() {
-            return this.simSid;
-        }
-        public final String getCommand() {
-            return this.command;
-        }
-        public final Command.CommandMode getCommandMode() {
-            return this.commandMode;
-        }
-        public final Command.Transport getTransport() {
-            return this.transport;
-        }
-        public final Boolean getDeliveryReceiptRequested() {
-            return this.deliveryReceiptRequested;
-        }
-        public final Command.Status getStatus() {
-            return this.status;
-        }
-        public final Command.Direction getDirection() {
-            return this.direction;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getSimSid() {
+        return this.simSid;
+    }
+
+    public final String getCommand() {
+        return this.command;
+    }
+
+    public final Command.CommandMode getCommandMode() {
+        return this.commandMode;
+    }
+
+    public final Command.Transport getTransport() {
+        return this.transport;
+    }
+
+    public final Boolean getDeliveryReceiptRequested() {
+        return this.deliveryReceiptRequested;
+    }
+
+    public final Command.Status getStatus() {
+        return this.status;
+    }
+
+    public final Command.Direction getDirection() {
+        return this.direction;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -293,14 +285,40 @@ public class Command extends Resource {
 
         Command other = (Command) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(simSid, other.simSid) &&  Objects.equals(command, other.command) &&  Objects.equals(commandMode, other.commandMode) &&  Objects.equals(transport, other.transport) &&  Objects.equals(deliveryReceiptRequested, other.deliveryReceiptRequested) &&  Objects.equals(status, other.status) &&  Objects.equals(direction, other.direction) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(simSid, other.simSid) &&
+            Objects.equals(command, other.command) &&
+            Objects.equals(commandMode, other.commandMode) &&
+            Objects.equals(transport, other.transport) &&
+            Objects.equals(
+                deliveryReceiptRequested,
+                other.deliveryReceiptRequested
+            ) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(direction, other.direction) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, simSid, command, commandMode, transport, deliveryReceiptRequested, status, direction, dateCreated, dateUpdated, url);
+        return Objects.hash(
+            sid,
+            accountSid,
+            simSid,
+            command,
+            commandMode,
+            transport,
+            deliveryReceiptRequested,
+            status,
+            direction,
+            dateCreated,
+            dateUpdated,
+            url
+        );
     }
-
-
 }
-

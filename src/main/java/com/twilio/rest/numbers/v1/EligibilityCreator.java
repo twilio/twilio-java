@@ -24,19 +24,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class EligibilityCreator extends Creator<Eligibility> {
 
-
-
-public class EligibilityCreator extends Creator<Eligibility>{
-
-    public EligibilityCreator() {
-    }
-
+    public EligibilityCreator() {}
 
     @Override
-    public Eligibility create(final TwilioRestClient client){
+    public Eligibility create(final TwilioRestClient client) {
         String path = "/v1/HostedNumber/Eligibility";
-
 
         Request request = new Request(
             HttpMethod.POST,
@@ -45,15 +39,23 @@ public class EligibilityCreator extends Creator<Eligibility>{
         );
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Eligibility creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Eligibility creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Eligibility.fromJson(response.getStream(), client.getObjectMapper());
+        return Eligibility.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

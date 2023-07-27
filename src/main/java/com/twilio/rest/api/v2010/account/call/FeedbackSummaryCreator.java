@@ -16,6 +16,7 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
+import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,15 +26,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.net.URI;
+import java.net.URI;
 import java.time.LocalDate;
-import java.net.URI;
-import com.twilio.converter.DateConverter;
 
+public class FeedbackSummaryCreator extends Creator<FeedbackSummary> {
 
-
-import java.net.URI;
-
-public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
     private LocalDate startDate;
     private LocalDate endDate;
     private String pathAccountSid;
@@ -41,49 +39,75 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public FeedbackSummaryCreator(final LocalDate startDate, final LocalDate endDate) {
+    public FeedbackSummaryCreator(
+        final LocalDate startDate,
+        final LocalDate endDate
+    ) {
         this.startDate = startDate;
         this.endDate = endDate;
     }
-    public FeedbackSummaryCreator(final String pathAccountSid, final LocalDate startDate, final LocalDate endDate) {
+
+    public FeedbackSummaryCreator(
+        final String pathAccountSid,
+        final LocalDate startDate,
+        final LocalDate endDate
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public FeedbackSummaryCreator setStartDate(final LocalDate startDate){
+    public FeedbackSummaryCreator setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
-    public FeedbackSummaryCreator setEndDate(final LocalDate endDate){
+
+    public FeedbackSummaryCreator setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
-    public FeedbackSummaryCreator setIncludeSubaccounts(final Boolean includeSubaccounts){
+
+    public FeedbackSummaryCreator setIncludeSubaccounts(
+        final Boolean includeSubaccounts
+    ) {
         this.includeSubaccounts = includeSubaccounts;
         return this;
     }
-    public FeedbackSummaryCreator setStatusCallback(final URI statusCallback){
+
+    public FeedbackSummaryCreator setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public FeedbackSummaryCreator setStatusCallback(final String statusCallback){
+    public FeedbackSummaryCreator setStatusCallback(
+        final String statusCallback
+    ) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public FeedbackSummaryCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+
+    public FeedbackSummaryCreator setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
     @Override
-    public FeedbackSummary create(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json";
+    public FeedbackSummary create(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/FeedbackSummary.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"StartDate"+"}", this.startDate.toString());
-        path = path.replace("{"+"EndDate"+"}", this.endDate.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "StartDate" + "}", this.startDate.toString());
+        path = path.replace("{" + "EndDate" + "}", this.endDate.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -94,37 +118,53 @@ public class FeedbackSummaryCreator extends Creator<FeedbackSummary>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("FeedbackSummary creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FeedbackSummary creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return FeedbackSummary.fromJson(response.getStream(), client.getObjectMapper());
+        return FeedbackSummary.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (startDate != null) {
-            request.addPostParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
-
+            request.addPostParam(
+                "StartDate",
+                DateConverter.dateStringFromLocalDate(startDate)
+            );
         }
         if (endDate != null) {
-            request.addPostParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
-
+            request.addPostParam(
+                "EndDate",
+                DateConverter.dateStringFromLocalDate(endDate)
+            );
         }
         if (includeSubaccounts != null) {
-            request.addPostParam("IncludeSubaccounts", includeSubaccounts.toString());
-    
+            request.addPostParam(
+                "IncludeSubaccounts",
+                includeSubaccounts.toString()
+            );
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
-    
+            request.addPostParam(
+                "StatusCallbackMethod",
+                statusCallbackMethod.toString()
+            );
         }
     }
 }

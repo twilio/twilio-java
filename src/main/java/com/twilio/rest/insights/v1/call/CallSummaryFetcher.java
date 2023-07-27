@@ -24,18 +24,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class CallSummaryFetcher extends Fetcher<CallSummary> {
+
     private String pathCallSid;
     private CallSummary.ProcessingState processingState;
 
-    public CallSummaryFetcher(final String pathCallSid){
+    public CallSummaryFetcher(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
     }
 
-    public CallSummaryFetcher setProcessingState(final CallSummary.ProcessingState processingState){
+    public CallSummaryFetcher setProcessingState(
+        final CallSummary.ProcessingState processingState
+    ) {
         this.processingState = processingState;
         return this;
     }
@@ -44,7 +44,7 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
     public CallSummary fetch(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Summary";
 
-        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -55,21 +55,32 @@ public class CallSummaryFetcher extends Fetcher<CallSummary> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("CallSummary fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "CallSummary fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return CallSummary.fromJson(response.getStream(), client.getObjectMapper());
+        return CallSummary.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addQueryParams(final Request request) {
         if (processingState != null) {
-    
-            request.addQueryParam("ProcessingState", processingState.toString());
+            request.addQueryParam(
+                "ProcessingState",
+                processingState.toString()
+            );
         }
     }
 }

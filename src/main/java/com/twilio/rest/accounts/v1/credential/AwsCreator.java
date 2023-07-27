@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class AwsCreator extends Creator<Aws> {
 
-
-
-public class AwsCreator extends Creator<Aws>{
     private String credentials;
     private String friendlyName;
     private String accountSid;
@@ -37,24 +35,30 @@ public class AwsCreator extends Creator<Aws>{
         this.credentials = credentials;
     }
 
-    public AwsCreator setCredentials(final String credentials){
+    public AwsCreator setCredentials(final String credentials) {
         this.credentials = credentials;
         return this;
     }
-    public AwsCreator setFriendlyName(final String friendlyName){
+
+    public AwsCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public AwsCreator setAccountSid(final String accountSid){
+
+    public AwsCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
 
     @Override
-    public Aws create(final TwilioRestClient client){
+    public Aws create(final TwilioRestClient client) {
         String path = "/v1/Credentials/AWS";
 
-        path = path.replace("{"+"Credentials"+"}", this.credentials.toString());
+        path =
+            path.replace(
+                "{" + "Credentials" + "}",
+                this.credentials.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -65,9 +69,14 @@ public class AwsCreator extends Creator<Aws>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Aws creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Aws creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -76,18 +85,16 @@ public class AwsCreator extends Creator<Aws>{
 
         return Aws.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (credentials != null) {
             request.addPostParam("Credentials", credentials);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (accountSid != null) {
             request.addPostParam("AccountSid", accountSid);
-    
         }
     }
 }

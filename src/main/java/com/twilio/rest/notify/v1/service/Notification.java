@@ -24,42 +24,38 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
+
     private static final long serialVersionUID = 129411229878484L;
 
-    
-
-    public static NotificationCreator creator(final String pathServiceSid){
+    public static NotificationCreator creator(final String pathServiceSid) {
         return new NotificationCreator(pathServiceSid);
     }
 
     /**
-    * Converts a JSON String into a Notification object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Notification object represented by the provided JSON
-    */
-    public static Notification fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Notification object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Notification object represented by the provided JSON
+     */
+    public static Notification fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -71,14 +67,17 @@ public class Notification extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Notification object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Notification object represented by the provided JSON
-    */
-    public static Notification fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Notification object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Notification object represented by the provided JSON
+     */
+    public static Notification fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -132,65 +131,28 @@ public class Notification extends Resource {
 
     @JsonCreator
     private Notification(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("identities")
-        final List<String> identities,
-
-        @JsonProperty("tags")
-        final List<String> tags,
-
-        @JsonProperty("segments")
-        final List<String> segments,
-
-        @JsonProperty("priority")
-        final Notification.Priority priority,
-
-        @JsonProperty("ttl")
-        final Integer ttl,
-
-        @JsonProperty("title")
-        final String title,
-
-        @JsonProperty("body")
-        final String body,
-
-        @JsonProperty("sound")
-        final String sound,
-
-        @JsonProperty("action")
-        final String action,
-
-        @JsonProperty("data")
-        final Map<String, Object> data,
-
-        @JsonProperty("apn")
-        final Map<String, Object> apn,
-
-        @JsonProperty("gcm")
-        final Map<String, Object> gcm,
-
-        @JsonProperty("fcm")
-        final Map<String, Object> fcm,
-
-        @JsonProperty("sms")
-        final Map<String, Object> sms,
-
-        @JsonProperty("facebook_messenger")
-        final Map<String, Object> facebookMessenger,
-
-        @JsonProperty("alexa")
-        final Map<String, Object> alexa
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("identities") final List<String> identities,
+        @JsonProperty("tags") final List<String> tags,
+        @JsonProperty("segments") final List<String> segments,
+        @JsonProperty("priority") final Notification.Priority priority,
+        @JsonProperty("ttl") final Integer ttl,
+        @JsonProperty("title") final String title,
+        @JsonProperty("body") final String body,
+        @JsonProperty("sound") final String sound,
+        @JsonProperty("action") final String action,
+        @JsonProperty("data") final Map<String, Object> data,
+        @JsonProperty("apn") final Map<String, Object> apn,
+        @JsonProperty("gcm") final Map<String, Object> gcm,
+        @JsonProperty("fcm") final Map<String, Object> fcm,
+        @JsonProperty("sms") final Map<String, Object> sms,
+        @JsonProperty(
+            "facebook_messenger"
+        ) final Map<String, Object> facebookMessenger,
+        @JsonProperty("alexa") final Map<String, Object> alexa
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -214,70 +176,89 @@ public class Notification extends Resource {
         this.alexa = alexa;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final List<String> getIdentities() {
-            return this.identities;
-        }
-        public final List<String> getTags() {
-            return this.tags;
-        }
-        public final List<String> getSegments() {
-            return this.segments;
-        }
-        public final Notification.Priority getPriority() {
-            return this.priority;
-        }
-        public final Integer getTtl() {
-            return this.ttl;
-        }
-        public final String getTitle() {
-            return this.title;
-        }
-        public final String getBody() {
-            return this.body;
-        }
-        public final String getSound() {
-            return this.sound;
-        }
-        public final String getAction() {
-            return this.action;
-        }
-        public final Map<String, Object> getData() {
-            return this.data;
-        }
-        public final Map<String, Object> getApn() {
-            return this.apn;
-        }
-        public final Map<String, Object> getGcm() {
-            return this.gcm;
-        }
-        public final Map<String, Object> getFcm() {
-            return this.fcm;
-        }
-        public final Map<String, Object> getSms() {
-            return this.sms;
-        }
-        public final Map<String, Object> getFacebookMessenger() {
-            return this.facebookMessenger;
-        }
-        public final Map<String, Object> getAlexa() {
-            return this.alexa;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final List<String> getIdentities() {
+        return this.identities;
+    }
+
+    public final List<String> getTags() {
+        return this.tags;
+    }
+
+    public final List<String> getSegments() {
+        return this.segments;
+    }
+
+    public final Notification.Priority getPriority() {
+        return this.priority;
+    }
+
+    public final Integer getTtl() {
+        return this.ttl;
+    }
+
+    public final String getTitle() {
+        return this.title;
+    }
+
+    public final String getBody() {
+        return this.body;
+    }
+
+    public final String getSound() {
+        return this.sound;
+    }
+
+    public final String getAction() {
+        return this.action;
+    }
+
+    public final Map<String, Object> getData() {
+        return this.data;
+    }
+
+    public final Map<String, Object> getApn() {
+        return this.apn;
+    }
+
+    public final Map<String, Object> getGcm() {
+        return this.gcm;
+    }
+
+    public final Map<String, Object> getFcm() {
+        return this.fcm;
+    }
+
+    public final Map<String, Object> getSms() {
+        return this.sms;
+    }
+
+    public final Map<String, Object> getFacebookMessenger() {
+        return this.facebookMessenger;
+    }
+
+    public final Map<String, Object> getAlexa() {
+        return this.alexa;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -287,14 +268,53 @@ public class Notification extends Resource {
 
         Notification other = (Notification) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(identities, other.identities) &&  Objects.equals(tags, other.tags) &&  Objects.equals(segments, other.segments) &&  Objects.equals(priority, other.priority) &&  Objects.equals(ttl, other.ttl) &&  Objects.equals(title, other.title) &&  Objects.equals(body, other.body) &&  Objects.equals(sound, other.sound) &&  Objects.equals(action, other.action) &&  Objects.equals(data, other.data) &&  Objects.equals(apn, other.apn) &&  Objects.equals(gcm, other.gcm) &&  Objects.equals(fcm, other.fcm) &&  Objects.equals(sms, other.sms) &&  Objects.equals(facebookMessenger, other.facebookMessenger) &&  Objects.equals(alexa, other.alexa)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(identities, other.identities) &&
+            Objects.equals(tags, other.tags) &&
+            Objects.equals(segments, other.segments) &&
+            Objects.equals(priority, other.priority) &&
+            Objects.equals(ttl, other.ttl) &&
+            Objects.equals(title, other.title) &&
+            Objects.equals(body, other.body) &&
+            Objects.equals(sound, other.sound) &&
+            Objects.equals(action, other.action) &&
+            Objects.equals(data, other.data) &&
+            Objects.equals(apn, other.apn) &&
+            Objects.equals(gcm, other.gcm) &&
+            Objects.equals(fcm, other.fcm) &&
+            Objects.equals(sms, other.sms) &&
+            Objects.equals(facebookMessenger, other.facebookMessenger) &&
+            Objects.equals(alexa, other.alexa)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, dateCreated, identities, tags, segments, priority, ttl, title, body, sound, action, data, apn, gcm, fcm, sms, facebookMessenger, alexa);
+        return Objects.hash(
+            sid,
+            accountSid,
+            serviceSid,
+            dateCreated,
+            identities,
+            tags,
+            segments,
+            priority,
+            ttl,
+            title,
+            body,
+            sound,
+            action,
+            data,
+            apn,
+            gcm,
+            fcm,
+            sms,
+            facebookMessenger,
+            alexa
+        );
     }
-
-
 }
-

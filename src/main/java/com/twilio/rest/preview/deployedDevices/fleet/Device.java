@@ -23,56 +23,61 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Device extends Resource {
+
     private static final long serialVersionUID = 204948181343163L;
 
-    
-
-    public static DeviceCreator creator(final String pathFleetSid){
+    public static DeviceCreator creator(final String pathFleetSid) {
         return new DeviceCreator(pathFleetSid);
     }
 
-    public static DeviceDeleter deleter(final String pathFleetSid, final String pathSid){
+    public static DeviceDeleter deleter(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new DeviceDeleter(pathFleetSid, pathSid);
     }
 
-    public static DeviceFetcher fetcher(final String pathFleetSid, final String pathSid){
+    public static DeviceFetcher fetcher(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new DeviceFetcher(pathFleetSid, pathSid);
     }
 
-    public static DeviceReader reader(final String pathFleetSid){
+    public static DeviceReader reader(final String pathFleetSid) {
         return new DeviceReader(pathFleetSid);
     }
 
-    public static DeviceUpdater updater(final String pathFleetSid, final String pathSid){
+    public static DeviceUpdater updater(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new DeviceUpdater(pathFleetSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Device object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Device object represented by the provided JSON
-    */
-    public static Device fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Device object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Device object represented by the provided JSON
+     */
+    public static Device fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Device.class);
@@ -84,14 +89,17 @@ public class Device extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Device object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Device object represented by the provided JSON
-    */
-    public static Device fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Device object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Device object represented by the provided JSON
+     */
+    public static Device fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Device.class);
@@ -101,7 +109,6 @@ public class Device extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final URI url;
@@ -118,41 +125,18 @@ public class Device extends Resource {
 
     @JsonCreator
     private Device(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("unique_name")
-        final String uniqueName,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("fleet_sid")
-        final String fleetSid,
-
-        @JsonProperty("enabled")
-        final Boolean enabled,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("deployment_sid")
-        final String deploymentSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("date_authenticated")
-        final String dateAuthenticated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("fleet_sid") final String fleetSid,
+        @JsonProperty("enabled") final Boolean enabled,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("deployment_sid") final String deploymentSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_authenticated") final String dateAuthenticated
     ) {
         this.sid = sid;
         this.url = url;
@@ -165,49 +149,61 @@ public class Device extends Resource {
         this.deploymentSid = deploymentSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.dateAuthenticated = DateConverter.iso8601DateTimeFromString(dateAuthenticated);
+        this.dateAuthenticated =
+            DateConverter.iso8601DateTimeFromString(dateAuthenticated);
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getUniqueName() {
-            return this.uniqueName;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getFleetSid() {
-            return this.fleetSid;
-        }
-        public final Boolean getEnabled() {
-            return this.enabled;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getDeploymentSid() {
-            return this.deploymentSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final ZonedDateTime getDateAuthenticated() {
-            return this.dateAuthenticated;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getUniqueName() {
+        return this.uniqueName;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getFleetSid() {
+        return this.fleetSid;
+    }
+
+    public final Boolean getEnabled() {
+        return this.enabled;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getDeploymentSid() {
+        return this.deploymentSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final ZonedDateTime getDateAuthenticated() {
+        return this.dateAuthenticated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -217,14 +213,37 @@ public class Device extends Resource {
 
         Device other = (Device) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(url, other.url) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(fleetSid, other.fleetSid) &&  Objects.equals(enabled, other.enabled) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(deploymentSid, other.deploymentSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(dateAuthenticated, other.dateAuthenticated)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(fleetSid, other.fleetSid) &&
+            Objects.equals(enabled, other.enabled) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(deploymentSid, other.deploymentSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(dateAuthenticated, other.dateAuthenticated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, url, uniqueName, friendlyName, fleetSid, enabled, accountSid, identity, deploymentSid, dateCreated, dateUpdated, dateAuthenticated);
+        return Objects.hash(
+            sid,
+            url,
+            uniqueName,
+            friendlyName,
+            fleetSid,
+            enabled,
+            accountSid,
+            identity,
+            deploymentSid,
+            dateCreated,
+            dateUpdated,
+            dateAuthenticated
+        );
     }
-
-
 }
-

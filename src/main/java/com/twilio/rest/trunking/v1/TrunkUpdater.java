@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class TrunkUpdater extends Updater<Trunk> {
 
-
-public class TrunkUpdater extends Updater<Trunk>{
     private String pathSid;
     private String friendlyName;
     private String domainName;
@@ -41,52 +39,69 @@ public class TrunkUpdater extends Updater<Trunk>{
     private Boolean cnamLookupEnabled;
     private Trunk.TransferCallerId transferCallerId;
 
-    public TrunkUpdater(final String pathSid){
+    public TrunkUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public TrunkUpdater setFriendlyName(final String friendlyName){
+    public TrunkUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public TrunkUpdater setDomainName(final String domainName){
+
+    public TrunkUpdater setDomainName(final String domainName) {
         this.domainName = domainName;
         return this;
     }
-    public TrunkUpdater setDisasterRecoveryUrl(final URI disasterRecoveryUrl){
+
+    public TrunkUpdater setDisasterRecoveryUrl(final URI disasterRecoveryUrl) {
         this.disasterRecoveryUrl = disasterRecoveryUrl;
         return this;
     }
 
-    public TrunkUpdater setDisasterRecoveryUrl(final String disasterRecoveryUrl){
-        return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
+    public TrunkUpdater setDisasterRecoveryUrl(
+        final String disasterRecoveryUrl
+    ) {
+        return setDisasterRecoveryUrl(
+            Promoter.uriFromString(disasterRecoveryUrl)
+        );
     }
-    public TrunkUpdater setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod){
+
+    public TrunkUpdater setDisasterRecoveryMethod(
+        final HttpMethod disasterRecoveryMethod
+    ) {
         this.disasterRecoveryMethod = disasterRecoveryMethod;
         return this;
     }
-    public TrunkUpdater setTransferMode(final Trunk.TransferSetting transferMode){
+
+    public TrunkUpdater setTransferMode(
+        final Trunk.TransferSetting transferMode
+    ) {
         this.transferMode = transferMode;
         return this;
     }
-    public TrunkUpdater setSecure(final Boolean secure){
+
+    public TrunkUpdater setSecure(final Boolean secure) {
         this.secure = secure;
         return this;
     }
-    public TrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled){
+
+    public TrunkUpdater setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
         this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
-    public TrunkUpdater setTransferCallerId(final Trunk.TransferCallerId transferCallerId){
+
+    public TrunkUpdater setTransferCallerId(
+        final Trunk.TransferCallerId transferCallerId
+    ) {
         this.transferCallerId = transferCallerId;
         return this;
     }
 
     @Override
-    public Trunk update(final TwilioRestClient client){
+    public Trunk update(final TwilioRestClient client) {
         String path = "/v1/Trunks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -97,9 +112,14 @@ public class TrunkUpdater extends Updater<Trunk>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Trunk update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Trunk update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -108,38 +128,43 @@ public class TrunkUpdater extends Updater<Trunk>{
 
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (domainName != null) {
             request.addPostParam("DomainName", domainName);
-    
         }
         if (disasterRecoveryUrl != null) {
-            request.addPostParam("DisasterRecoveryUrl", disasterRecoveryUrl.toString());
-    
+            request.addPostParam(
+                "DisasterRecoveryUrl",
+                disasterRecoveryUrl.toString()
+            );
         }
         if (disasterRecoveryMethod != null) {
-            request.addPostParam("DisasterRecoveryMethod", disasterRecoveryMethod.toString());
-    
+            request.addPostParam(
+                "DisasterRecoveryMethod",
+                disasterRecoveryMethod.toString()
+            );
         }
         if (transferMode != null) {
             request.addPostParam("TransferMode", transferMode.toString());
-    
         }
         if (secure != null) {
             request.addPostParam("Secure", secure.toString());
-    
         }
         if (cnamLookupEnabled != null) {
-            request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
-    
+            request.addPostParam(
+                "CnamLookupEnabled",
+                cnamLookupEnabled.toString()
+            );
         }
         if (transferCallerId != null) {
-            request.addPostParam("TransferCallerId", transferCallerId.toString());
-    
+            request.addPostParam(
+                "TransferCallerId",
+                transferCallerId.toString()
+            );
         }
     }
 }

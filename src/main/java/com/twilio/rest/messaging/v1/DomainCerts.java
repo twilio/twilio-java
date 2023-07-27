@@ -23,50 +23,49 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainCerts extends Resource {
+
     private static final long serialVersionUID = 200335100401859L;
 
-    
-
-    public static DomainCertsDeleter deleter(final String pathDomainSid){
+    public static DomainCertsDeleter deleter(final String pathDomainSid) {
         return new DomainCertsDeleter(pathDomainSid);
     }
 
-    public static DomainCertsFetcher fetcher(final String pathDomainSid){
+    public static DomainCertsFetcher fetcher(final String pathDomainSid) {
         return new DomainCertsFetcher(pathDomainSid);
     }
 
-    public static DomainCertsUpdater updater(final String pathDomainSid, final String tlsCert){
+    public static DomainCertsUpdater updater(
+        final String pathDomainSid,
+        final String tlsCert
+    ) {
         return new DomainCertsUpdater(pathDomainSid, tlsCert);
     }
 
     /**
-    * Converts a JSON String into a DomainCerts object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return DomainCerts object represented by the provided JSON
-    */
-    public static DomainCerts fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a DomainCerts object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DomainCerts object represented by the provided JSON
+     */
+    public static DomainCerts fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DomainCerts.class);
@@ -78,14 +77,17 @@ public class DomainCerts extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a DomainCerts object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return DomainCerts object represented by the provided JSON
-    */
-    public static DomainCerts fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a DomainCerts object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DomainCerts object represented by the provided JSON
+     */
+    public static DomainCerts fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DomainCerts.class);
@@ -95,7 +97,6 @@ public class DomainCerts extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String domainSid;
     private final ZonedDateTime dateUpdated;
@@ -108,29 +109,16 @@ public class DomainCerts extends Resource {
 
     @JsonCreator
     private DomainCerts(
-        @JsonProperty("domain_sid")
-        final String domainSid,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("date_expires")
-        final String dateExpires,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("domain_name")
-        final URI domainName,
-
-        @JsonProperty("certificate_sid")
-        final String certificateSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("cert_in_validation")
-        final Map<String, Object> certInValidation
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("date_expires") final String dateExpires,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("domain_name") final URI domainName,
+        @JsonProperty("certificate_sid") final String certificateSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty(
+            "cert_in_validation"
+        ) final Map<String, Object> certInValidation
     ) {
         this.domainSid = domainSid;
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
@@ -142,34 +130,41 @@ public class DomainCerts extends Resource {
         this.certInValidation = certInValidation;
     }
 
-        public final String getDomainSid() {
-            return this.domainSid;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final ZonedDateTime getDateExpires() {
-            return this.dateExpires;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final URI getDomainName() {
-            return this.domainName;
-        }
-        public final String getCertificateSid() {
-            return this.certificateSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, Object> getCertInValidation() {
-            return this.certInValidation;
-        }
+    public final String getDomainSid() {
+        return this.domainSid;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final ZonedDateTime getDateExpires() {
+        return this.dateExpires;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final URI getDomainName() {
+        return this.domainName;
+    }
+
+    public final String getCertificateSid() {
+        return this.certificateSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, Object> getCertInValidation() {
+        return this.certInValidation;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -179,14 +174,29 @@ public class DomainCerts extends Resource {
 
         DomainCerts other = (DomainCerts) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(dateExpires, other.dateExpires) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(domainName, other.domainName) &&  Objects.equals(certificateSid, other.certificateSid) &&  Objects.equals(url, other.url) &&  Objects.equals(certInValidation, other.certInValidation)  ;
+        return (
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(dateExpires, other.dateExpires) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(domainName, other.domainName) &&
+            Objects.equals(certificateSid, other.certificateSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(certInValidation, other.certInValidation)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domainSid, dateUpdated, dateExpires, dateCreated, domainName, certificateSid, url, certInValidation);
+        return Objects.hash(
+            domainSid,
+            dateUpdated,
+            dateExpires,
+            dateCreated,
+            domainName,
+            certificateSid,
+            url,
+            certInValidation
+        );
     }
-
-
 }
-

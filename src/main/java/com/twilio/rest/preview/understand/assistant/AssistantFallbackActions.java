@@ -22,45 +22,45 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AssistantFallbackActions extends Resource {
+
     private static final long serialVersionUID = 52727905251134L;
 
-    
-
-    public static AssistantFallbackActionsFetcher fetcher(final String pathAssistantSid){
+    public static AssistantFallbackActionsFetcher fetcher(
+        final String pathAssistantSid
+    ) {
         return new AssistantFallbackActionsFetcher(pathAssistantSid);
     }
 
-    public static AssistantFallbackActionsUpdater updater(final String pathAssistantSid){
+    public static AssistantFallbackActionsUpdater updater(
+        final String pathAssistantSid
+    ) {
         return new AssistantFallbackActionsUpdater(pathAssistantSid);
     }
 
     /**
-    * Converts a JSON String into a AssistantFallbackActions object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return AssistantFallbackActions object represented by the provided JSON
-    */
-    public static AssistantFallbackActions fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a AssistantFallbackActions object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return AssistantFallbackActions object represented by the provided JSON
+     */
+    public static AssistantFallbackActions fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssistantFallbackActions.class);
@@ -72,14 +72,17 @@ public class AssistantFallbackActions extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a AssistantFallbackActions object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return AssistantFallbackActions object represented by the provided JSON
-    */
-    public static AssistantFallbackActions fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a AssistantFallbackActions object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return AssistantFallbackActions object represented by the provided JSON
+     */
+    public static AssistantFallbackActions fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AssistantFallbackActions.class);
@@ -89,7 +92,6 @@ public class AssistantFallbackActions extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String accountSid;
     private final String assistantSid;
@@ -98,17 +100,10 @@ public class AssistantFallbackActions extends Resource {
 
     @JsonCreator
     private AssistantFallbackActions(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("assistant_sid")
-        final String assistantSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("data")
-        final Map<String, Object> data
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("assistant_sid") final String assistantSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("data") final Map<String, Object> data
     ) {
         this.accountSid = accountSid;
         this.assistantSid = assistantSid;
@@ -116,22 +111,25 @@ public class AssistantFallbackActions extends Resource {
         this.data = data;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getAssistantSid() {
-            return this.assistantSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, Object> getData() {
-            return this.data;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getAssistantSid() {
+        return this.assistantSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, Object> getData() {
+        return this.data;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -141,14 +139,16 @@ public class AssistantFallbackActions extends Resource {
 
         AssistantFallbackActions other = (AssistantFallbackActions) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(url, other.url) &&  Objects.equals(data, other.data)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(assistantSid, other.assistantSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(data, other.data)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, assistantSid, url, data);
     }
-
-
 }
-

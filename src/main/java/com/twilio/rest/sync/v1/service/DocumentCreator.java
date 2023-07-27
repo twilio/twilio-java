@@ -16,8 +16,9 @@ package com.twilio.rest.sync.v1.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -26,13 +27,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.Map;
-import com.twilio.converter.Converter;
-
 import java.util.Map;
 
+public class DocumentCreator extends Creator<Document> {
 
-
-public class DocumentCreator extends Creator<Document>{
     private String pathServiceSid;
     private String uniqueName;
     private Map<String, Object> data;
@@ -42,24 +40,30 @@ public class DocumentCreator extends Creator<Document>{
         this.pathServiceSid = pathServiceSid;
     }
 
-    public DocumentCreator setUniqueName(final String uniqueName){
+    public DocumentCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public DocumentCreator setData(final Map<String, Object> data){
+
+    public DocumentCreator setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
-    public DocumentCreator setTtl(final Integer ttl){
+
+    public DocumentCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
 
     @Override
-    public Document create(final TwilioRestClient client){
+    public Document create(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Documents";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -70,29 +74,35 @@ public class DocumentCreator extends Creator<Document>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Document creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Document creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Document.fromJson(response.getStream(), client.getObjectMapper());
+        return Document.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (data != null) {
-            request.addPostParam("Data",  Converter.mapToJson(data));
-    
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
-    
         }
     }
 }

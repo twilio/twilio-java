@@ -16,8 +16,8 @@ package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -25,47 +25,59 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class FlowValidateUpdater extends Updater<FlowValidate> {
 
-public class FlowValidateUpdater extends Updater<FlowValidate>{
     private String friendlyName;
     private FlowValidate.Status status;
     private Map<String, Object> definition;
     private String commitMessage;
 
-    public FlowValidateUpdater(final String friendlyName, final FlowValidate.Status status, final Map<String, Object> definition){
+    public FlowValidateUpdater(
+        final String friendlyName,
+        final FlowValidate.Status status,
+        final Map<String, Object> definition
+    ) {
         this.friendlyName = friendlyName;
         this.status = status;
         this.definition = definition;
     }
 
-    public FlowValidateUpdater setFriendlyName(final String friendlyName){
+    public FlowValidateUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public FlowValidateUpdater setStatus(final FlowValidate.Status status){
+
+    public FlowValidateUpdater setStatus(final FlowValidate.Status status) {
         this.status = status;
         return this;
     }
-    public FlowValidateUpdater setDefinition(final Map<String, Object> definition){
+
+    public FlowValidateUpdater setDefinition(
+        final Map<String, Object> definition
+    ) {
         this.definition = definition;
         return this;
     }
-    public FlowValidateUpdater setCommitMessage(final String commitMessage){
+
+    public FlowValidateUpdater setCommitMessage(final String commitMessage) {
         this.commitMessage = commitMessage;
         return this;
     }
 
     @Override
-    public FlowValidate update(final TwilioRestClient client){
+    public FlowValidate update(final TwilioRestClient client) {
         String path = "/v2/Flows/Validate";
 
-        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
-        path = path.replace("{"+"Status"+"}", this.status.toString());
-        path = path.replace("{"+"Definition"+"}", this.definition.toString());
+        path =
+            path.replace(
+                "{" + "FriendlyName" + "}",
+                this.friendlyName.toString()
+            );
+        path = path.replace("{" + "Status" + "}", this.status.toString());
+        path =
+            path.replace("{" + "Definition" + "}", this.definition.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -76,33 +88,38 @@ public class FlowValidateUpdater extends Updater<FlowValidate>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("FlowValidate update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FlowValidate update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return FlowValidate.fromJson(response.getStream(), client.getObjectMapper());
+        return FlowValidate.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (definition != null) {
-            request.addPostParam("Definition",  Converter.mapToJson(definition));
-    
+            request.addPostParam("Definition", Converter.mapToJson(definition));
         }
         if (commitMessage != null) {
             request.addPostParam("CommitMessage", commitMessage);
-    
         }
     }
 }

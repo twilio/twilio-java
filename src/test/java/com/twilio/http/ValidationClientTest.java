@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
+import io.jsonwebtoken.SignatureAlgorithm;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;

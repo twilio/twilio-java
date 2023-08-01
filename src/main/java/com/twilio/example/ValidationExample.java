@@ -13,8 +13,11 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.util.Base64;
 
-public class ValidationExample {
+import io.jsonwebtoken.SignatureAlgorithm;
 
+import static com.twilio.http.HttpClient.DEFAULT_REQUEST_CONFIG;
+
+public class ValidationExample {
     public static final String ACCOUNT_SID = System.getenv("TWILIO_ACCOUNT_SID");
     public static final String AUTH_TOKEN = System.getenv("TWILIO_AUTH_TOKEN");
 
@@ -26,6 +29,7 @@ public class ValidationExample {
      */
     public static void main(String[] args) throws Exception {
 
+        //Twilio.setRegion("dev");
         // Generate public/private key pair
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(2048);
@@ -34,21 +38,25 @@ public class ValidationExample {
 
         // Use the default rest client
         TwilioRestClient client =
-            new TwilioRestClient.Builder(ACCOUNT_SID, AUTH_TOKEN)
-                .build();
+                new TwilioRestClient.Builder(ACCOUNT_SID, AUTH_TOKEN)
+                        .region("dev")
+                        .build();
 
         // Create a public key and signing key using the default client
         PublicKey key = PublicKey.creator(
-            Base64.getEncoder().encodeToString(pk.getEncoded())
+                Base64.getEncoder().encodeToString(pk.getEncoded())
         ).setFriendlyName("Public Key").create(client);
 
         NewSigningKey signingKey = NewSigningKey.creator().create(client);
 
         // Switch to validation client as the default client
         TwilioRestClient validationClient = new TwilioRestClient.Builder(signingKey.getSid(), signingKey.getSecret())
-            .accountSid(ACCOUNT_SID)
-            .httpClient(new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate()))
-            .build();
+                .accountSid(ACCOUNT_SID)
+                .region("dev")
+                // Validation client supports RS256 or PS256 algorithm. Default is RS256.
+                .httpClient(new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate(), DEFAULT_REQUEST_CONFIG,
+                                                 SignatureAlgorithm.PS256))
+                .build();
 
         // Make REST API requests
         Iterable<Message> messages = Message.reader().read(validationClient);

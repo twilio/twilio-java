@@ -35,7 +35,7 @@ import lombok.ToString;
 @ToString
 public class PortingPortability extends Resource {
 
-    private static final long serialVersionUID = 188812883844687L;
+    private static final long serialVersionUID = 225988214270980L;
 
     public static PortingPortabilityFetcher fetcher(
         final com.twilio.type.PhoneNumber pathPhoneNumber
@@ -109,6 +109,7 @@ public class PortingPortability extends Resource {
     }
 
     private final com.twilio.type.PhoneNumber phoneNumber;
+    private final String accountSid;
     private final Boolean portable;
     private final Boolean pinAndAccountNumberRequired;
     private final String notPortableReason;
@@ -124,6 +125,7 @@ public class PortingPortability extends Resource {
         @JsonProperty(
             "phone_number"
         ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("portable") final Boolean portable,
         @JsonProperty(
             "pin_and_account_number_required"
@@ -141,6 +143,7 @@ public class PortingPortability extends Resource {
         @JsonProperty("url") final URI url
     ) {
         this.phoneNumber = phoneNumber;
+        this.accountSid = accountSid;
         this.portable = portable;
         this.pinAndAccountNumberRequired = pinAndAccountNumberRequired;
         this.notPortableReason = notPortableReason;
@@ -154,6 +157,10 @@ public class PortingPortability extends Resource {
 
     public final com.twilio.type.PhoneNumber getPhoneNumber() {
         return this.phoneNumber;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
     }
 
     public final Boolean getPortable() {
@@ -206,6 +213,7 @@ public class PortingPortability extends Resource {
 
         return (
             Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(accountSid, other.accountSid) &&
             Objects.equals(portable, other.portable) &&
             Objects.equals(
                 pinAndAccountNumberRequired,
@@ -228,6 +236,7 @@ public class PortingPortability extends Resource {
     public int hashCode() {
         return Objects.hash(
             phoneNumber,
+            accountSid,
             portable,
             pinAndAccountNumberRequired,
             notPortableReason,

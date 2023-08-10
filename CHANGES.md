@@ -1,6 +1,20 @@
 twilio-java changelog
 =====================
 
+[2023-08-10] Version 10.0.0-rc.3
+--------------------------------
+**Insights**
+- Normalize annotations parameters in list summary api to be prefixed
+
+**Numbers**
+- Change Bulk_hosted_sid from BHR to BH prefix in HNO and dependent under version `/v2` API's. **(breaking change)**
+- Added parameter target_account_sid to portability and account_sid to response body
+
+**Verify**
+- Remove beta feature flag to list attempts API.
+- Remove beta feature flag to verifications summary attempts API.
+
+
 [2023-07-27] Version 10.0.0-rc.2
 --------------------------------
 **Api**

@@ -541,10 +541,10 @@ public class Query extends Resource {
         private String lastVerifiedDate;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
-        @JsonProperty("status")
+        @JsonProperty("is_number_reassigned")
         @Getter
         @Setter
-        private String status;
+        private String isNumberReassigned;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("error_code")

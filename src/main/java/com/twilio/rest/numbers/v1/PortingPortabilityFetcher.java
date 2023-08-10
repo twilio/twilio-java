@@ -27,11 +27,19 @@ import com.twilio.rest.Domains;
 public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
 
     private com.twilio.type.PhoneNumber pathPhoneNumber;
+    private String targetAccountSid;
 
     public PortingPortabilityFetcher(
         final com.twilio.type.PhoneNumber pathPhoneNumber
     ) {
         this.pathPhoneNumber = pathPhoneNumber;
+    }
+
+    public PortingPortabilityFetcher setTargetAccountSid(
+        final String targetAccountSid
+    ) {
+        this.targetAccountSid = targetAccountSid;
+        return this;
     }
 
     @Override
@@ -49,6 +57,7 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
             Domains.NUMBERS.toString(),
             path
         );
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -70,5 +79,11 @@ public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
             response.getStream(),
             client.getObjectMapper()
         );
+    }
+
+    private void addQueryParams(final Request request) {
+        if (targetAccountSid != null) {
+            request.addQueryParam("TargetAccountSid", targetAccountSid);
+        }
     }
 }

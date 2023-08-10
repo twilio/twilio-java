@@ -47,10 +47,11 @@ public class CallSummariesReader extends Reader<CallSummaries> {
     private String subaccount;
     private Boolean abnormalSession;
     private CallSummaries.AnsweredBy answeredBy;
-    private String connectivityIssue;
-    private String qualityIssue;
-    private Boolean spam;
-    private String callScore;
+    private String answeredByAnnotation;
+    private String connectivityIssueAnnotation;
+    private String qualityIssueAnnotation;
+    private Boolean spamAnnotation;
+    private String callScoreAnnotation;
     private Integer pageSize;
 
     public CallSummariesReader() {}
@@ -158,25 +159,36 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         return this;
     }
 
-    public CallSummariesReader setConnectivityIssue(
-        final String connectivityIssue
+    public CallSummariesReader setAnsweredByAnnotation(
+        final String answeredByAnnotation
     ) {
-        this.connectivityIssue = connectivityIssue;
+        this.answeredByAnnotation = answeredByAnnotation;
         return this;
     }
 
-    public CallSummariesReader setQualityIssue(final String qualityIssue) {
-        this.qualityIssue = qualityIssue;
+    public CallSummariesReader setConnectivityIssueAnnotation(
+        final String connectivityIssueAnnotation
+    ) {
+        this.connectivityIssueAnnotation = connectivityIssueAnnotation;
         return this;
     }
 
-    public CallSummariesReader setSpam(final Boolean spam) {
-        this.spam = spam;
+    public CallSummariesReader setQualityIssueAnnotation(
+        final String qualityIssueAnnotation
+    ) {
+        this.qualityIssueAnnotation = qualityIssueAnnotation;
         return this;
     }
 
-    public CallSummariesReader setCallScore(final String callScore) {
-        this.callScore = callScore;
+    public CallSummariesReader setSpamAnnotation(final Boolean spamAnnotation) {
+        this.spamAnnotation = spamAnnotation;
+        return this;
+    }
+
+    public CallSummariesReader setCallScoreAnnotation(
+        final String callScoreAnnotation
+    ) {
+        this.callScoreAnnotation = callScoreAnnotation;
         return this;
     }
 
@@ -330,17 +342,26 @@ public class CallSummariesReader extends Reader<CallSummaries> {
         if (answeredBy != null) {
             request.addQueryParam("AnsweredBy", answeredBy.toString());
         }
-        if (connectivityIssue != null) {
-            request.addQueryParam("ConnectivityIssue", connectivityIssue);
+        if (answeredByAnnotation != null) {
+            request.addQueryParam("AnsweredByAnnotation", answeredByAnnotation);
         }
-        if (qualityIssue != null) {
-            request.addQueryParam("QualityIssue", qualityIssue);
+        if (connectivityIssueAnnotation != null) {
+            request.addQueryParam(
+                "ConnectivityIssueAnnotation",
+                connectivityIssueAnnotation
+            );
         }
-        if (spam != null) {
-            request.addQueryParam("Spam", spam.toString());
+        if (qualityIssueAnnotation != null) {
+            request.addQueryParam(
+                "QualityIssueAnnotation",
+                qualityIssueAnnotation
+            );
         }
-        if (callScore != null) {
-            request.addQueryParam("CallScore", callScore);
+        if (spamAnnotation != null) {
+            request.addQueryParam("SpamAnnotation", spamAnnotation.toString());
+        }
+        if (callScoreAnnotation != null) {
+            request.addQueryParam("CallScoreAnnotation", callScoreAnnotation);
         }
         if (pageSize != null) {
             request.addQueryParam("PageSize", pageSize.toString());

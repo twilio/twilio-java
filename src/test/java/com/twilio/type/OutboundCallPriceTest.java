@@ -13,8 +13,8 @@ public class OutboundCallPriceTest extends TypeTest {
     @Test
     public void testFromJson() throws IOException {
         String json = "{\n" +
-            "    \"base_price\": 1.00,\n" +
-            "    \"current_price\": 2.00\n" +
+            "    \"base_price\": \"1.00\",\n" +
+            "    \"current_price\": \"2.00\"\n" +
             "}";
 
         OutboundCallPrice ocp = fromJson(json, OutboundCallPrice.class);

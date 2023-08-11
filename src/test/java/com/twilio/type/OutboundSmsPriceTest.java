@@ -19,8 +19,8 @@ public class OutboundSmsPriceTest extends TypeTest {
             "    \"carrier\": \"att\",\n" +
             "    \"prices\": [{\n" +
             "        \"type\": \"local\",\n" +
-            "        \"base_price\": 1.00,\n" +
-            "        \"current_price\": 2.00\n" +
+            "        \"base_price\": \"1.00\",\n" +
+            "        \"current_price\": \"2.00\"\n" +
             "    }]\n" +
             "}";
 

@@ -19,8 +19,8 @@ public class OutboundPrefixPriceTest extends TypeTest {
             "        \"xyz\"\n" +
             "    ],\n" +
             "    \"friendly_name\": \"name\",\n" +
-            "    \"base_price\": 1.00,\n" +
-            "    \"current_price\": 2.00\n" +
+            "    \"base_price\": \"1.00\",\n" +
+            "    \"current_price\": \"2.00\"\n" +
             "}";
 
         OutboundPrefixPrice opp = fromJson(json, OutboundPrefixPrice.class);

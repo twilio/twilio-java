@@ -13,8 +13,8 @@ public class InboundSmsPriceTest extends TypeTest {
     @Test
     public void testFromJson() throws IOException {
         String json = "{\n" +
-            "    \"base_price\": 1.00,\n" +
-            "    \"current_price\": 2.00,\n" +
+            "    \"base_price\": \"1.00\",\n" +
+            "    \"current_price\": \"2.00\",\n" +
             "    \"number_type\": \"mobile\"\n" +
             "}";
 
@@ -27,8 +27,8 @@ public class InboundSmsPriceTest extends TypeTest {
     @Test
     public void testFromJsonTollFree() throws IOException {
         String json = "{\n" +
-                "    \"base_price\": 1.00,\n" +
-                "    \"current_price\": 2.00,\n" +
+                "    \"base_price\": \"1.00\",\n" +
+                "    \"current_price\": \"2.00\",\n" +
                 "    \"number_type\": \"toll free\"\n" +
                 "}";
 

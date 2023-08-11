@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 
 /**
@@ -28,5 +29,8 @@ public class OutboundPrefixPriceTest extends TypeTest {
         Assert.assertEquals("name", opp.getFriendlyName());
         Assert.assertEquals(1.00, opp.getBasePrice(), 0.00);
         Assert.assertEquals(2.00, opp.getCurrentPrice(), 0.00);
+        Assert.assertEquals(new BigDecimal("1.00"), opp.getBasePriceDecimal());
+        Assert.assertEquals(new BigDecimal("2.00"), opp.getCurrentPriceDecimal());
+
     }
 }

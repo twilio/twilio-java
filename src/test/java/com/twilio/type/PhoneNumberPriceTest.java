@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * Test class for {@link PhoneNumberPrice}.
@@ -21,6 +22,8 @@ public class PhoneNumberPriceTest extends TypeTest {
         PhoneNumberPrice pnp = fromJson(json, PhoneNumberPrice.class);
         Assert.assertEquals(1.00, pnp.getBasePrice(), 0.00);
         Assert.assertEquals(2.00, pnp.getCurrentPrice(), 0.00);
+        Assert.assertEquals(new BigDecimal("1.00"), pnp.getBasePriceDecimal());
+        Assert.assertEquals(new BigDecimal("2.00"), pnp.getCurrentPriceDecimal());
         Assert.assertEquals(PhoneNumberPrice.Type.MOBILE, pnp.getType());
     }
 
@@ -35,6 +38,8 @@ public class PhoneNumberPriceTest extends TypeTest {
         PhoneNumberPrice pnp = fromJson(json, PhoneNumberPrice.class);
         Assert.assertEquals(1.00, pnp.getBasePrice(), 0.00);
         Assert.assertEquals(2.00, pnp.getCurrentPrice(), 0.00);
+        Assert.assertEquals(new BigDecimal("1.00"), pnp.getBasePriceDecimal());
+        Assert.assertEquals(new BigDecimal("2.00"), pnp.getCurrentPriceDecimal());
         Assert.assertEquals(PhoneNumberPrice.Type.TOLLFREE, pnp.getType());
     }
 

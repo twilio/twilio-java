@@ -4,6 +4,8 @@ import com.twilio.http.ValidationInterceptor;
 import com.twilio.jwt.Jwt;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.InvalidKeyException;
 import org.apache.http.*;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicHeader;
@@ -20,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -27,6 +30,13 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import static org.mockito.Mockito.when;
+
+import static io.jsonwebtoken.SignatureAlgorithm.PS256;
+import static io.jsonwebtoken.SignatureAlgorithm.PS384;
+import static io.jsonwebtoken.SignatureAlgorithm.PS512;
+import static io.jsonwebtoken.SignatureAlgorithm.RS256;
+import static io.jsonwebtoken.SignatureAlgorithm.RS384;
+import static io.jsonwebtoken.SignatureAlgorithm.RS512;
 
 public class ValidationTokenTest {
 
@@ -37,6 +47,8 @@ public class ValidationTokenTest {
 
     private Header[] headers;
     private PrivateKey privateKey;
+
+    private PublicKey publicKey;
 
     @Mock
     private HttpRequest request;
@@ -61,6 +73,7 @@ public class ValidationTokenTest {
         keyGen.initialize(2048);
         KeyPair pair = keyGen.generateKeyPair();
         privateKey = pair.getPrivate();
+        publicKey = pair.getPublic();
     }
 
     @Test
@@ -79,11 +92,54 @@ public class ValidationTokenTest {
                 .setSigningKey(privateKey).build()
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
-
+        jwt.getHeaders()
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
         Assert.assertEquals("4dc9b67bed579647914587b0e22a1c65c1641d8674797cd82de65e766cce5f80", claims.get("rqh"));
+    }
+
+    @Test
+    public void testTokenValidAlgorithms() {
+        List<SignatureAlgorithm> validAlgorithms = Arrays.asList(RS256, PS256);
+        for (SignatureAlgorithm alg : validAlgorithms) {
+            Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
+                    .algorithm(alg)
+                    .method("GET")
+                    .uri("/Messages")
+                    .queryString("PageSize=5&Limit=10")
+                    .headers(headers)
+                    .signedHeaders(SIGNED_HEADERS)
+                    .requestBody("foobar")
+                    .build();
+
+            Claims claims =
+                    Jwts.parserBuilder().setSigningKey(publicKey).build()
+                        .parseClaimsJws(jwt.toJwt())
+                        .getBody();
+            validateToken(claims);
+        }
+    }
+
+    @Test(expected =  IllegalArgumentException.class)
+    public void testTokenInvalidAlgorithms() {
+        List<SignatureAlgorithm> validAlgorithms = Arrays.asList(SignatureAlgorithm.HS256, SignatureAlgorithm.ES256, RS384, RS512, PS384, PS512);
+        for (SignatureAlgorithm alg : validAlgorithms) {
+            Jwt jwt = new ValidationToken.Builder(ACCOUNT_SID, CREDENTIAL_SID, SIGNING_KEY_SID, privateKey)
+                    .algorithm(alg)
+                    .method("GET")
+                    .uri("/Messages")
+                    .queryString("PageSize=5&Limit=10")
+                    .headers(headers)
+                    .signedHeaders(SIGNED_HEADERS)
+                    .requestBody("foobar")
+                    .build();
+
+
+            Jwts.parserBuilder().setSigningKey(publicKey).build()
+                .parseClaimsJws(jwt.toJwt())
+                .getBody();
+        }
     }
 
     @Test

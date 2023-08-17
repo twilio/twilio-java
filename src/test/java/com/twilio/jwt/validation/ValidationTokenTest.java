@@ -92,7 +92,6 @@ public class ValidationTokenTest {
                 .setSigningKey(privateKey).build()
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
-        jwt.getHeaders()
 
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));

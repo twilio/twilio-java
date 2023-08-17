@@ -23,55 +23,54 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Service extends Resource {
+
     private static final long serialVersionUID = 9486445456747L;
 
-    public static ServiceCreator creator(final String friendlyName){
+    public static ServiceCreator creator(final String friendlyName) {
         return new ServiceCreator(friendlyName);
     }
 
-    public static ServiceDeleter deleter(final String pathSid){
+    public static ServiceDeleter deleter(final String pathSid) {
         return new ServiceDeleter(pathSid);
     }
 
-    public static ServiceFetcher fetcher(final String pathSid){
+    public static ServiceFetcher fetcher(final String pathSid) {
         return new ServiceFetcher(pathSid);
     }
 
-    public static ServiceReader reader(){
+    public static ServiceReader reader() {
         return new ServiceReader();
     }
 
-    public static ServiceUpdater updater(final String pathSid){
+    public static ServiceUpdater updater(final String pathSid) {
         return new ServiceUpdater(pathSid);
     }
 
     /**
-    * Converts a JSON String into a Service object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Service object represented by the provided JSON
-    */
-    public static Service fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Service object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -83,14 +82,17 @@ public class Service extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Service object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Service object represented by the provided JSON
-    */
-    public static Service fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Service object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Service object represented by the provided JSON
+     */
+    public static Service fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Service.class);
@@ -122,59 +124,26 @@ public class Service extends Resource {
 
     @JsonCreator
     private Service(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("code_length")
-        final Integer codeLength,
-
-        @JsonProperty("lookup_enabled")
-        final Boolean lookupEnabled,
-
-        @JsonProperty("psd2_enabled")
-        final Boolean psd2Enabled,
-
-        @JsonProperty("skip_sms_to_landlines")
-        final Boolean skipSmsToLandlines,
-
-        @JsonProperty("dtmf_input_required")
-        final Boolean dtmfInputRequired,
-
-        @JsonProperty("tts_name")
-        final String ttsName,
-
-        @JsonProperty("do_not_share_warning_enabled")
-        final Boolean doNotShareWarningEnabled,
-
-        @JsonProperty("custom_code_enabled")
-        final Boolean customCodeEnabled,
-
-        @JsonProperty("push")
-        final Map<String, Object> push,
-
-        @JsonProperty("totp")
-        final Map<String, Object> totp,
-
-        @JsonProperty("default_template_sid")
-        final String defaultTemplateSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("code_length") final Integer codeLength,
+        @JsonProperty("lookup_enabled") final Boolean lookupEnabled,
+        @JsonProperty("psd2_enabled") final Boolean psd2Enabled,
+        @JsonProperty("skip_sms_to_landlines") final Boolean skipSmsToLandlines,
+        @JsonProperty("dtmf_input_required") final Boolean dtmfInputRequired,
+        @JsonProperty("tts_name") final String ttsName,
+        @JsonProperty(
+            "do_not_share_warning_enabled"
+        ) final Boolean doNotShareWarningEnabled,
+        @JsonProperty("custom_code_enabled") final Boolean customCodeEnabled,
+        @JsonProperty("push") final Map<String, Object> push,
+        @JsonProperty("totp") final Map<String, Object> totp,
+        @JsonProperty("default_template_sid") final String defaultTemplateSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -196,64 +165,81 @@ public class Service extends Resource {
         this.links = links;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final Integer getCodeLength() {
-            return this.codeLength;
-        }
-        public final Boolean getLookupEnabled() {
-            return this.lookupEnabled;
-        }
-        public final Boolean getPsd2Enabled() {
-            return this.psd2Enabled;
-        }
-        public final Boolean getSkipSmsToLandlines() {
-            return this.skipSmsToLandlines;
-        }
-        public final Boolean getDtmfInputRequired() {
-            return this.dtmfInputRequired;
-        }
-        public final String getTtsName() {
-            return this.ttsName;
-        }
-        public final Boolean getDoNotShareWarningEnabled() {
-            return this.doNotShareWarningEnabled;
-        }
-        public final Boolean getCustomCodeEnabled() {
-            return this.customCodeEnabled;
-        }
-        public final Map<String, Object> getPush() {
-            return this.push;
-        }
-        public final Map<String, Object> getTotp() {
-            return this.totp;
-        }
-        public final String getDefaultTemplateSid() {
-            return this.defaultTemplateSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final Integer getCodeLength() {
+        return this.codeLength;
+    }
+
+    public final Boolean getLookupEnabled() {
+        return this.lookupEnabled;
+    }
+
+    public final Boolean getPsd2Enabled() {
+        return this.psd2Enabled;
+    }
+
+    public final Boolean getSkipSmsToLandlines() {
+        return this.skipSmsToLandlines;
+    }
+
+    public final Boolean getDtmfInputRequired() {
+        return this.dtmfInputRequired;
+    }
+
+    public final String getTtsName() {
+        return this.ttsName;
+    }
+
+    public final Boolean getDoNotShareWarningEnabled() {
+        return this.doNotShareWarningEnabled;
+    }
+
+    public final Boolean getCustomCodeEnabled() {
+        return this.customCodeEnabled;
+    }
+
+    public final Map<String, Object> getPush() {
+        return this.push;
+    }
+
+    public final Map<String, Object> getTotp() {
+        return this.totp;
+    }
+
+    public final String getDefaultTemplateSid() {
+        return this.defaultTemplateSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -263,13 +249,52 @@ public class Service extends Resource {
 
         Service other = (Service) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(codeLength, other.codeLength) &&  Objects.equals(lookupEnabled, other.lookupEnabled) &&  Objects.equals(psd2Enabled, other.psd2Enabled) &&  Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&  Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&  Objects.equals(ttsName, other.ttsName) &&  Objects.equals(doNotShareWarningEnabled, other.doNotShareWarningEnabled) &&  Objects.equals(customCodeEnabled, other.customCodeEnabled) &&  Objects.equals(push, other.push) &&  Objects.equals(totp, other.totp) &&  Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(codeLength, other.codeLength) &&
+            Objects.equals(lookupEnabled, other.lookupEnabled) &&
+            Objects.equals(psd2Enabled, other.psd2Enabled) &&
+            Objects.equals(skipSmsToLandlines, other.skipSmsToLandlines) &&
+            Objects.equals(dtmfInputRequired, other.dtmfInputRequired) &&
+            Objects.equals(ttsName, other.ttsName) &&
+            Objects.equals(
+                doNotShareWarningEnabled,
+                other.doNotShareWarningEnabled
+            ) &&
+            Objects.equals(customCodeEnabled, other.customCodeEnabled) &&
+            Objects.equals(push, other.push) &&
+            Objects.equals(totp, other.totp) &&
+            Objects.equals(defaultTemplateSid, other.defaultTemplateSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, friendlyName, codeLength, lookupEnabled, psd2Enabled, skipSmsToLandlines, dtmfInputRequired, ttsName, doNotShareWarningEnabled, customCodeEnabled, push, totp, defaultTemplateSid, dateCreated, dateUpdated, url, links);
+        return Objects.hash(
+            sid,
+            accountSid,
+            friendlyName,
+            codeLength,
+            lookupEnabled,
+            psd2Enabled,
+            skipSmsToLandlines,
+            dtmfInputRequired,
+            ttsName,
+            doNotShareWarningEnabled,
+            customCodeEnabled,
+            push,
+            totp,
+            defaultTemplateSid,
+            dateCreated,
+            dateUpdated,
+            url,
+            links
+        );
     }
-
 }
-

@@ -23,49 +23,57 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ItemAssignment extends Resource {
+
     private static final long serialVersionUID = 241370748977037L;
 
-    public static ItemAssignmentCreator creator(final String pathBundleSid, final String objectSid){
+    public static ItemAssignmentCreator creator(
+        final String pathBundleSid,
+        final String objectSid
+    ) {
         return new ItemAssignmentCreator(pathBundleSid, objectSid);
     }
 
-    public static ItemAssignmentDeleter deleter(final String pathBundleSid, final String pathSid){
+    public static ItemAssignmentDeleter deleter(
+        final String pathBundleSid,
+        final String pathSid
+    ) {
         return new ItemAssignmentDeleter(pathBundleSid, pathSid);
     }
 
-    public static ItemAssignmentFetcher fetcher(final String pathBundleSid, final String pathSid){
+    public static ItemAssignmentFetcher fetcher(
+        final String pathBundleSid,
+        final String pathSid
+    ) {
         return new ItemAssignmentFetcher(pathBundleSid, pathSid);
     }
 
-    public static ItemAssignmentReader reader(final String pathBundleSid){
+    public static ItemAssignmentReader reader(final String pathBundleSid) {
         return new ItemAssignmentReader(pathBundleSid);
     }
 
     /**
-    * Converts a JSON String into a ItemAssignment object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return ItemAssignment object represented by the provided JSON
-    */
-    public static ItemAssignment fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a ItemAssignment object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return ItemAssignment object represented by the provided JSON
+     */
+    public static ItemAssignment fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ItemAssignment.class);
@@ -77,14 +85,17 @@ public class ItemAssignment extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a ItemAssignment object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return ItemAssignment object represented by the provided JSON
-    */
-    public static ItemAssignment fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a ItemAssignment object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return ItemAssignment object represented by the provided JSON
+     */
+    public static ItemAssignment fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ItemAssignment.class);
@@ -104,23 +115,12 @@ public class ItemAssignment extends Resource {
 
     @JsonCreator
     private ItemAssignment(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("bundle_sid")
-        final String bundleSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("object_sid")
-        final String objectSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("bundle_sid") final String bundleSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("object_sid") final String objectSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.bundleSid = bundleSid;
@@ -130,28 +130,33 @@ public class ItemAssignment extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getBundleSid() {
-            return this.bundleSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getObjectSid() {
-            return this.objectSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getBundleSid() {
+        return this.bundleSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getObjectSid() {
+        return this.objectSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -161,13 +166,25 @@ public class ItemAssignment extends Resource {
 
         ItemAssignment other = (ItemAssignment) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(bundleSid, other.bundleSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(objectSid, other.objectSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(bundleSid, other.bundleSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(objectSid, other.objectSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, bundleSid, accountSid, objectSid, dateCreated, url);
+        return Objects.hash(
+            sid,
+            bundleSid,
+            accountSid,
+            objectSid,
+            dateCreated,
+            url
+        );
     }
-
 }
-

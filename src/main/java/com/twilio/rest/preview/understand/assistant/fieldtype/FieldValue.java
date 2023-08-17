@@ -23,49 +23,77 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FieldValue extends Resource {
+
     private static final long serialVersionUID = 181490262234152L;
 
-    public static FieldValueCreator creator(final String pathAssistantSid, final String pathFieldTypeSid, final String language, final String value){
-        return new FieldValueCreator(pathAssistantSid, pathFieldTypeSid, language, value);
+    public static FieldValueCreator creator(
+        final String pathAssistantSid,
+        final String pathFieldTypeSid,
+        final String language,
+        final String value
+    ) {
+        return new FieldValueCreator(
+            pathAssistantSid,
+            pathFieldTypeSid,
+            language,
+            value
+        );
     }
 
-    public static FieldValueDeleter deleter(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
-        return new FieldValueDeleter(pathAssistantSid, pathFieldTypeSid, pathSid);
+    public static FieldValueDeleter deleter(
+        final String pathAssistantSid,
+        final String pathFieldTypeSid,
+        final String pathSid
+    ) {
+        return new FieldValueDeleter(
+            pathAssistantSid,
+            pathFieldTypeSid,
+            pathSid
+        );
     }
 
-    public static FieldValueFetcher fetcher(final String pathAssistantSid, final String pathFieldTypeSid, final String pathSid){
-        return new FieldValueFetcher(pathAssistantSid, pathFieldTypeSid, pathSid);
+    public static FieldValueFetcher fetcher(
+        final String pathAssistantSid,
+        final String pathFieldTypeSid,
+        final String pathSid
+    ) {
+        return new FieldValueFetcher(
+            pathAssistantSid,
+            pathFieldTypeSid,
+            pathSid
+        );
     }
 
-    public static FieldValueReader reader(final String pathAssistantSid, final String pathFieldTypeSid){
+    public static FieldValueReader reader(
+        final String pathAssistantSid,
+        final String pathFieldTypeSid
+    ) {
         return new FieldValueReader(pathAssistantSid, pathFieldTypeSid);
     }
 
     /**
-    * Converts a JSON String into a FieldValue object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return FieldValue object represented by the provided JSON
-    */
-    public static FieldValue fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a FieldValue object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return FieldValue object represented by the provided JSON
+     */
+    public static FieldValue fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FieldValue.class);
@@ -77,14 +105,17 @@ public class FieldValue extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a FieldValue object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return FieldValue object represented by the provided JSON
-    */
-    public static FieldValue fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a FieldValue object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return FieldValue object represented by the provided JSON
+     */
+    public static FieldValue fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FieldValue.class);
@@ -108,35 +139,16 @@ public class FieldValue extends Resource {
 
     @JsonCreator
     private FieldValue(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("field_type_sid")
-        final String fieldTypeSid,
-
-        @JsonProperty("language")
-        final String language,
-
-        @JsonProperty("assistant_sid")
-        final String assistantSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("value")
-        final String value,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("synonym_of")
-        final String synonymOf
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("field_type_sid") final String fieldTypeSid,
+        @JsonProperty("language") final String language,
+        @JsonProperty("assistant_sid") final String assistantSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("value") final String value,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("synonym_of") final String synonymOf
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -150,40 +162,49 @@ public class FieldValue extends Resource {
         this.synonymOf = synonymOf;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getFieldTypeSid() {
-            return this.fieldTypeSid;
-        }
-        public final String getLanguage() {
-            return this.language;
-        }
-        public final String getAssistantSid() {
-            return this.assistantSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getValue() {
-            return this.value;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getSynonymOf() {
-            return this.synonymOf;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getFieldTypeSid() {
+        return this.fieldTypeSid;
+    }
+
+    public final String getLanguage() {
+        return this.language;
+    }
+
+    public final String getAssistantSid() {
+        return this.assistantSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getValue() {
+        return this.value;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getSynonymOf() {
+        return this.synonymOf;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -193,13 +214,33 @@ public class FieldValue extends Resource {
 
         FieldValue other = (FieldValue) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(fieldTypeSid, other.fieldTypeSid) &&  Objects.equals(language, other.language) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(value, other.value) &&  Objects.equals(url, other.url) &&  Objects.equals(synonymOf, other.synonymOf)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(fieldTypeSid, other.fieldTypeSid) &&
+            Objects.equals(language, other.language) &&
+            Objects.equals(assistantSid, other.assistantSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(value, other.value) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(synonymOf, other.synonymOf)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, dateCreated, dateUpdated, fieldTypeSid, language, assistantSid, sid, value, url, synonymOf);
+        return Objects.hash(
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            fieldTypeSid,
+            language,
+            assistantSid,
+            sid,
+            value,
+            url,
+            synonymOf
+        );
     }
-
 }
-

@@ -83,7 +83,7 @@ public class GatherTest {
     public void testElementWithChildren() {
         Gather.Builder builder = new Gather.Builder();
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build());
 
         builder.pause(new Pause.Builder().length(1).build());
 
@@ -94,7 +94,7 @@ public class GatherTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Gather>" +
-                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Pause length=\"1\"/>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
             "</Gather>",
@@ -213,7 +213,7 @@ public class GatherTest {
     public void testXmlChildrenDeserialization() {
         final Gather.Builder builder = new Gather.Builder();
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build());
 
         builder.pause(new Pause.Builder().length(1).build());
 
@@ -223,7 +223,7 @@ public class GatherTest {
 
         Assert.assertEquals(
             Gather.Builder.fromXml("<Gather>" +
-                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Pause length=\"1\"/>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
             "</Gather>").build().toXml(),

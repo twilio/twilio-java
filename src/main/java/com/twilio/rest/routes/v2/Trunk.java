@@ -23,41 +23,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Trunk extends Resource {
+
     private static final long serialVersionUID = 71100118275281L;
 
-    public static TrunkFetcher fetcher(final String pathSipTrunkDomain){
+    public static TrunkFetcher fetcher(final String pathSipTrunkDomain) {
         return new TrunkFetcher(pathSipTrunkDomain);
     }
 
-    public static TrunkUpdater updater(final String pathSipTrunkDomain){
+    public static TrunkUpdater updater(final String pathSipTrunkDomain) {
         return new TrunkUpdater(pathSipTrunkDomain);
     }
 
     /**
-    * Converts a JSON String into a Trunk object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Trunk object represented by the provided JSON
-    */
-    public static Trunk fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Trunk object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Trunk object represented by the provided JSON
+     */
+    public static Trunk fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Trunk.class);
@@ -69,14 +68,17 @@ public class Trunk extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Trunk object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Trunk object represented by the provided JSON
-    */
-    public static Trunk fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Trunk object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Trunk object represented by the provided JSON
+     */
+    public static Trunk fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Trunk.class);
@@ -98,29 +100,14 @@ public class Trunk extends Resource {
 
     @JsonCreator
     private Trunk(
-        @JsonProperty("sip_trunk_domain")
-        final String sipTrunkDomain,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("voice_region")
-        final String voiceRegion,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("sip_trunk_domain") final String sipTrunkDomain,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("voice_region") final String voiceRegion,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.sipTrunkDomain = sipTrunkDomain;
         this.url = url;
@@ -132,34 +119,41 @@ public class Trunk extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getSipTrunkDomain() {
-            return this.sipTrunkDomain;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getVoiceRegion() {
-            return this.voiceRegion;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getSipTrunkDomain() {
+        return this.sipTrunkDomain;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getVoiceRegion() {
+        return this.voiceRegion;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -169,13 +163,29 @@ public class Trunk extends Resource {
 
         Trunk other = (Trunk) o;
 
-        return Objects.equals(sipTrunkDomain, other.sipTrunkDomain) &&  Objects.equals(url, other.url) &&  Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(voiceRegion, other.voiceRegion) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(sipTrunkDomain, other.sipTrunkDomain) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(voiceRegion, other.voiceRegion) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sipTrunkDomain, url, sid, accountSid, friendlyName, voiceRegion, dateCreated, dateUpdated);
+        return Objects.hash(
+            sipTrunkDomain,
+            url,
+            sid,
+            accountSid,
+            friendlyName,
+            voiceRegion,
+            dateCreated,
+            dateUpdated
+        );
     }
-
 }
-

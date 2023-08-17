@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.hostedNumbers;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,15 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
 import java.net.URI;
-
+import java.net.URI;
+import java.util.List;
 import java.util.List;
 
+public class HostedNumberOrderCreator extends Creator<HostedNumberOrder> {
 
-import java.net.URI;
-
-public class HostedNumberOrderCreator extends Creator<HostedNumberOrder>{
     private com.twilio.type.PhoneNumber phoneNumber;
     private Boolean smsCapability;
     private String accountSid;
@@ -51,195 +50,253 @@ public class HostedNumberOrderCreator extends Creator<HostedNumberOrder>{
     private HostedNumberOrder.VerificationType verificationType;
     private String verificationDocumentSid;
 
-    public HostedNumberOrderCreator(final com.twilio.type.PhoneNumber phoneNumber, final Boolean smsCapability) {
+    public HostedNumberOrderCreator(
+        final com.twilio.type.PhoneNumber phoneNumber,
+        final Boolean smsCapability
+    ) {
         this.phoneNumber = phoneNumber;
         this.smsCapability = smsCapability;
     }
 
-    public HostedNumberOrderCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
+    public HostedNumberOrderCreator setPhoneNumber(
+        final com.twilio.type.PhoneNumber phoneNumber
+    ) {
         this.phoneNumber = phoneNumber;
         return this;
     }
 
-    public HostedNumberOrderCreator setPhoneNumber(final String phoneNumber){
+    public HostedNumberOrderCreator setPhoneNumber(final String phoneNumber) {
         return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
-    public HostedNumberOrderCreator setSmsCapability(final Boolean smsCapability){
+
+    public HostedNumberOrderCreator setSmsCapability(
+        final Boolean smsCapability
+    ) {
         this.smsCapability = smsCapability;
         return this;
     }
-    public HostedNumberOrderCreator setAccountSid(final String accountSid){
+
+    public HostedNumberOrderCreator setAccountSid(final String accountSid) {
         this.accountSid = accountSid;
         return this;
     }
-    public HostedNumberOrderCreator setFriendlyName(final String friendlyName){
+
+    public HostedNumberOrderCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public HostedNumberOrderCreator setUniqueName(final String uniqueName){
+
+    public HostedNumberOrderCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public HostedNumberOrderCreator setCcEmails(final List<String> ccEmails){
+
+    public HostedNumberOrderCreator setCcEmails(final List<String> ccEmails) {
         this.ccEmails = ccEmails;
         return this;
     }
-    public HostedNumberOrderCreator setCcEmails(final String ccEmails){
+
+    public HostedNumberOrderCreator setCcEmails(final String ccEmails) {
         return setCcEmails(Promoter.listOfOne(ccEmails));
     }
-    public HostedNumberOrderCreator setSmsUrl(final URI smsUrl){
+
+    public HostedNumberOrderCreator setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
     }
 
-    public HostedNumberOrderCreator setSmsUrl(final String smsUrl){
+    public HostedNumberOrderCreator setSmsUrl(final String smsUrl) {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
-    public HostedNumberOrderCreator setSmsMethod(final HttpMethod smsMethod){
+
+    public HostedNumberOrderCreator setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
-    public HostedNumberOrderCreator setSmsFallbackUrl(final URI smsFallbackUrl){
+
+    public HostedNumberOrderCreator setSmsFallbackUrl(
+        final URI smsFallbackUrl
+    ) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public HostedNumberOrderCreator setSmsFallbackUrl(final String smsFallbackUrl){
+    public HostedNumberOrderCreator setSmsFallbackUrl(
+        final String smsFallbackUrl
+    ) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
-    public HostedNumberOrderCreator setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+
+    public HostedNumberOrderCreator setSmsFallbackMethod(
+        final HttpMethod smsFallbackMethod
+    ) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
-    public HostedNumberOrderCreator setStatusCallbackUrl(final URI statusCallbackUrl){
+
+    public HostedNumberOrderCreator setStatusCallbackUrl(
+        final URI statusCallbackUrl
+    ) {
         this.statusCallbackUrl = statusCallbackUrl;
         return this;
     }
 
-    public HostedNumberOrderCreator setStatusCallbackUrl(final String statusCallbackUrl){
+    public HostedNumberOrderCreator setStatusCallbackUrl(
+        final String statusCallbackUrl
+    ) {
         return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
-    public HostedNumberOrderCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+
+    public HostedNumberOrderCreator setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-    public HostedNumberOrderCreator setSmsApplicationSid(final String smsApplicationSid){
+
+    public HostedNumberOrderCreator setSmsApplicationSid(
+        final String smsApplicationSid
+    ) {
         this.smsApplicationSid = smsApplicationSid;
         return this;
     }
-    public HostedNumberOrderCreator setAddressSid(final String addressSid){
+
+    public HostedNumberOrderCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
-    public HostedNumberOrderCreator setEmail(final String email){
+
+    public HostedNumberOrderCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
-    public HostedNumberOrderCreator setVerificationType(final HostedNumberOrder.VerificationType verificationType){
+
+    public HostedNumberOrderCreator setVerificationType(
+        final HostedNumberOrder.VerificationType verificationType
+    ) {
         this.verificationType = verificationType;
         return this;
     }
-    public HostedNumberOrderCreator setVerificationDocumentSid(final String verificationDocumentSid){
+
+    public HostedNumberOrderCreator setVerificationDocumentSid(
+        final String verificationDocumentSid
+    ) {
         this.verificationDocumentSid = verificationDocumentSid;
         return this;
     }
 
     @Override
-    public HostedNumberOrder create(final TwilioRestClient client){
+    public HostedNumberOrder create(final TwilioRestClient client) {
         String path = "/HostedNumbers/HostedNumberOrders";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.encode("utf-8"));
-        path = path.replace("{"+"SmsCapability"+"}", this.smsCapability.toString());
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.phoneNumber.encode("utf-8")
+            );
+        path =
+            path.replace(
+                "{" + "SmsCapability" + "}",
+                this.smsCapability.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("HostedNumberOrder creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "HostedNumberOrder creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return HostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
+        return HostedNumberOrder.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
             request.addPostParam("PhoneNumber", phoneNumber.toString());
-    
         }
         if (smsCapability != null) {
             request.addPostParam("SmsCapability", smsCapability.toString());
-    
         }
         if (accountSid != null) {
             request.addPostParam("AccountSid", accountSid);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (ccEmails != null) {
             for (String prop : ccEmails) {
                 request.addPostParam("CcEmails", prop);
             }
-    
         }
         if (smsUrl != null) {
             request.addPostParam("SmsUrl", smsUrl.toString());
-    
         }
         if (smsMethod != null) {
             request.addPostParam("SmsMethod", smsMethod.toString());
-    
         }
         if (smsFallbackUrl != null) {
             request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
-    
         }
         if (smsFallbackMethod != null) {
-            request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
-    
+            request.addPostParam(
+                "SmsFallbackMethod",
+                smsFallbackMethod.toString()
+            );
         }
         if (statusCallbackUrl != null) {
-            request.addPostParam("StatusCallbackUrl", statusCallbackUrl.toString());
-    
+            request.addPostParam(
+                "StatusCallbackUrl",
+                statusCallbackUrl.toString()
+            );
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
-    
+            request.addPostParam(
+                "StatusCallbackMethod",
+                statusCallbackMethod.toString()
+            );
         }
         if (smsApplicationSid != null) {
             request.addPostParam("SmsApplicationSid", smsApplicationSid);
-    
         }
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
-    
         }
         if (email != null) {
             request.addPostParam("Email", email);
-    
         }
         if (verificationType != null) {
-            request.addPostParam("VerificationType", verificationType.toString());
-    
+            request.addPostParam(
+                "VerificationType",
+                verificationType.toString()
+            );
         }
         if (verificationDocumentSid != null) {
-            request.addPostParam("VerificationDocumentSid", verificationDocumentSid);
-    
+            request.addPostParam(
+                "VerificationDocumentSid",
+                verificationDocumentSid
+            );
         }
     }
 }

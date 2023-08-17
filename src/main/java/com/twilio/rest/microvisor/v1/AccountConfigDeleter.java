@@ -24,21 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
 public class AccountConfigDeleter extends Deleter<AccountConfig> {
+
     private String pathKey;
 
-    public AccountConfigDeleter(final String pathKey){
+    public AccountConfigDeleter(final String pathKey) {
         this.pathKey = pathKey;
     }
-
 
     @Override
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Configs/{Key}";
 
-        path = path.replace("{"+"Key"+"}", this.pathKey.toString());
+        path = path.replace("{" + "Key" + "}", this.pathKey.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -48,9 +46,14 @@ public class AccountConfigDeleter extends Deleter<AccountConfig> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AccountConfig delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AccountConfig delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }

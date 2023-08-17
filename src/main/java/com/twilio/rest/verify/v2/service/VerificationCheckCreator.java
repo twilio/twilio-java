@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class VerificationCheckCreator extends Creator<VerificationCheck> {
 
-
-
-public class VerificationCheckCreator extends Creator<VerificationCheck>{
     private String pathServiceSid;
     private String code;
     private String to;
@@ -39,72 +38,87 @@ public class VerificationCheckCreator extends Creator<VerificationCheck>{
         this.pathServiceSid = pathServiceSid;
     }
 
-    public VerificationCheckCreator setCode(final String code){
+    public VerificationCheckCreator setCode(final String code) {
         this.code = code;
         return this;
     }
-    public VerificationCheckCreator setTo(final String to){
+
+    public VerificationCheckCreator setTo(final String to) {
         this.to = to;
         return this;
     }
-    public VerificationCheckCreator setVerificationSid(final String verificationSid){
+
+    public VerificationCheckCreator setVerificationSid(
+        final String verificationSid
+    ) {
         this.verificationSid = verificationSid;
         return this;
     }
-    public VerificationCheckCreator setAmount(final String amount){
+
+    public VerificationCheckCreator setAmount(final String amount) {
         this.amount = amount;
         return this;
     }
-    public VerificationCheckCreator setPayee(final String payee){
+
+    public VerificationCheckCreator setPayee(final String payee) {
         this.payee = payee;
         return this;
     }
 
     @Override
-    public VerificationCheck create(final TwilioRestClient client){
+    public VerificationCheck create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/VerificationCheck";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("VerificationCheck creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "VerificationCheck creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return VerificationCheck.fromJson(response.getStream(), client.getObjectMapper());
+        return VerificationCheck.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (code != null) {
             request.addPostParam("Code", code);
-    
         }
         if (to != null) {
             request.addPostParam("To", to);
-    
         }
         if (verificationSid != null) {
             request.addPostParam("VerificationSid", verificationSid);
-    
         }
         if (amount != null) {
             request.addPostParam("Amount", amount);
-    
         }
         if (payee != null) {
             request.addPostParam("Payee", payee);
-    
         }
     }
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trunking.v1.trunk;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,31 +25,32 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class IpAccessControlListReader extends Reader<IpAccessControlList> {
+
     private String pathTrunkSid;
     private Integer pageSize;
 
-    public IpAccessControlListReader(final String pathTrunkSid){
+    public IpAccessControlListReader(final String pathTrunkSid) {
         this.pathTrunkSid = pathTrunkSid;
     }
 
-    public IpAccessControlListReader setPageSize(final Integer pageSize){
+    public IpAccessControlListReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<IpAccessControlList> read(final TwilioRestClient client) {
+    public ResourceSet<IpAccessControlList> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
     public Page<IpAccessControlList> firstPage(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
-        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,13 +62,21 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         return pageForRequest(client, request);
     }
 
-    private Page<IpAccessControlList> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<IpAccessControlList> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("IpAccessControlList read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpAccessControlList read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -82,7 +92,10 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     }
 
     @Override
-    public Page<IpAccessControlList> previousPage(final Page<IpAccessControlList> page, final TwilioRestClient client) {
+    public Page<IpAccessControlList> previousPage(
+        final Page<IpAccessControlList> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TRUNKING.toString())
@@ -90,9 +103,11 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<IpAccessControlList> nextPage(final Page<IpAccessControlList> page, final TwilioRestClient client) {
+    public Page<IpAccessControlList> nextPage(
+        final Page<IpAccessControlList> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TRUNKING.toString())
@@ -101,21 +116,21 @@ public class IpAccessControlListReader extends Reader<IpAccessControlList> {
     }
 
     @Override
-    public Page<IpAccessControlList> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<IpAccessControlList> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

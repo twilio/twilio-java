@@ -22,52 +22,65 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SubscribedEvent extends Resource {
+
     private static final long serialVersionUID = 216550539675838L;
 
-    public static SubscribedEventCreator creator(final String pathSubscriptionSid, final String type){
+    public static SubscribedEventCreator creator(
+        final String pathSubscriptionSid,
+        final String type
+    ) {
         return new SubscribedEventCreator(pathSubscriptionSid, type);
     }
 
-    public static SubscribedEventDeleter deleter(final String pathSubscriptionSid, final String pathType){
+    public static SubscribedEventDeleter deleter(
+        final String pathSubscriptionSid,
+        final String pathType
+    ) {
         return new SubscribedEventDeleter(pathSubscriptionSid, pathType);
     }
 
-    public static SubscribedEventFetcher fetcher(final String pathSubscriptionSid, final String pathType){
+    public static SubscribedEventFetcher fetcher(
+        final String pathSubscriptionSid,
+        final String pathType
+    ) {
         return new SubscribedEventFetcher(pathSubscriptionSid, pathType);
     }
 
-    public static SubscribedEventReader reader(final String pathSubscriptionSid){
+    public static SubscribedEventReader reader(
+        final String pathSubscriptionSid
+    ) {
         return new SubscribedEventReader(pathSubscriptionSid);
     }
 
-    public static SubscribedEventUpdater updater(final String pathSubscriptionSid, final String pathType){
+    public static SubscribedEventUpdater updater(
+        final String pathSubscriptionSid,
+        final String pathType
+    ) {
         return new SubscribedEventUpdater(pathSubscriptionSid, pathType);
     }
 
     /**
-    * Converts a JSON String into a SubscribedEvent object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return SubscribedEvent object represented by the provided JSON
-    */
-    public static SubscribedEvent fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a SubscribedEvent object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return SubscribedEvent object represented by the provided JSON
+     */
+    public static SubscribedEvent fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SubscribedEvent.class);
@@ -79,14 +92,17 @@ public class SubscribedEvent extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a SubscribedEvent object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return SubscribedEvent object represented by the provided JSON
-    */
-    public static SubscribedEvent fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a SubscribedEvent object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return SubscribedEvent object represented by the provided JSON
+     */
+    public static SubscribedEvent fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SubscribedEvent.class);
@@ -105,20 +121,11 @@ public class SubscribedEvent extends Resource {
 
     @JsonCreator
     private SubscribedEvent(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("type")
-        final String type,
-
-        @JsonProperty("schema_version")
-        final Integer schemaVersion,
-
-        @JsonProperty("subscription_sid")
-        final String subscriptionSid,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("type") final String type,
+        @JsonProperty("schema_version") final Integer schemaVersion,
+        @JsonProperty("subscription_sid") final String subscriptionSid,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.type = type;
@@ -127,25 +134,29 @@ public class SubscribedEvent extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getType() {
-            return this.type;
-        }
-        public final Integer getSchemaVersion() {
-            return this.schemaVersion;
-        }
-        public final String getSubscriptionSid() {
-            return this.subscriptionSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getType() {
+        return this.type;
+    }
+
+    public final Integer getSchemaVersion() {
+        return this.schemaVersion;
+    }
+
+    public final String getSubscriptionSid() {
+        return this.subscriptionSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -155,13 +166,23 @@ public class SubscribedEvent extends Resource {
 
         SubscribedEvent other = (SubscribedEvent) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(type, other.type) &&  Objects.equals(schemaVersion, other.schemaVersion) &&  Objects.equals(subscriptionSid, other.subscriptionSid) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(schemaVersion, other.schemaVersion) &&
+            Objects.equals(subscriptionSid, other.subscriptionSid) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, type, schemaVersion, subscriptionSid, url);
+        return Objects.hash(
+            accountSid,
+            type,
+            schemaVersion,
+            subscriptionSid,
+            url
+        );
     }
-
 }
-

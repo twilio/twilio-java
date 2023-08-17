@@ -75,6 +75,8 @@ public class StartTest {
                     .name("name")
                     .connectorName("connector_name")
                     .track(Siprec.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
                     .build());
 
         Start elem = builder.build();
@@ -83,7 +85,7 @@ public class StartTest {
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
-                "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>" +
+                "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
             "</Start>",
             elem.toXml()
         );
@@ -194,6 +196,8 @@ public class StartTest {
                     .name("name")
                     .connectorName("connector_name")
                     .track(Siprec.Track.INBOUND_TRACK)
+                    .statusCallback("status_callback")
+                    .statusCallbackMethod(Siprec.StatusCallbackMethod.GET)
                     .build());
 
         final Start elem = builder.build();
@@ -201,7 +205,7 @@ public class StartTest {
         Assert.assertEquals(
             Start.Builder.fromXml("<Start>" +
                 "<Stream connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\" url=\"url\"/>" +
-                "<Siprec connectorName=\"connector_name\" name=\"name\" track=\"inbound_track\"/>" +
+                "<Siprec connectorName=\"connector_name\" name=\"name\" statusCallback=\"status_callback\" statusCallbackMethod=\"GET\" track=\"inbound_track\"/>" +
             "</Start>").build().toXml(),
             elem.toXml()
         );

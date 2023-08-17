@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.deployedDevices;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,36 +25,38 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class FleetCreator extends Creator<Fleet> {
 
-
-
-public class FleetCreator extends Creator<Fleet>{
     private String friendlyName;
 
-    public FleetCreator() {
-    }
+    public FleetCreator() {}
 
-    public FleetCreator setFriendlyName(final String friendlyName){
+    public FleetCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
 
     @Override
-    public Fleet create(final TwilioRestClient client){
+    public Fleet create(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets";
-
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Fleet creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Fleet creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -62,10 +65,10 @@ public class FleetCreator extends Creator<Fleet>{
 
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
     }
 }

@@ -24,48 +24,53 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Binding extends Resource {
+
     private static final long serialVersionUID = 223064407729885L;
 
-    public static BindingDeleter deleter(final String pathServiceSid, final String pathSid){
+    public static BindingDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new BindingDeleter(pathServiceSid, pathSid);
     }
 
-    public static BindingFetcher fetcher(final String pathServiceSid, final String pathSid){
+    public static BindingFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new BindingFetcher(pathServiceSid, pathSid);
     }
 
-    public static BindingReader reader(final String pathServiceSid){
+    public static BindingReader reader(final String pathServiceSid) {
         return new BindingReader(pathServiceSid);
     }
 
     /**
-    * Converts a JSON String into a Binding object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Binding object represented by the provided JSON
-    */
-    public static Binding fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Binding object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Binding object represented by the provided JSON
+     */
+    public static Binding fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Binding.class);
@@ -77,14 +82,17 @@ public class Binding extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Binding object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Binding object represented by the provided JSON
-    */
-    public static Binding fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Binding object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Binding object represented by the provided JSON
+     */
+    public static Binding fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Binding.class);
@@ -94,6 +102,7 @@ public class Binding extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum BindingType {
         GCM("gcm"),
         APN("apn"),
@@ -130,41 +139,18 @@ public class Binding extends Resource {
 
     @JsonCreator
     private Binding(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("endpoint")
-        final String endpoint,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("credential_sid")
-        final String credentialSid,
-
-        @JsonProperty("binding_type")
-        final Binding.BindingType bindingType,
-
-        @JsonProperty("message_types")
-        final List<String> messageTypes,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("endpoint") final String endpoint,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("credential_sid") final String credentialSid,
+        @JsonProperty("binding_type") final Binding.BindingType bindingType,
+        @JsonProperty("message_types") final List<String> messageTypes,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -180,46 +166,57 @@ public class Binding extends Resource {
         this.links = links;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getEndpoint() {
-            return this.endpoint;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getCredentialSid() {
-            return this.credentialSid;
-        }
-        public final Binding.BindingType getBindingType() {
-            return this.bindingType;
-        }
-        public final List<String> getMessageTypes() {
-            return this.messageTypes;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getEndpoint() {
+        return this.endpoint;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getCredentialSid() {
+        return this.credentialSid;
+    }
+
+    public final Binding.BindingType getBindingType() {
+        return this.bindingType;
+    }
+
+    public final List<String> getMessageTypes() {
+        return this.messageTypes;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -229,13 +226,37 @@ public class Binding extends Resource {
 
         Binding other = (Binding) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(endpoint, other.endpoint) &&  Objects.equals(identity, other.identity) &&  Objects.equals(credentialSid, other.credentialSid) &&  Objects.equals(bindingType, other.bindingType) &&  Objects.equals(messageTypes, other.messageTypes) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(endpoint, other.endpoint) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(credentialSid, other.credentialSid) &&
+            Objects.equals(bindingType, other.bindingType) &&
+            Objects.equals(messageTypes, other.messageTypes) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, dateCreated, dateUpdated, endpoint, identity, credentialSid, bindingType, messageTypes, url, links);
+        return Objects.hash(
+            sid,
+            accountSid,
+            serviceSid,
+            dateCreated,
+            dateUpdated,
+            endpoint,
+            identity,
+            credentialSid,
+            bindingType,
+            messageTypes,
+            url,
+            links
+        );
     }
-
 }
-

@@ -24,40 +24,66 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class PortingPortabilityFetcher extends Fetcher<PortingPortability> {
-    private com.twilio.type.PhoneNumber pathPhoneNumber;
 
-    public PortingPortabilityFetcher(final com.twilio.type.PhoneNumber pathPhoneNumber){
+    private com.twilio.type.PhoneNumber pathPhoneNumber;
+    private String targetAccountSid;
+
+    public PortingPortabilityFetcher(
+        final com.twilio.type.PhoneNumber pathPhoneNumber
+    ) {
         this.pathPhoneNumber = pathPhoneNumber;
     }
 
+    public PortingPortabilityFetcher setTargetAccountSid(
+        final String targetAccountSid
+    ) {
+        this.targetAccountSid = targetAccountSid;
+        return this;
+    }
 
     @Override
     public PortingPortability fetch(final TwilioRestClient client) {
         String path = "/v1/Porting/Portability/PhoneNumber/{PhoneNumber}";
 
-        path = path.replace("{"+"PhoneNumber"+"}", this.pathPhoneNumber.encode("utf-8"));
+        path =
+            path.replace(
+                "{" + "PhoneNumber" + "}",
+                this.pathPhoneNumber.encode("utf-8")
+            );
 
         Request request = new Request(
             HttpMethod.GET,
             Domains.NUMBERS.toString(),
             path
         );
+        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("PortingPortability fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PortingPortability fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return PortingPortability.fromJson(response.getStream(), client.getObjectMapper());
+        return PortingPortability.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
+    }
+
+    private void addQueryParams(final Request request) {
+        if (targetAccountSid != null) {
+            request.addQueryParam("TargetAccountSid", targetAccountSid);
+        }
     }
 }

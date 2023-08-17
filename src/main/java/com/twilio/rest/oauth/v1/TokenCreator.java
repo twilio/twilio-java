@@ -15,6 +15,7 @@
 package com.twilio.rest.oauth.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class TokenCreator extends Creator<Token> {
 
-
-
-public class TokenCreator extends Creator<Token>{
     private String grantType;
     private String clientSid;
     private String clientSecret;
@@ -42,57 +41,70 @@ public class TokenCreator extends Creator<Token>{
         this.clientSid = clientSid;
     }
 
-    public TokenCreator setGrantType(final String grantType){
+    public TokenCreator setGrantType(final String grantType) {
         this.grantType = grantType;
         return this;
     }
-    public TokenCreator setClientSid(final String clientSid){
+
+    public TokenCreator setClientSid(final String clientSid) {
         this.clientSid = clientSid;
         return this;
     }
-    public TokenCreator setClientSecret(final String clientSecret){
+
+    public TokenCreator setClientSecret(final String clientSecret) {
         this.clientSecret = clientSecret;
         return this;
     }
-    public TokenCreator setCode(final String code){
+
+    public TokenCreator setCode(final String code) {
         this.code = code;
         return this;
     }
-    public TokenCreator setCodeVerifier(final String codeVerifier){
+
+    public TokenCreator setCodeVerifier(final String codeVerifier) {
         this.codeVerifier = codeVerifier;
         return this;
     }
-    public TokenCreator setDeviceCode(final String deviceCode){
+
+    public TokenCreator setDeviceCode(final String deviceCode) {
         this.deviceCode = deviceCode;
         return this;
     }
-    public TokenCreator setRefreshToken(final String refreshToken){
+
+    public TokenCreator setRefreshToken(final String refreshToken) {
         this.refreshToken = refreshToken;
         return this;
     }
-    public TokenCreator setDeviceId(final String deviceId){
+
+    public TokenCreator setDeviceId(final String deviceId) {
         this.deviceId = deviceId;
         return this;
     }
 
     @Override
-    public Token create(final TwilioRestClient client){
+    public Token create(final TwilioRestClient client) {
         String path = "/v1/token";
 
-        path = path.replace("{"+"GrantType"+"}", this.grantType.toString());
-        path = path.replace("{"+"ClientSid"+"}", this.clientSid.toString());
+        path = path.replace("{" + "GrantType" + "}", this.grantType.toString());
+        path = path.replace("{" + "ClientSid" + "}", this.clientSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.OAUTH.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Token creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Token creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -101,38 +113,31 @@ public class TokenCreator extends Creator<Token>{
 
         return Token.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (grantType != null) {
             request.addPostParam("GrantType", grantType);
-    
         }
         if (clientSid != null) {
             request.addPostParam("ClientSid", clientSid);
-    
         }
         if (clientSecret != null) {
             request.addPostParam("ClientSecret", clientSecret);
-    
         }
         if (code != null) {
             request.addPostParam("Code", code);
-    
         }
         if (codeVerifier != null) {
             request.addPostParam("CodeVerifier", codeVerifier);
-    
         }
         if (deviceCode != null) {
             request.addPostParam("DeviceCode", deviceCode);
-    
         }
         if (refreshToken != null) {
             request.addPostParam("RefreshToken", refreshToken);
-    
         }
         if (deviceId != null) {
             request.addPostParam("DeviceId", deviceId);
-    
         }
     }
 }

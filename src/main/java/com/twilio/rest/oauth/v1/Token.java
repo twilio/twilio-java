@@ -23,36 +23,38 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Token extends Resource {
+
     private static final long serialVersionUID = 233151022011558L;
 
-    public static TokenCreator creator(final String grantType, final String clientSid){
+    public static TokenCreator creator(
+        final String grantType,
+        final String clientSid
+    ) {
         return new TokenCreator(grantType, clientSid);
     }
 
     /**
-    * Converts a JSON String into a Token object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Token object represented by the provided JSON
-    */
-    public static Token fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Token object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Token object represented by the provided JSON
+     */
+    public static Token fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Token.class);
@@ -64,14 +66,17 @@ public class Token extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Token object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Token object represented by the provided JSON
-    */
-    public static Token fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Token object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Token object represented by the provided JSON
+     */
+    public static Token fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Token.class);
@@ -90,47 +95,48 @@ public class Token extends Resource {
 
     @JsonCreator
     private Token(
-        @JsonProperty("access_token")
-        final String accessToken,
-
-        @JsonProperty("refresh_token")
-        final String refreshToken,
-
-        @JsonProperty("id_token")
-        final String idToken,
-
-        @JsonProperty("refresh_token_expires_at")
-        final String refreshTokenExpiresAt,
-
-        @JsonProperty("access_token_expires_at")
-        final String accessTokenExpiresAt
+        @JsonProperty("access_token") final String accessToken,
+        @JsonProperty("refresh_token") final String refreshToken,
+        @JsonProperty("id_token") final String idToken,
+        @JsonProperty(
+            "refresh_token_expires_at"
+        ) final String refreshTokenExpiresAt,
+        @JsonProperty(
+            "access_token_expires_at"
+        ) final String accessTokenExpiresAt
     ) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.idToken = idToken;
-        this.refreshTokenExpiresAt = DateConverter.iso8601DateTimeFromString(refreshTokenExpiresAt);
-        this.accessTokenExpiresAt = DateConverter.iso8601DateTimeFromString(accessTokenExpiresAt);
+        this.refreshTokenExpiresAt =
+            DateConverter.iso8601DateTimeFromString(refreshTokenExpiresAt);
+        this.accessTokenExpiresAt =
+            DateConverter.iso8601DateTimeFromString(accessTokenExpiresAt);
     }
 
-        public final String getAccessToken() {
-            return this.accessToken;
-        }
-        public final String getRefreshToken() {
-            return this.refreshToken;
-        }
-        public final String getIdToken() {
-            return this.idToken;
-        }
-        public final ZonedDateTime getRefreshTokenExpiresAt() {
-            return this.refreshTokenExpiresAt;
-        }
-        public final ZonedDateTime getAccessTokenExpiresAt() {
-            return this.accessTokenExpiresAt;
-        }
+    public final String getAccessToken() {
+        return this.accessToken;
+    }
+
+    public final String getRefreshToken() {
+        return this.refreshToken;
+    }
+
+    public final String getIdToken() {
+        return this.idToken;
+    }
+
+    public final ZonedDateTime getRefreshTokenExpiresAt() {
+        return this.refreshTokenExpiresAt;
+    }
+
+    public final ZonedDateTime getAccessTokenExpiresAt() {
+        return this.accessTokenExpiresAt;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -140,13 +146,26 @@ public class Token extends Resource {
 
         Token other = (Token) o;
 
-        return Objects.equals(accessToken, other.accessToken) &&  Objects.equals(refreshToken, other.refreshToken) &&  Objects.equals(idToken, other.idToken) &&  Objects.equals(refreshTokenExpiresAt, other.refreshTokenExpiresAt) &&  Objects.equals(accessTokenExpiresAt, other.accessTokenExpiresAt)  ;
+        return (
+            Objects.equals(accessToken, other.accessToken) &&
+            Objects.equals(refreshToken, other.refreshToken) &&
+            Objects.equals(idToken, other.idToken) &&
+            Objects.equals(
+                refreshTokenExpiresAt,
+                other.refreshTokenExpiresAt
+            ) &&
+            Objects.equals(accessTokenExpiresAt, other.accessTokenExpiresAt)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accessToken, refreshToken, idToken, refreshTokenExpiresAt, accessTokenExpiresAt);
+        return Objects.hash(
+            accessToken,
+            refreshToken,
+            idToken,
+            refreshTokenExpiresAt,
+            accessTokenExpiresAt
+        );
     }
-
 }
-

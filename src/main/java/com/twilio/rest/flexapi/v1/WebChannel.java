@@ -24,53 +24,62 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WebChannel extends Resource {
+
     private static final long serialVersionUID = 55535071818984L;
 
-    public static WebChannelCreator creator(final String flexFlowSid, final String identity, final String customerFriendlyName, final String chatFriendlyName){
-        return new WebChannelCreator(flexFlowSid, identity, customerFriendlyName, chatFriendlyName);
+    public static WebChannelCreator creator(
+        final String flexFlowSid,
+        final String identity,
+        final String customerFriendlyName,
+        final String chatFriendlyName
+    ) {
+        return new WebChannelCreator(
+            flexFlowSid,
+            identity,
+            customerFriendlyName,
+            chatFriendlyName
+        );
     }
 
-    public static WebChannelDeleter deleter(final String pathSid){
+    public static WebChannelDeleter deleter(final String pathSid) {
         return new WebChannelDeleter(pathSid);
     }
 
-    public static WebChannelFetcher fetcher(final String pathSid){
+    public static WebChannelFetcher fetcher(final String pathSid) {
         return new WebChannelFetcher(pathSid);
     }
 
-    public static WebChannelReader reader(){
+    public static WebChannelReader reader() {
         return new WebChannelReader();
     }
 
-    public static WebChannelUpdater updater(final String pathSid){
+    public static WebChannelUpdater updater(final String pathSid) {
         return new WebChannelUpdater(pathSid);
     }
 
     /**
-    * Converts a JSON String into a WebChannel object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return WebChannel object represented by the provided JSON
-    */
-    public static WebChannel fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a WebChannel object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return WebChannel object represented by the provided JSON
+     */
+    public static WebChannel fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WebChannel.class);
@@ -82,14 +91,17 @@ public class WebChannel extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a WebChannel object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return WebChannel object represented by the provided JSON
-    */
-    public static WebChannel fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a WebChannel object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return WebChannel object represented by the provided JSON
+     */
+    public static WebChannel fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WebChannel.class);
@@ -99,6 +111,7 @@ public class WebChannel extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum ChatStatus {
         INACTIVE("inactive");
 
@@ -127,23 +140,12 @@ public class WebChannel extends Resource {
 
     @JsonCreator
     private WebChannel(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("flex_flow_sid")
-        final String flexFlowSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("flex_flow_sid") final String flexFlowSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.accountSid = accountSid;
         this.flexFlowSid = flexFlowSid;
@@ -153,28 +155,33 @@ public class WebChannel extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFlexFlowSid() {
-            return this.flexFlowSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFlexFlowSid() {
+        return this.flexFlowSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -184,13 +191,25 @@ public class WebChannel extends Resource {
 
         WebChannel other = (WebChannel) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(flexFlowSid, other.flexFlowSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(url, other.url) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(flexFlowSid, other.flexFlowSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, flexFlowSid, sid, url, dateCreated, dateUpdated);
+        return Objects.hash(
+            accountSid,
+            flexFlowSid,
+            sid,
+            url,
+            dateCreated,
+            dateUpdated
+        );
     }
-
 }
-

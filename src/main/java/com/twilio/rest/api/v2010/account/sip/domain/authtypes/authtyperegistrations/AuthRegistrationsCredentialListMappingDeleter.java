@@ -24,32 +24,51 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class AuthRegistrationsCredentialListMappingDeleter
+    extends Deleter<AuthRegistrationsCredentialListMapping> {
 
-
-public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthRegistrationsCredentialListMapping> {
     private String pathDomainSid;
     private String pathSid;
     private String pathAccountSid;
 
-    public AuthRegistrationsCredentialListMappingDeleter(final String pathDomainSid, final String pathSid){
+    public AuthRegistrationsCredentialListMappingDeleter(
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
-    public AuthRegistrationsCredentialListMappingDeleter(final String pathAccountSid, final String pathDomainSid, final String pathSid){
+
+    public AuthRegistrationsCredentialListMappingDeleter(
+        final String pathAccountSid,
+        final String pathDomainSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json";
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Registrations/CredentialListMappings/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -59,9 +78,14 @@ public class AuthRegistrationsCredentialListMappingDeleter extends Deleter<AuthR
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("AuthRegistrationsCredentialListMapping delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthRegistrationsCredentialListMapping delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }

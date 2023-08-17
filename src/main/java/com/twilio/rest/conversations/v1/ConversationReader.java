@@ -14,6 +14,7 @@
 
 package com.twilio.rest.conversations.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,32 +25,32 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class ConversationReader extends Reader<Conversation> {
+
     private String startDate;
     private String endDate;
     private Conversation.State state;
     private Integer pageSize;
 
-    public ConversationReader(){
-    }
+    public ConversationReader() {}
 
-    public ConversationReader setStartDate(final String startDate){
+    public ConversationReader setStartDate(final String startDate) {
         this.startDate = startDate;
         return this;
     }
-    public ConversationReader setEndDate(final String endDate){
+
+    public ConversationReader setEndDate(final String endDate) {
         this.endDate = endDate;
         return this;
     }
-    public ConversationReader setState(final Conversation.State state){
+
+    public ConversationReader setState(final Conversation.State state) {
         this.state = state;
         return this;
     }
-    public ConversationReader setPageSize(final Integer pageSize){
+
+    public ConversationReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -72,13 +73,21 @@ public class ConversationReader extends Reader<Conversation> {
         return pageForRequest(client, request);
     }
 
-    private Page<Conversation> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Conversation> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Conversation read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Conversation read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -94,7 +103,10 @@ public class ConversationReader extends Reader<Conversation> {
     }
 
     @Override
-    public Page<Conversation> previousPage(final Page<Conversation> page, final TwilioRestClient client) {
+    public Page<Conversation> previousPage(
+        final Page<Conversation> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.CONVERSATIONS.toString())
@@ -102,9 +114,11 @@ public class ConversationReader extends Reader<Conversation> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Conversation> nextPage(final Page<Conversation> page, final TwilioRestClient client) {
+    public Page<Conversation> nextPage(
+        final Page<Conversation> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.CONVERSATIONS.toString())
@@ -113,33 +127,30 @@ public class ConversationReader extends Reader<Conversation> {
     }
 
     @Override
-    public Page<Conversation> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Conversation> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (startDate != null) {
-    
             request.addQueryParam("StartDate", startDate);
         }
         if (endDate != null) {
-    
             request.addQueryParam("EndDate", endDate);
         }
         if (state != null) {
-    
             request.addQueryParam("State", state.toString());
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

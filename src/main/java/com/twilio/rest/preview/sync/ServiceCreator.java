@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.sync;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,57 +26,64 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
-
-
-
 import java.net.URI;
 
-public class ServiceCreator extends Creator<Service>{
+public class ServiceCreator extends Creator<Service> {
+
     private String friendlyName;
     private URI webhookUrl;
     private Boolean reachabilityWebhooksEnabled;
     private Boolean aclEnabled;
 
-    public ServiceCreator() {
-    }
+    public ServiceCreator() {}
 
-    public ServiceCreator setFriendlyName(final String friendlyName){
+    public ServiceCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ServiceCreator setWebhookUrl(final URI webhookUrl){
+
+    public ServiceCreator setWebhookUrl(final URI webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-    public ServiceCreator setWebhookUrl(final String webhookUrl){
+    public ServiceCreator setWebhookUrl(final String webhookUrl) {
         return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
-    public ServiceCreator setReachabilityWebhooksEnabled(final Boolean reachabilityWebhooksEnabled){
+
+    public ServiceCreator setReachabilityWebhooksEnabled(
+        final Boolean reachabilityWebhooksEnabled
+    ) {
         this.reachabilityWebhooksEnabled = reachabilityWebhooksEnabled;
         return this;
     }
-    public ServiceCreator setAclEnabled(final Boolean aclEnabled){
+
+    public ServiceCreator setAclEnabled(final Boolean aclEnabled) {
         this.aclEnabled = aclEnabled;
         return this;
     }
 
     @Override
-    public Service create(final TwilioRestClient client){
+    public Service create(final TwilioRestClient client) {
         String path = "/Sync/Services";
-
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Service creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -84,22 +92,22 @@ public class ServiceCreator extends Creator<Service>{
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl.toString());
-    
         }
         if (reachabilityWebhooksEnabled != null) {
-            request.addPostParam("ReachabilityWebhooksEnabled", reachabilityWebhooksEnabled.toString());
-    
+            request.addPostParam(
+                "ReachabilityWebhooksEnabled",
+                reachabilityWebhooksEnabled.toString()
+            );
         }
         if (aclEnabled != null) {
             request.addPostParam("AclEnabled", aclEnabled.toString());
-    
         }
     }
 }

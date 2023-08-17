@@ -15,6 +15,7 @@
 package com.twilio.rest.numbers.v2;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,101 +26,160 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
-
 import java.util.List;
 
+public class AuthorizationDocumentCreator
+    extends Creator<AuthorizationDocument> {
 
-
-public class AuthorizationDocumentCreator extends Creator<AuthorizationDocument>{
     private String addressSid;
     private String email;
     private com.twilio.type.PhoneNumber contactPhoneNumber;
+    private List<String> hostedNumberOrderSids;
     private String contactTitle;
     private List<String> ccEmails;
 
-    public AuthorizationDocumentCreator(final String addressSid, final String email, final com.twilio.type.PhoneNumber contactPhoneNumber) {
+    public AuthorizationDocumentCreator(
+        final String addressSid,
+        final String email,
+        final com.twilio.type.PhoneNumber contactPhoneNumber,
+        final List<String> hostedNumberOrderSids
+    ) {
         this.addressSid = addressSid;
         this.email = email;
         this.contactPhoneNumber = contactPhoneNumber;
+        this.hostedNumberOrderSids = hostedNumberOrderSids;
     }
 
-    public AuthorizationDocumentCreator setAddressSid(final String addressSid){
+    public AuthorizationDocumentCreator setAddressSid(final String addressSid) {
         this.addressSid = addressSid;
         return this;
     }
-    public AuthorizationDocumentCreator setEmail(final String email){
+
+    public AuthorizationDocumentCreator setEmail(final String email) {
         this.email = email;
         return this;
     }
-    public AuthorizationDocumentCreator setContactPhoneNumber(final com.twilio.type.PhoneNumber contactPhoneNumber){
+
+    public AuthorizationDocumentCreator setContactPhoneNumber(
+        final com.twilio.type.PhoneNumber contactPhoneNumber
+    ) {
         this.contactPhoneNumber = contactPhoneNumber;
         return this;
     }
 
-    public AuthorizationDocumentCreator setContactPhoneNumber(final String contactPhoneNumber){
-        return setContactPhoneNumber(Promoter.phoneNumberFromString(contactPhoneNumber));
+    public AuthorizationDocumentCreator setContactPhoneNumber(
+        final String contactPhoneNumber
+    ) {
+        return setContactPhoneNumber(
+            Promoter.phoneNumberFromString(contactPhoneNumber)
+        );
     }
-    public AuthorizationDocumentCreator setContactTitle(final String contactTitle){
+
+    public AuthorizationDocumentCreator setHostedNumberOrderSids(
+        final List<String> hostedNumberOrderSids
+    ) {
+        this.hostedNumberOrderSids = hostedNumberOrderSids;
+        return this;
+    }
+
+    public AuthorizationDocumentCreator setHostedNumberOrderSids(
+        final String hostedNumberOrderSids
+    ) {
+        return setHostedNumberOrderSids(
+            Promoter.listOfOne(hostedNumberOrderSids)
+        );
+    }
+
+    public AuthorizationDocumentCreator setContactTitle(
+        final String contactTitle
+    ) {
         this.contactTitle = contactTitle;
         return this;
     }
-    public AuthorizationDocumentCreator setCcEmails(final List<String> ccEmails){
+
+    public AuthorizationDocumentCreator setCcEmails(
+        final List<String> ccEmails
+    ) {
         this.ccEmails = ccEmails;
         return this;
     }
-    public AuthorizationDocumentCreator setCcEmails(final String ccEmails){
+
+    public AuthorizationDocumentCreator setCcEmails(final String ccEmails) {
         return setCcEmails(Promoter.listOfOne(ccEmails));
     }
 
     @Override
-    public AuthorizationDocument create(final TwilioRestClient client){
+    public AuthorizationDocument create(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/AuthorizationDocuments";
 
-        path = path.replace("{"+"AddressSid"+"}", this.addressSid.toString());
-        path = path.replace("{"+"Email"+"}", this.email.toString());
-        path = path.replace("{"+"ContactPhoneNumber"+"}", this.contactPhoneNumber.encode("utf-8"));
+        path =
+            path.replace("{" + "AddressSid" + "}", this.addressSid.toString());
+        path = path.replace("{" + "Email" + "}", this.email.toString());
+        path =
+            path.replace(
+                "{" + "ContactPhoneNumber" + "}",
+                this.contactPhoneNumber.encode("utf-8")
+            );
+        path =
+            path.replace(
+                "{" + "HostedNumberOrderSids" + "}",
+                this.hostedNumberOrderSids.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.NUMBERS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AuthorizationDocument creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AuthorizationDocument creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return AuthorizationDocument.fromJson(response.getStream(), client.getObjectMapper());
+        return AuthorizationDocument.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (addressSid != null) {
             request.addPostParam("AddressSid", addressSid);
-    
         }
         if (email != null) {
             request.addPostParam("Email", email);
-    
         }
         if (contactPhoneNumber != null) {
-            request.addPostParam("ContactPhoneNumber", contactPhoneNumber.toString());
-    
+            request.addPostParam(
+                "ContactPhoneNumber",
+                contactPhoneNumber.toString()
+            );
+        }
+        if (hostedNumberOrderSids != null) {
+            for (String prop : hostedNumberOrderSids) {
+                request.addPostParam("HostedNumberOrderSids", prop);
+            }
         }
         if (contactTitle != null) {
             request.addPostParam("ContactTitle", contactTitle);
-    
         }
         if (ccEmails != null) {
             for (String prop : ccEmails) {
                 request.addPostParam("CcEmails", prop);
             }
-    
         }
     }
 }

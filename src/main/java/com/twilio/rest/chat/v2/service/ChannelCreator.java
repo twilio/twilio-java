@@ -15,6 +15,7 @@
 package com.twilio.rest.chat.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -25,10 +26,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 
+public class ChannelCreator extends Creator<Channel> {
 
-
-
-public class ChannelCreator extends Creator<Channel>{
     private String pathServiceSid;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
     private String friendlyName;
@@ -43,57 +42,76 @@ public class ChannelCreator extends Creator<Channel>{
         this.pathServiceSid = pathServiceSid;
     }
 
-    public ChannelCreator setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled){
+    public ChannelCreator setXTwilioWebhookEnabled(
+        final Channel.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
-    public ChannelCreator setFriendlyName(final String friendlyName){
+
+    public ChannelCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ChannelCreator setUniqueName(final String uniqueName){
+
+    public ChannelCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public ChannelCreator setAttributes(final String attributes){
+
+    public ChannelCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
-    public ChannelCreator setType(final Channel.ChannelType type){
+
+    public ChannelCreator setType(final Channel.ChannelType type) {
         this.type = type;
         return this;
     }
-    public ChannelCreator setDateCreated(final ZonedDateTime dateCreated){
+
+    public ChannelCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
-    public ChannelCreator setDateUpdated(final ZonedDateTime dateUpdated){
+
+    public ChannelCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
-    public ChannelCreator setCreatedBy(final String createdBy){
+
+    public ChannelCreator setCreatedBy(final String createdBy) {
         this.createdBy = createdBy;
         return this;
     }
 
     @Override
-    public Channel create(final TwilioRestClient client){
+    public Channel create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Channels";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.CHAT.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Channel creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Channel creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -102,40 +120,43 @@ public class ChannelCreator extends Creator<Channel>{
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
-    
         }
         if (type != null) {
             request.addPostParam("Type", type.toString());
-    
         }
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
-
+            request.addPostParam(
+                "DateCreated",
+                dateCreated.toInstant().toString()
+            );
         }
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
-
+            request.addPostParam(
+                "DateUpdated",
+                dateUpdated.toInstant().toString()
+            );
         }
         if (createdBy != null) {
             request.addPostParam("CreatedBy", createdBy);
-    
         }
     }
+
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
-
+            request.addHeaderParam(
+                "X-Twilio-Webhook-Enabled",
+                xTwilioWebhookEnabled.toString()
+            );
         }
     }
 }

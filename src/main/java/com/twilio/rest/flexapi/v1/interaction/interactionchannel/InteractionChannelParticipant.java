@@ -23,49 +23,77 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InteractionChannelParticipant extends Resource {
+
     private static final long serialVersionUID = 108435204885654L;
 
-    public static InteractionChannelParticipantCreator creator(final String pathInteractionSid, final String pathChannelSid, final InteractionChannelParticipant.Type type, final Map<String, Object> mediaProperties){
-        return new InteractionChannelParticipantCreator(pathInteractionSid, pathChannelSid, type, mediaProperties);
+    public static InteractionChannelParticipantCreator creator(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final InteractionChannelParticipant.Type type,
+        final Map<String, Object> mediaProperties
+    ) {
+        return new InteractionChannelParticipantCreator(
+            pathInteractionSid,
+            pathChannelSid,
+            type,
+            mediaProperties
+        );
     }
 
-    public static InteractionChannelParticipantReader reader(final String pathInteractionSid, final String pathChannelSid){
-        return new InteractionChannelParticipantReader(pathInteractionSid, pathChannelSid);
+    public static InteractionChannelParticipantReader reader(
+        final String pathInteractionSid,
+        final String pathChannelSid
+    ) {
+        return new InteractionChannelParticipantReader(
+            pathInteractionSid,
+            pathChannelSid
+        );
     }
 
-    public static InteractionChannelParticipantUpdater updater(final String pathInteractionSid, final String pathChannelSid, final String pathSid, final InteractionChannelParticipant.Status status){
-        return new InteractionChannelParticipantUpdater(pathInteractionSid, pathChannelSid, pathSid, status);
+    public static InteractionChannelParticipantUpdater updater(
+        final String pathInteractionSid,
+        final String pathChannelSid,
+        final String pathSid,
+        final InteractionChannelParticipant.Status status
+    ) {
+        return new InteractionChannelParticipantUpdater(
+            pathInteractionSid,
+            pathChannelSid,
+            pathSid,
+            status
+        );
     }
 
     /**
-    * Converts a JSON String into a InteractionChannelParticipant object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return InteractionChannelParticipant object represented by the provided JSON
-    */
-    public static InteractionChannelParticipant fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a InteractionChannelParticipant object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return InteractionChannelParticipant object represented by the provided JSON
+     */
+    public static InteractionChannelParticipant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InteractionChannelParticipant.class);
+            return objectMapper.readValue(
+                json,
+                InteractionChannelParticipant.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -74,23 +102,30 @@ public class InteractionChannelParticipant extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a InteractionChannelParticipant object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return InteractionChannelParticipant object represented by the provided JSON
-    */
-    public static InteractionChannelParticipant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a InteractionChannelParticipant object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return InteractionChannelParticipant object represented by the provided JSON
+     */
+    public static InteractionChannelParticipant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InteractionChannelParticipant.class);
+            return objectMapper.readValue(
+                json,
+                InteractionChannelParticipant.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         CLOSED("closed"),
         WRAPUP("wrapup");
@@ -110,6 +145,7 @@ public class InteractionChannelParticipant extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
     public enum Type {
         SUPERVISOR("supervisor"),
         CUSTOMER("customer"),
@@ -141,20 +177,11 @@ public class InteractionChannelParticipant extends Resource {
 
     @JsonCreator
     private InteractionChannelParticipant(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("type")
-        final InteractionChannelParticipant.Type type,
-
-        @JsonProperty("interaction_sid")
-        final String interactionSid,
-
-        @JsonProperty("channel_sid")
-        final String channelSid,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("type") final InteractionChannelParticipant.Type type,
+        @JsonProperty("interaction_sid") final String interactionSid,
+        @JsonProperty("channel_sid") final String channelSid,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.type = type;
@@ -163,25 +190,29 @@ public class InteractionChannelParticipant extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final InteractionChannelParticipant.Type getType() {
-            return this.type;
-        }
-        public final String getInteractionSid() {
-            return this.interactionSid;
-        }
-        public final String getChannelSid() {
-            return this.channelSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final InteractionChannelParticipant.Type getType() {
+        return this.type;
+    }
+
+    public final String getInteractionSid() {
+        return this.interactionSid;
+    }
+
+    public final String getChannelSid() {
+        return this.channelSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -191,13 +222,17 @@ public class InteractionChannelParticipant extends Resource {
 
         InteractionChannelParticipant other = (InteractionChannelParticipant) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(type, other.type) &&  Objects.equals(interactionSid, other.interactionSid) &&  Objects.equals(channelSid, other.channelSid) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(type, other.type) &&
+            Objects.equals(interactionSid, other.interactionSid) &&
+            Objects.equals(channelSid, other.channelSid) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid, type, interactionSid, channelSid, url);
     }
-
 }
-

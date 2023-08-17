@@ -23,53 +23,77 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Variable extends Resource {
+
     private static final long serialVersionUID = 240706939520174L;
 
-    public static VariableCreator creator(final String pathServiceSid, final String pathEnvironmentSid, final String key, final String value){
-        return new VariableCreator(pathServiceSid, pathEnvironmentSid, key, value);
+    public static VariableCreator creator(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String key,
+        final String value
+    ) {
+        return new VariableCreator(
+            pathServiceSid,
+            pathEnvironmentSid,
+            key,
+            value
+        );
     }
 
-    public static VariableDeleter deleter(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+    public static VariableDeleter deleter(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String pathSid
+    ) {
         return new VariableDeleter(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-    public static VariableFetcher fetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+    public static VariableFetcher fetcher(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String pathSid
+    ) {
         return new VariableFetcher(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
-    public static VariableReader reader(final String pathServiceSid, final String pathEnvironmentSid){
+    public static VariableReader reader(
+        final String pathServiceSid,
+        final String pathEnvironmentSid
+    ) {
         return new VariableReader(pathServiceSid, pathEnvironmentSid);
     }
 
-    public static VariableUpdater updater(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+    public static VariableUpdater updater(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String pathSid
+    ) {
         return new VariableUpdater(pathServiceSid, pathEnvironmentSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Variable object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Variable object represented by the provided JSON
-    */
-    public static Variable fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Variable object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Variable object represented by the provided JSON
+     */
+    public static Variable fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Variable.class);
@@ -81,14 +105,17 @@ public class Variable extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Variable object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Variable object represented by the provided JSON
-    */
-    public static Variable fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Variable object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Variable object represented by the provided JSON
+     */
+    public static Variable fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Variable.class);
@@ -111,32 +138,15 @@ public class Variable extends Resource {
 
     @JsonCreator
     private Variable(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("environment_sid")
-        final String environmentSid,
-
-        @JsonProperty("key")
-        final String key,
-
-        @JsonProperty("value")
-        final String value,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("environment_sid") final String environmentSid,
+        @JsonProperty("key") final String key,
+        @JsonProperty("value") final String value,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -149,37 +159,45 @@ public class Variable extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getEnvironmentSid() {
-            return this.environmentSid;
-        }
-        public final String getKey() {
-            return this.key;
-        }
-        public final String getValue() {
-            return this.value;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getEnvironmentSid() {
+        return this.environmentSid;
+    }
+
+    public final String getKey() {
+        return this.key;
+    }
+
+    public final String getValue() {
+        return this.value;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -189,13 +207,31 @@ public class Variable extends Resource {
 
         Variable other = (Variable) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(environmentSid, other.environmentSid) &&  Objects.equals(key, other.key) &&  Objects.equals(value, other.value) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(environmentSid, other.environmentSid) &&
+            Objects.equals(key, other.key) &&
+            Objects.equals(value, other.value) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, environmentSid, key, value, dateCreated, dateUpdated, url);
+        return Objects.hash(
+            sid,
+            accountSid,
+            serviceSid,
+            environmentSid,
+            key,
+            value,
+            dateCreated,
+            dateUpdated,
+            url
+        );
     }
-
 }
-

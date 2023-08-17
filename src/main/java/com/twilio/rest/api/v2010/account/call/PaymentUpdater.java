@@ -15,6 +15,7 @@
 package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -24,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class PaymentUpdater extends Updater<Payment> {
 
-
-public class PaymentUpdater extends Updater<Payment>{
     private String pathCallSid;
     private String pathSid;
     private String idempotencyKey;
@@ -38,13 +37,25 @@ public class PaymentUpdater extends Updater<Payment>{
     private Payment.Capture capture;
     private Payment.Status status;
 
-    public PaymentUpdater(final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
+    public PaymentUpdater(
+        final String pathCallSid,
+        final String pathSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
-    public PaymentUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final String idempotencyKey, final URI statusCallback){
+
+    public PaymentUpdater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final String idempotencyKey,
+        final URI statusCallback
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
@@ -52,49 +63,74 @@ public class PaymentUpdater extends Updater<Payment>{
         this.statusCallback = statusCallback;
     }
 
-    public PaymentUpdater setIdempotencyKey(final String idempotencyKey){
+    public PaymentUpdater setIdempotencyKey(final String idempotencyKey) {
         this.idempotencyKey = idempotencyKey;
         return this;
     }
-    public PaymentUpdater setStatusCallback(final URI statusCallback){
+
+    public PaymentUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public PaymentUpdater setStatusCallback(final String statusCallback){
+    public PaymentUpdater setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public PaymentUpdater setCapture(final Payment.Capture capture){
+
+    public PaymentUpdater setCapture(final Payment.Capture capture) {
         this.capture = capture;
         return this;
     }
-    public PaymentUpdater setStatus(final Payment.Status status){
+
+    public PaymentUpdater setStatus(final Payment.Status status) {
         this.status = status;
         return this;
     }
 
     @Override
-    public Payment update(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
+    public Payment update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
-        path = path.replace("{"+"IdempotencyKey"+"}", this.idempotencyKey.toString());
-        path = path.replace("{"+"StatusCallback"+"}", this.statusCallback.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "IdempotencyKey" + "}",
+                this.idempotencyKey.toString()
+            );
+        path =
+            path.replace(
+                "{" + "StatusCallback" + "}",
+                this.statusCallback.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.API.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Payment update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Payment update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -103,22 +139,19 @@ public class PaymentUpdater extends Updater<Payment>{
 
         return Payment.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (idempotencyKey != null) {
             request.addPostParam("IdempotencyKey", idempotencyKey);
-    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (capture != null) {
             request.addPostParam("Capture", capture.toString());
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
     }
 }

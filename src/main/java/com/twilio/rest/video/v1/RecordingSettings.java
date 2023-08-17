@@ -22,40 +22,39 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RecordingSettings extends Resource {
+
     private static final long serialVersionUID = 265748091067113L;
 
-    public static RecordingSettingsCreator creator(final String friendlyName){
+    public static RecordingSettingsCreator creator(final String friendlyName) {
         return new RecordingSettingsCreator(friendlyName);
     }
 
-    public static RecordingSettingsFetcher fetcher(){
+    public static RecordingSettingsFetcher fetcher() {
         return new RecordingSettingsFetcher();
     }
 
     /**
-    * Converts a JSON String into a RecordingSettings object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return RecordingSettings object represented by the provided JSON
-    */
-    public static RecordingSettings fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a RecordingSettings object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return RecordingSettings object represented by the provided JSON
+     */
+    public static RecordingSettings fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RecordingSettings.class);
@@ -67,14 +66,17 @@ public class RecordingSettings extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a RecordingSettings object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return RecordingSettings object represented by the provided JSON
-    */
-    public static RecordingSettings fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a RecordingSettings object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return RecordingSettings object represented by the provided JSON
+     */
+    public static RecordingSettings fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RecordingSettings.class);
@@ -96,29 +98,14 @@ public class RecordingSettings extends Resource {
 
     @JsonCreator
     private RecordingSettings(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("aws_credentials_sid")
-        final String awsCredentialsSid,
-
-        @JsonProperty("aws_s3_url")
-        final URI awsS3Url,
-
-        @JsonProperty("aws_storage_enabled")
-        final Boolean awsStorageEnabled,
-
-        @JsonProperty("encryption_key_sid")
-        final String encryptionKeySid,
-
-        @JsonProperty("encryption_enabled")
-        final Boolean encryptionEnabled,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("aws_credentials_sid") final String awsCredentialsSid,
+        @JsonProperty("aws_s3_url") final URI awsS3Url,
+        @JsonProperty("aws_storage_enabled") final Boolean awsStorageEnabled,
+        @JsonProperty("encryption_key_sid") final String encryptionKeySid,
+        @JsonProperty("encryption_enabled") final Boolean encryptionEnabled,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.friendlyName = friendlyName;
@@ -130,34 +117,41 @@ public class RecordingSettings extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getAwsCredentialsSid() {
-            return this.awsCredentialsSid;
-        }
-        public final URI getAwsS3Url() {
-            return this.awsS3Url;
-        }
-        public final Boolean getAwsStorageEnabled() {
-            return this.awsStorageEnabled;
-        }
-        public final String getEncryptionKeySid() {
-            return this.encryptionKeySid;
-        }
-        public final Boolean getEncryptionEnabled() {
-            return this.encryptionEnabled;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getAwsCredentialsSid() {
+        return this.awsCredentialsSid;
+    }
+
+    public final URI getAwsS3Url() {
+        return this.awsS3Url;
+    }
+
+    public final Boolean getAwsStorageEnabled() {
+        return this.awsStorageEnabled;
+    }
+
+    public final String getEncryptionKeySid() {
+        return this.encryptionKeySid;
+    }
+
+    public final Boolean getEncryptionEnabled() {
+        return this.encryptionEnabled;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -167,13 +161,29 @@ public class RecordingSettings extends Resource {
 
         RecordingSettings other = (RecordingSettings) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(awsCredentialsSid, other.awsCredentialsSid) &&  Objects.equals(awsS3Url, other.awsS3Url) &&  Objects.equals(awsStorageEnabled, other.awsStorageEnabled) &&  Objects.equals(encryptionKeySid, other.encryptionKeySid) &&  Objects.equals(encryptionEnabled, other.encryptionEnabled) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(awsCredentialsSid, other.awsCredentialsSid) &&
+            Objects.equals(awsS3Url, other.awsS3Url) &&
+            Objects.equals(awsStorageEnabled, other.awsStorageEnabled) &&
+            Objects.equals(encryptionKeySid, other.encryptionKeySid) &&
+            Objects.equals(encryptionEnabled, other.encryptionEnabled) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, friendlyName, awsCredentialsSid, awsS3Url, awsStorageEnabled, encryptionKeySid, encryptionEnabled, url);
+        return Objects.hash(
+            accountSid,
+            friendlyName,
+            awsCredentialsSid,
+            awsS3Url,
+            awsStorageEnabled,
+            encryptionKeySid,
+            encryptionEnabled,
+            url
+        );
     }
-
 }
-

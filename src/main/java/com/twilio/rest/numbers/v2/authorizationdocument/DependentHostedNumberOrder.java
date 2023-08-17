@@ -24,41 +24,45 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
+import com.twilio.type.PhoneNumberCapabilities;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
-
-import com.twilio.type.PhoneNumberCapabilities;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DependentHostedNumberOrder extends Resource {
+
     private static final long serialVersionUID = 76724825729320L;
 
-    public static DependentHostedNumberOrderReader reader(final String pathSigningDocumentSid){
+    public static DependentHostedNumberOrderReader reader(
+        final String pathSigningDocumentSid
+    ) {
         return new DependentHostedNumberOrderReader(pathSigningDocumentSid);
     }
 
     /**
-    * Converts a JSON String into a DependentHostedNumberOrder object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return DependentHostedNumberOrder object represented by the provided JSON
-    */
-    public static DependentHostedNumberOrder fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a DependentHostedNumberOrder object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DependentHostedNumberOrder object represented by the provided JSON
+     */
+    public static DependentHostedNumberOrder fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, DependentHostedNumberOrder.class);
+            return objectMapper.readValue(
+                json,
+                DependentHostedNumberOrder.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -67,23 +71,30 @@ public class DependentHostedNumberOrder extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a DependentHostedNumberOrder object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return DependentHostedNumberOrder object represented by the provided JSON
-    */
-    public static DependentHostedNumberOrder fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a DependentHostedNumberOrder object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DependentHostedNumberOrder object represented by the provided JSON
+     */
+    public static DependentHostedNumberOrder fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, DependentHostedNumberOrder.class);
+            return objectMapper.readValue(
+                json,
+                DependentHostedNumberOrder.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         RECEIVED("received"),
         VERIFIED("verified"),
@@ -130,59 +141,34 @@ public class DependentHostedNumberOrder extends Resource {
 
     @JsonCreator
     private DependentHostedNumberOrder(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("bulk_hosting_request_sid")
-        final String bulkHostingRequestSid,
-
-        @JsonProperty("next_step")
-        final String nextStep,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("incoming_phone_number_sid")
-        final String incomingPhoneNumberSid,
-
-        @JsonProperty("address_sid")
-        final String addressSid,
-
-        @JsonProperty("signing_document_sid")
-        final String signingDocumentSid,
-
-        @JsonProperty("phone_number")
-        final com.twilio.type.PhoneNumber phoneNumber,
-
-        @JsonProperty("capabilities")
-        final PhoneNumberCapabilities capabilities,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("status")
-        final DependentHostedNumberOrder.Status status,
-
-        @JsonProperty("failure_reason")
-        final String failureReason,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("email")
-        final String email,
-
-        @JsonProperty("cc_emails")
-        final List<String> ccEmails,
-
-        @JsonProperty("contact_title")
-        final String contactTitle,
-
-        @JsonProperty("contact_phone_number")
-        final com.twilio.type.PhoneNumber contactPhoneNumber
+        @JsonProperty("sid") final String sid,
+        @JsonProperty(
+            "bulk_hosting_request_sid"
+        ) final String bulkHostingRequestSid,
+        @JsonProperty("next_step") final String nextStep,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "incoming_phone_number_sid"
+        ) final String incomingPhoneNumberSid,
+        @JsonProperty("address_sid") final String addressSid,
+        @JsonProperty("signing_document_sid") final String signingDocumentSid,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty(
+            "capabilities"
+        ) final PhoneNumberCapabilities capabilities,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("status") final DependentHostedNumberOrder.Status status,
+        @JsonProperty("failure_reason") final String failureReason,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("email") final String email,
+        @JsonProperty("cc_emails") final List<String> ccEmails,
+        @JsonProperty("contact_title") final String contactTitle,
+        @JsonProperty(
+            "contact_phone_number"
+        ) final com.twilio.type.PhoneNumber contactPhoneNumber
     ) {
         this.sid = sid;
         this.bulkHostingRequestSid = bulkHostingRequestSid;
@@ -204,64 +190,81 @@ public class DependentHostedNumberOrder extends Resource {
         this.contactPhoneNumber = contactPhoneNumber;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getBulkHostingRequestSid() {
-            return this.bulkHostingRequestSid;
-        }
-        public final String getNextStep() {
-            return this.nextStep;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getIncomingPhoneNumberSid() {
-            return this.incomingPhoneNumberSid;
-        }
-        public final String getAddressSid() {
-            return this.addressSid;
-        }
-        public final String getSigningDocumentSid() {
-            return this.signingDocumentSid;
-        }
-        public final com.twilio.type.PhoneNumber getPhoneNumber() {
-            return this.phoneNumber;
-        }
-        public final PhoneNumberCapabilities getCapabilities() {
-            return this.capabilities;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final DependentHostedNumberOrder.Status getStatus() {
-            return this.status;
-        }
-        public final String getFailureReason() {
-            return this.failureReason;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getEmail() {
-            return this.email;
-        }
-        public final List<String> getCcEmails() {
-            return this.ccEmails;
-        }
-        public final String getContactTitle() {
-            return this.contactTitle;
-        }
-        public final com.twilio.type.PhoneNumber getContactPhoneNumber() {
-            return this.contactPhoneNumber;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getBulkHostingRequestSid() {
+        return this.bulkHostingRequestSid;
+    }
+
+    public final String getNextStep() {
+        return this.nextStep;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getIncomingPhoneNumberSid() {
+        return this.incomingPhoneNumberSid;
+    }
+
+    public final String getAddressSid() {
+        return this.addressSid;
+    }
+
+    public final String getSigningDocumentSid() {
+        return this.signingDocumentSid;
+    }
+
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public final PhoneNumberCapabilities getCapabilities() {
+        return this.capabilities;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final DependentHostedNumberOrder.Status getStatus() {
+        return this.status;
+    }
+
+    public final String getFailureReason() {
+        return this.failureReason;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getEmail() {
+        return this.email;
+    }
+
+    public final List<String> getCcEmails() {
+        return this.ccEmails;
+    }
+
+    public final String getContactTitle() {
+        return this.contactTitle;
+    }
+
+    public final com.twilio.type.PhoneNumber getContactPhoneNumber() {
+        return this.contactPhoneNumber;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -271,13 +274,55 @@ public class DependentHostedNumberOrder extends Resource {
 
         DependentHostedNumberOrder other = (DependentHostedNumberOrder) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(bulkHostingRequestSid, other.bulkHostingRequestSid) &&  Objects.equals(nextStep, other.nextStep) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(incomingPhoneNumberSid, other.incomingPhoneNumberSid) &&  Objects.equals(addressSid, other.addressSid) &&  Objects.equals(signingDocumentSid, other.signingDocumentSid) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(capabilities, other.capabilities) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(status, other.status) &&  Objects.equals(failureReason, other.failureReason) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(email, other.email) &&  Objects.equals(ccEmails, other.ccEmails) &&  Objects.equals(contactTitle, other.contactTitle) &&  Objects.equals(contactPhoneNumber, other.contactPhoneNumber)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(
+                bulkHostingRequestSid,
+                other.bulkHostingRequestSid
+            ) &&
+            Objects.equals(nextStep, other.nextStep) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(
+                incomingPhoneNumberSid,
+                other.incomingPhoneNumberSid
+            ) &&
+            Objects.equals(addressSid, other.addressSid) &&
+            Objects.equals(signingDocumentSid, other.signingDocumentSid) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(failureReason, other.failureReason) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(ccEmails, other.ccEmails) &&
+            Objects.equals(contactTitle, other.contactTitle) &&
+            Objects.equals(contactPhoneNumber, other.contactPhoneNumber)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, bulkHostingRequestSid, nextStep, accountSid, incomingPhoneNumberSid, addressSid, signingDocumentSid, phoneNumber, capabilities, friendlyName, status, failureReason, dateCreated, dateUpdated, email, ccEmails, contactTitle, contactPhoneNumber);
+        return Objects.hash(
+            sid,
+            bulkHostingRequestSid,
+            nextStep,
+            accountSid,
+            incomingPhoneNumberSid,
+            addressSid,
+            signingDocumentSid,
+            phoneNumber,
+            capabilities,
+            friendlyName,
+            status,
+            failureReason,
+            dateCreated,
+            dateUpdated,
+            email,
+            ccEmails,
+            contactTitle,
+            contactPhoneNumber
+        );
     }
-
 }
-

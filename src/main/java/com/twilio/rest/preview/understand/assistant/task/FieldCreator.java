@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.understand.assistant.task;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,51 +25,67 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class FieldCreator extends Creator<Field> {
 
-
-
-public class FieldCreator extends Creator<Field>{
     private String pathAssistantSid;
     private String pathTaskSid;
     private String fieldType;
     private String uniqueName;
 
-    public FieldCreator(final String pathAssistantSid, final String pathTaskSid, final String fieldType, final String uniqueName) {
+    public FieldCreator(
+        final String pathAssistantSid,
+        final String pathTaskSid,
+        final String fieldType,
+        final String uniqueName
+    ) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
         this.fieldType = fieldType;
         this.uniqueName = uniqueName;
     }
 
-    public FieldCreator setFieldType(final String fieldType){
+    public FieldCreator setFieldType(final String fieldType) {
         this.fieldType = fieldType;
         return this;
     }
-    public FieldCreator setUniqueName(final String uniqueName){
+
+    public FieldCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
 
     @Override
-    public Field create(final TwilioRestClient client){
-        String path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields";
+    public Field create(final TwilioRestClient client) {
+        String path =
+            "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Fields";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
-        path = path.replace("{"+"FieldType"+"}", this.fieldType.toString());
-        path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
+        path = path.replace("{" + "FieldType" + "}", this.fieldType.toString());
+        path =
+            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Field creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Field creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -77,14 +94,13 @@ public class FieldCreator extends Creator<Field>{
 
         return Field.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (fieldType != null) {
             request.addPostParam("FieldType", fieldType);
-    
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
     }
 }

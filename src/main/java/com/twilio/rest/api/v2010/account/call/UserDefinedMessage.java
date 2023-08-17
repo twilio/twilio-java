@@ -23,39 +23,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UserDefinedMessage extends Resource {
+
     private static final long serialVersionUID = 278501461523415L;
 
-    public static UserDefinedMessageCreator creator(final String pathCallSid, final String content){
+    public static UserDefinedMessageCreator creator(
+        final String pathCallSid,
+        final String content
+    ) {
         return new UserDefinedMessageCreator(pathCallSid, content);
     }
-    public static UserDefinedMessageCreator creator(final String pathAccountSid, final String pathCallSid, final String content){
-        return new UserDefinedMessageCreator(pathAccountSid, pathCallSid, content);
+
+    public static UserDefinedMessageCreator creator(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String content
+    ) {
+        return new UserDefinedMessageCreator(
+            pathAccountSid,
+            pathCallSid,
+            content
+        );
     }
 
     /**
-    * Converts a JSON String into a UserDefinedMessage object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return UserDefinedMessage object represented by the provided JSON
-    */
-    public static UserDefinedMessage fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a UserDefinedMessage object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return UserDefinedMessage object represented by the provided JSON
+     */
+    public static UserDefinedMessage fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserDefinedMessage.class);
@@ -67,14 +78,17 @@ public class UserDefinedMessage extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a UserDefinedMessage object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return UserDefinedMessage object represented by the provided JSON
-    */
-    public static UserDefinedMessage fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a UserDefinedMessage object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return UserDefinedMessage object represented by the provided JSON
+     */
+    public static UserDefinedMessage fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UserDefinedMessage.class);
@@ -92,17 +106,10 @@ public class UserDefinedMessage extends Resource {
 
     @JsonCreator
     private UserDefinedMessage(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("call_sid")
-        final String callSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("date_created")
-        final String dateCreated
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") final String dateCreated
     ) {
         this.accountSid = accountSid;
         this.callSid = callSid;
@@ -110,22 +117,25 @@ public class UserDefinedMessage extends Resource {
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getCallSid() {
-            return this.callSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getCallSid() {
+        return this.callSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -135,13 +145,16 @@ public class UserDefinedMessage extends Resource {
 
         UserDefinedMessage other = (UserDefinedMessage) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(dateCreated, other.dateCreated)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(dateCreated, other.dateCreated)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, callSid, sid, dateCreated);
     }
-
 }
-

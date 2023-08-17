@@ -15,6 +15,7 @@
 package com.twilio.rest.preview.deployedDevices.fleet;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,63 +25,71 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class DeploymentUpdater extends Updater<Deployment> {
 
-
-
-public class DeploymentUpdater extends Updater<Deployment>{
     private String pathFleetSid;
     private String pathSid;
     private String friendlyName;
     private String syncServiceSid;
 
-    public DeploymentUpdater(final String pathFleetSid, final String pathSid){
+    public DeploymentUpdater(final String pathFleetSid, final String pathSid) {
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
     }
 
-    public DeploymentUpdater setFriendlyName(final String friendlyName){
+    public DeploymentUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public DeploymentUpdater setSyncServiceSid(final String syncServiceSid){
+
+    public DeploymentUpdater setSyncServiceSid(final String syncServiceSid) {
         this.syncServiceSid = syncServiceSid;
         return this;
     }
 
     @Override
-    public Deployment update(final TwilioRestClient client){
+    public Deployment update(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Deployments/{Sid}";
 
-        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Deployment update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Deployment update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Deployment.fromJson(response.getStream(), client.getObjectMapper());
+        return Deployment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (syncServiceSid != null) {
             request.addPostParam("SyncServiceSid", syncServiceSid);
-    
         }
     }
 }

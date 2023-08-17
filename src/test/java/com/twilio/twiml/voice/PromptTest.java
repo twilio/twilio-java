@@ -69,7 +69,7 @@ public class PromptTest {
     public void testElementWithChildren() {
         Prompt.Builder builder = new Prompt.Builder();
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build());
 
         builder.play(new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build());
 
@@ -80,7 +80,7 @@ public class PromptTest {
         Assert.assertEquals(
             "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<Prompt>" +
-                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
                 "<Pause length=\"1\"/>" +
             "</Prompt>",
@@ -186,7 +186,7 @@ public class PromptTest {
     public void testXmlChildrenDeserialization() {
         final Prompt.Builder builder = new Prompt.Builder();
 
-        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.ARB).build());
+        builder.say(new Say.Builder("message").voice(Say.Voice.MAN).loop(1).language(Say.Language.AF_ZA).build());
 
         builder.play(new Play.Builder(URI.create("https://example.com")).loop(1).digits("digits").build());
 
@@ -196,7 +196,7 @@ public class PromptTest {
 
         Assert.assertEquals(
             Prompt.Builder.fromXml("<Prompt>" +
-                "<Say language=\"arb\" loop=\"1\" voice=\"man\">message</Say>" +
+                "<Say language=\"af-ZA\" loop=\"1\" voice=\"man\">message</Say>" +
                 "<Play digits=\"digits\" loop=\"1\">https://example.com</Play>" +
                 "<Pause length=\"1\"/>" +
             "</Prompt>").build().toXml(),

@@ -22,42 +22,45 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
-
-import java.util.Map;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Configuration extends Resource {
+
     private static final long serialVersionUID = 35465460450497L;
 
-    public static ConfigurationFetcher fetcher(final String pathChatServiceSid){
+    public static ConfigurationFetcher fetcher(
+        final String pathChatServiceSid
+    ) {
         return new ConfigurationFetcher(pathChatServiceSid);
     }
 
-    public static ConfigurationUpdater updater(final String pathChatServiceSid){
+    public static ConfigurationUpdater updater(
+        final String pathChatServiceSid
+    ) {
         return new ConfigurationUpdater(pathChatServiceSid);
     }
 
     /**
-    * Converts a JSON String into a Configuration object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Configuration object represented by the provided JSON
-    */
-    public static Configuration fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Configuration object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Configuration object represented by the provided JSON
+     */
+    public static Configuration fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Configuration.class);
@@ -69,14 +72,17 @@ public class Configuration extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Configuration object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Configuration object represented by the provided JSON
-    */
-    public static Configuration fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Configuration object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Configuration object represented by the provided JSON
+     */
+    public static Configuration fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Configuration.class);
@@ -97,29 +103,23 @@ public class Configuration extends Resource {
 
     @JsonCreator
     private Configuration(
-        @JsonProperty("chat_service_sid")
-        final String chatServiceSid,
-
-        @JsonProperty("default_conversation_creator_role_sid")
-        final String defaultConversationCreatorRoleSid,
-
-        @JsonProperty("default_conversation_role_sid")
-        final String defaultConversationRoleSid,
-
-        @JsonProperty("default_chat_service_role_sid")
-        final String defaultChatServiceRoleSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links,
-
-        @JsonProperty("reachability_enabled")
-        final Boolean reachabilityEnabled
+        @JsonProperty("chat_service_sid") final String chatServiceSid,
+        @JsonProperty(
+            "default_conversation_creator_role_sid"
+        ) final String defaultConversationCreatorRoleSid,
+        @JsonProperty(
+            "default_conversation_role_sid"
+        ) final String defaultConversationRoleSid,
+        @JsonProperty(
+            "default_chat_service_role_sid"
+        ) final String defaultChatServiceRoleSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("reachability_enabled") final Boolean reachabilityEnabled
     ) {
         this.chatServiceSid = chatServiceSid;
-        this.defaultConversationCreatorRoleSid = defaultConversationCreatorRoleSid;
+        this.defaultConversationCreatorRoleSid =
+            defaultConversationCreatorRoleSid;
         this.defaultConversationRoleSid = defaultConversationRoleSid;
         this.defaultChatServiceRoleSid = defaultChatServiceRoleSid;
         this.url = url;
@@ -127,31 +127,37 @@ public class Configuration extends Resource {
         this.reachabilityEnabled = reachabilityEnabled;
     }
 
-        public final String getChatServiceSid() {
-            return this.chatServiceSid;
-        }
-        public final String getDefaultConversationCreatorRoleSid() {
-            return this.defaultConversationCreatorRoleSid;
-        }
-        public final String getDefaultConversationRoleSid() {
-            return this.defaultConversationRoleSid;
-        }
-        public final String getDefaultChatServiceRoleSid() {
-            return this.defaultChatServiceRoleSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
-        public final Boolean getReachabilityEnabled() {
-            return this.reachabilityEnabled;
-        }
+    public final String getChatServiceSid() {
+        return this.chatServiceSid;
+    }
+
+    public final String getDefaultConversationCreatorRoleSid() {
+        return this.defaultConversationCreatorRoleSid;
+    }
+
+    public final String getDefaultConversationRoleSid() {
+        return this.defaultConversationRoleSid;
+    }
+
+    public final String getDefaultChatServiceRoleSid() {
+        return this.defaultChatServiceRoleSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    public final Boolean getReachabilityEnabled() {
+        return this.reachabilityEnabled;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -161,13 +167,36 @@ public class Configuration extends Resource {
 
         Configuration other = (Configuration) o;
 
-        return Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(defaultConversationCreatorRoleSid, other.defaultConversationCreatorRoleSid) &&  Objects.equals(defaultConversationRoleSid, other.defaultConversationRoleSid) &&  Objects.equals(defaultChatServiceRoleSid, other.defaultChatServiceRoleSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links) &&  Objects.equals(reachabilityEnabled, other.reachabilityEnabled)  ;
+        return (
+            Objects.equals(chatServiceSid, other.chatServiceSid) &&
+            Objects.equals(
+                defaultConversationCreatorRoleSid,
+                other.defaultConversationCreatorRoleSid
+            ) &&
+            Objects.equals(
+                defaultConversationRoleSid,
+                other.defaultConversationRoleSid
+            ) &&
+            Objects.equals(
+                defaultChatServiceRoleSid,
+                other.defaultChatServiceRoleSid
+            ) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(reachabilityEnabled, other.reachabilityEnabled)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(chatServiceSid, defaultConversationCreatorRoleSid, defaultConversationRoleSid, defaultChatServiceRoleSid, url, links, reachabilityEnabled);
+        return Objects.hash(
+            chatServiceSid,
+            defaultConversationCreatorRoleSid,
+            defaultConversationRoleSid,
+            defaultChatServiceRoleSid,
+            url,
+            links,
+            reachabilityEnabled
+        );
     }
-
 }
-

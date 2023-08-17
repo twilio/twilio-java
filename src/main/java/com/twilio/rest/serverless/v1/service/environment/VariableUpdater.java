@@ -15,6 +15,7 @@
 package com.twilio.rest.serverless.v1.service.environment;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,66 +25,86 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class VariableUpdater extends Updater<Variable> {
 
-
-
-public class VariableUpdater extends Updater<Variable>{
     private String pathServiceSid;
     private String pathEnvironmentSid;
     private String pathSid;
     private String key;
     private String value;
 
-    public VariableUpdater(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
+    public VariableUpdater(
+        final String pathServiceSid,
+        final String pathEnvironmentSid,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
         this.pathSid = pathSid;
     }
 
-    public VariableUpdater setKey(final String key){
+    public VariableUpdater setKey(final String key) {
         this.key = key;
         return this;
     }
-    public VariableUpdater setValue(final String value){
+
+    public VariableUpdater setValue(final String value) {
         this.value = value;
         return this;
     }
 
     @Override
-    public Variable update(final TwilioRestClient client){
-        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
+    public Variable update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Variables/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "EnvironmentSid" + "}",
+                this.pathEnvironmentSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.SERVERLESS.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Variable update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Variable update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Variable.fromJson(response.getStream(), client.getObjectMapper());
+        return Variable.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (key != null) {
             request.addPostParam("Key", key);
-    
         }
         if (value != null) {
             request.addPostParam("Value", value);
-    
         }
     }
 }

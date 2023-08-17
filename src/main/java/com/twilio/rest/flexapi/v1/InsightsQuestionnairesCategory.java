@@ -22,51 +22,60 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsQuestionnairesCategory extends Resource {
+
     private static final long serialVersionUID = 80122837059940L;
 
-    public static InsightsQuestionnairesCategoryCreator creator(final String name){
+    public static InsightsQuestionnairesCategoryCreator creator(
+        final String name
+    ) {
         return new InsightsQuestionnairesCategoryCreator(name);
     }
 
-    public static InsightsQuestionnairesCategoryDeleter deleter(final String pathCategorySid){
+    public static InsightsQuestionnairesCategoryDeleter deleter(
+        final String pathCategorySid
+    ) {
         return new InsightsQuestionnairesCategoryDeleter(pathCategorySid);
     }
 
-    public static InsightsQuestionnairesCategoryReader reader(){
+    public static InsightsQuestionnairesCategoryReader reader() {
         return new InsightsQuestionnairesCategoryReader();
     }
 
-    public static InsightsQuestionnairesCategoryUpdater updater(final String pathCategorySid, final String name){
+    public static InsightsQuestionnairesCategoryUpdater updater(
+        final String pathCategorySid,
+        final String name
+    ) {
         return new InsightsQuestionnairesCategoryUpdater(pathCategorySid, name);
     }
 
     /**
-    * Converts a JSON String into a InsightsQuestionnairesCategory object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return InsightsQuestionnairesCategory object represented by the provided JSON
-    */
-    public static InsightsQuestionnairesCategory fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a InsightsQuestionnairesCategory object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return InsightsQuestionnairesCategory object represented by the provided JSON
+     */
+    public static InsightsQuestionnairesCategory fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsQuestionnairesCategory.class);
+            return objectMapper.readValue(
+                json,
+                InsightsQuestionnairesCategory.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -75,17 +84,23 @@ public class InsightsQuestionnairesCategory extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a InsightsQuestionnairesCategory object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return InsightsQuestionnairesCategory object represented by the provided JSON
-    */
-    public static InsightsQuestionnairesCategory fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a InsightsQuestionnairesCategory object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return InsightsQuestionnairesCategory object represented by the provided JSON
+     */
+    public static InsightsQuestionnairesCategory fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsQuestionnairesCategory.class);
+            return objectMapper.readValue(
+                json,
+                InsightsQuestionnairesCategory.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -100,17 +115,10 @@ public class InsightsQuestionnairesCategory extends Resource {
 
     @JsonCreator
     private InsightsQuestionnairesCategory(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("category_sid")
-        final String categorySid,
-
-        @JsonProperty("name")
-        final String name,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("category_sid") final String categorySid,
+        @JsonProperty("name") final String name,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.categorySid = categorySid;
@@ -118,22 +126,25 @@ public class InsightsQuestionnairesCategory extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getCategorySid() {
-            return this.categorySid;
-        }
-        public final String getName() {
-            return this.name;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getCategorySid() {
+        return this.categorySid;
+    }
+
+    public final String getName() {
+        return this.name;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -141,15 +152,19 @@ public class InsightsQuestionnairesCategory extends Resource {
             return false;
         }
 
-        InsightsQuestionnairesCategory other = (InsightsQuestionnairesCategory) o;
+        InsightsQuestionnairesCategory other =
+            (InsightsQuestionnairesCategory) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(categorySid, other.categorySid) &&  Objects.equals(name, other.name) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(categorySid, other.categorySid) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, categorySid, name, url);
     }
-
 }
-

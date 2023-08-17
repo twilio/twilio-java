@@ -24,41 +24,40 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BundleCopy extends Resource {
+
     private static final long serialVersionUID = 169816383944206L;
 
-    public static BundleCopyCreator creator(final String pathBundleSid){
+    public static BundleCopyCreator creator(final String pathBundleSid) {
         return new BundleCopyCreator(pathBundleSid);
     }
 
-    public static BundleCopyReader reader(final String pathBundleSid){
+    public static BundleCopyReader reader(final String pathBundleSid) {
         return new BundleCopyReader(pathBundleSid);
     }
 
     /**
-    * Converts a JSON String into a BundleCopy object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return BundleCopy object represented by the provided JSON
-    */
-    public static BundleCopy fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a BundleCopy object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return BundleCopy object represented by the provided JSON
+     */
+    public static BundleCopy fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BundleCopy.class);
@@ -70,14 +69,17 @@ public class BundleCopy extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a BundleCopy object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return BundleCopy object represented by the provided JSON
-    */
-    public static BundleCopy fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a BundleCopy object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return BundleCopy object represented by the provided JSON
+     */
+    public static BundleCopy fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BundleCopy.class);
@@ -87,6 +89,7 @@ public class BundleCopy extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
@@ -124,35 +127,16 @@ public class BundleCopy extends Resource {
 
     @JsonCreator
     private BundleCopy(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("regulation_sid")
-        final String regulationSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("status")
-        final BundleCopy.Status status,
-
-        @JsonProperty("valid_until")
-        final String validUntil,
-
-        @JsonProperty("email")
-        final String email,
-
-        @JsonProperty("status_callback")
-        final URI statusCallback,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("regulation_sid") final String regulationSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("status") final BundleCopy.Status status,
+        @JsonProperty("valid_until") final String validUntil,
+        @JsonProperty("email") final String email,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -166,40 +150,49 @@ public class BundleCopy extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getRegulationSid() {
-            return this.regulationSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final BundleCopy.Status getStatus() {
-            return this.status;
-        }
-        public final ZonedDateTime getValidUntil() {
-            return this.validUntil;
-        }
-        public final String getEmail() {
-            return this.email;
-        }
-        public final URI getStatusCallback() {
-            return this.statusCallback;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getRegulationSid() {
+        return this.regulationSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final BundleCopy.Status getStatus() {
+        return this.status;
+    }
+
+    public final ZonedDateTime getValidUntil() {
+        return this.validUntil;
+    }
+
+    public final String getEmail() {
+        return this.email;
+    }
+
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -209,13 +202,33 @@ public class BundleCopy extends Resource {
 
         BundleCopy other = (BundleCopy) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(regulationSid, other.regulationSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(status, other.status) &&  Objects.equals(validUntil, other.validUntil) &&  Objects.equals(email, other.email) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(regulationSid, other.regulationSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(validUntil, other.validUntil) &&
+            Objects.equals(email, other.email) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, regulationSid, friendlyName, status, validUntil, email, statusCallback, dateCreated, dateUpdated);
+        return Objects.hash(
+            sid,
+            accountSid,
+            regulationSid,
+            friendlyName,
+            status,
+            validUntil,
+            email,
+            statusCallback,
+            dateCreated,
+            dateUpdated
+        );
     }
-
 }
-

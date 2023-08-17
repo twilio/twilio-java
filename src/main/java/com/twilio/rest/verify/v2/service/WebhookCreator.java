@@ -15,6 +15,7 @@
 package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
@@ -25,12 +26,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
-
 import java.util.List;
 
+public class WebhookCreator extends Creator<Webhook> {
 
-
-public class WebhookCreator extends Creator<Webhook>{
     private String pathServiceSid;
     private String friendlyName;
     private List<String> eventTypes;
@@ -38,57 +37,83 @@ public class WebhookCreator extends Creator<Webhook>{
     private Webhook.Status status;
     private Webhook.Version version;
 
-    public WebhookCreator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl) {
+    public WebhookCreator(
+        final String pathServiceSid,
+        final String friendlyName,
+        final List<String> eventTypes,
+        final String webhookUrl
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.eventTypes = eventTypes;
         this.webhookUrl = webhookUrl;
     }
 
-    public WebhookCreator setFriendlyName(final String friendlyName){
+    public WebhookCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public WebhookCreator setEventTypes(final List<String> eventTypes){
+
+    public WebhookCreator setEventTypes(final List<String> eventTypes) {
         this.eventTypes = eventTypes;
         return this;
     }
-    public WebhookCreator setEventTypes(final String eventTypes){
+
+    public WebhookCreator setEventTypes(final String eventTypes) {
         return setEventTypes(Promoter.listOfOne(eventTypes));
     }
-    public WebhookCreator setWebhookUrl(final String webhookUrl){
+
+    public WebhookCreator setWebhookUrl(final String webhookUrl) {
         this.webhookUrl = webhookUrl;
         return this;
     }
-    public WebhookCreator setStatus(final Webhook.Status status){
+
+    public WebhookCreator setStatus(final Webhook.Status status) {
         this.status = status;
         return this;
     }
-    public WebhookCreator setVersion(final Webhook.Version version){
+
+    public WebhookCreator setVersion(final Webhook.Version version) {
         this.version = version;
         return this;
     }
 
     @Override
-    public Webhook create(final TwilioRestClient client){
+    public Webhook create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Webhooks";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
-        path = path.replace("{"+"EventTypes"+"}", this.eventTypes.toString());
-        path = path.replace("{"+"WebhookUrl"+"}", this.webhookUrl.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FriendlyName" + "}",
+                this.friendlyName.toString()
+            );
+        path =
+            path.replace("{" + "EventTypes" + "}", this.eventTypes.toString());
+        path =
+            path.replace("{" + "WebhookUrl" + "}", this.webhookUrl.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.VERIFY.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Webhook creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Webhook creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -97,28 +122,24 @@ public class WebhookCreator extends Creator<Webhook>{
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (eventTypes != null) {
             for (String prop : eventTypes) {
                 request.addPostParam("EventTypes", prop);
             }
-    
         }
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl);
-    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (version != null) {
             request.addPostParam("Version", version.toString());
-    
         }
     }
 }

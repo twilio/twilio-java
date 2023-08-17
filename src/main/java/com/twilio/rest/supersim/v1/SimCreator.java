@@ -15,6 +15,7 @@
 package com.twilio.rest.supersim.v1;
 
 import com.twilio.base.Creator;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SimCreator extends Creator<Sim> {
 
-
-
-public class SimCreator extends Creator<Sim>{
     private String iccid;
     private String registrationCode;
 
@@ -36,33 +35,44 @@ public class SimCreator extends Creator<Sim>{
         this.registrationCode = registrationCode;
     }
 
-    public SimCreator setIccid(final String iccid){
+    public SimCreator setIccid(final String iccid) {
         this.iccid = iccid;
         return this;
     }
-    public SimCreator setRegistrationCode(final String registrationCode){
+
+    public SimCreator setRegistrationCode(final String registrationCode) {
         this.registrationCode = registrationCode;
         return this;
     }
 
     @Override
-    public Sim create(final TwilioRestClient client){
+    public Sim create(final TwilioRestClient client) {
         String path = "/v1/Sims";
 
-        path = path.replace("{"+"Iccid"+"}", this.iccid.toString());
-        path = path.replace("{"+"RegistrationCode"+"}", this.registrationCode.toString());
+        path = path.replace("{" + "Iccid" + "}", this.iccid.toString());
+        path =
+            path.replace(
+                "{" + "RegistrationCode" + "}",
+                this.registrationCode.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.SUPERSIM.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Sim creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sim creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
@@ -71,14 +81,13 @@ public class SimCreator extends Creator<Sim>{
 
         return Sim.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (iccid != null) {
             request.addPostParam("Iccid", iccid);
-    
         }
         if (registrationCode != null) {
             request.addPostParam("RegistrationCode", registrationCode);
-    
         }
     }
 }

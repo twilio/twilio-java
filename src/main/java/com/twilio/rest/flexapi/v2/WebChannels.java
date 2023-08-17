@@ -22,35 +22,34 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WebChannels extends Resource {
+
     private static final long serialVersionUID = 110421660015552L;
 
-    public static WebChannelsCreator creator(final String addressSid){
+    public static WebChannelsCreator creator(final String addressSid) {
         return new WebChannelsCreator(addressSid);
     }
 
     /**
-    * Converts a JSON String into a WebChannels object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return WebChannels object represented by the provided JSON
-    */
-    public static WebChannels fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a WebChannels object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return WebChannels object represented by the provided JSON
+     */
+    public static WebChannels fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WebChannels.class);
@@ -62,14 +61,17 @@ public class WebChannels extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a WebChannels object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return WebChannels object represented by the provided JSON
-    */
-    public static WebChannels fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a WebChannels object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return WebChannels object represented by the provided JSON
+     */
+    public static WebChannels fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WebChannels.class);
@@ -85,26 +87,24 @@ public class WebChannels extends Resource {
 
     @JsonCreator
     private WebChannels(
-        @JsonProperty("conversation_sid")
-        final String conversationSid,
-
-        @JsonProperty("identity")
-        final String identity
+        @JsonProperty("conversation_sid") final String conversationSid,
+        @JsonProperty("identity") final String identity
     ) {
         this.conversationSid = conversationSid;
         this.identity = identity;
     }
 
-        public final String getConversationSid() {
-            return this.conversationSid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
+    public final String getConversationSid() {
+        return this.conversationSid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -114,13 +114,14 @@ public class WebChannels extends Resource {
 
         WebChannels other = (WebChannels) o;
 
-        return Objects.equals(conversationSid, other.conversationSid) &&  Objects.equals(identity, other.identity)  ;
+        return (
+            Objects.equals(conversationSid, other.conversationSid) &&
+            Objects.equals(identity, other.identity)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(conversationSid, identity);
     }
-
 }
-

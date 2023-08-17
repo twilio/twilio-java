@@ -15,6 +15,7 @@
 package com.twilio.rest.flexapi.v1;
 
 import com.twilio.base.Updater;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -23,89 +24,108 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.math.BigDecimal;
 
+public class AssessmentsUpdater extends Updater<Assessments> {
 
-
-public class AssessmentsUpdater extends Updater<Assessments>{
     private String pathAssessmentSid;
     private BigDecimal offset;
     private String answerText;
     private String answerId;
     private String authorization;
 
-    public AssessmentsUpdater(final String pathAssessmentSid, final BigDecimal offset, final String answerText, final String answerId){
+    public AssessmentsUpdater(
+        final String pathAssessmentSid,
+        final BigDecimal offset,
+        final String answerText,
+        final String answerId
+    ) {
         this.pathAssessmentSid = pathAssessmentSid;
         this.offset = offset;
         this.answerText = answerText;
         this.answerId = answerId;
     }
 
-    public AssessmentsUpdater setOffset(final BigDecimal offset){
+    public AssessmentsUpdater setOffset(final BigDecimal offset) {
         this.offset = offset;
         return this;
     }
-    public AssessmentsUpdater setAnswerText(final String answerText){
+
+    public AssessmentsUpdater setAnswerText(final String answerText) {
         this.answerText = answerText;
         return this;
     }
-    public AssessmentsUpdater setAnswerId(final String answerId){
+
+    public AssessmentsUpdater setAnswerId(final String answerId) {
         this.answerId = answerId;
         return this;
     }
-    public AssessmentsUpdater setAuthorization(final String authorization){
+
+    public AssessmentsUpdater setAuthorization(final String authorization) {
         this.authorization = authorization;
         return this;
     }
 
     @Override
-    public Assessments update(final TwilioRestClient client){
-        String path = "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
+    public Assessments update(final TwilioRestClient client) {
+        String path =
+            "/v1/Insights/QualityManagement/Assessments/{AssessmentSid}";
 
-        path = path.replace("{"+"AssessmentSid"+"}", this.pathAssessmentSid.toString());
-        path = path.replace("{"+"Offset"+"}", this.offset.toString());
-        path = path.replace("{"+"AnswerText"+"}", this.answerText.toString());
-        path = path.replace("{"+"AnswerId"+"}", this.answerId.toString());
+        path =
+            path.replace(
+                "{" + "AssessmentSid" + "}",
+                this.pathAssessmentSid.toString()
+            );
+        path = path.replace("{" + "Offset" + "}", this.offset.toString());
+        path =
+            path.replace("{" + "AnswerText" + "}", this.answerText.toString());
+        path = path.replace("{" + "AnswerId" + "}", this.answerId.toString());
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.FLEXAPI.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Assessments update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Assessments update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return Assessments.fromJson(response.getStream(), client.getObjectMapper());
+        return Assessments.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (offset != null) {
             request.addPostParam("Offset", offset.toString());
-    
         }
         if (answerText != null) {
             request.addPostParam("AnswerText", answerText);
-    
         }
         if (answerId != null) {
             request.addPostParam("AnswerId", answerId);
-    
         }
     }
+
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
             request.addHeaderParam("Authorization", authorization);
-
         }
     }
 }

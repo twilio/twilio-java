@@ -23,53 +23,66 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeviceSecret extends Resource {
+
     private static final long serialVersionUID = 4318157927104L;
 
-    public static DeviceSecretCreator creator(final String pathDeviceSid, final String key, final String value){
+    public static DeviceSecretCreator creator(
+        final String pathDeviceSid,
+        final String key,
+        final String value
+    ) {
         return new DeviceSecretCreator(pathDeviceSid, key, value);
     }
 
-    public static DeviceSecretDeleter deleter(final String pathDeviceSid, final String pathKey){
+    public static DeviceSecretDeleter deleter(
+        final String pathDeviceSid,
+        final String pathKey
+    ) {
         return new DeviceSecretDeleter(pathDeviceSid, pathKey);
     }
 
-    public static DeviceSecretFetcher fetcher(final String pathDeviceSid, final String pathKey){
+    public static DeviceSecretFetcher fetcher(
+        final String pathDeviceSid,
+        final String pathKey
+    ) {
         return new DeviceSecretFetcher(pathDeviceSid, pathKey);
     }
 
-    public static DeviceSecretReader reader(final String pathDeviceSid){
+    public static DeviceSecretReader reader(final String pathDeviceSid) {
         return new DeviceSecretReader(pathDeviceSid);
     }
 
-    public static DeviceSecretUpdater updater(final String pathDeviceSid, final String pathKey, final String value){
+    public static DeviceSecretUpdater updater(
+        final String pathDeviceSid,
+        final String pathKey,
+        final String value
+    ) {
         return new DeviceSecretUpdater(pathDeviceSid, pathKey, value);
     }
 
     /**
-    * Converts a JSON String into a DeviceSecret object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return DeviceSecret object represented by the provided JSON
-    */
-    public static DeviceSecret fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a DeviceSecret object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DeviceSecret object represented by the provided JSON
+     */
+    public static DeviceSecret fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeviceSecret.class);
@@ -81,14 +94,17 @@ public class DeviceSecret extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a DeviceSecret object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return DeviceSecret object represented by the provided JSON
-    */
-    public static DeviceSecret fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a DeviceSecret object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DeviceSecret object represented by the provided JSON
+     */
+    public static DeviceSecret fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeviceSecret.class);
@@ -106,17 +122,10 @@ public class DeviceSecret extends Resource {
 
     @JsonCreator
     private DeviceSecret(
-        @JsonProperty("device_sid")
-        final String deviceSid,
-
-        @JsonProperty("key")
-        final String key,
-
-        @JsonProperty("date_rotated")
-        final String dateRotated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("device_sid") final String deviceSid,
+        @JsonProperty("key") final String key,
+        @JsonProperty("date_rotated") final String dateRotated,
+        @JsonProperty("url") final URI url
     ) {
         this.deviceSid = deviceSid;
         this.key = key;
@@ -124,22 +133,25 @@ public class DeviceSecret extends Resource {
         this.url = url;
     }
 
-        public final String getDeviceSid() {
-            return this.deviceSid;
-        }
-        public final String getKey() {
-            return this.key;
-        }
-        public final ZonedDateTime getDateRotated() {
-            return this.dateRotated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getDeviceSid() {
+        return this.deviceSid;
+    }
+
+    public final String getKey() {
+        return this.key;
+    }
+
+    public final ZonedDateTime getDateRotated() {
+        return this.dateRotated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -149,13 +161,16 @@ public class DeviceSecret extends Resource {
 
         DeviceSecret other = (DeviceSecret) o;
 
-        return Objects.equals(deviceSid, other.deviceSid) &&  Objects.equals(key, other.key) &&  Objects.equals(dateRotated, other.dateRotated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(deviceSid, other.deviceSid) &&
+            Objects.equals(key, other.key) &&
+            Objects.equals(dateRotated, other.dateRotated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(deviceSid, key, dateRotated, url);
     }
-
 }
-

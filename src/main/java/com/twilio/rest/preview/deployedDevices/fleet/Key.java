@@ -23,53 +23,61 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
-
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Key extends Resource {
+
     private static final long serialVersionUID = 158435998679490L;
 
-    public static KeyCreator creator(final String pathFleetSid){
+    public static KeyCreator creator(final String pathFleetSid) {
         return new KeyCreator(pathFleetSid);
     }
 
-    public static KeyDeleter deleter(final String pathFleetSid, final String pathSid){
+    public static KeyDeleter deleter(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new KeyDeleter(pathFleetSid, pathSid);
     }
 
-    public static KeyFetcher fetcher(final String pathFleetSid, final String pathSid){
+    public static KeyFetcher fetcher(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new KeyFetcher(pathFleetSid, pathSid);
     }
 
-    public static KeyReader reader(final String pathFleetSid){
+    public static KeyReader reader(final String pathFleetSid) {
         return new KeyReader(pathFleetSid);
     }
 
-    public static KeyUpdater updater(final String pathFleetSid, final String pathSid){
+    public static KeyUpdater updater(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new KeyUpdater(pathFleetSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Key object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Key object represented by the provided JSON
-    */
-    public static Key fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Key object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Key object represented by the provided JSON
+     */
+    public static Key fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Key.class);
@@ -81,14 +89,17 @@ public class Key extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Key object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Key object represented by the provided JSON
-    */
-    public static Key fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Key object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Key object represented by the provided JSON
+     */
+    public static Key fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Key.class);
@@ -111,32 +122,15 @@ public class Key extends Resource {
 
     @JsonCreator
     private Key(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("fleet_sid")
-        final String fleetSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("device_sid")
-        final String deviceSid,
-
-        @JsonProperty("secret")
-        final String secret,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("fleet_sid") final String fleetSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("device_sid") final String deviceSid,
+        @JsonProperty("secret") final String secret,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.sid = sid;
         this.url = url;
@@ -149,37 +143,45 @@ public class Key extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getFleetSid() {
-            return this.fleetSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getDeviceSid() {
-            return this.deviceSid;
-        }
-        public final String getSecret() {
-            return this.secret;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getFleetSid() {
+        return this.fleetSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getDeviceSid() {
+        return this.deviceSid;
+    }
+
+    public final String getSecret() {
+        return this.secret;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -189,13 +191,31 @@ public class Key extends Resource {
 
         Key other = (Key) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(url, other.url) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(fleetSid, other.fleetSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(deviceSid, other.deviceSid) &&  Objects.equals(secret, other.secret) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(fleetSid, other.fleetSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(deviceSid, other.deviceSid) &&
+            Objects.equals(secret, other.secret) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, url, friendlyName, fleetSid, accountSid, deviceSid, secret, dateCreated, dateUpdated);
+        return Objects.hash(
+            sid,
+            url,
+            friendlyName,
+            fleetSid,
+            accountSid,
+            deviceSid,
+            secret,
+            dateCreated,
+            dateUpdated
+        );
     }
-
 }
-

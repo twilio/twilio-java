@@ -15,8 +15,9 @@
 package com.twilio.rest.preview.understand.assistant;
 
 import com.twilio.base.Updater;
-import com.twilio.exception.ApiConnectionException;
+import com.twilio.constant.EnumConstants;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -24,53 +25,66 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class StyleSheetUpdater extends Updater<StyleSheet> {
 
-public class StyleSheetUpdater extends Updater<StyleSheet>{
     private String pathAssistantSid;
     private Map<String, Object> styleSheet;
 
-    public StyleSheetUpdater(final String pathAssistantSid){
+    public StyleSheetUpdater(final String pathAssistantSid) {
         this.pathAssistantSid = pathAssistantSid;
     }
 
-    public StyleSheetUpdater setStyleSheet(final Map<String, Object> styleSheet){
+    public StyleSheetUpdater setStyleSheet(
+        final Map<String, Object> styleSheet
+    ) {
         this.styleSheet = styleSheet;
         return this;
     }
 
     @Override
-    public StyleSheet update(final TwilioRestClient client){
+    public StyleSheet update(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/StyleSheet";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
             Domains.PREVIEW.toString(),
             path
         );
+        request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("StyleSheet update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "StyleSheet update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
                 throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
 
-        return StyleSheet.fromJson(response.getStream(), client.getObjectMapper());
+        return StyleSheet.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (styleSheet != null) {
-            request.addPostParam("StyleSheet",  Converter.mapToJson(styleSheet));
-    
+            request.addPostParam("StyleSheet", Converter.mapToJson(styleSheet));
         }
     }
 }

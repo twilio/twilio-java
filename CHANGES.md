@@ -1,6 +1,29 @@
 twilio-java changelog
 =====================
 
+[2023-08-24] Version 9.11.0
+---------------------------
+**Library - Chore**
+- [PR #761](https://github.com/twilio/twilio-java/pull/761): update validation example. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Feature**
+- [PR #759](https://github.com/twilio/twilio-java/pull/759): add support for PS256, RS256 PKCV in validationClient. Thanks to [@kridai](https://github.com/kridai)!
+
+**Api**
+- Add new property `RiskCheck` for SMS pumping protection feature only (public beta to be available soon): Include this parameter with a value of `disable` to skip any kind of risk check on the respective message request
+
+**Flex**
+- Changing `sid<UO>` path param to `sid<UT>` in interaction channel participant update endpoint **(breaking change)**
+
+**Messaging**
+- Add Channel Sender api
+- Fixing country code docs and removing Zipwhip references
+
+**Numbers**
+- Request status changed in numbers/v2/BulkHostedNumberOrders **(breaking change)**
+- Add bulk hosting orders API under version `/v2
+
+
 [2023-08-10] Version 9.10.0
 ---------------------------
 **Insights**

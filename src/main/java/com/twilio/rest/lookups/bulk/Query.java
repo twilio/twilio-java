@@ -273,6 +273,12 @@ public class Query extends Resource {
         private Integer errorCode;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_name")
+        @Getter
+        @Setter
+        private String carrierName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mobile_country_code")
         @Getter
         @Setter
@@ -304,6 +310,12 @@ public class Query extends Resource {
         @Getter
         @Setter
         private Integer errorCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_name")
+        @Getter
+        @Setter
+        private String carrierName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mobile_country_code")
@@ -427,6 +439,12 @@ public class Query extends Resource {
         @Getter
         @Setter
         private Integer errorCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_name")
+        @Getter
+        @Setter
+        private String carrierName;
 
         @JsonInclude(JsonInclude.Include.NON_EMPTY)
         @JsonProperty("mobile_country_code")

@@ -269,6 +269,26 @@ public class Message extends Resource {
         }
     }
 
+    public enum RiskCheck {
+        ENABLE("enable"),
+        DISABLE("disable");
+
+        private final String value;
+
+        private RiskCheck(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RiskCheck forValue(final String value) {
+            return Promoter.enumFromString(value, RiskCheck.values());
+        }
+    }
+
     public enum ScheduleType {
         FIXED("fixed");
 

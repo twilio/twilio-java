@@ -27,7 +27,6 @@ public class ValidationExample {
      * @throws TwiMLException if unable to generate TwiML
      */
     public static void main(String[] args) throws Exception {
-        //Twilio.setRegion("dev");
         // Generate public/private key pair
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(2048);
@@ -37,7 +36,6 @@ public class ValidationExample {
         // Use the default rest client
         TwilioRestClient client =
             new TwilioRestClient.Builder(ACCOUNT_SID, AUTH_TOKEN)
-                    .region("dev")
                     .build();
 
         // Create a public key and signing key using the default client
@@ -50,7 +48,6 @@ public class ValidationExample {
         // Switch to validation client as the default client
         TwilioRestClient validationClient = new TwilioRestClient.Builder(signingKey.getSid(), signingKey.getSecret())
                 .accountSid(ACCOUNT_SID)
-                .region("dev")
                 // Validation client supports RS256 or PS256 algorithm. Default is RS256.
                 .httpClient(new ValidationClient(ACCOUNT_SID, key.getSid(), signingKey.getSid(), pair.getPrivate(), SignatureAlgorithm.PS256))
                 .build();

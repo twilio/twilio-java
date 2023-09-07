@@ -179,9 +179,10 @@ public class Payload extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("reference_sid") final String referenceSid,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris
     ) {
         this.sid = sid;
         this.addOnResultSid = addOnResultSid;

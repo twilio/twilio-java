@@ -143,20 +143,22 @@ public class OperatorResult extends Resource {
         @JsonProperty("extract_match") final Boolean extractMatch,
         @JsonProperty("match_probability") final BigDecimal matchProbability,
         @JsonProperty("normalized_result") final String normalizedResult,
-        @JsonProperty(
-            "utterance_results"
-        ) final List<Map<String, Object>> utteranceResults,
+        @JsonProperty("utterance_results") final List<
+            Map<String, Object>
+        > utteranceResults,
         @JsonProperty("utterance_match") final Boolean utteranceMatch,
         @JsonProperty("predicted_label") final String predictedLabel,
         @JsonProperty(
             "predicted_probability"
         ) final BigDecimal predictedProbability,
-        @JsonProperty(
-            "label_probabilities"
-        ) final Map<String, Object> labelProbabilities,
-        @JsonProperty(
-            "extract_results"
-        ) final Map<String, Object> extractResults,
+        @JsonProperty("label_probabilities") final Map<
+            String,
+            Object
+        > labelProbabilities,
+        @JsonProperty("extract_results") final Map<
+            String,
+            Object
+        > extractResults,
         @JsonProperty("transcript_sid") final String transcriptSid,
         @JsonProperty("url") final URI url
     ) {

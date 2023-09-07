@@ -108,21 +108,23 @@ public class WorkspaceRealTimeStatistics extends Resource {
     @JsonCreator
     private WorkspaceRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "activity_statistics"
-        ) final List<Map<String, Object>> activityStatistics,
+        @JsonProperty("activity_statistics") final List<
+            Map<String, Object>
+        > activityStatistics,
         @JsonProperty(
             "longest_task_waiting_age"
         ) final Integer longestTaskWaitingAge,
         @JsonProperty(
             "longest_task_waiting_sid"
         ) final String longestTaskWaitingSid,
-        @JsonProperty(
-            "tasks_by_priority"
-        ) final Map<String, Object> tasksByPriority,
-        @JsonProperty(
-            "tasks_by_status"
-        ) final Map<String, Object> tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Map<
+            String,
+            Object
+        > tasksByPriority,
+        @JsonProperty("tasks_by_status") final Map<
+            String,
+            Object
+        > tasksByStatus,
         @JsonProperty("total_tasks") final Integer totalTasks,
         @JsonProperty("total_workers") final Integer totalWorkers,
         @JsonProperty("workspace_sid") final String workspaceSid,

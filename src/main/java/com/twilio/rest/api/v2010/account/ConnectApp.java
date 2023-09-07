@@ -169,9 +169,9 @@ public class ConnectApp extends Resource {
         @JsonProperty("description") final String description,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("homepage_url") final URI homepageUrl,
-        @JsonProperty(
-            "permissions"
-        ) final List<ConnectApp.Permission> permissions,
+        @JsonProperty("permissions") final List<
+            ConnectApp.Permission
+        > permissions,
         @JsonProperty("sid") final String sid,
         @JsonProperty("uri") final String uri
     ) {

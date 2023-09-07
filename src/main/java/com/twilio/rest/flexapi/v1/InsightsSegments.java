@@ -135,12 +135,14 @@ public class InsightsSegments extends Resource {
             "segment_recording_offset"
         ) final String segmentRecordingOffset,
         @JsonProperty("media") final Map<String, Object> media,
-        @JsonProperty(
-            "assessment_type"
-        ) final Map<String, Object> assessmentType,
-        @JsonProperty(
-            "assessment_percentage"
-        ) final Map<String, Object> assessmentPercentage,
+        @JsonProperty("assessment_type") final Map<
+            String,
+            Object
+        > assessmentType,
+        @JsonProperty("assessment_percentage") final Map<
+            String,
+            Object
+        > assessmentPercentage,
         @JsonProperty("url") final URI url
     ) {
         this.segmentId = segmentId;

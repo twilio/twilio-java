@@ -207,9 +207,10 @@ public class Conference extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Conference.Status status,
         @JsonProperty("uri") final String uri,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty(
             "reason_conference_ended"
         ) final Conference.ReasonConferenceEnded reasonConferenceEnded,

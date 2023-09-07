@@ -235,9 +235,10 @@ public class Recording extends Resource {
         @JsonProperty("channels") final Integer channels,
         @JsonProperty("source") final Recording.Source source,
         @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty(
-            "encryption_details"
-        ) final Map<String, Object> encryptionDetails,
+        @JsonProperty("encryption_details") final Map<
+            String,
+            Object
+        > encryptionDetails,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;

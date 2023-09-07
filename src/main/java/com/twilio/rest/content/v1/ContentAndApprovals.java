@@ -106,9 +106,10 @@ public class ContentAndApprovals extends Resource {
         @JsonProperty("language") final String language,
         @JsonProperty("variables") final Map<String, Object> variables,
         @JsonProperty("types") final Map<String, Object> types,
-        @JsonProperty(
-            "approval_requests"
-        ) final Map<String, Object> approvalRequests
+        @JsonProperty("approval_requests") final Map<
+            String,
+            Object
+        > approvalRequests
     ) {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);

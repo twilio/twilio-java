@@ -170,15 +170,15 @@ public class Build extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("service_sid") final String serviceSid,
         @JsonProperty("status") final Build.Status status,
-        @JsonProperty(
-            "asset_versions"
-        ) final List<Map<String, Object>> assetVersions,
-        @JsonProperty(
-            "function_versions"
-        ) final List<Map<String, Object>> functionVersions,
-        @JsonProperty(
-            "dependencies"
-        ) final List<Map<String, Object>> dependencies,
+        @JsonProperty("asset_versions") final List<
+            Map<String, Object>
+        > assetVersions,
+        @JsonProperty("function_versions") final List<
+            Map<String, Object>
+        > functionVersions,
+        @JsonProperty("dependencies") final List<
+            Map<String, Object>
+        > dependencies,
         @JsonProperty("runtime") final Build.Runtime runtime,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,

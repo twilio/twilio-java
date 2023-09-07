@@ -161,9 +161,10 @@ public class IpAccessControlList extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty("uri") final String uri
     ) {
         this.sid = sid;

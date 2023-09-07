@@ -141,9 +141,9 @@ public class NetworkAccessProfileNetwork extends Resource {
         ) final String networkAccessProfileSid,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "identifiers"
-        ) final List<Map<String, Object>> identifiers,
+        @JsonProperty("identifiers") final List<
+            Map<String, Object>
+        > identifiers,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;

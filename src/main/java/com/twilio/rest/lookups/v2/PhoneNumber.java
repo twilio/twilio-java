@@ -137,28 +137,33 @@ public class PhoneNumber extends Resource {
         ) final com.twilio.type.PhoneNumber phoneNumber,
         @JsonProperty("national_format") final String nationalFormat,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty(
-            "validation_errors"
-        ) final List<PhoneNumber.ValidationError> validationErrors,
+        @JsonProperty("validation_errors") final List<
+            PhoneNumber.ValidationError
+        > validationErrors,
         @JsonProperty("caller_name") final Map<String, Object> callerName,
         @JsonProperty("sim_swap") final Map<String, Object> simSwap,
-        @JsonProperty(
-            "call_forwarding"
-        ) final Map<String, Object> callForwarding,
+        @JsonProperty("call_forwarding") final Map<
+            String,
+            Object
+        > callForwarding,
         @JsonProperty("live_activity") final Map<String, Object> liveActivity,
-        @JsonProperty(
-            "line_type_intelligence"
-        ) final Map<String, Object> lineTypeIntelligence,
+        @JsonProperty("line_type_intelligence") final Map<
+            String,
+            Object
+        > lineTypeIntelligence,
         @JsonProperty("identity_match") final Map<String, Object> identityMatch,
-        @JsonProperty(
-            "reassigned_number"
-        ) final Map<String, Object> reassignedNumber,
-        @JsonProperty(
-            "sms_pumping_risk"
-        ) final Map<String, Object> smsPumpingRisk,
-        @JsonProperty(
-            "disposable_phone_number_risk"
-        ) final Map<String, Object> disposablePhoneNumberRisk,
+        @JsonProperty("reassigned_number") final Map<
+            String,
+            Object
+        > reassignedNumber,
+        @JsonProperty("sms_pumping_risk") final Map<
+            String,
+            Object
+        > smsPumpingRisk,
+        @JsonProperty("disposable_phone_number_risk") final Map<
+            String,
+            Object
+        > disposablePhoneNumberRisk,
         @JsonProperty("url") final URI url
     ) {
         this.callingCountryCode = callingCountryCode;

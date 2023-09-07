@@ -141,15 +141,18 @@ public class WorkspaceCumulativeStatistics extends Resource {
         @JsonProperty(
             "reservations_rescinded"
         ) final Integer reservationsRescinded,
-        @JsonProperty(
-            "split_by_wait_time"
-        ) final Map<String, Object> splitByWaitTime,
-        @JsonProperty(
-            "wait_duration_until_accepted"
-        ) final Map<String, Object> waitDurationUntilAccepted,
-        @JsonProperty(
-            "wait_duration_until_canceled"
-        ) final Map<String, Object> waitDurationUntilCanceled,
+        @JsonProperty("split_by_wait_time") final Map<
+            String,
+            Object
+        > splitByWaitTime,
+        @JsonProperty("wait_duration_until_accepted") final Map<
+            String,
+            Object
+        > waitDurationUntilAccepted,
+        @JsonProperty("wait_duration_until_canceled") final Map<
+            String,
+            Object
+        > waitDurationUntilCanceled,
         @JsonProperty("tasks_canceled") final Integer tasksCanceled,
         @JsonProperty("tasks_completed") final Integer tasksCompleted,
         @JsonProperty("tasks_created") final Integer tasksCreated,

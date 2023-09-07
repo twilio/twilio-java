@@ -134,9 +134,10 @@ public class ParticipantConversation extends Resource {
         @JsonProperty("participant_sid") final String participantSid,
         @JsonProperty("participant_user_sid") final String participantUserSid,
         @JsonProperty("participant_identity") final String participantIdentity,
-        @JsonProperty(
-            "participant_messaging_binding"
-        ) final Map<String, Object> participantMessagingBinding,
+        @JsonProperty("participant_messaging_binding") final Map<
+            String,
+            Object
+        > participantMessagingBinding,
         @JsonProperty("conversation_sid") final String conversationSid,
         @JsonProperty(
             "conversation_unique_name"
@@ -159,9 +160,10 @@ public class ParticipantConversation extends Resource {
         @JsonProperty(
             "conversation_state"
         ) final ParticipantConversation.State conversationState,
-        @JsonProperty(
-            "conversation_timers"
-        ) final Map<String, Object> conversationTimers,
+        @JsonProperty("conversation_timers") final Map<
+            String,
+            Object
+        > conversationTimers,
         @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;

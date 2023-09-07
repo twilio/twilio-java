@@ -114,9 +114,10 @@ public class DataSession extends Resource {
         @JsonProperty("operator_country") final String operatorCountry,
         @JsonProperty("operator_name") final String operatorName,
         @JsonProperty("cell_id") final String cellId,
-        @JsonProperty(
-            "cell_location_estimate"
-        ) final Map<String, Object> cellLocationEstimate,
+        @JsonProperty("cell_location_estimate") final Map<
+            String,
+            Object
+        > cellLocationEstimate,
         @JsonProperty("packets_uploaded") final Integer packetsUploaded,
         @JsonProperty("packets_downloaded") final Integer packetsDownloaded,
         @JsonProperty("last_updated") final String lastUpdated,

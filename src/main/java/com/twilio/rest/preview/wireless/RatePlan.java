@@ -131,9 +131,9 @@ public class RatePlan extends Resource {
         @JsonProperty(
             "national_roaming_enabled"
         ) final Boolean nationalRoamingEnabled,
-        @JsonProperty(
-            "international_roaming"
-        ) final List<String> internationalRoaming,
+        @JsonProperty("international_roaming") final List<
+            String
+        > internationalRoaming,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("url") final URI url

@@ -491,9 +491,10 @@ public class Daily extends Resource {
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("start_date") final String startDate,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty("uri") final String uri,
         @JsonProperty("usage") final String usage,
         @JsonProperty("usage_unit") final String usageUnit

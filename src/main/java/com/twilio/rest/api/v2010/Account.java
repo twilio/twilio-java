@@ -168,9 +168,10 @@ public class Account extends Resource {
         @JsonProperty("owner_account_sid") final String ownerAccountSid,
         @JsonProperty("sid") final String sid,
         @JsonProperty("status") final Account.Status status,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty("type") final Account.Type type,
         @JsonProperty("uri") final String uri
     ) {

@@ -40,10 +40,12 @@ import lombok.ToString;
 @ToString
 public class BulkHostedNumberOrder extends Resource {
 
-    private static final long serialVersionUID = 96456075780232L;
+    private static final long serialVersionUID = 251635704058877L;
 
-    public static BulkHostedNumberOrderFetcher fetcher(final String pathSid) {
-        return new BulkHostedNumberOrderFetcher(pathSid);
+    public static BulkHostedNumberOrderFetcher fetcher(
+        final String pathBulkHostingSid
+    ) {
+        return new BulkHostedNumberOrderFetcher(pathBulkHostingSid);
     }
 
     /**
@@ -110,8 +112,7 @@ public class BulkHostedNumberOrder extends Resource {
         }
     }
 
-    private final String sid;
-    private final String accountSid;
+    private final String bulkHostingSid;
     private final BulkHostedNumberOrder.RequestStatus requestStatus;
     private final String friendlyName;
     private final String notificationEmail;
@@ -123,8 +124,7 @@ public class BulkHostedNumberOrder extends Resource {
 
     @JsonCreator
     private BulkHostedNumberOrder(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("bulk_hosting_sid") final String bulkHostingSid,
         @JsonProperty(
             "request_status"
         ) final BulkHostedNumberOrder.RequestStatus requestStatus,
@@ -136,8 +136,7 @@ public class BulkHostedNumberOrder extends Resource {
         @JsonProperty("total_count") final Integer totalCount,
         @JsonProperty("results") final List<Map<String, Object>> results
     ) {
-        this.sid = sid;
-        this.accountSid = accountSid;
+        this.bulkHostingSid = bulkHostingSid;
         this.requestStatus = requestStatus;
         this.friendlyName = friendlyName;
         this.notificationEmail = notificationEmail;
@@ -149,12 +148,8 @@ public class BulkHostedNumberOrder extends Resource {
         this.results = results;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
+    public final String getBulkHostingSid() {
+        return this.bulkHostingSid;
     }
 
     public final BulkHostedNumberOrder.RequestStatus getRequestStatus() {
@@ -202,8 +197,7 @@ public class BulkHostedNumberOrder extends Resource {
         BulkHostedNumberOrder other = (BulkHostedNumberOrder) o;
 
         return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(bulkHostingSid, other.bulkHostingSid) &&
             Objects.equals(requestStatus, other.requestStatus) &&
             Objects.equals(friendlyName, other.friendlyName) &&
             Objects.equals(notificationEmail, other.notificationEmail) &&
@@ -218,8 +212,7 @@ public class BulkHostedNumberOrder extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(
-            sid,
-            accountSid,
+            bulkHostingSid,
             requestStatus,
             friendlyName,
             notificationEmail,

@@ -114,9 +114,9 @@ public class WorkersCumulativeStatistics extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("start_time") final String startTime,
         @JsonProperty("end_time") final String endTime,
-        @JsonProperty(
-            "activity_durations"
-        ) final List<Map<String, Object>> activityDurations,
+        @JsonProperty("activity_durations") final List<
+            Map<String, Object>
+        > activityDurations,
         @JsonProperty("reservations_created") final Integer reservationsCreated,
         @JsonProperty(
             "reservations_accepted"

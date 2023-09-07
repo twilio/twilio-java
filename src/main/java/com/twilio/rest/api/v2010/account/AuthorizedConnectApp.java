@@ -158,9 +158,9 @@ public class AuthorizedConnectApp extends Resource {
         @JsonProperty("connect_app_sid") final String connectAppSid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "permissions"
-        ) final List<AuthorizedConnectApp.Permission> permissions,
+        @JsonProperty("permissions") final List<
+            AuthorizedConnectApp.Permission
+        > permissions,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;

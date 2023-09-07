@@ -149,9 +149,10 @@ public class Notification extends Resource {
         @JsonProperty("gcm") final Map<String, Object> gcm,
         @JsonProperty("fcm") final Map<String, Object> fcm,
         @JsonProperty("sms") final Map<String, Object> sms,
-        @JsonProperty(
-            "facebook_messenger"
-        ) final Map<String, Object> facebookMessenger,
+        @JsonProperty("facebook_messenger") final Map<
+            String,
+            Object
+        > facebookMessenger,
         @JsonProperty("alexa") final Map<String, Object> alexa
     ) {
         this.sid = sid;

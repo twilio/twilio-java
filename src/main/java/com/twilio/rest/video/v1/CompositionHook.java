@@ -154,9 +154,9 @@ public class CompositionHook extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("sid") final String sid,
         @JsonProperty("audio_sources") final List<String> audioSources,
-        @JsonProperty(
-            "audio_sources_excluded"
-        ) final List<String> audioSourcesExcluded,
+        @JsonProperty("audio_sources_excluded") final List<
+            String
+        > audioSourcesExcluded,
         @JsonProperty("video_layout") final Map<String, Object> videoLayout,
         @JsonProperty("resolution") final String resolution,
         @JsonProperty("trim") final Boolean trim,

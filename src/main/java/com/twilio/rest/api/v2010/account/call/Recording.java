@@ -242,9 +242,10 @@ public class Recording extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("price") final BigDecimal price,
         @JsonProperty("uri") final String uri,
-        @JsonProperty(
-            "encryption_details"
-        ) final Map<String, Object> encryptionDetails,
+        @JsonProperty("encryption_details") final Map<
+            String,
+            Object
+        > encryptionDetails,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,

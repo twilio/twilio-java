@@ -199,9 +199,9 @@ public class Verification extends Resource {
         @JsonProperty("lookup") final Map<String, Object> lookup,
         @JsonProperty("amount") final String amount,
         @JsonProperty("payee") final String payee,
-        @JsonProperty(
-            "send_code_attempts"
-        ) final List<Map<String, Object>> sendCodeAttempts,
+        @JsonProperty("send_code_attempts") final List<
+            Map<String, Object>
+        > sendCodeAttempts,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("sna") final Map<String, Object> sna,

@@ -153,9 +153,10 @@ public class CredentialList extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("sid") final String sid,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty("uri") final String uri
     ) {
         this.accountSid = accountSid;

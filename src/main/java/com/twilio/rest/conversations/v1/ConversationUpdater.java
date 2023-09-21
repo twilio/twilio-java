@@ -39,6 +39,8 @@ public class ConversationUpdater extends Updater<Conversation> {
     private String timersInactive;
     private String timersClosed;
     private String uniqueName;
+    private String bindingsEmailAddress;
+    private String bindingsEmailName;
 
     public ConversationUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -95,6 +97,20 @@ public class ConversationUpdater extends Updater<Conversation> {
 
     public ConversationUpdater setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
+        return this;
+    }
+
+    public ConversationUpdater setBindingsEmailAddress(
+        final String bindingsEmailAddress
+    ) {
+        this.bindingsEmailAddress = bindingsEmailAddress;
+        return this;
+    }
+
+    public ConversationUpdater setBindingsEmailName(
+        final String bindingsEmailName
+    ) {
+        this.bindingsEmailName = bindingsEmailName;
         return this;
     }
 
@@ -167,6 +183,15 @@ public class ConversationUpdater extends Updater<Conversation> {
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+        }
+        if (bindingsEmailAddress != null) {
+            request.addPostParam(
+                "Bindings.Email.Address",
+                bindingsEmailAddress
+            );
+        }
+        if (bindingsEmailName != null) {
+            request.addPostParam("Bindings.Email.Name", bindingsEmailName);
         }
     }
 

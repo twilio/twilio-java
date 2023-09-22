@@ -128,7 +128,7 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateError() {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         when(networkHttpClient.makeRequest(request)).thenReturn(new Response("", 500));
         try {
             Twilio.validateSslCertificate(networkHttpClient);
@@ -140,7 +140,7 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateException() {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         when(networkHttpClient.makeRequest(request)).thenThrow(new ApiException("No"));
 
         try {
@@ -153,7 +153,7 @@ public class TwilioTest {
 
     @Test
     public void testValidateSslCertificateSuccess() {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         when(networkHttpClient.makeRequest(request)).thenReturn(new Response("", 200));
 
         Twilio.validateSslCertificate(networkHttpClient);

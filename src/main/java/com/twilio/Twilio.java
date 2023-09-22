@@ -252,7 +252,7 @@ public class Twilio {
 
 
     public static void validateSslCertificate(NetworkHttpClient client) {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         try {
             final Response response = client.makeRequest(request);
 

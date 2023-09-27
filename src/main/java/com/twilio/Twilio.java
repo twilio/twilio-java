@@ -21,7 +21,7 @@ import java.util.concurrent.Executors;
  */
 public class Twilio {
 
-    public static final String VERSION = "9.12.0";
+    public static final String VERSION = "9.13.0";
     public static final String JAVA_VERSION = System.getProperty("java.version");
     public static final String OS_NAME = System.getProperty("os.name");
     public static final String OS_ARCH = System.getProperty("os.arch");
@@ -252,7 +252,7 @@ public class Twilio {
 
 
     public static void validateSslCertificate(NetworkHttpClient client) {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         try {
             final Response response = client.makeRequest(request);
 

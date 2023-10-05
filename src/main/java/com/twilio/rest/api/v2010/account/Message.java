@@ -43,7 +43,7 @@ import lombok.ToString;
 @ToString
 public class Message extends Resource {
 
-    private static final long serialVersionUID = 246357043302429L;
+    private static final long serialVersionUID = 20600562506098L;
 
     public static MessageCreator creator(
         final com.twilio.type.PhoneNumber to,
@@ -378,7 +378,6 @@ public class Message extends Resource {
     private final Currency priceUnit;
     private final String apiVersion;
     private final Map<String, String> subresourceUris;
-    private final Map<String, Object> tags;
 
     @JsonCreator
     private Message(
@@ -406,8 +405,7 @@ public class Message extends Resource {
         @JsonProperty("subresource_uris") final Map<
             String,
             String
-        > subresourceUris,
-        @JsonProperty("tags") final Map<String, Object> tags
+        > subresourceUris
     ) {
         this.body = body;
         this.numSegments = numSegments;
@@ -429,7 +427,6 @@ public class Message extends Resource {
         this.priceUnit = priceUnit;
         this.apiVersion = apiVersion;
         this.subresourceUris = subresourceUris;
-        this.tags = tags;
     }
 
     public final String getBody() {
@@ -512,10 +509,6 @@ public class Message extends Resource {
         return this.subresourceUris;
     }
 
-    public final Map<String, Object> getTags() {
-        return this.tags;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -548,8 +541,7 @@ public class Message extends Resource {
             Objects.equals(errorCode, other.errorCode) &&
             Objects.equals(priceUnit, other.priceUnit) &&
             Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(subresourceUris, other.subresourceUris) &&
-            Objects.equals(tags, other.tags)
+            Objects.equals(subresourceUris, other.subresourceUris)
         );
     }
 
@@ -575,8 +567,7 @@ public class Message extends Resource {
             errorCode,
             priceUnit,
             apiVersion,
-            subresourceUris,
-            tags
+            subresourceUris
         );
     }
 }

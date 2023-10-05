@@ -53,7 +53,6 @@ public class MessageCreator extends Creator<Message> {
     private ZonedDateTime sendAt;
     private Boolean sendAsMms;
     private String contentVariables;
-    private String tags;
     private Message.RiskCheck riskCheck;
     private com.twilio.type.PhoneNumber from;
     private String messagingServiceSid;
@@ -254,11 +253,6 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
-    public MessageCreator setTags(final String tags) {
-        this.tags = tags;
-        return this;
-    }
-
     public MessageCreator setRiskCheck(final Message.RiskCheck riskCheck) {
         this.riskCheck = riskCheck;
         return this;
@@ -403,9 +397,6 @@ public class MessageCreator extends Creator<Message> {
         }
         if (contentVariables != null) {
             request.addPostParam("ContentVariables", contentVariables);
-        }
-        if (tags != null) {
-            request.addPostParam("Tags", tags);
         }
         if (riskCheck != null) {
             request.addPostParam("RiskCheck", riskCheck.toString());

@@ -1,6 +1,18 @@
 twilio-java changelog
 =====================
 
+[2023-10-05] Version 9.13.1
+---------------------------
+**Library - Chore**
+- [PR #764](https://github.com/twilio/twilio-java/pull/764): twilio help changes. Thanks to [@kridai](https://github.com/kridai)!
+
+**Library - Fix**
+- [PR #765](https://github.com/twilio/twilio-java/pull/765): Update ValidateSslCertificate method changes to the security testing method. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Lookups**
+- Add test api support for Lookup v2
+
+
 [2023-09-21] Version 9.13.0
 ---------------------------
 **Conversations**

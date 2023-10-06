@@ -241,7 +241,7 @@ public class Twilio {
     }
 
     /**
-     * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
+     * Validate that we can connect to the new SSL certificate posted on tls-test.twilio.com
      *
      * @throws CertificateValidationException if the connection fails
      */
@@ -252,7 +252,7 @@ public class Twilio {
 
 
     public static void validateSslCertificate(NetworkHttpClient client) {
-        final Request request = new Request(HttpMethod.GET, "https://api.twilio.com:8443");
+        final Request request = new Request(HttpMethod.GET, "https://tls-test.twilio.com:443");
         try {
             final Response response = client.makeRequest(request);
 

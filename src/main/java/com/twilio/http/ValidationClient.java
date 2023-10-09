@@ -145,12 +145,18 @@ public class ValidationClient extends HttpClient {
 
         final PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
         connectionManager.setDefaultSocketConfig(socketConfig);
-
+        /* 
+         *  Example: Lets say client has one server.
+         *  There are 4 servers on edge handling client request.
+         *  Each request takes on an average 500ms (2 request per second)
+         *  Total number request can be server in a second from a route: 20 * 4 * 2 (DefaultMaxPerRoute * edge servers * request per second)
+         */
+        connectionManager.setDefaultMaxPerRoute(20);
+        connectionManager.setMaxTotal(100);
         client = HttpClientBuilder.create()
             .setConnectionManager(connectionManager)
             .setDefaultRequestConfig(requestConfig)
             .setDefaultHeaders(headers)
-            .setMaxConnPerRoute(10)
             .addInterceptorLast(new ValidationInterceptor(accountSid, credentialSid, signingKey, privateKey, algorithm))
             .setRedirectStrategy(this.getRedirectStrategy())
             .build();

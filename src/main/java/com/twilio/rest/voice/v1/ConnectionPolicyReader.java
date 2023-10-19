@@ -14,7 +14,6 @@
 
 package com.twilio.rest.voice.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,14 +24,17 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class ConnectionPolicyReader extends Reader<ConnectionPolicy> {
-
     private Integer pageSize;
 
-    public ConnectionPolicyReader() {}
+    public ConnectionPolicyReader(){
+    }
 
-    public ConnectionPolicyReader setPageSize(final Integer pageSize) {
+    public ConnectionPolicyReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -55,23 +57,15 @@ public class ConnectionPolicyReader extends Reader<ConnectionPolicy> {
         return pageForRequest(client, request);
     }
 
-    private Page<ConnectionPolicy> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ConnectionPolicy> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectionPolicy read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectionPolicy read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -85,10 +79,7 @@ public class ConnectionPolicyReader extends Reader<ConnectionPolicy> {
     }
 
     @Override
-    public Page<ConnectionPolicy> previousPage(
-        final Page<ConnectionPolicy> page,
-        final TwilioRestClient client
-    ) {
+    public Page<ConnectionPolicy> previousPage(final Page<ConnectionPolicy> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VOICE.toString())
@@ -96,11 +87,9 @@ public class ConnectionPolicyReader extends Reader<ConnectionPolicy> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<ConnectionPolicy> nextPage(
-        final Page<ConnectionPolicy> page,
-        final TwilioRestClient client
-    ) {
+    public Page<ConnectionPolicy> nextPage(final Page<ConnectionPolicy> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VOICE.toString())
@@ -109,21 +98,21 @@ public class ConnectionPolicyReader extends Reader<ConnectionPolicy> {
     }
 
     @Override
-    public Page<ConnectionPolicy> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<ConnectionPolicy> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

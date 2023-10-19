@@ -24,57 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Bundle extends Resource {
-
     private static final long serialVersionUID = 198185819431201L;
 
-    public static BundleCreator creator(
-        final String friendlyName,
-        final String email
-    ) {
+    
+
+    public static BundleCreator creator(final String friendlyName, final String email){
         return new BundleCreator(friendlyName, email);
     }
 
-    public static BundleDeleter deleter(final String pathSid) {
+    public static BundleDeleter deleter(final String pathSid){
         return new BundleDeleter(pathSid);
     }
 
-    public static BundleFetcher fetcher(final String pathSid) {
+    public static BundleFetcher fetcher(final String pathSid){
         return new BundleFetcher(pathSid);
     }
 
-    public static BundleReader reader() {
+    public static BundleReader reader(){
         return new BundleReader();
     }
 
-    public static BundleUpdater updater(final String pathSid) {
+    public static BundleUpdater updater(final String pathSid){
         return new BundleUpdater(pathSid);
     }
 
     /**
-     * Converts a JSON String into a Bundle object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Bundle object represented by the provided JSON
-     */
-    public static Bundle fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Bundle object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Bundle object represented by the provided JSON
+    */
+    public static Bundle fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Bundle.class);
@@ -86,17 +87,14 @@ public class Bundle extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Bundle object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Bundle object represented by the provided JSON
-     */
-    public static Bundle fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Bundle object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Bundle object represented by the provided JSON
+    */
+    public static Bundle fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Bundle.class);
@@ -126,7 +124,6 @@ public class Bundle extends Resource {
             return Promoter.enumFromString(value, EndUserType.values());
         }
     }
-
     public enum SortBy {
         VALID_UNTIL("valid-until"),
         DATE_UPDATED("date-updated");
@@ -146,7 +143,6 @@ public class Bundle extends Resource {
             return Promoter.enumFromString(value, SortBy.values());
         }
     }
-
     public enum SortDirection {
         ASC("ASC"),
         DESC("DESC");
@@ -166,7 +162,6 @@ public class Bundle extends Resource {
             return Promoter.enumFromString(value, SortDirection.values());
         }
     }
-
     public enum Status {
         DRAFT("draft"),
         PENDING_REVIEW("pending-review"),
@@ -206,18 +201,41 @@ public class Bundle extends Resource {
 
     @JsonCreator
     private Bundle(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("regulation_sid") final String regulationSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final Bundle.Status status,
-        @JsonProperty("valid_until") final String validUntil,
-        @JsonProperty("email") final String email,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("regulation_sid")
+        final String regulationSid,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("status")
+        final Bundle.Status status,
+
+        @JsonProperty("valid_until")
+        final String validUntil,
+
+        @JsonProperty("email")
+        final String email,
+
+        @JsonProperty("status_callback")
+        final URI statusCallback,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -233,57 +251,46 @@ public class Bundle extends Resource {
         this.links = links;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getRegulationSid() {
-        return this.regulationSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Bundle.Status getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getValidUntil() {
-        return this.validUntil;
-    }
-
-    public final String getEmail() {
-        return this.email;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getRegulationSid() {
+            return this.regulationSid;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final Bundle.Status getStatus() {
+            return this.status;
+        }
+        public final ZonedDateTime getValidUntil() {
+            return this.validUntil;
+        }
+        public final String getEmail() {
+            return this.email;
+        }
+        public final URI getStatusCallback() {
+            return this.statusCallback;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -293,37 +300,14 @@ public class Bundle extends Resource {
 
         Bundle other = (Bundle) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(regulationSid, other.regulationSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(validUntil, other.validUntil) &&
-            Objects.equals(email, other.email) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(regulationSid, other.regulationSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(status, other.status) &&  Objects.equals(validUntil, other.validUntil) &&  Objects.equals(email, other.email) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            regulationSid,
-            friendlyName,
-            status,
-            validUntil,
-            email,
-            statusCallback,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
-        );
+        return Objects.hash(sid, accountSid, regulationSid, friendlyName, status, validUntil, email, statusCallback, dateCreated, dateUpdated, url, links);
     }
+
+
 }
+

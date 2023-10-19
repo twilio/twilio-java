@@ -24,84 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Participant extends Resource {
-
     private static final long serialVersionUID = 110295013528965L;
 
-    public static ParticipantCreator creator(
-        final String pathChatServiceSid,
-        final String pathConversationSid
-    ) {
+    
+
+    public static ParticipantCreator creator(final String pathChatServiceSid, final String pathConversationSid){
         return new ParticipantCreator(pathChatServiceSid, pathConversationSid);
     }
 
-    public static ParticipantDeleter deleter(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        return new ParticipantDeleter(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
-        );
+    public static ParticipantDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new ParticipantDeleter(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static ParticipantFetcher fetcher(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        return new ParticipantFetcher(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
-        );
+    public static ParticipantFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new ParticipantFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static ParticipantReader reader(
-        final String pathChatServiceSid,
-        final String pathConversationSid
-    ) {
+    public static ParticipantReader reader(final String pathChatServiceSid, final String pathConversationSid){
         return new ParticipantReader(pathChatServiceSid, pathConversationSid);
     }
 
-    public static ParticipantUpdater updater(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        return new ParticipantUpdater(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
-        );
+    public static ParticipantUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new ParticipantUpdater(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Participant object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Participant object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Participant object represented by the provided JSON
+    */
+    public static Participant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -113,17 +87,14 @@ public class Participant extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Participant object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Participant object represented by the provided JSON
-     */
-    public static Participant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Participant object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Participant object represented by the provided JSON
+    */
+    public static Participant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Participant.class);
@@ -170,24 +141,44 @@ public class Participant extends Resource {
 
     @JsonCreator
     private Participant(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("conversation_sid") final String conversationSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("messaging_binding") final Map<
-            String,
-            Object
-        > messagingBinding,
-        @JsonProperty("role_sid") final String roleSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "last_read_message_index"
-        ) final Integer lastReadMessageIndex,
-        @JsonProperty("last_read_timestamp") final String lastReadTimestamp
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("chat_service_sid")
+        final String chatServiceSid,
+
+        @JsonProperty("conversation_sid")
+        final String conversationSid,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("identity")
+        final String identity,
+
+        @JsonProperty("attributes")
+        final String attributes,
+
+        @JsonProperty("messaging_binding")
+        final Map<String, Object> messagingBinding,
+
+        @JsonProperty("role_sid")
+        final String roleSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("last_read_message_index")
+        final Integer lastReadMessageIndex,
+
+        @JsonProperty("last_read_timestamp")
+        final String lastReadTimestamp
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -204,61 +195,49 @@ public class Participant extends Resource {
         this.lastReadTimestamp = lastReadTimestamp;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final Map<String, Object> getMessagingBinding() {
-        return this.messagingBinding;
-    }
-
-    public final String getRoleSid() {
-        return this.roleSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Integer getLastReadMessageIndex() {
-        return this.lastReadMessageIndex;
-    }
-
-    public final String getLastReadTimestamp() {
-        return this.lastReadTimestamp;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getChatServiceSid() {
+            return this.chatServiceSid;
+        }
+        public final String getConversationSid() {
+            return this.conversationSid;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getIdentity() {
+            return this.identity;
+        }
+        public final String getAttributes() {
+            return this.attributes;
+        }
+        public final Map<String, Object> getMessagingBinding() {
+            return this.messagingBinding;
+        }
+        public final String getRoleSid() {
+            return this.roleSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Integer getLastReadMessageIndex() {
+            return this.lastReadMessageIndex;
+        }
+        public final String getLastReadTimestamp() {
+            return this.lastReadTimestamp;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -268,39 +247,14 @@ public class Participant extends Resource {
 
         Participant other = (Participant) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(messagingBinding, other.messagingBinding) &&
-            Objects.equals(roleSid, other.roleSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(lastReadMessageIndex, other.lastReadMessageIndex) &&
-            Objects.equals(lastReadTimestamp, other.lastReadTimestamp)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(conversationSid, other.conversationSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(messagingBinding, other.messagingBinding) &&  Objects.equals(roleSid, other.roleSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(lastReadMessageIndex, other.lastReadMessageIndex) &&  Objects.equals(lastReadTimestamp, other.lastReadTimestamp)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            chatServiceSid,
-            conversationSid,
-            sid,
-            identity,
-            attributes,
-            messagingBinding,
-            roleSid,
-            dateCreated,
-            dateUpdated,
-            url,
-            lastReadMessageIndex,
-            lastReadTimestamp
-        );
+        return Objects.hash(accountSid, chatServiceSid, conversationSid, sid, identity, attributes, messagingBinding, roleSid, dateCreated, dateUpdated, url, lastReadMessageIndex, lastReadTimestamp);
     }
+
+
 }
+

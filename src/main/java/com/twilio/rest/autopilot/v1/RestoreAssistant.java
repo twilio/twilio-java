@@ -23,36 +23,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RestoreAssistant extends Resource {
-
     private static final long serialVersionUID = 63917994227032L;
 
-    public static RestoreAssistantUpdater updater(final String assistant) {
+    
+
+    public static RestoreAssistantUpdater updater(final String assistant){
         return new RestoreAssistantUpdater(assistant);
     }
 
     /**
-     * Converts a JSON String into a RestoreAssistant object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return RestoreAssistant object represented by the provided JSON
-     */
-    public static RestoreAssistant fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a RestoreAssistant object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return RestoreAssistant object represented by the provided JSON
+    */
+    public static RestoreAssistant fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RestoreAssistant.class);
@@ -64,17 +68,14 @@ public class RestoreAssistant extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a RestoreAssistant object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return RestoreAssistant object represented by the provided JSON
-     */
-    public static RestoreAssistant fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a RestoreAssistant object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return RestoreAssistant object represented by the provided JSON
+    */
+    public static RestoreAssistant fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RestoreAssistant.class);
@@ -84,6 +85,7 @@ public class RestoreAssistant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String sid;
@@ -100,20 +102,41 @@ public class RestoreAssistant extends Resource {
 
     @JsonCreator
     private RestoreAssistant(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("needs_model_build") final Boolean needsModelBuild,
-        @JsonProperty(
-            "latest_model_build_sid"
-        ) final String latestModelBuildSid,
-        @JsonProperty("log_queries") final Boolean logQueries,
-        @JsonProperty("development_stage") final String developmentStage,
-        @JsonProperty("callback_url") final URI callbackUrl,
-        @JsonProperty("callback_events") final String callbackEvents
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("unique_name")
+        final String uniqueName,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("needs_model_build")
+        final Boolean needsModelBuild,
+
+        @JsonProperty("latest_model_build_sid")
+        final String latestModelBuildSid,
+
+        @JsonProperty("log_queries")
+        final Boolean logQueries,
+
+        @JsonProperty("development_stage")
+        final String developmentStage,
+
+        @JsonProperty("callback_url")
+        final URI callbackUrl,
+
+        @JsonProperty("callback_events")
+        final String callbackEvents
     ) {
         this.accountSid = accountSid;
         this.sid = sid;
@@ -129,57 +152,46 @@ public class RestoreAssistant extends Resource {
         this.callbackEvents = callbackEvents;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Boolean getNeedsModelBuild() {
-        return this.needsModelBuild;
-    }
-
-    public final String getLatestModelBuildSid() {
-        return this.latestModelBuildSid;
-    }
-
-    public final Boolean getLogQueries() {
-        return this.logQueries;
-    }
-
-    public final String getDevelopmentStage() {
-        return this.developmentStage;
-    }
-
-    public final URI getCallbackUrl() {
-        return this.callbackUrl;
-    }
-
-    public final String getCallbackEvents() {
-        return this.callbackEvents;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getUniqueName() {
+            return this.uniqueName;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final Boolean getNeedsModelBuild() {
+            return this.needsModelBuild;
+        }
+        public final String getLatestModelBuildSid() {
+            return this.latestModelBuildSid;
+        }
+        public final Boolean getLogQueries() {
+            return this.logQueries;
+        }
+        public final String getDevelopmentStage() {
+            return this.developmentStage;
+        }
+        public final URI getCallbackUrl() {
+            return this.callbackUrl;
+        }
+        public final String getCallbackEvents() {
+            return this.callbackEvents;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -189,37 +201,14 @@ public class RestoreAssistant extends Resource {
 
         RestoreAssistant other = (RestoreAssistant) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(needsModelBuild, other.needsModelBuild) &&
-            Objects.equals(latestModelBuildSid, other.latestModelBuildSid) &&
-            Objects.equals(logQueries, other.logQueries) &&
-            Objects.equals(developmentStage, other.developmentStage) &&
-            Objects.equals(callbackUrl, other.callbackUrl) &&
-            Objects.equals(callbackEvents, other.callbackEvents)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(needsModelBuild, other.needsModelBuild) &&  Objects.equals(latestModelBuildSid, other.latestModelBuildSid) &&  Objects.equals(logQueries, other.logQueries) &&  Objects.equals(developmentStage, other.developmentStage) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(callbackEvents, other.callbackEvents)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            sid,
-            dateCreated,
-            dateUpdated,
-            uniqueName,
-            friendlyName,
-            needsModelBuild,
-            latestModelBuildSid,
-            logQueries,
-            developmentStage,
-            callbackUrl,
-            callbackEvents
-        );
+        return Objects.hash(accountSid, sid, dateCreated, dateUpdated, uniqueName, friendlyName, needsModelBuild, latestModelBuildSid, logQueries, developmentStage, callbackUrl, callbackEvents);
     }
+
+
 }
+

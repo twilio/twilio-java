@@ -22,41 +22,45 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Policies extends Resource {
-
     private static final long serialVersionUID = 142613922631852L;
 
-    public static PoliciesFetcher fetcher(final String pathSid) {
+    
+
+    public static PoliciesFetcher fetcher(final String pathSid){
         return new PoliciesFetcher(pathSid);
     }
 
-    public static PoliciesReader reader() {
+    public static PoliciesReader reader(){
         return new PoliciesReader();
     }
 
     /**
-     * Converts a JSON String into a Policies object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Policies object represented by the provided JSON
-     */
-    public static Policies fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Policies object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Policies object represented by the provided JSON
+    */
+    public static Policies fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Policies.class);
@@ -68,17 +72,14 @@ public class Policies extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Policies object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Policies object represented by the provided JSON
-     */
-    public static Policies fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Policies object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Policies object represented by the provided JSON
+    */
+    public static Policies fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Policies.class);
@@ -88,6 +89,7 @@ public class Policies extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String friendlyName;
@@ -96,10 +98,17 @@ public class Policies extends Resource {
 
     @JsonCreator
     private Policies(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("requirements") final Map<String, Object> requirements,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("requirements")
+        final Map<String, Object> requirements,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -107,25 +116,22 @@ public class Policies extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Map<String, Object> getRequirements() {
-        return this.requirements;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final Map<String, Object> getRequirements() {
+            return this.requirements;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -135,16 +141,14 @@ public class Policies extends Resource {
 
         Policies other = (Policies) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(requirements, other.requirements) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(requirements, other.requirements) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid, friendlyName, requirements, url);
     }
+
+
 }
+

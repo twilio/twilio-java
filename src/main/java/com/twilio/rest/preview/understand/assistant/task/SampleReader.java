@@ -14,7 +14,6 @@
 
 package com.twilio.rest.preview.understand.assistant.task;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,28 +24,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class SampleReader extends Reader<Sample> {
-
     private String pathAssistantSid;
     private String pathTaskSid;
     private String language;
     private Integer pageSize;
 
-    public SampleReader(
-        final String pathAssistantSid,
-        final String pathTaskSid
-    ) {
+    public SampleReader(final String pathAssistantSid, final String pathTaskSid){
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
     }
 
-    public SampleReader setLanguage(final String language) {
+    public SampleReader setLanguage(final String language){
         this.language = language;
         return this;
     }
-
-    public SampleReader setPageSize(final Integer pageSize) {
+    public SampleReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -57,14 +54,9 @@ public class SampleReader extends Reader<Sample> {
     }
 
     public Page<Sample> firstPage(final TwilioRestClient client) {
-        String path =
-            "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples";
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
-        path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
+        String path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples";
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -76,23 +68,15 @@ public class SampleReader extends Reader<Sample> {
         return pageForRequest(client, request);
     }
 
-    private Page<Sample> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Sample> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Sample read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Sample read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -106,10 +90,7 @@ public class SampleReader extends Reader<Sample> {
     }
 
     @Override
-    public Page<Sample> previousPage(
-        final Page<Sample> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Sample> previousPage(final Page<Sample> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -117,11 +98,9 @@ public class SampleReader extends Reader<Sample> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Sample> nextPage(
-        final Page<Sample> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Sample> nextPage(final Page<Sample> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -130,24 +109,25 @@ public class SampleReader extends Reader<Sample> {
     }
 
     @Override
-    public Page<Sample> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Sample> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (language != null) {
+    
             request.addQueryParam("Language", language);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.ipmessaging.v1.service.channel;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -26,33 +25,30 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
 import java.util.List;
 
-public class MemberReader extends Reader<Member> {
 
+public class MemberReader extends Reader<Member> {
     private String pathServiceSid;
     private String pathChannelSid;
     private List<String> identity;
     private Integer pageSize;
 
-    public MemberReader(
-        final String pathServiceSid,
-        final String pathChannelSid
-    ) {
+    public MemberReader(final String pathServiceSid, final String pathChannelSid){
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
     }
 
-    public MemberReader setIdentity(final List<String> identity) {
+    public MemberReader setIdentity(final List<String> identity){
         this.identity = identity;
         return this;
     }
-
-    public MemberReader setIdentity(final String identity) {
+    public MemberReader setIdentity(final String identity){
         return setIdentity(Promoter.listOfOne(identity));
     }
-
-    public MemberReader setPageSize(final Integer pageSize) {
+    public MemberReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -64,16 +60,8 @@ public class MemberReader extends Reader<Member> {
 
     public Page<Member> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members";
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -85,23 +73,15 @@ public class MemberReader extends Reader<Member> {
         return pageForRequest(client, request);
     }
 
-    private Page<Member> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Member> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Member read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -115,10 +95,7 @@ public class MemberReader extends Reader<Member> {
     }
 
     @Override
-    public Page<Member> previousPage(
-        final Page<Member> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Member> previousPage(final Page<Member> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.IPMESSAGING.toString())
@@ -126,11 +103,9 @@ public class MemberReader extends Reader<Member> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Member> nextPage(
-        final Page<Member> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Member> nextPage(final Page<Member> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.IPMESSAGING.toString())
@@ -139,15 +114,14 @@ public class MemberReader extends Reader<Member> {
     }
 
     @Override
-    public Page<Member> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Member> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (identity != null) {
             for (String prop : identity) {
@@ -155,10 +129,11 @@ public class MemberReader extends Reader<Member> {
             }
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

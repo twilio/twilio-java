@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class TrunkCreator extends Creator<Trunk> {
-
+public class TrunkCreator extends Creator<Trunk>{
     private String friendlyName;
     private String domainName;
     private URI disasterRecoveryUrl;
@@ -39,65 +41,50 @@ public class TrunkCreator extends Creator<Trunk> {
     private Boolean cnamLookupEnabled;
     private Trunk.TransferCallerId transferCallerId;
 
-    public TrunkCreator() {}
+    public TrunkCreator() {
+    }
 
-    public TrunkCreator setFriendlyName(final String friendlyName) {
+    public TrunkCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public TrunkCreator setDomainName(final String domainName) {
+    public TrunkCreator setDomainName(final String domainName){
         this.domainName = domainName;
         return this;
     }
-
-    public TrunkCreator setDisasterRecoveryUrl(final URI disasterRecoveryUrl) {
+    public TrunkCreator setDisasterRecoveryUrl(final URI disasterRecoveryUrl){
         this.disasterRecoveryUrl = disasterRecoveryUrl;
         return this;
     }
 
-    public TrunkCreator setDisasterRecoveryUrl(
-        final String disasterRecoveryUrl
-    ) {
-        return setDisasterRecoveryUrl(
-            Promoter.uriFromString(disasterRecoveryUrl)
-        );
+    public TrunkCreator setDisasterRecoveryUrl(final String disasterRecoveryUrl){
+        return setDisasterRecoveryUrl(Promoter.uriFromString(disasterRecoveryUrl));
     }
-
-    public TrunkCreator setDisasterRecoveryMethod(
-        final HttpMethod disasterRecoveryMethod
-    ) {
+    public TrunkCreator setDisasterRecoveryMethod(final HttpMethod disasterRecoveryMethod){
         this.disasterRecoveryMethod = disasterRecoveryMethod;
         return this;
     }
-
-    public TrunkCreator setTransferMode(
-        final Trunk.TransferSetting transferMode
-    ) {
+    public TrunkCreator setTransferMode(final Trunk.TransferSetting transferMode){
         this.transferMode = transferMode;
         return this;
     }
-
-    public TrunkCreator setSecure(final Boolean secure) {
+    public TrunkCreator setSecure(final Boolean secure){
         this.secure = secure;
         return this;
     }
-
-    public TrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled) {
+    public TrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled){
         this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
-
-    public TrunkCreator setTransferCallerId(
-        final Trunk.TransferCallerId transferCallerId
-    ) {
+    public TrunkCreator setTransferCallerId(final Trunk.TransferCallerId transferCallerId){
         this.transferCallerId = transferCallerId;
         return this;
     }
 
     @Override
-    public Trunk create(final TwilioRestClient client) {
+    public Trunk create(final TwilioRestClient client){
         String path = "/v1/Trunks";
+
 
         Request request = new Request(
             HttpMethod.POST,
@@ -108,59 +95,49 @@ public class TrunkCreator extends Creator<Trunk> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trunk creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trunk creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Trunk.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (domainName != null) {
             request.addPostParam("DomainName", domainName);
+    
         }
         if (disasterRecoveryUrl != null) {
-            request.addPostParam(
-                "DisasterRecoveryUrl",
-                disasterRecoveryUrl.toString()
-            );
+            request.addPostParam("DisasterRecoveryUrl", disasterRecoveryUrl.toString());
+    
         }
         if (disasterRecoveryMethod != null) {
-            request.addPostParam(
-                "DisasterRecoveryMethod",
-                disasterRecoveryMethod.toString()
-            );
+            request.addPostParam("DisasterRecoveryMethod", disasterRecoveryMethod.toString());
+    
         }
         if (transferMode != null) {
             request.addPostParam("TransferMode", transferMode.toString());
+    
         }
         if (secure != null) {
             request.addPostParam("Secure", secure.toString());
+    
         }
         if (cnamLookupEnabled != null) {
-            request.addPostParam(
-                "CnamLookupEnabled",
-                cnamLookupEnabled.toString()
-            );
+            request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
+    
         }
         if (transferCallerId != null) {
-            request.addPostParam(
-                "TransferCallerId",
-                transferCallerId.toString()
-            );
+            request.addPostParam("TransferCallerId", transferCallerId.toString());
+    
         }
     }
 }

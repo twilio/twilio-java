@@ -25,31 +25,32 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SubscriptionUpdater extends Updater<Subscription> {
 
+
+
+public class SubscriptionUpdater extends Updater<Subscription>{
     private String pathSid;
     private String description;
     private String sinkSid;
 
-    public SubscriptionUpdater(final String pathSid) {
+    public SubscriptionUpdater(final String pathSid){
         this.pathSid = pathSid;
     }
 
-    public SubscriptionUpdater setDescription(final String description) {
+    public SubscriptionUpdater setDescription(final String description){
         this.description = description;
         return this;
     }
-
-    public SubscriptionUpdater setSinkSid(final String sinkSid) {
+    public SubscriptionUpdater setSinkSid(final String sinkSid){
         this.sinkSid = sinkSid;
         return this;
     }
 
     @Override
-    public Subscription update(final TwilioRestClient client) {
+    public Subscription update(final TwilioRestClient client){
         String path = "/v1/Subscriptions/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -60,32 +61,25 @@ public class SubscriptionUpdater extends Updater<Subscription> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Subscription update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Subscription update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Subscription.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Subscription.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (description != null) {
             request.addPostParam("Description", description);
+    
         }
         if (sinkSid != null) {
             request.addPostParam("SinkSid", sinkSid);
+    
         }
     }
 }

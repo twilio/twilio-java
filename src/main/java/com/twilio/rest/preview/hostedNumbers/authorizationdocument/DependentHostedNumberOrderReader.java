@@ -14,7 +14,6 @@
 
 package com.twilio.rest.preview.hostedNumbers.authorizationdocument;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -26,10 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 
-public class DependentHostedNumberOrderReader
-    extends Reader<DependentHostedNumberOrder> {
 
+
+public class DependentHostedNumberOrderReader extends Reader<DependentHostedNumberOrder> {
     private String pathSigningDocumentSid;
     private DependentHostedNumberOrder.Status status;
     private com.twilio.type.PhoneNumber phoneNumber;
@@ -38,77 +38,47 @@ public class DependentHostedNumberOrderReader
     private String uniqueName;
     private Integer pageSize;
 
-    public DependentHostedNumberOrderReader(
-        final String pathSigningDocumentSid
-    ) {
+    public DependentHostedNumberOrderReader(final String pathSigningDocumentSid){
         this.pathSigningDocumentSid = pathSigningDocumentSid;
     }
 
-    public DependentHostedNumberOrderReader setStatus(
-        final DependentHostedNumberOrder.Status status
-    ) {
+    public DependentHostedNumberOrderReader setStatus(final DependentHostedNumberOrder.Status status){
         this.status = status;
         return this;
     }
-
-    public DependentHostedNumberOrderReader setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+    public DependentHostedNumberOrderReader setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
         this.phoneNumber = phoneNumber;
         return this;
     }
 
-    public DependentHostedNumberOrderReader setPhoneNumber(
-        final String phoneNumber
-    ) {
+    public DependentHostedNumberOrderReader setPhoneNumber(final String phoneNumber){
         return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
-
-    public DependentHostedNumberOrderReader setIncomingPhoneNumberSid(
-        final String incomingPhoneNumberSid
-    ) {
+    public DependentHostedNumberOrderReader setIncomingPhoneNumberSid(final String incomingPhoneNumberSid){
         this.incomingPhoneNumberSid = incomingPhoneNumberSid;
         return this;
     }
-
-    public DependentHostedNumberOrderReader setFriendlyName(
-        final String friendlyName
-    ) {
+    public DependentHostedNumberOrderReader setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public DependentHostedNumberOrderReader setUniqueName(
-        final String uniqueName
-    ) {
+    public DependentHostedNumberOrderReader setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
-
-    public DependentHostedNumberOrderReader setPageSize(
-        final Integer pageSize
-    ) {
+    public DependentHostedNumberOrderReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<DependentHostedNumberOrder> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<DependentHostedNumberOrder> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<DependentHostedNumberOrder> firstPage(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
-        path =
-            path.replace(
-                "{" + "SigningDocumentSid" + "}",
-                this.pathSigningDocumentSid.toString()
-            );
+    public Page<DependentHostedNumberOrder> firstPage(final TwilioRestClient client) {
+        String path = "/HostedNumbers/AuthorizationDocuments/{SigningDocumentSid}/DependentHostedNumberOrders";
+        path = path.replace("{"+"SigningDocumentSid"+"}", this.pathSigningDocumentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -120,23 +90,15 @@ public class DependentHostedNumberOrderReader
         return pageForRequest(client, request);
     }
 
-    private Page<DependentHostedNumberOrder> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<DependentHostedNumberOrder> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "DependentHostedNumberOrder read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DependentHostedNumberOrder read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -150,10 +112,7 @@ public class DependentHostedNumberOrderReader
     }
 
     @Override
-    public Page<DependentHostedNumberOrder> previousPage(
-        final Page<DependentHostedNumberOrder> page,
-        final TwilioRestClient client
-    ) {
+    public Page<DependentHostedNumberOrder> previousPage(final Page<DependentHostedNumberOrder> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -161,11 +120,9 @@ public class DependentHostedNumberOrderReader
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<DependentHostedNumberOrder> nextPage(
-        final Page<DependentHostedNumberOrder> page,
-        final TwilioRestClient client
-    ) {
+    public Page<DependentHostedNumberOrder> nextPage(final Page<DependentHostedNumberOrder> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -174,39 +131,41 @@ public class DependentHostedNumberOrderReader
     }
 
     @Override
-    public Page<DependentHostedNumberOrder> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<DependentHostedNumberOrder> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (status != null) {
+    
             request.addQueryParam("Status", status.toString());
         }
         if (phoneNumber != null) {
+    
             request.addQueryParam("PhoneNumber", phoneNumber.toString());
         }
         if (incomingPhoneNumberSid != null) {
-            request.addQueryParam(
-                "IncomingPhoneNumberSid",
-                incomingPhoneNumberSid
-            );
+    
+            request.addQueryParam("IncomingPhoneNumberSid", incomingPhoneNumberSid);
         }
         if (friendlyName != null) {
+    
             request.addQueryParam("FriendlyName", friendlyName);
         }
         if (uniqueName != null) {
+    
             request.addQueryParam("UniqueName", uniqueName);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

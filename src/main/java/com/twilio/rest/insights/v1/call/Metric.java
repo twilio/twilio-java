@@ -23,36 +23,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Metric extends Resource {
-
     private static final long serialVersionUID = 250651350148240L;
 
-    public static MetricReader reader(final String pathCallSid) {
+    
+
+    public static MetricReader reader(final String pathCallSid){
         return new MetricReader(pathCallSid);
     }
 
     /**
-     * Converts a JSON String into a Metric object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Metric object represented by the provided JSON
-     */
-    public static Metric fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Metric object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Metric object represented by the provided JSON
+    */
+    public static Metric fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Metric.class);
@@ -64,17 +68,14 @@ public class Metric extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Metric object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Metric object represented by the provided JSON
-     */
-    public static Metric fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Metric object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Metric object represented by the provided JSON
+    */
+    public static Metric fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Metric.class);
@@ -106,7 +107,6 @@ public class Metric extends Resource {
             return Promoter.enumFromString(value, StreamDirection.values());
         }
     }
-
     public enum TwilioEdge {
         UNKNOWN_EDGE("unknown_edge"),
         CARRIER_EDGE("carrier_edge"),
@@ -142,15 +142,32 @@ public class Metric extends Resource {
 
     @JsonCreator
     private Metric(
-        @JsonProperty("timestamp") final String timestamp,
-        @JsonProperty("call_sid") final String callSid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("edge") final Metric.TwilioEdge edge,
-        @JsonProperty("direction") final Metric.StreamDirection direction,
-        @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
-        @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
-        @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
-        @JsonProperty("client_edge") final Map<String, Object> clientEdge
+        @JsonProperty("timestamp")
+        final String timestamp,
+
+        @JsonProperty("call_sid")
+        final String callSid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("edge")
+        final Metric.TwilioEdge edge,
+
+        @JsonProperty("direction")
+        final Metric.StreamDirection direction,
+
+        @JsonProperty("carrier_edge")
+        final Map<String, Object> carrierEdge,
+
+        @JsonProperty("sip_edge")
+        final Map<String, Object> sipEdge,
+
+        @JsonProperty("sdk_edge")
+        final Map<String, Object> sdkEdge,
+
+        @JsonProperty("client_edge")
+        final Map<String, Object> clientEdge
     ) {
         this.timestamp = timestamp;
         this.callSid = callSid;
@@ -163,45 +180,37 @@ public class Metric extends Resource {
         this.clientEdge = clientEdge;
     }
 
-    public final String getTimestamp() {
-        return this.timestamp;
-    }
-
-    public final String getCallSid() {
-        return this.callSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Metric.TwilioEdge getEdge() {
-        return this.edge;
-    }
-
-    public final Metric.StreamDirection getDirection() {
-        return this.direction;
-    }
-
-    public final Map<String, Object> getCarrierEdge() {
-        return this.carrierEdge;
-    }
-
-    public final Map<String, Object> getSipEdge() {
-        return this.sipEdge;
-    }
-
-    public final Map<String, Object> getSdkEdge() {
-        return this.sdkEdge;
-    }
-
-    public final Map<String, Object> getClientEdge() {
-        return this.clientEdge;
-    }
+        public final String getTimestamp() {
+            return this.timestamp;
+        }
+        public final String getCallSid() {
+            return this.callSid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Metric.TwilioEdge getEdge() {
+            return this.edge;
+        }
+        public final Metric.StreamDirection getDirection() {
+            return this.direction;
+        }
+        public final Map<String, Object> getCarrierEdge() {
+            return this.carrierEdge;
+        }
+        public final Map<String, Object> getSipEdge() {
+            return this.sipEdge;
+        }
+        public final Map<String, Object> getSdkEdge() {
+            return this.sdkEdge;
+        }
+        public final Map<String, Object> getClientEdge() {
+            return this.clientEdge;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -211,31 +220,14 @@ public class Metric extends Resource {
 
         Metric other = (Metric) o;
 
-        return (
-            Objects.equals(timestamp, other.timestamp) &&
-            Objects.equals(callSid, other.callSid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(edge, other.edge) &&
-            Objects.equals(direction, other.direction) &&
-            Objects.equals(carrierEdge, other.carrierEdge) &&
-            Objects.equals(sipEdge, other.sipEdge) &&
-            Objects.equals(sdkEdge, other.sdkEdge) &&
-            Objects.equals(clientEdge, other.clientEdge)
-        );
+        return Objects.equals(timestamp, other.timestamp) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(edge, other.edge) &&  Objects.equals(direction, other.direction) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(clientEdge, other.clientEdge)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            timestamp,
-            callSid,
-            accountSid,
-            edge,
-            direction,
-            carrierEdge,
-            sipEdge,
-            sdkEdge,
-            clientEdge
-        );
+        return Objects.hash(timestamp, callSid, accountSid, edge, direction, carrierEdge, sipEdge, sdkEdge, clientEdge);
     }
+
+
 }
+

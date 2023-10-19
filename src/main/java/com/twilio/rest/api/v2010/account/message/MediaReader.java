@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.message;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +24,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class MediaReader extends Reader<Media> {
 
+
+public class MediaReader extends Reader<Media> {
     private String pathMessageSid;
     private String pathAccountSid;
     private ZonedDateTime dateCreated;
@@ -37,38 +38,27 @@ public class MediaReader extends Reader<Media> {
     private ZonedDateTime dateCreatedAfter;
     private Integer pageSize;
 
-    public MediaReader(final String pathMessageSid) {
+    public MediaReader(final String pathMessageSid){
         this.pathMessageSid = pathMessageSid;
     }
-
-    public MediaReader(
-        final String pathAccountSid,
-        final String pathMessageSid
-    ) {
+    public MediaReader(final String pathAccountSid, final String pathMessageSid){
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
     }
 
-    public MediaReader setDateCreated(final ZonedDateTime dateCreated) {
+    public MediaReader setDateCreated(final ZonedDateTime dateCreated){
         this.dateCreated = dateCreated;
         return this;
     }
-
-    public MediaReader setDateCreatedBefore(
-        final ZonedDateTime dateCreatedBefore
-    ) {
+    public MediaReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore){
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
-
-    public MediaReader setDateCreatedAfter(
-        final ZonedDateTime dateCreatedAfter
-    ) {
+    public MediaReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter){
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
-
-    public MediaReader setPageSize(final Integer pageSize) {
+    public MediaReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -79,22 +69,10 @@ public class MediaReader extends Reader<Media> {
     }
 
     public Page<Media> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSid" + "}",
-                this.pathMessageSid.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Media.json";
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -106,23 +84,15 @@ public class MediaReader extends Reader<Media> {
         return pageForRequest(client, request);
     }
 
-    private Page<Media> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Media> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Media read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Media read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -136,10 +106,7 @@ public class MediaReader extends Reader<Media> {
     }
 
     @Override
-    public Page<Media> previousPage(
-        final Page<Media> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Media> previousPage(final Page<Media> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -147,11 +114,9 @@ public class MediaReader extends Reader<Media> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Media> nextPage(
-        final Page<Media> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Media> nextPage(final Page<Media> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -160,37 +125,27 @@ public class MediaReader extends Reader<Media> {
     }
 
     @Override
-    public Page<Media> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Media> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
-            request.addQueryParam(
-                "DateCreated",
-                dateCreated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
-            request.addQueryDateTimeRange(
-                "DateCreated",
-                dateCreatedAfter,
-                dateCreatedBefore
-            );
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        }
+        else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateTimeRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

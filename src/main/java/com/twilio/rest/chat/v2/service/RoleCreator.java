@@ -26,63 +26,48 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
+
 import java.util.List;
 
-public class RoleCreator extends Creator<Role> {
 
+
+public class RoleCreator extends Creator<Role>{
     private String pathServiceSid;
     private String friendlyName;
     private Role.RoleType type;
     private List<String> permission;
 
-    public RoleCreator(
-        final String pathServiceSid,
-        final String friendlyName,
-        final Role.RoleType type,
-        final List<String> permission
-    ) {
+    public RoleCreator(final String pathServiceSid, final String friendlyName, final Role.RoleType type, final List<String> permission) {
         this.pathServiceSid = pathServiceSid;
         this.friendlyName = friendlyName;
         this.type = type;
         this.permission = permission;
     }
 
-    public RoleCreator setFriendlyName(final String friendlyName) {
+    public RoleCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public RoleCreator setType(final Role.RoleType type) {
+    public RoleCreator setType(final Role.RoleType type){
         this.type = type;
         return this;
     }
-
-    public RoleCreator setPermission(final List<String> permission) {
+    public RoleCreator setPermission(final List<String> permission){
         this.permission = permission;
         return this;
     }
-
-    public RoleCreator setPermission(final String permission) {
+    public RoleCreator setPermission(final String permission){
         return setPermission(Promoter.listOfOne(permission));
     }
 
     @Override
-    public Role create(final TwilioRestClient client) {
+    public Role create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Roles";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Type" + "}", this.type.toString());
-        path =
-            path.replace("{" + "Permission" + "}", this.permission.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
+        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path = path.replace("{"+"Permission"+"}", this.permission.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -93,34 +78,31 @@ public class RoleCreator extends Creator<Role> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Role creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Role creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Role.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (type != null) {
             request.addPostParam("Type", type.toString());
+    
         }
         if (permission != null) {
             for (String prop : permission) {
                 request.addPostParam("Permission", prop);
             }
+    
         }
     }
 }

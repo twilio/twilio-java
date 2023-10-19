@@ -16,10 +16,9 @@ package com.twilio.rest.media.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -27,13 +26,16 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.net.URI;
-import java.net.URI;
 import java.util.Map;
+import com.twilio.converter.Converter;
+import java.net.URI;
+
 import java.util.Map;
 
-public class MediaProcessorCreator extends Creator<MediaProcessor> {
 
+import java.net.URI;
+
+public class MediaProcessorCreator extends Creator<MediaProcessor>{
     private String extension;
     private String extensionContext;
     private Map<String, Object> extensionEnvironment;
@@ -41,66 +43,46 @@ public class MediaProcessorCreator extends Creator<MediaProcessor> {
     private HttpMethod statusCallbackMethod;
     private Integer maxDuration;
 
-    public MediaProcessorCreator(
-        final String extension,
-        final String extensionContext
-    ) {
+    public MediaProcessorCreator(final String extension, final String extensionContext) {
         this.extension = extension;
         this.extensionContext = extensionContext;
     }
 
-    public MediaProcessorCreator setExtension(final String extension) {
+    public MediaProcessorCreator setExtension(final String extension){
         this.extension = extension;
         return this;
     }
-
-    public MediaProcessorCreator setExtensionContext(
-        final String extensionContext
-    ) {
+    public MediaProcessorCreator setExtensionContext(final String extensionContext){
         this.extensionContext = extensionContext;
         return this;
     }
-
-    public MediaProcessorCreator setExtensionEnvironment(
-        final Map<String, Object> extensionEnvironment
-    ) {
+    public MediaProcessorCreator setExtensionEnvironment(final Map<String, Object> extensionEnvironment){
         this.extensionEnvironment = extensionEnvironment;
         return this;
     }
-
-    public MediaProcessorCreator setStatusCallback(final URI statusCallback) {
+    public MediaProcessorCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public MediaProcessorCreator setStatusCallback(
-        final String statusCallback
-    ) {
+    public MediaProcessorCreator setStatusCallback(final String statusCallback){
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-
-    public MediaProcessorCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public MediaProcessorCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-
-    public MediaProcessorCreator setMaxDuration(final Integer maxDuration) {
+    public MediaProcessorCreator setMaxDuration(final Integer maxDuration){
         this.maxDuration = maxDuration;
         return this;
     }
 
     @Override
-    public MediaProcessor create(final TwilioRestClient client) {
+    public MediaProcessor create(final TwilioRestClient client){
         String path = "/v1/MediaProcessors";
 
-        path = path.replace("{" + "Extension" + "}", this.extension.toString());
-        path =
-            path.replace(
-                "{" + "ExtensionContext" + "}",
-                this.extensionContext.toString()
-            );
+        path = path.replace("{"+"Extension"+"}", this.extension.toString());
+        path = path.replace("{"+"ExtensionContext"+"}", this.extensionContext.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -111,50 +93,41 @@ public class MediaProcessorCreator extends Creator<MediaProcessor> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "MediaProcessor creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MediaProcessor creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return MediaProcessor.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return MediaProcessor.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (extension != null) {
             request.addPostParam("Extension", extension);
+    
         }
         if (extensionContext != null) {
             request.addPostParam("ExtensionContext", extensionContext);
+    
         }
         if (extensionEnvironment != null) {
-            request.addPostParam(
-                "ExtensionEnvironment",
-                Converter.mapToJson(extensionEnvironment)
-            );
+            request.addPostParam("ExtensionEnvironment",  Converter.mapToJson(extensionEnvironment));
+    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
+    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+    
         }
         if (maxDuration != null) {
             request.addPostParam("MaxDuration", maxDuration.toString());
+    
         }
     }
 }

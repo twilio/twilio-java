@@ -26,51 +26,46 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
+
 import java.util.List;
 
-public class DeviceCodeCreator extends Creator<DeviceCode> {
 
+
+public class DeviceCodeCreator extends Creator<DeviceCode>{
     private String clientSid;
     private List<String> scopes;
     private List<String> audiences;
 
-    public DeviceCodeCreator(
-        final String clientSid,
-        final List<String> scopes
-    ) {
+    public DeviceCodeCreator(final String clientSid, final List<String> scopes) {
         this.clientSid = clientSid;
         this.scopes = scopes;
     }
 
-    public DeviceCodeCreator setClientSid(final String clientSid) {
+    public DeviceCodeCreator setClientSid(final String clientSid){
         this.clientSid = clientSid;
         return this;
     }
-
-    public DeviceCodeCreator setScopes(final List<String> scopes) {
+    public DeviceCodeCreator setScopes(final List<String> scopes){
         this.scopes = scopes;
         return this;
     }
-
-    public DeviceCodeCreator setScopes(final String scopes) {
+    public DeviceCodeCreator setScopes(final String scopes){
         return setScopes(Promoter.listOfOne(scopes));
     }
-
-    public DeviceCodeCreator setAudiences(final List<String> audiences) {
+    public DeviceCodeCreator setAudiences(final List<String> audiences){
         this.audiences = audiences;
         return this;
     }
-
-    public DeviceCodeCreator setAudiences(final String audiences) {
+    public DeviceCodeCreator setAudiences(final String audiences){
         return setAudiences(Promoter.listOfOne(audiences));
     }
 
     @Override
-    public DeviceCode create(final TwilioRestClient client) {
+    public DeviceCode create(final TwilioRestClient client){
         String path = "/v1/device/code";
 
-        path = path.replace("{" + "ClientSid" + "}", this.clientSid.toString());
-        path = path.replace("{" + "Scopes" + "}", this.scopes.toString());
+        path = path.replace("{"+"ClientSid"+"}", this.clientSid.toString());
+        path = path.replace("{"+"Scopes"+"}", this.scopes.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -81,39 +76,33 @@ public class DeviceCodeCreator extends Creator<DeviceCode> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "DeviceCode creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DeviceCode creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return DeviceCode.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DeviceCode.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (clientSid != null) {
             request.addPostParam("ClientSid", clientSid);
+    
         }
         if (scopes != null) {
             for (String prop : scopes) {
                 request.addPostParam("Scopes", prop);
             }
+    
         }
         if (audiences != null) {
             for (String prop : audiences) {
                 request.addPostParam("Audiences", prop);
             }
+    
         }
     }
 }

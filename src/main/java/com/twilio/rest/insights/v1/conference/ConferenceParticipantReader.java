@@ -14,7 +14,6 @@
 
 package com.twilio.rest.insights.v1.conference;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,57 +24,46 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
-
     private String pathConferenceSid;
     private String participantSid;
     private String label;
     private String events;
     private Integer pageSize;
 
-    public ConferenceParticipantReader(final String pathConferenceSid) {
+    public ConferenceParticipantReader(final String pathConferenceSid){
         this.pathConferenceSid = pathConferenceSid;
     }
 
-    public ConferenceParticipantReader setParticipantSid(
-        final String participantSid
-    ) {
+    public ConferenceParticipantReader setParticipantSid(final String participantSid){
         this.participantSid = participantSid;
         return this;
     }
-
-    public ConferenceParticipantReader setLabel(final String label) {
+    public ConferenceParticipantReader setLabel(final String label){
         this.label = label;
         return this;
     }
-
-    public ConferenceParticipantReader setEvents(final String events) {
+    public ConferenceParticipantReader setEvents(final String events){
         this.events = events;
         return this;
     }
-
-    public ConferenceParticipantReader setPageSize(final Integer pageSize) {
+    public ConferenceParticipantReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<ConferenceParticipant> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<ConferenceParticipant> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<ConferenceParticipant> firstPage(
-        final TwilioRestClient client
-    ) {
+    public Page<ConferenceParticipant> firstPage(final TwilioRestClient client) {
         String path = "/v1/Conferences/{ConferenceSid}/Participants";
-        path =
-            path.replace(
-                "{" + "ConferenceSid" + "}",
-                this.pathConferenceSid.toString()
-            );
+        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -87,23 +75,15 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
         return pageForRequest(client, request);
     }
 
-    private Page<ConferenceParticipant> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ConferenceParticipant> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConferenceParticipant read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConferenceParticipant read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -117,10 +97,7 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
     }
 
     @Override
-    public Page<ConferenceParticipant> previousPage(
-        final Page<ConferenceParticipant> page,
-        final TwilioRestClient client
-    ) {
+    public Page<ConferenceParticipant> previousPage(final Page<ConferenceParticipant> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.INSIGHTS.toString())
@@ -128,11 +105,9 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<ConferenceParticipant> nextPage(
-        final Page<ConferenceParticipant> page,
-        final TwilioRestClient client
-    ) {
+    public Page<ConferenceParticipant> nextPage(final Page<ConferenceParticipant> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.INSIGHTS.toString())
@@ -141,30 +116,33 @@ public class ConferenceParticipantReader extends Reader<ConferenceParticipant> {
     }
 
     @Override
-    public Page<ConferenceParticipant> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<ConferenceParticipant> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (participantSid != null) {
+    
             request.addQueryParam("ParticipantSid", participantSid);
         }
         if (label != null) {
+    
             request.addQueryParam("Label", label);
         }
         if (events != null) {
+    
             request.addQueryParam("Events", events);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

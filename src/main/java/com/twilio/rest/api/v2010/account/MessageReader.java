@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -26,11 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class MessageReader extends Reader<Message> {
 
+
+public class MessageReader extends Reader<Message> {
     private String pathAccountSid;
     private com.twilio.type.PhoneNumber to;
     private com.twilio.type.PhoneNumber from;
@@ -39,46 +40,41 @@ public class MessageReader extends Reader<Message> {
     private ZonedDateTime dateSentAfter;
     private Integer pageSize;
 
-    public MessageReader() {}
-
-    public MessageReader(final String pathAccountSid) {
+    public MessageReader(){
+    }
+    public MessageReader(final String pathAccountSid){
         this.pathAccountSid = pathAccountSid;
     }
 
-    public MessageReader setTo(final com.twilio.type.PhoneNumber to) {
+    public MessageReader setTo(final com.twilio.type.PhoneNumber to){
         this.to = to;
         return this;
     }
 
-    public MessageReader setTo(final String to) {
+    public MessageReader setTo(final String to){
         return setTo(Promoter.phoneNumberFromString(to));
     }
-
-    public MessageReader setFrom(final com.twilio.type.PhoneNumber from) {
+    public MessageReader setFrom(final com.twilio.type.PhoneNumber from){
         this.from = from;
         return this;
     }
 
-    public MessageReader setFrom(final String from) {
+    public MessageReader setFrom(final String from){
         return setFrom(Promoter.phoneNumberFromString(from));
     }
-
-    public MessageReader setDateSent(final ZonedDateTime dateSent) {
+    public MessageReader setDateSent(final ZonedDateTime dateSent){
         this.dateSent = dateSent;
         return this;
     }
-
-    public MessageReader setDateSentBefore(final ZonedDateTime dateSentBefore) {
+    public MessageReader setDateSentBefore(final ZonedDateTime dateSentBefore){
         this.dateSentBefore = dateSentBefore;
         return this;
     }
-
-    public MessageReader setDateSentAfter(final ZonedDateTime dateSentAfter) {
+    public MessageReader setDateSentAfter(final ZonedDateTime dateSentAfter){
         this.dateSentAfter = dateSentAfter;
         return this;
     }
-
-    public MessageReader setPageSize(final Integer pageSize) {
+    public MessageReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -90,15 +86,8 @@ public class MessageReader extends Reader<Message> {
 
     public Page<Message> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Messages.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -110,23 +99,15 @@ public class MessageReader extends Reader<Message> {
         return pageForRequest(client, request);
     }
 
-    private Page<Message> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Message> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Message read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Message read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -140,10 +121,7 @@ public class MessageReader extends Reader<Message> {
     }
 
     @Override
-    public Page<Message> previousPage(
-        final Page<Message> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Message> previousPage(final Page<Message> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -151,11 +129,9 @@ public class MessageReader extends Reader<Message> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Message> nextPage(
-        final Page<Message> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Message> nextPage(final Page<Message> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -164,43 +140,35 @@ public class MessageReader extends Reader<Message> {
     }
 
     @Override
-    public Page<Message> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Message> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (to != null) {
+    
             request.addQueryParam("To", to.toString());
         }
         if (from != null) {
+    
             request.addQueryParam("From", from.toString());
         }
         if (dateSent != null) {
-            request.addQueryParam(
-                "DateSent",
-                dateSent.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_TIME_FORMAT
-                    )
-                )
-            );
-        } else if (dateSentAfter != null || dateSentBefore != null) {
-            request.addQueryDateTimeRange(
-                "DateSent",
-                dateSentAfter,
-                dateSentBefore
-            );
+            request.addQueryParam("DateSent", dateSent.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_TIME_FORMAT)));
+        }
+        else if (dateSentAfter != null || dateSentBefore != null) {
+            request.addQueryDateTimeRange("DateSent", dateSentAfter, dateSentBefore);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

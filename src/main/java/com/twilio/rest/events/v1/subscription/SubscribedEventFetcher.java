@@ -24,30 +24,25 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SubscribedEventFetcher extends Fetcher<SubscribedEvent> {
 
+
+
+public class SubscribedEventFetcher extends Fetcher<SubscribedEvent> {
     private String pathSubscriptionSid;
     private String pathType;
 
-    public SubscribedEventFetcher(
-        final String pathSubscriptionSid,
-        final String pathType
-    ) {
+    public SubscribedEventFetcher(final String pathSubscriptionSid, final String pathType){
         this.pathSubscriptionSid = pathSubscriptionSid;
         this.pathType = pathType;
     }
 
+
     @Override
     public SubscribedEvent fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
+        String path = "/v1/Subscriptions/{SubscriptionSid}/SubscribedEvents/{Type}";
 
-        path =
-            path.replace(
-                "{" + "SubscriptionSid" + "}",
-                this.pathSubscriptionSid.toString()
-            );
-        path = path.replace("{" + "Type" + "}", this.pathType.toString());
+        path = path.replace("{"+"SubscriptionSid"+"}", this.pathSubscriptionSid.toString());
+        path = path.replace("{"+"Type"+"}", this.pathType.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -57,23 +52,15 @@ public class SubscribedEventFetcher extends Fetcher<SubscribedEvent> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SubscribedEvent fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("SubscribedEvent fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SubscribedEvent.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SubscribedEvent.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

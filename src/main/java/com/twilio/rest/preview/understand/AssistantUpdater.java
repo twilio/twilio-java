@@ -16,9 +16,9 @@ package com.twilio.rest.preview.understand;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -26,11 +26,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
+
 import java.util.Map;
 
-public class AssistantUpdater extends Updater<Assistant> {
 
+public class AssistantUpdater extends Updater<Assistant>{
     private String pathSid;
     private String friendlyName;
     private Boolean logQueries;
@@ -41,65 +43,52 @@ public class AssistantUpdater extends Updater<Assistant> {
     private Map<String, Object> initiationActions;
     private Map<String, Object> styleSheet;
 
-    public AssistantUpdater(final String pathSid) {
+    public AssistantUpdater(final String pathSid){
         this.pathSid = pathSid;
     }
 
-    public AssistantUpdater setFriendlyName(final String friendlyName) {
+    public AssistantUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public AssistantUpdater setLogQueries(final Boolean logQueries) {
+    public AssistantUpdater setLogQueries(final Boolean logQueries){
         this.logQueries = logQueries;
         return this;
     }
-
-    public AssistantUpdater setUniqueName(final String uniqueName) {
+    public AssistantUpdater setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
-
-    public AssistantUpdater setCallbackUrl(final URI callbackUrl) {
+    public AssistantUpdater setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public AssistantUpdater setCallbackUrl(final String callbackUrl) {
+    public AssistantUpdater setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-
-    public AssistantUpdater setCallbackEvents(final String callbackEvents) {
+    public AssistantUpdater setCallbackEvents(final String callbackEvents){
         this.callbackEvents = callbackEvents;
         return this;
     }
-
-    public AssistantUpdater setFallbackActions(
-        final Map<String, Object> fallbackActions
-    ) {
+    public AssistantUpdater setFallbackActions(final Map<String, Object> fallbackActions){
         this.fallbackActions = fallbackActions;
         return this;
     }
-
-    public AssistantUpdater setInitiationActions(
-        final Map<String, Object> initiationActions
-    ) {
+    public AssistantUpdater setInitiationActions(final Map<String, Object> initiationActions){
         this.initiationActions = initiationActions;
         return this;
     }
-
-    public AssistantUpdater setStyleSheet(
-        final Map<String, Object> styleSheet
-    ) {
+    public AssistantUpdater setStyleSheet(final Map<String, Object> styleSheet){
         this.styleSheet = styleSheet;
         return this;
     }
 
     @Override
-    public Assistant update(final TwilioRestClient client) {
+    public Assistant update(final TwilioRestClient client){
         String path = "/understand/Assistants/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -110,56 +99,49 @@ public class AssistantUpdater extends Updater<Assistant> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Assistant update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Assistant update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Assistant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Assistant.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (logQueries != null) {
             request.addPostParam("LogQueries", logQueries.toString());
+    
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
         if (callbackEvents != null) {
             request.addPostParam("CallbackEvents", callbackEvents);
+    
         }
         if (fallbackActions != null) {
-            request.addPostParam(
-                "FallbackActions",
-                Converter.mapToJson(fallbackActions)
-            );
+            request.addPostParam("FallbackActions",  Converter.mapToJson(fallbackActions));
+    
         }
         if (initiationActions != null) {
-            request.addPostParam(
-                "InitiationActions",
-                Converter.mapToJson(initiationActions)
-            );
+            request.addPostParam("InitiationActions",  Converter.mapToJson(initiationActions));
+    
         }
         if (styleSheet != null) {
-            request.addPostParam("StyleSheet", Converter.mapToJson(styleSheet));
+            request.addPostParam("StyleSheet",  Converter.mapToJson(styleSheet));
+    
         }
     }
 }

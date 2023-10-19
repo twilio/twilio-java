@@ -23,64 +23,58 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Document extends Resource {
-
     private static final long serialVersionUID = 115316298329366L;
 
-    public static DocumentCreator creator(final String pathServiceSid) {
+    
+
+    public static DocumentCreator creator(final String pathServiceSid){
         return new DocumentCreator(pathServiceSid);
     }
 
-    public static DocumentDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
+    public static DocumentDeleter deleter(final String pathServiceSid, final String pathSid){
         return new DocumentDeleter(pathServiceSid, pathSid);
     }
 
-    public static DocumentFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
+    public static DocumentFetcher fetcher(final String pathServiceSid, final String pathSid){
         return new DocumentFetcher(pathServiceSid, pathSid);
     }
 
-    public static DocumentReader reader(final String pathServiceSid) {
+    public static DocumentReader reader(final String pathServiceSid){
         return new DocumentReader(pathServiceSid);
     }
 
-    public static DocumentUpdater updater(
-        final String pathServiceSid,
-        final String pathSid,
-        final Map<String, Object> data
-    ) {
+    public static DocumentUpdater updater(final String pathServiceSid, final String pathSid, final Map<String, Object> data){
         return new DocumentUpdater(pathServiceSid, pathSid, data);
     }
 
     /**
-     * Converts a JSON String into a Document object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Document object represented by the provided JSON
-     */
-    public static Document fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Document object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Document object represented by the provided JSON
+    */
+    public static Document fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Document.class);
@@ -92,17 +86,14 @@ public class Document extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Document object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Document object represented by the provided JSON
-     */
-    public static Document fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Document object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Document object represented by the provided JSON
+    */
+    public static Document fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Document.class);
@@ -112,6 +103,7 @@ public class Document extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String uniqueName;
@@ -127,17 +119,38 @@ public class Document extends Resource {
 
     @JsonCreator
     private Document(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("revision") final String revision,
-        @JsonProperty("data") final Map<String, Object> data,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("created_by") final String createdBy
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("unique_name")
+        final String uniqueName,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links,
+
+        @JsonProperty("revision")
+        final String revision,
+
+        @JsonProperty("data")
+        final Map<String, Object> data,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("created_by")
+        final String createdBy
     ) {
         this.sid = sid;
         this.uniqueName = uniqueName;
@@ -152,53 +165,43 @@ public class Document extends Resource {
         this.createdBy = createdBy;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final String getRevision() {
-        return this.revision;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getUniqueName() {
+            return this.uniqueName;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
+        public final String getRevision() {
+            return this.revision;
+        }
+        public final Map<String, Object> getData() {
+            return this.data;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getCreatedBy() {
+            return this.createdBy;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -208,35 +211,14 @@ public class Document extends Resource {
 
         Document other = (Document) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(revision, other.revision) &&
-            Objects.equals(data, other.data) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links) &&  Objects.equals(revision, other.revision) &&  Objects.equals(data, other.data) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(createdBy, other.createdBy)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            uniqueName,
-            accountSid,
-            serviceSid,
-            url,
-            links,
-            revision,
-            data,
-            dateCreated,
-            dateUpdated,
-            createdBy
-        );
+        return Objects.hash(sid, uniqueName, accountSid, serviceSid, url, links, revision, data, dateCreated, dateUpdated, createdBy);
     }
+
+
 }
+

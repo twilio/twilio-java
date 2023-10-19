@@ -15,7 +15,6 @@
 package com.twilio.rest.messaging.v1;
 
 import com.twilio.base.Fetcher;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,15 +23,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.LocalDate;
+import com.twilio.converter.DateConverter;
+
+
 
 public class DeactivationsFetcher extends Fetcher<Deactivations> {
-
     private LocalDate date;
 
-    public DeactivationsFetcher() {}
+    public DeactivationsFetcher(){
+    }
 
-    public DeactivationsFetcher setDate(final LocalDate date) {
+    public DeactivationsFetcher setDate(final LocalDate date){
         this.date = date;
         return this;
     }
@@ -40,6 +43,7 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
     @Override
     public Deactivations fetch(final TwilioRestClient client) {
         String path = "/v1/Deactivations";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -50,32 +54,21 @@ public class DeactivationsFetcher extends Fetcher<Deactivations> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Deactivations fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Deactivations fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Deactivations.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Deactivations.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addQueryParams(final Request request) {
         if (date != null) {
-            request.addQueryParam(
-                "Date",
-                DateConverter.dateStringFromLocalDate(date)
-            );
+            request.addQueryParam("Date", DateConverter.dateStringFromLocalDate(date));
         }
+
     }
 }

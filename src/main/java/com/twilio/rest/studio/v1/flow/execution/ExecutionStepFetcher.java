@@ -24,34 +24,28 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
 
+
+
+public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
     private String pathFlowSid;
     private String pathExecutionSid;
     private String pathSid;
 
-    public ExecutionStepFetcher(
-        final String pathFlowSid,
-        final String pathExecutionSid,
-        final String pathSid
-    ) {
+    public ExecutionStepFetcher(final String pathFlowSid, final String pathExecutionSid, final String pathSid){
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
         this.pathSid = pathSid;
     }
 
+
     @Override
     public ExecutionStep fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}";
+        String path = "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps/{Sid}";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "ExecutionSid" + "}",
-                this.pathExecutionSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"ExecutionSid"+"}", this.pathExecutionSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -61,23 +55,15 @@ public class ExecutionStepFetcher extends Fetcher<ExecutionStep> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExecutionStep fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("ExecutionStep fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ExecutionStep.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ExecutionStep.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

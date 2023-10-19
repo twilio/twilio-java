@@ -23,39 +23,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkEligibility extends Resource {
-
     private static final long serialVersionUID = 38354491175250L;
 
-    public static BulkEligibilityFetcher fetcher(final String pathRequestId) {
+    
+
+    public static BulkEligibilityFetcher fetcher(final String pathRequestId){
         return new BulkEligibilityFetcher(pathRequestId);
     }
 
     /**
-     * Converts a JSON String into a BulkEligibility object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return BulkEligibility object represented by the provided JSON
-     */
-    public static BulkEligibility fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a BulkEligibility object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return BulkEligibility object represented by the provided JSON
+    */
+    public static BulkEligibility fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BulkEligibility.class);
@@ -67,17 +71,14 @@ public class BulkEligibility extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a BulkEligibility object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return BulkEligibility object represented by the provided JSON
-     */
-    public static BulkEligibility fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a BulkEligibility object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return BulkEligibility object represented by the provided JSON
+    */
+    public static BulkEligibility fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BulkEligibility.class);
@@ -87,6 +88,7 @@ public class BulkEligibility extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String requestId;
     private final URI url;
@@ -98,13 +100,26 @@ public class BulkEligibility extends Resource {
 
     @JsonCreator
     private BulkEligibility(
-        @JsonProperty("request_id") final String requestId,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("results") final List<Map<String, Object>> results,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final String status,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_completed") final String dateCompleted
+        @JsonProperty("request_id")
+        final String requestId,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("results")
+        final List<Map<String, Object>> results,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("status")
+        final String status,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_completed")
+        final String dateCompleted
     ) {
         this.requestId = requestId;
         this.url = url;
@@ -112,41 +127,34 @@ public class BulkEligibility extends Resource {
         this.friendlyName = friendlyName;
         this.status = status;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateCompleted =
-            DateConverter.iso8601DateTimeFromString(dateCompleted);
+        this.dateCompleted = DateConverter.iso8601DateTimeFromString(dateCompleted);
     }
 
-    public final String getRequestId() {
-        return this.requestId;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final List<Map<String, Object>> getResults() {
-        return this.results;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateCompleted() {
-        return this.dateCompleted;
-    }
+        public final String getRequestId() {
+            return this.requestId;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final List<Map<String, Object>> getResults() {
+            return this.results;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final String getStatus() {
+            return this.status;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateCompleted() {
+            return this.dateCompleted;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -156,27 +164,14 @@ public class BulkEligibility extends Resource {
 
         BulkEligibility other = (BulkEligibility) o;
 
-        return (
-            Objects.equals(requestId, other.requestId) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(results, other.results) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateCompleted, other.dateCompleted)
-        );
+        return Objects.equals(requestId, other.requestId) &&  Objects.equals(url, other.url) &&  Objects.equals(results, other.results) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(status, other.status) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateCompleted, other.dateCompleted)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            requestId,
-            url,
-            results,
-            friendlyName,
-            status,
-            dateCreated,
-            dateCompleted
-        );
+        return Objects.hash(requestId, url, results, friendlyName, status, dateCreated, dateCompleted);
     }
+
+
 }
+

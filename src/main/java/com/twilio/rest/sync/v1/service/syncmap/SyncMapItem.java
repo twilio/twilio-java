@@ -24,74 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncMapItem extends Resource {
-
     private static final long serialVersionUID = 156890229646336L;
 
-    public static SyncMapItemCreator creator(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String key,
-        final Map<String, Object> data
-    ) {
+    
+
+    public static SyncMapItemCreator creator(final String pathServiceSid, final String pathMapSid, final String key, final Map<String, Object> data){
         return new SyncMapItemCreator(pathServiceSid, pathMapSid, key, data);
     }
 
-    public static SyncMapItemDeleter deleter(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathKey
-    ) {
+    public static SyncMapItemDeleter deleter(final String pathServiceSid, final String pathMapSid, final String pathKey){
         return new SyncMapItemDeleter(pathServiceSid, pathMapSid, pathKey);
     }
 
-    public static SyncMapItemFetcher fetcher(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathKey
-    ) {
+    public static SyncMapItemFetcher fetcher(final String pathServiceSid, final String pathMapSid, final String pathKey){
         return new SyncMapItemFetcher(pathServiceSid, pathMapSid, pathKey);
     }
 
-    public static SyncMapItemReader reader(
-        final String pathServiceSid,
-        final String pathMapSid
-    ) {
+    public static SyncMapItemReader reader(final String pathServiceSid, final String pathMapSid){
         return new SyncMapItemReader(pathServiceSid, pathMapSid);
     }
 
-    public static SyncMapItemUpdater updater(
-        final String pathServiceSid,
-        final String pathMapSid,
-        final String pathKey
-    ) {
+    public static SyncMapItemUpdater updater(final String pathServiceSid, final String pathMapSid, final String pathKey){
         return new SyncMapItemUpdater(pathServiceSid, pathMapSid, pathKey);
     }
 
     /**
-     * Converts a JSON String into a SyncMapItem object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncMapItem object represented by the provided JSON
-     */
-    public static SyncMapItem fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SyncMapItem object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncMapItem object represented by the provided JSON
+    */
+    public static SyncMapItem fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncMapItem.class);
@@ -103,17 +87,14 @@ public class SyncMapItem extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SyncMapItem object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncMapItem object represented by the provided JSON
-     */
-    public static SyncMapItem fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SyncMapItem object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncMapItem object represented by the provided JSON
+    */
+    public static SyncMapItem fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncMapItem.class);
@@ -143,7 +124,6 @@ public class SyncMapItem extends Resource {
             return Promoter.enumFromString(value, QueryFromBoundType.values());
         }
     }
-
     public enum QueryResultOrder {
         ASC("asc"),
         DESC("desc");
@@ -178,17 +158,38 @@ public class SyncMapItem extends Resource {
 
     @JsonCreator
     private SyncMapItem(
-        @JsonProperty("key") final String key,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("map_sid") final String mapSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("revision") final String revision,
-        @JsonProperty("data") final Map<String, Object> data,
-        @JsonProperty("date_expires") final String dateExpires,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("created_by") final String createdBy
+        @JsonProperty("key")
+        final String key,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("map_sid")
+        final String mapSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("revision")
+        final String revision,
+
+        @JsonProperty("data")
+        final Map<String, Object> data,
+
+        @JsonProperty("date_expires")
+        final String dateExpires,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("created_by")
+        final String createdBy
     ) {
         this.key = key;
         this.accountSid = accountSid;
@@ -203,53 +204,43 @@ public class SyncMapItem extends Resource {
         this.createdBy = createdBy;
     }
 
-    public final String getKey() {
-        return this.key;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getMapSid() {
-        return this.mapSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getRevision() {
-        return this.revision;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
-    }
-
-    public final ZonedDateTime getDateExpires() {
-        return this.dateExpires;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
-    }
+        public final String getKey() {
+            return this.key;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final String getMapSid() {
+            return this.mapSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final String getRevision() {
+            return this.revision;
+        }
+        public final Map<String, Object> getData() {
+            return this.data;
+        }
+        public final ZonedDateTime getDateExpires() {
+            return this.dateExpires;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getCreatedBy() {
+            return this.createdBy;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -259,35 +250,14 @@ public class SyncMapItem extends Resource {
 
         SyncMapItem other = (SyncMapItem) o;
 
-        return (
-            Objects.equals(key, other.key) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(mapSid, other.mapSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(revision, other.revision) &&
-            Objects.equals(data, other.data) &&
-            Objects.equals(dateExpires, other.dateExpires) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy)
-        );
+        return Objects.equals(key, other.key) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(mapSid, other.mapSid) &&  Objects.equals(url, other.url) &&  Objects.equals(revision, other.revision) &&  Objects.equals(data, other.data) &&  Objects.equals(dateExpires, other.dateExpires) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(createdBy, other.createdBy)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            key,
-            accountSid,
-            serviceSid,
-            mapSid,
-            url,
-            revision,
-            data,
-            dateExpires,
-            dateCreated,
-            dateUpdated,
-            createdBy
-        );
+        return Objects.hash(key, accountSid, serviceSid, mapSid, url, revision, data, dateExpires, dateCreated, dateUpdated, createdBy);
     }
+
+
 }
+

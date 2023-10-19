@@ -24,57 +24,50 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Reservation extends Resource {
-
     private static final long serialVersionUID = 88353198782173L;
 
-    public static ReservationFetcher fetcher(
-        final String pathWorkspaceSid,
-        final String pathTaskSid,
-        final String pathSid
-    ) {
+    
+
+    public static ReservationFetcher fetcher(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid){
         return new ReservationFetcher(pathWorkspaceSid, pathTaskSid, pathSid);
     }
 
-    public static ReservationReader reader(
-        final String pathWorkspaceSid,
-        final String pathTaskSid
-    ) {
+    public static ReservationReader reader(final String pathWorkspaceSid, final String pathTaskSid){
         return new ReservationReader(pathWorkspaceSid, pathTaskSid);
     }
 
-    public static ReservationUpdater updater(
-        final String pathWorkspaceSid,
-        final String pathTaskSid,
-        final String pathSid
-    ) {
+    public static ReservationUpdater updater(final String pathWorkspaceSid, final String pathTaskSid, final String pathSid){
         return new ReservationUpdater(pathWorkspaceSid, pathTaskSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Reservation object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Reservation object represented by the provided JSON
-     */
-    public static Reservation fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Reservation object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Reservation object represented by the provided JSON
+    */
+    public static Reservation fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Reservation.class);
@@ -86,17 +79,14 @@ public class Reservation extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Reservation object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Reservation object represented by the provided JSON
-     */
-    public static Reservation fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Reservation object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Reservation object represented by the provided JSON
+    */
+    public static Reservation fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Reservation.class);
@@ -128,7 +118,6 @@ public class Reservation extends Resource {
             return Promoter.enumFromString(value, CallStatus.values());
         }
     }
-
     public enum ConferenceEvent {
         START("start"),
         END("end"),
@@ -153,7 +142,6 @@ public class Reservation extends Resource {
             return Promoter.enumFromString(value, ConferenceEvent.values());
         }
     }
-
     public enum Status {
         PENDING("pending"),
         ACCEPTED("accepted"),
@@ -179,7 +167,6 @@ public class Reservation extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
-
     public enum SupervisorMode {
         MONITOR("monitor"),
         WHISPER("whisper"),
@@ -215,19 +202,38 @@ public class Reservation extends Resource {
 
     @JsonCreator
     private Reservation(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "reservation_status"
-        ) final Reservation.Status reservationStatus,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("task_sid") final String taskSid,
-        @JsonProperty("worker_name") final String workerName,
-        @JsonProperty("worker_sid") final String workerSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("reservation_status")
+        final Reservation.Status reservationStatus,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("task_sid")
+        final String taskSid,
+
+        @JsonProperty("worker_name")
+        final String workerName,
+
+        @JsonProperty("worker_sid")
+        final String workerSid,
+
+        @JsonProperty("workspace_sid")
+        final String workspaceSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -242,53 +248,43 @@ public class Reservation extends Resource {
         this.links = links;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Reservation.Status getReservationStatus() {
-        return this.reservationStatus;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTaskSid() {
-        return this.taskSid;
-    }
-
-    public final String getWorkerName() {
-        return this.workerName;
-    }
-
-    public final String getWorkerSid() {
-        return this.workerSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final Reservation.Status getReservationStatus() {
+            return this.reservationStatus;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getTaskSid() {
+            return this.taskSid;
+        }
+        public final String getWorkerName() {
+            return this.workerName;
+        }
+        public final String getWorkerSid() {
+            return this.workerSid;
+        }
+        public final String getWorkspaceSid() {
+            return this.workspaceSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -298,35 +294,14 @@ public class Reservation extends Resource {
 
         Reservation other = (Reservation) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(reservationStatus, other.reservationStatus) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(taskSid, other.taskSid) &&
-            Objects.equals(workerName, other.workerName) &&
-            Objects.equals(workerSid, other.workerSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(reservationStatus, other.reservationStatus) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskSid, other.taskSid) &&  Objects.equals(workerName, other.workerName) &&  Objects.equals(workerSid, other.workerSid) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            reservationStatus,
-            sid,
-            taskSid,
-            workerName,
-            workerSid,
-            workspaceSid,
-            url,
-            links
-        );
+        return Objects.hash(accountSid, dateCreated, dateUpdated, reservationStatus, sid, taskSid, workerName, workerSid, workspaceSid, url, links);
     }
+
+
 }
+

@@ -25,11 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
+
 import java.util.List;
 
-public class ServiceUpdater extends Updater<Service> {
 
+public class ServiceUpdater extends Updater<Service>{
     private String pathSid;
     private String friendlyName;
     private String defaultServiceRoleSid;
@@ -63,244 +65,151 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer postWebhookRetryCount;
     private Boolean notificationsLogEnabled;
 
-    public ServiceUpdater(final String pathSid) {
+    public ServiceUpdater(final String pathSid){
         this.pathSid = pathSid;
     }
 
-    public ServiceUpdater setFriendlyName(final String friendlyName) {
+    public ServiceUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public ServiceUpdater setDefaultServiceRoleSid(
-        final String defaultServiceRoleSid
-    ) {
+    public ServiceUpdater setDefaultServiceRoleSid(final String defaultServiceRoleSid){
         this.defaultServiceRoleSid = defaultServiceRoleSid;
         return this;
     }
-
-    public ServiceUpdater setDefaultChannelRoleSid(
-        final String defaultChannelRoleSid
-    ) {
+    public ServiceUpdater setDefaultChannelRoleSid(final String defaultChannelRoleSid){
         this.defaultChannelRoleSid = defaultChannelRoleSid;
         return this;
     }
-
-    public ServiceUpdater setDefaultChannelCreatorRoleSid(
-        final String defaultChannelCreatorRoleSid
-    ) {
+    public ServiceUpdater setDefaultChannelCreatorRoleSid(final String defaultChannelCreatorRoleSid){
         this.defaultChannelCreatorRoleSid = defaultChannelCreatorRoleSid;
         return this;
     }
-
-    public ServiceUpdater setReadStatusEnabled(
-        final Boolean readStatusEnabled
-    ) {
+    public ServiceUpdater setReadStatusEnabled(final Boolean readStatusEnabled){
         this.readStatusEnabled = readStatusEnabled;
         return this;
     }
-
-    public ServiceUpdater setReachabilityEnabled(
-        final Boolean reachabilityEnabled
-    ) {
+    public ServiceUpdater setReachabilityEnabled(final Boolean reachabilityEnabled){
         this.reachabilityEnabled = reachabilityEnabled;
         return this;
     }
-
-    public ServiceUpdater setTypingIndicatorTimeout(
-        final Integer typingIndicatorTimeout
-    ) {
+    public ServiceUpdater setTypingIndicatorTimeout(final Integer typingIndicatorTimeout){
         this.typingIndicatorTimeout = typingIndicatorTimeout;
         return this;
     }
-
-    public ServiceUpdater setConsumptionReportInterval(
-        final Integer consumptionReportInterval
-    ) {
+    public ServiceUpdater setConsumptionReportInterval(final Integer consumptionReportInterval){
         this.consumptionReportInterval = consumptionReportInterval;
         return this;
     }
-
-    public ServiceUpdater setNotificationsNewMessageEnabled(
-        final Boolean notificationsNewMessageEnabled
-    ) {
+    public ServiceUpdater setNotificationsNewMessageEnabled(final Boolean notificationsNewMessageEnabled){
         this.notificationsNewMessageEnabled = notificationsNewMessageEnabled;
         return this;
     }
-
-    public ServiceUpdater setNotificationsNewMessageTemplate(
-        final String notificationsNewMessageTemplate
-    ) {
+    public ServiceUpdater setNotificationsNewMessageTemplate(final String notificationsNewMessageTemplate){
         this.notificationsNewMessageTemplate = notificationsNewMessageTemplate;
         return this;
     }
-
-    public ServiceUpdater setNotificationsNewMessageSound(
-        final String notificationsNewMessageSound
-    ) {
+    public ServiceUpdater setNotificationsNewMessageSound(final String notificationsNewMessageSound){
         this.notificationsNewMessageSound = notificationsNewMessageSound;
         return this;
     }
-
-    public ServiceUpdater setNotificationsNewMessageBadgeCountEnabled(
-        final Boolean notificationsNewMessageBadgeCountEnabled
-    ) {
-        this.notificationsNewMessageBadgeCountEnabled =
-            notificationsNewMessageBadgeCountEnabled;
+    public ServiceUpdater setNotificationsNewMessageBadgeCountEnabled(final Boolean notificationsNewMessageBadgeCountEnabled){
+        this.notificationsNewMessageBadgeCountEnabled = notificationsNewMessageBadgeCountEnabled;
         return this;
     }
-
-    public ServiceUpdater setNotificationsAddedToChannelEnabled(
-        final Boolean notificationsAddedToChannelEnabled
-    ) {
-        this.notificationsAddedToChannelEnabled =
-            notificationsAddedToChannelEnabled;
+    public ServiceUpdater setNotificationsAddedToChannelEnabled(final Boolean notificationsAddedToChannelEnabled){
+        this.notificationsAddedToChannelEnabled = notificationsAddedToChannelEnabled;
         return this;
     }
-
-    public ServiceUpdater setNotificationsAddedToChannelTemplate(
-        final String notificationsAddedToChannelTemplate
-    ) {
-        this.notificationsAddedToChannelTemplate =
-            notificationsAddedToChannelTemplate;
+    public ServiceUpdater setNotificationsAddedToChannelTemplate(final String notificationsAddedToChannelTemplate){
+        this.notificationsAddedToChannelTemplate = notificationsAddedToChannelTemplate;
         return this;
     }
-
-    public ServiceUpdater setNotificationsAddedToChannelSound(
-        final String notificationsAddedToChannelSound
-    ) {
-        this.notificationsAddedToChannelSound =
-            notificationsAddedToChannelSound;
+    public ServiceUpdater setNotificationsAddedToChannelSound(final String notificationsAddedToChannelSound){
+        this.notificationsAddedToChannelSound = notificationsAddedToChannelSound;
         return this;
     }
-
-    public ServiceUpdater setNotificationsRemovedFromChannelEnabled(
-        final Boolean notificationsRemovedFromChannelEnabled
-    ) {
-        this.notificationsRemovedFromChannelEnabled =
-            notificationsRemovedFromChannelEnabled;
+    public ServiceUpdater setNotificationsRemovedFromChannelEnabled(final Boolean notificationsRemovedFromChannelEnabled){
+        this.notificationsRemovedFromChannelEnabled = notificationsRemovedFromChannelEnabled;
         return this;
     }
-
-    public ServiceUpdater setNotificationsRemovedFromChannelTemplate(
-        final String notificationsRemovedFromChannelTemplate
-    ) {
-        this.notificationsRemovedFromChannelTemplate =
-            notificationsRemovedFromChannelTemplate;
+    public ServiceUpdater setNotificationsRemovedFromChannelTemplate(final String notificationsRemovedFromChannelTemplate){
+        this.notificationsRemovedFromChannelTemplate = notificationsRemovedFromChannelTemplate;
         return this;
     }
-
-    public ServiceUpdater setNotificationsRemovedFromChannelSound(
-        final String notificationsRemovedFromChannelSound
-    ) {
-        this.notificationsRemovedFromChannelSound =
-            notificationsRemovedFromChannelSound;
+    public ServiceUpdater setNotificationsRemovedFromChannelSound(final String notificationsRemovedFromChannelSound){
+        this.notificationsRemovedFromChannelSound = notificationsRemovedFromChannelSound;
         return this;
     }
-
-    public ServiceUpdater setNotificationsInvitedToChannelEnabled(
-        final Boolean notificationsInvitedToChannelEnabled
-    ) {
-        this.notificationsInvitedToChannelEnabled =
-            notificationsInvitedToChannelEnabled;
+    public ServiceUpdater setNotificationsInvitedToChannelEnabled(final Boolean notificationsInvitedToChannelEnabled){
+        this.notificationsInvitedToChannelEnabled = notificationsInvitedToChannelEnabled;
         return this;
     }
-
-    public ServiceUpdater setNotificationsInvitedToChannelTemplate(
-        final String notificationsInvitedToChannelTemplate
-    ) {
-        this.notificationsInvitedToChannelTemplate =
-            notificationsInvitedToChannelTemplate;
+    public ServiceUpdater setNotificationsInvitedToChannelTemplate(final String notificationsInvitedToChannelTemplate){
+        this.notificationsInvitedToChannelTemplate = notificationsInvitedToChannelTemplate;
         return this;
     }
-
-    public ServiceUpdater setNotificationsInvitedToChannelSound(
-        final String notificationsInvitedToChannelSound
-    ) {
-        this.notificationsInvitedToChannelSound =
-            notificationsInvitedToChannelSound;
+    public ServiceUpdater setNotificationsInvitedToChannelSound(final String notificationsInvitedToChannelSound){
+        this.notificationsInvitedToChannelSound = notificationsInvitedToChannelSound;
         return this;
     }
-
-    public ServiceUpdater setPreWebhookUrl(final URI preWebhookUrl) {
+    public ServiceUpdater setPreWebhookUrl(final URI preWebhookUrl){
         this.preWebhookUrl = preWebhookUrl;
         return this;
     }
 
-    public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl) {
+    public ServiceUpdater setPreWebhookUrl(final String preWebhookUrl){
         return setPreWebhookUrl(Promoter.uriFromString(preWebhookUrl));
     }
-
-    public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl) {
+    public ServiceUpdater setPostWebhookUrl(final URI postWebhookUrl){
         this.postWebhookUrl = postWebhookUrl;
         return this;
     }
 
-    public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl) {
+    public ServiceUpdater setPostWebhookUrl(final String postWebhookUrl){
         return setPostWebhookUrl(Promoter.uriFromString(postWebhookUrl));
     }
-
-    public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod) {
+    public ServiceUpdater setWebhookMethod(final HttpMethod webhookMethod){
         this.webhookMethod = webhookMethod;
         return this;
     }
-
-    public ServiceUpdater setWebhookFilters(final List<String> webhookFilters) {
+    public ServiceUpdater setWebhookFilters(final List<String> webhookFilters){
         this.webhookFilters = webhookFilters;
         return this;
     }
-
-    public ServiceUpdater setWebhookFilters(final String webhookFilters) {
+    public ServiceUpdater setWebhookFilters(final String webhookFilters){
         return setWebhookFilters(Promoter.listOfOne(webhookFilters));
     }
-
-    public ServiceUpdater setLimitsChannelMembers(
-        final Integer limitsChannelMembers
-    ) {
+    public ServiceUpdater setLimitsChannelMembers(final Integer limitsChannelMembers){
         this.limitsChannelMembers = limitsChannelMembers;
         return this;
     }
-
-    public ServiceUpdater setLimitsUserChannels(
-        final Integer limitsUserChannels
-    ) {
+    public ServiceUpdater setLimitsUserChannels(final Integer limitsUserChannels){
         this.limitsUserChannels = limitsUserChannels;
         return this;
     }
-
-    public ServiceUpdater setMediaCompatibilityMessage(
-        final String mediaCompatibilityMessage
-    ) {
+    public ServiceUpdater setMediaCompatibilityMessage(final String mediaCompatibilityMessage){
         this.mediaCompatibilityMessage = mediaCompatibilityMessage;
         return this;
     }
-
-    public ServiceUpdater setPreWebhookRetryCount(
-        final Integer preWebhookRetryCount
-    ) {
+    public ServiceUpdater setPreWebhookRetryCount(final Integer preWebhookRetryCount){
         this.preWebhookRetryCount = preWebhookRetryCount;
         return this;
     }
-
-    public ServiceUpdater setPostWebhookRetryCount(
-        final Integer postWebhookRetryCount
-    ) {
+    public ServiceUpdater setPostWebhookRetryCount(final Integer postWebhookRetryCount){
         this.postWebhookRetryCount = postWebhookRetryCount;
         return this;
     }
-
-    public ServiceUpdater setNotificationsLogEnabled(
-        final Boolean notificationsLogEnabled
-    ) {
+    public ServiceUpdater setNotificationsLogEnabled(final Boolean notificationsLogEnabled){
         this.notificationsLogEnabled = notificationsLogEnabled;
         return this;
     }
 
     @Override
-    public Service update(final TwilioRestClient client) {
+    public Service update(final TwilioRestClient client){
         String path = "/v2/Services/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -311,196 +220,143 @@ public class ServiceUpdater extends Updater<Service> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (defaultServiceRoleSid != null) {
-            request.addPostParam(
-                "DefaultServiceRoleSid",
-                defaultServiceRoleSid
-            );
+            request.addPostParam("DefaultServiceRoleSid", defaultServiceRoleSid);
+    
         }
         if (defaultChannelRoleSid != null) {
-            request.addPostParam(
-                "DefaultChannelRoleSid",
-                defaultChannelRoleSid
-            );
+            request.addPostParam("DefaultChannelRoleSid", defaultChannelRoleSid);
+    
         }
         if (defaultChannelCreatorRoleSid != null) {
-            request.addPostParam(
-                "DefaultChannelCreatorRoleSid",
-                defaultChannelCreatorRoleSid
-            );
+            request.addPostParam("DefaultChannelCreatorRoleSid", defaultChannelCreatorRoleSid);
+    
         }
         if (readStatusEnabled != null) {
-            request.addPostParam(
-                "ReadStatusEnabled",
-                readStatusEnabled.toString()
-            );
+            request.addPostParam("ReadStatusEnabled", readStatusEnabled.toString());
+    
         }
         if (reachabilityEnabled != null) {
-            request.addPostParam(
-                "ReachabilityEnabled",
-                reachabilityEnabled.toString()
-            );
+            request.addPostParam("ReachabilityEnabled", reachabilityEnabled.toString());
+    
         }
         if (typingIndicatorTimeout != null) {
-            request.addPostParam(
-                "TypingIndicatorTimeout",
-                typingIndicatorTimeout.toString()
-            );
+            request.addPostParam("TypingIndicatorTimeout", typingIndicatorTimeout.toString());
+    
         }
         if (consumptionReportInterval != null) {
-            request.addPostParam(
-                "ConsumptionReportInterval",
-                consumptionReportInterval.toString()
-            );
+            request.addPostParam("ConsumptionReportInterval", consumptionReportInterval.toString());
+    
         }
         if (notificationsNewMessageEnabled != null) {
-            request.addPostParam(
-                "Notifications.NewMessage.Enabled",
-                notificationsNewMessageEnabled.toString()
-            );
+            request.addPostParam("Notifications.NewMessage.Enabled", notificationsNewMessageEnabled.toString());
+    
         }
         if (notificationsNewMessageTemplate != null) {
-            request.addPostParam(
-                "Notifications.NewMessage.Template",
-                notificationsNewMessageTemplate
-            );
+            request.addPostParam("Notifications.NewMessage.Template", notificationsNewMessageTemplate);
+    
         }
         if (notificationsNewMessageSound != null) {
-            request.addPostParam(
-                "Notifications.NewMessage.Sound",
-                notificationsNewMessageSound
-            );
+            request.addPostParam("Notifications.NewMessage.Sound", notificationsNewMessageSound);
+    
         }
         if (notificationsNewMessageBadgeCountEnabled != null) {
-            request.addPostParam(
-                "Notifications.NewMessage.BadgeCountEnabled",
-                notificationsNewMessageBadgeCountEnabled.toString()
-            );
+            request.addPostParam("Notifications.NewMessage.BadgeCountEnabled", notificationsNewMessageBadgeCountEnabled.toString());
+    
         }
         if (notificationsAddedToChannelEnabled != null) {
-            request.addPostParam(
-                "Notifications.AddedToChannel.Enabled",
-                notificationsAddedToChannelEnabled.toString()
-            );
+            request.addPostParam("Notifications.AddedToChannel.Enabled", notificationsAddedToChannelEnabled.toString());
+    
         }
         if (notificationsAddedToChannelTemplate != null) {
-            request.addPostParam(
-                "Notifications.AddedToChannel.Template",
-                notificationsAddedToChannelTemplate
-            );
+            request.addPostParam("Notifications.AddedToChannel.Template", notificationsAddedToChannelTemplate);
+    
         }
         if (notificationsAddedToChannelSound != null) {
-            request.addPostParam(
-                "Notifications.AddedToChannel.Sound",
-                notificationsAddedToChannelSound
-            );
+            request.addPostParam("Notifications.AddedToChannel.Sound", notificationsAddedToChannelSound);
+    
         }
         if (notificationsRemovedFromChannelEnabled != null) {
-            request.addPostParam(
-                "Notifications.RemovedFromChannel.Enabled",
-                notificationsRemovedFromChannelEnabled.toString()
-            );
+            request.addPostParam("Notifications.RemovedFromChannel.Enabled", notificationsRemovedFromChannelEnabled.toString());
+    
         }
         if (notificationsRemovedFromChannelTemplate != null) {
-            request.addPostParam(
-                "Notifications.RemovedFromChannel.Template",
-                notificationsRemovedFromChannelTemplate
-            );
+            request.addPostParam("Notifications.RemovedFromChannel.Template", notificationsRemovedFromChannelTemplate);
+    
         }
         if (notificationsRemovedFromChannelSound != null) {
-            request.addPostParam(
-                "Notifications.RemovedFromChannel.Sound",
-                notificationsRemovedFromChannelSound
-            );
+            request.addPostParam("Notifications.RemovedFromChannel.Sound", notificationsRemovedFromChannelSound);
+    
         }
         if (notificationsInvitedToChannelEnabled != null) {
-            request.addPostParam(
-                "Notifications.InvitedToChannel.Enabled",
-                notificationsInvitedToChannelEnabled.toString()
-            );
+            request.addPostParam("Notifications.InvitedToChannel.Enabled", notificationsInvitedToChannelEnabled.toString());
+    
         }
         if (notificationsInvitedToChannelTemplate != null) {
-            request.addPostParam(
-                "Notifications.InvitedToChannel.Template",
-                notificationsInvitedToChannelTemplate
-            );
+            request.addPostParam("Notifications.InvitedToChannel.Template", notificationsInvitedToChannelTemplate);
+    
         }
         if (notificationsInvitedToChannelSound != null) {
-            request.addPostParam(
-                "Notifications.InvitedToChannel.Sound",
-                notificationsInvitedToChannelSound
-            );
+            request.addPostParam("Notifications.InvitedToChannel.Sound", notificationsInvitedToChannelSound);
+    
         }
         if (preWebhookUrl != null) {
             request.addPostParam("PreWebhookUrl", preWebhookUrl.toString());
+    
         }
         if (postWebhookUrl != null) {
             request.addPostParam("PostWebhookUrl", postWebhookUrl.toString());
+    
         }
         if (webhookMethod != null) {
             request.addPostParam("WebhookMethod", webhookMethod.toString());
+    
         }
         if (webhookFilters != null) {
             for (String prop : webhookFilters) {
                 request.addPostParam("WebhookFilters", prop);
             }
+    
         }
         if (limitsChannelMembers != null) {
-            request.addPostParam(
-                "Limits.ChannelMembers",
-                limitsChannelMembers.toString()
-            );
+            request.addPostParam("Limits.ChannelMembers", limitsChannelMembers.toString());
+    
         }
         if (limitsUserChannels != null) {
-            request.addPostParam(
-                "Limits.UserChannels",
-                limitsUserChannels.toString()
-            );
+            request.addPostParam("Limits.UserChannels", limitsUserChannels.toString());
+    
         }
         if (mediaCompatibilityMessage != null) {
-            request.addPostParam(
-                "Media.CompatibilityMessage",
-                mediaCompatibilityMessage
-            );
+            request.addPostParam("Media.CompatibilityMessage", mediaCompatibilityMessage);
+    
         }
         if (preWebhookRetryCount != null) {
-            request.addPostParam(
-                "PreWebhookRetryCount",
-                preWebhookRetryCount.toString()
-            );
+            request.addPostParam("PreWebhookRetryCount", preWebhookRetryCount.toString());
+    
         }
         if (postWebhookRetryCount != null) {
-            request.addPostParam(
-                "PostWebhookRetryCount",
-                postWebhookRetryCount.toString()
-            );
+            request.addPostParam("PostWebhookRetryCount", postWebhookRetryCount.toString());
+    
         }
         if (notificationsLogEnabled != null) {
-            request.addPostParam(
-                "Notifications.LogEnabled",
-                notificationsLogEnabled.toString()
-            );
+            request.addPostParam("Notifications.LogEnabled", notificationsLogEnabled.toString());
+    
         }
     }
 }

@@ -20,49 +20,52 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.twilio.base.Resource;
-import com.twilio.converter.CurrencyDeserializer;
+import java.util.Currency;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
+import com.twilio.converter.CurrencyDeserializer;
 import com.twilio.exception.ApiConnectionException;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.Currency;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
+import java.time.LocalDate;
+import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AllTime extends Resource {
-
     private static final long serialVersionUID = 119534363835835L;
 
-    public static AllTimeReader reader() {
+    
+
+    public static AllTimeReader reader(){
         return new AllTimeReader();
     }
-
-    public static AllTimeReader reader(final String pathAccountSid) {
+    public static AllTimeReader reader(final String pathAccountSid){
         return new AllTimeReader(pathAccountSid);
     }
 
     /**
-     * Converts a JSON String into a AllTime object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return AllTime object represented by the provided JSON
-     */
-    public static AllTime fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a AllTime object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return AllTime object represented by the provided JSON
+    */
+    public static AllTime fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AllTime.class);
@@ -74,17 +77,14 @@ public class AllTime extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AllTime object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return AllTime object represented by the provided JSON
-     */
-    public static AllTime fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a AllTime object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return AllTime object represented by the provided JSON
+    */
+    public static AllTime fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AllTime.class);
@@ -126,9 +126,7 @@ public class AllTime extends Resource {
         CONVERSATIONS("conversations"),
         CONVERSATIONS_API_REQUESTS("conversations-api-requests"),
         CONVERSATIONS_CONVERSATION_EVENTS("conversations-conversation-events"),
-        CONVERSATIONS_ENDPOINT_CONNECTIVITY(
-            "conversations-endpoint-connectivity"
-        ),
+        CONVERSATIONS_ENDPOINT_CONNECTIVITY("conversations-endpoint-connectivity"),
         CONVERSATIONS_EVENTS("conversations-events"),
         CONVERSATIONS_PARTICIPANT_EVENTS("conversations-participant-events"),
         CONVERSATIONS_PARTICIPANTS("conversations-participants"),
@@ -137,9 +135,7 @@ public class AllTime extends Resource {
         FRAUD_LOOKUPS("fraud-lookups"),
         GROUP_ROOMS("group-rooms"),
         GROUP_ROOMS_DATA_TRACK("group-rooms-data-track"),
-        GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED(
-            "group-rooms-encrypted-media-recorded"
-        ),
+        GROUP_ROOMS_ENCRYPTED_MEDIA_RECORDED("group-rooms-encrypted-media-recorded"),
         GROUP_ROOMS_MEDIA_DOWNLOADED("group-rooms-media-downloaded"),
         GROUP_ROOMS_MEDIA_RECORDED("group-rooms-media-recorded"),
         GROUP_ROOMS_MEDIA_ROUTED("group-rooms-media-routed"),
@@ -149,99 +145,45 @@ public class AllTime extends Resource {
         IMP_V1_USAGE("imp-v1-usage"),
         LOOKUPS("lookups"),
         MARKETPLACE("marketplace"),
-        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION(
-            "marketplace-algorithmia-named-entity-recognition"
-        ),
+        MARKETPLACE_ALGORITHMIA_NAMED_ENTITY_RECOGNITION("marketplace-algorithmia-named-entity-recognition"),
         MARKETPLACE_CADENCE_TRANSCRIPTION("marketplace-cadence-transcription"),
         MARKETPLACE_CADENCE_TRANSLATION("marketplace-cadence-translation"),
         MARKETPLACE_CAPIO_SPEECH_TO_TEXT("marketplace-capio-speech-to-text"),
         MARKETPLACE_CONVRIZA_ABABA("marketplace-convriza-ababa"),
-        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR(
-            "marketplace-deepgram-phrase-detector"
-        ),
-        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO(
-            "marketplace-digital-segment-business-info"
-        ),
-        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS(
-            "marketplace-facebook-offline-conversions"
-        ),
+        MARKETPLACE_DEEPGRAM_PHRASE_DETECTOR("marketplace-deepgram-phrase-detector"),
+        MARKETPLACE_DIGITAL_SEGMENT_BUSINESS_INFO("marketplace-digital-segment-business-info"),
+        MARKETPLACE_FACEBOOK_OFFLINE_CONVERSIONS("marketplace-facebook-offline-conversions"),
         MARKETPLACE_GOOGLE_SPEECH_TO_TEXT("marketplace-google-speech-to-text"),
-        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS(
-            "marketplace-ibm-watson-message-insights"
-        ),
-        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT(
-            "marketplace-ibm-watson-message-sentiment"
-        ),
-        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS(
-            "marketplace-ibm-watson-recording-analysis"
-        ),
-        MARKETPLACE_IBM_WATSON_TONE_ANALYZER(
-            "marketplace-ibm-watson-tone-analyzer"
-        ),
+        MARKETPLACE_IBM_WATSON_MESSAGE_INSIGHTS("marketplace-ibm-watson-message-insights"),
+        MARKETPLACE_IBM_WATSON_MESSAGE_SENTIMENT("marketplace-ibm-watson-message-sentiment"),
+        MARKETPLACE_IBM_WATSON_RECORDING_ANALYSIS("marketplace-ibm-watson-recording-analysis"),
+        MARKETPLACE_IBM_WATSON_TONE_ANALYZER("marketplace-ibm-watson-tone-analyzer"),
         MARKETPLACE_ICEHOOK_SYSTEMS_SCOUT("marketplace-icehook-systems-scout"),
-        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO(
-            "marketplace-infogroup-dataaxle-bizinfo"
-        ),
-        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS(
-            "marketplace-keen-io-contact-center-analytics"
-        ),
+        MARKETPLACE_INFOGROUP_DATAAXLE_BIZINFO("marketplace-infogroup-dataaxle-bizinfo"),
+        MARKETPLACE_KEEN_IO_CONTACT_CENTER_ANALYTICS("marketplace-keen-io-contact-center-analytics"),
         MARKETPLACE_MARCHEX_CLEANCALL("marketplace-marchex-cleancall"),
-        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS(
-            "marketplace-marchex-sentiment-analysis-for-sms"
-        ),
-        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID(
-            "marketplace-marketplace-nextcaller-social-id"
-        ),
-        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER(
-            "marketplace-mobile-commons-opt-out-classifier"
-        ),
-        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT(
-            "marketplace-nexiwave-voicemail-to-text"
-        ),
-        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION(
-            "marketplace-nextcaller-advanced-caller-identification"
-        ),
+        MARKETPLACE_MARCHEX_SENTIMENT_ANALYSIS_FOR_SMS("marketplace-marchex-sentiment-analysis-for-sms"),
+        MARKETPLACE_MARKETPLACE_NEXTCALLER_SOCIAL_ID("marketplace-marketplace-nextcaller-social-id"),
+        MARKETPLACE_MOBILE_COMMONS_OPT_OUT_CLASSIFIER("marketplace-mobile-commons-opt-out-classifier"),
+        MARKETPLACE_NEXIWAVE_VOICEMAIL_TO_TEXT("marketplace-nexiwave-voicemail-to-text"),
+        MARKETPLACE_NEXTCALLER_ADVANCED_CALLER_IDENTIFICATION("marketplace-nextcaller-advanced-caller-identification"),
         MARKETPLACE_NOMOROBO_SPAM_SCORE("marketplace-nomorobo-spam-score"),
-        MARKETPLACE_PAYFONE_TCPA_COMPLIANCE(
-            "marketplace-payfone-tcpa-compliance"
-        ),
-        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION(
-            "marketplace-remeeting-automatic-speech-recognition"
-        ),
-        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED(
-            "marketplace-tcpa-defense-solutions-blacklist-feed"
-        ),
+        MARKETPLACE_PAYFONE_TCPA_COMPLIANCE("marketplace-payfone-tcpa-compliance"),
+        MARKETPLACE_REMEETING_AUTOMATIC_SPEECH_RECOGNITION("marketplace-remeeting-automatic-speech-recognition"),
+        MARKETPLACE_TCPA_DEFENSE_SOLUTIONS_BLACKLIST_FEED("marketplace-tcpa-defense-solutions-blacklist-feed"),
         MARKETPLACE_TELO_OPENCNAM("marketplace-telo-opencnam"),
         MARKETPLACE_TRUECNAM_TRUE_SPAM("marketplace-truecnam-true-spam"),
-        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US(
-            "marketplace-twilio-caller-name-lookup-us"
-        ),
-        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP(
-            "marketplace-twilio-carrier-information-lookup"
-        ),
+        MARKETPLACE_TWILIO_CALLER_NAME_LOOKUP_US("marketplace-twilio-caller-name-lookup-us"),
+        MARKETPLACE_TWILIO_CARRIER_INFORMATION_LOOKUP("marketplace-twilio-carrier-information-lookup"),
         MARKETPLACE_VOICEBASE_PCI("marketplace-voicebase-pci"),
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION(
-            "marketplace-voicebase-transcription"
-        ),
-        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY(
-            "marketplace-voicebase-transcription-custom-vocabulary"
-        ),
-        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION(
-            "marketplace-whitepages-pro-caller-identification"
-        ),
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE(
-            "marketplace-whitepages-pro-phone-intelligence"
-        ),
-        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION(
-            "marketplace-whitepages-pro-phone-reputation"
-        ),
-        MARKETPLACE_WOLFARM_SPOKEN_RESULTS(
-            "marketplace-wolfarm-spoken-results"
-        ),
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION("marketplace-voicebase-transcription"),
+        MARKETPLACE_VOICEBASE_TRANSCRIPTION_CUSTOM_VOCABULARY("marketplace-voicebase-transcription-custom-vocabulary"),
+        MARKETPLACE_WHITEPAGES_PRO_CALLER_IDENTIFICATION("marketplace-whitepages-pro-caller-identification"),
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_INTELLIGENCE("marketplace-whitepages-pro-phone-intelligence"),
+        MARKETPLACE_WHITEPAGES_PRO_PHONE_REPUTATION("marketplace-whitepages-pro-phone-reputation"),
+        MARKETPLACE_WOLFARM_SPOKEN_RESULTS("marketplace-wolfarm-spoken-results"),
         MARKETPLACE_WOLFRAM_SHORT_ANSWER("marketplace-wolfram-short-answer"),
-        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS(
-            "marketplace-ytica-contact-center-reporting-analytics"
-        ),
+        MARKETPLACE_YTICA_CONTACT_CENTER_REPORTING_ANALYTICS("marketplace-ytica-contact-center-reporting-analytics"),
         MEDIASTORAGE("mediastorage"),
         MMS("mms"),
         MMS_INBOUND("mms-inbound"),
@@ -260,9 +202,7 @@ public class AllTime extends Resource {
         NUMBER_FORMAT_LOOKUPS("number-format-lookups"),
         PCHAT("pchat"),
         PCHAT_USERS("pchat-users"),
-        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES(
-            "peer-to-peer-rooms-participant-minutes"
-        ),
+        PEER_TO_PEER_ROOMS_PARTICIPANT_MINUTES("peer-to-peer-rooms-participant-minutes"),
         PFAX("pfax"),
         PFAX_MINUTES("pfax-minutes"),
         PFAX_MINUTES_INBOUND("pfax-minutes-inbound"),
@@ -309,9 +249,7 @@ public class AllTime extends Resource {
         SHORTCODES_VANITY("shortcodes-vanity"),
         SMALL_GROUP_ROOMS("small-group-rooms"),
         SMALL_GROUP_ROOMS_DATA_TRACK("small-group-rooms-data-track"),
-        SMALL_GROUP_ROOMS_PARTICIPANT_MINUTES(
-            "small-group-rooms-participant-minutes"
-        ),
+        SMALL_GROUP_ROOMS_PARTICIPANT_MINUTES("small-group-rooms-participant-minutes"),
         SMS("sms"),
         SMS_INBOUND("sms-inbound"),
         SMS_INBOUND_LONGCODE("sms-inbound-longcode"),
@@ -328,9 +266,7 @@ public class AllTime extends Resource {
         SYNC("sync"),
         SYNC_ACTIONS("sync-actions"),
         SYNC_ENDPOINT_HOURS("sync-endpoint-hours"),
-        SYNC_ENDPOINT_HOURS_ABOVE_DAILY_CAP(
-            "sync-endpoint-hours-above-daily-cap"
-        ),
+        SYNC_ENDPOINT_HOURS_ABOVE_DAILY_CAP("sync-endpoint-hours-above-daily-cap"),
         TASKROUTER_TASKS("taskrouter-tasks"),
         TOTALPRICE("totalprice"),
         TRANSCRIPTIONS("transcriptions"),
@@ -357,24 +293,14 @@ public class AllTime extends Resource {
         TWILIO_INTERCONNECT("twilio-interconnect"),
         VERIFY_PUSH("verify-push"),
         VERIFY_TOTP("verify-totp"),
-        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED(
-            "verify-whatsapp-conversations-business-initiated"
-        ),
+        VERIFY_WHATSAPP_CONVERSATIONS_BUSINESS_INITIATED("verify-whatsapp-conversations-business-initiated"),
         VIDEO_RECORDINGS("video-recordings"),
         VIRTUAL_AGENT("virtual-agent"),
         VOICE_INSIGHTS("voice-insights"),
-        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE(
-            "voice-insights-client-insights-on-demand-minute"
-        ),
-        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE(
-            "voice-insights-ptsn-insights-on-demand-minute"
-        ),
-        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE(
-            "voice-insights-sip-interface-insights-on-demand-minute"
-        ),
-        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE(
-            "voice-insights-sip-trunking-insights-on-demand-minute"
-        ),
+        VOICE_INSIGHTS_CLIENT_INSIGHTS_ON_DEMAND_MINUTE("voice-insights-client-insights-on-demand-minute"),
+        VOICE_INSIGHTS_PTSN_INSIGHTS_ON_DEMAND_MINUTE("voice-insights-ptsn-insights-on-demand-minute"),
+        VOICE_INSIGHTS_SIP_INTERFACE_INSIGHTS_ON_DEMAND_MINUTE("voice-insights-sip-interface-insights-on-demand-minute"),
+        VOICE_INSIGHTS_SIP_TRUNKING_INSIGHTS_ON_DEMAND_MINUTE("voice-insights-sip-trunking-insights-on-demand-minute"),
         VOICE_INTELLIGENCE("voice-intelligence"),
         VOICE_INTELLIGENCE_TRANSCRIPTION("voice-intelligence-transcription"),
         VOICE_INTELLIGENCE_OPERATORS("voice-intelligence-operators"),
@@ -388,53 +314,29 @@ public class AllTime extends Resource {
         WIRELESS_USAGE_COMMANDS("wireless-usage-commands"),
         WIRELESS_USAGE_COMMANDS_AFRICA("wireless-usage-commands-africa"),
         WIRELESS_USAGE_COMMANDS_ASIA("wireless-usage-commands-asia"),
-        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA(
-            "wireless-usage-commands-centralandsouthamerica"
-        ),
+        WIRELESS_USAGE_COMMANDS_CENTRALANDSOUTHAMERICA("wireless-usage-commands-centralandsouthamerica"),
         WIRELESS_USAGE_COMMANDS_EUROPE("wireless-usage-commands-europe"),
         WIRELESS_USAGE_COMMANDS_HOME("wireless-usage-commands-home"),
-        WIRELESS_USAGE_COMMANDS_NORTHAMERICA(
-            "wireless-usage-commands-northamerica"
-        ),
+        WIRELESS_USAGE_COMMANDS_NORTHAMERICA("wireless-usage-commands-northamerica"),
         WIRELESS_USAGE_COMMANDS_OCEANIA("wireless-usage-commands-oceania"),
         WIRELESS_USAGE_COMMANDS_ROAMING("wireless-usage-commands-roaming"),
         WIRELESS_USAGE_DATA("wireless-usage-data"),
         WIRELESS_USAGE_DATA_AFRICA("wireless-usage-data-africa"),
         WIRELESS_USAGE_DATA_ASIA("wireless-usage-data-asia"),
-        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA(
-            "wireless-usage-data-centralandsouthamerica"
-        ),
-        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB(
-            "wireless-usage-data-custom-additionalmb"
-        ),
-        WIRELESS_USAGE_DATA_CUSTOM_FIRST5MB(
-            "wireless-usage-data-custom-first5mb"
-        ),
-        WIRELESS_USAGE_DATA_DOMESTIC_ROAMING(
-            "wireless-usage-data-domestic-roaming"
-        ),
+        WIRELESS_USAGE_DATA_CENTRALANDSOUTHAMERICA("wireless-usage-data-centralandsouthamerica"),
+        WIRELESS_USAGE_DATA_CUSTOM_ADDITIONALMB("wireless-usage-data-custom-additionalmb"),
+        WIRELESS_USAGE_DATA_CUSTOM_FIRST5MB("wireless-usage-data-custom-first5mb"),
+        WIRELESS_USAGE_DATA_DOMESTIC_ROAMING("wireless-usage-data-domestic-roaming"),
         WIRELESS_USAGE_DATA_EUROPE("wireless-usage-data-europe"),
-        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB(
-            "wireless-usage-data-individual-additionalgb"
-        ),
-        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB(
-            "wireless-usage-data-individual-firstgb"
-        ),
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA(
-            "wireless-usage-data-international-roaming-canada"
-        ),
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA(
-            "wireless-usage-data-international-roaming-india"
-        ),
-        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO(
-            "wireless-usage-data-international-roaming-mexico"
-        ),
+        WIRELESS_USAGE_DATA_INDIVIDUAL_ADDITIONALGB("wireless-usage-data-individual-additionalgb"),
+        WIRELESS_USAGE_DATA_INDIVIDUAL_FIRSTGB("wireless-usage-data-individual-firstgb"),
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_CANADA("wireless-usage-data-international-roaming-canada"),
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_INDIA("wireless-usage-data-international-roaming-india"),
+        WIRELESS_USAGE_DATA_INTERNATIONAL_ROAMING_MEXICO("wireless-usage-data-international-roaming-mexico"),
         WIRELESS_USAGE_DATA_NORTHAMERICA("wireless-usage-data-northamerica"),
         WIRELESS_USAGE_DATA_OCEANIA("wireless-usage-data-oceania"),
         WIRELESS_USAGE_DATA_POOLED("wireless-usage-data-pooled"),
-        WIRELESS_USAGE_DATA_POOLED_DOWNLINK(
-            "wireless-usage-data-pooled-downlink"
-        ),
+        WIRELESS_USAGE_DATA_POOLED_DOWNLINK("wireless-usage-data-pooled-downlink"),
         WIRELESS_USAGE_DATA_POOLED_UPLINK("wireless-usage-data-pooled-uplink"),
         WIRELESS_USAGE_MRC("wireless-usage-mrc"),
         WIRELESS_USAGE_MRC_CUSTOM("wireless-usage-mrc-custom"),
@@ -478,26 +380,51 @@ public class AllTime extends Resource {
 
     @JsonCreator
     private AllTime(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty("as_of") final String asOf,
-        @JsonProperty("category") final AllTime.Category category,
-        @JsonProperty("count") final String count,
-        @JsonProperty("count_unit") final String countUnit,
-        @JsonProperty("description") final String description,
-        @JsonProperty("end_date") final String endDate,
-        @JsonProperty("price") final BigDecimal price,
-        @JsonProperty("price_unit") @JsonDeserialize(
-            using = com.twilio.converter.CurrencyDeserializer.class
-        ) final Currency priceUnit,
-        @JsonProperty("start_date") final String startDate,
-        @JsonProperty("subresource_uris") final Map<
-            String,
-            String
-        > subresourceUris,
-        @JsonProperty("uri") final String uri,
-        @JsonProperty("usage") final String usage,
-        @JsonProperty("usage_unit") final String usageUnit
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("api_version")
+        final String apiVersion,
+
+        @JsonProperty("as_of")
+        final String asOf,
+
+        @JsonProperty("category")
+        final AllTime.Category category,
+
+        @JsonProperty("count")
+        final String count,
+
+        @JsonProperty("count_unit")
+        final String countUnit,
+
+        @JsonProperty("description")
+        final String description,
+
+        @JsonProperty("end_date")
+        final String endDate,
+
+        @JsonProperty("price")
+        final BigDecimal price,
+
+        @JsonProperty("price_unit")
+        @JsonDeserialize(using = com.twilio.converter.CurrencyDeserializer.class)
+        final Currency priceUnit,
+
+        @JsonProperty("start_date")
+        final String startDate,
+
+        @JsonProperty("subresource_uris")
+        final Map<String, String> subresourceUris,
+
+        @JsonProperty("uri")
+        final String uri,
+
+        @JsonProperty("usage")
+        final String usage,
+
+        @JsonProperty("usage_unit")
+        final String usageUnit
     ) {
         this.accountSid = accountSid;
         this.apiVersion = apiVersion;
@@ -516,69 +443,55 @@ public class AllTime extends Resource {
         this.usageUnit = usageUnit;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getApiVersion() {
-        return this.apiVersion;
-    }
-
-    public final String getAsOf() {
-        return this.asOf;
-    }
-
-    public final AllTime.Category getCategory() {
-        return this.category;
-    }
-
-    public final String getCount() {
-        return this.count;
-    }
-
-    public final String getCountUnit() {
-        return this.countUnit;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final LocalDate getEndDate() {
-        return this.endDate;
-    }
-
-    public final BigDecimal getPrice() {
-        return this.price;
-    }
-
-    public final Currency getPriceUnit() {
-        return this.priceUnit;
-    }
-
-    public final LocalDate getStartDate() {
-        return this.startDate;
-    }
-
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
-
-    public final String getUsage() {
-        return this.usage;
-    }
-
-    public final String getUsageUnit() {
-        return this.usageUnit;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getApiVersion() {
+            return this.apiVersion;
+        }
+        public final String getAsOf() {
+            return this.asOf;
+        }
+        public final AllTime.Category getCategory() {
+            return this.category;
+        }
+        public final String getCount() {
+            return this.count;
+        }
+        public final String getCountUnit() {
+            return this.countUnit;
+        }
+        public final String getDescription() {
+            return this.description;
+        }
+        public final LocalDate getEndDate() {
+            return this.endDate;
+        }
+        public final BigDecimal getPrice() {
+            return this.price;
+        }
+        public final Currency getPriceUnit() {
+            return this.priceUnit;
+        }
+        public final LocalDate getStartDate() {
+            return this.startDate;
+        }
+        public final Map<String, String> getSubresourceUris() {
+            return this.subresourceUris;
+        }
+        public final String getUri() {
+            return this.uri;
+        }
+        public final String getUsage() {
+            return this.usage;
+        }
+        public final String getUsageUnit() {
+            return this.usageUnit;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -588,43 +501,14 @@ public class AllTime extends Resource {
 
         AllTime other = (AllTime) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(apiVersion, other.apiVersion) &&
-            Objects.equals(asOf, other.asOf) &&
-            Objects.equals(category, other.category) &&
-            Objects.equals(count, other.count) &&
-            Objects.equals(countUnit, other.countUnit) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(endDate, other.endDate) &&
-            Objects.equals(price, other.price) &&
-            Objects.equals(priceUnit, other.priceUnit) &&
-            Objects.equals(startDate, other.startDate) &&
-            Objects.equals(subresourceUris, other.subresourceUris) &&
-            Objects.equals(uri, other.uri) &&
-            Objects.equals(usage, other.usage) &&
-            Objects.equals(usageUnit, other.usageUnit)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(apiVersion, other.apiVersion) &&  Objects.equals(asOf, other.asOf) &&  Objects.equals(category, other.category) &&  Objects.equals(count, other.count) &&  Objects.equals(countUnit, other.countUnit) &&  Objects.equals(description, other.description) &&  Objects.equals(endDate, other.endDate) &&  Objects.equals(price, other.price) &&  Objects.equals(priceUnit, other.priceUnit) &&  Objects.equals(startDate, other.startDate) &&  Objects.equals(subresourceUris, other.subresourceUris) &&  Objects.equals(uri, other.uri) &&  Objects.equals(usage, other.usage) &&  Objects.equals(usageUnit, other.usageUnit)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            apiVersion,
-            asOf,
-            category,
-            count,
-            countUnit,
-            description,
-            endDate,
-            price,
-            priceUnit,
-            startDate,
-            subresourceUris,
-            uri,
-            usage,
-            usageUnit
-        );
+        return Objects.hash(accountSid, apiVersion, asOf, category, count, countUnit, description, endDate, price, priceUnit, startDate, subresourceUris, uri, usage, usageUnit);
     }
+
+
 }
+

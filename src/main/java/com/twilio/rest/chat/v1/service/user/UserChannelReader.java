@@ -14,7 +14,6 @@
 
 package com.twilio.rest.chat.v1.service.user;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,22 +24,21 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class UserChannelReader extends Reader<UserChannel> {
-
     private String pathServiceSid;
     private String pathUserSid;
     private Integer pageSize;
 
-    public UserChannelReader(
-        final String pathServiceSid,
-        final String pathUserSid
-    ) {
+    public UserChannelReader(final String pathServiceSid, final String pathUserSid){
         this.pathServiceSid = pathServiceSid;
         this.pathUserSid = pathUserSid;
     }
 
-    public UserChannelReader setPageSize(final Integer pageSize) {
+    public UserChannelReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -52,12 +50,8 @@ public class UserChannelReader extends Reader<UserChannel> {
 
     public Page<UserChannel> firstPage(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Users/{UserSid}/Channels";
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "UserSid" + "}", this.pathUserSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"UserSid"+"}", this.pathUserSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -69,23 +63,15 @@ public class UserChannelReader extends Reader<UserChannel> {
         return pageForRequest(client, request);
     }
 
-    private Page<UserChannel> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<UserChannel> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserChannel read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserChannel read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -99,10 +85,7 @@ public class UserChannelReader extends Reader<UserChannel> {
     }
 
     @Override
-    public Page<UserChannel> previousPage(
-        final Page<UserChannel> page,
-        final TwilioRestClient client
-    ) {
+    public Page<UserChannel> previousPage(final Page<UserChannel> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.CHAT.toString())
@@ -110,11 +93,9 @@ public class UserChannelReader extends Reader<UserChannel> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<UserChannel> nextPage(
-        final Page<UserChannel> page,
-        final TwilioRestClient client
-    ) {
+    public Page<UserChannel> nextPage(final Page<UserChannel> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.CHAT.toString())
@@ -123,21 +104,21 @@ public class UserChannelReader extends Reader<UserChannel> {
     }
 
     @Override
-    public Page<UserChannel> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<UserChannel> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -24,6 +24,7 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import java.time.ZonedDateTime;
 
 public class TaskCreator extends Creator<Task> {
 
@@ -33,6 +34,7 @@ public class TaskCreator extends Creator<Task> {
     private String taskChannel;
     private String workflowSid;
     private String attributes;
+    private ZonedDateTime virtualStartTime;
 
     public TaskCreator(final String pathWorkspaceSid) {
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -60,6 +62,13 @@ public class TaskCreator extends Creator<Task> {
 
     public TaskCreator setAttributes(final String attributes) {
         this.attributes = attributes;
+        return this;
+    }
+
+    public TaskCreator setVirtualStartTime(
+        final ZonedDateTime virtualStartTime
+    ) {
+        this.virtualStartTime = virtualStartTime;
         return this;
     }
 
@@ -91,7 +100,10 @@ public class TaskCreator extends Creator<Task> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -114,6 +126,12 @@ public class TaskCreator extends Creator<Task> {
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+        if (virtualStartTime != null) {
+            request.addPostParam(
+                "VirtualStartTime",
+                virtualStartTime.toInstant().toString()
+            );
         }
     }
 }

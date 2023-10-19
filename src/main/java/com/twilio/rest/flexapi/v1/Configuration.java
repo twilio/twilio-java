@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Configuration extends Resource {
 
-    private static final long serialVersionUID = 213218879201409L;
+    private static final long serialVersionUID = 196930705822405L;
 
     public static ConfigurationFetcher fetcher() {
         return new ConfigurationFetcher();
@@ -157,6 +157,7 @@ public class Configuration extends Resource {
     private final Map<String, Object> flexUiStatusReport;
     private final Map<String, Object> agentConvEndMethods;
     private final Map<String, Object> citrixVoiceVdi;
+    private final Map<String, Object> offlineConfig;
 
     @JsonCreator
     private Configuration(
@@ -274,7 +275,8 @@ public class Configuration extends Resource {
         @JsonProperty("citrix_voice_vdi") final Map<
             String,
             Object
-        > citrixVoiceVdi
+        > citrixVoiceVdi,
+        @JsonProperty("offline_config") final Map<String, Object> offlineConfig
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -323,6 +325,7 @@ public class Configuration extends Resource {
         this.flexUiStatusReport = flexUiStatusReport;
         this.agentConvEndMethods = agentConvEndMethods;
         this.citrixVoiceVdi = citrixVoiceVdi;
+        this.offlineConfig = offlineConfig;
     }
 
     public final String getAccountSid() {
@@ -513,6 +516,10 @@ public class Configuration extends Resource {
         return this.citrixVoiceVdi;
     }
 
+    public final Map<String, Object> getOfflineConfig() {
+        return this.offlineConfig;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -614,7 +621,8 @@ public class Configuration extends Resource {
             Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
             Objects.equals(flexUiStatusReport, other.flexUiStatusReport) &&
             Objects.equals(agentConvEndMethods, other.agentConvEndMethods) &&
-            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi)
+            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi) &&
+            Objects.equals(offlineConfig, other.offlineConfig)
         );
     }
 
@@ -667,7 +675,8 @@ public class Configuration extends Resource {
             debuggerIntegration,
             flexUiStatusReport,
             agentConvEndMethods,
-            citrixVoiceVdi
+            citrixVoiceVdi,
+            offlineConfig
         );
     }
 }

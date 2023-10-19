@@ -27,15 +27,9 @@ import com.twilio.rest.Domains;
 public class TranscriptFetcher extends Fetcher<Transcript> {
 
     private String pathSid;
-    private Boolean redacted;
 
     public TranscriptFetcher(final String pathSid) {
         this.pathSid = pathSid;
-    }
-
-    public TranscriptFetcher setRedacted(final Boolean redacted) {
-        this.redacted = redacted;
-        return this;
     }
 
     @Override
@@ -49,7 +43,6 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
             Domains.INTELLIGENCE.toString(),
             path
         );
-        addQueryParams(request);
         Response response = client.request(request);
 
         if (response == null) {
@@ -62,7 +55,10 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -71,11 +67,5 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
             response.getStream(),
             client.getObjectMapper()
         );
-    }
-
-    private void addQueryParams(final Request request) {
-        if (redacted != null) {
-            request.addQueryParam("Redacted", redacted.toString());
-        }
     }
 }

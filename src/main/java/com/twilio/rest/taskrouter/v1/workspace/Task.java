@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Task extends Resource {
 
-    private static final long serialVersionUID = 66438798069009L;
+    private static final long serialVersionUID = 251819622477624L;
 
     public static TaskCreator creator(final String pathWorkspaceSid) {
         return new TaskCreator(pathWorkspaceSid);
@@ -158,6 +158,7 @@ public class Task extends Resource {
     private final String workspaceSid;
     private final URI url;
     private final Map<String, String> links;
+    private final ZonedDateTime virtualStartTime;
 
     @JsonCreator
     private Task(
@@ -189,7 +190,8 @@ public class Task extends Resource {
         ) final String workflowFriendlyName,
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("virtual_start_time") final String virtualStartTime
     ) {
         this.accountSid = accountSid;
         this.age = age;
@@ -213,6 +215,8 @@ public class Task extends Resource {
         this.workspaceSid = workspaceSid;
         this.url = url;
         this.links = links;
+        this.virtualStartTime =
+            DateConverter.iso8601DateTimeFromString(virtualStartTime);
     }
 
     public final String getAccountSid() {
@@ -299,6 +303,10 @@ public class Task extends Resource {
         return this.links;
     }
 
+    public final ZonedDateTime getVirtualStartTime() {
+        return this.virtualStartTime;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -338,7 +346,8 @@ public class Task extends Resource {
             Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
             Objects.equals(workspaceSid, other.workspaceSid) &&
             Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
+            Objects.equals(links, other.links) &&
+            Objects.equals(virtualStartTime, other.virtualStartTime)
         );
     }
 
@@ -365,7 +374,8 @@ public class Task extends Resource {
             workflowFriendlyName,
             workspaceSid,
             url,
-            links
+            links,
+            virtualStartTime
         );
     }
 }

@@ -109,15 +109,15 @@ public class OpenidDiscovery extends Resource {
         @JsonProperty("userinfo_endpoint") final URI userinfoEndpoint,
         @JsonProperty("revocation_endpoint") final URI revocationEndpoint,
         @JsonProperty("jwk_uri") final URI jwkUri,
-        @JsonProperty(
-            "response_type_supported"
-        ) final List<String> responseTypeSupported,
-        @JsonProperty(
-            "subject_type_supported"
-        ) final List<String> subjectTypeSupported,
-        @JsonProperty(
-            "id_token_signing_alg_values_supported"
-        ) final List<String> idTokenSigningAlgValuesSupported,
+        @JsonProperty("response_type_supported") final List<
+            String
+        > responseTypeSupported,
+        @JsonProperty("subject_type_supported") final List<
+            String
+        > subjectTypeSupported,
+        @JsonProperty("id_token_signing_alg_values_supported") final List<
+            String
+        > idTokenSigningAlgValuesSupported,
         @JsonProperty("scopes_supported") final List<String> scopesSupported,
         @JsonProperty("claims_supported") final List<String> claimsSupported,
         @JsonProperty("url") final URI url

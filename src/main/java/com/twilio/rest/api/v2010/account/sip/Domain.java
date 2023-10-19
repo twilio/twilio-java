@@ -181,9 +181,10 @@ public class Domain extends Resource {
             "voice_status_callback_url"
         ) final URI voiceStatusCallbackUrl,
         @JsonProperty("voice_url") final URI voiceUrl,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty("sip_registration") final Boolean sipRegistration,
         @JsonProperty(
             "emergency_calling_enabled"

@@ -103,9 +103,10 @@ public class AvailableAddOn extends Resource {
         @JsonProperty("friendly_name") final String friendlyName,
         @JsonProperty("description") final String description,
         @JsonProperty("pricing_type") final String pricingType,
-        @JsonProperty(
-            "configuration_schema"
-        ) final Map<String, Object> configurationSchema,
+        @JsonProperty("configuration_schema") final Map<
+            String,
+            Object
+        > configurationSchema,
         @JsonProperty("url") final URI url,
         @JsonProperty("links") final Map<String, String> links
     ) {

@@ -27,11 +27,11 @@ import com.twilio.rest.Domains;
 public class BulkHostedNumberOrderFetcher
     extends Fetcher<BulkHostedNumberOrder> {
 
-    private String pathSid;
+    private String pathBulkHostingSid;
     private String orderStatus;
 
-    public BulkHostedNumberOrderFetcher(final String pathSid) {
-        this.pathSid = pathSid;
+    public BulkHostedNumberOrderFetcher(final String pathBulkHostingSid) {
+        this.pathBulkHostingSid = pathBulkHostingSid;
     }
 
     public BulkHostedNumberOrderFetcher setOrderStatus(
@@ -43,9 +43,13 @@ public class BulkHostedNumberOrderFetcher
 
     @Override
     public BulkHostedNumberOrder fetch(final TwilioRestClient client) {
-        String path = "/v2/HostedNumber/Orders/Bulk/{Sid}";
+        String path = "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "BulkHostingSid" + "}",
+                this.pathBulkHostingSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -65,7 +69,10 @@ public class BulkHostedNumberOrderFetcher
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

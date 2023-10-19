@@ -110,9 +110,9 @@ public class Number extends Resource {
         ) final com.twilio.type.PhoneNumber originationNumber,
         @JsonProperty("country") final String country,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "outbound_call_prices"
-        ) final List<OutboundCallPriceWithOrigin> outboundCallPrices,
+        @JsonProperty("outbound_call_prices") final List<
+            OutboundCallPriceWithOrigin
+        > outboundCallPrices,
         @JsonProperty(
             "inbound_call_price"
         ) final InboundCallPrice inboundCallPrice,

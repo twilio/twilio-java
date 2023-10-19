@@ -139,9 +139,9 @@ public class VerificationCheck extends Resource {
         @JsonProperty("payee") final String payee,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "sna_attempts_error_codes"
-        ) final List<Map<String, Object>> snaAttemptsErrorCodes
+        @JsonProperty("sna_attempts_error_codes") final List<
+            Map<String, Object>
+        > snaAttemptsErrorCodes
     ) {
         this.sid = sid;
         this.serviceSid = serviceSid;

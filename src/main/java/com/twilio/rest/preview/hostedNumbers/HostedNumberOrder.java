@@ -214,9 +214,9 @@ public class HostedNumberOrder extends Resource {
         @JsonProperty("extension") final String extension,
         @JsonProperty("call_delay") final Integer callDelay,
         @JsonProperty("verification_code") final String verificationCode,
-        @JsonProperty(
-            "verification_call_sids"
-        ) final List<String> verificationCallSids
+        @JsonProperty("verification_call_sids") final List<
+            String
+        > verificationCallSids
     ) {
         this.sid = sid;
         this.accountSid = accountSid;

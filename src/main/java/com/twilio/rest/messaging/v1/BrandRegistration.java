@@ -214,9 +214,9 @@ public class BrandRegistration extends Resource {
         @JsonProperty("failure_reason") final String failureReason,
         @JsonProperty("url") final URI url,
         @JsonProperty("brand_score") final Integer brandScore,
-        @JsonProperty(
-            "brand_feedback"
-        ) final List<BrandRegistration.BrandFeedback> brandFeedback,
+        @JsonProperty("brand_feedback") final List<
+            BrandRegistration.BrandFeedback
+        > brandFeedback,
         @JsonProperty(
             "identity_status"
         ) final BrandRegistration.IdentityStatus identityStatus,

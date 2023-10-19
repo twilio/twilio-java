@@ -37,6 +37,7 @@ public class MessageUpdater extends Updater<Message> {
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
     private String attributes;
+    private String subject;
 
     public MessageUpdater(
         final String pathChatServiceSid,
@@ -80,6 +81,11 @@ public class MessageUpdater extends Updater<Message> {
         return this;
     }
 
+    public MessageUpdater setSubject(final String subject) {
+        this.subject = subject;
+        return this;
+    }
+
     @Override
     public Message update(final TwilioRestClient client) {
         String path =
@@ -116,7 +122,10 @@ public class MessageUpdater extends Updater<Message> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -145,6 +154,9 @@ public class MessageUpdater extends Updater<Message> {
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+        }
+        if (subject != null) {
+            request.addPostParam("Subject", subject);
         }
     }
 

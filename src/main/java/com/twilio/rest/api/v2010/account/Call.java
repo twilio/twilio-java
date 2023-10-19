@@ -281,9 +281,10 @@ public class Call extends Resource {
         @JsonProperty("queue_time") final String queueTime,
         @JsonProperty("trunk_sid") final String trunkSid,
         @JsonProperty("uri") final String uri,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris
     ) {
         this.sid = sid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);

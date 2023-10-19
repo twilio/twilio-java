@@ -40,7 +40,7 @@ import lombok.ToString;
 @ToString
 public class Configuration extends Resource {
 
-    private static final long serialVersionUID = 184471195219828L;
+    private static final long serialVersionUID = 196930705822405L;
 
     public static ConfigurationFetcher fetcher() {
         return new ConfigurationFetcher();
@@ -159,6 +159,9 @@ public class Configuration extends Resource {
     private final List<Map<String, Object>> channelConfigs;
     private final Map<String, Object> debuggerIntegration;
     private final Map<String, Object> flexUiStatusReport;
+    private final Map<String, Object> agentConvEndMethods;
+    private final Map<String, Object> citrixVoiceVdi;
+    private final Map<String, Object> offlineConfig;
 
     @JsonCreator
     private Configuration(
@@ -176,18 +179,20 @@ public class Configuration extends Resource {
         @JsonProperty(
             "taskrouter_target_taskqueue_sid"
         ) final String taskrouterTargetTaskqueueSid,
-        @JsonProperty(
-            "taskrouter_taskqueues"
-        ) final List<Map<String, Object>> taskrouterTaskqueues,
-        @JsonProperty(
-            "taskrouter_skills"
-        ) final List<Map<String, Object>> taskrouterSkills,
-        @JsonProperty(
-            "taskrouter_worker_channels"
-        ) final Map<String, Object> taskrouterWorkerChannels,
-        @JsonProperty(
-            "taskrouter_worker_attributes"
-        ) final Map<String, Object> taskrouterWorkerAttributes,
+        @JsonProperty("taskrouter_taskqueues") final List<
+            Map<String, Object>
+        > taskrouterTaskqueues,
+        @JsonProperty("taskrouter_skills") final List<
+            Map<String, Object>
+        > taskrouterSkills,
+        @JsonProperty("taskrouter_worker_channels") final Map<
+            String,
+            Object
+        > taskrouterWorkerChannels,
+        @JsonProperty("taskrouter_worker_attributes") final Map<
+            String,
+            Object
+        > taskrouterWorkerAttributes,
         @JsonProperty(
             "taskrouter_offline_activity_sid"
         ) final String taskrouterOfflineActivitySid,
@@ -203,9 +208,10 @@ public class Configuration extends Resource {
         ) final String flexServiceInstanceSid,
         @JsonProperty("ui_language") final String uiLanguage,
         @JsonProperty("ui_attributes") final Map<String, Object> uiAttributes,
-        @JsonProperty(
-            "ui_dependencies"
-        ) final Map<String, Object> uiDependencies,
+        @JsonProperty("ui_dependencies") final Map<
+            String,
+            Object
+        > uiDependencies,
         @JsonProperty("ui_version") final String uiVersion,
         @JsonProperty("service_version") final String serviceVersion,
         @JsonProperty(
@@ -219,46 +225,62 @@ public class Configuration extends Resource {
         @JsonProperty("crm_callback_url") final URI crmCallbackUrl,
         @JsonProperty("crm_fallback_url") final URI crmFallbackUrl,
         @JsonProperty("crm_attributes") final Map<String, Object> crmAttributes,
-        @JsonProperty(
-            "public_attributes"
-        ) final Map<String, Object> publicAttributes,
+        @JsonProperty("public_attributes") final Map<
+            String,
+            Object
+        > publicAttributes,
         @JsonProperty(
             "plugin_service_enabled"
         ) final Boolean pluginServiceEnabled,
-        @JsonProperty(
-            "plugin_service_attributes"
-        ) final Map<String, Object> pluginServiceAttributes,
-        @JsonProperty(
-            "integrations"
-        ) final List<Map<String, Object>> integrations,
-        @JsonProperty(
-            "outbound_call_flows"
-        ) final Map<String, Object> outboundCallFlows,
-        @JsonProperty(
-            "serverless_service_sids"
-        ) final List<String> serverlessServiceSids,
-        @JsonProperty(
-            "queue_stats_configuration"
-        ) final Map<String, Object> queueStatsConfiguration,
+        @JsonProperty("plugin_service_attributes") final Map<
+            String,
+            Object
+        > pluginServiceAttributes,
+        @JsonProperty("integrations") final List<
+            Map<String, Object>
+        > integrations,
+        @JsonProperty("outbound_call_flows") final Map<
+            String,
+            Object
+        > outboundCallFlows,
+        @JsonProperty("serverless_service_sids") final List<
+            String
+        > serverlessServiceSids,
+        @JsonProperty("queue_stats_configuration") final Map<
+            String,
+            Object
+        > queueStatsConfiguration,
         @JsonProperty("notifications") final Map<String, Object> notifications,
         @JsonProperty("markdown") final Map<String, Object> markdown,
         @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "flex_insights_hr"
-        ) final Map<String, Object> flexInsightsHr,
+        @JsonProperty("flex_insights_hr") final Map<
+            String,
+            Object
+        > flexInsightsHr,
         @JsonProperty(
             "flex_insights_drilldown"
         ) final Boolean flexInsightsDrilldown,
         @JsonProperty("flex_url") final URI flexUrl,
-        @JsonProperty(
-            "channel_configs"
-        ) final List<Map<String, Object>> channelConfigs,
-        @JsonProperty(
-            "debugger_integration"
-        ) final Map<String, Object> debuggerIntegration,
-        @JsonProperty(
-            "flex_ui_status_report"
-        ) final Map<String, Object> flexUiStatusReport
+        @JsonProperty("channel_configs") final List<
+            Map<String, Object>
+        > channelConfigs,
+        @JsonProperty("debugger_integration") final Map<
+            String,
+            Object
+        > debuggerIntegration,
+        @JsonProperty("flex_ui_status_report") final Map<
+            String,
+            Object
+        > flexUiStatusReport,
+        @JsonProperty("agent_conv_end_methods") final Map<
+            String,
+            Object
+        > agentConvEndMethods,
+        @JsonProperty("citrix_voice_vdi") final Map<
+            String,
+            Object
+        > citrixVoiceVdi,
+        @JsonProperty("offline_config") final Map<String, Object> offlineConfig
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -305,6 +327,9 @@ public class Configuration extends Resource {
         this.channelConfigs = channelConfigs;
         this.debuggerIntegration = debuggerIntegration;
         this.flexUiStatusReport = flexUiStatusReport;
+        this.agentConvEndMethods = agentConvEndMethods;
+        this.citrixVoiceVdi = citrixVoiceVdi;
+        this.offlineConfig = offlineConfig;
     }
 
     public final String getAccountSid() {
@@ -487,6 +512,18 @@ public class Configuration extends Resource {
         return this.flexUiStatusReport;
     }
 
+    public final Map<String, Object> getAgentConvEndMethods() {
+        return this.agentConvEndMethods;
+    }
+
+    public final Map<String, Object> getCitrixVoiceVdi() {
+        return this.citrixVoiceVdi;
+    }
+
+    public final Map<String, Object> getOfflineConfig() {
+        return this.offlineConfig;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -586,7 +623,10 @@ public class Configuration extends Resource {
             Objects.equals(flexUrl, other.flexUrl) &&
             Objects.equals(channelConfigs, other.channelConfigs) &&
             Objects.equals(debuggerIntegration, other.debuggerIntegration) &&
-            Objects.equals(flexUiStatusReport, other.flexUiStatusReport)
+            Objects.equals(flexUiStatusReport, other.flexUiStatusReport) &&
+            Objects.equals(agentConvEndMethods, other.agentConvEndMethods) &&
+            Objects.equals(citrixVoiceVdi, other.citrixVoiceVdi) &&
+            Objects.equals(offlineConfig, other.offlineConfig)
         );
     }
 
@@ -637,7 +677,10 @@ public class Configuration extends Resource {
             flexUrl,
             channelConfigs,
             debuggerIntegration,
-            flexUiStatusReport
+            flexUiStatusReport,
+            agentConvEndMethods,
+            citrixVoiceVdi,
+            offlineConfig
         );
     }
 }

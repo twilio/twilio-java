@@ -116,9 +116,10 @@ public class DomainCerts extends Resource {
         @JsonProperty("domain_name") final URI domainName,
         @JsonProperty("certificate_sid") final String certificateSid,
         @JsonProperty("url") final URI url,
-        @JsonProperty(
-            "cert_in_validation"
-        ) final Map<String, Object> certInValidation
+        @JsonProperty("cert_in_validation") final Map<
+            String,
+            Object
+        > certInValidation
     ) {
         this.domainSid = domainSid;
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);

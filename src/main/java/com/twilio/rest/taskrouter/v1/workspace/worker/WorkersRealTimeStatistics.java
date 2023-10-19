@@ -103,9 +103,9 @@ public class WorkersRealTimeStatistics extends Resource {
     @JsonCreator
     private WorkersRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "activity_statistics"
-        ) final List<Map<String, Object>> activityStatistics,
+        @JsonProperty("activity_statistics") final List<
+            Map<String, Object>
+        > activityStatistics,
         @JsonProperty("total_workers") final Integer totalWorkers,
         @JsonProperty("workspace_sid") final String workspaceSid,
         @JsonProperty("url") final URI url

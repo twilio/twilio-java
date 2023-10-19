@@ -101,9 +101,10 @@ public class InsightsSettingsAnswerSets extends Resource {
     private InsightsSettingsAnswerSets(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("answer_sets") final Map<String, Object> answerSets,
-        @JsonProperty(
-            "answer_set_categories"
-        ) final Map<String, Object> answerSetCategories,
+        @JsonProperty("answer_set_categories") final Map<
+            String,
+            Object
+        > answerSetCategories,
         @JsonProperty("not_applicable") final Map<String, Object> notApplicable,
         @JsonProperty("url") final URI url
     ) {

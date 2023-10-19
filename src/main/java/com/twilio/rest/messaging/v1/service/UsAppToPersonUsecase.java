@@ -91,9 +91,9 @@ public class UsAppToPersonUsecase extends Resource {
 
     @JsonCreator
     private UsAppToPersonUsecase(
-        @JsonProperty(
-            "us_app_to_person_usecases"
-        ) final List<Map<String, Object>> usAppToPersonUsecases
+        @JsonProperty("us_app_to_person_usecases") final List<
+            Map<String, Object>
+        > usAppToPersonUsecases
     ) {
         this.usAppToPersonUsecases = usAppToPersonUsecases;
     }

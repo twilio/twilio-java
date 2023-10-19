@@ -116,9 +116,9 @@ public class TaskQueueRealTimeStatistics extends Resource {
     @JsonCreator
     private TaskQueueRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "activity_statistics"
-        ) final List<Map<String, Object>> activityStatistics,
+        @JsonProperty("activity_statistics") final List<
+            Map<String, Object>
+        > activityStatistics,
         @JsonProperty(
             "longest_task_waiting_age"
         ) final Integer longestTaskWaitingAge,
@@ -132,12 +132,14 @@ public class TaskQueueRealTimeStatistics extends Resource {
             "longest_relative_task_sid_in_queue"
         ) final String longestRelativeTaskSidInQueue,
         @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty(
-            "tasks_by_priority"
-        ) final Map<String, Object> tasksByPriority,
-        @JsonProperty(
-            "tasks_by_status"
-        ) final Map<String, Object> tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Map<
+            String,
+            Object
+        > tasksByPriority,
+        @JsonProperty("tasks_by_status") final Map<
+            String,
+            Object
+        > tasksByStatus,
         @JsonProperty(
             "total_available_workers"
         ) final Integer totalAvailableWorkers,

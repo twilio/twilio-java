@@ -39,6 +39,7 @@ public class MessageCreator extends Creator<Message> {
     private String mediaSid;
     private String contentSid;
     private String contentVariables;
+    private String subject;
 
     public MessageCreator(
         final String pathChatServiceSid,
@@ -95,6 +96,11 @@ public class MessageCreator extends Creator<Message> {
         return this;
     }
 
+    public MessageCreator setSubject(final String subject) {
+        this.subject = subject;
+        return this;
+    }
+
     @Override
     public Message create(final TwilioRestClient client) {
         String path =
@@ -130,7 +136,10 @@ public class MessageCreator extends Creator<Message> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -168,6 +177,9 @@ public class MessageCreator extends Creator<Message> {
         }
         if (contentVariables != null) {
             request.addPostParam("ContentVariables", contentVariables);
+        }
+        if (subject != null) {
+            request.addPostParam("Subject", subject);
         }
     }
 

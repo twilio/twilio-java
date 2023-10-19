@@ -177,9 +177,9 @@ public class Composition extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("room_sid") final String roomSid,
         @JsonProperty("audio_sources") final List<String> audioSources,
-        @JsonProperty(
-            "audio_sources_excluded"
-        ) final List<String> audioSourcesExcluded,
+        @JsonProperty("audio_sources_excluded") final List<
+            String
+        > audioSourcesExcluded,
         @JsonProperty("video_layout") final Map<String, Object> videoLayout,
         @JsonProperty("resolution") final String resolution,
         @JsonProperty("trim") final Boolean trim,

@@ -174,9 +174,10 @@ public class AssignedAddOn extends Resource {
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("uri") final String uri,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris
     ) {
         this.sid = sid;
         this.accountSid = accountSid;

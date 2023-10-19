@@ -110,9 +110,9 @@ public class Number extends Resource {
         ) final com.twilio.type.PhoneNumber originationNumber,
         @JsonProperty("country") final String country,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "terminating_prefix_prices"
-        ) final List<OutboundPrefixPriceWithOrigin> terminatingPrefixPrices,
+        @JsonProperty("terminating_prefix_prices") final List<
+            OutboundPrefixPriceWithOrigin
+        > terminatingPrefixPrices,
         @JsonProperty(
             "originating_call_price"
         ) final InboundCallPrice originatingCallPrice,
@@ -147,7 +147,9 @@ public class Number extends Resource {
         return this.isoCountry;
     }
 
-    public final List<OutboundPrefixPriceWithOrigin> getTerminatingPrefixPrices() {
+    public final List<
+        OutboundPrefixPriceWithOrigin
+    > getTerminatingPrefixPrices() {
         return this.terminatingPrefixPrices;
     }
 

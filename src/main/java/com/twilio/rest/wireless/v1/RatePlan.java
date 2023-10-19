@@ -136,9 +136,9 @@ public class RatePlan extends Resource {
         @JsonProperty(
             "national_roaming_data_limit"
         ) final Integer nationalRoamingDataLimit,
-        @JsonProperty(
-            "international_roaming"
-        ) final List<String> internationalRoaming,
+        @JsonProperty("international_roaming") final List<
+            String
+        > internationalRoaming,
         @JsonProperty(
             "international_roaming_data_limit"
         ) final Integer internationalRoamingDataLimit,

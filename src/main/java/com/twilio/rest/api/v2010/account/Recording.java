@@ -202,12 +202,14 @@ public class Recording extends Resource {
         @JsonProperty("source") final Recording.Source source,
         @JsonProperty("error_code") final Integer errorCode,
         @JsonProperty("uri") final String uri,
-        @JsonProperty(
-            "encryption_details"
-        ) final Map<String, Object> encryptionDetails,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris,
+        @JsonProperty("encryption_details") final Map<
+            String,
+            Object
+        > encryptionDetails,
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris,
         @JsonProperty("media_url") final URI mediaUrl
     ) {
         this.accountSid = accountSid;

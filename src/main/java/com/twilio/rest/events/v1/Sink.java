@@ -170,9 +170,10 @@ public class Sink extends Resource {
         @JsonProperty("date_updated") final String dateUpdated,
         @JsonProperty("description") final String description,
         @JsonProperty("sid") final String sid,
-        @JsonProperty(
-            "sink_configuration"
-        ) final Map<String, Object> sinkConfiguration,
+        @JsonProperty("sink_configuration") final Map<
+            String,
+            Object
+        > sinkConfiguration,
         @JsonProperty("sink_type") final Sink.SinkType sinkType,
         @JsonProperty("status") final Sink.Status status,
         @JsonProperty("url") final URI url,

@@ -125,9 +125,10 @@ public class AvailablePhoneNumberCountry extends Resource {
         @JsonProperty("country") final String country,
         @JsonProperty("uri") final URI uri,
         @JsonProperty("beta") final Boolean beta,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris
     ) {
         this.countryCode = countryCode;
         this.country = country;

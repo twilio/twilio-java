@@ -294,9 +294,9 @@ public class ConferenceParticipant extends Resource {
             "jitter_buffer_size"
         ) final ConferenceParticipant.JitterBufferSize jitterBufferSize,
         @JsonProperty("is_coach") final Boolean isCoach,
-        @JsonProperty(
-            "coached_participants"
-        ) final List<String> coachedParticipants,
+        @JsonProperty("coached_participants") final List<
+            String
+        > coachedParticipants,
         @JsonProperty(
             "participant_region"
         ) final ConferenceParticipant.Region participantRegion,

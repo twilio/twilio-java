@@ -402,9 +402,10 @@ public class Message extends Resource {
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,
         @JsonProperty("api_version") final String apiVersion,
-        @JsonProperty(
-            "subresource_uris"
-        ) final Map<String, String> subresourceUris
+        @JsonProperty("subresource_uris") final Map<
+            String,
+            String
+        > subresourceUris
     ) {
         this.body = body;
         this.numSegments = numSegments;

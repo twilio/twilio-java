@@ -268,9 +268,10 @@ public class Conference extends Resource {
             "mixer_region_requested"
         ) final Conference.Region mixerRegionRequested,
         @JsonProperty("recording_enabled") final Boolean recordingEnabled,
-        @JsonProperty(
-            "detected_issues"
-        ) final Map<String, Object> detectedIssues,
+        @JsonProperty("detected_issues") final Map<
+            String,
+            Object
+        > detectedIssues,
         @JsonProperty("tags") final List<Conference.Tag> tags,
         @JsonProperty("tag_info") final Map<String, Object> tagInfo,
         @JsonProperty(

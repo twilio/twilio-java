@@ -104,12 +104,12 @@ public class Country extends Resource {
     private Country(
         @JsonProperty("country") final String country,
         @JsonProperty("iso_country") final String isoCountry,
-        @JsonProperty(
-            "outbound_prefix_prices"
-        ) final List<OutboundPrefixPrice> outboundPrefixPrices,
-        @JsonProperty(
-            "inbound_call_prices"
-        ) final List<InboundCallPrice> inboundCallPrices,
+        @JsonProperty("outbound_prefix_prices") final List<
+            OutboundPrefixPrice
+        > outboundPrefixPrices,
+        @JsonProperty("inbound_call_prices") final List<
+            InboundCallPrice
+        > inboundCallPrices,
         @JsonProperty("price_unit") @JsonDeserialize(
             using = com.twilio.converter.CurrencyDeserializer.class
         ) final Currency priceUnit,

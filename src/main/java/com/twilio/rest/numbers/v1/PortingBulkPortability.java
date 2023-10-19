@@ -127,9 +127,9 @@ public class PortingBulkPortability extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("status") final PortingBulkPortability.Status status,
         @JsonProperty("datetime_created") final String datetimeCreated,
-        @JsonProperty(
-            "phone_numbers"
-        ) final List<Map<String, Object>> phoneNumbers,
+        @JsonProperty("phone_numbers") final List<
+            Map<String, Object>
+        > phoneNumbers,
         @JsonProperty("url") final URI url
     ) {
         this.sid = sid;

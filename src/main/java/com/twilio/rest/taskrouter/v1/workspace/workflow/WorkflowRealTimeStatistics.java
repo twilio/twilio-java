@@ -116,12 +116,14 @@ public class WorkflowRealTimeStatistics extends Resource {
         @JsonProperty(
             "longest_task_waiting_sid"
         ) final String longestTaskWaitingSid,
-        @JsonProperty(
-            "tasks_by_priority"
-        ) final Map<String, Object> tasksByPriority,
-        @JsonProperty(
-            "tasks_by_status"
-        ) final Map<String, Object> tasksByStatus,
+        @JsonProperty("tasks_by_priority") final Map<
+            String,
+            Object
+        > tasksByPriority,
+        @JsonProperty("tasks_by_status") final Map<
+            String,
+            Object
+        > tasksByStatus,
         @JsonProperty("total_tasks") final Integer totalTasks,
         @JsonProperty("workflow_sid") final String workflowSid,
         @JsonProperty("workspace_sid") final String workspaceSid,

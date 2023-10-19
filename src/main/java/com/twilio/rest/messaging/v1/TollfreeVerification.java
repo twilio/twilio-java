@@ -240,9 +240,9 @@ public class TollfreeVerification extends Resource {
             "business_contact_phone"
         ) final com.twilio.type.PhoneNumber businessContactPhone,
         @JsonProperty("notification_email") final String notificationEmail,
-        @JsonProperty(
-            "use_case_categories"
-        ) final List<String> useCaseCategories,
+        @JsonProperty("use_case_categories") final List<
+            String
+        > useCaseCategories,
         @JsonProperty("use_case_summary") final String useCaseSummary,
         @JsonProperty(
             "production_message_sample"

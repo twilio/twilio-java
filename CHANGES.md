@@ -1,6 +1,59 @@
 twilio-java changelog
 =====================
 
+[2023-10-19] Version 10.0.0-rc.5
+--------------------------------
+**Library - Chore**
+- [PR #772](https://github.com/twilio/twilio-java/pull/772): add-constructor-apiexception. Thanks to [@sbansla](https://github.com/sbansla)!
+
+**Library - Fix**
+- [PR #767](https://github.com/twilio/twilio-java/pull/767): Update validate ssl method with new security testing method. Thanks to [@AsabuHere](https://github.com/AsabuHere)!
+
+**Accounts**
+- Updated Safelist metadata to correct the docs.
+- Add Global SafeList API changes
+
+**Api**
+- Added optional parameter `CallToken` for create participant api
+- Make message tagging parameters public **(breaking change)**
+
+**Conversations**
+- Enable conversation email bindings, email address configurations and email message subjects
+
+**Flex**
+- Adding `offline_config` to Flex Configuration
+- Adding `console_errors_included` to Flex Configuration field `debugger_integrations`
+- Introducing new channel status as `inactive` in modify channel endpoint for leave functionality **(breaking change)**
+- Adding `citrix_voice_vdi` to Flex Configuration
+- Adding `agent_conv_end_methods` to Flex Configuration
+
+**Intelligence**
+- Deleted `redacted` parameter from fetching transcript in v2 **(breaking change)**
+
+**Lookups**
+- Add new `phone_number_quality_score` package to the lookup response
+- Remove `disposable_phone_number_risk` package **(breaking change)**
+- Add test api support for Lookup v2
+
+**Messaging**
+- Update US App To Person documentation with current `message_samples` requirements
+- Mark Mesasging Services fallback_to_long_code feature obsolete
+
+**Numbers**
+- Add Create Port In request api
+- Renaming sid for bulk_hosting_sid and remove account_sid response field in numbers/v2/BulkHostedNumberOrders **(breaking change)**
+
+**Pricing**
+- gate resources behind a beta_feature
+
+**Taskrouter**
+- Remove beta_feature check on task_queue_bulk_real_time_statistics endpoint
+- Add `virtual_start_time` property to tasks
+- Updating `task_queue_data` format from `map` to `array` in the response of bulk get endpoint of TaskQueue Real Time Statistics API **(breaking change)**
+- Add Update Queues, Workers, Workflow Real Time Statistics API to flex-rt-data-api-v2 endpoint
+- Add Update Workspace Real Time Statistics API to flex-rt-data-api-v2 endpoint
+
+
 [2023-08-24] Version 10.0.0-rc.4
 --------------------------------
 **Api**

@@ -102,12 +102,14 @@ public class Notification extends Resource {
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("chat_service_sid") final String chatServiceSid,
         @JsonProperty("new_message") final Map<String, Object> newMessage,
-        @JsonProperty(
-            "added_to_conversation"
-        ) final Map<String, Object> addedToConversation,
-        @JsonProperty(
-            "removed_from_conversation"
-        ) final Map<String, Object> removedFromConversation,
+        @JsonProperty("added_to_conversation") final Map<
+            String,
+            Object
+        > addedToConversation,
+        @JsonProperty("removed_from_conversation") final Map<
+            String,
+            Object
+        > removedFromConversation,
         @JsonProperty("log_enabled") final Boolean logEnabled,
         @JsonProperty("url") final URI url
     ) {

@@ -31,13 +31,13 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
 
     private String pathInteractionSid;
     private String pathSid;
-    private InteractionChannel.Status status;
+    private InteractionChannel.UpdateChannelStatus status;
     private Map<String, Object> routing;
 
     public InteractionChannelUpdater(
         final String pathInteractionSid,
         final String pathSid,
-        final InteractionChannel.Status status
+        final InteractionChannel.UpdateChannelStatus status
     ) {
         this.pathInteractionSid = pathInteractionSid;
         this.pathSid = pathSid;
@@ -45,7 +45,7 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
     }
 
     public InteractionChannelUpdater setStatus(
-        final InteractionChannel.Status status
+        final InteractionChannel.UpdateChannelStatus status
     ) {
         this.status = status;
         return this;
@@ -88,7 +88,10 @@ public class InteractionChannelUpdater extends Updater<InteractionChannel> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

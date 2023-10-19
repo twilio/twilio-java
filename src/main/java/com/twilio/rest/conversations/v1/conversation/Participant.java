@@ -153,9 +153,10 @@ public class Participant extends Resource {
         @JsonProperty("sid") final String sid,
         @JsonProperty("identity") final String identity,
         @JsonProperty("attributes") final String attributes,
-        @JsonProperty(
-            "messaging_binding"
-        ) final Map<String, Object> messagingBinding,
+        @JsonProperty("messaging_binding") final Map<
+            String,
+            Object
+        > messagingBinding,
         @JsonProperty("role_sid") final String roleSid,
         @JsonProperty("date_created") final String dateCreated,
         @JsonProperty("date_updated") final String dateUpdated,

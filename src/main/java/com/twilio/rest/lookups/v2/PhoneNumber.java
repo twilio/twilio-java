@@ -38,7 +38,7 @@ import lombok.ToString;
 @ToString
 public class PhoneNumber extends Resource {
 
-    private static final long serialVersionUID = 36409394799926L;
+    private static final long serialVersionUID = 193814234797897L;
 
     public static PhoneNumberFetcher fetcher(final String pathPhoneNumber) {
         return new PhoneNumberFetcher(pathPhoneNumber);
@@ -125,7 +125,7 @@ public class PhoneNumber extends Resource {
     private final Map<String, Object> identityMatch;
     private final Map<String, Object> reassignedNumber;
     private final Map<String, Object> smsPumpingRisk;
-    private final Map<String, Object> disposablePhoneNumberRisk;
+    private final Map<String, Object> phoneNumberQualityScore;
     private final URI url;
 
     @JsonCreator
@@ -137,28 +137,33 @@ public class PhoneNumber extends Resource {
         ) final com.twilio.type.PhoneNumber phoneNumber,
         @JsonProperty("national_format") final String nationalFormat,
         @JsonProperty("valid") final Boolean valid,
-        @JsonProperty(
-            "validation_errors"
-        ) final List<PhoneNumber.ValidationError> validationErrors,
+        @JsonProperty("validation_errors") final List<
+            PhoneNumber.ValidationError
+        > validationErrors,
         @JsonProperty("caller_name") final Map<String, Object> callerName,
         @JsonProperty("sim_swap") final Map<String, Object> simSwap,
-        @JsonProperty(
-            "call_forwarding"
-        ) final Map<String, Object> callForwarding,
+        @JsonProperty("call_forwarding") final Map<
+            String,
+            Object
+        > callForwarding,
         @JsonProperty("live_activity") final Map<String, Object> liveActivity,
-        @JsonProperty(
-            "line_type_intelligence"
-        ) final Map<String, Object> lineTypeIntelligence,
+        @JsonProperty("line_type_intelligence") final Map<
+            String,
+            Object
+        > lineTypeIntelligence,
         @JsonProperty("identity_match") final Map<String, Object> identityMatch,
-        @JsonProperty(
-            "reassigned_number"
-        ) final Map<String, Object> reassignedNumber,
-        @JsonProperty(
-            "sms_pumping_risk"
-        ) final Map<String, Object> smsPumpingRisk,
-        @JsonProperty(
-            "disposable_phone_number_risk"
-        ) final Map<String, Object> disposablePhoneNumberRisk,
+        @JsonProperty("reassigned_number") final Map<
+            String,
+            Object
+        > reassignedNumber,
+        @JsonProperty("sms_pumping_risk") final Map<
+            String,
+            Object
+        > smsPumpingRisk,
+        @JsonProperty("phone_number_quality_score") final Map<
+            String,
+            Object
+        > phoneNumberQualityScore,
         @JsonProperty("url") final URI url
     ) {
         this.callingCountryCode = callingCountryCode;
@@ -175,7 +180,7 @@ public class PhoneNumber extends Resource {
         this.identityMatch = identityMatch;
         this.reassignedNumber = reassignedNumber;
         this.smsPumpingRisk = smsPumpingRisk;
-        this.disposablePhoneNumberRisk = disposablePhoneNumberRisk;
+        this.phoneNumberQualityScore = phoneNumberQualityScore;
         this.url = url;
     }
 
@@ -235,8 +240,8 @@ public class PhoneNumber extends Resource {
         return this.smsPumpingRisk;
     }
 
-    public final Map<String, Object> getDisposablePhoneNumberRisk() {
-        return this.disposablePhoneNumberRisk;
+    public final Map<String, Object> getPhoneNumberQualityScore() {
+        return this.phoneNumberQualityScore;
     }
 
     public final URI getUrl() {
@@ -271,8 +276,8 @@ public class PhoneNumber extends Resource {
             Objects.equals(reassignedNumber, other.reassignedNumber) &&
             Objects.equals(smsPumpingRisk, other.smsPumpingRisk) &&
             Objects.equals(
-                disposablePhoneNumberRisk,
-                other.disposablePhoneNumberRisk
+                phoneNumberQualityScore,
+                other.phoneNumberQualityScore
             ) &&
             Objects.equals(url, other.url)
         );
@@ -295,7 +300,7 @@ public class PhoneNumber extends Resource {
             identityMatch,
             reassignedNumber,
             smsPumpingRisk,
-            disposablePhoneNumberRisk,
+            phoneNumberQualityScore,
             url
         );
     }

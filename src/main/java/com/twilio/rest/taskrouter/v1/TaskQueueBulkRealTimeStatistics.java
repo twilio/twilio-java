@@ -26,6 +26,7 @@ import com.twilio.exception.ApiException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+import java.util.List;
 import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +37,7 @@ import lombok.ToString;
 @ToString
 public class TaskQueueBulkRealTimeStatistics extends Resource {
 
-    private static final long serialVersionUID = 39099060883988L;
+    private static final long serialVersionUID = 187525220896144L;
 
     public static TaskQueueBulkRealTimeStatisticsCreator creator(
         final String pathWorkspaceSid
@@ -95,7 +96,7 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
 
     private final String accountSid;
     private final String workspaceSid;
-    private final Map<String, Object> taskQueueData;
+    private final List<Map<String, Object>> taskQueueData;
     private final Integer taskQueueResponseCount;
     private final URI url;
 
@@ -103,9 +104,9 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
     private TaskQueueBulkRealTimeStatistics(
         @JsonProperty("account_sid") final String accountSid,
         @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty(
-            "task_queue_data"
-        ) final Map<String, Object> taskQueueData,
+        @JsonProperty("task_queue_data") final List<
+            Map<String, Object>
+        > taskQueueData,
         @JsonProperty(
             "task_queue_response_count"
         ) final Integer taskQueueResponseCount,
@@ -126,7 +127,7 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
         return this.workspaceSid;
     }
 
-    public final Map<String, Object> getTaskQueueData() {
+    public final List<Map<String, Object>> getTaskQueueData() {
         return this.taskQueueData;
     }
 

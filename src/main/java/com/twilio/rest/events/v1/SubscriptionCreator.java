@@ -16,10 +16,9 @@ package com.twilio.rest.events.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -28,56 +27,48 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
+import java.util.Map;
+import com.twilio.converter.Converter;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 
-public class SubscriptionCreator extends Creator<Subscription> {
 
+
+public class SubscriptionCreator extends Creator<Subscription>{
     private String description;
     private String sinkSid;
     private List<Map<String, Object>> types;
 
-    public SubscriptionCreator(
-        final String description,
-        final String sinkSid,
-        final List<Map<String, Object>> types
-    ) {
+    public SubscriptionCreator(final String description, final String sinkSid, final List<Map<String, Object>> types) {
         this.description = description;
         this.sinkSid = sinkSid;
         this.types = types;
     }
 
-    public SubscriptionCreator setDescription(final String description) {
+    public SubscriptionCreator setDescription(final String description){
         this.description = description;
         return this;
     }
-
-    public SubscriptionCreator setSinkSid(final String sinkSid) {
+    public SubscriptionCreator setSinkSid(final String sinkSid){
         this.sinkSid = sinkSid;
         return this;
     }
-
-    public SubscriptionCreator setTypes(final List<Map<String, Object>> types) {
+    public SubscriptionCreator setTypes(final List<Map<String, Object>> types){
         this.types = types;
         return this;
     }
-
-    public SubscriptionCreator setTypes(final Map<String, Object> types) {
+    public SubscriptionCreator setTypes(final Map<String, Object> types){
         return setTypes(Promoter.listOfOne(types));
     }
 
     @Override
-    public Subscription create(final TwilioRestClient client) {
+    public Subscription create(final TwilioRestClient client){
         String path = "/v1/Subscriptions";
 
-        path =
-            path.replace(
-                "{" + "Description" + "}",
-                this.description.toString()
-            );
-        path = path.replace("{" + "SinkSid" + "}", this.sinkSid.toString());
-        path = path.replace("{" + "Types" + "}", this.types.toString());
+        path = path.replace("{"+"Description"+"}", this.description.toString());
+        path = path.replace("{"+"SinkSid"+"}", this.sinkSid.toString());
+        path = path.replace("{"+"Types"+"}", this.types.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -88,37 +79,31 @@ public class SubscriptionCreator extends Creator<Subscription> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Subscription creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Subscription creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Subscription.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Subscription.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (description != null) {
             request.addPostParam("Description", description);
+    
         }
         if (sinkSid != null) {
             request.addPostParam("SinkSid", sinkSid);
+    
         }
         if (types != null) {
             for (Map<String, Object> prop : types) {
                 request.addPostParam("Types", Converter.mapToJson(prop));
             }
+    
         }
     }
 }

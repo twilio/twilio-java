@@ -16,10 +16,9 @@ package com.twilio.rest.api.v2010.account.call;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -28,14 +27,17 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.math.BigDecimal;
+import java.util.Map;
+import com.twilio.converter.Converter;
 import java.math.BigDecimal;
 import java.net.URI;
+
+import java.util.Map;
+
+
 import java.net.URI;
-import java.util.Map;
-import java.util.Map;
 
-public class PaymentCreator extends Creator<Payment> {
-
+public class PaymentCreator extends Creator<Payment>{
     private String pathCallSid;
     private String idempotencyKey;
     private URI statusCallback;
@@ -55,143 +57,96 @@ public class PaymentCreator extends Creator<Payment> {
     private Payment.TokenType tokenType;
     private String validCardTypes;
 
-    public PaymentCreator(
-        final String pathCallSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
+    public PaymentCreator(final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
         this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
-
-    public PaymentCreator(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final String idempotencyKey,
-        final URI statusCallback
-    ) {
+    public PaymentCreator(final String pathAccountSid, final String pathCallSid, final String idempotencyKey, final URI statusCallback) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.idempotencyKey = idempotencyKey;
         this.statusCallback = statusCallback;
     }
 
-    public PaymentCreator setIdempotencyKey(final String idempotencyKey) {
+    public PaymentCreator setIdempotencyKey(final String idempotencyKey){
         this.idempotencyKey = idempotencyKey;
         return this;
     }
-
-    public PaymentCreator setStatusCallback(final URI statusCallback) {
+    public PaymentCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public PaymentCreator setStatusCallback(final String statusCallback) {
+    public PaymentCreator setStatusCallback(final String statusCallback){
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-
-    public PaymentCreator setBankAccountType(
-        final Payment.BankAccountType bankAccountType
-    ) {
+    public PaymentCreator setBankAccountType(final Payment.BankAccountType bankAccountType){
         this.bankAccountType = bankAccountType;
         return this;
     }
-
-    public PaymentCreator setChargeAmount(final BigDecimal chargeAmount) {
+    public PaymentCreator setChargeAmount(final BigDecimal chargeAmount){
         this.chargeAmount = chargeAmount;
         return this;
     }
-
-    public PaymentCreator setCurrency(final String currency) {
+    public PaymentCreator setCurrency(final String currency){
         this.currency = currency;
         return this;
     }
-
-    public PaymentCreator setDescription(final String description) {
+    public PaymentCreator setDescription(final String description){
         this.description = description;
         return this;
     }
-
-    public PaymentCreator setInput(final String input) {
+    public PaymentCreator setInput(final String input){
         this.input = input;
         return this;
     }
-
-    public PaymentCreator setMinPostalCodeLength(
-        final Integer minPostalCodeLength
-    ) {
+    public PaymentCreator setMinPostalCodeLength(final Integer minPostalCodeLength){
         this.minPostalCodeLength = minPostalCodeLength;
         return this;
     }
-
-    public PaymentCreator setParameter(final Map<String, Object> parameter) {
+    public PaymentCreator setParameter(final Map<String, Object> parameter){
         this.parameter = parameter;
         return this;
     }
-
-    public PaymentCreator setPaymentConnector(final String paymentConnector) {
+    public PaymentCreator setPaymentConnector(final String paymentConnector){
         this.paymentConnector = paymentConnector;
         return this;
     }
-
-    public PaymentCreator setPaymentMethod(
-        final Payment.PaymentMethod paymentMethod
-    ) {
+    public PaymentCreator setPaymentMethod(final Payment.PaymentMethod paymentMethod){
         this.paymentMethod = paymentMethod;
         return this;
     }
-
-    public PaymentCreator setPostalCode(final Boolean postalCode) {
+    public PaymentCreator setPostalCode(final Boolean postalCode){
         this.postalCode = postalCode;
         return this;
     }
-
-    public PaymentCreator setSecurityCode(final Boolean securityCode) {
+    public PaymentCreator setSecurityCode(final Boolean securityCode){
         this.securityCode = securityCode;
         return this;
     }
-
-    public PaymentCreator setTimeout(final Integer timeout) {
+    public PaymentCreator setTimeout(final Integer timeout){
         this.timeout = timeout;
         return this;
     }
-
-    public PaymentCreator setTokenType(final Payment.TokenType tokenType) {
+    public PaymentCreator setTokenType(final Payment.TokenType tokenType){
         this.tokenType = tokenType;
         return this;
     }
-
-    public PaymentCreator setValidCardTypes(final String validCardTypes) {
+    public PaymentCreator setValidCardTypes(final String validCardTypes){
         this.validCardTypes = validCardTypes;
         return this;
     }
 
     @Override
-    public Payment create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
+    public Payment create(final TwilioRestClient client){
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Payments.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path =
-            path.replace(
-                "{" + "IdempotencyKey" + "}",
-                this.idempotencyKey.toString()
-            );
-        path =
-            path.replace(
-                "{" + "StatusCallback" + "}",
-                this.statusCallback.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{"+"IdempotencyKey"+"}", this.idempotencyKey.toString());
+        path = path.replace("{"+"StatusCallback"+"}", this.statusCallback.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -202,74 +157,81 @@ public class PaymentCreator extends Creator<Payment> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Payment creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Payment creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Payment.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (idempotencyKey != null) {
             request.addPostParam("IdempotencyKey", idempotencyKey);
+    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
+    
         }
         if (bankAccountType != null) {
             request.addPostParam("BankAccountType", bankAccountType.toString());
+    
         }
         if (chargeAmount != null) {
             request.addPostParam("ChargeAmount", chargeAmount.toString());
+    
         }
         if (currency != null) {
             request.addPostParam("Currency", currency);
+    
         }
         if (description != null) {
             request.addPostParam("Description", description);
+    
         }
         if (input != null) {
             request.addPostParam("Input", input);
+    
         }
         if (minPostalCodeLength != null) {
-            request.addPostParam(
-                "MinPostalCodeLength",
-                minPostalCodeLength.toString()
-            );
+            request.addPostParam("MinPostalCodeLength", minPostalCodeLength.toString());
+    
         }
         if (parameter != null) {
-            request.addPostParam("Parameter", Converter.mapToJson(parameter));
+            request.addPostParam("Parameter",  Converter.mapToJson(parameter));
+    
         }
         if (paymentConnector != null) {
             request.addPostParam("PaymentConnector", paymentConnector);
+    
         }
         if (paymentMethod != null) {
             request.addPostParam("PaymentMethod", paymentMethod.toString());
+    
         }
         if (postalCode != null) {
             request.addPostParam("PostalCode", postalCode.toString());
+    
         }
         if (securityCode != null) {
             request.addPostParam("SecurityCode", securityCode.toString());
+    
         }
         if (timeout != null) {
             request.addPostParam("Timeout", timeout.toString());
+    
         }
         if (tokenType != null) {
             request.addPostParam("TokenType", tokenType.toString());
+    
         }
         if (validCardTypes != null) {
             request.addPostParam("ValidCardTypes", validCardTypes);
+    
         }
     }
 }

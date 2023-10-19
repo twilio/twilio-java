@@ -24,65 +24,54 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Factor extends Resource {
-
     private static final long serialVersionUID = 254306005270593L;
 
-    public static FactorDeleter deleter(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
+    
+
+    public static FactorDeleter deleter(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new FactorDeleter(pathServiceSid, pathIdentity, pathSid);
     }
 
-    public static FactorFetcher fetcher(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
+    public static FactorFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new FactorFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
-    public static FactorReader reader(
-        final String pathServiceSid,
-        final String pathIdentity
-    ) {
+    public static FactorReader reader(final String pathServiceSid, final String pathIdentity){
         return new FactorReader(pathServiceSid, pathIdentity);
     }
 
-    public static FactorUpdater updater(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
+    public static FactorUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new FactorUpdater(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Factor object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Factor object represented by the provided JSON
-     */
-    public static Factor fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Factor object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Factor object represented by the provided JSON
+    */
+    public static Factor fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Factor.class);
@@ -94,17 +83,14 @@ public class Factor extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Factor object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Factor object represented by the provided JSON
-     */
-    public static Factor fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Factor object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Factor object represented by the provided JSON
+    */
+    public static Factor fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Factor.class);
@@ -134,7 +120,6 @@ public class Factor extends Resource {
             return Promoter.enumFromString(value, FactorStatuses.values());
         }
     }
-
     public enum FactorTypes {
         PUSH("push"),
         TOTP("totp");
@@ -154,7 +139,6 @@ public class Factor extends Resource {
             return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
-
     public enum TotpAlgorithms {
         SHA1("sha1"),
         SHA256("sha256"),
@@ -192,19 +176,44 @@ public class Factor extends Resource {
 
     @JsonCreator
     private Factor(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("entity_sid") final String entitySid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("status") final Factor.FactorStatuses status,
-        @JsonProperty("factor_type") final Factor.FactorTypes factorType,
-        @JsonProperty("config") final Map<String, Object> config,
-        @JsonProperty("metadata") final Map<String, Object> metadata,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("entity_sid")
+        final String entitySid,
+
+        @JsonProperty("identity")
+        final String identity,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("status")
+        final Factor.FactorStatuses status,
+
+        @JsonProperty("factor_type")
+        final Factor.FactorTypes factorType,
+
+        @JsonProperty("config")
+        final Map<String, Object> config,
+
+        @JsonProperty("metadata")
+        final Map<String, Object> metadata,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -221,61 +230,49 @@ public class Factor extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getEntitySid() {
-        return this.entitySid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Factor.FactorStatuses getStatus() {
-        return this.status;
-    }
-
-    public final Factor.FactorTypes getFactorType() {
-        return this.factorType;
-    }
-
-    public final Map<String, Object> getConfig() {
-        return this.config;
-    }
-
-    public final Map<String, Object> getMetadata() {
-        return this.metadata;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final String getEntitySid() {
+            return this.entitySid;
+        }
+        public final String getIdentity() {
+            return this.identity;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final Factor.FactorStatuses getStatus() {
+            return this.status;
+        }
+        public final Factor.FactorTypes getFactorType() {
+            return this.factorType;
+        }
+        public final Map<String, Object> getConfig() {
+            return this.config;
+        }
+        public final Map<String, Object> getMetadata() {
+            return this.metadata;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -285,39 +282,14 @@ public class Factor extends Resource {
 
         Factor other = (Factor) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(entitySid, other.entitySid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(factorType, other.factorType) &&
-            Objects.equals(config, other.config) &&
-            Objects.equals(metadata, other.metadata) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(entitySid, other.entitySid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(status, other.status) &&  Objects.equals(factorType, other.factorType) &&  Objects.equals(config, other.config) &&  Objects.equals(metadata, other.metadata) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            entitySid,
-            identity,
-            dateCreated,
-            dateUpdated,
-            friendlyName,
-            status,
-            factorType,
-            config,
-            metadata,
-            url
-        );
+        return Objects.hash(sid, accountSid, serviceSid, entitySid, identity, dateCreated, dateUpdated, friendlyName, status, factorType, config, metadata, url);
     }
+
+
 }
+

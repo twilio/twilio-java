@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class ValidationRequestCreator extends Creator<ValidationRequest> {
-
+public class ValidationRequestCreator extends Creator<ValidationRequest>{
     private com.twilio.type.PhoneNumber phoneNumber;
     private String pathAccountSid;
     private String friendlyName;
@@ -38,85 +40,54 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
 
-    public ValidationRequestCreator(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+    public ValidationRequestCreator(final com.twilio.type.PhoneNumber phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
-    public ValidationRequestCreator(
-        final String pathAccountSid,
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+    public ValidationRequestCreator(final String pathAccountSid, final com.twilio.type.PhoneNumber phoneNumber) {
         this.pathAccountSid = pathAccountSid;
         this.phoneNumber = phoneNumber;
     }
 
-    public ValidationRequestCreator setPhoneNumber(
-        final com.twilio.type.PhoneNumber phoneNumber
-    ) {
+    public ValidationRequestCreator setPhoneNumber(final com.twilio.type.PhoneNumber phoneNumber){
         this.phoneNumber = phoneNumber;
         return this;
     }
 
-    public ValidationRequestCreator setPhoneNumber(final String phoneNumber) {
+    public ValidationRequestCreator setPhoneNumber(final String phoneNumber){
         return setPhoneNumber(Promoter.phoneNumberFromString(phoneNumber));
     }
-
-    public ValidationRequestCreator setFriendlyName(final String friendlyName) {
+    public ValidationRequestCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public ValidationRequestCreator setCallDelay(final Integer callDelay) {
+    public ValidationRequestCreator setCallDelay(final Integer callDelay){
         this.callDelay = callDelay;
         return this;
     }
-
-    public ValidationRequestCreator setExtension(final String extension) {
+    public ValidationRequestCreator setExtension(final String extension){
         this.extension = extension;
         return this;
     }
-
-    public ValidationRequestCreator setStatusCallback(
-        final URI statusCallback
-    ) {
+    public ValidationRequestCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ValidationRequestCreator setStatusCallback(
-        final String statusCallback
-    ) {
+    public ValidationRequestCreator setStatusCallback(final String statusCallback){
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-
-    public ValidationRequestCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public ValidationRequestCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
 
     @Override
-    public ValidationRequest create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
+    public ValidationRequest create(final TwilioRestClient client){
+        String path = "/2010-04-01/Accounts/{AccountSid}/OutgoingCallerIds.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "PhoneNumber" + "}",
-                this.phoneNumber.encode("utf-8")
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"PhoneNumber"+"}", this.phoneNumber.encode("utf-8"));
 
         Request request = new Request(
             HttpMethod.POST,
@@ -127,47 +98,41 @@ public class ValidationRequestCreator extends Creator<ValidationRequest> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ValidationRequest creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ValidationRequest creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ValidationRequest.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ValidationRequest.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (phoneNumber != null) {
             request.addPostParam("PhoneNumber", phoneNumber.toString());
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (callDelay != null) {
             request.addPostParam("CallDelay", callDelay.toString());
+    
         }
         if (extension != null) {
             request.addPostParam("Extension", extension);
+    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
+    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+    
         }
     }
 }

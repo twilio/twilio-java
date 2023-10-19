@@ -24,34 +24,28 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class StepContextFetcher extends Fetcher<StepContext> {
 
+
+
+public class StepContextFetcher extends Fetcher<StepContext> {
     private String pathFlowSid;
     private String pathEngagementSid;
     private String pathStepSid;
 
-    public StepContextFetcher(
-        final String pathFlowSid,
-        final String pathEngagementSid,
-        final String pathStepSid
-    ) {
+    public StepContextFetcher(final String pathFlowSid, final String pathEngagementSid, final String pathStepSid){
         this.pathFlowSid = pathFlowSid;
         this.pathEngagementSid = pathEngagementSid;
         this.pathStepSid = pathStepSid;
     }
 
+
     @Override
     public StepContext fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context";
+        String path = "/v1/Flows/{FlowSid}/Engagements/{EngagementSid}/Steps/{StepSid}/Context";
 
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "EngagementSid" + "}",
-                this.pathEngagementSid.toString()
-            );
-        path = path.replace("{" + "StepSid" + "}", this.pathStepSid.toString());
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"EngagementSid"+"}", this.pathEngagementSid.toString());
+        path = path.replace("{"+"StepSid"+"}", this.pathStepSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -61,23 +55,15 @@ public class StepContextFetcher extends Fetcher<StepContext> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "StepContext fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("StepContext fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return StepContext.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return StepContext.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

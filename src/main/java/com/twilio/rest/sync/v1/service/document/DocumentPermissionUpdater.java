@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
 
+
+
+public class DocumentPermissionUpdater extends Updater<DocumentPermission>{
     private String pathServiceSid;
     private String pathDocumentSid;
     private String pathIdentity;
@@ -34,14 +36,7 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
     private Boolean write;
     private Boolean manage;
 
-    public DocumentPermissionUpdater(
-        final String pathServiceSid,
-        final String pathDocumentSid,
-        final String pathIdentity,
-        final Boolean read,
-        final Boolean write,
-        final Boolean manage
-    ) {
+    public DocumentPermissionUpdater(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity, final Boolean read, final Boolean write, final Boolean manage){
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
         this.pathIdentity = pathIdentity;
@@ -50,41 +45,29 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         this.manage = manage;
     }
 
-    public DocumentPermissionUpdater setRead(final Boolean read) {
+    public DocumentPermissionUpdater setRead(final Boolean read){
         this.read = read;
         return this;
     }
-
-    public DocumentPermissionUpdater setWrite(final Boolean write) {
+    public DocumentPermissionUpdater setWrite(final Boolean write){
         this.write = write;
         return this;
     }
-
-    public DocumentPermissionUpdater setManage(final Boolean manage) {
+    public DocumentPermissionUpdater setManage(final Boolean manage){
         this.manage = manage;
         return this;
     }
 
     @Override
-    public DocumentPermission update(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
+    public DocumentPermission update(final TwilioRestClient client){
+        String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DocumentSid" + "}",
-                this.pathDocumentSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
-        path = path.replace("{" + "Read" + "}", this.read.toString());
-        path = path.replace("{" + "Write" + "}", this.write.toString());
-        path = path.replace("{" + "Manage" + "}", this.manage.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
+        path = path.replace("{"+"Read"+"}", this.read.toString());
+        path = path.replace("{"+"Write"+"}", this.write.toString());
+        path = path.replace("{"+"Manage"+"}", this.manage.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -95,35 +78,29 @@ public class DocumentPermissionUpdater extends Updater<DocumentPermission> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "DocumentPermission update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DocumentPermission update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return DocumentPermission.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DocumentPermission.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (read != null) {
             request.addPostParam("Read", read.toString());
+    
         }
         if (write != null) {
             request.addPostParam("Write", write.toString());
+    
         }
         if (manage != null) {
             request.addPostParam("Manage", manage.toString());
+    
         }
     }
 }

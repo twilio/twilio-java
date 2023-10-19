@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class ByocTrunkCreator extends Creator<ByocTrunk> {
-
+public class ByocTrunkCreator extends Creator<ByocTrunk>{
     private String friendlyName;
     private URI voiceUrl;
     private HttpMethod voiceMethod;
@@ -41,83 +43,66 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
     private String connectionPolicySid;
     private String fromDomainSid;
 
-    public ByocTrunkCreator() {}
+    public ByocTrunkCreator() {
+    }
 
-    public ByocTrunkCreator setFriendlyName(final String friendlyName) {
+    public ByocTrunkCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public ByocTrunkCreator setVoiceUrl(final URI voiceUrl) {
+    public ByocTrunkCreator setVoiceUrl(final URI voiceUrl){
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public ByocTrunkCreator setVoiceUrl(final String voiceUrl) {
+    public ByocTrunkCreator setVoiceUrl(final String voiceUrl){
         return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
-
-    public ByocTrunkCreator setVoiceMethod(final HttpMethod voiceMethod) {
+    public ByocTrunkCreator setVoiceMethod(final HttpMethod voiceMethod){
         this.voiceMethod = voiceMethod;
         return this;
     }
-
-    public ByocTrunkCreator setVoiceFallbackUrl(final URI voiceFallbackUrl) {
+    public ByocTrunkCreator setVoiceFallbackUrl(final URI voiceFallbackUrl){
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public ByocTrunkCreator setVoiceFallbackUrl(final String voiceFallbackUrl) {
+    public ByocTrunkCreator setVoiceFallbackUrl(final String voiceFallbackUrl){
         return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
-
-    public ByocTrunkCreator setVoiceFallbackMethod(
-        final HttpMethod voiceFallbackMethod
-    ) {
+    public ByocTrunkCreator setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
-
-    public ByocTrunkCreator setStatusCallbackUrl(final URI statusCallbackUrl) {
+    public ByocTrunkCreator setStatusCallbackUrl(final URI statusCallbackUrl){
         this.statusCallbackUrl = statusCallbackUrl;
         return this;
     }
 
-    public ByocTrunkCreator setStatusCallbackUrl(
-        final String statusCallbackUrl
-    ) {
+    public ByocTrunkCreator setStatusCallbackUrl(final String statusCallbackUrl){
         return setStatusCallbackUrl(Promoter.uriFromString(statusCallbackUrl));
     }
-
-    public ByocTrunkCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public ByocTrunkCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-
-    public ByocTrunkCreator setCnamLookupEnabled(
-        final Boolean cnamLookupEnabled
-    ) {
+    public ByocTrunkCreator setCnamLookupEnabled(final Boolean cnamLookupEnabled){
         this.cnamLookupEnabled = cnamLookupEnabled;
         return this;
     }
-
-    public ByocTrunkCreator setConnectionPolicySid(
-        final String connectionPolicySid
-    ) {
+    public ByocTrunkCreator setConnectionPolicySid(final String connectionPolicySid){
         this.connectionPolicySid = connectionPolicySid;
         return this;
     }
-
-    public ByocTrunkCreator setFromDomainSid(final String fromDomainSid) {
+    public ByocTrunkCreator setFromDomainSid(final String fromDomainSid){
         this.fromDomainSid = fromDomainSid;
         return this;
     }
 
     @Override
-    public ByocTrunk create(final TwilioRestClient client) {
+    public ByocTrunk create(final TwilioRestClient client){
         String path = "/v1/ByocTrunks";
+
 
         Request request = new Request(
             HttpMethod.POST,
@@ -128,71 +113,57 @@ public class ByocTrunkCreator extends Creator<ByocTrunk> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ByocTrunk creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ByocTrunk creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ByocTrunk.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ByocTrunk.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
+    
         }
         if (voiceMethod != null) {
             request.addPostParam("VoiceMethod", voiceMethod.toString());
+    
         }
         if (voiceFallbackUrl != null) {
-            request.addPostParam(
-                "VoiceFallbackUrl",
-                voiceFallbackUrl.toString()
-            );
+            request.addPostParam("VoiceFallbackUrl", voiceFallbackUrl.toString());
+    
         }
         if (voiceFallbackMethod != null) {
-            request.addPostParam(
-                "VoiceFallbackMethod",
-                voiceFallbackMethod.toString()
-            );
+            request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
+    
         }
         if (statusCallbackUrl != null) {
-            request.addPostParam(
-                "StatusCallbackUrl",
-                statusCallbackUrl.toString()
-            );
+            request.addPostParam("StatusCallbackUrl", statusCallbackUrl.toString());
+    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+    
         }
         if (cnamLookupEnabled != null) {
-            request.addPostParam(
-                "CnamLookupEnabled",
-                cnamLookupEnabled.toString()
-            );
+            request.addPostParam("CnamLookupEnabled", cnamLookupEnabled.toString());
+    
         }
         if (connectionPolicySid != null) {
             request.addPostParam("ConnectionPolicySid", connectionPolicySid);
+    
         }
         if (fromDomainSid != null) {
             request.addPostParam("FromDomainSid", fromDomainSid);
+    
         }
     }
 }

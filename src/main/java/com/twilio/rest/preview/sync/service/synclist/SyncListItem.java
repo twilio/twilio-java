@@ -24,79 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SyncListItem extends Resource {
-
     private static final long serialVersionUID = 44561675896318L;
 
-    public static SyncListItemCreator creator(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Map<String, Object> data
-    ) {
+    
+
+    public static SyncListItemCreator creator(final String pathServiceSid, final String pathListSid, final Map<String, Object> data){
         return new SyncListItemCreator(pathServiceSid, pathListSid, data);
     }
 
-    public static SyncListItemDeleter deleter(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex
-    ) {
+    public static SyncListItemDeleter deleter(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
         return new SyncListItemDeleter(pathServiceSid, pathListSid, pathIndex);
     }
 
-    public static SyncListItemFetcher fetcher(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex
-    ) {
+    public static SyncListItemFetcher fetcher(final String pathServiceSid, final String pathListSid, final Integer pathIndex){
         return new SyncListItemFetcher(pathServiceSid, pathListSid, pathIndex);
     }
 
-    public static SyncListItemReader reader(
-        final String pathServiceSid,
-        final String pathListSid
-    ) {
+    public static SyncListItemReader reader(final String pathServiceSid, final String pathListSid){
         return new SyncListItemReader(pathServiceSid, pathListSid);
     }
 
-    public static SyncListItemUpdater updater(
-        final String pathServiceSid,
-        final String pathListSid,
-        final Integer pathIndex,
-        final Map<String, Object> data
-    ) {
-        return new SyncListItemUpdater(
-            pathServiceSid,
-            pathListSid,
-            pathIndex,
-            data
-        );
+    public static SyncListItemUpdater updater(final String pathServiceSid, final String pathListSid, final Integer pathIndex, final Map<String, Object> data){
+        return new SyncListItemUpdater(pathServiceSid, pathListSid, pathIndex, data);
     }
 
     /**
-     * Converts a JSON String into a SyncListItem object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncListItem object represented by the provided JSON
-     */
-    public static SyncListItem fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SyncListItem object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncListItem object represented by the provided JSON
+    */
+    public static SyncListItem fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncListItem.class);
@@ -108,17 +87,14 @@ public class SyncListItem extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SyncListItem object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SyncListItem object represented by the provided JSON
-     */
-    public static SyncListItem fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SyncListItem object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SyncListItem object represented by the provided JSON
+    */
+    public static SyncListItem fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SyncListItem.class);
@@ -148,7 +124,6 @@ public class SyncListItem extends Resource {
             return Promoter.enumFromString(value, QueryFromBoundType.values());
         }
     }
-
     public enum QueryResultOrder {
         ASC("asc"),
         DESC("desc");
@@ -182,16 +157,35 @@ public class SyncListItem extends Resource {
 
     @JsonCreator
     private SyncListItem(
-        @JsonProperty("index") final Integer index,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("list_sid") final String listSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("revision") final String revision,
-        @JsonProperty("data") final Map<String, Object> data,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("created_by") final String createdBy
+        @JsonProperty("index")
+        final Integer index,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("list_sid")
+        final String listSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("revision")
+        final String revision,
+
+        @JsonProperty("data")
+        final Map<String, Object> data,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("created_by")
+        final String createdBy
     ) {
         this.index = index;
         this.accountSid = accountSid;
@@ -205,49 +199,40 @@ public class SyncListItem extends Resource {
         this.createdBy = createdBy;
     }
 
-    public final Integer getIndex() {
-        return this.index;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getListSid() {
-        return this.listSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getRevision() {
-        return this.revision;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getCreatedBy() {
-        return this.createdBy;
-    }
+        public final Integer getIndex() {
+            return this.index;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final String getListSid() {
+            return this.listSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final String getRevision() {
+            return this.revision;
+        }
+        public final Map<String, Object> getData() {
+            return this.data;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getCreatedBy() {
+            return this.createdBy;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -257,33 +242,14 @@ public class SyncListItem extends Resource {
 
         SyncListItem other = (SyncListItem) o;
 
-        return (
-            Objects.equals(index, other.index) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(listSid, other.listSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(revision, other.revision) &&
-            Objects.equals(data, other.data) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(createdBy, other.createdBy)
-        );
+        return Objects.equals(index, other.index) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(listSid, other.listSid) &&  Objects.equals(url, other.url) &&  Objects.equals(revision, other.revision) &&  Objects.equals(data, other.data) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(createdBy, other.createdBy)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            index,
-            accountSid,
-            serviceSid,
-            listSid,
-            url,
-            revision,
-            data,
-            dateCreated,
-            dateUpdated,
-            createdBy
-        );
+        return Objects.hash(index, accountSid, serviceSid, listSid, url, revision, data, dateCreated, dateUpdated, createdBy);
     }
+
+
 }
+

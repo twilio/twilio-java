@@ -24,55 +24,56 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
-
     private static final long serialVersionUID = 125815238148049L;
 
-    public static RoomCreator creator() {
+    
+
+    public static RoomCreator creator(){
         return new RoomCreator();
     }
 
-    public static RoomFetcher fetcher(final String pathSid) {
+    public static RoomFetcher fetcher(final String pathSid){
         return new RoomFetcher(pathSid);
     }
 
-    public static RoomReader reader() {
+    public static RoomReader reader(){
         return new RoomReader();
     }
 
-    public static RoomUpdater updater(
-        final String pathSid,
-        final Room.RoomStatus status
-    ) {
+    public static RoomUpdater updater(final String pathSid, final Room.RoomStatus status){
         return new RoomUpdater(pathSid, status);
     }
 
     /**
-     * Converts a JSON String into a Room object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Room object represented by the provided JSON
-     */
-    public static Room fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Room object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Room object represented by the provided JSON
+    */
+    public static Room fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -84,17 +85,14 @@ public class Room extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Room object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Room object represented by the provided JSON
-     */
-    public static Room fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Room object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Room object represented by the provided JSON
+    */
+    public static Room fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -125,7 +123,6 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, RoomStatus.values());
         }
     }
-
     public enum RoomType {
         GO("go"),
         PEER_TO_PEER("peer-to-peer"),
@@ -147,7 +144,6 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, RoomType.values());
         }
     }
-
     public enum VideoCodec {
         VP8("VP8"),
         H264("H264");
@@ -195,38 +191,77 @@ public class Room extends Resource {
 
     @JsonCreator
     private Room(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final Room.RoomStatus status,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("enable_turn") final Boolean enableTurn,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty(
-            "status_callback_method"
-        ) final HttpMethod statusCallbackMethod,
-        @JsonProperty("end_time") final String endTime,
-        @JsonProperty("duration") final Integer duration,
-        @JsonProperty("type") final Room.RoomType type,
-        @JsonProperty("max_participants") final Integer maxParticipants,
-        @JsonProperty(
-            "max_participant_duration"
-        ) final Integer maxParticipantDuration,
-        @JsonProperty(
-            "max_concurrent_published_tracks"
-        ) final Integer maxConcurrentPublishedTracks,
-        @JsonProperty(
-            "record_participants_on_connect"
-        ) final Boolean recordParticipantsOnConnect,
-        @JsonProperty("video_codecs") final List<Room.VideoCodec> videoCodecs,
-        @JsonProperty("media_region") final String mediaRegion,
-        @JsonProperty("audio_only") final Boolean audioOnly,
-        @JsonProperty("empty_room_timeout") final Integer emptyRoomTimeout,
-        @JsonProperty("unused_room_timeout") final Integer unusedRoomTimeout,
-        @JsonProperty("large_room") final Boolean largeRoom,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("status")
+        final Room.RoomStatus status,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("enable_turn")
+        final Boolean enableTurn,
+
+        @JsonProperty("unique_name")
+        final String uniqueName,
+
+        @JsonProperty("status_callback")
+        final URI statusCallback,
+
+        @JsonProperty("status_callback_method")
+        final HttpMethod statusCallbackMethod,
+
+        @JsonProperty("end_time")
+        final String endTime,
+
+        @JsonProperty("duration")
+        final Integer duration,
+
+        @JsonProperty("type")
+        final Room.RoomType type,
+
+        @JsonProperty("max_participants")
+        final Integer maxParticipants,
+
+        @JsonProperty("max_participant_duration")
+        final Integer maxParticipantDuration,
+
+        @JsonProperty("max_concurrent_published_tracks")
+        final Integer maxConcurrentPublishedTracks,
+
+        @JsonProperty("record_participants_on_connect")
+        final Boolean recordParticipantsOnConnect,
+
+        @JsonProperty("video_codecs")
+        final List<Room.VideoCodec> videoCodecs,
+
+        @JsonProperty("media_region")
+        final String mediaRegion,
+
+        @JsonProperty("audio_only")
+        final Boolean audioOnly,
+
+        @JsonProperty("empty_room_timeout")
+        final Integer emptyRoomTimeout,
+
+        @JsonProperty("unused_room_timeout")
+        final Integer unusedRoomTimeout,
+
+        @JsonProperty("large_room")
+        final Boolean largeRoom,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.status = status;
@@ -254,105 +289,82 @@ public class Room extends Resource {
         this.links = links;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Room.RoomStatus getStatus() {
-        return this.status;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Boolean getEnableTurn() {
-        return this.enableTurn;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final HttpMethod getStatusCallbackMethod() {
-        return this.statusCallbackMethod;
-    }
-
-    public final ZonedDateTime getEndTime() {
-        return this.endTime;
-    }
-
-    public final Integer getDuration() {
-        return this.duration;
-    }
-
-    public final Room.RoomType getType() {
-        return this.type;
-    }
-
-    public final Integer getMaxParticipants() {
-        return this.maxParticipants;
-    }
-
-    public final Integer getMaxParticipantDuration() {
-        return this.maxParticipantDuration;
-    }
-
-    public final Integer getMaxConcurrentPublishedTracks() {
-        return this.maxConcurrentPublishedTracks;
-    }
-
-    public final Boolean getRecordParticipantsOnConnect() {
-        return this.recordParticipantsOnConnect;
-    }
-
-    public final List<Room.VideoCodec> getVideoCodecs() {
-        return this.videoCodecs;
-    }
-
-    public final String getMediaRegion() {
-        return this.mediaRegion;
-    }
-
-    public final Boolean getAudioOnly() {
-        return this.audioOnly;
-    }
-
-    public final Integer getEmptyRoomTimeout() {
-        return this.emptyRoomTimeout;
-    }
-
-    public final Integer getUnusedRoomTimeout() {
-        return this.unusedRoomTimeout;
-    }
-
-    public final Boolean getLargeRoom() {
-        return this.largeRoom;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final Room.RoomStatus getStatus() {
+            return this.status;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Boolean getEnableTurn() {
+            return this.enableTurn;
+        }
+        public final String getUniqueName() {
+            return this.uniqueName;
+        }
+        public final URI getStatusCallback() {
+            return this.statusCallback;
+        }
+        public final HttpMethod getStatusCallbackMethod() {
+            return this.statusCallbackMethod;
+        }
+        public final ZonedDateTime getEndTime() {
+            return this.endTime;
+        }
+        public final Integer getDuration() {
+            return this.duration;
+        }
+        public final Room.RoomType getType() {
+            return this.type;
+        }
+        public final Integer getMaxParticipants() {
+            return this.maxParticipants;
+        }
+        public final Integer getMaxParticipantDuration() {
+            return this.maxParticipantDuration;
+        }
+        public final Integer getMaxConcurrentPublishedTracks() {
+            return this.maxConcurrentPublishedTracks;
+        }
+        public final Boolean getRecordParticipantsOnConnect() {
+            return this.recordParticipantsOnConnect;
+        }
+        public final List<Room.VideoCodec> getVideoCodecs() {
+            return this.videoCodecs;
+        }
+        public final String getMediaRegion() {
+            return this.mediaRegion;
+        }
+        public final Boolean getAudioOnly() {
+            return this.audioOnly;
+        }
+        public final Integer getEmptyRoomTimeout() {
+            return this.emptyRoomTimeout;
+        }
+        public final Integer getUnusedRoomTimeout() {
+            return this.unusedRoomTimeout;
+        }
+        public final Boolean getLargeRoom() {
+            return this.largeRoom;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -362,70 +374,14 @@ public class Room extends Resource {
 
         Room other = (Room) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(enableTurn, other.enableTurn) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-            Objects.equals(endTime, other.endTime) &&
-            Objects.equals(duration, other.duration) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(maxParticipants, other.maxParticipants) &&
-            Objects.equals(
-                maxParticipantDuration,
-                other.maxParticipantDuration
-            ) &&
-            Objects.equals(
-                maxConcurrentPublishedTracks,
-                other.maxConcurrentPublishedTracks
-            ) &&
-            Objects.equals(
-                recordParticipantsOnConnect,
-                other.recordParticipantsOnConnect
-            ) &&
-            Objects.equals(videoCodecs, other.videoCodecs) &&
-            Objects.equals(mediaRegion, other.mediaRegion) &&
-            Objects.equals(audioOnly, other.audioOnly) &&
-            Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&
-            Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&
-            Objects.equals(largeRoom, other.largeRoom) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(status, other.status) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(enableTurn, other.enableTurn) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(type, other.type) &&  Objects.equals(maxParticipants, other.maxParticipants) &&  Objects.equals(maxParticipantDuration, other.maxParticipantDuration) &&  Objects.equals(maxConcurrentPublishedTracks, other.maxConcurrentPublishedTracks) &&  Objects.equals(recordParticipantsOnConnect, other.recordParticipantsOnConnect) &&  Objects.equals(videoCodecs, other.videoCodecs) &&  Objects.equals(mediaRegion, other.mediaRegion) &&  Objects.equals(audioOnly, other.audioOnly) &&  Objects.equals(emptyRoomTimeout, other.emptyRoomTimeout) &&  Objects.equals(unusedRoomTimeout, other.unusedRoomTimeout) &&  Objects.equals(largeRoom, other.largeRoom) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            status,
-            dateCreated,
-            dateUpdated,
-            accountSid,
-            enableTurn,
-            uniqueName,
-            statusCallback,
-            statusCallbackMethod,
-            endTime,
-            duration,
-            type,
-            maxParticipants,
-            maxParticipantDuration,
-            maxConcurrentPublishedTracks,
-            recordParticipantsOnConnect,
-            videoCodecs,
-            mediaRegion,
-            audioOnly,
-            emptyRoomTimeout,
-            unusedRoomTimeout,
-            largeRoom,
-            url,
-            links
-        );
+        return Objects.hash(sid, status, dateCreated, dateUpdated, accountSid, enableTurn, uniqueName, statusCallback, statusCallbackMethod, endTime, duration, type, maxParticipants, maxParticipantDuration, maxConcurrentPublishedTracks, recordParticipantsOnConnect, videoCodecs, mediaRegion, audioOnly, emptyRoomTimeout, unusedRoomTimeout, largeRoom, url, links);
     }
+
+
 }
+

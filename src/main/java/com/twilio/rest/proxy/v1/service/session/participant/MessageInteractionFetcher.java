@@ -24,46 +24,31 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
 
+
+
+public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
     private String pathServiceSid;
     private String pathSessionSid;
     private String pathParticipantSid;
     private String pathSid;
 
-    public MessageInteractionFetcher(
-        final String pathServiceSid,
-        final String pathSessionSid,
-        final String pathParticipantSid,
-        final String pathSid
-    ) {
+    public MessageInteractionFetcher(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
         this.pathParticipantSid = pathParticipantSid;
         this.pathSid = pathSid;
     }
 
+
     @Override
     public MessageInteraction fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
+        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "SessionSid" + "}",
-                this.pathSessionSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ParticipantSid" + "}",
-                this.pathParticipantSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
+        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -73,23 +58,15 @@ public class MessageInteractionFetcher extends Fetcher<MessageInteraction> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessageInteraction fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("MessageInteraction fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return MessageInteraction.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return MessageInteraction.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

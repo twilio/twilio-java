@@ -24,39 +24,40 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Anonymize extends Resource {
-
     private static final long serialVersionUID = 134789378539185L;
 
-    public static AnonymizeUpdater updater(
-        final String pathRoomSid,
-        final String pathSid
-    ) {
+    
+
+    public static AnonymizeUpdater updater(final String pathRoomSid, final String pathSid){
         return new AnonymizeUpdater(pathRoomSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Anonymize object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Anonymize object represented by the provided JSON
-     */
-    public static Anonymize fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Anonymize object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Anonymize object represented by the provided JSON
+    */
+    public static Anonymize fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Anonymize.class);
@@ -68,17 +69,14 @@ public class Anonymize extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Anonymize object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Anonymize object represented by the provided JSON
-     */
-    public static Anonymize fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Anonymize object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Anonymize object represented by the provided JSON
+    */
+    public static Anonymize fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Anonymize.class);
@@ -123,17 +121,38 @@ public class Anonymize extends Resource {
 
     @JsonCreator
     private Anonymize(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("room_sid") final String roomSid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final Anonymize.Status status,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("start_time") final String startTime,
-        @JsonProperty("end_time") final String endTime,
-        @JsonProperty("duration") final Integer duration,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("room_sid")
+        final String roomSid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("status")
+        final Anonymize.Status status,
+
+        @JsonProperty("identity")
+        final String identity,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("start_time")
+        final String startTime,
+
+        @JsonProperty("end_time")
+        final String endTime,
+
+        @JsonProperty("duration")
+        final Integer duration,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.sid = sid;
         this.roomSid = roomSid;
@@ -148,53 +167,43 @@ public class Anonymize extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getRoomSid() {
-        return this.roomSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Anonymize.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getStartTime() {
-        return this.startTime;
-    }
-
-    public final ZonedDateTime getEndTime() {
-        return this.endTime;
-    }
-
-    public final Integer getDuration() {
-        return this.duration;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getRoomSid() {
+            return this.roomSid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Anonymize.Status getStatus() {
+            return this.status;
+        }
+        public final String getIdentity() {
+            return this.identity;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final ZonedDateTime getStartTime() {
+            return this.startTime;
+        }
+        public final ZonedDateTime getEndTime() {
+            return this.endTime;
+        }
+        public final Integer getDuration() {
+            return this.duration;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -204,35 +213,14 @@ public class Anonymize extends Resource {
 
         Anonymize other = (Anonymize) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(roomSid, other.roomSid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(startTime, other.startTime) &&
-            Objects.equals(endTime, other.endTime) &&
-            Objects.equals(duration, other.duration) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(roomSid, other.roomSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(status, other.status) &&  Objects.equals(identity, other.identity) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(startTime, other.startTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            roomSid,
-            accountSid,
-            status,
-            identity,
-            dateCreated,
-            dateUpdated,
-            startTime,
-            endTime,
-            duration,
-            url
-        );
+        return Objects.hash(sid, roomSid, accountSid, status, identity, dateCreated, dateUpdated, startTime, endTime, duration, url);
     }
+
+
 }
+

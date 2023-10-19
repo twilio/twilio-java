@@ -22,42 +22,43 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Day extends Resource {
-
     private static final long serialVersionUID = 277630118297206L;
 
-    public static DayFetcher fetcher(
-        final String pathResourceType,
-        final String pathDay
-    ) {
+    
+
+    public static DayFetcher fetcher(final String pathResourceType, final String pathDay){
         return new DayFetcher(pathResourceType, pathDay);
     }
 
-    public static DayReader reader(final String pathResourceType) {
+    public static DayReader reader(final String pathResourceType){
         return new DayReader(pathResourceType);
     }
 
     /**
-     * Converts a JSON String into a Day object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Day object represented by the provided JSON
-     */
-    public static Day fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Day object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Day object represented by the provided JSON
+    */
+    public static Day fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Day.class);
@@ -69,17 +70,14 @@ public class Day extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Day object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Day object represented by the provided JSON
-     */
-    public static Day fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Day object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Day object represented by the provided JSON
+    */
+    public static Day fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Day.class);
@@ -89,6 +87,7 @@ public class Day extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final URI redirectTo;
     private final String day;
@@ -99,12 +98,23 @@ public class Day extends Resource {
 
     @JsonCreator
     private Day(
-        @JsonProperty("redirect_to") final URI redirectTo,
-        @JsonProperty("day") final String day,
-        @JsonProperty("size") final Integer size,
-        @JsonProperty("create_date") final String createDate,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("resource_type") final String resourceType
+        @JsonProperty("redirect_to")
+        final URI redirectTo,
+
+        @JsonProperty("day")
+        final String day,
+
+        @JsonProperty("size")
+        final Integer size,
+
+        @JsonProperty("create_date")
+        final String createDate,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("resource_type")
+        final String resourceType
     ) {
         this.redirectTo = redirectTo;
         this.day = day;
@@ -114,33 +124,28 @@ public class Day extends Resource {
         this.resourceType = resourceType;
     }
 
-    public final URI getRedirectTo() {
-        return this.redirectTo;
-    }
-
-    public final String getDay() {
-        return this.day;
-    }
-
-    public final Integer getSize() {
-        return this.size;
-    }
-
-    public final String getCreateDate() {
-        return this.createDate;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
+        public final URI getRedirectTo() {
+            return this.redirectTo;
+        }
+        public final String getDay() {
+            return this.day;
+        }
+        public final Integer getSize() {
+            return this.size;
+        }
+        public final String getCreateDate() {
+            return this.createDate;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final String getResourceType() {
+            return this.resourceType;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -150,25 +155,14 @@ public class Day extends Resource {
 
         Day other = (Day) o;
 
-        return (
-            Objects.equals(redirectTo, other.redirectTo) &&
-            Objects.equals(day, other.day) &&
-            Objects.equals(size, other.size) &&
-            Objects.equals(createDate, other.createDate) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(resourceType, other.resourceType)
-        );
+        return Objects.equals(redirectTo, other.redirectTo) &&  Objects.equals(day, other.day) &&  Objects.equals(size, other.size) &&  Objects.equals(createDate, other.createDate) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(resourceType, other.resourceType)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            redirectTo,
-            day,
-            size,
-            createDate,
-            friendlyName,
-            resourceType
-        );
+        return Objects.hash(redirectTo, day, size, createDate, friendlyName, resourceType);
     }
+
+
 }
+

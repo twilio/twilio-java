@@ -14,7 +14,6 @@
 
 package com.twilio.rest.studio.v1.flow.execution;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,22 +24,21 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class ExecutionStepReader extends Reader<ExecutionStep> {
-
     private String pathFlowSid;
     private String pathExecutionSid;
     private Integer pageSize;
 
-    public ExecutionStepReader(
-        final String pathFlowSid,
-        final String pathExecutionSid
-    ) {
+    public ExecutionStepReader(final String pathFlowSid, final String pathExecutionSid){
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
     }
 
-    public ExecutionStepReader setPageSize(final Integer pageSize) {
+    public ExecutionStepReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -52,12 +50,8 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
 
     public Page<ExecutionStep> firstPage(final TwilioRestClient client) {
         String path = "/v1/Flows/{FlowSid}/Executions/{ExecutionSid}/Steps";
-        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
-        path =
-            path.replace(
-                "{" + "ExecutionSid" + "}",
-                this.pathExecutionSid.toString()
-            );
+        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
+        path = path.replace("{"+"ExecutionSid"+"}", this.pathExecutionSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -69,23 +63,15 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
         return pageForRequest(client, request);
     }
 
-    private Page<ExecutionStep> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<ExecutionStep> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExecutionStep read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ExecutionStep read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -99,10 +85,7 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
     }
 
     @Override
-    public Page<ExecutionStep> previousPage(
-        final Page<ExecutionStep> page,
-        final TwilioRestClient client
-    ) {
+    public Page<ExecutionStep> previousPage(final Page<ExecutionStep> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.STUDIO.toString())
@@ -110,11 +93,9 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<ExecutionStep> nextPage(
-        final Page<ExecutionStep> page,
-        final TwilioRestClient client
-    ) {
+    public Page<ExecutionStep> nextPage(final Page<ExecutionStep> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.STUDIO.toString())
@@ -123,21 +104,21 @@ public class ExecutionStepReader extends Reader<ExecutionStep> {
     }
 
     @Override
-    public Page<ExecutionStep> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<ExecutionStep> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

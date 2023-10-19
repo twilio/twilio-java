@@ -25,32 +25,34 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SettingUpdater extends Updater<Setting> {
 
+
+
+public class SettingUpdater extends Updater<Setting>{
     private Boolean advancedFeatures;
     private Boolean voiceTrace;
     private String subaccountSid;
 
-    public SettingUpdater() {}
+    public SettingUpdater(){
+    }
 
-    public SettingUpdater setAdvancedFeatures(final Boolean advancedFeatures) {
+    public SettingUpdater setAdvancedFeatures(final Boolean advancedFeatures){
         this.advancedFeatures = advancedFeatures;
         return this;
     }
-
-    public SettingUpdater setVoiceTrace(final Boolean voiceTrace) {
+    public SettingUpdater setVoiceTrace(final Boolean voiceTrace){
         this.voiceTrace = voiceTrace;
         return this;
     }
-
-    public SettingUpdater setSubaccountSid(final String subaccountSid) {
+    public SettingUpdater setSubaccountSid(final String subaccountSid){
         this.subaccountSid = subaccountSid;
         return this;
     }
 
     @Override
-    public Setting update(final TwilioRestClient client) {
+    public Setting update(final TwilioRestClient client){
         String path = "/v1/Voice/Settings";
+
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,35 +63,29 @@ public class SettingUpdater extends Updater<Setting> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Setting update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Setting update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Setting.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (advancedFeatures != null) {
-            request.addPostParam(
-                "AdvancedFeatures",
-                advancedFeatures.toString()
-            );
+            request.addPostParam("AdvancedFeatures", advancedFeatures.toString());
+    
         }
         if (voiceTrace != null) {
             request.addPostParam("VoiceTrace", voiceTrace.toString());
+    
         }
         if (subaccountSid != null) {
             request.addPostParam("SubaccountSid", subaccountSid);
+    
         }
     }
 }

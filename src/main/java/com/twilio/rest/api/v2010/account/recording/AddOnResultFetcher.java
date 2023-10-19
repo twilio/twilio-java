@@ -24,50 +24,33 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AddOnResultFetcher extends Fetcher<AddOnResult> {
 
+
+
+public class AddOnResultFetcher extends Fetcher<AddOnResult> {
     private String pathReferenceSid;
     private String pathSid;
     private String pathAccountSid;
 
-    public AddOnResultFetcher(
-        final String pathReferenceSid,
-        final String pathSid
-    ) {
+    public AddOnResultFetcher(final String pathReferenceSid, final String pathSid){
         this.pathReferenceSid = pathReferenceSid;
         this.pathSid = pathSid;
     }
-
-    public AddOnResultFetcher(
-        final String pathAccountSid,
-        final String pathReferenceSid,
-        final String pathSid
-    ) {
+    public AddOnResultFetcher(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
         this.pathAccountSid = pathAccountSid;
         this.pathReferenceSid = pathReferenceSid;
         this.pathSid = pathSid;
     }
 
+
     @Override
     public AddOnResult fetch(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json";
+        String path = "/2010-04-01/Accounts/{AccountSid}/Recordings/{ReferenceSid}/AddOnResults/{Sid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ReferenceSid" + "}",
-                this.pathReferenceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ReferenceSid"+"}", this.pathReferenceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -77,23 +60,15 @@ public class AddOnResultFetcher extends Fetcher<AddOnResult> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AddOnResult fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("AddOnResult fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AddOnResult.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AddOnResult.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.supersim.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,32 +24,32 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class SmsCommandReader extends Reader<SmsCommand> {
-
     private String sim;
     private SmsCommand.Status status;
     private SmsCommand.Direction direction;
     private Integer pageSize;
 
-    public SmsCommandReader() {}
+    public SmsCommandReader(){
+    }
 
-    public SmsCommandReader setSim(final String sim) {
+    public SmsCommandReader setSim(final String sim){
         this.sim = sim;
         return this;
     }
-
-    public SmsCommandReader setStatus(final SmsCommand.Status status) {
+    public SmsCommandReader setStatus(final SmsCommand.Status status){
         this.status = status;
         return this;
     }
-
-    public SmsCommandReader setDirection(final SmsCommand.Direction direction) {
+    public SmsCommandReader setDirection(final SmsCommand.Direction direction){
         this.direction = direction;
         return this;
     }
-
-    public SmsCommandReader setPageSize(final Integer pageSize) {
+    public SmsCommandReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -73,23 +72,15 @@ public class SmsCommandReader extends Reader<SmsCommand> {
         return pageForRequest(client, request);
     }
 
-    private Page<SmsCommand> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<SmsCommand> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SmsCommand read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SmsCommand read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -103,10 +94,7 @@ public class SmsCommandReader extends Reader<SmsCommand> {
     }
 
     @Override
-    public Page<SmsCommand> previousPage(
-        final Page<SmsCommand> page,
-        final TwilioRestClient client
-    ) {
+    public Page<SmsCommand> previousPage(final Page<SmsCommand> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.SUPERSIM.toString())
@@ -114,11 +102,9 @@ public class SmsCommandReader extends Reader<SmsCommand> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<SmsCommand> nextPage(
-        final Page<SmsCommand> page,
-        final TwilioRestClient client
-    ) {
+    public Page<SmsCommand> nextPage(final Page<SmsCommand> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.SUPERSIM.toString())
@@ -127,30 +113,33 @@ public class SmsCommandReader extends Reader<SmsCommand> {
     }
 
     @Override
-    public Page<SmsCommand> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<SmsCommand> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (sim != null) {
+    
             request.addQueryParam("Sim", sim);
         }
         if (status != null) {
+    
             request.addQueryParam("Status", status.toString());
         }
         if (direction != null) {
+    
             request.addQueryParam("Direction", direction.toString());
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

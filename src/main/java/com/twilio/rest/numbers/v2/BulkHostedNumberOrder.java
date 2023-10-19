@@ -24,41 +24,43 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class BulkHostedNumberOrder extends Resource {
-
     private static final long serialVersionUID = 251635704058877L;
 
-    public static BulkHostedNumberOrderFetcher fetcher(
-        final String pathBulkHostingSid
-    ) {
+    
+
+    public static BulkHostedNumberOrderFetcher fetcher(final String pathBulkHostingSid){
         return new BulkHostedNumberOrderFetcher(pathBulkHostingSid);
     }
 
     /**
-     * Converts a JSON String into a BulkHostedNumberOrder object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return BulkHostedNumberOrder object represented by the provided JSON
-     */
-    public static BulkHostedNumberOrder fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a BulkHostedNumberOrder object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return BulkHostedNumberOrder object represented by the provided JSON
+    */
+    public static BulkHostedNumberOrder fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BulkHostedNumberOrder.class);
@@ -70,17 +72,14 @@ public class BulkHostedNumberOrder extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a BulkHostedNumberOrder object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return BulkHostedNumberOrder object represented by the provided JSON
-     */
-    public static BulkHostedNumberOrder fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a BulkHostedNumberOrder object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return BulkHostedNumberOrder object represented by the provided JSON
+    */
+    public static BulkHostedNumberOrder fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, BulkHostedNumberOrder.class);
@@ -124,69 +123,75 @@ public class BulkHostedNumberOrder extends Resource {
 
     @JsonCreator
     private BulkHostedNumberOrder(
-        @JsonProperty("bulk_hosting_sid") final String bulkHostingSid,
-        @JsonProperty(
-            "request_status"
-        ) final BulkHostedNumberOrder.RequestStatus requestStatus,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("notification_email") final String notificationEmail,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_completed") final String dateCompleted,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("total_count") final Integer totalCount,
-        @JsonProperty("results") final List<Map<String, Object>> results
+        @JsonProperty("bulk_hosting_sid")
+        final String bulkHostingSid,
+
+        @JsonProperty("request_status")
+        final BulkHostedNumberOrder.RequestStatus requestStatus,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("notification_email")
+        final String notificationEmail,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_completed")
+        final String dateCompleted,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("total_count")
+        final Integer totalCount,
+
+        @JsonProperty("results")
+        final List<Map<String, Object>> results
     ) {
         this.bulkHostingSid = bulkHostingSid;
         this.requestStatus = requestStatus;
         this.friendlyName = friendlyName;
         this.notificationEmail = notificationEmail;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
-        this.dateCompleted =
-            DateConverter.iso8601DateTimeFromString(dateCompleted);
+        this.dateCompleted = DateConverter.iso8601DateTimeFromString(dateCompleted);
         this.url = url;
         this.totalCount = totalCount;
         this.results = results;
     }
 
-    public final String getBulkHostingSid() {
-        return this.bulkHostingSid;
-    }
-
-    public final BulkHostedNumberOrder.RequestStatus getRequestStatus() {
-        return this.requestStatus;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final String getNotificationEmail() {
-        return this.notificationEmail;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateCompleted() {
-        return this.dateCompleted;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Integer getTotalCount() {
-        return this.totalCount;
-    }
-
-    public final List<Map<String, Object>> getResults() {
-        return this.results;
-    }
+        public final String getBulkHostingSid() {
+            return this.bulkHostingSid;
+        }
+        public final BulkHostedNumberOrder.RequestStatus getRequestStatus() {
+            return this.requestStatus;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final String getNotificationEmail() {
+            return this.notificationEmail;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateCompleted() {
+            return this.dateCompleted;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Integer getTotalCount() {
+            return this.totalCount;
+        }
+        public final List<Map<String, Object>> getResults() {
+            return this.results;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -196,31 +201,14 @@ public class BulkHostedNumberOrder extends Resource {
 
         BulkHostedNumberOrder other = (BulkHostedNumberOrder) o;
 
-        return (
-            Objects.equals(bulkHostingSid, other.bulkHostingSid) &&
-            Objects.equals(requestStatus, other.requestStatus) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(notificationEmail, other.notificationEmail) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateCompleted, other.dateCompleted) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(totalCount, other.totalCount) &&
-            Objects.equals(results, other.results)
-        );
+        return Objects.equals(bulkHostingSid, other.bulkHostingSid) &&  Objects.equals(requestStatus, other.requestStatus) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(notificationEmail, other.notificationEmail) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateCompleted, other.dateCompleted) &&  Objects.equals(url, other.url) &&  Objects.equals(totalCount, other.totalCount) &&  Objects.equals(results, other.results)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            bulkHostingSid,
-            requestStatus,
-            friendlyName,
-            notificationEmail,
-            dateCreated,
-            dateCompleted,
-            url,
-            totalCount,
-            results
-        );
+        return Objects.hash(bulkHostingSid, requestStatus, friendlyName, notificationEmail, dateCreated, dateCompleted, url, totalCount, results);
     }
+
+
 }
+

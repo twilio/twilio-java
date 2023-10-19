@@ -25,10 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
-public class WorkflowUpdater extends Updater<Workflow> {
 
+
+public class WorkflowUpdater extends Updater<Workflow>{
     private String pathWorkspaceSid;
     private String pathSid;
     private String friendlyName;
@@ -38,76 +40,50 @@ public class WorkflowUpdater extends Updater<Workflow> {
     private Integer taskReservationTimeout;
     private String reEvaluateTasks;
 
-    public WorkflowUpdater(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+    public WorkflowUpdater(final String pathWorkspaceSid, final String pathSid){
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    public WorkflowUpdater setFriendlyName(final String friendlyName) {
+    public WorkflowUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public WorkflowUpdater setAssignmentCallbackUrl(
-        final URI assignmentCallbackUrl
-    ) {
+    public WorkflowUpdater setAssignmentCallbackUrl(final URI assignmentCallbackUrl){
         this.assignmentCallbackUrl = assignmentCallbackUrl;
         return this;
     }
 
-    public WorkflowUpdater setAssignmentCallbackUrl(
-        final String assignmentCallbackUrl
-    ) {
-        return setAssignmentCallbackUrl(
-            Promoter.uriFromString(assignmentCallbackUrl)
-        );
+    public WorkflowUpdater setAssignmentCallbackUrl(final String assignmentCallbackUrl){
+        return setAssignmentCallbackUrl(Promoter.uriFromString(assignmentCallbackUrl));
     }
-
-    public WorkflowUpdater setFallbackAssignmentCallbackUrl(
-        final URI fallbackAssignmentCallbackUrl
-    ) {
+    public WorkflowUpdater setFallbackAssignmentCallbackUrl(final URI fallbackAssignmentCallbackUrl){
         this.fallbackAssignmentCallbackUrl = fallbackAssignmentCallbackUrl;
         return this;
     }
 
-    public WorkflowUpdater setFallbackAssignmentCallbackUrl(
-        final String fallbackAssignmentCallbackUrl
-    ) {
-        return setFallbackAssignmentCallbackUrl(
-            Promoter.uriFromString(fallbackAssignmentCallbackUrl)
-        );
+    public WorkflowUpdater setFallbackAssignmentCallbackUrl(final String fallbackAssignmentCallbackUrl){
+        return setFallbackAssignmentCallbackUrl(Promoter.uriFromString(fallbackAssignmentCallbackUrl));
     }
-
-    public WorkflowUpdater setConfiguration(final String configuration) {
+    public WorkflowUpdater setConfiguration(final String configuration){
         this.configuration = configuration;
         return this;
     }
-
-    public WorkflowUpdater setTaskReservationTimeout(
-        final Integer taskReservationTimeout
-    ) {
+    public WorkflowUpdater setTaskReservationTimeout(final Integer taskReservationTimeout){
         this.taskReservationTimeout = taskReservationTimeout;
         return this;
     }
-
-    public WorkflowUpdater setReEvaluateTasks(final String reEvaluateTasks) {
+    public WorkflowUpdater setReEvaluateTasks(final String reEvaluateTasks){
         this.reEvaluateTasks = reEvaluateTasks;
         return this;
     }
 
     @Override
-    public Workflow update(final TwilioRestClient client) {
+    public Workflow update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Workflows/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -118,53 +94,41 @@ public class WorkflowUpdater extends Updater<Workflow> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Workflow update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Workflow update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Workflow.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Workflow.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (assignmentCallbackUrl != null) {
-            request.addPostParam(
-                "AssignmentCallbackUrl",
-                assignmentCallbackUrl.toString()
-            );
+            request.addPostParam("AssignmentCallbackUrl", assignmentCallbackUrl.toString());
+    
         }
         if (fallbackAssignmentCallbackUrl != null) {
-            request.addPostParam(
-                "FallbackAssignmentCallbackUrl",
-                fallbackAssignmentCallbackUrl.toString()
-            );
+            request.addPostParam("FallbackAssignmentCallbackUrl", fallbackAssignmentCallbackUrl.toString());
+    
         }
         if (configuration != null) {
             request.addPostParam("Configuration", configuration);
+    
         }
         if (taskReservationTimeout != null) {
-            request.addPostParam(
-                "TaskReservationTimeout",
-                taskReservationTimeout.toString()
-            );
+            request.addPostParam("TaskReservationTimeout", taskReservationTimeout.toString());
+    
         }
         if (reEvaluateTasks != null) {
             request.addPostParam("ReEvaluateTasks", reEvaluateTasks);
+    
         }
     }
 }

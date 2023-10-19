@@ -22,39 +22,41 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class UsAppToPersonUsecase extends Resource {
-
     private static final long serialVersionUID = 181251380697241L;
 
-    public static UsAppToPersonUsecaseFetcher fetcher(
-        final String pathMessagingServiceSid
-    ) {
+    
+
+    public static UsAppToPersonUsecaseFetcher fetcher(final String pathMessagingServiceSid){
         return new UsAppToPersonUsecaseFetcher(pathMessagingServiceSid);
     }
 
     /**
-     * Converts a JSON String into a UsAppToPersonUsecase object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return UsAppToPersonUsecase object represented by the provided JSON
-     */
-    public static UsAppToPersonUsecase fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a UsAppToPersonUsecase object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return UsAppToPersonUsecase object represented by the provided JSON
+    */
+    public static UsAppToPersonUsecase fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsAppToPersonUsecase.class);
@@ -66,17 +68,14 @@ public class UsAppToPersonUsecase extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a UsAppToPersonUsecase object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return UsAppToPersonUsecase object represented by the provided JSON
-     */
-    public static UsAppToPersonUsecase fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a UsAppToPersonUsecase object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return UsAppToPersonUsecase object represented by the provided JSON
+    */
+    public static UsAppToPersonUsecase fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, UsAppToPersonUsecase.class);
@@ -86,25 +85,25 @@ public class UsAppToPersonUsecase extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final List<Map<String, Object>> usAppToPersonUsecases;
 
     @JsonCreator
     private UsAppToPersonUsecase(
-        @JsonProperty("us_app_to_person_usecases") final List<
-            Map<String, Object>
-        > usAppToPersonUsecases
+        @JsonProperty("us_app_to_person_usecases")
+        final List<Map<String, Object>> usAppToPersonUsecases
     ) {
         this.usAppToPersonUsecases = usAppToPersonUsecases;
     }
 
-    public final List<Map<String, Object>> getUsAppToPersonUsecases() {
-        return this.usAppToPersonUsecases;
-    }
+        public final List<Map<String, Object>> getUsAppToPersonUsecases() {
+            return this.usAppToPersonUsecases;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -114,14 +113,14 @@ public class UsAppToPersonUsecase extends Resource {
 
         UsAppToPersonUsecase other = (UsAppToPersonUsecase) o;
 
-        return Objects.equals(
-            usAppToPersonUsecases,
-            other.usAppToPersonUsecases
-        );
+        return Objects.equals(usAppToPersonUsecases, other.usAppToPersonUsecases)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(usAppToPersonUsecases);
     }
+
+
 }
+

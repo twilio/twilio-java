@@ -22,35 +22,39 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsSession extends Resource {
-
     private static final long serialVersionUID = 184746612300929L;
 
-    public static InsightsSessionCreator creator() {
+    
+
+    public static InsightsSessionCreator creator(){
         return new InsightsSessionCreator();
     }
 
     /**
-     * Converts a JSON String into a InsightsSession object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsSession object represented by the provided JSON
-     */
-    public static InsightsSession fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InsightsSession object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsSession object represented by the provided JSON
+    */
+    public static InsightsSession fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSession.class);
@@ -62,17 +66,14 @@ public class InsightsSession extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InsightsSession object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsSession object represented by the provided JSON
-     */
-    public static InsightsSession fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InsightsSession object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsSession object represented by the provided JSON
+    */
+    public static InsightsSession fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsSession.class);
@@ -82,6 +83,7 @@ public class InsightsSession extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String workspaceId;
     private final String sessionExpiry;
@@ -91,11 +93,20 @@ public class InsightsSession extends Resource {
 
     @JsonCreator
     private InsightsSession(
-        @JsonProperty("workspace_id") final String workspaceId,
-        @JsonProperty("session_expiry") final String sessionExpiry,
-        @JsonProperty("session_id") final String sessionId,
-        @JsonProperty("base_url") final String baseUrl,
-        @JsonProperty("url") final URI url
+        @JsonProperty("workspace_id")
+        final String workspaceId,
+
+        @JsonProperty("session_expiry")
+        final String sessionExpiry,
+
+        @JsonProperty("session_id")
+        final String sessionId,
+
+        @JsonProperty("base_url")
+        final String baseUrl,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.workspaceId = workspaceId;
         this.sessionExpiry = sessionExpiry;
@@ -104,29 +115,25 @@ public class InsightsSession extends Resource {
         this.url = url;
     }
 
-    public final String getWorkspaceId() {
-        return this.workspaceId;
-    }
-
-    public final String getSessionExpiry() {
-        return this.sessionExpiry;
-    }
-
-    public final String getSessionId() {
-        return this.sessionId;
-    }
-
-    public final String getBaseUrl() {
-        return this.baseUrl;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getWorkspaceId() {
+            return this.workspaceId;
+        }
+        public final String getSessionExpiry() {
+            return this.sessionExpiry;
+        }
+        public final String getSessionId() {
+            return this.sessionId;
+        }
+        public final String getBaseUrl() {
+            return this.baseUrl;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -136,23 +143,14 @@ public class InsightsSession extends Resource {
 
         InsightsSession other = (InsightsSession) o;
 
-        return (
-            Objects.equals(workspaceId, other.workspaceId) &&
-            Objects.equals(sessionExpiry, other.sessionExpiry) &&
-            Objects.equals(sessionId, other.sessionId) &&
-            Objects.equals(baseUrl, other.baseUrl) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(workspaceId, other.workspaceId) &&  Objects.equals(sessionExpiry, other.sessionExpiry) &&  Objects.equals(sessionId, other.sessionId) &&  Objects.equals(baseUrl, other.baseUrl) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            workspaceId,
-            sessionExpiry,
-            sessionId,
-            baseUrl,
-            url
-        );
+        return Objects.hash(workspaceId, sessionExpiry, sessionId, baseUrl, url);
     }
+
+
 }
+

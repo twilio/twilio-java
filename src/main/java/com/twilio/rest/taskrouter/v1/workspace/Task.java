@@ -24,63 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Task extends Resource {
-
     private static final long serialVersionUID = 66438798069009L;
 
-    public static TaskCreator creator(final String pathWorkspaceSid) {
+    
+
+    public static TaskCreator creator(final String pathWorkspaceSid){
         return new TaskCreator(pathWorkspaceSid);
     }
 
-    public static TaskDeleter deleter(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+    public static TaskDeleter deleter(final String pathWorkspaceSid, final String pathSid){
         return new TaskDeleter(pathWorkspaceSid, pathSid);
     }
 
-    public static TaskFetcher fetcher(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+    public static TaskFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
         return new TaskFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static TaskReader reader(final String pathWorkspaceSid) {
+    public static TaskReader reader(final String pathWorkspaceSid){
         return new TaskReader(pathWorkspaceSid);
     }
 
-    public static TaskUpdater updater(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+    public static TaskUpdater updater(final String pathWorkspaceSid, final String pathSid){
         return new TaskUpdater(pathWorkspaceSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Task object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Task object represented by the provided JSON
-     */
-    public static Task fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Task object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Task object represented by the provided JSON
+    */
+    public static Task fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Task.class);
@@ -92,17 +87,14 @@ public class Task extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Task object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Task object represented by the provided JSON
-     */
-    public static Task fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Task object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Task object represented by the provided JSON
+    */
+    public static Task fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Task.class);
@@ -161,35 +153,68 @@ public class Task extends Resource {
 
     @JsonCreator
     private Task(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("age") final Integer age,
-        @JsonProperty("assignment_status") final Task.Status assignmentStatus,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("addons") final String addons,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty(
-            "task_queue_entered_date"
-        ) final String taskQueueEnteredDate,
-        @JsonProperty("priority") final Integer priority,
-        @JsonProperty("reason") final String reason,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("task_queue_sid") final String taskQueueSid,
-        @JsonProperty(
-            "task_queue_friendly_name"
-        ) final String taskQueueFriendlyName,
-        @JsonProperty("task_channel_sid") final String taskChannelSid,
-        @JsonProperty(
-            "task_channel_unique_name"
-        ) final String taskChannelUniqueName,
-        @JsonProperty("timeout") final Integer timeout,
-        @JsonProperty("workflow_sid") final String workflowSid,
-        @JsonProperty(
-            "workflow_friendly_name"
-        ) final String workflowFriendlyName,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("age")
+        final Integer age,
+
+        @JsonProperty("assignment_status")
+        final Task.Status assignmentStatus,
+
+        @JsonProperty("attributes")
+        final String attributes,
+
+        @JsonProperty("addons")
+        final String addons,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("task_queue_entered_date")
+        final String taskQueueEnteredDate,
+
+        @JsonProperty("priority")
+        final Integer priority,
+
+        @JsonProperty("reason")
+        final String reason,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("task_queue_sid")
+        final String taskQueueSid,
+
+        @JsonProperty("task_queue_friendly_name")
+        final String taskQueueFriendlyName,
+
+        @JsonProperty("task_channel_sid")
+        final String taskChannelSid,
+
+        @JsonProperty("task_channel_unique_name")
+        final String taskChannelUniqueName,
+
+        @JsonProperty("timeout")
+        final Integer timeout,
+
+        @JsonProperty("workflow_sid")
+        final String workflowSid,
+
+        @JsonProperty("workflow_friendly_name")
+        final String workflowFriendlyName,
+
+        @JsonProperty("workspace_sid")
+        final String workspaceSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.age = age;
@@ -198,8 +223,7 @@ public class Task extends Resource {
         this.addons = addons;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.taskQueueEnteredDate =
-            DateConverter.iso8601DateTimeFromString(taskQueueEnteredDate);
+        this.taskQueueEnteredDate = DateConverter.iso8601DateTimeFromString(taskQueueEnteredDate);
         this.priority = priority;
         this.reason = reason;
         this.sid = sid;
@@ -215,93 +239,73 @@ public class Task extends Resource {
         this.links = links;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Integer getAge() {
-        return this.age;
-    }
-
-    public final Task.Status getAssignmentStatus() {
-        return this.assignmentStatus;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final String getAddons() {
-        return this.addons;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getTaskQueueEnteredDate() {
-        return this.taskQueueEnteredDate;
-    }
-
-    public final Integer getPriority() {
-        return this.priority;
-    }
-
-    public final String getReason() {
-        return this.reason;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTaskQueueSid() {
-        return this.taskQueueSid;
-    }
-
-    public final String getTaskQueueFriendlyName() {
-        return this.taskQueueFriendlyName;
-    }
-
-    public final String getTaskChannelSid() {
-        return this.taskChannelSid;
-    }
-
-    public final String getTaskChannelUniqueName() {
-        return this.taskChannelUniqueName;
-    }
-
-    public final Integer getTimeout() {
-        return this.timeout;
-    }
-
-    public final String getWorkflowSid() {
-        return this.workflowSid;
-    }
-
-    public final String getWorkflowFriendlyName() {
-        return this.workflowFriendlyName;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Integer getAge() {
+            return this.age;
+        }
+        public final Task.Status getAssignmentStatus() {
+            return this.assignmentStatus;
+        }
+        public final String getAttributes() {
+            return this.attributes;
+        }
+        public final String getAddons() {
+            return this.addons;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final ZonedDateTime getTaskQueueEnteredDate() {
+            return this.taskQueueEnteredDate;
+        }
+        public final Integer getPriority() {
+            return this.priority;
+        }
+        public final String getReason() {
+            return this.reason;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getTaskQueueSid() {
+            return this.taskQueueSid;
+        }
+        public final String getTaskQueueFriendlyName() {
+            return this.taskQueueFriendlyName;
+        }
+        public final String getTaskChannelSid() {
+            return this.taskChannelSid;
+        }
+        public final String getTaskChannelUniqueName() {
+            return this.taskChannelUniqueName;
+        }
+        public final Integer getTimeout() {
+            return this.timeout;
+        }
+        public final String getWorkflowSid() {
+            return this.workflowSid;
+        }
+        public final String getWorkflowFriendlyName() {
+            return this.workflowFriendlyName;
+        }
+        public final String getWorkspaceSid() {
+            return this.workspaceSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -311,61 +315,14 @@ public class Task extends Resource {
 
         Task other = (Task) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(age, other.age) &&
-            Objects.equals(assignmentStatus, other.assignmentStatus) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(addons, other.addons) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&
-            Objects.equals(priority, other.priority) &&
-            Objects.equals(reason, other.reason) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(taskQueueSid, other.taskQueueSid) &&
-            Objects.equals(
-                taskQueueFriendlyName,
-                other.taskQueueFriendlyName
-            ) &&
-            Objects.equals(taskChannelSid, other.taskChannelSid) &&
-            Objects.equals(
-                taskChannelUniqueName,
-                other.taskChannelUniqueName
-            ) &&
-            Objects.equals(timeout, other.timeout) &&
-            Objects.equals(workflowSid, other.workflowSid) &&
-            Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(age, other.age) &&  Objects.equals(assignmentStatus, other.assignmentStatus) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(addons, other.addons) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&  Objects.equals(priority, other.priority) &&  Objects.equals(reason, other.reason) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskQueueSid, other.taskQueueSid) &&  Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) &&  Objects.equals(taskChannelSid, other.taskChannelSid) &&  Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) &&  Objects.equals(timeout, other.timeout) &&  Objects.equals(workflowSid, other.workflowSid) &&  Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            age,
-            assignmentStatus,
-            attributes,
-            addons,
-            dateCreated,
-            dateUpdated,
-            taskQueueEnteredDate,
-            priority,
-            reason,
-            sid,
-            taskQueueSid,
-            taskQueueFriendlyName,
-            taskChannelSid,
-            taskChannelUniqueName,
-            timeout,
-            workflowSid,
-            workflowFriendlyName,
-            workspaceSid,
-            url,
-            links
-        );
+        return Objects.hash(accountSid, age, assignmentStatus, attributes, addons, dateCreated, dateUpdated, taskQueueEnteredDate, priority, reason, sid, taskQueueSid, taskQueueFriendlyName, taskChannelSid, taskChannelUniqueName, timeout, workflowSid, workflowFriendlyName, workspaceSid, url, links);
     }
+
+
 }
+

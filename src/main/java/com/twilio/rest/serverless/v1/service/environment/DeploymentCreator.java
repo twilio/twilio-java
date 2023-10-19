@@ -25,40 +25,30 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class DeploymentCreator extends Creator<Deployment> {
 
+
+
+public class DeploymentCreator extends Creator<Deployment>{
     private String pathServiceSid;
     private String pathEnvironmentSid;
     private String buildSid;
 
-    public DeploymentCreator(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
+    public DeploymentCreator(final String pathServiceSid, final String pathEnvironmentSid) {
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
-    public DeploymentCreator setBuildSid(final String buildSid) {
+    public DeploymentCreator setBuildSid(final String buildSid){
         this.buildSid = buildSid;
         return this;
     }
 
     @Override
-    public Deployment create(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
+    public Deployment create(final TwilioRestClient client){
+        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -69,29 +59,21 @@ public class DeploymentCreator extends Creator<Deployment> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Deployment creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Deployment creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Deployment.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Deployment.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (buildSid != null) {
             request.addPostParam("BuildSid", buildSid);
+    
         }
     }
 }

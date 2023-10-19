@@ -24,10 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 
-public class MessageUpdater extends Updater<Message> {
 
+
+public class MessageUpdater extends Updater<Message>{
     private String pathConversationSid;
     private String pathSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
@@ -38,61 +40,46 @@ public class MessageUpdater extends Updater<Message> {
     private String attributes;
     private String subject;
 
-    public MessageUpdater(
-        final String pathConversationSid,
-        final String pathSid
-    ) {
+    public MessageUpdater(final String pathConversationSid, final String pathSid){
         this.pathConversationSid = pathConversationSid;
         this.pathSid = pathSid;
     }
 
-    public MessageUpdater setXTwilioWebhookEnabled(
-        final Message.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
+    public MessageUpdater setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
-
-    public MessageUpdater setAuthor(final String author) {
+    public MessageUpdater setAuthor(final String author){
         this.author = author;
         return this;
     }
-
-    public MessageUpdater setBody(final String body) {
+    public MessageUpdater setBody(final String body){
         this.body = body;
         return this;
     }
-
-    public MessageUpdater setDateCreated(final ZonedDateTime dateCreated) {
+    public MessageUpdater setDateCreated(final ZonedDateTime dateCreated){
         this.dateCreated = dateCreated;
         return this;
     }
-
-    public MessageUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
+    public MessageUpdater setDateUpdated(final ZonedDateTime dateUpdated){
         this.dateUpdated = dateUpdated;
         return this;
     }
-
-    public MessageUpdater setAttributes(final String attributes) {
+    public MessageUpdater setAttributes(final String attributes){
         this.attributes = attributes;
         return this;
     }
-
-    public MessageUpdater setSubject(final String subject) {
+    public MessageUpdater setSubject(final String subject){
         this.subject = subject;
         return this;
     }
 
     @Override
-    public Message update(final TwilioRestClient client) {
+    public Message update(final TwilioRestClient client){
         String path = "/v1/Conversations/{ConversationSid}/Messages/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConversationSid" + "}",
-                this.pathConversationSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ConversationSid"+"}", this.pathConversationSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -104,56 +91,46 @@ public class MessageUpdater extends Updater<Message> {
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Message update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Message update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (author != null) {
             request.addPostParam("Author", author);
+    
         }
         if (body != null) {
             request.addPostParam("Body", body);
+    
         }
         if (dateCreated != null) {
-            request.addPostParam(
-                "DateCreated",
-                dateCreated.toInstant().toString()
-            );
+            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
+
         }
         if (dateUpdated != null) {
-            request.addPostParam(
-                "DateUpdated",
-                dateUpdated.toInstant().toString()
-            );
+            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
+
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+    
         }
         if (subject != null) {
             request.addPostParam("Subject", subject);
+    
         }
     }
-
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
         }
     }
 }

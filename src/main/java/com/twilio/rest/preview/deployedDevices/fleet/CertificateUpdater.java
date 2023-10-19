@@ -25,35 +25,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class CertificateUpdater extends Updater<Certificate> {
 
+
+
+public class CertificateUpdater extends Updater<Certificate>{
     private String pathFleetSid;
     private String pathSid;
     private String friendlyName;
     private String deviceSid;
 
-    public CertificateUpdater(final String pathFleetSid, final String pathSid) {
+    public CertificateUpdater(final String pathFleetSid, final String pathSid){
         this.pathFleetSid = pathFleetSid;
         this.pathSid = pathSid;
     }
 
-    public CertificateUpdater setFriendlyName(final String friendlyName) {
+    public CertificateUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public CertificateUpdater setDeviceSid(final String deviceSid) {
+    public CertificateUpdater setDeviceSid(final String deviceSid){
         this.deviceSid = deviceSid;
         return this;
     }
 
     @Override
-    public Certificate update(final TwilioRestClient client) {
+    public Certificate update(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Certificates/{Sid}";
 
-        path =
-            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -64,32 +64,25 @@ public class CertificateUpdater extends Updater<Certificate> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Certificate update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Certificate update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Certificate.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Certificate.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (deviceSid != null) {
             request.addPostParam("DeviceSid", deviceSid);
+    
         }
     }
 }

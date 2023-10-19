@@ -24,13 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+
+
 public class OpenidDiscoveryFetcher extends Fetcher<OpenidDiscovery> {
 
-    public OpenidDiscoveryFetcher() {}
+    public OpenidDiscoveryFetcher(){
+    }
+
 
     @Override
     public OpenidDiscovery fetch(final TwilioRestClient client) {
         String path = "/v1/.well-known/openid-configuration";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -40,23 +46,15 @@ public class OpenidDiscoveryFetcher extends Fetcher<OpenidDiscovery> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "OpenidDiscovery fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("OpenidDiscovery fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return OpenidDiscovery.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return OpenidDiscovery.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

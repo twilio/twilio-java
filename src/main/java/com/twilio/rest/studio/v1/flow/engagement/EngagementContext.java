@@ -22,40 +22,41 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class EngagementContext extends Resource {
-
     private static final long serialVersionUID = 182363461244967L;
 
-    public static EngagementContextFetcher fetcher(
-        final String pathFlowSid,
-        final String pathEngagementSid
-    ) {
+    
+
+    public static EngagementContextFetcher fetcher(final String pathFlowSid, final String pathEngagementSid){
         return new EngagementContextFetcher(pathFlowSid, pathEngagementSid);
     }
 
     /**
-     * Converts a JSON String into a EngagementContext object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return EngagementContext object represented by the provided JSON
-     */
-    public static EngagementContext fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a EngagementContext object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return EngagementContext object represented by the provided JSON
+    */
+    public static EngagementContext fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EngagementContext.class);
@@ -67,17 +68,14 @@ public class EngagementContext extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a EngagementContext object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return EngagementContext object represented by the provided JSON
-     */
-    public static EngagementContext fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a EngagementContext object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return EngagementContext object represented by the provided JSON
+    */
+    public static EngagementContext fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, EngagementContext.class);
@@ -87,6 +85,7 @@ public class EngagementContext extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Map<String, Object> context;
@@ -96,11 +95,20 @@ public class EngagementContext extends Resource {
 
     @JsonCreator
     private EngagementContext(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("context") final Map<String, Object> context,
-        @JsonProperty("engagement_sid") final String engagementSid,
-        @JsonProperty("flow_sid") final String flowSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("context")
+        final Map<String, Object> context,
+
+        @JsonProperty("engagement_sid")
+        final String engagementSid,
+
+        @JsonProperty("flow_sid")
+        final String flowSid,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.accountSid = accountSid;
         this.context = context;
@@ -109,29 +117,25 @@ public class EngagementContext extends Resource {
         this.url = url;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getContext() {
-        return this.context;
-    }
-
-    public final String getEngagementSid() {
-        return this.engagementSid;
-    }
-
-    public final String getFlowSid() {
-        return this.flowSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Map<String, Object> getContext() {
+            return this.context;
+        }
+        public final String getEngagementSid() {
+            return this.engagementSid;
+        }
+        public final String getFlowSid() {
+            return this.flowSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -141,17 +145,14 @@ public class EngagementContext extends Resource {
 
         EngagementContext other = (EngagementContext) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(context, other.context) &&
-            Objects.equals(engagementSid, other.engagementSid) &&
-            Objects.equals(flowSid, other.flowSid) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(context, other.context) &&  Objects.equals(engagementSid, other.engagementSid) &&  Objects.equals(flowSid, other.flowSid) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, context, engagementSid, flowSid, url);
     }
+
+
 }
+

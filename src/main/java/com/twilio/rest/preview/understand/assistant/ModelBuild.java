@@ -24,61 +24,56 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ModelBuild extends Resource {
-
     private static final long serialVersionUID = 226055418389205L;
 
-    public static ModelBuildCreator creator(final String pathAssistantSid) {
+    
+
+    public static ModelBuildCreator creator(final String pathAssistantSid){
         return new ModelBuildCreator(pathAssistantSid);
     }
 
-    public static ModelBuildDeleter deleter(
-        final String pathAssistantSid,
-        final String pathSid
-    ) {
+    public static ModelBuildDeleter deleter(final String pathAssistantSid, final String pathSid){
         return new ModelBuildDeleter(pathAssistantSid, pathSid);
     }
 
-    public static ModelBuildFetcher fetcher(
-        final String pathAssistantSid,
-        final String pathSid
-    ) {
+    public static ModelBuildFetcher fetcher(final String pathAssistantSid, final String pathSid){
         return new ModelBuildFetcher(pathAssistantSid, pathSid);
     }
 
-    public static ModelBuildReader reader(final String pathAssistantSid) {
+    public static ModelBuildReader reader(final String pathAssistantSid){
         return new ModelBuildReader(pathAssistantSid);
     }
 
-    public static ModelBuildUpdater updater(
-        final String pathAssistantSid,
-        final String pathSid
-    ) {
+    public static ModelBuildUpdater updater(final String pathAssistantSid, final String pathSid){
         return new ModelBuildUpdater(pathAssistantSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a ModelBuild object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return ModelBuild object represented by the provided JSON
-     */
-    public static ModelBuild fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a ModelBuild object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return ModelBuild object represented by the provided JSON
+    */
+    public static ModelBuild fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ModelBuild.class);
@@ -90,17 +85,14 @@ public class ModelBuild extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ModelBuild object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return ModelBuild object represented by the provided JSON
-     */
-    public static ModelBuild fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a ModelBuild object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return ModelBuild object represented by the provided JSON
+    */
+    public static ModelBuild fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ModelBuild.class);
@@ -147,16 +139,35 @@ public class ModelBuild extends Resource {
 
     @JsonCreator
     private ModelBuild(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("assistant_sid") final String assistantSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final ModelBuild.Status status,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("build_duration") final Integer buildDuration,
-        @JsonProperty("error_code") final Integer errorCode
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("assistant_sid")
+        final String assistantSid,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("status")
+        final ModelBuild.Status status,
+
+        @JsonProperty("unique_name")
+        final String uniqueName,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("build_duration")
+        final Integer buildDuration,
+
+        @JsonProperty("error_code")
+        final Integer errorCode
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -170,49 +181,40 @@ public class ModelBuild extends Resource {
         this.errorCode = errorCode;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getAssistantSid() {
-        return this.assistantSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final ModelBuild.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Integer getBuildDuration() {
-        return this.buildDuration;
-    }
-
-    public final Integer getErrorCode() {
-        return this.errorCode;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getAssistantSid() {
+            return this.assistantSid;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final ModelBuild.Status getStatus() {
+            return this.status;
+        }
+        public final String getUniqueName() {
+            return this.uniqueName;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Integer getBuildDuration() {
+            return this.buildDuration;
+        }
+        public final Integer getErrorCode() {
+            return this.errorCode;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -222,33 +224,14 @@ public class ModelBuild extends Resource {
 
         ModelBuild other = (ModelBuild) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(assistantSid, other.assistantSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(buildDuration, other.buildDuration) &&
-            Objects.equals(errorCode, other.errorCode)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(status, other.status) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(url, other.url) &&  Objects.equals(buildDuration, other.buildDuration) &&  Objects.equals(errorCode, other.errorCode)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            assistantSid,
-            sid,
-            status,
-            uniqueName,
-            url,
-            buildDuration,
-            errorCode
-        );
+        return Objects.hash(accountSid, dateCreated, dateUpdated, assistantSid, sid, status, uniqueName, url, buildDuration, errorCode);
     }
+
+
 }
+

@@ -25,35 +25,30 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class NewSigningKeyCreator extends Creator<NewSigningKey> {
 
+
+
+public class NewSigningKeyCreator extends Creator<NewSigningKey>{
     private String pathAccountSid;
     private String friendlyName;
 
-    public NewSigningKeyCreator() {}
-
+    public NewSigningKeyCreator() {
+    }
     public NewSigningKeyCreator(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public NewSigningKeyCreator setFriendlyName(final String friendlyName) {
+    public NewSigningKeyCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
 
     @Override
-    public NewSigningKey create(final TwilioRestClient client) {
+    public NewSigningKey create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/SigningKeys.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -64,29 +59,21 @@ public class NewSigningKeyCreator extends Creator<NewSigningKey> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "NewSigningKey creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("NewSigningKey creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return NewSigningKey.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return NewSigningKey.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
     }
 }

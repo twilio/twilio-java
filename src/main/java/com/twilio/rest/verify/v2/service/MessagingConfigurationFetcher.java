@@ -24,31 +24,25 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MessagingConfigurationFetcher
-    extends Fetcher<MessagingConfiguration> {
 
+
+
+public class MessagingConfigurationFetcher extends Fetcher<MessagingConfiguration> {
     private String pathServiceSid;
     private String pathCountry;
 
-    public MessagingConfigurationFetcher(
-        final String pathServiceSid,
-        final String pathCountry
-    ) {
+    public MessagingConfigurationFetcher(final String pathServiceSid, final String pathCountry){
         this.pathServiceSid = pathServiceSid;
         this.pathCountry = pathCountry;
     }
 
+
     @Override
     public MessagingConfiguration fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
+        String path = "/v2/Services/{ServiceSid}/MessagingConfigurations/{Country}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Country" + "}", this.pathCountry.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Country"+"}", this.pathCountry.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -58,23 +52,15 @@ public class MessagingConfigurationFetcher
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "MessagingConfiguration fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("MessagingConfiguration fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return MessagingConfiguration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return MessagingConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

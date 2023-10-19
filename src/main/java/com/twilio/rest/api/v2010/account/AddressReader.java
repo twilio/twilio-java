@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,37 +24,36 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class AddressReader extends Reader<Address> {
-
     private String pathAccountSid;
     private String customerName;
     private String friendlyName;
     private String isoCountry;
     private Integer pageSize;
 
-    public AddressReader() {}
-
-    public AddressReader(final String pathAccountSid) {
+    public AddressReader(){
+    }
+    public AddressReader(final String pathAccountSid){
         this.pathAccountSid = pathAccountSid;
     }
 
-    public AddressReader setCustomerName(final String customerName) {
+    public AddressReader setCustomerName(final String customerName){
         this.customerName = customerName;
         return this;
     }
-
-    public AddressReader setFriendlyName(final String friendlyName) {
+    public AddressReader setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public AddressReader setIsoCountry(final String isoCountry) {
+    public AddressReader setIsoCountry(final String isoCountry){
         this.isoCountry = isoCountry;
         return this;
     }
-
-    public AddressReader setPageSize(final Integer pageSize) {
+    public AddressReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -67,15 +65,8 @@ public class AddressReader extends Reader<Address> {
 
     public Page<Address> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -87,23 +78,15 @@ public class AddressReader extends Reader<Address> {
         return pageForRequest(client, request);
     }
 
-    private Page<Address> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Address> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Address read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Address read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -117,10 +100,7 @@ public class AddressReader extends Reader<Address> {
     }
 
     @Override
-    public Page<Address> previousPage(
-        final Page<Address> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Address> previousPage(final Page<Address> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -128,11 +108,9 @@ public class AddressReader extends Reader<Address> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Address> nextPage(
-        final Page<Address> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Address> nextPage(final Page<Address> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -141,30 +119,33 @@ public class AddressReader extends Reader<Address> {
     }
 
     @Override
-    public Page<Address> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Address> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (customerName != null) {
+    
             request.addQueryParam("CustomerName", customerName);
         }
         if (friendlyName != null) {
+    
             request.addQueryParam("FriendlyName", friendlyName);
         }
         if (isoCountry != null) {
+    
             request.addQueryParam("IsoCountry", isoCountry);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

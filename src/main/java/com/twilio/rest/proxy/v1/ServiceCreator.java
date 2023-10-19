@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class ServiceCreator extends Creator<Service> {
-
+public class ServiceCreator extends Creator<Service>{
     private String uniqueName;
     private Integer defaultTtl;
     private URI callbackUrl;
@@ -43,80 +45,56 @@ public class ServiceCreator extends Creator<Service> {
         this.uniqueName = uniqueName;
     }
 
-    public ServiceCreator setUniqueName(final String uniqueName) {
+    public ServiceCreator setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
-
-    public ServiceCreator setDefaultTtl(final Integer defaultTtl) {
+    public ServiceCreator setDefaultTtl(final Integer defaultTtl){
         this.defaultTtl = defaultTtl;
         return this;
     }
-
-    public ServiceCreator setCallbackUrl(final URI callbackUrl) {
+    public ServiceCreator setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public ServiceCreator setCallbackUrl(final String callbackUrl) {
+    public ServiceCreator setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-
-    public ServiceCreator setGeoMatchLevel(
-        final Service.GeoMatchLevel geoMatchLevel
-    ) {
+    public ServiceCreator setGeoMatchLevel(final Service.GeoMatchLevel geoMatchLevel){
         this.geoMatchLevel = geoMatchLevel;
         return this;
     }
-
-    public ServiceCreator setNumberSelectionBehavior(
-        final Service.NumberSelectionBehavior numberSelectionBehavior
-    ) {
+    public ServiceCreator setNumberSelectionBehavior(final Service.NumberSelectionBehavior numberSelectionBehavior){
         this.numberSelectionBehavior = numberSelectionBehavior;
         return this;
     }
-
-    public ServiceCreator setInterceptCallbackUrl(
-        final URI interceptCallbackUrl
-    ) {
+    public ServiceCreator setInterceptCallbackUrl(final URI interceptCallbackUrl){
         this.interceptCallbackUrl = interceptCallbackUrl;
         return this;
     }
 
-    public ServiceCreator setInterceptCallbackUrl(
-        final String interceptCallbackUrl
-    ) {
-        return setInterceptCallbackUrl(
-            Promoter.uriFromString(interceptCallbackUrl)
-        );
+    public ServiceCreator setInterceptCallbackUrl(final String interceptCallbackUrl){
+        return setInterceptCallbackUrl(Promoter.uriFromString(interceptCallbackUrl));
     }
-
-    public ServiceCreator setOutOfSessionCallbackUrl(
-        final URI outOfSessionCallbackUrl
-    ) {
+    public ServiceCreator setOutOfSessionCallbackUrl(final URI outOfSessionCallbackUrl){
         this.outOfSessionCallbackUrl = outOfSessionCallbackUrl;
         return this;
     }
 
-    public ServiceCreator setOutOfSessionCallbackUrl(
-        final String outOfSessionCallbackUrl
-    ) {
-        return setOutOfSessionCallbackUrl(
-            Promoter.uriFromString(outOfSessionCallbackUrl)
-        );
+    public ServiceCreator setOutOfSessionCallbackUrl(final String outOfSessionCallbackUrl){
+        return setOutOfSessionCallbackUrl(Promoter.uriFromString(outOfSessionCallbackUrl));
     }
-
-    public ServiceCreator setChatInstanceSid(final String chatInstanceSid) {
+    public ServiceCreator setChatInstanceSid(final String chatInstanceSid){
         this.chatInstanceSid = chatInstanceSid;
         return this;
     }
 
     @Override
-    public Service create(final TwilioRestClient client) {
+    public Service create(final TwilioRestClient client){
         String path = "/v1/Services";
 
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
+        path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -127,56 +105,49 @@ public class ServiceCreator extends Creator<Service> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+    
         }
         if (defaultTtl != null) {
             request.addPostParam("DefaultTtl", defaultTtl.toString());
+    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
         if (geoMatchLevel != null) {
             request.addPostParam("GeoMatchLevel", geoMatchLevel.toString());
+    
         }
         if (numberSelectionBehavior != null) {
-            request.addPostParam(
-                "NumberSelectionBehavior",
-                numberSelectionBehavior.toString()
-            );
+            request.addPostParam("NumberSelectionBehavior", numberSelectionBehavior.toString());
+    
         }
         if (interceptCallbackUrl != null) {
-            request.addPostParam(
-                "InterceptCallbackUrl",
-                interceptCallbackUrl.toString()
-            );
+            request.addPostParam("InterceptCallbackUrl", interceptCallbackUrl.toString());
+    
         }
         if (outOfSessionCallbackUrl != null) {
-            request.addPostParam(
-                "OutOfSessionCallbackUrl",
-                outOfSessionCallbackUrl.toString()
-            );
+            request.addPostParam("OutOfSessionCallbackUrl", outOfSessionCallbackUrl.toString());
+    
         }
         if (chatInstanceSid != null) {
             request.addPostParam("ChatInstanceSid", chatInstanceSid);
+    
         }
     }
 }

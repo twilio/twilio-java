@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class SmsCommandCreator extends Creator<SmsCommand> {
-
+public class SmsCommandCreator extends Creator<SmsCommand>{
     private String sim;
     private String payload;
     private HttpMethod callbackMethod;
@@ -40,38 +42,33 @@ public class SmsCommandCreator extends Creator<SmsCommand> {
         this.payload = payload;
     }
 
-    public SmsCommandCreator setSim(final String sim) {
+    public SmsCommandCreator setSim(final String sim){
         this.sim = sim;
         return this;
     }
-
-    public SmsCommandCreator setPayload(final String payload) {
+    public SmsCommandCreator setPayload(final String payload){
         this.payload = payload;
         return this;
     }
-
-    public SmsCommandCreator setCallbackMethod(
-        final HttpMethod callbackMethod
-    ) {
+    public SmsCommandCreator setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;
         return this;
     }
-
-    public SmsCommandCreator setCallbackUrl(final URI callbackUrl) {
+    public SmsCommandCreator setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public SmsCommandCreator setCallbackUrl(final String callbackUrl) {
+    public SmsCommandCreator setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
 
     @Override
-    public SmsCommand create(final TwilioRestClient client) {
+    public SmsCommand create(final TwilioRestClient client){
         String path = "/v1/SmsCommands";
 
-        path = path.replace("{" + "Sim" + "}", this.sim.toString());
-        path = path.replace("{" + "Payload" + "}", this.payload.toString());
+        path = path.replace("{"+"Sim"+"}", this.sim.toString());
+        path = path.replace("{"+"Payload"+"}", this.payload.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -82,38 +79,33 @@ public class SmsCommandCreator extends Creator<SmsCommand> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "SmsCommand creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SmsCommand creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return SmsCommand.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return SmsCommand.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (sim != null) {
             request.addPostParam("Sim", sim);
+    
         }
         if (payload != null) {
             request.addPostParam("Payload", payload);
+    
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
     }
 }

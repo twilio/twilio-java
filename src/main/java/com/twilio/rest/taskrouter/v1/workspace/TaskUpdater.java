@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class TaskUpdater extends Updater<Task> {
 
+
+
+public class TaskUpdater extends Updater<Task>{
     private String pathWorkspaceSid;
     private String pathSid;
     private String ifMatch;
@@ -36,51 +38,42 @@ public class TaskUpdater extends Updater<Task> {
     private Integer priority;
     private String taskChannel;
 
-    public TaskUpdater(final String pathWorkspaceSid, final String pathSid) {
+    public TaskUpdater(final String pathWorkspaceSid, final String pathSid){
         this.pathWorkspaceSid = pathWorkspaceSid;
         this.pathSid = pathSid;
     }
 
-    public TaskUpdater setIfMatch(final String ifMatch) {
+    public TaskUpdater setIfMatch(final String ifMatch){
         this.ifMatch = ifMatch;
         return this;
     }
-
-    public TaskUpdater setAttributes(final String attributes) {
+    public TaskUpdater setAttributes(final String attributes){
         this.attributes = attributes;
         return this;
     }
-
-    public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus) {
+    public TaskUpdater setAssignmentStatus(final Task.Status assignmentStatus){
         this.assignmentStatus = assignmentStatus;
         return this;
     }
-
-    public TaskUpdater setReason(final String reason) {
+    public TaskUpdater setReason(final String reason){
         this.reason = reason;
         return this;
     }
-
-    public TaskUpdater setPriority(final Integer priority) {
+    public TaskUpdater setPriority(final Integer priority){
         this.priority = priority;
         return this;
     }
-
-    public TaskUpdater setTaskChannel(final String taskChannel) {
+    public TaskUpdater setTaskChannel(final String taskChannel){
         this.taskChannel = taskChannel;
         return this;
     }
 
     @Override
-    public Task update(final TwilioRestClient client) {
+    public Task update(final TwilioRestClient client){
         String path = "/v1/Workspaces/{WorkspaceSid}/Tasks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -92,47 +85,43 @@ public class TaskUpdater extends Updater<Task> {
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Task update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Task update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Task.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+    
         }
         if (assignmentStatus != null) {
-            request.addPostParam(
-                "AssignmentStatus",
-                assignmentStatus.toString()
-            );
+            request.addPostParam("AssignmentStatus", assignmentStatus.toString());
+    
         }
         if (reason != null) {
             request.addPostParam("Reason", reason);
+    
         }
         if (priority != null) {
             request.addPostParam("Priority", priority.toString());
+    
         }
         if (taskChannel != null) {
             request.addPostParam("TaskChannel", taskChannel);
+    
         }
     }
-
     private void addHeaderParams(final Request request) {
         if (ifMatch != null) {
             request.addHeaderParam("If-Match", ifMatch);
+
         }
     }
 }

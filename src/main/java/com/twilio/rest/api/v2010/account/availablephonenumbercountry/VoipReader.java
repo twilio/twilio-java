@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.availablephonenumbercountry;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -26,9 +25,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class VoipReader extends Reader<Voip> {
-
     private String pathCountryCode;
     private String pathAccountSid;
     private Integer areaCode;
@@ -51,121 +52,91 @@ public class VoipReader extends Reader<Voip> {
     private Boolean faxEnabled;
     private Integer pageSize;
 
-    public VoipReader(final String pathCountryCode) {
+    public VoipReader(final String pathCountryCode){
         this.pathCountryCode = pathCountryCode;
     }
-
-    public VoipReader(
-        final String pathAccountSid,
-        final String pathCountryCode
-    ) {
+    public VoipReader(final String pathAccountSid, final String pathCountryCode){
         this.pathAccountSid = pathAccountSid;
         this.pathCountryCode = pathCountryCode;
     }
 
-    public VoipReader setAreaCode(final Integer areaCode) {
+    public VoipReader setAreaCode(final Integer areaCode){
         this.areaCode = areaCode;
         return this;
     }
-
-    public VoipReader setContains(final String contains) {
+    public VoipReader setContains(final String contains){
         this.contains = contains;
         return this;
     }
-
-    public VoipReader setSmsEnabled(final Boolean smsEnabled) {
+    public VoipReader setSmsEnabled(final Boolean smsEnabled){
         this.smsEnabled = smsEnabled;
         return this;
     }
-
-    public VoipReader setMmsEnabled(final Boolean mmsEnabled) {
+    public VoipReader setMmsEnabled(final Boolean mmsEnabled){
         this.mmsEnabled = mmsEnabled;
         return this;
     }
-
-    public VoipReader setVoiceEnabled(final Boolean voiceEnabled) {
+    public VoipReader setVoiceEnabled(final Boolean voiceEnabled){
         this.voiceEnabled = voiceEnabled;
         return this;
     }
-
-    public VoipReader setExcludeAllAddressRequired(
-        final Boolean excludeAllAddressRequired
-    ) {
+    public VoipReader setExcludeAllAddressRequired(final Boolean excludeAllAddressRequired){
         this.excludeAllAddressRequired = excludeAllAddressRequired;
         return this;
     }
-
-    public VoipReader setExcludeLocalAddressRequired(
-        final Boolean excludeLocalAddressRequired
-    ) {
+    public VoipReader setExcludeLocalAddressRequired(final Boolean excludeLocalAddressRequired){
         this.excludeLocalAddressRequired = excludeLocalAddressRequired;
         return this;
     }
-
-    public VoipReader setExcludeForeignAddressRequired(
-        final Boolean excludeForeignAddressRequired
-    ) {
+    public VoipReader setExcludeForeignAddressRequired(final Boolean excludeForeignAddressRequired){
         this.excludeForeignAddressRequired = excludeForeignAddressRequired;
         return this;
     }
-
-    public VoipReader setBeta(final Boolean beta) {
+    public VoipReader setBeta(final Boolean beta){
         this.beta = beta;
         return this;
     }
-
-    public VoipReader setNearNumber(
-        final com.twilio.type.PhoneNumber nearNumber
-    ) {
+    public VoipReader setNearNumber(final com.twilio.type.PhoneNumber nearNumber){
         this.nearNumber = nearNumber;
         return this;
     }
 
-    public VoipReader setNearNumber(final String nearNumber) {
+    public VoipReader setNearNumber(final String nearNumber){
         return setNearNumber(Promoter.phoneNumberFromString(nearNumber));
     }
-
-    public VoipReader setNearLatLong(final String nearLatLong) {
+    public VoipReader setNearLatLong(final String nearLatLong){
         this.nearLatLong = nearLatLong;
         return this;
     }
-
-    public VoipReader setDistance(final Integer distance) {
+    public VoipReader setDistance(final Integer distance){
         this.distance = distance;
         return this;
     }
-
-    public VoipReader setInPostalCode(final String inPostalCode) {
+    public VoipReader setInPostalCode(final String inPostalCode){
         this.inPostalCode = inPostalCode;
         return this;
     }
-
-    public VoipReader setInRegion(final String inRegion) {
+    public VoipReader setInRegion(final String inRegion){
         this.inRegion = inRegion;
         return this;
     }
-
-    public VoipReader setInRateCenter(final String inRateCenter) {
+    public VoipReader setInRateCenter(final String inRateCenter){
         this.inRateCenter = inRateCenter;
         return this;
     }
-
-    public VoipReader setInLata(final String inLata) {
+    public VoipReader setInLata(final String inLata){
         this.inLata = inLata;
         return this;
     }
-
-    public VoipReader setInLocality(final String inLocality) {
+    public VoipReader setInLocality(final String inLocality){
         this.inLocality = inLocality;
         return this;
     }
-
-    public VoipReader setFaxEnabled(final Boolean faxEnabled) {
+    public VoipReader setFaxEnabled(final Boolean faxEnabled){
         this.faxEnabled = faxEnabled;
         return this;
     }
-
-    public VoipReader setPageSize(final Integer pageSize) {
+    public VoipReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -176,22 +147,10 @@ public class VoipReader extends Reader<Voip> {
     }
 
     public Page<Voip> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "CountryCode" + "}",
-                this.pathCountryCode.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/AvailablePhoneNumbers/{CountryCode}/Voip.json";
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CountryCode"+"}", this.pathCountryCode.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -203,23 +162,15 @@ public class VoipReader extends Reader<Voip> {
         return pageForRequest(client, request);
     }
 
-    private Page<Voip> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Voip> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Voip read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Voip read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -233,10 +184,7 @@ public class VoipReader extends Reader<Voip> {
     }
 
     @Override
-    public Page<Voip> previousPage(
-        final Page<Voip> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Voip> previousPage(final Page<Voip> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -244,11 +192,9 @@ public class VoipReader extends Reader<Voip> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Voip> nextPage(
-        final Page<Voip> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Voip> nextPage(final Page<Voip> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -257,84 +203,93 @@ public class VoipReader extends Reader<Voip> {
     }
 
     @Override
-    public Page<Voip> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Voip> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (areaCode != null) {
+    
             request.addQueryParam("AreaCode", areaCode.toString());
         }
         if (contains != null) {
+    
             request.addQueryParam("Contains", contains);
         }
         if (smsEnabled != null) {
+    
             request.addQueryParam("SmsEnabled", smsEnabled.toString());
         }
         if (mmsEnabled != null) {
+    
             request.addQueryParam("MmsEnabled", mmsEnabled.toString());
         }
         if (voiceEnabled != null) {
+    
             request.addQueryParam("VoiceEnabled", voiceEnabled.toString());
         }
         if (excludeAllAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeAllAddressRequired",
-                excludeAllAddressRequired.toString()
-            );
+    
+            request.addQueryParam("ExcludeAllAddressRequired", excludeAllAddressRequired.toString());
         }
         if (excludeLocalAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeLocalAddressRequired",
-                excludeLocalAddressRequired.toString()
-            );
+    
+            request.addQueryParam("ExcludeLocalAddressRequired", excludeLocalAddressRequired.toString());
         }
         if (excludeForeignAddressRequired != null) {
-            request.addQueryParam(
-                "ExcludeForeignAddressRequired",
-                excludeForeignAddressRequired.toString()
-            );
+    
+            request.addQueryParam("ExcludeForeignAddressRequired", excludeForeignAddressRequired.toString());
         }
         if (beta != null) {
+    
             request.addQueryParam("Beta", beta.toString());
         }
         if (nearNumber != null) {
+    
             request.addQueryParam("NearNumber", nearNumber.toString());
         }
         if (nearLatLong != null) {
+    
             request.addQueryParam("NearLatLong", nearLatLong);
         }
         if (distance != null) {
+    
             request.addQueryParam("Distance", distance.toString());
         }
         if (inPostalCode != null) {
+    
             request.addQueryParam("InPostalCode", inPostalCode);
         }
         if (inRegion != null) {
+    
             request.addQueryParam("InRegion", inRegion);
         }
         if (inRateCenter != null) {
+    
             request.addQueryParam("InRateCenter", inRateCenter);
         }
         if (inLata != null) {
+    
             request.addQueryParam("InLata", inLata);
         }
         if (inLocality != null) {
+    
             request.addQueryParam("InLocality", inLocality);
         }
         if (faxEnabled != null) {
+    
             request.addQueryParam("FaxEnabled", faxEnabled.toString());
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

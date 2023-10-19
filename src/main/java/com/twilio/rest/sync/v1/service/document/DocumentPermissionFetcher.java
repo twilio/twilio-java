@@ -24,39 +24,28 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
 
+
+
+public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
     private String pathServiceSid;
     private String pathDocumentSid;
     private String pathIdentity;
 
-    public DocumentPermissionFetcher(
-        final String pathServiceSid,
-        final String pathDocumentSid,
-        final String pathIdentity
-    ) {
+    public DocumentPermissionFetcher(final String pathServiceSid, final String pathDocumentSid, final String pathIdentity){
         this.pathServiceSid = pathServiceSid;
         this.pathDocumentSid = pathDocumentSid;
         this.pathIdentity = pathIdentity;
     }
 
+
     @Override
     public DocumentPermission fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
+        String path = "/v1/Services/{ServiceSid}/Documents/{DocumentSid}/Permissions/{Identity}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DocumentSid" + "}",
-                this.pathDocumentSid.toString()
-            );
-        path =
-            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"DocumentSid"+"}", this.pathDocumentSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -66,23 +55,15 @@ public class DocumentPermissionFetcher extends Fetcher<DocumentPermission> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "DocumentPermission fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("DocumentPermission fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException("Server Error, no content");
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return DocumentPermission.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DocumentPermission.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

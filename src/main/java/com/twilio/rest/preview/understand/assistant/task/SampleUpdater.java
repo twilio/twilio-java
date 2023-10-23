@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SampleUpdater extends Updater<Sample> {
 
+
+
+public class SampleUpdater extends Updater<Sample>{
     private String pathAssistantSid;
     private String pathTaskSid;
     private String pathSid;
@@ -34,43 +36,32 @@ public class SampleUpdater extends Updater<Sample> {
     private String taggedText;
     private String sourceChannel;
 
-    public SampleUpdater(
-        final String pathAssistantSid,
-        final String pathTaskSid,
-        final String pathSid
-    ) {
+    public SampleUpdater(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
         this.pathAssistantSid = pathAssistantSid;
         this.pathTaskSid = pathTaskSid;
         this.pathSid = pathSid;
     }
 
-    public SampleUpdater setLanguage(final String language) {
+    public SampleUpdater setLanguage(final String language){
         this.language = language;
         return this;
     }
-
-    public SampleUpdater setTaggedText(final String taggedText) {
+    public SampleUpdater setTaggedText(final String taggedText){
         this.taggedText = taggedText;
         return this;
     }
-
-    public SampleUpdater setSourceChannel(final String sourceChannel) {
+    public SampleUpdater setSourceChannel(final String sourceChannel){
         this.sourceChannel = sourceChannel;
         return this;
     }
 
     @Override
-    public Sample update(final TwilioRestClient client) {
-        String path =
-            "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}";
+    public Sample update(final TwilioRestClient client){
+        String path = "/understand/Assistants/{AssistantSid}/Tasks/{TaskSid}/Samples/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
-        path = path.replace("{" + "TaskSid" + "}", this.pathTaskSid.toString());
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"TaskSid"+"}", this.pathTaskSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -81,35 +72,29 @@ public class SampleUpdater extends Updater<Sample> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Sample update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Sample update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Sample.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (language != null) {
             request.addPostParam("Language", language);
+    
         }
         if (taggedText != null) {
             request.addPostParam("TaggedText", taggedText);
+    
         }
         if (sourceChannel != null) {
             request.addPostParam("SourceChannel", sourceChannel);
+    
         }
     }
 }

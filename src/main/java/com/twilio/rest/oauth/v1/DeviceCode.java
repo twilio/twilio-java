@@ -22,38 +22,39 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.List;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DeviceCode extends Resource {
-
     private static final long serialVersionUID = 153107871213953L;
 
-    public static DeviceCodeCreator creator(
-        final String clientSid,
-        final List<String> scopes
-    ) {
+    
+
+    public static DeviceCodeCreator creator(final String clientSid, final List<String> scopes){
         return new DeviceCodeCreator(clientSid, scopes);
     }
 
     /**
-     * Converts a JSON String into a DeviceCode object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return DeviceCode object represented by the provided JSON
-     */
-    public static DeviceCode fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a DeviceCode object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return DeviceCode object represented by the provided JSON
+    */
+    public static DeviceCode fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeviceCode.class);
@@ -65,17 +66,14 @@ public class DeviceCode extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a DeviceCode object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return DeviceCode object represented by the provided JSON
-     */
-    public static DeviceCode fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a DeviceCode object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return DeviceCode object represented by the provided JSON
+    */
+    public static DeviceCode fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DeviceCode.class);
@@ -85,6 +83,7 @@ public class DeviceCode extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String deviceCode;
     private final String userCode;
@@ -95,14 +94,23 @@ public class DeviceCode extends Resource {
 
     @JsonCreator
     private DeviceCode(
-        @JsonProperty("device_code") final String deviceCode,
-        @JsonProperty("user_code") final String userCode,
-        @JsonProperty("verification_uri") final String verificationUri,
-        @JsonProperty(
-            "verification_uri_complete"
-        ) final String verificationUriComplete,
-        @JsonProperty("expires_in") final Long expiresIn,
-        @JsonProperty("interval") final Integer interval
+        @JsonProperty("device_code")
+        final String deviceCode,
+
+        @JsonProperty("user_code")
+        final String userCode,
+
+        @JsonProperty("verification_uri")
+        final String verificationUri,
+
+        @JsonProperty("verification_uri_complete")
+        final String verificationUriComplete,
+
+        @JsonProperty("expires_in")
+        final Long expiresIn,
+
+        @JsonProperty("interval")
+        final Integer interval
     ) {
         this.deviceCode = deviceCode;
         this.userCode = userCode;
@@ -112,33 +120,28 @@ public class DeviceCode extends Resource {
         this.interval = interval;
     }
 
-    public final String getDeviceCode() {
-        return this.deviceCode;
-    }
-
-    public final String getUserCode() {
-        return this.userCode;
-    }
-
-    public final String getVerificationUri() {
-        return this.verificationUri;
-    }
-
-    public final String getVerificationUriComplete() {
-        return this.verificationUriComplete;
-    }
-
-    public final Long getExpiresIn() {
-        return this.expiresIn;
-    }
-
-    public final Integer getInterval() {
-        return this.interval;
-    }
+        public final String getDeviceCode() {
+            return this.deviceCode;
+        }
+        public final String getUserCode() {
+            return this.userCode;
+        }
+        public final String getVerificationUri() {
+            return this.verificationUri;
+        }
+        public final String getVerificationUriComplete() {
+            return this.verificationUriComplete;
+        }
+        public final Long getExpiresIn() {
+            return this.expiresIn;
+        }
+        public final Integer getInterval() {
+            return this.interval;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -148,28 +151,14 @@ public class DeviceCode extends Resource {
 
         DeviceCode other = (DeviceCode) o;
 
-        return (
-            Objects.equals(deviceCode, other.deviceCode) &&
-            Objects.equals(userCode, other.userCode) &&
-            Objects.equals(verificationUri, other.verificationUri) &&
-            Objects.equals(
-                verificationUriComplete,
-                other.verificationUriComplete
-            ) &&
-            Objects.equals(expiresIn, other.expiresIn) &&
-            Objects.equals(interval, other.interval)
-        );
+        return Objects.equals(deviceCode, other.deviceCode) &&  Objects.equals(userCode, other.userCode) &&  Objects.equals(verificationUri, other.verificationUri) &&  Objects.equals(verificationUriComplete, other.verificationUriComplete) &&  Objects.equals(expiresIn, other.expiresIn) &&  Objects.equals(interval, other.interval)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            deviceCode,
-            userCode,
-            verificationUri,
-            verificationUriComplete,
-            expiresIn,
-            interval
-        );
+        return Objects.hash(deviceCode, userCode, verificationUri, verificationUriComplete, expiresIn, interval);
     }
+
+
 }
+

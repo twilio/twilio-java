@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WebChannelCreator extends Creator<WebChannel> {
 
+
+
+public class WebChannelCreator extends Creator<WebChannel>{
     private String flexFlowSid;
     private String identity;
     private String customerFriendlyName;
@@ -34,74 +36,46 @@ public class WebChannelCreator extends Creator<WebChannel> {
     private String chatUniqueName;
     private String preEngagementData;
 
-    public WebChannelCreator(
-        final String flexFlowSid,
-        final String identity,
-        final String customerFriendlyName,
-        final String chatFriendlyName
-    ) {
+    public WebChannelCreator(final String flexFlowSid, final String identity, final String customerFriendlyName, final String chatFriendlyName) {
         this.flexFlowSid = flexFlowSid;
         this.identity = identity;
         this.customerFriendlyName = customerFriendlyName;
         this.chatFriendlyName = chatFriendlyName;
     }
 
-    public WebChannelCreator setFlexFlowSid(final String flexFlowSid) {
+    public WebChannelCreator setFlexFlowSid(final String flexFlowSid){
         this.flexFlowSid = flexFlowSid;
         return this;
     }
-
-    public WebChannelCreator setIdentity(final String identity) {
+    public WebChannelCreator setIdentity(final String identity){
         this.identity = identity;
         return this;
     }
-
-    public WebChannelCreator setCustomerFriendlyName(
-        final String customerFriendlyName
-    ) {
+    public WebChannelCreator setCustomerFriendlyName(final String customerFriendlyName){
         this.customerFriendlyName = customerFriendlyName;
         return this;
     }
-
-    public WebChannelCreator setChatFriendlyName(
-        final String chatFriendlyName
-    ) {
+    public WebChannelCreator setChatFriendlyName(final String chatFriendlyName){
         this.chatFriendlyName = chatFriendlyName;
         return this;
     }
-
-    public WebChannelCreator setChatUniqueName(final String chatUniqueName) {
+    public WebChannelCreator setChatUniqueName(final String chatUniqueName){
         this.chatUniqueName = chatUniqueName;
         return this;
     }
-
-    public WebChannelCreator setPreEngagementData(
-        final String preEngagementData
-    ) {
+    public WebChannelCreator setPreEngagementData(final String preEngagementData){
         this.preEngagementData = preEngagementData;
         return this;
     }
 
     @Override
-    public WebChannel create(final TwilioRestClient client) {
+    public WebChannel create(final TwilioRestClient client){
         String path = "/v1/WebChannels";
 
-        path =
-            path.replace(
-                "{" + "FlexFlowSid" + "}",
-                this.flexFlowSid.toString()
-            );
-        path = path.replace("{" + "Identity" + "}", this.identity.toString());
-        path =
-            path.replace(
-                "{" + "CustomerFriendlyName" + "}",
-                this.customerFriendlyName.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChatFriendlyName" + "}",
-                this.chatFriendlyName.toString()
-            );
+        path = path.replace("{"+"FlexFlowSid"+"}", this.flexFlowSid.toString());
+        path = path.replace("{"+"Identity"+"}", this.identity.toString());
+        path = path.replace("{"+"CustomerFriendlyName"+"}", this.customerFriendlyName.toString());
+        path = path.replace("{"+"ChatFriendlyName"+"}", this.chatFriendlyName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -112,47 +86,41 @@ public class WebChannelCreator extends Creator<WebChannel> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "WebChannel creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("WebChannel creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return WebChannel.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WebChannel.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (flexFlowSid != null) {
             request.addPostParam("FlexFlowSid", flexFlowSid);
+    
         }
         if (identity != null) {
             request.addPostParam("Identity", identity);
+    
         }
         if (customerFriendlyName != null) {
             request.addPostParam("CustomerFriendlyName", customerFriendlyName);
+    
         }
         if (chatFriendlyName != null) {
             request.addPostParam("ChatFriendlyName", chatFriendlyName);
+    
         }
         if (chatUniqueName != null) {
             request.addPostParam("ChatUniqueName", chatUniqueName);
+    
         }
         if (preEngagementData != null) {
             request.addPostParam("PreEngagementData", preEngagementData);
+    
         }
     }
 }

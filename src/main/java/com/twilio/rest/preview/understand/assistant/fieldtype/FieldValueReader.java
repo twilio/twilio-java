@@ -14,7 +14,6 @@
 
 package com.twilio.rest.preview.understand.assistant.fieldtype;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,28 +24,26 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class FieldValueReader extends Reader<FieldValue> {
-
     private String pathAssistantSid;
     private String pathFieldTypeSid;
     private String language;
     private Integer pageSize;
 
-    public FieldValueReader(
-        final String pathAssistantSid,
-        final String pathFieldTypeSid
-    ) {
+    public FieldValueReader(final String pathAssistantSid, final String pathFieldTypeSid){
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
     }
 
-    public FieldValueReader setLanguage(final String language) {
+    public FieldValueReader setLanguage(final String language){
         this.language = language;
         return this;
     }
-
-    public FieldValueReader setPageSize(final Integer pageSize) {
+    public FieldValueReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -57,18 +54,9 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     public Page<FieldValue> firstPage(final TwilioRestClient client) {
-        String path =
-            "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FieldTypeSid" + "}",
-                this.pathFieldTypeSid.toString()
-            );
+        String path = "/understand/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"FieldTypeSid"+"}", this.pathFieldTypeSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -80,26 +68,15 @@ public class FieldValueReader extends Reader<FieldValue> {
         return pageForRequest(client, request);
     }
 
-    private Page<FieldValue> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<FieldValue> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "FieldValue read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FieldValue read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -113,10 +90,7 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     @Override
-    public Page<FieldValue> previousPage(
-        final Page<FieldValue> page,
-        final TwilioRestClient client
-    ) {
+    public Page<FieldValue> previousPage(final Page<FieldValue> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -124,11 +98,9 @@ public class FieldValueReader extends Reader<FieldValue> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<FieldValue> nextPage(
-        final Page<FieldValue> page,
-        final TwilioRestClient client
-    ) {
+    public Page<FieldValue> nextPage(final Page<FieldValue> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -137,24 +109,25 @@ public class FieldValueReader extends Reader<FieldValue> {
     }
 
     @Override
-    public Page<FieldValue> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<FieldValue> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (language != null) {
+    
             request.addQueryParam("Language", language);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

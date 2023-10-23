@@ -24,44 +24,33 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MemberFetcher extends Fetcher<Member> {
 
+
+
+public class MemberFetcher extends Fetcher<Member> {
     private String pathQueueSid;
     private String pathCallSid;
     private String pathAccountSid;
 
-    public MemberFetcher(final String pathQueueSid, final String pathCallSid) {
+    public MemberFetcher(final String pathQueueSid, final String pathCallSid){
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
     }
-
-    public MemberFetcher(
-        final String pathAccountSid,
-        final String pathQueueSid,
-        final String pathCallSid
-    ) {
+    public MemberFetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid){
         this.pathAccountSid = pathAccountSid;
         this.pathQueueSid = pathQueueSid;
         this.pathCallSid = pathCallSid;
     }
 
+
     @Override
     public Member fetch(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
+        String path = "/2010-04-01/Accounts/{AccountSid}/Queues/{QueueSid}/Members/{CallSid}.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace("{" + "QueueSid" + "}", this.pathQueueSid.toString());
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"QueueSid"+"}", this.pathQueueSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -71,19 +60,11 @@ public class MemberFetcher extends Fetcher<Member> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Member fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

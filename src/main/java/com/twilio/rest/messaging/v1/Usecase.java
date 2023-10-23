@@ -22,37 +22,41 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Usecase extends Resource {
-
     private static final long serialVersionUID = 232787447190817L;
 
-    public static UsecaseFetcher fetcher() {
+    
+
+    public static UsecaseFetcher fetcher(){
         return new UsecaseFetcher();
     }
 
     /**
-     * Converts a JSON String into a Usecase object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Usecase object represented by the provided JSON
-     */
-    public static Usecase fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Usecase object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Usecase object represented by the provided JSON
+    */
+    public static Usecase fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Usecase.class);
@@ -64,17 +68,14 @@ public class Usecase extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Usecase object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Usecase object represented by the provided JSON
-     */
-    public static Usecase fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Usecase object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Usecase object represented by the provided JSON
+    */
+    public static Usecase fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Usecase.class);
@@ -84,23 +85,25 @@ public class Usecase extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final List<Map<String, Object>> usecases;
 
     @JsonCreator
     private Usecase(
-        @JsonProperty("usecases") final List<Map<String, Object>> usecases
+        @JsonProperty("usecases")
+        final List<Map<String, Object>> usecases
     ) {
         this.usecases = usecases;
     }
 
-    public final List<Map<String, Object>> getUsecases() {
-        return this.usecases;
-    }
+        public final List<Map<String, Object>> getUsecases() {
+            return this.usecases;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -110,11 +113,14 @@ public class Usecase extends Resource {
 
         Usecase other = (Usecase) o;
 
-        return Objects.equals(usecases, other.usecases);
+        return Objects.equals(usecases, other.usecases)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(usecases);
     }
+
+
 }
+

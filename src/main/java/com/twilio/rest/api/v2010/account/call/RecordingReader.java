@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.call;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,11 +24,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-public class RecordingReader extends Reader<Recording> {
 
+
+public class RecordingReader extends Reader<Recording> {
     private String pathCallSid;
     private String pathAccountSid;
     private LocalDate dateCreated;
@@ -37,38 +38,27 @@ public class RecordingReader extends Reader<Recording> {
     private LocalDate dateCreatedAfter;
     private Integer pageSize;
 
-    public RecordingReader(final String pathCallSid) {
+    public RecordingReader(final String pathCallSid){
         this.pathCallSid = pathCallSid;
     }
-
-    public RecordingReader(
-        final String pathAccountSid,
-        final String pathCallSid
-    ) {
+    public RecordingReader(final String pathAccountSid, final String pathCallSid){
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
     }
 
-    public RecordingReader setDateCreated(final LocalDate dateCreated) {
+    public RecordingReader setDateCreated(final LocalDate dateCreated){
         this.dateCreated = dateCreated;
         return this;
     }
-
-    public RecordingReader setDateCreatedBefore(
-        final LocalDate dateCreatedBefore
-    ) {
+    public RecordingReader setDateCreatedBefore(final LocalDate dateCreatedBefore){
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
-
-    public RecordingReader setDateCreatedAfter(
-        final LocalDate dateCreatedAfter
-    ) {
+    public RecordingReader setDateCreatedAfter(final LocalDate dateCreatedAfter){
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
-
-    public RecordingReader setPageSize(final Integer pageSize) {
+    public RecordingReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -79,18 +69,10 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     public Page<Recording> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Recordings.json";
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -102,26 +84,15 @@ public class RecordingReader extends Reader<Recording> {
         return pageForRequest(client, request);
     }
 
-    private Page<Recording> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Recording> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Recording read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Recording read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -135,10 +106,7 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     @Override
-    public Page<Recording> previousPage(
-        final Page<Recording> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Recording> previousPage(final Page<Recording> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -146,11 +114,9 @@ public class RecordingReader extends Reader<Recording> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Recording> nextPage(
-        final Page<Recording> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Recording> nextPage(final Page<Recording> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -159,37 +125,27 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     @Override
-    public Page<Recording> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Recording> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (dateCreated != null) {
-            request.addQueryParam(
-                "DateCreated",
-                dateCreated.format(
-                    DateTimeFormatter.ofPattern(
-                        Request.QUERY_STRING_DATE_FORMAT
-                    )
-                )
-            );
-        } else if (dateCreatedAfter != null || dateCreatedBefore != null) {
-            request.addQueryDateRange(
-                "DateCreated",
-                dateCreatedAfter,
-                dateCreatedBefore
-            );
+            request.addQueryParam("DateCreated", dateCreated.format(DateTimeFormatter.ofPattern(Request.QUERY_STRING_DATE_FORMAT)));
+        }
+        else if (dateCreatedAfter != null || dateCreatedBefore != null) {
+            request.addQueryDateRange("DateCreated", dateCreatedAfter, dateCreatedBefore);
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

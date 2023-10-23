@@ -24,53 +24,46 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class FunctionVersion extends Resource {
-
     private static final long serialVersionUID = 85534066966494L;
 
-    public static FunctionVersionFetcher fetcher(
-        final String pathServiceSid,
-        final String pathFunctionSid,
-        final String pathSid
-    ) {
-        return new FunctionVersionFetcher(
-            pathServiceSid,
-            pathFunctionSid,
-            pathSid
-        );
+    
+
+    public static FunctionVersionFetcher fetcher(final String pathServiceSid, final String pathFunctionSid, final String pathSid){
+        return new FunctionVersionFetcher(pathServiceSid, pathFunctionSid, pathSid);
     }
 
-    public static FunctionVersionReader reader(
-        final String pathServiceSid,
-        final String pathFunctionSid
-    ) {
+    public static FunctionVersionReader reader(final String pathServiceSid, final String pathFunctionSid){
         return new FunctionVersionReader(pathServiceSid, pathFunctionSid);
     }
 
     /**
-     * Converts a JSON String into a FunctionVersion object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return FunctionVersion object represented by the provided JSON
-     */
-    public static FunctionVersion fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a FunctionVersion object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return FunctionVersion object represented by the provided JSON
+    */
+    public static FunctionVersion fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FunctionVersion.class);
@@ -82,17 +75,14 @@ public class FunctionVersion extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a FunctionVersion object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return FunctionVersion object represented by the provided JSON
-     */
-    public static FunctionVersion fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a FunctionVersion object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return FunctionVersion object represented by the provided JSON
+    */
+    public static FunctionVersion fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, FunctionVersion.class);
@@ -136,15 +126,32 @@ public class FunctionVersion extends Resource {
 
     @JsonCreator
     private FunctionVersion(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("function_sid") final String functionSid,
-        @JsonProperty("path") final String path,
-        @JsonProperty("visibility") final FunctionVersion.Visibility visibility,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("function_sid")
+        final String functionSid,
+
+        @JsonProperty("path")
+        final String path,
+
+        @JsonProperty("visibility")
+        final FunctionVersion.Visibility visibility,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -157,45 +164,37 @@ public class FunctionVersion extends Resource {
         this.links = links;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getFunctionSid() {
-        return this.functionSid;
-    }
-
-    public final String getPath() {
-        return this.path;
-    }
-
-    public final FunctionVersion.Visibility getVisibility() {
-        return this.visibility;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final String getFunctionSid() {
+            return this.functionSid;
+        }
+        public final String getPath() {
+            return this.path;
+        }
+        public final FunctionVersion.Visibility getVisibility() {
+            return this.visibility;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -205,31 +204,14 @@ public class FunctionVersion extends Resource {
 
         FunctionVersion other = (FunctionVersion) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(functionSid, other.functionSid) &&
-            Objects.equals(path, other.path) &&
-            Objects.equals(visibility, other.visibility) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(functionSid, other.functionSid) &&  Objects.equals(path, other.path) &&  Objects.equals(visibility, other.visibility) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            functionSid,
-            path,
-            visibility,
-            dateCreated,
-            url,
-            links
-        );
+        return Objects.hash(sid, accountSid, serviceSid, functionSid, path, visibility, dateCreated, url, links);
     }
+
+
 }
+

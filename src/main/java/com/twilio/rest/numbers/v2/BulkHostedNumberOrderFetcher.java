@@ -24,19 +24,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class BulkHostedNumberOrderFetcher
-    extends Fetcher<BulkHostedNumberOrder> {
 
+
+
+public class BulkHostedNumberOrderFetcher extends Fetcher<BulkHostedNumberOrder> {
     private String pathBulkHostingSid;
     private String orderStatus;
 
-    public BulkHostedNumberOrderFetcher(final String pathBulkHostingSid) {
+    public BulkHostedNumberOrderFetcher(final String pathBulkHostingSid){
         this.pathBulkHostingSid = pathBulkHostingSid;
     }
 
-    public BulkHostedNumberOrderFetcher setOrderStatus(
-        final String orderStatus
-    ) {
+    public BulkHostedNumberOrderFetcher setOrderStatus(final String orderStatus){
         this.orderStatus = orderStatus;
         return this;
     }
@@ -45,11 +44,7 @@ public class BulkHostedNumberOrderFetcher
     public BulkHostedNumberOrder fetch(final TwilioRestClient client) {
         String path = "/v2/HostedNumber/Orders/Bulk/{BulkHostingSid}";
 
-        path =
-            path.replace(
-                "{" + "BulkHostingSid" + "}",
-                this.pathBulkHostingSid.toString()
-            );
+        path = path.replace("{"+"BulkHostingSid"+"}", this.pathBulkHostingSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,31 +55,20 @@ public class BulkHostedNumberOrderFetcher
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "BulkHostedNumberOrder fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("BulkHostedNumberOrder fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return BulkHostedNumberOrder.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return BulkHostedNumberOrder.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addQueryParams(final Request request) {
         if (orderStatus != null) {
+    
             request.addQueryParam("OrderStatus", orderStatus);
         }
     }

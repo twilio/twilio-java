@@ -23,45 +23,46 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
-
     private static final long serialVersionUID = 215026832174382L;
 
-    public static EventFetcher fetcher(
-        final String pathWorkspaceSid,
-        final String pathSid
-    ) {
+    
+
+    public static EventFetcher fetcher(final String pathWorkspaceSid, final String pathSid){
         return new EventFetcher(pathWorkspaceSid, pathSid);
     }
 
-    public static EventReader reader(final String pathWorkspaceSid) {
+    public static EventReader reader(final String pathWorkspaceSid){
         return new EventReader(pathWorkspaceSid);
     }
 
     /**
-     * Converts a JSON String into a Event object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Event object represented by the provided JSON
-     */
-    public static Event fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Event object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Event object represented by the provided JSON
+    */
+    public static Event fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -73,17 +74,14 @@ public class Event extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Event object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Event object represented by the provided JSON
-     */
-    public static Event fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Event object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Event object represented by the provided JSON
+    */
+    public static Event fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -93,6 +91,7 @@ public class Event extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String actorSid;
@@ -114,23 +113,56 @@ public class Event extends Resource {
 
     @JsonCreator
     private Event(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("actor_sid") final String actorSid,
-        @JsonProperty("actor_type") final String actorType,
-        @JsonProperty("actor_url") final URI actorUrl,
-        @JsonProperty("description") final String description,
-        @JsonProperty("event_data") final Map<String, Object> eventData,
-        @JsonProperty("event_date") final String eventDate,
-        @JsonProperty("event_date_ms") final Long eventDateMs,
-        @JsonProperty("event_type") final String eventType,
-        @JsonProperty("resource_sid") final String resourceSid,
-        @JsonProperty("resource_type") final String resourceType,
-        @JsonProperty("resource_url") final URI resourceUrl,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("source") final String source,
-        @JsonProperty("source_ip_address") final String sourceIpAddress,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("workspace_sid") final String workspaceSid
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("actor_sid")
+        final String actorSid,
+
+        @JsonProperty("actor_type")
+        final String actorType,
+
+        @JsonProperty("actor_url")
+        final URI actorUrl,
+
+        @JsonProperty("description")
+        final String description,
+
+        @JsonProperty("event_data")
+        final Map<String, Object> eventData,
+
+        @JsonProperty("event_date")
+        final String eventDate,
+
+        @JsonProperty("event_date_ms")
+        final Long eventDateMs,
+
+        @JsonProperty("event_type")
+        final String eventType,
+
+        @JsonProperty("resource_sid")
+        final String resourceSid,
+
+        @JsonProperty("resource_type")
+        final String resourceType,
+
+        @JsonProperty("resource_url")
+        final URI resourceUrl,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("source")
+        final String source,
+
+        @JsonProperty("source_ip_address")
+        final String sourceIpAddress,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("workspace_sid")
+        final String workspaceSid
     ) {
         this.accountSid = accountSid;
         this.actorSid = actorSid;
@@ -151,77 +183,61 @@ public class Event extends Resource {
         this.workspaceSid = workspaceSid;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getActorSid() {
-        return this.actorSid;
-    }
-
-    public final String getActorType() {
-        return this.actorType;
-    }
-
-    public final URI getActorUrl() {
-        return this.actorUrl;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final Map<String, Object> getEventData() {
-        return this.eventData;
-    }
-
-    public final ZonedDateTime getEventDate() {
-        return this.eventDate;
-    }
-
-    public final Long getEventDateMs() {
-        return this.eventDateMs;
-    }
-
-    public final String getEventType() {
-        return this.eventType;
-    }
-
-    public final String getResourceSid() {
-        return this.resourceSid;
-    }
-
-    public final String getResourceType() {
-        return this.resourceType;
-    }
-
-    public final URI getResourceUrl() {
-        return this.resourceUrl;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getSource() {
-        return this.source;
-    }
-
-    public final String getSourceIpAddress() {
-        return this.sourceIpAddress;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getActorSid() {
+            return this.actorSid;
+        }
+        public final String getActorType() {
+            return this.actorType;
+        }
+        public final URI getActorUrl() {
+            return this.actorUrl;
+        }
+        public final String getDescription() {
+            return this.description;
+        }
+        public final Map<String, Object> getEventData() {
+            return this.eventData;
+        }
+        public final ZonedDateTime getEventDate() {
+            return this.eventDate;
+        }
+        public final Long getEventDateMs() {
+            return this.eventDateMs;
+        }
+        public final String getEventType() {
+            return this.eventType;
+        }
+        public final String getResourceSid() {
+            return this.resourceSid;
+        }
+        public final String getResourceType() {
+            return this.resourceType;
+        }
+        public final URI getResourceUrl() {
+            return this.resourceUrl;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getSource() {
+            return this.source;
+        }
+        public final String getSourceIpAddress() {
+            return this.sourceIpAddress;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final String getWorkspaceSid() {
+            return this.workspaceSid;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -231,47 +247,14 @@ public class Event extends Resource {
 
         Event other = (Event) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(actorSid, other.actorSid) &&
-            Objects.equals(actorType, other.actorType) &&
-            Objects.equals(actorUrl, other.actorUrl) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(eventData, other.eventData) &&
-            Objects.equals(eventDate, other.eventDate) &&
-            Objects.equals(eventDateMs, other.eventDateMs) &&
-            Objects.equals(eventType, other.eventType) &&
-            Objects.equals(resourceSid, other.resourceSid) &&
-            Objects.equals(resourceType, other.resourceType) &&
-            Objects.equals(resourceUrl, other.resourceUrl) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(source, other.source) &&
-            Objects.equals(sourceIpAddress, other.sourceIpAddress) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(workspaceSid, other.workspaceSid)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(actorSid, other.actorSid) &&  Objects.equals(actorType, other.actorType) &&  Objects.equals(actorUrl, other.actorUrl) &&  Objects.equals(description, other.description) &&  Objects.equals(eventData, other.eventData) &&  Objects.equals(eventDate, other.eventDate) &&  Objects.equals(eventDateMs, other.eventDateMs) &&  Objects.equals(eventType, other.eventType) &&  Objects.equals(resourceSid, other.resourceSid) &&  Objects.equals(resourceType, other.resourceType) &&  Objects.equals(resourceUrl, other.resourceUrl) &&  Objects.equals(sid, other.sid) &&  Objects.equals(source, other.source) &&  Objects.equals(sourceIpAddress, other.sourceIpAddress) &&  Objects.equals(url, other.url) &&  Objects.equals(workspaceSid, other.workspaceSid)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            actorSid,
-            actorType,
-            actorUrl,
-            description,
-            eventData,
-            eventDate,
-            eventDateMs,
-            eventType,
-            resourceSid,
-            resourceType,
-            resourceUrl,
-            sid,
-            source,
-            sourceIpAddress,
-            url,
-            workspaceSid
-        );
+        return Objects.hash(accountSid, actorSid, actorType, actorUrl, description, eventData, eventDate, eventDateMs, eventType, resourceSid, resourceType, resourceUrl, sid, source, sourceIpAddress, url, workspaceSid);
     }
+
+
 }
+

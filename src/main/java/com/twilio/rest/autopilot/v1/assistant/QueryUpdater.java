@@ -25,38 +25,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class QueryUpdater extends Updater<Query> {
 
+
+
+public class QueryUpdater extends Updater<Query>{
     private String pathAssistantSid;
     private String pathSid;
     private String sampleSid;
     private String status;
 
-    public QueryUpdater(final String pathAssistantSid, final String pathSid) {
+    public QueryUpdater(final String pathAssistantSid, final String pathSid){
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
     }
 
-    public QueryUpdater setSampleSid(final String sampleSid) {
+    public QueryUpdater setSampleSid(final String sampleSid){
         this.sampleSid = sampleSid;
         return this;
     }
-
-    public QueryUpdater setStatus(final String status) {
+    public QueryUpdater setStatus(final String status){
         this.status = status;
         return this;
     }
 
     @Override
-    public Query update(final TwilioRestClient client) {
+    public Query update(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Queries/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,32 +64,25 @@ public class QueryUpdater extends Updater<Query> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Query update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Query update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (sampleSid != null) {
             request.addPostParam("SampleSid", sampleSid);
+    
         }
         if (status != null) {
             request.addPostParam("Status", status);
+    
         }
     }
 }

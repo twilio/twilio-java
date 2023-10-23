@@ -24,51 +24,49 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Binding extends Resource {
-
     private static final long serialVersionUID = 124400281339927L;
 
-    public static BindingDeleter deleter(
-        final String pathChatServiceSid,
-        final String pathSid
-    ) {
+    
+
+    public static BindingDeleter deleter(final String pathChatServiceSid, final String pathSid){
         return new BindingDeleter(pathChatServiceSid, pathSid);
     }
 
-    public static BindingFetcher fetcher(
-        final String pathChatServiceSid,
-        final String pathSid
-    ) {
+    public static BindingFetcher fetcher(final String pathChatServiceSid, final String pathSid){
         return new BindingFetcher(pathChatServiceSid, pathSid);
     }
 
-    public static BindingReader reader(final String pathChatServiceSid) {
+    public static BindingReader reader(final String pathChatServiceSid){
         return new BindingReader(pathChatServiceSid);
     }
 
     /**
-     * Converts a JSON String into a Binding object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Binding object represented by the provided JSON
-     */
-    public static Binding fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Binding object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Binding object represented by the provided JSON
+    */
+    public static Binding fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Binding.class);
@@ -80,17 +78,14 @@ public class Binding extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Binding object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Binding object represented by the provided JSON
-     */
-    public static Binding fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Binding object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Binding object represented by the provided JSON
+    */
+    public static Binding fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Binding.class);
@@ -136,17 +131,38 @@ public class Binding extends Resource {
 
     @JsonCreator
     private Binding(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("credential_sid") final String credentialSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("endpoint") final String endpoint,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("binding_type") final Binding.BindingType bindingType,
-        @JsonProperty("message_types") final List<String> messageTypes,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("chat_service_sid")
+        final String chatServiceSid,
+
+        @JsonProperty("credential_sid")
+        final String credentialSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("endpoint")
+        final String endpoint,
+
+        @JsonProperty("identity")
+        final String identity,
+
+        @JsonProperty("binding_type")
+        final Binding.BindingType bindingType,
+
+        @JsonProperty("message_types")
+        final List<String> messageTypes,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -161,53 +177,43 @@ public class Binding extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getCredentialSid() {
-        return this.credentialSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getEndpoint() {
-        return this.endpoint;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final Binding.BindingType getBindingType() {
-        return this.bindingType;
-    }
-
-    public final List<String> getMessageTypes() {
-        return this.messageTypes;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getChatServiceSid() {
+            return this.chatServiceSid;
+        }
+        public final String getCredentialSid() {
+            return this.credentialSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getEndpoint() {
+            return this.endpoint;
+        }
+        public final String getIdentity() {
+            return this.identity;
+        }
+        public final Binding.BindingType getBindingType() {
+            return this.bindingType;
+        }
+        public final List<String> getMessageTypes() {
+            return this.messageTypes;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -217,35 +223,14 @@ public class Binding extends Resource {
 
         Binding other = (Binding) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(credentialSid, other.credentialSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(endpoint, other.endpoint) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(bindingType, other.bindingType) &&
-            Objects.equals(messageTypes, other.messageTypes) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(credentialSid, other.credentialSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(endpoint, other.endpoint) &&  Objects.equals(identity, other.identity) &&  Objects.equals(bindingType, other.bindingType) &&  Objects.equals(messageTypes, other.messageTypes) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            chatServiceSid,
-            credentialSid,
-            dateCreated,
-            dateUpdated,
-            endpoint,
-            identity,
-            bindingType,
-            messageTypes,
-            url
-        );
+        return Objects.hash(sid, accountSid, chatServiceSid, credentialSid, dateCreated, dateUpdated, endpoint, identity, bindingType, messageTypes, url);
     }
+
+
 }
+

@@ -22,37 +22,38 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SinkValidate extends Resource {
-
     private static final long serialVersionUID = 233814002700195L;
 
-    public static SinkValidateCreator creator(
-        final String pathSid,
-        final String testId
-    ) {
+    
+
+    public static SinkValidateCreator creator(final String pathSid, final String testId){
         return new SinkValidateCreator(pathSid, testId);
     }
 
     /**
-     * Converts a JSON String into a SinkValidate object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SinkValidate object represented by the provided JSON
-     */
-    public static SinkValidate fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SinkValidate object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SinkValidate object represented by the provided JSON
+    */
+    public static SinkValidate fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SinkValidate.class);
@@ -64,17 +65,14 @@ public class SinkValidate extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SinkValidate object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SinkValidate object represented by the provided JSON
-     */
-    public static SinkValidate fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SinkValidate object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SinkValidate object represented by the provided JSON
+    */
+    public static SinkValidate fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SinkValidate.class);
@@ -85,20 +83,24 @@ public class SinkValidate extends Resource {
         }
     }
 
+
     private final String result;
 
     @JsonCreator
-    private SinkValidate(@JsonProperty("result") final String result) {
+    private SinkValidate(
+        @JsonProperty("result")
+        final String result
+    ) {
         this.result = result;
     }
 
-    public final String getResult() {
-        return this.result;
-    }
+        public final String getResult() {
+            return this.result;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -108,11 +110,14 @@ public class SinkValidate extends Resource {
 
         SinkValidate other = (SinkValidate) o;
 
-        return Objects.equals(result, other.result);
+        return Objects.equals(result, other.result)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(result);
     }
+
+
 }
+

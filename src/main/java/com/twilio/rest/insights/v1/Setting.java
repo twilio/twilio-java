@@ -22,39 +22,43 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Setting extends Resource {
-
     private static final long serialVersionUID = 24698393526973L;
 
-    public static SettingFetcher fetcher() {
+    
+
+    public static SettingFetcher fetcher(){
         return new SettingFetcher();
     }
 
-    public static SettingUpdater updater() {
+    public static SettingUpdater updater(){
         return new SettingUpdater();
     }
 
     /**
-     * Converts a JSON String into a Setting object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Setting object represented by the provided JSON
-     */
-    public static Setting fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Setting object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Setting object represented by the provided JSON
+    */
+    public static Setting fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Setting.class);
@@ -66,17 +70,14 @@ public class Setting extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Setting object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Setting object represented by the provided JSON
-     */
-    public static Setting fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Setting object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Setting object represented by the provided JSON
+    */
+    public static Setting fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Setting.class);
@@ -86,6 +87,7 @@ public class Setting extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Boolean advancedFeatures;
@@ -94,10 +96,17 @@ public class Setting extends Resource {
 
     @JsonCreator
     private Setting(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("advanced_features") final Boolean advancedFeatures,
-        @JsonProperty("voice_trace") final Boolean voiceTrace,
-        @JsonProperty("url") final URI url
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("advanced_features")
+        final Boolean advancedFeatures,
+
+        @JsonProperty("voice_trace")
+        final Boolean voiceTrace,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.accountSid = accountSid;
         this.advancedFeatures = advancedFeatures;
@@ -105,25 +114,22 @@ public class Setting extends Resource {
         this.url = url;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Boolean getAdvancedFeatures() {
-        return this.advancedFeatures;
-    }
-
-    public final Boolean getVoiceTrace() {
-        return this.voiceTrace;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Boolean getAdvancedFeatures() {
+            return this.advancedFeatures;
+        }
+        public final Boolean getVoiceTrace() {
+            return this.voiceTrace;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -133,16 +139,14 @@ public class Setting extends Resource {
 
         Setting other = (Setting) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(advancedFeatures, other.advancedFeatures) &&
-            Objects.equals(voiceTrace, other.voiceTrace) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(advancedFeatures, other.advancedFeatures) &&  Objects.equals(voiceTrace, other.voiceTrace) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, advancedFeatures, voiceTrace, url);
     }
+
+
 }
+

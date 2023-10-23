@@ -22,38 +22,41 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Balance extends Resource {
-
     private static final long serialVersionUID = 101388429668677L;
 
-    public static BalanceFetcher fetcher() {
+    
+
+    public static BalanceFetcher fetcher(){
         return new BalanceFetcher();
     }
-
-    public static BalanceFetcher fetcher(final String pathAccountSid) {
+    public static BalanceFetcher fetcher(final String pathAccountSid){
         return new BalanceFetcher(pathAccountSid);
     }
 
     /**
-     * Converts a JSON String into a Balance object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Balance object represented by the provided JSON
-     */
-    public static Balance fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Balance object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Balance object represented by the provided JSON
+    */
+    public static Balance fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Balance.class);
@@ -65,17 +68,14 @@ public class Balance extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Balance object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Balance object represented by the provided JSON
-     */
-    public static Balance fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Balance object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Balance object represented by the provided JSON
+    */
+    public static Balance fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Balance.class);
@@ -85,6 +85,7 @@ public class Balance extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String balance;
@@ -92,30 +93,33 @@ public class Balance extends Resource {
 
     @JsonCreator
     private Balance(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("balance") final String balance,
-        @JsonProperty("currency") final String currency
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("balance")
+        final String balance,
+
+        @JsonProperty("currency")
+        final String currency
     ) {
         this.accountSid = accountSid;
         this.balance = balance;
         this.currency = currency;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getBalance() {
-        return this.balance;
-    }
-
-    public final String getCurrency() {
-        return this.currency;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getBalance() {
+            return this.balance;
+        }
+        public final String getCurrency() {
+            return this.currency;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -125,15 +129,14 @@ public class Balance extends Resource {
 
         Balance other = (Balance) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(balance, other.balance) &&
-            Objects.equals(currency, other.currency)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(balance, other.balance) &&  Objects.equals(currency, other.currency)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, balance, currency);
     }
+
+
 }
+

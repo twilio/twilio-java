@@ -25,37 +25,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class TrustProductsEvaluationsCreator
-    extends Creator<TrustProductsEvaluations> {
 
+
+
+public class TrustProductsEvaluationsCreator extends Creator<TrustProductsEvaluations>{
     private String pathTrustProductSid;
     private String policySid;
 
-    public TrustProductsEvaluationsCreator(
-        final String pathTrustProductSid,
-        final String policySid
-    ) {
+    public TrustProductsEvaluationsCreator(final String pathTrustProductSid, final String policySid) {
         this.pathTrustProductSid = pathTrustProductSid;
         this.policySid = policySid;
     }
 
-    public TrustProductsEvaluationsCreator setPolicySid(
-        final String policySid
-    ) {
+    public TrustProductsEvaluationsCreator setPolicySid(final String policySid){
         this.policySid = policySid;
         return this;
     }
 
     @Override
-    public TrustProductsEvaluations create(final TwilioRestClient client) {
+    public TrustProductsEvaluations create(final TwilioRestClient client){
         String path = "/v1/TrustProducts/{TrustProductSid}/Evaluations";
 
-        path =
-            path.replace(
-                "{" + "TrustProductSid" + "}",
-                this.pathTrustProductSid.toString()
-            );
-        path = path.replace("{" + "PolicySid" + "}", this.policySid.toString());
+        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
+        path = path.replace("{"+"PolicySid"+"}", this.policySid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -66,32 +58,21 @@ public class TrustProductsEvaluationsCreator
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "TrustProductsEvaluations creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("TrustProductsEvaluations creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return TrustProductsEvaluations.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return TrustProductsEvaluations.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (policySid != null) {
             request.addPostParam("PolicySid", policySid);
+    
         }
     }
 }

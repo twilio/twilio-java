@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class TriggerCreator extends Creator<Trigger> {
-
+public class TriggerCreator extends Creator<Trigger>{
     private URI callbackUrl;
     private String triggerValue;
     private Trigger.UsageCategory usageCategory;
@@ -39,97 +41,60 @@ public class TriggerCreator extends Creator<Trigger> {
     private Trigger.Recurring recurring;
     private Trigger.TriggerField triggerBy;
 
-    public TriggerCreator(
-        final URI callbackUrl,
-        final String triggerValue,
-        final Trigger.UsageCategory usageCategory
-    ) {
+    public TriggerCreator(final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory) {
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
         this.usageCategory = usageCategory;
     }
-
-    public TriggerCreator(
-        final String pathAccountSid,
-        final URI callbackUrl,
-        final String triggerValue,
-        final Trigger.UsageCategory usageCategory
-    ) {
+    public TriggerCreator(final String pathAccountSid, final URI callbackUrl, final String triggerValue, final Trigger.UsageCategory usageCategory) {
         this.pathAccountSid = pathAccountSid;
         this.callbackUrl = callbackUrl;
         this.triggerValue = triggerValue;
         this.usageCategory = usageCategory;
     }
 
-    public TriggerCreator setCallbackUrl(final URI callbackUrl) {
+    public TriggerCreator setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public TriggerCreator setCallbackUrl(final String callbackUrl) {
+    public TriggerCreator setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-
-    public TriggerCreator setTriggerValue(final String triggerValue) {
+    public TriggerCreator setTriggerValue(final String triggerValue){
         this.triggerValue = triggerValue;
         return this;
     }
-
-    public TriggerCreator setUsageCategory(
-        final Trigger.UsageCategory usageCategory
-    ) {
+    public TriggerCreator setUsageCategory(final Trigger.UsageCategory usageCategory){
         this.usageCategory = usageCategory;
         return this;
     }
-
-    public TriggerCreator setCallbackMethod(final HttpMethod callbackMethod) {
+    public TriggerCreator setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;
         return this;
     }
-
-    public TriggerCreator setFriendlyName(final String friendlyName) {
+    public TriggerCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public TriggerCreator setRecurring(final Trigger.Recurring recurring) {
+    public TriggerCreator setRecurring(final Trigger.Recurring recurring){
         this.recurring = recurring;
         return this;
     }
-
-    public TriggerCreator setTriggerBy(final Trigger.TriggerField triggerBy) {
+    public TriggerCreator setTriggerBy(final Trigger.TriggerField triggerBy){
         this.triggerBy = triggerBy;
         return this;
     }
 
     @Override
-    public Trigger create(final TwilioRestClient client) {
+    public Trigger create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Triggers.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "CallbackUrl" + "}",
-                this.callbackUrl.toString()
-            );
-        path =
-            path.replace(
-                "{" + "TriggerValue" + "}",
-                this.triggerValue.toString()
-            );
-        path =
-            path.replace(
-                "{" + "UsageCategory" + "}",
-                this.usageCategory.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallbackUrl"+"}", this.callbackUrl.toString());
+        path = path.replace("{"+"TriggerValue"+"}", this.triggerValue.toString());
+        path = path.replace("{"+"UsageCategory"+"}", this.usageCategory.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -140,47 +105,45 @@ public class TriggerCreator extends Creator<Trigger> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Trigger creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Trigger creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Trigger.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
         if (triggerValue != null) {
             request.addPostParam("TriggerValue", triggerValue);
+    
         }
         if (usageCategory != null) {
             request.addPostParam("UsageCategory", usageCategory.toString());
+    
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (recurring != null) {
             request.addPostParam("Recurring", recurring.toString());
+    
         }
         if (triggerBy != null) {
             request.addPostParam("TriggerBy", triggerBy.toString());
+    
         }
     }
 }

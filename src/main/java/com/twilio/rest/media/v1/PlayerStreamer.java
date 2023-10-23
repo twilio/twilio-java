@@ -24,54 +24,55 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PlayerStreamer extends Resource {
-
     private static final long serialVersionUID = 145873037286640L;
 
-    public static PlayerStreamerCreator creator() {
+    
+
+    public static PlayerStreamerCreator creator(){
         return new PlayerStreamerCreator();
     }
 
-    public static PlayerStreamerFetcher fetcher(final String pathSid) {
+    public static PlayerStreamerFetcher fetcher(final String pathSid){
         return new PlayerStreamerFetcher(pathSid);
     }
 
-    public static PlayerStreamerReader reader() {
+    public static PlayerStreamerReader reader(){
         return new PlayerStreamerReader();
     }
 
-    public static PlayerStreamerUpdater updater(
-        final String pathSid,
-        final PlayerStreamer.UpdateStatus status
-    ) {
+    public static PlayerStreamerUpdater updater(final String pathSid, final PlayerStreamer.UpdateStatus status){
         return new PlayerStreamerUpdater(pathSid, status);
     }
 
     /**
-     * Converts a JSON String into a PlayerStreamer object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PlayerStreamer object represented by the provided JSON
-     */
-    public static PlayerStreamer fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PlayerStreamer object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PlayerStreamer object represented by the provided JSON
+    */
+    public static PlayerStreamer fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PlayerStreamer.class);
@@ -83,17 +84,14 @@ public class PlayerStreamer extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PlayerStreamer object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PlayerStreamer object represented by the provided JSON
-     */
-    public static PlayerStreamer fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PlayerStreamer object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PlayerStreamer object represented by the provided JSON
+    */
+    public static PlayerStreamer fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PlayerStreamer.class);
@@ -125,7 +123,6 @@ public class PlayerStreamer extends Resource {
             return Promoter.enumFromString(value, EndedReason.values());
         }
     }
-
     public enum Order {
         ASC("asc"),
         DESC("desc");
@@ -145,7 +142,6 @@ public class PlayerStreamer extends Resource {
             return Promoter.enumFromString(value, Order.values());
         }
     }
-
     public enum Status {
         CREATED("created"),
         STARTED("started"),
@@ -167,7 +163,6 @@ public class PlayerStreamer extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
-
     public enum UpdateStatus {
         ENDED("ended");
 
@@ -202,22 +197,41 @@ public class PlayerStreamer extends Resource {
 
     @JsonCreator
     private PlayerStreamer(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("video") final Boolean video,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("status") final PlayerStreamer.Status status,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("status_callback") final URI statusCallback,
-        @JsonProperty(
-            "status_callback_method"
-        ) final HttpMethod statusCallbackMethod,
-        @JsonProperty(
-            "ended_reason"
-        ) final PlayerStreamer.EndedReason endedReason,
-        @JsonProperty("max_duration") final Integer maxDuration
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("video")
+        final Boolean video,
+
+        @JsonProperty("links")
+        final Map<String, String> links,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("status")
+        final PlayerStreamer.Status status,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("status_callback")
+        final URI statusCallback,
+
+        @JsonProperty("status_callback_method")
+        final HttpMethod statusCallbackMethod,
+
+        @JsonProperty("ended_reason")
+        final PlayerStreamer.EndedReason endedReason,
+
+        @JsonProperty("max_duration")
+        final Integer maxDuration
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -233,57 +247,46 @@ public class PlayerStreamer extends Resource {
         this.maxDuration = maxDuration;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Boolean getVideo() {
-        return this.video;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final PlayerStreamer.Status getStatus() {
-        return this.status;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final URI getStatusCallback() {
-        return this.statusCallback;
-    }
-
-    public final HttpMethod getStatusCallbackMethod() {
-        return this.statusCallbackMethod;
-    }
-
-    public final PlayerStreamer.EndedReason getEndedReason() {
-        return this.endedReason;
-    }
-
-    public final Integer getMaxDuration() {
-        return this.maxDuration;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final Boolean getVideo() {
+            return this.video;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final PlayerStreamer.Status getStatus() {
+            return this.status;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final URI getStatusCallback() {
+            return this.statusCallback;
+        }
+        public final HttpMethod getStatusCallbackMethod() {
+            return this.statusCallbackMethod;
+        }
+        public final PlayerStreamer.EndedReason getEndedReason() {
+            return this.endedReason;
+        }
+        public final Integer getMaxDuration() {
+            return this.maxDuration;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -293,37 +296,14 @@ public class PlayerStreamer extends Resource {
 
         PlayerStreamer other = (PlayerStreamer) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(video, other.video) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(statusCallback, other.statusCallback) &&
-            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
-            Objects.equals(endedReason, other.endedReason) &&
-            Objects.equals(maxDuration, other.maxDuration)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(video, other.video) &&  Objects.equals(links, other.links) &&  Objects.equals(sid, other.sid) &&  Objects.equals(status, other.status) &&  Objects.equals(url, other.url) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(endedReason, other.endedReason) &&  Objects.equals(maxDuration, other.maxDuration)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            video,
-            links,
-            sid,
-            status,
-            url,
-            statusCallback,
-            statusCallbackMethod,
-            endedReason,
-            maxDuration
-        );
+        return Objects.hash(accountSid, dateCreated, dateUpdated, video, links, sid, status, url, statusCallback, statusCallbackMethod, endedReason, maxDuration);
     }
+
+
 }
+

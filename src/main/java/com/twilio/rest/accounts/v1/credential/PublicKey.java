@@ -23,52 +23,56 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PublicKey extends Resource {
-
     private static final long serialVersionUID = 255841368009036L;
 
-    public static PublicKeyCreator creator(final String publicKey) {
+    
+
+    public static PublicKeyCreator creator(final String publicKey){
         return new PublicKeyCreator(publicKey);
     }
 
-    public static PublicKeyDeleter deleter(final String pathSid) {
+    public static PublicKeyDeleter deleter(final String pathSid){
         return new PublicKeyDeleter(pathSid);
     }
 
-    public static PublicKeyFetcher fetcher(final String pathSid) {
+    public static PublicKeyFetcher fetcher(final String pathSid){
         return new PublicKeyFetcher(pathSid);
     }
 
-    public static PublicKeyReader reader() {
+    public static PublicKeyReader reader(){
         return new PublicKeyReader();
     }
 
-    public static PublicKeyUpdater updater(final String pathSid) {
+    public static PublicKeyUpdater updater(final String pathSid){
         return new PublicKeyUpdater(pathSid);
     }
 
     /**
-     * Converts a JSON String into a PublicKey object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PublicKey object represented by the provided JSON
-     */
-    public static PublicKey fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PublicKey object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PublicKey object represented by the provided JSON
+    */
+    public static PublicKey fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PublicKey.class);
@@ -80,17 +84,14 @@ public class PublicKey extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PublicKey object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PublicKey object represented by the provided JSON
-     */
-    public static PublicKey fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PublicKey object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PublicKey object represented by the provided JSON
+    */
+    public static PublicKey fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PublicKey.class);
@@ -100,6 +101,7 @@ public class PublicKey extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String accountSid;
@@ -110,12 +112,23 @@ public class PublicKey extends Resource {
 
     @JsonCreator
     private PublicKey(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -125,33 +138,28 @@ public class PublicKey extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -161,25 +169,14 @@ public class PublicKey extends Resource {
 
         PublicKey other = (PublicKey) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            friendlyName,
-            dateCreated,
-            dateUpdated,
-            url
-        );
+        return Objects.hash(sid, accountSid, friendlyName, dateCreated, dateUpdated, url);
     }
+
+
 }
+

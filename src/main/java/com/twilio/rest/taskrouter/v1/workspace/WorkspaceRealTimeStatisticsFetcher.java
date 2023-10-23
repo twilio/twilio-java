@@ -24,19 +24,18 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WorkspaceRealTimeStatisticsFetcher
-    extends Fetcher<WorkspaceRealTimeStatistics> {
 
+
+
+public class WorkspaceRealTimeStatisticsFetcher extends Fetcher<WorkspaceRealTimeStatistics> {
     private String pathWorkspaceSid;
     private String taskChannel;
 
-    public WorkspaceRealTimeStatisticsFetcher(final String pathWorkspaceSid) {
+    public WorkspaceRealTimeStatisticsFetcher(final String pathWorkspaceSid){
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public WorkspaceRealTimeStatisticsFetcher setTaskChannel(
-        final String taskChannel
-    ) {
+    public WorkspaceRealTimeStatisticsFetcher setTaskChannel(final String taskChannel){
         this.taskChannel = taskChannel;
         return this;
     }
@@ -45,11 +44,7 @@ public class WorkspaceRealTimeStatisticsFetcher
     public WorkspaceRealTimeStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/RealTimeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,31 +55,20 @@ public class WorkspaceRealTimeStatisticsFetcher
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "WorkspaceRealTimeStatistics fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("WorkspaceRealTimeStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return WorkspaceRealTimeStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WorkspaceRealTimeStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addQueryParams(final Request request) {
         if (taskChannel != null) {
+    
             request.addQueryParam("TaskChannel", taskChannel);
         }
     }

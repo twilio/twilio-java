@@ -24,65 +24,54 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Challenge extends Resource {
-
     private static final long serialVersionUID = 265978723470772L;
 
-    public static ChallengeCreator creator(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String factorSid
-    ) {
+    
+
+    public static ChallengeCreator creator(final String pathServiceSid, final String pathIdentity, final String factorSid){
         return new ChallengeCreator(pathServiceSid, pathIdentity, factorSid);
     }
 
-    public static ChallengeFetcher fetcher(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
+    public static ChallengeFetcher fetcher(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new ChallengeFetcher(pathServiceSid, pathIdentity, pathSid);
     }
 
-    public static ChallengeReader reader(
-        final String pathServiceSid,
-        final String pathIdentity
-    ) {
+    public static ChallengeReader reader(final String pathServiceSid, final String pathIdentity){
         return new ChallengeReader(pathServiceSid, pathIdentity);
     }
 
-    public static ChallengeUpdater updater(
-        final String pathServiceSid,
-        final String pathIdentity,
-        final String pathSid
-    ) {
+    public static ChallengeUpdater updater(final String pathServiceSid, final String pathIdentity, final String pathSid){
         return new ChallengeUpdater(pathServiceSid, pathIdentity, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Challenge object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Challenge object represented by the provided JSON
-     */
-    public static Challenge fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Challenge object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Challenge object represented by the provided JSON
+    */
+    public static Challenge fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Challenge.class);
@@ -94,17 +83,14 @@ public class Challenge extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Challenge object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Challenge object represented by the provided JSON
-     */
-    public static Challenge fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Challenge object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Challenge object represented by the provided JSON
+    */
+    public static Challenge fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Challenge.class);
@@ -135,7 +121,6 @@ public class Challenge extends Resource {
             return Promoter.enumFromString(value, ChallengeReasons.values());
         }
     }
-
     public enum ChallengeStatuses {
         PENDING("pending"),
         EXPIRED("expired"),
@@ -157,7 +142,6 @@ public class Challenge extends Resource {
             return Promoter.enumFromString(value, ChallengeStatuses.values());
         }
     }
-
     public enum FactorTypes {
         PUSH("push"),
         TOTP("totp");
@@ -177,7 +161,6 @@ public class Challenge extends Resource {
             return Promoter.enumFromString(value, FactorTypes.values());
         }
     }
-
     public enum ListOrders {
         ASC("asc"),
         DESC("desc");
@@ -219,26 +202,59 @@ public class Challenge extends Resource {
 
     @JsonCreator
     private Challenge(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("entity_sid") final String entitySid,
-        @JsonProperty("identity") final String identity,
-        @JsonProperty("factor_sid") final String factorSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("date_responded") final String dateResponded,
-        @JsonProperty("expiration_date") final String expirationDate,
-        @JsonProperty("status") final Challenge.ChallengeStatuses status,
-        @JsonProperty(
-            "responded_reason"
-        ) final Challenge.ChallengeReasons respondedReason,
-        @JsonProperty("details") final Map<String, Object> details,
-        @JsonProperty("hidden_details") final Map<String, Object> hiddenDetails,
-        @JsonProperty("metadata") final Map<String, Object> metadata,
-        @JsonProperty("factor_type") final Challenge.FactorTypes factorType,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("entity_sid")
+        final String entitySid,
+
+        @JsonProperty("identity")
+        final String identity,
+
+        @JsonProperty("factor_sid")
+        final String factorSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("date_responded")
+        final String dateResponded,
+
+        @JsonProperty("expiration_date")
+        final String expirationDate,
+
+        @JsonProperty("status")
+        final Challenge.ChallengeStatuses status,
+
+        @JsonProperty("responded_reason")
+        final Challenge.ChallengeReasons respondedReason,
+
+        @JsonProperty("details")
+        final Map<String, Object> details,
+
+        @JsonProperty("hidden_details")
+        final Map<String, Object> hiddenDetails,
+
+        @JsonProperty("metadata")
+        final Map<String, Object> metadata,
+
+        @JsonProperty("factor_type")
+        final Challenge.FactorTypes factorType,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -248,10 +264,8 @@ public class Challenge extends Resource {
         this.factorSid = factorSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
-        this.dateResponded =
-            DateConverter.iso8601DateTimeFromString(dateResponded);
-        this.expirationDate =
-            DateConverter.iso8601DateTimeFromString(expirationDate);
+        this.dateResponded = DateConverter.iso8601DateTimeFromString(dateResponded);
+        this.expirationDate = DateConverter.iso8601DateTimeFromString(expirationDate);
         this.status = status;
         this.respondedReason = respondedReason;
         this.details = details;
@@ -262,81 +276,64 @@ public class Challenge extends Resource {
         this.links = links;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getEntitySid() {
-        return this.entitySid;
-    }
-
-    public final String getIdentity() {
-        return this.identity;
-    }
-
-    public final String getFactorSid() {
-        return this.factorSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getDateResponded() {
-        return this.dateResponded;
-    }
-
-    public final ZonedDateTime getExpirationDate() {
-        return this.expirationDate;
-    }
-
-    public final Challenge.ChallengeStatuses getStatus() {
-        return this.status;
-    }
-
-    public final Challenge.ChallengeReasons getRespondedReason() {
-        return this.respondedReason;
-    }
-
-    public final Map<String, Object> getDetails() {
-        return this.details;
-    }
-
-    public final Map<String, Object> getHiddenDetails() {
-        return this.hiddenDetails;
-    }
-
-    public final Map<String, Object> getMetadata() {
-        return this.metadata;
-    }
-
-    public final Challenge.FactorTypes getFactorType() {
-        return this.factorType;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final String getEntitySid() {
+            return this.entitySid;
+        }
+        public final String getIdentity() {
+            return this.identity;
+        }
+        public final String getFactorSid() {
+            return this.factorSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final ZonedDateTime getDateResponded() {
+            return this.dateResponded;
+        }
+        public final ZonedDateTime getExpirationDate() {
+            return this.expirationDate;
+        }
+        public final Challenge.ChallengeStatuses getStatus() {
+            return this.status;
+        }
+        public final Challenge.ChallengeReasons getRespondedReason() {
+            return this.respondedReason;
+        }
+        public final Map<String, Object> getDetails() {
+            return this.details;
+        }
+        public final Map<String, Object> getHiddenDetails() {
+            return this.hiddenDetails;
+        }
+        public final Map<String, Object> getMetadata() {
+            return this.metadata;
+        }
+        public final Challenge.FactorTypes getFactorType() {
+            return this.factorType;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -346,49 +343,14 @@ public class Challenge extends Resource {
 
         Challenge other = (Challenge) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(entitySid, other.entitySid) &&
-            Objects.equals(identity, other.identity) &&
-            Objects.equals(factorSid, other.factorSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(dateResponded, other.dateResponded) &&
-            Objects.equals(expirationDate, other.expirationDate) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(respondedReason, other.respondedReason) &&
-            Objects.equals(details, other.details) &&
-            Objects.equals(hiddenDetails, other.hiddenDetails) &&
-            Objects.equals(metadata, other.metadata) &&
-            Objects.equals(factorType, other.factorType) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(entitySid, other.entitySid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(factorSid, other.factorSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(dateResponded, other.dateResponded) &&  Objects.equals(expirationDate, other.expirationDate) &&  Objects.equals(status, other.status) &&  Objects.equals(respondedReason, other.respondedReason) &&  Objects.equals(details, other.details) &&  Objects.equals(hiddenDetails, other.hiddenDetails) &&  Objects.equals(metadata, other.metadata) &&  Objects.equals(factorType, other.factorType) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            serviceSid,
-            entitySid,
-            identity,
-            factorSid,
-            dateCreated,
-            dateUpdated,
-            dateResponded,
-            expirationDate,
-            status,
-            respondedReason,
-            details,
-            hiddenDetails,
-            metadata,
-            factorType,
-            url,
-            links
-        );
+        return Objects.hash(sid, accountSid, serviceSid, entitySid, identity, factorSid, dateCreated, dateUpdated, dateResponded, expirationDate, status, respondedReason, details, hiddenDetails, metadata, factorType, url, links);
     }
+
+
 }
+

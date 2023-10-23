@@ -25,11 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
-public class ConnectionPolicyTargetUpdater
-    extends Updater<ConnectionPolicyTarget> {
 
+
+public class ConnectionPolicyTargetUpdater extends Updater<ConnectionPolicyTarget>{
     private String pathConnectionPolicySid;
     private String pathSid;
     private String friendlyName;
@@ -38,56 +39,42 @@ public class ConnectionPolicyTargetUpdater
     private Integer weight;
     private Boolean enabled;
 
-    public ConnectionPolicyTargetUpdater(
-        final String pathConnectionPolicySid,
-        final String pathSid
-    ) {
+    public ConnectionPolicyTargetUpdater(final String pathConnectionPolicySid, final String pathSid){
         this.pathConnectionPolicySid = pathConnectionPolicySid;
         this.pathSid = pathSid;
     }
 
-    public ConnectionPolicyTargetUpdater setFriendlyName(
-        final String friendlyName
-    ) {
+    public ConnectionPolicyTargetUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public ConnectionPolicyTargetUpdater setTarget(final URI target) {
+    public ConnectionPolicyTargetUpdater setTarget(final URI target){
         this.target = target;
         return this;
     }
 
-    public ConnectionPolicyTargetUpdater setTarget(final String target) {
+    public ConnectionPolicyTargetUpdater setTarget(final String target){
         return setTarget(Promoter.uriFromString(target));
     }
-
-    public ConnectionPolicyTargetUpdater setPriority(final Integer priority) {
+    public ConnectionPolicyTargetUpdater setPriority(final Integer priority){
         this.priority = priority;
         return this;
     }
-
-    public ConnectionPolicyTargetUpdater setWeight(final Integer weight) {
+    public ConnectionPolicyTargetUpdater setWeight(final Integer weight){
         this.weight = weight;
         return this;
     }
-
-    public ConnectionPolicyTargetUpdater setEnabled(final Boolean enabled) {
+    public ConnectionPolicyTargetUpdater setEnabled(final Boolean enabled){
         this.enabled = enabled;
         return this;
     }
 
     @Override
-    public ConnectionPolicyTarget update(final TwilioRestClient client) {
-        String path =
-            "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
+    public ConnectionPolicyTarget update(final TwilioRestClient client){
+        String path = "/v1/ConnectionPolicies/{ConnectionPolicySid}/Targets/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ConnectionPolicySid" + "}",
-                this.pathConnectionPolicySid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ConnectionPolicySid"+"}", this.pathConnectionPolicySid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -98,44 +85,37 @@ public class ConnectionPolicyTargetUpdater
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ConnectionPolicyTarget update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ConnectionPolicyTarget update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ConnectionPolicyTarget.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ConnectionPolicyTarget.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (target != null) {
             request.addPostParam("Target", target.toString());
+    
         }
         if (priority != null) {
             request.addPostParam("Priority", priority.toString());
+    
         }
         if (weight != null) {
             request.addPostParam("Weight", weight.toString());
+    
         }
         if (enabled != null) {
             request.addPostParam("Enabled", enabled.toString());
+    
         }
     }
 }

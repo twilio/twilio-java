@@ -25,32 +25,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MediaProcessorUpdater extends Updater<MediaProcessor> {
 
+
+
+public class MediaProcessorUpdater extends Updater<MediaProcessor>{
     private String pathSid;
     private MediaProcessor.UpdateStatus status;
 
-    public MediaProcessorUpdater(
-        final String pathSid,
-        final MediaProcessor.UpdateStatus status
-    ) {
+    public MediaProcessorUpdater(final String pathSid, final MediaProcessor.UpdateStatus status){
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public MediaProcessorUpdater setStatus(
-        final MediaProcessor.UpdateStatus status
-    ) {
+    public MediaProcessorUpdater setStatus(final MediaProcessor.UpdateStatus status){
         this.status = status;
         return this;
     }
 
     @Override
-    public MediaProcessor update(final TwilioRestClient client) {
+    public MediaProcessor update(final TwilioRestClient client){
         String path = "/v1/MediaProcessors/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
-        path = path.replace("{" + "Status" + "}", this.status.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{"+"Status"+"}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,32 +58,21 @@ public class MediaProcessorUpdater extends Updater<MediaProcessor> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "MediaProcessor update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("MediaProcessor update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return MediaProcessor.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return MediaProcessor.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
+    
         }
     }
 }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.preview.understand.assistant;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,17 +24,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class FieldTypeReader extends Reader<FieldType> {
-
     private String pathAssistantSid;
     private Integer pageSize;
 
-    public FieldTypeReader(final String pathAssistantSid) {
+    public FieldTypeReader(final String pathAssistantSid){
         this.pathAssistantSid = pathAssistantSid;
     }
 
-    public FieldTypeReader setPageSize(final Integer pageSize) {
+    public FieldTypeReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -47,11 +48,7 @@ public class FieldTypeReader extends Reader<FieldType> {
 
     public Page<FieldType> firstPage(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/FieldTypes";
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -63,26 +60,15 @@ public class FieldTypeReader extends Reader<FieldType> {
         return pageForRequest(client, request);
     }
 
-    private Page<FieldType> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<FieldType> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "FieldType read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("FieldType read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -96,10 +82,7 @@ public class FieldTypeReader extends Reader<FieldType> {
     }
 
     @Override
-    public Page<FieldType> previousPage(
-        final Page<FieldType> page,
-        final TwilioRestClient client
-    ) {
+    public Page<FieldType> previousPage(final Page<FieldType> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -107,11 +90,9 @@ public class FieldTypeReader extends Reader<FieldType> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<FieldType> nextPage(
-        final Page<FieldType> page,
-        final TwilioRestClient client
-    ) {
+    public Page<FieldType> nextPage(final Page<FieldType> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -120,21 +101,21 @@ public class FieldTypeReader extends Reader<FieldType> {
     }
 
     @Override
-    public Page<FieldType> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<FieldType> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

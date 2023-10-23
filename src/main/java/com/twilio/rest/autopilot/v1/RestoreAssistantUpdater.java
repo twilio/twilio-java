@@ -25,24 +25,26 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RestoreAssistantUpdater extends Updater<RestoreAssistant> {
 
+
+
+public class RestoreAssistantUpdater extends Updater<RestoreAssistant>{
     private String assistant;
 
-    public RestoreAssistantUpdater(final String assistant) {
+    public RestoreAssistantUpdater(final String assistant){
         this.assistant = assistant;
     }
 
-    public RestoreAssistantUpdater setAssistant(final String assistant) {
+    public RestoreAssistantUpdater setAssistant(final String assistant){
         this.assistant = assistant;
         return this;
     }
 
     @Override
-    public RestoreAssistant update(final TwilioRestClient client) {
+    public RestoreAssistant update(final TwilioRestClient client){
         String path = "/v1/Assistants/Restore";
 
-        path = path.replace("{" + "Assistant" + "}", this.assistant.toString());
+        path = path.replace("{"+"Assistant"+"}", this.assistant.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -53,32 +55,21 @@ public class RestoreAssistantUpdater extends Updater<RestoreAssistant> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "RestoreAssistant update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("RestoreAssistant update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return RestoreAssistant.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return RestoreAssistant.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (assistant != null) {
             request.addPostParam("Assistant", assistant);
+    
         }
     }
 }

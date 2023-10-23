@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.sip.domain.authtypes.authtypecalls;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,59 +24,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 
-public class AuthCallsCredentialListMappingReader
-    extends Reader<AuthCallsCredentialListMapping> {
 
+
+public class AuthCallsCredentialListMappingReader extends Reader<AuthCallsCredentialListMapping> {
     private String pathDomainSid;
     private String pathAccountSid;
     private Integer pageSize;
 
-    public AuthCallsCredentialListMappingReader(final String pathDomainSid) {
+    public AuthCallsCredentialListMappingReader(final String pathDomainSid){
         this.pathDomainSid = pathDomainSid;
     }
-
-    public AuthCallsCredentialListMappingReader(
-        final String pathAccountSid,
-        final String pathDomainSid
-    ) {
+    public AuthCallsCredentialListMappingReader(final String pathAccountSid, final String pathDomainSid){
         this.pathAccountSid = pathAccountSid;
         this.pathDomainSid = pathDomainSid;
     }
 
-    public AuthCallsCredentialListMappingReader setPageSize(
-        final Integer pageSize
-    ) {
+    public AuthCallsCredentialListMappingReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<AuthCallsCredentialListMapping> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<AuthCallsCredentialListMapping> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<AuthCallsCredentialListMapping> firstPage(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+    public Page<AuthCallsCredentialListMapping> firstPage(final TwilioRestClient client) {
+        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/Domains/{DomainSid}/Auth/Calls/CredentialListMappings.json";
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -89,26 +67,15 @@ public class AuthCallsCredentialListMappingReader
         return pageForRequest(client, request);
     }
 
-    private Page<AuthCallsCredentialListMapping> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<AuthCallsCredentialListMapping> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AuthCallsCredentialListMapping read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AuthCallsCredentialListMapping read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -122,10 +89,7 @@ public class AuthCallsCredentialListMappingReader
     }
 
     @Override
-    public Page<AuthCallsCredentialListMapping> previousPage(
-        final Page<AuthCallsCredentialListMapping> page,
-        final TwilioRestClient client
-    ) {
+    public Page<AuthCallsCredentialListMapping> previousPage(final Page<AuthCallsCredentialListMapping> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -133,11 +97,9 @@ public class AuthCallsCredentialListMappingReader
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<AuthCallsCredentialListMapping> nextPage(
-        final Page<AuthCallsCredentialListMapping> page,
-        final TwilioRestClient client
-    ) {
+    public Page<AuthCallsCredentialListMapping> nextPage(final Page<AuthCallsCredentialListMapping> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -146,21 +108,21 @@ public class AuthCallsCredentialListMappingReader
     }
 
     @Override
-    public Page<AuthCallsCredentialListMapping> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<AuthCallsCredentialListMapping> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

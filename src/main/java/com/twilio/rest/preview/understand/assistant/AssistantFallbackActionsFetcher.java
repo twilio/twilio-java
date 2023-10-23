@@ -24,24 +24,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AssistantFallbackActionsFetcher
-    extends Fetcher<AssistantFallbackActions> {
 
+
+
+public class AssistantFallbackActionsFetcher extends Fetcher<AssistantFallbackActions> {
     private String pathAssistantSid;
 
-    public AssistantFallbackActionsFetcher(final String pathAssistantSid) {
+    public AssistantFallbackActionsFetcher(final String pathAssistantSid){
         this.pathAssistantSid = pathAssistantSid;
     }
+
 
     @Override
     public AssistantFallbackActions fetch(final TwilioRestClient client) {
         String path = "/understand/Assistants/{AssistantSid}/FallbackActions";
 
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -51,26 +49,15 @@ public class AssistantFallbackActionsFetcher
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AssistantFallbackActions fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("AssistantFallbackActions fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AssistantFallbackActions.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AssistantFallbackActions.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

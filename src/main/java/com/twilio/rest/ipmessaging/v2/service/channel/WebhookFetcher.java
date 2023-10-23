@@ -24,38 +24,28 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class WebhookFetcher extends Fetcher<Webhook> {
 
+
+
+public class WebhookFetcher extends Fetcher<Webhook> {
     private String pathServiceSid;
     private String pathChannelSid;
     private String pathSid;
 
-    public WebhookFetcher(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
+    public WebhookFetcher(final String pathServiceSid, final String pathChannelSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
     }
 
+
     @Override
     public Webhook fetch(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}";
+        String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Webhooks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -65,19 +55,11 @@ public class WebhookFetcher extends Fetcher<Webhook> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Webhook fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

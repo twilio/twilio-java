@@ -24,19 +24,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SinkFetcher extends Fetcher<Sink> {
 
+
+
+public class SinkFetcher extends Fetcher<Sink> {
     private String pathSid;
 
-    public SinkFetcher(final String pathSid) {
+    public SinkFetcher(final String pathSid){
         this.pathSid = pathSid;
     }
+
 
     @Override
     public Sink fetch(final TwilioRestClient client) {
         String path = "/v1/Sinks/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -46,19 +49,11 @@ public class SinkFetcher extends Fetcher<Sink> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Sink fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Sink fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

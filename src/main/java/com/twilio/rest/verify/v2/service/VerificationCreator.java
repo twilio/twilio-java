@@ -16,9 +16,8 @@ package com.twilio.rest.verify.v2.service;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -27,10 +26,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.Map;
+import com.twilio.converter.Converter;
+
 import java.util.Map;
 
-public class VerificationCreator extends Creator<Verification> {
 
+
+public class VerificationCreator extends Creator<Verification>{
     private String pathServiceSid;
     private String to;
     private String channel;
@@ -49,117 +51,84 @@ public class VerificationCreator extends Creator<Verification> {
     private String deviceIp;
     private Verification.RiskCheck riskCheck;
 
-    public VerificationCreator(
-        final String pathServiceSid,
-        final String to,
-        final String channel
-    ) {
+    public VerificationCreator(final String pathServiceSid, final String to, final String channel) {
         this.pathServiceSid = pathServiceSid;
         this.to = to;
         this.channel = channel;
     }
 
-    public VerificationCreator setTo(final String to) {
+    public VerificationCreator setTo(final String to){
         this.to = to;
         return this;
     }
-
-    public VerificationCreator setChannel(final String channel) {
+    public VerificationCreator setChannel(final String channel){
         this.channel = channel;
         return this;
     }
-
-    public VerificationCreator setCustomFriendlyName(
-        final String customFriendlyName
-    ) {
+    public VerificationCreator setCustomFriendlyName(final String customFriendlyName){
         this.customFriendlyName = customFriendlyName;
         return this;
     }
-
-    public VerificationCreator setCustomMessage(final String customMessage) {
+    public VerificationCreator setCustomMessage(final String customMessage){
         this.customMessage = customMessage;
         return this;
     }
-
-    public VerificationCreator setSendDigits(final String sendDigits) {
+    public VerificationCreator setSendDigits(final String sendDigits){
         this.sendDigits = sendDigits;
         return this;
     }
-
-    public VerificationCreator setLocale(final String locale) {
+    public VerificationCreator setLocale(final String locale){
         this.locale = locale;
         return this;
     }
-
-    public VerificationCreator setCustomCode(final String customCode) {
+    public VerificationCreator setCustomCode(final String customCode){
         this.customCode = customCode;
         return this;
     }
-
-    public VerificationCreator setAmount(final String amount) {
+    public VerificationCreator setAmount(final String amount){
         this.amount = amount;
         return this;
     }
-
-    public VerificationCreator setPayee(final String payee) {
+    public VerificationCreator setPayee(final String payee){
         this.payee = payee;
         return this;
     }
-
-    public VerificationCreator setRateLimits(
-        final Map<String, Object> rateLimits
-    ) {
+    public VerificationCreator setRateLimits(final Map<String, Object> rateLimits){
         this.rateLimits = rateLimits;
         return this;
     }
-
-    public VerificationCreator setChannelConfiguration(
-        final Map<String, Object> channelConfiguration
-    ) {
+    public VerificationCreator setChannelConfiguration(final Map<String, Object> channelConfiguration){
         this.channelConfiguration = channelConfiguration;
         return this;
     }
-
-    public VerificationCreator setAppHash(final String appHash) {
+    public VerificationCreator setAppHash(final String appHash){
         this.appHash = appHash;
         return this;
     }
-
-    public VerificationCreator setTemplateSid(final String templateSid) {
+    public VerificationCreator setTemplateSid(final String templateSid){
         this.templateSid = templateSid;
         return this;
     }
-
-    public VerificationCreator setTemplateCustomSubstitutions(
-        final String templateCustomSubstitutions
-    ) {
+    public VerificationCreator setTemplateCustomSubstitutions(final String templateCustomSubstitutions){
         this.templateCustomSubstitutions = templateCustomSubstitutions;
         return this;
     }
-
-    public VerificationCreator setDeviceIp(final String deviceIp) {
+    public VerificationCreator setDeviceIp(final String deviceIp){
         this.deviceIp = deviceIp;
         return this;
     }
-
-    public VerificationCreator setRiskCheck(
-        final Verification.RiskCheck riskCheck
-    ) {
+    public VerificationCreator setRiskCheck(final Verification.RiskCheck riskCheck){
         this.riskCheck = riskCheck;
         return this;
     }
 
     @Override
-    public Verification create(final TwilioRestClient client) {
+    public Verification create(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Verifications";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "To" + "}", this.to.toString());
-        path = path.replace("{" + "Channel" + "}", this.channel.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"To"+"}", this.to.toString());
+        path = path.replace("{"+"Channel"+"}", this.channel.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -170,83 +139,81 @@ public class VerificationCreator extends Creator<Verification> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Verification creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Verification creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Verification.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Verification.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (to != null) {
             request.addPostParam("To", to);
+    
         }
         if (channel != null) {
             request.addPostParam("Channel", channel);
+    
         }
         if (customFriendlyName != null) {
             request.addPostParam("CustomFriendlyName", customFriendlyName);
+    
         }
         if (customMessage != null) {
             request.addPostParam("CustomMessage", customMessage);
+    
         }
         if (sendDigits != null) {
             request.addPostParam("SendDigits", sendDigits);
+    
         }
         if (locale != null) {
             request.addPostParam("Locale", locale);
+    
         }
         if (customCode != null) {
             request.addPostParam("CustomCode", customCode);
+    
         }
         if (amount != null) {
             request.addPostParam("Amount", amount);
+    
         }
         if (payee != null) {
             request.addPostParam("Payee", payee);
+    
         }
         if (rateLimits != null) {
-            request.addPostParam("RateLimits", Converter.mapToJson(rateLimits));
+            request.addPostParam("RateLimits",  Converter.mapToJson(rateLimits));
+    
         }
         if (channelConfiguration != null) {
-            request.addPostParam(
-                "ChannelConfiguration",
-                Converter.mapToJson(channelConfiguration)
-            );
+            request.addPostParam("ChannelConfiguration",  Converter.mapToJson(channelConfiguration));
+    
         }
         if (appHash != null) {
             request.addPostParam("AppHash", appHash);
+    
         }
         if (templateSid != null) {
             request.addPostParam("TemplateSid", templateSid);
+    
         }
         if (templateCustomSubstitutions != null) {
-            request.addPostParam(
-                "TemplateCustomSubstitutions",
-                templateCustomSubstitutions
-            );
+            request.addPostParam("TemplateCustomSubstitutions", templateCustomSubstitutions);
+    
         }
         if (deviceIp != null) {
             request.addPostParam("DeviceIp", deviceIp);
+    
         }
         if (riskCheck != null) {
             request.addPostParam("RiskCheck", riskCheck.toString());
+    
         }
     }
 }

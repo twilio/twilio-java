@@ -24,38 +24,28 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class DeploymentFetcher extends Fetcher<Deployment> {
 
+
+
+public class DeploymentFetcher extends Fetcher<Deployment> {
     private String pathServiceSid;
     private String pathEnvironmentSid;
     private String pathSid;
 
-    public DeploymentFetcher(
-        final String pathServiceSid,
-        final String pathEnvironmentSid,
-        final String pathSid
-    ) {
+    public DeploymentFetcher(final String pathServiceSid, final String pathEnvironmentSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
         this.pathSid = pathSid;
     }
 
+
     @Override
     public Deployment fetch(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}";
+        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Deployments/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -65,26 +55,15 @@ public class DeploymentFetcher extends Fetcher<Deployment> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Deployment fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Deployment fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Deployment.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Deployment.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

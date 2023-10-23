@@ -24,19 +24,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class JobFetcher extends Fetcher<Job> {
 
+
+
+public class JobFetcher extends Fetcher<Job> {
     private String pathJobSid;
 
-    public JobFetcher(final String pathJobSid) {
+    public JobFetcher(final String pathJobSid){
         this.pathJobSid = pathJobSid;
     }
+
 
     @Override
     public Job fetch(final TwilioRestClient client) {
         String path = "/v1/Exports/Jobs/{JobSid}";
 
-        path = path.replace("{" + "JobSid" + "}", this.pathJobSid.toString());
+        path = path.replace("{"+"JobSid"+"}", this.pathJobSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -46,19 +49,11 @@ public class JobFetcher extends Fetcher<Job> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Job fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Job fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

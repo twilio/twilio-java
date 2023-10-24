@@ -31,7 +31,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -42,7 +41,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueueBulkRealTimeStatistics extends Resource {
-    private static final long serialVersionUID = 187525220896144L;
+    private static final long serialVersionUID = 39099060883988L;
 
     
 
@@ -90,7 +89,7 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
 
     private final String accountSid;
     private final String workspaceSid;
-    private final List<Map<String, Object>> taskQueueData;
+    private final Map<String, Object> taskQueueData;
     private final Integer taskQueueResponseCount;
     private final URI url;
 
@@ -103,7 +102,7 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
         final String workspaceSid,
 
         @JsonProperty("task_queue_data")
-        final List<Map<String, Object>> taskQueueData,
+        final Map<String, Object> taskQueueData,
 
         @JsonProperty("task_queue_response_count")
         final Integer taskQueueResponseCount,
@@ -124,7 +123,7 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
         public final String getWorkspaceSid() {
             return this.workspaceSid;
         }
-        public final List<Map<String, Object>> getTaskQueueData() {
+        public final Map<String, Object> getTaskQueueData() {
             return this.taskQueueData;
         }
         public final Integer getTaskQueueResponseCount() {

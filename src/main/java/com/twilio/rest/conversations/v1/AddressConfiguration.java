@@ -148,8 +148,7 @@ public class AddressConfiguration extends Resource {
         SMS("sms"),
         WHATSAPP("whatsapp"),
         MESSENGER("messenger"),
-        GBM("gbm"),
-        EMAIL("email");
+        GBM("gbm");
 
         private final String value;
 

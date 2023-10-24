@@ -44,7 +44,7 @@ import java.util.Map;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Task extends Resource {
-    private static final long serialVersionUID = 251819622477624L;
+    private static final long serialVersionUID = 66438798069009L;
 
     
 
@@ -150,7 +150,6 @@ public class Task extends Resource {
     private final String workspaceSid;
     private final URI url;
     private final Map<String, String> links;
-    private final ZonedDateTime virtualStartTime;
 
     @JsonCreator
     private Task(
@@ -215,10 +214,7 @@ public class Task extends Resource {
         final URI url,
 
         @JsonProperty("links")
-        final Map<String, String> links,
-
-        @JsonProperty("virtual_start_time")
-        final String virtualStartTime
+        final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.age = age;
@@ -241,7 +237,6 @@ public class Task extends Resource {
         this.workspaceSid = workspaceSid;
         this.url = url;
         this.links = links;
-        this.virtualStartTime = DateConverter.iso8601DateTimeFromString(virtualStartTime);
     }
 
         public final String getAccountSid() {
@@ -307,9 +302,6 @@ public class Task extends Resource {
         public final Map<String, String> getLinks() {
             return this.links;
         }
-        public final ZonedDateTime getVirtualStartTime() {
-            return this.virtualStartTime;
-        }
 
     @Override
     public boolean equals(final Object o) {
@@ -323,12 +315,12 @@ public class Task extends Resource {
 
         Task other = (Task) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(age, other.age) &&  Objects.equals(assignmentStatus, other.assignmentStatus) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(addons, other.addons) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&  Objects.equals(priority, other.priority) &&  Objects.equals(reason, other.reason) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskQueueSid, other.taskQueueSid) &&  Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) &&  Objects.equals(taskChannelSid, other.taskChannelSid) &&  Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) &&  Objects.equals(timeout, other.timeout) &&  Objects.equals(workflowSid, other.workflowSid) &&  Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links) &&  Objects.equals(virtualStartTime, other.virtualStartTime)  ;
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(age, other.age) &&  Objects.equals(assignmentStatus, other.assignmentStatus) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(addons, other.addons) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(taskQueueEnteredDate, other.taskQueueEnteredDate) &&  Objects.equals(priority, other.priority) &&  Objects.equals(reason, other.reason) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taskQueueSid, other.taskQueueSid) &&  Objects.equals(taskQueueFriendlyName, other.taskQueueFriendlyName) &&  Objects.equals(taskChannelSid, other.taskChannelSid) &&  Objects.equals(taskChannelUniqueName, other.taskChannelUniqueName) &&  Objects.equals(timeout, other.timeout) &&  Objects.equals(workflowSid, other.workflowSid) &&  Objects.equals(workflowFriendlyName, other.workflowFriendlyName) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, age, assignmentStatus, attributes, addons, dateCreated, dateUpdated, taskQueueEnteredDate, priority, reason, sid, taskQueueSid, taskQueueFriendlyName, taskChannelSid, taskChannelUniqueName, timeout, workflowSid, workflowFriendlyName, workspaceSid, url, links, virtualStartTime);
+        return Objects.hash(accountSid, age, assignmentStatus, attributes, addons, dateCreated, dateUpdated, taskQueueEnteredDate, priority, reason, sid, taskQueueSid, taskQueueFriendlyName, taskChannelSid, taskChannelUniqueName, timeout, workflowSid, workflowFriendlyName, workspaceSid, url, links);
     }
 
 

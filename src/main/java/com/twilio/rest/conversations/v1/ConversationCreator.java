@@ -40,8 +40,6 @@ public class ConversationCreator extends Creator<Conversation>{
     private Conversation.State state;
     private String timersInactive;
     private String timersClosed;
-    private String bindingsEmailAddress;
-    private String bindingsEmailName;
 
     public ConversationCreator() {
     }
@@ -84,14 +82,6 @@ public class ConversationCreator extends Creator<Conversation>{
     }
     public ConversationCreator setTimersClosed(final String timersClosed){
         this.timersClosed = timersClosed;
-        return this;
-    }
-    public ConversationCreator setBindingsEmailAddress(final String bindingsEmailAddress){
-        this.bindingsEmailAddress = bindingsEmailAddress;
-        return this;
-    }
-    public ConversationCreator setBindingsEmailName(final String bindingsEmailName){
-        this.bindingsEmailName = bindingsEmailName;
         return this;
     }
 
@@ -156,14 +146,6 @@ public class ConversationCreator extends Creator<Conversation>{
         }
         if (timersClosed != null) {
             request.addPostParam("Timers.Closed", timersClosed);
-    
-        }
-        if (bindingsEmailAddress != null) {
-            request.addPostParam("Bindings.Email.Address", bindingsEmailAddress);
-    
-        }
-        if (bindingsEmailName != null) {
-            request.addPostParam("Bindings.Email.Name", bindingsEmailName);
     
         }
     }

@@ -33,16 +33,16 @@ import java.util.Map;
 public class InteractionChannelUpdater extends Updater<InteractionChannel>{
     private String pathInteractionSid;
     private String pathSid;
-    private InteractionChannel.UpdateChannelStatus status;
+    private InteractionChannel.Status status;
     private Map<String, Object> routing;
 
-    public InteractionChannelUpdater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status){
+    public InteractionChannelUpdater(final String pathInteractionSid, final String pathSid, final InteractionChannel.Status status){
         this.pathInteractionSid = pathInteractionSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public InteractionChannelUpdater setStatus(final InteractionChannel.UpdateChannelStatus status){
+    public InteractionChannelUpdater setStatus(final InteractionChannel.Status status){
         this.status = status;
         return this;
     }

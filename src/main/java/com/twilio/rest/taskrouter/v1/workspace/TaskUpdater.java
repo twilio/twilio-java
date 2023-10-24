@@ -25,7 +25,6 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-import java.time.ZonedDateTime;
 
 
 
@@ -38,7 +37,6 @@ public class TaskUpdater extends Updater<Task>{
     private String reason;
     private Integer priority;
     private String taskChannel;
-    private ZonedDateTime virtualStartTime;
 
     public TaskUpdater(final String pathWorkspaceSid, final String pathSid){
         this.pathWorkspaceSid = pathWorkspaceSid;
@@ -67,10 +65,6 @@ public class TaskUpdater extends Updater<Task>{
     }
     public TaskUpdater setTaskChannel(final String taskChannel){
         this.taskChannel = taskChannel;
-        return this;
-    }
-    public TaskUpdater setVirtualStartTime(final ZonedDateTime virtualStartTime){
-        this.virtualStartTime = virtualStartTime;
         return this;
     }
 
@@ -122,10 +116,6 @@ public class TaskUpdater extends Updater<Task>{
         if (taskChannel != null) {
             request.addPostParam("TaskChannel", taskChannel);
     
-        }
-        if (virtualStartTime != null) {
-            request.addPostParam("VirtualStartTime", virtualStartTime.toInstant().toString());
-
         }
     }
     private void addHeaderParams(final Request request) {

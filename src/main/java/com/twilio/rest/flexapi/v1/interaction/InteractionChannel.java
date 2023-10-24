@@ -54,7 +54,7 @@ public class InteractionChannel extends Resource {
         return new InteractionChannelReader(pathInteractionSid);
     }
 
-    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.UpdateChannelStatus status){
+    public static InteractionChannelUpdater updater(final String pathInteractionSid, final String pathSid, final InteractionChannel.Status status){
         return new InteractionChannelUpdater(pathInteractionSid, pathSid, status);
     }
 
@@ -99,8 +99,7 @@ public class InteractionChannel extends Resource {
         SETUP("setup"),
         ACTIVE("active"),
         FAILED("failed"),
-        CLOSED("closed"),
-        INACTIVE("inactive");
+        CLOSED("closed");
 
         private final String value;
 
@@ -115,6 +114,25 @@ public class InteractionChannel extends Resource {
         @JsonCreator
         public static ChannelStatus forValue(final String value) {
             return Promoter.enumFromString(value, ChannelStatus.values());
+        }
+    }
+    public enum Status {
+        CLOSED("closed"),
+        WRAPUP("wrapup");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
         }
     }
     public enum Type {
@@ -140,25 +158,6 @@ public class InteractionChannel extends Resource {
         @JsonCreator
         public static Type forValue(final String value) {
             return Promoter.enumFromString(value, Type.values());
-        }
-    }
-    public enum UpdateChannelStatus {
-        CLOSED("closed"),
-        INACTIVE("inactive");
-
-        private final String value;
-
-        private UpdateChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static UpdateChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, UpdateChannelStatus.values());
         }
     }
 

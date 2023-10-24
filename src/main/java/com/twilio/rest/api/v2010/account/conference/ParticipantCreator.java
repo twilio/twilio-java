@@ -83,7 +83,6 @@ public class ParticipantCreator extends Creator<Participant>{
     private URI amdStatusCallback;
     private HttpMethod amdStatusCallbackMethod;
     private String trim;
-    private String callToken;
 
     public ParticipantCreator(final String pathConferenceSid, final com.twilio.type.Endpoint from, final com.twilio.type.Endpoint to) {
         this.pathConferenceSid = pathConferenceSid;
@@ -321,10 +320,6 @@ public class ParticipantCreator extends Creator<Participant>{
         this.trim = trim;
         return this;
     }
-    public ParticipantCreator setCallToken(final String callToken){
-        this.callToken = callToken;
-        return this;
-    }
 
     @Override
     public Participant create(final TwilioRestClient client){
@@ -551,10 +546,6 @@ public class ParticipantCreator extends Creator<Participant>{
         }
         if (trim != null) {
             request.addPostParam("Trim", trim);
-    
-        }
-        if (callToken != null) {
-            request.addPostParam("CallToken", callToken);
     
         }
     }

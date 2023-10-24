@@ -38,7 +38,6 @@ public class MessageUpdater extends Updater<Message>{
     private ZonedDateTime dateCreated;
     private ZonedDateTime dateUpdated;
     private String attributes;
-    private String subject;
 
     public MessageUpdater(final String pathConversationSid, final String pathSid){
         this.pathConversationSid = pathConversationSid;
@@ -67,10 +66,6 @@ public class MessageUpdater extends Updater<Message>{
     }
     public MessageUpdater setAttributes(final String attributes){
         this.attributes = attributes;
-        return this;
-    }
-    public MessageUpdater setSubject(final String subject){
-        this.subject = subject;
         return this;
     }
 
@@ -121,10 +116,6 @@ public class MessageUpdater extends Updater<Message>{
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
-    
-        }
-        if (subject != null) {
-            request.addPostParam("Subject", subject);
     
         }
     }

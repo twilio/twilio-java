@@ -40,7 +40,6 @@ public class MessageCreator extends Creator<Message>{
     private String mediaSid;
     private String contentSid;
     private String contentVariables;
-    private String subject;
 
     public MessageCreator(final String pathConversationSid) {
         this.pathConversationSid = pathConversationSid;
@@ -80,10 +79,6 @@ public class MessageCreator extends Creator<Message>{
     }
     public MessageCreator setContentVariables(final String contentVariables){
         this.contentVariables = contentVariables;
-        return this;
-    }
-    public MessageCreator setSubject(final String subject){
-        this.subject = subject;
         return this;
     }
 
@@ -145,10 +140,6 @@ public class MessageCreator extends Creator<Message>{
         }
         if (contentVariables != null) {
             request.addPostParam("ContentVariables", contentVariables);
-    
-        }
-        if (subject != null) {
-            request.addPostParam("Subject", subject);
     
         }
     }

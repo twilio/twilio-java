@@ -16,11 +16,14 @@ package com.twilio.rest.content.v1;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 
@@ -36,6 +39,8 @@ import java.time.ZonedDateTime;
 import java.util.Map;
 import java.util.Objects;
 
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Map;
@@ -46,6 +51,37 @@ public class Content extends Resource {
     private static final long serialVersionUID = 58899890984300L;
 
     
+        @ToString
+        static public class ContentCreateRequest {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("friendly_name")
+            @Getter @Setter private String friendlyName;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("variables")
+            @Getter @Setter private Map<String, String> variables;
+            public String getVariables() {
+                return Converter.mapToJson(variables);
+            }
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("language")
+            @Getter @Setter private String language;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("types")
+            @Getter @Setter private Map<String, Object> types;
+            public String getTypes() {
+                return Converter.mapToJson(types);
+            }
+
+            public static ContentCreateRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, ContentCreateRequest.class);
+            }
+        }
+
+    public static ContentCreator creator(final Content.ContentCreateRequest contentCreateRequest){
+        return new ContentCreator(contentCreateRequest);
+    }
 
     public static ContentDeleter deleter(final String pathSid){
         return new ContentDeleter(pathSid);
@@ -95,7 +131,17 @@ public class Content extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
+    public static String toJson(Object object, ObjectMapper mapper) {
+        try {
+            return mapper.writeValueAsString(object);
+        } catch (final JsonMappingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(e.getMessage(), e);
+        } catch (final IOException e) {
+            throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
 
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;

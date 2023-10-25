@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -44,6 +45,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Map;
+import java.math.BigDecimal;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
@@ -51,6 +53,323 @@ public class Content extends Resource {
     private static final long serialVersionUID = 58899890984300L;
 
     
+        @ToString
+        static public class TwilioText {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            @Getter @Setter private String body;
+
+
+            public static TwilioText fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioText.class);
+            }
+        }
+        @ToString
+        static public class TwilioMedia {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            @Getter @Setter private String body;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media")
+            @Getter @Setter private List<String> media;
+
+
+            public static TwilioMedia fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioMedia.class);
+            }
+        }
+        @ToString
+        static public class TwilioLocation {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("latitude")
+            @Getter @Setter private BigDecimal latitude;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("longitude")
+            @Getter @Setter private BigDecimal longitude;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("label")
+            @Getter @Setter private String label;
+
+
+            public static TwilioLocation fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioLocation.class);
+            }
+        }
+        @ToString
+        static public class ListItem {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            @Getter @Setter private String id;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("item")
+            @Getter @Setter private String item;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("description")
+            @Getter @Setter private String description;
+
+
+            public static ListItem fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, ListItem.class);
+            }
+        }
+        @ToString
+        static public class TwilioListPicker {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            @Getter @Setter private String body;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("button")
+            @Getter @Setter private String button;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("items")
+            @Getter @Setter private ListItem items;
+
+
+            public static TwilioListPicker fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioListPicker.class);
+            }
+        }
+        @ToString
+        static public class CallToActionAction {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            @Getter @Setter private String type;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            @Getter @Setter private String title;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            @Getter @Setter private String url;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone")
+            @Getter @Setter private String phone;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            @Getter @Setter private String id;
+
+
+            public static CallToActionAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, CallToActionAction.class);
+            }
+        }
+        @ToString
+        static public class TwilioCallToAction {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            @Getter @Setter private String body;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            @Getter @Setter private CallToActionAction actions;
+
+
+            public static TwilioCallToAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioCallToAction.class);
+            }
+        }
+        @ToString
+        static public class QuickReplyAction {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            @Getter @Setter private String type;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            @Getter @Setter private String title;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            @Getter @Setter private String id;
+
+
+            public static QuickReplyAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, QuickReplyAction.class);
+            }
+        }
+        @ToString
+        static public class TwilioQuickReply {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            @Getter @Setter private String body;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            @Getter @Setter private QuickReplyAction actions;
+
+
+            public static TwilioQuickReply fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioQuickReply.class);
+            }
+        }
+        @ToString
+        static public class CardAction {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            @Getter @Setter private String type;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            @Getter @Setter private String title;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("url")
+            @Getter @Setter private String url;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("phone")
+            @Getter @Setter private String phone;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            @Getter @Setter private String id;
+
+
+            public static CardAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, CardAction.class);
+            }
+        }
+        @ToString
+        static public class TwilioCard {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            @Getter @Setter private String title;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("subtitle")
+            @Getter @Setter private String subtitle;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media")
+            @Getter @Setter private List<String> media;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            @Getter @Setter private CardAction actions;
+
+
+            public static TwilioCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, TwilioCard.class);
+            }
+        }
+        @ToString
+        static public class WhatsappCard {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("body")
+            @Getter @Setter private String body;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("footer")
+            @Getter @Setter private String footer;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("media")
+            @Getter @Setter private List<String> media;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("header_text")
+            @Getter @Setter private String headerText;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            @Getter @Setter private CardAction actions;
+
+
+            public static WhatsappCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, WhatsappCard.class);
+            }
+        }
+        @ToString
+        static public class AuthenticationAction {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("type")
+            @Getter @Setter private String type;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("title")
+            @Getter @Setter private String title;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("id")
+            @Getter @Setter private String id;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("copy_code_text")
+            @Getter @Setter private String copyCodeText;
+
+
+            public static AuthenticationAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, AuthenticationAction.class);
+            }
+        }
+        @ToString
+        static public class WhatsappAuthentication {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("add_security_recommendation")
+            @Getter @Setter private Boolean addSecurityRecommendation;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("actions")
+            @Getter @Setter private AuthenticationAction actions;
+
+
+            public static WhatsappAuthentication fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, WhatsappAuthentication.class);
+            }
+        }
+        @ToString
+        static public class Types {
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_text")
+            @Getter @Setter private TwilioText twilioText;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_media")
+            @Getter @Setter private TwilioMedia twilioMedia;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_location")
+            @Getter @Setter private TwilioLocation twilioLocation;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_list_picker")
+            @Getter @Setter private TwilioListPicker twilioListPicker;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_call_to_action")
+            @Getter @Setter private TwilioCallToAction twilioCallToAction;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_quick_reply")
+            @Getter @Setter private TwilioQuickReply twilioQuickReply;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("twilio_card")
+            @Getter @Setter private TwilioCard twilioCard;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("whatsapp_card")
+            @Getter @Setter private WhatsappCard whatsappCard;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("whatsapp_authentication")
+            @Getter @Setter private WhatsappAuthentication whatsappAuthentication;
+
+
+            public static Types fromJson(String jsonString, ObjectMapper mapper) throws IOException {
+                return mapper.readValue(jsonString, Types.class);
+            }
+        }
         @ToString
         static public class ContentCreateRequest {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
@@ -69,10 +388,8 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("types")
-            @Getter @Setter private Map<String, Object> types;
-            public String getTypes() {
-                return Converter.mapToJson(types);
-            }
+            @Getter @Setter private Types types;
+
 
             public static ContentCreateRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
                 return mapper.readValue(jsonString, ContentCreateRequest.class);

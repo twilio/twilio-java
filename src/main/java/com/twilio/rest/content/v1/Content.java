@@ -330,39 +330,39 @@ public class Content extends Resource {
         @ToString
         static public class Types {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_text")
+            @JsonProperty("twilio/text")
             @Getter @Setter private TwilioText twilioText;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_media")
+            @JsonProperty("twilio/media")
             @Getter @Setter private TwilioMedia twilioMedia;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_location")
+            @JsonProperty("twilio/location")
             @Getter @Setter private TwilioLocation twilioLocation;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_list_picker")
+            @JsonProperty("twilio/list-picker")
             @Getter @Setter private TwilioListPicker twilioListPicker;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_call_to_action")
+            @JsonProperty("twilio/call-to-action")
             @Getter @Setter private TwilioCallToAction twilioCallToAction;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_quick_reply")
+            @JsonProperty("twilio/quick-reply")
             @Getter @Setter private TwilioQuickReply twilioQuickReply;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_card")
+            @JsonProperty("twilio/card")
             @Getter @Setter private TwilioCard twilioCard;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("whatsapp_card")
+            @JsonProperty("whatsapp/card")
             @Getter @Setter private WhatsappCard whatsappCard;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("whatsapp_authentication")
+            @JsonProperty("whatsapp/authentication")
             @Getter @Setter private WhatsappAuthentication whatsappAuthentication;
 
 

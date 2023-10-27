@@ -54,17 +54,17 @@ public class Message extends Resource {
         @ToString
         static public class MessagingV1Message {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("to")
+            @JsonProperty("To")
             @Getter @Setter private com.twilio.type.PhoneNumber to;
             public String getTo() {
                 return to.getEndpoint();
             }
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("body")
+            @JsonProperty("Body")
             @Getter @Setter private String body;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("content_variables")
+            @JsonProperty("ContentVariables")
             @Getter @Setter private Map<String, String> contentVariables;
             public String getContentVariables() {
                 return Converter.mapToJson(contentVariables);
@@ -77,73 +77,73 @@ public class Message extends Resource {
         @ToString
         static public class CreateMessagesRequest {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("messages")
+            @JsonProperty("Messages")
             @Getter @Setter private List<MessagingV1Message> messages;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("from")
+            @JsonProperty("From")
             @Getter @Setter private com.twilio.type.PhoneNumber from;
             public String getFrom() {
                 return from.getEndpoint();
             }
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("messaging_service_sid")
+            @JsonProperty("MessagingServiceSid")
             @Getter @Setter private String messagingServiceSid;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("body")
+            @JsonProperty("Body")
             @Getter @Setter private String body;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("content_sid")
+            @JsonProperty("ContentSid")
             @Getter @Setter private String contentSid;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("media_url")
+            @JsonProperty("MediaUrl")
             @Getter @Setter private List<URI> mediaUrl;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("status_callback")
+            @JsonProperty("StatusCallback")
             @Getter @Setter private URI statusCallback;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("validity_period")
+            @JsonProperty("ValidityPeriod")
             @Getter @Setter private Integer validityPeriod;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("send_at")
+            @JsonProperty("SendAt")
             @Getter @Setter private String sendAt;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("schedule_type")
+            @JsonProperty("ScheduleType")
             @Getter @Setter private String scheduleType;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("shorten_urls")
+            @JsonProperty("ShortenUrls")
             @Getter @Setter private Boolean shortenUrls;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("send_as_mms")
+            @JsonProperty("SendAsMms")
             @Getter @Setter private Boolean sendAsMms;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("max_price")
+            @JsonProperty("MaxPrice")
             @Getter @Setter private BigDecimal maxPrice;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("attempt")
+            @JsonProperty("Attempt")
             @Getter @Setter private Integer attempt;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("smart_encoded")
+            @JsonProperty("SmartEncoded")
             @Getter @Setter private Boolean smartEncoded;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("force_delivery")
+            @JsonProperty("ForceDelivery")
             @Getter @Setter private Boolean forceDelivery;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("application_sid")
+            @JsonProperty("ApplicationSid")
             @Getter @Setter private String applicationSid;
 
             public CreateMessagesRequest( ) {

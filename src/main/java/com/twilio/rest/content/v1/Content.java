@@ -390,6 +390,10 @@ public class Content extends Resource {
             @JsonProperty("types")
             @Getter @Setter private Types types;
 
+            public ContentCreateRequest(final String language, final Types types ) {
+                this.language = language;
+                this.types = types;
+            }
 
             public static ContentCreateRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
                 return mapper.readValue(jsonString, ContentCreateRequest.class);

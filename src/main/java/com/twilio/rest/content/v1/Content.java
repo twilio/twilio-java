@@ -378,7 +378,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("variables")
-            @Getter @Setter private Map<String, String> variables;
+            @Getter @Setter private Map<String, Object> variables;
             public String getVariables() {
                 return Converter.mapToJson(variables);
             }

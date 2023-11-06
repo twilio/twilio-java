@@ -39,7 +39,7 @@ import lombok.ToString;
 @ToString
 public class Broadcast extends Resource {
 
-    private static final long serialVersionUID = 149206954899826L;
+    private static final long serialVersionUID = 4228754680541L;
 
     @ToString
     public static class MessagingV1BroadcastExecutionDetails {
@@ -125,7 +125,7 @@ public class Broadcast extends Resource {
     private final ZonedDateTime updatedDate;
     private final String broadcastStatus;
     private final MessagingV1BroadcastExecutionDetails executionDetails;
-    private final URI errorsFile;
+    private final URI resultsFile;
 
     @JsonCreator
     private Broadcast(
@@ -136,14 +136,14 @@ public class Broadcast extends Resource {
         @JsonProperty(
             "execution_details"
         ) final MessagingV1BroadcastExecutionDetails executionDetails,
-        @JsonProperty("errors_file") final URI errorsFile
+        @JsonProperty("results_file") final URI resultsFile
     ) {
         this.broadcastSid = broadcastSid;
         this.createdDate = DateConverter.iso8601DateTimeFromString(createdDate);
         this.updatedDate = DateConverter.iso8601DateTimeFromString(updatedDate);
         this.broadcastStatus = broadcastStatus;
         this.executionDetails = executionDetails;
-        this.errorsFile = errorsFile;
+        this.resultsFile = resultsFile;
     }
 
     public final String getBroadcastSid() {
@@ -166,8 +166,8 @@ public class Broadcast extends Resource {
         return this.executionDetails;
     }
 
-    public final URI getErrorsFile() {
-        return this.errorsFile;
+    public final URI getResultsFile() {
+        return this.resultsFile;
     }
 
     @Override
@@ -188,7 +188,7 @@ public class Broadcast extends Resource {
             Objects.equals(updatedDate, other.updatedDate) &&
             Objects.equals(broadcastStatus, other.broadcastStatus) &&
             Objects.equals(executionDetails, other.executionDetails) &&
-            Objects.equals(errorsFile, other.errorsFile)
+            Objects.equals(resultsFile, other.resultsFile)
         );
     }
 
@@ -200,7 +200,7 @@ public class Broadcast extends Resource {
             updatedDate,
             broadcastStatus,
             executionDetails,
-            errorsFile
+            resultsFile
         );
     }
 }

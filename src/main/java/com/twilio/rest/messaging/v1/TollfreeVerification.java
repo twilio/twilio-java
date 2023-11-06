@@ -68,6 +68,10 @@ public class TollfreeVerification extends Resource {
         );
     }
 
+    public static TollfreeVerificationDeleter deleter(final String pathSid) {
+        return new TollfreeVerificationDeleter(pathSid);
+    }
+
     public static TollfreeVerificationFetcher fetcher(final String pathSid) {
         return new TollfreeVerificationFetcher(pathSid);
     }

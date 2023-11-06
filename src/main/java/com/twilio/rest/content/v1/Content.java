@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 
@@ -378,10 +377,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("variables")
-            @Getter @Setter private Map<String, Object> variables;
-            public String getVariables() {
-                return Converter.mapToJson(variables);
-            }
+            @Getter @Setter private Map<String, String> variables;
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("language")
             @Getter @Setter private String language;

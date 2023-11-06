@@ -23,7 +23,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
 
 import com.twilio.exception.ApiException;
@@ -66,9 +65,6 @@ public class Message extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("ContentVariables")
             @Getter @Setter private Map<String, String> contentVariables;
-            public String getContentVariables() {
-                return Converter.mapToJson(contentVariables);
-            }
 
             public static MessagingV1Message fromJson(String jsonString, ObjectMapper mapper) throws IOException {
                 return mapper.readValue(jsonString, MessagingV1Message.class);

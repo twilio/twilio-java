@@ -128,7 +128,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("items")
-            @Getter @Setter private ListItem items;
+            @Getter @Setter private List<ListItem> items;
 
 
             public static TwilioListPicker fromJson(String jsonString, ObjectMapper mapper) throws IOException {
@@ -170,7 +170,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("actions")
-            @Getter @Setter private CallToActionAction actions;
+            @Getter @Setter private List<CallToActionAction> actions;
 
 
             public static TwilioCallToAction fromJson(String jsonString, ObjectMapper mapper) throws IOException {
@@ -204,7 +204,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("actions")
-            @Getter @Setter private QuickReplyAction actions;
+            @Getter @Setter private List<QuickReplyAction> actions;
 
 
             public static TwilioQuickReply fromJson(String jsonString, ObjectMapper mapper) throws IOException {
@@ -254,7 +254,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("actions")
-            @Getter @Setter private CardAction actions;
+            @Getter @Setter private List<CardAction> actions;
 
 
             public static TwilioCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
@@ -281,7 +281,7 @@ public class Content extends Resource {
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("actions")
-            @Getter @Setter private CardAction actions;
+            @Getter @Setter private List<CardAction> actions;
 
 
             public static WhatsappCard fromJson(String jsonString, ObjectMapper mapper) throws IOException {
@@ -293,14 +293,6 @@ public class Content extends Resource {
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("type")
             @Getter @Setter private String type;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("title")
-            @Getter @Setter private String title;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("id")
-            @Getter @Setter private String id;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("copy_code_text")
@@ -318,8 +310,12 @@ public class Content extends Resource {
             @Getter @Setter private Boolean addSecurityRecommendation;
 
             @JsonInclude(JsonInclude.Include.NON_EMPTY)
+            @JsonProperty("code_expiration_minutes")
+            @Getter @Setter private BigDecimal codeExpirationMinutes;
+
+            @JsonInclude(JsonInclude.Include.NON_EMPTY)
             @JsonProperty("actions")
-            @Getter @Setter private AuthenticationAction actions;
+            @Getter @Setter private List<AuthenticationAction> actions;
 
 
             public static WhatsappAuthentication fromJson(String jsonString, ObjectMapper mapper) throws IOException {

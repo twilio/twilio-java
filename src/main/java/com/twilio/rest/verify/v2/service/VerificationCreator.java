@@ -48,6 +48,7 @@ public class VerificationCreator extends Creator<Verification> {
     private String templateCustomSubstitutions;
     private String deviceIp;
     private Verification.RiskCheck riskCheck;
+    private String tags;
 
     public VerificationCreator(
         final String pathServiceSid,
@@ -149,6 +150,11 @@ public class VerificationCreator extends Creator<Verification> {
         return this;
     }
 
+    public VerificationCreator setTags(final String tags) {
+        this.tags = tags;
+        return this;
+    }
+
     @Override
     public Verification create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Verifications";
@@ -247,6 +253,9 @@ public class VerificationCreator extends Creator<Verification> {
         }
         if (riskCheck != null) {
             request.addPostParam("RiskCheck", riskCheck.toString());
+        }
+        if (tags != null) {
+            request.addPostParam("Tags", tags);
         }
     }
 }

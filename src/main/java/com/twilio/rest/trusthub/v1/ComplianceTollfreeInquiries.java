@@ -34,19 +34,16 @@ import lombok.ToString;
 @ToString
 public class ComplianceTollfreeInquiries extends Resource {
 
-    private static final long serialVersionUID = 210793867662752L;
+    private static final long serialVersionUID = 153862952025802L;
 
     public static ComplianceTollfreeInquiriesCreator creator(
-        final com.twilio.type.PhoneNumber did
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber,
+        final String notificationEmail
     ) {
-        return new ComplianceTollfreeInquiriesCreator(did);
-    }
-
-    public static ComplianceTollfreeInquiriesUpdater updater(
-        final String pathTollfreeId,
-        final com.twilio.type.PhoneNumber did
-    ) {
-        return new ComplianceTollfreeInquiriesUpdater(pathTollfreeId, did);
+        return new ComplianceTollfreeInquiriesCreator(
+            tollfreePhoneNumber,
+            notificationEmail
+        );
     }
 
     /**
@@ -100,19 +97,19 @@ public class ComplianceTollfreeInquiries extends Resource {
 
     private final String inquiryId;
     private final String inquirySessionToken;
-    private final String tollfreeId;
+    private final String registrationId;
     private final URI url;
 
     @JsonCreator
     private ComplianceTollfreeInquiries(
         @JsonProperty("inquiry_id") final String inquiryId,
         @JsonProperty("inquiry_session_token") final String inquirySessionToken,
-        @JsonProperty("tollfree_id") final String tollfreeId,
+        @JsonProperty("registration_id") final String registrationId,
         @JsonProperty("url") final URI url
     ) {
         this.inquiryId = inquiryId;
         this.inquirySessionToken = inquirySessionToken;
-        this.tollfreeId = tollfreeId;
+        this.registrationId = registrationId;
         this.url = url;
     }
 
@@ -124,8 +121,8 @@ public class ComplianceTollfreeInquiries extends Resource {
         return this.inquirySessionToken;
     }
 
-    public final String getTollfreeId() {
-        return this.tollfreeId;
+    public final String getRegistrationId() {
+        return this.registrationId;
     }
 
     public final URI getUrl() {
@@ -147,13 +144,18 @@ public class ComplianceTollfreeInquiries extends Resource {
         return (
             Objects.equals(inquiryId, other.inquiryId) &&
             Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
-            Objects.equals(tollfreeId, other.tollfreeId) &&
+            Objects.equals(registrationId, other.registrationId) &&
             Objects.equals(url, other.url)
         );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inquiryId, inquirySessionToken, tollfreeId, url);
+        return Objects.hash(
+            inquiryId,
+            inquirySessionToken,
+            registrationId,
+            url
+        );
     }
 }

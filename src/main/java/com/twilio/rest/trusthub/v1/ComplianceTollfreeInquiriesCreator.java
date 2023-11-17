@@ -29,30 +29,53 @@ import com.twilio.rest.Domains;
 public class ComplianceTollfreeInquiriesCreator
     extends Creator<ComplianceTollfreeInquiries> {
 
-    private com.twilio.type.PhoneNumber did;
+    private com.twilio.type.PhoneNumber tollfreePhoneNumber;
+    private String notificationEmail;
 
     public ComplianceTollfreeInquiriesCreator(
-        final com.twilio.type.PhoneNumber did
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber,
+        final String notificationEmail
     ) {
-        this.did = did;
+        this.tollfreePhoneNumber = tollfreePhoneNumber;
+        this.notificationEmail = notificationEmail;
     }
 
-    public ComplianceTollfreeInquiriesCreator setDid(
-        final com.twilio.type.PhoneNumber did
+    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber
     ) {
-        this.did = did;
+        this.tollfreePhoneNumber = tollfreePhoneNumber;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setDid(final String did) {
-        return setDid(Promoter.phoneNumberFromString(did));
+    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(
+        final String tollfreePhoneNumber
+    ) {
+        return setTollfreePhoneNumber(
+            Promoter.phoneNumberFromString(tollfreePhoneNumber)
+        );
+    }
+
+    public ComplianceTollfreeInquiriesCreator setNotificationEmail(
+        final String notificationEmail
+    ) {
+        this.notificationEmail = notificationEmail;
+        return this;
     }
 
     @Override
     public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
         String path = "/v1/ComplianceInquiries/Tollfree/Initialize";
 
-        path = path.replace("{" + "Did" + "}", this.did.encode("utf-8"));
+        path =
+            path.replace(
+                "{" + "TollfreePhoneNumber" + "}",
+                this.tollfreePhoneNumber.encode("utf-8")
+            );
+        path =
+            path.replace(
+                "{" + "NotificationEmail" + "}",
+                this.notificationEmail.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -87,8 +110,14 @@ public class ComplianceTollfreeInquiriesCreator
     }
 
     private void addPostParams(final Request request) {
-        if (did != null) {
-            request.addPostParam("Did", did.toString());
+        if (tollfreePhoneNumber != null) {
+            request.addPostParam(
+                "TollfreePhoneNumber",
+                tollfreePhoneNumber.toString()
+            );
+        }
+        if (notificationEmail != null) {
+            request.addPostParam("NotificationEmail", notificationEmail);
         }
     }
 }

@@ -44,6 +44,7 @@ public class ServiceCreator extends Creator<Service> {
     private Integer totpCodeLength;
     private Integer totpSkew;
     private String defaultTemplateSid;
+    private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
@@ -145,6 +146,13 @@ public class ServiceCreator extends Creator<Service> {
         final String defaultTemplateSid
     ) {
         this.defaultTemplateSid = defaultTemplateSid;
+        return this;
+    }
+
+    public ServiceCreator setVerifyEventSubscriptionEnabled(
+        final Boolean verifyEventSubscriptionEnabled
+    ) {
+        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
         return this;
     }
 
@@ -253,6 +261,12 @@ public class ServiceCreator extends Creator<Service> {
         }
         if (defaultTemplateSid != null) {
             request.addPostParam("DefaultTemplateSid", defaultTemplateSid);
+        }
+        if (verifyEventSubscriptionEnabled != null) {
+            request.addPostParam(
+                "VerifyEventSubscriptionEnabled",
+                verifyEventSubscriptionEnabled.toString()
+            );
         }
     }
 }

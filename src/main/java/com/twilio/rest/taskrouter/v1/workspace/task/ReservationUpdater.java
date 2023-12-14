@@ -87,6 +87,7 @@ public class ReservationUpdater extends Updater<Reservation> {
     private String supervisor;
     private Boolean endConferenceOnCustomerExit;
     private Boolean beepOnCustomerEntrance;
+    private String jitterBufferSize;
 
     public ReservationUpdater(
         final String pathWorkspaceSid,
@@ -496,6 +497,13 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
+    public ReservationUpdater setJitterBufferSize(
+        final String jitterBufferSize
+    ) {
+        this.jitterBufferSize = jitterBufferSize;
+        return this;
+    }
+
     @Override
     public Reservation update(final TwilioRestClient client) {
         String path =
@@ -755,6 +763,9 @@ public class ReservationUpdater extends Updater<Reservation> {
                 "BeepOnCustomerEntrance",
                 beepOnCustomerEntrance.toString()
             );
+        }
+        if (jitterBufferSize != null) {
+            request.addPostParam("JitterBufferSize", jitterBufferSize);
         }
     }
 

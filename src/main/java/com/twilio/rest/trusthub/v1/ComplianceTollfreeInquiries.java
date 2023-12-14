@@ -21,6 +21,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import java.io.IOException;
@@ -92,6 +93,29 @@ public class ComplianceTollfreeInquiries extends Resource {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public enum OptInType {
+        VERBAL("VERBAL"),
+        WEB_FORM("WEB_FORM"),
+        PAPER_FORM("PAPER_FORM"),
+        VIA_TEXT("VIA_TEXT"),
+        MOBILE_QR_CODE("MOBILE_QR_CODE");
+
+        private final String value;
+
+        private OptInType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OptInType forValue(final String value) {
+            return Promoter.enumFromString(value, OptInType.values());
         }
     }
 

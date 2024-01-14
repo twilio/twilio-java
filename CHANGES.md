@@ -1,6 +1,12 @@
 twilio-java changelog
 =====================
 
+[2024-01-14] Version 9.15.1
+---------------------------
+**Push**
+- Migrated to new Push API V4 with Resilient Notification Delivery.
+
+
 [2023-12-14] Version 9.15.0
 ---------------------------
 **Api**

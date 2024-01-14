@@ -13,7 +13,6 @@ package com.twilio.rest;
 public enum Domains {
     ACCOUNTS("accounts"),
     API("api"),
-    AUTOPILOT("autopilot"),
     BULKEXPORTS("bulkexports"),
     CHAT("chat"),
     CONTENT("content"),

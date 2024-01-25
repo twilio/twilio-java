@@ -85,7 +85,6 @@ public class ReservationUpdater extends Updater<Reservation> {
     private String postWorkActivitySid;
     private Boolean endConferenceOnCustomerExit;
     private Boolean beepOnCustomerEntrance;
-    private String jitterBufferSize;
 
     public ReservationUpdater(
         final String pathWorkspaceSid,
@@ -483,13 +482,6 @@ public class ReservationUpdater extends Updater<Reservation> {
         return this;
     }
 
-    public ReservationUpdater setJitterBufferSize(
-        final String jitterBufferSize
-    ) {
-        this.jitterBufferSize = jitterBufferSize;
-        return this;
-    }
-
     @Override
     public Reservation update(final TwilioRestClient client) {
         String path =
@@ -526,10 +518,7 @@ public class ReservationUpdater extends Updater<Reservation> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
@@ -747,9 +736,6 @@ public class ReservationUpdater extends Updater<Reservation> {
                 "BeepOnCustomerEntrance",
                 beepOnCustomerEntrance.toString()
             );
-        }
-        if (jitterBufferSize != null) {
-            request.addPostParam("JitterBufferSize", jitterBufferSize);
         }
     }
 

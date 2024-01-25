@@ -50,7 +50,6 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
     private String businessContactLastName;
     private String businessContactEmail;
     private com.twilio.type.PhoneNumber businessContactPhone;
-    private String editReason;
 
     public TollfreeVerificationUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -216,11 +215,6 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
         );
     }
 
-    public TollfreeVerificationUpdater setEditReason(final String editReason) {
-        this.editReason = editReason;
-        return this;
-    }
-
     @Override
     public TollfreeVerification update(final TwilioRestClient client) {
         String path = "/v1/Tollfree/Verifications/{Sid}";
@@ -245,10 +239,7 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
@@ -347,9 +338,6 @@ public class TollfreeVerificationUpdater extends Updater<TollfreeVerification> {
                 "BusinessContactPhone",
                 businessContactPhone.toString()
             );
-        }
-        if (editReason != null) {
-            request.addPostParam("EditReason", editReason);
         }
     }
 }

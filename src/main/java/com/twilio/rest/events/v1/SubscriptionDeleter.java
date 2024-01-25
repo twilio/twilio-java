@@ -55,10 +55,7 @@ public class SubscriptionDeleter extends Deleter<Subscription> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }

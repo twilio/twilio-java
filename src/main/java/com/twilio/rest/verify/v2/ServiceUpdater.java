@@ -45,7 +45,6 @@ public class ServiceUpdater extends Updater<Service> {
     private Integer totpCodeLength;
     private Integer totpSkew;
     private String defaultTemplateSid;
-    private Boolean verifyEventSubscriptionEnabled;
 
     public ServiceUpdater(final String pathSid) {
         this.pathSid = pathSid;
@@ -150,13 +149,6 @@ public class ServiceUpdater extends Updater<Service> {
         return this;
     }
 
-    public ServiceUpdater setVerifyEventSubscriptionEnabled(
-        final Boolean verifyEventSubscriptionEnabled
-    ) {
-        this.verifyEventSubscriptionEnabled = verifyEventSubscriptionEnabled;
-        return this;
-    }
-
     @Override
     public Service update(final TwilioRestClient client) {
         String path = "/v2/Services/{Sid}";
@@ -181,10 +173,7 @@ public class ServiceUpdater extends Updater<Service> {
                 client.getObjectMapper()
             );
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content");
             }
             throw new ApiException(restException);
         }
@@ -258,12 +247,6 @@ public class ServiceUpdater extends Updater<Service> {
         }
         if (defaultTemplateSid != null) {
             request.addPostParam("DefaultTemplateSid", defaultTemplateSid);
-        }
-        if (verifyEventSubscriptionEnabled != null) {
-            request.addPostParam(
-                "VerifyEventSubscriptionEnabled",
-                verifyEventSubscriptionEnabled.toString()
-            );
         }
     }
 }

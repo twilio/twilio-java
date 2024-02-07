@@ -25,38 +25,50 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class BucketUpdater extends Updater<Bucket> {
 
-
-
-public class BucketUpdater extends Updater<Bucket>{
     private String pathServiceSid;
     private String pathRateLimitSid;
     private String pathSid;
     private Integer max;
     private Integer interval;
 
-    public BucketUpdater(final String pathServiceSid, final String pathRateLimitSid, final String pathSid){
+    public BucketUpdater(
+        final String pathServiceSid,
+        final String pathRateLimitSid,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathRateLimitSid = pathRateLimitSid;
         this.pathSid = pathSid;
     }
 
-    public BucketUpdater setMax(final Integer max){
+    public BucketUpdater setMax(final Integer max) {
         this.max = max;
         return this;
     }
-    public BucketUpdater setInterval(final Integer interval){
+
+    public BucketUpdater setInterval(final Integer interval) {
         this.interval = interval;
         return this;
     }
 
     @Override
-    public Bucket update(final TwilioRestClient client){
-        String path = "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
+    public Bucket update(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/RateLimits/{RateLimitSid}/Buckets/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"RateLimitSid"+"}", this.pathRateLimitSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "RateLimitSid" + "}",
+                this.pathRateLimitSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,25 +79,32 @@ public class BucketUpdater extends Updater<Bucket>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Bucket update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Bucket update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Bucket.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (max != null) {
             request.addPostParam("Max", max.toString());
-    
         }
         if (interval != null) {
             request.addPostParam("Interval", interval.toString());
-    
         }
     }
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trusthub.v1.trustproducts;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,31 +25,42 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 
+public class TrustProductsEntityAssignmentsReader
+    extends Reader<TrustProductsEntityAssignments> {
 
-
-public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEntityAssignments> {
     private String pathTrustProductSid;
     private Integer pageSize;
 
-    public TrustProductsEntityAssignmentsReader(final String pathTrustProductSid){
+    public TrustProductsEntityAssignmentsReader(
+        final String pathTrustProductSid
+    ) {
         this.pathTrustProductSid = pathTrustProductSid;
     }
 
-    public TrustProductsEntityAssignmentsReader setPageSize(final Integer pageSize){
+    public TrustProductsEntityAssignmentsReader setPageSize(
+        final Integer pageSize
+    ) {
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<TrustProductsEntityAssignments> read(final TwilioRestClient client) {
+    public ResourceSet<TrustProductsEntityAssignments> read(
+        final TwilioRestClient client
+    ) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<TrustProductsEntityAssignments> firstPage(final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> firstPage(
+        final TwilioRestClient client
+    ) {
         String path = "/v1/TrustProducts/{TrustProductSid}/EntityAssignments";
-        path = path.replace("{"+"TrustProductSid"+"}", this.pathTrustProductSid.toString());
+        path =
+            path.replace(
+                "{" + "TrustProductSid" + "}",
+                this.pathTrustProductSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -60,15 +72,26 @@ public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEn
         return pageForRequest(client, request);
     }
 
-    private Page<TrustProductsEntityAssignments> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<TrustProductsEntityAssignments> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("TrustProductsEntityAssignments read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "TrustProductsEntityAssignments read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -82,7 +105,10 @@ public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEn
     }
 
     @Override
-    public Page<TrustProductsEntityAssignments> previousPage(final Page<TrustProductsEntityAssignments> page, final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> previousPage(
+        final Page<TrustProductsEntityAssignments> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TRUSTHUB.toString())
@@ -90,9 +116,11 @@ public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEn
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<TrustProductsEntityAssignments> nextPage(final Page<TrustProductsEntityAssignments> page, final TwilioRestClient client) {
+    public Page<TrustProductsEntityAssignments> nextPage(
+        final Page<TrustProductsEntityAssignments> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TRUSTHUB.toString())
@@ -101,21 +129,21 @@ public class TrustProductsEntityAssignmentsReader extends Reader<TrustProductsEn
     }
 
     @Override
-    public Page<TrustProductsEntityAssignments> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<TrustProductsEntityAssignments> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

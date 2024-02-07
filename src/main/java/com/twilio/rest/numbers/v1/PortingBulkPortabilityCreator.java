@@ -26,31 +26,39 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
-
 import java.util.List;
 
+public class PortingBulkPortabilityCreator
+    extends Creator<PortingBulkPortability> {
 
-
-public class PortingBulkPortabilityCreator extends Creator<PortingBulkPortability>{
     private List<String> phoneNumbers;
 
     public PortingBulkPortabilityCreator(final List<String> phoneNumbers) {
         this.phoneNumbers = phoneNumbers;
     }
 
-    public PortingBulkPortabilityCreator setPhoneNumbers(final List<String> phoneNumbers){
+    public PortingBulkPortabilityCreator setPhoneNumbers(
+        final List<String> phoneNumbers
+    ) {
         this.phoneNumbers = phoneNumbers;
         return this;
     }
-    public PortingBulkPortabilityCreator setPhoneNumbers(final String phoneNumbers){
+
+    public PortingBulkPortabilityCreator setPhoneNumbers(
+        final String phoneNumbers
+    ) {
         return setPhoneNumbers(Promoter.listOfOne(phoneNumbers));
     }
 
     @Override
-    public PortingBulkPortability create(final TwilioRestClient client){
+    public PortingBulkPortability create(final TwilioRestClient client) {
         String path = "/v1/Porting/Portability";
 
-        path = path.replace("{"+"PhoneNumbers"+"}", this.phoneNumbers.toString());
+        path =
+            path.replace(
+                "{" + "PhoneNumbers" + "}",
+                this.phoneNumbers.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,23 +69,34 @@ public class PortingBulkPortabilityCreator extends Creator<PortingBulkPortabilit
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PortingBulkPortability creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PortingBulkPortability creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PortingBulkPortability.fromJson(response.getStream(), client.getObjectMapper());
+        return PortingBulkPortability.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (phoneNumbers != null) {
             for (String prop : phoneNumbers) {
                 request.addPostParam("PhoneNumbers", prop);
             }
-    
         }
     }
 }

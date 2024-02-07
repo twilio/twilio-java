@@ -16,8 +16,9 @@ package com.twilio.rest.sync.v1.service.syncstream;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -26,35 +27,44 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.Map;
-import com.twilio.converter.Converter;
-
 import java.util.Map;
 
+public class StreamMessageCreator extends Creator<StreamMessage> {
 
-
-public class StreamMessageCreator extends Creator<StreamMessage>{
     private String pathServiceSid;
     private String pathStreamSid;
     private Map<String, Object> data;
 
-    public StreamMessageCreator(final String pathServiceSid, final String pathStreamSid, final Map<String, Object> data) {
+    public StreamMessageCreator(
+        final String pathServiceSid,
+        final String pathStreamSid,
+        final Map<String, Object> data
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathStreamSid = pathStreamSid;
         this.data = data;
     }
 
-    public StreamMessageCreator setData(final Map<String, Object> data){
+    public StreamMessageCreator setData(final Map<String, Object> data) {
         this.data = data;
         return this;
     }
 
     @Override
-    public StreamMessage create(final TwilioRestClient client){
+    public StreamMessage create(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Streams/{StreamSid}/Messages";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"StreamSid"+"}", this.pathStreamSid.toString());
-        path = path.replace("{"+"Data"+"}", this.data.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "StreamSid" + "}",
+                this.pathStreamSid.toString()
+            );
+        path = path.replace("{" + "Data" + "}", this.data.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -65,21 +75,32 @@ public class StreamMessageCreator extends Creator<StreamMessage>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("StreamMessage creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "StreamMessage creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return StreamMessage.fromJson(response.getStream(), client.getObjectMapper());
+        return StreamMessage.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (data != null) {
-            request.addPostParam("Data",  Converter.mapToJson(data));
-    
+            request.addPostParam("Data", Converter.mapToJson(data));
         }
     }
 }

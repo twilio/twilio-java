@@ -23,40 +23,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Event extends Resource {
+
     private static final long serialVersionUID = 246803433322501L;
 
-    
-
-    public static EventReader reader(final String pathCallSid){
+    public static EventReader reader(final String pathCallSid) {
         return new EventReader(pathCallSid);
     }
 
     /**
-    * Converts a JSON String into a Event object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Event object represented by the provided JSON
-    */
-    public static Event fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Event object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Event object represented by the provided JSON
+     */
+    public static Event fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -68,14 +64,17 @@ public class Event extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Event object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Event object represented by the provided JSON
-    */
-    public static Event fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Event object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Event object represented by the provided JSON
+     */
+    public static Event fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Event.class);
@@ -108,6 +107,7 @@ public class Event extends Resource {
             return Promoter.enumFromString(value, Level.values());
         }
     }
+
     public enum TwilioEdge {
         UNKNOWN_EDGE("unknown_edge"),
         CARRIER_EDGE("carrier_edge"),
@@ -145,38 +145,17 @@ public class Event extends Resource {
 
     @JsonCreator
     private Event(
-        @JsonProperty("timestamp")
-        final String timestamp,
-
-        @JsonProperty("call_sid")
-        final String callSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("edge")
-        final Event.TwilioEdge edge,
-
-        @JsonProperty("group")
-        final String group,
-
-        @JsonProperty("level")
-        final Event.Level level,
-
-        @JsonProperty("name")
-        final String name,
-
-        @JsonProperty("carrier_edge")
-        final Map<String, Object> carrierEdge,
-
-        @JsonProperty("sip_edge")
-        final Map<String, Object> sipEdge,
-
-        @JsonProperty("sdk_edge")
-        final Map<String, Object> sdkEdge,
-
-        @JsonProperty("client_edge")
-        final Map<String, Object> clientEdge
+        @JsonProperty("timestamp") final String timestamp,
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("edge") final Event.TwilioEdge edge,
+        @JsonProperty("group") final String group,
+        @JsonProperty("level") final Event.Level level,
+        @JsonProperty("name") final String name,
+        @JsonProperty("carrier_edge") final Map<String, Object> carrierEdge,
+        @JsonProperty("sip_edge") final Map<String, Object> sipEdge,
+        @JsonProperty("sdk_edge") final Map<String, Object> sdkEdge,
+        @JsonProperty("client_edge") final Map<String, Object> clientEdge
     ) {
         this.timestamp = timestamp;
         this.callSid = callSid;
@@ -191,43 +170,53 @@ public class Event extends Resource {
         this.clientEdge = clientEdge;
     }
 
-        public final String getTimestamp() {
-            return this.timestamp;
-        }
-        public final String getCallSid() {
-            return this.callSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Event.TwilioEdge getEdge() {
-            return this.edge;
-        }
-        public final String getGroup() {
-            return this.group;
-        }
-        public final Event.Level getLevel() {
-            return this.level;
-        }
-        public final String getName() {
-            return this.name;
-        }
-        public final Map<String, Object> getCarrierEdge() {
-            return this.carrierEdge;
-        }
-        public final Map<String, Object> getSipEdge() {
-            return this.sipEdge;
-        }
-        public final Map<String, Object> getSdkEdge() {
-            return this.sdkEdge;
-        }
-        public final Map<String, Object> getClientEdge() {
-            return this.clientEdge;
-        }
+    public final String getTimestamp() {
+        return this.timestamp;
+    }
+
+    public final String getCallSid() {
+        return this.callSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Event.TwilioEdge getEdge() {
+        return this.edge;
+    }
+
+    public final String getGroup() {
+        return this.group;
+    }
+
+    public final Event.Level getLevel() {
+        return this.level;
+    }
+
+    public final String getName() {
+        return this.name;
+    }
+
+    public final Map<String, Object> getCarrierEdge() {
+        return this.carrierEdge;
+    }
+
+    public final Map<String, Object> getSipEdge() {
+        return this.sipEdge;
+    }
+
+    public final Map<String, Object> getSdkEdge() {
+        return this.sdkEdge;
+    }
+
+    public final Map<String, Object> getClientEdge() {
+        return this.clientEdge;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -237,14 +226,35 @@ public class Event extends Resource {
 
         Event other = (Event) o;
 
-        return Objects.equals(timestamp, other.timestamp) &&  Objects.equals(callSid, other.callSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(edge, other.edge) &&  Objects.equals(group, other.group) &&  Objects.equals(level, other.level) &&  Objects.equals(name, other.name) &&  Objects.equals(carrierEdge, other.carrierEdge) &&  Objects.equals(sipEdge, other.sipEdge) &&  Objects.equals(sdkEdge, other.sdkEdge) &&  Objects.equals(clientEdge, other.clientEdge)  ;
+        return (
+            Objects.equals(timestamp, other.timestamp) &&
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(edge, other.edge) &&
+            Objects.equals(group, other.group) &&
+            Objects.equals(level, other.level) &&
+            Objects.equals(name, other.name) &&
+            Objects.equals(carrierEdge, other.carrierEdge) &&
+            Objects.equals(sipEdge, other.sipEdge) &&
+            Objects.equals(sdkEdge, other.sdkEdge) &&
+            Objects.equals(clientEdge, other.clientEdge)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(timestamp, callSid, accountSid, edge, group, level, name, carrierEdge, sipEdge, sdkEdge, clientEdge);
+        return Objects.hash(
+            timestamp,
+            callSid,
+            accountSid,
+            edge,
+            group,
+            level,
+            name,
+            carrierEdge,
+            sipEdge,
+            sdkEdge,
+            clientEdge
+        );
     }
-
-
 }
-

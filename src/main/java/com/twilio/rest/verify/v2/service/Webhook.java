@@ -24,57 +24,72 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
+
     private static final long serialVersionUID = 178052740611913L;
 
-    
-
-    public static WebhookCreator creator(final String pathServiceSid, final String friendlyName, final List<String> eventTypes, final String webhookUrl){
-        return new WebhookCreator(pathServiceSid, friendlyName, eventTypes, webhookUrl);
+    public static WebhookCreator creator(
+        final String pathServiceSid,
+        final String friendlyName,
+        final List<String> eventTypes,
+        final String webhookUrl
+    ) {
+        return new WebhookCreator(
+            pathServiceSid,
+            friendlyName,
+            eventTypes,
+            webhookUrl
+        );
     }
 
-    public static WebhookDeleter deleter(final String pathServiceSid, final String pathSid){
+    public static WebhookDeleter deleter(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new WebhookDeleter(pathServiceSid, pathSid);
     }
 
-    public static WebhookFetcher fetcher(final String pathServiceSid, final String pathSid){
+    public static WebhookFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new WebhookFetcher(pathServiceSid, pathSid);
     }
 
-    public static WebhookReader reader(final String pathServiceSid){
+    public static WebhookReader reader(final String pathServiceSid) {
         return new WebhookReader(pathServiceSid);
     }
 
-    public static WebhookUpdater updater(final String pathServiceSid, final String pathSid){
+    public static WebhookUpdater updater(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new WebhookUpdater(pathServiceSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Webhook object represented by the provided JSON
-    */
-    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -86,14 +101,17 @@ public class Webhook extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Webhook object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Webhook object represented by the provided JSON
-    */
-    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Webhook object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -123,6 +141,7 @@ public class Webhook extends Resource {
             return Promoter.enumFromString(value, Methods.values());
         }
     }
+
     public enum Status {
         ENABLED("enabled"),
         DISABLED("disabled");
@@ -142,6 +161,7 @@ public class Webhook extends Resource {
             return Promoter.enumFromString(value, Status.values());
         }
     }
+
     public enum Version {
         V1("v1"),
         V2("v2");
@@ -177,41 +197,18 @@ public class Webhook extends Resource {
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("event_types")
-        final List<String> eventTypes,
-
-        @JsonProperty("status")
-        final Webhook.Status status,
-
-        @JsonProperty("version")
-        final Webhook.Version version,
-
-        @JsonProperty("webhook_url")
-        final URI webhookUrl,
-
-        @JsonProperty("webhook_method")
-        final Webhook.Methods webhookMethod,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("event_types") final List<String> eventTypes,
+        @JsonProperty("status") final Webhook.Status status,
+        @JsonProperty("version") final Webhook.Version version,
+        @JsonProperty("webhook_url") final URI webhookUrl,
+        @JsonProperty("webhook_method") final Webhook.Methods webhookMethod,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.serviceSid = serviceSid;
@@ -227,46 +224,57 @@ public class Webhook extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final List<String> getEventTypes() {
-            return this.eventTypes;
-        }
-        public final Webhook.Status getStatus() {
-            return this.status;
-        }
-        public final Webhook.Version getVersion() {
-            return this.version;
-        }
-        public final URI getWebhookUrl() {
-            return this.webhookUrl;
-        }
-        public final Webhook.Methods getWebhookMethod() {
-            return this.webhookMethod;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final List<String> getEventTypes() {
+        return this.eventTypes;
+    }
+
+    public final Webhook.Status getStatus() {
+        return this.status;
+    }
+
+    public final Webhook.Version getVersion() {
+        return this.version;
+    }
+
+    public final URI getWebhookUrl() {
+        return this.webhookUrl;
+    }
+
+    public final Webhook.Methods getWebhookMethod() {
+        return this.webhookMethod;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -276,14 +284,37 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(eventTypes, other.eventTypes) &&  Objects.equals(status, other.status) &&  Objects.equals(version, other.version) &&  Objects.equals(webhookUrl, other.webhookUrl) &&  Objects.equals(webhookMethod, other.webhookMethod) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(eventTypes, other.eventTypes) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(version, other.version) &&
+            Objects.equals(webhookUrl, other.webhookUrl) &&
+            Objects.equals(webhookMethod, other.webhookMethod) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, serviceSid, accountSid, friendlyName, eventTypes, status, version, webhookUrl, webhookMethod, dateCreated, dateUpdated, url);
+        return Objects.hash(
+            sid,
+            serviceSid,
+            accountSid,
+            friendlyName,
+            eventTypes,
+            status,
+            version,
+            webhookUrl,
+            webhookMethod,
+            dateCreated,
+            dateUpdated,
+            url
+        );
     }
-
-
 }
-

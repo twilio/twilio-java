@@ -25,29 +25,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class ItemAssignmentCreator extends Creator<ItemAssignment> {
 
-
-
-public class ItemAssignmentCreator extends Creator<ItemAssignment>{
     private String pathBundleSid;
     private String objectSid;
 
-    public ItemAssignmentCreator(final String pathBundleSid, final String objectSid) {
+    public ItemAssignmentCreator(
+        final String pathBundleSid,
+        final String objectSid
+    ) {
         this.pathBundleSid = pathBundleSid;
         this.objectSid = objectSid;
     }
 
-    public ItemAssignmentCreator setObjectSid(final String objectSid){
+    public ItemAssignmentCreator setObjectSid(final String objectSid) {
         this.objectSid = objectSid;
         return this;
     }
 
     @Override
-    public ItemAssignment create(final TwilioRestClient client){
-        String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
+    public ItemAssignment create(final TwilioRestClient client) {
+        String path =
+            "/v2/RegulatoryCompliance/Bundles/{BundleSid}/ItemAssignments";
 
-        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
-        path = path.replace("{"+"ObjectSid"+"}", this.objectSid.toString());
+        path =
+            path.replace(
+                "{" + "BundleSid" + "}",
+                this.pathBundleSid.toString()
+            );
+        path = path.replace("{" + "ObjectSid" + "}", this.objectSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -58,21 +64,32 @@ public class ItemAssignmentCreator extends Creator<ItemAssignment>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("ItemAssignment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ItemAssignment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ItemAssignment.fromJson(response.getStream(), client.getObjectMapper());
+        return ItemAssignment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (objectSid != null) {
             request.addPostParam("ObjectSid", objectSid);
-    
         }
     }
 }

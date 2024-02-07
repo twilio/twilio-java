@@ -16,8 +16,9 @@ package com.twilio.rest.trusthub.v1;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -26,13 +27,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.Map;
-import com.twilio.converter.Converter;
-
 import java.util.Map;
 
+public class EndUserCreator extends Creator<EndUser> {
 
-
-public class EndUserCreator extends Creator<EndUser>{
     private String friendlyName;
     private String type;
     private Map<String, Object> attributes;
@@ -42,25 +40,31 @@ public class EndUserCreator extends Creator<EndUser>{
         this.type = type;
     }
 
-    public EndUserCreator setFriendlyName(final String friendlyName){
+    public EndUserCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public EndUserCreator setType(final String type){
+
+    public EndUserCreator setType(final String type) {
         this.type = type;
         return this;
     }
-    public EndUserCreator setAttributes(final Map<String, Object> attributes){
+
+    public EndUserCreator setAttributes(final Map<String, Object> attributes) {
         this.attributes = attributes;
         return this;
     }
 
     @Override
-    public EndUser create(final TwilioRestClient client){
+    public EndUser create(final TwilioRestClient client) {
         String path = "/v1/EndUsers";
 
-        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
-        path = path.replace("{"+"Type"+"}", this.type.toString());
+        path =
+            path.replace(
+                "{" + "FriendlyName" + "}",
+                this.friendlyName.toString()
+            );
+        path = path.replace("{" + "Type" + "}", this.type.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -71,29 +75,35 @@ public class EndUserCreator extends Creator<EndUser>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("EndUser creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "EndUser creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return EndUser.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (type != null) {
             request.addPostParam("Type", type);
-    
         }
         if (attributes != null) {
-            request.addPostParam("Attributes",  Converter.mapToJson(attributes));
-    
+            request.addPostParam("Attributes", Converter.mapToJson(attributes));
         }
     }
 }

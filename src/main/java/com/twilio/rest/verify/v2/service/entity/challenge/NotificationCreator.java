@@ -25,33 +25,45 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class NotificationCreator extends Creator<Notification> {
 
-
-
-public class NotificationCreator extends Creator<Notification>{
     private String pathServiceSid;
     private String pathIdentity;
     private String pathChallengeSid;
     private Integer ttl;
 
-    public NotificationCreator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid) {
+    public NotificationCreator(
+        final String pathServiceSid,
+        final String pathIdentity,
+        final String pathChallengeSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
         this.pathChallengeSid = pathChallengeSid;
     }
 
-    public NotificationCreator setTtl(final Integer ttl){
+    public NotificationCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
 
     @Override
-    public Notification create(final TwilioRestClient client){
-        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications";
+    public Notification create(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges/{ChallengeSid}/Notifications";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
-        path = path.replace("{"+"ChallengeSid"+"}", this.pathChallengeSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
+        path =
+            path.replace(
+                "{" + "ChallengeSid" + "}",
+                this.pathChallengeSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -62,21 +74,32 @@ public class NotificationCreator extends Creator<Notification>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Notification creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Notification creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Notification.fromJson(response.getStream(), client.getObjectMapper());
+        return Notification.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
-    
         }
     }
 }

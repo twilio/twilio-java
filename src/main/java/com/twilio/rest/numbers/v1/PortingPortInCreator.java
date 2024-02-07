@@ -24,19 +24,13 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class PortingPortInCreator extends Creator<PortingPortIn> {
 
-
-
-public class PortingPortInCreator extends Creator<PortingPortIn>{
-
-    public PortingPortInCreator() {
-    }
-
+    public PortingPortInCreator() {}
 
     @Override
-    public PortingPortIn create(final TwilioRestClient client){
+    public PortingPortIn create(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn";
-
 
         Request request = new Request(
             HttpMethod.POST,
@@ -45,15 +39,26 @@ public class PortingPortInCreator extends Creator<PortingPortIn>{
         );
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PortingPortIn creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PortingPortIn creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PortingPortIn.fromJson(response.getStream(), client.getObjectMapper());
+        return PortingPortIn.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

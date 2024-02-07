@@ -24,54 +24,53 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Transcript extends Resource {
+
     private static final long serialVersionUID = 35462753187463L;
 
-    
-
-    public static TranscriptCreator creator(final String serviceSid, final Map<String, Object> channel){
+    public static TranscriptCreator creator(
+        final String serviceSid,
+        final Map<String, Object> channel
+    ) {
         return new TranscriptCreator(serviceSid, channel);
     }
 
-    public static TranscriptDeleter deleter(final String pathSid){
+    public static TranscriptDeleter deleter(final String pathSid) {
         return new TranscriptDeleter(pathSid);
     }
 
-    public static TranscriptFetcher fetcher(final String pathSid){
+    public static TranscriptFetcher fetcher(final String pathSid) {
         return new TranscriptFetcher(pathSid);
     }
 
-    public static TranscriptReader reader(){
+    public static TranscriptReader reader() {
         return new TranscriptReader();
     }
 
     /**
-    * Converts a JSON String into a Transcript object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Transcript object represented by the provided JSON
-    */
-    public static Transcript fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Transcript object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Transcript object represented by the provided JSON
+     */
+    public static Transcript fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Transcript.class);
@@ -83,14 +82,17 @@ public class Transcript extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Transcript object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Transcript object represented by the provided JSON
-    */
-    public static Transcript fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Transcript object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Transcript object represented by the provided JSON
+     */
+    public static Transcript fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Transcript.class);
@@ -142,50 +144,21 @@ public class Transcript extends Resource {
 
     @JsonCreator
     private Transcript(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("status")
-        final Transcript.Status status,
-
-        @JsonProperty("channel")
-        final Map<String, Object> channel,
-
-        @JsonProperty("data_logging")
-        final Boolean dataLogging,
-
-        @JsonProperty("language_code")
-        final String languageCode,
-
-        @JsonProperty("customer_key")
-        final String customerKey,
-
-        @JsonProperty("media_start_time")
-        final String mediaStartTime,
-
-        @JsonProperty("duration")
-        final Integer duration,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("redaction")
-        final Boolean redaction,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("status") final Transcript.Status status,
+        @JsonProperty("channel") final Map<String, Object> channel,
+        @JsonProperty("data_logging") final Boolean dataLogging,
+        @JsonProperty("language_code") final String languageCode,
+        @JsonProperty("customer_key") final String customerKey,
+        @JsonProperty("media_start_time") final String mediaStartTime,
+        @JsonProperty("duration") final Integer duration,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("redaction") final Boolean redaction,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.serviceSid = serviceSid;
@@ -197,62 +170,77 @@ public class Transcript extends Resource {
         this.dataLogging = dataLogging;
         this.languageCode = languageCode;
         this.customerKey = customerKey;
-        this.mediaStartTime = DateConverter.iso8601DateTimeFromString(mediaStartTime);
+        this.mediaStartTime =
+            DateConverter.iso8601DateTimeFromString(mediaStartTime);
         this.duration = duration;
         this.url = url;
         this.redaction = redaction;
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final Transcript.Status getStatus() {
-            return this.status;
-        }
-        public final Map<String, Object> getChannel() {
-            return this.channel;
-        }
-        public final Boolean getDataLogging() {
-            return this.dataLogging;
-        }
-        public final String getLanguageCode() {
-            return this.languageCode;
-        }
-        public final String getCustomerKey() {
-            return this.customerKey;
-        }
-        public final ZonedDateTime getMediaStartTime() {
-            return this.mediaStartTime;
-        }
-        public final Integer getDuration() {
-            return this.duration;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Boolean getRedaction() {
-            return this.redaction;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final Transcript.Status getStatus() {
+        return this.status;
+    }
+
+    public final Map<String, Object> getChannel() {
+        return this.channel;
+    }
+
+    public final Boolean getDataLogging() {
+        return this.dataLogging;
+    }
+
+    public final String getLanguageCode() {
+        return this.languageCode;
+    }
+
+    public final String getCustomerKey() {
+        return this.customerKey;
+    }
+
+    public final ZonedDateTime getMediaStartTime() {
+        return this.mediaStartTime;
+    }
+
+    public final Integer getDuration() {
+        return this.duration;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Boolean getRedaction() {
+        return this.redaction;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -262,14 +250,43 @@ public class Transcript extends Resource {
 
         Transcript other = (Transcript) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(status, other.status) &&  Objects.equals(channel, other.channel) &&  Objects.equals(dataLogging, other.dataLogging) &&  Objects.equals(languageCode, other.languageCode) &&  Objects.equals(customerKey, other.customerKey) &&  Objects.equals(mediaStartTime, other.mediaStartTime) &&  Objects.equals(duration, other.duration) &&  Objects.equals(url, other.url) &&  Objects.equals(redaction, other.redaction) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(dataLogging, other.dataLogging) &&
+            Objects.equals(languageCode, other.languageCode) &&
+            Objects.equals(customerKey, other.customerKey) &&
+            Objects.equals(mediaStartTime, other.mediaStartTime) &&
+            Objects.equals(duration, other.duration) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(redaction, other.redaction) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, serviceSid, sid, dateCreated, dateUpdated, status, channel, dataLogging, languageCode, customerKey, mediaStartTime, duration, url, redaction, links);
+        return Objects.hash(
+            accountSid,
+            serviceSid,
+            sid,
+            dateCreated,
+            dateUpdated,
+            status,
+            channel,
+            dataLogging,
+            languageCode,
+            customerKey,
+            mediaStartTime,
+            duration,
+            url,
+            redaction,
+            links
+        );
     }
-
-
 }
-

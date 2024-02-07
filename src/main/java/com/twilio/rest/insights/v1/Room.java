@@ -24,48 +24,44 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Room extends Resource {
+
     private static final long serialVersionUID = 140614978057184L;
 
-    
-
-    public static RoomFetcher fetcher(final String pathRoomSid){
+    public static RoomFetcher fetcher(final String pathRoomSid) {
         return new RoomFetcher(pathRoomSid);
     }
 
-    public static RoomReader reader(){
+    public static RoomReader reader() {
         return new RoomReader();
     }
 
     /**
-    * Converts a JSON String into a Room object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Room object represented by the provided JSON
-    */
-    public static Room fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Room object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Room object represented by the provided JSON
+     */
+    public static Room fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -77,14 +73,17 @@ public class Room extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Room object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Room object represented by the provided JSON
-    */
-    public static Room fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Room object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Room object represented by the provided JSON
+     */
+    public static Room fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Room.class);
@@ -115,6 +114,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, Codec.values());
         }
     }
+
     public enum CreatedMethod {
         SDK("sdk"),
         AD_HOC("ad_hoc"),
@@ -135,6 +135,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, CreatedMethod.values());
         }
     }
+
     public enum EdgeLocation {
         ASHBURN("ashburn"),
         DUBLIN("dublin"),
@@ -161,6 +162,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, EdgeLocation.values());
         }
     }
+
     public enum EndReason {
         ROOM_ENDED_VIA_API("room_ended_via_api"),
         TIMEOUT("timeout");
@@ -180,6 +182,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, EndReason.values());
         }
     }
+
     public enum ProcessingState {
         COMPLETE("complete"),
         IN_PROGRESS("in_progress");
@@ -199,6 +202,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, ProcessingState.values());
         }
     }
+
     public enum RoomStatus {
         IN_PROGRESS("in_progress"),
         COMPLETED("completed");
@@ -218,6 +222,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, RoomStatus.values());
         }
     }
+
     public enum RoomType {
         GO("go"),
         PEER_TO_PEER("peer_to_peer"),
@@ -239,6 +244,7 @@ public class Room extends Resource {
             return Promoter.enumFromString(value, RoomType.values());
         }
     }
+
     public enum TwilioRealm {
         US1("us1"),
         US2("us2"),
@@ -296,83 +302,46 @@ public class Room extends Resource {
 
     @JsonCreator
     private Room(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("room_sid")
-        final String roomSid,
-
-        @JsonProperty("room_name")
-        final String roomName,
-
-        @JsonProperty("create_time")
-        final String createTime,
-
-        @JsonProperty("end_time")
-        final String endTime,
-
-        @JsonProperty("room_type")
-        final Room.RoomType roomType,
-
-        @JsonProperty("room_status")
-        final Room.RoomStatus roomStatus,
-
-        @JsonProperty("status_callback")
-        final URI statusCallback,
-
-        @JsonProperty("status_callback_method")
-        final HttpMethod statusCallbackMethod,
-
-        @JsonProperty("created_method")
-        final Room.CreatedMethod createdMethod,
-
-        @JsonProperty("end_reason")
-        final Room.EndReason endReason,
-
-        @JsonProperty("max_participants")
-        final Integer maxParticipants,
-
-        @JsonProperty("unique_participants")
-        final Integer uniqueParticipants,
-
-        @JsonProperty("unique_participant_identities")
-        final Integer uniqueParticipantIdentities,
-
-        @JsonProperty("concurrent_participants")
-        final Integer concurrentParticipants,
-
-        @JsonProperty("max_concurrent_participants")
-        final Integer maxConcurrentParticipants,
-
-        @JsonProperty("codecs")
-        final List<Room.Codec> codecs,
-
-        @JsonProperty("media_region")
-        final Room.TwilioRealm mediaRegion,
-
-        @JsonProperty("duration_sec")
-        final Long durationSec,
-
-        @JsonProperty("total_participant_duration_sec")
-        final Long totalParticipantDurationSec,
-
-        @JsonProperty("total_recording_duration_sec")
-        final Long totalRecordingDurationSec,
-
-        @JsonProperty("processing_state")
-        final Room.ProcessingState processingState,
-
-        @JsonProperty("recording_enabled")
-        final Boolean recordingEnabled,
-
-        @JsonProperty("edge_location")
-        final Room.EdgeLocation edgeLocation,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("links")
-        final Map<String, String> links
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("room_sid") final String roomSid,
+        @JsonProperty("room_name") final String roomName,
+        @JsonProperty("create_time") final String createTime,
+        @JsonProperty("end_time") final String endTime,
+        @JsonProperty("room_type") final Room.RoomType roomType,
+        @JsonProperty("room_status") final Room.RoomStatus roomStatus,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("created_method") final Room.CreatedMethod createdMethod,
+        @JsonProperty("end_reason") final Room.EndReason endReason,
+        @JsonProperty("max_participants") final Integer maxParticipants,
+        @JsonProperty("unique_participants") final Integer uniqueParticipants,
+        @JsonProperty(
+            "unique_participant_identities"
+        ) final Integer uniqueParticipantIdentities,
+        @JsonProperty(
+            "concurrent_participants"
+        ) final Integer concurrentParticipants,
+        @JsonProperty(
+            "max_concurrent_participants"
+        ) final Integer maxConcurrentParticipants,
+        @JsonProperty("codecs") final List<Room.Codec> codecs,
+        @JsonProperty("media_region") final Room.TwilioRealm mediaRegion,
+        @JsonProperty("duration_sec") final Long durationSec,
+        @JsonProperty(
+            "total_participant_duration_sec"
+        ) final Long totalParticipantDurationSec,
+        @JsonProperty(
+            "total_recording_duration_sec"
+        ) final Long totalRecordingDurationSec,
+        @JsonProperty(
+            "processing_state"
+        ) final Room.ProcessingState processingState,
+        @JsonProperty("recording_enabled") final Boolean recordingEnabled,
+        @JsonProperty("edge_location") final Room.EdgeLocation edgeLocation,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("links") final Map<String, String> links
     ) {
         this.accountSid = accountSid;
         this.roomSid = roomSid;
@@ -402,88 +371,113 @@ public class Room extends Resource {
         this.links = links;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getRoomSid() {
-            return this.roomSid;
-        }
-        public final String getRoomName() {
-            return this.roomName;
-        }
-        public final ZonedDateTime getCreateTime() {
-            return this.createTime;
-        }
-        public final ZonedDateTime getEndTime() {
-            return this.endTime;
-        }
-        public final Room.RoomType getRoomType() {
-            return this.roomType;
-        }
-        public final Room.RoomStatus getRoomStatus() {
-            return this.roomStatus;
-        }
-        public final URI getStatusCallback() {
-            return this.statusCallback;
-        }
-        public final HttpMethod getStatusCallbackMethod() {
-            return this.statusCallbackMethod;
-        }
-        public final Room.CreatedMethod getCreatedMethod() {
-            return this.createdMethod;
-        }
-        public final Room.EndReason getEndReason() {
-            return this.endReason;
-        }
-        public final Integer getMaxParticipants() {
-            return this.maxParticipants;
-        }
-        public final Integer getUniqueParticipants() {
-            return this.uniqueParticipants;
-        }
-        public final Integer getUniqueParticipantIdentities() {
-            return this.uniqueParticipantIdentities;
-        }
-        public final Integer getConcurrentParticipants() {
-            return this.concurrentParticipants;
-        }
-        public final Integer getMaxConcurrentParticipants() {
-            return this.maxConcurrentParticipants;
-        }
-        public final List<Room.Codec> getCodecs() {
-            return this.codecs;
-        }
-        public final Room.TwilioRealm getMediaRegion() {
-            return this.mediaRegion;
-        }
-        public final Long getDurationSec() {
-            return this.durationSec;
-        }
-        public final Long getTotalParticipantDurationSec() {
-            return this.totalParticipantDurationSec;
-        }
-        public final Long getTotalRecordingDurationSec() {
-            return this.totalRecordingDurationSec;
-        }
-        public final Room.ProcessingState getProcessingState() {
-            return this.processingState;
-        }
-        public final Boolean getRecordingEnabled() {
-            return this.recordingEnabled;
-        }
-        public final Room.EdgeLocation getEdgeLocation() {
-            return this.edgeLocation;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getRoomSid() {
+        return this.roomSid;
+    }
+
+    public final String getRoomName() {
+        return this.roomName;
+    }
+
+    public final ZonedDateTime getCreateTime() {
+        return this.createTime;
+    }
+
+    public final ZonedDateTime getEndTime() {
+        return this.endTime;
+    }
+
+    public final Room.RoomType getRoomType() {
+        return this.roomType;
+    }
+
+    public final Room.RoomStatus getRoomStatus() {
+        return this.roomStatus;
+    }
+
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    public final Room.CreatedMethod getCreatedMethod() {
+        return this.createdMethod;
+    }
+
+    public final Room.EndReason getEndReason() {
+        return this.endReason;
+    }
+
+    public final Integer getMaxParticipants() {
+        return this.maxParticipants;
+    }
+
+    public final Integer getUniqueParticipants() {
+        return this.uniqueParticipants;
+    }
+
+    public final Integer getUniqueParticipantIdentities() {
+        return this.uniqueParticipantIdentities;
+    }
+
+    public final Integer getConcurrentParticipants() {
+        return this.concurrentParticipants;
+    }
+
+    public final Integer getMaxConcurrentParticipants() {
+        return this.maxConcurrentParticipants;
+    }
+
+    public final List<Room.Codec> getCodecs() {
+        return this.codecs;
+    }
+
+    public final Room.TwilioRealm getMediaRegion() {
+        return this.mediaRegion;
+    }
+
+    public final Long getDurationSec() {
+        return this.durationSec;
+    }
+
+    public final Long getTotalParticipantDurationSec() {
+        return this.totalParticipantDurationSec;
+    }
+
+    public final Long getTotalRecordingDurationSec() {
+        return this.totalRecordingDurationSec;
+    }
+
+    public final Room.ProcessingState getProcessingState() {
+        return this.processingState;
+    }
+
+    public final Boolean getRecordingEnabled() {
+        return this.recordingEnabled;
+    }
+
+    public final Room.EdgeLocation getEdgeLocation() {
+        return this.edgeLocation;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -493,14 +487,80 @@ public class Room extends Resource {
 
         Room other = (Room) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(roomSid, other.roomSid) &&  Objects.equals(roomName, other.roomName) &&  Objects.equals(createTime, other.createTime) &&  Objects.equals(endTime, other.endTime) &&  Objects.equals(roomType, other.roomType) &&  Objects.equals(roomStatus, other.roomStatus) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(createdMethod, other.createdMethod) &&  Objects.equals(endReason, other.endReason) &&  Objects.equals(maxParticipants, other.maxParticipants) &&  Objects.equals(uniqueParticipants, other.uniqueParticipants) &&  Objects.equals(uniqueParticipantIdentities, other.uniqueParticipantIdentities) &&  Objects.equals(concurrentParticipants, other.concurrentParticipants) &&  Objects.equals(maxConcurrentParticipants, other.maxConcurrentParticipants) &&  Objects.equals(codecs, other.codecs) &&  Objects.equals(mediaRegion, other.mediaRegion) &&  Objects.equals(durationSec, other.durationSec) &&  Objects.equals(totalParticipantDurationSec, other.totalParticipantDurationSec) &&  Objects.equals(totalRecordingDurationSec, other.totalRecordingDurationSec) &&  Objects.equals(processingState, other.processingState) &&  Objects.equals(recordingEnabled, other.recordingEnabled) &&  Objects.equals(edgeLocation, other.edgeLocation) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(roomSid, other.roomSid) &&
+            Objects.equals(roomName, other.roomName) &&
+            Objects.equals(createTime, other.createTime) &&
+            Objects.equals(endTime, other.endTime) &&
+            Objects.equals(roomType, other.roomType) &&
+            Objects.equals(roomStatus, other.roomStatus) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(createdMethod, other.createdMethod) &&
+            Objects.equals(endReason, other.endReason) &&
+            Objects.equals(maxParticipants, other.maxParticipants) &&
+            Objects.equals(uniqueParticipants, other.uniqueParticipants) &&
+            Objects.equals(
+                uniqueParticipantIdentities,
+                other.uniqueParticipantIdentities
+            ) &&
+            Objects.equals(
+                concurrentParticipants,
+                other.concurrentParticipants
+            ) &&
+            Objects.equals(
+                maxConcurrentParticipants,
+                other.maxConcurrentParticipants
+            ) &&
+            Objects.equals(codecs, other.codecs) &&
+            Objects.equals(mediaRegion, other.mediaRegion) &&
+            Objects.equals(durationSec, other.durationSec) &&
+            Objects.equals(
+                totalParticipantDurationSec,
+                other.totalParticipantDurationSec
+            ) &&
+            Objects.equals(
+                totalRecordingDurationSec,
+                other.totalRecordingDurationSec
+            ) &&
+            Objects.equals(processingState, other.processingState) &&
+            Objects.equals(recordingEnabled, other.recordingEnabled) &&
+            Objects.equals(edgeLocation, other.edgeLocation) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(links, other.links)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, roomSid, roomName, createTime, endTime, roomType, roomStatus, statusCallback, statusCallbackMethod, createdMethod, endReason, maxParticipants, uniqueParticipants, uniqueParticipantIdentities, concurrentParticipants, maxConcurrentParticipants, codecs, mediaRegion, durationSec, totalParticipantDurationSec, totalRecordingDurationSec, processingState, recordingEnabled, edgeLocation, url, links);
+        return Objects.hash(
+            accountSid,
+            roomSid,
+            roomName,
+            createTime,
+            endTime,
+            roomType,
+            roomStatus,
+            statusCallback,
+            statusCallbackMethod,
+            createdMethod,
+            endReason,
+            maxParticipants,
+            uniqueParticipants,
+            uniqueParticipantIdentities,
+            concurrentParticipants,
+            maxConcurrentParticipants,
+            codecs,
+            mediaRegion,
+            durationSec,
+            totalParticipantDurationSec,
+            totalRecordingDurationSec,
+            processingState,
+            recordingEnabled,
+            edgeLocation,
+            url,
+            links
+        );
     }
-
-
 }
-

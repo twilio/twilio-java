@@ -23,40 +23,36 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthTokenPromotion extends Resource {
+
     private static final long serialVersionUID = 77507843877589L;
 
-    
-
-    public static AuthTokenPromotionUpdater updater(){
+    public static AuthTokenPromotionUpdater updater() {
         return new AuthTokenPromotionUpdater();
     }
 
     /**
-    * Converts a JSON String into a AuthTokenPromotion object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return AuthTokenPromotion object represented by the provided JSON
-    */
-    public static AuthTokenPromotion fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a AuthTokenPromotion object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return AuthTokenPromotion object represented by the provided JSON
+     */
+    public static AuthTokenPromotion fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AuthTokenPromotion.class);
@@ -68,14 +64,17 @@ public class AuthTokenPromotion extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a AuthTokenPromotion object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return AuthTokenPromotion object represented by the provided JSON
-    */
-    public static AuthTokenPromotion fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a AuthTokenPromotion object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return AuthTokenPromotion object represented by the provided JSON
+     */
+    public static AuthTokenPromotion fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AuthTokenPromotion.class);
@@ -85,7 +84,6 @@ public class AuthTokenPromotion extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String accountSid;
     private final String authToken;
@@ -95,20 +93,11 @@ public class AuthTokenPromotion extends Resource {
 
     @JsonCreator
     private AuthTokenPromotion(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("auth_token")
-        final String authToken,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("auth_token") final String authToken,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.authToken = authToken;
@@ -117,25 +106,29 @@ public class AuthTokenPromotion extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getAuthToken() {
-            return this.authToken;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getAuthToken() {
+        return this.authToken;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -145,14 +138,23 @@ public class AuthTokenPromotion extends Resource {
 
         AuthTokenPromotion other = (AuthTokenPromotion) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(authToken, other.authToken) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(authToken, other.authToken) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, authToken, dateCreated, dateUpdated, url);
+        return Objects.hash(
+            accountSid,
+            authToken,
+            dateCreated,
+            dateUpdated,
+            url
+        );
     }
-
-
 }
-

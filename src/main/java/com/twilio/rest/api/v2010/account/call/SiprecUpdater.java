@@ -25,41 +25,57 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SiprecUpdater extends Updater<Siprec> {
 
-
-
-public class SiprecUpdater extends Updater<Siprec>{
     private String pathCallSid;
     private String pathSid;
     private Siprec.UpdateStatus status;
     private String pathAccountSid;
 
-    public SiprecUpdater(final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status){
+    public SiprecUpdater(
+        final String pathCallSid,
+        final String pathSid,
+        final Siprec.UpdateStatus status
+    ) {
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.status = status;
     }
-    public SiprecUpdater(final String pathAccountSid, final String pathCallSid, final String pathSid, final Siprec.UpdateStatus status){
+
+    public SiprecUpdater(
+        final String pathAccountSid,
+        final String pathCallSid,
+        final String pathSid,
+        final Siprec.UpdateStatus status
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public SiprecUpdater setStatus(final Siprec.UpdateStatus status){
+    public SiprecUpdater setStatus(final Siprec.UpdateStatus status) {
         this.status = status;
         return this;
     }
 
     @Override
-    public Siprec update(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json";
+    public Siprec update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Siprec/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
-        path = path.replace("{"+"Status"+"}", this.status.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -70,21 +86,29 @@ public class SiprecUpdater extends Updater<Siprec>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Siprec update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Siprec update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Siprec.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
     }
 }

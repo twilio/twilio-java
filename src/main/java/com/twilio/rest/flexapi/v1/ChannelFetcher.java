@@ -24,22 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class ChannelFetcher extends Fetcher<Channel> {
+
     private String pathSid;
 
-    public ChannelFetcher(final String pathSid){
+    public ChannelFetcher(final String pathSid) {
         this.pathSid = pathSid;
     }
-
 
     @Override
     public Channel fetch(final TwilioRestClient client) {
         String path = "/v1/Channels/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -49,11 +46,19 @@ public class ChannelFetcher extends Fetcher<Channel> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("Channel fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Channel fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

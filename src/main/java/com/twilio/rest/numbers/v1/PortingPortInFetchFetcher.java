@@ -24,22 +24,23 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class PortingPortInFetchFetcher extends Fetcher<PortingPortInFetch> {
+
     private String pathPortInRequestSid;
 
-    public PortingPortInFetchFetcher(final String pathPortInRequestSid){
+    public PortingPortInFetchFetcher(final String pathPortInRequestSid) {
         this.pathPortInRequestSid = pathPortInRequestSid;
     }
-
 
     @Override
     public PortingPortInFetch fetch(final TwilioRestClient client) {
         String path = "/v1/Porting/PortIn/{PortInRequestSid}";
 
-        path = path.replace("{"+"PortInRequestSid"+"}", this.pathPortInRequestSid.toString());
+        path =
+            path.replace(
+                "{" + "PortInRequestSid" + "}",
+                this.pathPortInRequestSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -49,15 +50,26 @@ public class PortingPortInFetchFetcher extends Fetcher<PortingPortInFetch> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("PortingPortInFetch fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PortingPortInFetch fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PortingPortInFetch.fromJson(response.getStream(), client.getObjectMapper());
+        return PortingPortInFetch.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

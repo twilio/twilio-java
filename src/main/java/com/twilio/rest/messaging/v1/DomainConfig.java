@@ -23,44 +23,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class DomainConfig extends Resource {
+
     private static final long serialVersionUID = 278004827100918L;
 
-    
-
-    public static DomainConfigFetcher fetcher(final String pathDomainSid){
+    public static DomainConfigFetcher fetcher(final String pathDomainSid) {
         return new DomainConfigFetcher(pathDomainSid);
     }
 
-    public static DomainConfigUpdater updater(final String pathDomainSid){
+    public static DomainConfigUpdater updater(final String pathDomainSid) {
         return new DomainConfigUpdater(pathDomainSid);
     }
 
     /**
-    * Converts a JSON String into a DomainConfig object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return DomainConfig object represented by the provided JSON
-    */
-    public static DomainConfig fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a DomainConfig object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return DomainConfig object represented by the provided JSON
+     */
+    public static DomainConfig fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DomainConfig.class);
@@ -72,14 +68,17 @@ public class DomainConfig extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a DomainConfig object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return DomainConfig object represented by the provided JSON
-    */
-    public static DomainConfig fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a DomainConfig object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return DomainConfig object represented by the provided JSON
+     */
+    public static DomainConfig fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, DomainConfig.class);
@@ -89,7 +88,6 @@ public class DomainConfig extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String domainSid;
     private final String configSid;
@@ -103,32 +101,15 @@ public class DomainConfig extends Resource {
 
     @JsonCreator
     private DomainConfig(
-        @JsonProperty("domain_sid")
-        final String domainSid,
-
-        @JsonProperty("config_sid")
-        final String configSid,
-
-        @JsonProperty("fallback_url")
-        final URI fallbackUrl,
-
-        @JsonProperty("callback_url")
-        final URI callbackUrl,
-
-        @JsonProperty("continue_on_failure")
-        final Boolean continueOnFailure,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("disable_https")
-        final Boolean disableHttps
+        @JsonProperty("domain_sid") final String domainSid,
+        @JsonProperty("config_sid") final String configSid,
+        @JsonProperty("fallback_url") final URI fallbackUrl,
+        @JsonProperty("callback_url") final URI callbackUrl,
+        @JsonProperty("continue_on_failure") final Boolean continueOnFailure,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("disable_https") final Boolean disableHttps
     ) {
         this.domainSid = domainSid;
         this.configSid = configSid;
@@ -141,37 +122,45 @@ public class DomainConfig extends Resource {
         this.disableHttps = disableHttps;
     }
 
-        public final String getDomainSid() {
-            return this.domainSid;
-        }
-        public final String getConfigSid() {
-            return this.configSid;
-        }
-        public final URI getFallbackUrl() {
-            return this.fallbackUrl;
-        }
-        public final URI getCallbackUrl() {
-            return this.callbackUrl;
-        }
-        public final Boolean getContinueOnFailure() {
-            return this.continueOnFailure;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final Boolean getDisableHttps() {
-            return this.disableHttps;
-        }
+    public final String getDomainSid() {
+        return this.domainSid;
+    }
+
+    public final String getConfigSid() {
+        return this.configSid;
+    }
+
+    public final URI getFallbackUrl() {
+        return this.fallbackUrl;
+    }
+
+    public final URI getCallbackUrl() {
+        return this.callbackUrl;
+    }
+
+    public final Boolean getContinueOnFailure() {
+        return this.continueOnFailure;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final Boolean getDisableHttps() {
+        return this.disableHttps;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -181,14 +170,31 @@ public class DomainConfig extends Resource {
 
         DomainConfig other = (DomainConfig) o;
 
-        return Objects.equals(domainSid, other.domainSid) &&  Objects.equals(configSid, other.configSid) &&  Objects.equals(fallbackUrl, other.fallbackUrl) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(continueOnFailure, other.continueOnFailure) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(disableHttps, other.disableHttps)  ;
+        return (
+            Objects.equals(domainSid, other.domainSid) &&
+            Objects.equals(configSid, other.configSid) &&
+            Objects.equals(fallbackUrl, other.fallbackUrl) &&
+            Objects.equals(callbackUrl, other.callbackUrl) &&
+            Objects.equals(continueOnFailure, other.continueOnFailure) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(disableHttps, other.disableHttps)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(domainSid, configSid, fallbackUrl, callbackUrl, continueOnFailure, dateCreated, dateUpdated, url, disableHttps);
+        return Objects.hash(
+            domainSid,
+            configSid,
+            fallbackUrl,
+            callbackUrl,
+            continueOnFailure,
+            dateCreated,
+            dateUpdated,
+            url,
+            disableHttps
+        );
     }
-
-
 }
-

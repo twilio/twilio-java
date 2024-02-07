@@ -14,6 +14,7 @@
 
 package com.twilio.rest.preview.deployedDevices.fleet;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,24 +25,23 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class DeviceReader extends Reader<Device> {
+
     private String pathFleetSid;
     private String deploymentSid;
     private Integer pageSize;
 
-    public DeviceReader(final String pathFleetSid){
+    public DeviceReader(final String pathFleetSid) {
         this.pathFleetSid = pathFleetSid;
     }
 
-    public DeviceReader setDeploymentSid(final String deploymentSid){
+    public DeviceReader setDeploymentSid(final String deploymentSid) {
         this.deploymentSid = deploymentSid;
         return this;
     }
-    public DeviceReader setPageSize(final Integer pageSize){
+
+    public DeviceReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -53,7 +53,8 @@ public class DeviceReader extends Reader<Device> {
 
     public Page<Device> firstPage(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Devices";
-        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path =
+            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -65,15 +66,26 @@ public class DeviceReader extends Reader<Device> {
         return pageForRequest(client, request);
     }
 
-    private Page<Device> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Device> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Device read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Device read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -87,7 +99,10 @@ public class DeviceReader extends Reader<Device> {
     }
 
     @Override
-    public Page<Device> previousPage(final Page<Device> page, final TwilioRestClient client) {
+    public Page<Device> previousPage(
+        final Page<Device> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -95,9 +110,11 @@ public class DeviceReader extends Reader<Device> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Device> nextPage(final Page<Device> page, final TwilioRestClient client) {
+    public Page<Device> nextPage(
+        final Page<Device> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -106,25 +123,24 @@ public class DeviceReader extends Reader<Device> {
     }
 
     @Override
-    public Page<Device> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Device> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (deploymentSid != null) {
-    
             request.addQueryParam("DeploymentSid", deploymentSid);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

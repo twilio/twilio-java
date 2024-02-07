@@ -16,8 +16,8 @@ package com.twilio.rest.video.v1.room.participant;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -25,32 +25,38 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class SubscribeRulesUpdater extends Updater<SubscribeRules> {
 
-public class SubscribeRulesUpdater extends Updater<SubscribeRules>{
     private String pathRoomSid;
     private String pathParticipantSid;
     private Map<String, Object> rules;
 
-    public SubscribeRulesUpdater(final String pathRoomSid, final String pathParticipantSid){
+    public SubscribeRulesUpdater(
+        final String pathRoomSid,
+        final String pathParticipantSid
+    ) {
         this.pathRoomSid = pathRoomSid;
         this.pathParticipantSid = pathParticipantSid;
     }
 
-    public SubscribeRulesUpdater setRules(final Map<String, Object> rules){
+    public SubscribeRulesUpdater setRules(final Map<String, Object> rules) {
         this.rules = rules;
         return this;
     }
 
     @Override
-    public SubscribeRules update(final TwilioRestClient client){
-        String path = "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
+    public SubscribeRules update(final TwilioRestClient client) {
+        String path =
+            "/v1/Rooms/{RoomSid}/Participants/{ParticipantSid}/SubscribeRules";
 
-        path = path.replace("{"+"RoomSid"+"}", this.pathRoomSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
+        path = path.replace("{" + "RoomSid" + "}", this.pathRoomSid.toString());
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,21 +67,32 @@ public class SubscribeRulesUpdater extends Updater<SubscribeRules>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SubscribeRules update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SubscribeRules update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SubscribeRules.fromJson(response.getStream(), client.getObjectMapper());
+        return SubscribeRules.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (rules != null) {
-            request.addPostParam("Rules",  Converter.mapToJson(rules));
-    
+            request.addPostParam("Rules", Converter.mapToJson(rules));
         }
     }
 }

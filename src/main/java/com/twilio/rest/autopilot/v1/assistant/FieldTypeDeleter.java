@@ -24,24 +24,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
 public class FieldTypeDeleter extends Deleter<FieldType> {
+
     private String pathAssistantSid;
     private String pathSid;
 
-    public FieldTypeDeleter(final String pathAssistantSid, final String pathSid){
+    public FieldTypeDeleter(
+        final String pathAssistantSid,
+        final String pathSid
+    ) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathSid = pathSid;
     }
-
 
     @Override
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Assistants/{AssistantSid}/FieldTypes/{Sid}";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -51,11 +56,19 @@ public class FieldTypeDeleter extends Deleter<FieldType> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("FieldType delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FieldType delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

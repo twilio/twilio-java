@@ -23,56 +23,71 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
+
     private static final long serialVersionUID = 211848885870919L;
 
-    
-
-    public static WebhookCreator creator(final String pathAssistantSid, final String uniqueName, final String events, final URI webhookUrl){
-        return new WebhookCreator(pathAssistantSid, uniqueName, events, webhookUrl);
+    public static WebhookCreator creator(
+        final String pathAssistantSid,
+        final String uniqueName,
+        final String events,
+        final URI webhookUrl
+    ) {
+        return new WebhookCreator(
+            pathAssistantSid,
+            uniqueName,
+            events,
+            webhookUrl
+        );
     }
 
-    public static WebhookDeleter deleter(final String pathAssistantSid, final String pathSid){
+    public static WebhookDeleter deleter(
+        final String pathAssistantSid,
+        final String pathSid
+    ) {
         return new WebhookDeleter(pathAssistantSid, pathSid);
     }
 
-    public static WebhookFetcher fetcher(final String pathAssistantSid, final String pathSid){
+    public static WebhookFetcher fetcher(
+        final String pathAssistantSid,
+        final String pathSid
+    ) {
         return new WebhookFetcher(pathAssistantSid, pathSid);
     }
 
-    public static WebhookReader reader(final String pathAssistantSid){
+    public static WebhookReader reader(final String pathAssistantSid) {
         return new WebhookReader(pathAssistantSid);
     }
 
-    public static WebhookUpdater updater(final String pathAssistantSid, final String pathSid){
+    public static WebhookUpdater updater(
+        final String pathAssistantSid,
+        final String pathSid
+    ) {
         return new WebhookUpdater(pathAssistantSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Webhook object represented by the provided JSON
-    */
-    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -84,14 +99,17 @@ public class Webhook extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Webhook object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Webhook object represented by the provided JSON
-    */
-    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Webhook object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -101,7 +119,6 @@ public class Webhook extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final URI url;
     private final String accountSid;
@@ -116,35 +133,16 @@ public class Webhook extends Resource {
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("assistant_sid")
-        final String assistantSid,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("unique_name")
-        final String uniqueName,
-
-        @JsonProperty("events")
-        final String events,
-
-        @JsonProperty("webhook_url")
-        final URI webhookUrl,
-
-        @JsonProperty("webhook_method")
-        final String webhookMethod
+        @JsonProperty("url") final URI url,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("assistant_sid") final String assistantSid,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("events") final String events,
+        @JsonProperty("webhook_url") final URI webhookUrl,
+        @JsonProperty("webhook_method") final String webhookMethod
     ) {
         this.url = url;
         this.accountSid = accountSid;
@@ -158,40 +156,49 @@ public class Webhook extends Resource {
         this.webhookMethod = webhookMethod;
     }
 
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getAssistantSid() {
-            return this.assistantSid;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getUniqueName() {
-            return this.uniqueName;
-        }
-        public final String getEvents() {
-            return this.events;
-        }
-        public final URI getWebhookUrl() {
-            return this.webhookUrl;
-        }
-        public final String getWebhookMethod() {
-            return this.webhookMethod;
-        }
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getAssistantSid() {
+        return this.assistantSid;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getUniqueName() {
+        return this.uniqueName;
+    }
+
+    public final String getEvents() {
+        return this.events;
+    }
+
+    public final URI getWebhookUrl() {
+        return this.webhookUrl;
+    }
+
+    public final String getWebhookMethod() {
+        return this.webhookMethod;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -201,14 +208,33 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
 
-        return Objects.equals(url, other.url) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(events, other.events) &&  Objects.equals(webhookUrl, other.webhookUrl) &&  Objects.equals(webhookMethod, other.webhookMethod)  ;
+        return (
+            Objects.equals(url, other.url) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(assistantSid, other.assistantSid) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(events, other.events) &&
+            Objects.equals(webhookUrl, other.webhookUrl) &&
+            Objects.equals(webhookMethod, other.webhookMethod)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(url, accountSid, dateCreated, dateUpdated, assistantSid, sid, uniqueName, events, webhookUrl, webhookMethod);
+        return Objects.hash(
+            url,
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            assistantSid,
+            sid,
+            uniqueName,
+            events,
+            webhookUrl,
+            webhookMethod
+        );
     }
-
-
 }
-

@@ -22,45 +22,46 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TaskQueueBulkRealTimeStatistics extends Resource {
+
     private static final long serialVersionUID = 187525220896144L;
 
-    
-
-    public static TaskQueueBulkRealTimeStatisticsCreator creator(final String pathWorkspaceSid){
+    public static TaskQueueBulkRealTimeStatisticsCreator creator(
+        final String pathWorkspaceSid
+    ) {
         return new TaskQueueBulkRealTimeStatisticsCreator(pathWorkspaceSid);
     }
 
     /**
-    * Converts a JSON String into a TaskQueueBulkRealTimeStatistics object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
-    */
-    public static TaskQueueBulkRealTimeStatistics fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a TaskQueueBulkRealTimeStatistics object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
+     */
+    public static TaskQueueBulkRealTimeStatistics fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, TaskQueueBulkRealTimeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                TaskQueueBulkRealTimeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -69,24 +70,29 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a TaskQueueBulkRealTimeStatistics object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
-    */
-    public static TaskQueueBulkRealTimeStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a TaskQueueBulkRealTimeStatistics object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return TaskQueueBulkRealTimeStatistics object represented by the provided JSON
+     */
+    public static TaskQueueBulkRealTimeStatistics fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, TaskQueueBulkRealTimeStatistics.class);
+            return objectMapper.readValue(
+                json,
+                TaskQueueBulkRealTimeStatistics.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String accountSid;
     private final String workspaceSid;
@@ -96,20 +102,15 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
 
     @JsonCreator
     private TaskQueueBulkRealTimeStatistics(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("workspace_sid")
-        final String workspaceSid,
-
-        @JsonProperty("task_queue_data")
-        final List<Map<String, Object>> taskQueueData,
-
-        @JsonProperty("task_queue_response_count")
-        final Integer taskQueueResponseCount,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("workspace_sid") final String workspaceSid,
+        @JsonProperty("task_queue_data") final List<
+            Map<String, Object>
+        > taskQueueData,
+        @JsonProperty(
+            "task_queue_response_count"
+        ) final Integer taskQueueResponseCount,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.workspaceSid = workspaceSid;
@@ -118,25 +119,29 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getWorkspaceSid() {
-            return this.workspaceSid;
-        }
-        public final List<Map<String, Object>> getTaskQueueData() {
-            return this.taskQueueData;
-        }
-        public final Integer getTaskQueueResponseCount() {
-            return this.taskQueueResponseCount;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getWorkspaceSid() {
+        return this.workspaceSid;
+    }
+
+    public final List<Map<String, Object>> getTaskQueueData() {
+        return this.taskQueueData;
+    }
+
+    public final Integer getTaskQueueResponseCount() {
+        return this.taskQueueResponseCount;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -144,16 +149,29 @@ public class TaskQueueBulkRealTimeStatistics extends Resource {
             return false;
         }
 
-        TaskQueueBulkRealTimeStatistics other = (TaskQueueBulkRealTimeStatistics) o;
+        TaskQueueBulkRealTimeStatistics other =
+            (TaskQueueBulkRealTimeStatistics) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(taskQueueData, other.taskQueueData) &&  Objects.equals(taskQueueResponseCount, other.taskQueueResponseCount) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(workspaceSid, other.workspaceSid) &&
+            Objects.equals(taskQueueData, other.taskQueueData) &&
+            Objects.equals(
+                taskQueueResponseCount,
+                other.taskQueueResponseCount
+            ) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, workspaceSid, taskQueueData, taskQueueResponseCount, url);
+        return Objects.hash(
+            accountSid,
+            workspaceSid,
+            taskQueueData,
+            taskQueueResponseCount,
+            url
+        );
     }
-
-
 }
-

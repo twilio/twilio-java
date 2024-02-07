@@ -25,48 +25,49 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class BundleUpdater extends Updater<Bundle> {
 
-
-public class BundleUpdater extends Updater<Bundle>{
     private String pathSid;
     private Bundle.Status status;
     private URI statusCallback;
     private String friendlyName;
     private String email;
 
-    public BundleUpdater(final String pathSid){
+    public BundleUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public BundleUpdater setStatus(final Bundle.Status status){
+    public BundleUpdater setStatus(final Bundle.Status status) {
         this.status = status;
         return this;
     }
-    public BundleUpdater setStatusCallback(final URI statusCallback){
+
+    public BundleUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public BundleUpdater setStatusCallback(final String statusCallback){
+    public BundleUpdater setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public BundleUpdater setFriendlyName(final String friendlyName){
+
+    public BundleUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public BundleUpdater setEmail(final String email){
+
+    public BundleUpdater setEmail(final String email) {
         this.email = email;
         return this;
     }
 
     @Override
-    public Bundle update(final TwilioRestClient client){
+    public Bundle update(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,33 +78,38 @@ public class BundleUpdater extends Updater<Bundle>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Bundle update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Bundle update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Bundle.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (email != null) {
             request.addPostParam("Email", email);
-    
         }
     }
 }

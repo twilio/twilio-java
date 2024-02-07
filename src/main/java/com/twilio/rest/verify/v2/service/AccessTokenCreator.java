@@ -25,46 +25,60 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class AccessTokenCreator extends Creator<AccessToken> {
 
-
-
-public class AccessTokenCreator extends Creator<AccessToken>{
     private String pathServiceSid;
     private String identity;
     private AccessToken.FactorTypes factorType;
     private String factorFriendlyName;
     private Integer ttl;
 
-    public AccessTokenCreator(final String pathServiceSid, final String identity, final AccessToken.FactorTypes factorType) {
+    public AccessTokenCreator(
+        final String pathServiceSid,
+        final String identity,
+        final AccessToken.FactorTypes factorType
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.factorType = factorType;
     }
 
-    public AccessTokenCreator setIdentity(final String identity){
+    public AccessTokenCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
-    public AccessTokenCreator setFactorType(final AccessToken.FactorTypes factorType){
+
+    public AccessTokenCreator setFactorType(
+        final AccessToken.FactorTypes factorType
+    ) {
         this.factorType = factorType;
         return this;
     }
-    public AccessTokenCreator setFactorFriendlyName(final String factorFriendlyName){
+
+    public AccessTokenCreator setFactorFriendlyName(
+        final String factorFriendlyName
+    ) {
         this.factorFriendlyName = factorFriendlyName;
         return this;
     }
-    public AccessTokenCreator setTtl(final Integer ttl){
+
+    public AccessTokenCreator setTtl(final Integer ttl) {
         this.ttl = ttl;
         return this;
     }
 
     @Override
-    public AccessToken create(final TwilioRestClient client){
+    public AccessToken create(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/AccessTokens";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
-        path = path.replace("{"+"FactorType"+"}", this.factorType.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "Identity" + "}", this.identity.toString());
+        path =
+            path.replace("{" + "FactorType" + "}", this.factorType.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -75,33 +89,41 @@ public class AccessTokenCreator extends Creator<AccessToken>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AccessToken creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AccessToken creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return AccessToken.fromJson(response.getStream(), client.getObjectMapper());
+        return AccessToken.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (identity != null) {
             request.addPostParam("Identity", identity);
-    
         }
         if (factorType != null) {
             request.addPostParam("FactorType", factorType.toString());
-    
         }
         if (factorFriendlyName != null) {
             request.addPostParam("FactorFriendlyName", factorFriendlyName);
-    
         }
         if (ttl != null) {
             request.addPostParam("Ttl", ttl.toString());
-    
         }
     }
 }

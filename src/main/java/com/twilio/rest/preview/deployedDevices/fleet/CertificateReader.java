@@ -14,6 +14,7 @@
 
 package com.twilio.rest.preview.deployedDevices.fleet;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,24 +25,23 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class CertificateReader extends Reader<Certificate> {
+
     private String pathFleetSid;
     private String deviceSid;
     private Integer pageSize;
 
-    public CertificateReader(final String pathFleetSid){
+    public CertificateReader(final String pathFleetSid) {
         this.pathFleetSid = pathFleetSid;
     }
 
-    public CertificateReader setDeviceSid(final String deviceSid){
+    public CertificateReader setDeviceSid(final String deviceSid) {
         this.deviceSid = deviceSid;
         return this;
     }
-    public CertificateReader setPageSize(final Integer pageSize){
+
+    public CertificateReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -53,7 +53,8 @@ public class CertificateReader extends Reader<Certificate> {
 
     public Page<Certificate> firstPage(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Certificates";
-        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path =
+            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -65,15 +66,26 @@ public class CertificateReader extends Reader<Certificate> {
         return pageForRequest(client, request);
     }
 
-    private Page<Certificate> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Certificate> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Certificate read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Certificate read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -87,7 +99,10 @@ public class CertificateReader extends Reader<Certificate> {
     }
 
     @Override
-    public Page<Certificate> previousPage(final Page<Certificate> page, final TwilioRestClient client) {
+    public Page<Certificate> previousPage(
+        final Page<Certificate> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.PREVIEW.toString())
@@ -95,9 +110,11 @@ public class CertificateReader extends Reader<Certificate> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Certificate> nextPage(final Page<Certificate> page, final TwilioRestClient client) {
+    public Page<Certificate> nextPage(
+        final Page<Certificate> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.PREVIEW.toString())
@@ -106,25 +123,24 @@ public class CertificateReader extends Reader<Certificate> {
     }
 
     @Override
-    public Page<Certificate> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Certificate> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (deviceSid != null) {
-    
             request.addQueryParam("DeviceSid", deviceSid);
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

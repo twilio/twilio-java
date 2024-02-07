@@ -25,32 +25,33 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class FleetUpdater extends Updater<Fleet> {
 
-
-
-public class FleetUpdater extends Updater<Fleet>{
     private String pathSid;
     private String friendlyName;
     private String defaultDeploymentSid;
 
-    public FleetUpdater(final String pathSid){
+    public FleetUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public FleetUpdater setFriendlyName(final String friendlyName){
+    public FleetUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public FleetUpdater setDefaultDeploymentSid(final String defaultDeploymentSid){
+
+    public FleetUpdater setDefaultDeploymentSid(
+        final String defaultDeploymentSid
+    ) {
         this.defaultDeploymentSid = defaultDeploymentSid;
         return this;
     }
 
     @Override
-    public Fleet update(final TwilioRestClient client){
+    public Fleet update(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,25 +62,32 @@ public class FleetUpdater extends Updater<Fleet>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Fleet update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Fleet update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Fleet.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (defaultDeploymentSid != null) {
             request.addPostParam("DefaultDeploymentSid", defaultDeploymentSid);
-    
         }
     }
 }

@@ -25,29 +25,37 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
-
-
-public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
     private String pathTrunkSid;
     private String ipAccessControlListSid;
 
-    public IpAccessControlListCreator(final String pathTrunkSid, final String ipAccessControlListSid) {
+    public IpAccessControlListCreator(
+        final String pathTrunkSid,
+        final String ipAccessControlListSid
+    ) {
         this.pathTrunkSid = pathTrunkSid;
         this.ipAccessControlListSid = ipAccessControlListSid;
     }
 
-    public IpAccessControlListCreator setIpAccessControlListSid(final String ipAccessControlListSid){
+    public IpAccessControlListCreator setIpAccessControlListSid(
+        final String ipAccessControlListSid
+    ) {
         this.ipAccessControlListSid = ipAccessControlListSid;
         return this;
     }
 
     @Override
-    public IpAccessControlList create(final TwilioRestClient client){
+    public IpAccessControlList create(final TwilioRestClient client) {
         String path = "/v1/Trunks/{TrunkSid}/IpAccessControlLists";
 
-        path = path.replace("{"+"TrunkSid"+"}", this.pathTrunkSid.toString());
-        path = path.replace("{"+"IpAccessControlListSid"+"}", this.ipAccessControlListSid.toString());
+        path =
+            path.replace("{" + "TrunkSid" + "}", this.pathTrunkSid.toString());
+        path =
+            path.replace(
+                "{" + "IpAccessControlListSid" + "}",
+                this.ipAccessControlListSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -58,21 +66,35 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("IpAccessControlList creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "IpAccessControlList creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return IpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());
+        return IpAccessControlList.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (ipAccessControlListSid != null) {
-            request.addPostParam("IpAccessControlListSid", ipAccessControlListSid);
-    
+            request.addPostParam(
+                "IpAccessControlListSid",
+                ipAccessControlListSid
+            );
         }
     }
 }

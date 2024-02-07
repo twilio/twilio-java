@@ -25,29 +25,38 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class PhoneNumberCreator extends Creator<PhoneNumber> {
 
-
-
-public class PhoneNumberCreator extends Creator<PhoneNumber>{
     private String pathServiceSid;
     private String phoneNumberSid;
 
-    public PhoneNumberCreator(final String pathServiceSid, final String phoneNumberSid) {
+    public PhoneNumberCreator(
+        final String pathServiceSid,
+        final String phoneNumberSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.phoneNumberSid = phoneNumberSid;
     }
 
-    public PhoneNumberCreator setPhoneNumberSid(final String phoneNumberSid){
+    public PhoneNumberCreator setPhoneNumberSid(final String phoneNumberSid) {
         this.phoneNumberSid = phoneNumberSid;
         return this;
     }
 
     @Override
-    public PhoneNumber create(final TwilioRestClient client){
+    public PhoneNumber create(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/PhoneNumbers";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"PhoneNumberSid"+"}", this.phoneNumberSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "PhoneNumberSid" + "}",
+                this.phoneNumberSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -58,21 +67,32 @@ public class PhoneNumberCreator extends Creator<PhoneNumber>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("PhoneNumber creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "PhoneNumber creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return PhoneNumber.fromJson(response.getStream(), client.getObjectMapper());
+        return PhoneNumber.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (phoneNumberSid != null) {
             request.addPostParam("PhoneNumberSid", phoneNumberSid);
-    
         }
     }
 }

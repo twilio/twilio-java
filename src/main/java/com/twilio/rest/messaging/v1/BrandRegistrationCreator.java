@@ -25,48 +25,67 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class BrandRegistrationCreator extends Creator<BrandRegistration> {
 
-
-
-public class BrandRegistrationCreator extends Creator<BrandRegistration>{
     private String customerProfileBundleSid;
     private String a2PProfileBundleSid;
     private String brandType;
     private Boolean mock;
     private Boolean skipAutomaticSecVet;
 
-    public BrandRegistrationCreator(final String customerProfileBundleSid, final String a2PProfileBundleSid) {
+    public BrandRegistrationCreator(
+        final String customerProfileBundleSid,
+        final String a2PProfileBundleSid
+    ) {
         this.customerProfileBundleSid = customerProfileBundleSid;
         this.a2PProfileBundleSid = a2PProfileBundleSid;
     }
 
-    public BrandRegistrationCreator setCustomerProfileBundleSid(final String customerProfileBundleSid){
+    public BrandRegistrationCreator setCustomerProfileBundleSid(
+        final String customerProfileBundleSid
+    ) {
         this.customerProfileBundleSid = customerProfileBundleSid;
         return this;
     }
-    public BrandRegistrationCreator setA2PProfileBundleSid(final String a2PProfileBundleSid){
+
+    public BrandRegistrationCreator setA2PProfileBundleSid(
+        final String a2PProfileBundleSid
+    ) {
         this.a2PProfileBundleSid = a2PProfileBundleSid;
         return this;
     }
-    public BrandRegistrationCreator setBrandType(final String brandType){
+
+    public BrandRegistrationCreator setBrandType(final String brandType) {
         this.brandType = brandType;
         return this;
     }
-    public BrandRegistrationCreator setMock(final Boolean mock){
+
+    public BrandRegistrationCreator setMock(final Boolean mock) {
         this.mock = mock;
         return this;
     }
-    public BrandRegistrationCreator setSkipAutomaticSecVet(final Boolean skipAutomaticSecVet){
+
+    public BrandRegistrationCreator setSkipAutomaticSecVet(
+        final Boolean skipAutomaticSecVet
+    ) {
         this.skipAutomaticSecVet = skipAutomaticSecVet;
         return this;
     }
 
     @Override
-    public BrandRegistration create(final TwilioRestClient client){
+    public BrandRegistration create(final TwilioRestClient client) {
         String path = "/v1/a2p/BrandRegistrations";
 
-        path = path.replace("{"+"CustomerProfileBundleSid"+"}", this.customerProfileBundleSid.toString());
-        path = path.replace("{"+"A2PProfileBundleSid"+"}", this.a2PProfileBundleSid.toString());
+        path =
+            path.replace(
+                "{" + "CustomerProfileBundleSid" + "}",
+                this.customerProfileBundleSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "A2PProfileBundleSid" + "}",
+                this.a2PProfileBundleSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -77,37 +96,50 @@ public class BrandRegistrationCreator extends Creator<BrandRegistration>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("BrandRegistration creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "BrandRegistration creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return BrandRegistration.fromJson(response.getStream(), client.getObjectMapper());
+        return BrandRegistration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (customerProfileBundleSid != null) {
-            request.addPostParam("CustomerProfileBundleSid", customerProfileBundleSid);
-    
+            request.addPostParam(
+                "CustomerProfileBundleSid",
+                customerProfileBundleSid
+            );
         }
         if (a2PProfileBundleSid != null) {
             request.addPostParam("A2PProfileBundleSid", a2PProfileBundleSid);
-    
         }
         if (brandType != null) {
             request.addPostParam("BrandType", brandType);
-    
         }
         if (mock != null) {
             request.addPostParam("Mock", mock.toString());
-    
         }
         if (skipAutomaticSecVet != null) {
-            request.addPostParam("SkipAutomaticSecVet", skipAutomaticSecVet.toString());
-    
+            request.addPostParam(
+                "SkipAutomaticSecVet",
+                skipAutomaticSecVet.toString()
+            );
         }
     }
 }

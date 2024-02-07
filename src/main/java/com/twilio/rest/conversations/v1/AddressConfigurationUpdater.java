@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.List;
 
+public class AddressConfigurationUpdater extends Updater<AddressConfiguration> {
 
-public class AddressConfigurationUpdater extends Updater<AddressConfiguration>{
     private String pathSid;
     private String friendlyName;
     private Boolean autoCreationEnabled;
@@ -42,55 +40,87 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration>{
     private String autoCreationStudioFlowSid;
     private Integer autoCreationStudioRetryCount;
 
-    public AddressConfigurationUpdater(final String pathSid){
+    public AddressConfigurationUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public AddressConfigurationUpdater setFriendlyName(final String friendlyName){
+    public AddressConfigurationUpdater setFriendlyName(
+        final String friendlyName
+    ) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationEnabled(final Boolean autoCreationEnabled){
+
+    public AddressConfigurationUpdater setAutoCreationEnabled(
+        final Boolean autoCreationEnabled
+    ) {
         this.autoCreationEnabled = autoCreationEnabled;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationType(final AddressConfiguration.AutoCreationType autoCreationType){
+
+    public AddressConfigurationUpdater setAutoCreationType(
+        final AddressConfiguration.AutoCreationType autoCreationType
+    ) {
         this.autoCreationType = autoCreationType;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationConversationServiceSid(final String autoCreationConversationServiceSid){
-        this.autoCreationConversationServiceSid = autoCreationConversationServiceSid;
+
+    public AddressConfigurationUpdater setAutoCreationConversationServiceSid(
+        final String autoCreationConversationServiceSid
+    ) {
+        this.autoCreationConversationServiceSid =
+            autoCreationConversationServiceSid;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationWebhookUrl(final String autoCreationWebhookUrl){
+
+    public AddressConfigurationUpdater setAutoCreationWebhookUrl(
+        final String autoCreationWebhookUrl
+    ) {
         this.autoCreationWebhookUrl = autoCreationWebhookUrl;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationWebhookMethod(final AddressConfiguration.Method autoCreationWebhookMethod){
+
+    public AddressConfigurationUpdater setAutoCreationWebhookMethod(
+        final AddressConfiguration.Method autoCreationWebhookMethod
+    ) {
         this.autoCreationWebhookMethod = autoCreationWebhookMethod;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationWebhookFilters(final List<String> autoCreationWebhookFilters){
+
+    public AddressConfigurationUpdater setAutoCreationWebhookFilters(
+        final List<String> autoCreationWebhookFilters
+    ) {
         this.autoCreationWebhookFilters = autoCreationWebhookFilters;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationWebhookFilters(final String autoCreationWebhookFilters){
-        return setAutoCreationWebhookFilters(Promoter.listOfOne(autoCreationWebhookFilters));
+
+    public AddressConfigurationUpdater setAutoCreationWebhookFilters(
+        final String autoCreationWebhookFilters
+    ) {
+        return setAutoCreationWebhookFilters(
+            Promoter.listOfOne(autoCreationWebhookFilters)
+        );
     }
-    public AddressConfigurationUpdater setAutoCreationStudioFlowSid(final String autoCreationStudioFlowSid){
+
+    public AddressConfigurationUpdater setAutoCreationStudioFlowSid(
+        final String autoCreationStudioFlowSid
+    ) {
         this.autoCreationStudioFlowSid = autoCreationStudioFlowSid;
         return this;
     }
-    public AddressConfigurationUpdater setAutoCreationStudioRetryCount(final Integer autoCreationStudioRetryCount){
+
+    public AddressConfigurationUpdater setAutoCreationStudioRetryCount(
+        final Integer autoCreationStudioRetryCount
+    ) {
         this.autoCreationStudioRetryCount = autoCreationStudioRetryCount;
         return this;
     }
 
     @Override
-    public AddressConfiguration update(final TwilioRestClient client){
+    public AddressConfiguration update(final TwilioRestClient client) {
         String path = "/v1/Configuration/Addresses/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -101,55 +131,79 @@ public class AddressConfigurationUpdater extends Updater<AddressConfiguration>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("AddressConfiguration update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "AddressConfiguration update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return AddressConfiguration.fromJson(response.getStream(), client.getObjectMapper());
+        return AddressConfiguration.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (autoCreationEnabled != null) {
-            request.addPostParam("AutoCreation.Enabled", autoCreationEnabled.toString());
-    
+            request.addPostParam(
+                "AutoCreation.Enabled",
+                autoCreationEnabled.toString()
+            );
         }
         if (autoCreationType != null) {
-            request.addPostParam("AutoCreation.Type", autoCreationType.toString());
-    
+            request.addPostParam(
+                "AutoCreation.Type",
+                autoCreationType.toString()
+            );
         }
         if (autoCreationConversationServiceSid != null) {
-            request.addPostParam("AutoCreation.ConversationServiceSid", autoCreationConversationServiceSid);
-    
+            request.addPostParam(
+                "AutoCreation.ConversationServiceSid",
+                autoCreationConversationServiceSid
+            );
         }
         if (autoCreationWebhookUrl != null) {
-            request.addPostParam("AutoCreation.WebhookUrl", autoCreationWebhookUrl);
-    
+            request.addPostParam(
+                "AutoCreation.WebhookUrl",
+                autoCreationWebhookUrl
+            );
         }
         if (autoCreationWebhookMethod != null) {
-            request.addPostParam("AutoCreation.WebhookMethod", autoCreationWebhookMethod.toString());
-    
+            request.addPostParam(
+                "AutoCreation.WebhookMethod",
+                autoCreationWebhookMethod.toString()
+            );
         }
         if (autoCreationWebhookFilters != null) {
             for (String prop : autoCreationWebhookFilters) {
                 request.addPostParam("AutoCreation.WebhookFilters", prop);
             }
-    
         }
         if (autoCreationStudioFlowSid != null) {
-            request.addPostParam("AutoCreation.StudioFlowSid", autoCreationStudioFlowSid);
-    
+            request.addPostParam(
+                "AutoCreation.StudioFlowSid",
+                autoCreationStudioFlowSid
+            );
         }
         if (autoCreationStudioRetryCount != null) {
-            request.addPostParam("AutoCreation.StudioRetryCount", autoCreationStudioRetryCount.toString());
-    
+            request.addPostParam(
+                "AutoCreation.StudioRetryCount",
+                autoCreationStudioRetryCount.toString()
+            );
         }
     }
 }

@@ -26,10 +26,8 @@ import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
 
+public class MessageCreator extends Creator<Message> {
 
-
-
-public class MessageCreator extends Creator<Message>{
     private String pathServiceSid;
     private String pathChannelSid;
     private Message.WebhookEnabledType xTwilioWebhookEnabled;
@@ -41,50 +39,71 @@ public class MessageCreator extends Creator<Message>{
     private String body;
     private String mediaSid;
 
-    public MessageCreator(final String pathServiceSid, final String pathChannelSid) {
+    public MessageCreator(
+        final String pathServiceSid,
+        final String pathChannelSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
     }
 
-    public MessageCreator setXTwilioWebhookEnabled(final Message.WebhookEnabledType xTwilioWebhookEnabled){
+    public MessageCreator setXTwilioWebhookEnabled(
+        final Message.WebhookEnabledType xTwilioWebhookEnabled
+    ) {
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
-    public MessageCreator setFrom(final String from){
+
+    public MessageCreator setFrom(final String from) {
         this.from = from;
         return this;
     }
-    public MessageCreator setAttributes(final String attributes){
+
+    public MessageCreator setAttributes(final String attributes) {
         this.attributes = attributes;
         return this;
     }
-    public MessageCreator setDateCreated(final ZonedDateTime dateCreated){
+
+    public MessageCreator setDateCreated(final ZonedDateTime dateCreated) {
         this.dateCreated = dateCreated;
         return this;
     }
-    public MessageCreator setDateUpdated(final ZonedDateTime dateUpdated){
+
+    public MessageCreator setDateUpdated(final ZonedDateTime dateUpdated) {
         this.dateUpdated = dateUpdated;
         return this;
     }
-    public MessageCreator setLastUpdatedBy(final String lastUpdatedBy){
+
+    public MessageCreator setLastUpdatedBy(final String lastUpdatedBy) {
         this.lastUpdatedBy = lastUpdatedBy;
         return this;
     }
-    public MessageCreator setBody(final String body){
+
+    public MessageCreator setBody(final String body) {
         this.body = body;
         return this;
     }
-    public MessageCreator setMediaSid(final String mediaSid){
+
+    public MessageCreator setMediaSid(final String mediaSid) {
         this.mediaSid = mediaSid;
         return this;
     }
 
     @Override
-    public Message create(final TwilioRestClient client){
-        String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
+    public Message create(final TwilioRestClient client) {
+        String path =
+            "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Messages";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -96,50 +115,62 @@ public class MessageCreator extends Creator<Message>{
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Message creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (from != null) {
             request.addPostParam("From", from);
-    
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
-    
         }
         if (dateCreated != null) {
-            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
-
+            request.addPostParam(
+                "DateCreated",
+                dateCreated.toInstant().toString()
+            );
         }
         if (dateUpdated != null) {
-            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
-
+            request.addPostParam(
+                "DateUpdated",
+                dateUpdated.toInstant().toString()
+            );
         }
         if (lastUpdatedBy != null) {
             request.addPostParam("LastUpdatedBy", lastUpdatedBy);
-    
         }
         if (body != null) {
             request.addPostParam("Body", body);
-    
         }
         if (mediaSid != null) {
             request.addPostParam("MediaSid", mediaSid);
-    
         }
     }
+
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
+            request.addHeaderParam(
+                "X-Twilio-Webhook-Enabled",
+                xTwilioWebhookEnabled.toString()
+            );
         }
     }
 }

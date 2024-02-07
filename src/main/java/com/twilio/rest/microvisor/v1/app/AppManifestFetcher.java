@@ -24,19 +24,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AppManifestFetcher extends Fetcher<AppManifest> {
 
+
+
+public class AppManifestFetcher extends Fetcher<AppManifest> {
     private String pathAppSid;
 
-    public AppManifestFetcher(final String pathAppSid) {
+    public AppManifestFetcher(final String pathAppSid){
         this.pathAppSid = pathAppSid;
     }
+
 
     @Override
     public AppManifest fetch(final TwilioRestClient client) {
         String path = "/v1/Apps/{AppSid}/Manifest";
 
-        path = path.replace("{" + "AppSid" + "}", this.pathAppSid.toString());
+        path = path.replace("{"+"AppSid"+"}", this.pathAppSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -46,26 +49,15 @@ public class AppManifestFetcher extends Fetcher<AppManifest> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AppManifest fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("AppManifest fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AppManifest.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AppManifest.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

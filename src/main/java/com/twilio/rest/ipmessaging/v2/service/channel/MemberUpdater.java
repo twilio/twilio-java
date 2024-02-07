@@ -24,10 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 
-public class MemberUpdater extends Updater<Member> {
 
+
+public class MemberUpdater extends Updater<Member>{
     private String pathServiceSid;
     private String pathChannelSid;
     private String pathSid;
@@ -39,73 +41,48 @@ public class MemberUpdater extends Updater<Member> {
     private ZonedDateTime dateUpdated;
     private String attributes;
 
-    public MemberUpdater(
-        final String pathServiceSid,
-        final String pathChannelSid,
-        final String pathSid
-    ) {
+    public MemberUpdater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
     }
 
-    public MemberUpdater setXTwilioWebhookEnabled(
-        final Member.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
+    public MemberUpdater setXTwilioWebhookEnabled(final Member.WebhookEnabledType xTwilioWebhookEnabled){
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
-
-    public MemberUpdater setRoleSid(final String roleSid) {
+    public MemberUpdater setRoleSid(final String roleSid){
         this.roleSid = roleSid;
         return this;
     }
-
-    public MemberUpdater setLastConsumedMessageIndex(
-        final Integer lastConsumedMessageIndex
-    ) {
+    public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex){
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         return this;
     }
-
-    public MemberUpdater setLastConsumptionTimestamp(
-        final ZonedDateTime lastConsumptionTimestamp
-    ) {
+    public MemberUpdater setLastConsumptionTimestamp(final ZonedDateTime lastConsumptionTimestamp){
         this.lastConsumptionTimestamp = lastConsumptionTimestamp;
         return this;
     }
-
-    public MemberUpdater setDateCreated(final ZonedDateTime dateCreated) {
+    public MemberUpdater setDateCreated(final ZonedDateTime dateCreated){
         this.dateCreated = dateCreated;
         return this;
     }
-
-    public MemberUpdater setDateUpdated(final ZonedDateTime dateUpdated) {
+    public MemberUpdater setDateUpdated(final ZonedDateTime dateUpdated){
         this.dateUpdated = dateUpdated;
         return this;
     }
-
-    public MemberUpdater setAttributes(final String attributes) {
+    public MemberUpdater setAttributes(final String attributes){
         this.attributes = attributes;
         return this;
     }
 
     @Override
-    public Member update(final TwilioRestClient client) {
-        String path =
-            "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
+    public Member update(final TwilioRestClient client){
+        String path = "/v2/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ChannelSid" + "}",
-                this.pathChannelSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -117,65 +94,46 @@ public class MemberUpdater extends Updater<Member> {
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Member update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Member update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
+    
         }
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam(
-                "LastConsumedMessageIndex",
-                lastConsumedMessageIndex.toString()
-            );
+            request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
+    
         }
         if (lastConsumptionTimestamp != null) {
-            request.addPostParam(
-                "LastConsumptionTimestamp",
-                lastConsumptionTimestamp.toInstant().toString()
-            );
+            request.addPostParam("LastConsumptionTimestamp", lastConsumptionTimestamp.toInstant().toString());
+
         }
         if (dateCreated != null) {
-            request.addPostParam(
-                "DateCreated",
-                dateCreated.toInstant().toString()
-            );
+            request.addPostParam("DateCreated", dateCreated.toInstant().toString());
+
         }
         if (dateUpdated != null) {
-            request.addPostParam(
-                "DateUpdated",
-                dateUpdated.toInstant().toString()
-            );
+            request.addPostParam("DateUpdated", dateUpdated.toInstant().toString());
+
         }
         if (attributes != null) {
             request.addPostParam("Attributes", attributes);
+    
         }
     }
-
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
         }
     }
 }

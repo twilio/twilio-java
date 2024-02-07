@@ -24,77 +24,59 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class TollfreeVerification extends Resource {
+    private static final long serialVersionUID = 166300127143413L;
 
-    private static final long serialVersionUID = 58037728146886L;
+    
 
-    public static TollfreeVerificationCreator creator(
-        final String businessName,
-        final String businessWebsite,
-        final String notificationEmail,
-        final List<String> useCaseCategories,
-        final String useCaseSummary,
-        final String productionMessageSample,
-        final List<String> optInImageUrls,
-        final TollfreeVerification.OptInType optInType,
-        final String messageVolume,
-        final String tollfreePhoneNumberSid
-    ) {
-        return new TollfreeVerificationCreator(
-            businessName,
-            businessWebsite,
-            notificationEmail,
-            useCaseCategories,
-            useCaseSummary,
-            productionMessageSample,
-            optInImageUrls,
-            optInType,
-            messageVolume,
-            tollfreePhoneNumberSid
-        );
+    public static TollfreeVerificationCreator creator(final String businessName, final String businessWebsite, final String notificationEmail, final List<String> useCaseCategories, final String useCaseSummary, final String productionMessageSample, final List<String> optInImageUrls, final TollfreeVerification.OptInType optInType, final String messageVolume, final String tollfreePhoneNumberSid){
+        return new TollfreeVerificationCreator(businessName, businessWebsite, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, tollfreePhoneNumberSid);
     }
 
-    public static TollfreeVerificationDeleter deleter(final String pathSid) {
+    public static TollfreeVerificationDeleter deleter(final String pathSid){
         return new TollfreeVerificationDeleter(pathSid);
     }
 
-    public static TollfreeVerificationFetcher fetcher(final String pathSid) {
+    public static TollfreeVerificationFetcher fetcher(final String pathSid){
         return new TollfreeVerificationFetcher(pathSid);
     }
 
-    public static TollfreeVerificationReader reader() {
+    public static TollfreeVerificationReader reader(){
         return new TollfreeVerificationReader();
     }
 
-    public static TollfreeVerificationUpdater updater(final String pathSid) {
+    public static TollfreeVerificationUpdater updater(final String pathSid){
         return new TollfreeVerificationUpdater(pathSid);
     }
 
     /**
-     * Converts a JSON String into a TollfreeVerification object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return TollfreeVerification object represented by the provided JSON
-     */
-    public static TollfreeVerification fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a TollfreeVerification object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return TollfreeVerification object represented by the provided JSON
+    */
+    public static TollfreeVerification fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TollfreeVerification.class);
@@ -106,17 +88,14 @@ public class TollfreeVerification extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a TollfreeVerification object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return TollfreeVerification object represented by the provided JSON
-     */
-    public static TollfreeVerification fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a TollfreeVerification object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return TollfreeVerification object represented by the provided JSON
+    */
+    public static TollfreeVerification fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, TollfreeVerification.class);
@@ -149,7 +128,6 @@ public class TollfreeVerification extends Resource {
             return Promoter.enumFromString(value, OptInType.values());
         }
     }
-
     public enum Status {
         PENDING_REVIEW("PENDING_REVIEW"),
         IN_REVIEW("IN_REVIEW"),
@@ -205,70 +183,119 @@ public class TollfreeVerification extends Resource {
     private final String rejectionReason;
     private final Integer errorCode;
     private final ZonedDateTime editExpiration;
+    private final Boolean editAllowed;
     private final Map<String, Object> resourceLinks;
     private final String externalReferenceId;
 
     @JsonCreator
     private TollfreeVerification(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("customer_profile_sid") final String customerProfileSid,
-        @JsonProperty("trust_product_sid") final String trustProductSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("regulated_item_sid") final String regulatedItemSid,
-        @JsonProperty("business_name") final String businessName,
-        @JsonProperty(
-            "business_street_address"
-        ) final String businessStreetAddress,
-        @JsonProperty(
-            "business_street_address2"
-        ) final String businessStreetAddress2,
-        @JsonProperty("business_city") final String businessCity,
-        @JsonProperty(
-            "business_state_province_region"
-        ) final String businessStateProvinceRegion,
-        @JsonProperty("business_postal_code") final String businessPostalCode,
-        @JsonProperty("business_country") final String businessCountry,
-        @JsonProperty("business_website") final String businessWebsite,
-        @JsonProperty(
-            "business_contact_first_name"
-        ) final String businessContactFirstName,
-        @JsonProperty(
-            "business_contact_last_name"
-        ) final String businessContactLastName,
-        @JsonProperty(
-            "business_contact_email"
-        ) final String businessContactEmail,
-        @JsonProperty(
-            "business_contact_phone"
-        ) final com.twilio.type.PhoneNumber businessContactPhone,
-        @JsonProperty("notification_email") final String notificationEmail,
-        @JsonProperty("use_case_categories") final List<
-            String
-        > useCaseCategories,
-        @JsonProperty("use_case_summary") final String useCaseSummary,
-        @JsonProperty(
-            "production_message_sample"
-        ) final String productionMessageSample,
-        @JsonProperty("opt_in_image_urls") final List<String> optInImageUrls,
-        @JsonProperty(
-            "opt_in_type"
-        ) final TollfreeVerification.OptInType optInType,
-        @JsonProperty("message_volume") final String messageVolume,
-        @JsonProperty(
-            "additional_information"
-        ) final String additionalInformation,
-        @JsonProperty(
-            "tollfree_phone_number_sid"
-        ) final String tollfreePhoneNumberSid,
-        @JsonProperty("status") final TollfreeVerification.Status status,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("rejection_reason") final String rejectionReason,
-        @JsonProperty("error_code") final Integer errorCode,
-        @JsonProperty("edit_expiration") final String editExpiration,
-        @JsonProperty("resource_links") final Map<String, Object> resourceLinks,
-        @JsonProperty("external_reference_id") final String externalReferenceId
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("customer_profile_sid")
+        final String customerProfileSid,
+
+        @JsonProperty("trust_product_sid")
+        final String trustProductSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("regulated_item_sid")
+        final String regulatedItemSid,
+
+        @JsonProperty("business_name")
+        final String businessName,
+
+        @JsonProperty("business_street_address")
+        final String businessStreetAddress,
+
+        @JsonProperty("business_street_address2")
+        final String businessStreetAddress2,
+
+        @JsonProperty("business_city")
+        final String businessCity,
+
+        @JsonProperty("business_state_province_region")
+        final String businessStateProvinceRegion,
+
+        @JsonProperty("business_postal_code")
+        final String businessPostalCode,
+
+        @JsonProperty("business_country")
+        final String businessCountry,
+
+        @JsonProperty("business_website")
+        final String businessWebsite,
+
+        @JsonProperty("business_contact_first_name")
+        final String businessContactFirstName,
+
+        @JsonProperty("business_contact_last_name")
+        final String businessContactLastName,
+
+        @JsonProperty("business_contact_email")
+        final String businessContactEmail,
+
+        @JsonProperty("business_contact_phone")
+        final com.twilio.type.PhoneNumber businessContactPhone,
+
+        @JsonProperty("notification_email")
+        final String notificationEmail,
+
+        @JsonProperty("use_case_categories")
+        final List<String> useCaseCategories,
+
+        @JsonProperty("use_case_summary")
+        final String useCaseSummary,
+
+        @JsonProperty("production_message_sample")
+        final String productionMessageSample,
+
+        @JsonProperty("opt_in_image_urls")
+        final List<String> optInImageUrls,
+
+        @JsonProperty("opt_in_type")
+        final TollfreeVerification.OptInType optInType,
+
+        @JsonProperty("message_volume")
+        final String messageVolume,
+
+        @JsonProperty("additional_information")
+        final String additionalInformation,
+
+        @JsonProperty("tollfree_phone_number_sid")
+        final String tollfreePhoneNumberSid,
+
+        @JsonProperty("status")
+        final TollfreeVerification.Status status,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("rejection_reason")
+        final String rejectionReason,
+
+        @JsonProperty("error_code")
+        final Integer errorCode,
+
+        @JsonProperty("edit_expiration")
+        final String editExpiration,
+
+        @JsonProperty("edit_allowed")
+        final Boolean editAllowed,
+
+        @JsonProperty("resource_links")
+        final Map<String, Object> resourceLinks,
+
+        @JsonProperty("external_reference_id")
+        final String externalReferenceId
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -302,155 +329,124 @@ public class TollfreeVerification extends Resource {
         this.url = url;
         this.rejectionReason = rejectionReason;
         this.errorCode = errorCode;
-        this.editExpiration =
-            DateConverter.iso8601DateTimeFromString(editExpiration);
+        this.editExpiration = DateConverter.iso8601DateTimeFromString(editExpiration);
+        this.editAllowed = editAllowed;
         this.resourceLinks = resourceLinks;
         this.externalReferenceId = externalReferenceId;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getCustomerProfileSid() {
-        return this.customerProfileSid;
-    }
-
-    public final String getTrustProductSid() {
-        return this.trustProductSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getRegulatedItemSid() {
-        return this.regulatedItemSid;
-    }
-
-    public final String getBusinessName() {
-        return this.businessName;
-    }
-
-    public final String getBusinessStreetAddress() {
-        return this.businessStreetAddress;
-    }
-
-    public final String getBusinessStreetAddress2() {
-        return this.businessStreetAddress2;
-    }
-
-    public final String getBusinessCity() {
-        return this.businessCity;
-    }
-
-    public final String getBusinessStateProvinceRegion() {
-        return this.businessStateProvinceRegion;
-    }
-
-    public final String getBusinessPostalCode() {
-        return this.businessPostalCode;
-    }
-
-    public final String getBusinessCountry() {
-        return this.businessCountry;
-    }
-
-    public final String getBusinessWebsite() {
-        return this.businessWebsite;
-    }
-
-    public final String getBusinessContactFirstName() {
-        return this.businessContactFirstName;
-    }
-
-    public final String getBusinessContactLastName() {
-        return this.businessContactLastName;
-    }
-
-    public final String getBusinessContactEmail() {
-        return this.businessContactEmail;
-    }
-
-    public final com.twilio.type.PhoneNumber getBusinessContactPhone() {
-        return this.businessContactPhone;
-    }
-
-    public final String getNotificationEmail() {
-        return this.notificationEmail;
-    }
-
-    public final List<String> getUseCaseCategories() {
-        return this.useCaseCategories;
-    }
-
-    public final String getUseCaseSummary() {
-        return this.useCaseSummary;
-    }
-
-    public final String getProductionMessageSample() {
-        return this.productionMessageSample;
-    }
-
-    public final List<String> getOptInImageUrls() {
-        return this.optInImageUrls;
-    }
-
-    public final TollfreeVerification.OptInType getOptInType() {
-        return this.optInType;
-    }
-
-    public final String getMessageVolume() {
-        return this.messageVolume;
-    }
-
-    public final String getAdditionalInformation() {
-        return this.additionalInformation;
-    }
-
-    public final String getTollfreePhoneNumberSid() {
-        return this.tollfreePhoneNumberSid;
-    }
-
-    public final TollfreeVerification.Status getStatus() {
-        return this.status;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getRejectionReason() {
-        return this.rejectionReason;
-    }
-
-    public final Integer getErrorCode() {
-        return this.errorCode;
-    }
-
-    public final ZonedDateTime getEditExpiration() {
-        return this.editExpiration;
-    }
-
-    public final Map<String, Object> getResourceLinks() {
-        return this.resourceLinks;
-    }
-
-    public final String getExternalReferenceId() {
-        return this.externalReferenceId;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getCustomerProfileSid() {
+            return this.customerProfileSid;
+        }
+        public final String getTrustProductSid() {
+            return this.trustProductSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getRegulatedItemSid() {
+            return this.regulatedItemSid;
+        }
+        public final String getBusinessName() {
+            return this.businessName;
+        }
+        public final String getBusinessStreetAddress() {
+            return this.businessStreetAddress;
+        }
+        public final String getBusinessStreetAddress2() {
+            return this.businessStreetAddress2;
+        }
+        public final String getBusinessCity() {
+            return this.businessCity;
+        }
+        public final String getBusinessStateProvinceRegion() {
+            return this.businessStateProvinceRegion;
+        }
+        public final String getBusinessPostalCode() {
+            return this.businessPostalCode;
+        }
+        public final String getBusinessCountry() {
+            return this.businessCountry;
+        }
+        public final String getBusinessWebsite() {
+            return this.businessWebsite;
+        }
+        public final String getBusinessContactFirstName() {
+            return this.businessContactFirstName;
+        }
+        public final String getBusinessContactLastName() {
+            return this.businessContactLastName;
+        }
+        public final String getBusinessContactEmail() {
+            return this.businessContactEmail;
+        }
+        public final com.twilio.type.PhoneNumber getBusinessContactPhone() {
+            return this.businessContactPhone;
+        }
+        public final String getNotificationEmail() {
+            return this.notificationEmail;
+        }
+        public final List<String> getUseCaseCategories() {
+            return this.useCaseCategories;
+        }
+        public final String getUseCaseSummary() {
+            return this.useCaseSummary;
+        }
+        public final String getProductionMessageSample() {
+            return this.productionMessageSample;
+        }
+        public final List<String> getOptInImageUrls() {
+            return this.optInImageUrls;
+        }
+        public final TollfreeVerification.OptInType getOptInType() {
+            return this.optInType;
+        }
+        public final String getMessageVolume() {
+            return this.messageVolume;
+        }
+        public final String getAdditionalInformation() {
+            return this.additionalInformation;
+        }
+        public final String getTollfreePhoneNumberSid() {
+            return this.tollfreePhoneNumberSid;
+        }
+        public final TollfreeVerification.Status getStatus() {
+            return this.status;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final String getRejectionReason() {
+            return this.rejectionReason;
+        }
+        public final Integer getErrorCode() {
+            return this.errorCode;
+        }
+        public final ZonedDateTime getEditExpiration() {
+            return this.editExpiration;
+        }
+        public final Boolean getEditAllowed() {
+            return this.editAllowed;
+        }
+        public final Map<String, Object> getResourceLinks() {
+            return this.resourceLinks;
+        }
+        public final String getExternalReferenceId() {
+            return this.externalReferenceId;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -460,107 +456,14 @@ public class TollfreeVerification extends Resource {
 
         TollfreeVerification other = (TollfreeVerification) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(customerProfileSid, other.customerProfileSid) &&
-            Objects.equals(trustProductSid, other.trustProductSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(regulatedItemSid, other.regulatedItemSid) &&
-            Objects.equals(businessName, other.businessName) &&
-            Objects.equals(
-                businessStreetAddress,
-                other.businessStreetAddress
-            ) &&
-            Objects.equals(
-                businessStreetAddress2,
-                other.businessStreetAddress2
-            ) &&
-            Objects.equals(businessCity, other.businessCity) &&
-            Objects.equals(
-                businessStateProvinceRegion,
-                other.businessStateProvinceRegion
-            ) &&
-            Objects.equals(businessPostalCode, other.businessPostalCode) &&
-            Objects.equals(businessCountry, other.businessCountry) &&
-            Objects.equals(businessWebsite, other.businessWebsite) &&
-            Objects.equals(
-                businessContactFirstName,
-                other.businessContactFirstName
-            ) &&
-            Objects.equals(
-                businessContactLastName,
-                other.businessContactLastName
-            ) &&
-            Objects.equals(businessContactEmail, other.businessContactEmail) &&
-            Objects.equals(businessContactPhone, other.businessContactPhone) &&
-            Objects.equals(notificationEmail, other.notificationEmail) &&
-            Objects.equals(useCaseCategories, other.useCaseCategories) &&
-            Objects.equals(useCaseSummary, other.useCaseSummary) &&
-            Objects.equals(
-                productionMessageSample,
-                other.productionMessageSample
-            ) &&
-            Objects.equals(optInImageUrls, other.optInImageUrls) &&
-            Objects.equals(optInType, other.optInType) &&
-            Objects.equals(messageVolume, other.messageVolume) &&
-            Objects.equals(
-                additionalInformation,
-                other.additionalInformation
-            ) &&
-            Objects.equals(
-                tollfreePhoneNumberSid,
-                other.tollfreePhoneNumberSid
-            ) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(rejectionReason, other.rejectionReason) &&
-            Objects.equals(errorCode, other.errorCode) &&
-            Objects.equals(editExpiration, other.editExpiration) &&
-            Objects.equals(resourceLinks, other.resourceLinks) &&
-            Objects.equals(externalReferenceId, other.externalReferenceId)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(customerProfileSid, other.customerProfileSid) &&  Objects.equals(trustProductSid, other.trustProductSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(regulatedItemSid, other.regulatedItemSid) &&  Objects.equals(businessName, other.businessName) &&  Objects.equals(businessStreetAddress, other.businessStreetAddress) &&  Objects.equals(businessStreetAddress2, other.businessStreetAddress2) &&  Objects.equals(businessCity, other.businessCity) &&  Objects.equals(businessStateProvinceRegion, other.businessStateProvinceRegion) &&  Objects.equals(businessPostalCode, other.businessPostalCode) &&  Objects.equals(businessCountry, other.businessCountry) &&  Objects.equals(businessWebsite, other.businessWebsite) &&  Objects.equals(businessContactFirstName, other.businessContactFirstName) &&  Objects.equals(businessContactLastName, other.businessContactLastName) &&  Objects.equals(businessContactEmail, other.businessContactEmail) &&  Objects.equals(businessContactPhone, other.businessContactPhone) &&  Objects.equals(notificationEmail, other.notificationEmail) &&  Objects.equals(useCaseCategories, other.useCaseCategories) &&  Objects.equals(useCaseSummary, other.useCaseSummary) &&  Objects.equals(productionMessageSample, other.productionMessageSample) &&  Objects.equals(optInImageUrls, other.optInImageUrls) &&  Objects.equals(optInType, other.optInType) &&  Objects.equals(messageVolume, other.messageVolume) &&  Objects.equals(additionalInformation, other.additionalInformation) &&  Objects.equals(tollfreePhoneNumberSid, other.tollfreePhoneNumberSid) &&  Objects.equals(status, other.status) &&  Objects.equals(url, other.url) &&  Objects.equals(rejectionReason, other.rejectionReason) &&  Objects.equals(errorCode, other.errorCode) &&  Objects.equals(editExpiration, other.editExpiration) &&  Objects.equals(editAllowed, other.editAllowed) &&  Objects.equals(resourceLinks, other.resourceLinks) &&  Objects.equals(externalReferenceId, other.externalReferenceId)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            customerProfileSid,
-            trustProductSid,
-            dateCreated,
-            dateUpdated,
-            regulatedItemSid,
-            businessName,
-            businessStreetAddress,
-            businessStreetAddress2,
-            businessCity,
-            businessStateProvinceRegion,
-            businessPostalCode,
-            businessCountry,
-            businessWebsite,
-            businessContactFirstName,
-            businessContactLastName,
-            businessContactEmail,
-            businessContactPhone,
-            notificationEmail,
-            useCaseCategories,
-            useCaseSummary,
-            productionMessageSample,
-            optInImageUrls,
-            optInType,
-            messageVolume,
-            additionalInformation,
-            tollfreePhoneNumberSid,
-            status,
-            url,
-            rejectionReason,
-            errorCode,
-            editExpiration,
-            resourceLinks,
-            externalReferenceId
-        );
+        return Objects.hash(sid, accountSid, customerProfileSid, trustProductSid, dateCreated, dateUpdated, regulatedItemSid, businessName, businessStreetAddress, businessStreetAddress2, businessCity, businessStateProvinceRegion, businessPostalCode, businessCountry, businessWebsite, businessContactFirstName, businessContactLastName, businessContactEmail, businessContactPhone, notificationEmail, useCaseCategories, useCaseSummary, productionMessageSample, optInImageUrls, optInType, messageVolume, additionalInformation, tollfreePhoneNumberSid, status, url, rejectionReason, errorCode, editExpiration, editAllowed, resourceLinks, externalReferenceId);
     }
+
+
 }
+

@@ -23,46 +23,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Device extends Resource {
-
     private static final long serialVersionUID = 266652017538801L;
 
-    public static DeviceFetcher fetcher(final String pathSid) {
+    
+
+    public static DeviceFetcher fetcher(final String pathSid){
         return new DeviceFetcher(pathSid);
     }
 
-    public static DeviceReader reader() {
+    public static DeviceReader reader(){
         return new DeviceReader();
     }
 
-    public static DeviceUpdater updater(final String pathSid) {
+    public static DeviceUpdater updater(final String pathSid){
         return new DeviceUpdater(pathSid);
     }
 
     /**
-     * Converts a JSON String into a Device object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Device object represented by the provided JSON
-     */
-    public static Device fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Device object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Device object represented by the provided JSON
+    */
+    public static Device fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Device.class);
@@ -74,17 +78,14 @@ public class Device extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Device object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Device object represented by the provided JSON
-     */
-    public static Device fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Device object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Device object represented by the provided JSON
+    */
+    public static Device fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Device.class);
@@ -94,6 +95,7 @@ public class Device extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String uniqueName;
@@ -107,15 +109,32 @@ public class Device extends Resource {
 
     @JsonCreator
     private Device(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("app") final Map<String, Object> app,
-        @JsonProperty("logging") final Map<String, Object> logging,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("unique_name")
+        final String uniqueName,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("app")
+        final Map<String, Object> app,
+
+        @JsonProperty("logging")
+        final Map<String, Object> logging,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.uniqueName = uniqueName;
@@ -128,45 +147,37 @@ public class Device extends Resource {
         this.links = links;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getApp() {
-        return this.app;
-    }
-
-    public final Map<String, Object> getLogging() {
-        return this.logging;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getUniqueName() {
+            return this.uniqueName;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Map<String, Object> getApp() {
+            return this.app;
+        }
+        public final Map<String, Object> getLogging() {
+            return this.logging;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -176,31 +187,14 @@ public class Device extends Resource {
 
         Device other = (Device) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(app, other.app) &&
-            Objects.equals(logging, other.logging) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(app, other.app) &&  Objects.equals(logging, other.logging) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            uniqueName,
-            accountSid,
-            app,
-            logging,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
-        );
+        return Objects.hash(sid, uniqueName, accountSid, app, logging, dateCreated, dateUpdated, url, links);
     }
+
+
 }
+

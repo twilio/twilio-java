@@ -21,51 +21,44 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
+import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ComplianceTollfreeInquiries extends Resource {
+    private static final long serialVersionUID = 153862952025802L;
 
-    private static final long serialVersionUID = 210793867662752L;
+    
 
-    public static ComplianceTollfreeInquiriesCreator creator(
-        final com.twilio.type.PhoneNumber did
-    ) {
-        return new ComplianceTollfreeInquiriesCreator(did);
-    }
-
-    public static ComplianceTollfreeInquiriesUpdater updater(
-        final String pathTollfreeId,
-        final com.twilio.type.PhoneNumber did
-    ) {
-        return new ComplianceTollfreeInquiriesUpdater(pathTollfreeId, did);
+    public static ComplianceTollfreeInquiriesCreator creator(final com.twilio.type.PhoneNumber tollfreePhoneNumber, final String notificationEmail){
+        return new ComplianceTollfreeInquiriesCreator(tollfreePhoneNumber, notificationEmail);
     }
 
     /**
-     * Converts a JSON String into a ComplianceTollfreeInquiries object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return ComplianceTollfreeInquiries object represented by the provided JSON
-     */
-    public static ComplianceTollfreeInquiries fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a ComplianceTollfreeInquiries object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return ComplianceTollfreeInquiries object represented by the provided JSON
+    */
+    public static ComplianceTollfreeInquiries fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                ComplianceTollfreeInquiries.class
-            );
+            return objectMapper.readValue(json, ComplianceTollfreeInquiries.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -74,67 +67,88 @@ public class ComplianceTollfreeInquiries extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a ComplianceTollfreeInquiries object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return ComplianceTollfreeInquiries object represented by the provided JSON
-     */
-    public static ComplianceTollfreeInquiries fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a ComplianceTollfreeInquiries object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return ComplianceTollfreeInquiries object represented by the provided JSON
+    */
+    public static ComplianceTollfreeInquiries fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(
-                json,
-                ComplianceTollfreeInquiries.class
-            );
+            return objectMapper.readValue(json, ComplianceTollfreeInquiries.class);
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
+        }
+    }
+
+    public enum OptInType {
+        VERBAL("VERBAL"),
+        WEB_FORM("WEB_FORM"),
+        PAPER_FORM("PAPER_FORM"),
+        VIA_TEXT("VIA_TEXT"),
+        MOBILE_QR_CODE("MOBILE_QR_CODE");
+
+        private final String value;
+
+        private OptInType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OptInType forValue(final String value) {
+            return Promoter.enumFromString(value, OptInType.values());
         }
     }
 
     private final String inquiryId;
     private final String inquirySessionToken;
-    private final String tollfreeId;
+    private final String registrationId;
     private final URI url;
 
     @JsonCreator
     private ComplianceTollfreeInquiries(
-        @JsonProperty("inquiry_id") final String inquiryId,
-        @JsonProperty("inquiry_session_token") final String inquirySessionToken,
-        @JsonProperty("tollfree_id") final String tollfreeId,
-        @JsonProperty("url") final URI url
+        @JsonProperty("inquiry_id")
+        final String inquiryId,
+
+        @JsonProperty("inquiry_session_token")
+        final String inquirySessionToken,
+
+        @JsonProperty("registration_id")
+        final String registrationId,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.inquiryId = inquiryId;
         this.inquirySessionToken = inquirySessionToken;
-        this.tollfreeId = tollfreeId;
+        this.registrationId = registrationId;
         this.url = url;
     }
 
-    public final String getInquiryId() {
-        return this.inquiryId;
-    }
-
-    public final String getInquirySessionToken() {
-        return this.inquirySessionToken;
-    }
-
-    public final String getTollfreeId() {
-        return this.tollfreeId;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getInquiryId() {
+            return this.inquiryId;
+        }
+        public final String getInquirySessionToken() {
+            return this.inquirySessionToken;
+        }
+        public final String getRegistrationId() {
+            return this.registrationId;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -144,16 +158,14 @@ public class ComplianceTollfreeInquiries extends Resource {
 
         ComplianceTollfreeInquiries other = (ComplianceTollfreeInquiries) o;
 
-        return (
-            Objects.equals(inquiryId, other.inquiryId) &&
-            Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
-            Objects.equals(tollfreeId, other.tollfreeId) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(inquiryId, other.inquiryId) &&  Objects.equals(inquirySessionToken, other.inquirySessionToken) &&  Objects.equals(registrationId, other.registrationId) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(inquiryId, inquirySessionToken, tollfreeId, url);
+        return Objects.hash(inquiryId, inquirySessionToken, registrationId, url);
     }
+
+
 }
+

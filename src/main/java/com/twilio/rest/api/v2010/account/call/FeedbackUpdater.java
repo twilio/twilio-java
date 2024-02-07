@@ -25,56 +25,44 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import java.util.List;
 
-public class FeedbackUpdater extends Updater<Feedback> {
 
+public class FeedbackUpdater extends Updater<Feedback>{
     private String pathCallSid;
     private String pathAccountSid;
     private Integer qualityScore;
     private List<Feedback.Issues> issue;
 
-    public FeedbackUpdater(final String pathCallSid) {
+    public FeedbackUpdater(final String pathCallSid){
         this.pathCallSid = pathCallSid;
     }
-
-    public FeedbackUpdater(
-        final String pathAccountSid,
-        final String pathCallSid
-    ) {
+    public FeedbackUpdater(final String pathAccountSid, final String pathCallSid){
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
     }
 
-    public FeedbackUpdater setQualityScore(final Integer qualityScore) {
+    public FeedbackUpdater setQualityScore(final Integer qualityScore){
         this.qualityScore = qualityScore;
         return this;
     }
-
-    public FeedbackUpdater setIssue(final List<Feedback.Issues> issue) {
+    public FeedbackUpdater setIssue(final List<Feedback.Issues> issue){
         this.issue = issue;
         return this;
     }
-
-    public FeedbackUpdater setIssue(final Feedback.Issues issue) {
+    public FeedbackUpdater setIssue(final Feedback.Issues issue){
         return setIssue(Promoter.listOfOne(issue));
     }
 
     @Override
-    public Feedback update(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json";
+    public Feedback update(final TwilioRestClient client){
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/Feedback.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -85,37 +73,27 @@ public class FeedbackUpdater extends Updater<Feedback> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Feedback update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Feedback update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Feedback.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Feedback.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (qualityScore != null) {
             request.addPostParam("QualityScore", qualityScore.toString());
+    
         }
         if (issue != null) {
             for (Feedback.Issues prop : issue) {
                 request.addPostParam("Issue", prop.toString());
             }
+    
         }
     }
 }

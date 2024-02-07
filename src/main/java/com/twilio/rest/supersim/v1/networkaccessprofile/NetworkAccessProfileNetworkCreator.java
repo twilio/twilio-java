@@ -25,36 +25,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class NetworkAccessProfileNetworkCreator
-    extends Creator<NetworkAccessProfileNetwork> {
 
+
+
+public class NetworkAccessProfileNetworkCreator extends Creator<NetworkAccessProfileNetwork>{
     private String pathNetworkAccessProfileSid;
     private String network;
 
-    public NetworkAccessProfileNetworkCreator(
-        final String pathNetworkAccessProfileSid,
-        final String network
-    ) {
+    public NetworkAccessProfileNetworkCreator(final String pathNetworkAccessProfileSid, final String network) {
         this.pathNetworkAccessProfileSid = pathNetworkAccessProfileSid;
         this.network = network;
     }
 
-    public NetworkAccessProfileNetworkCreator setNetwork(final String network) {
+    public NetworkAccessProfileNetworkCreator setNetwork(final String network){
         this.network = network;
         return this;
     }
 
     @Override
-    public NetworkAccessProfileNetwork create(final TwilioRestClient client) {
-        String path =
-            "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
+    public NetworkAccessProfileNetwork create(final TwilioRestClient client){
+        String path = "/v1/NetworkAccessProfiles/{NetworkAccessProfileSid}/Networks";
 
-        path =
-            path.replace(
-                "{" + "NetworkAccessProfileSid" + "}",
-                this.pathNetworkAccessProfileSid.toString()
-            );
-        path = path.replace("{" + "Network" + "}", this.network.toString());
+        path = path.replace("{"+"NetworkAccessProfileSid"+"}", this.pathNetworkAccessProfileSid.toString());
+        path = path.replace("{"+"Network"+"}", this.network.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -65,32 +58,21 @@ public class NetworkAccessProfileNetworkCreator
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "NetworkAccessProfileNetwork creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("NetworkAccessProfileNetwork creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return NetworkAccessProfileNetwork.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return NetworkAccessProfileNetwork.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (network != null) {
             request.addPostParam("Network", network);
+    
         }
     }
 }

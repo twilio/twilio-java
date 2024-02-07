@@ -25,47 +25,39 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class CertificateCreator extends Creator<Certificate> {
 
+
+
+public class CertificateCreator extends Creator<Certificate>{
     private String pathFleetSid;
     private String certificateData;
     private String friendlyName;
     private String deviceSid;
 
-    public CertificateCreator(
-        final String pathFleetSid,
-        final String certificateData
-    ) {
+    public CertificateCreator(final String pathFleetSid, final String certificateData) {
         this.pathFleetSid = pathFleetSid;
         this.certificateData = certificateData;
     }
 
-    public CertificateCreator setCertificateData(final String certificateData) {
+    public CertificateCreator setCertificateData(final String certificateData){
         this.certificateData = certificateData;
         return this;
     }
-
-    public CertificateCreator setFriendlyName(final String friendlyName) {
+    public CertificateCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public CertificateCreator setDeviceSid(final String deviceSid) {
+    public CertificateCreator setDeviceSid(final String deviceSid){
         this.deviceSid = deviceSid;
         return this;
     }
 
     @Override
-    public Certificate create(final TwilioRestClient client) {
+    public Certificate create(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Certificates";
 
-        path =
-            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
-        path =
-            path.replace(
-                "{" + "CertificateData" + "}",
-                this.certificateData.toString()
-            );
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path = path.replace("{"+"CertificateData"+"}", this.certificateData.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -76,38 +68,29 @@ public class CertificateCreator extends Creator<Certificate> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Certificate creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Certificate creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Certificate.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Certificate.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (certificateData != null) {
             request.addPostParam("CertificateData", certificateData);
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (deviceSid != null) {
             request.addPostParam("DeviceSid", deviceSid);
+    
         }
     }
 }

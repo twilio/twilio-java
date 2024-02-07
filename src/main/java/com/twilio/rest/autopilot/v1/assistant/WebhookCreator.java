@@ -26,66 +26,54 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class WebhookCreator extends Creator<Webhook> {
-
+public class WebhookCreator extends Creator<Webhook>{
     private String pathAssistantSid;
     private String uniqueName;
     private String events;
     private URI webhookUrl;
     private String webhookMethod;
 
-    public WebhookCreator(
-        final String pathAssistantSid,
-        final String uniqueName,
-        final String events,
-        final URI webhookUrl
-    ) {
+    public WebhookCreator(final String pathAssistantSid, final String uniqueName, final String events, final URI webhookUrl) {
         this.pathAssistantSid = pathAssistantSid;
         this.uniqueName = uniqueName;
         this.events = events;
         this.webhookUrl = webhookUrl;
     }
 
-    public WebhookCreator setUniqueName(final String uniqueName) {
+    public WebhookCreator setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
-
-    public WebhookCreator setEvents(final String events) {
+    public WebhookCreator setEvents(final String events){
         this.events = events;
         return this;
     }
-
-    public WebhookCreator setWebhookUrl(final URI webhookUrl) {
+    public WebhookCreator setWebhookUrl(final URI webhookUrl){
         this.webhookUrl = webhookUrl;
         return this;
     }
 
-    public WebhookCreator setWebhookUrl(final String webhookUrl) {
+    public WebhookCreator setWebhookUrl(final String webhookUrl){
         return setWebhookUrl(Promoter.uriFromString(webhookUrl));
     }
-
-    public WebhookCreator setWebhookMethod(final String webhookMethod) {
+    public WebhookCreator setWebhookMethod(final String webhookMethod){
         this.webhookMethod = webhookMethod;
         return this;
     }
 
     @Override
-    public Webhook create(final TwilioRestClient client) {
+    public Webhook create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/Webhooks";
 
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
-        path = path.replace("{" + "Events" + "}", this.events.toString());
-        path =
-            path.replace("{" + "WebhookUrl" + "}", this.webhookUrl.toString());
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
+        path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
+        path = path.replace("{"+"Events"+"}", this.events.toString());
+        path = path.replace("{"+"WebhookUrl"+"}", this.webhookUrl.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -96,38 +84,33 @@ public class WebhookCreator extends Creator<Webhook> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+    
         }
         if (events != null) {
             request.addPostParam("Events", events);
+    
         }
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl.toString());
+    
         }
         if (webhookMethod != null) {
             request.addPostParam("WebhookMethod", webhookMethod);
+    
         }
     }
 }

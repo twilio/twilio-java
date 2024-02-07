@@ -26,32 +26,26 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class MessageCreator extends Creator<Message> {
 
+
+
+public class MessageCreator extends Creator<Message>{
     private Message.CreateMessagesRequest createMessagesRequest;
 
-    public MessageCreator(
-        final Message.CreateMessagesRequest createMessagesRequest
-    ) {
+    public MessageCreator(final Message.CreateMessagesRequest createMessagesRequest) {
         this.createMessagesRequest = createMessagesRequest;
     }
 
-    public MessageCreator setCreateMessagesRequest(
-        final Message.CreateMessagesRequest createMessagesRequest
-    ) {
+    public MessageCreator setCreateMessagesRequest(final Message.CreateMessagesRequest createMessagesRequest){
         this.createMessagesRequest = createMessagesRequest;
         return this;
     }
 
     @Override
-    public Message create(final TwilioRestClient client) {
+    public Message create(final TwilioRestClient client){
         String path = "/v1/Messages";
 
-        path =
-            path.replace(
-                "{" + "CreateMessagesRequest" + "}",
-                this.createMessagesRequest.toString()
-            );
+        path = path.replace("{"+"CreateMessagesRequest"+"}", this.createMessagesRequest.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -62,32 +56,21 @@ public class MessageCreator extends Creator<Message> {
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Message creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Message creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Message.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (createMessagesRequest != null) {
-            request.setBody(
-                Message.toJson(createMessagesRequest, objectMapper)
-            );
+            request.setBody(Message.toJson(createMessagesRequest, objectMapper));
         }
     }
 }

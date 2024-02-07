@@ -23,77 +23,56 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Sample extends Resource {
-
     private static final long serialVersionUID = 197447215274163L;
 
-    public static SampleCreator creator(
-        final String pathAssistantSid,
-        final String pathTaskSid,
-        final String language,
-        final String taggedText
-    ) {
-        return new SampleCreator(
-            pathAssistantSid,
-            pathTaskSid,
-            language,
-            taggedText
-        );
+    
+
+    public static SampleCreator creator(final String pathAssistantSid, final String pathTaskSid, final String language, final String taggedText){
+        return new SampleCreator(pathAssistantSid, pathTaskSid, language, taggedText);
     }
 
-    public static SampleDeleter deleter(
-        final String pathAssistantSid,
-        final String pathTaskSid,
-        final String pathSid
-    ) {
+    public static SampleDeleter deleter(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
         return new SampleDeleter(pathAssistantSid, pathTaskSid, pathSid);
     }
 
-    public static SampleFetcher fetcher(
-        final String pathAssistantSid,
-        final String pathTaskSid,
-        final String pathSid
-    ) {
+    public static SampleFetcher fetcher(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
         return new SampleFetcher(pathAssistantSid, pathTaskSid, pathSid);
     }
 
-    public static SampleReader reader(
-        final String pathAssistantSid,
-        final String pathTaskSid
-    ) {
+    public static SampleReader reader(final String pathAssistantSid, final String pathTaskSid){
         return new SampleReader(pathAssistantSid, pathTaskSid);
     }
 
-    public static SampleUpdater updater(
-        final String pathAssistantSid,
-        final String pathTaskSid,
-        final String pathSid
-    ) {
+    public static SampleUpdater updater(final String pathAssistantSid, final String pathTaskSid, final String pathSid){
         return new SampleUpdater(pathAssistantSid, pathTaskSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Sample object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Sample object represented by the provided JSON
-     */
-    public static Sample fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Sample object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Sample object represented by the provided JSON
+    */
+    public static Sample fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sample.class);
@@ -105,17 +84,14 @@ public class Sample extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Sample object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Sample object represented by the provided JSON
-     */
-    public static Sample fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Sample object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Sample object represented by the provided JSON
+    */
+    public static Sample fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Sample.class);
@@ -125,6 +101,7 @@ public class Sample extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -139,16 +116,35 @@ public class Sample extends Resource {
 
     @JsonCreator
     private Sample(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("task_sid") final String taskSid,
-        @JsonProperty("language") final String language,
-        @JsonProperty("assistant_sid") final String assistantSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("tagged_text") final String taggedText,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("source_channel") final String sourceChannel
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("task_sid")
+        final String taskSid,
+
+        @JsonProperty("language")
+        final String language,
+
+        @JsonProperty("assistant_sid")
+        final String assistantSid,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("tagged_text")
+        final String taggedText,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("source_channel")
+        final String sourceChannel
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -162,49 +158,40 @@ public class Sample extends Resource {
         this.sourceChannel = sourceChannel;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getTaskSid() {
-        return this.taskSid;
-    }
-
-    public final String getLanguage() {
-        return this.language;
-    }
-
-    public final String getAssistantSid() {
-        return this.assistantSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getTaggedText() {
-        return this.taggedText;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getSourceChannel() {
-        return this.sourceChannel;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getTaskSid() {
+            return this.taskSid;
+        }
+        public final String getLanguage() {
+            return this.language;
+        }
+        public final String getAssistantSid() {
+            return this.assistantSid;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getTaggedText() {
+            return this.taggedText;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final String getSourceChannel() {
+            return this.sourceChannel;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -214,33 +201,14 @@ public class Sample extends Resource {
 
         Sample other = (Sample) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(taskSid, other.taskSid) &&
-            Objects.equals(language, other.language) &&
-            Objects.equals(assistantSid, other.assistantSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(taggedText, other.taggedText) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(sourceChannel, other.sourceChannel)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(taskSid, other.taskSid) &&  Objects.equals(language, other.language) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(taggedText, other.taggedText) &&  Objects.equals(url, other.url) &&  Objects.equals(sourceChannel, other.sourceChannel)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            taskSid,
-            language,
-            assistantSid,
-            sid,
-            taggedText,
-            url,
-            sourceChannel
-        );
+        return Objects.hash(accountSid, dateCreated, dateUpdated, taskSid, language, assistantSid, sid, taggedText, url, sourceChannel);
     }
+
+
 }
+

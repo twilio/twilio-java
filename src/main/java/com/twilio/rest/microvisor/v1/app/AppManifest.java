@@ -22,35 +22,39 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AppManifest extends Resource {
-
     private static final long serialVersionUID = 249809073531699L;
 
-    public static AppManifestFetcher fetcher(final String pathAppSid) {
+    
+
+    public static AppManifestFetcher fetcher(final String pathAppSid){
         return new AppManifestFetcher(pathAppSid);
     }
 
     /**
-     * Converts a JSON String into a AppManifest object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return AppManifest object represented by the provided JSON
-     */
-    public static AppManifest fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a AppManifest object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return AppManifest object represented by the provided JSON
+    */
+    public static AppManifest fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AppManifest.class);
@@ -62,17 +66,14 @@ public class AppManifest extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AppManifest object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return AppManifest object represented by the provided JSON
-     */
-    public static AppManifest fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a AppManifest object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return AppManifest object represented by the provided JSON
+    */
+    public static AppManifest fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AppManifest.class);
@@ -82,6 +83,7 @@ public class AppManifest extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String appSid;
     private final String hash;
@@ -90,10 +92,17 @@ public class AppManifest extends Resource {
 
     @JsonCreator
     private AppManifest(
-        @JsonProperty("app_sid") final String appSid,
-        @JsonProperty("hash") final String hash,
-        @JsonProperty("encoded_bytes") final String encodedBytes,
-        @JsonProperty("url") final URI url
+        @JsonProperty("app_sid")
+        final String appSid,
+
+        @JsonProperty("hash")
+        final String hash,
+
+        @JsonProperty("encoded_bytes")
+        final String encodedBytes,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.appSid = appSid;
         this.hash = hash;
@@ -101,25 +110,22 @@ public class AppManifest extends Resource {
         this.url = url;
     }
 
-    public final String getAppSid() {
-        return this.appSid;
-    }
-
-    public final String getHash() {
-        return this.hash;
-    }
-
-    public final String getEncodedBytes() {
-        return this.encodedBytes;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getAppSid() {
+            return this.appSid;
+        }
+        public final String getHash() {
+            return this.hash;
+        }
+        public final String getEncodedBytes() {
+            return this.encodedBytes;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -129,16 +135,14 @@ public class AppManifest extends Resource {
 
         AppManifest other = (AppManifest) o;
 
-        return (
-            Objects.equals(appSid, other.appSid) &&
-            Objects.equals(hash, other.hash) &&
-            Objects.equals(encodedBytes, other.encodedBytes) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(appSid, other.appSid) &&  Objects.equals(hash, other.hash) &&  Objects.equals(encodedBytes, other.encodedBytes) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(appSid, hash, encodedBytes, url);
     }
+
+
 }
+

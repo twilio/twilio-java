@@ -14,7 +14,6 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance.bundle;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,17 +24,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class BundleCopyReader extends Reader<BundleCopy> {
-
     private String pathBundleSid;
     private Integer pageSize;
 
-    public BundleCopyReader(final String pathBundleSid) {
+    public BundleCopyReader(final String pathBundleSid){
         this.pathBundleSid = pathBundleSid;
     }
 
-    public BundleCopyReader setPageSize(final Integer pageSize) {
+    public BundleCopyReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -47,11 +48,7 @@ public class BundleCopyReader extends Reader<BundleCopy> {
 
     public Page<BundleCopy> firstPage(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/Bundles/{BundleSid}/Copies";
-        path =
-            path.replace(
-                "{" + "BundleSid" + "}",
-                this.pathBundleSid.toString()
-            );
+        path = path.replace("{"+"BundleSid"+"}", this.pathBundleSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -63,26 +60,15 @@ public class BundleCopyReader extends Reader<BundleCopy> {
         return pageForRequest(client, request);
     }
 
-    private Page<BundleCopy> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<BundleCopy> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "BundleCopy read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("BundleCopy read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -96,10 +82,7 @@ public class BundleCopyReader extends Reader<BundleCopy> {
     }
 
     @Override
-    public Page<BundleCopy> previousPage(
-        final Page<BundleCopy> page,
-        final TwilioRestClient client
-    ) {
+    public Page<BundleCopy> previousPage(final Page<BundleCopy> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.NUMBERS.toString())
@@ -107,11 +90,9 @@ public class BundleCopyReader extends Reader<BundleCopy> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<BundleCopy> nextPage(
-        final Page<BundleCopy> page,
-        final TwilioRestClient client
-    ) {
+    public Page<BundleCopy> nextPage(final Page<BundleCopy> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.NUMBERS.toString())
@@ -120,21 +101,21 @@ public class BundleCopyReader extends Reader<BundleCopy> {
     }
 
     @Override
-    public Page<BundleCopy> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<BundleCopy> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

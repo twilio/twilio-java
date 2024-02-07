@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class ModelBuildCreator extends Creator<ModelBuild> {
-
+public class ModelBuildCreator extends Creator<ModelBuild>{
     private String pathAssistantSid;
     private URI statusCallback;
     private String uniqueName;
@@ -38,29 +40,24 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
         this.pathAssistantSid = pathAssistantSid;
     }
 
-    public ModelBuildCreator setStatusCallback(final URI statusCallback) {
+    public ModelBuildCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ModelBuildCreator setStatusCallback(final String statusCallback) {
+    public ModelBuildCreator setStatusCallback(final String statusCallback){
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-
-    public ModelBuildCreator setUniqueName(final String uniqueName) {
+    public ModelBuildCreator setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
 
     @Override
-    public ModelBuild create(final TwilioRestClient client) {
+    public ModelBuild create(final TwilioRestClient client){
         String path = "/v1/Assistants/{AssistantSid}/ModelBuilds";
 
-        path =
-            path.replace(
-                "{" + "AssistantSid" + "}",
-                this.pathAssistantSid.toString()
-            );
+        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -71,35 +68,25 @@ public class ModelBuildCreator extends Creator<ModelBuild> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "ModelBuild creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("ModelBuild creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ModelBuild.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ModelBuild.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
+    
         }
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+    
         }
     }
 }

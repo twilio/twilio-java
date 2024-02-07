@@ -16,9 +16,8 @@ package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Creator;
 import com.twilio.constant.EnumConstants;
-import com.twilio.converter.Converter;
-import com.twilio.converter.Converter;
 import com.twilio.exception.ApiConnectionException;
+import com.twilio.converter.Converter;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -27,57 +26,48 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.Map;
+import com.twilio.converter.Converter;
+
 import java.util.Map;
 
-public class FlowCreator extends Creator<Flow> {
 
+
+public class FlowCreator extends Creator<Flow>{
     private String friendlyName;
     private Flow.Status status;
     private Map<String, Object> definition;
     private String commitMessage;
 
-    public FlowCreator(
-        final String friendlyName,
-        final Flow.Status status,
-        final Map<String, Object> definition
-    ) {
+    public FlowCreator(final String friendlyName, final Flow.Status status, final Map<String, Object> definition) {
         this.friendlyName = friendlyName;
         this.status = status;
         this.definition = definition;
     }
 
-    public FlowCreator setFriendlyName(final String friendlyName) {
+    public FlowCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public FlowCreator setStatus(final Flow.Status status) {
+    public FlowCreator setStatus(final Flow.Status status){
         this.status = status;
         return this;
     }
-
-    public FlowCreator setDefinition(final Map<String, Object> definition) {
+    public FlowCreator setDefinition(final Map<String, Object> definition){
         this.definition = definition;
         return this;
     }
-
-    public FlowCreator setCommitMessage(final String commitMessage) {
+    public FlowCreator setCommitMessage(final String commitMessage){
         this.commitMessage = commitMessage;
         return this;
     }
 
     @Override
-    public Flow create(final TwilioRestClient client) {
+    public Flow create(final TwilioRestClient client){
         String path = "/v2/Flows";
 
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
-        path = path.replace("{" + "Status" + "}", this.status.toString());
-        path =
-            path.replace("{" + "Definition" + "}", this.definition.toString());
+        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
+        path = path.replace("{"+"Status"+"}", this.status.toString());
+        path = path.replace("{"+"Definition"+"}", this.definition.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -88,38 +78,33 @@ public class FlowCreator extends Creator<Flow> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Flow creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Flow creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Flow.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
+    
         }
         if (definition != null) {
-            request.addPostParam("Definition", Converter.mapToJson(definition));
+            request.addPostParam("Definition",  Converter.mapToJson(definition));
+    
         }
         if (commitMessage != null) {
             request.addPostParam("CommitMessage", commitMessage);
+    
         }
     }
 }

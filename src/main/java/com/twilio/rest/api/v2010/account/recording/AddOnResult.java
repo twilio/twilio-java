@@ -24,82 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AddOnResult extends Resource {
-
     private static final long serialVersionUID = 121199532836736L;
 
-    public static AddOnResultDeleter deleter(
-        final String pathReferenceSid,
-        final String pathSid
-    ) {
+    
+
+    public static AddOnResultDeleter deleter(final String pathReferenceSid, final String pathSid){
         return new AddOnResultDeleter(pathReferenceSid, pathSid);
     }
-
-    public static AddOnResultDeleter deleter(
-        final String pathAccountSid,
-        final String pathReferenceSid,
-        final String pathSid
-    ) {
-        return new AddOnResultDeleter(
-            pathAccountSid,
-            pathReferenceSid,
-            pathSid
-        );
+    public static AddOnResultDeleter deleter(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
+        return new AddOnResultDeleter(pathAccountSid, pathReferenceSid, pathSid);
     }
 
-    public static AddOnResultFetcher fetcher(
-        final String pathReferenceSid,
-        final String pathSid
-    ) {
+    public static AddOnResultFetcher fetcher(final String pathReferenceSid, final String pathSid){
         return new AddOnResultFetcher(pathReferenceSid, pathSid);
     }
-
-    public static AddOnResultFetcher fetcher(
-        final String pathAccountSid,
-        final String pathReferenceSid,
-        final String pathSid
-    ) {
-        return new AddOnResultFetcher(
-            pathAccountSid,
-            pathReferenceSid,
-            pathSid
-        );
+    public static AddOnResultFetcher fetcher(final String pathAccountSid, final String pathReferenceSid, final String pathSid){
+        return new AddOnResultFetcher(pathAccountSid, pathReferenceSid, pathSid);
     }
 
-    public static AddOnResultReader reader(final String pathReferenceSid) {
+    public static AddOnResultReader reader(final String pathReferenceSid){
         return new AddOnResultReader(pathReferenceSid);
     }
-
-    public static AddOnResultReader reader(
-        final String pathAccountSid,
-        final String pathReferenceSid
-    ) {
+    public static AddOnResultReader reader(final String pathAccountSid, final String pathReferenceSid){
         return new AddOnResultReader(pathAccountSid, pathReferenceSid);
     }
 
     /**
-     * Converts a JSON String into a AddOnResult object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return AddOnResult object represented by the provided JSON
-     */
-    public static AddOnResult fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a AddOnResult object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return AddOnResult object represented by the provided JSON
+    */
+    public static AddOnResult fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AddOnResult.class);
@@ -111,17 +87,14 @@ public class AddOnResult extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AddOnResult object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return AddOnResult object represented by the provided JSON
-     */
-    public static AddOnResult fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a AddOnResult object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return AddOnResult object represented by the provided JSON
+    */
+    public static AddOnResult fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AddOnResult.class);
@@ -171,21 +144,35 @@ public class AddOnResult extends Resource {
 
     @JsonCreator
     private AddOnResult(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("status") final AddOnResult.Status status,
-        @JsonProperty("add_on_sid") final String addOnSid,
-        @JsonProperty(
-            "add_on_configuration_sid"
-        ) final String addOnConfigurationSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("date_completed") final String dateCompleted,
-        @JsonProperty("reference_sid") final String referenceSid,
-        @JsonProperty("subresource_uris") final Map<
-            String,
-            String
-        > subresourceUris
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("status")
+        final AddOnResult.Status status,
+
+        @JsonProperty("add_on_sid")
+        final String addOnSid,
+
+        @JsonProperty("add_on_configuration_sid")
+        final String addOnConfigurationSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("date_completed")
+        final String dateCompleted,
+
+        @JsonProperty("reference_sid")
+        final String referenceSid,
+
+        @JsonProperty("subresource_uris")
+        final Map<String, String> subresourceUris
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -194,55 +181,45 @@ public class AddOnResult extends Resource {
         this.addOnConfigurationSid = addOnConfigurationSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
-        this.dateCompleted =
-            DateConverter.rfc2822DateTimeFromString(dateCompleted);
+        this.dateCompleted = DateConverter.rfc2822DateTimeFromString(dateCompleted);
         this.referenceSid = referenceSid;
         this.subresourceUris = subresourceUris;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final AddOnResult.Status getStatus() {
-        return this.status;
-    }
-
-    public final String getAddOnSid() {
-        return this.addOnSid;
-    }
-
-    public final String getAddOnConfigurationSid() {
-        return this.addOnConfigurationSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final ZonedDateTime getDateCompleted() {
-        return this.dateCompleted;
-    }
-
-    public final String getReferenceSid() {
-        return this.referenceSid;
-    }
-
-    public final Map<String, String> getSubresourceUris() {
-        return this.subresourceUris;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final AddOnResult.Status getStatus() {
+            return this.status;
+        }
+        public final String getAddOnSid() {
+            return this.addOnSid;
+        }
+        public final String getAddOnConfigurationSid() {
+            return this.addOnConfigurationSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final ZonedDateTime getDateCompleted() {
+            return this.dateCompleted;
+        }
+        public final String getReferenceSid() {
+            return this.referenceSid;
+        }
+        public final Map<String, String> getSubresourceUris() {
+            return this.subresourceUris;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -252,36 +229,14 @@ public class AddOnResult extends Resource {
 
         AddOnResult other = (AddOnResult) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(status, other.status) &&
-            Objects.equals(addOnSid, other.addOnSid) &&
-            Objects.equals(
-                addOnConfigurationSid,
-                other.addOnConfigurationSid
-            ) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(dateCompleted, other.dateCompleted) &&
-            Objects.equals(referenceSid, other.referenceSid) &&
-            Objects.equals(subresourceUris, other.subresourceUris)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(status, other.status) &&  Objects.equals(addOnSid, other.addOnSid) &&  Objects.equals(addOnConfigurationSid, other.addOnConfigurationSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(dateCompleted, other.dateCompleted) &&  Objects.equals(referenceSid, other.referenceSid) &&  Objects.equals(subresourceUris, other.subresourceUris)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            status,
-            addOnSid,
-            addOnConfigurationSid,
-            dateCreated,
-            dateUpdated,
-            dateCompleted,
-            referenceSid,
-            subresourceUris
-        );
+        return Objects.hash(sid, accountSid, status, addOnSid, addOnConfigurationSid, dateCreated, dateUpdated, dateCompleted, referenceSid, subresourceUris);
     }
+
+
 }
+

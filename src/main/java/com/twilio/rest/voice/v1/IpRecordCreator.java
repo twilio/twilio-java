@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class IpRecordCreator extends Creator<IpRecord> {
 
+
+
+public class IpRecordCreator extends Creator<IpRecord>{
     private String ipAddress;
     private String friendlyName;
     private Integer cidrPrefixLength;
@@ -35,26 +37,24 @@ public class IpRecordCreator extends Creator<IpRecord> {
         this.ipAddress = ipAddress;
     }
 
-    public IpRecordCreator setIpAddress(final String ipAddress) {
+    public IpRecordCreator setIpAddress(final String ipAddress){
         this.ipAddress = ipAddress;
         return this;
     }
-
-    public IpRecordCreator setFriendlyName(final String friendlyName) {
+    public IpRecordCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public IpRecordCreator setCidrPrefixLength(final Integer cidrPrefixLength) {
+    public IpRecordCreator setCidrPrefixLength(final Integer cidrPrefixLength){
         this.cidrPrefixLength = cidrPrefixLength;
         return this;
     }
 
     @Override
-    public IpRecord create(final TwilioRestClient client) {
+    public IpRecord create(final TwilioRestClient client){
         String path = "/v1/IpRecords";
 
-        path = path.replace("{" + "IpAddress" + "}", this.ipAddress.toString());
+        path = path.replace("{"+"IpAddress"+"}", this.ipAddress.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -65,41 +65,29 @@ public class IpRecordCreator extends Creator<IpRecord> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "IpRecord creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("IpRecord creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return IpRecord.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return IpRecord.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (ipAddress != null) {
             request.addPostParam("IpAddress", ipAddress);
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (cidrPrefixLength != null) {
-            request.addPostParam(
-                "CidrPrefixLength",
-                cidrPrefixLength.toString()
-            );
+            request.addPostParam("CidrPrefixLength", cidrPrefixLength.toString());
+    
         }
     }
 }

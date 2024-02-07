@@ -14,7 +14,6 @@
 
 package com.twilio.rest.media.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,26 +24,27 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class PlayerStreamerReader extends Reader<PlayerStreamer> {
-
     private PlayerStreamer.Order order;
     private PlayerStreamer.Status status;
     private Integer pageSize;
 
-    public PlayerStreamerReader() {}
+    public PlayerStreamerReader(){
+    }
 
-    public PlayerStreamerReader setOrder(final PlayerStreamer.Order order) {
+    public PlayerStreamerReader setOrder(final PlayerStreamer.Order order){
         this.order = order;
         return this;
     }
-
-    public PlayerStreamerReader setStatus(final PlayerStreamer.Status status) {
+    public PlayerStreamerReader setStatus(final PlayerStreamer.Status status){
         this.status = status;
         return this;
     }
-
-    public PlayerStreamerReader setPageSize(final Integer pageSize) {
+    public PlayerStreamerReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -67,26 +67,15 @@ public class PlayerStreamerReader extends Reader<PlayerStreamer> {
         return pageForRequest(client, request);
     }
 
-    private Page<PlayerStreamer> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<PlayerStreamer> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "PlayerStreamer read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PlayerStreamer read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -100,10 +89,7 @@ public class PlayerStreamerReader extends Reader<PlayerStreamer> {
     }
 
     @Override
-    public Page<PlayerStreamer> previousPage(
-        final Page<PlayerStreamer> page,
-        final TwilioRestClient client
-    ) {
+    public Page<PlayerStreamer> previousPage(final Page<PlayerStreamer> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.MEDIA.toString())
@@ -111,11 +97,9 @@ public class PlayerStreamerReader extends Reader<PlayerStreamer> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<PlayerStreamer> nextPage(
-        final Page<PlayerStreamer> page,
-        final TwilioRestClient client
-    ) {
+    public Page<PlayerStreamer> nextPage(final Page<PlayerStreamer> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.MEDIA.toString())
@@ -124,27 +108,29 @@ public class PlayerStreamerReader extends Reader<PlayerStreamer> {
     }
 
     @Override
-    public Page<PlayerStreamer> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<PlayerStreamer> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (order != null) {
+    
             request.addQueryParam("Order", order.toString());
         }
         if (status != null) {
+    
             request.addQueryParam("Status", status.toString());
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

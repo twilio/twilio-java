@@ -24,29 +24,25 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class BalanceFetcher extends Fetcher<Balance> {
 
+
+
+public class BalanceFetcher extends Fetcher<Balance> {
     private String pathAccountSid;
 
-    public BalanceFetcher() {}
-
-    public BalanceFetcher(final String pathAccountSid) {
+    public BalanceFetcher(){
+    }
+    public BalanceFetcher(final String pathAccountSid){
         this.pathAccountSid = pathAccountSid;
     }
+
 
     @Override
     public Balance fetch(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Balance.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -56,19 +52,11 @@ public class BalanceFetcher extends Fetcher<Balance> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Balance fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Balance fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }

@@ -14,10 +14,8 @@
 
 package com.twilio.rest.api.v2010.account.usage.record;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
-import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -26,10 +24,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.LocalDate;
+import com.twilio.converter.DateConverter;
+
+
 
 public class YearlyReader extends Reader<Yearly> {
-
     private String pathAccountSid;
     private Yearly.Category category;
     private LocalDate startDate;
@@ -37,35 +38,29 @@ public class YearlyReader extends Reader<Yearly> {
     private Boolean includeSubaccounts;
     private Integer pageSize;
 
-    public YearlyReader() {}
-
-    public YearlyReader(final String pathAccountSid) {
+    public YearlyReader(){
+    }
+    public YearlyReader(final String pathAccountSid){
         this.pathAccountSid = pathAccountSid;
     }
 
-    public YearlyReader setCategory(final Yearly.Category category) {
+    public YearlyReader setCategory(final Yearly.Category category){
         this.category = category;
         return this;
     }
-
-    public YearlyReader setStartDate(final LocalDate startDate) {
+    public YearlyReader setStartDate(final LocalDate startDate){
         this.startDate = startDate;
         return this;
     }
-
-    public YearlyReader setEndDate(final LocalDate endDate) {
+    public YearlyReader setEndDate(final LocalDate endDate){
         this.endDate = endDate;
         return this;
     }
-
-    public YearlyReader setIncludeSubaccounts(
-        final Boolean includeSubaccounts
-    ) {
+    public YearlyReader setIncludeSubaccounts(final Boolean includeSubaccounts){
         this.includeSubaccounts = includeSubaccounts;
         return this;
     }
-
-    public YearlyReader setPageSize(final Integer pageSize) {
+    public YearlyReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -76,17 +71,9 @@ public class YearlyReader extends Reader<Yearly> {
     }
 
     public Page<Yearly> firstPage(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
+        String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records/Yearly.json";
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -98,26 +85,15 @@ public class YearlyReader extends Reader<Yearly> {
         return pageForRequest(client, request);
     }
 
-    private Page<Yearly> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Yearly> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Yearly read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Yearly read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -131,10 +107,7 @@ public class YearlyReader extends Reader<Yearly> {
     }
 
     @Override
-    public Page<Yearly> previousPage(
-        final Page<Yearly> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Yearly> previousPage(final Page<Yearly> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -142,11 +115,9 @@ public class YearlyReader extends Reader<Yearly> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Yearly> nextPage(
-        final Page<Yearly> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Yearly> nextPage(final Page<Yearly> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -155,44 +126,37 @@ public class YearlyReader extends Reader<Yearly> {
     }
 
     @Override
-    public Page<Yearly> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Yearly> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (category != null) {
+    
             request.addQueryParam("Category", category.toString());
         }
         if (startDate != null) {
-            request.addQueryParam(
-                "StartDate",
-                DateConverter.dateStringFromLocalDate(startDate)
-            );
+            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
         }
 
         if (endDate != null) {
-            request.addQueryParam(
-                "EndDate",
-                DateConverter.dateStringFromLocalDate(endDate)
-            );
+            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
         }
 
         if (includeSubaccounts != null) {
-            request.addQueryParam(
-                "IncludeSubaccounts",
-                includeSubaccounts.toString()
-            );
+    
+            request.addQueryParam("IncludeSubaccounts", includeSubaccounts.toString());
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AccountSecretCreator extends Creator<AccountSecret> {
 
+
+
+public class AccountSecretCreator extends Creator<AccountSecret>{
     private String key;
     private String value;
 
@@ -35,22 +37,21 @@ public class AccountSecretCreator extends Creator<AccountSecret> {
         this.value = value;
     }
 
-    public AccountSecretCreator setKey(final String key) {
+    public AccountSecretCreator setKey(final String key){
         this.key = key;
         return this;
     }
-
-    public AccountSecretCreator setValue(final String value) {
+    public AccountSecretCreator setValue(final String value){
         this.value = value;
         return this;
     }
 
     @Override
-    public AccountSecret create(final TwilioRestClient client) {
+    public AccountSecret create(final TwilioRestClient client){
         String path = "/v1/Secrets";
 
-        path = path.replace("{" + "Key" + "}", this.key.toString());
-        path = path.replace("{" + "Value" + "}", this.value.toString());
+        path = path.replace("{"+"Key"+"}", this.key.toString());
+        path = path.replace("{"+"Value"+"}", this.value.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,35 +62,25 @@ public class AccountSecretCreator extends Creator<AccountSecret> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "AccountSecret creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AccountSecret creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return AccountSecret.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return AccountSecret.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (key != null) {
             request.addPostParam("Key", key);
+    
         }
         if (value != null) {
             request.addPostParam("Value", value);
+    
         }
     }
 }

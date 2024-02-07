@@ -25,49 +25,33 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
 
+
+
+public class IpAccessControlListCreator extends Creator<IpAccessControlList>{
     private String friendlyName;
     private String pathAccountSid;
 
     public IpAccessControlListCreator(final String friendlyName) {
         this.friendlyName = friendlyName;
     }
-
-    public IpAccessControlListCreator(
-        final String pathAccountSid,
-        final String friendlyName
-    ) {
+    public IpAccessControlListCreator(final String pathAccountSid, final String friendlyName) {
         this.pathAccountSid = pathAccountSid;
         this.friendlyName = friendlyName;
     }
 
-    public IpAccessControlListCreator setFriendlyName(
-        final String friendlyName
-    ) {
+    public IpAccessControlListCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
 
     @Override
-    public IpAccessControlList create(final TwilioRestClient client) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json";
+    public IpAccessControlList create(final TwilioRestClient client){
+        String path = "/2010-04-01/Accounts/{AccountSid}/SIP/IpAccessControlLists.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "FriendlyName" + "}",
-                this.friendlyName.toString()
-            );
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"FriendlyName"+"}", this.friendlyName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -78,32 +62,21 @@ public class IpAccessControlListCreator extends Creator<IpAccessControlList> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "IpAccessControlList creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("IpAccessControlList creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return IpAccessControlList.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return IpAccessControlList.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
     }
 }

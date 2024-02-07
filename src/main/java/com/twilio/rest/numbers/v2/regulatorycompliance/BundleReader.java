@@ -14,7 +14,6 @@
 
 package com.twilio.rest.numbers.v2.regulatorycompliance;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,10 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 
-public class BundleReader extends Reader<Bundle> {
 
+
+public class BundleReader extends Reader<Bundle> {
     private Bundle.Status status;
     private String friendlyName;
     private String regulationSid;
@@ -40,56 +41,46 @@ public class BundleReader extends Reader<Bundle> {
     private ZonedDateTime validUntilDate;
     private Integer pageSize;
 
-    public BundleReader() {}
+    public BundleReader(){
+    }
 
-    public BundleReader setStatus(final Bundle.Status status) {
+    public BundleReader setStatus(final Bundle.Status status){
         this.status = status;
         return this;
     }
-
-    public BundleReader setFriendlyName(final String friendlyName) {
+    public BundleReader setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public BundleReader setRegulationSid(final String regulationSid) {
+    public BundleReader setRegulationSid(final String regulationSid){
         this.regulationSid = regulationSid;
         return this;
     }
-
-    public BundleReader setIsoCountry(final String isoCountry) {
+    public BundleReader setIsoCountry(final String isoCountry){
         this.isoCountry = isoCountry;
         return this;
     }
-
-    public BundleReader setNumberType(final String numberType) {
+    public BundleReader setNumberType(final String numberType){
         this.numberType = numberType;
         return this;
     }
-
-    public BundleReader setHasValidUntilDate(final Boolean hasValidUntilDate) {
+    public BundleReader setHasValidUntilDate(final Boolean hasValidUntilDate){
         this.hasValidUntilDate = hasValidUntilDate;
         return this;
     }
-
-    public BundleReader setSortBy(final Bundle.SortBy sortBy) {
+    public BundleReader setSortBy(final Bundle.SortBy sortBy){
         this.sortBy = sortBy;
         return this;
     }
-
-    public BundleReader setSortDirection(
-        final Bundle.SortDirection sortDirection
-    ) {
+    public BundleReader setSortDirection(final Bundle.SortDirection sortDirection){
         this.sortDirection = sortDirection;
         return this;
     }
-
-    public BundleReader setValidUntilDate(final ZonedDateTime validUntilDate) {
+    public BundleReader setValidUntilDate(final ZonedDateTime validUntilDate){
         this.validUntilDate = validUntilDate;
         return this;
     }
-
-    public BundleReader setPageSize(final Integer pageSize) {
+    public BundleReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -112,26 +103,15 @@ public class BundleReader extends Reader<Bundle> {
         return pageForRequest(client, request);
     }
 
-    private Page<Bundle> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Bundle> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Bundle read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Bundle read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -145,10 +125,7 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     @Override
-    public Page<Bundle> previousPage(
-        final Page<Bundle> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Bundle> previousPage(final Page<Bundle> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.NUMBERS.toString())
@@ -156,11 +133,9 @@ public class BundleReader extends Reader<Bundle> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Bundle> nextPage(
-        final Page<Bundle> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Bundle> nextPage(final Page<Bundle> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.NUMBERS.toString())
@@ -169,55 +144,57 @@ public class BundleReader extends Reader<Bundle> {
     }
 
     @Override
-    public Page<Bundle> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Bundle> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (status != null) {
+    
             request.addQueryParam("Status", status.toString());
         }
         if (friendlyName != null) {
+    
             request.addQueryParam("FriendlyName", friendlyName);
         }
         if (regulationSid != null) {
+    
             request.addQueryParam("RegulationSid", regulationSid);
         }
         if (isoCountry != null) {
+    
             request.addQueryParam("IsoCountry", isoCountry);
         }
         if (numberType != null) {
+    
             request.addQueryParam("NumberType", numberType);
         }
         if (hasValidUntilDate != null) {
-            request.addQueryParam(
-                "HasValidUntilDate",
-                hasValidUntilDate.toString()
-            );
+    
+            request.addQueryParam("HasValidUntilDate", hasValidUntilDate.toString());
         }
         if (sortBy != null) {
+    
             request.addQueryParam("SortBy", sortBy.toString());
         }
         if (sortDirection != null) {
+    
             request.addQueryParam("SortDirection", sortDirection.toString());
         }
         if (validUntilDate != null) {
-            request.addQueryParam(
-                "ValidUntilDate",
-                validUntilDate.toInstant().toString()
-            );
+            request.addQueryParam("ValidUntilDate", validUntilDate.toInstant().toString());
         }
 
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

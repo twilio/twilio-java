@@ -14,7 +14,6 @@
 
 package com.twilio.rest.serverless.v1.service.environment;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,10 +24,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.ZonedDateTime;
 
-public class LogReader extends Reader<Log> {
 
+
+public class LogReader extends Reader<Log> {
     private String pathServiceSid;
     private String pathEnvironmentSid;
     private String functionSid;
@@ -36,30 +37,24 @@ public class LogReader extends Reader<Log> {
     private ZonedDateTime endDate;
     private Integer pageSize;
 
-    public LogReader(
-        final String pathServiceSid,
-        final String pathEnvironmentSid
-    ) {
+    public LogReader(final String pathServiceSid, final String pathEnvironmentSid){
         this.pathServiceSid = pathServiceSid;
         this.pathEnvironmentSid = pathEnvironmentSid;
     }
 
-    public LogReader setFunctionSid(final String functionSid) {
+    public LogReader setFunctionSid(final String functionSid){
         this.functionSid = functionSid;
         return this;
     }
-
-    public LogReader setStartDate(final ZonedDateTime startDate) {
+    public LogReader setStartDate(final ZonedDateTime startDate){
         this.startDate = startDate;
         return this;
     }
-
-    public LogReader setEndDate(final ZonedDateTime endDate) {
+    public LogReader setEndDate(final ZonedDateTime endDate){
         this.endDate = endDate;
         return this;
     }
-
-    public LogReader setPageSize(final Integer pageSize) {
+    public LogReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -70,18 +65,9 @@ public class LogReader extends Reader<Log> {
     }
 
     public Page<Log> firstPage(final TwilioRestClient client) {
-        String path =
-            "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "EnvironmentSid" + "}",
-                this.pathEnvironmentSid.toString()
-            );
+        String path = "/v1/Services/{ServiceSid}/Environments/{EnvironmentSid}/Logs";
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"EnvironmentSid"+"}", this.pathEnvironmentSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -93,26 +79,15 @@ public class LogReader extends Reader<Log> {
         return pageForRequest(client, request);
     }
 
-    private Page<Log> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Log> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Log read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Log read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -126,10 +101,7 @@ public class LogReader extends Reader<Log> {
     }
 
     @Override
-    public Page<Log> previousPage(
-        final Page<Log> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Log> previousPage(final Page<Log> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.SERVERLESS.toString())
@@ -137,11 +109,9 @@ public class LogReader extends Reader<Log> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Log> nextPage(
-        final Page<Log> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Log> nextPage(final Page<Log> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.SERVERLESS.toString())
@@ -150,24 +120,21 @@ public class LogReader extends Reader<Log> {
     }
 
     @Override
-    public Page<Log> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Log> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (functionSid != null) {
+    
             request.addQueryParam("FunctionSid", functionSid);
         }
         if (startDate != null) {
-            request.addQueryParam(
-                "StartDate",
-                startDate.toInstant().toString()
-            );
+            request.addQueryParam("StartDate", startDate.toInstant().toString());
         }
 
         if (endDate != null) {
@@ -175,10 +142,11 @@ public class LogReader extends Reader<Log> {
         }
 
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

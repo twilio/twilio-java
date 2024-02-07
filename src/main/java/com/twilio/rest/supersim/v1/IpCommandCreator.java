@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class IpCommandCreator extends Creator<IpCommand> {
-
+public class IpCommandCreator extends Creator<IpCommand>{
     private String sim;
     private String payload;
     private Integer devicePort;
@@ -37,60 +39,48 @@ public class IpCommandCreator extends Creator<IpCommand> {
     private URI callbackUrl;
     private HttpMethod callbackMethod;
 
-    public IpCommandCreator(
-        final String sim,
-        final String payload,
-        final Integer devicePort
-    ) {
+    public IpCommandCreator(final String sim, final String payload, final Integer devicePort) {
         this.sim = sim;
         this.payload = payload;
         this.devicePort = devicePort;
     }
 
-    public IpCommandCreator setSim(final String sim) {
+    public IpCommandCreator setSim(final String sim){
         this.sim = sim;
         return this;
     }
-
-    public IpCommandCreator setPayload(final String payload) {
+    public IpCommandCreator setPayload(final String payload){
         this.payload = payload;
         return this;
     }
-
-    public IpCommandCreator setDevicePort(final Integer devicePort) {
+    public IpCommandCreator setDevicePort(final Integer devicePort){
         this.devicePort = devicePort;
         return this;
     }
-
-    public IpCommandCreator setPayloadType(
-        final IpCommand.PayloadType payloadType
-    ) {
+    public IpCommandCreator setPayloadType(final IpCommand.PayloadType payloadType){
         this.payloadType = payloadType;
         return this;
     }
-
-    public IpCommandCreator setCallbackUrl(final URI callbackUrl) {
+    public IpCommandCreator setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public IpCommandCreator setCallbackUrl(final String callbackUrl) {
+    public IpCommandCreator setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-
-    public IpCommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
+    public IpCommandCreator setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;
         return this;
     }
 
     @Override
-    public IpCommand create(final TwilioRestClient client) {
+    public IpCommand create(final TwilioRestClient client){
         String path = "/v1/IpCommands";
 
-        path = path.replace("{" + "Sim" + "}", this.sim.toString());
-        path = path.replace("{" + "Payload" + "}", this.payload.toString());
-        path =
-            path.replace("{" + "DevicePort" + "}", this.devicePort.toString());
+        path = path.replace("{"+"Sim"+"}", this.sim.toString());
+        path = path.replace("{"+"Payload"+"}", this.payload.toString());
+        path = path.replace("{"+"DevicePort"+"}", this.devicePort.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -101,47 +91,41 @@ public class IpCommandCreator extends Creator<IpCommand> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "IpCommand creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("IpCommand creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return IpCommand.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return IpCommand.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (sim != null) {
             request.addPostParam("Sim", sim);
+    
         }
         if (payload != null) {
             request.addPostParam("Payload", payload);
+    
         }
         if (devicePort != null) {
             request.addPostParam("DevicePort", devicePort.toString());
+    
         }
         if (payloadType != null) {
             request.addPostParam("PayloadType", payloadType.toString());
+    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+    
         }
     }
 }

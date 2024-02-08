@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
+
 import java.util.List;
 
-public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
 
+
+public class UsAppToPersonCreator extends Creator<UsAppToPerson>{
     private String pathMessagingServiceSid;
     private String brandRegistrationSid;
     private String description;
@@ -48,16 +50,7 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
     private Boolean ageGated;
     private Boolean directLending;
 
-    public UsAppToPersonCreator(
-        final String pathMessagingServiceSid,
-        final String brandRegistrationSid,
-        final String description,
-        final String messageFlow,
-        final List<String> messageSamples,
-        final String usAppToPersonUsecase,
-        final Boolean hasEmbeddedLinks,
-        final Boolean hasEmbeddedPhone
-    ) {
+    public UsAppToPersonCreator(final String pathMessagingServiceSid, final String brandRegistrationSid, final String description, final String messageFlow, final List<String> messageSamples, final String usAppToPersonUsecase, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.brandRegistrationSid = brandRegistrationSid;
         this.description = description;
@@ -68,164 +61,95 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         this.hasEmbeddedPhone = hasEmbeddedPhone;
     }
 
-    public UsAppToPersonCreator setBrandRegistrationSid(
-        final String brandRegistrationSid
-    ) {
+    public UsAppToPersonCreator setBrandRegistrationSid(final String brandRegistrationSid){
         this.brandRegistrationSid = brandRegistrationSid;
         return this;
     }
-
-    public UsAppToPersonCreator setDescription(final String description) {
+    public UsAppToPersonCreator setDescription(final String description){
         this.description = description;
         return this;
     }
-
-    public UsAppToPersonCreator setMessageFlow(final String messageFlow) {
+    public UsAppToPersonCreator setMessageFlow(final String messageFlow){
         this.messageFlow = messageFlow;
         return this;
     }
-
-    public UsAppToPersonCreator setMessageSamples(
-        final List<String> messageSamples
-    ) {
+    public UsAppToPersonCreator setMessageSamples(final List<String> messageSamples){
         this.messageSamples = messageSamples;
         return this;
     }
-
-    public UsAppToPersonCreator setMessageSamples(final String messageSamples) {
+    public UsAppToPersonCreator setMessageSamples(final String messageSamples){
         return setMessageSamples(Promoter.listOfOne(messageSamples));
     }
-
-    public UsAppToPersonCreator setUsAppToPersonUsecase(
-        final String usAppToPersonUsecase
-    ) {
+    public UsAppToPersonCreator setUsAppToPersonUsecase(final String usAppToPersonUsecase){
         this.usAppToPersonUsecase = usAppToPersonUsecase;
         return this;
     }
-
-    public UsAppToPersonCreator setHasEmbeddedLinks(
-        final Boolean hasEmbeddedLinks
-    ) {
+    public UsAppToPersonCreator setHasEmbeddedLinks(final Boolean hasEmbeddedLinks){
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         return this;
     }
-
-    public UsAppToPersonCreator setHasEmbeddedPhone(
-        final Boolean hasEmbeddedPhone
-    ) {
+    public UsAppToPersonCreator setHasEmbeddedPhone(final Boolean hasEmbeddedPhone){
         this.hasEmbeddedPhone = hasEmbeddedPhone;
         return this;
     }
-
-    public UsAppToPersonCreator setOptInMessage(final String optInMessage) {
+    public UsAppToPersonCreator setOptInMessage(final String optInMessage){
         this.optInMessage = optInMessage;
         return this;
     }
-
-    public UsAppToPersonCreator setOptOutMessage(final String optOutMessage) {
+    public UsAppToPersonCreator setOptOutMessage(final String optOutMessage){
         this.optOutMessage = optOutMessage;
         return this;
     }
-
-    public UsAppToPersonCreator setHelpMessage(final String helpMessage) {
+    public UsAppToPersonCreator setHelpMessage(final String helpMessage){
         this.helpMessage = helpMessage;
         return this;
     }
-
-    public UsAppToPersonCreator setOptInKeywords(
-        final List<String> optInKeywords
-    ) {
+    public UsAppToPersonCreator setOptInKeywords(final List<String> optInKeywords){
         this.optInKeywords = optInKeywords;
         return this;
     }
-
-    public UsAppToPersonCreator setOptInKeywords(final String optInKeywords) {
+    public UsAppToPersonCreator setOptInKeywords(final String optInKeywords){
         return setOptInKeywords(Promoter.listOfOne(optInKeywords));
     }
-
-    public UsAppToPersonCreator setOptOutKeywords(
-        final List<String> optOutKeywords
-    ) {
+    public UsAppToPersonCreator setOptOutKeywords(final List<String> optOutKeywords){
         this.optOutKeywords = optOutKeywords;
         return this;
     }
-
-    public UsAppToPersonCreator setOptOutKeywords(final String optOutKeywords) {
+    public UsAppToPersonCreator setOptOutKeywords(final String optOutKeywords){
         return setOptOutKeywords(Promoter.listOfOne(optOutKeywords));
     }
-
-    public UsAppToPersonCreator setHelpKeywords(
-        final List<String> helpKeywords
-    ) {
+    public UsAppToPersonCreator setHelpKeywords(final List<String> helpKeywords){
         this.helpKeywords = helpKeywords;
         return this;
     }
-
-    public UsAppToPersonCreator setHelpKeywords(final String helpKeywords) {
+    public UsAppToPersonCreator setHelpKeywords(final String helpKeywords){
         return setHelpKeywords(Promoter.listOfOne(helpKeywords));
     }
-
-    public UsAppToPersonCreator setSubscriberOptIn(
-        final Boolean subscriberOptIn
-    ) {
+    public UsAppToPersonCreator setSubscriberOptIn(final Boolean subscriberOptIn){
         this.subscriberOptIn = subscriberOptIn;
         return this;
     }
-
-    public UsAppToPersonCreator setAgeGated(final Boolean ageGated) {
+    public UsAppToPersonCreator setAgeGated(final Boolean ageGated){
         this.ageGated = ageGated;
         return this;
     }
-
-    public UsAppToPersonCreator setDirectLending(final Boolean directLending) {
+    public UsAppToPersonCreator setDirectLending(final Boolean directLending){
         this.directLending = directLending;
         return this;
     }
 
     @Override
-    public UsAppToPerson create(final TwilioRestClient client) {
+    public UsAppToPerson create(final TwilioRestClient client){
         String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p";
 
-        path =
-            path.replace(
-                "{" + "MessagingServiceSid" + "}",
-                this.pathMessagingServiceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "BrandRegistrationSid" + "}",
-                this.brandRegistrationSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "Description" + "}",
-                this.description.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageFlow" + "}",
-                this.messageFlow.toString()
-            );
-        path =
-            path.replace(
-                "{" + "MessageSamples" + "}",
-                this.messageSamples.toString()
-            );
-        path =
-            path.replace(
-                "{" + "UsAppToPersonUsecase" + "}",
-                this.usAppToPersonUsecase.toString()
-            );
-        path =
-            path.replace(
-                "{" + "HasEmbeddedLinks" + "}",
-                this.hasEmbeddedLinks.toString()
-            );
-        path =
-            path.replace(
-                "{" + "HasEmbeddedPhone" + "}",
-                this.hasEmbeddedPhone.toString()
-            );
+        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
+        path = path.replace("{"+"BrandRegistrationSid"+"}", this.brandRegistrationSid.toString());
+        path = path.replace("{"+"Description"+"}", this.description.toString());
+        path = path.replace("{"+"MessageFlow"+"}", this.messageFlow.toString());
+        path = path.replace("{"+"MessageSamples"+"}", this.messageSamples.toString());
+        path = path.replace("{"+"UsAppToPersonUsecase"+"}", this.usAppToPersonUsecase.toString());
+        path = path.replace("{"+"HasEmbeddedLinks"+"}", this.hasEmbeddedLinks.toString());
+        path = path.replace("{"+"HasEmbeddedPhone"+"}", this.hasEmbeddedPhone.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -236,91 +160,89 @@ public class UsAppToPersonCreator extends Creator<UsAppToPerson> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "UsAppToPerson creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UsAppToPerson creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return UsAppToPerson.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UsAppToPerson.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (brandRegistrationSid != null) {
             request.addPostParam("BrandRegistrationSid", brandRegistrationSid);
+    
         }
         if (description != null) {
             request.addPostParam("Description", description);
+    
         }
         if (messageFlow != null) {
             request.addPostParam("MessageFlow", messageFlow);
+    
         }
         if (messageSamples != null) {
             for (String prop : messageSamples) {
                 request.addPostParam("MessageSamples", prop);
             }
+    
         }
         if (usAppToPersonUsecase != null) {
             request.addPostParam("UsAppToPersonUsecase", usAppToPersonUsecase);
+    
         }
         if (hasEmbeddedLinks != null) {
-            request.addPostParam(
-                "HasEmbeddedLinks",
-                hasEmbeddedLinks.toString()
-            );
+            request.addPostParam("HasEmbeddedLinks", hasEmbeddedLinks.toString());
+    
         }
         if (hasEmbeddedPhone != null) {
-            request.addPostParam(
-                "HasEmbeddedPhone",
-                hasEmbeddedPhone.toString()
-            );
+            request.addPostParam("HasEmbeddedPhone", hasEmbeddedPhone.toString());
+    
         }
         if (optInMessage != null) {
             request.addPostParam("OptInMessage", optInMessage);
+    
         }
         if (optOutMessage != null) {
             request.addPostParam("OptOutMessage", optOutMessage);
+    
         }
         if (helpMessage != null) {
             request.addPostParam("HelpMessage", helpMessage);
+    
         }
         if (optInKeywords != null) {
             for (String prop : optInKeywords) {
                 request.addPostParam("OptInKeywords", prop);
             }
+    
         }
         if (optOutKeywords != null) {
             for (String prop : optOutKeywords) {
                 request.addPostParam("OptOutKeywords", prop);
             }
+    
         }
         if (helpKeywords != null) {
             for (String prop : helpKeywords) {
                 request.addPostParam("HelpKeywords", prop);
             }
+    
         }
         if (subscriberOptIn != null) {
             request.addPostParam("SubscriberOptIn", subscriberOptIn.toString());
+    
         }
         if (ageGated != null) {
             request.addPostParam("AgeGated", ageGated.toString());
+    
         }
         if (directLending != null) {
             request.addPostParam("DirectLending", directLending.toString());
+    
         }
     }
 }

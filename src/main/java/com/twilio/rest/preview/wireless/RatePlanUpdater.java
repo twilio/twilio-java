@@ -25,31 +25,32 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class RatePlanUpdater extends Updater<RatePlan> {
 
+
+
+public class RatePlanUpdater extends Updater<RatePlan>{
     private String pathSid;
     private String uniqueName;
     private String friendlyName;
 
-    public RatePlanUpdater(final String pathSid) {
+    public RatePlanUpdater(final String pathSid){
         this.pathSid = pathSid;
     }
 
-    public RatePlanUpdater setUniqueName(final String uniqueName) {
+    public RatePlanUpdater setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
-
-    public RatePlanUpdater setFriendlyName(final String friendlyName) {
+    public RatePlanUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
 
     @Override
-    public RatePlan update(final TwilioRestClient client) {
+    public RatePlan update(final TwilioRestClient client){
         String path = "/wireless/RatePlans/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -60,35 +61,25 @@ public class RatePlanUpdater extends Updater<RatePlan> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "RatePlan update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("RatePlan update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return RatePlan.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return RatePlan.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
     }
 }

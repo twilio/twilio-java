@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
+
 import java.util.List;
 
-public class BuildCreator extends Creator<Build> {
 
+
+public class BuildCreator extends Creator<Build>{
     private String pathServiceSid;
     private List<String> assetVersions;
     private List<String> functionVersions;
@@ -40,45 +42,34 @@ public class BuildCreator extends Creator<Build> {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public BuildCreator setAssetVersions(final List<String> assetVersions) {
+    public BuildCreator setAssetVersions(final List<String> assetVersions){
         this.assetVersions = assetVersions;
         return this;
     }
-
-    public BuildCreator setAssetVersions(final String assetVersions) {
+    public BuildCreator setAssetVersions(final String assetVersions){
         return setAssetVersions(Promoter.listOfOne(assetVersions));
     }
-
-    public BuildCreator setFunctionVersions(
-        final List<String> functionVersions
-    ) {
+    public BuildCreator setFunctionVersions(final List<String> functionVersions){
         this.functionVersions = functionVersions;
         return this;
     }
-
-    public BuildCreator setFunctionVersions(final String functionVersions) {
+    public BuildCreator setFunctionVersions(final String functionVersions){
         return setFunctionVersions(Promoter.listOfOne(functionVersions));
     }
-
-    public BuildCreator setDependencies(final String dependencies) {
+    public BuildCreator setDependencies(final String dependencies){
         this.dependencies = dependencies;
         return this;
     }
-
-    public BuildCreator setRuntime(final String runtime) {
+    public BuildCreator setRuntime(final String runtime){
         this.runtime = runtime;
         return this;
     }
 
     @Override
-    public Build create(final TwilioRestClient client) {
+    public Build create(final TwilioRestClient client){
         String path = "/v1/Services/{ServiceSid}/Builds";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -89,42 +80,37 @@ public class BuildCreator extends Creator<Build> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Build creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Build creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Build.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (assetVersions != null) {
             for (String prop : assetVersions) {
                 request.addPostParam("AssetVersions", prop);
             }
+    
         }
         if (functionVersions != null) {
             for (String prop : functionVersions) {
                 request.addPostParam("FunctionVersions", prop);
             }
+    
         }
         if (dependencies != null) {
             request.addPostParam("Dependencies", dependencies);
+    
         }
         if (runtime != null) {
             request.addPostParam("Runtime", runtime);
+    
         }
     }
 }

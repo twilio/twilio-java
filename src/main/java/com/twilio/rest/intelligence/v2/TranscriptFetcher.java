@@ -24,19 +24,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class TranscriptFetcher extends Fetcher<Transcript> {
 
+
+
+public class TranscriptFetcher extends Fetcher<Transcript> {
     private String pathSid;
 
-    public TranscriptFetcher(final String pathSid) {
+    public TranscriptFetcher(final String pathSid){
         this.pathSid = pathSid;
     }
+
 
     @Override
     public Transcript fetch(final TwilioRestClient client) {
         String path = "/v2/Transcripts/{Sid}";
 
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -46,26 +49,15 @@ public class TranscriptFetcher extends Fetcher<Transcript> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Transcript fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Transcript fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Transcript.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Transcript.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

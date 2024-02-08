@@ -23,11 +23,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.time.ZonedDateTime;
 
-public class WorkspaceCumulativeStatisticsFetcher
-    extends Fetcher<WorkspaceCumulativeStatistics> {
 
+
+public class WorkspaceCumulativeStatisticsFetcher extends Fetcher<WorkspaceCumulativeStatistics> {
     private String pathWorkspaceSid;
     private ZonedDateTime endDate;
     private Integer minutes;
@@ -35,41 +36,27 @@ public class WorkspaceCumulativeStatisticsFetcher
     private String taskChannel;
     private String splitByWaitTime;
 
-    public WorkspaceCumulativeStatisticsFetcher(final String pathWorkspaceSid) {
+    public WorkspaceCumulativeStatisticsFetcher(final String pathWorkspaceSid){
         this.pathWorkspaceSid = pathWorkspaceSid;
     }
 
-    public WorkspaceCumulativeStatisticsFetcher setEndDate(
-        final ZonedDateTime endDate
-    ) {
+    public WorkspaceCumulativeStatisticsFetcher setEndDate(final ZonedDateTime endDate){
         this.endDate = endDate;
         return this;
     }
-
-    public WorkspaceCumulativeStatisticsFetcher setMinutes(
-        final Integer minutes
-    ) {
+    public WorkspaceCumulativeStatisticsFetcher setMinutes(final Integer minutes){
         this.minutes = minutes;
         return this;
     }
-
-    public WorkspaceCumulativeStatisticsFetcher setStartDate(
-        final ZonedDateTime startDate
-    ) {
+    public WorkspaceCumulativeStatisticsFetcher setStartDate(final ZonedDateTime startDate){
         this.startDate = startDate;
         return this;
     }
-
-    public WorkspaceCumulativeStatisticsFetcher setTaskChannel(
-        final String taskChannel
-    ) {
+    public WorkspaceCumulativeStatisticsFetcher setTaskChannel(final String taskChannel){
         this.taskChannel = taskChannel;
         return this;
     }
-
-    public WorkspaceCumulativeStatisticsFetcher setSplitByWaitTime(
-        final String splitByWaitTime
-    ) {
+    public WorkspaceCumulativeStatisticsFetcher setSplitByWaitTime(final String splitByWaitTime){
         this.splitByWaitTime = splitByWaitTime;
         return this;
     }
@@ -78,11 +65,7 @@ public class WorkspaceCumulativeStatisticsFetcher
     public WorkspaceCumulativeStatistics fetch(final TwilioRestClient client) {
         String path = "/v1/Workspaces/{WorkspaceSid}/CumulativeStatistics";
 
-        path =
-            path.replace(
-                "{" + "WorkspaceSid" + "}",
-                this.pathWorkspaceSid.toString()
-            );
+        path = path.replace("{"+"WorkspaceSid"+"}", this.pathWorkspaceSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -93,48 +76,36 @@ public class WorkspaceCumulativeStatisticsFetcher
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "WorkspaceCumulativeStatistics fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("WorkspaceCumulativeStatistics fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return WorkspaceCumulativeStatistics.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return WorkspaceCumulativeStatistics.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addQueryParams(final Request request) {
         if (endDate != null) {
             request.addQueryParam("EndDate", endDate.toInstant().toString());
         }
 
         if (minutes != null) {
+    
             request.addQueryParam("Minutes", minutes.toString());
         }
         if (startDate != null) {
-            request.addQueryParam(
-                "StartDate",
-                startDate.toInstant().toString()
-            );
+            request.addQueryParam("StartDate", startDate.toInstant().toString());
         }
 
         if (taskChannel != null) {
+    
             request.addQueryParam("TaskChannel", taskChannel);
         }
         if (splitByWaitTime != null) {
+    
             request.addQueryParam("SplitByWaitTime", splitByWaitTime);
         }
     }

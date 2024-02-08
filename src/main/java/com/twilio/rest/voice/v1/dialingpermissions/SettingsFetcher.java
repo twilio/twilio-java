@@ -24,13 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+
+
+
 public class SettingsFetcher extends Fetcher<Settings> {
 
-    public SettingsFetcher() {}
+    public SettingsFetcher(){
+    }
+
 
     @Override
     public Settings fetch(final TwilioRestClient client) {
         String path = "/v1/Settings";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -40,26 +46,15 @@ public class SettingsFetcher extends Fetcher<Settings> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Settings fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Settings fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return Settings.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return Settings.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

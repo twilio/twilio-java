@@ -23,40 +23,44 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class SecondaryAuthToken extends Resource {
-
     private static final long serialVersionUID = 191219471550314L;
 
-    public static SecondaryAuthTokenCreator creator() {
+    
+
+    public static SecondaryAuthTokenCreator creator(){
         return new SecondaryAuthTokenCreator();
     }
 
-    public static SecondaryAuthTokenDeleter deleter() {
+    public static SecondaryAuthTokenDeleter deleter(){
         return new SecondaryAuthTokenDeleter();
     }
 
     /**
-     * Converts a JSON String into a SecondaryAuthToken object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return SecondaryAuthToken object represented by the provided JSON
-     */
-    public static SecondaryAuthToken fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a SecondaryAuthToken object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return SecondaryAuthToken object represented by the provided JSON
+    */
+    public static SecondaryAuthToken fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SecondaryAuthToken.class);
@@ -68,17 +72,14 @@ public class SecondaryAuthToken extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a SecondaryAuthToken object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return SecondaryAuthToken object represented by the provided JSON
-     */
-    public static SecondaryAuthToken fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a SecondaryAuthToken object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return SecondaryAuthToken object represented by the provided JSON
+    */
+    public static SecondaryAuthToken fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, SecondaryAuthToken.class);
@@ -88,6 +89,7 @@ public class SecondaryAuthToken extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -97,11 +99,20 @@ public class SecondaryAuthToken extends Resource {
 
     @JsonCreator
     private SecondaryAuthToken(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("secondary_auth_token") final String secondaryAuthToken,
-        @JsonProperty("url") final URI url
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("secondary_auth_token")
+        final String secondaryAuthToken,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -110,29 +121,25 @@ public class SecondaryAuthToken extends Resource {
         this.url = url;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final String getSecondaryAuthToken() {
-        return this.secondaryAuthToken;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final String getSecondaryAuthToken() {
+            return this.secondaryAuthToken;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -142,23 +149,14 @@ public class SecondaryAuthToken extends Resource {
 
         SecondaryAuthToken other = (SecondaryAuthToken) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(secondaryAuthToken, other.secondaryAuthToken) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(secondaryAuthToken, other.secondaryAuthToken) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            dateCreated,
-            dateUpdated,
-            secondaryAuthToken,
-            url
-        );
+        return Objects.hash(accountSid, dateCreated, dateUpdated, secondaryAuthToken, url);
     }
+
+
 }
+

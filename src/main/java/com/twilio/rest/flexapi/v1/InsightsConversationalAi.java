@@ -24,41 +24,43 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsConversationalAi extends Resource {
-
     private static final long serialVersionUID = 68663616391116L;
 
-    public static InsightsConversationalAiFetcher fetcher(
-        final String pathInstanceSid
-    ) {
+    
+
+    public static InsightsConversationalAiFetcher fetcher(final String pathInstanceSid){
         return new InsightsConversationalAiFetcher(pathInstanceSid);
     }
 
     /**
-     * Converts a JSON String into a InsightsConversationalAi object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsConversationalAi object represented by the provided JSON
-     */
-    public static InsightsConversationalAi fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a InsightsConversationalAi object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsConversationalAi object represented by the provided JSON
+    */
+    public static InsightsConversationalAi fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsConversationalAi.class);
@@ -70,17 +72,14 @@ public class InsightsConversationalAi extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a InsightsConversationalAi object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return InsightsConversationalAi object represented by the provided JSON
-     */
-    public static InsightsConversationalAi fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a InsightsConversationalAi object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return InsightsConversationalAi object represented by the provided JSON
+    */
+    public static InsightsConversationalAi fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, InsightsConversationalAi.class);
@@ -127,18 +126,35 @@ public class InsightsConversationalAi extends Resource {
 
     @JsonCreator
     private InsightsConversationalAi(
-        @JsonProperty("instance_sid") final String instanceSid,
-        @JsonProperty("report_id") final String reportId,
-        @JsonProperty(
-            "granularity"
-        ) final InsightsConversationalAi.Granularity granularity,
-        @JsonProperty("period_start") final String periodStart,
-        @JsonProperty("period_end") final String periodEnd,
-        @JsonProperty("updated") final String updated,
-        @JsonProperty("total_pages") final Integer totalPages,
-        @JsonProperty("page") final Integer page,
-        @JsonProperty("rows") final List<Map<String, Object>> rows,
-        @JsonProperty("url") final URI url
+        @JsonProperty("instance_sid")
+        final String instanceSid,
+
+        @JsonProperty("report_id")
+        final String reportId,
+
+        @JsonProperty("granularity")
+        final InsightsConversationalAi.Granularity granularity,
+
+        @JsonProperty("period_start")
+        final String periodStart,
+
+        @JsonProperty("period_end")
+        final String periodEnd,
+
+        @JsonProperty("updated")
+        final String updated,
+
+        @JsonProperty("total_pages")
+        final Integer totalPages,
+
+        @JsonProperty("page")
+        final Integer page,
+
+        @JsonProperty("rows")
+        final List<Map<String, Object>> rows,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.instanceSid = instanceSid;
         this.reportId = reportId;
@@ -152,49 +168,40 @@ public class InsightsConversationalAi extends Resource {
         this.url = url;
     }
 
-    public final String getInstanceSid() {
-        return this.instanceSid;
-    }
-
-    public final String getReportId() {
-        return this.reportId;
-    }
-
-    public final InsightsConversationalAi.Granularity getGranularity() {
-        return this.granularity;
-    }
-
-    public final ZonedDateTime getPeriodStart() {
-        return this.periodStart;
-    }
-
-    public final ZonedDateTime getPeriodEnd() {
-        return this.periodEnd;
-    }
-
-    public final ZonedDateTime getUpdated() {
-        return this.updated;
-    }
-
-    public final Integer getTotalPages() {
-        return this.totalPages;
-    }
-
-    public final Integer getPage() {
-        return this.page;
-    }
-
-    public final List<Map<String, Object>> getRows() {
-        return this.rows;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getInstanceSid() {
+            return this.instanceSid;
+        }
+        public final String getReportId() {
+            return this.reportId;
+        }
+        public final InsightsConversationalAi.Granularity getGranularity() {
+            return this.granularity;
+        }
+        public final ZonedDateTime getPeriodStart() {
+            return this.periodStart;
+        }
+        public final ZonedDateTime getPeriodEnd() {
+            return this.periodEnd;
+        }
+        public final ZonedDateTime getUpdated() {
+            return this.updated;
+        }
+        public final Integer getTotalPages() {
+            return this.totalPages;
+        }
+        public final Integer getPage() {
+            return this.page;
+        }
+        public final List<Map<String, Object>> getRows() {
+            return this.rows;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -204,33 +211,14 @@ public class InsightsConversationalAi extends Resource {
 
         InsightsConversationalAi other = (InsightsConversationalAi) o;
 
-        return (
-            Objects.equals(instanceSid, other.instanceSid) &&
-            Objects.equals(reportId, other.reportId) &&
-            Objects.equals(granularity, other.granularity) &&
-            Objects.equals(periodStart, other.periodStart) &&
-            Objects.equals(periodEnd, other.periodEnd) &&
-            Objects.equals(updated, other.updated) &&
-            Objects.equals(totalPages, other.totalPages) &&
-            Objects.equals(page, other.page) &&
-            Objects.equals(rows, other.rows) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(instanceSid, other.instanceSid) &&  Objects.equals(reportId, other.reportId) &&  Objects.equals(granularity, other.granularity) &&  Objects.equals(periodStart, other.periodStart) &&  Objects.equals(periodEnd, other.periodEnd) &&  Objects.equals(updated, other.updated) &&  Objects.equals(totalPages, other.totalPages) &&  Objects.equals(page, other.page) &&  Objects.equals(rows, other.rows) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            instanceSid,
-            reportId,
-            granularity,
-            periodStart,
-            periodEnd,
-            updated,
-            totalPages,
-            page,
-            rows,
-            url
-        );
+        return Objects.hash(instanceSid, reportId, granularity, periodStart, periodEnd, updated, totalPages, page, rows, url);
     }
+
+
 }
+

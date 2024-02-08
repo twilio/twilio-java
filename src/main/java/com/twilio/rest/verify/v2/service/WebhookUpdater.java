@@ -25,10 +25,12 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
+
 import java.util.List;
 
-public class WebhookUpdater extends Updater<Webhook> {
 
+public class WebhookUpdater extends Updater<Webhook>{
     private String pathServiceSid;
     private String pathSid;
     private String friendlyName;
@@ -37,50 +39,41 @@ public class WebhookUpdater extends Updater<Webhook> {
     private Webhook.Status status;
     private Webhook.Version version;
 
-    public WebhookUpdater(final String pathServiceSid, final String pathSid) {
+    public WebhookUpdater(final String pathServiceSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public WebhookUpdater setFriendlyName(final String friendlyName) {
+    public WebhookUpdater setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public WebhookUpdater setEventTypes(final List<String> eventTypes) {
+    public WebhookUpdater setEventTypes(final List<String> eventTypes){
         this.eventTypes = eventTypes;
         return this;
     }
-
-    public WebhookUpdater setEventTypes(final String eventTypes) {
+    public WebhookUpdater setEventTypes(final String eventTypes){
         return setEventTypes(Promoter.listOfOne(eventTypes));
     }
-
-    public WebhookUpdater setWebhookUrl(final String webhookUrl) {
+    public WebhookUpdater setWebhookUrl(final String webhookUrl){
         this.webhookUrl = webhookUrl;
         return this;
     }
-
-    public WebhookUpdater setStatus(final Webhook.Status status) {
+    public WebhookUpdater setStatus(final Webhook.Status status){
         this.status = status;
         return this;
     }
-
-    public WebhookUpdater setVersion(final Webhook.Version version) {
+    public WebhookUpdater setVersion(final Webhook.Version version){
         this.version = version;
         return this;
     }
 
     @Override
-    public Webhook update(final TwilioRestClient client) {
+    public Webhook update(final TwilioRestClient client){
         String path = "/v2/Services/{ServiceSid}/Webhooks/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -91,43 +84,39 @@ public class WebhookUpdater extends Updater<Webhook> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Webhook update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Webhook update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Webhook.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (eventTypes != null) {
             for (String prop : eventTypes) {
                 request.addPostParam("EventTypes", prop);
             }
+    
         }
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl);
+    
         }
         if (status != null) {
             request.addPostParam("Status", status.toString());
+    
         }
         if (version != null) {
             request.addPostParam("Version", version.toString());
+    
         }
     }
 }

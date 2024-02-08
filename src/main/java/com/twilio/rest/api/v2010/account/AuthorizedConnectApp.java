@@ -23,58 +23,50 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.List;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class AuthorizedConnectApp extends Resource {
-
     private static final long serialVersionUID = 156350222502843L;
 
-    public static AuthorizedConnectAppFetcher fetcher(
-        final String pathConnectAppSid
-    ) {
+    
+
+    public static AuthorizedConnectAppFetcher fetcher(final String pathConnectAppSid){
         return new AuthorizedConnectAppFetcher(pathConnectAppSid);
     }
-
-    public static AuthorizedConnectAppFetcher fetcher(
-        final String pathAccountSid,
-        final String pathConnectAppSid
-    ) {
-        return new AuthorizedConnectAppFetcher(
-            pathAccountSid,
-            pathConnectAppSid
-        );
+    public static AuthorizedConnectAppFetcher fetcher(final String pathAccountSid, final String pathConnectAppSid){
+        return new AuthorizedConnectAppFetcher(pathAccountSid, pathConnectAppSid);
     }
 
-    public static AuthorizedConnectAppReader reader() {
+    public static AuthorizedConnectAppReader reader(){
         return new AuthorizedConnectAppReader();
     }
-
-    public static AuthorizedConnectAppReader reader(
-        final String pathAccountSid
-    ) {
+    public static AuthorizedConnectAppReader reader(final String pathAccountSid){
         return new AuthorizedConnectAppReader(pathAccountSid);
     }
 
     /**
-     * Converts a JSON String into a AuthorizedConnectApp object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return AuthorizedConnectApp object represented by the provided JSON
-     */
-    public static AuthorizedConnectApp fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a AuthorizedConnectApp object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return AuthorizedConnectApp object represented by the provided JSON
+    */
+    public static AuthorizedConnectApp fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AuthorizedConnectApp.class);
@@ -86,17 +78,14 @@ public class AuthorizedConnectApp extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a AuthorizedConnectApp object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return AuthorizedConnectApp object represented by the provided JSON
-     */
-    public static AuthorizedConnectApp fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a AuthorizedConnectApp object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return AuthorizedConnectApp object represented by the provided JSON
+    */
+    public static AuthorizedConnectApp fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, AuthorizedConnectApp.class);
@@ -138,24 +127,29 @@ public class AuthorizedConnectApp extends Resource {
 
     @JsonCreator
     private AuthorizedConnectApp(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty(
-            "connect_app_company_name"
-        ) final String connectAppCompanyName,
-        @JsonProperty(
-            "connect_app_description"
-        ) final String connectAppDescription,
-        @JsonProperty(
-            "connect_app_friendly_name"
-        ) final String connectAppFriendlyName,
-        @JsonProperty(
-            "connect_app_homepage_url"
-        ) final URI connectAppHomepageUrl,
-        @JsonProperty("connect_app_sid") final String connectAppSid,
-        @JsonProperty("permissions") final List<
-            AuthorizedConnectApp.Permission
-        > permissions,
-        @JsonProperty("uri") final String uri
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("connect_app_company_name")
+        final String connectAppCompanyName,
+
+        @JsonProperty("connect_app_description")
+        final String connectAppDescription,
+
+        @JsonProperty("connect_app_friendly_name")
+        final String connectAppFriendlyName,
+
+        @JsonProperty("connect_app_homepage_url")
+        final URI connectAppHomepageUrl,
+
+        @JsonProperty("connect_app_sid")
+        final String connectAppSid,
+
+        @JsonProperty("permissions")
+        final List<AuthorizedConnectApp.Permission> permissions,
+
+        @JsonProperty("uri")
+        final String uri
     ) {
         this.accountSid = accountSid;
         this.connectAppCompanyName = connectAppCompanyName;
@@ -167,41 +161,34 @@ public class AuthorizedConnectApp extends Resource {
         this.uri = uri;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getConnectAppCompanyName() {
-        return this.connectAppCompanyName;
-    }
-
-    public final String getConnectAppDescription() {
-        return this.connectAppDescription;
-    }
-
-    public final String getConnectAppFriendlyName() {
-        return this.connectAppFriendlyName;
-    }
-
-    public final URI getConnectAppHomepageUrl() {
-        return this.connectAppHomepageUrl;
-    }
-
-    public final String getConnectAppSid() {
-        return this.connectAppSid;
-    }
-
-    public final List<AuthorizedConnectApp.Permission> getPermissions() {
-        return this.permissions;
-    }
-
-    public final String getUri() {
-        return this.uri;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getConnectAppCompanyName() {
+            return this.connectAppCompanyName;
+        }
+        public final String getConnectAppDescription() {
+            return this.connectAppDescription;
+        }
+        public final String getConnectAppFriendlyName() {
+            return this.connectAppFriendlyName;
+        }
+        public final URI getConnectAppHomepageUrl() {
+            return this.connectAppHomepageUrl;
+        }
+        public final String getConnectAppSid() {
+            return this.connectAppSid;
+        }
+        public final List<AuthorizedConnectApp.Permission> getPermissions() {
+            return this.permissions;
+        }
+        public final String getUri() {
+            return this.uri;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -211,41 +198,14 @@ public class AuthorizedConnectApp extends Resource {
 
         AuthorizedConnectApp other = (AuthorizedConnectApp) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(
-                connectAppCompanyName,
-                other.connectAppCompanyName
-            ) &&
-            Objects.equals(
-                connectAppDescription,
-                other.connectAppDescription
-            ) &&
-            Objects.equals(
-                connectAppFriendlyName,
-                other.connectAppFriendlyName
-            ) &&
-            Objects.equals(
-                connectAppHomepageUrl,
-                other.connectAppHomepageUrl
-            ) &&
-            Objects.equals(connectAppSid, other.connectAppSid) &&
-            Objects.equals(permissions, other.permissions) &&
-            Objects.equals(uri, other.uri)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(connectAppCompanyName, other.connectAppCompanyName) &&  Objects.equals(connectAppDescription, other.connectAppDescription) &&  Objects.equals(connectAppFriendlyName, other.connectAppFriendlyName) &&  Objects.equals(connectAppHomepageUrl, other.connectAppHomepageUrl) &&  Objects.equals(connectAppSid, other.connectAppSid) &&  Objects.equals(permissions, other.permissions) &&  Objects.equals(uri, other.uri)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            connectAppCompanyName,
-            connectAppDescription,
-            connectAppFriendlyName,
-            connectAppHomepageUrl,
-            connectAppSid,
-            permissions,
-            uri
-        );
+        return Objects.hash(accountSid, connectAppCompanyName, connectAppDescription, connectAppFriendlyName, connectAppHomepageUrl, connectAppSid, permissions, uri);
     }
+
+
 }
+

@@ -26,11 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
+
 import java.util.List;
 
-public class InsightsQuestionnairesCreator
-    extends Creator<InsightsQuestionnaires> {
 
+
+public class InsightsQuestionnairesCreator extends Creator<InsightsQuestionnaires>{
     private String name;
     private String authorization;
     private String description;
@@ -41,48 +42,35 @@ public class InsightsQuestionnairesCreator
         this.name = name;
     }
 
-    public InsightsQuestionnairesCreator setName(final String name) {
+    public InsightsQuestionnairesCreator setName(final String name){
         this.name = name;
         return this;
     }
-
-    public InsightsQuestionnairesCreator setAuthorization(
-        final String authorization
-    ) {
+    public InsightsQuestionnairesCreator setAuthorization(final String authorization){
         this.authorization = authorization;
         return this;
     }
-
-    public InsightsQuestionnairesCreator setDescription(
-        final String description
-    ) {
+    public InsightsQuestionnairesCreator setDescription(final String description){
         this.description = description;
         return this;
     }
-
-    public InsightsQuestionnairesCreator setActive(final Boolean active) {
+    public InsightsQuestionnairesCreator setActive(final Boolean active){
         this.active = active;
         return this;
     }
-
-    public InsightsQuestionnairesCreator setQuestionSids(
-        final List<String> questionSids
-    ) {
+    public InsightsQuestionnairesCreator setQuestionSids(final List<String> questionSids){
         this.questionSids = questionSids;
         return this;
     }
-
-    public InsightsQuestionnairesCreator setQuestionSids(
-        final String questionSids
-    ) {
+    public InsightsQuestionnairesCreator setQuestionSids(final String questionSids){
         return setQuestionSids(Promoter.listOfOne(questionSids));
     }
 
     @Override
-    public InsightsQuestionnaires create(final TwilioRestClient client) {
+    public InsightsQuestionnaires create(final TwilioRestClient client){
         String path = "/v1/Insights/QualityManagement/Questionnaires";
 
-        path = path.replace("{" + "Name" + "}", this.name.toString());
+        path = path.replace("{"+"Name"+"}", this.name.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -94,49 +82,41 @@ public class InsightsQuestionnairesCreator
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnaires creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnaires creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnaires.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InsightsQuestionnaires.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (name != null) {
             request.addPostParam("Name", name);
+    
         }
         if (description != null) {
             request.addPostParam("Description", description);
+    
         }
         if (active != null) {
             request.addPostParam("Active", active.toString());
+    
         }
         if (questionSids != null) {
             for (String prop : questionSids) {
                 request.addPostParam("QuestionSids", prop);
             }
+    
         }
     }
-
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
             request.addHeaderParam("Authorization", authorization);
+
         }
     }
 }

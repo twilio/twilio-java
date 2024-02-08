@@ -24,85 +24,59 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Message extends Resource {
-
     private static final long serialVersionUID = 273348594526439L;
 
-    public static MessageCreator creator(
-        final String pathChatServiceSid,
-        final String pathConversationSid
-    ) {
+    
+
+    public static MessageCreator creator(final String pathChatServiceSid, final String pathConversationSid){
         return new MessageCreator(pathChatServiceSid, pathConversationSid);
     }
 
-    public static MessageDeleter deleter(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        return new MessageDeleter(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
-        );
+    public static MessageDeleter deleter(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageDeleter(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static MessageFetcher fetcher(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        return new MessageFetcher(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
-        );
+    public static MessageFetcher fetcher(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageFetcher(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
-    public static MessageReader reader(
-        final String pathChatServiceSid,
-        final String pathConversationSid
-    ) {
+    public static MessageReader reader(final String pathChatServiceSid, final String pathConversationSid){
         return new MessageReader(pathChatServiceSid, pathConversationSid);
     }
 
-    public static MessageUpdater updater(
-        final String pathChatServiceSid,
-        final String pathConversationSid,
-        final String pathSid
-    ) {
-        return new MessageUpdater(
-            pathChatServiceSid,
-            pathConversationSid,
-            pathSid
-        );
+    public static MessageUpdater updater(final String pathChatServiceSid, final String pathConversationSid, final String pathSid){
+        return new MessageUpdater(pathChatServiceSid, pathConversationSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a Message object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Message object represented by the provided JSON
-     */
-    public static Message fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Message object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Message object represented by the provided JSON
+    */
+    public static Message fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -114,17 +88,14 @@ public class Message extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Message object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Message object represented by the provided JSON
-     */
-    public static Message fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Message object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Message object represented by the provided JSON
+    */
+    public static Message fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Message.class);
@@ -154,7 +125,6 @@ public class Message extends Resource {
             return Promoter.enumFromString(value, OrderType.values());
         }
     }
-
     public enum WebhookEnabledType {
         TRUE("true"),
         FALSE("false");
@@ -194,22 +164,53 @@ public class Message extends Resource {
 
     @JsonCreator
     private Message(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("chat_service_sid") final String chatServiceSid,
-        @JsonProperty("conversation_sid") final String conversationSid,
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("index") final Integer index,
-        @JsonProperty("author") final String author,
-        @JsonProperty("body") final String body,
-        @JsonProperty("media") final List<Map<String, Object>> media,
-        @JsonProperty("attributes") final String attributes,
-        @JsonProperty("participant_sid") final String participantSid,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("delivery") final Map<String, Object> delivery,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links,
-        @JsonProperty("content_sid") final String contentSid
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("chat_service_sid")
+        final String chatServiceSid,
+
+        @JsonProperty("conversation_sid")
+        final String conversationSid,
+
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("index")
+        final Integer index,
+
+        @JsonProperty("author")
+        final String author,
+
+        @JsonProperty("body")
+        final String body,
+
+        @JsonProperty("media")
+        final List<Map<String, Object>> media,
+
+        @JsonProperty("attributes")
+        final String attributes,
+
+        @JsonProperty("participant_sid")
+        final String participantSid,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("delivery")
+        final Map<String, Object> delivery,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links,
+
+        @JsonProperty("content_sid")
+        final String contentSid
     ) {
         this.accountSid = accountSid;
         this.chatServiceSid = chatServiceSid;
@@ -229,73 +230,58 @@ public class Message extends Resource {
         this.contentSid = contentSid;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getChatServiceSid() {
-        return this.chatServiceSid;
-    }
-
-    public final String getConversationSid() {
-        return this.conversationSid;
-    }
-
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final Integer getIndex() {
-        return this.index;
-    }
-
-    public final String getAuthor() {
-        return this.author;
-    }
-
-    public final String getBody() {
-        return this.body;
-    }
-
-    public final List<Map<String, Object>> getMedia() {
-        return this.media;
-    }
-
-    public final String getAttributes() {
-        return this.attributes;
-    }
-
-    public final String getParticipantSid() {
-        return this.participantSid;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final Map<String, Object> getDelivery() {
-        return this.delivery;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
-
-    public final String getContentSid() {
-        return this.contentSid;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getChatServiceSid() {
+            return this.chatServiceSid;
+        }
+        public final String getConversationSid() {
+            return this.conversationSid;
+        }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final Integer getIndex() {
+            return this.index;
+        }
+        public final String getAuthor() {
+            return this.author;
+        }
+        public final String getBody() {
+            return this.body;
+        }
+        public final List<Map<String, Object>> getMedia() {
+            return this.media;
+        }
+        public final String getAttributes() {
+            return this.attributes;
+        }
+        public final String getParticipantSid() {
+            return this.participantSid;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final Map<String, Object> getDelivery() {
+            return this.delivery;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
+        public final String getContentSid() {
+            return this.contentSid;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -305,45 +291,14 @@ public class Message extends Resource {
 
         Message other = (Message) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(chatServiceSid, other.chatServiceSid) &&
-            Objects.equals(conversationSid, other.conversationSid) &&
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(index, other.index) &&
-            Objects.equals(author, other.author) &&
-            Objects.equals(body, other.body) &&
-            Objects.equals(media, other.media) &&
-            Objects.equals(attributes, other.attributes) &&
-            Objects.equals(participantSid, other.participantSid) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(delivery, other.delivery) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links) &&
-            Objects.equals(contentSid, other.contentSid)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(chatServiceSid, other.chatServiceSid) &&  Objects.equals(conversationSid, other.conversationSid) &&  Objects.equals(sid, other.sid) &&  Objects.equals(index, other.index) &&  Objects.equals(author, other.author) &&  Objects.equals(body, other.body) &&  Objects.equals(media, other.media) &&  Objects.equals(attributes, other.attributes) &&  Objects.equals(participantSid, other.participantSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(delivery, other.delivery) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links) &&  Objects.equals(contentSid, other.contentSid)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            chatServiceSid,
-            conversationSid,
-            sid,
-            index,
-            author,
-            body,
-            media,
-            attributes,
-            participantSid,
-            dateCreated,
-            dateUpdated,
-            delivery,
-            url,
-            links,
-            contentSid
-        );
+        return Objects.hash(accountSid, chatServiceSid, conversationSid, sid, index, author, body, media, attributes, participantSid, dateCreated, dateUpdated, delivery, url, links, contentSid);
     }
+
+
 }
+

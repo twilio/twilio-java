@@ -22,40 +22,41 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class WorkerStatistics extends Resource {
-
     private static final long serialVersionUID = 54379371741662L;
 
-    public static WorkerStatisticsFetcher fetcher(
-        final String pathWorkspaceSid,
-        final String pathWorkerSid
-    ) {
+    
+
+    public static WorkerStatisticsFetcher fetcher(final String pathWorkspaceSid, final String pathWorkerSid){
         return new WorkerStatisticsFetcher(pathWorkspaceSid, pathWorkerSid);
     }
 
     /**
-     * Converts a JSON String into a WorkerStatistics object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return WorkerStatistics object represented by the provided JSON
-     */
-    public static WorkerStatistics fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a WorkerStatistics object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return WorkerStatistics object represented by the provided JSON
+    */
+    public static WorkerStatistics fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WorkerStatistics.class);
@@ -67,17 +68,14 @@ public class WorkerStatistics extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a WorkerStatistics object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return WorkerStatistics object represented by the provided JSON
-     */
-    public static WorkerStatistics fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a WorkerStatistics object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return WorkerStatistics object represented by the provided JSON
+    */
+    public static WorkerStatistics fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, WorkerStatistics.class);
@@ -87,6 +85,7 @@ public class WorkerStatistics extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final Map<String, Object> cumulative;
@@ -96,11 +95,20 @@ public class WorkerStatistics extends Resource {
 
     @JsonCreator
     private WorkerStatistics(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("cumulative") final Map<String, Object> cumulative,
-        @JsonProperty("worker_sid") final String workerSid,
-        @JsonProperty("workspace_sid") final String workspaceSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("cumulative")
+        final Map<String, Object> cumulative,
+
+        @JsonProperty("worker_sid")
+        final String workerSid,
+
+        @JsonProperty("workspace_sid")
+        final String workspaceSid,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.accountSid = accountSid;
         this.cumulative = cumulative;
@@ -109,29 +117,25 @@ public class WorkerStatistics extends Resource {
         this.url = url;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final Map<String, Object> getCumulative() {
-        return this.cumulative;
-    }
-
-    public final String getWorkerSid() {
-        return this.workerSid;
-    }
-
-    public final String getWorkspaceSid() {
-        return this.workspaceSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final Map<String, Object> getCumulative() {
+            return this.cumulative;
+        }
+        public final String getWorkerSid() {
+            return this.workerSid;
+        }
+        public final String getWorkspaceSid() {
+            return this.workspaceSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -141,23 +145,14 @@ public class WorkerStatistics extends Resource {
 
         WorkerStatistics other = (WorkerStatistics) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(cumulative, other.cumulative) &&
-            Objects.equals(workerSid, other.workerSid) &&
-            Objects.equals(workspaceSid, other.workspaceSid) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(cumulative, other.cumulative) &&  Objects.equals(workerSid, other.workerSid) &&  Objects.equals(workspaceSid, other.workspaceSid) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            accountSid,
-            cumulative,
-            workerSid,
-            workspaceSid,
-            url
-        );
+        return Objects.hash(accountSid, cumulative, workerSid, workspaceSid, url);
     }
+
+
 }
+

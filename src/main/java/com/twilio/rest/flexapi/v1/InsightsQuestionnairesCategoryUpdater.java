@@ -25,45 +25,34 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class InsightsQuestionnairesCategoryUpdater
-    extends Updater<InsightsQuestionnairesCategory> {
 
+
+
+public class InsightsQuestionnairesCategoryUpdater extends Updater<InsightsQuestionnairesCategory>{
     private String pathCategorySid;
     private String name;
     private String authorization;
 
-    public InsightsQuestionnairesCategoryUpdater(
-        final String pathCategorySid,
-        final String name
-    ) {
+    public InsightsQuestionnairesCategoryUpdater(final String pathCategorySid, final String name){
         this.pathCategorySid = pathCategorySid;
         this.name = name;
     }
 
-    public InsightsQuestionnairesCategoryUpdater setName(final String name) {
+    public InsightsQuestionnairesCategoryUpdater setName(final String name){
         this.name = name;
         return this;
     }
-
-    public InsightsQuestionnairesCategoryUpdater setAuthorization(
-        final String authorization
-    ) {
+    public InsightsQuestionnairesCategoryUpdater setAuthorization(final String authorization){
         this.authorization = authorization;
         return this;
     }
 
     @Override
-    public InsightsQuestionnairesCategory update(
-        final TwilioRestClient client
-    ) {
+    public InsightsQuestionnairesCategory update(final TwilioRestClient client){
         String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
 
-        path =
-            path.replace(
-                "{" + "CategorySid" + "}",
-                this.pathCategorySid.toString()
-            );
-        path = path.replace("{" + "Name" + "}", this.name.toString());
+        path = path.replace("{"+"CategorySid"+"}", this.pathCategorySid.toString());
+        path = path.replace("{"+"Name"+"}", this.name.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -75,38 +64,27 @@ public class InsightsQuestionnairesCategoryUpdater
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "InsightsQuestionnairesCategory update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("InsightsQuestionnairesCategory update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return InsightsQuestionnairesCategory.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return InsightsQuestionnairesCategory.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (name != null) {
             request.addPostParam("Name", name);
+    
         }
     }
-
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
             request.addHeaderParam("Authorization", authorization);
+
         }
     }
 }

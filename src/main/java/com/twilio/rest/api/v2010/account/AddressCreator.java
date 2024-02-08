@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class AddressCreator extends Creator<Address> {
 
+
+
+public class AddressCreator extends Creator<Address>{
     private String customerName;
     private String street;
     private String city;
@@ -39,14 +41,7 @@ public class AddressCreator extends Creator<Address> {
     private Boolean autoCorrectAddress;
     private String streetSecondary;
 
-    public AddressCreator(
-        final String customerName,
-        final String street,
-        final String city,
-        final String region,
-        final String postalCode,
-        final String isoCountry
-    ) {
+    public AddressCreator(final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         this.customerName = customerName;
         this.street = street;
         this.city = city;
@@ -54,16 +49,7 @@ public class AddressCreator extends Creator<Address> {
         this.postalCode = postalCode;
         this.isoCountry = isoCountry;
     }
-
-    public AddressCreator(
-        final String pathAccountSid,
-        final String customerName,
-        final String street,
-        final String city,
-        final String region,
-        final String postalCode,
-        final String isoCountry
-    ) {
+    public AddressCreator(final String pathAccountSid, final String customerName, final String street, final String city, final String region, final String postalCode, final String isoCountry) {
         this.pathAccountSid = pathAccountSid;
         this.customerName = customerName;
         this.street = street;
@@ -73,83 +59,59 @@ public class AddressCreator extends Creator<Address> {
         this.isoCountry = isoCountry;
     }
 
-    public AddressCreator setCustomerName(final String customerName) {
+    public AddressCreator setCustomerName(final String customerName){
         this.customerName = customerName;
         return this;
     }
-
-    public AddressCreator setStreet(final String street) {
+    public AddressCreator setStreet(final String street){
         this.street = street;
         return this;
     }
-
-    public AddressCreator setCity(final String city) {
+    public AddressCreator setCity(final String city){
         this.city = city;
         return this;
     }
-
-    public AddressCreator setRegion(final String region) {
+    public AddressCreator setRegion(final String region){
         this.region = region;
         return this;
     }
-
-    public AddressCreator setPostalCode(final String postalCode) {
+    public AddressCreator setPostalCode(final String postalCode){
         this.postalCode = postalCode;
         return this;
     }
-
-    public AddressCreator setIsoCountry(final String isoCountry) {
+    public AddressCreator setIsoCountry(final String isoCountry){
         this.isoCountry = isoCountry;
         return this;
     }
-
-    public AddressCreator setFriendlyName(final String friendlyName) {
+    public AddressCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled) {
+    public AddressCreator setEmergencyEnabled(final Boolean emergencyEnabled){
         this.emergencyEnabled = emergencyEnabled;
         return this;
     }
-
-    public AddressCreator setAutoCorrectAddress(
-        final Boolean autoCorrectAddress
-    ) {
+    public AddressCreator setAutoCorrectAddress(final Boolean autoCorrectAddress){
         this.autoCorrectAddress = autoCorrectAddress;
         return this;
     }
-
-    public AddressCreator setStreetSecondary(final String streetSecondary) {
+    public AddressCreator setStreetSecondary(final String streetSecondary){
         this.streetSecondary = streetSecondary;
         return this;
     }
 
     @Override
-    public Address create(final TwilioRestClient client) {
+    public Address create(final TwilioRestClient client){
         String path = "/2010-04-01/Accounts/{AccountSid}/Addresses.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "CustomerName" + "}",
-                this.customerName.toString()
-            );
-        path = path.replace("{" + "Street" + "}", this.street.toString());
-        path = path.replace("{" + "City" + "}", this.city.toString());
-        path = path.replace("{" + "Region" + "}", this.region.toString());
-        path =
-            path.replace("{" + "PostalCode" + "}", this.postalCode.toString());
-        path =
-            path.replace("{" + "IsoCountry" + "}", this.isoCountry.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CustomerName"+"}", this.customerName.toString());
+        path = path.replace("{"+"Street"+"}", this.street.toString());
+        path = path.replace("{"+"City"+"}", this.city.toString());
+        path = path.replace("{"+"Region"+"}", this.region.toString());
+        path = path.replace("{"+"PostalCode"+"}", this.postalCode.toString());
+        path = path.replace("{"+"IsoCountry"+"}", this.isoCountry.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -160,62 +122,57 @@ public class AddressCreator extends Creator<Address> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Address creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Address creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Address.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (customerName != null) {
             request.addPostParam("CustomerName", customerName);
+    
         }
         if (street != null) {
             request.addPostParam("Street", street);
+    
         }
         if (city != null) {
             request.addPostParam("City", city);
+    
         }
         if (region != null) {
             request.addPostParam("Region", region);
+    
         }
         if (postalCode != null) {
             request.addPostParam("PostalCode", postalCode);
+    
         }
         if (isoCountry != null) {
             request.addPostParam("IsoCountry", isoCountry);
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (emergencyEnabled != null) {
-            request.addPostParam(
-                "EmergencyEnabled",
-                emergencyEnabled.toString()
-            );
+            request.addPostParam("EmergencyEnabled", emergencyEnabled.toString());
+    
         }
         if (autoCorrectAddress != null) {
-            request.addPostParam(
-                "AutoCorrectAddress",
-                autoCorrectAddress.toString()
-            );
+            request.addPostParam("AutoCorrectAddress", autoCorrectAddress.toString());
+    
         }
         if (streetSecondary != null) {
             request.addPostParam("StreetSecondary", streetSecondary);
+    
         }
     }
 }

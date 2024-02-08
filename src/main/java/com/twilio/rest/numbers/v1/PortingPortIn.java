@@ -22,35 +22,39 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingPortIn extends Resource {
-
     private static final long serialVersionUID = 82589675481462L;
 
-    public static PortingPortInCreator creator() {
+    
+
+    public static PortingPortInCreator creator(){
         return new PortingPortInCreator();
     }
 
     /**
-     * Converts a JSON String into a PortingPortIn object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingPortIn object represented by the provided JSON
-     */
-    public static PortingPortIn fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PortingPortIn object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PortingPortIn object represented by the provided JSON
+    */
+    public static PortingPortIn fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortIn.class);
@@ -62,17 +66,14 @@ public class PortingPortIn extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PortingPortIn object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingPortIn object represented by the provided JSON
-     */
-    public static PortingPortIn fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PortingPortIn object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PortingPortIn object represented by the provided JSON
+    */
+    public static PortingPortIn fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortIn.class);
@@ -82,30 +83,33 @@ public class PortingPortIn extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String portInRequestSid;
     private final URI url;
 
     @JsonCreator
     private PortingPortIn(
-        @JsonProperty("port_in_request_sid") final String portInRequestSid,
-        @JsonProperty("url") final URI url
+        @JsonProperty("port_in_request_sid")
+        final String portInRequestSid,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.portInRequestSid = portInRequestSid;
         this.url = url;
     }
 
-    public final String getPortInRequestSid() {
-        return this.portInRequestSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getPortInRequestSid() {
+            return this.portInRequestSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -115,14 +119,14 @@ public class PortingPortIn extends Resource {
 
         PortingPortIn other = (PortingPortIn) o;
 
-        return (
-            Objects.equals(portInRequestSid, other.portInRequestSid) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(portInRequestSid, other.portInRequestSid) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(portInRequestSid, url);
     }
+
+
 }
+

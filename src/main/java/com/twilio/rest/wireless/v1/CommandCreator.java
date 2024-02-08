@@ -26,10 +26,12 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class CommandCreator extends Creator<Command> {
-
+public class CommandCreator extends Creator<Command>{
     private String command;
     private String sim;
     private HttpMethod callbackMethod;
@@ -42,54 +44,44 @@ public class CommandCreator extends Creator<Command> {
         this.command = command;
     }
 
-    public CommandCreator setCommand(final String command) {
+    public CommandCreator setCommand(final String command){
         this.command = command;
         return this;
     }
-
-    public CommandCreator setSim(final String sim) {
+    public CommandCreator setSim(final String sim){
         this.sim = sim;
         return this;
     }
-
-    public CommandCreator setCallbackMethod(final HttpMethod callbackMethod) {
+    public CommandCreator setCallbackMethod(final HttpMethod callbackMethod){
         this.callbackMethod = callbackMethod;
         return this;
     }
-
-    public CommandCreator setCallbackUrl(final URI callbackUrl) {
+    public CommandCreator setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public CommandCreator setCallbackUrl(final String callbackUrl) {
+    public CommandCreator setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-
-    public CommandCreator setCommandMode(
-        final Command.CommandMode commandMode
-    ) {
+    public CommandCreator setCommandMode(final Command.CommandMode commandMode){
         this.commandMode = commandMode;
         return this;
     }
-
-    public CommandCreator setIncludeSid(final String includeSid) {
+    public CommandCreator setIncludeSid(final String includeSid){
         this.includeSid = includeSid;
         return this;
     }
-
-    public CommandCreator setDeliveryReceiptRequested(
-        final Boolean deliveryReceiptRequested
-    ) {
+    public CommandCreator setDeliveryReceiptRequested(final Boolean deliveryReceiptRequested){
         this.deliveryReceiptRequested = deliveryReceiptRequested;
         return this;
     }
 
     @Override
-    public Command create(final TwilioRestClient client) {
+    public Command create(final TwilioRestClient client){
         String path = "/v1/Commands";
 
-        path = path.replace("{" + "Command" + "}", this.command.toString());
+        path = path.replace("{"+"Command"+"}", this.command.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -100,50 +92,45 @@ public class CommandCreator extends Creator<Command> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Command creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Command creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Command.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (command != null) {
             request.addPostParam("Command", command);
+    
         }
         if (sim != null) {
             request.addPostParam("Sim", sim);
+    
         }
         if (callbackMethod != null) {
             request.addPostParam("CallbackMethod", callbackMethod.toString());
+    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
         if (commandMode != null) {
             request.addPostParam("CommandMode", commandMode.toString());
+    
         }
         if (includeSid != null) {
             request.addPostParam("IncludeSid", includeSid);
+    
         }
         if (deliveryReceiptRequested != null) {
-            request.addPostParam(
-                "DeliveryReceiptRequested",
-                deliveryReceiptRequested.toString()
-            );
+            request.addPostParam("DeliveryReceiptRequested", deliveryReceiptRequested.toString());
+    
         }
     }
 }

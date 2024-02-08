@@ -25,38 +25,32 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class DeviceSecretUpdater extends Updater<DeviceSecret> {
 
+
+
+public class DeviceSecretUpdater extends Updater<DeviceSecret>{
     private String pathDeviceSid;
     private String pathKey;
     private String value;
 
-    public DeviceSecretUpdater(
-        final String pathDeviceSid,
-        final String pathKey,
-        final String value
-    ) {
+    public DeviceSecretUpdater(final String pathDeviceSid, final String pathKey, final String value){
         this.pathDeviceSid = pathDeviceSid;
         this.pathKey = pathKey;
         this.value = value;
     }
 
-    public DeviceSecretUpdater setValue(final String value) {
+    public DeviceSecretUpdater setValue(final String value){
         this.value = value;
         return this;
     }
 
     @Override
-    public DeviceSecret update(final TwilioRestClient client) {
+    public DeviceSecret update(final TwilioRestClient client){
         String path = "/v1/Devices/{DeviceSid}/Secrets/{Key}";
 
-        path =
-            path.replace(
-                "{" + "DeviceSid" + "}",
-                this.pathDeviceSid.toString()
-            );
-        path = path.replace("{" + "Key" + "}", this.pathKey.toString());
-        path = path.replace("{" + "Value" + "}", this.value.toString());
+        path = path.replace("{"+"DeviceSid"+"}", this.pathDeviceSid.toString());
+        path = path.replace("{"+"Key"+"}", this.pathKey.toString());
+        path = path.replace("{"+"Value"+"}", this.value.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,32 +61,21 @@ public class DeviceSecretUpdater extends Updater<DeviceSecret> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "DeviceSecret update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DeviceSecret update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return DeviceSecret.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DeviceSecret.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (value != null) {
             request.addPostParam("Value", value);
+    
         }
     }
 }

@@ -26,80 +26,53 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class UserDefinedMessageSubscriptionCreator
-    extends Creator<UserDefinedMessageSubscription> {
-
+public class UserDefinedMessageSubscriptionCreator extends Creator<UserDefinedMessageSubscription>{
     private String pathCallSid;
     private URI callback;
     private String pathAccountSid;
     private String idempotencyKey;
     private HttpMethod method;
 
-    public UserDefinedMessageSubscriptionCreator(
-        final String pathCallSid,
-        final URI callback
-    ) {
+    public UserDefinedMessageSubscriptionCreator(final String pathCallSid, final URI callback) {
         this.pathCallSid = pathCallSid;
         this.callback = callback;
     }
-
-    public UserDefinedMessageSubscriptionCreator(
-        final String pathAccountSid,
-        final String pathCallSid,
-        final URI callback
-    ) {
+    public UserDefinedMessageSubscriptionCreator(final String pathAccountSid, final String pathCallSid, final URI callback) {
         this.pathAccountSid = pathAccountSid;
         this.pathCallSid = pathCallSid;
         this.callback = callback;
     }
 
-    public UserDefinedMessageSubscriptionCreator setCallback(
-        final URI callback
-    ) {
+    public UserDefinedMessageSubscriptionCreator setCallback(final URI callback){
         this.callback = callback;
         return this;
     }
 
-    public UserDefinedMessageSubscriptionCreator setCallback(
-        final String callback
-    ) {
+    public UserDefinedMessageSubscriptionCreator setCallback(final String callback){
         return setCallback(Promoter.uriFromString(callback));
     }
-
-    public UserDefinedMessageSubscriptionCreator setIdempotencyKey(
-        final String idempotencyKey
-    ) {
+    public UserDefinedMessageSubscriptionCreator setIdempotencyKey(final String idempotencyKey){
         this.idempotencyKey = idempotencyKey;
         return this;
     }
-
-    public UserDefinedMessageSubscriptionCreator setMethod(
-        final HttpMethod method
-    ) {
+    public UserDefinedMessageSubscriptionCreator setMethod(final HttpMethod method){
         this.method = method;
         return this;
     }
 
     @Override
-    public UserDefinedMessageSubscription create(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json";
+    public UserDefinedMessageSubscription create(final TwilioRestClient client){
+        String path = "/2010-04-01/Accounts/{AccountSid}/Calls/{CallSid}/UserDefinedMessageSubscriptions.json";
 
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
-        path = path.replace("{" + "Callback" + "}", this.callback.toString());
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{"+"Callback"+"}", this.callback.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -110,38 +83,29 @@ public class UserDefinedMessageSubscriptionCreator
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "UserDefinedMessageSubscription creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("UserDefinedMessageSubscription creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return UserDefinedMessageSubscription.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return UserDefinedMessageSubscription.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (callback != null) {
             request.addPostParam("Callback", callback.toString());
+    
         }
         if (idempotencyKey != null) {
             request.addPostParam("IdempotencyKey", idempotencyKey);
+    
         }
         if (method != null) {
             request.addPostParam("Method", method.toString());
+    
         }
     }
 }

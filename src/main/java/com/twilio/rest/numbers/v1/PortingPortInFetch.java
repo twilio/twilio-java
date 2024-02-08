@@ -23,41 +23,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.time.LocalDate;
+
 import java.util.List;
 import java.util.Map;
-import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
+import java.time.LocalDate;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PortingPortInFetch extends Resource {
-
     private static final long serialVersionUID = 150418680319007L;
 
-    public static PortingPortInFetchFetcher fetcher(
-        final String pathPortInRequestSid
-    ) {
+    
+
+    public static PortingPortInFetchFetcher fetcher(final String pathPortInRequestSid){
         return new PortingPortInFetchFetcher(pathPortInRequestSid);
     }
 
     /**
-     * Converts a JSON String into a PortingPortInFetch object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingPortInFetch object represented by the provided JSON
-     */
-    public static PortingPortInFetch fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a PortingPortInFetch object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return PortingPortInFetch object represented by the provided JSON
+    */
+    public static PortingPortInFetch fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortInFetch.class);
@@ -69,17 +71,14 @@ public class PortingPortInFetch extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a PortingPortInFetch object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return PortingPortInFetch object represented by the provided JSON
-     */
-    public static PortingPortInFetch fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a PortingPortInFetch object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return PortingPortInFetch object represented by the provided JSON
+    */
+    public static PortingPortInFetch fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PortingPortInFetch.class);
@@ -89,6 +88,7 @@ public class PortingPortInFetch extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String portInRequestSid;
     private final URI url;
@@ -103,34 +103,41 @@ public class PortingPortInFetch extends Resource {
 
     @JsonCreator
     private PortingPortInFetch(
-        @JsonProperty("port_in_request_sid") final String portInRequestSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("notification_emails") final List<
-            String
-        > notificationEmails,
-        @JsonProperty("target_port_in_date") final String targetPortInDate,
-        @JsonProperty(
-            "target_port_in_time_range_start"
-        ) final String targetPortInTimeRangeStart,
-        @JsonProperty(
-            "target_port_in_time_range_end"
-        ) final String targetPortInTimeRangeEnd,
-        @JsonProperty("losing_carrier_information") final Map<
-            String,
-            Object
-        > losingCarrierInformation,
-        @JsonProperty("phone_numbers") final List<
-            Map<String, Object>
-        > phoneNumbers,
-        @JsonProperty("documents") final List<String> documents
+        @JsonProperty("port_in_request_sid")
+        final String portInRequestSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("notification_emails")
+        final List<String> notificationEmails,
+
+        @JsonProperty("target_port_in_date")
+        final String targetPortInDate,
+
+        @JsonProperty("target_port_in_time_range_start")
+        final String targetPortInTimeRangeStart,
+
+        @JsonProperty("target_port_in_time_range_end")
+        final String targetPortInTimeRangeEnd,
+
+        @JsonProperty("losing_carrier_information")
+        final Map<String, Object> losingCarrierInformation,
+
+        @JsonProperty("phone_numbers")
+        final List<Map<String, Object>> phoneNumbers,
+
+        @JsonProperty("documents")
+        final List<String> documents
     ) {
         this.portInRequestSid = portInRequestSid;
         this.url = url;
         this.accountSid = accountSid;
         this.notificationEmails = notificationEmails;
-        this.targetPortInDate =
-            DateConverter.localDateFromString(targetPortInDate);
+        this.targetPortInDate = DateConverter.localDateFromString(targetPortInDate);
         this.targetPortInTimeRangeStart = targetPortInTimeRangeStart;
         this.targetPortInTimeRangeEnd = targetPortInTimeRangeEnd;
         this.losingCarrierInformation = losingCarrierInformation;
@@ -138,49 +145,40 @@ public class PortingPortInFetch extends Resource {
         this.documents = documents;
     }
 
-    public final String getPortInRequestSid() {
-        return this.portInRequestSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final List<String> getNotificationEmails() {
-        return this.notificationEmails;
-    }
-
-    public final LocalDate getTargetPortInDate() {
-        return this.targetPortInDate;
-    }
-
-    public final String getTargetPortInTimeRangeStart() {
-        return this.targetPortInTimeRangeStart;
-    }
-
-    public final String getTargetPortInTimeRangeEnd() {
-        return this.targetPortInTimeRangeEnd;
-    }
-
-    public final Map<String, Object> getLosingCarrierInformation() {
-        return this.losingCarrierInformation;
-    }
-
-    public final List<Map<String, Object>> getPhoneNumbers() {
-        return this.phoneNumbers;
-    }
-
-    public final List<String> getDocuments() {
-        return this.documents;
-    }
+        public final String getPortInRequestSid() {
+            return this.portInRequestSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final List<String> getNotificationEmails() {
+            return this.notificationEmails;
+        }
+        public final LocalDate getTargetPortInDate() {
+            return this.targetPortInDate;
+        }
+        public final String getTargetPortInTimeRangeStart() {
+            return this.targetPortInTimeRangeStart;
+        }
+        public final String getTargetPortInTimeRangeEnd() {
+            return this.targetPortInTimeRangeEnd;
+        }
+        public final Map<String, Object> getLosingCarrierInformation() {
+            return this.losingCarrierInformation;
+        }
+        public final List<Map<String, Object>> getPhoneNumbers() {
+            return this.phoneNumbers;
+        }
+        public final List<String> getDocuments() {
+            return this.documents;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -190,42 +188,14 @@ public class PortingPortInFetch extends Resource {
 
         PortingPortInFetch other = (PortingPortInFetch) o;
 
-        return (
-            Objects.equals(portInRequestSid, other.portInRequestSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(notificationEmails, other.notificationEmails) &&
-            Objects.equals(targetPortInDate, other.targetPortInDate) &&
-            Objects.equals(
-                targetPortInTimeRangeStart,
-                other.targetPortInTimeRangeStart
-            ) &&
-            Objects.equals(
-                targetPortInTimeRangeEnd,
-                other.targetPortInTimeRangeEnd
-            ) &&
-            Objects.equals(
-                losingCarrierInformation,
-                other.losingCarrierInformation
-            ) &&
-            Objects.equals(phoneNumbers, other.phoneNumbers) &&
-            Objects.equals(documents, other.documents)
-        );
+        return Objects.equals(portInRequestSid, other.portInRequestSid) &&  Objects.equals(url, other.url) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(notificationEmails, other.notificationEmails) &&  Objects.equals(targetPortInDate, other.targetPortInDate) &&  Objects.equals(targetPortInTimeRangeStart, other.targetPortInTimeRangeStart) &&  Objects.equals(targetPortInTimeRangeEnd, other.targetPortInTimeRangeEnd) &&  Objects.equals(losingCarrierInformation, other.losingCarrierInformation) &&  Objects.equals(phoneNumbers, other.phoneNumbers) &&  Objects.equals(documents, other.documents)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            portInRequestSid,
-            url,
-            accountSid,
-            notificationEmails,
-            targetPortInDate,
-            targetPortInTimeRangeStart,
-            targetPortInTimeRangeEnd,
-            losingCarrierInformation,
-            phoneNumbers,
-            documents
-        );
+        return Objects.hash(portInRequestSid, url, accountSid, notificationEmails, targetPortInDate, targetPortInTimeRangeStart, targetPortInTimeRangeEnd, losingCarrierInformation, phoneNumbers, documents);
     }
+
+
 }
+

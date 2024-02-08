@@ -24,52 +24,56 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
+
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Credential extends Resource {
-
     private static final long serialVersionUID = 265726674321801L;
 
-    public static CredentialCreator creator(final Credential.PushType type) {
+    
+
+    public static CredentialCreator creator(final Credential.PushType type){
         return new CredentialCreator(type);
     }
 
-    public static CredentialDeleter deleter(final String pathSid) {
+    public static CredentialDeleter deleter(final String pathSid){
         return new CredentialDeleter(pathSid);
     }
 
-    public static CredentialFetcher fetcher(final String pathSid) {
+    public static CredentialFetcher fetcher(final String pathSid){
         return new CredentialFetcher(pathSid);
     }
 
-    public static CredentialReader reader() {
+    public static CredentialReader reader(){
         return new CredentialReader();
     }
 
-    public static CredentialUpdater updater(final String pathSid) {
+    public static CredentialUpdater updater(final String pathSid){
         return new CredentialUpdater(pathSid);
     }
 
     /**
-     * Converts a JSON String into a Credential object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Credential object represented by the provided JSON
-     */
-    public static Credential fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Credential object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Credential object represented by the provided JSON
+    */
+    public static Credential fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Credential.class);
@@ -81,17 +85,14 @@ public class Credential extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Credential object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Credential object represented by the provided JSON
-     */
-    public static Credential fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Credential object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Credential object represented by the provided JSON
+    */
+    public static Credential fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Credential.class);
@@ -134,14 +135,29 @@ public class Credential extends Resource {
 
     @JsonCreator
     private Credential(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("friendly_name") final String friendlyName,
-        @JsonProperty("type") final Credential.PushType type,
-        @JsonProperty("sandbox") final String sandbox,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("friendly_name")
+        final String friendlyName,
+
+        @JsonProperty("type")
+        final Credential.PushType type,
+
+        @JsonProperty("sandbox")
+        final String sandbox,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("url")
+        final URI url
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -153,41 +169,34 @@ public class Credential extends Resource {
         this.url = url;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getFriendlyName() {
-        return this.friendlyName;
-    }
-
-    public final Credential.PushType getType() {
-        return this.type;
-    }
-
-    public final String getSandbox() {
-        return this.sandbox;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getFriendlyName() {
+            return this.friendlyName;
+        }
+        public final Credential.PushType getType() {
+            return this.type;
+        }
+        public final String getSandbox() {
+            return this.sandbox;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -197,29 +206,14 @@ public class Credential extends Resource {
 
         Credential other = (Credential) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(friendlyName, other.friendlyName) &&
-            Objects.equals(type, other.type) &&
-            Objects.equals(sandbox, other.sandbox) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(type, other.type) &&  Objects.equals(sandbox, other.sandbox) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            accountSid,
-            friendlyName,
-            type,
-            sandbox,
-            dateCreated,
-            dateUpdated,
-            url
-        );
+        return Objects.hash(sid, accountSid, friendlyName, type, sandbox, dateCreated, dateUpdated, url);
     }
+
+
 }
+

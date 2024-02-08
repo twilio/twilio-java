@@ -24,23 +24,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
 
+
+
+public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
     private String pathResourceType;
 
-    public ExportConfigurationFetcher(final String pathResourceType) {
+    public ExportConfigurationFetcher(final String pathResourceType){
         this.pathResourceType = pathResourceType;
     }
+
 
     @Override
     public ExportConfiguration fetch(final TwilioRestClient client) {
         String path = "/v1/Exports/{ResourceType}/Configuration";
 
-        path =
-            path.replace(
-                "{" + "ResourceType" + "}",
-                this.pathResourceType.toString()
-            );
+        path = path.replace("{"+"ResourceType"+"}", this.pathResourceType.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -50,26 +49,15 @@ public class ExportConfigurationFetcher extends Fetcher<ExportConfiguration> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "ExportConfiguration fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("ExportConfiguration fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return ExportConfiguration.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return ExportConfiguration.fromJson(response.getStream(), client.getObjectMapper());
     }
 }

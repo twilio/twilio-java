@@ -14,7 +14,6 @@
 
 package com.twilio.rest.video.v1;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -26,11 +25,13 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 import java.time.ZonedDateTime;
+
 import java.util.List;
 
-public class RecordingReader extends Reader<Recording> {
 
+public class RecordingReader extends Reader<Recording> {
     private Recording.Status status;
     private String sourceSid;
     private List<String> groupingSid;
@@ -39,47 +40,37 @@ public class RecordingReader extends Reader<Recording> {
     private Recording.Type mediaType;
     private Integer pageSize;
 
-    public RecordingReader() {}
+    public RecordingReader(){
+    }
 
-    public RecordingReader setStatus(final Recording.Status status) {
+    public RecordingReader setStatus(final Recording.Status status){
         this.status = status;
         return this;
     }
-
-    public RecordingReader setSourceSid(final String sourceSid) {
+    public RecordingReader setSourceSid(final String sourceSid){
         this.sourceSid = sourceSid;
         return this;
     }
-
-    public RecordingReader setGroupingSid(final List<String> groupingSid) {
+    public RecordingReader setGroupingSid(final List<String> groupingSid){
         this.groupingSid = groupingSid;
         return this;
     }
-
-    public RecordingReader setGroupingSid(final String groupingSid) {
+    public RecordingReader setGroupingSid(final String groupingSid){
         return setGroupingSid(Promoter.listOfOne(groupingSid));
     }
-
-    public RecordingReader setDateCreatedAfter(
-        final ZonedDateTime dateCreatedAfter
-    ) {
+    public RecordingReader setDateCreatedAfter(final ZonedDateTime dateCreatedAfter){
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
-
-    public RecordingReader setDateCreatedBefore(
-        final ZonedDateTime dateCreatedBefore
-    ) {
+    public RecordingReader setDateCreatedBefore(final ZonedDateTime dateCreatedBefore){
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
-
-    public RecordingReader setMediaType(final Recording.Type mediaType) {
+    public RecordingReader setMediaType(final Recording.Type mediaType){
         this.mediaType = mediaType;
         return this;
     }
-
-    public RecordingReader setPageSize(final Integer pageSize) {
+    public RecordingReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -102,26 +93,15 @@ public class RecordingReader extends Reader<Recording> {
         return pageForRequest(client, request);
     }
 
-    private Page<Recording> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<Recording> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Recording read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Recording read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -135,10 +115,7 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     @Override
-    public Page<Recording> previousPage(
-        final Page<Recording> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Recording> previousPage(final Page<Recording> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VIDEO.toString())
@@ -146,11 +123,9 @@ public class RecordingReader extends Reader<Recording> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<Recording> nextPage(
-        final Page<Recording> page,
-        final TwilioRestClient client
-    ) {
+    public Page<Recording> nextPage(final Page<Recording> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VIDEO.toString())
@@ -159,20 +134,21 @@ public class RecordingReader extends Reader<Recording> {
     }
 
     @Override
-    public Page<Recording> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<Recording> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (status != null) {
+    
             request.addQueryParam("Status", status.toString());
         }
         if (sourceSid != null) {
+    
             request.addQueryParam("SourceSid", sourceSid);
         }
         if (groupingSid != null) {
@@ -181,27 +157,23 @@ public class RecordingReader extends Reader<Recording> {
             }
         }
         if (dateCreatedAfter != null) {
-            request.addQueryParam(
-                "DateCreatedAfter",
-                dateCreatedAfter.toInstant().toString()
-            );
+            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toInstant().toString());
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam(
-                "DateCreatedBefore",
-                dateCreatedBefore.toInstant().toString()
-            );
+            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toInstant().toString());
         }
 
         if (mediaType != null) {
+    
             request.addQueryParam("MediaType", mediaType.toString());
         }
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -14,7 +14,6 @@
 
 package com.twilio.rest.supersim.v1.sim;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,17 +24,19 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
+
+
 
 public class SimIpAddressReader extends Reader<SimIpAddress> {
-
     private String pathSimSid;
     private Integer pageSize;
 
-    public SimIpAddressReader(final String pathSimSid) {
+    public SimIpAddressReader(final String pathSimSid){
         this.pathSimSid = pathSimSid;
     }
 
-    public SimIpAddressReader setPageSize(final Integer pageSize) {
+    public SimIpAddressReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
@@ -47,7 +48,7 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
 
     public Page<SimIpAddress> firstPage(final TwilioRestClient client) {
         String path = "/v1/Sims/{SimSid}/IpAddresses";
-        path = path.replace("{" + "SimSid" + "}", this.pathSimSid.toString());
+        path = path.replace("{"+"SimSid"+"}", this.pathSimSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -59,26 +60,15 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
         return pageForRequest(client, request);
     }
 
-    private Page<SimIpAddress> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<SimIpAddress> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "SimIpAddress read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("SimIpAddress read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -92,10 +82,7 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
     }
 
     @Override
-    public Page<SimIpAddress> previousPage(
-        final Page<SimIpAddress> page,
-        final TwilioRestClient client
-    ) {
+    public Page<SimIpAddress> previousPage(final Page<SimIpAddress> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.SUPERSIM.toString())
@@ -103,11 +90,9 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<SimIpAddress> nextPage(
-        final Page<SimIpAddress> page,
-        final TwilioRestClient client
-    ) {
+    public Page<SimIpAddress> nextPage(final Page<SimIpAddress> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.SUPERSIM.toString())
@@ -116,21 +101,21 @@ public class SimIpAddressReader extends Reader<SimIpAddress> {
     }
 
     @Override
-    public Page<SimIpAddress> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<SimIpAddress> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

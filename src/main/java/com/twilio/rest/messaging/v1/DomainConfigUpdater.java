@@ -25,59 +25,52 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+
 import java.net.URI;
 
-public class DomainConfigUpdater extends Updater<DomainConfig> {
 
+
+public class DomainConfigUpdater extends Updater<DomainConfig>{
     private String pathDomainSid;
     private URI fallbackUrl;
     private URI callbackUrl;
     private Boolean continueOnFailure;
     private Boolean disableHttps;
 
-    public DomainConfigUpdater(final String pathDomainSid) {
+    public DomainConfigUpdater(final String pathDomainSid){
         this.pathDomainSid = pathDomainSid;
     }
 
-    public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl) {
+    public DomainConfigUpdater setFallbackUrl(final URI fallbackUrl){
         this.fallbackUrl = fallbackUrl;
         return this;
     }
 
-    public DomainConfigUpdater setFallbackUrl(final String fallbackUrl) {
+    public DomainConfigUpdater setFallbackUrl(final String fallbackUrl){
         return setFallbackUrl(Promoter.uriFromString(fallbackUrl));
     }
-
-    public DomainConfigUpdater setCallbackUrl(final URI callbackUrl) {
+    public DomainConfigUpdater setCallbackUrl(final URI callbackUrl){
         this.callbackUrl = callbackUrl;
         return this;
     }
 
-    public DomainConfigUpdater setCallbackUrl(final String callbackUrl) {
+    public DomainConfigUpdater setCallbackUrl(final String callbackUrl){
         return setCallbackUrl(Promoter.uriFromString(callbackUrl));
     }
-
-    public DomainConfigUpdater setContinueOnFailure(
-        final Boolean continueOnFailure
-    ) {
+    public DomainConfigUpdater setContinueOnFailure(final Boolean continueOnFailure){
         this.continueOnFailure = continueOnFailure;
         return this;
     }
-
-    public DomainConfigUpdater setDisableHttps(final Boolean disableHttps) {
+    public DomainConfigUpdater setDisableHttps(final Boolean disableHttps){
         this.disableHttps = disableHttps;
         return this;
     }
 
     @Override
-    public DomainConfig update(final TwilioRestClient client) {
+    public DomainConfig update(final TwilioRestClient client){
         String path = "/v1/LinkShortening/Domains/{DomainSid}/Config";
 
-        path =
-            path.replace(
-                "{" + "DomainSid" + "}",
-                this.pathDomainSid.toString()
-            );
+        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -88,44 +81,33 @@ public class DomainConfigUpdater extends Updater<DomainConfig> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "DomainConfig update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("DomainConfig update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return DomainConfig.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return DomainConfig.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (fallbackUrl != null) {
             request.addPostParam("FallbackUrl", fallbackUrl.toString());
+    
         }
         if (callbackUrl != null) {
             request.addPostParam("CallbackUrl", callbackUrl.toString());
+    
         }
         if (continueOnFailure != null) {
-            request.addPostParam(
-                "ContinueOnFailure",
-                continueOnFailure.toString()
-            );
+            request.addPostParam("ContinueOnFailure", continueOnFailure.toString());
+    
         }
         if (disableHttps != null) {
             request.addPostParam("DisableHttps", disableHttps.toString());
+    
         }
     }
 }

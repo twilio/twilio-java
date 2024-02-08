@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ServiceCreator extends Creator<Service> {
 
+
+
+public class ServiceCreator extends Creator<Service>{
     private String uniqueName;
     private Boolean autoTranscribe;
     private Boolean dataLogging;
@@ -41,59 +43,48 @@ public class ServiceCreator extends Creator<Service> {
         this.uniqueName = uniqueName;
     }
 
-    public ServiceCreator setUniqueName(final String uniqueName) {
+    public ServiceCreator setUniqueName(final String uniqueName){
         this.uniqueName = uniqueName;
         return this;
     }
-
-    public ServiceCreator setAutoTranscribe(final Boolean autoTranscribe) {
+    public ServiceCreator setAutoTranscribe(final Boolean autoTranscribe){
         this.autoTranscribe = autoTranscribe;
         return this;
     }
-
-    public ServiceCreator setDataLogging(final Boolean dataLogging) {
+    public ServiceCreator setDataLogging(final Boolean dataLogging){
         this.dataLogging = dataLogging;
         return this;
     }
-
-    public ServiceCreator setFriendlyName(final String friendlyName) {
+    public ServiceCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public ServiceCreator setLanguageCode(final String languageCode) {
+    public ServiceCreator setLanguageCode(final String languageCode){
         this.languageCode = languageCode;
         return this;
     }
-
-    public ServiceCreator setAutoRedaction(final Boolean autoRedaction) {
+    public ServiceCreator setAutoRedaction(final Boolean autoRedaction){
         this.autoRedaction = autoRedaction;
         return this;
     }
-
-    public ServiceCreator setMediaRedaction(final Boolean mediaRedaction) {
+    public ServiceCreator setMediaRedaction(final Boolean mediaRedaction){
         this.mediaRedaction = mediaRedaction;
         return this;
     }
-
-    public ServiceCreator setWebhookUrl(final String webhookUrl) {
+    public ServiceCreator setWebhookUrl(final String webhookUrl){
         this.webhookUrl = webhookUrl;
         return this;
     }
-
-    public ServiceCreator setWebhookHttpMethod(
-        final Service.HttpMethod webhookHttpMethod
-    ) {
+    public ServiceCreator setWebhookHttpMethod(final Service.HttpMethod webhookHttpMethod){
         this.webhookHttpMethod = webhookHttpMethod;
         return this;
     }
 
     @Override
-    public Service create(final TwilioRestClient client) {
+    public Service create(final TwilioRestClient client){
         String path = "/v2/Services";
 
-        path =
-            path.replace("{" + "UniqueName" + "}", this.uniqueName.toString());
+        path = path.replace("{"+"UniqueName"+"}", this.uniqueName.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -104,56 +95,53 @@ public class ServiceCreator extends Creator<Service> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Service creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Service creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Service.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
+    
         }
         if (autoTranscribe != null) {
             request.addPostParam("AutoTranscribe", autoTranscribe.toString());
+    
         }
         if (dataLogging != null) {
             request.addPostParam("DataLogging", dataLogging.toString());
+    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (languageCode != null) {
             request.addPostParam("LanguageCode", languageCode);
+    
         }
         if (autoRedaction != null) {
             request.addPostParam("AutoRedaction", autoRedaction.toString());
+    
         }
         if (mediaRedaction != null) {
             request.addPostParam("MediaRedaction", mediaRedaction.toString());
+    
         }
         if (webhookUrl != null) {
             request.addPostParam("WebhookUrl", webhookUrl);
+    
         }
         if (webhookHttpMethod != null) {
-            request.addPostParam(
-                "WebhookHttpMethod",
-                webhookHttpMethod.toString()
-            );
+            request.addPostParam("WebhookHttpMethod", webhookHttpMethod.toString());
+    
         }
     }
 }

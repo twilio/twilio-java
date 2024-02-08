@@ -25,48 +25,40 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class ChannelUpdater extends Updater<Channel> {
 
+
+
+public class ChannelUpdater extends Updater<Channel>{
     private String pathServiceSid;
     private String pathSid;
     private Channel.WebhookEnabledType xTwilioWebhookEnabled;
     private Channel.ChannelType type;
     private String messagingServiceSid;
 
-    public ChannelUpdater(final String pathServiceSid, final String pathSid) {
+    public ChannelUpdater(final String pathServiceSid, final String pathSid){
         this.pathServiceSid = pathServiceSid;
         this.pathSid = pathSid;
     }
 
-    public ChannelUpdater setXTwilioWebhookEnabled(
-        final Channel.WebhookEnabledType xTwilioWebhookEnabled
-    ) {
+    public ChannelUpdater setXTwilioWebhookEnabled(final Channel.WebhookEnabledType xTwilioWebhookEnabled){
         this.xTwilioWebhookEnabled = xTwilioWebhookEnabled;
         return this;
     }
-
-    public ChannelUpdater setType(final Channel.ChannelType type) {
+    public ChannelUpdater setType(final Channel.ChannelType type){
         this.type = type;
         return this;
     }
-
-    public ChannelUpdater setMessagingServiceSid(
-        final String messagingServiceSid
-    ) {
+    public ChannelUpdater setMessagingServiceSid(final String messagingServiceSid){
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
 
     @Override
-    public Channel update(final TwilioRestClient client) {
+    public Channel update(final TwilioRestClient client){
         String path = "/v3/Services/{ServiceSid}/Channels/{Sid}";
 
-        path =
-            path.replace(
-                "{" + "ServiceSid" + "}",
-                this.pathServiceSid.toString()
-            );
-        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -78,41 +70,30 @@ public class ChannelUpdater extends Updater<Channel> {
         addHeaderParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Channel update failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Channel update failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Channel.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (type != null) {
             request.addPostParam("Type", type.toString());
+    
         }
         if (messagingServiceSid != null) {
             request.addPostParam("MessagingServiceSid", messagingServiceSid);
+    
         }
     }
-
     private void addHeaderParams(final Request request) {
         if (xTwilioWebhookEnabled != null) {
-            request.addHeaderParam(
-                "X-Twilio-Webhook-Enabled",
-                xTwilioWebhookEnabled.toString()
-            );
+            request.addHeaderParam("X-Twilio-Webhook-Enabled", xTwilioWebhookEnabled.toString());
         }
     }
 }

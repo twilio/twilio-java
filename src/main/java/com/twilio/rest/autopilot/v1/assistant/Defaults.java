@@ -22,41 +22,45 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Defaults extends Resource {
-
     private static final long serialVersionUID = 52727905251134L;
 
-    public static DefaultsFetcher fetcher(final String pathAssistantSid) {
+    
+
+    public static DefaultsFetcher fetcher(final String pathAssistantSid){
         return new DefaultsFetcher(pathAssistantSid);
     }
 
-    public static DefaultsUpdater updater(final String pathAssistantSid) {
+    public static DefaultsUpdater updater(final String pathAssistantSid){
         return new DefaultsUpdater(pathAssistantSid);
     }
 
     /**
-     * Converts a JSON String into a Defaults object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return Defaults object represented by the provided JSON
-     */
-    public static Defaults fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a Defaults object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return Defaults object represented by the provided JSON
+    */
+    public static Defaults fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Defaults.class);
@@ -68,17 +72,14 @@ public class Defaults extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a Defaults object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return Defaults object represented by the provided JSON
-     */
-    public static Defaults fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a Defaults object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return Defaults object represented by the provided JSON
+    */
+    public static Defaults fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Defaults.class);
@@ -88,6 +89,7 @@ public class Defaults extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String accountSid;
     private final String assistantSid;
@@ -96,10 +98,17 @@ public class Defaults extends Resource {
 
     @JsonCreator
     private Defaults(
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("assistant_sid") final String assistantSid,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("data") final Map<String, Object> data
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("assistant_sid")
+        final String assistantSid,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("data")
+        final Map<String, Object> data
     ) {
         this.accountSid = accountSid;
         this.assistantSid = assistantSid;
@@ -107,25 +116,22 @@ public class Defaults extends Resource {
         this.data = data;
     }
 
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getAssistantSid() {
-        return this.assistantSid;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, Object> getData() {
-        return this.data;
-    }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getAssistantSid() {
+            return this.assistantSid;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, Object> getData() {
+            return this.data;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -135,16 +141,14 @@ public class Defaults extends Resource {
 
         Defaults other = (Defaults) o;
 
-        return (
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(assistantSid, other.assistantSid) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(data, other.data)
-        );
+        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(assistantSid, other.assistantSid) &&  Objects.equals(url, other.url) &&  Objects.equals(data, other.data)  ;
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(accountSid, assistantSid, url, data);
     }
+
+
 }
+

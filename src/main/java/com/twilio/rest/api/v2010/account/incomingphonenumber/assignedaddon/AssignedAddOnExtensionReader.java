@@ -14,7 +14,6 @@
 
 package com.twilio.rest.api.v2010.account.incomingphonenumber.assignedaddon;
 
-import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -25,69 +24,42 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
+import com.twilio.base.Page;
 
-public class AssignedAddOnExtensionReader
-    extends Reader<AssignedAddOnExtension> {
 
+
+public class AssignedAddOnExtensionReader extends Reader<AssignedAddOnExtension> {
     private String pathResourceSid;
     private String pathAssignedAddOnSid;
     private String pathAccountSid;
     private Integer pageSize;
 
-    public AssignedAddOnExtensionReader(
-        final String pathResourceSid,
-        final String pathAssignedAddOnSid
-    ) {
+    public AssignedAddOnExtensionReader(final String pathResourceSid, final String pathAssignedAddOnSid){
         this.pathResourceSid = pathResourceSid;
         this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
-
-    public AssignedAddOnExtensionReader(
-        final String pathAccountSid,
-        final String pathResourceSid,
-        final String pathAssignedAddOnSid
-    ) {
+    public AssignedAddOnExtensionReader(final String pathAccountSid, final String pathResourceSid, final String pathAssignedAddOnSid){
         this.pathAccountSid = pathAccountSid;
         this.pathResourceSid = pathResourceSid;
         this.pathAssignedAddOnSid = pathAssignedAddOnSid;
     }
 
-    public AssignedAddOnExtensionReader setPageSize(final Integer pageSize) {
+    public AssignedAddOnExtensionReader setPageSize(final Integer pageSize){
         this.pageSize = pageSize;
         return this;
     }
 
     @Override
-    public ResourceSet<AssignedAddOnExtension> read(
-        final TwilioRestClient client
-    ) {
+    public ResourceSet<AssignedAddOnExtension> read(final TwilioRestClient client) {
         return new ResourceSet<>(this, client, firstPage(client));
     }
 
-    public Page<AssignedAddOnExtension> firstPage(
-        final TwilioRestClient client
-    ) {
-        String path =
-            "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json";
-        this.pathAccountSid =
-            this.pathAccountSid == null
-                ? client.getAccountSid()
-                : this.pathAccountSid;
-        path =
-            path.replace(
-                "{" + "AccountSid" + "}",
-                this.pathAccountSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "ResourceSid" + "}",
-                this.pathResourceSid.toString()
-            );
-        path =
-            path.replace(
-                "{" + "AssignedAddOnSid" + "}",
-                this.pathAssignedAddOnSid.toString()
-            );
+    public Page<AssignedAddOnExtension> firstPage(final TwilioRestClient client) {
+        String path = "/2010-04-01/Accounts/{AccountSid}/IncomingPhoneNumbers/{ResourceSid}/AssignedAddOns/{AssignedAddOnSid}/Extensions.json";
+        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
+        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        path = path.replace("{"+"ResourceSid"+"}", this.pathResourceSid.toString());
+        path = path.replace("{"+"AssignedAddOnSid"+"}", this.pathAssignedAddOnSid.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -99,26 +71,15 @@ public class AssignedAddOnExtensionReader
         return pageForRequest(client, request);
     }
 
-    private Page<AssignedAddOnExtension> pageForRequest(
-        final TwilioRestClient client,
-        final Request request
-    ) {
+    private Page<AssignedAddOnExtension> pageForRequest(final TwilioRestClient client, final Request request) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "AssignedAddOnExtension read failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("AssignedAddOnExtension read failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
@@ -132,10 +93,7 @@ public class AssignedAddOnExtensionReader
     }
 
     @Override
-    public Page<AssignedAddOnExtension> previousPage(
-        final Page<AssignedAddOnExtension> page,
-        final TwilioRestClient client
-    ) {
+    public Page<AssignedAddOnExtension> previousPage(final Page<AssignedAddOnExtension> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -143,11 +101,9 @@ public class AssignedAddOnExtensionReader
         return pageForRequest(client, request);
     }
 
+
     @Override
-    public Page<AssignedAddOnExtension> nextPage(
-        final Page<AssignedAddOnExtension> page,
-        final TwilioRestClient client
-    ) {
+    public Page<AssignedAddOnExtension> nextPage(final Page<AssignedAddOnExtension> page, final TwilioRestClient client) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -156,21 +112,21 @@ public class AssignedAddOnExtensionReader
     }
 
     @Override
-    public Page<AssignedAddOnExtension> getPage(
-        final String targetUrl,
-        final TwilioRestClient client
-    ) {
-        Request request = new Request(HttpMethod.GET, targetUrl);
+    public Page<AssignedAddOnExtension> getPage(final String targetUrl, final TwilioRestClient client) {
+        Request request = new Request(
+            HttpMethod.GET,
+            targetUrl
+        );
 
         return pageForRequest(client, request);
     }
-
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
+    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if (getPageSize() != null) {
+        if(getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

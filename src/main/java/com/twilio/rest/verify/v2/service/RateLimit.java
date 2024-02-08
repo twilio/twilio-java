@@ -23,66 +23,58 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
+
 import com.twilio.exception.ApiException;
+
+import lombok.ToString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-import java.util.Map;
+
 import java.util.Map;
 import java.util.Objects;
+
 import lombok.ToString;
-import lombok.ToString;
+
+import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class RateLimit extends Resource {
-
     private static final long serialVersionUID = 244381337050590L;
 
-    public static RateLimitCreator creator(
-        final String pathServiceSid,
-        final String uniqueName
-    ) {
+    
+
+    public static RateLimitCreator creator(final String pathServiceSid, final String uniqueName){
         return new RateLimitCreator(pathServiceSid, uniqueName);
     }
 
-    public static RateLimitDeleter deleter(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
+    public static RateLimitDeleter deleter(final String pathServiceSid, final String pathSid){
         return new RateLimitDeleter(pathServiceSid, pathSid);
     }
 
-    public static RateLimitFetcher fetcher(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
+    public static RateLimitFetcher fetcher(final String pathServiceSid, final String pathSid){
         return new RateLimitFetcher(pathServiceSid, pathSid);
     }
 
-    public static RateLimitReader reader(final String pathServiceSid) {
+    public static RateLimitReader reader(final String pathServiceSid){
         return new RateLimitReader(pathServiceSid);
     }
 
-    public static RateLimitUpdater updater(
-        final String pathServiceSid,
-        final String pathSid
-    ) {
+    public static RateLimitUpdater updater(final String pathServiceSid, final String pathSid){
         return new RateLimitUpdater(pathServiceSid, pathSid);
     }
 
     /**
-     * Converts a JSON String into a RateLimit object using the provided ObjectMapper.
-     *
-     * @param json Raw JSON String
-     * @param objectMapper Jackson ObjectMapper
-     * @return RateLimit object represented by the provided JSON
-     */
-    public static RateLimit fromJson(
-        final String json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON String into a RateLimit object using the provided ObjectMapper.
+    *
+    * @param json Raw JSON String
+    * @param objectMapper Jackson ObjectMapper
+    * @return RateLimit object represented by the provided JSON
+    */
+    public static RateLimit fromJson(final String json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RateLimit.class);
@@ -94,17 +86,14 @@ public class RateLimit extends Resource {
     }
 
     /**
-     * Converts a JSON InputStream into a RateLimit object using the provided
-     * ObjectMapper.
-     *
-     * @param json Raw JSON InputStream
-     * @param objectMapper Jackson ObjectMapper
-     * @return RateLimit object represented by the provided JSON
-     */
-    public static RateLimit fromJson(
-        final InputStream json,
-        final ObjectMapper objectMapper
-    ) {
+    * Converts a JSON InputStream into a RateLimit object using the provided
+    * ObjectMapper.
+    *
+    * @param json Raw JSON InputStream
+    * @param objectMapper Jackson ObjectMapper
+    * @return RateLimit object represented by the provided JSON
+    */
+    public static RateLimit fromJson(final InputStream json, final ObjectMapper objectMapper) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, RateLimit.class);
@@ -114,6 +103,7 @@ public class RateLimit extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
 
     private final String sid;
     private final String serviceSid;
@@ -127,15 +117,32 @@ public class RateLimit extends Resource {
 
     @JsonCreator
     private RateLimit(
-        @JsonProperty("sid") final String sid,
-        @JsonProperty("service_sid") final String serviceSid,
-        @JsonProperty("account_sid") final String accountSid,
-        @JsonProperty("unique_name") final String uniqueName,
-        @JsonProperty("description") final String description,
-        @JsonProperty("date_created") final String dateCreated,
-        @JsonProperty("date_updated") final String dateUpdated,
-        @JsonProperty("url") final URI url,
-        @JsonProperty("links") final Map<String, String> links
+        @JsonProperty("sid")
+        final String sid,
+
+        @JsonProperty("service_sid")
+        final String serviceSid,
+
+        @JsonProperty("account_sid")
+        final String accountSid,
+
+        @JsonProperty("unique_name")
+        final String uniqueName,
+
+        @JsonProperty("description")
+        final String description,
+
+        @JsonProperty("date_created")
+        final String dateCreated,
+
+        @JsonProperty("date_updated")
+        final String dateUpdated,
+
+        @JsonProperty("url")
+        final URI url,
+
+        @JsonProperty("links")
+        final Map<String, String> links
     ) {
         this.sid = sid;
         this.serviceSid = serviceSid;
@@ -148,45 +155,37 @@ public class RateLimit extends Resource {
         this.links = links;
     }
 
-    public final String getSid() {
-        return this.sid;
-    }
-
-    public final String getServiceSid() {
-        return this.serviceSid;
-    }
-
-    public final String getAccountSid() {
-        return this.accountSid;
-    }
-
-    public final String getUniqueName() {
-        return this.uniqueName;
-    }
-
-    public final String getDescription() {
-        return this.description;
-    }
-
-    public final ZonedDateTime getDateCreated() {
-        return this.dateCreated;
-    }
-
-    public final ZonedDateTime getDateUpdated() {
-        return this.dateUpdated;
-    }
-
-    public final URI getUrl() {
-        return this.url;
-    }
-
-    public final Map<String, String> getLinks() {
-        return this.links;
-    }
+        public final String getSid() {
+            return this.sid;
+        }
+        public final String getServiceSid() {
+            return this.serviceSid;
+        }
+        public final String getAccountSid() {
+            return this.accountSid;
+        }
+        public final String getUniqueName() {
+            return this.uniqueName;
+        }
+        public final String getDescription() {
+            return this.description;
+        }
+        public final ZonedDateTime getDateCreated() {
+            return this.dateCreated;
+        }
+        public final ZonedDateTime getDateUpdated() {
+            return this.dateUpdated;
+        }
+        public final URI getUrl() {
+            return this.url;
+        }
+        public final Map<String, String> getLinks() {
+            return this.links;
+        }
 
     @Override
     public boolean equals(final Object o) {
-        if (this == o) {
+        if (this==o) {
             return true;
         }
 
@@ -196,31 +195,14 @@ public class RateLimit extends Resource {
 
         RateLimit other = (RateLimit) o;
 
-        return (
-            Objects.equals(sid, other.sid) &&
-            Objects.equals(serviceSid, other.serviceSid) &&
-            Objects.equals(accountSid, other.accountSid) &&
-            Objects.equals(uniqueName, other.uniqueName) &&
-            Objects.equals(description, other.description) &&
-            Objects.equals(dateCreated, other.dateCreated) &&
-            Objects.equals(dateUpdated, other.dateUpdated) &&
-            Objects.equals(url, other.url) &&
-            Objects.equals(links, other.links)
-        );
+        return Objects.equals(sid, other.sid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(description, other.description) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(url, other.url) &&  Objects.equals(links, other.links)  ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(
-            sid,
-            serviceSid,
-            accountSid,
-            uniqueName,
-            description,
-            dateCreated,
-            dateUpdated,
-            url,
-            links
-        );
+        return Objects.hash(sid, serviceSid, accountSid, uniqueName, description, dateCreated, dateUpdated, url, links);
     }
+
+
 }
+

@@ -24,13 +24,16 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class SettingFetcher extends Fetcher<Setting> {
 
+
+
+public class SettingFetcher extends Fetcher<Setting> {
     private String subaccountSid;
 
-    public SettingFetcher() {}
+    public SettingFetcher(){
+    }
 
-    public SettingFetcher setSubaccountSid(final String subaccountSid) {
+    public SettingFetcher setSubaccountSid(final String subaccountSid){
         this.subaccountSid = subaccountSid;
         return this;
     }
@@ -38,6 +41,7 @@ public class SettingFetcher extends Fetcher<Setting> {
     @Override
     public Setting fetch(final TwilioRestClient client) {
         String path = "/v1/Voice/Settings";
+
 
         Request request = new Request(
             HttpMethod.GET,
@@ -48,28 +52,20 @@ public class SettingFetcher extends Fetcher<Setting> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException(
-                "Setting fetch failed: Unable to connect to server"
-            );
+        throw new ApiConnectionException("Setting fetch failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Setting.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addQueryParams(final Request request) {
         if (subaccountSid != null) {
+    
             request.addQueryParam("SubaccountSid", subaccountSid);
         }
     }

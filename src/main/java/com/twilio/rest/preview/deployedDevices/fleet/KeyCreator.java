@@ -25,8 +25,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-public class KeyCreator extends Creator<Key> {
 
+
+
+public class KeyCreator extends Creator<Key>{
     private String pathFleetSid;
     private String friendlyName;
     private String deviceSid;
@@ -35,22 +37,20 @@ public class KeyCreator extends Creator<Key> {
         this.pathFleetSid = pathFleetSid;
     }
 
-    public KeyCreator setFriendlyName(final String friendlyName) {
+    public KeyCreator setFriendlyName(final String friendlyName){
         this.friendlyName = friendlyName;
         return this;
     }
-
-    public KeyCreator setDeviceSid(final String deviceSid) {
+    public KeyCreator setDeviceSid(final String deviceSid){
         this.deviceSid = deviceSid;
         return this;
     }
 
     @Override
-    public Key create(final TwilioRestClient client) {
+    public Key create(final TwilioRestClient client){
         String path = "/DeployedDevices/Fleets/{FleetSid}/Keys";
 
-        path =
-            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
+        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,32 +61,25 @@ public class KeyCreator extends Creator<Key> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "Key creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("Key creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
         return Key.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
+    
         }
         if (deviceSid != null) {
             request.addPostParam("DeviceSid", deviceSid);
+    
         }
     }
 }

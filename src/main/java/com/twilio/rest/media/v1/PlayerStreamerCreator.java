@@ -26,48 +26,45 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.net.URI;
+
+
+
 import java.net.URI;
 
-public class PlayerStreamerCreator extends Creator<PlayerStreamer> {
-
+public class PlayerStreamerCreator extends Creator<PlayerStreamer>{
     private Boolean video;
     private URI statusCallback;
     private HttpMethod statusCallbackMethod;
     private Integer maxDuration;
 
-    public PlayerStreamerCreator() {}
+    public PlayerStreamerCreator() {
+    }
 
-    public PlayerStreamerCreator setVideo(final Boolean video) {
+    public PlayerStreamerCreator setVideo(final Boolean video){
         this.video = video;
         return this;
     }
-
-    public PlayerStreamerCreator setStatusCallback(final URI statusCallback) {
+    public PlayerStreamerCreator setStatusCallback(final URI statusCallback){
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public PlayerStreamerCreator setStatusCallback(
-        final String statusCallback
-    ) {
+    public PlayerStreamerCreator setStatusCallback(final String statusCallback){
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-
-    public PlayerStreamerCreator setStatusCallbackMethod(
-        final HttpMethod statusCallbackMethod
-    ) {
+    public PlayerStreamerCreator setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-
-    public PlayerStreamerCreator setMaxDuration(final Integer maxDuration) {
+    public PlayerStreamerCreator setMaxDuration(final Integer maxDuration){
         this.maxDuration = maxDuration;
         return this;
     }
 
     @Override
-    public PlayerStreamer create(final TwilioRestClient client) {
+    public PlayerStreamer create(final TwilioRestClient client){
         String path = "/v1/PlayerStreamers";
+
 
         Request request = new Request(
             HttpMethod.POST,
@@ -78,44 +75,33 @@ public class PlayerStreamerCreator extends Creator<PlayerStreamer> {
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException(
-                "PlayerStreamer creation failed: Unable to connect to server"
-            );
+            throw new ApiConnectionException("PlayerStreamer creation failed: Unable to connect to server");
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(
-                response.getStream(),
-                client.getObjectMapper()
-            );
+            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
             if (restException == null) {
-                throw new ApiException(
-                    "Server Error, no content",
-                    response.getStatusCode()
-                );
+                throw new ApiException("Server Error, no content", response.getStatusCode());
             }
             throw new ApiException(restException);
         }
 
-        return PlayerStreamer.fromJson(
-            response.getStream(),
-            client.getObjectMapper()
-        );
+        return PlayerStreamer.fromJson(response.getStream(), client.getObjectMapper());
     }
-
     private void addPostParams(final Request request) {
         if (video != null) {
             request.addPostParam("Video", video.toString());
+    
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
+    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam(
-                "StatusCallbackMethod",
-                statusCallbackMethod.toString()
-            );
+            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
+    
         }
         if (maxDuration != null) {
             request.addPostParam("MaxDuration", maxDuration.toString());
+    
         }
     }
 }

@@ -107,74 +107,6 @@ public class BrandRegistration extends Resource {
         }
     }
 
-    public enum BrandFeedback {
-        TAX_ID("TAX_ID"),
-        STOCK_SYMBOL("STOCK_SYMBOL"),
-        NONPROFIT("NONPROFIT"),
-        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
-        OTHERS("OTHERS");
-
-        private final String value;
-
-        private BrandFeedback(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BrandFeedback forValue(final String value) {
-            return Promoter.enumFromString(value, BrandFeedback.values());
-        }
-    }
-
-    public enum IdentityStatus {
-        SELF_DECLARED("SELF_DECLARED"),
-        UNVERIFIED("UNVERIFIED"),
-        VERIFIED("VERIFIED"),
-        VETTED_VERIFIED("VETTED_VERIFIED");
-
-        private final String value;
-
-        private IdentityStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static IdentityStatus forValue(final String value) {
-            return Promoter.enumFromString(value, IdentityStatus.values());
-        }
-    }
-
-    public enum Status {
-        PENDING("PENDING"),
-        APPROVED("APPROVED"),
-        FAILED("FAILED"),
-        IN_REVIEW("IN_REVIEW"),
-        DELETED("DELETED");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String customerProfileBundleSid;
@@ -394,5 +326,73 @@ public class BrandRegistration extends Resource {
             mock,
             links
         );
+    }
+
+    public enum BrandFeedback {
+        TAX_ID("TAX_ID"),
+        STOCK_SYMBOL("STOCK_SYMBOL"),
+        NONPROFIT("NONPROFIT"),
+        GOVERNMENT_ENTITY("GOVERNMENT_ENTITY"),
+        OTHERS("OTHERS");
+
+        private final String value;
+
+        private BrandFeedback(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BrandFeedback forValue(final String value) {
+            return Promoter.enumFromString(value, BrandFeedback.values());
+        }
+    }
+
+    public enum Status {
+        PENDING("PENDING"),
+        APPROVED("APPROVED"),
+        FAILED("FAILED"),
+        IN_REVIEW("IN_REVIEW"),
+        DELETED("DELETED");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum IdentityStatus {
+        SELF_DECLARED("SELF_DECLARED"),
+        UNVERIFIED("UNVERIFIED"),
+        VERIFIED("VERIFIED"),
+        VETTED_VERIFIED("VETTED_VERIFIED");
+
+        private final String value;
+
+        private IdentityStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static IdentityStatus forValue(final String value) {
+            return Promoter.enumFromString(value, IdentityStatus.values());
+        }
     }
 }

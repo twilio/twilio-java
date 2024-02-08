@@ -110,31 +110,6 @@ public class HostedNumberOrder extends Resource {
         }
     }
 
-    public enum Status {
-        RECEIVED("received"),
-        VERIFIED("verified"),
-        PENDING_LOA("pending-loa"),
-        CARRIER_PROCESSING("carrier-processing"),
-        COMPLETED("completed"),
-        FAILED("failed"),
-        ACTION_REQUIRED("action-required");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String incomingPhoneNumberSid;
@@ -348,5 +323,30 @@ public class HostedNumberOrder extends Resource {
             bulkHostingRequestSid,
             nextStep
         );
+    }
+
+    public enum Status {
+        RECEIVED("received"),
+        VERIFIED("verified"),
+        PENDING_LOA("pending-loa"),
+        CARRIER_PROCESSING("carrier-processing"),
+        COMPLETED("completed"),
+        FAILED("failed"),
+        ACTION_REQUIRED("action-required");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

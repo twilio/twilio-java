@@ -102,26 +102,6 @@ public class Participant extends Resource {
         }
     }
 
-    public enum Status {
-        CONNECTED("connected"),
-        DISCONNECTED("disconnected");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String roomSid;
     private final String accountSid;
@@ -256,5 +236,25 @@ public class Participant extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        CONNECTED("connected"),
+        DISCONNECTED("disconnected");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -247,28 +247,6 @@ public class Message extends Resource {
         }
     }
 
-    public enum Direction {
-        INBOUND("inbound"),
-        OUTBOUND_API("outbound-api"),
-        OUTBOUND_CALL("outbound-call"),
-        OUTBOUND_REPLY("outbound-reply");
-
-        private final String value;
-
-        private Direction(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Direction forValue(final String value) {
-            return Promoter.enumFromString(value, Direction.values());
-        }
-    }
-
     public enum RiskCheck {
         ENABLE("enable"),
         DISABLE("disable");
@@ -305,37 +283,6 @@ public class Message extends Resource {
         @JsonCreator
         public static ScheduleType forValue(final String value) {
             return Promoter.enumFromString(value, ScheduleType.values());
-        }
-    }
-
-    public enum Status {
-        QUEUED("queued"),
-        SENDING("sending"),
-        SENT("sent"),
-        FAILED("failed"),
-        DELIVERED("delivered"),
-        UNDELIVERED("undelivered"),
-        RECEIVING("receiving"),
-        RECEIVED("received"),
-        ACCEPTED("accepted"),
-        SCHEDULED("scheduled"),
-        READ("read"),
-        PARTIALLY_DELIVERED("partially_delivered"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
         }
     }
 
@@ -569,5 +516,58 @@ public class Message extends Resource {
             apiVersion,
             subresourceUris
         );
+    }
+
+    public enum Direction {
+        INBOUND("inbound"),
+        OUTBOUND_API("outbound-api"),
+        OUTBOUND_CALL("outbound-call"),
+        OUTBOUND_REPLY("outbound-reply");
+
+        private final String value;
+
+        private Direction(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Direction forValue(final String value) {
+            return Promoter.enumFromString(value, Direction.values());
+        }
+    }
+
+    public enum Status {
+        QUEUED("queued"),
+        SENDING("sending"),
+        SENT("sent"),
+        FAILED("failed"),
+        DELIVERED("delivered"),
+        UNDELIVERED("undelivered"),
+        RECEIVING("receiving"),
+        RECEIVED("received"),
+        ACCEPTED("accepted"),
+        SCHEDULED("scheduled"),
+        READ("read"),
+        PARTIALLY_DELIVERED("partially_delivered"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

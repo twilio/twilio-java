@@ -97,26 +97,6 @@ public class MediaRecording extends Resource {
         }
     }
 
-    public enum Format {
-        MP4("mp4"),
-        WEBM("webm");
-
-        private final String value;
-
-        private Format(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Format forValue(final String value) {
-            return Promoter.enumFromString(value, Format.values());
-        }
-    }
-
     public enum Order {
         ASC("asc"),
         DESC("desc");
@@ -134,28 +114,6 @@ public class MediaRecording extends Resource {
         @JsonCreator
         public static Order forValue(final String value) {
             return Promoter.enumFromString(value, Order.values());
-        }
-    }
-
-    public enum Status {
-        PROCESSING("processing"),
-        COMPLETED("completed"),
-        DELETED("deleted"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
         }
     }
 
@@ -322,5 +280,47 @@ public class MediaRecording extends Resource {
             statusCallbackMethod,
             url
         );
+    }
+
+    public enum Format {
+        MP4("mp4"),
+        WEBM("webm");
+
+        private final String value;
+
+        private Format(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Format forValue(final String value) {
+            return Promoter.enumFromString(value, Format.values());
+        }
+    }
+
+    public enum Status {
+        PROCESSING("processing"),
+        COMPLETED("completed"),
+        DELETED("deleted"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

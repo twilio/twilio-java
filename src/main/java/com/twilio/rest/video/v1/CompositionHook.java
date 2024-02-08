@@ -109,26 +109,6 @@ public class CompositionHook extends Resource {
         }
     }
 
-    public enum Format {
-        MP4("mp4"),
-        WEBM("webm");
-
-        private final String value;
-
-        private Format(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Format forValue(final String value) {
-            return Promoter.enumFromString(value, Format.values());
-        }
-    }
-
     private final String accountSid;
     private final String friendlyName;
     private final Boolean enabled;
@@ -294,5 +274,25 @@ public class CompositionHook extends Resource {
             statusCallbackMethod,
             url
         );
+    }
+
+    public enum Format {
+        MP4("mp4"),
+        WEBM("webm");
+
+        private final String value;
+
+        private Format(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Format forValue(final String value) {
+            return Promoter.enumFromString(value, Format.values());
+        }
     }
 }

@@ -86,28 +86,6 @@ public class PortingPortability extends Resource {
         }
     }
 
-    public enum NumberType {
-        LOCAL("LOCAL"),
-        UNKNOWN("UNKNOWN"),
-        MOBILE("MOBILE"),
-        TOLL_FREE("TOLL-FREE");
-
-        private final String value;
-
-        private NumberType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NumberType forValue(final String value) {
-            return Promoter.enumFromString(value, NumberType.values());
-        }
-    }
-
     private final com.twilio.type.PhoneNumber phoneNumber;
     private final String accountSid;
     private final Boolean portable;
@@ -247,5 +225,27 @@ public class PortingPortability extends Resource {
             voiceCarrier,
             url
         );
+    }
+
+    public enum NumberType {
+        LOCAL("LOCAL"),
+        UNKNOWN("UNKNOWN"),
+        MOBILE("MOBILE"),
+        TOLL_FREE("TOLL-FREE");
+
+        private final String value;
+
+        private NumberType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NumberType forValue(final String value) {
+            return Promoter.enumFromString(value, NumberType.values());
+        }
     }
 }

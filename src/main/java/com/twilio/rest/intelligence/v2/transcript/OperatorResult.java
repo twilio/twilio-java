@@ -95,29 +95,6 @@ public class OperatorResult extends Resource {
         }
     }
 
-    public enum OperatorType {
-        CONVERSATION_CLASSIFY("conversation_classify"),
-        UTTERANCE_CLASSIFY("utterance_classify"),
-        EXTRACT("extract"),
-        EXTRACT_NORMALIZE("extract_normalize"),
-        PII_EXTRACT("pii_extract");
-
-        private final String value;
-
-        private OperatorType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static OperatorType forValue(final String value) {
-            return Promoter.enumFromString(value, OperatorType.values());
-        }
-    }
-
     private final OperatorResult.OperatorType operatorType;
     private final String name;
     private final String operatorSid;
@@ -297,5 +274,28 @@ public class OperatorResult extends Resource {
             transcriptSid,
             url
         );
+    }
+
+    public enum OperatorType {
+        CONVERSATION_CLASSIFY("conversation_classify"),
+        UTTERANCE_CLASSIFY("utterance_classify"),
+        EXTRACT("extract"),
+        EXTRACT_NORMALIZE("extract_normalize"),
+        PII_EXTRACT("pii_extract");
+
+        private final String value;
+
+        private OperatorType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static OperatorType forValue(final String value) {
+            return Promoter.enumFromString(value, OperatorType.values());
+        }
     }
 }

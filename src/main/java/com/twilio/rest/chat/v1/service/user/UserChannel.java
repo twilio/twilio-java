@@ -88,27 +88,6 @@ public class UserChannel extends Resource {
         }
     }
 
-    public enum ChannelStatus {
-        JOINED("joined"),
-        INVITED("invited"),
-        NOT_PARTICIPATING("not_participating");
-
-        private final String value;
-
-        private ChannelStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ChannelStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ChannelStatus.values());
-        }
-    }
-
     private final String accountSid;
     private final String serviceSid;
     private final String channelSid;
@@ -214,5 +193,26 @@ public class UserChannel extends Resource {
             unreadMessagesCount,
             links
         );
+    }
+
+    public enum ChannelStatus {
+        JOINED("joined"),
+        INVITED("invited"),
+        NOT_PARTICIPATING("not_participating");
+
+        private final String value;
+
+        private ChannelStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ChannelStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ChannelStatus.values());
+        }
     }
 }

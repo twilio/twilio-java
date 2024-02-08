@@ -88,26 +88,6 @@ public class User extends Resource {
         }
     }
 
-    public enum StateType {
-        ACTIVE("active"),
-        DEACTIVATED("deactivated");
-
-        private final String value;
-
-        private StateType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static StateType forValue(final String value) {
-            return Promoter.enumFromString(value, StateType.values());
-        }
-    }
-
     private final String sid;
     private final String identity;
     private final String friendlyName;
@@ -197,5 +177,25 @@ public class User extends Resource {
             isAvailable,
             url
         );
+    }
+
+    public enum StateType {
+        ACTIVE("active"),
+        DEACTIVATED("deactivated");
+
+        private final String value;
+
+        private StateType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static StateType forValue(final String value) {
+            return Promoter.enumFromString(value, StateType.values());
+        }
     }
 }

@@ -89,27 +89,6 @@ public class ParticipantConversation extends Resource {
         }
     }
 
-    public enum State {
-        INACTIVE("inactive"),
-        ACTIVE("active"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private State(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static State forValue(final String value) {
-            return Promoter.enumFromString(value, State.values());
-        }
-    }
-
     private final String accountSid;
     private final String chatServiceSid;
     private final String participantSid;
@@ -323,5 +302,26 @@ public class ParticipantConversation extends Resource {
             conversationTimers,
             links
         );
+    }
+
+    public enum State {
+        INACTIVE("inactive"),
+        ACTIVE("active"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private State(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static State forValue(final String value) {
+            return Promoter.enumFromString(value, State.values());
+        }
     }
 }

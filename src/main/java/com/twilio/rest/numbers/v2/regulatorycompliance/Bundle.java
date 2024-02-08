@@ -167,30 +167,6 @@ public class Bundle extends Resource {
         }
     }
 
-    public enum Status {
-        DRAFT("draft"),
-        PENDING_REVIEW("pending-review"),
-        IN_REVIEW("in-review"),
-        TWILIO_REJECTED("twilio-rejected"),
-        TWILIO_APPROVED("twilio-approved"),
-        PROVISIONALLY_APPROVED("provisionally-approved");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String regulationSid;
@@ -325,5 +301,29 @@ public class Bundle extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PENDING_REVIEW("pending-review"),
+        IN_REVIEW("in-review"),
+        TWILIO_REJECTED("twilio-rejected"),
+        TWILIO_APPROVED("twilio-approved"),
+        PROVISIONALLY_APPROVED("provisionally-approved");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

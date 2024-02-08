@@ -87,6 +87,48 @@ public class Recording extends Resource {
         }
     }
 
+    private final Recording.RecordingMode mode;
+    private final Recording.RecordingTrim trim;
+
+    @JsonCreator
+    private Recording(
+        @JsonProperty("mode") final Recording.RecordingMode mode,
+        @JsonProperty("trim") final Recording.RecordingTrim trim
+    ) {
+        this.mode = mode;
+        this.trim = trim;
+    }
+
+    public final Recording.RecordingMode getMode() {
+        return this.mode;
+    }
+
+    public final Recording.RecordingTrim getTrim() {
+        return this.trim;
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Recording other = (Recording) o;
+
+        return (
+            Objects.equals(mode, other.mode) && Objects.equals(trim, other.trim)
+        );
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(mode, trim);
+    }
+
     public enum RecordingMode {
         DO_NOT_RECORD("do-not-record"),
         RECORD_FROM_RINGING("record-from-ringing"),
@@ -128,47 +170,5 @@ public class Recording extends Resource {
         public static RecordingTrim forValue(final String value) {
             return Promoter.enumFromString(value, RecordingTrim.values());
         }
-    }
-
-    private final Recording.RecordingMode mode;
-    private final Recording.RecordingTrim trim;
-
-    @JsonCreator
-    private Recording(
-        @JsonProperty("mode") final Recording.RecordingMode mode,
-        @JsonProperty("trim") final Recording.RecordingTrim trim
-    ) {
-        this.mode = mode;
-        this.trim = trim;
-    }
-
-    public final Recording.RecordingMode getMode() {
-        return this.mode;
-    }
-
-    public final Recording.RecordingTrim getTrim() {
-        return this.trim;
-    }
-
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-
-        Recording other = (Recording) o;
-
-        return (
-            Objects.equals(mode, other.mode) && Objects.equals(trim, other.trim)
-        );
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(mode, trim);
     }
 }

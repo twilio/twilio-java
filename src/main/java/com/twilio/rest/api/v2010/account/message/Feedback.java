@@ -92,26 +92,6 @@ public class Feedback extends Resource {
         }
     }
 
-    public enum Outcome {
-        CONFIRMED("confirmed"),
-        UNCONFIRMED("unconfirmed");
-
-        private final String value;
-
-        private Outcome(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Outcome forValue(final String value) {
-            return Promoter.enumFromString(value, Outcome.values());
-        }
-    }
-
     private final String accountSid;
     private final String messageSid;
     private final Feedback.Outcome outcome;
@@ -192,5 +172,25 @@ public class Feedback extends Resource {
             dateUpdated,
             uri
         );
+    }
+
+    public enum Outcome {
+        CONFIRMED("confirmed"),
+        UNCONFIRMED("unconfirmed");
+
+        private final String value;
+
+        private Outcome(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Outcome forValue(final String value) {
+            return Promoter.enumFromString(value, Outcome.values());
+        }
     }
 }

@@ -107,30 +107,6 @@ public class SupportingDocument extends Resource {
         }
     }
 
-    public enum Status {
-        DRAFT("draft"),
-        PENDING_REVIEW("pending-review"),
-        REJECTED("rejected"),
-        APPROVED("approved"),
-        EXPIRED("expired"),
-        PROVISIONALLY_APPROVED("provisionally-approved");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String friendlyName;
@@ -256,5 +232,29 @@ public class SupportingDocument extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum Status {
+        DRAFT("draft"),
+        PENDING_REVIEW("pending-review"),
+        REJECTED("rejected"),
+        APPROVED("approved"),
+        EXPIRED("expired"),
+        PROVISIONALLY_APPROVED("provisionally-approved");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

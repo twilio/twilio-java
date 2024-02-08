@@ -98,48 +98,6 @@ public class DependentPhoneNumber extends Resource {
         }
     }
 
-    public enum AddressRequirement {
-        NONE("none"),
-        ANY("any"),
-        LOCAL("local"),
-        FOREIGN("foreign");
-
-        private final String value;
-
-        private AddressRequirement(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AddressRequirement forValue(final String value) {
-            return Promoter.enumFromString(value, AddressRequirement.values());
-        }
-    }
-
-    public enum EmergencyStatus {
-        ACTIVE("Active"),
-        INACTIVE("Inactive");
-
-        private final String value;
-
-        private EmergencyStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EmergencyStatus forValue(final String value) {
-            return Promoter.enumFromString(value, EmergencyStatus.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final com.twilio.type.PhoneNumber friendlyName;
@@ -414,5 +372,47 @@ public class DependentPhoneNumber extends Resource {
             emergencyAddressSid,
             uri
         );
+    }
+
+    public enum EmergencyStatus {
+        ACTIVE("Active"),
+        INACTIVE("Inactive");
+
+        private final String value;
+
+        private EmergencyStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EmergencyStatus forValue(final String value) {
+            return Promoter.enumFromString(value, EmergencyStatus.values());
+        }
+    }
+
+    public enum AddressRequirement {
+        NONE("none"),
+        ANY("any"),
+        LOCAL("local"),
+        FOREIGN("foreign");
+
+        private final String value;
+
+        private AddressRequirement(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AddressRequirement forValue(final String value) {
+            return Promoter.enumFromString(value, AddressRequirement.values());
+        }
     }
 }

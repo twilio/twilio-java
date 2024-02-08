@@ -103,29 +103,6 @@ public class Transcript extends Resource {
         }
     }
 
-    public enum Status {
-        QUEUED("queued"),
-        IN_PROGRESS("in-progress"),
-        COMPLETED("completed"),
-        FAILED("failed"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final String serviceSid;
     private final String sid;
@@ -288,5 +265,28 @@ public class Transcript extends Resource {
             redaction,
             links
         );
+    }
+
+    public enum Status {
+        QUEUED("queued"),
+        IN_PROGRESS("in-progress"),
+        COMPLETED("completed"),
+        FAILED("failed"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

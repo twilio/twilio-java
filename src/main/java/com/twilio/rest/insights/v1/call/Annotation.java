@@ -89,51 +89,6 @@ public class Annotation extends Resource {
         }
     }
 
-    public enum AnsweredBy {
-        UNKNOWN_ANSWERED_BY("unknown_answered_by"),
-        HUMAN("human"),
-        MACHINE("machine");
-
-        private final String value;
-
-        private AnsweredBy(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static AnsweredBy forValue(final String value) {
-            return Promoter.enumFromString(value, AnsweredBy.values());
-        }
-    }
-
-    public enum ConnectivityIssue {
-        UNKNOWN_CONNECTIVITY_ISSUE("unknown_connectivity_issue"),
-        NO_CONNECTIVITY_ISSUE("no_connectivity_issue"),
-        INVALID_NUMBER("invalid_number"),
-        CALLER_ID("caller_id"),
-        DROPPED_CALL("dropped_call"),
-        NUMBER_REACHABILITY("number_reachability");
-
-        private final String value;
-
-        private ConnectivityIssue(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConnectivityIssue forValue(final String value) {
-            return Promoter.enumFromString(value, ConnectivityIssue.values());
-        }
-    }
-
     private final String callSid;
     private final String accountSid;
     private final Annotation.AnsweredBy answeredBy;
@@ -252,5 +207,50 @@ public class Annotation extends Resource {
             incident,
             url
         );
+    }
+
+    public enum ConnectivityIssue {
+        UNKNOWN_CONNECTIVITY_ISSUE("unknown_connectivity_issue"),
+        NO_CONNECTIVITY_ISSUE("no_connectivity_issue"),
+        INVALID_NUMBER("invalid_number"),
+        CALLER_ID("caller_id"),
+        DROPPED_CALL("dropped_call"),
+        NUMBER_REACHABILITY("number_reachability");
+
+        private final String value;
+
+        private ConnectivityIssue(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConnectivityIssue forValue(final String value) {
+            return Promoter.enumFromString(value, ConnectivityIssue.values());
+        }
+    }
+
+    public enum AnsweredBy {
+        UNKNOWN_ANSWERED_BY("unknown_answered_by"),
+        HUMAN("human"),
+        MACHINE("machine");
+
+        private final String value;
+
+        private AnsweredBy(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static AnsweredBy forValue(final String value) {
+            return Promoter.enumFromString(value, AnsweredBy.values());
+        }
     }
 }

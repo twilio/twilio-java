@@ -149,55 +149,6 @@ public class Recording extends Resource {
         }
     }
 
-    public enum Source {
-        DIALVERB("DialVerb"),
-        CONFERENCE("Conference"),
-        OUTBOUNDAPI("OutboundAPI"),
-        TRUNKING("Trunking"),
-        RECORDVERB("RecordVerb"),
-        STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
-        STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI");
-
-        private final String value;
-
-        private Source(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Source forValue(final String value) {
-            return Promoter.enumFromString(value, Source.values());
-        }
-    }
-
-    public enum Status {
-        IN_PROGRESS("in-progress"),
-        PAUSED("paused"),
-        STOPPED("stopped"),
-        PROCESSING("processing"),
-        COMPLETED("completed"),
-        ABSENT("absent");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final String apiVersion;
     private final String callSid;
@@ -382,5 +333,54 @@ public class Recording extends Resource {
             encryptionDetails,
             uri
         );
+    }
+
+    public enum Source {
+        DIALVERB("DialVerb"),
+        CONFERENCE("Conference"),
+        OUTBOUNDAPI("OutboundAPI"),
+        TRUNKING("Trunking"),
+        RECORDVERB("RecordVerb"),
+        STARTCALLRECORDINGAPI("StartCallRecordingAPI"),
+        STARTCONFERENCERECORDINGAPI("StartConferenceRecordingAPI");
+
+        private final String value;
+
+        private Source(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Source forValue(final String value) {
+            return Promoter.enumFromString(value, Source.values());
+        }
+    }
+
+    public enum Status {
+        IN_PROGRESS("in-progress"),
+        PAUSED("paused"),
+        STOPPED("stopped"),
+        PROCESSING("processing"),
+        COMPLETED("completed"),
+        ABSENT("absent");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

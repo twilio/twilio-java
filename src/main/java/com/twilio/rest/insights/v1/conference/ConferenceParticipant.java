@@ -101,141 +101,6 @@ public class ConferenceParticipant extends Resource {
         }
     }
 
-    public enum CallDirection {
-        INBOUND("inbound"),
-        OUTBOUND("outbound");
-
-        private final String value;
-
-        private CallDirection(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallDirection forValue(final String value) {
-            return Promoter.enumFromString(value, CallDirection.values());
-        }
-    }
-
-    public enum CallStatus {
-        ANSWERED("answered"),
-        COMPLETED("completed"),
-        BUSY("busy"),
-        FAIL("fail"),
-        NOANSWER("noanswer"),
-        RINGING("ringing"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private CallStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallStatus forValue(final String value) {
-            return Promoter.enumFromString(value, CallStatus.values());
-        }
-    }
-
-    public enum CallType {
-        CARRIER("carrier"),
-        CLIENT("client"),
-        SIP("sip");
-
-        private final String value;
-
-        private CallType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static CallType forValue(final String value) {
-            return Promoter.enumFromString(value, CallType.values());
-        }
-    }
-
-    public enum JitterBufferSize {
-        LARGE("large"),
-        SMALL("small"),
-        MEDIUM("medium"),
-        OFF("off");
-
-        private final String value;
-
-        private JitterBufferSize(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static JitterBufferSize forValue(final String value) {
-            return Promoter.enumFromString(value, JitterBufferSize.values());
-        }
-    }
-
-    public enum ProcessingState {
-        COMPLETE("complete"),
-        IN_PROGRESS("in_progress"),
-        TIMEOUT("timeout");
-
-        private final String value;
-
-        private ProcessingState(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ProcessingState forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingState.values());
-        }
-    }
-
-    public enum Region {
-        US1("us1"),
-        US2("us2"),
-        AU1("au1"),
-        BR1("br1"),
-        IE1("ie1"),
-        JP1("jp1"),
-        SG1("sg1"),
-        DE1("de1");
-
-        private final String value;
-
-        private Region(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Region forValue(final String value) {
-            return Promoter.enumFromString(value, Region.values());
-        }
-    }
-
     private final String participantSid;
     private final String label;
     private final String conferenceSid;
@@ -525,5 +390,140 @@ public class ConferenceParticipant extends Resource {
             metrics,
             url
         );
+    }
+
+    public enum CallDirection {
+        INBOUND("inbound"),
+        OUTBOUND("outbound");
+
+        private final String value;
+
+        private CallDirection(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallDirection forValue(final String value) {
+            return Promoter.enumFromString(value, CallDirection.values());
+        }
+    }
+
+    public enum ProcessingState {
+        COMPLETE("complete"),
+        IN_PROGRESS("in_progress"),
+        TIMEOUT("timeout");
+
+        private final String value;
+
+        private ProcessingState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ProcessingState forValue(final String value) {
+            return Promoter.enumFromString(value, ProcessingState.values());
+        }
+    }
+
+    public enum JitterBufferSize {
+        LARGE("large"),
+        SMALL("small"),
+        MEDIUM("medium"),
+        OFF("off");
+
+        private final String value;
+
+        private JitterBufferSize(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static JitterBufferSize forValue(final String value) {
+            return Promoter.enumFromString(value, JitterBufferSize.values());
+        }
+    }
+
+    public enum CallStatus {
+        ANSWERED("answered"),
+        COMPLETED("completed"),
+        BUSY("busy"),
+        FAIL("fail"),
+        NOANSWER("noanswer"),
+        RINGING("ringing"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private CallStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallStatus forValue(final String value) {
+            return Promoter.enumFromString(value, CallStatus.values());
+        }
+    }
+
+    public enum CallType {
+        CARRIER("carrier"),
+        CLIENT("client"),
+        SIP("sip");
+
+        private final String value;
+
+        private CallType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static CallType forValue(final String value) {
+            return Promoter.enumFromString(value, CallType.values());
+        }
+    }
+
+    public enum Region {
+        US1("us1"),
+        US2("us2"),
+        AU1("au1"),
+        BR1("br1"),
+        IE1("ie1"),
+        JP1("jp1"),
+        SG1("sg1"),
+        DE1("de1");
+
+        private final String value;
+
+        private Region(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Region forValue(final String value) {
+            return Promoter.enumFromString(value, Region.values());
+        }
     }
 }

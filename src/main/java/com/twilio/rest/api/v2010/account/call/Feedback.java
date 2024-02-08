@@ -104,32 +104,6 @@ public class Feedback extends Resource {
         }
     }
 
-    public enum Issues {
-        AUDIO_LATENCY("audio-latency"),
-        DIGITS_NOT_CAPTURED("digits-not-captured"),
-        DROPPED_CALL("dropped-call"),
-        IMPERFECT_AUDIO("imperfect-audio"),
-        INCORRECT_CALLER_ID("incorrect-caller-id"),
-        ONE_WAY_AUDIO("one-way-audio"),
-        POST_DIAL_DELAY("post-dial-delay"),
-        UNSOLICITED_CALL("unsolicited-call");
-
-        private final String value;
-
-        private Issues(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Issues forValue(final String value) {
-            return Promoter.enumFromString(value, Issues.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -210,5 +184,31 @@ public class Feedback extends Resource {
             qualityScore,
             sid
         );
+    }
+
+    public enum Issues {
+        AUDIO_LATENCY("audio-latency"),
+        DIGITS_NOT_CAPTURED("digits-not-captured"),
+        DROPPED_CALL("dropped-call"),
+        IMPERFECT_AUDIO("imperfect-audio"),
+        INCORRECT_CALLER_ID("incorrect-caller-id"),
+        ONE_WAY_AUDIO("one-way-audio"),
+        POST_DIAL_DELAY("post-dial-delay"),
+        UNSOLICITED_CALL("unsolicited-call");
+
+        private final String value;
+
+        private Issues(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Issues forValue(final String value) {
+            return Promoter.enumFromString(value, Issues.values());
+        }
     }
 }

@@ -93,130 +93,6 @@ public class Conference extends Resource {
         }
     }
 
-    public enum ConferenceEndReason {
-        LAST_PARTICIPANT_LEFT("last_participant_left"),
-        CONFERENCE_ENDED_VIA_API("conference_ended_via_api"),
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(
-            "participant_with_end_conference_on_exit_left"
-        ),
-        LAST_PARTICIPANT_KICKED("last_participant_kicked"),
-        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED(
-            "participant_with_end_conference_on_exit_kicked"
-        );
-
-        private final String value;
-
-        private ConferenceEndReason(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceEndReason forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceEndReason.values());
-        }
-    }
-
-    public enum ConferenceStatus {
-        IN_PROGRESS("in_progress"),
-        NOT_STARTED("not_started"),
-        COMPLETED("completed"),
-        SUMMARY_TIMEOUT("summary_timeout");
-
-        private final String value;
-
-        private ConferenceStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ConferenceStatus forValue(final String value) {
-            return Promoter.enumFromString(value, ConferenceStatus.values());
-        }
-    }
-
-    public enum ProcessingState {
-        COMPLETE("complete"),
-        IN_PROGRESS("in_progress"),
-        TIMEOUT("timeout");
-
-        private final String value;
-
-        private ProcessingState(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static ProcessingState forValue(final String value) {
-            return Promoter.enumFromString(value, ProcessingState.values());
-        }
-    }
-
-    public enum Region {
-        US1("us1"),
-        AU1("au1"),
-        BR1("br1"),
-        IE1("ie1"),
-        JP1("jp1"),
-        SG1("sg1"),
-        DE1("de1");
-
-        private final String value;
-
-        private Region(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Region forValue(final String value) {
-            return Promoter.enumFromString(value, Region.values());
-        }
-    }
-
-    public enum Tag {
-        INVALID_REQUESTED_REGION("invalid_requested_region"),
-        DUPLICATE_IDENTITY("duplicate_identity"),
-        START_FAILURE("start_failure"),
-        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
-        QUALITY_WARNINGS("quality_warnings"),
-        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
-        HIGH_PACKET_LOSS("high_packet_loss"),
-        HIGH_JITTER("high_jitter"),
-        HIGH_LATENCY("high_latency"),
-        LOW_MOS("low_mos"),
-        DETECTED_SILENCE("detected_silence");
-
-        private final String value;
-
-        private Tag(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Tag forValue(final String value) {
-            return Promoter.enumFromString(value, Tag.values());
-        }
-    }
-
     private final String conferenceSid;
     private final String accountSid;
     private final String friendlyName;
@@ -469,5 +345,129 @@ public class Conference extends Resource {
             url,
             links
         );
+    }
+
+    public enum ConferenceEndReason {
+        LAST_PARTICIPANT_LEFT("last_participant_left"),
+        CONFERENCE_ENDED_VIA_API("conference_ended_via_api"),
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_LEFT(
+            "participant_with_end_conference_on_exit_left"
+        ),
+        LAST_PARTICIPANT_KICKED("last_participant_kicked"),
+        PARTICIPANT_WITH_END_CONFERENCE_ON_EXIT_KICKED(
+            "participant_with_end_conference_on_exit_kicked"
+        );
+
+        private final String value;
+
+        private ConferenceEndReason(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConferenceEndReason forValue(final String value) {
+            return Promoter.enumFromString(value, ConferenceEndReason.values());
+        }
+    }
+
+    public enum Region {
+        US1("us1"),
+        AU1("au1"),
+        BR1("br1"),
+        IE1("ie1"),
+        JP1("jp1"),
+        SG1("sg1"),
+        DE1("de1");
+
+        private final String value;
+
+        private Region(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Region forValue(final String value) {
+            return Promoter.enumFromString(value, Region.values());
+        }
+    }
+
+    public enum Tag {
+        INVALID_REQUESTED_REGION("invalid_requested_region"),
+        DUPLICATE_IDENTITY("duplicate_identity"),
+        START_FAILURE("start_failure"),
+        REGION_CONFIGURATION_ISSUES("region_configuration_issues"),
+        QUALITY_WARNINGS("quality_warnings"),
+        PARTICIPANT_BEHAVIOR_ISSUES("participant_behavior_issues"),
+        HIGH_PACKET_LOSS("high_packet_loss"),
+        HIGH_JITTER("high_jitter"),
+        HIGH_LATENCY("high_latency"),
+        LOW_MOS("low_mos"),
+        DETECTED_SILENCE("detected_silence");
+
+        private final String value;
+
+        private Tag(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Tag forValue(final String value) {
+            return Promoter.enumFromString(value, Tag.values());
+        }
+    }
+
+    public enum ProcessingState {
+        COMPLETE("complete"),
+        IN_PROGRESS("in_progress"),
+        TIMEOUT("timeout");
+
+        private final String value;
+
+        private ProcessingState(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ProcessingState forValue(final String value) {
+            return Promoter.enumFromString(value, ProcessingState.values());
+        }
+    }
+
+    public enum ConferenceStatus {
+        IN_PROGRESS("in_progress"),
+        NOT_STARTED("not_started"),
+        COMPLETED("completed"),
+        SUMMARY_TIMEOUT("summary_timeout");
+
+        private final String value;
+
+        private ConferenceStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static ConferenceStatus forValue(final String value) {
+            return Promoter.enumFromString(value, ConferenceStatus.values());
+        }
     }
 }

@@ -88,26 +88,6 @@ public class Notification extends Resource {
         }
     }
 
-    public enum Priority {
-        HIGH("high"),
-        LOW("low");
-
-        private final String value;
-
-        private Priority(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Priority forValue(final String value) {
-            return Promoter.enumFromString(value, Priority.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -317,5 +297,25 @@ public class Notification extends Resource {
             facebookMessenger,
             alexa
         );
+    }
+
+    public enum Priority {
+        HIGH("high"),
+        LOW("low");
+
+        private final String value;
+
+        private Priority(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Priority forValue(final String value) {
+            return Promoter.enumFromString(value, Priority.values());
+        }
     }
 }

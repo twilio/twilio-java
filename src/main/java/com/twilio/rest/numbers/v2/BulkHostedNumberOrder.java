@@ -95,27 +95,6 @@ public class BulkHostedNumberOrder extends Resource {
         }
     }
 
-    public enum RequestStatus {
-        QUEUED("QUEUED"),
-        IN_PROGRESS("IN_PROGRESS"),
-        PROCESSED("PROCESSED");
-
-        private final String value;
-
-        private RequestStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static RequestStatus forValue(final String value) {
-            return Promoter.enumFromString(value, RequestStatus.values());
-        }
-    }
-
     private final String bulkHostingSid;
     private final BulkHostedNumberOrder.RequestStatus requestStatus;
     private final String friendlyName;
@@ -226,5 +205,26 @@ public class BulkHostedNumberOrder extends Resource {
             totalCount,
             results
         );
+    }
+
+    public enum RequestStatus {
+        QUEUED("QUEUED"),
+        IN_PROGRESS("IN_PROGRESS"),
+        PROCESSED("PROCESSED");
+
+        private final String value;
+
+        private RequestStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static RequestStatus forValue(final String value) {
+            return Promoter.enumFromString(value, RequestStatus.values());
+        }
     }
 }

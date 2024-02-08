@@ -85,26 +85,6 @@ public class BillingPeriod extends Resource {
         }
     }
 
-    public enum BpType {
-        READY("ready"),
-        ACTIVE("active");
-
-        private final String value;
-
-        private BpType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BpType forValue(final String value) {
-            return Promoter.enumFromString(value, BpType.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String simSid;
@@ -203,5 +183,25 @@ public class BillingPeriod extends Resource {
             dateCreated,
             dateUpdated
         );
+    }
+
+    public enum BpType {
+        READY("ready"),
+        ACTIVE("active");
+
+        private final String value;
+
+        private BpType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BpType forValue(final String value) {
+            return Promoter.enumFromString(value, BpType.values());
+        }
     }
 }

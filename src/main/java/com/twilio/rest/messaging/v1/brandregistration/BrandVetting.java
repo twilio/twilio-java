@@ -100,25 +100,6 @@ public class BrandVetting extends Resource {
         }
     }
 
-    public enum VettingProvider {
-        CAMPAIGN_VERIFY("campaign-verify");
-
-        private final String value;
-
-        private VettingProvider(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VettingProvider forValue(final String value) {
-            return Promoter.enumFromString(value, VettingProvider.values());
-        }
-    }
-
     private final String accountSid;
     private final String brandSid;
     private final String brandVettingSid;
@@ -237,5 +218,24 @@ public class BrandVetting extends Resource {
             vettingProvider,
             url
         );
+    }
+
+    public enum VettingProvider {
+        CAMPAIGN_VERIFY("campaign-verify");
+
+        private final String value;
+
+        private VettingProvider(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VettingProvider forValue(final String value) {
+            return Promoter.enumFromString(value, VettingProvider.values());
+        }
     }
 }

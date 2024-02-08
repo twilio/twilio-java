@@ -106,27 +106,6 @@ public class UserBinding extends Resource {
         }
     }
 
-    public enum BindingType {
-        GCM("gcm"),
-        APN("apn"),
-        FCM("fcm");
-
-        private final String value;
-
-        private BindingType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static BindingType forValue(final String value) {
-            return Promoter.enumFromString(value, BindingType.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -261,5 +240,26 @@ public class UserBinding extends Resource {
             messageTypes,
             url
         );
+    }
+
+    public enum BindingType {
+        GCM("gcm"),
+        APN("apn"),
+        FCM("fcm");
+
+        private final String value;
+
+        private BindingType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static BindingType forValue(final String value) {
+            return Promoter.enumFromString(value, BindingType.values());
+        }
     }
 }

@@ -111,29 +111,6 @@ public class ModelBuild extends Resource {
         }
     }
 
-    public enum Status {
-        ENQUEUED("enqueued"),
-        BUILDING("building"),
-        COMPLETED("completed"),
-        FAILED("failed"),
-        CANCELED("canceled");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String accountSid;
     private final ZonedDateTime dateCreated;
     private final ZonedDateTime dateUpdated;
@@ -250,5 +227,28 @@ public class ModelBuild extends Resource {
             buildDuration,
             errorCode
         );
+    }
+
+    public enum Status {
+        ENQUEUED("enqueued"),
+        BUILDING("building"),
+        COMPLETED("completed"),
+        FAILED("failed"),
+        CANCELED("canceled");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

@@ -98,46 +98,6 @@ public class NewFactor extends Resource {
         }
     }
 
-    public enum FactorStatuses {
-        UNVERIFIED("unverified"),
-        VERIFIED("verified");
-
-        private final String value;
-
-        private FactorStatuses(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorStatuses forValue(final String value) {
-            return Promoter.enumFromString(value, FactorStatuses.values());
-        }
-    }
-
-    public enum FactorTypes {
-        PUSH("push"),
-        TOTP("totp");
-
-        private final String value;
-
-        private FactorTypes(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static FactorTypes forValue(final String value) {
-            return Promoter.enumFromString(value, FactorTypes.values());
-        }
-    }
-
     public enum NotificationPlatforms {
         APN("apn"),
         FCM("fcm"),
@@ -335,5 +295,45 @@ public class NewFactor extends Resource {
             metadata,
             url
         );
+    }
+
+    public enum FactorTypes {
+        PUSH("push"),
+        TOTP("totp");
+
+        private final String value;
+
+        private FactorTypes(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorTypes forValue(final String value) {
+            return Promoter.enumFromString(value, FactorTypes.values());
+        }
+    }
+
+    public enum FactorStatuses {
+        UNVERIFIED("unverified"),
+        VERIFIED("verified");
+
+        private final String value;
+
+        private FactorStatuses(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static FactorStatuses forValue(final String value) {
+            return Promoter.enumFromString(value, FactorStatuses.values());
+        }
     }
 }

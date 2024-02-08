@@ -101,27 +101,6 @@ public class PublishedTrack extends Resource {
         }
     }
 
-    public enum Kind {
-        AUDIO("audio"),
-        VIDEO("video"),
-        DATA("data");
-
-        private final String value;
-
-        private Kind(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Kind forValue(final String value) {
-            return Promoter.enumFromString(value, Kind.values());
-        }
-    }
-
     private final String sid;
     private final String participantSid;
     private final String roomSid;
@@ -229,5 +208,26 @@ public class PublishedTrack extends Resource {
             kind,
             url
         );
+    }
+
+    public enum Kind {
+        AUDIO("audio"),
+        VIDEO("video"),
+        DATA("data");
+
+        private final String value;
+
+        private Kind(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Kind forValue(final String value) {
+            return Promoter.enumFromString(value, Kind.values());
+        }
     }
 }

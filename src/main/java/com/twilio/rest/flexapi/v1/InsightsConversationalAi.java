@@ -91,29 +91,6 @@ public class InsightsConversationalAi extends Resource {
         }
     }
 
-    public enum Granularity {
-        DAYS("days"),
-        WEEKS("weeks"),
-        MONTHS("months"),
-        QUARTERS("quarters"),
-        YEARS("years");
-
-        private final String value;
-
-        private Granularity(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Granularity forValue(final String value) {
-            return Promoter.enumFromString(value, Granularity.values());
-        }
-    }
-
     private final String instanceSid;
     private final String reportId;
     private final InsightsConversationalAi.Granularity granularity;
@@ -232,5 +209,28 @@ public class InsightsConversationalAi extends Resource {
             rows,
             url
         );
+    }
+
+    public enum Granularity {
+        DAYS("days"),
+        WEEKS("weeks"),
+        MONTHS("months"),
+        QUARTERS("quarters"),
+        YEARS("years");
+
+        private final String value;
+
+        private Granularity(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Granularity forValue(final String value) {
+            return Promoter.enumFromString(value, Granularity.values());
+        }
     }
 }

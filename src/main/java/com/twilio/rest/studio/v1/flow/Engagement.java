@@ -110,26 +110,6 @@ public class Engagement extends Resource {
         }
     }
 
-    public enum Status {
-        ACTIVE("active"),
-        ENDED("ended");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String flowSid;
@@ -260,5 +240,25 @@ public class Engagement extends Resource {
             url,
             links
         );
+    }
+
+    public enum Status {
+        ACTIVE("active"),
+        ENDED("ended");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

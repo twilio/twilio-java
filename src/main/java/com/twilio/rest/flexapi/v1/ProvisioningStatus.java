@@ -84,28 +84,6 @@ public class ProvisioningStatus extends Resource {
         }
     }
 
-    public enum Status {
-        ACTIVE("active"),
-        IN_PROGRESS("in-progress"),
-        NOT_CONFIGURED("not-configured"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final ProvisioningStatus.Status status;
     private final URI url;
 
@@ -147,5 +125,27 @@ public class ProvisioningStatus extends Resource {
     @Override
     public int hashCode() {
         return Objects.hash(status, url);
+    }
+
+    public enum Status {
+        ACTIVE("active"),
+        IN_PROGRESS("in-progress"),
+        NOT_CONFIGURED("not-configured"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

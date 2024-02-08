@@ -95,53 +95,6 @@ public class DependentHostedNumberOrder extends Resource {
         }
     }
 
-    public enum Status {
-        RECEIVED("received"),
-        PENDING_VERIFICATION("pending-verification"),
-        VERIFIED("verified"),
-        PENDING_LOA("pending-loa"),
-        CARRIER_PROCESSING("carrier-processing"),
-        TESTING("testing"),
-        COMPLETED("completed"),
-        FAILED("failed"),
-        ACTION_REQUIRED("action-required");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
-    public enum VerificationType {
-        PHONE_CALL("phone-call"),
-        PHONE_BILL("phone-bill");
-
-        private final String value;
-
-        private VerificationType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static VerificationType forValue(final String value) {
-            return Promoter.enumFromString(value, VerificationType.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String incomingPhoneNumberSid;
@@ -386,5 +339,52 @@ public class DependentHostedNumberOrder extends Resource {
             verificationCode,
             verificationCallSids
         );
+    }
+
+    public enum Status {
+        RECEIVED("received"),
+        PENDING_VERIFICATION("pending-verification"),
+        VERIFIED("verified"),
+        PENDING_LOA("pending-loa"),
+        CARRIER_PROCESSING("carrier-processing"),
+        TESTING("testing"),
+        COMPLETED("completed"),
+        FAILED("failed"),
+        ACTION_REQUIRED("action-required");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
+    }
+
+    public enum VerificationType {
+        PHONE_CALL("phone-call"),
+        PHONE_BILL("phone-bill");
+
+        private final String value;
+
+        private VerificationType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static VerificationType forValue(final String value) {
+            return Promoter.enumFromString(value, VerificationType.values());
+        }
     }
 }

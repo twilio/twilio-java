@@ -107,51 +107,6 @@ public class Build extends Resource {
         }
     }
 
-    public enum Runtime {
-        NODE8("node8"),
-        NODE10("node10"),
-        NODE12("node12"),
-        NODE14("node14"),
-        NODE16("node16"),
-        NODE18("node18");
-
-        private final String value;
-
-        private Runtime(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Runtime forValue(final String value) {
-            return Promoter.enumFromString(value, Runtime.values());
-        }
-    }
-
-    public enum Status {
-        BUILDING("building"),
-        COMPLETED("completed"),
-        FAILED("failed");
-
-        private final String value;
-
-        private Status(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Status forValue(final String value) {
-            return Promoter.enumFromString(value, Status.values());
-        }
-    }
-
     private final String sid;
     private final String accountSid;
     private final String serviceSid;
@@ -292,5 +247,50 @@ public class Build extends Resource {
             url,
             links
         );
+    }
+
+    public enum Runtime {
+        NODE8("node8"),
+        NODE10("node10"),
+        NODE12("node12"),
+        NODE14("node14"),
+        NODE16("node16"),
+        NODE18("node18");
+
+        private final String value;
+
+        private Runtime(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Runtime forValue(final String value) {
+            return Promoter.enumFromString(value, Runtime.values());
+        }
+    }
+
+    public enum Status {
+        BUILDING("building"),
+        COMPLETED("completed"),
+        FAILED("failed");
+
+        private final String value;
+
+        private Status(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Status forValue(final String value) {
+            return Promoter.enumFromString(value, Status.values());
+        }
     }
 }

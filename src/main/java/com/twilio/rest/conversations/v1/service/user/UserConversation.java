@@ -127,47 +127,6 @@ public class UserConversation extends Resource {
         }
     }
 
-    public enum NotificationLevel {
-        DEFAULT("default"),
-        MUTED("muted");
-
-        private final String value;
-
-        private NotificationLevel(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static NotificationLevel forValue(final String value) {
-            return Promoter.enumFromString(value, NotificationLevel.values());
-        }
-    }
-
-    public enum State {
-        INACTIVE("inactive"),
-        ACTIVE("active"),
-        CLOSED("closed");
-
-        private final String value;
-
-        private State(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static State forValue(final String value) {
-            return Promoter.enumFromString(value, State.values());
-        }
-    }
-
     private final String accountSid;
     private final String chatServiceSid;
     private final String conversationSid;
@@ -364,5 +323,46 @@ public class UserConversation extends Resource {
             url,
             links
         );
+    }
+
+    public enum NotificationLevel {
+        DEFAULT("default"),
+        MUTED("muted");
+
+        private final String value;
+
+        private NotificationLevel(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static NotificationLevel forValue(final String value) {
+            return Promoter.enumFromString(value, NotificationLevel.values());
+        }
+    }
+
+    public enum State {
+        INACTIVE("inactive"),
+        ACTIVE("active"),
+        CLOSED("closed");
+
+        private final String value;
+
+        private State(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static State forValue(final String value) {
+            return Promoter.enumFromString(value, State.values());
+        }
     }
 }

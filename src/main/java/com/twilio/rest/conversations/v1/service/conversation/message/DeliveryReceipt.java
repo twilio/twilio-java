@@ -108,29 +108,6 @@ public class DeliveryReceipt extends Resource {
         }
     }
 
-    public enum DeliveryStatus {
-        READ("read"),
-        FAILED("failed"),
-        DELIVERED("delivered"),
-        UNDELIVERED("undelivered"),
-        SENT("sent");
-
-        private final String value;
-
-        private DeliveryStatus(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static DeliveryStatus forValue(final String value) {
-            return Promoter.enumFromString(value, DeliveryStatus.values());
-        }
-    }
-
     private final String accountSid;
     private final String chatServiceSid;
     private final String conversationSid;
@@ -265,5 +242,28 @@ public class DeliveryReceipt extends Resource {
             dateUpdated,
             url
         );
+    }
+
+    public enum DeliveryStatus {
+        READ("read"),
+        FAILED("failed"),
+        DELIVERED("delivered"),
+        UNDELIVERED("undelivered"),
+        SENT("sent");
+
+        private final String value;
+
+        private DeliveryStatus(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static DeliveryStatus forValue(final String value) {
+            return Promoter.enumFromString(value, DeliveryStatus.values());
+        }
     }
 }

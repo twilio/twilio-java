@@ -107,26 +107,6 @@ public class AuthorizedConnectApp extends Resource {
         }
     }
 
-    public enum Permission {
-        GET_ALL("get-all"),
-        POST_ALL("post-all");
-
-        private final String value;
-
-        private Permission(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static Permission forValue(final String value) {
-            return Promoter.enumFromString(value, Permission.values());
-        }
-    }
-
     private final String accountSid;
     private final String connectAppCompanyName;
     private final String connectAppDescription;
@@ -247,5 +227,25 @@ public class AuthorizedConnectApp extends Resource {
             permissions,
             uri
         );
+    }
+
+    public enum Permission {
+        GET_ALL("get-all"),
+        POST_ALL("post-all");
+
+        private final String value;
+
+        private Permission(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static Permission forValue(final String value) {
+            return Promoter.enumFromString(value, Permission.values());
+        }
     }
 }

@@ -90,26 +90,6 @@ public class Regulation extends Resource {
         }
     }
 
-    public enum EndUserType {
-        INDIVIDUAL("individual"),
-        BUSINESS("business");
-
-        private final String value;
-
-        private EndUserType(final String value) {
-            this.value = value;
-        }
-
-        public String toString() {
-            return value;
-        }
-
-        @JsonCreator
-        public static EndUserType forValue(final String value) {
-            return Promoter.enumFromString(value, EndUserType.values());
-        }
-    }
-
     private final String sid;
     private final String friendlyName;
     private final String isoCountry;
@@ -199,5 +179,25 @@ public class Regulation extends Resource {
             requirements,
             url
         );
+    }
+
+    public enum EndUserType {
+        INDIVIDUAL("individual"),
+        BUSINESS("business");
+
+        private final String value;
+
+        private EndUserType(final String value) {
+            this.value = value;
+        }
+
+        public String toString() {
+            return value;
+        }
+
+        @JsonCreator
+        public static EndUserType forValue(final String value) {
+            return Promoter.enumFromString(value, EndUserType.values());
+        }
     }
 }

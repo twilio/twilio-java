@@ -14,6 +14,7 @@
 
 package com.twilio.rest.trunking.v1;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,17 +25,14 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class TrunkReader extends Reader<Trunk> {
+
     private Integer pageSize;
 
-    public TrunkReader(){
-    }
+    public TrunkReader() {}
 
-    public TrunkReader setPageSize(final Integer pageSize){
+    public TrunkReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -57,15 +55,26 @@ public class TrunkReader extends Reader<Trunk> {
         return pageForRequest(client, request);
     }
 
-    private Page<Trunk> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Trunk> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Trunk read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Trunk read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -79,7 +88,10 @@ public class TrunkReader extends Reader<Trunk> {
     }
 
     @Override
-    public Page<Trunk> previousPage(final Page<Trunk> page, final TwilioRestClient client) {
+    public Page<Trunk> previousPage(
+        final Page<Trunk> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.TRUNKING.toString())
@@ -87,9 +99,11 @@ public class TrunkReader extends Reader<Trunk> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Trunk> nextPage(final Page<Trunk> page, final TwilioRestClient client) {
+    public Page<Trunk> nextPage(
+        final Page<Trunk> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.TRUNKING.toString())
@@ -98,21 +112,21 @@ public class TrunkReader extends Reader<Trunk> {
     }
 
     @Override
-    public Page<Trunk> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Trunk> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

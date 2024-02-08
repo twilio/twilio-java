@@ -24,51 +24,58 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Verification extends Resource {
+
     private static final long serialVersionUID = 3815558292528L;
 
-    
-
-    public static VerificationCreator creator(final String pathServiceSid, final String to, final String channel){
+    public static VerificationCreator creator(
+        final String pathServiceSid,
+        final String to,
+        final String channel
+    ) {
         return new VerificationCreator(pathServiceSid, to, channel);
     }
 
-    public static VerificationFetcher fetcher(final String pathServiceSid, final String pathSid){
+    public static VerificationFetcher fetcher(
+        final String pathServiceSid,
+        final String pathSid
+    ) {
         return new VerificationFetcher(pathServiceSid, pathSid);
     }
 
-    public static VerificationUpdater updater(final String pathServiceSid, final String pathSid, final Verification.Status status){
+    public static VerificationUpdater updater(
+        final String pathServiceSid,
+        final String pathSid,
+        final Verification.Status status
+    ) {
         return new VerificationUpdater(pathServiceSid, pathSid, status);
     }
 
     /**
-    * Converts a JSON String into a Verification object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Verification object represented by the provided JSON
-    */
-    public static Verification fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Verification object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Verification object represented by the provided JSON
+     */
+    public static Verification fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Verification.class);
@@ -80,14 +87,17 @@ public class Verification extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Verification object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Verification object represented by the provided JSON
-    */
-    public static Verification fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Verification object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Verification object represented by the provided JSON
+     */
+    public static Verification fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Verification.class);
@@ -120,6 +130,7 @@ public class Verification extends Resource {
             return Promoter.enumFromString(value, Channel.values());
         }
     }
+
     public enum RiskCheck {
         ENABLE("enable"),
         DISABLE("disable");
@@ -139,6 +150,7 @@ public class Verification extends Resource {
             return Promoter.enumFromString(value, RiskCheck.values());
         }
     }
+
     public enum Status {
         CANCELED("canceled"),
         APPROVED("approved");
@@ -177,50 +189,23 @@ public class Verification extends Resource {
 
     @JsonCreator
     private Verification(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("to")
-        final String to,
-
-        @JsonProperty("channel")
-        final Verification.Channel channel,
-
-        @JsonProperty("status")
-        final String status,
-
-        @JsonProperty("valid")
-        final Boolean valid,
-
-        @JsonProperty("lookup")
-        final Map<String, Object> lookup,
-
-        @JsonProperty("amount")
-        final String amount,
-
-        @JsonProperty("payee")
-        final String payee,
-
-        @JsonProperty("send_code_attempts")
-        final List<Map<String, Object>> sendCodeAttempts,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("sna")
-        final Map<String, Object> sna,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("to") final String to,
+        @JsonProperty("channel") final Verification.Channel channel,
+        @JsonProperty("status") final String status,
+        @JsonProperty("valid") final Boolean valid,
+        @JsonProperty("lookup") final Map<String, Object> lookup,
+        @JsonProperty("amount") final String amount,
+        @JsonProperty("payee") final String payee,
+        @JsonProperty("send_code_attempts") final List<
+            Map<String, Object>
+        > sendCodeAttempts,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("sna") final Map<String, Object> sna,
+        @JsonProperty("url") final URI url
     ) {
         this.sid = sid;
         this.serviceSid = serviceSid;
@@ -239,55 +224,69 @@ public class Verification extends Resource {
         this.url = url;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getTo() {
-            return this.to;
-        }
-        public final Verification.Channel getChannel() {
-            return this.channel;
-        }
-        public final String getStatus() {
-            return this.status;
-        }
-        public final Boolean getValid() {
-            return this.valid;
-        }
-        public final Map<String, Object> getLookup() {
-            return this.lookup;
-        }
-        public final String getAmount() {
-            return this.amount;
-        }
-        public final String getPayee() {
-            return this.payee;
-        }
-        public final List<Map<String, Object>> getSendCodeAttempts() {
-            return this.sendCodeAttempts;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final Map<String, Object> getSna() {
-            return this.sna;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getTo() {
+        return this.to;
+    }
+
+    public final Verification.Channel getChannel() {
+        return this.channel;
+    }
+
+    public final String getStatus() {
+        return this.status;
+    }
+
+    public final Boolean getValid() {
+        return this.valid;
+    }
+
+    public final Map<String, Object> getLookup() {
+        return this.lookup;
+    }
+
+    public final String getAmount() {
+        return this.amount;
+    }
+
+    public final String getPayee() {
+        return this.payee;
+    }
+
+    public final List<Map<String, Object>> getSendCodeAttempts() {
+        return this.sendCodeAttempts;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final Map<String, Object> getSna() {
+        return this.sna;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -297,14 +296,43 @@ public class Verification extends Resource {
 
         Verification other = (Verification) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(to, other.to) &&  Objects.equals(channel, other.channel) &&  Objects.equals(status, other.status) &&  Objects.equals(valid, other.valid) &&  Objects.equals(lookup, other.lookup) &&  Objects.equals(amount, other.amount) &&  Objects.equals(payee, other.payee) &&  Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(sna, other.sna) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(to, other.to) &&
+            Objects.equals(channel, other.channel) &&
+            Objects.equals(status, other.status) &&
+            Objects.equals(valid, other.valid) &&
+            Objects.equals(lookup, other.lookup) &&
+            Objects.equals(amount, other.amount) &&
+            Objects.equals(payee, other.payee) &&
+            Objects.equals(sendCodeAttempts, other.sendCodeAttempts) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(sna, other.sna) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, serviceSid, accountSid, to, channel, status, valid, lookup, amount, payee, sendCodeAttempts, dateCreated, dateUpdated, sna, url);
+        return Objects.hash(
+            sid,
+            serviceSid,
+            accountSid,
+            to,
+            channel,
+            status,
+            valid,
+            lookup,
+            amount,
+            payee,
+            sendCodeAttempts,
+            dateCreated,
+            dateUpdated,
+            sna,
+            url
+        );
     }
-
-
 }
-

@@ -25,24 +25,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SettingsUpdater extends Updater<Settings> {
 
-
-
-public class SettingsUpdater extends Updater<Settings>{
     private Boolean dialingPermissionsInheritance;
 
-    public SettingsUpdater(){
-    }
+    public SettingsUpdater() {}
 
-    public SettingsUpdater setDialingPermissionsInheritance(final Boolean dialingPermissionsInheritance){
+    public SettingsUpdater setDialingPermissionsInheritance(
+        final Boolean dialingPermissionsInheritance
+    ) {
         this.dialingPermissionsInheritance = dialingPermissionsInheritance;
         return this;
     }
 
     @Override
-    public Settings update(final TwilioRestClient client){
+    public Settings update(final TwilioRestClient client) {
         String path = "/v1/Settings";
-
 
         Request request = new Request(
             HttpMethod.POST,
@@ -53,21 +51,35 @@ public class SettingsUpdater extends Updater<Settings>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Settings update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Settings update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Settings.fromJson(response.getStream(), client.getObjectMapper());
+        return Settings.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (dialingPermissionsInheritance != null) {
-            request.addPostParam("DialingPermissionsInheritance", dialingPermissionsInheritance.toString());
-    
+            request.addPostParam(
+                "DialingPermissionsInheritance",
+                dialingPermissionsInheritance.toString()
+            );
         }
     }
 }

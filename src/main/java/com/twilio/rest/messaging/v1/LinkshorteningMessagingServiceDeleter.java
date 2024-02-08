@@ -24,24 +24,35 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class LinkshorteningMessagingServiceDeleter
+    extends Deleter<LinkshorteningMessagingService> {
 
-
-public class LinkshorteningMessagingServiceDeleter extends Deleter<LinkshorteningMessagingService> {
     private String pathDomainSid;
     private String pathMessagingServiceSid;
 
-    public LinkshorteningMessagingServiceDeleter(final String pathDomainSid, final String pathMessagingServiceSid){
+    public LinkshorteningMessagingServiceDeleter(
+        final String pathDomainSid,
+        final String pathMessagingServiceSid
+    ) {
         this.pathDomainSid = pathDomainSid;
         this.pathMessagingServiceSid = pathMessagingServiceSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
+        String path =
+            "/v1/LinkShortening/Domains/{DomainSid}/MessagingServices/{MessagingServiceSid}";
 
-        path = path.replace("{"+"DomainSid"+"}", this.pathDomainSid.toString());
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "DomainSid" + "}",
+                this.pathDomainSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -51,11 +62,19 @@ public class LinkshorteningMessagingServiceDeleter extends Deleter<Linkshortenin
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("LinkshorteningMessagingService delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "LinkshorteningMessagingService delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.verify.v2.service.entity;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.exception.ApiConnectionException;
@@ -24,11 +25,9 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
-
 
 public class ChallengeReader extends Reader<Challenge> {
+
     private String pathServiceSid;
     private String pathIdentity;
     private String factorSid;
@@ -36,24 +35,30 @@ public class ChallengeReader extends Reader<Challenge> {
     private Challenge.ListOrders order;
     private Integer pageSize;
 
-    public ChallengeReader(final String pathServiceSid, final String pathIdentity){
+    public ChallengeReader(
+        final String pathServiceSid,
+        final String pathIdentity
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathIdentity = pathIdentity;
     }
 
-    public ChallengeReader setFactorSid(final String factorSid){
+    public ChallengeReader setFactorSid(final String factorSid) {
         this.factorSid = factorSid;
         return this;
     }
-    public ChallengeReader setStatus(final Challenge.ChallengeStatuses status){
+
+    public ChallengeReader setStatus(final Challenge.ChallengeStatuses status) {
         this.status = status;
         return this;
     }
-    public ChallengeReader setOrder(final Challenge.ListOrders order){
+
+    public ChallengeReader setOrder(final Challenge.ListOrders order) {
         this.order = order;
         return this;
     }
-    public ChallengeReader setPageSize(final Integer pageSize){
+
+    public ChallengeReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -64,9 +69,15 @@ public class ChallengeReader extends Reader<Challenge> {
     }
 
     public Page<Challenge> firstPage(final TwilioRestClient client) {
-        String path = "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.pathIdentity.toString());
+        String path =
+            "/v2/Services/{ServiceSid}/Entities/{Identity}/Challenges";
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace("{" + "Identity" + "}", this.pathIdentity.toString());
 
         Request request = new Request(
             HttpMethod.GET,
@@ -78,15 +89,26 @@ public class ChallengeReader extends Reader<Challenge> {
         return pageForRequest(client, request);
     }
 
-    private Page<Challenge> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Challenge> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Challenge read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Challenge read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -100,7 +122,10 @@ public class ChallengeReader extends Reader<Challenge> {
     }
 
     @Override
-    public Page<Challenge> previousPage(final Page<Challenge> page, final TwilioRestClient client) {
+    public Page<Challenge> previousPage(
+        final Page<Challenge> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.VERIFY.toString())
@@ -108,9 +133,11 @@ public class ChallengeReader extends Reader<Challenge> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Challenge> nextPage(final Page<Challenge> page, final TwilioRestClient client) {
+    public Page<Challenge> nextPage(
+        final Page<Challenge> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.VERIFY.toString())
@@ -119,33 +146,30 @@ public class ChallengeReader extends Reader<Challenge> {
     }
 
     @Override
-    public Page<Challenge> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Challenge> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (factorSid != null) {
-    
             request.addQueryParam("FactorSid", factorSid);
         }
         if (status != null) {
-    
             request.addQueryParam("Status", status.toString());
         }
         if (order != null) {
-    
             request.addQueryParam("Order", order.toString());
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

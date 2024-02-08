@@ -14,8 +14,10 @@
 
 package com.twilio.rest.api.v2010.account.usage;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
+import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
@@ -24,13 +26,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
 import java.time.LocalDate;
-import com.twilio.converter.DateConverter;
-
-
 
 public class RecordReader extends Reader<Record> {
+
     private String pathAccountSid;
     private Record.Category category;
     private LocalDate startDate;
@@ -38,29 +37,35 @@ public class RecordReader extends Reader<Record> {
     private Boolean includeSubaccounts;
     private Integer pageSize;
 
-    public RecordReader(){
-    }
-    public RecordReader(final String pathAccountSid){
+    public RecordReader() {}
+
+    public RecordReader(final String pathAccountSid) {
         this.pathAccountSid = pathAccountSid;
     }
 
-    public RecordReader setCategory(final Record.Category category){
+    public RecordReader setCategory(final Record.Category category) {
         this.category = category;
         return this;
     }
-    public RecordReader setStartDate(final LocalDate startDate){
+
+    public RecordReader setStartDate(final LocalDate startDate) {
         this.startDate = startDate;
         return this;
     }
-    public RecordReader setEndDate(final LocalDate endDate){
+
+    public RecordReader setEndDate(final LocalDate endDate) {
         this.endDate = endDate;
         return this;
     }
-    public RecordReader setIncludeSubaccounts(final Boolean includeSubaccounts){
+
+    public RecordReader setIncludeSubaccounts(
+        final Boolean includeSubaccounts
+    ) {
         this.includeSubaccounts = includeSubaccounts;
         return this;
     }
-    public RecordReader setPageSize(final Integer pageSize){
+
+    public RecordReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -72,8 +77,15 @@ public class RecordReader extends Reader<Record> {
 
     public Page<Record> firstPage(final TwilioRestClient client) {
         String path = "/2010-04-01/Accounts/{AccountSid}/Usage/Records.json";
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -85,15 +97,26 @@ public class RecordReader extends Reader<Record> {
         return pageForRequest(client, request);
     }
 
-    private Page<Record> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Record> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Record read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Record read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -107,7 +130,10 @@ public class RecordReader extends Reader<Record> {
     }
 
     @Override
-    public Page<Record> previousPage(final Page<Record> page, final TwilioRestClient client) {
+    public Page<Record> previousPage(
+        final Page<Record> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.API.toString())
@@ -115,9 +141,11 @@ public class RecordReader extends Reader<Record> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Record> nextPage(final Page<Record> page, final TwilioRestClient client) {
+    public Page<Record> nextPage(
+        final Page<Record> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.API.toString())
@@ -126,37 +154,44 @@ public class RecordReader extends Reader<Record> {
     }
 
     @Override
-    public Page<Record> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Record> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (category != null) {
-    
             request.addQueryParam("Category", category.toString());
         }
         if (startDate != null) {
-            request.addQueryParam("StartDate", DateConverter.dateStringFromLocalDate(startDate));
+            request.addQueryParam(
+                "StartDate",
+                DateConverter.dateStringFromLocalDate(startDate)
+            );
         }
 
         if (endDate != null) {
-            request.addQueryParam("EndDate", DateConverter.dateStringFromLocalDate(endDate));
+            request.addQueryParam(
+                "EndDate",
+                DateConverter.dateStringFromLocalDate(endDate)
+            );
         }
 
         if (includeSubaccounts != null) {
-    
-            request.addQueryParam("IncludeSubaccounts", includeSubaccounts.toString());
+            request.addQueryParam(
+                "IncludeSubaccounts",
+                includeSubaccounts.toString()
+            );
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

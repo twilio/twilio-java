@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.List;
 
+public class UsAppToPersonUpdater extends Updater<UsAppToPerson> {
 
-public class UsAppToPersonUpdater extends Updater<UsAppToPerson>{
     private String pathMessagingServiceSid;
     private String pathSid;
     private Boolean hasEmbeddedLinks;
@@ -41,7 +39,17 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson>{
     private Boolean ageGated;
     private Boolean directLending;
 
-    public UsAppToPersonUpdater(final String pathMessagingServiceSid, final String pathSid, final Boolean hasEmbeddedLinks, final Boolean hasEmbeddedPhone, final List<String> messageSamples, final String messageFlow, final String description, final Boolean ageGated, final Boolean directLending){
+    public UsAppToPersonUpdater(
+        final String pathMessagingServiceSid,
+        final String pathSid,
+        final Boolean hasEmbeddedLinks,
+        final Boolean hasEmbeddedPhone,
+        final List<String> messageSamples,
+        final String messageFlow,
+        final String description,
+        final Boolean ageGated,
+        final Boolean directLending
+    ) {
         this.pathMessagingServiceSid = pathMessagingServiceSid;
         this.pathSid = pathSid;
         this.hasEmbeddedLinks = hasEmbeddedLinks;
@@ -53,51 +61,93 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson>{
         this.directLending = directLending;
     }
 
-    public UsAppToPersonUpdater setHasEmbeddedLinks(final Boolean hasEmbeddedLinks){
+    public UsAppToPersonUpdater setHasEmbeddedLinks(
+        final Boolean hasEmbeddedLinks
+    ) {
         this.hasEmbeddedLinks = hasEmbeddedLinks;
         return this;
     }
-    public UsAppToPersonUpdater setHasEmbeddedPhone(final Boolean hasEmbeddedPhone){
+
+    public UsAppToPersonUpdater setHasEmbeddedPhone(
+        final Boolean hasEmbeddedPhone
+    ) {
         this.hasEmbeddedPhone = hasEmbeddedPhone;
         return this;
     }
-    public UsAppToPersonUpdater setMessageSamples(final List<String> messageSamples){
+
+    public UsAppToPersonUpdater setMessageSamples(
+        final List<String> messageSamples
+    ) {
         this.messageSamples = messageSamples;
         return this;
     }
-    public UsAppToPersonUpdater setMessageSamples(final String messageSamples){
+
+    public UsAppToPersonUpdater setMessageSamples(final String messageSamples) {
         return setMessageSamples(Promoter.listOfOne(messageSamples));
     }
-    public UsAppToPersonUpdater setMessageFlow(final String messageFlow){
+
+    public UsAppToPersonUpdater setMessageFlow(final String messageFlow) {
         this.messageFlow = messageFlow;
         return this;
     }
-    public UsAppToPersonUpdater setDescription(final String description){
+
+    public UsAppToPersonUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
-    public UsAppToPersonUpdater setAgeGated(final Boolean ageGated){
+
+    public UsAppToPersonUpdater setAgeGated(final Boolean ageGated) {
         this.ageGated = ageGated;
         return this;
     }
-    public UsAppToPersonUpdater setDirectLending(final Boolean directLending){
+
+    public UsAppToPersonUpdater setDirectLending(final Boolean directLending) {
         this.directLending = directLending;
         return this;
     }
 
     @Override
-    public UsAppToPerson update(final TwilioRestClient client){
-        String path = "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
+    public UsAppToPerson update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{MessagingServiceSid}/Compliance/Usa2p/{Sid}";
 
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.pathMessagingServiceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
-        path = path.replace("{"+"HasEmbeddedLinks"+"}", this.hasEmbeddedLinks.toString());
-        path = path.replace("{"+"HasEmbeddedPhone"+"}", this.hasEmbeddedPhone.toString());
-        path = path.replace("{"+"MessageSamples"+"}", this.messageSamples.toString());
-        path = path.replace("{"+"MessageFlow"+"}", this.messageFlow.toString());
-        path = path.replace("{"+"Description"+"}", this.description.toString());
-        path = path.replace("{"+"AgeGated"+"}", this.ageGated.toString());
-        path = path.replace("{"+"DirectLending"+"}", this.directLending.toString());
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.pathMessagingServiceSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "HasEmbeddedLinks" + "}",
+                this.hasEmbeddedLinks.toString()
+            );
+        path =
+            path.replace(
+                "{" + "HasEmbeddedPhone" + "}",
+                this.hasEmbeddedPhone.toString()
+            );
+        path =
+            path.replace(
+                "{" + "MessageSamples" + "}",
+                this.messageSamples.toString()
+            );
+        path =
+            path.replace(
+                "{" + "MessageFlow" + "}",
+                this.messageFlow.toString()
+            );
+        path =
+            path.replace(
+                "{" + "Description" + "}",
+                this.description.toString()
+            );
+        path = path.replace("{" + "AgeGated" + "}", this.ageGated.toString());
+        path =
+            path.replace(
+                "{" + "DirectLending" + "}",
+                this.directLending.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -108,47 +158,58 @@ public class UsAppToPersonUpdater extends Updater<UsAppToPerson>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("UsAppToPerson update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "UsAppToPerson update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return UsAppToPerson.fromJson(response.getStream(), client.getObjectMapper());
+        return UsAppToPerson.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (hasEmbeddedLinks != null) {
-            request.addPostParam("HasEmbeddedLinks", hasEmbeddedLinks.toString());
-    
+            request.addPostParam(
+                "HasEmbeddedLinks",
+                hasEmbeddedLinks.toString()
+            );
         }
         if (hasEmbeddedPhone != null) {
-            request.addPostParam("HasEmbeddedPhone", hasEmbeddedPhone.toString());
-    
+            request.addPostParam(
+                "HasEmbeddedPhone",
+                hasEmbeddedPhone.toString()
+            );
         }
         if (messageSamples != null) {
             for (String prop : messageSamples) {
                 request.addPostParam("MessageSamples", prop);
             }
-    
         }
         if (messageFlow != null) {
             request.addPostParam("MessageFlow", messageFlow);
-    
         }
         if (description != null) {
             request.addPostParam("Description", description);
-    
         }
         if (ageGated != null) {
             request.addPostParam("AgeGated", ageGated.toString());
-    
         }
         if (directLending != null) {
             request.addPostParam("DirectLending", directLending.toString());
-    
         }
     }
 }

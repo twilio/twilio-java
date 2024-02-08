@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class FeedbackCreator extends Creator<Feedback> {
 
-
-
-public class FeedbackCreator extends Creator<Feedback>{
     private String pathMessageSid;
     private String pathAccountSid;
     private Feedback.Outcome outcome;
@@ -36,23 +34,39 @@ public class FeedbackCreator extends Creator<Feedback>{
     public FeedbackCreator(final String pathMessageSid) {
         this.pathMessageSid = pathMessageSid;
     }
-    public FeedbackCreator(final String pathAccountSid, final String pathMessageSid) {
+
+    public FeedbackCreator(
+        final String pathAccountSid,
+        final String pathMessageSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathMessageSid = pathMessageSid;
     }
 
-    public FeedbackCreator setOutcome(final Feedback.Outcome outcome){
+    public FeedbackCreator setOutcome(final Feedback.Outcome outcome) {
         this.outcome = outcome;
         return this;
     }
 
     @Override
-    public Feedback create(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json";
+    public Feedback create(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Messages/{MessageSid}/Feedback.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"MessageSid"+"}", this.pathMessageSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "MessageSid" + "}",
+                this.pathMessageSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -63,21 +77,32 @@ public class FeedbackCreator extends Creator<Feedback>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Feedback creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Feedback creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Feedback.fromJson(response.getStream(), client.getObjectMapper());
+        return Feedback.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (outcome != null) {
             request.addPostParam("Outcome", outcome.toString());
-    
         }
     }
 }

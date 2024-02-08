@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class DeploymentCreator extends Creator<Deployment> {
 
-
-
-public class DeploymentCreator extends Creator<Deployment>{
     private String pathFleetSid;
     private String friendlyName;
     private String syncServiceSid;
@@ -37,20 +35,22 @@ public class DeploymentCreator extends Creator<Deployment>{
         this.pathFleetSid = pathFleetSid;
     }
 
-    public DeploymentCreator setFriendlyName(final String friendlyName){
+    public DeploymentCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public DeploymentCreator setSyncServiceSid(final String syncServiceSid){
+
+    public DeploymentCreator setSyncServiceSid(final String syncServiceSid) {
         this.syncServiceSid = syncServiceSid;
         return this;
     }
 
     @Override
-    public Deployment create(final TwilioRestClient client){
+    public Deployment create(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Deployments";
 
-        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path =
+            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -61,25 +61,35 @@ public class DeploymentCreator extends Creator<Deployment>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Deployment creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Deployment creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Deployment.fromJson(response.getStream(), client.getObjectMapper());
+        return Deployment.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (syncServiceSid != null) {
             request.addPostParam("SyncServiceSid", syncServiceSid);
-    
         }
     }
 }

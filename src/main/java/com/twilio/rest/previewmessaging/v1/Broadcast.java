@@ -24,61 +24,70 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Broadcast extends Resource {
+
     private static final long serialVersionUID = 4228754680541L;
 
-    
-        @ToString
-        static public class MessagingV1BroadcastExecutionDetails {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("total_records")
-            @Getter @Setter private Integer totalRecords;
+    @ToString
+    public static class MessagingV1BroadcastExecutionDetails {
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("total_completed")
-            @Getter @Setter private Integer totalCompleted;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total_records")
+        @Getter
+        @Setter
+        private Integer totalRecords;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("total_errors")
-            @Getter @Setter private Integer totalErrors;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total_completed")
+        @Getter
+        @Setter
+        private Integer totalCompleted;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("total_errors")
+        @Getter
+        @Setter
+        private Integer totalErrors;
 
-            public static MessagingV1BroadcastExecutionDetails fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, MessagingV1BroadcastExecutionDetails.class);
-            }
+        public static MessagingV1BroadcastExecutionDetails fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                MessagingV1BroadcastExecutionDetails.class
+            );
         }
+    }
 
-    public static BroadcastCreator creator(){
+    public static BroadcastCreator creator() {
         return new BroadcastCreator();
     }
 
     /**
-    * Converts a JSON String into a Broadcast object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Broadcast object represented by the provided JSON
-    */
-    public static Broadcast fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Broadcast object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Broadcast object represented by the provided JSON
+     */
+    public static Broadcast fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Broadcast.class);
@@ -90,14 +99,17 @@ public class Broadcast extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Broadcast object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Broadcast object represented by the provided JSON
-    */
-    public static Broadcast fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Broadcast object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Broadcast object represented by the provided JSON
+     */
+    public static Broadcast fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Broadcast.class);
@@ -107,7 +119,6 @@ public class Broadcast extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String broadcastSid;
     private final ZonedDateTime createdDate;
@@ -118,23 +129,14 @@ public class Broadcast extends Resource {
 
     @JsonCreator
     private Broadcast(
-        @JsonProperty("broadcast_sid")
-        final String broadcastSid,
-
-        @JsonProperty("created_date")
-        final String createdDate,
-
-        @JsonProperty("updated_date")
-        final String updatedDate,
-
-        @JsonProperty("broadcast_status")
-        final String broadcastStatus,
-
-        @JsonProperty("execution_details")
-        final MessagingV1BroadcastExecutionDetails executionDetails,
-
-        @JsonProperty("results_file")
-        final URI resultsFile
+        @JsonProperty("broadcast_sid") final String broadcastSid,
+        @JsonProperty("created_date") final String createdDate,
+        @JsonProperty("updated_date") final String updatedDate,
+        @JsonProperty("broadcast_status") final String broadcastStatus,
+        @JsonProperty(
+            "execution_details"
+        ) final MessagingV1BroadcastExecutionDetails executionDetails,
+        @JsonProperty("results_file") final URI resultsFile
     ) {
         this.broadcastSid = broadcastSid;
         this.createdDate = DateConverter.iso8601DateTimeFromString(createdDate);
@@ -144,28 +146,33 @@ public class Broadcast extends Resource {
         this.resultsFile = resultsFile;
     }
 
-        public final String getBroadcastSid() {
-            return this.broadcastSid;
-        }
-        public final ZonedDateTime getCreatedDate() {
-            return this.createdDate;
-        }
-        public final ZonedDateTime getUpdatedDate() {
-            return this.updatedDate;
-        }
-        public final String getBroadcastStatus() {
-            return this.broadcastStatus;
-        }
-        public final MessagingV1BroadcastExecutionDetails getExecutionDetails() {
-            return this.executionDetails;
-        }
-        public final URI getResultsFile() {
-            return this.resultsFile;
-        }
+    public final String getBroadcastSid() {
+        return this.broadcastSid;
+    }
+
+    public final ZonedDateTime getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public final ZonedDateTime getUpdatedDate() {
+        return this.updatedDate;
+    }
+
+    public final String getBroadcastStatus() {
+        return this.broadcastStatus;
+    }
+
+    public final MessagingV1BroadcastExecutionDetails getExecutionDetails() {
+        return this.executionDetails;
+    }
+
+    public final URI getResultsFile() {
+        return this.resultsFile;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -175,14 +182,25 @@ public class Broadcast extends Resource {
 
         Broadcast other = (Broadcast) o;
 
-        return Objects.equals(broadcastSid, other.broadcastSid) &&  Objects.equals(createdDate, other.createdDate) &&  Objects.equals(updatedDate, other.updatedDate) &&  Objects.equals(broadcastStatus, other.broadcastStatus) &&  Objects.equals(executionDetails, other.executionDetails) &&  Objects.equals(resultsFile, other.resultsFile)  ;
+        return (
+            Objects.equals(broadcastSid, other.broadcastSid) &&
+            Objects.equals(createdDate, other.createdDate) &&
+            Objects.equals(updatedDate, other.updatedDate) &&
+            Objects.equals(broadcastStatus, other.broadcastStatus) &&
+            Objects.equals(executionDetails, other.executionDetails) &&
+            Objects.equals(resultsFile, other.resultsFile)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(broadcastSid, createdDate, updatedDate, broadcastStatus, executionDetails, resultsFile);
+        return Objects.hash(
+            broadcastSid,
+            createdDate,
+            updatedDate,
+            broadcastStatus,
+            executionDetails,
+            resultsFile
+        );
     }
-
-
 }
-

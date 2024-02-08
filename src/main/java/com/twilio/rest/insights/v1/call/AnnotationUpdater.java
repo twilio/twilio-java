@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class AnnotationUpdater extends Updater<Annotation> {
 
-
-
-public class AnnotationUpdater extends Updater<Annotation>{
     private String pathCallSid;
     private Annotation.AnsweredBy answeredBy;
     private Annotation.ConnectivityIssue connectivityIssue;
@@ -38,44 +36,54 @@ public class AnnotationUpdater extends Updater<Annotation>{
     private String comment;
     private String incident;
 
-    public AnnotationUpdater(final String pathCallSid){
+    public AnnotationUpdater(final String pathCallSid) {
         this.pathCallSid = pathCallSid;
     }
 
-    public AnnotationUpdater setAnsweredBy(final Annotation.AnsweredBy answeredBy){
+    public AnnotationUpdater setAnsweredBy(
+        final Annotation.AnsweredBy answeredBy
+    ) {
         this.answeredBy = answeredBy;
         return this;
     }
-    public AnnotationUpdater setConnectivityIssue(final Annotation.ConnectivityIssue connectivityIssue){
+
+    public AnnotationUpdater setConnectivityIssue(
+        final Annotation.ConnectivityIssue connectivityIssue
+    ) {
         this.connectivityIssue = connectivityIssue;
         return this;
     }
-    public AnnotationUpdater setQualityIssues(final String qualityIssues){
+
+    public AnnotationUpdater setQualityIssues(final String qualityIssues) {
         this.qualityIssues = qualityIssues;
         return this;
     }
-    public AnnotationUpdater setSpam(final Boolean spam){
+
+    public AnnotationUpdater setSpam(final Boolean spam) {
         this.spam = spam;
         return this;
     }
-    public AnnotationUpdater setCallScore(final Integer callScore){
+
+    public AnnotationUpdater setCallScore(final Integer callScore) {
         this.callScore = callScore;
         return this;
     }
-    public AnnotationUpdater setComment(final String comment){
+
+    public AnnotationUpdater setComment(final String comment) {
         this.comment = comment;
         return this;
     }
-    public AnnotationUpdater setIncident(final String incident){
+
+    public AnnotationUpdater setIncident(final String incident) {
         this.incident = incident;
         return this;
     }
 
     @Override
-    public Annotation update(final TwilioRestClient client){
+    public Annotation update(final TwilioRestClient client) {
         String path = "/v1/Voice/{CallSid}/Annotation";
 
-        path = path.replace("{"+"CallSid"+"}", this.pathCallSid.toString());
+        path = path.replace("{" + "CallSid" + "}", this.pathCallSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -86,45 +94,53 @@ public class AnnotationUpdater extends Updater<Annotation>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Annotation update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Annotation update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Annotation.fromJson(response.getStream(), client.getObjectMapper());
+        return Annotation.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (answeredBy != null) {
             request.addPostParam("AnsweredBy", answeredBy.toString());
-    
         }
         if (connectivityIssue != null) {
-            request.addPostParam("ConnectivityIssue", connectivityIssue.toString());
-    
+            request.addPostParam(
+                "ConnectivityIssue",
+                connectivityIssue.toString()
+            );
         }
         if (qualityIssues != null) {
             request.addPostParam("QualityIssues", qualityIssues);
-    
         }
         if (spam != null) {
             request.addPostParam("Spam", spam.toString());
-    
         }
         if (callScore != null) {
             request.addPostParam("CallScore", callScore.toString());
-    
         }
         if (comment != null) {
             request.addPostParam("Comment", comment);
-    
         }
         if (incident != null) {
             request.addPostParam("Incident", incident);
-    
         }
     }
 }

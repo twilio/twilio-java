@@ -24,50 +24,54 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Feedback extends Resource {
+
     private static final long serialVersionUID = 111537913828934L;
 
-    
-
-    public static FeedbackFetcher fetcher(final String pathCallSid){
+    public static FeedbackFetcher fetcher(final String pathCallSid) {
         return new FeedbackFetcher(pathCallSid);
     }
-    public static FeedbackFetcher fetcher(final String pathAccountSid, final String pathCallSid){
+
+    public static FeedbackFetcher fetcher(
+        final String pathAccountSid,
+        final String pathCallSid
+    ) {
         return new FeedbackFetcher(pathAccountSid, pathCallSid);
     }
 
-    public static FeedbackUpdater updater(final String pathCallSid){
+    public static FeedbackUpdater updater(final String pathCallSid) {
         return new FeedbackUpdater(pathCallSid);
     }
-    public static FeedbackUpdater updater(final String pathAccountSid, final String pathCallSid){
+
+    public static FeedbackUpdater updater(
+        final String pathAccountSid,
+        final String pathCallSid
+    ) {
         return new FeedbackUpdater(pathAccountSid, pathCallSid);
     }
 
     /**
-    * Converts a JSON String into a Feedback object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Feedback object represented by the provided JSON
-    */
-    public static Feedback fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Feedback object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Feedback object represented by the provided JSON
+     */
+    public static Feedback fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Feedback.class);
@@ -79,14 +83,17 @@ public class Feedback extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Feedback object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Feedback object represented by the provided JSON
-    */
-    public static Feedback fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Feedback object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Feedback object represented by the provided JSON
+     */
+    public static Feedback fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Feedback.class);
@@ -132,23 +139,12 @@ public class Feedback extends Resource {
 
     @JsonCreator
     private Feedback(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("issues")
-        final List<Feedback.Issues> issues,
-
-        @JsonProperty("quality_score")
-        final Integer qualityScore,
-
-        @JsonProperty("sid")
-        final String sid
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("issues") final List<Feedback.Issues> issues,
+        @JsonProperty("quality_score") final Integer qualityScore,
+        @JsonProperty("sid") final String sid
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.rfc2822DateTimeFromString(dateCreated);
@@ -158,28 +154,33 @@ public class Feedback extends Resource {
         this.sid = sid;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final List<Feedback.Issues> getIssues() {
-            return this.issues;
-        }
-        public final Integer getQualityScore() {
-            return this.qualityScore;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final List<Feedback.Issues> getIssues() {
+        return this.issues;
+    }
+
+    public final Integer getQualityScore() {
+        return this.qualityScore;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -189,14 +190,25 @@ public class Feedback extends Resource {
 
         Feedback other = (Feedback) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(issues, other.issues) &&  Objects.equals(qualityScore, other.qualityScore) &&  Objects.equals(sid, other.sid)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(issues, other.issues) &&
+            Objects.equals(qualityScore, other.qualityScore) &&
+            Objects.equals(sid, other.sid)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, dateCreated, dateUpdated, issues, qualityScore, sid);
+        return Objects.hash(
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            issues,
+            qualityScore,
+            sid
+        );
     }
-
-
 }
-

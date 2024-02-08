@@ -24,17 +24,19 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class InsightsQuestionnairesCategoryDeleter
+    extends Deleter<InsightsQuestionnairesCategory> {
 
-
-public class InsightsQuestionnairesCategoryDeleter extends Deleter<InsightsQuestionnairesCategory> {
     private String pathCategorySid;
     private String authorization;
 
-    public InsightsQuestionnairesCategoryDeleter(final String pathCategorySid){
+    public InsightsQuestionnairesCategoryDeleter(final String pathCategorySid) {
         this.pathCategorySid = pathCategorySid;
     }
 
-    public InsightsQuestionnairesCategoryDeleter setAuthorization(final String authorization){
+    public InsightsQuestionnairesCategoryDeleter setAuthorization(
+        final String authorization
+    ) {
         this.authorization = authorization;
         return this;
     }
@@ -43,7 +45,11 @@ public class InsightsQuestionnairesCategoryDeleter extends Deleter<InsightsQuest
     public boolean delete(final TwilioRestClient client) {
         String path = "/v1/Insights/QualityManagement/Categories/{CategorySid}";
 
-        path = path.replace("{"+"CategorySid"+"}", this.pathCategorySid.toString());
+        path =
+            path.replace(
+                "{" + "CategorySid" + "}",
+                this.pathCategorySid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -54,20 +60,28 @@ public class InsightsQuestionnairesCategoryDeleter extends Deleter<InsightsQuest
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("InsightsQuestionnairesCategory delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsQuestionnairesCategory delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
         return response.getStatusCode() == 204;
     }
+
     private void addHeaderParams(final Request request) {
         if (authorization != null) {
             request.addHeaderParam("Authorization", authorization);
-
         }
     }
 }

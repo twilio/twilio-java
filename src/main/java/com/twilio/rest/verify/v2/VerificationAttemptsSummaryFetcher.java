@@ -23,12 +23,11 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.time.ZonedDateTime;
 
+public class VerificationAttemptsSummaryFetcher
+    extends Fetcher<VerificationAttemptsSummary> {
 
-
-public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAttemptsSummary> {
     private String verifyServiceSid;
     private ZonedDateTime dateCreatedAfter;
     private ZonedDateTime dateCreatedBefore;
@@ -36,30 +35,44 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
     private VerificationAttemptsSummary.Channels channel;
     private String destinationPrefix;
 
-    public VerificationAttemptsSummaryFetcher(){
-    }
+    public VerificationAttemptsSummaryFetcher() {}
 
-    public VerificationAttemptsSummaryFetcher setVerifyServiceSid(final String verifyServiceSid){
+    public VerificationAttemptsSummaryFetcher setVerifyServiceSid(
+        final String verifyServiceSid
+    ) {
         this.verifyServiceSid = verifyServiceSid;
         return this;
     }
-    public VerificationAttemptsSummaryFetcher setDateCreatedAfter(final ZonedDateTime dateCreatedAfter){
+
+    public VerificationAttemptsSummaryFetcher setDateCreatedAfter(
+        final ZonedDateTime dateCreatedAfter
+    ) {
         this.dateCreatedAfter = dateCreatedAfter;
         return this;
     }
-    public VerificationAttemptsSummaryFetcher setDateCreatedBefore(final ZonedDateTime dateCreatedBefore){
+
+    public VerificationAttemptsSummaryFetcher setDateCreatedBefore(
+        final ZonedDateTime dateCreatedBefore
+    ) {
         this.dateCreatedBefore = dateCreatedBefore;
         return this;
     }
-    public VerificationAttemptsSummaryFetcher setCountry(final String country){
+
+    public VerificationAttemptsSummaryFetcher setCountry(final String country) {
         this.country = country;
         return this;
     }
-    public VerificationAttemptsSummaryFetcher setChannel(final VerificationAttemptsSummary.Channels channel){
+
+    public VerificationAttemptsSummaryFetcher setChannel(
+        final VerificationAttemptsSummary.Channels channel
+    ) {
         this.channel = channel;
         return this;
     }
-    public VerificationAttemptsSummaryFetcher setDestinationPrefix(final String destinationPrefix){
+
+    public VerificationAttemptsSummaryFetcher setDestinationPrefix(
+        final String destinationPrefix
+    ) {
         this.destinationPrefix = destinationPrefix;
         return this;
     }
@@ -67,7 +80,6 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
     @Override
     public VerificationAttemptsSummary fetch(final TwilioRestClient client) {
         String path = "/v2/Attempts/Summary";
-
 
         Request request = new Request(
             HttpMethod.GET,
@@ -78,40 +90,54 @@ public class VerificationAttemptsSummaryFetcher extends Fetcher<VerificationAtte
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("VerificationAttemptsSummary fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "VerificationAttemptsSummary fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return VerificationAttemptsSummary.fromJson(response.getStream(), client.getObjectMapper());
+        return VerificationAttemptsSummary.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addQueryParams(final Request request) {
         if (verifyServiceSid != null) {
-    
             request.addQueryParam("VerifyServiceSid", verifyServiceSid);
         }
         if (dateCreatedAfter != null) {
-            request.addQueryParam("DateCreatedAfter", dateCreatedAfter.toInstant().toString());
+            request.addQueryParam(
+                "DateCreatedAfter",
+                dateCreatedAfter.toInstant().toString()
+            );
         }
 
         if (dateCreatedBefore != null) {
-            request.addQueryParam("DateCreatedBefore", dateCreatedBefore.toInstant().toString());
+            request.addQueryParam(
+                "DateCreatedBefore",
+                dateCreatedBefore.toInstant().toString()
+            );
         }
 
         if (country != null) {
-    
             request.addQueryParam("Country", country);
         }
         if (channel != null) {
-    
             request.addQueryParam("Channel", channel.toString());
         }
         if (destinationPrefix != null) {
-    
             request.addQueryParam("DestinationPrefix", destinationPrefix);
         }
     }

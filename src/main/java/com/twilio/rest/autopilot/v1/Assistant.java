@@ -23,58 +23,54 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Assistant extends Resource {
+
     private static final long serialVersionUID = 228555803413487L;
 
-    
-
-    public static AssistantCreator creator(){
+    public static AssistantCreator creator() {
         return new AssistantCreator();
     }
 
-    public static AssistantDeleter deleter(final String pathSid){
+    public static AssistantDeleter deleter(final String pathSid) {
         return new AssistantDeleter(pathSid);
     }
 
-    public static AssistantFetcher fetcher(final String pathSid){
+    public static AssistantFetcher fetcher(final String pathSid) {
         return new AssistantFetcher(pathSid);
     }
 
-    public static AssistantReader reader(){
+    public static AssistantReader reader() {
         return new AssistantReader();
     }
 
-    public static AssistantUpdater updater(final String pathSid){
+    public static AssistantUpdater updater(final String pathSid) {
         return new AssistantUpdater(pathSid);
     }
 
     /**
-    * Converts a JSON String into a Assistant object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Assistant object represented by the provided JSON
-    */
-    public static Assistant fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Assistant object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Assistant object represented by the provided JSON
+     */
+    public static Assistant fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assistant.class);
@@ -86,14 +82,17 @@ public class Assistant extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Assistant object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Assistant object represented by the provided JSON
-    */
-    public static Assistant fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Assistant object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Assistant object represented by the provided JSON
+     */
+    public static Assistant fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Assistant.class);
@@ -103,7 +102,6 @@ public class Assistant extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String accountSid;
     private final ZonedDateTime dateCreated;
@@ -122,47 +120,22 @@ public class Assistant extends Resource {
 
     @JsonCreator
     private Assistant(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("latest_model_build_sid")
-        final String latestModelBuildSid,
-
-        @JsonProperty("links")
-        final Map<String, String> links,
-
-        @JsonProperty("log_queries")
-        final Boolean logQueries,
-
-        @JsonProperty("development_stage")
-        final String developmentStage,
-
-        @JsonProperty("needs_model_build")
-        final Boolean needsModelBuild,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("unique_name")
-        final String uniqueName,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("callback_url")
-        final URI callbackUrl,
-
-        @JsonProperty("callback_events")
-        final String callbackEvents
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty(
+            "latest_model_build_sid"
+        ) final String latestModelBuildSid,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty("log_queries") final Boolean logQueries,
+        @JsonProperty("development_stage") final String developmentStage,
+        @JsonProperty("needs_model_build") final Boolean needsModelBuild,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("unique_name") final String uniqueName,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("callback_url") final URI callbackUrl,
+        @JsonProperty("callback_events") final String callbackEvents
     ) {
         this.accountSid = accountSid;
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
@@ -180,52 +153,65 @@ public class Assistant extends Resource {
         this.callbackEvents = callbackEvents;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getLatestModelBuildSid() {
-            return this.latestModelBuildSid;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
-        public final Boolean getLogQueries() {
-            return this.logQueries;
-        }
-        public final String getDevelopmentStage() {
-            return this.developmentStage;
-        }
-        public final Boolean getNeedsModelBuild() {
-            return this.needsModelBuild;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getUniqueName() {
-            return this.uniqueName;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final URI getCallbackUrl() {
-            return this.callbackUrl;
-        }
-        public final String getCallbackEvents() {
-            return this.callbackEvents;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getLatestModelBuildSid() {
+        return this.latestModelBuildSid;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    public final Boolean getLogQueries() {
+        return this.logQueries;
+    }
+
+    public final String getDevelopmentStage() {
+        return this.developmentStage;
+    }
+
+    public final Boolean getNeedsModelBuild() {
+        return this.needsModelBuild;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getUniqueName() {
+        return this.uniqueName;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final URI getCallbackUrl() {
+        return this.callbackUrl;
+    }
+
+    public final String getCallbackEvents() {
+        return this.callbackEvents;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -235,14 +221,41 @@ public class Assistant extends Resource {
 
         Assistant other = (Assistant) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(latestModelBuildSid, other.latestModelBuildSid) &&  Objects.equals(links, other.links) &&  Objects.equals(logQueries, other.logQueries) &&  Objects.equals(developmentStage, other.developmentStage) &&  Objects.equals(needsModelBuild, other.needsModelBuild) &&  Objects.equals(sid, other.sid) &&  Objects.equals(uniqueName, other.uniqueName) &&  Objects.equals(url, other.url) &&  Objects.equals(callbackUrl, other.callbackUrl) &&  Objects.equals(callbackEvents, other.callbackEvents)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(latestModelBuildSid, other.latestModelBuildSid) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(logQueries, other.logQueries) &&
+            Objects.equals(developmentStage, other.developmentStage) &&
+            Objects.equals(needsModelBuild, other.needsModelBuild) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(uniqueName, other.uniqueName) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(callbackUrl, other.callbackUrl) &&
+            Objects.equals(callbackEvents, other.callbackEvents)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, dateCreated, dateUpdated, friendlyName, latestModelBuildSid, links, logQueries, developmentStage, needsModelBuild, sid, uniqueName, url, callbackUrl, callbackEvents);
+        return Objects.hash(
+            accountSid,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            latestModelBuildSid,
+            links,
+            logQueries,
+            developmentStage,
+            needsModelBuild,
+            sid,
+            uniqueName,
+            url,
+            callbackUrl,
+            callbackEvents
+        );
     }
-
-
 }
-

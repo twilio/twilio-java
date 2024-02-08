@@ -25,38 +25,52 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class MemberUpdater extends Updater<Member> {
 
-
-
-public class MemberUpdater extends Updater<Member>{
     private String pathServiceSid;
     private String pathChannelSid;
     private String pathSid;
     private String roleSid;
     private Integer lastConsumedMessageIndex;
 
-    public MemberUpdater(final String pathServiceSid, final String pathChannelSid, final String pathSid){
+    public MemberUpdater(
+        final String pathServiceSid,
+        final String pathChannelSid,
+        final String pathSid
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathChannelSid = pathChannelSid;
         this.pathSid = pathSid;
     }
 
-    public MemberUpdater setRoleSid(final String roleSid){
+    public MemberUpdater setRoleSid(final String roleSid) {
         this.roleSid = roleSid;
         return this;
     }
-    public MemberUpdater setLastConsumedMessageIndex(final Integer lastConsumedMessageIndex){
+
+    public MemberUpdater setLastConsumedMessageIndex(
+        final Integer lastConsumedMessageIndex
+    ) {
         this.lastConsumedMessageIndex = lastConsumedMessageIndex;
         return this;
     }
 
     @Override
-    public Member update(final TwilioRestClient client){
-        String path = "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
+    public Member update(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Channels/{ChannelSid}/Members/{Sid}";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"ChannelSid"+"}", this.pathChannelSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ChannelSid" + "}",
+                this.pathChannelSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -67,25 +81,35 @@ public class MemberUpdater extends Updater<Member>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Member update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Member update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Member.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (roleSid != null) {
             request.addPostParam("RoleSid", roleSid);
-    
         }
         if (lastConsumedMessageIndex != null) {
-            request.addPostParam("LastConsumedMessageIndex", lastConsumedMessageIndex.toString());
-    
+            request.addPostParam(
+                "LastConsumedMessageIndex",
+                lastConsumedMessageIndex.toString()
+            );
         }
     }
 }

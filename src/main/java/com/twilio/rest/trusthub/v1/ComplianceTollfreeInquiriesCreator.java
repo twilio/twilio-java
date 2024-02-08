@@ -26,12 +26,11 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
-
 import java.util.List;
 
+public class ComplianceTollfreeInquiriesCreator
+    extends Creator<ComplianceTollfreeInquiries> {
 
-
-public class ComplianceTollfreeInquiriesCreator extends Creator<ComplianceTollfreeInquiries>{
     private com.twilio.type.PhoneNumber tollfreePhoneNumber;
     private String notificationEmail;
     private String businessName;
@@ -54,116 +53,203 @@ public class ComplianceTollfreeInquiriesCreator extends Creator<ComplianceTollfr
     private String businessContactEmail;
     private com.twilio.type.PhoneNumber businessContactPhone;
 
-    public ComplianceTollfreeInquiriesCreator(final com.twilio.type.PhoneNumber tollfreePhoneNumber, final String notificationEmail) {
+    public ComplianceTollfreeInquiriesCreator(
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber,
+        final String notificationEmail
+    ) {
         this.tollfreePhoneNumber = tollfreePhoneNumber;
         this.notificationEmail = notificationEmail;
     }
 
-    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(final com.twilio.type.PhoneNumber tollfreePhoneNumber){
+    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(
+        final com.twilio.type.PhoneNumber tollfreePhoneNumber
+    ) {
         this.tollfreePhoneNumber = tollfreePhoneNumber;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(final String tollfreePhoneNumber){
-        return setTollfreePhoneNumber(Promoter.phoneNumberFromString(tollfreePhoneNumber));
+    public ComplianceTollfreeInquiriesCreator setTollfreePhoneNumber(
+        final String tollfreePhoneNumber
+    ) {
+        return setTollfreePhoneNumber(
+            Promoter.phoneNumberFromString(tollfreePhoneNumber)
+        );
     }
-    public ComplianceTollfreeInquiriesCreator setNotificationEmail(final String notificationEmail){
+
+    public ComplianceTollfreeInquiriesCreator setNotificationEmail(
+        final String notificationEmail
+    ) {
         this.notificationEmail = notificationEmail;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessName(final String businessName){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessName(
+        final String businessName
+    ) {
         this.businessName = businessName;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessWebsite(final String businessWebsite){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessWebsite(
+        final String businessWebsite
+    ) {
         this.businessWebsite = businessWebsite;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(final List<String> useCaseCategories){
+
+    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(
+        final List<String> useCaseCategories
+    ) {
         this.useCaseCategories = useCaseCategories;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(final String useCaseCategories){
+
+    public ComplianceTollfreeInquiriesCreator setUseCaseCategories(
+        final String useCaseCategories
+    ) {
         return setUseCaseCategories(Promoter.listOfOne(useCaseCategories));
     }
-    public ComplianceTollfreeInquiriesCreator setUseCaseSummary(final String useCaseSummary){
+
+    public ComplianceTollfreeInquiriesCreator setUseCaseSummary(
+        final String useCaseSummary
+    ) {
         this.useCaseSummary = useCaseSummary;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setProductionMessageSample(final String productionMessageSample){
+
+    public ComplianceTollfreeInquiriesCreator setProductionMessageSample(
+        final String productionMessageSample
+    ) {
         this.productionMessageSample = productionMessageSample;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(final List<String> optInImageUrls){
+
+    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(
+        final List<String> optInImageUrls
+    ) {
         this.optInImageUrls = optInImageUrls;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(final String optInImageUrls){
+
+    public ComplianceTollfreeInquiriesCreator setOptInImageUrls(
+        final String optInImageUrls
+    ) {
         return setOptInImageUrls(Promoter.listOfOne(optInImageUrls));
     }
-    public ComplianceTollfreeInquiriesCreator setOptInType(final ComplianceTollfreeInquiries.OptInType optInType){
+
+    public ComplianceTollfreeInquiriesCreator setOptInType(
+        final ComplianceTollfreeInquiries.OptInType optInType
+    ) {
         this.optInType = optInType;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setMessageVolume(final String messageVolume){
+
+    public ComplianceTollfreeInquiriesCreator setMessageVolume(
+        final String messageVolume
+    ) {
         this.messageVolume = messageVolume;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress(final String businessStreetAddress){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress(
+        final String businessStreetAddress
+    ) {
         this.businessStreetAddress = businessStreetAddress;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress2(final String businessStreetAddress2){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessStreetAddress2(
+        final String businessStreetAddress2
+    ) {
         this.businessStreetAddress2 = businessStreetAddress2;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessCity(final String businessCity){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessCity(
+        final String businessCity
+    ) {
         this.businessCity = businessCity;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessStateProvinceRegion(final String businessStateProvinceRegion){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessStateProvinceRegion(
+        final String businessStateProvinceRegion
+    ) {
         this.businessStateProvinceRegion = businessStateProvinceRegion;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessPostalCode(final String businessPostalCode){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessPostalCode(
+        final String businessPostalCode
+    ) {
         this.businessPostalCode = businessPostalCode;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessCountry(final String businessCountry){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessCountry(
+        final String businessCountry
+    ) {
         this.businessCountry = businessCountry;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setAdditionalInformation(final String additionalInformation){
+
+    public ComplianceTollfreeInquiriesCreator setAdditionalInformation(
+        final String additionalInformation
+    ) {
         this.additionalInformation = additionalInformation;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessContactFirstName(final String businessContactFirstName){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessContactFirstName(
+        final String businessContactFirstName
+    ) {
         this.businessContactFirstName = businessContactFirstName;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessContactLastName(final String businessContactLastName){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessContactLastName(
+        final String businessContactLastName
+    ) {
         this.businessContactLastName = businessContactLastName;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessContactEmail(final String businessContactEmail){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessContactEmail(
+        final String businessContactEmail
+    ) {
         this.businessContactEmail = businessContactEmail;
         return this;
     }
-    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(final com.twilio.type.PhoneNumber businessContactPhone){
+
+    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(
+        final com.twilio.type.PhoneNumber businessContactPhone
+    ) {
         this.businessContactPhone = businessContactPhone;
         return this;
     }
 
-    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(final String businessContactPhone){
-        return setBusinessContactPhone(Promoter.phoneNumberFromString(businessContactPhone));
+    public ComplianceTollfreeInquiriesCreator setBusinessContactPhone(
+        final String businessContactPhone
+    ) {
+        return setBusinessContactPhone(
+            Promoter.phoneNumberFromString(businessContactPhone)
+        );
     }
 
     @Override
-    public ComplianceTollfreeInquiries create(final TwilioRestClient client){
+    public ComplianceTollfreeInquiries create(final TwilioRestClient client) {
         String path = "/v1/ComplianceInquiries/Tollfree/Initialize";
 
-        path = path.replace("{"+"TollfreePhoneNumber"+"}", this.tollfreePhoneNumber.encode("utf-8"));
-        path = path.replace("{"+"NotificationEmail"+"}", this.notificationEmail.toString());
+        path =
+            path.replace(
+                "{" + "TollfreePhoneNumber" + "}",
+                this.tollfreePhoneNumber.encode("utf-8")
+            );
+        path =
+            path.replace(
+                "{" + "NotificationEmail" + "}",
+                this.notificationEmail.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -174,105 +260,123 @@ public class ComplianceTollfreeInquiriesCreator extends Creator<ComplianceTollfr
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("ComplianceTollfreeInquiries creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ComplianceTollfreeInquiries creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ComplianceTollfreeInquiries.fromJson(response.getStream(), client.getObjectMapper());
+        return ComplianceTollfreeInquiries.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (tollfreePhoneNumber != null) {
-            request.addPostParam("TollfreePhoneNumber", tollfreePhoneNumber.toString());
-    
+            request.addPostParam(
+                "TollfreePhoneNumber",
+                tollfreePhoneNumber.toString()
+            );
         }
         if (notificationEmail != null) {
             request.addPostParam("NotificationEmail", notificationEmail);
-    
         }
         if (businessName != null) {
             request.addPostParam("BusinessName", businessName);
-    
         }
         if (businessWebsite != null) {
             request.addPostParam("BusinessWebsite", businessWebsite);
-    
         }
         if (useCaseCategories != null) {
             for (String prop : useCaseCategories) {
                 request.addPostParam("UseCaseCategories", prop);
             }
-    
         }
         if (useCaseSummary != null) {
             request.addPostParam("UseCaseSummary", useCaseSummary);
-    
         }
         if (productionMessageSample != null) {
-            request.addPostParam("ProductionMessageSample", productionMessageSample);
-    
+            request.addPostParam(
+                "ProductionMessageSample",
+                productionMessageSample
+            );
         }
         if (optInImageUrls != null) {
             for (String prop : optInImageUrls) {
                 request.addPostParam("OptInImageUrls", prop);
             }
-    
         }
         if (optInType != null) {
             request.addPostParam("OptInType", optInType.toString());
-    
         }
         if (messageVolume != null) {
             request.addPostParam("MessageVolume", messageVolume);
-    
         }
         if (businessStreetAddress != null) {
-            request.addPostParam("BusinessStreetAddress", businessStreetAddress);
-    
+            request.addPostParam(
+                "BusinessStreetAddress",
+                businessStreetAddress
+            );
         }
         if (businessStreetAddress2 != null) {
-            request.addPostParam("BusinessStreetAddress2", businessStreetAddress2);
-    
+            request.addPostParam(
+                "BusinessStreetAddress2",
+                businessStreetAddress2
+            );
         }
         if (businessCity != null) {
             request.addPostParam("BusinessCity", businessCity);
-    
         }
         if (businessStateProvinceRegion != null) {
-            request.addPostParam("BusinessStateProvinceRegion", businessStateProvinceRegion);
-    
+            request.addPostParam(
+                "BusinessStateProvinceRegion",
+                businessStateProvinceRegion
+            );
         }
         if (businessPostalCode != null) {
             request.addPostParam("BusinessPostalCode", businessPostalCode);
-    
         }
         if (businessCountry != null) {
             request.addPostParam("BusinessCountry", businessCountry);
-    
         }
         if (additionalInformation != null) {
-            request.addPostParam("AdditionalInformation", additionalInformation);
-    
+            request.addPostParam(
+                "AdditionalInformation",
+                additionalInformation
+            );
         }
         if (businessContactFirstName != null) {
-            request.addPostParam("BusinessContactFirstName", businessContactFirstName);
-    
+            request.addPostParam(
+                "BusinessContactFirstName",
+                businessContactFirstName
+            );
         }
         if (businessContactLastName != null) {
-            request.addPostParam("BusinessContactLastName", businessContactLastName);
-    
+            request.addPostParam(
+                "BusinessContactLastName",
+                businessContactLastName
+            );
         }
         if (businessContactEmail != null) {
             request.addPostParam("BusinessContactEmail", businessContactEmail);
-    
         }
         if (businessContactPhone != null) {
-            request.addPostParam("BusinessContactPhone", businessContactPhone.toString());
-    
+            request.addPostParam(
+                "BusinessContactPhone",
+                businessContactPhone.toString()
+            );
         }
     }
 }

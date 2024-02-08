@@ -24,25 +24,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
+
     private String pathFlowSid;
     private String pathExecutionSid;
 
-    public ExecutionContextFetcher(final String pathFlowSid, final String pathExecutionSid){
+    public ExecutionContextFetcher(
+        final String pathFlowSid,
+        final String pathExecutionSid
+    ) {
         this.pathFlowSid = pathFlowSid;
         this.pathExecutionSid = pathExecutionSid;
     }
-
 
     @Override
     public ExecutionContext fetch(final TwilioRestClient client) {
         String path = "/v2/Flows/{FlowSid}/Executions/{ExecutionSid}/Context";
 
-        path = path.replace("{"+"FlowSid"+"}", this.pathFlowSid.toString());
-        path = path.replace("{"+"ExecutionSid"+"}", this.pathExecutionSid.toString());
+        path = path.replace("{" + "FlowSid" + "}", this.pathFlowSid.toString());
+        path =
+            path.replace(
+                "{" + "ExecutionSid" + "}",
+                this.pathExecutionSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -52,15 +56,26 @@ public class ExecutionContextFetcher extends Fetcher<ExecutionContext> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("ExecutionContext fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ExecutionContext fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ExecutionContext.fromJson(response.getStream(), client.getObjectMapper());
+        return ExecutionContext.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

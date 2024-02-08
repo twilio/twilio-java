@@ -23,46 +23,49 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class InsightsConversationalAiReportInsights extends Resource {
+
     private static final long serialVersionUID = 215589850844764L;
 
-    
-
-    public static InsightsConversationalAiReportInsightsFetcher fetcher(final String pathInstanceSid){
-        return new InsightsConversationalAiReportInsightsFetcher(pathInstanceSid);
+    public static InsightsConversationalAiReportInsightsFetcher fetcher(
+        final String pathInstanceSid
+    ) {
+        return new InsightsConversationalAiReportInsightsFetcher(
+            pathInstanceSid
+        );
     }
 
     /**
-    * Converts a JSON String into a InsightsConversationalAiReportInsights object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return InsightsConversationalAiReportInsights object represented by the provided JSON
-    */
-    public static InsightsConversationalAiReportInsights fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a InsightsConversationalAiReportInsights object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return InsightsConversationalAiReportInsights object represented by the provided JSON
+     */
+    public static InsightsConversationalAiReportInsights fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsConversationalAiReportInsights.class);
+            return objectMapper.readValue(
+                json,
+                InsightsConversationalAiReportInsights.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
@@ -71,24 +74,29 @@ public class InsightsConversationalAiReportInsights extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a InsightsConversationalAiReportInsights object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return InsightsConversationalAiReportInsights object represented by the provided JSON
-    */
-    public static InsightsConversationalAiReportInsights fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a InsightsConversationalAiReportInsights object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return InsightsConversationalAiReportInsights object represented by the provided JSON
+     */
+    public static InsightsConversationalAiReportInsights fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
-            return objectMapper.readValue(json, InsightsConversationalAiReportInsights.class);
+            return objectMapper.readValue(
+                json,
+                InsightsConversationalAiReportInsights.class
+            );
         } catch (final JsonMappingException | JsonParseException e) {
             throw new ApiException(e.getMessage(), e);
         } catch (final IOException e) {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String instanceSid;
     private final String reportId;
@@ -100,26 +108,13 @@ public class InsightsConversationalAiReportInsights extends Resource {
 
     @JsonCreator
     private InsightsConversationalAiReportInsights(
-        @JsonProperty("instance_sid")
-        final String instanceSid,
-
-        @JsonProperty("report_id")
-        final String reportId,
-
-        @JsonProperty("period_start")
-        final String periodStart,
-
-        @JsonProperty("period_end")
-        final String periodEnd,
-
-        @JsonProperty("updated")
-        final String updated,
-
-        @JsonProperty("insights")
-        final List<Map<String, Object>> insights,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("instance_sid") final String instanceSid,
+        @JsonProperty("report_id") final String reportId,
+        @JsonProperty("period_start") final String periodStart,
+        @JsonProperty("period_end") final String periodEnd,
+        @JsonProperty("updated") final String updated,
+        @JsonProperty("insights") final List<Map<String, Object>> insights,
+        @JsonProperty("url") final URI url
     ) {
         this.instanceSid = instanceSid;
         this.reportId = reportId;
@@ -130,31 +125,37 @@ public class InsightsConversationalAiReportInsights extends Resource {
         this.url = url;
     }
 
-        public final String getInstanceSid() {
-            return this.instanceSid;
-        }
-        public final String getReportId() {
-            return this.reportId;
-        }
-        public final ZonedDateTime getPeriodStart() {
-            return this.periodStart;
-        }
-        public final ZonedDateTime getPeriodEnd() {
-            return this.periodEnd;
-        }
-        public final ZonedDateTime getUpdated() {
-            return this.updated;
-        }
-        public final List<Map<String, Object>> getInsights() {
-            return this.insights;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getInstanceSid() {
+        return this.instanceSid;
+    }
+
+    public final String getReportId() {
+        return this.reportId;
+    }
+
+    public final ZonedDateTime getPeriodStart() {
+        return this.periodStart;
+    }
+
+    public final ZonedDateTime getPeriodEnd() {
+        return this.periodEnd;
+    }
+
+    public final ZonedDateTime getUpdated() {
+        return this.updated;
+    }
+
+    public final List<Map<String, Object>> getInsights() {
+        return this.insights;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -162,16 +163,30 @@ public class InsightsConversationalAiReportInsights extends Resource {
             return false;
         }
 
-        InsightsConversationalAiReportInsights other = (InsightsConversationalAiReportInsights) o;
+        InsightsConversationalAiReportInsights other =
+            (InsightsConversationalAiReportInsights) o;
 
-        return Objects.equals(instanceSid, other.instanceSid) &&  Objects.equals(reportId, other.reportId) &&  Objects.equals(periodStart, other.periodStart) &&  Objects.equals(periodEnd, other.periodEnd) &&  Objects.equals(updated, other.updated) &&  Objects.equals(insights, other.insights) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(instanceSid, other.instanceSid) &&
+            Objects.equals(reportId, other.reportId) &&
+            Objects.equals(periodStart, other.periodStart) &&
+            Objects.equals(periodEnd, other.periodEnd) &&
+            Objects.equals(updated, other.updated) &&
+            Objects.equals(insights, other.insights) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(instanceSid, reportId, periodStart, periodEnd, updated, insights, url);
+        return Objects.hash(
+            instanceSid,
+            reportId,
+            periodStart,
+            periodEnd,
+            updated,
+            insights,
+            url
+        );
     }
-
-
 }
-

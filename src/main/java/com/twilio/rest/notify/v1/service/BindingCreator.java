@@ -26,12 +26,10 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 import java.util.List;
-
 import java.util.List;
 
+public class BindingCreator extends Creator<Binding> {
 
-
-public class BindingCreator extends Creator<Binding>{
     private String pathServiceSid;
     private String identity;
     private Binding.BindingType bindingType;
@@ -41,53 +39,77 @@ public class BindingCreator extends Creator<Binding>{
     private String credentialSid;
     private String endpoint;
 
-    public BindingCreator(final String pathServiceSid, final String identity, final Binding.BindingType bindingType, final String address) {
+    public BindingCreator(
+        final String pathServiceSid,
+        final String identity,
+        final Binding.BindingType bindingType,
+        final String address
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.identity = identity;
         this.bindingType = bindingType;
         this.address = address;
     }
 
-    public BindingCreator setIdentity(final String identity){
+    public BindingCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
-    public BindingCreator setBindingType(final Binding.BindingType bindingType){
+
+    public BindingCreator setBindingType(
+        final Binding.BindingType bindingType
+    ) {
         this.bindingType = bindingType;
         return this;
     }
-    public BindingCreator setAddress(final String address){
+
+    public BindingCreator setAddress(final String address) {
         this.address = address;
         return this;
     }
-    public BindingCreator setTag(final List<String> tag){
+
+    public BindingCreator setTag(final List<String> tag) {
         this.tag = tag;
         return this;
     }
-    public BindingCreator setTag(final String tag){
+
+    public BindingCreator setTag(final String tag) {
         return setTag(Promoter.listOfOne(tag));
     }
-    public BindingCreator setNotificationProtocolVersion(final String notificationProtocolVersion){
+
+    public BindingCreator setNotificationProtocolVersion(
+        final String notificationProtocolVersion
+    ) {
         this.notificationProtocolVersion = notificationProtocolVersion;
         return this;
     }
-    public BindingCreator setCredentialSid(final String credentialSid){
+
+    public BindingCreator setCredentialSid(final String credentialSid) {
         this.credentialSid = credentialSid;
         return this;
     }
-    public BindingCreator setEndpoint(final String endpoint){
+
+    public BindingCreator setEndpoint(final String endpoint) {
         this.endpoint = endpoint;
         return this;
     }
 
     @Override
-    public Binding create(final TwilioRestClient client){
+    public Binding create(final TwilioRestClient client) {
         String path = "/v1/Services/{ServiceSid}/Bindings";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"Identity"+"}", this.identity.toString());
-        path = path.replace("{"+"BindingType"+"}", this.bindingType.toString());
-        path = path.replace("{"+"Address"+"}", this.address.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path = path.replace("{" + "Identity" + "}", this.identity.toString());
+        path =
+            path.replace(
+                "{" + "BindingType" + "}",
+                this.bindingType.toString()
+            );
+        path = path.replace("{" + "Address" + "}", this.address.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -98,47 +120,52 @@ public class BindingCreator extends Creator<Binding>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Binding creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Binding creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Binding.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (identity != null) {
             request.addPostParam("Identity", identity);
-    
         }
         if (bindingType != null) {
             request.addPostParam("BindingType", bindingType.toString());
-    
         }
         if (address != null) {
             request.addPostParam("Address", address);
-    
         }
         if (tag != null) {
             for (String prop : tag) {
                 request.addPostParam("Tag", prop);
             }
-    
         }
         if (notificationProtocolVersion != null) {
-            request.addPostParam("NotificationProtocolVersion", notificationProtocolVersion);
-    
+            request.addPostParam(
+                "NotificationProtocolVersion",
+                notificationProtocolVersion
+            );
         }
         if (credentialSid != null) {
             request.addPostParam("CredentialSid", credentialSid);
-    
         }
         if (endpoint != null) {
             request.addPostParam("Endpoint", endpoint);
-    
         }
     }
 }

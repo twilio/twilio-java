@@ -16,8 +16,8 @@ package com.twilio.rest.studio.v2;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -25,46 +25,47 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class FlowUpdater extends Updater<Flow> {
 
-public class FlowUpdater extends Updater<Flow>{
     private String pathSid;
     private Flow.Status status;
     private String friendlyName;
     private Map<String, Object> definition;
     private String commitMessage;
 
-    public FlowUpdater(final String pathSid, final Flow.Status status){
+    public FlowUpdater(final String pathSid, final Flow.Status status) {
         this.pathSid = pathSid;
         this.status = status;
     }
 
-    public FlowUpdater setStatus(final Flow.Status status){
+    public FlowUpdater setStatus(final Flow.Status status) {
         this.status = status;
         return this;
     }
-    public FlowUpdater setFriendlyName(final String friendlyName){
+
+    public FlowUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public FlowUpdater setDefinition(final Map<String, Object> definition){
+
+    public FlowUpdater setDefinition(final Map<String, Object> definition) {
         this.definition = definition;
         return this;
     }
-    public FlowUpdater setCommitMessage(final String commitMessage){
+
+    public FlowUpdater setCommitMessage(final String commitMessage) {
         this.commitMessage = commitMessage;
         return this;
     }
 
     @Override
-    public Flow update(final TwilioRestClient client){
+    public Flow update(final TwilioRestClient client) {
         String path = "/v2/Flows/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
-        path = path.replace("{"+"Status"+"}", this.status.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path = path.replace("{" + "Status" + "}", this.status.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -75,33 +76,38 @@ public class FlowUpdater extends Updater<Flow>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Flow update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Flow update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Flow.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (status != null) {
             request.addPostParam("Status", status.toString());
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (definition != null) {
-            request.addPostParam("Definition",  Converter.mapToJson(definition));
-    
+            request.addPostParam("Definition", Converter.mapToJson(definition));
         }
         if (commitMessage != null) {
             request.addPostParam("CommitMessage", commitMessage);
-    
         }
     }
 }

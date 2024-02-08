@@ -16,8 +16,8 @@ package com.twilio.rest.numbers.v2.regulatorycompliance;
 
 import com.twilio.base.Updater;
 import com.twilio.constant.EnumConstants;
-import com.twilio.exception.ApiConnectionException;
 import com.twilio.converter.Converter;
+import com.twilio.exception.ApiConnectionException;
 import com.twilio.exception.ApiException;
 import com.twilio.exception.RestException;
 import com.twilio.http.HttpMethod;
@@ -25,34 +25,37 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
-
 import java.util.Map;
 
+public class SupportingDocumentUpdater extends Updater<SupportingDocument> {
 
-public class SupportingDocumentUpdater extends Updater<SupportingDocument>{
     private String pathSid;
     private String friendlyName;
     private Map<String, Object> attributes;
 
-    public SupportingDocumentUpdater(final String pathSid){
+    public SupportingDocumentUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
 
-    public SupportingDocumentUpdater setFriendlyName(final String friendlyName){
+    public SupportingDocumentUpdater setFriendlyName(
+        final String friendlyName
+    ) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public SupportingDocumentUpdater setAttributes(final Map<String, Object> attributes){
+
+    public SupportingDocumentUpdater setAttributes(
+        final Map<String, Object> attributes
+    ) {
         this.attributes = attributes;
         return this;
     }
 
     @Override
-    public SupportingDocument update(final TwilioRestClient client){
+    public SupportingDocument update(final TwilioRestClient client) {
         String path = "/v2/RegulatoryCompliance/SupportingDocuments/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -63,25 +66,35 @@ public class SupportingDocumentUpdater extends Updater<SupportingDocument>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("SupportingDocument update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SupportingDocument update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SupportingDocument.fromJson(response.getStream(), client.getObjectMapper());
+        return SupportingDocument.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (attributes != null) {
-            request.addPostParam("Attributes",  Converter.mapToJson(attributes));
-    
+            request.addPostParam("Attributes", Converter.mapToJson(attributes));
         }
     }
 }

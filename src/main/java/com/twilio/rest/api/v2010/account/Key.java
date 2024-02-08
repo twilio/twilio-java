@@ -23,63 +23,72 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Key extends Resource {
+
     private static final long serialVersionUID = 35259719636912L;
 
-    
-
-    public static KeyDeleter deleter(final String pathSid){
+    public static KeyDeleter deleter(final String pathSid) {
         return new KeyDeleter(pathSid);
     }
-    public static KeyDeleter deleter(final String pathAccountSid, final String pathSid){
+
+    public static KeyDeleter deleter(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new KeyDeleter(pathAccountSid, pathSid);
     }
 
-    public static KeyFetcher fetcher(final String pathSid){
+    public static KeyFetcher fetcher(final String pathSid) {
         return new KeyFetcher(pathSid);
     }
-    public static KeyFetcher fetcher(final String pathAccountSid, final String pathSid){
+
+    public static KeyFetcher fetcher(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new KeyFetcher(pathAccountSid, pathSid);
     }
 
-    public static KeyReader reader(){
+    public static KeyReader reader() {
         return new KeyReader();
     }
-    public static KeyReader reader(final String pathAccountSid){
+
+    public static KeyReader reader(final String pathAccountSid) {
         return new KeyReader(pathAccountSid);
     }
 
-    public static KeyUpdater updater(final String pathSid){
+    public static KeyUpdater updater(final String pathSid) {
         return new KeyUpdater(pathSid);
     }
-    public static KeyUpdater updater(final String pathAccountSid, final String pathSid){
+
+    public static KeyUpdater updater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         return new KeyUpdater(pathAccountSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Key object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Key object represented by the provided JSON
-    */
-    public static Key fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Key object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Key object represented by the provided JSON
+     */
+    public static Key fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Key.class);
@@ -91,14 +100,17 @@ public class Key extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Key object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Key object represented by the provided JSON
-    */
-    public static Key fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Key object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Key object represented by the provided JSON
+     */
+    public static Key fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Key.class);
@@ -108,7 +120,6 @@ public class Key extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String friendlyName;
@@ -117,17 +128,10 @@ public class Key extends Resource {
 
     @JsonCreator
     private Key(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -135,22 +139,25 @@ public class Key extends Resource {
         this.dateUpdated = DateConverter.rfc2822DateTimeFromString(dateUpdated);
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -160,14 +167,16 @@ public class Key extends Resource {
 
         Key other = (Key) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid, friendlyName, dateCreated, dateUpdated);
     }
-
-
 }
-

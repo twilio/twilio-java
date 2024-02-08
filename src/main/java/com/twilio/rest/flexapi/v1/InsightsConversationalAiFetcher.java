@@ -23,35 +23,41 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.time.ZonedDateTime;
 
+public class InsightsConversationalAiFetcher
+    extends Fetcher<InsightsConversationalAi> {
 
-
-public class InsightsConversationalAiFetcher extends Fetcher<InsightsConversationalAi> {
     private String pathInstanceSid;
     private Integer maxRows;
     private String reportId;
     private InsightsConversationalAi.Granularity granularity;
     private ZonedDateTime includeDate;
 
-    public InsightsConversationalAiFetcher(final String pathInstanceSid){
+    public InsightsConversationalAiFetcher(final String pathInstanceSid) {
         this.pathInstanceSid = pathInstanceSid;
     }
 
-    public InsightsConversationalAiFetcher setMaxRows(final Integer maxRows){
+    public InsightsConversationalAiFetcher setMaxRows(final Integer maxRows) {
         this.maxRows = maxRows;
         return this;
     }
-    public InsightsConversationalAiFetcher setReportId(final String reportId){
+
+    public InsightsConversationalAiFetcher setReportId(final String reportId) {
         this.reportId = reportId;
         return this;
     }
-    public InsightsConversationalAiFetcher setGranularity(final InsightsConversationalAi.Granularity granularity){
+
+    public InsightsConversationalAiFetcher setGranularity(
+        final InsightsConversationalAi.Granularity granularity
+    ) {
         this.granularity = granularity;
         return this;
     }
-    public InsightsConversationalAiFetcher setIncludeDate(final ZonedDateTime includeDate){
+
+    public InsightsConversationalAiFetcher setIncludeDate(
+        final ZonedDateTime includeDate
+    ) {
         this.includeDate = includeDate;
         return this;
     }
@@ -60,7 +66,11 @@ public class InsightsConversationalAiFetcher extends Fetcher<InsightsConversatio
     public InsightsConversationalAi fetch(final TwilioRestClient client) {
         String path = "/v1/Insights/Instances/{InstanceSid}/AI/Reports";
 
-        path = path.replace("{"+"InstanceSid"+"}", this.pathInstanceSid.toString());
+        path =
+            path.replace(
+                "{" + "InstanceSid" + "}",
+                this.pathInstanceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -71,33 +81,44 @@ public class InsightsConversationalAiFetcher extends Fetcher<InsightsConversatio
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("InsightsConversationalAi fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "InsightsConversationalAi fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return InsightsConversationalAi.fromJson(response.getStream(), client.getObjectMapper());
+        return InsightsConversationalAi.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addQueryParams(final Request request) {
         if (maxRows != null) {
-    
             request.addQueryParam("MaxRows", maxRows.toString());
         }
         if (reportId != null) {
-    
             request.addQueryParam("ReportId", reportId);
         }
         if (granularity != null) {
-    
             request.addQueryParam("Granularity", granularity.toString());
         }
         if (includeDate != null) {
-            request.addQueryParam("IncludeDate", includeDate.toInstant().toString());
+            request.addQueryParam(
+                "IncludeDate",
+                includeDate.toInstant().toString()
+            );
         }
-
     }
 }

@@ -14,6 +14,7 @@
 
 package com.twilio.rest.chat.v2.service;
 
+import com.twilio.base.Page;
 import com.twilio.base.Reader;
 import com.twilio.base.ResourceSet;
 import com.twilio.converter.Promoter;
@@ -25,36 +26,40 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import com.twilio.base.Page;
-
 import java.util.List;
 
-
 public class BindingReader extends Reader<Binding> {
+
     private String pathServiceSid;
     private List<Binding.BindingType> bindingType;
     private List<String> identity;
     private Integer pageSize;
 
-    public BindingReader(final String pathServiceSid){
+    public BindingReader(final String pathServiceSid) {
         this.pathServiceSid = pathServiceSid;
     }
 
-    public BindingReader setBindingType(final List<Binding.BindingType> bindingType){
+    public BindingReader setBindingType(
+        final List<Binding.BindingType> bindingType
+    ) {
         this.bindingType = bindingType;
         return this;
     }
-    public BindingReader setBindingType(final Binding.BindingType bindingType){
+
+    public BindingReader setBindingType(final Binding.BindingType bindingType) {
         return setBindingType(Promoter.listOfOne(bindingType));
     }
-    public BindingReader setIdentity(final List<String> identity){
+
+    public BindingReader setIdentity(final List<String> identity) {
         this.identity = identity;
         return this;
     }
-    public BindingReader setIdentity(final String identity){
+
+    public BindingReader setIdentity(final String identity) {
         return setIdentity(Promoter.listOfOne(identity));
     }
-    public BindingReader setPageSize(final Integer pageSize){
+
+    public BindingReader setPageSize(final Integer pageSize) {
         this.pageSize = pageSize;
         return this;
     }
@@ -66,7 +71,11 @@ public class BindingReader extends Reader<Binding> {
 
     public Page<Binding> firstPage(final TwilioRestClient client) {
         String path = "/v2/Services/{ServiceSid}/Bindings";
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -78,15 +87,26 @@ public class BindingReader extends Reader<Binding> {
         return pageForRequest(client, request);
     }
 
-    private Page<Binding> pageForRequest(final TwilioRestClient client, final Request request) {
+    private Page<Binding> pageForRequest(
+        final TwilioRestClient client,
+        final Request request
+    ) {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Binding read failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Binding read failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
@@ -100,7 +120,10 @@ public class BindingReader extends Reader<Binding> {
     }
 
     @Override
-    public Page<Binding> previousPage(final Page<Binding> page, final TwilioRestClient client) {
+    public Page<Binding> previousPage(
+        final Page<Binding> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getPreviousPageUrl(Domains.CHAT.toString())
@@ -108,9 +131,11 @@ public class BindingReader extends Reader<Binding> {
         return pageForRequest(client, request);
     }
 
-
     @Override
-    public Page<Binding> nextPage(final Page<Binding> page, final TwilioRestClient client) {
+    public Page<Binding> nextPage(
+        final Page<Binding> page,
+        final TwilioRestClient client
+    ) {
         Request request = new Request(
             HttpMethod.GET,
             page.getNextPageUrl(Domains.CHAT.toString())
@@ -119,14 +144,15 @@ public class BindingReader extends Reader<Binding> {
     }
 
     @Override
-    public Page<Binding> getPage(final String targetUrl, final TwilioRestClient client) {
-        Request request = new Request(
-            HttpMethod.GET,
-            targetUrl
-        );
+    public Page<Binding> getPage(
+        final String targetUrl,
+        final TwilioRestClient client
+    ) {
+        Request request = new Request(HttpMethod.GET, targetUrl);
 
         return pageForRequest(client, request);
     }
+
     private void addQueryParams(final Request request) {
         if (bindingType != null) {
             for (Binding.BindingType prop : bindingType) {
@@ -139,11 +165,10 @@ public class BindingReader extends Reader<Binding> {
             }
         }
         if (pageSize != null) {
-    
             request.addQueryParam("PageSize", pageSize.toString());
         }
 
-        if(getPageSize() != null) {
+        if (getPageSize() != null) {
             request.addQueryParam("PageSize", Integer.toString(getPageSize()));
         }
     }

@@ -24,55 +24,60 @@ import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
 import com.twilio.http.HttpMethod;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
+import java.util.Map;
 import java.util.Map;
 import java.util.Objects;
-
 import lombok.ToString;
-
-import java.util.Map;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class PhoneNumber extends Resource {
+
     private static final long serialVersionUID = 92972440584956L;
 
-    
-
-    public static PhoneNumberCreator creator(final String pathTrunkSid, final String phoneNumberSid){
+    public static PhoneNumberCreator creator(
+        final String pathTrunkSid,
+        final String phoneNumberSid
+    ) {
         return new PhoneNumberCreator(pathTrunkSid, phoneNumberSid);
     }
 
-    public static PhoneNumberDeleter deleter(final String pathTrunkSid, final String pathSid){
+    public static PhoneNumberDeleter deleter(
+        final String pathTrunkSid,
+        final String pathSid
+    ) {
         return new PhoneNumberDeleter(pathTrunkSid, pathSid);
     }
 
-    public static PhoneNumberFetcher fetcher(final String pathTrunkSid, final String pathSid){
+    public static PhoneNumberFetcher fetcher(
+        final String pathTrunkSid,
+        final String pathSid
+    ) {
         return new PhoneNumberFetcher(pathTrunkSid, pathSid);
     }
 
-    public static PhoneNumberReader reader(final String pathTrunkSid){
+    public static PhoneNumberReader reader(final String pathTrunkSid) {
         return new PhoneNumberReader(pathTrunkSid);
     }
 
     /**
-    * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return PhoneNumber object represented by the provided JSON
-    */
-    public static PhoneNumber fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a PhoneNumber object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return PhoneNumber object represented by the provided JSON
+     */
+    public static PhoneNumber fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -84,14 +89,17 @@ public class PhoneNumber extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a PhoneNumber object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return PhoneNumber object represented by the provided JSON
-    */
-    public static PhoneNumber fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a PhoneNumber object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return PhoneNumber object represented by the provided JSON
+     */
+    public static PhoneNumber fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, PhoneNumber.class);
@@ -153,83 +161,42 @@ public class PhoneNumber extends Resource {
 
     @JsonCreator
     private PhoneNumber(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("address_requirements")
-        final PhoneNumber.AddressRequirement addressRequirements,
-
-        @JsonProperty("api_version")
-        final String apiVersion,
-
-        @JsonProperty("beta")
-        final Boolean beta,
-
-        @JsonProperty("capabilities")
-        final Map<String, String> capabilities,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("links")
-        final Map<String, String> links,
-
-        @JsonProperty("phone_number")
-        final com.twilio.type.PhoneNumber phoneNumber,
-
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("sms_application_sid")
-        final String smsApplicationSid,
-
-        @JsonProperty("sms_fallback_method")
-        final HttpMethod smsFallbackMethod,
-
-        @JsonProperty("sms_fallback_url")
-        final URI smsFallbackUrl,
-
-        @JsonProperty("sms_method")
-        final HttpMethod smsMethod,
-
-        @JsonProperty("sms_url")
-        final URI smsUrl,
-
-        @JsonProperty("status_callback")
-        final URI statusCallback,
-
-        @JsonProperty("status_callback_method")
-        final HttpMethod statusCallbackMethod,
-
-        @JsonProperty("trunk_sid")
-        final String trunkSid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("voice_application_sid")
-        final String voiceApplicationSid,
-
-        @JsonProperty("voice_caller_id_lookup")
-        final Boolean voiceCallerIdLookup,
-
-        @JsonProperty("voice_fallback_method")
-        final HttpMethod voiceFallbackMethod,
-
-        @JsonProperty("voice_fallback_url")
-        final URI voiceFallbackUrl,
-
-        @JsonProperty("voice_method")
-        final HttpMethod voiceMethod,
-
-        @JsonProperty("voice_url")
-        final URI voiceUrl
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty(
+            "address_requirements"
+        ) final PhoneNumber.AddressRequirement addressRequirements,
+        @JsonProperty("api_version") final String apiVersion,
+        @JsonProperty("beta") final Boolean beta,
+        @JsonProperty("capabilities") final Map<String, String> capabilities,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("links") final Map<String, String> links,
+        @JsonProperty(
+            "phone_number"
+        ) final com.twilio.type.PhoneNumber phoneNumber,
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("sms_application_sid") final String smsApplicationSid,
+        @JsonProperty("sms_fallback_method") final HttpMethod smsFallbackMethod,
+        @JsonProperty("sms_fallback_url") final URI smsFallbackUrl,
+        @JsonProperty("sms_method") final HttpMethod smsMethod,
+        @JsonProperty("sms_url") final URI smsUrl,
+        @JsonProperty("status_callback") final URI statusCallback,
+        @JsonProperty(
+            "status_callback_method"
+        ) final HttpMethod statusCallbackMethod,
+        @JsonProperty("trunk_sid") final String trunkSid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("voice_application_sid") final String voiceApplicationSid,
+        @JsonProperty(
+            "voice_caller_id_lookup"
+        ) final Boolean voiceCallerIdLookup,
+        @JsonProperty(
+            "voice_fallback_method"
+        ) final HttpMethod voiceFallbackMethod,
+        @JsonProperty("voice_fallback_url") final URI voiceFallbackUrl,
+        @JsonProperty("voice_method") final HttpMethod voiceMethod,
+        @JsonProperty("voice_url") final URI voiceUrl
     ) {
         this.accountSid = accountSid;
         this.addressRequirements = addressRequirements;
@@ -259,88 +226,113 @@ public class PhoneNumber extends Resource {
         this.voiceUrl = voiceUrl;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final PhoneNumber.AddressRequirement getAddressRequirements() {
-            return this.addressRequirements;
-        }
-        public final String getApiVersion() {
-            return this.apiVersion;
-        }
-        public final Boolean getBeta() {
-            return this.beta;
-        }
-        public final Map<String, String> getCapabilities() {
-            return this.capabilities;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final Map<String, String> getLinks() {
-            return this.links;
-        }
-        public final com.twilio.type.PhoneNumber getPhoneNumber() {
-            return this.phoneNumber;
-        }
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getSmsApplicationSid() {
-            return this.smsApplicationSid;
-        }
-        public final HttpMethod getSmsFallbackMethod() {
-            return this.smsFallbackMethod;
-        }
-        public final URI getSmsFallbackUrl() {
-            return this.smsFallbackUrl;
-        }
-        public final HttpMethod getSmsMethod() {
-            return this.smsMethod;
-        }
-        public final URI getSmsUrl() {
-            return this.smsUrl;
-        }
-        public final URI getStatusCallback() {
-            return this.statusCallback;
-        }
-        public final HttpMethod getStatusCallbackMethod() {
-            return this.statusCallbackMethod;
-        }
-        public final String getTrunkSid() {
-            return this.trunkSid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getVoiceApplicationSid() {
-            return this.voiceApplicationSid;
-        }
-        public final Boolean getVoiceCallerIdLookup() {
-            return this.voiceCallerIdLookup;
-        }
-        public final HttpMethod getVoiceFallbackMethod() {
-            return this.voiceFallbackMethod;
-        }
-        public final URI getVoiceFallbackUrl() {
-            return this.voiceFallbackUrl;
-        }
-        public final HttpMethod getVoiceMethod() {
-            return this.voiceMethod;
-        }
-        public final URI getVoiceUrl() {
-            return this.voiceUrl;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final PhoneNumber.AddressRequirement getAddressRequirements() {
+        return this.addressRequirements;
+    }
+
+    public final String getApiVersion() {
+        return this.apiVersion;
+    }
+
+    public final Boolean getBeta() {
+        return this.beta;
+    }
+
+    public final Map<String, String> getCapabilities() {
+        return this.capabilities;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final Map<String, String> getLinks() {
+        return this.links;
+    }
+
+    public final com.twilio.type.PhoneNumber getPhoneNumber() {
+        return this.phoneNumber;
+    }
+
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getSmsApplicationSid() {
+        return this.smsApplicationSid;
+    }
+
+    public final HttpMethod getSmsFallbackMethod() {
+        return this.smsFallbackMethod;
+    }
+
+    public final URI getSmsFallbackUrl() {
+        return this.smsFallbackUrl;
+    }
+
+    public final HttpMethod getSmsMethod() {
+        return this.smsMethod;
+    }
+
+    public final URI getSmsUrl() {
+        return this.smsUrl;
+    }
+
+    public final URI getStatusCallback() {
+        return this.statusCallback;
+    }
+
+    public final HttpMethod getStatusCallbackMethod() {
+        return this.statusCallbackMethod;
+    }
+
+    public final String getTrunkSid() {
+        return this.trunkSid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getVoiceApplicationSid() {
+        return this.voiceApplicationSid;
+    }
+
+    public final Boolean getVoiceCallerIdLookup() {
+        return this.voiceCallerIdLookup;
+    }
+
+    public final HttpMethod getVoiceFallbackMethod() {
+        return this.voiceFallbackMethod;
+    }
+
+    public final URI getVoiceFallbackUrl() {
+        return this.voiceFallbackUrl;
+    }
+
+    public final HttpMethod getVoiceMethod() {
+        return this.voiceMethod;
+    }
+
+    public final URI getVoiceUrl() {
+        return this.voiceUrl;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -350,14 +342,65 @@ public class PhoneNumber extends Resource {
 
         PhoneNumber other = (PhoneNumber) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(addressRequirements, other.addressRequirements) &&  Objects.equals(apiVersion, other.apiVersion) &&  Objects.equals(beta, other.beta) &&  Objects.equals(capabilities, other.capabilities) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(links, other.links) &&  Objects.equals(phoneNumber, other.phoneNumber) &&  Objects.equals(sid, other.sid) &&  Objects.equals(smsApplicationSid, other.smsApplicationSid) &&  Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&  Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&  Objects.equals(smsMethod, other.smsMethod) &&  Objects.equals(smsUrl, other.smsUrl) &&  Objects.equals(statusCallback, other.statusCallback) &&  Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&  Objects.equals(trunkSid, other.trunkSid) &&  Objects.equals(url, other.url) &&  Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&  Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&  Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&  Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&  Objects.equals(voiceMethod, other.voiceMethod) &&  Objects.equals(voiceUrl, other.voiceUrl)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(addressRequirements, other.addressRequirements) &&
+            Objects.equals(apiVersion, other.apiVersion) &&
+            Objects.equals(beta, other.beta) &&
+            Objects.equals(capabilities, other.capabilities) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(links, other.links) &&
+            Objects.equals(phoneNumber, other.phoneNumber) &&
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(smsApplicationSid, other.smsApplicationSid) &&
+            Objects.equals(smsFallbackMethod, other.smsFallbackMethod) &&
+            Objects.equals(smsFallbackUrl, other.smsFallbackUrl) &&
+            Objects.equals(smsMethod, other.smsMethod) &&
+            Objects.equals(smsUrl, other.smsUrl) &&
+            Objects.equals(statusCallback, other.statusCallback) &&
+            Objects.equals(statusCallbackMethod, other.statusCallbackMethod) &&
+            Objects.equals(trunkSid, other.trunkSid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(voiceApplicationSid, other.voiceApplicationSid) &&
+            Objects.equals(voiceCallerIdLookup, other.voiceCallerIdLookup) &&
+            Objects.equals(voiceFallbackMethod, other.voiceFallbackMethod) &&
+            Objects.equals(voiceFallbackUrl, other.voiceFallbackUrl) &&
+            Objects.equals(voiceMethod, other.voiceMethod) &&
+            Objects.equals(voiceUrl, other.voiceUrl)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, addressRequirements, apiVersion, beta, capabilities, dateCreated, dateUpdated, friendlyName, links, phoneNumber, sid, smsApplicationSid, smsFallbackMethod, smsFallbackUrl, smsMethod, smsUrl, statusCallback, statusCallbackMethod, trunkSid, url, voiceApplicationSid, voiceCallerIdLookup, voiceFallbackMethod, voiceFallbackUrl, voiceMethod, voiceUrl);
+        return Objects.hash(
+            accountSid,
+            addressRequirements,
+            apiVersion,
+            beta,
+            capabilities,
+            dateCreated,
+            dateUpdated,
+            friendlyName,
+            links,
+            phoneNumber,
+            sid,
+            smsApplicationSid,
+            smsFallbackMethod,
+            smsFallbackUrl,
+            smsMethod,
+            smsUrl,
+            statusCallback,
+            statusCallbackMethod,
+            trunkSid,
+            url,
+            voiceApplicationSid,
+            voiceCallerIdLookup,
+            voiceFallbackMethod,
+            voiceFallbackUrl,
+            voiceMethod,
+            voiceUrl
+        );
     }
-
-
 }
-

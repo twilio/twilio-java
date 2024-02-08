@@ -26,24 +26,22 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class QueryCreator extends Creator<Query> {
 
-
-
-public class QueryCreator extends Creator<Query>{
     private Query.LookupRequest1 lookupRequest1;
 
-    public QueryCreator() {
-    }
+    public QueryCreator() {}
 
-    public QueryCreator setLookupRequest1(final Query.LookupRequest1 lookupRequest1){
+    public QueryCreator setLookupRequest1(
+        final Query.LookupRequest1 lookupRequest1
+    ) {
         this.lookupRequest1 = lookupRequest1;
         return this;
     }
 
     @Override
-    public Query create(final TwilioRestClient client){
+    public Query create(final TwilioRestClient client) {
         String path = "/v2/batch/query";
-
 
         Request request = new Request(
             HttpMethod.POST,
@@ -54,17 +52,26 @@ public class QueryCreator extends Creator<Query>{
         addPostParams(request, client);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Query creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Query creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Query.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request, TwilioRestClient client) {
         ObjectMapper objectMapper = client.getObjectMapper();
         if (lookupRequest1 != null) {

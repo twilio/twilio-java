@@ -25,12 +25,10 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-
 import java.net.URI;
 
+public class ApplicationUpdater extends Updater<Application> {
 
-
-public class ApplicationUpdater extends Updater<Application>{
     private String pathSid;
     private String pathAccountSid;
     private String friendlyName;
@@ -50,114 +48,163 @@ public class ApplicationUpdater extends Updater<Application>{
     private URI messageStatusCallback;
     private Boolean publicApplicationConnectEnabled;
 
-    public ApplicationUpdater(final String pathSid){
+    public ApplicationUpdater(final String pathSid) {
         this.pathSid = pathSid;
     }
-    public ApplicationUpdater(final String pathAccountSid, final String pathSid){
+
+    public ApplicationUpdater(
+        final String pathAccountSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathSid = pathSid;
     }
 
-    public ApplicationUpdater setFriendlyName(final String friendlyName){
+    public ApplicationUpdater setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ApplicationUpdater setApiVersion(final String apiVersion){
+
+    public ApplicationUpdater setApiVersion(final String apiVersion) {
         this.apiVersion = apiVersion;
         return this;
     }
-    public ApplicationUpdater setVoiceUrl(final URI voiceUrl){
+
+    public ApplicationUpdater setVoiceUrl(final URI voiceUrl) {
         this.voiceUrl = voiceUrl;
         return this;
     }
 
-    public ApplicationUpdater setVoiceUrl(final String voiceUrl){
+    public ApplicationUpdater setVoiceUrl(final String voiceUrl) {
         return setVoiceUrl(Promoter.uriFromString(voiceUrl));
     }
-    public ApplicationUpdater setVoiceMethod(final HttpMethod voiceMethod){
+
+    public ApplicationUpdater setVoiceMethod(final HttpMethod voiceMethod) {
         this.voiceMethod = voiceMethod;
         return this;
     }
-    public ApplicationUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl){
+
+    public ApplicationUpdater setVoiceFallbackUrl(final URI voiceFallbackUrl) {
         this.voiceFallbackUrl = voiceFallbackUrl;
         return this;
     }
 
-    public ApplicationUpdater setVoiceFallbackUrl(final String voiceFallbackUrl){
+    public ApplicationUpdater setVoiceFallbackUrl(
+        final String voiceFallbackUrl
+    ) {
         return setVoiceFallbackUrl(Promoter.uriFromString(voiceFallbackUrl));
     }
-    public ApplicationUpdater setVoiceFallbackMethod(final HttpMethod voiceFallbackMethod){
+
+    public ApplicationUpdater setVoiceFallbackMethod(
+        final HttpMethod voiceFallbackMethod
+    ) {
         this.voiceFallbackMethod = voiceFallbackMethod;
         return this;
     }
-    public ApplicationUpdater setStatusCallback(final URI statusCallback){
+
+    public ApplicationUpdater setStatusCallback(final URI statusCallback) {
         this.statusCallback = statusCallback;
         return this;
     }
 
-    public ApplicationUpdater setStatusCallback(final String statusCallback){
+    public ApplicationUpdater setStatusCallback(final String statusCallback) {
         return setStatusCallback(Promoter.uriFromString(statusCallback));
     }
-    public ApplicationUpdater setStatusCallbackMethod(final HttpMethod statusCallbackMethod){
+
+    public ApplicationUpdater setStatusCallbackMethod(
+        final HttpMethod statusCallbackMethod
+    ) {
         this.statusCallbackMethod = statusCallbackMethod;
         return this;
     }
-    public ApplicationUpdater setVoiceCallerIdLookup(final Boolean voiceCallerIdLookup){
+
+    public ApplicationUpdater setVoiceCallerIdLookup(
+        final Boolean voiceCallerIdLookup
+    ) {
         this.voiceCallerIdLookup = voiceCallerIdLookup;
         return this;
     }
-    public ApplicationUpdater setSmsUrl(final URI smsUrl){
+
+    public ApplicationUpdater setSmsUrl(final URI smsUrl) {
         this.smsUrl = smsUrl;
         return this;
     }
 
-    public ApplicationUpdater setSmsUrl(final String smsUrl){
+    public ApplicationUpdater setSmsUrl(final String smsUrl) {
         return setSmsUrl(Promoter.uriFromString(smsUrl));
     }
-    public ApplicationUpdater setSmsMethod(final HttpMethod smsMethod){
+
+    public ApplicationUpdater setSmsMethod(final HttpMethod smsMethod) {
         this.smsMethod = smsMethod;
         return this;
     }
-    public ApplicationUpdater setSmsFallbackUrl(final URI smsFallbackUrl){
+
+    public ApplicationUpdater setSmsFallbackUrl(final URI smsFallbackUrl) {
         this.smsFallbackUrl = smsFallbackUrl;
         return this;
     }
 
-    public ApplicationUpdater setSmsFallbackUrl(final String smsFallbackUrl){
+    public ApplicationUpdater setSmsFallbackUrl(final String smsFallbackUrl) {
         return setSmsFallbackUrl(Promoter.uriFromString(smsFallbackUrl));
     }
-    public ApplicationUpdater setSmsFallbackMethod(final HttpMethod smsFallbackMethod){
+
+    public ApplicationUpdater setSmsFallbackMethod(
+        final HttpMethod smsFallbackMethod
+    ) {
         this.smsFallbackMethod = smsFallbackMethod;
         return this;
     }
-    public ApplicationUpdater setSmsStatusCallback(final URI smsStatusCallback){
+
+    public ApplicationUpdater setSmsStatusCallback(
+        final URI smsStatusCallback
+    ) {
         this.smsStatusCallback = smsStatusCallback;
         return this;
     }
 
-    public ApplicationUpdater setSmsStatusCallback(final String smsStatusCallback){
+    public ApplicationUpdater setSmsStatusCallback(
+        final String smsStatusCallback
+    ) {
         return setSmsStatusCallback(Promoter.uriFromString(smsStatusCallback));
     }
-    public ApplicationUpdater setMessageStatusCallback(final URI messageStatusCallback){
+
+    public ApplicationUpdater setMessageStatusCallback(
+        final URI messageStatusCallback
+    ) {
         this.messageStatusCallback = messageStatusCallback;
         return this;
     }
 
-    public ApplicationUpdater setMessageStatusCallback(final String messageStatusCallback){
-        return setMessageStatusCallback(Promoter.uriFromString(messageStatusCallback));
+    public ApplicationUpdater setMessageStatusCallback(
+        final String messageStatusCallback
+    ) {
+        return setMessageStatusCallback(
+            Promoter.uriFromString(messageStatusCallback)
+        );
     }
-    public ApplicationUpdater setPublicApplicationConnectEnabled(final Boolean publicApplicationConnectEnabled){
+
+    public ApplicationUpdater setPublicApplicationConnectEnabled(
+        final Boolean publicApplicationConnectEnabled
+    ) {
         this.publicApplicationConnectEnabled = publicApplicationConnectEnabled;
         return this;
     }
 
     @Override
-    public Application update(final TwilioRestClient client){
-        String path = "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json";
+    public Application update(final TwilioRestClient client) {
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Applications/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -168,81 +215,101 @@ public class ApplicationUpdater extends Updater<Application>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Application update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Application update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return Application.fromJson(response.getStream(), client.getObjectMapper());
+        return Application.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (apiVersion != null) {
             request.addPostParam("ApiVersion", apiVersion);
-    
         }
         if (voiceUrl != null) {
             request.addPostParam("VoiceUrl", voiceUrl.toString());
-    
         }
         if (voiceMethod != null) {
             request.addPostParam("VoiceMethod", voiceMethod.toString());
-    
         }
         if (voiceFallbackUrl != null) {
-            request.addPostParam("VoiceFallbackUrl", voiceFallbackUrl.toString());
-    
+            request.addPostParam(
+                "VoiceFallbackUrl",
+                voiceFallbackUrl.toString()
+            );
         }
         if (voiceFallbackMethod != null) {
-            request.addPostParam("VoiceFallbackMethod", voiceFallbackMethod.toString());
-    
+            request.addPostParam(
+                "VoiceFallbackMethod",
+                voiceFallbackMethod.toString()
+            );
         }
         if (statusCallback != null) {
             request.addPostParam("StatusCallback", statusCallback.toString());
-    
         }
         if (statusCallbackMethod != null) {
-            request.addPostParam("StatusCallbackMethod", statusCallbackMethod.toString());
-    
+            request.addPostParam(
+                "StatusCallbackMethod",
+                statusCallbackMethod.toString()
+            );
         }
         if (voiceCallerIdLookup != null) {
-            request.addPostParam("VoiceCallerIdLookup", voiceCallerIdLookup.toString());
-    
+            request.addPostParam(
+                "VoiceCallerIdLookup",
+                voiceCallerIdLookup.toString()
+            );
         }
         if (smsUrl != null) {
             request.addPostParam("SmsUrl", smsUrl.toString());
-    
         }
         if (smsMethod != null) {
             request.addPostParam("SmsMethod", smsMethod.toString());
-    
         }
         if (smsFallbackUrl != null) {
             request.addPostParam("SmsFallbackUrl", smsFallbackUrl.toString());
-    
         }
         if (smsFallbackMethod != null) {
-            request.addPostParam("SmsFallbackMethod", smsFallbackMethod.toString());
-    
+            request.addPostParam(
+                "SmsFallbackMethod",
+                smsFallbackMethod.toString()
+            );
         }
         if (smsStatusCallback != null) {
-            request.addPostParam("SmsStatusCallback", smsStatusCallback.toString());
-    
+            request.addPostParam(
+                "SmsStatusCallback",
+                smsStatusCallback.toString()
+            );
         }
         if (messageStatusCallback != null) {
-            request.addPostParam("MessageStatusCallback", messageStatusCallback.toString());
-    
+            request.addPostParam(
+                "MessageStatusCallback",
+                messageStatusCallback.toString()
+            );
         }
         if (publicApplicationConnectEnabled != null) {
-            request.addPostParam("PublicApplicationConnectEnabled", publicApplicationConnectEnabled.toString());
-    
+            request.addPostParam(
+                "PublicApplicationConnectEnabled",
+                publicApplicationConnectEnabled.toString()
+            );
         }
     }
 }

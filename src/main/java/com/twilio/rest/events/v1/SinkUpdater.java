@@ -25,29 +25,31 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class SinkUpdater extends Updater<Sink> {
 
-
-
-public class SinkUpdater extends Updater<Sink>{
     private String pathSid;
     private String description;
 
-    public SinkUpdater(final String pathSid, final String description){
+    public SinkUpdater(final String pathSid, final String description) {
         this.pathSid = pathSid;
         this.description = description;
     }
 
-    public SinkUpdater setDescription(final String description){
+    public SinkUpdater setDescription(final String description) {
         this.description = description;
         return this;
     }
 
     @Override
-    public Sink update(final TwilioRestClient client){
+    public Sink update(final TwilioRestClient client) {
         String path = "/v1/Sinks/{Sid}";
 
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
-        path = path.replace("{"+"Description"+"}", this.description.toString());
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
+        path =
+            path.replace(
+                "{" + "Description" + "}",
+                this.description.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -58,21 +60,29 @@ public class SinkUpdater extends Updater<Sink>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Sink update failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Sink update failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Sink.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (description != null) {
             request.addPostParam("Description", description);
-    
         }
     }
 }

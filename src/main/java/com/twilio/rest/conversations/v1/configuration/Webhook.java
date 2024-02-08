@@ -23,44 +23,40 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.Promoter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Webhook extends Resource {
+
     private static final long serialVersionUID = 64791700237770L;
 
-    
-
-    public static WebhookFetcher fetcher(){
+    public static WebhookFetcher fetcher() {
         return new WebhookFetcher();
     }
 
-    public static WebhookUpdater updater(){
+    public static WebhookUpdater updater() {
         return new WebhookUpdater();
     }
 
     /**
-    * Converts a JSON String into a Webhook object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Webhook object represented by the provided JSON
-    */
-    public static Webhook fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Webhook object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -72,14 +68,17 @@ public class Webhook extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Webhook object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Webhook object represented by the provided JSON
-    */
-    public static Webhook fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Webhook object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Webhook object represented by the provided JSON
+     */
+    public static Webhook fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Webhook.class);
@@ -109,6 +108,7 @@ public class Webhook extends Resource {
             return Promoter.enumFromString(value, Method.values());
         }
     }
+
     public enum Target {
         WEBHOOK("webhook"),
         FLEX("flex");
@@ -139,26 +139,13 @@ public class Webhook extends Resource {
 
     @JsonCreator
     private Webhook(
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("method")
-        final Webhook.Method method,
-
-        @JsonProperty("filters")
-        final List<String> filters,
-
-        @JsonProperty("pre_webhook_url")
-        final String preWebhookUrl,
-
-        @JsonProperty("post_webhook_url")
-        final String postWebhookUrl,
-
-        @JsonProperty("target")
-        final Webhook.Target target,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("method") final Webhook.Method method,
+        @JsonProperty("filters") final List<String> filters,
+        @JsonProperty("pre_webhook_url") final String preWebhookUrl,
+        @JsonProperty("post_webhook_url") final String postWebhookUrl,
+        @JsonProperty("target") final Webhook.Target target,
+        @JsonProperty("url") final URI url
     ) {
         this.accountSid = accountSid;
         this.method = method;
@@ -169,31 +156,37 @@ public class Webhook extends Resource {
         this.url = url;
     }
 
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final Webhook.Method getMethod() {
-            return this.method;
-        }
-        public final List<String> getFilters() {
-            return this.filters;
-        }
-        public final String getPreWebhookUrl() {
-            return this.preWebhookUrl;
-        }
-        public final String getPostWebhookUrl() {
-            return this.postWebhookUrl;
-        }
-        public final Webhook.Target getTarget() {
-            return this.target;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final Webhook.Method getMethod() {
+        return this.method;
+    }
+
+    public final List<String> getFilters() {
+        return this.filters;
+    }
+
+    public final String getPreWebhookUrl() {
+        return this.preWebhookUrl;
+    }
+
+    public final String getPostWebhookUrl() {
+        return this.postWebhookUrl;
+    }
+
+    public final Webhook.Target getTarget() {
+        return this.target;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -203,14 +196,27 @@ public class Webhook extends Resource {
 
         Webhook other = (Webhook) o;
 
-        return Objects.equals(accountSid, other.accountSid) &&  Objects.equals(method, other.method) &&  Objects.equals(filters, other.filters) &&  Objects.equals(preWebhookUrl, other.preWebhookUrl) &&  Objects.equals(postWebhookUrl, other.postWebhookUrl) &&  Objects.equals(target, other.target) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(method, other.method) &&
+            Objects.equals(filters, other.filters) &&
+            Objects.equals(preWebhookUrl, other.preWebhookUrl) &&
+            Objects.equals(postWebhookUrl, other.postWebhookUrl) &&
+            Objects.equals(target, other.target) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(accountSid, method, filters, preWebhookUrl, postWebhookUrl, target, url);
+        return Objects.hash(
+            accountSid,
+            method,
+            filters,
+            preWebhookUrl,
+            postWebhookUrl,
+            target,
+            url
+        );
     }
-
-
 }
-

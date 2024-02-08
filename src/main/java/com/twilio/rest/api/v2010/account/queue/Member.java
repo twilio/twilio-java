@@ -23,57 +23,80 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Member extends Resource {
+
     private static final long serialVersionUID = 196464556782918L;
 
-    
-
-    public static MemberFetcher fetcher(final String pathQueueSid, final String pathCallSid){
+    public static MemberFetcher fetcher(
+        final String pathQueueSid,
+        final String pathCallSid
+    ) {
         return new MemberFetcher(pathQueueSid, pathCallSid);
     }
-    public static MemberFetcher fetcher(final String pathAccountSid, final String pathQueueSid, final String pathCallSid){
+
+    public static MemberFetcher fetcher(
+        final String pathAccountSid,
+        final String pathQueueSid,
+        final String pathCallSid
+    ) {
         return new MemberFetcher(pathAccountSid, pathQueueSid, pathCallSid);
     }
 
-    public static MemberReader reader(final String pathQueueSid){
+    public static MemberReader reader(final String pathQueueSid) {
         return new MemberReader(pathQueueSid);
     }
-    public static MemberReader reader(final String pathAccountSid, final String pathQueueSid){
+
+    public static MemberReader reader(
+        final String pathAccountSid,
+        final String pathQueueSid
+    ) {
         return new MemberReader(pathAccountSid, pathQueueSid);
     }
 
-    public static MemberUpdater updater(final String pathQueueSid, final String pathCallSid, final URI url){
+    public static MemberUpdater updater(
+        final String pathQueueSid,
+        final String pathCallSid,
+        final URI url
+    ) {
         return new MemberUpdater(pathQueueSid, pathCallSid, url);
     }
-    public static MemberUpdater updater(final String pathAccountSid, final String pathQueueSid, final String pathCallSid, final URI url){
-        return new MemberUpdater(pathAccountSid, pathQueueSid, pathCallSid, url);
+
+    public static MemberUpdater updater(
+        final String pathAccountSid,
+        final String pathQueueSid,
+        final String pathCallSid,
+        final URI url
+    ) {
+        return new MemberUpdater(
+            pathAccountSid,
+            pathQueueSid,
+            pathCallSid,
+            url
+        );
     }
 
     /**
-    * Converts a JSON String into a Member object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Member object represented by the provided JSON
-    */
-    public static Member fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Member object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Member object represented by the provided JSON
+     */
+    public static Member fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Member.class);
@@ -85,14 +108,17 @@ public class Member extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Member object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Member object represented by the provided JSON
-    */
-    public static Member fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Member object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Member object represented by the provided JSON
+     */
+    public static Member fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Member.class);
@@ -102,7 +128,6 @@ public class Member extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String callSid;
     private final ZonedDateTime dateEnqueued;
@@ -113,54 +138,49 @@ public class Member extends Resource {
 
     @JsonCreator
     private Member(
-        @JsonProperty("call_sid")
-        final String callSid,
-
-        @JsonProperty("date_enqueued")
-        final String dateEnqueued,
-
-        @JsonProperty("position")
-        final Integer position,
-
-        @JsonProperty("uri")
-        final String uri,
-
-        @JsonProperty("wait_time")
-        final Integer waitTime,
-
-        @JsonProperty("queue_sid")
-        final String queueSid
+        @JsonProperty("call_sid") final String callSid,
+        @JsonProperty("date_enqueued") final String dateEnqueued,
+        @JsonProperty("position") final Integer position,
+        @JsonProperty("uri") final String uri,
+        @JsonProperty("wait_time") final Integer waitTime,
+        @JsonProperty("queue_sid") final String queueSid
     ) {
         this.callSid = callSid;
-        this.dateEnqueued = DateConverter.rfc2822DateTimeFromString(dateEnqueued);
+        this.dateEnqueued =
+            DateConverter.rfc2822DateTimeFromString(dateEnqueued);
         this.position = position;
         this.uri = uri;
         this.waitTime = waitTime;
         this.queueSid = queueSid;
     }
 
-        public final String getCallSid() {
-            return this.callSid;
-        }
-        public final ZonedDateTime getDateEnqueued() {
-            return this.dateEnqueued;
-        }
-        public final Integer getPosition() {
-            return this.position;
-        }
-        public final String getUri() {
-            return this.uri;
-        }
-        public final Integer getWaitTime() {
-            return this.waitTime;
-        }
-        public final String getQueueSid() {
-            return this.queueSid;
-        }
+    public final String getCallSid() {
+        return this.callSid;
+    }
+
+    public final ZonedDateTime getDateEnqueued() {
+        return this.dateEnqueued;
+    }
+
+    public final Integer getPosition() {
+        return this.position;
+    }
+
+    public final String getUri() {
+        return this.uri;
+    }
+
+    public final Integer getWaitTime() {
+        return this.waitTime;
+    }
+
+    public final String getQueueSid() {
+        return this.queueSid;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -170,14 +190,25 @@ public class Member extends Resource {
 
         Member other = (Member) o;
 
-        return Objects.equals(callSid, other.callSid) &&  Objects.equals(dateEnqueued, other.dateEnqueued) &&  Objects.equals(position, other.position) &&  Objects.equals(uri, other.uri) &&  Objects.equals(waitTime, other.waitTime) &&  Objects.equals(queueSid, other.queueSid)  ;
+        return (
+            Objects.equals(callSid, other.callSid) &&
+            Objects.equals(dateEnqueued, other.dateEnqueued) &&
+            Objects.equals(position, other.position) &&
+            Objects.equals(uri, other.uri) &&
+            Objects.equals(waitTime, other.waitTime) &&
+            Objects.equals(queueSid, other.queueSid)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(callSid, dateEnqueued, position, uri, waitTime, queueSid);
+        return Objects.hash(
+            callSid,
+            dateEnqueued,
+            position,
+            uri,
+            waitTime,
+            queueSid
+        );
     }
-
-
 }
-

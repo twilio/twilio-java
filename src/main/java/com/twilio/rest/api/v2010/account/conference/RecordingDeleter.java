@@ -24,32 +24,50 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
 public class RecordingDeleter extends Deleter<Recording> {
+
     private String pathConferenceSid;
     private String pathSid;
     private String pathAccountSid;
 
-    public RecordingDeleter(final String pathConferenceSid, final String pathSid){
+    public RecordingDeleter(
+        final String pathConferenceSid,
+        final String pathSid
+    ) {
         this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
     }
-    public RecordingDeleter(final String pathAccountSid, final String pathConferenceSid, final String pathSid){
+
+    public RecordingDeleter(
+        final String pathAccountSid,
+        final String pathConferenceSid,
+        final String pathSid
+    ) {
         this.pathAccountSid = pathAccountSid;
         this.pathConferenceSid = pathConferenceSid;
         this.pathSid = pathSid;
     }
 
-
     @Override
     public boolean delete(final TwilioRestClient client) {
-        String path = "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
+        String path =
+            "/2010-04-01/Accounts/{AccountSid}/Conferences/{ConferenceSid}/Recordings/{Sid}.json";
 
-        this.pathAccountSid = this.pathAccountSid == null ? client.getAccountSid() : this.pathAccountSid;
-        path = path.replace("{"+"AccountSid"+"}", this.pathAccountSid.toString());
-        path = path.replace("{"+"ConferenceSid"+"}", this.pathConferenceSid.toString());
-        path = path.replace("{"+"Sid"+"}", this.pathSid.toString());
+        this.pathAccountSid =
+            this.pathAccountSid == null
+                ? client.getAccountSid()
+                : this.pathAccountSid;
+        path =
+            path.replace(
+                "{" + "AccountSid" + "}",
+                this.pathAccountSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ConferenceSid" + "}",
+                this.pathConferenceSid.toString()
+            );
+        path = path.replace("{" + "Sid" + "}", this.pathSid.toString());
 
         Request request = new Request(
             HttpMethod.DELETE,
@@ -59,11 +77,19 @@ public class RecordingDeleter extends Deleter<Recording> {
         Response response = client.request(request);
 
         if (response == null) {
-            throw new ApiConnectionException("Recording delete failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Recording delete failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }

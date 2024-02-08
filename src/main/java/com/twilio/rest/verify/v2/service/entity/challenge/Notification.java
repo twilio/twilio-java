@@ -23,39 +23,43 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Notification extends Resource {
+
     private static final long serialVersionUID = 216794200802882L;
 
-    
-
-    public static NotificationCreator creator(final String pathServiceSid, final String pathIdentity, final String pathChallengeSid){
-        return new NotificationCreator(pathServiceSid, pathIdentity, pathChallengeSid);
+    public static NotificationCreator creator(
+        final String pathServiceSid,
+        final String pathIdentity,
+        final String pathChallengeSid
+    ) {
+        return new NotificationCreator(
+            pathServiceSid,
+            pathIdentity,
+            pathChallengeSid
+        );
     }
 
     /**
-    * Converts a JSON String into a Notification object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Notification object represented by the provided JSON
-    */
-    public static Notification fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Notification object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Notification object represented by the provided JSON
+     */
+    public static Notification fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -67,14 +71,17 @@ public class Notification extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Notification object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Notification object represented by the provided JSON
-    */
-    public static Notification fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Notification object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Notification object represented by the provided JSON
+     */
+    public static Notification fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Notification.class);
@@ -84,7 +91,6 @@ public class Notification extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String accountSid;
@@ -98,32 +104,15 @@ public class Notification extends Resource {
 
     @JsonCreator
     private Notification(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("service_sid")
-        final String serviceSid,
-
-        @JsonProperty("entity_sid")
-        final String entitySid,
-
-        @JsonProperty("identity")
-        final String identity,
-
-        @JsonProperty("challenge_sid")
-        final String challengeSid,
-
-        @JsonProperty("priority")
-        final String priority,
-
-        @JsonProperty("ttl")
-        final Integer ttl,
-
-        @JsonProperty("date_created")
-        final String dateCreated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("service_sid") final String serviceSid,
+        @JsonProperty("entity_sid") final String entitySid,
+        @JsonProperty("identity") final String identity,
+        @JsonProperty("challenge_sid") final String challengeSid,
+        @JsonProperty("priority") final String priority,
+        @JsonProperty("ttl") final Integer ttl,
+        @JsonProperty("date_created") final String dateCreated
     ) {
         this.sid = sid;
         this.accountSid = accountSid;
@@ -136,37 +125,45 @@ public class Notification extends Resource {
         this.dateCreated = DateConverter.iso8601DateTimeFromString(dateCreated);
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getServiceSid() {
-            return this.serviceSid;
-        }
-        public final String getEntitySid() {
-            return this.entitySid;
-        }
-        public final String getIdentity() {
-            return this.identity;
-        }
-        public final String getChallengeSid() {
-            return this.challengeSid;
-        }
-        public final String getPriority() {
-            return this.priority;
-        }
-        public final Integer getTtl() {
-            return this.ttl;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getServiceSid() {
+        return this.serviceSid;
+    }
+
+    public final String getEntitySid() {
+        return this.entitySid;
+    }
+
+    public final String getIdentity() {
+        return this.identity;
+    }
+
+    public final String getChallengeSid() {
+        return this.challengeSid;
+    }
+
+    public final String getPriority() {
+        return this.priority;
+    }
+
+    public final Integer getTtl() {
+        return this.ttl;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -176,14 +173,31 @@ public class Notification extends Resource {
 
         Notification other = (Notification) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(serviceSid, other.serviceSid) &&  Objects.equals(entitySid, other.entitySid) &&  Objects.equals(identity, other.identity) &&  Objects.equals(challengeSid, other.challengeSid) &&  Objects.equals(priority, other.priority) &&  Objects.equals(ttl, other.ttl) &&  Objects.equals(dateCreated, other.dateCreated)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(serviceSid, other.serviceSid) &&
+            Objects.equals(entitySid, other.entitySid) &&
+            Objects.equals(identity, other.identity) &&
+            Objects.equals(challengeSid, other.challengeSid) &&
+            Objects.equals(priority, other.priority) &&
+            Objects.equals(ttl, other.ttl) &&
+            Objects.equals(dateCreated, other.dateCreated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, accountSid, serviceSid, entitySid, identity, challengeSid, priority, ttl, dateCreated);
+        return Objects.hash(
+            sid,
+            accountSid,
+            serviceSid,
+            entitySid,
+            identity,
+            challengeSid,
+            priority,
+            ttl,
+            dateCreated
+        );
     }
-
-
 }
-

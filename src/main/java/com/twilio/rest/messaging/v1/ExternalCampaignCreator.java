@@ -25,33 +25,42 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class ExternalCampaignCreator extends Creator<ExternalCampaign> {
 
-
-
-public class ExternalCampaignCreator extends Creator<ExternalCampaign>{
     private String campaignId;
     private String messagingServiceSid;
 
-    public ExternalCampaignCreator(final String campaignId, final String messagingServiceSid) {
+    public ExternalCampaignCreator(
+        final String campaignId,
+        final String messagingServiceSid
+    ) {
         this.campaignId = campaignId;
         this.messagingServiceSid = messagingServiceSid;
     }
 
-    public ExternalCampaignCreator setCampaignId(final String campaignId){
+    public ExternalCampaignCreator setCampaignId(final String campaignId) {
         this.campaignId = campaignId;
         return this;
     }
-    public ExternalCampaignCreator setMessagingServiceSid(final String messagingServiceSid){
+
+    public ExternalCampaignCreator setMessagingServiceSid(
+        final String messagingServiceSid
+    ) {
         this.messagingServiceSid = messagingServiceSid;
         return this;
     }
 
     @Override
-    public ExternalCampaign create(final TwilioRestClient client){
+    public ExternalCampaign create(final TwilioRestClient client) {
         String path = "/v1/Services/PreregisteredUsa2p";
 
-        path = path.replace("{"+"CampaignId"+"}", this.campaignId.toString());
-        path = path.replace("{"+"MessagingServiceSid"+"}", this.messagingServiceSid.toString());
+        path =
+            path.replace("{" + "CampaignId" + "}", this.campaignId.toString());
+        path =
+            path.replace(
+                "{" + "MessagingServiceSid" + "}",
+                this.messagingServiceSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -62,25 +71,35 @@ public class ExternalCampaignCreator extends Creator<ExternalCampaign>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("ExternalCampaign creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ExternalCampaign creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ExternalCampaign.fromJson(response.getStream(), client.getObjectMapper());
+        return ExternalCampaign.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (campaignId != null) {
             request.addPostParam("CampaignId", campaignId);
-    
         }
         if (messagingServiceSid != null) {
             request.addPostParam("MessagingServiceSid", messagingServiceSid);
-    
         }
     }
 }

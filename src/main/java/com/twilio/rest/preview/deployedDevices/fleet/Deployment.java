@@ -23,56 +23,61 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.converter.DateConverter;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
 import java.time.ZonedDateTime;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Deployment extends Resource {
+
     private static final long serialVersionUID = 184203517947226L;
 
-    
-
-    public static DeploymentCreator creator(final String pathFleetSid){
+    public static DeploymentCreator creator(final String pathFleetSid) {
         return new DeploymentCreator(pathFleetSid);
     }
 
-    public static DeploymentDeleter deleter(final String pathFleetSid, final String pathSid){
+    public static DeploymentDeleter deleter(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new DeploymentDeleter(pathFleetSid, pathSid);
     }
 
-    public static DeploymentFetcher fetcher(final String pathFleetSid, final String pathSid){
+    public static DeploymentFetcher fetcher(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new DeploymentFetcher(pathFleetSid, pathSid);
     }
 
-    public static DeploymentReader reader(final String pathFleetSid){
+    public static DeploymentReader reader(final String pathFleetSid) {
         return new DeploymentReader(pathFleetSid);
     }
 
-    public static DeploymentUpdater updater(final String pathFleetSid, final String pathSid){
+    public static DeploymentUpdater updater(
+        final String pathFleetSid,
+        final String pathSid
+    ) {
         return new DeploymentUpdater(pathFleetSid, pathSid);
     }
 
     /**
-    * Converts a JSON String into a Deployment object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Deployment object represented by the provided JSON
-    */
-    public static Deployment fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Deployment object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Deployment object represented by the provided JSON
+     */
+    public static Deployment fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Deployment.class);
@@ -84,14 +89,17 @@ public class Deployment extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Deployment object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Deployment object represented by the provided JSON
-    */
-    public static Deployment fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Deployment object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Deployment object represented by the provided JSON
+     */
+    public static Deployment fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Deployment.class);
@@ -101,7 +109,6 @@ public class Deployment extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final URI url;
@@ -114,29 +121,14 @@ public class Deployment extends Resource {
 
     @JsonCreator
     private Deployment(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("fleet_sid")
-        final String fleetSid,
-
-        @JsonProperty("account_sid")
-        final String accountSid,
-
-        @JsonProperty("sync_service_sid")
-        final String syncServiceSid,
-
-        @JsonProperty("date_created")
-        final String dateCreated,
-
-        @JsonProperty("date_updated")
-        final String dateUpdated
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("fleet_sid") final String fleetSid,
+        @JsonProperty("account_sid") final String accountSid,
+        @JsonProperty("sync_service_sid") final String syncServiceSid,
+        @JsonProperty("date_created") final String dateCreated,
+        @JsonProperty("date_updated") final String dateUpdated
     ) {
         this.sid = sid;
         this.url = url;
@@ -148,34 +140,41 @@ public class Deployment extends Resource {
         this.dateUpdated = DateConverter.iso8601DateTimeFromString(dateUpdated);
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final String getFleetSid() {
-            return this.fleetSid;
-        }
-        public final String getAccountSid() {
-            return this.accountSid;
-        }
-        public final String getSyncServiceSid() {
-            return this.syncServiceSid;
-        }
-        public final ZonedDateTime getDateCreated() {
-            return this.dateCreated;
-        }
-        public final ZonedDateTime getDateUpdated() {
-            return this.dateUpdated;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final String getFleetSid() {
+        return this.fleetSid;
+    }
+
+    public final String getAccountSid() {
+        return this.accountSid;
+    }
+
+    public final String getSyncServiceSid() {
+        return this.syncServiceSid;
+    }
+
+    public final ZonedDateTime getDateCreated() {
+        return this.dateCreated;
+    }
+
+    public final ZonedDateTime getDateUpdated() {
+        return this.dateUpdated;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -185,14 +184,29 @@ public class Deployment extends Resource {
 
         Deployment other = (Deployment) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(url, other.url) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(fleetSid, other.fleetSid) &&  Objects.equals(accountSid, other.accountSid) &&  Objects.equals(syncServiceSid, other.syncServiceSid) &&  Objects.equals(dateCreated, other.dateCreated) &&  Objects.equals(dateUpdated, other.dateUpdated)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(fleetSid, other.fleetSid) &&
+            Objects.equals(accountSid, other.accountSid) &&
+            Objects.equals(syncServiceSid, other.syncServiceSid) &&
+            Objects.equals(dateCreated, other.dateCreated) &&
+            Objects.equals(dateUpdated, other.dateUpdated)
+        );
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sid, url, friendlyName, fleetSid, accountSid, syncServiceSid, dateCreated, dateUpdated);
+        return Objects.hash(
+            sid,
+            url,
+            friendlyName,
+            fleetSid,
+            accountSid,
+            syncServiceSid,
+            dateCreated,
+            dateUpdated
+        );
     }
-
-
 }
-

@@ -25,10 +25,8 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class DeviceCreator extends Creator<Device> {
 
-
-
-public class DeviceCreator extends Creator<Device>{
     private String pathFleetSid;
     private String uniqueName;
     private String friendlyName;
@@ -40,32 +38,37 @@ public class DeviceCreator extends Creator<Device>{
         this.pathFleetSid = pathFleetSid;
     }
 
-    public DeviceCreator setUniqueName(final String uniqueName){
+    public DeviceCreator setUniqueName(final String uniqueName) {
         this.uniqueName = uniqueName;
         return this;
     }
-    public DeviceCreator setFriendlyName(final String friendlyName){
+
+    public DeviceCreator setFriendlyName(final String friendlyName) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public DeviceCreator setIdentity(final String identity){
+
+    public DeviceCreator setIdentity(final String identity) {
         this.identity = identity;
         return this;
     }
-    public DeviceCreator setDeploymentSid(final String deploymentSid){
+
+    public DeviceCreator setDeploymentSid(final String deploymentSid) {
         this.deploymentSid = deploymentSid;
         return this;
     }
-    public DeviceCreator setEnabled(final Boolean enabled){
+
+    public DeviceCreator setEnabled(final Boolean enabled) {
         this.enabled = enabled;
         return this;
     }
 
     @Override
-    public Device create(final TwilioRestClient client){
+    public Device create(final TwilioRestClient client) {
         String path = "/DeployedDevices/Fleets/{FleetSid}/Devices";
 
-        path = path.replace("{"+"FleetSid"+"}", this.pathFleetSid.toString());
+        path =
+            path.replace("{" + "FleetSid" + "}", this.pathFleetSid.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -76,37 +79,41 @@ public class DeviceCreator extends Creator<Device>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("Device creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "Device creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
         return Device.fromJson(response.getStream(), client.getObjectMapper());
     }
+
     private void addPostParams(final Request request) {
         if (uniqueName != null) {
             request.addPostParam("UniqueName", uniqueName);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (identity != null) {
             request.addPostParam("Identity", identity);
-    
         }
         if (deploymentSid != null) {
             request.addPostParam("DeploymentSid", deploymentSid);
-    
         }
         if (enabled != null) {
             request.addPostParam("Enabled", enabled.toString());
-    
         }
     }
 }

@@ -25,57 +25,81 @@ import com.twilio.http.Request;
 import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
-import java.util.List;
 import java.net.URI;
-
+import java.net.URI;
+import java.util.List;
 import java.util.List;
 
+public class MessageInteractionCreator extends Creator<MessageInteraction> {
 
-import java.net.URI;
-
-public class MessageInteractionCreator extends Creator<MessageInteraction>{
     private String pathServiceSid;
     private String pathSessionSid;
     private String pathParticipantSid;
     private String body;
     private List<URI> mediaUrl;
 
-    public MessageInteractionCreator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final String body) {
+    public MessageInteractionCreator(
+        final String pathServiceSid,
+        final String pathSessionSid,
+        final String pathParticipantSid,
+        final String body
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
         this.pathParticipantSid = pathParticipantSid;
         this.body = body;
     }
-    public MessageInteractionCreator(final String pathServiceSid, final String pathSessionSid, final String pathParticipantSid, final List<URI> mediaUrl) {
+
+    public MessageInteractionCreator(
+        final String pathServiceSid,
+        final String pathSessionSid,
+        final String pathParticipantSid,
+        final List<URI> mediaUrl
+    ) {
         this.pathServiceSid = pathServiceSid;
         this.pathSessionSid = pathSessionSid;
         this.pathParticipantSid = pathParticipantSid;
         this.mediaUrl = mediaUrl;
     }
 
-    public MessageInteractionCreator setBody(final String body){
+    public MessageInteractionCreator setBody(final String body) {
         this.body = body;
         return this;
     }
-    public MessageInteractionCreator setMediaUrl(final List<URI> mediaUrl){
+
+    public MessageInteractionCreator setMediaUrl(final List<URI> mediaUrl) {
         this.mediaUrl = mediaUrl;
         return this;
     }
-    public MessageInteractionCreator setMediaUrl(final URI mediaUrl){
+
+    public MessageInteractionCreator setMediaUrl(final URI mediaUrl) {
         return setMediaUrl(Promoter.listOfOne(mediaUrl));
     }
 
-    public MessageInteractionCreator setMediaUrl(final String mediaUrl){
+    public MessageInteractionCreator setMediaUrl(final String mediaUrl) {
         return setMediaUrl(Promoter.uriFromString(mediaUrl));
     }
 
     @Override
-    public MessageInteraction create(final TwilioRestClient client){
-        String path = "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
+    public MessageInteraction create(final TwilioRestClient client) {
+        String path =
+            "/v1/Services/{ServiceSid}/Sessions/{SessionSid}/Participants/{ParticipantSid}/MessageInteractions";
 
-        path = path.replace("{"+"ServiceSid"+"}", this.pathServiceSid.toString());
-        path = path.replace("{"+"SessionSid"+"}", this.pathSessionSid.toString());
-        path = path.replace("{"+"ParticipantSid"+"}", this.pathParticipantSid.toString());
+        path =
+            path.replace(
+                "{" + "ServiceSid" + "}",
+                this.pathServiceSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "SessionSid" + "}",
+                this.pathSessionSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "ParticipantSid" + "}",
+                this.pathParticipantSid.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -86,27 +110,37 @@ public class MessageInteractionCreator extends Creator<MessageInteraction>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("MessageInteraction creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "MessageInteraction creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return MessageInteraction.fromJson(response.getStream(), client.getObjectMapper());
+        return MessageInteraction.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (body != null) {
             request.addPostParam("Body", body);
-    
         }
         if (mediaUrl != null) {
             for (URI prop : mediaUrl) {
                 request.addPostParam("MediaUrl", prop.toString());
             }
-    
         }
     }
 }

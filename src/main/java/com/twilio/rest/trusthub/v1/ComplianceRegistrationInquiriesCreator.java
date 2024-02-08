@@ -25,10 +25,9 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class ComplianceRegistrationInquiriesCreator
+    extends Creator<ComplianceRegistrationInquiries> {
 
-
-
-public class ComplianceRegistrationInquiriesCreator extends Creator<ComplianceRegistrationInquiries>{
     private ComplianceRegistrationInquiries.EndUserType endUserType;
     private ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType;
     private ComplianceRegistrationInquiries.BusinessIdentityType businessIdentityType;
@@ -60,138 +59,242 @@ public class ComplianceRegistrationInquiriesCreator extends Creator<ComplianceRe
     private String fileName;
     private String _file;
 
-    public ComplianceRegistrationInquiriesCreator(final ComplianceRegistrationInquiries.EndUserType endUserType, final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType) {
+    public ComplianceRegistrationInquiriesCreator(
+        final ComplianceRegistrationInquiries.EndUserType endUserType,
+        final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType
+    ) {
         this.endUserType = endUserType;
         this.phoneNumberType = phoneNumberType;
     }
 
-    public ComplianceRegistrationInquiriesCreator setEndUserType(final ComplianceRegistrationInquiries.EndUserType endUserType){
+    public ComplianceRegistrationInquiriesCreator setEndUserType(
+        final ComplianceRegistrationInquiries.EndUserType endUserType
+    ) {
         this.endUserType = endUserType;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setPhoneNumberType(final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType){
+
+    public ComplianceRegistrationInquiriesCreator setPhoneNumberType(
+        final ComplianceRegistrationInquiries.PhoneNumberType phoneNumberType
+    ) {
         this.phoneNumberType = phoneNumberType;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setBusinessIdentityType(final ComplianceRegistrationInquiries.BusinessIdentityType businessIdentityType){
+
+    public ComplianceRegistrationInquiriesCreator setBusinessIdentityType(
+        final ComplianceRegistrationInquiries.BusinessIdentityType businessIdentityType
+    ) {
         this.businessIdentityType = businessIdentityType;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationAuthority(final String businessRegistrationAuthority){
+
+    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationAuthority(
+        final String businessRegistrationAuthority
+    ) {
         this.businessRegistrationAuthority = businessRegistrationAuthority;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setBusinessLegalName(final String businessLegalName){
+
+    public ComplianceRegistrationInquiriesCreator setBusinessLegalName(
+        final String businessLegalName
+    ) {
         this.businessLegalName = businessLegalName;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setNotificationEmail(final String notificationEmail){
+
+    public ComplianceRegistrationInquiriesCreator setNotificationEmail(
+        final String notificationEmail
+    ) {
         this.notificationEmail = notificationEmail;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAcceptedNotificationReceipt(final Boolean acceptedNotificationReceipt){
+
+    public ComplianceRegistrationInquiriesCreator setAcceptedNotificationReceipt(
+        final Boolean acceptedNotificationReceipt
+    ) {
         this.acceptedNotificationReceipt = acceptedNotificationReceipt;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationNumber(final String businessRegistrationNumber){
+
+    public ComplianceRegistrationInquiriesCreator setBusinessRegistrationNumber(
+        final String businessRegistrationNumber
+    ) {
         this.businessRegistrationNumber = businessRegistrationNumber;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setBusinessWebsiteUrl(final String businessWebsiteUrl){
+
+    public ComplianceRegistrationInquiriesCreator setBusinessWebsiteUrl(
+        final String businessWebsiteUrl
+    ) {
         this.businessWebsiteUrl = businessWebsiteUrl;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setFriendlyName(final String friendlyName){
+
+    public ComplianceRegistrationInquiriesCreator setFriendlyName(
+        final String friendlyName
+    ) {
         this.friendlyName = friendlyName;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1FirstName(final String authorizedRepresentative1FirstName){
-        this.authorizedRepresentative1FirstName = authorizedRepresentative1FirstName;
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1FirstName(
+        final String authorizedRepresentative1FirstName
+    ) {
+        this.authorizedRepresentative1FirstName =
+            authorizedRepresentative1FirstName;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1LastName(final String authorizedRepresentative1LastName){
-        this.authorizedRepresentative1LastName = authorizedRepresentative1LastName;
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1LastName(
+        final String authorizedRepresentative1LastName
+    ) {
+        this.authorizedRepresentative1LastName =
+            authorizedRepresentative1LastName;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Phone(final String authorizedRepresentative1Phone){
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Phone(
+        final String authorizedRepresentative1Phone
+    ) {
         this.authorizedRepresentative1Phone = authorizedRepresentative1Phone;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Email(final String authorizedRepresentative1Email){
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1Email(
+        final String authorizedRepresentative1Email
+    ) {
         this.authorizedRepresentative1Email = authorizedRepresentative1Email;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1DateOfBirth(final String authorizedRepresentative1DateOfBirth){
-        this.authorizedRepresentative1DateOfBirth = authorizedRepresentative1DateOfBirth;
+
+    public ComplianceRegistrationInquiriesCreator setAuthorizedRepresentative1DateOfBirth(
+        final String authorizedRepresentative1DateOfBirth
+    ) {
+        this.authorizedRepresentative1DateOfBirth =
+            authorizedRepresentative1DateOfBirth;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAddressStreet(final String addressStreet){
+
+    public ComplianceRegistrationInquiriesCreator setAddressStreet(
+        final String addressStreet
+    ) {
         this.addressStreet = addressStreet;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAddressStreetSecondary(final String addressStreetSecondary){
+
+    public ComplianceRegistrationInquiriesCreator setAddressStreetSecondary(
+        final String addressStreetSecondary
+    ) {
         this.addressStreetSecondary = addressStreetSecondary;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAddressCity(final String addressCity){
+
+    public ComplianceRegistrationInquiriesCreator setAddressCity(
+        final String addressCity
+    ) {
         this.addressCity = addressCity;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAddressSubdivision(final String addressSubdivision){
+
+    public ComplianceRegistrationInquiriesCreator setAddressSubdivision(
+        final String addressSubdivision
+    ) {
         this.addressSubdivision = addressSubdivision;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAddressPostalCode(final String addressPostalCode){
+
+    public ComplianceRegistrationInquiriesCreator setAddressPostalCode(
+        final String addressPostalCode
+    ) {
         this.addressPostalCode = addressPostalCode;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setAddressCountryCode(final String addressCountryCode){
+
+    public ComplianceRegistrationInquiriesCreator setAddressCountryCode(
+        final String addressCountryCode
+    ) {
         this.addressCountryCode = addressCountryCode;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreet(final String emergencyAddressStreet){
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreet(
+        final String emergencyAddressStreet
+    ) {
         this.emergencyAddressStreet = emergencyAddressStreet;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreetSecondary(final String emergencyAddressStreetSecondary){
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressStreetSecondary(
+        final String emergencyAddressStreetSecondary
+    ) {
         this.emergencyAddressStreetSecondary = emergencyAddressStreetSecondary;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCity(final String emergencyAddressCity){
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCity(
+        final String emergencyAddressCity
+    ) {
         this.emergencyAddressCity = emergencyAddressCity;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressSubdivision(final String emergencyAddressSubdivision){
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressSubdivision(
+        final String emergencyAddressSubdivision
+    ) {
         this.emergencyAddressSubdivision = emergencyAddressSubdivision;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressPostalCode(final String emergencyAddressPostalCode){
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressPostalCode(
+        final String emergencyAddressPostalCode
+    ) {
         this.emergencyAddressPostalCode = emergencyAddressPostalCode;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCountryCode(final String emergencyAddressCountryCode){
+
+    public ComplianceRegistrationInquiriesCreator setEmergencyAddressCountryCode(
+        final String emergencyAddressCountryCode
+    ) {
         this.emergencyAddressCountryCode = emergencyAddressCountryCode;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setUseAddressAsEmergencyAddress(final Boolean useAddressAsEmergencyAddress){
+
+    public ComplianceRegistrationInquiriesCreator setUseAddressAsEmergencyAddress(
+        final Boolean useAddressAsEmergencyAddress
+    ) {
         this.useAddressAsEmergencyAddress = useAddressAsEmergencyAddress;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator setFileName(final String fileName){
+
+    public ComplianceRegistrationInquiriesCreator setFileName(
+        final String fileName
+    ) {
         this.fileName = fileName;
         return this;
     }
-    public ComplianceRegistrationInquiriesCreator set_file(final String _file){
+
+    public ComplianceRegistrationInquiriesCreator set_file(final String _file) {
         this._file = _file;
         return this;
     }
 
     @Override
-    public ComplianceRegistrationInquiries create(final TwilioRestClient client){
-        String path = "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize";
+    public ComplianceRegistrationInquiries create(
+        final TwilioRestClient client
+    ) {
+        String path =
+            "/v1/ComplianceInquiries/Registration/RegulatoryCompliance/GB/Initialize";
 
-        path = path.replace("{"+"EndUserType"+"}", this.endUserType.toString());
-        path = path.replace("{"+"PhoneNumberType"+"}", this.phoneNumberType.toString());
+        path =
+            path.replace(
+                "{" + "EndUserType" + "}",
+                this.endUserType.toString()
+            );
+        path =
+            path.replace(
+                "{" + "PhoneNumberType" + "}",
+                this.phoneNumberType.toString()
+            );
 
         Request request = new Request(
             HttpMethod.POST,
@@ -202,137 +305,167 @@ public class ComplianceRegistrationInquiriesCreator extends Creator<ComplianceRe
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("ComplianceRegistrationInquiries creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "ComplianceRegistrationInquiries creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return ComplianceRegistrationInquiries.fromJson(response.getStream(), client.getObjectMapper());
+        return ComplianceRegistrationInquiries.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (endUserType != null) {
             request.addPostParam("EndUserType", endUserType.toString());
-    
         }
         if (phoneNumberType != null) {
             request.addPostParam("PhoneNumberType", phoneNumberType.toString());
-    
         }
         if (businessIdentityType != null) {
-            request.addPostParam("BusinessIdentityType", businessIdentityType.toString());
-    
+            request.addPostParam(
+                "BusinessIdentityType",
+                businessIdentityType.toString()
+            );
         }
         if (businessRegistrationAuthority != null) {
-            request.addPostParam("BusinessRegistrationAuthority", businessRegistrationAuthority);
-    
+            request.addPostParam(
+                "BusinessRegistrationAuthority",
+                businessRegistrationAuthority
+            );
         }
         if (businessLegalName != null) {
             request.addPostParam("BusinessLegalName", businessLegalName);
-    
         }
         if (notificationEmail != null) {
             request.addPostParam("NotificationEmail", notificationEmail);
-    
         }
         if (acceptedNotificationReceipt != null) {
-            request.addPostParam("AcceptedNotificationReceipt", acceptedNotificationReceipt.toString());
-    
+            request.addPostParam(
+                "AcceptedNotificationReceipt",
+                acceptedNotificationReceipt.toString()
+            );
         }
         if (businessRegistrationNumber != null) {
-            request.addPostParam("BusinessRegistrationNumber", businessRegistrationNumber);
-    
+            request.addPostParam(
+                "BusinessRegistrationNumber",
+                businessRegistrationNumber
+            );
         }
         if (businessWebsiteUrl != null) {
             request.addPostParam("BusinessWebsiteUrl", businessWebsiteUrl);
-    
         }
         if (friendlyName != null) {
             request.addPostParam("FriendlyName", friendlyName);
-    
         }
         if (authorizedRepresentative1FirstName != null) {
-            request.addPostParam("AuthorizedRepresentative1FirstName", authorizedRepresentative1FirstName);
-    
+            request.addPostParam(
+                "AuthorizedRepresentative1FirstName",
+                authorizedRepresentative1FirstName
+            );
         }
         if (authorizedRepresentative1LastName != null) {
-            request.addPostParam("AuthorizedRepresentative1LastName", authorizedRepresentative1LastName);
-    
+            request.addPostParam(
+                "AuthorizedRepresentative1LastName",
+                authorizedRepresentative1LastName
+            );
         }
         if (authorizedRepresentative1Phone != null) {
-            request.addPostParam("AuthorizedRepresentative1Phone", authorizedRepresentative1Phone);
-    
+            request.addPostParam(
+                "AuthorizedRepresentative1Phone",
+                authorizedRepresentative1Phone
+            );
         }
         if (authorizedRepresentative1Email != null) {
-            request.addPostParam("AuthorizedRepresentative1Email", authorizedRepresentative1Email);
-    
+            request.addPostParam(
+                "AuthorizedRepresentative1Email",
+                authorizedRepresentative1Email
+            );
         }
         if (authorizedRepresentative1DateOfBirth != null) {
-            request.addPostParam("AuthorizedRepresentative1DateOfBirth", authorizedRepresentative1DateOfBirth);
-    
+            request.addPostParam(
+                "AuthorizedRepresentative1DateOfBirth",
+                authorizedRepresentative1DateOfBirth
+            );
         }
         if (addressStreet != null) {
             request.addPostParam("AddressStreet", addressStreet);
-    
         }
         if (addressStreetSecondary != null) {
-            request.addPostParam("AddressStreetSecondary", addressStreetSecondary);
-    
+            request.addPostParam(
+                "AddressStreetSecondary",
+                addressStreetSecondary
+            );
         }
         if (addressCity != null) {
             request.addPostParam("AddressCity", addressCity);
-    
         }
         if (addressSubdivision != null) {
             request.addPostParam("AddressSubdivision", addressSubdivision);
-    
         }
         if (addressPostalCode != null) {
             request.addPostParam("AddressPostalCode", addressPostalCode);
-    
         }
         if (addressCountryCode != null) {
             request.addPostParam("AddressCountryCode", addressCountryCode);
-    
         }
         if (emergencyAddressStreet != null) {
-            request.addPostParam("EmergencyAddressStreet", emergencyAddressStreet);
-    
+            request.addPostParam(
+                "EmergencyAddressStreet",
+                emergencyAddressStreet
+            );
         }
         if (emergencyAddressStreetSecondary != null) {
-            request.addPostParam("EmergencyAddressStreetSecondary", emergencyAddressStreetSecondary);
-    
+            request.addPostParam(
+                "EmergencyAddressStreetSecondary",
+                emergencyAddressStreetSecondary
+            );
         }
         if (emergencyAddressCity != null) {
             request.addPostParam("EmergencyAddressCity", emergencyAddressCity);
-    
         }
         if (emergencyAddressSubdivision != null) {
-            request.addPostParam("EmergencyAddressSubdivision", emergencyAddressSubdivision);
-    
+            request.addPostParam(
+                "EmergencyAddressSubdivision",
+                emergencyAddressSubdivision
+            );
         }
         if (emergencyAddressPostalCode != null) {
-            request.addPostParam("EmergencyAddressPostalCode", emergencyAddressPostalCode);
-    
+            request.addPostParam(
+                "EmergencyAddressPostalCode",
+                emergencyAddressPostalCode
+            );
         }
         if (emergencyAddressCountryCode != null) {
-            request.addPostParam("EmergencyAddressCountryCode", emergencyAddressCountryCode);
-    
+            request.addPostParam(
+                "EmergencyAddressCountryCode",
+                emergencyAddressCountryCode
+            );
         }
         if (useAddressAsEmergencyAddress != null) {
-            request.addPostParam("UseAddressAsEmergencyAddress", useAddressAsEmergencyAddress.toString());
-    
+            request.addPostParam(
+                "UseAddressAsEmergencyAddress",
+                useAddressAsEmergencyAddress.toString()
+            );
         }
         if (fileName != null) {
             request.addPostParam("FileName", fileName);
-    
         }
         if (_file != null) {
             request.addPostParam("File", _file);
-    
         }
     }
 }

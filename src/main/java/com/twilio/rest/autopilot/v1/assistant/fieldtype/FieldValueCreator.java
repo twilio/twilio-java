@@ -25,44 +25,58 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
+public class FieldValueCreator extends Creator<FieldValue> {
 
-
-
-public class FieldValueCreator extends Creator<FieldValue>{
     private String pathAssistantSid;
     private String pathFieldTypeSid;
     private String language;
     private String value;
     private String synonymOf;
 
-    public FieldValueCreator(final String pathAssistantSid, final String pathFieldTypeSid, final String language, final String value) {
+    public FieldValueCreator(
+        final String pathAssistantSid,
+        final String pathFieldTypeSid,
+        final String language,
+        final String value
+    ) {
         this.pathAssistantSid = pathAssistantSid;
         this.pathFieldTypeSid = pathFieldTypeSid;
         this.language = language;
         this.value = value;
     }
 
-    public FieldValueCreator setLanguage(final String language){
+    public FieldValueCreator setLanguage(final String language) {
         this.language = language;
         return this;
     }
-    public FieldValueCreator setValue(final String value){
+
+    public FieldValueCreator setValue(final String value) {
         this.value = value;
         return this;
     }
-    public FieldValueCreator setSynonymOf(final String synonymOf){
+
+    public FieldValueCreator setSynonymOf(final String synonymOf) {
         this.synonymOf = synonymOf;
         return this;
     }
 
     @Override
-    public FieldValue create(final TwilioRestClient client){
-        String path = "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
+    public FieldValue create(final TwilioRestClient client) {
+        String path =
+            "/v1/Assistants/{AssistantSid}/FieldTypes/{FieldTypeSid}/FieldValues";
 
-        path = path.replace("{"+"AssistantSid"+"}", this.pathAssistantSid.toString());
-        path = path.replace("{"+"FieldTypeSid"+"}", this.pathFieldTypeSid.toString());
-        path = path.replace("{"+"Language"+"}", this.language.toString());
-        path = path.replace("{"+"Value"+"}", this.value.toString());
+        path =
+            path.replace(
+                "{" + "AssistantSid" + "}",
+                this.pathAssistantSid.toString()
+            );
+        path =
+            path.replace(
+                "{" + "FieldTypeSid" + "}",
+                this.pathFieldTypeSid.toString()
+            );
+        path = path.replace("{" + "Language" + "}", this.language.toString());
+        path = path.replace("{" + "Value" + "}", this.value.toString());
 
         Request request = new Request(
             HttpMethod.POST,
@@ -73,29 +87,38 @@ public class FieldValueCreator extends Creator<FieldValue>{
         addPostParams(request);
         Response response = client.request(request);
         if (response == null) {
-            throw new ApiConnectionException("FieldValue creation failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "FieldValue creation failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return FieldValue.fromJson(response.getStream(), client.getObjectMapper());
+        return FieldValue.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
+
     private void addPostParams(final Request request) {
         if (language != null) {
             request.addPostParam("Language", language);
-    
         }
         if (value != null) {
             request.addPostParam("Value", value);
-    
         }
         if (synonymOf != null) {
             request.addPostParam("SynonymOf", synonymOf);
-    
         }
     }
 }

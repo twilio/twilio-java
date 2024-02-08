@@ -22,46 +22,42 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import lombok.ToString;
-
 import java.util.Map;
+import java.util.Objects;
+import lombok.ToString;
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Network extends Resource {
+
     private static final long serialVersionUID = 225839080791216L;
 
-    
-
-    public static NetworkFetcher fetcher(final String pathSid){
+    public static NetworkFetcher fetcher(final String pathSid) {
         return new NetworkFetcher(pathSid);
     }
 
-    public static NetworkReader reader(){
+    public static NetworkReader reader() {
         return new NetworkReader();
     }
 
     /**
-    * Converts a JSON String into a Network object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Network object represented by the provided JSON
-    */
-    public static Network fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Network object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Network object represented by the provided JSON
+     */
+    public static Network fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Network.class);
@@ -73,14 +69,17 @@ public class Network extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Network object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Network object represented by the provided JSON
-    */
-    public static Network fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Network object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Network object represented by the provided JSON
+     */
+    public static Network fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Network.class);
@@ -90,7 +89,6 @@ public class Network extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String sid;
     private final String friendlyName;
@@ -100,20 +98,11 @@ public class Network extends Resource {
 
     @JsonCreator
     private Network(
-        @JsonProperty("sid")
-        final String sid,
-
-        @JsonProperty("friendly_name")
-        final String friendlyName,
-
-        @JsonProperty("url")
-        final URI url,
-
-        @JsonProperty("iso_country")
-        final String isoCountry,
-
-        @JsonProperty("identifiers")
-        final List<Map<String, Object>> identifiers
+        @JsonProperty("sid") final String sid,
+        @JsonProperty("friendly_name") final String friendlyName,
+        @JsonProperty("url") final URI url,
+        @JsonProperty("iso_country") final String isoCountry,
+        @JsonProperty("identifiers") final List<Map<String, Object>> identifiers
     ) {
         this.sid = sid;
         this.friendlyName = friendlyName;
@@ -122,25 +111,29 @@ public class Network extends Resource {
         this.identifiers = identifiers;
     }
 
-        public final String getSid() {
-            return this.sid;
-        }
-        public final String getFriendlyName() {
-            return this.friendlyName;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
-        public final String getIsoCountry() {
-            return this.isoCountry;
-        }
-        public final List<Map<String, Object>> getIdentifiers() {
-            return this.identifiers;
-        }
+    public final String getSid() {
+        return this.sid;
+    }
+
+    public final String getFriendlyName() {
+        return this.friendlyName;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
+
+    public final String getIsoCountry() {
+        return this.isoCountry;
+    }
+
+    public final List<Map<String, Object>> getIdentifiers() {
+        return this.identifiers;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -150,14 +143,17 @@ public class Network extends Resource {
 
         Network other = (Network) o;
 
-        return Objects.equals(sid, other.sid) &&  Objects.equals(friendlyName, other.friendlyName) &&  Objects.equals(url, other.url) &&  Objects.equals(isoCountry, other.isoCountry) &&  Objects.equals(identifiers, other.identifiers)  ;
+        return (
+            Objects.equals(sid, other.sid) &&
+            Objects.equals(friendlyName, other.friendlyName) &&
+            Objects.equals(url, other.url) &&
+            Objects.equals(isoCountry, other.isoCountry) &&
+            Objects.equals(identifiers, other.identifiers)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(sid, friendlyName, url, isoCountry, identifiers);
     }
-
-
 }
-

@@ -24,25 +24,29 @@ import com.twilio.http.Response;
 import com.twilio.http.TwilioRestClient;
 import com.twilio.rest.Domains;
 
-
-
-
 public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
+
     private String pathId;
     private Integer pathSchemaVersion;
 
-    public SchemaVersionFetcher(final String pathId, final Integer pathSchemaVersion){
+    public SchemaVersionFetcher(
+        final String pathId,
+        final Integer pathSchemaVersion
+    ) {
         this.pathId = pathId;
         this.pathSchemaVersion = pathSchemaVersion;
     }
-
 
     @Override
     public SchemaVersion fetch(final TwilioRestClient client) {
         String path = "/v1/Schemas/{Id}/Versions/{SchemaVersion}";
 
-        path = path.replace("{"+"Id"+"}", this.pathId.toString());
-        path = path.replace("{"+"SchemaVersion"+"}", this.pathSchemaVersion.toString());
+        path = path.replace("{" + "Id" + "}", this.pathId.toString());
+        path =
+            path.replace(
+                "{" + "SchemaVersion" + "}",
+                this.pathSchemaVersion.toString()
+            );
 
         Request request = new Request(
             HttpMethod.GET,
@@ -52,15 +56,26 @@ public class SchemaVersionFetcher extends Fetcher<SchemaVersion> {
         Response response = client.request(request);
 
         if (response == null) {
-        throw new ApiConnectionException("SchemaVersion fetch failed: Unable to connect to server");
+            throw new ApiConnectionException(
+                "SchemaVersion fetch failed: Unable to connect to server"
+            );
         } else if (!TwilioRestClient.SUCCESS.test(response.getStatusCode())) {
-            RestException restException = RestException.fromJson(response.getStream(), client.getObjectMapper());
+            RestException restException = RestException.fromJson(
+                response.getStream(),
+                client.getObjectMapper()
+            );
             if (restException == null) {
-                throw new ApiException("Server Error, no content", response.getStatusCode());
+                throw new ApiException(
+                    "Server Error, no content",
+                    response.getStatusCode()
+                );
             }
             throw new ApiException(restException);
         }
 
-        return SchemaVersion.fromJson(response.getStream(), client.getObjectMapper());
+        return SchemaVersion.fromJson(
+            response.getStream(),
+            client.getObjectMapper()
+        );
     }
 }

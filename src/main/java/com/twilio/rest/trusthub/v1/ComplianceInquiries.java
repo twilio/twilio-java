@@ -22,43 +22,47 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
-
 import java.util.Objects;
-
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class ComplianceInquiries extends Resource {
+
     private static final long serialVersionUID = 107785038422599L;
 
-    
-
-    public static ComplianceInquiriesCreator creator(final String primaryProfileSid){
+    public static ComplianceInquiriesCreator creator(
+        final String primaryProfileSid
+    ) {
         return new ComplianceInquiriesCreator(primaryProfileSid);
     }
 
-    public static ComplianceInquiriesUpdater updater(final String pathCustomerId, final String primaryProfileSid){
-        return new ComplianceInquiriesUpdater(pathCustomerId, primaryProfileSid);
+    public static ComplianceInquiriesUpdater updater(
+        final String pathCustomerId,
+        final String primaryProfileSid
+    ) {
+        return new ComplianceInquiriesUpdater(
+            pathCustomerId,
+            primaryProfileSid
+        );
     }
 
     /**
-    * Converts a JSON String into a ComplianceInquiries object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return ComplianceInquiries object represented by the provided JSON
-    */
-    public static ComplianceInquiries fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a ComplianceInquiries object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return ComplianceInquiries object represented by the provided JSON
+     */
+    public static ComplianceInquiries fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ComplianceInquiries.class);
@@ -70,14 +74,17 @@ public class ComplianceInquiries extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a ComplianceInquiries object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return ComplianceInquiries object represented by the provided JSON
-    */
-    public static ComplianceInquiries fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a ComplianceInquiries object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return ComplianceInquiries object represented by the provided JSON
+     */
+    public static ComplianceInquiries fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, ComplianceInquiries.class);
@@ -87,7 +94,6 @@ public class ComplianceInquiries extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
-
 
     private final String inquiryId;
     private final String inquirySessionToken;
@@ -96,17 +102,10 @@ public class ComplianceInquiries extends Resource {
 
     @JsonCreator
     private ComplianceInquiries(
-        @JsonProperty("inquiry_id")
-        final String inquiryId,
-
-        @JsonProperty("inquiry_session_token")
-        final String inquirySessionToken,
-
-        @JsonProperty("customer_id")
-        final String customerId,
-
-        @JsonProperty("url")
-        final URI url
+        @JsonProperty("inquiry_id") final String inquiryId,
+        @JsonProperty("inquiry_session_token") final String inquirySessionToken,
+        @JsonProperty("customer_id") final String customerId,
+        @JsonProperty("url") final URI url
     ) {
         this.inquiryId = inquiryId;
         this.inquirySessionToken = inquirySessionToken;
@@ -114,22 +113,25 @@ public class ComplianceInquiries extends Resource {
         this.url = url;
     }
 
-        public final String getInquiryId() {
-            return this.inquiryId;
-        }
-        public final String getInquirySessionToken() {
-            return this.inquirySessionToken;
-        }
-        public final String getCustomerId() {
-            return this.customerId;
-        }
-        public final URI getUrl() {
-            return this.url;
-        }
+    public final String getInquiryId() {
+        return this.inquiryId;
+    }
+
+    public final String getInquirySessionToken() {
+        return this.inquirySessionToken;
+    }
+
+    public final String getCustomerId() {
+        return this.customerId;
+    }
+
+    public final URI getUrl() {
+        return this.url;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -139,14 +141,16 @@ public class ComplianceInquiries extends Resource {
 
         ComplianceInquiries other = (ComplianceInquiries) o;
 
-        return Objects.equals(inquiryId, other.inquiryId) &&  Objects.equals(inquirySessionToken, other.inquirySessionToken) &&  Objects.equals(customerId, other.customerId) &&  Objects.equals(url, other.url)  ;
+        return (
+            Objects.equals(inquiryId, other.inquiryId) &&
+            Objects.equals(inquirySessionToken, other.inquirySessionToken) &&
+            Objects.equals(customerId, other.customerId) &&
+            Objects.equals(url, other.url)
+        );
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(inquiryId, inquirySessionToken, customerId, url);
     }
-
-
 }
-

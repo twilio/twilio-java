@@ -24,582 +24,859 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.twilio.base.Resource;
 import com.twilio.exception.ApiConnectionException;
-
 import com.twilio.exception.ApiException;
-
-import lombok.ToString;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.ZonedDateTime;
-
 import java.util.List;
 import java.util.Objects;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
+import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
 public class Query extends Resource {
+
     private static final long serialVersionUID = 115616150775512L;
 
-    
-        @ToString
-        static public class IdentityMatchParameters {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("first_name")
-            @Getter @Setter private String firstName;
+    @ToString
+    public static class IdentityMatchParameters {
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_name")
-            @Getter @Setter private String lastName;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("first_name")
+        @Getter
+        @Setter
+        private String firstName;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("address_line1")
-            @Getter @Setter private String addressLine1;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_name")
+        @Getter
+        @Setter
+        private String lastName;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("address_line2")
-            @Getter @Setter private String addressLine2;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address_line1")
+        @Getter
+        @Setter
+        private String addressLine1;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("city")
-            @Getter @Setter private String city;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address_line2")
+        @Getter
+        @Setter
+        private String addressLine2;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("state")
-            @Getter @Setter private String state;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("city")
+        @Getter
+        @Setter
+        private String city;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("postal_code")
-            @Getter @Setter private String postalCode;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("state")
+        @Getter
+        @Setter
+        private String state;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("address_country_code")
-            @Getter @Setter private String addressCountryCode;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("postal_code")
+        @Getter
+        @Setter
+        private String postalCode;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("national_id")
-            @Getter @Setter private String nationalId;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address_country_code")
+        @Getter
+        @Setter
+        private String addressCountryCode;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("date_of_birth")
-            @Getter @Setter private String dateOfBirth;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("national_id")
+        @Getter
+        @Setter
+        private String nationalId;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("date_of_birth")
+        @Getter
+        @Setter
+        private String dateOfBirth;
 
-            public static IdentityMatchParameters fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, IdentityMatchParameters.class);
-            }
+        public static IdentityMatchParameters fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, IdentityMatchParameters.class);
         }
-        @ToString
-        static public class ReassignedNumberRequest {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_verified_date")
-            @Getter @Setter private String lastVerifiedDate;
+    }
 
+    @ToString
+    public static class ReassignedNumberRequest {
 
-            public static ReassignedNumberRequest fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, ReassignedNumberRequest.class);
-            }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_verified_date")
+        @Getter
+        @Setter
+        private String lastVerifiedDate;
+
+        public static ReassignedNumberRequest fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ReassignedNumberRequest.class);
         }
-        @ToString
-        static public class LookupRequestWithCorId {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("correlation_id")
-            @Getter @Setter private String correlationId;
+    }
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("phone_number")
-            @Getter @Setter private String phoneNumber;
+    @ToString
+    public static class LookupRequestWithCorId {
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("fields")
-            @Getter @Setter private List<String> fields;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("correlation_id")
+        @Getter
+        @Setter
+        private String correlationId;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("country_code")
-            @Getter @Setter private String countryCode;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        @Setter
+        private String phoneNumber;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("identity_match")
-            @Getter @Setter private IdentityMatchParameters identityMatch;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("fields")
+        @Getter
+        @Setter
+        private List<String> fields;
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("reassigned_number")
-            @Getter @Setter private ReassignedNumberRequest reassignedNumber;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country_code")
+        @Getter
+        @Setter
+        private String countryCode;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("identity_match")
+        @Getter
+        @Setter
+        private IdentityMatchParameters identityMatch;
 
-            public static LookupRequestWithCorId fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LookupRequestWithCorId.class);
-            }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("reassigned_number")
+        @Getter
+        @Setter
+        private ReassignedNumberRequest reassignedNumber;
+
+        public static LookupRequestWithCorId fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LookupRequestWithCorId.class);
         }
-        @ToString
-        static public class LookupRequest1 {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("phone_numbers")
-            @Getter @Setter private List<LookupRequestWithCorId> phoneNumbers;
+    }
 
-            public LookupRequest1( ) {
-            }
+    @ToString
+    public static class LookupRequest1 {
 
-            public static LookupRequest1 fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LookupRequest1.class);
-            }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_numbers")
+        @Getter
+        @Setter
+        private List<LookupRequestWithCorId> phoneNumbers;
+
+        public LookupRequest1() {}
+
+        public static LookupRequest1 fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LookupRequest1.class);
         }
-        @ToString
-        static public class CallerName {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("caller_name")
-            @Getter @Setter private String callerName;
+    }
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("caller_type")
-            @Getter @Setter private String callerType;
+    @ToString
+    public static class CallerName {
 
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("caller_name")
+        @Getter
+        @Setter
+        private String callerName;
 
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("caller_type")
+        @Getter
+        @Setter
+        private String callerType;
 
-            public static CallerName fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, CallerName.class);
-            }
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static CallerName fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CallerName.class);
         }
-        @ToString
-        static public class LastSimSwap {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_sim_swap_date")
-            @Getter @Setter private ZonedDateTime lastSimSwapDate;
-            public String getLastSimSwapDate() {
-                return lastSimSwapDate.toInstant().toString();
-            }
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("swapped_period")
-            @Getter @Setter private String swappedPeriod;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("swapped_in_period")
-            @Getter @Setter private Boolean swappedInPeriod;
-
-
-            public static LastSimSwap fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LastSimSwap.class);
-            }
-        }
-        @ToString
-        static public class SimSwap {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_sim_swap")
-            @Getter @Setter private LastSimSwap lastSimSwap;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_name")
-            @Getter @Setter private String carrierName;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_country_code")
-            @Getter @Setter private String mobileCountryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_network_code")
-            @Getter @Setter private String mobileNetworkCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-
-            public static SimSwap fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, SimSwap.class);
-            }
-        }
-        @ToString
-        static public class CallForwarding {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("call_forwarding_enabled")
-            @Getter @Setter private Boolean callForwardingEnabled;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-
-            public static CallForwarding fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, CallForwarding.class);
-            }
-        }
-        @ToString
-        static public class LiveActivityCarrier {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("name")
-            @Getter @Setter private String name;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("country")
-            @Getter @Setter private String country;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_country_code")
-            @Getter @Setter private String mobileCountryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_network_code")
-            @Getter @Setter private String mobileNetworkCode;
-
-
-            public static LiveActivityCarrier fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LiveActivityCarrier.class);
-            }
-        }
-        @ToString
-        static public class LiveActivity {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("connectivity")
-            @Getter @Setter private String connectivity;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("original_carrier")
-            @Getter @Setter private LiveActivityCarrier originalCarrier;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("ported")
-            @Getter @Setter private String ported;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("ported_carrier")
-            @Getter @Setter private LiveActivityCarrier portedCarrier;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("roaming")
-            @Getter @Setter private String roaming;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("roaming_carrier")
-            @Getter @Setter private LiveActivityCarrier roamingCarrier;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-
-            public static LiveActivity fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LiveActivity.class);
-            }
-        }
-        @ToString
-        static public class LineTypeIntelligence {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("type")
-            @Getter @Setter private String type;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_name")
-            @Getter @Setter private String carrierName;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_country_code")
-            @Getter @Setter private String mobileCountryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_network_code")
-            @Getter @Setter private String mobileNetworkCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-
-            public static LineTypeIntelligence fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LineTypeIntelligence.class);
-            }
-        }
-        @ToString
-        static public class IdentityMatch {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("first_name_match")
-            @Getter @Setter private String firstNameMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_name_match")
-            @Getter @Setter private String lastNameMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("address_line_match")
-            @Getter @Setter private String addressLineMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("city_match")
-            @Getter @Setter private String cityMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("state_match")
-            @Getter @Setter private String stateMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("postal_code_match")
-            @Getter @Setter private String postalCodeMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("country_code_match")
-            @Getter @Setter private String countryCodeMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("national_id_match")
-            @Getter @Setter private String nationalIdMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("date_of_birth_match")
-            @Getter @Setter private String dateOfBirthMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("summary_score")
-            @Getter @Setter private Integer summaryScore;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_message")
-            @Getter @Setter private String errorMessage;
-
-
-            public static IdentityMatch fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, IdentityMatch.class);
-            }
-        }
-        @ToString
-        static public class ReassignedNumberResponse {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("last_verified_date")
-            @Getter @Setter private String lastVerifiedDate;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("is_number_reassigned")
-            @Getter @Setter private String isNumberReassigned;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private String errorCode;
-
-
-            public static ReassignedNumberResponse fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, ReassignedNumberResponse.class);
-            }
-        }
-        @ToString
-        static public class SmsPumpingRiskCarrier {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("name")
-            @Getter @Setter private String name;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_risk_score")
-            @Getter @Setter private Integer carrierRiskScore;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_risk_category")
-            @Getter @Setter private String carrierRiskCategory;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_country_code")
-            @Getter @Setter private String mobileCountryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_network_code")
-            @Getter @Setter private String mobileNetworkCode;
-
-
-            public static SmsPumpingRiskCarrier fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, SmsPumpingRiskCarrier.class);
-            }
-        }
-        @ToString
-        static public class SmsPumpingRisk {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier")
-            @Getter @Setter private SmsPumpingRiskCarrier carrier;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("number_blocked")
-            @Getter @Setter private Boolean numberBlocked;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("number_blocked_date")
-            @Getter @Setter private ZonedDateTime numberBlockedDate;
-            public String getNumberBlockedDate() {
-                return numberBlockedDate.toInstant().toString();
-            }
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("number_blocked_last_3_months")
-            @Getter @Setter private Boolean numberBlockedLast3Months;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sms_pumping_risk_score")
-            @Getter @Setter private Integer smsPumpingRiskScore;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-
-            public static SmsPumpingRisk fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, SmsPumpingRisk.class);
-            }
-        }
-        @ToString
-        static public class PhoneNumberQualityScoreCarrier {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("name")
-            @Getter @Setter private String name;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_risk_score")
-            @Getter @Setter private Integer carrierRiskScore;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier_risk_category")
-            @Getter @Setter private String carrierRiskCategory;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("line_type")
-            @Getter @Setter private String lineType;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_country_code")
-            @Getter @Setter private String mobileCountryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("mobile_network_code")
-            @Getter @Setter private String mobileNetworkCode;
-
-
-            public static PhoneNumberQualityScoreCarrier fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, PhoneNumberQualityScoreCarrier.class);
-            }
-        }
-        @ToString
-        static public class PhoneNumberQualityScore {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("carrier")
-            @Getter @Setter private PhoneNumberQualityScoreCarrier carrier;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("quality_category")
-            @Getter @Setter private String qualityCategory;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("quality_score")
-            @Getter @Setter private Integer qualityScore;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("velocity_risk_category")
-            @Getter @Setter private String velocityRiskCategory;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("velocity_risk_score")
-            @Getter @Setter private Integer velocityRiskScore;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("error_code")
-            @Getter @Setter private Integer errorCode;
-
-
-            public static PhoneNumberQualityScore fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, PhoneNumberQualityScore.class);
-            }
-        }
-        @ToString
-        static public class LookupResponseWithCorId {
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("correlation_id")
-            @Getter @Setter private String correlationId;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("twilio_error_code")
-            @Getter @Setter private Integer twilioErrorCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("calling_country_code")
-            @Getter @Setter private String callingCountryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("country_code")
-            @Getter @Setter private String countryCode;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("phone_number")
-            @Getter @Setter private String phoneNumber;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("national_format")
-            @Getter @Setter private String nationalFormat;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("valid")
-            @Getter @Setter private Boolean valid;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("validation_errors")
-            @Getter @Setter private List<String> validationErrors;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("caller_name")
-            @Getter @Setter private CallerName callerName;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sim_swap")
-            @Getter @Setter private SimSwap simSwap;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("call_forwarding")
-            @Getter @Setter private CallForwarding callForwarding;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("live_activity")
-            @Getter @Setter private LiveActivity liveActivity;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("line_type_intelligence")
-            @Getter @Setter private LineTypeIntelligence lineTypeIntelligence;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("identity_match")
-            @Getter @Setter private IdentityMatch identityMatch;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("reassigned_number")
-            @Getter @Setter private ReassignedNumberResponse reassignedNumber;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("sms_pumping_risk")
-            @Getter @Setter private SmsPumpingRisk smsPumpingRisk;
-
-            @JsonInclude(JsonInclude.Include.NON_EMPTY)
-            @JsonProperty("phone_number_quality_score")
-            @Getter @Setter private PhoneNumberQualityScore phoneNumberQualityScore;
-
-
-            public static LookupResponseWithCorId fromJson(String jsonString, ObjectMapper mapper) throws IOException {
-                return mapper.readValue(jsonString, LookupResponseWithCorId.class);
-            }
+    }
+
+    @ToString
+    public static class LastSimSwap {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_sim_swap_date")
+        @Getter
+        @Setter
+        private ZonedDateTime lastSimSwapDate;
+
+        public String getLastSimSwapDate() {
+            return lastSimSwapDate.toInstant().toString();
         }
 
-    public static QueryCreator creator(){
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("swapped_period")
+        @Getter
+        @Setter
+        private String swappedPeriod;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("swapped_in_period")
+        @Getter
+        @Setter
+        private Boolean swappedInPeriod;
+
+        public static LastSimSwap fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LastSimSwap.class);
+        }
+    }
+
+    @ToString
+    public static class SimSwap {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_sim_swap")
+        @Getter
+        @Setter
+        private LastSimSwap lastSimSwap;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_name")
+        @Getter
+        @Setter
+        private String carrierName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_country_code")
+        @Getter
+        @Setter
+        private String mobileCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_network_code")
+        @Getter
+        @Setter
+        private String mobileNetworkCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static SimSwap fromJson(String jsonString, ObjectMapper mapper)
+            throws IOException {
+            return mapper.readValue(jsonString, SimSwap.class);
+        }
+    }
+
+    @ToString
+    public static class CallForwarding {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("call_forwarding_enabled")
+        @Getter
+        @Setter
+        private Boolean callForwardingEnabled;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static CallForwarding fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, CallForwarding.class);
+        }
+    }
+
+    @ToString
+    public static class LiveActivityCarrier {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country")
+        @Getter
+        @Setter
+        private String country;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_country_code")
+        @Getter
+        @Setter
+        private String mobileCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_network_code")
+        @Getter
+        @Setter
+        private String mobileNetworkCode;
+
+        public static LiveActivityCarrier fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LiveActivityCarrier.class);
+        }
+    }
+
+    @ToString
+    public static class LiveActivity {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("connectivity")
+        @Getter
+        @Setter
+        private String connectivity;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("original_carrier")
+        @Getter
+        @Setter
+        private LiveActivityCarrier originalCarrier;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("ported")
+        @Getter
+        @Setter
+        private String ported;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("ported_carrier")
+        @Getter
+        @Setter
+        private LiveActivityCarrier portedCarrier;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("roaming")
+        @Getter
+        @Setter
+        private String roaming;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("roaming_carrier")
+        @Getter
+        @Setter
+        private LiveActivityCarrier roamingCarrier;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static LiveActivity fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LiveActivity.class);
+        }
+    }
+
+    @ToString
+    public static class LineTypeIntelligence {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("type")
+        @Getter
+        @Setter
+        private String type;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_name")
+        @Getter
+        @Setter
+        private String carrierName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_country_code")
+        @Getter
+        @Setter
+        private String mobileCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_network_code")
+        @Getter
+        @Setter
+        private String mobileNetworkCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static LineTypeIntelligence fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LineTypeIntelligence.class);
+        }
+    }
+
+    @ToString
+    public static class IdentityMatch {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("first_name_match")
+        @Getter
+        @Setter
+        private String firstNameMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_name_match")
+        @Getter
+        @Setter
+        private String lastNameMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("address_line_match")
+        @Getter
+        @Setter
+        private String addressLineMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("city_match")
+        @Getter
+        @Setter
+        private String cityMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("state_match")
+        @Getter
+        @Setter
+        private String stateMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("postal_code_match")
+        @Getter
+        @Setter
+        private String postalCodeMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country_code_match")
+        @Getter
+        @Setter
+        private String countryCodeMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("national_id_match")
+        @Getter
+        @Setter
+        private String nationalIdMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("date_of_birth_match")
+        @Getter
+        @Setter
+        private String dateOfBirthMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("summary_score")
+        @Getter
+        @Setter
+        private Integer summaryScore;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_message")
+        @Getter
+        @Setter
+        private String errorMessage;
+
+        public static IdentityMatch fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, IdentityMatch.class);
+        }
+    }
+
+    @ToString
+    public static class ReassignedNumberResponse {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("last_verified_date")
+        @Getter
+        @Setter
+        private String lastVerifiedDate;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("is_number_reassigned")
+        @Getter
+        @Setter
+        private String isNumberReassigned;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private String errorCode;
+
+        public static ReassignedNumberResponse fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, ReassignedNumberResponse.class);
+        }
+    }
+
+    @ToString
+    public static class SmsPumpingRiskCarrier {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_risk_score")
+        @Getter
+        @Setter
+        private Integer carrierRiskScore;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_risk_category")
+        @Getter
+        @Setter
+        private String carrierRiskCategory;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_country_code")
+        @Getter
+        @Setter
+        private String mobileCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_network_code")
+        @Getter
+        @Setter
+        private String mobileNetworkCode;
+
+        public static SmsPumpingRiskCarrier fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, SmsPumpingRiskCarrier.class);
+        }
+    }
+
+    @ToString
+    public static class SmsPumpingRisk {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier")
+        @Getter
+        @Setter
+        private SmsPumpingRiskCarrier carrier;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("number_blocked")
+        @Getter
+        @Setter
+        private Boolean numberBlocked;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("number_blocked_date")
+        @Getter
+        @Setter
+        private ZonedDateTime numberBlockedDate;
+
+        public String getNumberBlockedDate() {
+            return numberBlockedDate.toInstant().toString();
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("number_blocked_last_3_months")
+        @Getter
+        @Setter
+        private Boolean numberBlockedLast3Months;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms_pumping_risk_score")
+        @Getter
+        @Setter
+        private Integer smsPumpingRiskScore;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static SmsPumpingRisk fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, SmsPumpingRisk.class);
+        }
+    }
+
+    @ToString
+    public static class PhoneNumberQualityScoreCarrier {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("name")
+        @Getter
+        @Setter
+        private String name;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_risk_score")
+        @Getter
+        @Setter
+        private Integer carrierRiskScore;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier_risk_category")
+        @Getter
+        @Setter
+        private String carrierRiskCategory;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("line_type")
+        @Getter
+        @Setter
+        private String lineType;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_country_code")
+        @Getter
+        @Setter
+        private String mobileCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("mobile_network_code")
+        @Getter
+        @Setter
+        private String mobileNetworkCode;
+
+        public static PhoneNumberQualityScoreCarrier fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(
+                jsonString,
+                PhoneNumberQualityScoreCarrier.class
+            );
+        }
+    }
+
+    @ToString
+    public static class PhoneNumberQualityScore {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("carrier")
+        @Getter
+        @Setter
+        private PhoneNumberQualityScoreCarrier carrier;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("quality_category")
+        @Getter
+        @Setter
+        private String qualityCategory;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("quality_score")
+        @Getter
+        @Setter
+        private Integer qualityScore;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("velocity_risk_category")
+        @Getter
+        @Setter
+        private String velocityRiskCategory;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("velocity_risk_score")
+        @Getter
+        @Setter
+        private Integer velocityRiskScore;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("error_code")
+        @Getter
+        @Setter
+        private Integer errorCode;
+
+        public static PhoneNumberQualityScore fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, PhoneNumberQualityScore.class);
+        }
+    }
+
+    @ToString
+    public static class LookupResponseWithCorId {
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("correlation_id")
+        @Getter
+        @Setter
+        private String correlationId;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("twilio_error_code")
+        @Getter
+        @Setter
+        private Integer twilioErrorCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("calling_country_code")
+        @Getter
+        @Setter
+        private String callingCountryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("country_code")
+        @Getter
+        @Setter
+        private String countryCode;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number")
+        @Getter
+        @Setter
+        private String phoneNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("national_format")
+        @Getter
+        @Setter
+        private String nationalFormat;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("valid")
+        @Getter
+        @Setter
+        private Boolean valid;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("validation_errors")
+        @Getter
+        @Setter
+        private List<String> validationErrors;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("caller_name")
+        @Getter
+        @Setter
+        private CallerName callerName;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sim_swap")
+        @Getter
+        @Setter
+        private SimSwap simSwap;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("call_forwarding")
+        @Getter
+        @Setter
+        private CallForwarding callForwarding;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("live_activity")
+        @Getter
+        @Setter
+        private LiveActivity liveActivity;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("line_type_intelligence")
+        @Getter
+        @Setter
+        private LineTypeIntelligence lineTypeIntelligence;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("identity_match")
+        @Getter
+        @Setter
+        private IdentityMatch identityMatch;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("reassigned_number")
+        @Getter
+        @Setter
+        private ReassignedNumberResponse reassignedNumber;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("sms_pumping_risk")
+        @Getter
+        @Setter
+        private SmsPumpingRisk smsPumpingRisk;
+
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        @JsonProperty("phone_number_quality_score")
+        @Getter
+        @Setter
+        private PhoneNumberQualityScore phoneNumberQualityScore;
+
+        public static LookupResponseWithCorId fromJson(
+            String jsonString,
+            ObjectMapper mapper
+        ) throws IOException {
+            return mapper.readValue(jsonString, LookupResponseWithCorId.class);
+        }
+    }
+
+    public static QueryCreator creator() {
         return new QueryCreator();
     }
 
     /**
-    * Converts a JSON String into a Query object using the provided ObjectMapper.
-    *
-    * @param json Raw JSON String
-    * @param objectMapper Jackson ObjectMapper
-    * @return Query object represented by the provided JSON
-    */
-    public static Query fromJson(final String json, final ObjectMapper objectMapper) {
+     * Converts a JSON String into a Query object using the provided ObjectMapper.
+     *
+     * @param json Raw JSON String
+     * @param objectMapper Jackson ObjectMapper
+     * @return Query object represented by the provided JSON
+     */
+    public static Query fromJson(
+        final String json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Query.class);
@@ -611,14 +888,17 @@ public class Query extends Resource {
     }
 
     /**
-    * Converts a JSON InputStream into a Query object using the provided
-    * ObjectMapper.
-    *
-    * @param json Raw JSON InputStream
-    * @param objectMapper Jackson ObjectMapper
-    * @return Query object represented by the provided JSON
-    */
-    public static Query fromJson(final InputStream json, final ObjectMapper objectMapper) {
+     * Converts a JSON InputStream into a Query object using the provided
+     * ObjectMapper.
+     *
+     * @param json Raw JSON InputStream
+     * @param objectMapper Jackson ObjectMapper
+     * @return Query object represented by the provided JSON
+     */
+    public static Query fromJson(
+        final InputStream json,
+        final ObjectMapper objectMapper
+    ) {
         // Convert all checked exceptions to Runtime
         try {
             return objectMapper.readValue(json, Query.class);
@@ -628,6 +908,7 @@ public class Query extends Resource {
             throw new ApiConnectionException(e.getMessage(), e);
         }
     }
+
     public static String toJson(Object object, ObjectMapper mapper) {
         try {
             return mapper.writeValueAsString(object);
@@ -644,19 +925,20 @@ public class Query extends Resource {
 
     @JsonCreator
     private Query(
-        @JsonProperty("phone_numbers")
-        final List<LookupResponseWithCorId> phoneNumbers
+        @JsonProperty("phone_numbers") final List<
+            LookupResponseWithCorId
+        > phoneNumbers
     ) {
         this.phoneNumbers = phoneNumbers;
     }
 
-        public final List<LookupResponseWithCorId> getPhoneNumbers() {
-            return this.phoneNumbers;
-        }
+    public final List<LookupResponseWithCorId> getPhoneNumbers() {
+        return this.phoneNumbers;
+    }
 
     @Override
     public boolean equals(final Object o) {
-        if (this==o) {
+        if (this == o) {
             return true;
         }
 
@@ -666,14 +948,11 @@ public class Query extends Resource {
 
         Query other = (Query) o;
 
-        return Objects.equals(phoneNumbers, other.phoneNumbers)  ;
+        return Objects.equals(phoneNumbers, other.phoneNumbers);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(phoneNumbers);
     }
-
-
 }
-

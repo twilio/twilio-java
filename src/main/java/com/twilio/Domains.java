@@ -26,6 +26,7 @@ public enum Domains {
     IPMESSAGING("ip-messaging"),
     LOOKUPS("lookups"),
     MEDIA("media"),
+    PREVIEWMESSAGING("preview.messaging"),
     MESSAGING("messaging"),
     MICROVISOR("microvisor"),
     MONITOR("monitor"),

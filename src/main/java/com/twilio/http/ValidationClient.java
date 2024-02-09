@@ -1,13 +1,17 @@
 package com.twilio.http;
 
 import com.twilio.Twilio;
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.config.SocketConfig;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.message.BasicHeader;
@@ -175,11 +179,20 @@ public class ValidationClient extends HttpClient {
 
         HttpMethod method = request.getMethod();
         if (method == HttpMethod.POST) {
-            builder.addHeader(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
-
-            for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
-                for (String value : entry.getValue()) {
-                    builder.addParameter(entry.getKey(), value);
+            // TODO: It will be removed after one RC Release.
+            if (request.getContentType() == null) request.setContentType(EnumConstants.ContentType.FORM_URLENCODED);
+            if (EnumConstants.ContentType.JSON.getValue().equals(request.getContentType().getValue())) {
+                HttpEntity entity = new StringEntity(request.getBody(), ContentType.APPLICATION_JSON);
+                builder.setEntity(entity);
+                builder.addHeader(
+                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.JSON.getValue());
+            } else {
+                builder.addHeader(
+                        HttpHeaders.CONTENT_TYPE, EnumConstants.ContentType.FORM_URLENCODED.getValue());
+                for (Map.Entry<String, List<String>> entry : request.getPostParams().entrySet()) {
+                    for (String value : entry.getValue()) {
+                        builder.addParameter(entry.getKey(), value);
+                    }
                 }
             }
         }

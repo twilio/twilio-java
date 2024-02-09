@@ -1,5 +1,6 @@
 package com.twilio.http;
 
+import com.twilio.constant.EnumConstants;
 import com.twilio.exception.ApiException;
 import com.twilio.rest.Domains;
 import java.time.ZonedDateTime;
@@ -316,5 +317,11 @@ public class RequestTest {
         request.setAuth("username", "password");
         assertNotEquals(request, new Object());
         assertNotEquals(null, request);
+    }
+    @Test
+    public void testContentType() {
+        Request r = new Request(HttpMethod.POST, "http://example.com/foobar");
+        r.setContentType(EnumConstants.ContentType.JSON);
+        assertEquals(EnumConstants.ContentType.JSON, r.getContentType());
     }
 }

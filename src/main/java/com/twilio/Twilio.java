@@ -241,7 +241,7 @@ public class Twilio {
     }
 
     /**
-     * Validate that we can connect to the new SSL certificate posted on api.twilio.com.
+     * Validate that we can connect to the new SSL certificate posted on tls-test.twilio.com
      *
      * @throws CertificateValidationException if the connection fails
      */

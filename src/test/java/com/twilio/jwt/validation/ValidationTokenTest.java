@@ -93,7 +93,6 @@ public class ValidationTokenTest {
                 .parseClaimsJws(jwt.toJwt())
                 .getBody();
 
-
         this.validateToken(claims);
         Assert.assertEquals("authorization;host", claims.get("hrh"));
         Assert.assertEquals("4dc9b67bed579647914587b0e22a1c65c1641d8674797cd82de65e766cce5f80", claims.get("rqh"));
